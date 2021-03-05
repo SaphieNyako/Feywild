@@ -43,6 +43,8 @@ public class FeyDust extends Item {
         super.addInformation(stack, world, tooltip, flag);
     }
 
+
+    //Test
     @Override
     public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         if(target instanceof SheepEntity){
