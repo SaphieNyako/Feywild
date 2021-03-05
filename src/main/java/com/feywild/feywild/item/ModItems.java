@@ -13,6 +13,9 @@ import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class ModItems {
 
     //GEMS

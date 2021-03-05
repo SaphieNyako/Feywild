@@ -61,8 +61,10 @@ public class FeywildMod
         ModItems.register();
         ModBlocks.register();
 
-        MinecraftForge.EVENT_BUS.register(new ModEvents());
+        //Mod event!
+        //MinecraftForge.EVENT_BUS.register(new ModEvents());
 
+        
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
