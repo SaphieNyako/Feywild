@@ -1,0 +1,23 @@
+{
+  "item.feywild.lesser_fey_gem": "Lesser Fey Gem",
+  "item.feywild.greater_fey_gem": "Greater Fey Gem",
+  "item.feywild.shiny_fey_gem": "Shiny Fey Gem",
+  "item.feywild.fey_dust": "Fey Dust",
+  "item.feywild.brilliant_fey_gem": "Brilliant Fey Gem",
+
+  "item.feywild.fey_sheep_droppings": "Sheep Droppings",
+
+  "item.feywild.fey_shovel": "Fey Shovel",
+  "item.feywild.fey_hoe": "Fey Hoe",
+
+  "item.feywild.fey_armor_helmet": "Fey Armor Helmet",
+  "item.feywild.fey_armor_chest": "Fey Armor Chest",
+  "item.feywild.fey_armor_leggings": "Fey Armor Leggings",
+  "item.feywild.fey_armor_boots": "Fey Armor Boots",
+
+  "block.feywild.fey_gem_block": "Fey Gem Block",
+
+  "itemGroup.feywildTab": "Feywild Items"
+
+
+}
