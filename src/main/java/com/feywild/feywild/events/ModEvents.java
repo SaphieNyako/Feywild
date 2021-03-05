@@ -48,6 +48,7 @@ public class ModEvents {
                     //send message
                     player.sendStatusMessage(new StringTextComponent("You hear giggling."), true);
                     target.entityDropItem(ModItems.FEY_SHEEP_DROPPINGS.get());
+
                     count = 0;
 
 
@@ -68,4 +69,5 @@ public class ModEvents {
         }
 
     }
+
 }
