@@ -17,7 +17,10 @@
 
   "block.feywild.fey_gem_block": "Fey Gem Block",
 
-  "itemGroup.feywildTab": "Feywild Items"
+  "itemGroup.feywildTab": "Feywild Items",
+
+  "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of magic and fey.\nWhat's that now? You say you havent seen a single fairy? Oh, that's not so strange at all, they are a bit shy after all', especially around newcomers. But... I have to admit I havent been pranked by them in a while now.\nMaybe something is the matter after all?\n",
+  "librarian.feywild.final" : "Thank you! Oh, you can grab one of these books of the shelf. They contain valuable information on the Fairy Courts as well as the location of the Great Tree. Fair tidings!"
 
 
 }
