@@ -62,7 +62,7 @@ public class FeywildMod
         ModBlocks.register();
 
         //Mod event!
-        //MinecraftForge.EVENT_BUS.register(new ModEvents());
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
 
 
         // Register the setup method for modloading
