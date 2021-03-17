@@ -32,15 +32,20 @@ public class ModEvents {
 
     @SubscribeEvent
     public void interactWithVillager(PlayerInteractEvent.EntityInteract event){
+        //Check if it's a villager
         if(event.getTarget() instanceof VillagerEntity){
+            // Store player & villager
             VillagerEntity villagerEntity = (VillagerEntity) event.getTarget();
             PlayerEntity player = event.getPlayer();
+            // Check if it's the spawn librarian
             if(villagerEntity.getTags().contains("spawn_librarian") && !player.getTags().contains("speakToLib")){
+                //On first interaction
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUniqueID());
                 player.addTag("speakToLib");
                 event.setCanceled(true);
             }else if(villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("speakToLib")){
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.final" ), event.getPlayer().getUniqueID());
+                // On second+ interaction
+                player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUniqueID());
                 event.setCanceled(true);
             }
         }

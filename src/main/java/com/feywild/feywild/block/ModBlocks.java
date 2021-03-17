@@ -21,6 +21,8 @@ public class ModBlocks {
                     .hardnessAndResistance(3f,10f)
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
 
+    public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new);
+
     public static void register() {}
 
     //Method
