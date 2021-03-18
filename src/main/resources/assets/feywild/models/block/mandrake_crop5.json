@@ -1,0 +1,6 @@
+{
+  "parent": "block/crop",
+  "textures": {
+    "crop": "feywild:block/mandrake_crop_stage5"
+  }
+}

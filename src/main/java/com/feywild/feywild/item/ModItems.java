@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -46,6 +47,22 @@ public class ModItems {
     //FeyDust requires (Properties properties)
     //Can also give food item .hunger(5) .saturation(1.5f)
     //Config.FEY_DUST_DURATION.get() is to get the config file values
+
+    public static final RegistryObject<Item> MANDRAKE =
+            Registration.ITEMS.register("mandrake",
+                    () -> new Mandrake(new Item.Properties().group(FeywildMod.FEYWILD_TAB)
+                            .food(new Food.Builder()
+                                    .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1 )
+                                    .build())));
+
+
+    //CROP ITEMS
+    public static final RegistryObject<Item> MANDRAKE_SEED=
+            Registration.ITEMS.register("mandrake_seed",
+                    () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+
+
 
     //QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =

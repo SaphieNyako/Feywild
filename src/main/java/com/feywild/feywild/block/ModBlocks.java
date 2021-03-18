@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
@@ -22,6 +23,11 @@ public class ModBlocks {
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
 
     public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new);
+
+    public static final RegistryObject<Block> MANDRAKE_CROP=
+            Registration.BLOCKS.register("mandrake_crop",
+                    () -> new MandrakeCrop(AbstractBlock.Properties.from(Blocks.WHEAT)));
+
 
     public static void register() {}
 
