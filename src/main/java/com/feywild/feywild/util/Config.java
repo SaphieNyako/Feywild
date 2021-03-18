@@ -32,7 +32,7 @@ public class Config {
     private static void setFeyDustDuration(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER){
 
         FEY_DUST_DURATION = CLIENT_BUILDER.comment("How long fey dust effect lasts")
-                .defineInRange("fey_dust_duration", 30, 0, 180);
+                .defineInRange("fey_dust_duration", 15, 0, 180);
     }
 
     public static void loadConfigFile(ForgeConfigSpec config, String path){

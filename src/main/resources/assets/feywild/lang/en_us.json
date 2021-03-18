@@ -5,6 +5,7 @@
   "item.feywild.fey_dust": "Fey Dust",
   "item.feywild.brilliant_fey_gem": "Brilliant Fey Gem",
 
+
   "item.feywild.fey_sheep_droppings": "Sheep Droppings",
 
   "item.feywild.fey_shovel": "Fey Shovel",
@@ -15,6 +16,9 @@
   "item.feywild.fey_armor_leggings": "Fey Armor Leggings",
   "item.feywild.fey_armor_boots": "Fey Armor Boots",
 
+  "block.feywild.mandrake_crop": "Mandrake Seed",
+  "item.feywild.mandrake": "Mandrake",
+
   "block.feywild.fey_gem_block": "Fey Gem Block",
   "block.feywild.fey_altar" : "Fey Altar",
 
@@ -22,6 +26,7 @@
 
   "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of magic and fey.\nWhat's that now? You say you havent seen a single fairy? Oh, that's not so strange at all, they are a bit shy after all', especially around newcomers. But... I have to admit I havent been pranked by them in a while now.\nMaybe something is the matter after all?\n",
   "librarian.feywild.final" : "Thank you! Oh, you can grab one of these books of the shelf. They contain valuable information on the Fairy Courts as well as the location of the Great Tree. Fair tidings!"
+
 
 
 }
