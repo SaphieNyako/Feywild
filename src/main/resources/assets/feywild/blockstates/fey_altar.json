@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "feywild:block/fey_altar" },
+    "facing=south": { "model": "feywild:block/fey_altar", "y": 180 },
+    "facing=west": { "model": "feywild:block/fey_altar", "y": 270 },
+    "facing=east": { "model": "feywild:block/fey_altar", "y": 90 }
+  }
+}

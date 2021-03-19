@@ -30,6 +30,10 @@ public class ModBlocks {
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
 
     public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new);
+    //Properties in Fey Altar
+
+    public static final RegistryObject<TileEntityType<FeyAltarBlockEntity>> FEY_ALTAR_ENTITY = registerTile("fey_altar_entity",
+            () ->TileEntityType.Builder.create(FeyAltarBlockEntity::new, FEY_ALTAR.get()).build(null));
 
 
     public static final RegistryObject<Block> MANDRAKE_CROP=
@@ -37,12 +41,11 @@ public class ModBlocks {
                     () -> new MandrakeCrop(AbstractBlock.Properties.from(Blocks.WHEAT)));
 
 
-    public static final RegistryObject<TileEntityType<FeyAltarBlockEntity>> FEY_ALTAR_ENTITY = registerTile("fey_altar_entity", () ->TileEntityType.Builder.create(FeyAltarBlockEntity::new, FEY_ALTAR.get()).build(null));
+
 
 
     public static void register() {}
 
-    //Method
     private static <T extends Block>RegistryObject<T> register(String name, Supplier<T> block){
         RegistryObject<T> toReturn = Registration.BLOCKS.register(name,block);
         Registration.ITEMS.register(name, ()-> new BlockItem(toReturn.get(),
