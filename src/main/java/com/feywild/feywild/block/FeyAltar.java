@@ -3,6 +3,7 @@ package com.feywild.feywild.block;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ItemMessage;
+import com.feywild.feywild.network.ParticleMessage;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,6 +32,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -42,6 +44,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -117,7 +120,6 @@ public class FeyAltar extends Block {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new FeyAltarBlockEntity();
     }
-
 
     //Newly Added Define Direction
     @SuppressWarnings("deprecation")

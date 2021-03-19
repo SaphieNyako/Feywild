@@ -31,6 +31,7 @@ public class FeywildPacketHandler {
     //Register Packet
     public static void register(){
         INSTANCE.registerMessage(nextPacketID(), ItemMessage.class, ItemMessage::toBytes, ItemMessage::new, ItemMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
     }
 
 
