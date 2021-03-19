@@ -3,6 +3,7 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
@@ -82,6 +83,8 @@ public class FeywildMod
         proxy.init();
 
         loadConfigs();
+
+        FeywildPacketHandler.register();
 
     }
 

@@ -1,6 +1,8 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.ItemMessage;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,6 +11,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -23,14 +28,21 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class FeyAltar extends Block {
@@ -84,6 +96,12 @@ public class FeyAltar extends Block {
                         }
                     });
                 }
+                //Format and send item data to client
+            handler.ifPresent(itemStackHandler -> {
+                CompoundNBT compoundNBT = ((INBTSerializable<CompoundNBT>) itemStackHandler).serializeNBT();
+                FeywildPacketHandler.sendToPlayersInRange(worldIn,pos,new ItemMessage(compoundNBT,pos),20);
+            });
+
             //Here we should mark this dirty... when I add the method for it
         }
         return ActionResultType.SUCCESS;
