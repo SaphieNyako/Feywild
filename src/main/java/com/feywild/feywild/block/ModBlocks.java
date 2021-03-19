@@ -27,7 +27,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> FEY_GEM_BLOCK = register("fey_gem_block",
             ()-> new Block(AbstractBlock.Properties.create(Material.ROCK)
                     .hardnessAndResistance(3f,10f)
-                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).sound(SoundType.STONE)));
+                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)));
 
     public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new);
     //Properties in Fey Altar

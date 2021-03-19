@@ -46,7 +46,7 @@ public class FeyAltar extends Block {
     //Constructor
     public FeyAltar() {
 
-        super(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4f).harvestTool(ToolType.PICKAXE));
+        super(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4f).notSolid().setRequiresTool().harvestTool(ToolType.PICKAXE));
     }
 
     //Activate on player r click

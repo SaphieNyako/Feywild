@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 public class FeyAltarBlockEntity extends TileEntity {
     //inventory limit
-    private int size = 5;
+    private final int size = 5;
 
     //inventory handler
     private final LazyOptional<ItemStackHandler> itemHandler = LazyOptional.of(this::createHandler);
