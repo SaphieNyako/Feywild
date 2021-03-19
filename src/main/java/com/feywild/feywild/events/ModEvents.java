@@ -1,5 +1,8 @@
 package com.feywild.feywild.events;
 
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.util.Config;
 import com.mojang.brigadier.Message;
@@ -13,9 +16,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
