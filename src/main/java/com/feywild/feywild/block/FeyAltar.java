@@ -96,7 +96,7 @@ public class FeyAltar extends Block {
                     }
                 }
                 //Format and send item data to client
-                FeywildPacketHandler.sendToPlayersInRange(worldIn,pos,new ItemMessage(entity.getItems(),pos),20);
+               entity.markDirty();
 
             //Here we should mark this dirty... when I add the method for it
         }

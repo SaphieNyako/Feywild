@@ -25,31 +25,29 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 public class ItemMessage {
-    public List<ItemStack> items;
+    public ItemStack item;
     public BlockPos pos;
+    public int index;
 
     //Read msg from buf
     public ItemMessage(PacketBuffer buf){
-        items = Lists.newLinkedList();
-        for (int i = 0; i < buf.readInt(); i++) {
-            items.add(buf.readItemStack());
-        }
+        item = buf.readItemStack();
         pos = buf.readBlockPos();
+        index = buf.readInt();
     }
 
     //Save msg to buf
     public void toBytes(PacketBuffer buf){
-        buf.writeInt(items.size());
-        for (ItemStack item : items) {
-            buf.writeItemStack(item);
-        }
+        buf.writeItemStack(item);
         buf.writeBlockPos(pos);
+        buf.writeInt(index);
     }
 
     //constructor
-    public ItemMessage(List<ItemStack> items, BlockPos pos){
-        this.items = items;
+    public ItemMessage(ItemStack item, BlockPos pos, int index){
+        this.item = item;
         this.pos = pos;
+        this.index = index;
     }
 
     //handle package data
@@ -60,12 +58,10 @@ public class ItemMessage {
         ctx.get().enqueueWork(()-> {
             //Set the items for the client !!! be careful to give it the right location
 
-                    if(world.getTileEntity(pos) instanceof FeyAltarBlockEntity && items.size() > 0) {
+                    if(world.getTileEntity(pos) instanceof FeyAltarBlockEntity ) {
                         FeyAltarBlockEntity tile = (FeyAltarBlockEntity) world.getTileEntity(pos);
+                        tile.setInventorySlotContents(index,item);
 
-                        for (int i = 0; i < items.size(); i++) {
-                            tile.setInventorySlotContents(i, items.get(i));
-                        }
                     }
 
         });
