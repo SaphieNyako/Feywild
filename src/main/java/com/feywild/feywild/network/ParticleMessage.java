@@ -61,11 +61,8 @@ public class ParticleMessage {
 
         ctx.get().enqueueWork(()-> {
             Random random = new Random();
-            int revX, revZ;
             for(int i = 0; i < repeat; i++) {
-                revX = random.nextBoolean()? -1 : 1;
-                revZ = random.nextBoolean()? 1 : -1;
-                world.addParticle(ParticleTypes.END_ROD, true, posX, posY, posZ,revX * velX,  velY,revZ * velZ);
+                world.addParticle(ParticleTypes.END_ROD, true, posX, posY, posZ, velX,  velY, velZ);
             }
         });
         ctx.get().setPacketHandled(true);

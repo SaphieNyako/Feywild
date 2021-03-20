@@ -70,7 +70,7 @@ public class FeyAltarRenderer extends TileEntityRenderer<FeyAltarBlockEntity> {
 
         //get item model
         IBakedModel model = minecraft.getItemRenderer().getItemModelWithOverrides(itemStack,null,null);
-        //render item
+        //the line of code that actually renders the item
         minecraft.getItemRenderer().renderItem(itemStack, ItemCameraTransforms.TransformType.GROUND,true,stack,buf,lightLevel,combinedOverlay,model);
 
         stack.pop();

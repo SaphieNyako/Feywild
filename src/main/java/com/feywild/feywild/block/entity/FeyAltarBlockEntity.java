@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class FeyAltarBlockEntity extends TileEntity implements ITickableTileEntity {
     private final int size = 5;
     private boolean shouldload = true;
-    private int count = 0;
+    private int count = 0, limit;
     Random random = new Random();
     //inventory handler
     private final LazyOptional<ItemStackHandler> itemHandler = LazyOptional.of(this::createHandler);
@@ -78,13 +78,14 @@ public class FeyAltarBlockEntity extends TileEntity implements ITickableTileEnti
         return super.getCapability(cap, side);
     }
 
-
-    //This is a bad way of doing it but for some reason I can't figure it out so ¯\_(ツ)_/¯
+    //gets called every tick
     @Override
     public void tick() {
         if(world.isRemote) return;
         count++;
         if(shouldload){
+            // initilize limit and loop through all items to sync them with the client
+            limit = random.nextInt(20*6);
             itemHandler.ifPresent(itemStackHandler -> {
                 CompoundNBT compoundNBT = ((INBTSerializable<CompoundNBT>) itemStackHandler).serializeNBT();
                 FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(compoundNBT,pos));
@@ -92,9 +93,11 @@ public class FeyAltarBlockEntity extends TileEntity implements ITickableTileEnti
             shouldload = true;
         }
         //summon particles randomly (did this here bc for some reason random ticks are killing me today)
-        if(count > 25){
+        if(count > limit){
+            limit = random.nextInt(20*6);
             if(random.nextDouble() > 0.5) {
-                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+0.5,pos.getY()+0.2, pos.getZ()+0.5, random.nextDouble() / 5, random.nextDouble() / 5, random.nextDouble() / 5, 1), 32);
+                // send packet to player to summon particles
+                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ 0.3+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1), 32);
             }
             count = 0;
         }
