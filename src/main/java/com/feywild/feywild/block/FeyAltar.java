@@ -44,6 +44,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -73,37 +74,29 @@ public class FeyAltar extends Block {
             //Store data that might get reused
             ItemStack stack = player.getHeldItem(handIn);
             FeyAltarBlockEntity entity = (FeyAltarBlockEntity) worldIn.getTileEntity(pos);
-            LazyOptional<ItemStackHandler> handler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).cast();
 
             //Remove item from inventory
             if (player.isSneaking()) {
-                handler.ifPresent(itemStackHandler -> {
-                    for (int i = itemStackHandler.getSlots() - 1; i > -1; i--) {
-                        if (!itemStackHandler.getStackInSlot(i).isEmpty()) {
-                            player.addItemStackToInventory(itemStackHandler.getStackInSlot(i));
-                            itemStackHandler.setStackInSlot(i, ItemStack.EMPTY);
-                            break;
-                        }
+                for (int i = entity.getSizeInventory()-1; i > -1; i--) {
+                    if (!entity.getStackInSlot(i).isEmpty()) {
+                        player.addItemStackToInventory(entity.getStackInSlot(i));
+                        entity.setInventorySlotContents(i, ItemStack.EMPTY);
+                        break;
                     }
-                });
+                }
             } else
                 //Add item to inventory if player is NOT sneaking and is holding an item
                 if (!stack.isEmpty()) {
-                    handler.ifPresent(itemStackHandler -> {
-                        for (int i = 0; i < itemStackHandler.getSlots(); i++) {
-                            if (itemStackHandler.getStackInSlot(i).isEmpty()) {
-                                itemStackHandler.setStackInSlot(i, new ItemStack(stack.getItem(), 1));
-                                player.getHeldItem(handIn).shrink(1);
-                                break;
-                            }
+                    for (int i = 0; i < entity.getSizeInventory(); i++) {
+                        if (entity.getStackInSlot(i).isEmpty()) {
+                            entity.setInventorySlotContents(i, new ItemStack(stack.getItem(), 1));
+                            player.getHeldItem(handIn).shrink(1);
+                            break;
                         }
-                    });
+                    }
                 }
                 //Format and send item data to client
-            handler.ifPresent(itemStackHandler -> {
-                CompoundNBT compoundNBT = ((INBTSerializable<CompoundNBT>) itemStackHandler).serializeNBT();
-                FeywildPacketHandler.sendToPlayersInRange(worldIn,pos,new ItemMessage(compoundNBT,pos),20);
-            });
+                FeywildPacketHandler.sendToPlayersInRange(worldIn,pos,new ItemMessage(entity.getItems(),pos),20);
 
             //Here we should mark this dirty... when I add the method for it
         }

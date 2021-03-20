@@ -34,28 +34,21 @@ public class FeyAltarRenderer extends TileEntityRenderer<FeyAltarBlockEntity> {
     // Render extra features like items
     @Override
     public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        if(tileEntityIn.shouldRender()){
-
+        if(tileEntityIn.isEmpty()){
             // Initialize
             ClientPlayerEntity playerEntity = minecraft.player;
             int lightLevel = getLightLevel(tileEntityIn.getWorld(),tileEntityIn.getPos().up());
-            LazyOptional<ItemStackHandler> handler = tileEntityIn.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).cast();
-
-            handler.ifPresent(itemStackHandler -> {
                 // Another init just so I don't have to deal with the AtomicDouble
                 double shiftX , shiftZ;
 
-
                 //Loop through items and render them
-                for(int i = 0; i < itemStackHandler.getSlots() ; i ++){
+                for(int i = 0; i < tileEntityIn.getSizeInventory() ; i ++){
                     //shift position for items
                     shiftX = Math.cos(((tileEntityIn.getWorld().getGameTime()) + partialTicks+ (i * 10))/8)/2;
                     shiftZ = Math.sin(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10))/8)/2;
                     //render item
-                    renderItem(itemStackHandler.getStackInSlot(i),new double[] {0.5d + shiftX,1d,0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getWorld().getGameTime() + partialTicks)/20),matrixStackIn,bufferIn,partialTicks,combinedOverlayIn,lightLevel,0.85f);
+                    renderItem(tileEntityIn.getStackInSlot(i),new double[] {0.5d + shiftX,1d,0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getWorld().getGameTime() + partialTicks)/20),matrixStackIn,bufferIn,partialTicks,combinedOverlayIn,lightLevel,0.85f);
                 }
-
-            });
         }
     }
 
