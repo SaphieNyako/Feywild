@@ -16,6 +16,7 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.ConfiguredPlacement;
 import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -41,14 +42,14 @@ public class ModOreGeneration {
                     ore.getBlock().getDefaultState(), ore.getMaxVeinSize());
 
             //determines placement height
-            ConfiguredPlacement configuredPlacement = Placement.DEPTH_AVERAGE.configure(
-                    new DepthAverageConfig(ore.getMinHeight(), ore.getMaxHeight()));
+            ConfiguredPlacement configuredPlacement = Placement.RANGE.configure(
+                    new TopSolidRangeConfig(ore.getMinHeight(),0 , ore.getMaxHeight())).square()
+                    .func_242731_b(ore.getSpawnWeight());
 
             //registration
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE,
                     ore.getBlock().getRegistryName(),
-                    Feature.ORE.withConfiguration(oreFeatureConfig).withPlacement(configuredPlacement)
-                            .square().func_242731_b(ore.getMaxVeinSize()));
+                    Feature.ORE.withConfiguration(oreFeatureConfig).withPlacement(configuredPlacement));
 
             //determines wich biome to spawn in
             for(Biome biome : ForgeRegistries.BIOMES)
