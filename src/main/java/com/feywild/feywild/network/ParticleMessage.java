@@ -60,7 +60,7 @@ public class ParticleMessage {
         World world = new ClientProxy().getClientWorld();
 
         ctx.get().enqueueWork(()-> {
-            Random random = new Random();
+            //summon particles based on info
             for(int i = 0; i < repeat; i++) {
                 world.addParticle(ParticleTypes.END_ROD, true, posX, posY, posZ, velX,  velY, velZ);
             }

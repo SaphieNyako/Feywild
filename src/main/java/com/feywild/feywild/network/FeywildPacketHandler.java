@@ -34,7 +34,7 @@ public class FeywildPacketHandler {
         INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
     }
 
-
+    // send a packet to all players near the pos withing a specific range
     public static void sendToPlayersInRange(World world, BlockPos pos, Object message, int range){
         if (!world.isRemote) {
             ((ServerWorld) world).getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(pos), false)
