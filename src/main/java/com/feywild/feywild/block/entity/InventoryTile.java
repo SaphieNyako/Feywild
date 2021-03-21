@@ -1,11 +1,14 @@
 package com.feywild.feywild.block.entity;
 
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.ItemMessage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +52,20 @@ public class InventoryTile extends TileEntity implements IInventory {
         ItemStack stack = getStackInSlot(index);
         stack.shrink(count);
         return stack;
+    }
+
+    /* Update the inventory
+       flags = -1  means update the entire inventory
+       otherwise update one item slot
+     */
+    public void updateInventory(int flags) {
+        if(flags == -1){
+            for (int i =0; i < getSizeInventory(); i++) {
+                FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(i),pos,i));
+            }
+        }else{
+            FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(flags),pos,flags));
+        }
     }
 
     // Clear slot

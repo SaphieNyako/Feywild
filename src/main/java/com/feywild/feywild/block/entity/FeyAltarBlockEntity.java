@@ -58,7 +58,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         if(shouldLoad){
             // initilize limit and loop through all items to sync them with the client
             limit = random.nextInt(20*6);
-            markDirty();
+            updateInventory(-1);
             shouldLoad = true;
         }
         //summon particles randomly (did this here bc for some reason random ticks are killing me today)
@@ -69,14 +69,6 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
                 FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ 0.3+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1), 32);
             }
             count = 0;
-        }
-    }
-
-    @Override
-    public void markDirty() {
-        super.markDirty();
-        for (int i =0; i < getSizeInventory(); i++) {
-            FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(stackList.get(i),pos,i));
         }
     }
 
