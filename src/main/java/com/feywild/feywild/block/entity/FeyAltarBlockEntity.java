@@ -1,15 +1,20 @@
 package com.feywild.feywild.block.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ItemMessage;
 import com.feywild.feywild.network.ParticleMessage;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +28,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     private int count = 0, limit;
     Random random = new Random();
     //Items
-    NonNullList<ItemStack> stackList = NonNullList.withSize(getSizeInventory(),ItemStack.EMPTY);
+    NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
 
     public FeyAltarBlockEntity() {
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
@@ -34,7 +39,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
         for(int i =0; i < getSizeInventory(); i++){
-            stackList.add(ItemStack.read((CompoundNBT) nbt.get("stacks")));
+            stackList.set(i,ItemStack.read((CompoundNBT) nbt.get("stacks")));
         }
         super.read(state, nbt);
     }
@@ -56,7 +61,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         if(world.isRemote) return;
         count++;
         if(shouldLoad){
-            // initilize limit and loop through all items to sync them with the client
+            // initialize limit and loop through all items to sync them with the client
             limit = random.nextInt(20*6);
             updateInventory(-1);
             shouldLoad = true;
@@ -70,6 +75,29 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             }
             count = 0;
         }
+    }
+
+    //order sensitive will require changes
+    public void craft(){
+        ModRecipes.getAltarRecipes().keySet().forEach(itemStacks -> {
+            String recipe = "", string = "";
+            StringBuilder builder = new StringBuilder();
+            for(ItemStack stack: stackList){
+                builder.append(stack.toString());
+            }
+            string = builder.toString();
+            builder = builder.delete(0, builder.length());
+            for(ItemStack stack: itemStacks){
+                builder.append(stack.toString());
+            }
+            recipe = builder.toString();
+            if(string.equals(recipe)) {
+                System.out.println(ModRecipes.getAltarRecipes().get(itemStacks));
+                world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.3,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks)));
+                clear();
+            }
+
+        });
     }
 
     @Override

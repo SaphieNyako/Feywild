@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.events.ModEvents;
+import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.setup.ClientProxy;
@@ -12,6 +13,9 @@ import com.feywild.feywild.util.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,6 +33,9 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -111,6 +118,9 @@ public class FeywildMod
 
         //register Mod event!
         MinecraftForge.EVENT_BUS.register(new ModEvents());
+
+        //Recipes register
+        ModRecipes.register();
     }
 
 

@@ -91,5 +91,6 @@ public class InventoryTile extends TileEntity implements IInventory {
         for (int i = 0; i < getSizeInventory(); i++) {
             removeStackFromSlot(i);
         }
+        updateInventory(-1);
     }
 }
