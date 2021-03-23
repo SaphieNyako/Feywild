@@ -83,21 +83,19 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         }
     }
 
-    //order sensitive will require changes
+    //frequency sensitive
     public void craft(){
+        List<String> recipe = new LinkedList<>(), items = new LinkedList<>();
         ModRecipes.getAltarRecipes().keySet().forEach(itemStacks -> {
-            String recipe = "", string = "";
-            StringBuilder builder = new StringBuilder();
             for(ItemStack stack: stackList){
-                builder.append(stack.toString());
+                items.add(stack.copy().toString());
             }
-            string = builder.toString();
-            builder = builder.delete(0, builder.length());
             for(ItemStack stack: itemStacks){
-                builder.append(stack.toString());
+                recipe.add(stack.copy().toString());
             }
-            recipe = builder.toString();
-            if(string.equals(recipe)) {
+            Collections.sort(items);
+            Collections.sort(recipe);
+            if(items.equals(recipe)) {
                 System.out.println(ModRecipes.getAltarRecipes().get(itemStacks));
                 world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.3,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks).copy()));
                 clear();

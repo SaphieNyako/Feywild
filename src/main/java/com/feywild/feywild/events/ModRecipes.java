@@ -21,6 +21,7 @@ public class ModRecipes{
     private static HashMap<List<ItemStack>,ItemStack> altar_recipes = new HashMap<>();
 
 
+    //register recipes
     public static void register() {
         addAltarRecipe(new ItemStack(Items.DIAMOND), Arrays.asList(new ItemStack(Items.STONE), ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY));
     }
@@ -41,4 +42,7 @@ public class ModRecipes{
     public static HashMap<List<ItemStack>, ItemStack> getAltarRecipes() {
         return altar_recipes;
     }
+
+
+    // Ancient's Note : this isn't the 'right' way to do it but it works
 }
