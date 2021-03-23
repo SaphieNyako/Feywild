@@ -28,7 +28,6 @@ public class InventoryTile extends TileEntity implements IInventory {
         return null;
     }
 
-
     // is the entire inventory empty?
     @Override
     public boolean isEmpty() {
@@ -58,11 +57,10 @@ public class InventoryTile extends TileEntity implements IInventory {
        flags = -1  means update the entire inventory
        otherwise update one item slot
      */
-    public void updateInventory(int flags) {
-        if(flags == -1){
-            for (int i =0; i < getSizeInventory(); i++) {
-                FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(i),pos,i));
-            }
+    public void updateInventory(int flags) { if(flags == -1){
+           for (int i = 0; i < getSizeInventory(); i++) {
+               FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(i), pos, i));
+           }
         }else{
             FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(flags),pos,flags));
         }
@@ -91,6 +89,6 @@ public class InventoryTile extends TileEntity implements IInventory {
         for (int i = 0; i < getSizeInventory(); i++) {
             removeStackFromSlot(i);
         }
-        updateInventory(-1);
+        updateInventory(-2);
     }
 }

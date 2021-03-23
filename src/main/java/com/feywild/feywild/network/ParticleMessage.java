@@ -58,11 +58,15 @@ public class ParticleMessage {
     public void handle(Supplier<NetworkEvent.Context> ctx){
 
         World world = new ClientProxy().getClientWorld();
-
+        Random random = new Random();
         ctx.get().enqueueWork(()-> {
             //summon particles based on info
             for(int i = 0; i < repeat; i++) {
-                world.addParticle(ParticleTypes.END_ROD, true, posX, posY, posZ, velX,  velY, velZ);
+                if(repeat > 1){
+                    world.addParticle(ParticleTypes.WITCH, true, posX, posY, posZ, velX + random.nextDouble(), velY + random.nextDouble(), velZ + random.nextDouble());
+                }else {
+                    world.addParticle(ParticleTypes.END_ROD, true, posX, posY, posZ, velX, velY, velZ);
+                }
             }
         });
         ctx.get().setPacketHandled(true);

@@ -29,7 +29,6 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     Random random = new Random();
     //Items
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
-
     public FeyAltarBlockEntity() {
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
     }
@@ -57,7 +56,9 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     @Override
     public void updateInventory(int flags) {
-        craft();
+        if(flags != -1) {
+            craft();
+        }else
         super.updateInventory(flags);
     }
 
@@ -77,7 +78,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             limit = random.nextInt(20*6);
             if(random.nextDouble() > 0.5) {
                 // send packet to player to summon particles
-                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ 0.3+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1), 32);
+                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1), 32);
             }
             count = 0;
         }
@@ -96,8 +97,8 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             Collections.sort(items);
             Collections.sort(recipe);
             if(items.equals(recipe)) {
-                System.out.println(ModRecipes.getAltarRecipes().get(itemStacks));
-                world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.3,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks).copy()));
+                world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.15,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks).copy()));
+                FeywildPacketHandler.sendToPlayersInRange(world,pos,new ParticleMessage(pos.getX()+0.5,pos.getY()+1.2,pos.getZ()+0.5,-4,-2,-4,10),32);
                 clear();
             }
 

@@ -29,11 +29,13 @@ public class ItemMessage {
     public BlockPos pos;
     public int index;
 
+
     //Read msg from buf
     public ItemMessage(PacketBuffer buf){
         item = buf.readItemStack();
         pos = buf.readBlockPos();
         index = buf.readInt();
+
     }
 
     //Save msg to buf
@@ -41,6 +43,7 @@ public class ItemMessage {
         buf.writeItemStack(item);
         buf.writeBlockPos(pos);
         buf.writeInt(index);
+
     }
 
     //constructor
@@ -58,10 +61,9 @@ public class ItemMessage {
         ctx.get().enqueueWork(()-> {
             //Set the items for the client !!! be careful to give it the right location
 
-                    if(world.getTileEntity(pos) instanceof FeyAltarBlockEntity ) {
+                    if(world.getTileEntity(pos) instanceof FeyAltarBlockEntity) {
                         FeyAltarBlockEntity tile = (FeyAltarBlockEntity) world.getTileEntity(pos);
                         tile.setInventorySlotContents(index,item);
-
                     }
 
         });
