@@ -39,6 +39,6 @@ public class ModRecipes{
     }
 
     public static HashMap<List<ItemStack>, ItemStack> getAltarRecipes() {
-        return (HashMap<List<ItemStack>, ItemStack>) altar_recipes.clone();
+        return altar_recipes;
     }
 }

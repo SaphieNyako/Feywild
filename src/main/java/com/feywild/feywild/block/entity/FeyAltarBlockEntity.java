@@ -55,6 +55,12 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         return super.write(compound);
     }
 
+    @Override
+    public void updateInventory(int flags) {
+        craft();
+        super.updateInventory(flags);
+    }
+
     //gets called every tick
     @Override
     public void tick() {
@@ -93,7 +99,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             recipe = builder.toString();
             if(string.equals(recipe)) {
                 System.out.println(ModRecipes.getAltarRecipes().get(itemStacks));
-                world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.3,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks)));
+                world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.3,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks).copy()));
                 clear();
             }
 

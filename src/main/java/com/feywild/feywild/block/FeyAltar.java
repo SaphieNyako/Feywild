@@ -75,13 +75,6 @@ public class FeyAltar extends Block {
             ItemStack stack = player.getHeldItem(handIn);
             FeyAltarBlockEntity entity = (FeyAltarBlockEntity) worldIn.getTileEntity(pos);
             int flagStack = -1;
-
-            //Verify craft
-            if(player.getHeldItem(handIn).isItemEqual(new ItemStack(ModItems.FEY_DUST.get()))){
-                entity.craft();
-                player.getHeldItem(handIn).shrink(1);
-                return ActionResultType.SUCCESS;
-            }
             //Remove item from inventory
             if (player.isSneaking()) {
                 for (int i = entity.getSizeInventory()-1; i > -1; i--) {
