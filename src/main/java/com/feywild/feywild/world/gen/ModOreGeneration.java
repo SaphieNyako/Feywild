@@ -41,7 +41,7 @@ public class ModOreGeneration {
             OreFeatureConfig oreFeatureConfig = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                     ore.getBlock().getDefaultState(), ore.getMaxVeinSize());
 
-            //determines placement height
+            //determines placement height and spawn weight
             ConfiguredPlacement configuredPlacement = Placement.RANGE.configure(
                     new TopSolidRangeConfig(ore.getMinHeight(),0 , ore.getMaxHeight())).square()
                     .func_242731_b(ore.getSpawnWeight());

@@ -1,6 +1,8 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.item.ModItems;
@@ -11,6 +13,7 @@ import com.feywild.feywild.setup.ServerProxy;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.Block;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -19,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -32,6 +36,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -65,6 +70,9 @@ public class FeywildMod
     //Constructor
     public FeywildMod() {
 
+        //prio 1
+        GeckoLib.initialize();
+
         proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
         // Register the setup method for modloading
@@ -74,7 +82,7 @@ public class FeywildMod
         // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
-
+        //prio 2
         registerModAdditions();
 
         // Register ourselves for server and other game events we are interested in
@@ -88,6 +96,12 @@ public class FeywildMod
         registerConfigs();
 
         proxy.init();
+
+
+        DeferredWorkQueue.runLater(() -> {
+                    GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
+        });
+
 
         loadConfigs();
 
@@ -121,6 +135,9 @@ public class FeywildMod
 
         //Recipes register
         ModRecipes.register();
+
+        // Entities register
+        ModEntityTypes.register();
     }
 
 

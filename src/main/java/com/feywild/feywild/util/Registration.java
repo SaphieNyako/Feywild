@@ -4,8 +4,10 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.FeyAltarRenderer;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -25,12 +27,19 @@ public class Registration {
 
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES
             = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, FeywildMod.MOD_ID);
+
+    public static final DeferredRegister<EntityType<?>> ENTITIES
+            = DeferredRegister.create(ForgeRegistries.ENTITIES, FeywildMod.MOD_ID);
+
+
     public static void init()
     {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
         TILE_ENTITY_TYPES.register(eventBus);
+        ENTITIES.register(eventBus);
+
     }
 
 }
