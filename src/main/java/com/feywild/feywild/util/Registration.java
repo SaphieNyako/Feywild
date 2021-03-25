@@ -1,15 +1,11 @@
 package com.feywild.feywild.util;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.entity.FeyAltarRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

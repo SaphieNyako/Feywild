@@ -1,5 +1,7 @@
-package com.feywild.feywild.block.entity;
+package com.feywild.feywild.block.render;
 
+import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -23,17 +25,19 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
-public class FeyAltarRenderer extends TileEntityRenderer<FeyAltarBlockEntity> {
+public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
 
     private Minecraft minecraft = Minecraft.getInstance();
     //Constructor
     public FeyAltarRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
-        super(rendererDispatcherIn);
+
+        super(rendererDispatcherIn, new FeyAltarModel());
     }
 
     // Render extra features like items
-    @Override
+    //@Override doesnt work anymore
     public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         if(tileEntityIn.isEmpty()){
             // Initialize

@@ -10,16 +10,20 @@ import net.minecraft.world.World;
 
 public class FlyingCreatureEntity extends CreatureEntity {
 
+    /* THIS DOES NOTHING */
+
     protected FlyingCreatureEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
 
         super(type, worldIn);
     }
 
+    @Override
     public boolean onLivingFall(float distance, float damageMultiplier) {
         return false;
     }
 
     // TOOK THIS FROM ARS NOUVEAU
+    @Override
     public void travel(Vector3d positionIn) {
         if (this.isInWater()) {
             this.moveRelative(0.02F, positionIn);

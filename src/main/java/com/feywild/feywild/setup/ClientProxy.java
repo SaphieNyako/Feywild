@@ -2,23 +2,19 @@ package com.feywild.feywild.setup;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.entity.FeyAltarRenderer;
+import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.entity.render.SpringPixieRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import software.bernie.example.client.renderer.entity.ExampleGeoRenderer;
-import software.bernie.example.registry.EntityRegistry;
 
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientProxy implements IProxy{
@@ -42,6 +38,9 @@ public class ClientProxy implements IProxy{
         //Solved...still not called....
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPRING_PIXIE.get(),
                 SpringPixieRenderer::new);
+
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
+               FeyAltarRenderer::new);
 
     }
 

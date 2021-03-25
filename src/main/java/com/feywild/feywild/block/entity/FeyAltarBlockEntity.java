@@ -8,6 +8,7 @@ import com.feywild.feywild.network.ItemMessage;
 import com.feywild.feywild.network.ParticleMessage;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -20,12 +21,23 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.network.PacketDistributor;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.*;
 
-public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity {
+public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
+
+    private AnimationFactory factory = new AnimationFactory(this);
+
     private boolean shouldLoad = true;
     private int count = 0, limit;
+
     Random random = new Random();
     //Items
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
@@ -113,5 +125,27 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     @Override
     public List<ItemStack> getItems() {
         return stackList;
+    }
+
+
+    /* ANIMATION */
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
+    {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.altar.motion", true));
+
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+
+        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }
