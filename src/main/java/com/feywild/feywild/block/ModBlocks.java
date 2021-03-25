@@ -20,6 +20,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -27,9 +28,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> FEY_GEM_BLOCK = register("fey_gem_block",
             ()-> new Block(AbstractBlock.Properties.create(Material.ROCK)
                     .hardnessAndResistance(3f,10f)
-                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)));
+                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)), true);
 
-    public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new);
+    public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new, true);
     //Properties in Fey Altar
 
     public static final RegistryObject<TileEntityType<FeyAltarBlockEntity>> FEY_ALTAR_ENTITY = registerTile("fey_altar_entity",
@@ -46,8 +47,9 @@ public class ModBlocks {
 
     public static void register() {}
 
-    private static <T extends Block>RegistryObject<T> register(String name, Supplier<T> block){
+    private static <T extends Block>RegistryObject<T> register(String name, Supplier<T> block, boolean createItem){
         RegistryObject<T> toReturn = Registration.BLOCKS.register(name,block);
+        if(createItem)
         Registration.ITEMS.register(name, ()-> new BlockItem(toReturn.get(),
                 new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
 
