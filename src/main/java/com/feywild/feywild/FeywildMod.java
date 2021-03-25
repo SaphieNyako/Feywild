@@ -5,6 +5,7 @@ import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.ModRecipes;
+import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.setup.ClientProxy;

@@ -2,13 +2,19 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.Registration;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
 
+import java.util.Random;
 import java.util.ResourceBundle;
-
 public class ModEntityTypes {
 
     /* REGISTRATION FOR EACH ENTITY*/
@@ -19,4 +25,9 @@ public class ModEntityTypes {
 
     public static void register() {}
 
+
+    public static boolean spawnFey(EntityType<? extends Entity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+        // ADD CHECKS FOR SPECIAL FEY SPAWNING CONDITIONS
+        return worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) && worldIn.getLightSubtracted(pos, 0) > 8;
+    }
 }

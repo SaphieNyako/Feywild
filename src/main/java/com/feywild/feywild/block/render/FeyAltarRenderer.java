@@ -3,11 +3,13 @@ package com.feywild.feywild.block.render;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -25,7 +27,10 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
+
+import javax.annotation.Nullable;
 
 public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
 
@@ -36,29 +41,29 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
         super(rendererDispatcherIn, new FeyAltarModel());
     }
 
-    // Render extra features like items
-    //@Override doesnt work anymore
-    public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    @Override
+    public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        super.render(tileEntityIn, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         if(tileEntityIn.isEmpty()){
             // Initialize
             ClientPlayerEntity playerEntity = minecraft.player;
             int lightLevel = getLightLevel(tileEntityIn.getWorld(),tileEntityIn.getPos().up());
-                // Another init just so I don't have to deal with the AtomicDouble
-                double shiftX , shiftZ, shiftY;
+            // Another init just so I don't have to deal with the AtomicDouble
+            double shiftX , shiftZ, shiftY;
 
-                //Loop through items and render them
-                for(int i = 0; i < tileEntityIn.getSizeInventory() ; i ++){
-                        //shift position for items
-                        shiftX = Math.cos(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
-                        shiftZ = Math.sin(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
-                        //render item
-                        renderItem(tileEntityIn.getStackInSlot(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getWorld().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, combinedOverlayIn, lightLevel, 0.85f);
-                }
+            //Loop through items and render them
+            for(int i = 0; i < tileEntityIn.getSizeInventory() ; i ++){
+                //shift position for items
+                shiftX = Math.cos(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
+                shiftZ = Math.sin(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
+                //render item
+                renderItem(tileEntityIn.getStackInSlot(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getWorld().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks,999999999, lightLevel, 0.85f);
+            }
         }
     }
 
     // render the item
-    private void renderItem(ItemStack itemStack, double[] translation, Quaternion rotation, MatrixStack stack, IRenderTypeBuffer buf, float partialTicks, int combinedOverlay, int lightLevel, float scale){
+    private void renderItem(ItemStack itemStack, double[] translation, Quaternion rotation, MatrixStack stack, IRenderTypeBuffer buf,float partialTicks, int combinedOverlay, int lightLevel, float scale){
         stack.push();
 
         stack.translate(translation[0], translation[1], translation[2]);
