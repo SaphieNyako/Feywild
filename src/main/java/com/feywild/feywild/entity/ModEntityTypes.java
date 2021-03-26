@@ -28,6 +28,6 @@ public class ModEntityTypes {
 
     public static boolean spawnFey(EntityType<? extends Entity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
         // ADD CHECKS FOR SPECIAL FEY SPAWNING CONDITIONS
-        return worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) && worldIn.getLightSubtracted(pos, 0) > 8;
+        return worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK);
     }
 }

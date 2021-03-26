@@ -99,7 +99,7 @@ public class FeywildMod
         proxy.init();
 
 
-        DeferredWorkQueue.runLater(() -> {
+        event.enqueueWork(() -> {
                     GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
         });
 
@@ -107,6 +107,7 @@ public class FeywildMod
         loadConfigs();
 
         FeywildPacketHandler.register();
+        SpawnData.registerSpawn();
 
     }
 
