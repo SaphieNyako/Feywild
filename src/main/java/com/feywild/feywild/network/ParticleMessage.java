@@ -63,7 +63,15 @@ public class ParticleMessage {
             //summon particles based on info
             for(int i = 0; i < repeat; i++) {
                 if(repeat > 1){
-                    world.addParticle(ParticleTypes.WITCH, true, posX, posY, posZ, velX + random.nextDouble(), velY + random.nextDouble(), velZ + random.nextDouble());
+                    switch (repeat){
+                        case 10:
+                            world.addParticle(ParticleTypes.WITCH, true, posX, posY, posZ, velX + random.nextDouble(), velY + random.nextDouble(), velZ + random.nextDouble());
+                            break;
+                        case 5:
+                            world.addParticle(ParticleTypes.HEART, true, posX-0.3+ random.nextDouble(), posY-0.3+ random.nextDouble(), posZ-0.3+ random.nextDouble(), velX, velY, velZ);
+
+                            break;
+                    }
                 }else {
                     world.addParticle(ParticleTypes.END_ROD, true, posX, posY, posZ, velX, velY, velZ);
                 }

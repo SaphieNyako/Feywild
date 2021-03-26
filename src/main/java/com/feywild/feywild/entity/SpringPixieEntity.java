@@ -5,14 +5,12 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -23,7 +21,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 
-public class SpringPixieEntity extends FlyingCreatureEntity implements IAnimatable {
+public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
@@ -38,6 +36,7 @@ public class SpringPixieEntity extends FlyingCreatureEntity implements IAnimatab
     }
 
 
+    //Attributes (could be moved in FeyEntities)
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
 
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
@@ -54,6 +53,8 @@ public class SpringPixieEntity extends FlyingCreatureEntity implements IAnimatab
         return SoundEvents.ENTITY_FOX_HURT;
     }
 
+
+    //Ancient's note : we can keep them but adjust the pitch
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
@@ -68,33 +69,35 @@ public class SpringPixieEntity extends FlyingCreatureEntity implements IAnimatab
         return SoundEvents.ENTITY_FOX_AMBIENT;
     }
 
+    //Pitch
+    @Override
+    protected float getSoundPitch() {
+        return 1.4f;
+    }
 
     /* GOALS */
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
-
+        //Tempt goal doesn't work due to the constant movement ()
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D,
                 Ingredient.fromItems(ModItems.FEY_DUST.get()),false));
     }
-
 
     /* Animation */
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        //Crashes here! animation.pixie.fly
+        //Crash is fix when playing animation
 
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("pixie.fly", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
 
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        // never mind...
+        //Animation controller
         animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 

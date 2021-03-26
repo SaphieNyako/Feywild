@@ -98,7 +98,7 @@ public class FeywildMod
 
         proxy.init();
 
-
+        // Ancient's note : switched this to event.enqueueWork to avoid a potential bug
         event.enqueueWork(() -> {
                     GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
         });
@@ -107,6 +107,8 @@ public class FeywildMod
         loadConfigs();
 
         FeywildPacketHandler.register();
+
+        //register entities that can spawn
         SpawnData.registerSpawn();
 
     }
