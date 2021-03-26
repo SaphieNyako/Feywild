@@ -23,6 +23,21 @@ public class ModEntityTypes {
     .size(1,1)
     .build(new ResourceLocation(FeywildMod.MOD_ID + "spring_pixie").toString()));
 
+    public static final RegistryObject<EntityType<AutumnPixieEntity>> AUTUMN_PIXIE = Registration.ENTITIES.register("autumn_pixie",
+            () -> EntityType.Builder.create(AutumnPixieEntity::new, EntityClassification.CREATURE)
+                    .size(1,1)
+                    .build(new ResourceLocation(FeywildMod.MOD_ID + "autumn_pixie").toString()));
+
+    public static final RegistryObject<EntityType<SummerPixieEntity>> SUMMER_PIXIE = Registration.ENTITIES.register("summer_pixie",
+            () -> EntityType.Builder.create(SummerPixieEntity::new, EntityClassification.CREATURE)
+                    .size(1,1)
+                    .build(new ResourceLocation(FeywildMod.MOD_ID + "summer_pixie").toString()));
+
+    public static final RegistryObject<EntityType<WinterPixieEntity>> WINTER_PIXIE = Registration.ENTITIES.register("winter_pixie",
+            () -> EntityType.Builder.create(WinterPixieEntity::new, EntityClassification.CREATURE)
+                    .size(1,1)
+                    .build(new ResourceLocation(FeywildMod.MOD_ID + "winter_pixie").toString()));
+
     public static void register() {}
 
 

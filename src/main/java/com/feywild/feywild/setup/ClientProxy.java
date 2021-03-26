@@ -4,7 +4,10 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.render.AutumnPixieRenderer;
 import com.feywild.feywild.entity.render.SpringPixieRenderer;
+import com.feywild.feywild.entity.render.SummerPixieRenderer;
+import com.feywild.feywild.entity.render.WinterPixieRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -38,6 +41,15 @@ public class ClientProxy implements IProxy{
         //Solved...still not called....
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPRING_PIXIE.get(),
                 SpringPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AUTUMN_PIXIE.get(),
+                AutumnPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SUMMER_PIXIE.get(),
+               SummerPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WINTER_PIXIE.get(),
+                WinterPixieRenderer::new);
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
                FeyAltarRenderer::new);

@@ -17,13 +17,9 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -39,9 +35,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -98,11 +91,7 @@ public class FeywildMod
 
         proxy.init();
 
-        // Ancient's note : switched this to event.enqueueWork to avoid a potential bug
-        event.enqueueWork(() -> {
-                    GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
-        });
-
+        entityQueue(event);
 
         loadConfigs();
 
@@ -179,5 +168,24 @@ public class FeywildMod
             // register a new block here
             LOGGER.info("HELLO from Register Block");
         }
+    }
+
+    private void entityQueue(final FMLCommonSetupEvent event) {
+        // Ancient's note : switched this to event.enqueueWork to avoid a potential bug
+        event.enqueueWork(() -> {
+            GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
+        });
+
+        event.enqueueWork(() -> {
+            GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
+        });
+
+        event.enqueueWork(() -> {
+            GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
+        });
+
+        event.enqueueWork(() -> {
+            GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
+        });
     }
 }
