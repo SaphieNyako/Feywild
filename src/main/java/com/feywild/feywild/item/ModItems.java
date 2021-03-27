@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -69,7 +70,7 @@ public class ModItems {
             Registration.ITEMS.register("fey_sheep_droppings",
                     () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
 
-    /*TOOLS*/
+    /* TOOLS */
 
     public static final RegistryObject<Item> FEY_SHOVEL =
             Registration.ITEMS.register("fey_shovel",
@@ -109,10 +110,31 @@ public class ModItems {
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.FEET, new Item.Properties()
                             .group(FeywildMod.FEYWILD_TAB)));
 
+    /* SPAWN EGGS */
+
+    public static final RegistryObject<ModSpawnEggItem> SPRING_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("spring_pixie_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityTypes.SPRING_PIXIE, 0x99cc99, 0x9966cc,
+                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> AUTUMN_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("autumn_pixie_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityTypes.AUTUMN_PIXIE, 0xcc3333, 0x993333,
+                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> SUMMER_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("summer_pixie_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityTypes.SUMMER_PIXIE, 0xffcc00, 0xff6633,
+                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<ModSpawnEggItem> WINTER_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("winter_pixie_spawn_egg",
+            () -> new ModSpawnEggItem(ModEntityTypes.WINTER_PIXIE, 0x99ffff, 0x333333,
+                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
 
     //METHODES
 
     public static void register() {}
+
+    private void getSpawnEggs(){
+
+    }
 
     public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.fromStacks(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
