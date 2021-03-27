@@ -8,6 +8,7 @@ import com.feywild.feywild.entity.render.AutumnPixieRenderer;
 import com.feywild.feywild.entity.render.SpringPixieRenderer;
 import com.feywild.feywild.entity.render.SummerPixieRenderer;
 import com.feywild.feywild.entity.render.WinterPixieRenderer;
+import com.feywild.feywild.item.ModSpawnEggItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -50,6 +51,8 @@ public class ClientProxy implements IProxy{
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WINTER_PIXIE.get(),
                 WinterPixieRenderer::new);
+
+        ModSpawnEggItem.initSpawnEggs();
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
                FeyAltarRenderer::new);

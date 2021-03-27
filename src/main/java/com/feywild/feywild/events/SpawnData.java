@@ -7,25 +7,43 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID)
 public class SpawnData {
+
 
 
     //Spawn entities on biome load
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event)
     {
-        Biome.Climate biomeName = event.getClimate();
-        addSpawn(event,biomeName, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE,10, 1, 1);
-        addSpawn(event,biomeName, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE,10, 1, 1);
+        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
+
+        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
+                && !types.contains(BiomeDictionary.Type.OCEAN)) {
+
+            Biome.Climate biomeName = event.getClimate();
+
+            addSpawn(event, biomeName, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE, 10, 1, 1);
+            addSpawn(event, biomeName, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE, 10, 1, 1);
+            addSpawn(event, biomeName, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE, 10, 1, 1);
+            addSpawn(event, biomeName, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE, 10, 1, 1);
+        }
     }
 
     // check for climate and add
@@ -35,12 +53,18 @@ public class SpawnData {
             MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }
+
         if(type.equals(ModEntityTypes.AUTUMN_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
             MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }
 
         if(type.equals(ModEntityTypes.SUMMER_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
+            MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
+            event.getSpawns().getSpawner(classification).add(spawnInfo);
+        }
+
+        if(type.equals(ModEntityTypes.WINTER_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
             MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }
@@ -56,6 +80,9 @@ public class SpawnData {
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
 
         EntitySpawnPlacementRegistry.register(ModEntityTypes.SUMMER_PIXIE.get(),
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
+
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.WINTER_PIXIE.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
     }
 }

@@ -22,6 +22,15 @@
   "block.feywild.fey_gem_block": "Fey Gem Block",
   "block.feywild.fey_altar" : "Fey Altar",
 
+  "enity.feywild.spring_pixie" : "Spring Pixie",
+  "enity.feywild.summer_pixie" : "Summer Pixie",
+  "enity.feywild.autumn_pixie" : "Autumn Pixie",
+  "enity.feywild.winter_pixie" : "Winter Pixie",
+  "item.feywild.spring_pixie_spawn_egg" : "Spring Pixie Spawn Egg",
+  "item.feywild.summer_pixie_spawn_egg" : "Summer Pixie Spawn Egg",
+  "item.feywild.autumn_pixie_spawn_egg" : "Autumn Pixie Spawn Egg",
+  "item.feywild.winter_pixie_spawn_egg" : "Winter Pixie Spawn Egg",
+
   "itemGroup.feywildTab": "Feywild Items",
 
   "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of magic and fey.\nWhat's that now? You say you havent seen a single fairy? Oh, that's not so strange at all, they are a bit shy after all', especially around newcomers. But... I have to admit I havent been pranked by them in a while now.\nMaybe something is the matter after all?\n",
