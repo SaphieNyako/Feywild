@@ -1,0 +1,40 @@
+{
+  "pixie_ambient": {
+    "category" : "entity",
+    "subtitle" : "pixie_ambient",
+    "sounds" : [
+      {
+        "name" : "feywild:pixie_ambient",
+        "stream" : true
+
+      }
+
+    ]
+  },
+
+  "pixie_hurt": {
+    "category" : "entity",
+    "subtitle" : "pixie_hurt",
+    "sounds" : [
+      {
+        "name" : "feywild:pixie_hurt",
+        "stream" : true
+
+      }
+
+    ]
+  },
+
+  "pixie_death": {
+    "category" : "entity",
+    "subtitle" : "pixie_death",
+    "sounds" : [
+      {
+        "name" : "feywild:pixie_death",
+        "stream" : true
+
+      }
+
+    ]
+  }
+}

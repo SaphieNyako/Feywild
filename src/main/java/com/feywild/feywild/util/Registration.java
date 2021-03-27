@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,6 +28,9 @@ public class Registration {
     public static final DeferredRegister<EntityType<?>> ENTITIES
             = DeferredRegister.create(ForgeRegistries.ENTITIES, FeywildMod.MOD_ID);
 
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS
+            = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.MOD_ID);
+
 
     public static void init()
     {
@@ -35,6 +39,7 @@ public class Registration {
         ITEMS.register(eventBus);
         TILE_ENTITY_TYPES.register(eventBus);
         ENTITIES.register(eventBus);
+        SOUND_EVENTS.register(eventBus);
 
     }
 

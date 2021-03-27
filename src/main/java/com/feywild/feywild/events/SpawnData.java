@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -26,11 +27,11 @@ import java.util.Set;
 public class SpawnData {
 
 
-
     //Spawn entities on biome load
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event)
     {
+
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
@@ -38,6 +39,7 @@ public class SpawnData {
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
 
             Biome.Climate biomeName = event.getClimate();
+
 
             addSpawn(event, biomeName, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE, 10, 1, 1);
             addSpawn(event, biomeName, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE, 10, 1, 1);
@@ -54,17 +56,17 @@ public class SpawnData {
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }
 
-        if(type.equals(ModEntityTypes.AUTUMN_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
+        if(type.equals(ModEntityTypes.AUTUMN_PIXIE.get()) && (climate.temperature >=0.7 || climate.temperature <=0.8f)) {
             MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }
 
-        if(type.equals(ModEntityTypes.SUMMER_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
+        if(type.equals(ModEntityTypes.SUMMER_PIXIE.get()) && (climate.temperature >=0.8)) {
             MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }
 
-        if(type.equals(ModEntityTypes.WINTER_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
+        if(type.equals(ModEntityTypes.WINTER_PIXIE.get()) && (climate.temperature <=0.0)) {
             MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
             event.getSpawns().getSpawner(classification).add(spawnInfo);
         }

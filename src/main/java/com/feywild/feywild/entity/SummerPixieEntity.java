@@ -35,44 +35,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
         this.ignoreFrustumCheck = true;
     }
 
-    //Attributes (could be moved in FeyEntities)
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .createMutableAttribute(Attributes.MAX_HEALTH, 12.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35D)
-                .createMutableAttribute(Attributes.LUCK, 0.2D);
-    }
-
-
-    /* SOUND EFFECTS */
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_FOX_HURT;
-    }
-
-
-    //Ancient's note : we can keep them but adjust the pitch
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        //Implement other Sound
-        return SoundEvents.ENTITY_FOX_DEATH;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        //Implement other Sound
-        return SoundEvents.ENTITY_FOX_AMBIENT;
-    }
-
-    //Pitch
-    @Override
-    protected float getSoundPitch() {
-        return 1.4f;
-    }
 
     /* GOALS */
     @Override

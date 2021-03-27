@@ -2,26 +2,24 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MoverType;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class FeyEntity extends CreatureEntity {
@@ -45,7 +43,7 @@ public class FeyEntity extends CreatureEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(4, new FeyMoveGoal(this, 8,0.009));
+        this.goalSelector.addGoal(4, new FeyMoveGoal(this, 8,0.01));
         this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
     }
 
@@ -76,6 +74,54 @@ public class FeyEntity extends CreatureEntity {
         return false;
     }
 
+
+    //Attributes (could be moved in FeyEntities)
+    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
+                .createMutableAttribute(Attributes.MAX_HEALTH, 12.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35D)
+                .createMutableAttribute(Attributes.LUCK, 0.2D);
+    }
+
+
+    /* SOUND EFFECTS */
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+
+        return ModSoundEvents.PIXIE_HURT.get();
+    }
+
+
+    //Ancient's note : we can keep them but adjust the pitch
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        //Implement other Sound
+        return ModSoundEvents.PIXIE_DEATH.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        //Implement other Sound
+        return ModSoundEvents.PIXIE_AMBIENT.get();
+    }
+
+    @Override
+    protected float getSoundPitch() {
+        return 1.0f;
+    }
+
+    @Override
+    protected float getSoundVolume ()
+    {
+        return 0.6F;
+    }
+
+
+    /* CLASS */
     //Added a custom walk goal for the fey
     public class FeyMoveGoal extends Goal {
         private Vector3d targetPos;
@@ -132,5 +178,7 @@ public class FeyEntity extends CreatureEntity {
         }
 
     }
+
+
 
 }

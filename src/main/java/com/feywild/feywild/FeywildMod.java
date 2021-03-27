@@ -1,6 +1,7 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.entity.FeyEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.events.ModEvents;
@@ -11,6 +12,7 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.Block;
@@ -129,6 +131,8 @@ public class FeywildMod
         //Recipes register
         ModRecipes.register();
 
+        ModSoundEvents.register();
+
         // Entities register
         ModEntityTypes.register();
     }
@@ -173,19 +177,10 @@ public class FeywildMod
     private void entityQueue(final FMLCommonSetupEvent event) {
         // Ancient's note : switched this to event.enqueueWork to avoid a potential bug
         event.enqueueWork(() -> {
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
-        });
-
-        event.enqueueWork(() -> {
-            GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
-        });
-
-        event.enqueueWork(() -> {
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
-        });
-
-        event.enqueueWork(() -> {
-            GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), SpringPixieEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), FeyEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().create());
         });
     }
 }
