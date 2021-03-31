@@ -35,7 +35,7 @@ public class SpawnData {
     {
 
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        HashSet<BiomeDictionary.Type> types = (HashSet<Type>) BiomeDictionary.getTypes(key);
+        Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
@@ -117,7 +117,7 @@ public class SpawnData {
     }
 
 
-//ist consisting of elements from: |SAVANNA, CONIFEROUS, JUNGLE, SPOOKY, DEAD, LUSH,
+//list consisting of elements from: |SAVANNA, CONIFEROUS, JUNGLE, SPOOKY, DEAD, LUSH,
 // NETHER, END, MUSHROOM, MAGICAL, RARE, OCEAN, RIVER, WATER, MESA, FOREST, PLAINS,
 // MOUNTAIN, HILLS, SWAMP, SANDY, SNOWY, WASTELAND, BEACH, VOID
 

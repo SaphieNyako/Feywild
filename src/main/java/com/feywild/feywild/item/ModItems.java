@@ -132,9 +132,6 @@ public class ModItems {
 
     public static void register() {}
 
-    private void getSpawnEggs(){
-
-    }
 
     public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.fromStacks(new ItemStack(ModItems.GREATER_FEY_GEM.get())));

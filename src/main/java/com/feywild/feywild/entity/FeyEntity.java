@@ -184,7 +184,4 @@ public class FeyEntity extends CreatureEntity {
         }
 
     }
-
-
-
 }

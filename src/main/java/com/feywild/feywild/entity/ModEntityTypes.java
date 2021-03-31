@@ -42,7 +42,10 @@ public class ModEntityTypes {
 
 
     /* CUSTOM CONDITIONS */
-    public static boolean spawnFey(EntityType<? extends Entity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK);
+    public static boolean spawnFey(EntityType<? extends FeyEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+
+        return worldIn.getBlockState(pos.down()).isIn(Blocks.DIRT) ||
+               worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) ||
+               worldIn.getBlockState(pos.down()).isIn(Blocks.SAND);
     }
 }
