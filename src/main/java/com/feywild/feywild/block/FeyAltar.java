@@ -14,13 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -54,6 +52,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class FeyAltar extends Block {
+Random random = new Random();
 
      //Constructor
     public FeyAltar() {
@@ -101,8 +100,13 @@ public class FeyAltar extends Block {
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBlockHarvested(worldIn, pos, state, player);
-        if(worldIn.getTileEntity(pos) instanceof FeyAltarBlockEntity && !worldIn.isRemote()) {
+        if(worldIn.isRemote){
+            worldIn.playSound(player,pos, SoundEvents.BLOCK_STONE_BREAK,SoundCategory.BLOCKS,1,1);
+            for (int i = 0; i < 20; i++) {
+                worldIn.addParticle(ParticleTypes.POOF, pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+ 0.5, (random.nextDouble() - 0.5 )/10,(random.nextDouble() - 0.5 )/10,(random.nextDouble() - 0.5 )/10);
+            }
+        }else
+        if(worldIn.getTileEntity(pos) instanceof FeyAltarBlockEntity) {
             ItemEntity entity;
             for (ItemStack stack:((FeyAltarBlockEntity) Objects.requireNonNull(worldIn.getTileEntity(pos))).getItems()) {
                 entity = new ItemEntity( worldIn,pos.getX(),pos.getY(),pos.getZ(),stack);

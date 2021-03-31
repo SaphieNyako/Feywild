@@ -1,7 +1,6 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -35,6 +34,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         this.ignoreFrustumCheck = true;
 
     }
+
 
     /* GOALS */
     @Override

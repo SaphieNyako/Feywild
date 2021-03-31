@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -43,7 +42,7 @@ public class FeyEntity extends CreatureEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(4, new FeyMoveGoal(this, 8,0.01));
+        this.goalSelector.addGoal(4, new FeyMoveGoal(this, 6,0.01));
         this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
     }
 
@@ -132,7 +131,7 @@ public class FeyEntity extends CreatureEntity {
     public class FeyMoveGoal extends Goal {
         private Vector3d targetPos;
         private CreatureEntity entity;
-        private int range, counter;
+        private int range, followPlayer, counter;
         private double speed;
         public FeyMoveGoal(CreatureEntity entity, int range, double speed){
             this.entity = entity;
@@ -158,25 +157,30 @@ public class FeyEntity extends CreatureEntity {
             super.tick();
 
             if (!world.isRemote && follow == null) {
-                if (entity.getPosition().withinDistance(targetPos, 3)) {
+                if (entity.getPosition().withinDistance(targetPos, 1)) {
+                    counter = 0;
                     do {
                         targetPos = new Vector3d(entity.getPosX() - range + random.nextInt(range * 2), entity.getPosY() - range + random.nextInt(range * 2), entity.getPosZ() - range + random.nextInt(range * 2));
                     } while (!world.getBlockState(new BlockPos(targetPos.getX(), targetPos.getY(), targetPos.getZ())).isAir());
-                } else if (!world.isRemote) {
+                } else {
+                    if(counter > 10){
+                        targetPos = entity.getPositionVec();
+                    }
+                    counter++;
                     entity.setMotion((targetPos.getX() - entity.getPosX()) * speed, (targetPos.getY() - entity.getPosY()) * speed, (targetPos.getZ() - entity.getPosZ()) * speed);
                     entity.lookAt(EntityAnchorArgument.Type.EYES, targetPos);
                 }
-            }else if (!world.isRemote && counter >= 0){
+            }else if (!world.isRemote && followPlayer >= 0){
                 followPlayer();
-                counter--;
+                followPlayer--;
             }
         }
 
         // follow the player
         private void followPlayer() {
             targetPos = new Vector3d(follow.getPosX(), follow.getPosY() + 1, follow.getPosZ());
-            if (counter == 0) {
-                counter = 400;
+            if (followPlayer == 0) {
+                followPlayer = 400;
                 follow = null;
             }
             entity.setMotion((targetPos.getX() - entity.getPosX()) * speed * 10, (targetPos.getY() - entity.getPosY()) * speed * 10, (targetPos.getZ() - entity.getPosZ()) * speed * 10);

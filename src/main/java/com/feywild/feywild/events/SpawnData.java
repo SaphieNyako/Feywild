@@ -33,7 +33,6 @@ public class SpawnData {
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event)
     {
-
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
@@ -42,33 +41,28 @@ public class SpawnData {
 
             for (String biomeName : biomeSpring)
                 if (types.contains(Type.getType(biomeName))) {
-                    System.out.println(biomeName);
                     addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
                 }
 
             for (String biomeName : biomeSummer) {
                 if (types.contains(Type.getType(biomeName))) {
-                    System.out.println(biomeName);
                     addSpawn(event, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
                 }
             }
 
             for (String biomeName : biomeAutumn) {
                 if (types.contains(Type.getType(biomeName))) {
-                    System.out.println(biomeName);
                     addSpawn(event, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
                 }
             }
 
             for (String biomeName : biomeWinter) {
                 if (types.contains(Type.getType(biomeName))) {
-                    System.out.println(biomeName);
                     addSpawn(event, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
                 }
             }
         }
     }
-
 
     private static void addSpawn(BiomeLoadingEvent event, EntityType<? extends Entity> type, EntityClassification classification,int weight, int min, int max)
     {
