@@ -85,6 +85,12 @@ public class FeyEntity extends CreatureEntity {
     }
 
 
+    @Override
+    public boolean preventDespawn() {
+        return true;
+    }
+
+
     /* SOUND EFFECTS */
     @Nullable
     @Override
