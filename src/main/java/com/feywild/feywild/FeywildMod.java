@@ -15,10 +15,13 @@ import com.feywild.feywild.setup.ServerProxy;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
+import com.sun.jna.platform.win32.WinNT;
 import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -128,9 +131,6 @@ public class FeywildMod
         //register Mod event!
         MinecraftForge.EVENT_BUS.register(new ModEvents());
 
-        //Recipes register
-        ModRecipes.register();
-
         ModSoundEvents.register();
 
         // Entities register
@@ -171,6 +171,11 @@ public class FeywildMod
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
+        }
+
+        @SubscribeEvent
+        public static void register(final RegistryEvent.Register<Item> event) {
+            ModRecipes.register();
         }
     }
 

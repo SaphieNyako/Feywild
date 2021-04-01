@@ -27,7 +27,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
 
     /* CONSTRUCTOR */
-    protected SpringPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+    public SpringPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
 
         super(type, worldIn);
         //Geckolib check

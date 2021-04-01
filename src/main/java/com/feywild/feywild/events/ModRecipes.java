@@ -1,6 +1,7 @@
 package com.feywild.feywild.events;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.item.ModItems;
 import com.google.common.collect.Lists;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,7 @@ public class ModRecipes{
     //register recipes
     public static void register() {
         addAltarRecipe(new ItemStack(Items.DIAMOND), Arrays.asList(new ItemStack(Items.STONE), ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY));
+        addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.RED_MUSHROOM), new ItemStack(Items.CHARCOAL), new ItemStack(Items.FEATHER), new ItemStack(Items.POISONOUS_POTATO)));
     }
 
 

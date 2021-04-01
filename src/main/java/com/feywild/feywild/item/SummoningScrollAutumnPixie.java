@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.AutumnPixieEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.util.KeyboardHelper;
@@ -19,8 +20,8 @@ import java.util.List;
 
 public class SummoningScrollAutumnPixie extends Item {
 
-    public SummoningScrollAutumnPixie(Properties properties) {
-        super(properties);
+    public SummoningScrollAutumnPixie() {
+        super(new Item.Properties().group(FeywildMod.FEYWILD_TAB));
     }
 
 
@@ -28,7 +29,7 @@ public class SummoningScrollAutumnPixie extends Item {
     public ActionResultType onItemUse(ItemUseContext context) {
         if(!context.getWorld().isRemote){
             AutumnPixieEntity entity = new AutumnPixieEntity(ModEntityTypes.AUTUMN_PIXIE.get(),context.getWorld());
-            entity.setPosition(context.getHitVec().getX(), context.getHitVec().getY()+1, context.getHitVec().getZ());
+            entity.setPosition(context.getHitVec().getX(), context.getHitVec().getY(), context.getHitVec().getZ());
             context.getWorld().addEntity(entity);
             context.getPlayer().getHeldItem(context.getHand()).shrink(1);
         }

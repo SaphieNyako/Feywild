@@ -123,19 +123,19 @@ public class ModItems {
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
             Registration.ITEMS.register("summoning_scroll_spring_pixie",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    SummoningScrollSpringPixie::new);
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_summer_pixie",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                   SummoningScrollSummerPixie::new);
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE =
             Registration.ITEMS.register("summoning_scroll_autumn_pixie",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    SummoningScrollAutumnPixie::new);
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_winter_pixie",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    SummoningScrollWinterPixie::new);
 
 
     /* SPAWN EGGS

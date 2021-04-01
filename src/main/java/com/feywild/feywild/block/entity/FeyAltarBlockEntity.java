@@ -109,6 +109,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             }
             Collections.sort(items);
             Collections.sort(recipe);
+            System.out.println(items + "\n"+ recipe);
             if(items.equals(recipe)) {
                 world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.15,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks).copy()));
                 FeywildPacketHandler.sendToPlayersInRange(world,pos,new ParticleMessage(pos.getX()+0.5,pos.getY()+1.2,pos.getZ()+0.5,-4,-2,-4,10),32);

@@ -1,6 +1,7 @@
 package com.feywild.feywild.util;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.events.ModRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -40,7 +41,6 @@ public class Registration {
         ENTITIES.register(eventBus);
         ITEMS.register(eventBus);
         SOUND_EVENTS.register(eventBus);
-
 
     }
 

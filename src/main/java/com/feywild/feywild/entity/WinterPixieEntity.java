@@ -28,7 +28,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
 
     /* CONSTRUCTOR */
-    protected WinterPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+    public WinterPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
 
         //Geckolib check
