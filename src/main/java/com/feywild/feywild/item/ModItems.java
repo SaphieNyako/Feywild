@@ -3,6 +3,7 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -13,14 +14,22 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.feywild.feywild.entity.ModEntityTypes.*;
+
 public class ModItems {
 
     //GEMS
+
 
     public static final RegistryObject<Item> LESSER_FEY_GEM =
             Registration.ITEMS.register("lesser_fey_gem",
@@ -110,7 +119,25 @@ public class ModItems {
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.FEET, new Item.Properties()
                             .group(FeywildMod.FEYWILD_TAB)));
 
-    /* SPAWN EGGS */
+    /* SUMMONING SCROLLS */
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
+            Registration.ITEMS.register("summoning_scroll_spring_pixie",
+                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE =
+            Registration.ITEMS.register("summoning_scroll_summer_pixie",
+                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE =
+            Registration.ITEMS.register("summoning_scroll_autumn_pixie",
+                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_PIXIE =
+            Registration.ITEMS.register("summoning_scroll_winter_pixie",
+                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+    /* SPAWN EGGS
 
     public static final RegistryObject<ModSpawnEggItem> SPRING_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("spring_pixie_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityTypes.SPRING_PIXIE, 0x99cc99, 0x9966cc,
@@ -124,16 +151,19 @@ public class ModItems {
             () -> new ModSpawnEggItem(ModEntityTypes.SUMMER_PIXIE, 0xffcc00, 0xff6633,
                     new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
 
+
     public static final RegistryObject<ModSpawnEggItem> WINTER_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("winter_pixie_spawn_egg",
             () -> new ModSpawnEggItem(ModEntityTypes.WINTER_PIXIE, 0x99ffff, 0x333333,
                     new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+     */
 
     //METHODES
 
     public static void register() {}
 
 
-    public enum ModItemTier implements IItemTier {
+        public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.fromStacks(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
 
         private final int maxUses;
