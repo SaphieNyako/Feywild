@@ -96,13 +96,13 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
     @Override
     protected float getSoundPitch() {
-        return 0.7f;
+        return 0.6f;
     }
 
     @Override
     protected float getSoundVolume ()
     {
-        return 0.6F;
+        return 0.5F;
     }
 
 

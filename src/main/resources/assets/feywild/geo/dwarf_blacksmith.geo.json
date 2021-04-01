@@ -12,24 +12,6 @@
 			},
 			"bones": [
 				{
-					"name": "bb_main",
-					"pivot": [0, 0, 0],
-					"cubes": [
-						{
-							"origin": [-8, -1, 7],
-							"size": [1, 15, 1],
-							"uv": {
-								"north": {"uv": [8, 0], "uv_size": [1, 16]},
-								"east": {"uv": [9, 0], "uv_size": [1, 16]},
-								"south": {"uv": [0, 10], "uv_size": [1, 16]},
-								"west": {"uv": [10, 0], "uv_size": [1, 16]},
-								"up": {"uv": [5, 10], "uv_size": [1, 1]},
-								"down": {"uv": [6, 11], "uv_size": [1, -1]}
-							}
-						}
-					]
-				},
-				{
 					"name": "dwarf",
 					"pivot": [-1.875, 0, -2.5],
 					"rotation": [0, 90, 0]
