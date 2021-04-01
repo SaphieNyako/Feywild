@@ -38,6 +38,11 @@ public class ModEntityTypes {
                     .size(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "winter_pixie").toString()));
 
+    public static final RegistryObject<EntityType<DwarfBlacksmithEntity>> DWARF_BLACKSMITH = Registration.ENTITIES.register("dwarf_blacksmith",
+            () -> EntityType.Builder.create(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
+                    .size(1,1)
+                    .build(new ResourceLocation(FeywildMod.MOD_ID + "dwarf_blacksmith").toString()));
+
     public static void register() {}
 
 

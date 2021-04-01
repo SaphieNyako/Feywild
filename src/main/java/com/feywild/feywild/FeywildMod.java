@@ -181,6 +181,7 @@ public class FeywildMod
             GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), FeyEntity.setCustomAttributes().create());
         });
     }
 }
