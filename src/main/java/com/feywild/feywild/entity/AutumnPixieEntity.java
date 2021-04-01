@@ -28,7 +28,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
     private AnimationFactory factory = new AnimationFactory(this);
 
     /* CONSTRUCTOR */
-    protected AutumnPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
+    public AutumnPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
         this.ignoreFrustumCheck = true;

@@ -1,9 +1,16 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.AutumnPixieEntity;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -15,6 +22,19 @@ public class SummoningScrollAutumnPixie extends Item {
     public SummoningScrollAutumnPixie(Properties properties) {
         super(properties);
     }
+
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        if(!context.getWorld().isRemote){
+            AutumnPixieEntity entity = new AutumnPixieEntity(ModEntityTypes.AUTUMN_PIXIE.get(),context.getWorld());
+            entity.setPosition(context.getHitVec().getX(), context.getHitVec().getY()+1, context.getHitVec().getZ());
+            context.getWorld().addEntity(entity);
+            context.getPlayer().getHeldItem(context.getHand()).shrink(1);
+        }
+        return ActionResultType.SUCCESS;
+    }
+
 
     @Override
     public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){

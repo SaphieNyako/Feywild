@@ -30,10 +30,8 @@ public class ModBlocks {
                     .hardnessAndResistance(3f,10f)
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)), true);
 
-    public static final RegistryObject<Block> DWARVEN_ANVIL = register ("dwarven_anvil",
-            ()-> new Block(AbstractBlock.Properties.create(Material.ANVIL)
-            .hardnessAndResistance(3f,10f)
-            .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.ANVIL)), true);
+    // passing a new instance of the class DwarvenAnvil instead of creating a new block instance here
+    public static final RegistryObject<Block> DWARVEN_ANVIL = register ("dwarven_anvil", DwarvenAnvil::new, true);
 
 
 

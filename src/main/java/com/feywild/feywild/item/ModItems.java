@@ -119,7 +119,7 @@ public class ModItems {
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.FEET, new Item.Properties()
                             .group(FeywildMod.FEYWILD_TAB)));
 
-    /* SUMMONING SCROLLS */
+    /* SUMMONING SCROLL */
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
             Registration.ITEMS.register("summoning_scroll_spring_pixie",
@@ -136,6 +136,7 @@ public class ModItems {
     public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_winter_pixie",
                     () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
 
     /* SPAWN EGGS
 
