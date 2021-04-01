@@ -30,19 +30,22 @@ public class ModBlocks {
                     .hardnessAndResistance(3f,10f)
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)), true);
 
+    public static final RegistryObject<Block> DWARVEN_ANVIL = register ("dwarven_anvil",
+            ()-> new Block(AbstractBlock.Properties.create(Material.ANVIL)
+            .hardnessAndResistance(3f,10f)
+            .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.ANVIL)), true);
+
+
+
     public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new, true);
-    //Properties in Fey Altar
+    //Properties in FeyAltar
 
     public static final RegistryObject<TileEntityType<FeyAltarBlockEntity>> FEY_ALTAR_ENTITY = registerTile("fey_altar_entity",
             () ->TileEntityType.Builder.create(FeyAltarBlockEntity::new, FEY_ALTAR.get()).build(null));
 
-
     public static final RegistryObject<Block> MANDRAKE_CROP=
             Registration.BLOCKS.register("mandrake_crop",
                     () -> new MandrakeCrop(AbstractBlock.Properties.from(Blocks.WHEAT)));
-
-
-
 
 
     public static void register() {}

@@ -41,6 +41,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     Random random = new Random();
     //Items
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
+
     public FeyAltarBlockEntity() {
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
     }
