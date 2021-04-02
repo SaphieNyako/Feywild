@@ -100,10 +100,10 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     //frequency sensitive
     public void craft(){
         List<String> recipe = new LinkedList<>(), items = new LinkedList<>();
+        for(ItemStack stack: stackList){
+            items.add(stack.copy().toString());
+        }
         ModRecipes.getAltarRecipes().keySet().forEach(itemStacks -> {
-            for(ItemStack stack: stackList){
-                items.add(stack.copy().toString());
-            }
             for(ItemStack stack: itemStacks){
                 recipe.add(stack.copy().toString());
             }
@@ -115,7 +115,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
                 FeywildPacketHandler.sendToPlayersInRange(world,pos,new ParticleMessage(pos.getX()+0.5,pos.getY()+1.2,pos.getZ()+0.5,-4,-2,-4,10),32);
                 clear();
             }
-
+            recipe.clear();
         });
     }
 

@@ -24,8 +24,12 @@ public class ModRecipes{
 
     //register recipes
     public static void register() {
-        addAltarRecipe(new ItemStack(Items.DIAMOND), Arrays.asList(new ItemStack(Items.STONE), ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY));
-        addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.RED_MUSHROOM), new ItemStack(Items.CHARCOAL), new ItemStack(Items.FEATHER), new ItemStack(Items.POISONOUS_POTATO)));
+        //Scroll recipes
+        addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.RED_MUSHROOM), new ItemStack(Items.COAL), new ItemStack(Items.FEATHER), new ItemStack(Items.SWEET_BERRIES)));
+        addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.OAK_SAPLING), new ItemStack(Items.LILY_OF_THE_VALLEY), new ItemStack(Items.BONE_MEAL), new ItemStack(Items.EGG)));
+        addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.CHARCOAL), new ItemStack(Items.SUNFLOWER), new ItemStack(Items.GOLD_INGOT)));
+        addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.SNOWBALL), new ItemStack(Items.QUARTZ), new ItemStack(Items.STRING), new ItemStack(Items.IRON_INGOT)));
+
     }
 
 
