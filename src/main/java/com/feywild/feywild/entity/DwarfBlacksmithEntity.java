@@ -109,11 +109,11 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     /* Animation */
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        //Crash is fix when playing animation
-
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-
-        return PlayState.CONTINUE;
+        if(event.isMoving()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
+            return PlayState.CONTINUE;
+        }
+        return  PlayState.STOP;
     }
 
     @Override

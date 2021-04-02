@@ -90,7 +90,6 @@ public class FeyEntity extends CreatureEntity {
                 .createMutableAttribute(Attributes.LUCK, 0.2D);
     }
 
-
     @Override
     public boolean preventDespawn() {
         return true;
@@ -174,9 +173,15 @@ public class FeyEntity extends CreatureEntity {
                         this.targetPos =this.entity.getPositionVec();
                     }
                     counter++;
-                    this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed, (this.targetPos.getY() - this.entity.getPosY()) * speed, (this.targetPos.getZ() - this.entity.getPosZ()) * speed);
-                    this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
-                }
+                    if(this.entity.getLastDamageSource() != null){
+                        this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed * 10, (this.targetPos.getY() - this.entity.getPosY()) * speed* 10, (this.targetPos.getZ() - this.entity.getPosZ()) * speed* 10);
+                        this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+
+                    }else{
+                        this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed, (this.targetPos.getY() - this.entity.getPosY()) * speed, (this.targetPos.getZ() - this.entity.getPosZ()) * speed);
+                        this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+                    }
+               }
             }else if (!world.isRemote && followPlayer >= 0){
                 followPlayer();
                 this.followPlayer--;
