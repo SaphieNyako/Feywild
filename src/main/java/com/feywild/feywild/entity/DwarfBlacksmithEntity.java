@@ -65,7 +65,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
         if(player.getEntityWorld().isRemote) return ActionResultType.SUCCESS;
 
-        if(level >= 6){
+        if(level >= 6 && trades.size() < 3){
             boolean worked = true;
             do{
                 worked = addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
