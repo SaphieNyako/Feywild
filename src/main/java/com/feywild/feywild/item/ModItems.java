@@ -132,10 +132,10 @@ public class ModItems {
     public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE =
             Registration.ITEMS.register("summoning_scroll_autumn_pixie",
                     SummoningScrollAutumnPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_winter_pixie",
                     SummoningScrollWinterPixie::new);
+
 
 
     /* SPAWN EGGS

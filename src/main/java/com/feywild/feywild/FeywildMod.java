@@ -8,6 +8,7 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.misc.DwarfTrades;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
@@ -92,6 +93,7 @@ public class FeywildMod
     //Methodes
     private void setup(final FMLCommonSetupEvent event)
     {
+        DwarfTrades.registerTrades();
         registerConfigs();
 
         proxy.init();
