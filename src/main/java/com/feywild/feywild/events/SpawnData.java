@@ -3,6 +3,7 @@ package com.feywild.feywild.events;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.SpringPixieEntity;
+import com.feywild.feywild.util.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -24,10 +25,14 @@ import java.util.*;
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID)
 public class SpawnData {
 
-    public static String[] biomeSpring = new String[]{"MAGICAL", "RIVER", "FOREST", "PLAINS"};
-    public static String[] biomeSummer = new String[]{"LUSH", "MAGICAL", "HOT"};
-    public static String[] biomeAutumn = new String[]{"SWAMP", "MUSHROOM", "MAGICAL", "SPOOKY", "FOREST"};
-    public static String[] biomeWinter = new String[]{"DEAD", "MAGICAL", "SNOWY", "COLD"};
+    public static List<BiomeDictionary.Type> biomeSpring = Config.SPRING_PIXIE_CONFIG.getBiomes();
+    //public static String[] biomeSpring = new String[]{"MAGICAL", "RIVER", "FOREST", "PLAINS"};
+    public static List<BiomeDictionary.Type> biomeSummer = Config.SUMMER_PIXIE_CONFIG.getBiomes();
+    //public static String[] biomeSummer = new String[]{"LUSH", "MAGICAL", "HOT"};
+    public static List<BiomeDictionary.Type> biomeAutumn = Config.AUTUMN_PIXIE_CONFIG.getBiomes();
+    //public static String[] biomeAutumn = new String[]{"SWAMP", "MUSHROOM", "MAGICAL", "SPOOKY", "FOREST"};
+    public static List<BiomeDictionary.Type> biomeWinter = Config.WINTER_PIXIE_CONFIG.getBiomes();
+    //public static String[] biomeWinter = new String[]{"DEAD", "MAGICAL", "SNOWY", "COLD"};
 
     //Spawn entities on biome load
     @SubscribeEvent
@@ -39,26 +44,31 @@ public class SpawnData {
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
 
-            for (String biomeName : biomeSpring)
-                if (types.contains(Type.getType(biomeName))) {
-                    addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
+            for (BiomeDictionary.Type biomeName : biomeSpring) { //if (types.contains(Type.getType(biomeName))) {
+                if (types.contains(biomeName)) {
+                    addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE,
+                            Config.SPRING_PIXIE_CONFIG.getWeight(), Config.SPRING_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
+                    }
                 }
 
-            for (String biomeName : biomeSummer) {
-                if (types.contains(Type.getType(biomeName))) {
-                    addSpawn(event, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
-                }
-            }
-
-            for (String biomeName : biomeAutumn) {
-                if (types.contains(Type.getType(biomeName))) {
-                    addSpawn(event, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
+            for (BiomeDictionary.Type biomeName : biomeSummer) {
+                if (types.contains(biomeName)) {
+                    addSpawn(event, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE,
+                            Config.SUMMER_PIXIE_CONFIG.getWeight(), Config.SUMMER_PIXIE_CONFIG.getMin(),Config.SUMMER_PIXIE_CONFIG.getMax());
                 }
             }
 
-            for (String biomeName : biomeWinter) {
-                if (types.contains(Type.getType(biomeName))) {
-                    addSpawn(event, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE, 40, 1, 1);
+            for (BiomeDictionary.Type biomeName : biomeAutumn) {
+                if (types.contains(biomeName)) {
+                    addSpawn(event, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE,
+                            Config.AUTUMN_PIXIE_CONFIG.getWeight(),Config.AUTUMN_PIXIE_CONFIG.getMin(),Config.AUTUMN_PIXIE_CONFIG.getMax());
+                }
+            }
+
+            for (BiomeDictionary.Type biomeName : biomeWinter) {
+                if (types.contains(biomeName)) {
+                    addSpawn(event, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE,
+                            Config.WINTER_PIXIE_CONFIG.getWeight(),Config.WINTER_PIXIE_CONFIG.getMin(), Config.WINTER_PIXIE_CONFIG.getMax());
                 }
             }
         }
@@ -115,5 +125,6 @@ public class SpawnData {
 // NETHER, END, MUSHROOM, MAGICAL, RARE, OCEAN, RIVER, WATER, MESA, FOREST, PLAINS,
 // MOUNTAIN, HILLS, SWAMP, SANDY, SNOWY, WASTELAND, BEACH, VOID
 
-
 }
+
+
