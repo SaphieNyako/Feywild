@@ -5,6 +5,7 @@ import com.feywild.feywild.misc.DwarfTrades;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.mojang.brigadier.LiteralMessage;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
@@ -17,8 +18,10 @@ import net.minecraft.item.MerchantOffers;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.pathfinding.GroundPathNavigator;
+import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -34,10 +37,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -143,7 +143,8 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.8f,8));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.8f,false));
-
+        this.goalSelector.addGoal(3, new MoveTowardsRestrictionGoal(this,0.4D));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
     }
 
     @Override
