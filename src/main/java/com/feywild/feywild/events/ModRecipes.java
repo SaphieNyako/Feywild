@@ -30,6 +30,7 @@ public class ModRecipes{
         addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.CHARCOAL), new ItemStack(Items.SUNFLOWER), new ItemStack(Items.GOLD_INGOT)));
         addAltarRecipe(new ItemStack(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get()), Arrays.asList(new ItemStack(ModItems.FEY_DUST.get()),new ItemStack(Items.SNOWBALL), new ItemStack(Items.QUARTZ), new ItemStack(Items.STRING), new ItemStack(Items.IRON_INGOT)));
 
+
     }
 
 
