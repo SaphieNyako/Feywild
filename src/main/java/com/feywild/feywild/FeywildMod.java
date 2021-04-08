@@ -39,6 +39,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.compat.PatchouliCompat;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.stream.Collectors;
 

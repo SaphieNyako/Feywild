@@ -1,0 +1,17 @@
+{
+  "name": "Winter Pixie",
+  "icon": "minecraft:writable_book",
+  "category": "pixies",
+  "pages": [
+    {
+      "type": "text",
+      "text": "They may seem cold and sullen at a first glance, but they will warm up to anyone who is willing to help the Feywild to its harshest most deadly period. Winter fey tend to be softspoken, slightly morbid and never choose their words without thinking about them. They seem to be a bit on the awkward side when it comes to social dealings, and some of them prefer the company of the dead."
+    },
+    {
+      "type": "image",
+      "title": "Winter Pixie",
+      "images": ["feywild:textures/patchouli_images/winter_pixie_book.png"],
+      "border": true
+    }
+  ]
+}
