@@ -1,0 +1,11 @@
+{
+  "name": "Feywild Lexicon",
+  "landing_text": "\"Ancient scholars and theorists believe that the Feywild was born from the manifested dreams of the natural world. A dream bore endless paradise and splendid nightmares.\"",
+  "version": 1,
+  "model": "feywild:feywild_lexicon",
+  "book_texture": "patchouli:textures/gui/book_purple.png",
+  "nameplate_color": "66ccff",
+  "progress_bar_color": "66ccff",
+  "creative_tab": "feywildTab",
+  "dont_generate_book ": "true"
+}

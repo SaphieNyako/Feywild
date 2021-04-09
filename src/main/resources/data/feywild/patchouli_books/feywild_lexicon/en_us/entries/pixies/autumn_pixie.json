@@ -1,0 +1,17 @@
+{
+  "name": "Autumn Pixie",
+  "icon": "minecraft:writable_book",
+  "category": "pixies",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Autumn Court is the most mature of the four Fey Courts, their age and wisdom has given them a appreciation of fine art, music and poetry. They rather spend a night listening to song, dancing and flirting then going to combat or mindlessly indulging themselves."
+    },
+    {
+      "type": "image",
+      "title": "Autumn Pixie",
+      "images": ["feywild:textures/patchouli_images/autumn_pixie_book.png"],
+      "border": true
+    }
+  ]
+}

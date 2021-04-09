@@ -30,7 +30,6 @@ public class ModItems {
 
     //GEMS
 
-
     public static final RegistryObject<Item> LESSER_FEY_GEM =
             Registration.ITEMS.register("lesser_fey_gem",
                     () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
@@ -46,6 +45,12 @@ public class ModItems {
     public static final RegistryObject<Item> BRILLIANT_FEY_GEM =
             Registration.ITEMS.register("brilliant_fey_gem",
                     () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+
+
+    //BOOK
+    public static final RegistryObject<Item> FEYWILD_LEXICON =
+            Registration.ITEMS.register("feywild_lexicon",
+                    () -> new Item(new Item.Properties()));
 
     //FOOD ITEMS
     public static final RegistryObject<Item> FEY_DUST =
