@@ -79,7 +79,8 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         if(player.getHeldItem(hand).isEmpty()){
             player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
             trades.keySet().forEach(itemStack -> {
-                player.sendStatusMessage(new TranslationTextComponent("").appendString("- "+ itemStack.getCount() + " " + itemStack.getItem().getName().getString() + "=> " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getName().getString()), false);
+                player.sendStatusMessage(new TranslationTextComponent("").appendString("You give me "+ itemStack.getCount()
+                        + " " + itemStack.getItem().getName().getString() + " and I'll trade you " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getName().getString() + "."), false);
             });
         }else{
             trades.keySet().forEach(itemStack -> {
@@ -148,7 +149,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.8f,8));
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f,15));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.8f,false));
         this.goalSelector.addGoal(3, new MoveTowardsRestrictionGoal(this,0.4D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
@@ -185,7 +186,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
                 .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.1D);
     }
 
     @Override

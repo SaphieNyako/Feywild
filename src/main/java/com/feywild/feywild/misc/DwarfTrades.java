@@ -1,5 +1,7 @@
 package com.feywild.feywild.misc;
 
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.Item;
@@ -22,6 +24,9 @@ public class DwarfTrades {
         addTrade(new ItemStack(Items.COAL,32), new ItemStack(Items.DIAMOND));
         addTrade(new ItemStack(Items.IRON_ORE,3), new ItemStack(Items.IRON_INGOT,5));
         addTrade(new ItemStack(Items.REDSTONE,16), new ItemStack(Items.LAPIS_LAZULI, 4));
+        addTrade(new ItemStack(Items.IRON_ORE, 10), new ItemStack(ModItems.LESSER_FEY_GEM.get(), 2));
+        addTrade(new ItemStack(Items.GOLD_ORE, 7), new ItemStack(ModItems.GREATER_FEY_GEM.get(), 1));
+        addTrade(new ItemStack(Items.GOLD_ORE,3), new ItemStack(Items.GOLD_INGOT,5));
 
     }
 
