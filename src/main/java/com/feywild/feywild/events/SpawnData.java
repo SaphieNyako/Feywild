@@ -1,6 +1,7 @@
 package com.feywild.feywild.events;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.util.Config;
@@ -39,37 +40,40 @@ public class SpawnData {
     public static void spawnEntities(BiomeLoadingEvent event)
     {
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
+        Set<Type> types = BiomeDictionary.getTypes(key);
 
-        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
-                && !types.contains(BiomeDictionary.Type.OCEAN)) {
+        if (!types.contains(Type.NETHER) && !types.contains(Type.END)
+                && !types.contains(Type.OCEAN)) {
 
-            for (BiomeDictionary.Type biomeName : biomeSpring) { //if (types.contains(Type.getType(biomeName))) {
+            for (Type biomeName : biomeSpring) { //if (types.contains(Type.getType(biomeName))) {
                 if (types.contains(biomeName)) {
                     addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE,
                             Config.SPRING_PIXIE_CONFIG.getWeight(), Config.SPRING_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
                     }
                 }
 
-            for (BiomeDictionary.Type biomeName : biomeSummer) {
+            for (Type biomeName : biomeSummer) {
                 if (types.contains(biomeName)) {
                     addSpawn(event, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE,
                             Config.SUMMER_PIXIE_CONFIG.getWeight(), Config.SUMMER_PIXIE_CONFIG.getMin(),Config.SUMMER_PIXIE_CONFIG.getMax());
                 }
             }
 
-            for (BiomeDictionary.Type biomeName : biomeAutumn) {
+            for (Type biomeName : biomeAutumn) {
                 if (types.contains(biomeName)) {
                     addSpawn(event, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE,
                             Config.AUTUMN_PIXIE_CONFIG.getWeight(),Config.AUTUMN_PIXIE_CONFIG.getMin(),Config.AUTUMN_PIXIE_CONFIG.getMax());
                 }
             }
 
-            for (BiomeDictionary.Type biomeName : biomeWinter) {
+            for (Type biomeName : biomeWinter) {
                 if (types.contains(biomeName)) {
                     addSpawn(event, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE,
                             Config.WINTER_PIXIE_CONFIG.getWeight(),Config.WINTER_PIXIE_CONFIG.getMin(), Config.WINTER_PIXIE_CONFIG.getMax());
                 }
+            }
+            for(Type biomeName : Type.getAll()){
+                addSpawn(event,ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER,Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
             }
         }
     }
@@ -118,6 +122,9 @@ public class SpawnData {
 
         EntitySpawnPlacementRegistry.register(ModEntityTypes.WINTER_PIXIE.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
+
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.DWARF_BLACKSMITH.get(),
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnDwarf);
     }
 
 

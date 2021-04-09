@@ -4,8 +4,10 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.event.RegistryEvent;
@@ -52,5 +54,9 @@ public class ModEntityTypes {
         return worldIn.getBlockState(pos.down()).isIn(Blocks.DIRT) ||
                worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) ||
                worldIn.getBlockState(pos.down()).isIn(Blocks.SAND);
+    }
+
+    public static boolean spawnDwarf(EntityType<? extends DwarfBlacksmithEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
+        return !worldIn.canSeeSky(pos) && pos.getY() < 64 && random.nextDouble() > 0.85;
     }
 }

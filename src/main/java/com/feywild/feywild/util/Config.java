@@ -29,6 +29,7 @@ public class Config {
     public static MobConfig SUMMER_PIXIE_CONFIG;
     public static MobConfig AUTUMN_PIXIE_CONFIG;
     public static MobConfig WINTER_PIXIE_CONFIG;
+    public static MobConfig DWARF_CONFIG;
 
     static {
 
@@ -62,11 +63,13 @@ public class Config {
                 Arrays.asList("SWAMP", "MUSHROOM", "MAGICAL", "SPOOKY", "FOREST"));
         WINTER_PIXIE_CONFIG = new MobConfig("Winter Pixie", 40,1,1,
                 Arrays.asList("DEAD", "MAGICAL", "SNOWY", "COLD"));
+        DWARF_CONFIG = new MobConfig("Dwarf", 1,1,3,Arrays.asList("ALL"));
 
         SPRING_PIXIE_CONFIG.apply(CLIENT_BUILDER);
         SUMMER_PIXIE_CONFIG.apply(CLIENT_BUILDER);
         AUTUMN_PIXIE_CONFIG.apply(CLIENT_BUILDER);
         WINTER_PIXIE_CONFIG.apply(CLIENT_BUILDER);
+        DWARF_CONFIG.apply(CLIENT_BUILDER);
 
     }
 

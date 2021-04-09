@@ -11,6 +11,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MerchantOffer;
@@ -27,6 +28,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -137,6 +139,11 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         }
     }
 
+    @Override
+    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn) {
+        return super.canSpawn(worldIn, spawnReasonIn) && !this.world.canSeeSky(this.getPosition()) && this.getPosition().getY() < 64;
+    }
+
     /* GOALS */
     @Override
     protected void registerGoals() {
@@ -146,6 +153,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         this.goalSelector.addGoal(3, new MoveTowardsRestrictionGoal(this,0.4D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
     }
+
 
     @Override
     protected void updateMovementGoalFlags()
@@ -226,9 +234,10 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     {
         if(event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-            return PlayState.CONTINUE;
+        }else{
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
         }
-        return  PlayState.STOP;
+        return PlayState.CONTINUE;
     }
 
     @Override
@@ -241,5 +250,13 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public AnimationFactory getFactory() {
 
         return this.factory;
+    }
+
+    public static boolean canSpawn(EntityType<DwarfBlacksmithEntity> dwarfBlacksmithEntityEntityType, IServerWorld iServerWorld, SpawnReason spawnReason, BlockPos pos, Random random) {
+        if (pos.getY() >= iServerWorld.getSeaLevel()) {
+            return false;
+        } else {
+            return canSpawnOn(dwarfBlacksmithEntityEntityType, iServerWorld, spawnReason, pos, random);
+        }
     }
 }
