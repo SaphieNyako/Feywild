@@ -66,7 +66,7 @@ public class FeyEntity extends CreatureEntity {
     // on interact with cookie
     @Override
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
-        if(!world.isRemote && player.getHeldItem(hand).isItemEqual(new ItemStack(Items.COOKIE))){
+        if(!world.isRemote && player.getHeldItem(hand).isItemEqual(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null){
             this.follow = player;
             heal(4f);
             player.getHeldItem(hand).shrink(1);
@@ -164,20 +164,24 @@ public class FeyEntity extends CreatureEntity {
 
             if (!world.isRemote && follow == null) {
                 if (this.entity.getPosition().withinDistance(this.targetPos, 1)) {
+                    //Find position to go to
                     counter = 0;
                     do {
                         this.targetPos = new Vector3d(entity.getPosX() - range + random.nextInt(range * 2), entity.getPosY() - range + random.nextInt(range * 2), entity.getPosZ() - range + random.nextInt(range * 2));
                     } while (!world.getBlockState(new BlockPos(this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ())).isAir());
                 } else {
+                    // Reset desired position in case timer runs out
                     if(counter > 100){
                         this.targetPos =this.entity.getPositionVec();
                     }
                     counter++;
+                    //Damaged Check
                     if(this.entity.getLastDamageSource() != null){
                         this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed * 10, (this.targetPos.getY() - this.entity.getPosY()) * speed* 10, (this.targetPos.getZ() - this.entity.getPosZ()) * speed* 10);
                         this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
 
                     }else{
+                        // move to pos
                         this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed, (this.targetPos.getY() - this.entity.getPosY()) * speed, (this.targetPos.getZ() - this.entity.getPosZ()) * speed);
                         this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
                     }
@@ -190,6 +194,11 @@ public class FeyEntity extends CreatureEntity {
 
         // follow the player
         private void followPlayer() {
+            if(this.entity.getLastDamageSource() != null){
+                followPlayer = 400;
+                follow = null;
+                return;
+            }
             this.targetPos = new Vector3d(follow.getPosX(), follow.getPosY() + 1, follow.getPosZ());
             if (this.followPlayer == 0) {
                 this.followPlayer = 400;

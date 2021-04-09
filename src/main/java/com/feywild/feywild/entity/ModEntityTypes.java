@@ -57,6 +57,6 @@ public class ModEntityTypes {
     }
 
     public static boolean spawnDwarf(EntityType<? extends DwarfBlacksmithEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return !worldIn.canSeeSky(pos) && pos.getY() < 64 && random.nextDouble() > 0.85;
+        return !worldIn.canSeeSky(pos) && pos.getY() < worldIn.getSeaLevel() -10 && random.nextDouble() > 0.85;
     }
 }
