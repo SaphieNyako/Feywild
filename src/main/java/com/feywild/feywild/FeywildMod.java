@@ -10,6 +10,7 @@ import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.misc.DwarfTrades;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
@@ -22,6 +23,9 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -108,7 +112,6 @@ public class FeywildMod
 
         //register entities that can spawn
         SpawnData.registerSpawn();
-
     }
 
     private void registerConfigs(){
@@ -139,6 +142,7 @@ public class FeywildMod
 
         // Entities register
         ModEntityTypes.register();
+
     }
 
 

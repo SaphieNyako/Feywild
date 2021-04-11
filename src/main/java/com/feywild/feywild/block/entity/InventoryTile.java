@@ -4,6 +4,7 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ItemMessage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -14,7 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class InventoryTile extends TileEntity implements IInventory {
+public abstract class InventoryTile extends TileEntity implements IInventory {
+
     public InventoryTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
@@ -38,7 +40,6 @@ public class InventoryTile extends TileEntity implements IInventory {
         }
         return false;
     }
-
     //get stack
     @Override
     public ItemStack getStackInSlot(int index) {

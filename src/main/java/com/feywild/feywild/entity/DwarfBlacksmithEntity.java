@@ -2,6 +2,8 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.misc.DwarfTrades;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.mojang.brigadier.LiteralMessage;
 import net.minecraft.entity.*;
@@ -68,6 +70,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         if(player.getEntityWorld().isRemote) return ActionResultType.SUCCESS;
 
         if(level >= 6 && trades.size() < 3){
+            FeywildPacketHandler.sendToPlayersInRange(world,getPosition(),new ParticleMessage(getPosition().getX()+0.5,getPosition().getY()+1.2,getPosition().getZ()+0.5,-4,-2,-4,10,3),32);
             boolean worked = true;
             do{
                 worked = addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
