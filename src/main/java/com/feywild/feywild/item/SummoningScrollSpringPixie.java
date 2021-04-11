@@ -20,6 +20,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.pipeline.BlockInfo;
 
@@ -48,10 +49,11 @@ public class SummoningScrollSpringPixie extends Item {
 
         if(KeyboardHelper.isHoldingShift()){
 
-            tooltip.add(new StringTextComponent("A summoning scroll for a Spring Pixie"));
+            tooltip.add(new TranslationTextComponent("message.feywild.spring_pixie"));
         }
         else {
-            tooltip.add(new StringTextComponent("Hold "+ "\u00A7e" + "SHIFT" + "\u00A77" + " for more information."));
+            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
+
         }
 
         super.addInformation(stack, world, tooltip, flag);

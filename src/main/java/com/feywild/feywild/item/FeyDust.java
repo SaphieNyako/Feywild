@@ -18,6 +18,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -33,10 +34,14 @@ public class FeyDust extends Item {
 
         if(KeyboardHelper.isHoldingShift()){
 
-            tooltip.add(new StringTextComponent("Think happy thoughts!"));
+            tooltip.add(new TranslationTextComponent("message.feywild.fey_dust"));
+
         }
         else {
-            tooltip.add(new StringTextComponent("Hold "+ "\u00A7e" + "SHIFT" + "\u00A77" + " for more information."));
+
+
+            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
+            //tooltip.add(new StringTextComponent("Hold "+ "\u00A7e" + "SHIFT" + "\u00A77" + " for more information."));
         }
 
         super.addInformation(stack, world, tooltip, flag);
@@ -53,7 +58,7 @@ public class FeyDust extends Item {
             //Check number of uses
             switch (count) {
                 case 1:
-                    playerIn.sendStatusMessage(new StringTextComponent("You hear giggling."), true);
+                    playerIn.sendStatusMessage(new TranslationTextComponent("message.feywild.fey_dust_giggling"), true);
                     break;
                 case 2:
                     //Special sheep stuff
