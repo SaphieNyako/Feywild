@@ -12,6 +12,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -38,10 +39,11 @@ public class SummoningScrollWinterPixie extends Item {
 
         if(KeyboardHelper.isHoldingShift()){
 
-            tooltip.add(new StringTextComponent("A summoning scroll for a Winter Pixie"));
+            tooltip.add(new TranslationTextComponent("message.feywild.winter_pixie"));
         }
         else {
-            tooltip.add(new StringTextComponent("Hold "+ "\u00A7e" + "SHIFT" + "\u00A77" + " for more information."));
+            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
+
         }
 
         super.addInformation(stack, world, tooltip, flag);
