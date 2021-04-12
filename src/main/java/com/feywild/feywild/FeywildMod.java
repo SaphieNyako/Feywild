@@ -1,5 +1,6 @@
 package com.feywild.feywild;
 
+
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.FeyEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -75,6 +76,7 @@ public class FeywildMod
         //prio 1
         GeckoLib.initialize();
 
+        //Setup ClientProxy and ServerProxy
         proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
         // Register the setup method for modloading
@@ -139,6 +141,8 @@ public class FeywildMod
 
         // Entities register
         ModEntityTypes.register();
+
+
     }
 
 

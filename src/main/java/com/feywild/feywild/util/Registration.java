@@ -2,6 +2,8 @@ package com.feywild.feywild.util;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.ModRecipes;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;

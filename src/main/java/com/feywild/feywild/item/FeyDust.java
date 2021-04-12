@@ -4,11 +4,14 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.mojang.brigadier.Command;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.command.FunctionObject;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -52,6 +55,7 @@ public class FeyDust extends Item {
     @Override
     public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         if (target instanceof SheepEntity) {
+
             //Get number of uses from item stack data
             int count = playerIn.getHeldItem(hand).getOrCreateTag().getInt("uses");
 
@@ -67,15 +71,24 @@ public class FeyDust extends Item {
                     playerIn.getHeldItem(hand).getOrCreateTag().putInt("uses", 0);
                     stack.shrink(1);
                     return ActionResultType.SUCCESS;
+
             }
             //Sheep levitation and item logic
             target.addPotionEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
             playerIn.getHeldItem(hand).getOrCreateTag().putInt("uses", ++count);
             stack.shrink(1);
+
+
         } else {
             //General levitation and item logic
             target.addPotionEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
             stack.shrink(1);
+
+            /* CALL CRITERIA
+            if (playerIn instanceof ServerPlayerEntity) {
+                ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) playerIn;
+                CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayerEntity, playerIn.getHeldItem(hand));
+            } */
         }
 
         //Tell player to move hand while using item
