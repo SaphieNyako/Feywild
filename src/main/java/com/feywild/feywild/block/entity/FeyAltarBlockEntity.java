@@ -1,28 +1,17 @@
 package com.feywild.feywild.block.entity;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ItemMessage;
 import com.feywild.feywild.network.ParticleMessage;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import net.minecraft.block.BlockRenderType;
+import com.feywild.feywild.recipes.IAltarRecipe;
+import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.items.ItemStackHandler;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -31,8 +20,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
 
@@ -94,7 +83,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             limit = random.nextInt(20*6);
             if(random.nextDouble() > 0.5) {
                 // send packet to player to summon particles
-                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1), 32);
+                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1,2), 32);
             }
             count = 0;
         }
@@ -102,24 +91,24 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     //frequency sensitive
     public void craft(){
-        List<String> recipe = new LinkedList<>(), items = new LinkedList<>();
-        for(ItemStack stack: stackList){
-            items.add(stack.copy().toString());
+        AtomicReference<IAltarRecipe> recipe = new AtomicReference<>();
+
+        Inventory inv = new Inventory();
+        for(ItemStack itemStack : getItems()) {
+            inv.addItem(itemStack);
         }
-        ModRecipes.getAltarRecipes().keySet().forEach(itemStacks -> {
-            for(ItemStack stack: itemStacks){
-                recipe.add(stack.copy().toString());
-            }
-            Collections.sort(items);
-            Collections.sort(recipe);
-            System.out.println(items + "\n"+ recipe);
-            if(items.equals(recipe)) {
-                world.addEntity(new ItemEntity(world,pos.getX()+0.5,pos.getY()+1.15,pos.getZ()+0.5,ModRecipes.getAltarRecipes().get(itemStacks).copy()));
-                FeywildPacketHandler.sendToPlayersInRange(world,pos,new ParticleMessage(pos.getX()+0.5,pos.getY()+1.2,pos.getZ()+0.5,-4,-2,-4,10),32);
-                clear();
-            }
-            recipe.clear();
-        });
+
+        Optional<IAltarRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.ALTAR_RECIPE, inv, world);
+
+        maybeRecipe.ifPresent(recipe::set);
+        System.out.println("IS recipe present: " + recipe.get());
+        if(recipe.get() != null){
+            ItemStack output = recipe.get().getCraftingResult(inv);
+            ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+            FeywildPacketHandler.sendToPlayersInRange(world,pos,new ParticleMessage(pos.getX()+0.5,pos.getY()+1.2,pos.getZ()+0.5,-4,-2,-4,10,2),32);
+            world.addEntity(outputItem);
+            clear();
+        }
     }
 
     @Override
@@ -153,5 +142,4 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     public AnimationFactory getFactory() {
         return factory;
     }
-
 }

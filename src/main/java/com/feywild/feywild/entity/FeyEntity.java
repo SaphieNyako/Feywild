@@ -19,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -39,7 +40,6 @@ public class FeyEntity extends CreatureEntity  {
     /* THIS IS A TEMPLATE FOR THE FEY , ALL CODE THAT SHOULD BE SHARED BETWEEN THEM WILL BE PLACED HERE */
 
     protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
-
         super(type, worldIn);
     }
 
@@ -59,7 +59,6 @@ public class FeyEntity extends CreatureEntity  {
         super.registerGoals();
         this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(6, new FeyMoveGoal(this, 6,0.01));
-        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
     }
 
     @Override
@@ -79,7 +78,7 @@ public class FeyEntity extends CreatureEntity  {
             this.follow = player;
             heal(4f);
             player.getHeldItem(hand).shrink(1);
-            FeywildPacketHandler.sendToPlayersInRange(world,this.getPosition(), new ParticleMessage(this.getPosX(),this.getPosY(),this.getPosZ(),0,0,0,5),32);
+            FeywildPacketHandler.sendToPlayersInRange(world,this.getPosition(), new ParticleMessage(this.getPosX(),this.getPosY(),this.getPosZ(),0,0,0,5,1),32);
         }
         return ActionResultType.SUCCESS;
     }
@@ -222,7 +221,7 @@ public class FeyEntity extends CreatureEntity  {
                 follow = null;
             }
             entity.setMotion((this.targetPos.getX() - entity.getPosX()) * speed * 10, (this.targetPos.getY() - entity.getPosY()) * speed * 10, (this.targetPos.getZ() - entity.getPosZ()) * speed * 10);
-            entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+            this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         }
 
     }
