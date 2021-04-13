@@ -4,8 +4,6 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.mojang.brigadier.Command;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.command.FunctionObject;
 import net.minecraft.entity.LivingEntity;

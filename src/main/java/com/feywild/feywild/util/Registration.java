@@ -2,11 +2,9 @@ package com.feywild.feywild.util;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.ModRecipes;
-import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,8 +32,6 @@ public class Registration {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS
             = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.MOD_ID);
 
-    public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZER
-            = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FeywildMod.MOD_ID);
 
     public static void init()
     {
@@ -45,8 +41,7 @@ public class Registration {
         ENTITIES.register(eventBus);
         ITEMS.register(eventBus);
         SOUND_EVENTS.register(eventBus);
-        RECIPE_SERIALIZER.register(eventBus);
-        ModRecipeTypes.registerRecipes();
+
     }
 
 
