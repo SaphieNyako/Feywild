@@ -23,6 +23,7 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -75,7 +76,6 @@ public class FeywildMod
 
     //Constructor
     public FeywildMod() {
-
         //prio 1
         GeckoLib.initialize();
 
@@ -88,11 +88,12 @@ public class FeywildMod
         // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
 
-        //prio 2
         registerModAdditions();
+        //prio 2
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
     }
 
 
@@ -127,7 +128,6 @@ public class FeywildMod
     }
 
     private void registerModAdditions(){
-
         //Inits the registration of our additions
         Registration.init();
 

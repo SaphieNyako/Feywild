@@ -1,17 +1,26 @@
 package com.feywild.feywild.block.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.recipes.AltarRecipe;
+import com.feywild.feywild.recipes.FeywildRecipes;
 import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -19,8 +28,10 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.shadowed.fasterxml.jackson.databind.annotation.JsonAppend;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
@@ -29,7 +40,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     private boolean shouldLoad = true;
     private int count = 0, limit;
-
+    Inventory inv = new Inventory(5);
     Random random = new Random();
     //Items
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
@@ -60,11 +71,11 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     }
 
     @Override
-    public void updateInventory(int flags) {
-        if(flags != -1) {
+    public void updateInventory(int flags, boolean shouldCraft) {
+        if(shouldCraft) {
             craft();
-        }else
-        super.updateInventory(flags);
+        }
+        super.updateInventory(flags,false);
     }
 
     //gets called every tick
@@ -75,7 +86,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         if(shouldLoad){
             // initialize limit and loop through all items to sync them with the client
             limit = random.nextInt(20*6);
-            updateInventory(-1);
+            updateInventory(-1, false);
             shouldLoad = true;
         }
         //summon particles randomly (did this here bc for some reason random ticks are killing me today)
@@ -89,26 +100,23 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         }
     }
 
-    //frequency sensitive
     public void craft(){
-        AtomicReference<IAltarRecipe> recipe = new AtomicReference<>();
-
-        Inventory inv = new Inventory();
-        for(ItemStack itemStack : getItems()) {
-            inv.addItem(itemStack);
+       inv.clear();
+        for(int i = 0; i < getItems().size(); i++){
+            inv.setInventorySlotContents(i, getItems().get(i));
         }
 
-        Optional<IAltarRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.ALTAR_RECIPE, inv, world);
+       Optional<AltarRecipe> recipe = world.getRecipeManager().getRecipe(ModRecipeTypes.ALTAR_RECIPE, inv, world);
 
-        maybeRecipe.ifPresent(recipe::set);
-        System.out.println("IS recipe present: " + recipe.get());
-        if(recipe.get() != null){
-            ItemStack output = recipe.get().getCraftingResult(inv);
-            ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-            FeywildPacketHandler.sendToPlayersInRange(world,pos,new ParticleMessage(pos.getX()+0.5,pos.getY()+1.2,pos.getZ()+0.5,-4,-2,-4,10,2),32);
-            world.addEntity(outputItem);
-            clear();
-        }
+       recipe.ifPresent(iRecipe -> {
+           ItemStack output = iRecipe.getRecipeOutput();
+           ItemEntity entity = new ItemEntity(world, pos.getX() + 0.5, pos.getY()+1.1, pos.getZ()+0.5, output);
+           world.addEntity(entity);
+           this.clear();
+           FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, -4, -2, -4, 10, 0), 32);
+       });
+
+
     }
 
     @Override

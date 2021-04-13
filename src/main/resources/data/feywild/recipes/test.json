@@ -17,6 +17,7 @@
       "item": "minecraft:stone"
     }
   ],
-  "output": "minecraft:diamond",
-  "count": 2
+  "output":{
+    "item" : "minecraft:diamond"
+  }
 }

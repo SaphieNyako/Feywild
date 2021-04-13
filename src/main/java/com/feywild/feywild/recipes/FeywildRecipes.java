@@ -9,12 +9,10 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,29 +20,24 @@ public class FeywildRecipes {
 
     //Inefficient item match method
     public static boolean matches(List<Ingredient> ingredients, IInventory inv){
-        List<ItemStack> items = new LinkedList<>();
-
-        //Annoying loop added because minecraft's IInventory doesn't have a getItems method
-        for(int i =0; i < inv.getSizeInventory(); i++){
-            items.add(inv.getStackInSlot(i));
+       //Copy the inventory in a separate place just so that I can remove stuff from it
+        List<ItemStack> stacks = new LinkedList<>();
+        for (int j = 0; j < inv.getSizeInventory(); j++) {
+            stacks.add(inv.getStackInSlot(j));
         }
 
-        AtomicInteger progress = new AtomicInteger(0);
-        ingredients.forEach(ingredient -> {
-            //Check if item matches
-            boolean currentItem;
-            for(ItemStack item : items){
-                currentItem = ingredient.test(item);
-                if(currentItem){
-                    progress.set(progress.incrementAndGet());
+        //Item check
+        List<Ingredient> copy = new LinkedList<>(ingredients);
+        for(Ingredient ingredient : ingredients){
+
+            for (ItemStack stack : stacks) {
+                if (!stack.isEmpty()&&ingredient.test(stack)) {
+                    copy.remove(ingredient);
+                    stacks.remove(stack);
                     break;
                 }
             }
-        });
-
-        //DEBUG LINE, PENDING REMOVAL
-        System.out.println(progress.get());
-
-        return progress.get() >= ingredients.size();
+        }
+        return copy.isEmpty();
     }
 }

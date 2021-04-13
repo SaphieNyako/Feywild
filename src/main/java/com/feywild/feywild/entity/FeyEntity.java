@@ -89,7 +89,7 @@ public class FeyEntity extends CreatureEntity  {
     }
 
 
-    //Attributes (could be moved in FeyEntities)
+    //Attributes
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
 
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())

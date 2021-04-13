@@ -93,7 +93,7 @@ Random random = new Random();
                     }
                 }
                 //Format and send item data to client
-               entity.updateInventory(flagStack);
+               entity.updateInventory(flagStack,true);
         }
         return ActionResultType.SUCCESS;
     }

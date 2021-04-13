@@ -1,5 +1,6 @@
 package com.feywild.feywild.recipes;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
@@ -7,33 +8,38 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AltarRecipe implements IAltarRecipe{
     private final ResourceLocation id;
     private final ItemStack output;
-    private final NonNullList<Ingredient> inputs;
+    private final List<Ingredient> inputs;
 
-    public AltarRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs){
-        Preconditions.checkArgument(inputs.length <= 5);
+    public AltarRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputs){
         this.id = id;
         this.output = output;
-        this.inputs = NonNullList.from(Ingredient.EMPTY, inputs);
+        this.inputs = new LinkedList<>();
+        for(int i =0; i< inputs.size(); i ++)
+        this.inputs.add(inputs.get(i));
+        System.out.println(this.inputs.size());
+        System.out.println(inputs.size());
+
     }
+
     @Override
     public boolean matches(IInventory inv, World worldIn) {
         return FeywildRecipes.matches(inputs, inv);
@@ -46,7 +52,7 @@ public class AltarRecipe implements IAltarRecipe{
 
     @Override
     public ItemStack getRecipeOutput() {
-        return getRecipeOutput().copy();
+        return output.copy();
     }
 
     @Override
@@ -56,7 +62,7 @@ public class AltarRecipe implements IAltarRecipe{
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.ALTAR_SERIALIZER;
+        return ModRecipeTypes.ALTAR_SERIALIZER.get();
     }
 
     @Override
@@ -64,11 +70,14 @@ public class AltarRecipe implements IAltarRecipe{
         return new ItemStack(ModBlocks.FEY_ALTAR.get());
     }
 
-    @Nonnull
-    @Override
-    public IRecipeType<?> getType() {
-        return ModRecipeTypes.ALTAR_RECIPE;
+    public static class AltarRecipeType implements IRecipeType<AltarRecipe> {
+
+        @Override
+        public String toString () {
+            return AltarRecipe.TYPE_ID.toString();
+        }
     }
+
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AltarRecipe>{
 
@@ -82,13 +91,13 @@ public class AltarRecipe implements IAltarRecipe{
                 inputs.add(Ingredient.deserialize(jsonElement));
             }
 
-            return new AltarRecipe(recipeId, output, inputs.toArray(new Ingredient[0]));
+            return new AltarRecipe(recipeId, output, inputs);
         }
 
         @Nullable
         @Override
         public AltarRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            Ingredient[] inputs = new Ingredient[buffer.readVarInt()];
+            Ingredient[] inputs = new Ingredient[buffer.readInt()];
 
             for (int i = 0; i < inputs.length; i++) {
                 inputs[i] = Ingredient.read(buffer);
@@ -96,12 +105,12 @@ public class AltarRecipe implements IAltarRecipe{
 
             ItemStack output = buffer.readItemStack();
 
-            return new AltarRecipe(recipeId, output, inputs);
+            return new AltarRecipe(recipeId, output, Arrays.asList(inputs));
         }
 
         @Override
         public void write(PacketBuffer buffer, AltarRecipe recipe) {
-            buffer.writeVarInt(recipe.getIngredients().size());
+            buffer.writeInt(recipe.getIngredients().size());
             for(Ingredient ing : recipe.getIngredients()){
                 ing.write(buffer);
             }
