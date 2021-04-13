@@ -3,8 +3,11 @@ package com.feywild.feywild.block.trees;
 import com.feywild.feywild.FeywildMod;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.loot.conditions.BlockStateProperty;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -13,25 +16,42 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
+import java.util.function.ToIntFunction;
 
 public class SpringTreeLeaves extends LeavesBlock
 {
-    private static final int maxDistance = 15;
+    //private static final int maxDistance = 15;
 
-    public static final IntegerProperty DISTANCE = IntegerProperty.create("more_distance", 0, maxDistance);
+    //public static final IntegerProperty DISTANCE = IntegerProperty.create("more_distance", 0, maxDistance);
+   // public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent_leaves");
 
     public SpringTreeLeaves() {
-        super(AbstractBlock.Properties.create(Material.WOOD).hardnessAndResistance(3f,10f).harvestTool(ToolType.AXE).setRequiresTool().sound(SoundType.WOOD));
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(DISTANCE, Integer.valueOf(maxDistance))
-                .with(PERSISTENT, Boolean.valueOf(false)));
+        super((Block.Properties.create(Material.LEAVES)
+                .hardnessAndResistance(0.2F)
+                .tickRandomly()
+                .sound(SoundType.PLANT)
+                .harvestTool(ToolType.HOE)
+                .notSolid()
+                .setAllowsSpawn((s, r, p, t) -> false)
+                .setSuffocates((s, r, p) -> false)
+                .setBlocksVision((s, r, p) -> false)));
+
+        /* this.setDefaultState(this.stateContainer.getBaseState()
+                .with(DISTANCE, Integer.valueOf(0))
+                .with(PERSISTENT, Boolean.valueOf(false))); */
     }
 
+
+
+    /*
     public boolean ticksRandomly(BlockState state) {
         return state.get(DISTANCE) == maxDistance && !state.get(PERSISTENT);
     }
 
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+
+        updateDistance(state,worldIn,pos);
+
         if (!state.get(PERSISTENT) && state.get(DISTANCE) == maxDistance) {
             spawnDrops(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
@@ -39,7 +59,9 @@ public class SpringTreeLeaves extends LeavesBlock
     }
 
     private static BlockState updateDistance(BlockState state, IWorld worldIn, BlockPos pos) {
+
         int i = maxDistance;
+
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
         for(Direction direction : Direction.values()) {
@@ -62,6 +84,8 @@ public class SpringTreeLeaves extends LeavesBlock
     }
 
     protected void fillStateContainer(StateContainer.Builder builder) {
+
         builder.add(DISTANCE);
-    }
+        builder.add(PERSISTENT);
+    } */
 }

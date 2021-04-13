@@ -41,10 +41,11 @@ public class ModBlocks {
     /* TREES */
 
     public static final RegistryObject<Block> FEY_TREE_LOG = register("fey_tree_log",
-    ()-> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_WOOD)), true);
+    ()-> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> SPRING_TREE_LEAVES = register("spring_tree_leaves",
-            SpringTreeLeaves::new, true);
+            SpringTreeLeaves::new,true);
+
 
     public static final RegistryObject<Block> SPRING_TREE_SAPLING = register("spring_tree_sapling",
             ()-> new SpringTreeSapling(
@@ -56,6 +57,7 @@ public class ModBlocks {
     private static <T extends Block>RegistryObject<T> register(String name, Supplier<T> block, boolean createItem){
 
         RegistryObject<T> toReturn = Registration.BLOCKS.register(name,block);
+
         if(createItem)
         Registration.ITEMS.register(name, ()-> new BlockItem(toReturn.get(),
                 new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
