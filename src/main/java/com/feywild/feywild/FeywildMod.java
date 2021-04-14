@@ -5,7 +5,6 @@ import com.feywild.feywild.entity.FeyEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.events.ModEvents;
-import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.misc.DwarfTrades;
@@ -179,11 +178,6 @@ public class FeywildMod
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
-        }
-
-        @SubscribeEvent
-        public static void register(final RegistryEvent.Register<Item> event) {
-            ModRecipes.register();
         }
     }
 

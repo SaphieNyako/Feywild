@@ -40,7 +40,6 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     private boolean shouldLoad = true;
     private int count = 0, limit;
-    Inventory inv = new Inventory(5);
     Random random = new Random();
     //Items
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
@@ -49,24 +48,23 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
     }
 
-
     //Read data on world init
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
-        for(int i =0; i < getSizeInventory(); i++){
-            stackList.set(i,ItemStack.read((CompoundNBT) nbt.get("stacks")));
-        }
         super.read(state, nbt);
+        for(int i =0; i < getSizeInventory(); i++){
+            stackList.set(i,ItemStack.read((CompoundNBT) nbt.get("stack" + i)));
+        }
     }
 
     //Save data on world close
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        CompoundNBT compoundNBT = new CompoundNBT();
-        for (int i = 0; i < getSizeInventory(); i++) {
-            stackList.get(i).write(compoundNBT);
+        for (int i = 0; i < getItems().size(); i++) {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            stackList.get(i).copy().write(compoundNBT);
+            compound.put("stack" + i, compoundNBT);
         }
-        compound.put("stacks",compoundNBT);
         return super.write(compound);
     }
 
@@ -74,8 +72,9 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     public void updateInventory(int flags, boolean shouldCraft) {
         if(shouldCraft) {
             craft();
+        }else {
+            super.updateInventory(flags, false);
         }
-        super.updateInventory(flags,false);
     }
 
     //gets called every tick
@@ -101,7 +100,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     }
 
     public void craft(){
-       inv.clear();
+        Inventory inv = new Inventory(5);
         for(int i = 0; i < getItems().size(); i++){
             inv.setInventorySlotContents(i, getItems().get(i));
         }
@@ -112,7 +111,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
            ItemStack output = iRecipe.getRecipeOutput();
            ItemEntity entity = new ItemEntity(world, pos.getX() + 0.5, pos.getY()+1.1, pos.getZ()+0.5, output);
            world.addEntity(entity);
-           this.clear();
+           clear();
            FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, -4, -2, -4, 10, 0), 32);
        });
 
