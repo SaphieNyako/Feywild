@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "feywild:block/fey_tree_log_top",
+    "side": "feywild:block/winter_tree_log"
+  }
+}

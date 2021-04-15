@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "feywild:spring_tree_leaves"
+    "feywild:spring_tree_leaves",
+    "feywild:winter_tree_leaves"
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/winter_tree_leaves"
+      },
+      {
+        "model": "feywild:block/winter_tree_leaves_02"
+      }
+    ]
+  }
+}

@@ -2,9 +2,10 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
-import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.block.trees.SpringTreeLeaves;
 import com.feywild.feywild.block.trees.SpringTreeSapling;
+import com.feywild.feywild.block.trees.WinterTreeLeaves;
+import com.feywild.feywild.block.trees.WinterTreeSapling;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -41,15 +42,24 @@ public class ModBlocks {
     /* TREES */
 
     public static final RegistryObject<Block> FEY_TREE_LOG = register("fey_tree_log",
-    ()-> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
+        ()-> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> SPRING_TREE_LEAVES = register("spring_tree_leaves",
             SpringTreeLeaves::new,true);
 
 
     public static final RegistryObject<Block> SPRING_TREE_SAPLING = register("spring_tree_sapling",
-            ()-> new SpringTreeSapling(
-                    () -> new SpringTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)), true);
+            SpringTreeSapling::new, true);
+
+    public static final RegistryObject<Block> WINTER_TREE_LOG = register("winter_tree_log",
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
+
+    public static final RegistryObject<Block> WINTER_TREE_LEAVES = register("winter_tree_leaves",
+            WinterTreeLeaves::new,true);
+
+
+    public static final RegistryObject<Block> WINTER_TREE_SAPLING = register("winter_tree_sapling",
+            WinterTreeSapling::new, true);
 
 
     public static void register() {}

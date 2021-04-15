@@ -1,22 +1,10 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.FeywildMod;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.loot.conditions.BlockStateProperty;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
-
-import java.util.Random;
-import java.util.function.ToIntFunction;
 
 public class SpringTreeLeaves extends LeavesBlock
 {
@@ -26,7 +14,7 @@ public class SpringTreeLeaves extends LeavesBlock
    // public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent_leaves");
 
     public SpringTreeLeaves() {
-        super((Block.Properties.create(Material.LEAVES)
+        super(Block.Properties.create(Material.LEAVES)
                 .hardnessAndResistance(0.2F)
                 .tickRandomly()
                 .sound(SoundType.PLANT)
@@ -34,7 +22,7 @@ public class SpringTreeLeaves extends LeavesBlock
                 .notSolid()
                 .setAllowsSpawn((s, r, p, t) -> false)
                 .setSuffocates((s, r, p) -> false)
-                .setBlocksVision((s, r, p) -> false)));
+                .setBlocksVision((s, r, p) -> false));
 
         /* this.setDefaultState(this.stateContainer.getBaseState()
                 .with(DISTANCE, Integer.valueOf(0))
