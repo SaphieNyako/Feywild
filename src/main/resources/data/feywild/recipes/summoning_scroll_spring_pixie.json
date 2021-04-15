@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:spring_tree_sapling"
+    },
+    {
+      "item": "minecraft:oxeye_daisy"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "feywild:fey_dust"
+    }
+  ],
+  "output":{
+    "item" : "feywild:summoning_scroll_spring_pixie"
+  }
+}
