@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "feywild:block/summer_tree_sapling"
+  }
+}

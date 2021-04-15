@@ -17,7 +17,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-import static com.feywild.feywild.entity.ModEntityTypes.*;
+import static com.feywild.feywild.entity.ModEntityTypes.DWARF_BLACKSMITH;
 
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientProxy implements IProxy{
@@ -26,6 +26,13 @@ public class ClientProxy implements IProxy{
         RenderTypeLookup.setRenderLayer(ModBlocks.MANDRAKE_CROP.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.SPRING_TREE_SAPLING.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.SPRING_TREE_LEAVES.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SUMMER_TREE_SAPLING.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SUMMER_TREE_LEAVES.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_SAPLING.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_LEAVES.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_SAPLING.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_LEAVES.get(), RenderType.getCutout());
+
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
 

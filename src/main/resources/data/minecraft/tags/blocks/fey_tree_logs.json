@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "feywild:fey_tree_log",
-    "feywild:winter_tree_log"
+    "feywild:winter_tree_log",
+    "feywild:summer_tree_log",
+    "feywild:autumn_tree_log"
   ]
 }

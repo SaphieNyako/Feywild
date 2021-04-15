@@ -4,9 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.JungleFoliagePlacer;
-import net.minecraft.world.gen.trunkplacer.GiantTrunkPlacer;
+import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.MegaJungleTrunkPlacer;
 
 import javax.annotation.Nullable;
@@ -39,12 +39,12 @@ public abstract class BaseTree extends Tree {
 
 
     protected FoliagePlacer getFoliagePlacer() {
-        return new JungleFoliagePlacer(
+        return new BlobFoliagePlacer (
                 FeatureSpread.func_242252_a(getLeavesRadius()),
                 FeatureSpread.func_242252_a(getLeavesOffset()), getLeavesHeight());
     }
 
-    protected GiantTrunkPlacer getGiantTrunkPlacer() {
+    protected AbstractTrunkPlacer getGiantTrunkPlacer() {
         return new MegaJungleTrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
     }
 
