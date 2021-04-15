@@ -25,13 +25,13 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
-public class SpringTreeLeaves extends Block implements net.minecraftforge.common.IForgeShearable
+public class FeyLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable
 {
     private static final int maxDistance = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("more_distance", 0, maxDistance);
     public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent_leaves");
 
-    public SpringTreeLeaves() {
+    public FeyLeavesBlock() {
         super(Block.Properties.create(Material.LEAVES)
                 .hardnessAndResistance(0.2F)
                 .tickRandomly()
@@ -43,8 +43,8 @@ public class SpringTreeLeaves extends Block implements net.minecraftforge.common
                 .setBlocksVision((s, r, p) -> false));
 
         this.setDefaultState(this.stateContainer.getBaseState()
-                .with(DISTANCE, Integer.valueOf(0))
-                .with(PERSISTENT, Boolean.valueOf(false)));
+                .with(DISTANCE, 0)
+                .with(PERSISTENT, false));
     }
 
     public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
