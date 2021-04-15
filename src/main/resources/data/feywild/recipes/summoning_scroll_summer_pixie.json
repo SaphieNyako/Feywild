@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:summer_tree_sapling"
+    },
+    {
+      "item": "minecraft:sunflower"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    },
+    {
+      "item": "minecraft:golden_sword"
+    },
+    {
+      "item": "feywild:fey_dust"
+    }
+  ],
+  "output":{
+    "item" : "feywild:summoning_scroll_summer_pixie"
+  }
+}

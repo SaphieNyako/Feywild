@@ -15,7 +15,7 @@ import java.util.Random;
 public abstract class BaseTree extends Tree {
 
     // Default values
-    private static final int BASE_HEIGHT = 10;
+    private static final int BASE_HEIGHT = 6;
     private static final int FIRST_RANDOM_HEIGHT = 7;
     private static final int SECOND_RANDOM_HEIGHT = 8;
 

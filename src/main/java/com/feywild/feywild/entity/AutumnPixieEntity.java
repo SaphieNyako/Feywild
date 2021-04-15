@@ -51,7 +51,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
     {
         //Crash is fix when playing animation
 
-        //event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
 
         return PlayState.CONTINUE;
     }
