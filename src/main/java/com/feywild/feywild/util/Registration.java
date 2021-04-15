@@ -1,7 +1,6 @@
 package com.feywild.feywild.util;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;

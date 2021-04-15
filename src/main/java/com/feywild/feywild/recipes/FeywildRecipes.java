@@ -1,7 +1,6 @@
 package com.feywild.feywild.recipes;
 
 import com.feywild.feywild.block.entity.InventoryTile;
-import com.feywild.feywild.events.ModRecipes;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
 import net.minecraft.entity.item.ItemEntity;
