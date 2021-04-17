@@ -52,12 +52,12 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
     }
 
 
-    @Override
+
     public boolean ticksRandomly(BlockState state) {
         return state.get(DISTANCE) == maxDistance && !state.get(PERSISTENT);
     }
 
-    @Override
+
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 
         updateDistance(state,worldIn,pos);
@@ -66,6 +66,11 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
             spawnDrops(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
         }
+    }
+
+    //This causes the decay //what does flags do?
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+        worldIn.setBlockState(pos, updateDistance(state, worldIn, pos), 3);
     }
 
     public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
@@ -104,7 +109,8 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         if (BlockTags.LOGS.contains(neighbor.getBlock())) {
             return 0;
         } else {
-            return neighbor.getBlock() instanceof LeavesBlock ? neighbor.get(DISTANCE) : maxDistance;
+            //is instance of FeyLeaves Block
+            return neighbor.getBlock() instanceof FeyLeavesBlock ? neighbor.get(DISTANCE) : maxDistance;
         }
     }
 

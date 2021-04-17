@@ -38,7 +38,7 @@ public class ModBlocks {
 
     /* TREES */
 
-    public static final RegistryObject<Block> FEY_TREE_LOG = register("fey_tree_log",
+    public static final RegistryObject<Block> SPRING_TREE_LOG = register("spring_tree_log",
         ()-> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> SPRING_TREE_LEAVES = register("spring_tree_leaves",
