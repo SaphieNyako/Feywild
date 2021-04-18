@@ -3,14 +3,8 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.item.ModItems;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -19,8 +13,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
-import javax.annotation.Nullable;
 
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
@@ -34,7 +26,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
         this.ignoreFrustumCheck = true;
     }
-
 
     /* GOALS */
     @Override
