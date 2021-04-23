@@ -11,11 +11,14 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.item.crafting.Ingredient;
@@ -51,6 +54,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     private HashMap<ItemStack, ItemStack> trades = new HashMap<>();
     private List<Integer> tradeId = new LinkedList<>();
     private int level = 1;
+    private boolean tamed = false;
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
@@ -59,7 +63,6 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public DwarfBlacksmithEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
-
     @Override
     protected PathNavigator createNavigator(World worldIn) {
         return new GroundPathNavigator(this,worldIn);
@@ -69,33 +72,49 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
         if(player.getEntityWorld().isRemote) return ActionResultType.SUCCESS;
 
-        if(level >= 6 && trades.size() < 3){
-            FeywildPacketHandler.sendToPlayersInRange(world,getPosition(),new ParticleMessage(getPosition().getX()+0.5,getPosition().getY()+1.2,getPosition().getZ()+0.5,-4,-2,-4,10,3),32);
-            boolean worked = true;
-            do{
-                worked = addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
-            }while (!worked);
-            level = 1;
-        }
-
-
-        if(player.getHeldItem(hand).isEmpty()){
-            player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
-            trades.keySet().forEach(itemStack -> {
-                player.sendStatusMessage(new TranslationTextComponent("").appendString("You give me "+ itemStack.getCount()
-                        + " " + itemStack.getItem().getName().getString() + " and I'll trade you " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getName().getString() + "."), false);
-            });
-        }else{
-            trades.keySet().forEach(itemStack -> {
-                if(player.getHeldItem(hand).isItemEqual(itemStack) && player.getHeldItem(hand).getCount() >= itemStack.getCount()){
-                    player.addItemStackToInventory(DwarfTrades.getTrades().get(itemStack).copy());
-                    player.getHeldItem(hand).shrink(itemStack.copy().getCount());
-                    level++;
-                    player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.trade"), false);
+            if(!tamed && level >= 6){
+                if(trades.size() < 3) {
+                    FeywildPacketHandler.sendToPlayersInRange(world, getPosition(), new ParticleMessage(getPosition().getX() + 0.5, getPosition().getY() + 1.2, getPosition().getZ() + 0.5, -4, -2, -4, 10, 3), 32);
+                    boolean worked = true;
+                    do {
+                        worked = addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
+                    } while (!worked);
+                    level = 1;
+                }else{
+                    player.addItemStackToInventory(new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get()));
+                    player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.scroll"), false);
+                    this.remove();
+                    return ActionResultType.FAIL;
                 }
-            });
-            // add a check for item holding
-        }
+            }else{
+                addTrade(0);
+            }
+
+            if (player.getHeldItem(hand).isEmpty()) {
+                player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
+                trades.keySet().forEach(itemStack -> {
+                    if(!tamed)
+                    player.sendStatusMessage(new TranslationTextComponent("").appendString("You give me " + itemStack.getCount()
+                            + " " + itemStack.getItem().getName().getString() + " and I'll trade you " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getName().getString() + "."), false);
+                    else player.sendStatusMessage(new TranslationTextComponent("").appendString("You give me " + itemStack.getCount()
+                                + " " + itemStack.getItem().getName().getString() + " and I'll trade you " + DwarfTrades.getTamedTrades().get(itemStack).getCount() + " " + DwarfTrades.getTamedTrades().get(itemStack).getItem().getName().getString() + "."), false);
+
+                });
+            } else {
+                trades.keySet().forEach(itemStack -> {
+                    if (player.getHeldItem(hand).isItemEqual(itemStack) && player.getHeldItem(hand).getCount() >= itemStack.getCount()) {
+                        if(!tamed) {
+                            level++;
+                            player.addItemStackToInventory(DwarfTrades.getTrades().get(itemStack).copy());
+                        }else{
+                            player.addItemStackToInventory(DwarfTrades.getTamedTrades().get(itemStack).copy());
+                        }
+                        player.getHeldItem(hand).shrink(itemStack.copy().getCount());
+                        player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.trade"), false);
+                    }
+                });
+                // add a check for item holding
+            }
         //Add trade
         return ActionResultType.SUCCESS;
     }
@@ -104,23 +123,53 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
       //Add a random first trade
+        if(!tamed)
         addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
+        else
+            this.setHomePosAndDistance(getPosition(),7);
         return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+    public void setTamed(boolean tamed) {
+        this.tamed = tamed;
+        if(tamed){
+            this.trades.clear();
+            this.tradeId.clear();
+            this.level = 8;
+        }
+    }
+
+    public boolean isTamed() {
+        return tamed;
     }
 
     //Add trade to list
     private boolean addTrade(int i){
-        if(tradeId.contains(i)){
-            return false;
-        }
-        AtomicInteger trade = new AtomicInteger(i);
-        tradeId.add(trade.get());
-        DwarfTrades.getTrades().keySet().forEach(itemStack -> {
-            if(trade.get() == 0){
-                trades.put(itemStack, DwarfTrades.getTrades().get(itemStack));
+        if(!tamed) {
+            if (tradeId.contains(i)) {
+                return false;
             }
-            trade.set(trade.decrementAndGet());
-        });
+            AtomicInteger trade = new AtomicInteger(i);
+            tradeId.add(trade.get());
+            DwarfTrades.getTrades().keySet().forEach(itemStack -> {
+                if (trade.get() == 0) {
+                    trades.put(itemStack, DwarfTrades.getTrades().get(itemStack));
+                }
+                trade.set(trade.decrementAndGet());
+            });
+        }else{
+            if (tradeId.contains(i)) {
+                return false;
+            }
+            AtomicInteger trade = new AtomicInteger(i);
+            tradeId.add(trade.get());
+            DwarfTrades.getTamedTrades().keySet().forEach(itemStack -> {
+                if (trade.get() == 0) {
+                    trades.put(itemStack, DwarfTrades.getTamedTrades().get(itemStack));
+                }
+                trade.set(trade.decrementAndGet());
+            });
+        }
 
         return true;
     }
@@ -128,6 +177,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
+        compound.putBoolean("tamed", tamed);
         compound.putInt("level", level);
         compound.putIntArray("trade_id" , tradeId);
     }
@@ -136,10 +186,13 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.level = compound.getInt("level");
-        int[] array = compound.getIntArray("trade_id");
-        //Initialize trades
-        for (int j : array) {
-            addTrade(j);
+        this.tamed = compound.getBoolean("tamed");
+        if(!tamed) {
+            int[] array = compound.getIntArray("trade_id");
+            //Initialize trades
+            for (int j : array) {
+                addTrade(j);
+            }
         }
     }
 
@@ -151,11 +204,17 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     /* GOALS */
     @Override
     protected void registerGoals() {
+        if (tamed) {
+            registerTamedGoals();
+        }
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f,15));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 0.8f,false));
+        this.targetSelector.addGoal(1,new MeleeAttackGoal(this,0.8,false));
         this.goalSelector.addGoal(3, new MoveTowardsRestrictionGoal(this,0.4D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
+    }
+    private void registerTamedGoals(){
+
     }
 
 

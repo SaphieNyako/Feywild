@@ -28,6 +28,7 @@ public class SummoningScrollWinterPixie extends Item {
         if(!context.getWorld().isRemote){
             WinterPixieEntity entity = new WinterPixieEntity(ModEntityTypes.WINTER_PIXIE.get(),context.getWorld());
             entity.setPosition(context.getHitVec().getX(), context.getHitVec().getY(), context.getHitVec().getZ());
+            entity.addTag("isContracted");
             context.getWorld().addEntity(entity);
             context.getPlayer().getHeldItem(context.getHand()).shrink(1);
         }
