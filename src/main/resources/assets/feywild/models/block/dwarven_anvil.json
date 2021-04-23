@@ -3,7 +3,8 @@
   "parent": "block/cube_all",
   "texture_size": [64, 64],
   "textures": {
-    "0": "feywild:block/dwarven_anvil"
+    "0": "feywild:block/dwarven_anvil",
+    "particle": "feywild:block/dwarven_anvil"
   },
   "elements": [
     {
