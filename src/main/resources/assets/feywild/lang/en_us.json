@@ -30,6 +30,18 @@
   "block.feywild.dwarven_anvil": "Dwarven Anvil",
   "block.feywild.fey_altar" : "Fey Altar",
 
+  "block.feywild.autumn_tree_log": "Autumn Tree Log",
+  "block.feywild.autumn_tree_leaves": "Autumn Tree Leaves",
+  "block.feywild.autumn_tree_sapling": "Autumn Tree Sapling",
+  "block.feywild.spring_tree_log": "Spring Tree Log",
+  "block.feywild.spring_tree_leaves": "Spring Tree Leaves",
+  "block.feywild.spring_tree_sapling": "Spring Tree Sapling",
+  "block.feywild.summer_tree_log": "Summer Tree Log",
+  "block.feywild.summer_tree_leaves": "Summer Tree Leaves",
+  "block.feywild.summer_tree_sapling": "Summer Tree Sapling",
+  "block.feywild.winter_tree_log": "Winter Tree Log",
+  "block.feywild.winter_tree_leaves": "Winter Tree Leaves",
+  "block.feywild.winter_tree_sapling": "Winter Tree Sapling",
 
   "enity.feywild.spring_pixie" : "Spring Pixie",
   "enity.feywild.summer_pixie" : "Summer Pixie",

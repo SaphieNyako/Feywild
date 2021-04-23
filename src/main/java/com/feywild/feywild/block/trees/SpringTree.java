@@ -7,7 +7,7 @@ public class SpringTree extends BaseTree {
 
     @Override
     protected Block getLogBlock() {
-        return ModBlocks.FEY_TREE_LOG.get();
+        return ModBlocks.SPRING_TREE_LOG.get();
     }
 
     @Override

@@ -2,10 +2,12 @@
   "variants": {
     "": [
       {
-        "model": "feywild:block/summer_tree_leaves"
+        "model": "feywild:block/summer_tree_leaves",
+        "weight": 3
       },
       {
-        "model": "feywild:block/summer_tree_leaves_02"
+        "model": "feywild:block/summer_tree_leaves_02",
+        "weight": 1
       }
     ]
   }

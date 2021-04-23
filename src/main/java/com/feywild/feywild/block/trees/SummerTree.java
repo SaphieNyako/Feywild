@@ -1,13 +1,13 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.block.ModBlocks;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 
 public class SummerTree extends BaseTree {
 
     @Override
-    protected Block getLogBlock() {
-        return ModBlocks.SUMMER_TREE_LOG.get();
+    protected Block getLogBlock() {return ModBlocks.SUMMER_TREE_LOG.get();
     }
 
     @Override
