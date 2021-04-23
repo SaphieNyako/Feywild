@@ -49,7 +49,8 @@ public class ModBlocks {
             SpringTreeSapling::new, true);
 
     public static final RegistryObject<Block> SUMMER_TREE_LOG = register("summer_tree_log",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
+         SummerTreeLog::new, true);
+         //   () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> SUMMER_TREE_LEAVES = register("summer_tree_leaves",
             FeyLeavesBlock::new,true);
@@ -62,7 +63,7 @@ public class ModBlocks {
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> AUTUMN_TREE_LEAVES = register("autumn_tree_leaves",
-            FeyLeavesBlock::new,true);
+            AutumnLeavesBlock::new,true);
 
 
     public static final RegistryObject<Block> AUTUMN_TREE_SAPLING = register("autumn_tree_sapling",
@@ -72,7 +73,7 @@ public class ModBlocks {
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> WINTER_TREE_LEAVES = register("winter_tree_leaves",
-            FeyLeavesBlock::new,true);
+            WinterLeavesBlock::new,true);
 
 
     public static final RegistryObject<Block> WINTER_TREE_SAPLING = register("winter_tree_sapling",

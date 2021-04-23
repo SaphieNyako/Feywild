@@ -6,6 +6,7 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
@@ -127,6 +128,15 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
                     worldIn.addParticle(ParticleTypes.DRIPPING_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
                 }
             }
+        }
+
+        if(worldIn.isAirBlock(pos.down()) && rand.nextInt(30) == 1) {
+            double windStrength = 5 + Math.cos((double) worldIn.getGameTime() / 2000) * 2;
+            double windX = Math.cos((double) worldIn.getGameTime() / 1200) * windStrength;
+            double windZ = Math.sin((double) worldIn.getGameTime() / 1000) * windStrength;
+
+            worldIn.addParticle(new BlockParticleData(ParticleTypes.BLOCK, stateIn), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, windX, -1.0, windZ);
+
         }
     }
 

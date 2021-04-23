@@ -69,8 +69,6 @@ public class ClientProxy implements IProxy{
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
                FeyAltarRenderer::new);
 
-
-
     }
 
 }

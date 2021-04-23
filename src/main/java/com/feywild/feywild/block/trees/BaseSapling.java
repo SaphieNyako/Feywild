@@ -36,7 +36,8 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
 
     @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
-        return true;
+        //50% chance of Bonemeal working.
+        return (double)worldIn.rand.nextFloat() < 0.50;
     }
 
     @SuppressWarnings("deprecation")
