@@ -69,8 +69,8 @@ public class SummerTreeLog extends Block {
 
         Random rand = new Random();
 
-        if(!worldIn.isRemote && pos.getY() >= 68 && state.get(SummerTreeLog.GROWN)) // && GROWN.equals(true)
-            if (rand.nextDouble() < 0.5) { //0.01
+        if(!worldIn.isRemote && pos.getY() >= 68 && state.get(SummerTreeLog.GROWN))
+            if (rand.nextDouble() < 0.01) {
 
                 if (worldIn.isAirBlock(pos.north())) {
 
