@@ -23,10 +23,12 @@ public abstract class BaseTree extends Tree {
     private static final int LEAVES_OFFSET = 5;
     private static final int LEAVES_HEIGHT = 5;
 
+
+
     @Nullable
-    @Override
-    protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
-        BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
+    @Override  //protected
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+      BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(getLogBlock().getDefaultState()),
                 new SimpleBlockStateProvider(getLeafBlock().getDefaultState()),
                 getFoliagePlacer(),
@@ -79,5 +81,7 @@ public abstract class BaseTree extends Tree {
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
     }
+
+
 
 }
