@@ -63,6 +63,7 @@ public class AutumnTreeLog extends Block {
     }
 
 
+
     @Override
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 

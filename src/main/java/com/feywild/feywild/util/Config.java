@@ -56,13 +56,13 @@ public class Config {
     private static void setMobConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER){
 
         SPRING_PIXIE_CONFIG = new MobConfig ("Spring Pixie", 40, 1 , 1,
-                Arrays.asList("MAGICAL", "RIVER", "FOREST", "PLAINS"));
+                Arrays.asList("RIVER", "FOREST", "PLAINS"));
         SUMMER_PIXIE_CONFIG = new MobConfig ("Summer Pixie", 40, 1, 1,
-                Arrays.asList("LUSH", "MAGICAL", "HOT"));
+                Arrays.asList("LUSH", "HOT"));
         AUTUMN_PIXIE_CONFIG = new MobConfig("Autumn Pixie", 40, 1, 1,
-                Arrays.asList("SWAMP", "MUSHROOM", "MAGICAL", "SPOOKY", "FOREST"));
+                Arrays.asList("SWAMP", "MUSHROOM", "SPOOKY", "FOREST"));
         WINTER_PIXIE_CONFIG = new MobConfig("Winter Pixie", 40,1,1,
-                Arrays.asList("DEAD", "MAGICAL", "SNOWY", "COLD"));
+                Arrays.asList("DEAD", "SNOWY", "COLD"));
         DWARF_CONFIG = new MobConfig("Dwarf", 1,1,3,Arrays.asList("ALL"));
 
         SPRING_PIXIE_CONFIG.apply(CLIENT_BUILDER);

@@ -31,17 +31,10 @@ public class AutumnTreeSapling extends BaseSapling {
                 //-4 to 4
                 for (int x = -sizePodzol; x <= sizePodzol; x++) {
                     for (int z = -sizePodzol; z <= sizePodzol; z++) {
-                        if (rand.nextDouble() < 0.7 ) {
-                            //Only if its a Dirt Block
-                           if(worldIn.getBlockState(new BlockPos(pos.getX() -x, pos.getY()-1, pos.getZ()-z)).isIn(Blocks.GRASS_BLOCK)){
-
-                                worldIn.setBlockState(new BlockPos(pos.getX() - x, pos.getY() - 1, pos.getZ() - z), Blocks.PODZOL.getDefaultState());
 
                                 if(rand.nextDouble() < 0.2) {
                                     worldIn.setBlockState(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), getBlocks(rand));
                                 }
-                            }
-                       }
                     }
                 }
             }

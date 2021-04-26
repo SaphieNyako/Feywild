@@ -48,7 +48,8 @@ public class ModTreeGeneration {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         //SPRING TREE GENERATION
-        if(types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST)) {
+        if((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
@@ -70,7 +71,8 @@ public class ModTreeGeneration {
         }
 
         //SUMMER TREE GENERATION
-        if(types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH)) {
+        if((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
+            && !types.contains(BiomeDictionary.Type.MAGICAL)) {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
@@ -82,7 +84,8 @@ public class ModTreeGeneration {
         }
 
         //AUTUMN TREE GENERATION
-        if(types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY)) {
+        if((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
@@ -94,7 +97,8 @@ public class ModTreeGeneration {
         }
 
         //WINTER TREE GENERATION
-        if(types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD)) {
+        if((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -104,6 +108,7 @@ public class ModTreeGeneration {
                     .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
         }
 
+        /*
         //MAGICAL BIOMES
         if(types.contains(BiomeDictionary.Type.MAGICAL)){
             List<Supplier<ConfiguredFeature<?, ?>>> base =
@@ -127,6 +132,8 @@ public class ModTreeGeneration {
 
 
         }
+        */
+
 
     }
 }

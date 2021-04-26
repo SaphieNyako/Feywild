@@ -8,6 +8,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -35,7 +38,22 @@ public class Registration {
 
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZER
             = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FeywildMod.MOD_ID);
+
+    //BIOMES
+
+    public static final DeferredRegister<Biome> BIOMES
+            = DeferredRegister.create(ForgeRegistries.BIOMES, FeywildMod.MOD_ID);
+
+    public static final DeferredRegister<SurfaceBuilder<?>> SURFACE_BUILDERS
+            = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, FeywildMod.MOD_ID);
+
+    /*
+    public static final DeferredRegister<Feature<?>> FEATURES
+            = DeferredRegister.create(ForgeRegistries.FEATURES, FeywildMod.MOD_ID);
+    */
+
     public static void init()
+
     {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(eventBus);
@@ -45,6 +63,12 @@ public class Registration {
         SOUND_EVENTS.register(eventBus);
         RECIPE_SERIALIZER.register(eventBus);
         ModRecipeTypes.registerRecipes();
+
+        BIOMES.register(eventBus);
+        SURFACE_BUILDERS.register(eventBus);
+       // FEATURES.register(eventBus);
+
+
     }
 
 

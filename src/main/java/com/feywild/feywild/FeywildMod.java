@@ -16,6 +16,9 @@ import com.feywild.feywild.setup.ServerProxy;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.world.biome.ModBiomes;
+import com.feywild.feywild.world.biome.ModSurfaceBuilders;
+import com.feywild.feywild.world.feature.ModFeatures;
 import com.sun.jna.platform.win32.WinNT;
 import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -133,6 +136,10 @@ public class FeywildMod
         //registers items, blocks ect. added by our mod
         ModItems.register();
         ModBlocks.register();
+
+        //register surface builder and biomes
+        ModBiomes.register();
+        ModSurfaceBuilders.register();
 
         //register Mod event!
         MinecraftForge.EVENT_BUS.register(new ModEvents());
