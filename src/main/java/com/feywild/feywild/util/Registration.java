@@ -9,6 +9,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,10 +48,6 @@ public class Registration {
     public static final DeferredRegister<SurfaceBuilder<?>> SURFACE_BUILDERS
             = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, FeywildMod.MOD_ID);
 
-    /*
-    public static final DeferredRegister<Feature<?>> FEATURES
-            = DeferredRegister.create(ForgeRegistries.FEATURES, FeywildMod.MOD_ID);
-    */
 
     public static void init()
 
@@ -64,10 +61,8 @@ public class Registration {
         RECIPE_SERIALIZER.register(eventBus);
         ModRecipeTypes.registerRecipes();
 
-        BIOMES.register(eventBus);
         SURFACE_BUILDERS.register(eventBus);
-       // FEATURES.register(eventBus);
-
+        BIOMES.register(eventBus);
 
     }
 

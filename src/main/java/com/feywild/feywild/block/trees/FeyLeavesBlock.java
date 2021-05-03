@@ -88,7 +88,7 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         return stateIn;
     }
 
-    private static BlockState updateDistance(BlockState state, IWorld worldIn, BlockPos pos) {
+    protected static BlockState updateDistance(BlockState state, IWorld worldIn, BlockPos pos) {
 
         int i = maxDistance;
 

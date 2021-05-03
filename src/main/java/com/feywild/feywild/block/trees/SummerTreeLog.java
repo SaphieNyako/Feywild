@@ -40,7 +40,6 @@ public class SummerTreeLog extends Block {
     }
 
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.
-
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(GROWN, Boolean.valueOf(false))
                 .with(AXIS, context.getFace().getAxis());
@@ -62,34 +61,5 @@ public class SummerTreeLog extends Block {
             default:
                 return state;
         }
-    }
-
-
-    @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-
-        Random rand = new Random();
-
-        if(!worldIn.isRemote && pos.getY() >= 68 && state.get(SummerTreeLog.GROWN))
-            if (rand.nextDouble() < 0.01) {
-
-                if (worldIn.isAirBlock(pos.north())) {
-
-                    worldIn.setBlockState(pos.north(), Blocks.BEE_NEST.getDefaultState());
-
-
-                    BeeEntity entity = new BeeEntity(EntityType.BEE, worldIn);
-                    entity.setPositionAndUpdate(pos.getX() +2, pos.getY(), pos.getZ() + 2);
-                    worldIn.addEntity(entity);
-                    //doesn't work.
-                    //spawnBee(worldIn, pos);
-                }
-            }
-    }
-
-    public void spawnBee(World worldIn, BlockPos pos) {
-
-
-
     }
 }

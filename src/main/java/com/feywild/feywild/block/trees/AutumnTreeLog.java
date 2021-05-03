@@ -13,6 +13,7 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -62,6 +63,12 @@ public class AutumnTreeLog extends Block {
         }
     }
 
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+
+        worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+
+        return stateIn;
+    }
 
 
     @Override
@@ -69,11 +76,11 @@ public class AutumnTreeLog extends Block {
 
         Random rand = new Random();
 
-        if (!worldIn.isRemote && pos.getY() >= 68 && state.get(SummerTreeLog.GROWN))
+        if (!worldIn.isRemote && state.get(AutumnTreeLog.GROWN))
             if (rand.nextDouble() < 0.05) {
 
                 if (worldIn.isAirBlock(pos.north())) {
-                    //This works
+
                     worldIn.setBlockState(pos.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState());
                     return;
                 }
@@ -81,7 +88,7 @@ public class AutumnTreeLog extends Block {
                 if (worldIn.isAirBlock(pos.east())) {
 
                     Rotation rotation = Rotation.CLOCKWISE_90;
-                    //This works
+
                     worldIn.setBlockState(pos.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation));
                     return;
                 }
@@ -89,7 +96,7 @@ public class AutumnTreeLog extends Block {
                 if (worldIn.isAirBlock(pos.south())) {
 
                     Rotation rotation = Rotation.CLOCKWISE_180;
-                    //this one breaks sometimes
+
                     worldIn.setBlockState(pos.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation));
                     return;
                 }
@@ -97,7 +104,7 @@ public class AutumnTreeLog extends Block {
                 if (worldIn.isAirBlock(pos.west())) {
 
                     Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
-                    //this one breaks sometimes
+
                     worldIn.setBlockState(pos.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation));
                     return;
                 }

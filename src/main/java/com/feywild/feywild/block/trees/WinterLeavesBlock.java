@@ -12,8 +12,6 @@ import javax.annotation.Nullable;
 public class WinterLeavesBlock extends FeyLeavesBlock{
 
 
-    //or onBlockactivated
-
     @Override
     public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 

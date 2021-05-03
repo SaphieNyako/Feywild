@@ -6,7 +6,9 @@ import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
+import net.minecraft.world.gen.foliageplacer.MegaPineFoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
+import net.minecraft.world.gen.trunkplacer.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.MegaJungleTrunkPlacer;
 
 import javax.annotation.Nullable;
@@ -15,12 +17,13 @@ import java.util.Random;
 public abstract class BaseTree extends Tree {
 
     // Default values
+
     private static final int BASE_HEIGHT = 6;
     private static final int FIRST_RANDOM_HEIGHT = 7;
     private static final int SECOND_RANDOM_HEIGHT = 8;
 
     private static final int LEAVES_RADIUS = 5;
-    private static final int LEAVES_OFFSET = 5;
+    private static final int LEAVES_OFFSET = 4;
     private static final int LEAVES_HEIGHT = 5;
 
 
@@ -47,9 +50,10 @@ public abstract class BaseTree extends Tree {
     }
 
     protected AbstractTrunkPlacer getGiantTrunkPlacer() {
-        return new MegaJungleTrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
+        return new  MegaJungleTrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
     }
 
+    //Branch placer
     protected TwoLayerFeature getTwoLayerFeature() {
         return new TwoLayerFeature(1, 0, 1);
     }

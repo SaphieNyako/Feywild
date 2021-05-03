@@ -40,7 +40,7 @@ public class AutumnBiome extends BaseBiome{
         /* AUTUMN FEATURES*/
         biomeGenerationSettingsBuilder.withStructure(StructureFeatures.SWAMP_HUT);
 
-        DefaultBiomeFeatures.withMushroomBiomeVegetation(biomeGenerationSettingsBuilder); //spawns Mushroomtrees
+        DefaultBiomeFeatures.withMushroomBiomeVegetation(biomeGenerationSettingsBuilder);
 
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_SWAMP);
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
@@ -53,16 +53,12 @@ public class AutumnBiome extends BaseBiome{
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.BROWN_MUSHROOM_NORMAL);
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.RED_MUSHROOM_NORMAL);
 
-        //DefaultBiomeFeatures.withSugarCaneAndPumpkins(biomeGenerationSettingsBuilder); //does work but rarely...
-
-
-
-
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
         /* CUSTOMISED */
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_PUMPKINS);
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_TREES);
+
 
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.BROWN_MUSHROOM_NORMAL);
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.RED_MUSHROOM_NORMAL);
