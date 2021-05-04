@@ -1,0 +1,19 @@
+{
+  "name": "repurposed_structures:spring_world_tree/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+
+        "location": "feywild:spring_world_tree",
+
+        "processors": "minecraft:empty",
+
+        "projection": "rigid",
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

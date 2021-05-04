@@ -2,6 +2,8 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
+import com.feywild.feywild.world.structure.ModConfiguredStructures;
+import com.feywild.feywild.world.structure.ModStructures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
@@ -33,6 +35,7 @@ public class SpringBiome extends BaseBiome {
 
         /* SPRING FEATURES */
         biomeGenerationSettingsBuilder.withStructure(StructureFeatures.JUNGLE_PYRAMID);
+       // biomeGenerationSettingsBuilder.withStructure(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
