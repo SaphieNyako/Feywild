@@ -8,6 +8,8 @@ import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
+import java.util.Map;
+
 public class ModConfiguredStructures {
 
     //Feature of our structure so we can reference it and add it to biomes easily.
@@ -22,6 +24,7 @@ public class ModConfiguredStructures {
         Registry.register(registry, new ResourceLocation(FeywildMod.MOD_ID, "configured_spring_world_tree"), CONFIGURED_SPRING_WORLD_TREE);
     }
 
-    //FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
+    //Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
+  //FlatGenerationSettings.STRUCTURES.add(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
 
 }

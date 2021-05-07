@@ -2,16 +2,22 @@ package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
 import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
@@ -37,8 +43,17 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
+
         return SpringWorldTreeStructure.Start::new;
     }
+
+    @Override
+    public GenerationStage.Decoration getDecorationStage() {
+
+        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+    }
+
+
 
 
     //Mob Spawn in Structure
@@ -49,6 +64,7 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+
         return STRUCTURE_MONSTERS;
     }
 
@@ -59,8 +75,28 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
+
         return STRUCTURE_CREATURES;
     }
+
+
+    //OPTIONAL
+    @Override
+    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+        BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
+
+        // getFirstOccupiedHeight();
+        int landHeight = chunkGenerator.getNoiseHeight(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG);
+
+        //getBaseColumn();
+        IBlockReader columnOfBlocks = chunkGenerator.func_230348_a_(centerOfChunk.getX(), centerOfChunk.getZ());
+
+        BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.up(landHeight));
+
+        return topBlock.getFluidState().isEmpty(); //landHeight > 100;
+    }
+
+
 
 
     //START CLASS
@@ -79,12 +115,14 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
             BlockPos blockpos = new BlockPos(x, 0, z);
 
-
+            //addpieces()
             JigsawManager.func_242837_a(
                     dynamicRegistryManager,
+
                     new VillageConfig(() -> (JigsawPattern) dynamicRegistryManager.getRegistry(Registry.STRUCTURE_POOL_ELEMENT_KEY)
                             .getOrDefault(new ResourceLocation(FeywildMod.MOD_ID, "spring_world_tree/start_pool")),
                             10),
+
                     AbstractVillagePiece::new,
                     chunkGenerator,
                     templateManagerIn,
@@ -95,10 +133,9 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
                     true);
             // Keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
 
-            /* OPTIONAL
+            //OPTIONAL
             this.components.forEach(piece -> piece.offset(0,1,0));
             this.components.forEach(piece -> piece.getBoundingBox().maxY -= 1);
-*/
 
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.recalculateStructureSize();
@@ -108,6 +145,5 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
                     this.components.get(0).getBoundingBox().maxY + " " +
                     this.components.get(0).getBoundingBox().maxZ);
         }
-
     }
 }

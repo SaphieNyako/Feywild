@@ -35,7 +35,7 @@ public class SpringBiome extends BaseBiome {
 
         /* SPRING FEATURES */
         biomeGenerationSettingsBuilder.withStructure(StructureFeatures.JUNGLE_PYRAMID);
-       // biomeGenerationSettingsBuilder.withStructure(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
+        //biomeGenerationSettingsBuilder.withStructure(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
         biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 

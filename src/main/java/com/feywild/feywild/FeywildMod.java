@@ -278,8 +278,8 @@ public class FeywildMod {
             tempMap.putIfAbsent(ModStructures.SPRING_WORLD_TREE.get(), DimensionStructuresSettings.field_236191_b_.get(ModStructures.SPRING_WORLD_TREE.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().func_236199_b_();
                    // .getSettings().structureConfig = tempMap;
-        }
-            */
+            }*/
+
         }
     }
 }
