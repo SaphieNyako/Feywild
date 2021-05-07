@@ -50,22 +50,22 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     //Read data on world init
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
-        super.read(state, nbt);
-        for(int i =0; i < getSizeInventory(); i++){
-            stackList.set(i,ItemStack.read((CompoundNBT) nbt.get("stack" + i)));
+    public void load(BlockState state, CompoundNBT nbt) {
+        super.load(state, nbt);
+        for(int i =0; i < getContainerSize(); i++){
+            stackList.set(i,ItemStack.of((CompoundNBT) nbt.get("stack" + i)));
         }
     }
 
     //Save data on world close
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT save(CompoundNBT compound) {
         for (int i = 0; i < getItems().size(); i++) {
             CompoundNBT compoundNBT = new CompoundNBT();
-            stackList.get(i).copy().write(compoundNBT);
+            stackList.get(i).copy().save(compoundNBT);
             compound.put("stack" + i, compoundNBT);
         }
-        return super.write(compound);
+        return super.save(compound);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     //gets called every tick
     @Override
     public void tick() {
-        if(world.isRemote) return;
+        if(level.isClientSide) return;
         count++;
         if(shouldLoad){
             // initialize limit and loop through all items to sync them with the client
@@ -93,7 +93,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             limit = random.nextInt(20*6);
             if(random.nextDouble() > 0.5) {
                 // send packet to player to summon particles
-                FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX()+ random.nextDouble(),pos.getY()+ random.nextDouble(), pos.getZ()+ random.nextDouble(), 0, 0, 0, 1,2), 32);
+                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX()+ random.nextDouble(),worldPosition.getY()+ random.nextDouble(), worldPosition.getZ()+ random.nextDouble(), 0, 0, 0, 1,2), 32);
             }
             count = 0;
         }
@@ -102,24 +102,24 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     public void craft(){
         Inventory inv = new Inventory(5);
         for(int i = 0; i < getItems().size(); i++){
-            inv.setInventorySlotContents(i, getItems().get(i));
+            inv.setItem(i, getItems().get(i));
         }
 
-       Optional<AltarRecipe> recipe = world.getRecipeManager().getRecipe(ModRecipeTypes.ALTAR_RECIPE, inv, world);
+       Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
 
        recipe.ifPresent(iRecipe -> {
-           ItemStack output = iRecipe.getRecipeOutput();
-           ItemEntity entity = new ItemEntity(world, pos.getX() + 0.5, pos.getY()+1.1, pos.getZ()+0.5, output);
-           world.addEntity(entity);
-           clear();
-           FeywildPacketHandler.sendToPlayersInRange(world, pos, new ParticleMessage(pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, -4, -2, -4, 10, 0), 32);
+           ItemStack output = iRecipe.getResultItem();
+           ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY()+1.1, worldPosition.getZ()+0.5, output);
+           level.addFreshEntity(entity);
+           clearContent();
+           FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0), 32);
        });
 
 
     }
 
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return 5;
     }
 

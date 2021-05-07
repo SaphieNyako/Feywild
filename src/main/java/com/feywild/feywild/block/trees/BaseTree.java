@@ -30,23 +30,23 @@ public abstract class BaseTree extends Tree {
 
     @Nullable
     @Override  //protected
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
       BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
-                new SimpleBlockStateProvider(getLogBlock().getDefaultState()),
-                new SimpleBlockStateProvider(getLeafBlock().getDefaultState()),
+                new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
+                new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),
                 getFoliagePlacer(),
                 getGiantTrunkPlacer(),
                 getTwoLayerFeature()
         ).build();
 
-        return Feature.TREE.withConfiguration(featureConfig);
+        return Feature.TREE.configured(featureConfig);
     }
 
 
     protected FoliagePlacer getFoliagePlacer() {
         return new BlobFoliagePlacer (
-                FeatureSpread.func_242252_a(getLeavesRadius()),
-                FeatureSpread.func_242252_a(getLeavesOffset()), getLeavesHeight());
+                FeatureSpread.fixed(getLeavesRadius()),
+                FeatureSpread.fixed(getLeavesOffset()), getLeavesHeight());
     }
 
     protected AbstractTrunkPlacer getGiantTrunkPlacer() {

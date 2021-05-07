@@ -24,31 +24,31 @@ public class TreeMushroomBlock extends HorizontalBlock {
 
 
     public TreeMushroomBlock() {
-        super(AbstractBlock.Properties.create(Material.ORGANIC)
+        super(AbstractBlock.Properties.of(Material.GRASS)
                 .sound(SoundType.FUNGUS)
-                .notSolid().doesNotBlockMovement()
-                .setLightLevel(value -> 8)
+                .noOcclusion().noCollission()
+                .lightLevel(value -> 8)
         );
 
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(HORIZONTAL_FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(FACING, Direction.NORTH));
     }
 
     // This is the black thing that surrounds the block and that prevents it from making blocks around it invisible
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return VoxelShapes.create(0.01,0.01,0.01,0.99,0.99,0.99);
+        return VoxelShapes.box(0.01,0.01,0.01,0.99,0.99,0.99);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getDefaultState().with(HORIZONTAL_FACING,context.getPlacementHorizontalFacing().getOpposite());
+        return defaultBlockState().setValue(FACING,context.getHorizontalDirection().getOpposite());
 
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HORIZONTAL_FACING);
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
     }
 }

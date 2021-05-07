@@ -26,6 +26,8 @@ import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock;
+
 public class FeyLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable
 {
     private static final int maxDistance = 15;
@@ -33,29 +35,29 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
     public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent_leaves");
 
     public FeyLeavesBlock() {
-        super(Block.Properties.create(Material.LEAVES)
-                .hardnessAndResistance(0.2F)
-                .tickRandomly()
-                .sound(SoundType.PLANT)
+        super(AbstractBlock.Properties.of(Material.LEAVES)
+                .strength(0.2F)
+                .randomTicks()
+                .sound(SoundType.GRASS)
                 .harvestTool(ToolType.HOE)
-                .notSolid()
-                .setAllowsSpawn((s, r, p, t) -> false)
-                .setSuffocates((s, r, p) -> false)
-                .setBlocksVision((s, r, p) -> false));
+                .noOcclusion()
+                .isValidSpawn((s, r, p, t) -> false)
+                .isSuffocating((s, r, p) -> false)
+                .isViewBlocking((s, r, p) -> false));
 
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(DISTANCE, 0)
-                .with(PERSISTENT, false));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(DISTANCE, 0)
+                .setValue(PERSISTENT, false));
     }
 
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader reader, BlockPos pos) {
+    public VoxelShape getBlockSupportShape(BlockState state, IBlockReader reader, BlockPos pos) {
         return VoxelShapes.empty();
     }
 
 
 
-    public boolean ticksRandomly(BlockState state) {
-        return state.get(DISTANCE) == maxDistance && !state.get(PERSISTENT);
+    public boolean isRandomlyTicking(BlockState state) {
+        return state.getValue(DISTANCE) == maxDistance && !state.getValue(PERSISTENT);
     }
 
 
@@ -63,26 +65,26 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
 
         updateDistance(state,worldIn,pos);
 
-        if (!state.get(PERSISTENT) && state.get(DISTANCE) == maxDistance) {
-            spawnDrops(state, worldIn, pos);
+        if (!state.getValue(PERSISTENT) && state.getValue(DISTANCE) == maxDistance) {
+            dropResources(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
         }
     }
 
     //This causes the decay //what does flags do?
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
-        worldIn.setBlockState(pos, updateDistance(state, worldIn, pos), 3);
+        worldIn.setBlock(pos, updateDistance(state, worldIn, pos), 3);
     }
 
-    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    public int getLightBlock(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1;
     }
 
 
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         int i = getDistance(facingState) + 1;
-        if (i != 1 || stateIn.get(DISTANCE) != i) {
-            worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+        if (i != 1 || stateIn.getValue(DISTANCE) != i) {
+            worldIn.getBlockTicks().scheduleTick(currentPos, this, 1);
         }
 
         return stateIn;
@@ -95,14 +97,14 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
         for(Direction direction : Direction.values()) {
-            blockpos$mutable.setAndMove(pos, direction);
+            blockpos$mutable.setWithOffset(pos, direction);
             i = Math.min(i, getDistance(worldIn.getBlockState(blockpos$mutable)) + 1);
             if (i == 1) {
                 break;
             }
         }
 
-        return state.with(DISTANCE, Integer.valueOf(i));
+        return state.setValue(DISTANCE, Integer.valueOf(i));
     }
 
 
@@ -111,17 +113,17 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
             return 0;
         } else {
             //is instance of FeyLeaves Block
-            return neighbor.getBlock() instanceof FeyLeavesBlock ? neighbor.get(DISTANCE) : maxDistance;
+            return neighbor.getBlock() instanceof FeyLeavesBlock ? neighbor.getValue(DISTANCE) : maxDistance;
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if (worldIn.isRainingAt(pos.up())) {
+        if (worldIn.isRainingAt(pos.above())) {
             if (rand.nextInt(15) == 1) {
-                BlockPos blockpos = pos.down();
+                BlockPos blockpos = pos.below();
                 BlockState blockstate = worldIn.getBlockState(blockpos);
-                if (!blockstate.isSolid() || !blockstate.isSolidSide(worldIn, blockpos, Direction.UP)) {
+                if (!blockstate.canOcclude() || !blockstate.isFaceSturdy(worldIn, blockpos, Direction.UP)) {
                     double d0 = (double)pos.getX() + rand.nextDouble();
                     double d1 = (double)pos.getY() - 0.05D;
                     double d2 = (double)pos.getZ() + rand.nextDouble();
@@ -130,7 +132,7 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
             }
         }
 
-        if(worldIn.isAirBlock(pos.down()) && rand.nextInt(30) == 1) {
+        if(worldIn.isEmptyBlock(pos.below()) && rand.nextInt(30) == 1) {
             double windStrength = 5 + Math.cos((double) worldIn.getGameTime() / 2000) * 2;
             double windX = Math.cos((double) worldIn.getGameTime() / 1200) * windStrength;
             double windZ = Math.sin((double) worldIn.getGameTime() / 1000) * windStrength;
@@ -142,14 +144,14 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
 
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder builder) {
 
         builder.add(DISTANCE, PERSISTENT);
 
     }
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return updateDistance(this.getDefaultState().with(PERSISTENT, Boolean.valueOf(true)), context.getWorld(), context.getPos());
+        return updateDistance(this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)), context.getLevel(), context.getClickedPos());
     }
 
 

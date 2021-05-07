@@ -21,8 +21,8 @@ public class FeywildRecipes {
     public static boolean matches(List<Ingredient> ingredients, IInventory inv){
        //Copy the inventory in a separate place just so that I can remove stuff from it
         List<ItemStack> stacks = new LinkedList<>();
-        for (int j = 0; j < inv.getSizeInventory(); j++) {
-            stacks.add(inv.getStackInSlot(j));
+        for (int j = 0; j < inv.getContainerSize(); j++) {
+            stacks.add(inv.getItem(j));
         }
 
         //Item check

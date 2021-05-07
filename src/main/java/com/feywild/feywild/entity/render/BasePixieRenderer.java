@@ -15,7 +15,7 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
 
     protected BasePixieRenderer(EntityRendererManager renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
-        this.shadowSize = 0.2F;
+        this.shadowRadius = 0.2F;
     }
 
     @Override
@@ -25,14 +25,14 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
     }
 
     private void generateParticles(Entity entity) {
-        World world = entity.world;
+        World world = entity.level;
 
-        if (world.rand.nextInt(11) == 0) {
+        if (world.random.nextInt(11) == 0) {
             world.addParticle(
                     getParticleType(),
-                    entity.getPosX() + (Math.random() - 0.5),
-                    entity.getPosY() + 1 + (Math.random() - 0.5),
-                    entity.getPosZ() + (Math.random() - 0.5),
+                    entity.getX() + (Math.random() - 0.5),
+                    entity.getY() + 1 + (Math.random() - 0.5),
+                    entity.getZ() + (Math.random() - 0.5),
                     0,
                     -0.1,
                     0);

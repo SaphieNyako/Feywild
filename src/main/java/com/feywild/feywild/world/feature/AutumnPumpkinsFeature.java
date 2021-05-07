@@ -23,24 +23,24 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
     public AutumnPumpkinsFeature() {
 
 
-        super(NoFeatureConfig.field_236558_a_);
+        super(NoFeatureConfig.CODEC);
 
     }
 
 
     @Override
-    public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random rand, BlockPos pos, NoFeatureConfig config) {
+    public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random rand, BlockPos pos, NoFeatureConfig config) {
         int check = 0;
 
         for(int i = 0; i < 32; ++i)
         {
-          BlockPos blockpos = pos.add(rand.nextInt(8)- rand.nextInt(8), rand.nextInt(4)-rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
+          BlockPos blockpos = pos.offset(rand.nextInt(8)- rand.nextInt(8), rand.nextInt(4)-rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 
             if (world.getBlockState(blockpos).isAir(world, blockpos)
-                    && (world.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS_BLOCK || world.getBlockState(blockpos.down()).getBlock() == Blocks.PODZOL)) {
+                    && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK || world.getBlockState(blockpos.below()).getBlock() == Blocks.PODZOL)) {
                 if (rand.nextInt(3) == 0) {
 
-                    world.setBlockState(blockpos, getBlocks(rand), 2);
+                    world.setBlock(blockpos, getBlocks(rand), 2);
 
                     }
                 }
@@ -55,13 +55,13 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
 
         switch (random.nextInt(10)) {
             case 0:
-                return Blocks.JACK_O_LANTERN.getDefaultState();
+                return Blocks.JACK_O_LANTERN.defaultBlockState();
             case 1:
-                return Blocks.CARVED_PUMPKIN.getDefaultState();
+                return Blocks.CARVED_PUMPKIN.defaultBlockState();
 
 
             default:
-                return Blocks.PUMPKIN.getDefaultState();
+                return Blocks.PUMPKIN.defaultBlockState();
 
         }
     }

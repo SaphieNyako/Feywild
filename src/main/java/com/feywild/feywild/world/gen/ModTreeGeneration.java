@@ -44,7 +44,7 @@ public class ModTreeGeneration {
 
         Random random = new Random();
 
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         //SPRING TREE GENERATION
@@ -55,16 +55,16 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
 
-            base.add(() -> Feature.TREE.withConfiguration(springTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+            base.add(() -> Feature.TREE.configured(springTree.getConfiguredFeature(random, true).config())
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
 
             //If Forest also spawn Autumn Trees
             if(types.contains(BiomeDictionary.Type.FOREST)) {
 
-                base.add(() -> Feature.TREE.withConfiguration(autumnTree.getTreeFeature(random, true).getConfig())
-                        .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                        .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+                base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
+                        .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                        .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
 
             }
 
@@ -78,9 +78,9 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
 
-            base.add(() -> Feature.TREE.withConfiguration(summerTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+            base.add(() -> Feature.TREE.configured(summerTree.getConfiguredFeature(random, true).config())
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
         }
 
         //AUTUMN TREE GENERATION
@@ -91,9 +91,9 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
 
-            base.add(() -> Feature.TREE.withConfiguration(autumnTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+            base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
         }
 
         //WINTER TREE GENERATION
@@ -103,9 +103,9 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
 
-            base.add(() -> Feature.TREE.withConfiguration(winterTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+            base.add(() -> Feature.TREE.configured(winterTree.getConfiguredFeature(random, true).config())
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
         }
 
         /*

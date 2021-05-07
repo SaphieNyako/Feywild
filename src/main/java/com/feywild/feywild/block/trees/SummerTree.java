@@ -21,18 +21,18 @@ public class SummerTree extends BaseTree {
 
 
     @Override  //protected
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
-                new SimpleBlockStateProvider(getLogBlock().getDefaultState()),
-                new SimpleBlockStateProvider(getLeafBlock().getDefaultState()),
+                new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
+                new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),
                 getFoliagePlacer(),
                 getGiantTrunkPlacer(),
                 getTwoLayerFeature()
-        ).setDecorators( ImmutableList.of(Features.Placements.BEES_005_PLACEMENT))
+        ).decorators( ImmutableList.of(Features.Placements.BEEHIVE_005))
                 .build();
 
 
-        return Feature.TREE.withConfiguration(featureConfig);
+        return Feature.TREE.configured(featureConfig);
     }
 
 

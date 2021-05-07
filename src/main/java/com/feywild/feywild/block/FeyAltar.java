@@ -57,25 +57,25 @@ Random random = new Random();
      //Constructor
     public FeyAltar() {
 
-        super(AbstractBlock.Properties.create(Material.ROCK).hardnessAndResistance(4f).notSolid().setRequiresTool().harvestTool(ToolType.PICKAXE));
+        super(AbstractBlock.Properties.of(Material.STONE).strength(4f).noOcclusion().requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE));
     }
 
     //Activate on player r click
     @SuppressWarnings("all")
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         //Server check
-        if (!worldIn.isRemote && worldIn.getTileEntity(pos) instanceof FeyAltarBlockEntity) {
+        if (!worldIn.isClientSide && worldIn.getBlockEntity(pos) instanceof FeyAltarBlockEntity) {
             //Store data that might get reused
-            ItemStack stack = player.getHeldItem(handIn);
-            FeyAltarBlockEntity entity = (FeyAltarBlockEntity) worldIn.getTileEntity(pos);
+            ItemStack stack = player.getItemInHand(handIn);
+            FeyAltarBlockEntity entity = (FeyAltarBlockEntity) worldIn.getBlockEntity(pos);
             int flagStack = -1;
             //Remove item from inventory
-            if (player.isSneaking()) {
-                for (int i = entity.getSizeInventory()-1; i > -1; i--) {
-                    if (!entity.getStackInSlot(i).isEmpty()) {
-                        player.addItemStackToInventory(entity.getStackInSlot(i));
-                        entity.setInventorySlotContents(i, ItemStack.EMPTY);
+            if (player.isShiftKeyDown()) {
+                for (int i = entity.getContainerSize()-1; i > -1; i--) {
+                    if (!entity.getItem(i).isEmpty()) {
+                        player.addItem(entity.getItem(i));
+                        entity.setItem(i, ItemStack.EMPTY);
                         flagStack = i;
                         break;
                     }
@@ -83,10 +83,10 @@ Random random = new Random();
             } else
                 //Add item to inventory if player is NOT sneaking and is holding an item
                 if (!stack.isEmpty()) {
-                    for (int i = 0; i < entity.getSizeInventory(); i++) {
-                        if (entity.getStackInSlot(i).isEmpty()) {
-                            entity.setInventorySlotContents(i, new ItemStack(stack.getItem(), 1));
-                            player.getHeldItem(handIn).shrink(1);
+                    for (int i = 0; i < entity.getContainerSize(); i++) {
+                        if (entity.getItem(i).isEmpty()) {
+                            entity.setItem(i, new ItemStack(stack.getItem(), 1));
+                            player.getItemInHand(handIn).shrink(1);
                             flagStack = i;
                             break;
                         }
@@ -99,18 +99,18 @@ Random random = new Random();
     }
 
     @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        if(worldIn.isRemote){
-            worldIn.playSound(player,pos, SoundEvents.BLOCK_STONE_BREAK,SoundCategory.BLOCKS,1,1);
+    public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        if(worldIn.isClientSide){
+            worldIn.playSound(player,pos, SoundEvents.STONE_BREAK,SoundCategory.BLOCKS,1,1);
             for (int i = 0; i < 20; i++) {
                 worldIn.addParticle(ParticleTypes.POOF, pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+ 0.5, (random.nextDouble() - 0.5 )/10,(random.nextDouble() - 0.5 )/10,(random.nextDouble() - 0.5 )/10);
             }
         }else
-        if(worldIn.getTileEntity(pos) instanceof FeyAltarBlockEntity) {
+        if(worldIn.getBlockEntity(pos) instanceof FeyAltarBlockEntity) {
             ItemEntity entity;
-            for (ItemStack stack:((FeyAltarBlockEntity) Objects.requireNonNull(worldIn.getTileEntity(pos))).getItems()) {
+            for (ItemStack stack:((FeyAltarBlockEntity) Objects.requireNonNull(worldIn.getBlockEntity(pos))).getItems()) {
                 entity = new ItemEntity( worldIn,pos.getX(),pos.getY(),pos.getZ(),stack);
-                worldIn.addEntity(entity);
+                worldIn.addFreshEntity(entity);
             }
         }
     }
@@ -127,7 +127,7 @@ Random random = new Random();
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state)
+    public BlockRenderType getRenderShape(BlockState state)
     {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }

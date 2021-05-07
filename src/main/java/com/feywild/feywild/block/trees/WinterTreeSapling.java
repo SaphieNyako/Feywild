@@ -11,18 +11,18 @@ import java.util.Random;
 public class WinterTreeSapling extends BaseSapling {
 
     public WinterTreeSapling() {
-        super(WinterTree::new, AbstractBlock.Properties.from(Blocks.OAK_SAPLING));
+        super(WinterTree::new, AbstractBlock.Properties.copy(Blocks.OAK_SAPLING));
     }
 
     @Override
-    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 
-        super.grow(worldIn, rand, pos, state);
+        super.performBonemeal(worldIn, rand, pos, state);
 
 
-        if (state.get(STAGE) == 1) {
+        if (state.getValue(STAGE) == 1) {
 
-            if (!worldIn.isRemote()) {
+            if (!worldIn.isClientSide()) {
                 //x
                 int sizePodzol = 4;
 
@@ -31,9 +31,9 @@ public class WinterTreeSapling extends BaseSapling {
                     for (int z = -sizePodzol; z <= sizePodzol; z++) {
                         if (rand.nextDouble() < 0.7 ) {
                             //Only if its a Dirt Block
-                            if(worldIn.getBlockState(new BlockPos(pos.getX() -x, pos.getY()-1, pos.getZ()-z)).isIn(Blocks.GRASS_BLOCK)){
+                            if(worldIn.getBlockState(new BlockPos(pos.getX() -x, pos.getY()-1, pos.getZ()-z)).is(Blocks.GRASS_BLOCK)){
 
-                                worldIn.setBlockState(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), Blocks.SNOW.getDefaultState());
+                                worldIn.setBlockAndUpdate(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), Blocks.SNOW.defaultBlockState());
                             }
                         }
                     }

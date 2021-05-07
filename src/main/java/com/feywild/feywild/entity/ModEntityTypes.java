@@ -21,28 +21,28 @@ public class ModEntityTypes {
 
     /* REGISTRATION FOR EACH ENTITY*/
     public static final RegistryObject<EntityType<SpringPixieEntity>> SPRING_PIXIE = Registration.ENTITIES.register("spring_pixie",
-            () -> EntityType.Builder.create(SpringPixieEntity::new, EntityClassification.CREATURE)
-    .size(1,1)
+            () -> EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
+    .sized(1,1)
     .build(new ResourceLocation(FeywildMod.MOD_ID + "spring_pixie").toString()));
 
     public static final RegistryObject<EntityType<AutumnPixieEntity>> AUTUMN_PIXIE = Registration.ENTITIES.register("autumn_pixie",
-            () -> EntityType.Builder.create(AutumnPixieEntity::new, EntityClassification.CREATURE)
-                    .size(1,1)
+            () -> EntityType.Builder.of(AutumnPixieEntity::new, EntityClassification.CREATURE)
+                    .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "autumn_pixie").toString()));
 
     public static final RegistryObject<EntityType<SummerPixieEntity>> SUMMER_PIXIE = Registration.ENTITIES.register("summer_pixie",
-            () -> EntityType.Builder.create(SummerPixieEntity::new, EntityClassification.CREATURE)
-                    .size(1,1)
+            () -> EntityType.Builder.of(SummerPixieEntity::new, EntityClassification.CREATURE)
+                    .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "summer_pixie").toString()));
 
     public static final RegistryObject<EntityType<WinterPixieEntity>> WINTER_PIXIE = Registration.ENTITIES.register("winter_pixie",
-            () -> EntityType.Builder.create(WinterPixieEntity::new, EntityClassification.CREATURE)
-                    .size(1,1)
+            () -> EntityType.Builder.of(WinterPixieEntity::new, EntityClassification.CREATURE)
+                    .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "winter_pixie").toString()));
 
     public static final RegistryObject<EntityType<DwarfBlacksmithEntity>> DWARF_BLACKSMITH = Registration.ENTITIES.register("dwarf_blacksmith",
-            () -> EntityType.Builder.create(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
-                    .size(1,1)
+            () -> EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
+                    .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "dwarf_blacksmith").toString()));
 
     public static void register() {}
@@ -51,9 +51,9 @@ public class ModEntityTypes {
     /* CUSTOM CONDITIONS */
     public static boolean spawnFey(EntityType<? extends FeyEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
 
-        return worldIn.getBlockState(pos.down()).isIn(Blocks.DIRT) ||
-               worldIn.getBlockState(pos.down()).isIn(Blocks.GRASS_BLOCK) ||
-               worldIn.getBlockState(pos.down()).isIn(Blocks.SAND);
+        return worldIn.getBlockState(pos.below()).is(Blocks.DIRT) ||
+               worldIn.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) ||
+               worldIn.getBlockState(pos.below()).is(Blocks.SAND);
     }
 
     public static boolean spawnDwarf(EntityType<? extends DwarfBlacksmithEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {

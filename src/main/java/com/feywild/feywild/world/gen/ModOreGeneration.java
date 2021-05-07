@@ -38,28 +38,28 @@ public class ModOreGeneration {
         for(OreType ore : OreType.values())
         {
             //replace base stone with the ore.
-            OreFeatureConfig oreFeatureConfig = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    ore.getBlock().getDefaultState(), ore.getMaxVeinSize());
+            OreFeatureConfig oreFeatureConfig = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
+                    ore.getBlock().defaultBlockState(), ore.getMaxVeinSize());
 
             //determines placement height and spawn weight
-            ConfiguredPlacement configuredPlacement = Placement.RANGE.configure(
-                    new TopSolidRangeConfig(ore.getMinHeight(),0 , ore.getMaxHeight())).square()
-                    .func_242731_b(ore.getSpawnWeight());
+            ConfiguredPlacement configuredPlacement = Placement.RANGE.configured(
+                    new TopSolidRangeConfig(ore.getMinHeight(),0 , ore.getMaxHeight())).squared()
+                    .count(ore.getSpawnWeight());
 
             //registration
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE,
                     ore.getBlock().getRegistryName(),
-                    Feature.ORE.withConfiguration(oreFeatureConfig).withPlacement(configuredPlacement));
+                    Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
 
             //determines wich biome to spawn in
             for(Biome biome : ForgeRegistries.BIOMES)
             {
                 // not NETHER or THEEND, can also specify specific biomes.
-                if(!biome.getCategory().equals(Biome.Category.NETHER)
-                        && !biome.getCategory().equals(Biome.Category.THEEND))
+                if(!biome.getBiomeCategory().equals(Biome.Category.NETHER)
+                        && !biome.getBiomeCategory().equals(Biome.Category.THEEND))
                 {
                     addFeatureToBiome(biome, GenerationStage.Decoration.UNDERGROUND_ORES,
-                            WorldGenRegistries.CONFIGURED_FEATURE.getOrDefault(ore.getBlock().getRegistryName()));
+                            WorldGenRegistries.CONFIGURED_FEATURE.get(ore.getBlock().getRegistryName()));
                 }
             }
         }
@@ -69,7 +69,7 @@ public class ModOreGeneration {
     private static void addFeatureToBiome(Biome biome, GenerationStage.Decoration decoration
             , ConfiguredFeature<?, ?> configuredFeature) {
         List<List<Supplier<ConfiguredFeature<?, ?>>>> biomeFeatures = new ArrayList<>(
-                biome.getGenerationSettings().getFeatures()
+                biome.getGenerationSettings().features()
         );
 
         while (biomeFeatures.size() <= decoration.ordinal()) {
@@ -80,9 +80,9 @@ public class ModOreGeneration {
         features.add(() -> configuredFeature);
         biomeFeatures.set(decoration.ordinal(), features);
 
-        /* Change field_242484_f that contains the Configured Features of the Biome */
+        /* Change features that contains the Configured Features of the Biome */
         ObfuscationReflectionHelper.setPrivateValue(BiomeGenerationSettings.class, biome.getGenerationSettings(),
-                biomeFeatures, "field_242484_f");
+                biomeFeatures, "features");
     }
 
 }

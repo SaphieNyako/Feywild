@@ -33,7 +33,7 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
         super.animateTick(stateIn, worldIn, pos, rand);
 
-        if (worldIn.isAirBlock(pos.down()) && rand.nextInt(2) == 1) {
+        if (worldIn.isEmptyBlock(pos.below()) && rand.nextInt(2) == 1) {
             double windStrength = 5 + Math.cos((double) worldIn.getGameTime() / 2000) * 2;
             double windX = Math.cos((double) worldIn.getGameTime() / 1200) * windStrength;
             double windZ = Math.sin((double) worldIn.getGameTime() / 1000) * windStrength;
@@ -46,12 +46,12 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 
-        if (worldIn.isRemote) return;
+        if (worldIn.isClientSide) return;
 
-        if (!state.get(WinterLeavesBlock.PERSISTENT) && (state.get(WinterLeavesBlock.DISTANCE) <= 6 && state.get(WinterLeavesBlock.DISTANCE) != 0)
-                && worldIn.getBlockState(pos.down(3)).getBlock() instanceof AutumnTreeLog) {
+        if (!state.getValue(WinterLeavesBlock.PERSISTENT) && (state.getValue(WinterLeavesBlock.DISTANCE) <= 6 && state.getValue(WinterLeavesBlock.DISTANCE) != 0)
+                && worldIn.getBlockState(pos.below(3)).getBlock() instanceof AutumnTreeLog) {
 
 
             BlockPos position = pos;
@@ -59,44 +59,44 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
             while (true) {
 
-                position = position.down();
+                position = position.below();
 
                 if (worldIn.getBlockState(position).getBlock() instanceof AutumnTreeLog) {
                     if (worldIn.getRandom().nextDouble() < 0.1) {
 
-                        if (worldIn.isAirBlock(position.north())) {
+                        if (worldIn.isEmptyBlock(position.north())) {
 
-                            worldIn.setBlockState(position.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), 2);
+                            worldIn.setBlock(position.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), 2);
 
                         }
 
                         else
 
-                        if (worldIn.isAirBlock(position.east())) {
+                        if (worldIn.isEmptyBlock(position.east())) {
 
                             Rotation rotation = Rotation.CLOCKWISE_90;
 
-                            worldIn.setBlockState(position.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation), 2);
+                            worldIn.setBlock(position.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation), 2);
 
                         }
 
                         else
 
-                        if (worldIn.isAirBlock(position.south())) {
+                        if (worldIn.isEmptyBlock(position.south())) {
 
                             Rotation rotation = Rotation.CLOCKWISE_180;
 
-                            worldIn.setBlockState(position.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation), 2);
+                            worldIn.setBlock(position.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation), 2);
 
                         }
 
                         else
 
-                        if (worldIn.isAirBlock(position.west())) {
+                        if (worldIn.isEmptyBlock(position.west())) {
 
                             Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
 
-                            worldIn.setBlockState(position.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation), 2);
+                            worldIn.setBlock(position.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation), 2);
 
 
                         }

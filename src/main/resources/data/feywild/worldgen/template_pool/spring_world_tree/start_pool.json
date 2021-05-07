@@ -1,5 +1,5 @@
 {
-  "name": "repurposed_structures:spring_world_tree/start_pool",
+  "name": "feywild:spring_world_tree/start_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {

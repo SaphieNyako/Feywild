@@ -13,7 +13,7 @@ public class DwarfBlacksmithRenderer extends GeoEntityRenderer<DwarfBlacksmithEn
     public DwarfBlacksmithRenderer(EntityRendererManager renderManager) {
 
         super(renderManager, new DwarfBlackSmithModel());
-        this.shadowSize = 0.8F;
+        this.shadowRadius = 0.8F;
     }
 
 }

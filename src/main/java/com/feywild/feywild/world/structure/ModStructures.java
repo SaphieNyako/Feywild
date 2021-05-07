@@ -53,33 +53,33 @@ public class ModStructures {
 
         //add our structures into the map in Structure class
         //STRUCTURES_REGISTRY
-        Structure.NAME_STRUCTURE_BIMAP.put(structure.getRegistryName().toString(), structure);  //Might return Null
+        Structure.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);  //Might return Null
 
         //Whether surrounding land will be modified automatically to conform to the bottom of the structure.
         //NOISE_AFFECTING_FEATURES
         if(transformSurroundingLand){
-            Structure.field_236384_t_ = ImmutableList.<Structure<?>>builder()
-                    .addAll(Structure.field_236384_t_)
+            Structure.NOISE_AFFECTING_FEATURES = ImmutableList.<Structure<?>>builder()
+                    .addAll(Structure.NOISE_AFFECTING_FEATURES)
                     .add(structure)
                     .build();
 
         }
 
         //DEFAULT
-        DimensionStructuresSettings.field_236191_b_ =
+        DimensionStructuresSettings.DEFAULTS =
                 ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()
-                        .putAll(DimensionStructuresSettings.field_236191_b_)
+                        .putAll(DimensionStructuresSettings.DEFAULTS)
                         .put(structure, structureSeparationSettings)
                         .build();
 
         //NOISE_GENERATOR_SETTINGS
-        WorldGenRegistries.NOISE_SETTINGS.getEntries().forEach(settings -> {
-            Map<Structure<?>, StructureSeparationSettings> structureMap = settings.getValue().getStructures().func_236195_a_();
+        WorldGenRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {
+            Map<Structure<?>, StructureSeparationSettings> structureMap = settings.getValue().structureSettings().structureConfig();
 
             if(structureMap instanceof ImmutableMap){
                 Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(structureMap);
                 tempMap.put(structure, structureSeparationSettings);
-                settings.getValue().getStructures().func_236195_a_();
+                settings.getValue().structureSettings().structureConfig();
 
 
             } else {

@@ -24,15 +24,15 @@ public class AutumnTreeLog extends Block {
     public static final BooleanProperty GROWN = BooleanProperty.create("grown_by_sapling");
 
     public AutumnTreeLog() {
-        super(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD));
+        super(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD));
 
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(GROWN, true)
-                .with(AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(GROWN, true)
+                .setValue(AXIS, Direction.Axis.Y));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder builder) {
 
         builder.add(GROWN, AXIS);
 
@@ -41,8 +41,8 @@ public class AutumnTreeLog extends Block {
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.
 
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(GROWN, Boolean.valueOf(false))
-                .with(AXIS, context.getFace().getAxis());
+        return this.defaultBlockState().setValue(GROWN, Boolean.valueOf(false))
+                .setValue(AXIS, context.getClickedFace().getAxis());
     }
 
 
@@ -50,11 +50,11 @@ public class AutumnTreeLog extends Block {
         switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch ((Direction.Axis) state.get(AXIS)) {
+                switch ((Direction.Axis) state.getValue(AXIS)) {
                     case X:
-                        return state.with(AXIS, Direction.Axis.Z);
+                        return state.setValue(AXIS, Direction.Axis.Z);
                     case Z:
-                        return state.with(AXIS, Direction.Axis.X);
+                        return state.setValue(AXIS, Direction.Axis.X);
                     default:
                         return state;
                 }
@@ -63,49 +63,49 @@ public class AutumnTreeLog extends Block {
         }
     }
 
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
 
-        worldIn.getPendingBlockTicks().scheduleTick(currentPos, this, 1);
+        worldIn.getBlockTicks().scheduleTick(currentPos, this, 1);
 
         return stateIn;
     }
 
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 
         Random rand = new Random();
 
-        if (!worldIn.isRemote && state.get(AutumnTreeLog.GROWN))
+        if (!worldIn.isClientSide && state.getValue(AutumnTreeLog.GROWN))
             if (rand.nextDouble() < 0.05) {
 
-                if (worldIn.isAirBlock(pos.north())) {
+                if (worldIn.isEmptyBlock(pos.north())) {
 
-                    worldIn.setBlockState(pos.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState());
+                    worldIn.setBlockAndUpdate(pos.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState());
                     return;
                 }
 
-                if (worldIn.isAirBlock(pos.east())) {
+                if (worldIn.isEmptyBlock(pos.east())) {
 
                     Rotation rotation = Rotation.CLOCKWISE_90;
 
-                    worldIn.setBlockState(pos.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation));
+                    worldIn.setBlockAndUpdate(pos.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation));
                     return;
                 }
 
-                if (worldIn.isAirBlock(pos.south())) {
+                if (worldIn.isEmptyBlock(pos.south())) {
 
                     Rotation rotation = Rotation.CLOCKWISE_180;
 
-                    worldIn.setBlockState(pos.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation));
+                    worldIn.setBlockAndUpdate(pos.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation));
                     return;
                 }
 
-                if (worldIn.isAirBlock(pos.west())) {
+                if (worldIn.isEmptyBlock(pos.west())) {
 
                     Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
 
-                    worldIn.setBlockState(pos.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().getDefaultState(), rotation));
+                    worldIn.setBlockAndUpdate(pos.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation));
                     return;
                 }
             }

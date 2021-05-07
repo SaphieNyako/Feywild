@@ -40,7 +40,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
         super(type, worldIn);
         //Geckolib check
-        this.ignoreFrustumCheck = true;
+        this.noCulling = true;
 
     }
 
@@ -51,7 +51,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         super.registerGoals();
         //Tempt goal doesn't work due to the constant movement ()
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D,
-                Ingredient.fromItems(ModItems.FEY_DUST.get()),false));
+                Ingredient.of(ModItems.FEY_DUST.get()),false));
     }
 
 

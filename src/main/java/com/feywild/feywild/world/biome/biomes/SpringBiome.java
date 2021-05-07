@@ -20,42 +20,42 @@ public class SpringBiome extends BaseBiome {
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
         final BiomeGenerationSettings.Builder biomeGenerationSettingsBuilder =
-                (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(surfaceBuilder);
+                (new BiomeGenerationSettings.Builder()).surfaceBuilder(surfaceBuilder);
 
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
 
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 40, 4, 4));
-        DefaultBiomeFeatures.withPassiveMobs(mobSpawnBuilder);
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 40, 4, 4));
+        DefaultBiomeFeatures.farmAnimals(mobSpawnBuilder);
 
         //Standard
-        DefaultBiomeFeatures.withCommonOverworldBlocks(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withOverworldOres(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
 
         /* SPRING FEATURES */
-        biomeGenerationSettingsBuilder.withStructure(StructureFeatures.JUNGLE_PYRAMID);
+        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.JUNGLE_TEMPLE);
         //biomeGenerationSettingsBuilder.withStructure(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_FOREST);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_FOREST);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
 
         /* CUSTOMISED */
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
 
         return (new Biome.Builder()).precipitation(Biome.RainType.RAIN)
-                .category(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
-                .setEffects((new BiomeAmbience.Builder())
-                        .setWaterColor(4159204)
-                        .setWaterFogColor(329011)
-                        .setFogColor(12638463)
-                        .withSkyColor(getSkyColorWithTemperatureModifier(0.7F))
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
-                .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(biomeGenerationSettingsBuilder.build()).build();
+                .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
+                .specialEffects((new BiomeAmbience.Builder())
+                        .waterColor(4159204)
+                        .waterFogColor(329011)
+                        .fogColor(12638463)
+                        .skyColor(getSkyColorWithTemperatureModifier(0.7F))
+                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+                .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
         //.setParticle
 

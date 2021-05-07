@@ -33,34 +33,34 @@ import java.util.Set;
 public class ModConfiguredFeatures {
 
 
-    protected static final BlockState PODZOL_STATE = Blocks.PODZOL.getDefaultState();
-    protected static final BlockState GRASS_BLOCK_STATE = Blocks.GRASS_BLOCK.getDefaultState();
+    protected static final BlockState PODZOL_STATE = Blocks.PODZOL.defaultBlockState();
+    protected static final BlockState GRASS_BLOCK_STATE = Blocks.GRASS_BLOCK.defaultBlockState();
 
     /* SPRING */
     public static final ConfiguredFeature<?,?> SPRING_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "spring_trees",
-                    Feature.TREE.withConfiguration(new SpringTree().getTreeFeature(new Random(), true).getConfig())
-                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(1, 0.5f, 3))));
+                    Feature.TREE.configured(new SpringTree().getConfiguredFeature(new Random(), true).config())
+                            .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                            .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 3))));
 
     /* SUMMER */
     public static final ConfiguredFeature<?,?> SUMMER_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "summer_trees",
-                    Feature.TREE.withConfiguration(new SummerTree().getTreeFeature(new Random(), true).getConfig())
-                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(1, 0.5f, 2))));
+                    Feature.TREE.configured(new SummerTree().getConfiguredFeature(new Random(), true).config())
+                            .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                            .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 2))));
 
     /* AUTUMN */
     public static final ConfiguredFeature<?,?> AUTUMN_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "autumn_trees",
-                    Feature.TREE.withConfiguration(new AutumnTree().getTreeFeature(new Random(), true).getConfig())
-                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(1, 0.5f, 5))));
+                    Feature.TREE.configured(new AutumnTree().getConfiguredFeature(new Random(), true).config())
+                            .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                            .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 5))));
 
 
     public static final ConfiguredFeature<?, ?> AUTUMN_PUMPKINS = register("autumn_pumpkins",
-            ModFeatures.AUTUMN_PUMPKINS.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG)
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT));
+            ModFeatures.AUTUMN_PUMPKINS.configured(IFeatureConfig.NONE)
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
 
 
@@ -73,7 +73,7 @@ public class ModConfiguredFeatures {
                            .addWeightedBlockstate(Blocks.PUMPKIN.getDefaultState(), 19)
                            .addWeightedBlockstate(Blocks.JACK_O_LANTERN.getDefaultState(), 1)
                            .addWeightedBlockstate(Blocks.CARVED_PUMPKIN.getDefaultState(),1), SimpleBlockPlacer.PLACER)).tries(32)
-                           .whitelist(ImmutableSet.of(GRASS_BLOCK_STATE.getBlock())).func_227317_b_().build();
+                           .whitelist(ImmutableSet.of(GRASS_BLOCK_STATE.getBlock())).noProjection().build();
 
 
            public static final ConfiguredFeature<?, ?> AUTUMN_PUMPKINS =
@@ -86,22 +86,22 @@ public class ModConfiguredFeatures {
            /* WINTER */
     public static final ConfiguredFeature<?,?> WINTER_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "winter_trees",
-                    Feature.TREE.withConfiguration(new WinterTree().getTreeFeature(new Random(), true).getConfig())
-                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(1, 0.3f, 2))));
+                    Feature.TREE.configured(new WinterTree().getConfiguredFeature(new Random(), true).config())
+                            .decorated(Features.Placements.HEIGHTMAP_SQUARE)
+                            .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.3f, 2))));
 
     //Winter Flowers
     public static final BlockClusterFeatureConfig WINTER_FLOWER_CONFIG =
             (new BlockClusterFeatureConfig.Builder((new WeightedBlockStateProvider())
-                    .addWeightedBlockstate(Blocks.LILY_OF_THE_VALLEY.getDefaultState(), 2)
-                    .addWeightedBlockstate(Blocks.POPPY.getDefaultState(), 1), SimpleBlockPlacer.PLACER)).tries(64).build();
+                    .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 2)
+                    .add(Blocks.POPPY.defaultBlockState(), 1), SimpleBlockPlacer.INSTANCE)).tries(64).build();
 
 
     public static final ConfiguredFeature<?, ?> WINTER_FLOWERS =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE,"flower_default",
-                    Feature.FLOWER.withConfiguration(WINTER_FLOWER_CONFIG)
-                            .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
-                            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).func_242731_b(2));
+                    Feature.FLOWER.configured(WINTER_FLOWER_CONFIG)
+                            .decorated(Features.Placements.ADD_32)
+                            .decorated(Features.Placements.HEIGHTMAP_SQUARE).count(2));
 
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String key, ConfiguredFeature<FC, ?> feature)

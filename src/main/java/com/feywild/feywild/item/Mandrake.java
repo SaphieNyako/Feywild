@@ -27,7 +27,7 @@ public class Mandrake extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 
         if (KeyboardHelper.isHoldingShift()) {
 
@@ -38,7 +38,7 @@ public class Mandrake extends Item {
 
         }
 
-        super.addInformation(stack, world, tooltip, flag);
+        super.appendHoverText(stack, world, tooltip, flag);
     }
 }
 

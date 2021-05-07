@@ -43,7 +43,7 @@ public class FeyEntity extends CreatureEntity  {
 
 
     @Override
-    public boolean onLivingFall(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float distance, float damageMultiplier) {
         return false;
     }
 
@@ -55,29 +55,29 @@ public class FeyEntity extends CreatureEntity  {
     }
 
     @Override
-    public boolean canBeLeashedTo(PlayerEntity player) {
+    public boolean canBeLeashed(PlayerEntity player) {
         return false;
     }
 
     @Override
-    protected boolean canBeRidden(Entity entityIn) {
+    protected boolean canRide(Entity entityIn) {
         return false;
     }
 
     // on interact with cookie
     @Override
-    public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
-        if(!world.isRemote && player.getHeldItem(hand).isItemEqual(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null){
+    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+        if(!level.isClientSide && player.getItemInHand(hand).sameItem(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null){
             this.follow = player;
             heal(4f);
-            player.getHeldItem(hand).shrink(1);
-            FeywildPacketHandler.sendToPlayersInRange(world,this.getPosition(), new ParticleMessage(this.getPosX(),this.getPosY(),this.getPosZ(),0,0,0,5,1),32);
+            player.getItemInHand(hand).shrink(1);
+            FeywildPacketHandler.sendToPlayersInRange(level,this.blockPosition(), new ParticleMessage(this.getX(),this.getY(),this.getZ(),0,0,0,5,1),32);
         }
         return ActionResultType.SUCCESS;
     }
 
     @Override
-    public boolean canBePushed() {
+    public boolean isPushable() {
         return false;
     }
 
@@ -85,14 +85,14 @@ public class FeyEntity extends CreatureEntity  {
     //Attributes
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
 
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .createMutableAttribute(Attributes.MAX_HEALTH, 12.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35D)
-                .createMutableAttribute(Attributes.LUCK, 0.2D);
+        return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
+                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.35D)
+                .add(Attributes.LUCK, 0.2D);
     }
 
     @Override
-    public boolean preventDespawn() {
+    public boolean requiresCustomPersistence() {
         return true;
     }
 
@@ -122,7 +122,7 @@ public class FeyEntity extends CreatureEntity  {
     }
 
     @Override
-    protected float getSoundPitch() {
+    protected float getVoicePitch() {
         return 1.0f;
     }
 
@@ -149,13 +149,13 @@ public class FeyEntity extends CreatureEntity  {
         }
 
         @Override
-        public void startExecuting() {
-            super.startExecuting();
-            this.targetPos = this.entity.getPositionVec();
+        public void start() {
+            super.start();
+            this.targetPos = this.entity.position();
         }
 
         @Override
-        public boolean shouldExecute() {
+        public boolean canUse() {
             return true;
         }
 
@@ -167,32 +167,32 @@ public class FeyEntity extends CreatureEntity  {
             this.entity.setNoGravity(true);
             super.tick();
 
-            if (!world.isRemote && follow == null) {
-                if (this.entity.getPosition().withinDistance(this.targetPos, 1)) {
+            if (!level.isClientSide && follow == null) {
+                if (this.entity.blockPosition().closerThan(this.targetPos, 1)) {
                     //Find position to go to
                     counter = 0;
                     do {
-                        this.targetPos = new Vector3d(entity.getPosX() - range + random.nextInt(range * 2), entity.getPosY() - range + random.nextInt(range * 2), entity.getPosZ() - range + random.nextInt(range * 2));
-                    } while (!world.getBlockState(new BlockPos(this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ())).isAir());
+                        this.targetPos = new Vector3d(entity.getX() - range + random.nextInt(range * 2), entity.getY() - range + random.nextInt(range * 2), entity.getZ() - range + random.nextInt(range * 2));
+                    } while (!level.getBlockState(new BlockPos(this.targetPos.x(), this.targetPos.y(), this.targetPos.z())).isAir());
                 } else {
                     // Reset desired position in case timer runs out
                     if(counter > 100){
-                        this.targetPos =this.entity.getPositionVec();
+                        this.targetPos =this.entity.position();
 
                     }
                     counter++;
                     //Damaged Check
                     if(this.entity.getLastDamageSource() != null){
-                        this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed * 10, (this.targetPos.getY() - this.entity.getPosY()) * speed* 10, (this.targetPos.getZ() - this.entity.getPosZ()) * speed* 10);
+                        this.entity.setDeltaMovement((this.targetPos.x() - this.entity.getX()) * speed * 10, (this.targetPos.y() - this.entity.getY()) * speed* 10, (this.targetPos.z() - this.entity.getZ()) * speed* 10);
                         this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
 
                     }else{
                         // move to pos
-                        this.entity.setMotion((this.targetPos.getX() - this.entity.getPosX()) * speed, (this.targetPos.getY() - this.entity.getPosY()) * speed, (this.targetPos.getZ() - this.entity.getPosZ()) * speed);
+                        this.entity.setDeltaMovement((this.targetPos.x() - this.entity.getX()) * speed, (this.targetPos.y() - this.entity.getY()) * speed, (this.targetPos.z() - this.entity.getZ()) * speed);
                         this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
                     }
                }
-            }else if (!world.isRemote && followPlayer >= 0){
+            }else if (!level.isClientSide && followPlayer >= 0){
                 followPlayer();
                 this.followPlayer--;
             }
@@ -205,12 +205,12 @@ public class FeyEntity extends CreatureEntity  {
                 follow = null;
                 return;
             }
-            this.targetPos = new Vector3d(follow.getPosX(), follow.getPosY() + 1, follow.getPosZ());
+            this.targetPos = new Vector3d(follow.getX(), follow.getY() + 1, follow.getZ());
             if (this.followPlayer == 0) {
                 this.followPlayer = 400;
                 follow = null;
             }
-            entity.setMotion((this.targetPos.getX() - entity.getPosX()) * speed * 10, (this.targetPos.getY() - entity.getPosY()) * speed * 10, (this.targetPos.getZ() - entity.getPosZ()) * speed * 10);
+            entity.setDeltaMovement((this.targetPos.x() - entity.getX()) * speed * 10, (this.targetPos.y() - entity.getY()) * speed * 10, (this.targetPos.z() - entity.getZ()) * speed * 10);
             this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         }
 

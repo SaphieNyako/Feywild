@@ -14,22 +14,22 @@ public class ModConfiguredSurfaceBuilders {
 
     /* SPRING */
     public static RegistryKey<ConfiguredSurfaceBuilder<?>> SPRING_SURFACE
-            = RegistryKey.getOrCreateKey(Registry.CONFIGURED_SURFACE_BUILDER_KEY,
+            = RegistryKey.create(Registry.CONFIGURED_SURFACE_BUILDER_REGISTRY,
             new ResourceLocation(FeywildMod.MOD_ID, "spring_surface"));
 
     /* SUMMER */
     public static RegistryKey<ConfiguredSurfaceBuilder<?>> SUMMER_SURFACE
-            = RegistryKey.getOrCreateKey(Registry.CONFIGURED_SURFACE_BUILDER_KEY,
+            = RegistryKey.create(Registry.CONFIGURED_SURFACE_BUILDER_REGISTRY,
             new ResourceLocation(FeywildMod.MOD_ID, "summer_surface"));
 
     /* AUTUMN */
     public static RegistryKey<ConfiguredSurfaceBuilder<?>> AUTUMN_SURFACE
-            = RegistryKey.getOrCreateKey(Registry.CONFIGURED_SURFACE_BUILDER_KEY,
+            = RegistryKey.create(Registry.CONFIGURED_SURFACE_BUILDER_REGISTRY,
             new ResourceLocation(FeywildMod.MOD_ID, "autumn_surface"));
 
     /* WINTER */
     public static RegistryKey<ConfiguredSurfaceBuilder<?>> WINTER_SURFACE
-            = RegistryKey.getOrCreateKey(Registry.CONFIGURED_SURFACE_BUILDER_KEY,
+            = RegistryKey.create(Registry.CONFIGURED_SURFACE_BUILDER_REGISTRY,
             new ResourceLocation(FeywildMod.MOD_ID, "winter_surface"));
 
 }

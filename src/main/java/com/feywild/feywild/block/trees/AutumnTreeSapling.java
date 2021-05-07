@@ -9,22 +9,24 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class AutumnTreeSapling extends BaseSapling {
 
     public AutumnTreeSapling() {
-        super(AutumnTree::new, Properties.from(Blocks.OAK_SAPLING));
+        super(AutumnTree::new, Properties.copy(Blocks.OAK_SAPLING));
     }
 
 
     @Override
-    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 
-        super.grow(worldIn, rand, pos, state);
+        super.performBonemeal(worldIn, rand, pos, state);
 
 
-        if (state.get(STAGE) == 1) {
+        if (state.getValue(STAGE) == 1) {
 
-            if (!worldIn.isRemote()) {
+            if (!worldIn.isClientSide()) {
                 //x
                 int sizePodzol = 4;
 
@@ -33,7 +35,7 @@ public class AutumnTreeSapling extends BaseSapling {
                     for (int z = -sizePodzol; z <= sizePodzol; z++) {
 
                                 if(rand.nextDouble() < 0.2) {
-                                    worldIn.setBlockState(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), getBlocks(rand));
+                                    worldIn.setBlockAndUpdate(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), getBlocks(rand));
                                 }
                     }
                 }
@@ -44,12 +46,12 @@ public class AutumnTreeSapling extends BaseSapling {
     public BlockState getBlocks(Random random) {
 
         switch (random.nextInt(20)) {
-            case 0: return Blocks.PUMPKIN.getDefaultState();
-            case 1: return Blocks.CARVED_PUMPKIN.getDefaultState();
-            case 2: return Blocks.RED_MUSHROOM.getDefaultState();
-            case 4: return Blocks.BROWN_MUSHROOM.getDefaultState();
+            case 0: return Blocks.PUMPKIN.defaultBlockState();
+            case 1: return Blocks.CARVED_PUMPKIN.defaultBlockState();
+            case 2: return Blocks.RED_MUSHROOM.defaultBlockState();
+            case 4: return Blocks.BROWN_MUSHROOM.defaultBlockState();
 
-            default: return Blocks.FERN.getDefaultState();
+            default: return Blocks.FERN.defaultBlockState();
         }
     }
 }

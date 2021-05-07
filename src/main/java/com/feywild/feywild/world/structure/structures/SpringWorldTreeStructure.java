@@ -30,6 +30,8 @@ import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
+import net.minecraft.world.gen.feature.structure.Structure.IStartFactory;
+
 public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
     public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 10;
@@ -38,7 +40,7 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
 
     public SpringWorldTreeStructure() {
-        super(NoFeatureConfig.field_236558_a_);
+        super(NoFeatureConfig.CODEC);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public GenerationStage.Decoration getDecorationStage() {
+    public GenerationStage.Decoration step() {
 
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
@@ -82,16 +84,16 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
     //OPTIONAL
     @Override
-    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+    protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
         BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
 
         // getFirstOccupiedHeight();
-        int landHeight = chunkGenerator.getNoiseHeight(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG);
+        int landHeight = chunkGenerator.getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG);
 
         //getBaseColumn();
-        IBlockReader columnOfBlocks = chunkGenerator.func_230348_a_(centerOfChunk.getX(), centerOfChunk.getZ());
+        IBlockReader columnOfBlocks = chunkGenerator.getBaseColumn(centerOfChunk.getX(), centerOfChunk.getZ());
 
-        BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.up(landHeight));
+        BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.above(landHeight));
 
         return topBlock.getFluidState().isEmpty(); //landHeight > 100;
     }
@@ -107,7 +109,7 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
 
         @Override  //generatePieces
-        public void func_230364_a_(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
+        public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
 
             // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
             int x = (chunkX << 4) + 7;
@@ -116,34 +118,34 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
             BlockPos blockpos = new BlockPos(x, 0, z);
 
             //addpieces()
-            JigsawManager.func_242837_a(
+            JigsawManager.addPieces(
                     dynamicRegistryManager,
 
-                    new VillageConfig(() -> (JigsawPattern) dynamicRegistryManager.getRegistry(Registry.STRUCTURE_POOL_ELEMENT_KEY)
-                            .getOrDefault(new ResourceLocation(FeywildMod.MOD_ID, "spring_world_tree/start_pool")),
+                    new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
+                            .get(new ResourceLocation(FeywildMod.MOD_ID, "spring_world_tree/start_pool")),
                             10),
 
                     AbstractVillagePiece::new,
                     chunkGenerator,
                     templateManagerIn,
                     blockpos,
-                    this.components,
-                    this.rand,
+                    this.pieces,
+                    this.random,
                     false,
                     true);
             // Keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
 
             //OPTIONAL
-            this.components.forEach(piece -> piece.offset(0,1,0));
-            this.components.forEach(piece -> piece.getBoundingBox().maxY -= 1);
+            this.pieces.forEach(piece -> piece.move(0,1,0));
+            this.pieces.forEach(piece -> piece.getBoundingBox().y1 -= 1);
 
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
-            this.recalculateStructureSize();
+            this.calculateBoundingBox();
 
            FeywildMod.LOGGER.log(Level.DEBUG, "Spring World Tree at: " +
-                    this.components.get(0).getBoundingBox().maxX + " " +
-                    this.components.get(0).getBoundingBox().maxY + " " +
-                    this.components.get(0).getBoundingBox().maxZ);
+                    this.pieces.get(0).getBoundingBox().x0 + " " +
+                    this.pieces.get(0).getBoundingBox().y0 + " " +
+                    this.pieces.get(0).getBoundingBox().z0);
         }
     }
 }

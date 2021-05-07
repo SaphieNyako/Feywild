@@ -29,23 +29,23 @@ import java.util.List;
 public class SummoningScrollSpringPixie extends Item {
 
     public SummoningScrollSpringPixie() {
-        super(new Item.Properties().group(FeywildMod.FEYWILD_TAB));
+        super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if(!context.getWorld().isRemote){
-            SpringPixieEntity entity = new SpringPixieEntity(ModEntityTypes.SPRING_PIXIE.get(),context.getWorld());
-            entity.setPosition(context.getHitVec().getX(), context.getHitVec().getY(), context.getHitVec().getZ());
-            context.getWorld().addEntity(entity);
-            context.getPlayer().getHeldItem(context.getHand()).shrink(1);
+    public ActionResultType useOn(ItemUseContext context) {
+        if(!context.getLevel().isClientSide){
+            SpringPixieEntity entity = new SpringPixieEntity(ModEntityTypes.SPRING_PIXIE.get(),context.getLevel());
+            entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
+            context.getLevel().addFreshEntity(entity);
+            context.getPlayer().getItemInHand(context.getHand()).shrink(1);
         }
         return ActionResultType.SUCCESS;
     }
 
 
     @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){
 
         if(KeyboardHelper.isHoldingShift()){
 
@@ -56,6 +56,6 @@ public class SummoningScrollSpringPixie extends Item {
 
         }
 
-        super.addInformation(stack, world, tooltip, flag);
+        super.appendHoverText(stack, world, tooltip, flag);
     }
 }

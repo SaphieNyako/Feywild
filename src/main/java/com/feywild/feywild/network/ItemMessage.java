@@ -32,7 +32,7 @@ public class ItemMessage {
 
     //Read msg from buf
     public ItemMessage(PacketBuffer buf){
-        item = buf.readItemStack();
+        item = buf.readItem();
         pos = buf.readBlockPos();
         index = buf.readInt();
 
@@ -40,7 +40,7 @@ public class ItemMessage {
 
     //Save msg to buf
     public void toBytes(PacketBuffer buf){
-        buf.writeItemStack(item);
+        buf.writeItem(item);
         buf.writeBlockPos(pos);
         buf.writeInt(index);
 
@@ -61,9 +61,9 @@ public class ItemMessage {
         ctx.get().enqueueWork(()-> {
             //Set the items for the client !!! be careful to give it the right location
 
-                    if(world.getTileEntity(pos) instanceof FeyAltarBlockEntity) {
-                        FeyAltarBlockEntity tile = (FeyAltarBlockEntity) world.getTileEntity(pos);
-                        tile.setInventorySlotContents(index,item);
+                    if(world.getBlockEntity(pos) instanceof FeyAltarBlockEntity) {
+                        FeyAltarBlockEntity tile = (FeyAltarBlockEntity) world.getBlockEntity(pos);
+                        tile.setItem(index,item);
                     }
 
         });

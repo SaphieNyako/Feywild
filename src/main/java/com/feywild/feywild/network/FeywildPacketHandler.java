@@ -36,9 +36,9 @@ public class FeywildPacketHandler {
 
     // send a packet to all players near the pos withing a specific range
     public static void sendToPlayersInRange(World world, BlockPos pos, Object message, int range){
-        if (!world.isRemote) {
-            ((ServerWorld) world).getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(pos), false)
-                    .filter(e -> e.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < range * range)
+        if (!world.isClientSide) {
+            ((ServerWorld) world).getChunkSource().chunkMap.getPlayers(new ChunkPos(pos), false)
+                    .filter(e -> e.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < range * range)
                     .forEach(e -> INSTANCE.send(PacketDistributor.PLAYER.with(() -> e), message));
         }
     }

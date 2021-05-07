@@ -30,17 +30,17 @@ public class ModBiomeGeneration {
     public static void register(final RegistryEvent.Register<SurfaceBuilder<?>> event) {
 
         /* SPRING */
-        registerBiome(ModConfiguredSurfaceBuilders.SPRING_SURFACE.getLocation(),
-                Blocks.GRASS_BLOCK.getDefaultState(), Blocks.GRASS_BLOCK.getDefaultState(), Blocks.SAND.getDefaultState());
+        registerBiome(ModConfiguredSurfaceBuilders.SPRING_SURFACE.location(),
+                Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.SAND.defaultBlockState());
         /* SUMMER */
-        registerBiome(ModConfiguredSurfaceBuilders.SUMMER_SURFACE.getLocation(),
-                Blocks.GRASS_BLOCK.getDefaultState(), Blocks.GRASS_BLOCK.getDefaultState(), Blocks.SAND.getDefaultState());
+        registerBiome(ModConfiguredSurfaceBuilders.SUMMER_SURFACE.location(),
+                Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.SAND.defaultBlockState());
         /* AUTUMN */
-        registerBiome(ModConfiguredSurfaceBuilders.AUTUMN_SURFACE.getLocation(),
-                Blocks.GRASS_BLOCK.getDefaultState(), Blocks.GRASS_BLOCK.getDefaultState(), Blocks.SAND.getDefaultState());
+        registerBiome(ModConfiguredSurfaceBuilders.AUTUMN_SURFACE.location(),
+                Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.SAND.defaultBlockState());
         /* WINTER */
-        registerBiome(ModConfiguredSurfaceBuilders.WINTER_SURFACE.getLocation(),
-                Blocks.GRASS_BLOCK.getDefaultState(), Blocks.SNOW_BLOCK.getDefaultState(), Blocks.SAND.getDefaultState());
+        registerBiome(ModConfiguredSurfaceBuilders.WINTER_SURFACE.location(),
+                Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.SNOW_BLOCK.defaultBlockState(), Blocks.SAND.defaultBlockState());
 
     }
 
@@ -59,13 +59,13 @@ public class ModBiomeGeneration {
 
     private static void registerBiome(ResourceLocation biomeResourceLocation, BlockState topBlock, BlockState fillerBlock, BlockState underwaterBlock) {
 
-        Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, biomeResourceLocation, ModSurfaceBuilders.LOGGING_DEFAULT.get().func_242929_a(
+        Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, biomeResourceLocation, ModSurfaceBuilders.LOGGING_DEFAULT.get().configured(
                 new SurfaceBuilderConfig(topBlock, fillerBlock, underwaterBlock)));
     }
 
     private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
 
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(ForgeRegistries.Keys.BIOMES,
+        RegistryKey<Biome> key = RegistryKey.create(ForgeRegistries.Keys.BIOMES,
                 Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
 
         BiomeDictionary.addTypes(key, types);

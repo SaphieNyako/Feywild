@@ -13,11 +13,11 @@ public class WinterLeavesBlock extends FeyLeavesBlock{
 
 
     @Override
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 
-         if(!worldIn.isRemote && !state.get(WinterLeavesBlock.PERSISTENT) && worldIn.isAirBlock(pos.up())){
+         if(!worldIn.isClientSide && !state.getValue(WinterLeavesBlock.PERSISTENT) && worldIn.isEmptyBlock(pos.above())){
 
-                worldIn.setBlockState(pos.up(), Blocks.SNOW.getDefaultState());
+                worldIn.setBlockAndUpdate(pos.above(), Blocks.SNOW.defaultBlockState());
 
         }
     }

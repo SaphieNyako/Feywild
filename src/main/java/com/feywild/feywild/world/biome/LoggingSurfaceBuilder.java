@@ -31,17 +31,17 @@ public class LoggingSurfaceBuilder <C extends ISurfaceBuilderConfig, S extends S
 
 
     @Override
-    public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
+    public void apply(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
                              BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, C config) {
 
-            delegatedSurfaceBuilder.get().buildSurface(random, chunkIn, biomeIn, x, z, startHeight,
+            delegatedSurfaceBuilder.get().apply(random, chunkIn, biomeIn, x, z, startHeight,
                     noise, defaultBlock, defaultFluid, seaLevel, seed, config);
 
             if(!logged){
                 logged = true;
                 ChunkPos chunkPos = chunkIn.getPos();
                 LOGGER.info("Currently Generated at {} at {}, {}", biomeIn.getRegistryName(),
-                chunkPos.getXStart(), chunkPos.getZStart());
+                chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
             }
     }
 

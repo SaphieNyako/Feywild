@@ -27,14 +27,14 @@ public class DwarvenAnvil extends Block {
 
     //Constructor
     public DwarvenAnvil() {
-        super(AbstractBlock.Properties.create(Material.ANVIL)
-                .hardnessAndResistance(3f,10f)
-                .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.ANVIL));
+        super(AbstractBlock.Properties.of(Material.HEAVY_METAL)
+                .strength(3f,10f)
+                .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.ANVIL));
     }
     // This is the black thing that surrounds the block and that prevents it from making blocks around it invisible
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return VoxelShapes.create(0.01,0.01,0.01,0.99,0.99,0.99);
+        return VoxelShapes.box(0.01,0.01,0.01,0.99,0.99,0.99);
     }
     
 }

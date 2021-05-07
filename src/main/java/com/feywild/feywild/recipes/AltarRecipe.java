@@ -46,12 +46,12 @@ public class AltarRecipe implements IAltarRecipe{
     }
 
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
+    public ItemStack assemble(IInventory inv) {
         return output;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return output.copy();
     }
 
@@ -66,7 +66,7 @@ public class AltarRecipe implements IAltarRecipe{
     }
 
     @Override
-    public ItemStack getIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(ModBlocks.FEY_ALTAR.get());
     }
 
@@ -82,13 +82,13 @@ public class AltarRecipe implements IAltarRecipe{
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AltarRecipe>{
 
         @Override
-        public AltarRecipe read(ResourceLocation recipeId, JsonObject json) {
-            ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
-            JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
+        public AltarRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
+            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
             List<Ingredient> inputs = new ArrayList<>();
 
             for (JsonElement jsonElement : ingredients) {
-                inputs.add(Ingredient.deserialize(jsonElement));
+                inputs.add(Ingredient.fromJson(jsonElement));
             }
 
             return new AltarRecipe(recipeId, output, inputs);
@@ -96,25 +96,25 @@ public class AltarRecipe implements IAltarRecipe{
 
         @Nullable
         @Override
-        public AltarRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public AltarRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
             Ingredient[] inputs = new Ingredient[buffer.readInt()];
 
             for (int i = 0; i < inputs.length; i++) {
-                inputs[i] = Ingredient.read(buffer);
+                inputs[i] = Ingredient.fromNetwork(buffer);
             }
 
-            ItemStack output = buffer.readItemStack();
+            ItemStack output = buffer.readItem();
 
             return new AltarRecipe(recipeId, output, Arrays.asList(inputs));
         }
 
         @Override
-        public void write(PacketBuffer buffer, AltarRecipe recipe) {
+        public void toNetwork(PacketBuffer buffer, AltarRecipe recipe) {
             buffer.writeInt(recipe.getIngredients().size());
             for(Ingredient ing : recipe.getIngredients()){
-                ing.write(buffer);
+                ing.toNetwork(buffer);
             }
-            buffer.writeItemStack(recipe.getRecipeOutput(),false);
+            buffer.writeItemStack(recipe.getResultItem(),false);
         }
     }
 

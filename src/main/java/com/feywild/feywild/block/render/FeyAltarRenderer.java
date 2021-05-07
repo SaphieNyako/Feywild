@@ -47,42 +47,42 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
         if(tileEntityIn.isEmpty()){
             // Initialize
             ClientPlayerEntity playerEntity = minecraft.player;
-            int lightLevel = getLightLevel(tileEntityIn.getWorld(),tileEntityIn.getPos().up());
+            int lightLevel = getLightLevel(tileEntityIn.getLevel(),tileEntityIn.getBlockPos().above());
             // Another init just so I don't have to deal with the AtomicDouble
             double shiftX , shiftZ, shiftY;
 
             //Loop through items and render them
-            for(int i = 0; i < tileEntityIn.getSizeInventory() ; i ++){
+            for(int i = 0; i < tileEntityIn.getContainerSize() ; i ++){
                 //shift position for items
-                shiftX = Math.cos(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
-                shiftZ = Math.sin(((tileEntityIn.getWorld().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
+                shiftX = Math.cos(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
+                shiftZ = Math.sin(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
                 //render item
-                renderItem(tileEntityIn.getStackInSlot(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getWorld().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks,999999999, lightLevel, 0.85f);
+                renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks,999999999, lightLevel, 0.85f);
             }
         }
     }
 
     // render the item
     private void renderItem(ItemStack itemStack, double[] translation, Quaternion rotation, MatrixStack stack, IRenderTypeBuffer buf,float partialTicks, int combinedOverlay, int lightLevel, float scale){
-        stack.push();
+        stack.pushPose();
 
         stack.translate(translation[0], translation[1], translation[2]);
 
-        stack.rotate(rotation);
+        stack.mulPose(rotation);
         stack.scale(scale,scale,scale);
 
         //get item model
-        IBakedModel model = minecraft.getItemRenderer().getItemModelWithOverrides(itemStack,null,null);
+        IBakedModel model = minecraft.getItemRenderer().getModel(itemStack,null,null);
         //the line of code that actually renders the item
-        minecraft.getItemRenderer().renderItem(itemStack, ItemCameraTransforms.TransformType.GROUND,true,stack,buf,lightLevel,combinedOverlay,model);
+        minecraft.getItemRenderer().render(itemStack, ItemCameraTransforms.TransformType.GROUND,true,stack,buf,lightLevel,combinedOverlay,model);
 
-        stack.pop();
+        stack.popPose();
     }
 
     private int getLightLevel(World world, BlockPos pos){
-        int bLight = world.getLightFor(LightType.BLOCK, pos);
-        int sLight = world.getLightFor(LightType.SKY, pos);
-        return LightTexture.packLight(bLight,sLight);
+        int bLight = world.getBrightness(LightType.BLOCK, pos);
+        int sLight = world.getBrightness(LightType.SKY, pos);
+        return LightTexture.pack(bLight,sLight);
     }
 
     //Ancient's note : holy cow this is so much more complicated than on fabric since you have to do most of the things yourself

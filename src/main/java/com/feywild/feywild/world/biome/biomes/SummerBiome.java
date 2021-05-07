@@ -20,46 +20,46 @@ public class SummerBiome extends BaseBiome{
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
         final BiomeGenerationSettings.Builder biomeGenerationSettingsBuilder =
-                (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(surfaceBuilder);
+                (new BiomeGenerationSettings.Builder()).surfaceBuilder(surfaceBuilder);
 
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 40, 4, 4));
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
 
 
         //Standard
-        DefaultBiomeFeatures.withCommonOverworldBlocks(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withOverworldOres(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
 
         /* SUMMER FEATURES */
-        biomeGenerationSettingsBuilder.withStructure(StructureFeatures.DESERT_PYRAMID);
+        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.DESERT_PYRAMID);
 
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
-        DefaultBiomeFeatures.withTallGrass(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withWarmFlowers(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withAllForestFlowerGeneration(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withWarmFlowers(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withSavannaGrass(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withMelonPatchesAndVines(biomeGenerationSettingsBuilder);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
+        DefaultBiomeFeatures.addSavannaGrass(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addWarmFlowers(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addForestFlowers(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addWarmFlowers(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addSavannaExtraGrass(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addJungleExtraVegetation(biomeGenerationSettingsBuilder);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
 
-        DefaultBiomeFeatures.withExtraGoldOre(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
 
         /* CUSTOMISED */
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
 
         return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
-                .category(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0.0F)
-                .setEffects((new BiomeAmbience.Builder())
-                        .setWaterColor(4159204)
-                        .setWaterFogColor(329011)
-                        .setFogColor(12638463)
-                        .withSkyColor(getSkyColorWithTemperatureModifier(0.9F))
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
-                .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(biomeGenerationSettingsBuilder.build()).build();
+                .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0.0F)
+                .specialEffects((new BiomeAmbience.Builder())
+                        .waterColor(4159204)
+                        .waterFogColor(329011)
+                        .fogColor(12638463)
+                        .skyColor(getSkyColorWithTemperatureModifier(0.9F))
+                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+                .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
 
 

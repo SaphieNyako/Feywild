@@ -64,25 +64,25 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         super(type, worldIn);
     }
     @Override
-    protected PathNavigator createNavigator(World worldIn) {
+    protected PathNavigator createNavigation(World worldIn) {
         return new GroundPathNavigator(this,worldIn);
     }
 
     @Override
-    public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
-        if(player.getEntityWorld().isRemote) return ActionResultType.SUCCESS;
+    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+        if(player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
             if(!tamed && level >= 6){
                 if(trades.size() < 3) {
-                    FeywildPacketHandler.sendToPlayersInRange(world, getPosition(), new ParticleMessage(getPosition().getX() + 0.5, getPosition().getY() + 1.2, getPosition().getZ() + 0.5, -4, -2, -4, 10, 3), 32);
+                    FeywildPacketHandler.sendToPlayersInRange(player.getCommandSenderWorld(), blockPosition(), new ParticleMessage(blockPosition().getX() + 0.5, blockPosition().getY() + 1.2, blockPosition().getZ() + 0.5, -4, -2, -4, 10, 3), 32);
                     boolean worked = true;
                     do {
-                        worked = addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
+                        worked = addTrade(random.nextInt(DwarfTrades.getTrades().size()));
                     } while (!worked);
                     level = 1;
                 }else{
-                    player.addItemStackToInventory(new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get()));
-                    player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.scroll"), false);
+                    player.addItem(new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get()));
+                    player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.scroll"), false);
                     this.remove();
                     return ActionResultType.FAIL;
                 }
@@ -90,27 +90,27 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
                 addTrade(0);
             }
 
-            if (player.getHeldItem(hand).isEmpty()) {
-                player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
+            if (player.getItemInHand(hand).isEmpty()) {
+                player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
                 trades.keySet().forEach(itemStack -> {
                     if(!tamed)
-                    player.sendStatusMessage(new TranslationTextComponent("").appendString("You give me " + itemStack.getCount()
-                            + " " + itemStack.getItem().getName().getString() + " and I'll trade you " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getName().getString() + "."), false);
-                    else player.sendStatusMessage(new TranslationTextComponent("").appendString("You give me " + itemStack.getCount()
-                                + " " + itemStack.getItem().getName().getString() + " and I'll trade you " + DwarfTrades.getTamedTrades().get(itemStack).getCount() + " " + DwarfTrades.getTamedTrades().get(itemStack).getItem().getName().getString() + "."), false);
+                    player.displayClientMessage(new TranslationTextComponent("").append("You give me " + itemStack.getCount()
+                            + " " + itemStack.getItem().getDescription().getString() + " and I'll trade you " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getDescription().getString() + "."), false);
+                    else player.displayClientMessage(new TranslationTextComponent("").append("You give me " + itemStack.getCount()
+                                + " " + itemStack.getItem().getDescription().getString() + " and I'll trade you " + DwarfTrades.getTamedTrades().get(itemStack).getCount() + " " + DwarfTrades.getTamedTrades().get(itemStack).getItem().getDescription().getString() + "."), false);
 
                 });
             } else {
                 trades.keySet().forEach(itemStack -> {
-                    if (player.getHeldItem(hand).isItemEqual(itemStack) && player.getHeldItem(hand).getCount() >= itemStack.getCount()) {
+                    if (player.getItemInHand(hand).sameItem(itemStack) && player.getItemInHand(hand).getCount() >= itemStack.getCount()) {
                         if(!tamed) {
                             level++;
-                            player.addItemStackToInventory(DwarfTrades.getTrades().get(itemStack).copy());
+                            player.addItem(DwarfTrades.getTrades().get(itemStack).copy());
                         }else{
-                            player.addItemStackToInventory(DwarfTrades.getTamedTrades().get(itemStack).copy());
+                            player.addItem(DwarfTrades.getTamedTrades().get(itemStack).copy());
                         }
-                        player.getHeldItem(hand).shrink(itemStack.copy().getCount());
-                        player.sendStatusMessage(new TranslationTextComponent("dwarf.feywild.trade"), false);
+                        player.getItemInHand(hand).shrink(itemStack.copy().getCount());
+                        player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.trade"), false);
                     }
                 });
                 // add a check for item holding
@@ -121,13 +121,13 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
     @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
       //Add a random first trade
         if(!tamed)
-        addTrade(rand.nextInt(DwarfTrades.getTrades().size()));
+        addTrade(random.nextInt(DwarfTrades.getTrades().size()));
         else
-            this.setHomePosAndDistance(getPosition(),7);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+            this.restrictTo(blockPosition(),7);
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     public void setTamed(boolean tamed) {
@@ -175,16 +175,16 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putBoolean("tamed", tamed);
         compound.putInt("level", level);
         compound.putIntArray("trade_id" , tradeId);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.level = compound.getInt("level");
         this.tamed = compound.getBoolean("tamed");
         if(!tamed) {
@@ -197,8 +197,8 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     }
 
     @Override
-    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn) {
-        return super.canSpawn(worldIn, spawnReasonIn) && !this.world.canSeeSky(this.getPosition()) && this.getPosition().getY() < 64;
+    public boolean checkSpawnRules(IWorld worldIn, SpawnReason spawnReasonIn) {
+        return super.checkSpawnRules(worldIn, spawnReasonIn) && this.blockPosition().getY() < 64;  // && !this.level.canSeeSky(this.blockPosition())
     }
 
     /* GOALS */
@@ -219,40 +219,40 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
 
     @Override
-    protected void updateMovementGoalFlags()
+    protected void updateControlFlags()
     {
-        super.updateMovementGoalFlags();
-            this.goalSelector.setFlag(Goal.Flag.MOVE, true);
-            this.goalSelector.setFlag(Goal.Flag.JUMP, true);
-            this.goalSelector.setFlag(Goal.Flag.LOOK, true);
+        super.updateControlFlags();
+            this.goalSelector.setControlFlag(Goal.Flag.MOVE, true);
+            this.goalSelector.setControlFlag(Goal.Flag.JUMP, true);
+            this.goalSelector.setControlFlag(Goal.Flag.LOOK, true);
     }
 
     /* ATTRIBUTES */
     @Override
-    public boolean canBeLeashedTo(PlayerEntity player) {
+    public boolean canBeLeashed(PlayerEntity player) {
         return false;
     }
 
     @Override
-    protected boolean canBeRidden(Entity entityIn) {
+    protected boolean canRide(Entity entityIn) {
         return false;
     }
 
     @Override
-    public boolean canBePushed() {
+    public boolean isPushable() {
         return true;
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
 
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
-                .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.1D);
+        return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
+                .add(Attributes.MAX_HEALTH, 24.0D)
+                .add(Attributes.ATTACK_DAMAGE, 4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.1D);
     }
 
     @Override
-    public boolean preventDespawn() {
+    public boolean requiresCustomPersistence() {
         return true;
     }
 
@@ -261,7 +261,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_VILLAGER_HURT;
+        return SoundEvents.VILLAGER_HURT;
     }
 
 
@@ -270,7 +270,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     @Override
     protected SoundEvent getDeathSound() {
         //Implement other Sound
-        return SoundEvents.ENTITY_VILLAGER_DEATH;
+        return SoundEvents.VILLAGER_DEATH;
     }
 
     @Nullable
@@ -278,11 +278,11 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     protected SoundEvent getAmbientSound() {
         //Implement other Sound
 
-        return SoundEvents.ENTITY_VILLAGER_CELEBRATE;
+        return SoundEvents.VILLAGER_CELEBRATE;
     }
 
     @Override
-    protected float getSoundPitch() {
+    protected float getVoicePitch() {
         return 0.6f;
     }
 
@@ -319,7 +319,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         if (pos.getY() >= iServerWorld.getSeaLevel()) {
             return false;
         } else {
-            return canSpawnOn(dwarfBlacksmithEntityEntityType, iServerWorld, spawnReason, pos, random);
+            return checkMobSpawnRules(dwarfBlacksmithEntityEntityType, iServerWorld, spawnReason, pos, random);
         }
     }
 }

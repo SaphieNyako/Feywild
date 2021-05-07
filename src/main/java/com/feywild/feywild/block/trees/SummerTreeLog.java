@@ -25,15 +25,15 @@ public class SummerTreeLog extends Block {
     public static final BooleanProperty GROWN = BooleanProperty.create("grown_by_sapling");
 
     public SummerTreeLog() {
-        super(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD));
+        super(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD));
 
-        this.setDefaultState(this.stateContainer.getBaseState()
-                .with(GROWN, true)
-                .with(AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(GROWN, true)
+                .setValue(AXIS, Direction.Axis.Y));
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder builder) {
 
         builder.add(GROWN, AXIS);
 
@@ -41,8 +41,8 @@ public class SummerTreeLog extends Block {
 
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(GROWN, Boolean.valueOf(false))
-                .with(AXIS, context.getFace().getAxis());
+        return this.defaultBlockState().setValue(GROWN, Boolean.valueOf(false))
+                .setValue(AXIS, context.getClickedFace().getAxis());
     }
 
 
@@ -50,11 +50,11 @@ public class SummerTreeLog extends Block {
         switch(rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch((Direction.Axis)state.get(AXIS)) {
+                switch((Direction.Axis)state.getValue(AXIS)) {
                     case X:
-                        return state.with(AXIS, Direction.Axis.Z);
+                        return state.setValue(AXIS, Direction.Axis.Z);
                     case Z:
-                        return state.with(AXIS, Direction.Axis.X);
+                        return state.setValue(AXIS, Direction.Axis.X);
                     default:
                         return state;
                 }

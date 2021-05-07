@@ -39,7 +39,7 @@ public class SpawnData {
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event)
     {
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<Type> types = BiomeDictionary.getTypes(key);
 
         if (!types.contains(Type.NETHER) && !types.contains(Type.END)

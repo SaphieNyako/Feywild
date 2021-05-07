@@ -21,7 +21,7 @@ import java.util.List;
 public class SummoningScrollDwarfBlacksmith extends Item {
 
     public SummoningScrollDwarfBlacksmith() {
-                super(new Item.Properties().group(FeywildMod.FEYWILD_TAB));
+                super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
     // On Item use summons a different version of the DwarfBlacksmith
@@ -31,19 +31,19 @@ public class SummoningScrollDwarfBlacksmith extends Item {
 
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        if(!context.getWorld().isRemote && context.getWorld().getBlockState(context.getPos()).getBlock() instanceof DwarvenAnvil){
-            DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.DWARF_BLACKSMITH.get(),context.getWorld());
-            entity.setPosition(context.getHitVec().getX(), context.getHitVec().getY(), context.getHitVec().getZ());
+    public ActionResultType useOn(ItemUseContext context) {
+        if(!context.getLevel().isClientSide && context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof DwarvenAnvil){
+            DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.DWARF_BLACKSMITH.get(),context.getLevel());
+            entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
             entity.setTamed(true);
-            context.getWorld().addEntity(entity);
-            context.getPlayer().getHeldItem(context.getHand()).shrink(1);
+            context.getLevel().addFreshEntity(entity);
+            context.getPlayer().getItemInHand(context.getHand()).shrink(1);
         }
         return ActionResultType.SUCCESS;
     }
 
     @Override
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){
 
         if(KeyboardHelper.isHoldingShift()){
 
@@ -54,6 +54,6 @@ public class SummoningScrollDwarfBlacksmith extends Item {
 
         }
 
-        super.addInformation(stack, world, tooltip, flag);
+        super.appendHoverText(stack, world, tooltip, flag);
     }
 }

@@ -48,12 +48,12 @@ public class ModEvents {
             // Check if it's the spawn librarian
             if(villagerEntity.getTags().contains("spawn_librarian") && !player.getTags().contains("speakToLib")){
                 //On first interaction
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUniqueID());
+                player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
                 player.addTag("speakToLib");
                 event.setCanceled(true);
             }else if(villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("speakToLib")){
                 // On second+ interaction
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUniqueID());
+                player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
                 event.setCanceled(true);
             }
         }

@@ -17,8 +17,8 @@ public abstract class BaseBiome {
 
     protected MobSpawnInfo.Builder getStandardMobSpawnBuilder() {
         MobSpawnInfo.Builder mobspawninfo$builder = new MobSpawnInfo.Builder();
-        DefaultBiomeFeatures.withPassiveMobs(mobspawninfo$builder);
-        DefaultBiomeFeatures.withBatsAndHostiles(mobspawninfo$builder);
+        DefaultBiomeFeatures.farmAnimals(mobspawninfo$builder);
+        DefaultBiomeFeatures.commonSpawns(mobspawninfo$builder);
         return mobspawninfo$builder;
     }
 
@@ -26,7 +26,7 @@ public abstract class BaseBiome {
     protected int getSkyColorWithTemperatureModifier(float temperature) {
         float lvt_1_1_ = temperature / 3.0F;
         lvt_1_1_ = MathHelper.clamp(lvt_1_1_, -1.0F, 1.0F);
-        return MathHelper.hsvToRGB(0.62222224F - lvt_1_1_ * 0.05F, 0.5F + lvt_1_1_ * 0.1F, 1.0F);
+        return MathHelper.hsvToRgb(0.62222224F - lvt_1_1_ * 0.05F, 0.5F + lvt_1_1_ * 0.1F, 1.0F);
     }
 
 

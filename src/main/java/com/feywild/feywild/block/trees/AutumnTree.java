@@ -21,21 +21,21 @@ import java.util.Random;
 
 public class AutumnTree extends BaseTree {
 
-    protected static final BlockState PODZOL_STATE = Blocks.PODZOL.getDefaultState();
+    protected static final BlockState PODZOL_STATE = Blocks.PODZOL.defaultBlockState();
 
 
     @Override  //protected
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
-                new SimpleBlockStateProvider(getLogBlock().getDefaultState()),
-                new SimpleBlockStateProvider(getLeafBlock().getDefaultState()),
+                new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
+                new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),
                 getFoliagePlacer(),
                 getGiantTrunkPlacer(),
                 getTwoLayerFeature()
         )
-                .setDecorators(ImmutableList.of(new AlterGroundTreeDecorator(new SimpleBlockStateProvider(PODZOL_STATE)))).build();
+                .decorators(ImmutableList.of(new AlterGroundTreeDecorator(new SimpleBlockStateProvider(PODZOL_STATE)))).build();
 
-        return Feature.TREE.withConfiguration(featureConfig);
+        return Feature.TREE.configured(featureConfig);
     }
 
 

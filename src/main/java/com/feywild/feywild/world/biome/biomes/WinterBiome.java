@@ -19,56 +19,56 @@ public class WinterBiome extends BaseBiome{
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
         final BiomeGenerationSettings.Builder biomeGenerationSettingsBuilder =
-                (new BiomeGenerationSettings.Builder()).withSurfaceBuilder(surfaceBuilder);
+                (new BiomeGenerationSettings.Builder()).surfaceBuilder(surfaceBuilder);
 
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
 
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.WINTER_PIXIE.get(), 40, 4, 4));
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
-        mobSpawnBuilder.withSpawner(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.SNOW_GOLEM, 10, 3, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.WINTER_PIXIE.get(), 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.SNOW_GOLEM, 10, 3, 4));
 
 
         //Standard
-        DefaultBiomeFeatures.withCommonOverworldBlocks(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.withOverworldOres(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
 
         /* WINTER FEATURES */
-        biomeGenerationSettingsBuilder.withStructure(StructureFeatures.IGLOO);
+        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.IGLOO);
 
-        DefaultBiomeFeatures.withChanceBerries(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addBerryBushes(biomeGenerationSettingsBuilder);
 
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
 
        // DefaultBiomeFeatures.withDefaultFlowers(biomeGenerationSettingsBuilder);
 
 
-        DefaultBiomeFeatures.withBadlandsGrass(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultGrass(biomeGenerationSettingsBuilder);
 
-        DefaultBiomeFeatures.withFrozenTopLayer(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);
 
-        DefaultBiomeFeatures.withIcebergs(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addIcebergs(biomeGenerationSettingsBuilder);
 
         /* WINTER FEATURES */
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
-        biomeGenerationSettingsBuilder.withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
 
 
       return (new Biome.Builder()).precipitation(Biome.RainType.SNOW)
-              .category(Biome.Category.ICY).depth(depth).scale(scale).temperature(0.0F).downfall(0.5F).setEffects((new BiomeAmbience.Builder())
-                      .setWaterColor(4159204)
-                      .setWaterFogColor(329011)
-                      .setFogColor(12638463)
-                      .withSkyColor(getSkyColorWithTemperatureModifier(0.0F))
-                      .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE).build())
-              .withMobSpawnSettings(mobSpawnBuilder.copy()).withGenerationSettings(biomeGenerationSettingsBuilder.build()).build();
+              .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0.0F).downfall(0.5F).specialEffects((new BiomeAmbience.Builder())
+                      .waterColor(4159204)
+                      .waterFogColor(329011)
+                      .fogColor(12638463)
+                      .skyColor(getSkyColorWithTemperatureModifier(0.0F))
+                      .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+              .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
 
 }

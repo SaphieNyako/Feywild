@@ -17,9 +17,9 @@ import java.util.function.Supplier;
 public class ModBlocks {
 
     public static final RegistryObject<Block> FEY_GEM_BLOCK = register("fey_gem_block",
-            ()-> new Block(AbstractBlock.Properties.create(Material.ROCK)
-                    .hardnessAndResistance(3f,10f)
-                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.STONE)), true);
+            ()-> new Block(AbstractBlock.Properties.of(Material.STONE)
+                    .strength(3f,10f)
+                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE)), true);
 
     // passing a new instance of the class DwarvenAnvil instead of creating a new block instance here
     public static final RegistryObject<Block> DWARVEN_ANVIL = register ("dwarven_anvil", DwarvenAnvil::new, true);
@@ -28,18 +28,18 @@ public class ModBlocks {
     //Properties in FeyAltar
 
     public static final RegistryObject<TileEntityType<FeyAltarBlockEntity>> FEY_ALTAR_ENTITY = registerTile("fey_altar_entity",
-            () ->TileEntityType.Builder.create(FeyAltarBlockEntity::new, FEY_ALTAR.get()).build(null));
+            () ->TileEntityType.Builder.of(FeyAltarBlockEntity::new, FEY_ALTAR.get()).build(null));
 
     /* CROPS */
 
     public static final RegistryObject<Block> MANDRAKE_CROP=
             Registration.BLOCKS.register("mandrake_crop",
-                    () -> new MandrakeCrop(AbstractBlock.Properties.from(Blocks.WHEAT)));
+                    () -> new MandrakeCrop(AbstractBlock.Properties.copy(Blocks.WHEAT)));
 
     /* TREES */
 
     public static final RegistryObject<Block> SPRING_TREE_LOG = register("spring_tree_log",
-        ()-> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
+        ()-> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> SPRING_TREE_LEAVES = register("spring_tree_leaves",
             FeyLeavesBlock::new,true);
@@ -70,7 +70,7 @@ public class ModBlocks {
             AutumnTreeSapling::new, true);
 
     public static final RegistryObject<Block> WINTER_TREE_LOG = register("winter_tree_log",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> WINTER_TREE_LEAVES = register("winter_tree_leaves",
             WinterLeavesBlock::new,true);
@@ -91,7 +91,7 @@ public class ModBlocks {
 
         if(createItem)
         Registration.ITEMS.register(name, ()-> new BlockItem(toReturn.get(),
-                new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
         return toReturn;
     }

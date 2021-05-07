@@ -32,19 +32,19 @@ public class ModItems {
 
     public static final RegistryObject<Item> LESSER_FEY_GEM =
             Registration.ITEMS.register("lesser_fey_gem",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> GREATER_FEY_GEM =
             Registration.ITEMS.register("greater_fey_gem",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> SHINY_FEY_GEM =
             Registration.ITEMS.register("shiny_fey_gem",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> BRILLIANT_FEY_GEM =
             Registration.ITEMS.register("brilliant_fey_gem",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
 
     //BOOK
@@ -55,7 +55,7 @@ public class ModItems {
     //FOOD ITEMS
     public static final RegistryObject<Item> FEY_DUST =
             Registration.ITEMS.register("fey_dust",
-                    () -> new FeyDust(new Item.Properties().group(FeywildMod.FEYWILD_TAB)
+                    () -> new FeyDust(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)
                             .food(new Food.Builder()
                             .effect(() -> new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get() , 1), 1 )
                             .build())));
@@ -65,7 +65,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> MANDRAKE =
             Registration.ITEMS.register("mandrake",
-                    () -> new Mandrake(new Item.Properties().group(FeywildMod.FEYWILD_TAB)
+                    () -> new Mandrake(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)
                             .food(new Food.Builder()
                                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1 )
                                     .build())));
@@ -74,7 +74,7 @@ public class ModItems {
     //CROP ITEMS
     public static final RegistryObject<Item> MANDRAKE_SEED=
             Registration.ITEMS.register("mandrake_seed",
-                    () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
 
 
@@ -82,7 +82,7 @@ public class ModItems {
     //QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
             Registration.ITEMS.register("fey_sheep_droppings",
-                    () -> new Item(new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
     /* TOOLS */
 
@@ -90,39 +90,39 @@ public class ModItems {
             Registration.ITEMS.register("fey_shovel",
                     () -> new ShovelItem(ModItemTier.FEY,  0f, 0f,
                     new Item.Properties()
-                        .group(FeywildMod.FEYWILD_TAB)
+                        .tab(FeywildMod.FEYWILD_TAB)
                         .addToolType(ToolType.SHOVEL, 2)
-                        .defaultMaxDamage(150)));
+                        .defaultDurability(150)));
 
     public static final RegistryObject<Item> FEY_HOE =
             Registration.ITEMS.register("fey_hoe",
                     () -> new HoeItem(ModItemTier.FEY, 0, 0,
                     new Item.Properties()
-                    .group(FeywildMod.FEYWILD_TAB)
+                    .tab(FeywildMod.FEYWILD_TAB)
                     .addToolType(ToolType.HOE, 2)
-                    .defaultMaxDamage(150)));
+                    .defaultDurability(150)));
 
     /* ARMOR */
 
     public static final RegistryObject<Item> FEY_ARMOR_HELMET =
             Registration.ITEMS.register("fey_armor_helmet",
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.HEAD, new Item.Properties()
-                    .group(FeywildMod.FEYWILD_TAB)));
+                    .tab(FeywildMod.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> FEY_ARMOR_CHEST =
             Registration.ITEMS.register("fey_armor_chest",
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.CHEST, new Item.Properties()
-                            .group(FeywildMod.FEYWILD_TAB)));
+                            .tab(FeywildMod.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> FEY_ARMOR_LEGGINGS =
             Registration.ITEMS.register("fey_armor_leggings",
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.LEGS, new Item.Properties()
-                            .group(FeywildMod.FEYWILD_TAB)));
+                            .tab(FeywildMod.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> FEY_ARMOR_BOOTS=
             Registration.ITEMS.register("fey_armor_boots",
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.FEET, new Item.Properties()
-                            .group(FeywildMod.FEYWILD_TAB)));
+                            .tab(FeywildMod.FEYWILD_TAB)));
 
     /* SUMMONING SCROLL */
 
@@ -174,7 +174,7 @@ public class ModItems {
 
 
         public enum ModItemTier implements IItemTier {
-        FEY(250, 3f, 5f, 2, 15, Ingredient.fromStacks(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
+        FEY(250, 3f, 5f, 2, 15, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
 
         private final int maxUses;
         private final float efficiency;
@@ -194,39 +194,39 @@ public class ModItems {
 
 
         @Override
-        public int getMaxUses() {
+        public int getUses() {
             return maxUses;
         }
 
         @Override
-        public float getEfficiency() {
+        public float getSpeed() {
             return efficiency;
         }
 
         @Override
-        public float getAttackDamage() {
+        public float getAttackDamageBonus() {
             return attackDamage;
         }
 
         @Override
-        public int getHarvestLevel() {
+        public int getLevel() {
             return harvestLevel;
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return enchantability;
         }
 
         @Override
-        public Ingredient getRepairMaterial() {
+        public Ingredient getRepairIngredient() {
             return repairMaterial;
         }
     }
 
 
     public enum ModArmorTier implements IArmorMaterial{
-        FEY_ARMOR(50, new int[] {2,7,5,3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_ELYTRA, Ingredient.fromStacks(new ItemStack(ModItems.GREATER_FEY_GEM.get())),
+        FEY_ARMOR(50, new int[] {2,7,5,3}, 10, SoundEvents.ARMOR_EQUIP_ELYTRA, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())),
                 FeywildMod.MOD_ID + ":fey_armor", 0, 1);
 
         private final int durability;
@@ -251,27 +251,27 @@ public class ModItems {
 
 
         @Override
-        public int getDurability(EquipmentSlotType slotIn) {
+        public int getDurabilityForSlot(EquipmentSlotType slotIn) {
             return durability;
         }
 
         @Override
-        public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+        public int getDefenseForSlot(EquipmentSlotType slotIn) {
             return damageReductionAmountArray[slotIn.getIndex()];
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return enchantability;
         }
 
         @Override
-        public SoundEvent getSoundEvent() {
+        public SoundEvent getEquipSound() {
             return soundEvent;
         }
 
         @Override
-        public Ingredient getRepairMaterial() {
+        public Ingredient getRepairIngredient() {
             return repairMaterial;
         }
 

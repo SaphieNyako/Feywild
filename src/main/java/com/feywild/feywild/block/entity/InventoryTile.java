@@ -23,7 +23,7 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
     }
 
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return 5;
     }
 
@@ -34,8 +34,8 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
     // is the entire inventory empty?
     @Override
     public boolean isEmpty() {
-        for(int i = 0; i < getSizeInventory(); i++){
-            if(!getStackInSlot(i).isEmpty()){
+        for(int i = 0; i < getContainerSize(); i++){
+            if(!getItem(i).isEmpty()){
                 return true;
             }
         }
@@ -43,14 +43,14 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
     }
     //get stack
     @Override
-    public ItemStack getStackInSlot(int index) {
+    public ItemStack getItem(int index) {
         return getItems().get(index);
     }
 
     //decrement
     @Override
-    public ItemStack decrStackSize(int index, int count) {
-        ItemStack stack = getStackInSlot(index);
+    public ItemStack removeItem(int index, int count) {
+        ItemStack stack = getItem(index);
         stack.shrink(count);
         return stack;
     }
@@ -61,36 +61,36 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
      */
     public void updateInventory(int flags, boolean shouldCraft) {
         if(flags == -1){
-           for (int i = 0; i < getSizeInventory(); i++) {
-               FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(i), pos, i));
+           for (int i = 0; i < getContainerSize(); i++) {
+               FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(i), worldPosition, i));
            }
         }else{
-            FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(flags),pos,flags));
+            FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(flags),worldPosition,flags));
         }
     }
 
     // Clear slot
     @Override
-    public ItemStack removeStackFromSlot(int index) {
+    public ItemStack removeItemNoUpdate(int index) {
         return getItems().set(index, ItemStack.EMPTY);
     }
 
     //Set stack at index
     @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    public void setItem(int index, ItemStack stack) {
         getItems().set(index,stack);
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
-        return player.getDistanceSq(getPos().getX(), getPos().getY(), getPos().getZ()) <= 16;
+    public boolean stillValid(PlayerEntity player) {
+        return player.distanceToSqr(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()) <= 16;
     }
 
     //Clear all items
     @Override
-    public void clear() {
-        for (int i = 0; i < getSizeInventory(); i++) {
-            removeStackFromSlot(i);
+    public void clearContent() {
+        for (int i = 0; i < getContainerSize(); i++) {
+            removeItemNoUpdate(i);
         }
         updateInventory(-1,false);
     }

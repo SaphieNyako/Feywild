@@ -17,9 +17,11 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public abstract class BaseSapling extends BushBlock implements IGrowable {
 
-    public static final IntegerProperty STAGE = BlockStateProperties.STAGE_0_1;
+    public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
     private Tree tree;
 
@@ -30,14 +32,14 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
     }
 
     @Override
-    public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
         //50% chance of Bonemeal working.
-        return (double)worldIn.rand.nextFloat() < 0.50;
+        return (double)worldIn.random.nextFloat() < 0.50;
     }
 
     @SuppressWarnings("deprecation")
@@ -49,18 +51,18 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
             return;
         }
         //attempt to grow
-        if(worldIn.getLight(pos.up()) >= 9 && rand.nextInt(7) == 0) {
+        if(worldIn.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
 
-            this.grow(worldIn, rand, pos, state);
+            this.performBonemeal(worldIn, rand, pos, state);
         }
     }
 
     @Override
-    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 
-        if(state.get(STAGE) == 0){
+        if(state.getValue(STAGE) == 0){
 
-            worldIn.setBlockState(pos, state.func_235896_a_(STAGE), 4); //state.cycle
+            worldIn.setBlock(pos, state.cycle(STAGE), 4); //state.cycle
         }
         else {
 
@@ -69,12 +71,12 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
                 return;
             }
 
-            this.tree.attemptGrowTree(worldIn, worldIn.getChunkProvider().getChunkGenerator(), pos, state, rand);
+            this.tree.growTree(worldIn, worldIn.getChunkSource().getGenerator(), pos, state, rand);
         }
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
 
         builder.add(STAGE);
 
