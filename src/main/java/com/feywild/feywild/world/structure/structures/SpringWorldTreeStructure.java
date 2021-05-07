@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -34,8 +35,8 @@ import net.minecraft.world.gen.feature.structure.Structure.IStartFactory;
 
 public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 10;
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 10;
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 200;
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 100;
     public final static int SEED_MODIFIER =  1234567890;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
 
@@ -56,28 +57,26 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
     }
 
 
-
-
     //Mob Spawn in Structure
+    /*
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 100, 4, 9),
             new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
     );
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-
         return STRUCTURE_MONSTERS;
     }
+    */
 
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.SHEEP, 30, 10, 15),
-            new MobSpawnInfo.Spawners(EntityType.RABBIT, 100, 1, 2)
+            new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 100, 4, 4),
+            new MobSpawnInfo.Spawners(EntityType.SHEEP, 10, 4, 1),
+            new MobSpawnInfo.Spawners(EntityType.RABBIT, 10, 1, 2)
     );
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
-
         return STRUCTURE_CREATURES;
     }
 

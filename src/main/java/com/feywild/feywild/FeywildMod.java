@@ -30,9 +30,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -40,6 +42,7 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -65,10 +68,12 @@ import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.compat.PatchouliCompat;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import javax.swing.*;
 import java.lang.reflect.Method;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -239,7 +244,21 @@ public class FeywildMod {
          * RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName()) to get the biome's
          * registrykey. Then that can be fed into the dictionary to get the biome's types.
          */
-        event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
+        String SpringBiome = "spring_biome";
+        String biomeName = event.getName().toString();
+
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
+        Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
+
+        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
+                && !types.contains(BiomeDictionary.Type.OCEAN)) {
+
+            if (biomeName.contains(SpringBiome)) {
+
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
+            }
+        }
+
     }
 
     private static Method GETCODEC_METHOD;
