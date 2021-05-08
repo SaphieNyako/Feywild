@@ -258,7 +258,6 @@ public class FeywildMod {
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
             }
         }
-
     }
 
     private static Method GETCODEC_METHOD;

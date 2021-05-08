@@ -72,9 +72,9 @@ public class SpawnData {
                             Config.WINTER_PIXIE_CONFIG.getWeight(),Config.WINTER_PIXIE_CONFIG.getMin(), Config.WINTER_PIXIE_CONFIG.getMax());
                 }
             }
-            for(Type biomeName : Type.getAll()){
-                addSpawn(event,ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER,Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
-            }
+
+//            addSpawn(event,ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER,Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
+
         }
     }
 
@@ -122,9 +122,10 @@ public class SpawnData {
 
         EntitySpawnPlacementRegistry.register(ModEntityTypes.WINTER_PIXIE.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
-
+/*
         EntitySpawnPlacementRegistry.register(ModEntityTypes.DWARF_BLACKSMITH.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnDwarf);
+  */
     }
 
 

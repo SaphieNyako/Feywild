@@ -198,7 +198,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
     @Override
     public boolean checkSpawnRules(IWorld worldIn, SpawnReason spawnReasonIn) {
-        return super.checkSpawnRules(worldIn, spawnReasonIn) && this.blockPosition().getY() < 64;  // && !this.level.canSeeSky(this.blockPosition())
+        return true;//super.checkSpawnRules(worldIn, spawnReasonIn) && !this.isInWater() && this.blockPosition().getY() < 60;  // && !this.level.canSeeSky(this.blockPosition())
     }
 
     /* GOALS */
