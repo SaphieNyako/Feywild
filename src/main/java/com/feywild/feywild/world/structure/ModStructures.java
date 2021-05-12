@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.structure;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.world.structure.structures.BlacksmithStructure;
 import com.feywild.feywild.world.structure.structures.SpringWorldTreeStructure;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -22,9 +23,11 @@ public class ModStructures {
             public static final DeferredRegister<Structure<?>> STRUCTURES
                     = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, FeywildMod.MOD_ID);
 
-             //NULL
             public static final RegistryObject<Structure<NoFeatureConfig>> SPRING_WORLD_TREE = STRUCTURES.register("spring_world_tree",
                    SpringWorldTreeStructure::new);
+
+            public static final RegistryObject<Structure<NoFeatureConfig>> BLACKSMITH = STRUCTURES.register("blacksmith",
+                    BlacksmithStructure::new);
     /*
                 public static void register() {}
 
@@ -40,6 +43,12 @@ public class ModStructures {
                 new StructureSeparationSettings(SpringWorldTreeStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         SpringWorldTreeStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         SpringWorldTreeStructure.SEED_MODIFIER),
+                true);
+
+        setupMapSpacingAndLand(BLACKSMITH.get(),
+                new StructureSeparationSettings(BlacksmithStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
+                        BlacksmithStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
+                        BlacksmithStructure.SEED_MODIFIER),
                 true);
 
         // Add more structures here

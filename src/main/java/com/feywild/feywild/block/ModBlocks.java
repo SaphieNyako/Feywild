@@ -41,6 +41,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> SPRING_TREE_LOG = register("spring_tree_log",
         ()-> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD)), true);
 
+    public static final RegistryObject<Block> SPRING_TREE_WOOD = register("spring_tree_wood",
+            ()-> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_WOOD)), true);
+
+
     public static final RegistryObject<Block> SPRING_TREE_LEAVES = register("spring_tree_leaves",
             FeyLeavesBlock::new,true);
 
@@ -50,7 +54,10 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> SUMMER_TREE_LOG = register("summer_tree_log",
          SummerTreeLog::new, true);
-         //   () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.JUNGLE_WOOD)), true);
+
+    public static final RegistryObject<Block> SUMMER_TREE_WOOD = register("summer_tree_wood",
+            ()-> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_WOOD)), true);
+
 
     public static final RegistryObject<Block> SUMMER_TREE_LEAVES = register("summer_tree_leaves",
             FeyLeavesBlock::new,true);
@@ -62,6 +69,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> AUTUMN_TREE_LOG = register("autumn_tree_log",
            AutumnTreeLog::new, true);
 
+    public static final RegistryObject<Block> AUTUMN_TREE_WOOD = register("autumn_tree_wood",
+            ()-> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_WOOD)), true);
+
     public static final RegistryObject<Block> AUTUMN_TREE_LEAVES = register("autumn_tree_leaves",
             AutumnLeavesBlock::new,true);
 
@@ -70,6 +80,9 @@ public class ModBlocks {
             AutumnTreeSapling::new, true);
 
     public static final RegistryObject<Block> WINTER_TREE_LOG = register("winter_tree_log",
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD)), true);
+
+    public static final RegistryObject<Block> WINTER_TREE_WOOD = register("winter_tree_wood",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD)), true);
 
     public static final RegistryObject<Block> WINTER_TREE_LEAVES = register("winter_tree_leaves",

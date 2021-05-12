@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "feywild:block/summer_tree_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "feywild:block/summer_tree_wood"
+    },
+    "axis=z": {
+      "model": "feywild:block/summer_tree_wood",
+      "x": 90
+    }
+  }
+}

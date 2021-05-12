@@ -55,9 +55,9 @@ public class ModEntityTypes {
                worldIn.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) ||
                worldIn.getBlockState(pos.below()).is(Blocks.SAND);
     }
-/*
+
     public static boolean spawnDwarf(EntityType<? extends DwarfBlacksmithEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return true;// !worldIn.canSeeSky(pos) && pos.getY() < worldIn.getSeaLevel() -10 && random.nextDouble() > 0.85;
+        return !worldIn.canSeeSky(pos) && pos.getY() < worldIn.getSeaLevel() -10 && random.nextDouble() > 0.85;
     }
- */
+
 }

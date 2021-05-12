@@ -253,9 +253,15 @@ public class FeywildMod {
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
 
+            if(types.contains(BiomeDictionary.Type.PLAINS)) {
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_BLACKSMITH);
+                return;
+            }
+
             if (biomeName.contains(SpringBiome)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
+                return;
             }
         }
     }
@@ -292,6 +298,7 @@ public class FeywildMod {
             */
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
             tempMap.putIfAbsent(ModStructures.SPRING_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SPRING_WORLD_TREE.get()));
+            tempMap.putIfAbsent(ModStructures.BLACKSMITH.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.BLACKSMITH.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 
         }

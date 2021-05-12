@@ -45,7 +45,10 @@ public class SpawnData {
         if (!types.contains(Type.NETHER) && !types.contains(Type.END)
                 && !types.contains(Type.OCEAN)) {
 
-            for (Type biomeName : biomeSpring) { //if (types.contains(Type.getType(biomeName))) {
+            addSpawn(event,ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER,Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
+
+
+            for (Type biomeName : biomeSpring) {
                 if (types.contains(biomeName)) {
                     addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE,
                             Config.SPRING_PIXIE_CONFIG.getWeight(), Config.SPRING_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
@@ -73,7 +76,7 @@ public class SpawnData {
                 }
             }
 
-//            addSpawn(event,ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER,Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
+       addSpawn(event,ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER,Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
 
         }
     }
@@ -122,10 +125,10 @@ public class SpawnData {
 
         EntitySpawnPlacementRegistry.register(ModEntityTypes.WINTER_PIXIE.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
-/*
+
         EntitySpawnPlacementRegistry.register(ModEntityTypes.DWARF_BLACKSMITH.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnDwarf);
-  */
+
     }
 
 

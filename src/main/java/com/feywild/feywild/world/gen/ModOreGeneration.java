@@ -80,9 +80,9 @@ public class ModOreGeneration {
         features.add(() -> configuredFeature);
         biomeFeatures.set(decoration.ordinal(), features);
 
-        /* Change features that contains the Configured Features of the Biome */
+        // Change features that contains the Configured Features of the Biome
         ObfuscationReflectionHelper.setPrivateValue(BiomeGenerationSettings.class, biome.getGenerationSettings(),
-                biomeFeatures, "features");
+                biomeFeatures, "field_242484_f");
     }
 
 }

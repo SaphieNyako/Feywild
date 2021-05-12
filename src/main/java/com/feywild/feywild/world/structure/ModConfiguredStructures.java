@@ -15,16 +15,24 @@ public class ModConfiguredStructures {
     //Feature of our structure so we can reference it and add it to biomes easily.
     public static StructureFeature<?, ?> CONFIGURED_SPRING_WORLD_TREE
             = ModStructures.SPRING_WORLD_TREE.get().configured(IFeatureConfig.NONE);
-                                //NULL HASNT BEEN REGISTERED? CLASS NO LOADED
+
+    public static StructureFeature<?, ?> CONFIGURED_BLACKSMITH
+            = ModStructures.BLACKSMITH.get().configured(IFeatureConfig.NONE);
 
 
     //The best time to register configured features by code is to do it in FMLCommonSetupEvent.
     public static void registerConfiguredStructures() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         Registry.register(registry, new ResourceLocation(FeywildMod.MOD_ID, "configured_spring_world_tree"), CONFIGURED_SPRING_WORLD_TREE);
+        Registry.register(registry, new ResourceLocation(FeywildMod.MOD_ID, "configured_blacksmith"), CONFIGURED_BLACKSMITH);
     }
 
+
+
+
+
+
     //Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
-   // FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
+    //FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
 
 }
