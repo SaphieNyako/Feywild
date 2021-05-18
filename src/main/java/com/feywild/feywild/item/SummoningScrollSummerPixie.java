@@ -27,7 +27,9 @@ public class SummoningScrollSummerPixie extends Item {
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
-            SummerPixieEntity entity = new SummerPixieEntity(ModEntityTypes.SUMMER_PIXIE.get(),context.getLevel());
+
+            //TAMED
+            SummerPixieEntity entity = new SummerPixieEntity(context.getLevel(), true, context.getClickedPos());
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);

@@ -33,15 +33,29 @@ import java.util.List;
 
 import net.minecraft.world.gen.feature.structure.Structure.IStartFactory;
 
-public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
+public class SpringWorldTreeStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 200;
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 100;
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 100;
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 50;
     public final static int SEED_MODIFIER =  1234567890;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
 
-    public SpringWorldTreeStructure() {
-        super(NoFeatureConfig.CODEC);
+    private static String messageLocation = "Spring World Tree at: ";
+    private static String messagePool = "spring_world_tree/start_pool";
+
+    @Override
+    public int getAverageDistanceBetweenChunks() {
+        return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
+    }
+
+    @Override
+    public int getMinDistanceBetweenChunks() {
+        return MIN_DISTANCE_BETWEEN_CHUNKS;
+    }
+
+    @Override
+    public int getSeedModifier() {
+        return SEED_MODIFIER;
     }
 
     @Override
@@ -49,13 +63,6 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
 
         return SpringWorldTreeStructure.Start::new;
     }
-
-    @Override
-    public GenerationStage.Decoration step() {
-
-        return GenerationStage.Decoration.SURFACE_STRUCTURES;
-    }
-
 
     //Mob Spawn in Structure
     /*
@@ -81,24 +88,6 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
     }
 
 
-    //OPTIONAL
-    @Override
-    protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
-        BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
-
-        // getFirstOccupiedHeight();
-        int landHeight = chunkGenerator.getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG);
-
-        //getBaseColumn();
-        IBlockReader columnOfBlocks = chunkGenerator.getBaseColumn(centerOfChunk.getX(), centerOfChunk.getZ());
-
-        BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.above(landHeight));
-
-        return topBlock.getFluidState().isEmpty(); //landHeight > 100;
-    }
-
-
-
 
     //START CLASS
     public static class Start extends StructureStart<NoFeatureConfig> {
@@ -121,7 +110,7 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, "spring_world_tree/start_pool")),
+                            .get(new ResourceLocation(FeywildMod.MOD_ID, messagePool)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -141,7 +130,7 @@ public class SpringWorldTreeStructure extends Structure<NoFeatureConfig> {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-           FeywildMod.LOGGER.log(Level.DEBUG, "Spring World Tree at: " +
+           FeywildMod.LOGGER.log(Level.DEBUG, messageLocation +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

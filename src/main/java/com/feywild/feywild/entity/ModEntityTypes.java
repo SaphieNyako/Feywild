@@ -21,27 +21,27 @@ public class ModEntityTypes {
 
     /* REGISTRATION FOR EACH ENTITY*/
     public static final RegistryObject<EntityType<SpringPixieEntity>> SPRING_PIXIE = Registration.ENTITIES.register("spring_pixie",
-            () -> EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
-    .sized(1,1)
-    .build(new ResourceLocation(FeywildMod.MOD_ID + "spring_pixie").toString()));
+            () -> EntityType.Builder.<SpringPixieEntity>of(SpringPixieEntity::new, EntityClassification.CREATURE)
+                    .sized(1,1)
+                    .build(new ResourceLocation(FeywildMod.MOD_ID + "spring_pixie").toString()));
 
     public static final RegistryObject<EntityType<AutumnPixieEntity>> AUTUMN_PIXIE = Registration.ENTITIES.register("autumn_pixie",
-            () -> EntityType.Builder.of(AutumnPixieEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.<AutumnPixieEntity>of(AutumnPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "autumn_pixie").toString()));
 
     public static final RegistryObject<EntityType<SummerPixieEntity>> SUMMER_PIXIE = Registration.ENTITIES.register("summer_pixie",
-            () -> EntityType.Builder.of(SummerPixieEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.<SummerPixieEntity>of(SummerPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "summer_pixie").toString()));
 
     public static final RegistryObject<EntityType<WinterPixieEntity>> WINTER_PIXIE = Registration.ENTITIES.register("winter_pixie",
-            () -> EntityType.Builder.of(WinterPixieEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.<WinterPixieEntity>of(WinterPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "winter_pixie").toString()));
 
     public static final RegistryObject<EntityType<DwarfBlacksmithEntity>> DWARF_BLACKSMITH = Registration.ENTITIES.register("dwarf_blacksmith",
-            () -> EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
+            () -> EntityType.Builder.<DwarfBlacksmithEntity>of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
                     .sized(1,1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "dwarf_blacksmith").toString()));
 

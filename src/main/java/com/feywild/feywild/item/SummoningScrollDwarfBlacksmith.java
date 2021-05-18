@@ -33,9 +33,11 @@ public class SummoningScrollDwarfBlacksmith extends Item {
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide && context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof DwarvenAnvil){
-            DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.DWARF_BLACKSMITH.get(),context.getLevel());
+
+            DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(context.getLevel(),true, context.getClickedPos());
+
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
-            entity.setTamed(true);
+           // entity.setTamed(true);
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
         }

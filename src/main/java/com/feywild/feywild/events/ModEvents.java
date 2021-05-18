@@ -38,6 +38,9 @@ import java.util.Collection;
 
 public class ModEvents {
 
+
+    //TODO: Change Text Librarian
+    //TODO: Add Summoning Text for Pixies
     @SubscribeEvent
     public void interactWithVillager(PlayerInteractEvent.EntityInteract event){
         //Check if it's a villager

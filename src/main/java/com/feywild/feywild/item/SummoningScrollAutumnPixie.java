@@ -29,9 +29,13 @@ public class SummoningScrollAutumnPixie extends Item {
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
-            AutumnPixieEntity entity = new AutumnPixieEntity(ModEntityTypes.AUTUMN_PIXIE.get(),context.getLevel());
-            entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
+
+            //TAMED
+            AutumnPixieEntity entity = new AutumnPixieEntity(context.getLevel(), true, context.getClickedPos());
+            //summons pixie
+            entity.setPos(context.getClickLocation().x(), context.getClickLocation().y() + 1, context.getClickLocation().z());
             context.getLevel().addFreshEntity(entity);
+
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
         }
         return ActionResultType.SUCCESS;

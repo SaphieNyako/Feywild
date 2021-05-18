@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.misc.DwarfTrades;
 import com.feywild.feywild.network.FeywildPacketHandler;
@@ -10,6 +11,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.IMerchant;
@@ -23,6 +25,9 @@ import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigator;
@@ -51,35 +56,60 @@ import java.util.stream.IntStream;
 
 public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable {
 
-    private HashMap<ItemStack, ItemStack> trades = new HashMap<>();
-    private List<Integer> tradeId = new LinkedList<>();
-    private int level = 1;
-    private boolean tamed = false;
-
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
+    //TAMED variable
+    private boolean tamed = false;
+    public BlockPos summonPos;
+
+
+    private HashMap<ItemStack, ItemStack> trades = new HashMap<>();
+    private List<Integer> tradeId = new LinkedList<>();
+    private int levelInt = 1;
+
+
+
 
     /* CONSTRUCTOR */
     public DwarfBlacksmithEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
+        //Geckolib check
+        this.noCulling = true;
+        this.moveControl = new MovementController(this);
+        addGoalsAfterConstructor();
     }
+
+    public DwarfBlacksmithEntity(World worldIn, boolean isTamed, BlockPos pos) {
+        super(ModEntityTypes.DWARF_BLACKSMITH.get(), worldIn);
+        //Geckolib check
+        this.noCulling = true;
+        this.moveControl = new MovementController(this);
+        setTamed(isTamed);
+        this.summonPos = pos;
+        addGoalsAfterConstructor();
+    }
+
+    /* MOVEMENT */
+
     @Override
     protected PathNavigator createNavigation(World worldIn) {
         return new GroundPathNavigator(this,worldIn);
     }
 
+    /* TRADING */
+
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if(player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-            if(!tamed && level >= 6){
+            if(!tamed && levelInt >= 6){
                 if(trades.size() < 3) {
                     FeywildPacketHandler.sendToPlayersInRange(player.getCommandSenderWorld(), blockPosition(), new ParticleMessage(blockPosition().getX() + 0.5, blockPosition().getY() + 1.2, blockPosition().getZ() + 0.5, -4, -2, -4, 10, 3), 32);
                     boolean worked = true;
                     do {
                         worked = addTrade(random.nextInt(DwarfTrades.getTrades().size()));
                     } while (!worked);
-                    level = 1;
+                    levelInt = 1;
                 }else{
                     player.addItem(new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get()));
                     player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.scroll"), false);
@@ -104,7 +134,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
                 trades.keySet().forEach(itemStack -> {
                     if (player.getItemInHand(hand).sameItem(itemStack) && player.getItemInHand(hand).getCount() >= itemStack.getCount()) {
                         if(!tamed) {
-                            level++;
+                            levelInt++;
                             player.addItem(DwarfTrades.getTrades().get(itemStack).copy());
                         }else{
                             player.addItem(DwarfTrades.getTamedTrades().get(itemStack).copy());
@@ -128,19 +158,6 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         else
             this.restrictTo(blockPosition(),7);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    public void setTamed(boolean tamed) {
-        this.tamed = tamed;
-        if(tamed){
-            this.trades.clear();
-            this.tradeId.clear();
-            this.level = 8;
-        }
-    }
-
-    public boolean isTamed() {
-        return tamed;
     }
 
     //Add trade to list
@@ -174,19 +191,89 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         return true;
     }
 
+   /* TAMED */
+
+    public void setTamed(boolean tamed) {
+        this.tamed = tamed;
+        if(tamed){
+            this.trades.clear();
+            this.tradeId.clear();
+            this.levelInt = 8;
+        }
+    }
+
+    public boolean isTamed() {
+        return tamed;
+    }
+
+
+
+
+
+    /* GOALS */
+
+    protected void addGoalsAfterConstructor(){
+        if(this.level.
+                isClientSide())
+            return;
+
+        for(PrioritizedGoal goal : getGoals()){
+            this.goalSelector.addGoal(goal.getPriority(), goal.getGoal());
+        }
+    }
+
+    public List<PrioritizedGoal> getGoals(){
+        return this.tamed ? getTamedGoals() : getUntamedGoals();
+    }
+
+
+    public List<PrioritizedGoal> getTamedGoals(){
+        List<PrioritizedGoal> list = new ArrayList<>();
+        list.add(new PrioritizedGoal(0, new SwimGoal(this)));
+        list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 15)));
+        list.add(new PrioritizedGoal(1, new MeleeAttackGoal(this,0.8, false)));
+        list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 15)));
+        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+        list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos,5)));
+
+
+        return list;
+    }
+
+    public List<PrioritizedGoal> getUntamedGoals(){
+        List<PrioritizedGoal> list = new ArrayList<>();
+        list.add(new PrioritizedGoal(0, new SwimGoal(this)));
+        list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 15)));
+        list.add(new PrioritizedGoal(2, new MeleeAttackGoal(this,0.8, false)));
+        list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 15)));
+        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+        list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
+                Ingredient.of(Items.COOKIE),false)));
+
+        return list;
+    }
+
+    /* SAVE DATA */
+
+    //write
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("tamed", tamed);
-        compound.putInt("level", level);
+        compound.putInt("level", levelInt);
         compound.putIntArray("trade_id" , tradeId);
+
+
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        this.level = compound.getInt("level");
+        this.levelInt = compound.getInt("level");
         this.tamed = compound.getBoolean("tamed");
+
         if(!tamed) {
             int[] array = compound.getIntArray("trade_id");
             //Initialize trades
@@ -194,40 +281,31 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
                 addTrade(j);
             }
         }
+
+        tryResetGoals();
     }
+
+    public void tryResetGoals(){
+        this.goalSelector.availableGoals = new LinkedHashSet<>();
+        this.addGoalsAfterConstructor();
+    }
+
 
     @Override
     public boolean checkSpawnRules(IWorld worldIn, SpawnReason spawnReasonIn) {
         return super.checkSpawnRules(worldIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !worldIn.canSeeSky(this.blockPosition());
     }
 
-
-
-    /* GOALS */
-    @Override
-    protected void registerGoals() {
-        if (tamed) {
-            registerTamedGoals();
-        }
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f,15));
-        this.targetSelector.addGoal(1,new MeleeAttackGoal(this,0.8,false));
-        this.goalSelector.addGoal(3, new MoveTowardsRestrictionGoal(this,0.4D));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
-    }
-    private void registerTamedGoals(){
-
-    }
-
-
     @Override
     protected void updateControlFlags()
     {
         super.updateControlFlags();
-            this.goalSelector.setControlFlag(Goal.Flag.MOVE, true);
-            this.goalSelector.setControlFlag(Goal.Flag.JUMP, true);
-            this.goalSelector.setControlFlag(Goal.Flag.LOOK, true);
+        this.goalSelector.setControlFlag(Goal.Flag.MOVE, true);
+        this.goalSelector.setControlFlag(Goal.Flag.JUMP, true);
+        this.goalSelector.setControlFlag(Goal.Flag.LOOK, true);
     }
+
+
 
     /* ATTRIBUTES */
     @Override

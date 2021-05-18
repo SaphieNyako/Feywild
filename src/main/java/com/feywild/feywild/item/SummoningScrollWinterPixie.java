@@ -26,7 +26,8 @@ public class SummoningScrollWinterPixie extends Item {
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
-            WinterPixieEntity entity = new WinterPixieEntity(ModEntityTypes.WINTER_PIXIE.get(),context.getLevel());
+            //TAMED
+            WinterPixieEntity entity = new WinterPixieEntity(context.getLevel(), true, context.getClickedPos());
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
             entity.addTag("isContracted");
             context.getLevel().addFreshEntity(entity);

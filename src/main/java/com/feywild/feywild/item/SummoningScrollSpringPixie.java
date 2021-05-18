@@ -35,7 +35,9 @@ public class SummoningScrollSpringPixie extends Item {
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
-            SpringPixieEntity entity = new SpringPixieEntity(ModEntityTypes.SPRING_PIXIE.get(),context.getLevel());
+
+            //TAMDED
+            SpringPixieEntity entity = new SpringPixieEntity(context.getLevel(), true, context.getClickedPos());
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);

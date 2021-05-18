@@ -50,10 +50,6 @@ public class Registration {
     public static final DeferredRegister<SurfaceBuilder<?>> SURFACE_BUILDERS
             = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, FeywildMod.MOD_ID);
 
-/*
-    public static final DeferredRegister<Structure<?>> STRUCTURES
-            = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, FeywildMod.MOD_ID);
-*/
     public static void init()
 
     {
@@ -65,7 +61,6 @@ public class Registration {
         SOUND_EVENTS.register(eventBus);
         RECIPE_SERIALIZER.register(eventBus);
         ModRecipeTypes.registerRecipes();
-
         ModStructures.STRUCTURES.register(eventBus);
         SURFACE_BUILDERS.register(eventBus);
         BIOMES.register(eventBus);

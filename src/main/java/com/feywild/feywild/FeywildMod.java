@@ -24,6 +24,7 @@ import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
 import com.sun.jna.platform.win32.WinNT;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -35,6 +36,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -43,7 +45,9 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -73,6 +77,7 @@ import java.lang.reflect.Method;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -235,6 +240,7 @@ public class FeywildMod {
 
 
     public void biomeModification(final BiomeLoadingEvent event) {
+
         /*
          * Add our structure to all biomes including other modded biomes.
          * You can skip or add only to certain biomes based on stuff like biome category,
@@ -244,24 +250,51 @@ public class FeywildMod {
          * RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName()) to get the biome's
          * registrykey. Then that can be fed into the dictionary to get the biome's types.
          */
+
+        //TODO: add config option for structure spawn
         String SpringBiome = "spring_biome";
+        String SummerBiome = "summer_biome";
+        String AutumnBiome = "autumn_biome";
+        String WinterBiome = "winter_biome";
         String biomeName = event.getName().toString();
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
+
+
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
 
             if(types.contains(BiomeDictionary.Type.PLAINS)) {
+
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_BLACKSMITH);
-                return;
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
+                //TODO: add structure void blocks
             }
 
             if (biomeName.contains(SpringBiome)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
-                return;
+
+            }
+
+            if (biomeName.contains(SummerBiome)) {
+
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
+
+            }
+
+            if (biomeName.contains(AutumnBiome)) {
+
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
+
+            }
+
+            if (biomeName.contains(WinterBiome)) {
+
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
+
             }
         }
     }
@@ -295,12 +328,16 @@ public class FeywildMod {
              * NOTE: if you add per-dimension spacing configs, you can't use putIfAbsent as WorldGenRegistries.NOISE_GENERATOR_SETTINGS in FMLCommonSetupEvent
              * already added your default structure spacing to some dimensions. You would need to override the spacing with .put(...)
              * And if you want to do dimension blacklisting, you need to remove the spacing entry entirely from the map below to prevent generation safely.
-            */
+
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
             tempMap.putIfAbsent(ModStructures.SPRING_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SPRING_WORLD_TREE.get()));
+            tempMap.putIfAbsent(ModStructures.SUMMER_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SUMMER_WORLD_TREE.get()));
+            tempMap.putIfAbsent(ModStructures.AUTUMN_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.AUTUMN_WORLD_TREE.get()));
+            tempMap.putIfAbsent(ModStructures.WINTER_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.AUTUMN_WORLD_TREE.get()));
             tempMap.putIfAbsent(ModStructures.BLACKSMITH.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.BLACKSMITH.get()));
+            tempMap.putIfAbsent(ModStructures.LIBRARY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.LIBRARY.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
-
+ */
         }
     }
 }

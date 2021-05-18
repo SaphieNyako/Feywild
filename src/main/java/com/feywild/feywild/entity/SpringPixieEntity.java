@@ -1,66 +1,68 @@
 package com.feywild.feywild.entity;
 
-import com.feywild.feywild.item.ModItems;
-import net.minecraft.command.arguments.Vec3Argument;
+import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.google.common.collect.Sets;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.FlyingPathNavigator;
+import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.ParticleEffectAmbience;
+import net.minecraftforge.common.MinecraftForge;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.ParticleKeyFrameEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import javax.annotation.Nullable;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
 
 public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
-    private Random random = new Random();
+    //TAMED variable
+    public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(SpringPixieEntity.class, DataSerializers.BOOLEAN);
+    public BlockPos summonPos;
 
     /* CONSTRUCTOR */
-    public SpringPixieEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
-
+    public SpringPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
         this.noCulling = true;
-
+        this.moveControl = new FlyingMovementController(this,4,true);
+        addGoalsAfterConstructor();
     }
 
-
-    /* GOALS */
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        //Tempt goal doesn't work due to the constant movement ()
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D,
-                Ingredient.of(ModItems.FEY_DUST.get()),false));
+    public SpringPixieEntity(World worldIn, boolean isTamed, BlockPos pos) {
+        super(ModEntityTypes.SPRING_PIXIE.get(), worldIn);
+        //Geckolib check
+        this.noCulling = true;
+        this.moveControl = new FlyingMovementController(this,4,true);
+        this.entityData.set(TAMED, isTamed);
+        this.summonPos = pos;
+        addGoalsAfterConstructor();
     }
-
 
 
     /* Animation */
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        //Crash is fix when playing animation
+
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
 
@@ -69,7 +71,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        //Animation controller
+
         animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
@@ -80,4 +82,107 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     }
 
 
+    /* GOALS */
+
+    @Override
+    protected void registerGoals() { }
+
+
+    protected void addGoalsAfterConstructor(){
+        if(this.level.isClientSide())
+            return;
+
+        for(PrioritizedGoal goal : getGoals()){
+            this.goalSelector.addGoal(goal.getPriority(), goal.getGoal());
+        }
+    }
+
+    public List<PrioritizedGoal> getGoals(){
+        return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
+    }
+
+    public List<PrioritizedGoal> getTamedGoals(){
+        List<PrioritizedGoal> list = new ArrayList<>();
+        list.add(new PrioritizedGoal(0, new SwimGoal(this)));
+        list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
+     //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
+        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,20)));
+        list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+     //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));
+
+        return list;
+    }
+
+    public List<PrioritizedGoal> getUntamedGoals(){
+        List<PrioritizedGoal> list = new ArrayList<>();
+        list.add(new PrioritizedGoal(0, new SwimGoal(this)));
+        list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
+        list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
+                Ingredient.of(Items.COOKIE),false)));
+        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+
+
+        return list;
+
+    }
+
+    /* SAVE DATA */
+
+    //write
+    @Override
+    public void addAdditionalSaveData(CompoundNBT tag) {
+        super.addAdditionalSaveData(tag);
+        if(summonPos != null){
+            tag.putInt("summonPos_X", summonPos.getX());
+            tag.putInt("summonPos_Y", summonPos.getY());
+            tag.putInt("summonPos_Z", summonPos.getZ());
+        }
+
+        this.entityData.set(TAMED, tag.getBoolean("tamed"));
+    }
+
+
+    //read
+    @Override
+    public void readAdditionalSaveData(CompoundNBT tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains("summoner_x"))
+            summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
+
+       // this.entityData.set(TAMED, tag.getBoolean("tamed"));
+
+        if (tag.contains("tamed")) {
+            this.setTamed(tag.getBoolean("tamed"));
+        }
+
+        tryResetGoals();
+    }
+
+    public void tryResetGoals(){
+        this.goalSelector.availableGoals = new LinkedHashSet<>();
+        this.addGoalsAfterConstructor();
+    }
+
+
+    public void setTamed(boolean isTamed) {
+        this.entityData.set(TAMED, isTamed);
+
+    }
+
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+
+        this.entityData.define(TAMED, false);
+
+    }
+
+
+    @Override
+    public boolean removeWhenFarAway(double p_213397_1_) {
+        return false;
+    }
 }

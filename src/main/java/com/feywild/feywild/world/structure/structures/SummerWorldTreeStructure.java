@@ -3,23 +3,14 @@ package com.feywild.feywild.world.structure.structures;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
-import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
 import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
@@ -31,17 +22,19 @@ import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
-public class BlacksmithStructure extends BaseStructure {
+public class SummerWorldTreeStructure extends BaseStructure{
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 25;
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 20;
-    public final static int SEED_MODIFIER =  567890123 ;
-    /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 100;
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 50;
+    public final static int SEED_MODIFIER =  890124567;
 
-    private static String messageLocation = "Blacksmith at: ";
-    private static String messagePool = "blacksmith/start_pool";
+    private static String messageLocation = "Summer World Tree at: ";
+    private static String messagePool = "summer_world_tree/start_pool";
 
-      @Override
+
+
+
+    @Override
     public int getAverageDistanceBetweenChunks() {
         return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
     }
@@ -58,30 +51,17 @@ public class BlacksmithStructure extends BaseStructure {
 
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
-        return BlacksmithStructure.Start::new;
+        return SummerWorldTreeStructure.Start::new;
     }
-
-    //Mob Spawn in Structure
-    /*
-    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.DWARF_BLACKSMITH.get(), 1, 1, 1)
-    );
-
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-        return STRUCTURE_MONSTERS;
-    }
- */
 
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
+            new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 100, 4, 4)
     );
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
         return STRUCTURE_CREATURES;
     }
-
 
     //START CLASS
     public static class Start extends StructureStart<NoFeatureConfig> {
