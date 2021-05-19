@@ -34,6 +34,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
     //TAMED variable
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(AutumnPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    private boolean setBehaviors;
 
     /* CONSTRUCTOR */
     public AutumnPixieEntity(EntityType<? extends FeyEntity> entityEntityType, World world) {
@@ -126,9 +127,11 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
     /* SAVE DATA */
 
+
+    //write
     @Override
-    public void readAdditionalSaveData(CompoundNBT tag) {
-        super.readAdditionalSaveData(tag);
+    public void addAdditionalSaveData(CompoundNBT tag) {
+        super.addAdditionalSaveData(tag);
         if(summonPos != null){
             tag.putInt("summonPos_X", summonPos.getX());
             tag.putInt("summonPos_Y", summonPos.getY());
@@ -136,13 +139,13 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
         }
 
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
-
     }
 
 
+    //read
     @Override
-    public void addAdditionalSaveData(CompoundNBT tag) {
-        super.addAdditionalSaveData(tag);
+    public void readAdditionalSaveData(CompoundNBT tag) {
+        super.readAdditionalSaveData(tag);
         if (tag.contains("summoner_x"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
 
@@ -152,7 +155,10 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
             this.setTamed(tag.getBoolean("tamed"));
         }
 
-        tryResetGoals();
+        if(!setBehaviors){
+            tryResetGoals();
+            setBehaviors = true;
+        }
     }
 
     public void tryResetGoals(){

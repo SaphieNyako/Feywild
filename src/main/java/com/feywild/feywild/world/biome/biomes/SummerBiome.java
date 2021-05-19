@@ -1,16 +1,21 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.block.trees.SummerTree;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 public class SummerBiome extends BaseBiome{
@@ -48,8 +53,6 @@ public class SummerBiome extends BaseBiome{
 
         DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
 
-        /* CUSTOMISED */
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
 
         return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
                 .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0.0F)

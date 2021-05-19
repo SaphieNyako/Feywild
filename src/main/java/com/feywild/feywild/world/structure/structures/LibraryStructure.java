@@ -25,8 +25,8 @@ import java.util.List;
 
 public class LibraryStructure extends BaseStructure{
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 20;
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 15;
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 40;
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 30;
     public final static int SEED_MODIFIER =  1238904567;
 
     private static String messageLocation = "Library at: ";

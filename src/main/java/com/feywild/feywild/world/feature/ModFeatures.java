@@ -23,8 +23,6 @@ public class ModFeatures {
           register("autumn_pumpkins", new AutumnPumpkinsFeature());
 
 
-
-
     public static void register(){}
 
 

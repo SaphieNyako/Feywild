@@ -42,7 +42,7 @@ public class ModConfiguredStructures {
         Registry.register(registry, new ResourceLocation(FeywildMod.MOD_ID, "configured_library"), CONFIGURED_LIBRARY);
     }
 
-    //Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
-    //FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
+        //Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
+       // FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
 
 }

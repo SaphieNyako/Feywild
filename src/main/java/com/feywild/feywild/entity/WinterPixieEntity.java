@@ -34,6 +34,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     //TAMED variable
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(WinterPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    private boolean setBehaviors;
 
     /* CONSTRUCTOR */
     public WinterPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -126,6 +127,8 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
     /* SAVE DATA */
 
+
+    //write
     @Override
     public void addAdditionalSaveData(CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
@@ -138,6 +141,8 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
     }
 
+
+    //read
     @Override
     public void readAdditionalSaveData(CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
@@ -150,8 +155,10 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
             this.setTamed(tag.getBoolean("tamed"));
         }
 
-        tryResetGoals();
-
+        if(!setBehaviors){
+            tryResetGoals();
+            setBehaviors = true;
+        }
     }
 
     public void tryResetGoals(){

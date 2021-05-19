@@ -34,6 +34,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     //TAMED variable
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(SummerPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    private boolean setBehaviors;
 
     /* CONSTRUCTOR */
     public SummerPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -122,6 +123,8 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
 
     /* SAVE DATA */
 
+
+    //write
     @Override
     public void addAdditionalSaveData(CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
@@ -135,6 +138,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     }
 
 
+    //read
     @Override
     public void readAdditionalSaveData(CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
@@ -147,9 +151,13 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
             this.setTamed(tag.getBoolean("tamed"));
         }
 
-        tryResetGoals();
-
+        if(!setBehaviors){
+            tryResetGoals();
+            setBehaviors = true;
+        }
     }
+
+
 
     public void tryResetGoals(){
         this.goalSelector.availableGoals = new LinkedHashSet<>();

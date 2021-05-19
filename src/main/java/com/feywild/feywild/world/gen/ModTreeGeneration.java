@@ -6,6 +6,7 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.*;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.MobConfig;
+import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -43,6 +44,12 @@ public class ModTreeGeneration {
         SummerTree summerTree = new SummerTree();
 
         Random random = new Random();
+
+        String SpringBiome = "spring_biome";
+        String SummerBiome = "summer_biome";
+        String AutumnBiome = "autumn_biome";
+        String WinterBiome = "winter_biome";
+        String biomeName = event.getName().toString();
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
@@ -108,32 +115,35 @@ public class ModTreeGeneration {
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
         }
 
-        /*
-        //MAGICAL BIOMES
-        if(types.contains(BiomeDictionary.Type.MAGICAL)){
+
+        if(biomeName.contains(SpringBiome)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-            base.add(() -> Feature.TREE.withConfiguration(springTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.005f, 3))));
-
-            base.add(() -> Feature.TREE.withConfiguration(summerTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.005f, 3))));
-
-            base.add(() -> Feature.TREE.withConfiguration(autumnTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.005f, 3))));
-
-            base.add(() -> Feature.TREE.withConfiguration(winterTree.getTreeFeature(random, true).getConfig())
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(0, 0.005f, 3))));
-
-
+            base.add(() -> ModConfiguredFeatures.SPRING_TREES);
         }
-        */
 
+        if(biomeName.contains(SummerBiome)) {
+            List<Supplier<ConfiguredFeature<?, ?>>> base =
+                    event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
+            base.add(() -> ModConfiguredFeatures.SUMMER_TREES);
+        }
+
+        if(biomeName.contains(AutumnBiome)) {
+            List<Supplier<ConfiguredFeature<?, ?>>> base =
+                    event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
+
+            base.add(() -> ModConfiguredFeatures.AUTUMN_TREES);
+            base.add(() -> ModConfiguredFeatures.AUTUMN_PUMPKINS);
+        }
+
+        if(biomeName.contains(WinterBiome)) {
+            List<Supplier<ConfiguredFeature<?, ?>>> base =
+                    event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
+
+            base.add(() -> ModConfiguredFeatures.WINTER_TREES);
+            base.add(() -> ModConfiguredFeatures.WINTER_FLOWERS);
+        }
     }
 }

@@ -1,15 +1,25 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.trees.WinterTree;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.ChanceConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 public class WinterBiome extends BaseBiome{
@@ -47,18 +57,11 @@ public class WinterBiome extends BaseBiome{
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
 
-       // DefaultBiomeFeatures.withDefaultFlowers(biomeGenerationSettingsBuilder);
-
-
         DefaultBiomeFeatures.addDefaultGrass(biomeGenerationSettingsBuilder);
 
         DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);
 
         DefaultBiomeFeatures.addIcebergs(biomeGenerationSettingsBuilder);
-
-        /* WINTER FEATURES */
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
 
 
       return (new Biome.Builder()).precipitation(Biome.RainType.SNOW)
@@ -71,5 +74,5 @@ public class WinterBiome extends BaseBiome{
               .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
 
-}
+    }
 }

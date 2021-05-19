@@ -160,9 +160,8 @@ public class FeywildMod {
         Registration.init();
         ModItems.register();
         ModBlocks.register();
-
         modStructuresRegister();
-
+        ModFeatures.register();
         ModBiomes.register();
         ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
@@ -261,8 +260,6 @@ public class FeywildMod {
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
-
-
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
 
@@ -328,6 +325,7 @@ public class FeywildMod {
              * NOTE: if you add per-dimension spacing configs, you can't use putIfAbsent as WorldGenRegistries.NOISE_GENERATOR_SETTINGS in FMLCommonSetupEvent
              * already added your default structure spacing to some dimensions. You would need to override the spacing with .put(...)
              * And if you want to do dimension blacklisting, you need to remove the spacing entry entirely from the map below to prevent generation safely.
+             */
 
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
             tempMap.putIfAbsent(ModStructures.SPRING_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SPRING_WORLD_TREE.get()));
@@ -337,7 +335,7 @@ public class FeywildMod {
             tempMap.putIfAbsent(ModStructures.BLACKSMITH.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.BLACKSMITH.get()));
             tempMap.putIfAbsent(ModStructures.LIBRARY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.LIBRARY.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
- */
+
         }
     }
 }

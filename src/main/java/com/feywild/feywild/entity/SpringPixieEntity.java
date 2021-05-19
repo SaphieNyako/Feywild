@@ -37,6 +37,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     //TAMED variable
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(SpringPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    private boolean setBehaviors;
 
     /* CONSTRUCTOR */
     public SpringPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -157,7 +158,10 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
             this.setTamed(tag.getBoolean("tamed"));
         }
 
-        tryResetGoals();
+        if(!setBehaviors){
+            tryResetGoals();
+            setBehaviors = true;
+        }
     }
 
     public void tryResetGoals(){

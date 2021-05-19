@@ -33,8 +33,8 @@ import java.util.List;
 
 public class BlacksmithStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 25;
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 20;
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 50;
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 40;
     public final static int SEED_MODIFIER =  567890123 ;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
 

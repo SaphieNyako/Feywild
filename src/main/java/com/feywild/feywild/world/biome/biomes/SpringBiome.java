@@ -1,5 +1,6 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
@@ -8,10 +9,14 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 public class SpringBiome extends BaseBiome {
@@ -43,8 +48,8 @@ public class SpringBiome extends BaseBiome {
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
 
-        /* CUSTOMISED */
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
+        /* CUSTOMISED */ //THIS LINE CAUSES THE TREES NOT TO SPAWN IN FORESTS
+
 
         return (new Biome.Builder()).precipitation(Biome.RainType.RAIN)
                 .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
