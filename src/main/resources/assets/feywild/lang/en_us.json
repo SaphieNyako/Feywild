@@ -6,6 +6,7 @@
   "item.feywild.brilliant_fey_gem": "Brilliant Fey Gem",
 
   "item.feywild.feywild_lexicon": "Feywild Lexicon",
+  "item.feywild.music_disc_feywild": "Song of the Seasons",
 
   "item.feywild.summoning_scroll_spring_pixie": "Summoning Scroll Spring Pixie",
   "item.feywild.summoning_scroll_summer_pixie": "Summoning Scroll Summer Pixie",
@@ -76,6 +77,8 @@
   "message.feywild.autumn_pixie": "A summoning scroll for a Autumn Pixie",
   "message.feywild.spring_pixie" : "A summoning scroll for a Spring Pixie",
   "message.feywild.summer_pixie" : "A summoning scroll for a Summer Pixie",
-  "message.feywild.winter_pixie" : "A summoning scroll for a Winter Pixie"
+  "message.feywild.winter_pixie" : "A summoning scroll for a Winter Pixie",
+  "message.feywild.music_disc_feywild" : "Music composed, mixed and mastered by: Davy Habets (IKIGA) - www.ikigamusic.com",
+  "message.feywild.music_disc_feywild_2" : "Song of the Seaons Composed, mixed and mastered by: Davy Habets (IKIGA)"
 
 }

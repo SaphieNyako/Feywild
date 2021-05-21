@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.SpringPixieEntity;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -28,7 +29,7 @@ import static com.feywild.feywild.entity.ModEntityTypes.*;
 
 public class ModItems {
 
-    //GEMS
+    /* GEMS */
 
     public static final RegistryObject<Item> LESSER_FEY_GEM =
             Registration.ITEMS.register("lesser_fey_gem",
@@ -47,21 +48,20 @@ public class ModItems {
                     () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
 
-    //BOOK
+    /* BOOK */ //TODO: COMPLETE GUIDE BOOK
     public static final RegistryObject<Item> FEYWILD_LEXICON =
             Registration.ITEMS.register("feywild_lexicon",
                     () -> new Item(new Item.Properties()));
 
-    //FOOD ITEMS
+    /* FOOD ITEMS */
     public static final RegistryObject<Item> FEY_DUST =
             Registration.ITEMS.register("fey_dust",
                     () -> new FeyDust(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)
                             .food(new Food.Builder()
                             .effect(() -> new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get() , 1), 1 )
                             .build())));
-    //FeyDust requires (Properties properties)
     //Can also give food item .hunger(5) .saturation(1.5f)
-    //Config.FEY_DUST_DURATION.get() is to get the config file values
+
 
     public static final RegistryObject<Item> MANDRAKE =
             Registration.ITEMS.register("mandrake",
@@ -69,6 +69,12 @@ public class ModItems {
                             .food(new Food.Builder()
                                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1 )
                                     .build())));
+
+    /* MUSIC DISC */
+
+    public static final RegistryObject<Item> MUSIC_DISC_FEYWILD =
+            Registration.ITEMS.register("music_disc_feywild",
+                    FeywildMusicDisc::new);
 
 
     //CROP ITEMS
@@ -79,12 +85,12 @@ public class ModItems {
 
 
 
-    //QUEST ITEMS
+    /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
             Registration.ITEMS.register("fey_sheep_droppings",
-                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB))); */
 
-    /* TOOLS */
+    /* TOOLS
 
     public static final RegistryObject<Item> FEY_SHOVEL =
             Registration.ITEMS.register("fey_shovel",
@@ -100,9 +106,9 @@ public class ModItems {
                     new Item.Properties()
                     .tab(FeywildMod.FEYWILD_TAB)
                     .addToolType(ToolType.HOE, 2)
-                    .defaultDurability(150)));
+                    .defaultDurability(150))); */
 
-    /* ARMOR */
+    /* ARMOR
 
     public static final RegistryObject<Item> FEY_ARMOR_HELMET =
             Registration.ITEMS.register("fey_armor_helmet",
@@ -122,7 +128,7 @@ public class ModItems {
     public static final RegistryObject<Item> FEY_ARMOR_BOOTS=
             Registration.ITEMS.register("fey_armor_boots",
                     () -> new ArmorItem(ModArmorTier.FEY_ARMOR, EquipmentSlotType.FEET, new Item.Properties()
-                            .tab(FeywildMod.FEYWILD_TAB)));
+                            .tab(FeywildMod.FEYWILD_TAB)));  */
 
     /* SUMMONING SCROLL */
 
@@ -147,26 +153,8 @@ public class ModItems {
                     SummoningScrollDwarfBlacksmith::new);
 
 
-    /* SPAWN EGGS
-
-    public static final RegistryObject<ModSpawnEggItem> SPRING_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("spring_pixie_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityTypes.SPRING_PIXIE, 0x99cc99, 0x9966cc,
-                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
-
-    public static final RegistryObject<ModSpawnEggItem> AUTUMN_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("autumn_pixie_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityTypes.AUTUMN_PIXIE, 0xcc3333, 0x993333,
-                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
-
-    public static final RegistryObject<ModSpawnEggItem> SUMMER_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("summer_pixie_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityTypes.SUMMER_PIXIE, 0xffcc00, 0xff6633,
-                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
 
 
-    public static final RegistryObject<ModSpawnEggItem> WINTER_PIXIE_SPAWNING_EGG = Registration.ITEMS.register("winter_pixie_spawn_egg",
-            () -> new ModSpawnEggItem(ModEntityTypes.WINTER_PIXIE, 0x99ffff, 0x333333,
-                    new Item.Properties().group(FeywildMod.FEYWILD_TAB)));
-
-     */
 
     //METHODES
 

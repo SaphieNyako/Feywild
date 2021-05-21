@@ -57,7 +57,7 @@ Random random = new Random();
      //Constructor
     public FeyAltar() {
 
-        super(AbstractBlock.Properties.of(Material.STONE).strength(4f).noOcclusion().requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE));
+        super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion().requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE));
     }
 
     //Activate on player r click

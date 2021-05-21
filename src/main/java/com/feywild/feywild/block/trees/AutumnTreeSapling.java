@@ -17,7 +17,6 @@ public class AutumnTreeSapling extends BaseSapling {
         super(AutumnTree::new, Properties.copy(Blocks.OAK_SAPLING));
     }
 
-
     @Override
     public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 

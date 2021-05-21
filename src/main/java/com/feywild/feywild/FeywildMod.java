@@ -158,6 +158,7 @@ public class FeywildMod {
     private void registerModAdditions() {
 
         Registration.init();
+        ModSoundEvents.register();
         ModItems.register();
         ModBlocks.register();
         modStructuresRegister();
@@ -165,7 +166,7 @@ public class FeywildMod {
         ModBiomes.register();
         ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
-        ModSoundEvents.register();
+
         ModEntityTypes.register();
 
     }
@@ -266,6 +267,13 @@ public class FeywildMod {
             if(types.contains(BiomeDictionary.Type.PLAINS)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_BLACKSMITH);
+                event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
+                //TODO: add structure void blocks
+            }
+
+            if(types.contains(BiomeDictionary.Type.FOREST)) {
+
+
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
                 //TODO: add structure void blocks
             }

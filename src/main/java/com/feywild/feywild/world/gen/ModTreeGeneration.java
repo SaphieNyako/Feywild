@@ -116,6 +116,8 @@ public class ModTreeGeneration {
         }
 
 
+        /* BIOME DECORATION GENERATION */
+
         if(biomeName.contains(SpringBiome)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);

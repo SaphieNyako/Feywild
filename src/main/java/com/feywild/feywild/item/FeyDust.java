@@ -63,24 +63,23 @@ public class FeyDust extends Item {
                     playerIn.displayClientMessage(new TranslationTextComponent("message.feywild.fey_dust_giggling"), true);
                     break;
                 case 2:
-                    //Special sheep stuff
-                    playerIn.addItem(new ItemStack(ModItems.FEY_SHEEP_DROPPINGS.get(), 1));
+
+                  //  playerIn.addItem(new ItemStack(ModItems.FEY_SHEEP_DROPPINGS.get(), 1));
                     target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 10));
                     playerIn.getItemInHand(hand).getOrCreateTag().putInt("uses", 0);
                     stack.shrink(1);
                     return ActionResultType.SUCCESS;
             }
-            //Sheep levitation and item logic
+
             target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
             playerIn.getItemInHand(hand).getOrCreateTag().putInt("uses", ++count);
             stack.shrink(1);
         } else {
-            //General levitation and item logic
+
             target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
             stack.shrink(1);
         }
 
-        //Tell player to move hand while using item
         return ActionResultType.SUCCESS;
     }
 }

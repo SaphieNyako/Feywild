@@ -27,6 +27,9 @@ public class Registration {
     public static final DeferredRegister<Block> BLOCKS
             = DeferredRegister.create(ForgeRegistries.BLOCKS, FeywildMod.MOD_ID);
 
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS
+            = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.MOD_ID);
+
     public static final DeferredRegister<Item> ITEMS
             = DeferredRegister.create(ForgeRegistries.ITEMS, FeywildMod.MOD_ID);
 
@@ -36,8 +39,7 @@ public class Registration {
     public static final DeferredRegister<EntityType<?>> ENTITIES
             = DeferredRegister.create(ForgeRegistries.ENTITIES, FeywildMod.MOD_ID);
 
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS
-            = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.MOD_ID);
+
 
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZER
             = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FeywildMod.MOD_ID);
@@ -57,8 +59,9 @@ public class Registration {
         BLOCKS.register(eventBus);
         TILE_ENTITY_TYPES.register(eventBus);
         ENTITIES.register(eventBus);
-        ITEMS.register(eventBus);
         SOUND_EVENTS.register(eventBus);
+        ITEMS.register(eventBus);
+
         RECIPE_SERIALIZER.register(eventBus);
         ModRecipeTypes.registerRecipes();
         ModStructures.STRUCTURES.register(eventBus);

@@ -1,0 +1,61 @@
+package com.feywild.feywild.item;
+
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.util.KeyboardHelper;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.JukeboxBlock;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.List;
+import java.util.function.Supplier;
+
+public class FeywildMusicDisc extends MusicDiscItem {
+
+
+    public FeywildMusicDisc() {
+       this(1, ()->ModSoundEvents.FEYWILD_SOUNDTRACK.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB).rarity(Rarity.RARE));
+    }
+
+    public FeywildMusicDisc(int comparatorValue, Supplier<SoundEvent> soundSupplier, Properties builder) {
+        super(comparatorValue, soundSupplier, builder);
+    }
+
+
+
+    @Override
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+
+        if (KeyboardHelper.isHoldingShift()) {
+
+            tooltip.add(new TranslationTextComponent("message.feywild.music_disc_feywild"));
+
+        } else {
+            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
+
+        }
+    }
+
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public IFormattableTextComponent getDisplayName() {
+        return new TranslationTextComponent("message.feywild.music_disc_feywild_2");
+    }
+
+
+
+}

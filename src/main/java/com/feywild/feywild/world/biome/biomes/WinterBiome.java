@@ -3,7 +3,9 @@ package com.feywild.feywild.world.biome.biomes;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.WinterTree;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
+import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
@@ -34,13 +36,12 @@ public class WinterBiome extends BaseBiome{
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.WINTER_PIXIE.get(), 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.SNOW_GOLEM, 10, 3, 4));
-
+        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ZOMBIE_VILLAGER, 50,3,5));
+        DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
@@ -70,7 +71,7 @@ public class WinterBiome extends BaseBiome{
                       .waterFogColor(329011)
                       .fogColor(12638463)
                       .skyColor(getSkyColorWithTemperatureModifier(0.0F))
-                      .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+                      .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.WINTER_SOUNDTRACK.get(), 6000,12000, true)).build())
               .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
 

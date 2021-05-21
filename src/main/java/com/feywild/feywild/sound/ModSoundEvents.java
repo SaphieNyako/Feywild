@@ -20,6 +20,26 @@ public class ModSoundEvents {
             Registration.SOUND_EVENTS.register("pixie_death",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "pixie_death")));
 
+    public static final RegistryObject<SoundEvent>  FEYWILD_SOUNDTRACK =
+            Registration.SOUND_EVENTS.register("feywild_soundtrack",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "feywild_soundtrack")));
+
+    public static final RegistryObject<SoundEvent>  SPRING_SOUNDTRACK =
+            Registration.SOUND_EVENTS.register("spring_soundtrack",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "spring_soundtrack")));
+
+    public static final RegistryObject<SoundEvent>  AUTUMN_SOUNDTRACK =
+            Registration.SOUND_EVENTS.register("autumn_soundtrack",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "autumn_soundtrack")));
+
+    public static final RegistryObject<SoundEvent>  SUMMER_SOUNDTRACK =
+            Registration.SOUND_EVENTS.register("summer_soundtrack",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "summer_soundtrack")));
+
+    public static final RegistryObject<SoundEvent>  WINTER_SOUNDTRACK =
+            Registration.SOUND_EVENTS.register("winter_soundtrack",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "winter_soundtrack")));
+
 
     public static void register() {}
 }

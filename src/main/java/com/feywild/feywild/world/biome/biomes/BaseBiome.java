@@ -15,11 +15,11 @@ public abstract class BaseBiome {
     /* Check BiomeMaker for different setups for the Biomes */
     public abstract Biome biomeSetup (final Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale);
 
-    protected MobSpawnInfo.Builder getStandardMobSpawnBuilder() {
-        MobSpawnInfo.Builder mobspawninfo$builder = new MobSpawnInfo.Builder();
-        DefaultBiomeFeatures.farmAnimals(mobspawninfo$builder);
-        DefaultBiomeFeatures.commonSpawns(mobspawninfo$builder);
-        return mobspawninfo$builder;
+    protected MobSpawnInfo.Builder getStandardMobSpawnBuilder(MobSpawnInfo.Builder mobSpawnBuilder) {
+
+        DefaultBiomeFeatures.farmAnimals(mobSpawnBuilder);
+        DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
+        return mobSpawnBuilder;
     }
 
 

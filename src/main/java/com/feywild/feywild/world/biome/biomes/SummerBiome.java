@@ -2,7 +2,9 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.block.trees.SummerTree;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
+import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
@@ -32,6 +34,8 @@ public class SummerBiome extends BaseBiome{
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE,new MobSpawnInfo.Spawners(EntityType.RAVAGER,50,2,5));
+        DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
 
         //Standard
@@ -61,7 +65,7 @@ public class SummerBiome extends BaseBiome{
                         .waterFogColor(329011)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.9F))
-                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SUMMER_SOUNDTRACK.get(), 6000,12000, true)).build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
 

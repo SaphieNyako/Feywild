@@ -49,10 +49,11 @@ public class ModBiomeGeneration {
 
         event.enqueueWork(() ->
         {
-            addBiome(ModBiomes.SPRING_BIOME.get(), BiomeManager.BiomeType.WARM, 100, MAGICAL, FOREST);
-            addBiome(ModBiomes.SUMMER_BIOME.get(), BiomeManager.BiomeType.WARM, 100, MAGICAL, HOT);
-            addBiome(ModBiomes.AUTUMN_BIOME.get(), BiomeManager.BiomeType.WARM, 100, MAGICAL, MUSHROOM);
-            addBiome(ModBiomes.WINTER_BIOME.get(), BiomeManager.BiomeType.WARM, 100, MAGICAL, COLD);
+            //TODO CONFIG FOR BIOMES
+            addBiome(ModBiomes.SPRING_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, FOREST);
+            addBiome(ModBiomes.SUMMER_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, HOT);
+            addBiome(ModBiomes.AUTUMN_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, MUSHROOM);
+            addBiome(ModBiomes.WINTER_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, COLD);
         });
     }
 

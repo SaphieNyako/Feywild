@@ -36,5 +36,50 @@
       }
 
     ]
+  },
+
+  "feywild_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:feywild_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+
+  "spring_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:spring_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+
+  "summer_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:summer_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+
+  "autumn_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:autumn_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+
+  "winter_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:winter_soundtrack",
+        "stream": true
+      }
+    ]
   }
 }

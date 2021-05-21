@@ -29,6 +29,8 @@ import java.util.List;
 
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
+    //TODO: Add names for the Fey in lang folder
+
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     //TAMED variable

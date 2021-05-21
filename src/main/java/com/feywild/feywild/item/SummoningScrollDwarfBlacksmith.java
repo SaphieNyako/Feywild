@@ -24,11 +24,6 @@ public class SummoningScrollDwarfBlacksmith extends Item {
                 super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
-    // On Item use summons a different version of the DwarfBlacksmith
-    // Linked to position of Anvil, will move away and at times comes back to Anvil
-    // Dwarf has recipes that he can craft into items. Not sure how we want to do this yet.
-    // Maybe items given are circled around the anvil? When given he comes to anvil and starts crafting...
-
 
     @Override
     public ActionResultType useOn(ItemUseContext context) {

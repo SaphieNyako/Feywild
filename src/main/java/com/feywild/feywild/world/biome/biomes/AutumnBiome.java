@@ -1,11 +1,16 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
+import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.PandaEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
@@ -32,10 +37,11 @@ public class AutumnBiome extends BaseBiome{
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.MOOSHROOM, 20, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.AUTUMN_PIXIE.get(), 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH,50,1,3));
+        DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
@@ -67,10 +73,13 @@ public class AutumnBiome extends BaseBiome{
                         .waterFogColor(2302743)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.8F))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.AUTUMN_SOUNDTRACK.get(), 6000,12000, true))
                         .foliageColorOverride(6975545)
-                        .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP)
-                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+                        .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP).build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+
+        //TODO: ADD PARTICLES TO BIOMES
+        //TODO: ADD BACKGROUND MUSIC TO BIOMES
 
     }
 }

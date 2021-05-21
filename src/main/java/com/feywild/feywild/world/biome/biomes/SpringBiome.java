@@ -2,9 +2,11 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
+import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.*;
@@ -30,10 +32,9 @@ public class SpringBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 40, 4, 4));
-        DefaultBiomeFeatures.farmAnimals(mobSpawnBuilder);
-
+        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50,1,3));
+        getStandardMobSpawnBuilder(mobSpawnBuilder);
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
@@ -58,7 +59,8 @@ public class SpringBiome extends BaseBiome {
                         .waterFogColor(329011)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.7F))
-                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS).build())
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SPRING_SOUNDTRACK.get(), 6000,12000, true))
+                        .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
         //.setParticle
