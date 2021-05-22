@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Config {
 
+    //TODO: CONFIG for Biomes, Spawn ore, Structure Spawn
+
     public static ForgeConfigSpec SERVER_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
 
@@ -63,7 +65,7 @@ public class Config {
                 Arrays.asList("SWAMP", "MUSHROOM", "SPOOKY", "FOREST"));
         WINTER_PIXIE_CONFIG = new MobConfig("Winter Pixie", 20,1,1,
                 Arrays.asList("DEAD", "SNOWY", "COLD"));
-        DWARF_CONFIG = new MobConfig("Dwarf", 40,1,1,Arrays.asList("ALL"));
+        DWARF_CONFIG = new MobConfig("Dwarf", 5,1,1,Arrays.asList("ALL"));
 
         SPRING_PIXIE_CONFIG.apply(CLIENT_BUILDER);
         SUMMER_PIXIE_CONFIG.apply(CLIENT_BUILDER);

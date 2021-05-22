@@ -29,7 +29,7 @@ import java.util.List;
 
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
-    //TODO: Add names for the Fey in lang folder
+    //TODO: Add names for the fey in lang folder so it can be seen by HWYLA. - Update - names are added to lang but still not displayed by HWYLA
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);

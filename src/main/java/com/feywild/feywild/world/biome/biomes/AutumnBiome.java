@@ -9,6 +9,7 @@ import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.PandaEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.*;
@@ -75,11 +76,9 @@ public class AutumnBiome extends BaseBiome{
                         .skyColor(getSkyColorWithTemperatureModifier(0.8F))
                         .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.AUTUMN_SOUNDTRACK.get(), 6000,12000, true))
                         .foliageColorOverride(6975545)
+                        .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001F))
                         .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP).build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-
-        //TODO: ADD PARTICLES TO BIOMES
-        //TODO: ADD BACKGROUND MUSIC TO BIOMES
 
     }
 }

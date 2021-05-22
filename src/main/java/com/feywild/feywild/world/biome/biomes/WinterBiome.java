@@ -8,6 +8,7 @@ import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
@@ -71,7 +72,9 @@ public class WinterBiome extends BaseBiome{
                       .waterFogColor(329011)
                       .fogColor(12638463)
                       .skyColor(getSkyColorWithTemperatureModifier(0.0F))
-                      .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.WINTER_SOUNDTRACK.get(), 6000,12000, true)).build())
+                      .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.WINTER_SOUNDTRACK.get(), 6000,12000, true))
+                      .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F))
+                      .build())
               .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
 

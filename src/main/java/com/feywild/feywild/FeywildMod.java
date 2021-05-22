@@ -251,7 +251,7 @@ public class FeywildMod {
          * registrykey. Then that can be fed into the dictionary to get the biome's types.
          */
 
-        //TODO: add config option for structure spawn
+
         String SpringBiome = "spring_biome";
         String SummerBiome = "summer_biome";
         String AutumnBiome = "autumn_biome";
@@ -275,7 +275,7 @@ public class FeywildMod {
 
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
-                //TODO: add structure void blocks
+
             }
 
             if (biomeName.contains(SpringBiome)) {

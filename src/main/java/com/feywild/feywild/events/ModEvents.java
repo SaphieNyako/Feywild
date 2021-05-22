@@ -62,7 +62,7 @@ public class ModEvents {
         }
     }
 
-/*    //An event handler is a class that contains one or more public void member methods that are marked with the @SubscribeEvent annotation.
+/*    //EXAMPLE: An event handler is a class that contains one or more public void member methods that are marked with the @SubscribeEvent annotation.
     @SubscribeEvent
     public void feyDustOnAnimal(PlayerInteractEvent.EntityInteract event) {
 

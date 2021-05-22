@@ -21,6 +21,7 @@ public class DwarfTrades {
     private static HashMap<ItemStack,ItemStack> trades  = new HashMap<>();
     private static HashMap<ItemStack, ItemStack> tamedTrades = new HashMap<>();
 
+    //TODO: Add correct recipes for dwarf
 
     public static void registerTrades(){
         /*UNTAMED*/
