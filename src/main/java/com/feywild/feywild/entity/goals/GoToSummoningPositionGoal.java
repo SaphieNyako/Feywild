@@ -30,7 +30,7 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal{
     @Override
     public void tick() {
         if(summoningPosition != null && distanceFrom(entity.blockPosition(), this.summoningPosition) > maxMovementRange){
-            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 1.5); //1.5
+            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5); //1.5
         }
     }
 

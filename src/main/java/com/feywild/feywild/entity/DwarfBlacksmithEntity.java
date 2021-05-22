@@ -206,10 +206,6 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         return tamed;
     }
 
-
-
-
-
     /* GOALS */
 
     protected void addGoalsAfterConstructor(){
@@ -230,10 +226,10 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public List<PrioritizedGoal> getTamedGoals(){
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
-        list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 15)));
+        list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
         list.add(new PrioritizedGoal(1, new MeleeAttackGoal(this,0.8, false)));
-        list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 15)));
-        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 8)));
+        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos,5)));
 
@@ -244,13 +240,14 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     public List<PrioritizedGoal> getUntamedGoals(){
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
-        list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 15)));
+        list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
         list.add(new PrioritizedGoal(2, new MeleeAttackGoal(this,0.8, false)));
-        list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 15)));
-        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 8)));
+        list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
-        list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
-                Ingredient.of(Items.COOKIE),false)));
+        //Easy way to test tamed/untamed:
+       // list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,Ingredient.of(Items.COOKIE),false)));
+
 
         return list;
     }
@@ -336,6 +333,16 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         return true;
     }
 
+    @Override
+    public boolean causeFallDamage(float distance, float damageMultiplier) {
+        return false;
+    }
+
+    @Override
+    protected int getExperienceReward(PlayerEntity player) {
+        return 0;
+    }
+
 
     /* SOUND EFFECTS */
     @Nullable
@@ -345,18 +352,17 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     }
 
 
-    //Ancient's note : we can keep them but adjust the pitch
+
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        //Implement other Sound
+
         return SoundEvents.VILLAGER_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        //Implement other Sound
 
         return SoundEvents.VILLAGER_CELEBRATE;
     }
@@ -373,6 +379,9 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
     }
 
     /* Animation */
+
+    //TODO: Add working animation
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
         if(event.isMoving()) {
@@ -385,7 +394,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        //Animation controller
+
         animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
