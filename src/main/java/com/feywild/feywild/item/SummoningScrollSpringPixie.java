@@ -8,6 +8,7 @@ import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.KeyboardHelper;
 import jdk.nashorn.internal.ir.Block;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,11 +37,18 @@ public class SummoningScrollSpringPixie extends Item {
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
 
-            //TAMDED
+            PlayerEntity player =  context.getPlayer();
+
             SpringPixieEntity entity = new SpringPixieEntity(context.getLevel(), true, context.getClickedPos());
+            entity.setTag(entity);
+
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
+            player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.summon_message"), player.getUUID());
+
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+
+
         }
         return ActionResultType.SUCCESS;
     }

@@ -6,6 +6,7 @@ import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.entity.SummerPixieEntity;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -28,11 +29,17 @@ public class SummoningScrollSummerPixie extends Item {
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
 
-            //TAMED
+            PlayerEntity player =  context.getPlayer();
+
             SummerPixieEntity entity = new SummerPixieEntity(context.getLevel(), true, context.getClickedPos());
+            entity.setTag(entity);
+
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
+            player.sendMessage(new TranslationTextComponent("summer_quest_pixie.feywild.summon_message"), player.getUUID());
+
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+
         }
         return ActionResultType.SUCCESS;
     }

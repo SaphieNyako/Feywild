@@ -14,9 +14,14 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import org.lwjgl.system.CallbackI;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -57,6 +62,31 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         this.summonPos = pos;
         addGoalsAfterConstructor();
     }
+
+    /* QUEST */
+
+    public void setTag(SpringPixieEntity entity) {
+        entity.addTag("spring_quest_pixie");
+    }
+
+    /*
+    @Override
+    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+        if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
+
+        if (player.getItemInHand(hand).isEmpty()) {
+            if(this.getTags().contains("spring_quest_pixie")){
+
+            player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID());
+
+                return ActionResultType.SUCCESS;
+
+            }
+        }
+
+        return ActionResultType.SUCCESS;
+    }  */
+
 
 
     /* Animation */
@@ -107,7 +137,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
      //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
-        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,20)));
+        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
      //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));

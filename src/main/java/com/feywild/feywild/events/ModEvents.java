@@ -3,6 +3,8 @@ package com.feywild.feywild.events;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.entity.FeyEntity;
+import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.util.Config;
 import com.mojang.brigadier.Message;
@@ -45,6 +47,8 @@ public class ModEvents {
     //TODO: Add Summoning Text for Pixies
     @SubscribeEvent
     public void interactWithVillager(PlayerInteractEvent.EntityInteract event){
+
+
         //Check if it's a villager
         if(event.getTarget() instanceof VillagerEntity){
             // Store player & villager
@@ -70,6 +74,47 @@ public class ModEvents {
             }
         }
     }
+/*
+    @SubscribeEvent
+    public void interactWithPixie(PlayerInteractEvent.EntityInteract event){
+
+        LivingEntity target = (LivingEntity) event.getTarget();
+              PlayerEntity player = event.getPlayer();
+
+
+        //Check if it's a pixie
+        if(target instanceof SpringPixieEntity){
+            // Store player & pixie
+
+            if(target.getTags().contains("spring_quest_pixie")){
+
+                player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
+
+                event.setCanceled(true);
+            }
+
+            if(feyEntity.getTags().contains("summerPixie")){
+
+                player.sendMessage(new TranslationTextComponent("summer_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
+                event.setCanceled(true);
+            }
+
+            if(feyEntity.getTags().contains("autumnPixie")){
+
+                player.sendMessage(new TranslationTextComponent("autumn_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
+                event.setCanceled(true);
+            }
+
+            if(feyEntity.getTags().contains("winterPixie")){
+
+                player.sendMessage(new TranslationTextComponent("winter_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
+                event.setCanceled(true);
+
+
+
+        }
+    }}*/
+
 
 /*    //EXAMPLE: An event handler is a class that contains one or more public void member methods that are marked with the @SubscribeEvent annotation.
     @SubscribeEvent

@@ -57,6 +57,13 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     }
 
 
+    /* QUEST */
+
+    public void setTag(WinterPixieEntity entity) {
+        entity.addTag("winter_quest_pixie");
+    }
+
+
     /* Animation */
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
@@ -104,7 +111,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
         //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
-        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,20)));
+        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
         //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));

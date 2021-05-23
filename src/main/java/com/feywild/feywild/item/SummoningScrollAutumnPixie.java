@@ -8,6 +8,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -30,13 +31,19 @@ public class SummoningScrollAutumnPixie extends Item {
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
 
-            //TAMED
-            AutumnPixieEntity entity = new AutumnPixieEntity(context.getLevel(), true, context.getClickedPos());
-            //summons pixie
-            entity.setPos(context.getClickLocation().x(), context.getClickLocation().y() + 1, context.getClickLocation().z());
-            context.getLevel().addFreshEntity(entity);
+            PlayerEntity player =  context.getPlayer();
 
+            AutumnPixieEntity entity = new AutumnPixieEntity(context.getLevel(), true, context.getClickedPos());
+            entity.setTag(entity);
+
+            entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
+            player.sendMessage(new TranslationTextComponent("autumn_quest_pixie.feywild.summon_message"), player.getUUID());
+
+
+            context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+
+
         }
         return ActionResultType.SUCCESS;
     }
