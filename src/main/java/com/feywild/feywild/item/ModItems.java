@@ -51,7 +51,8 @@ public class ModItems {
     /* BOOK */ //TODO: COMPLETE GUIDE BOOK
     public static final RegistryObject<Item> FEYWILD_LEXICON =
             Registration.ITEMS.register("feywild_lexicon",
-                    () -> new Item(new Item.Properties()));
+                    () -> new FeywildLexicon(new Item.Properties()));
+
 
     /* FOOD ITEMS */
     public static final RegistryObject<Item> FEY_DUST =

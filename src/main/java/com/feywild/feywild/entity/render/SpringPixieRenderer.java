@@ -20,6 +20,8 @@ public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity>{
         super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
     }
 
+    //TODO Fix particle problem pixies after opening menu
+
     @Override
     protected BasicParticleType getParticleType() {
         return ParticleTypes.HAPPY_VILLAGER;

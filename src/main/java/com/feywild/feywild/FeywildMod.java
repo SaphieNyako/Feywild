@@ -271,7 +271,8 @@ public class FeywildMod {
                 //TODO: add structure void blocks
             }
 
-            if(types.contains(BiomeDictionary.Type.FOREST)) {
+            if(types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.HILLS)
+            && !types.contains(BiomeDictionary.Type.MOUNTAIN)&& !types.contains(BiomeDictionary.Type.COLD))  {
 
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
