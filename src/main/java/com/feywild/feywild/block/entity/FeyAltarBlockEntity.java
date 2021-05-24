@@ -41,7 +41,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     private boolean shouldLoad = true;
     private int count = 0, limit;
     Random random = new Random();
-    //Items
+
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
 
     public FeyAltarBlockEntity() {
@@ -57,7 +57,8 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         }
     }
 
-    //Save data on world close
+    /* SAVE DATA */
+
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         for (int i = 0; i < getItems().size(); i++) {
@@ -77,7 +78,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         }
     }
 
-    //gets called every tick
+
     @Override
     public void tick() {
         if(level.isClientSide) return;

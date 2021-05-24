@@ -7,7 +7,6 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class SpringPixieModel extends AnimatedGeoModel<SpringPixieEntity> {
 
-
     @Override
     public ResourceLocation getModelLocation(SpringPixieEntity springPixieEntity) {
         return new ResourceLocation(FeywildMod.MOD_ID, "geo/spring_pixie.geo.json");

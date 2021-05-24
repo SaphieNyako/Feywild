@@ -40,6 +40,7 @@ public class SummoningScrollWinterPixie extends Item {
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
         }
+
         return ActionResultType.SUCCESS;
     }
 

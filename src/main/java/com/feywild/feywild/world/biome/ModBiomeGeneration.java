@@ -29,7 +29,6 @@ public class ModBiomeGeneration {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void register(final RegistryEvent.Register<SurfaceBuilder<?>> event) {
 
-
         registerConfiguredSurfaceBuilder(ModConfiguredSurfaceBuilders.SPRING_SURFACE.location(),
                Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.SAND.defaultBlockState());
 

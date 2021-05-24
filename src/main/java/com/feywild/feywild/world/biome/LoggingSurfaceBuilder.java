@@ -29,7 +29,6 @@ public class LoggingSurfaceBuilder <C extends ISurfaceBuilderConfig, S extends S
         this.delegatedSurfaceBuilder = Lazy.of(delegatedSurfaceBuilder);
     }
 
-
     @Override
     public void apply(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
                              BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, C config) {

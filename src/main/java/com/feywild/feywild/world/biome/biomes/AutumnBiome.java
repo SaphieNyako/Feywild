@@ -28,7 +28,6 @@ import java.util.function.Supplier;
 
 public class AutumnBiome extends BaseBiome{
 
-
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 

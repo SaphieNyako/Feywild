@@ -58,19 +58,14 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
-    //TAMED variable
+
     private boolean tamed = false;
     public BlockPos summonPos;
-
 
     private HashMap<ItemStack, ItemStack> trades = new HashMap<>();
     private List<Integer> tradeId = new LinkedList<>();
     private int levelInt = 1;
 
-
-
-
-    /* CONSTRUCTOR */
     public DwarfBlacksmithEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
@@ -254,7 +249,7 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
 
     /* SAVE DATA */
 
-    //write
+
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);

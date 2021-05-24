@@ -22,9 +22,7 @@ public class ModFeatures {
     public static final Feature<NoFeatureConfig> AUTUMN_PUMPKINS =
           register("autumn_pumpkins", new AutumnPumpkinsFeature());
 
-
     public static void register(){}
-
 
     private static <C extends IFeatureConfig, F extends Feature<C>> F register(String key, F value) {
         value.setRegistryName(new ResourceLocation(FeywildMod.MOD_ID, key));

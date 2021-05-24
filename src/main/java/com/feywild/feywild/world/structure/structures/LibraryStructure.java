@@ -47,8 +47,6 @@ public class LibraryStructure extends BaseStructure{
         return SEED_MODIFIER;
     }
 
-
-
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return LibraryStructure.Start::new;
@@ -70,7 +68,6 @@ public class LibraryStructure extends BaseStructure{
         public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
-
 
         @Override  //generatePieces
         public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {

@@ -33,12 +33,11 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
-    //TAMED variable
+
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(AutumnPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
     private boolean setBehaviors;
 
-    /* CONSTRUCTOR */
     public AutumnPixieEntity(EntityType<? extends FeyEntity> entityEntityType, World world) {
         super(entityEntityType, world);
         //Geckolib check
@@ -111,11 +110,10 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
-        //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-        //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));
+
 
         return list;
     }

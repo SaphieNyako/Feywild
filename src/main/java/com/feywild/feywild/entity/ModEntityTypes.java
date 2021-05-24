@@ -19,7 +19,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 public class ModEntityTypes {
 
-    /* REGISTRATION FOR EACH ENTITY*/
     public static final RegistryObject<EntityType<SpringPixieEntity>> SPRING_PIXIE = Registration.ENTITIES.register("spring_pixie",
             () -> EntityType.Builder.<SpringPixieEntity>of(SpringPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1,1)

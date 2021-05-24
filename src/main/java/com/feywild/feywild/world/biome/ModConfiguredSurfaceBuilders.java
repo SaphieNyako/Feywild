@@ -10,8 +10,6 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public class ModConfiguredSurfaceBuilders {
 
-    /* Creates a custom surface, set up for blocks is done in ModBiomeGeneration */
-
     public static RegistryKey<ConfiguredSurfaceBuilder<?>> SPRING_SURFACE
             = RegistryKey.create(Registry.CONFIGURED_SURFACE_BUILDER_REGISTRY,
             new ResourceLocation(FeywildMod.MOD_ID, "spring_surface"));

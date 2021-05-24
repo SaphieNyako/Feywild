@@ -1,6 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.block.trees.*;
 import com.feywild.feywild.util.Registration;
@@ -21,11 +22,15 @@ public class ModBlocks {
                     .strength(3f,10f)
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE)), true);
 
-    // passing a new instance of the class DwarvenAnvil instead of creating a new block instance here
+
+    /* TILE ENTITIES */
+
     public static final RegistryObject<Block> DWARVEN_ANVIL = register ("dwarven_anvil", DwarvenAnvil::new, true);
 
+    public static final RegistryObject<TileEntityType<DwarvenAnvilEntity>> DWARVEN_ANVIL_ENTITY = registerTile("dwarven_anvil_entity",
+            ()-> TileEntityType.Builder.of(DwarvenAnvilEntity::new, DWARVEN_ANVIL.get()).build(null));
+
     public static final RegistryObject<Block> FEY_ALTAR = register("fey_altar", FeyAltar::new, true);
-    //Properties in FeyAltar
 
     public static final RegistryObject<TileEntityType<FeyAltarBlockEntity>> FEY_ALTAR_ENTITY = registerTile("fey_altar_entity",
             () ->TileEntityType.Builder.of(FeyAltarBlockEntity::new, FEY_ALTAR.get()).build(null));
@@ -109,7 +114,6 @@ public class ModBlocks {
         return toReturn;
     }
 
-    //for tile entities !!! you must pass a TileEntityType.Builder
     private static <T extends TileEntityType<?>>RegistryObject<T> registerTile(String name, Supplier<T> type){
         return Registration.TILE_ENTITY_TYPES.register(name,type);
     }

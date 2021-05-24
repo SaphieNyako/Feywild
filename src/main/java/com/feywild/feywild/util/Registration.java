@@ -21,9 +21,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class Registration {
 
-
-    //Letting Forge know which entities we want to be registered.
-
     public static final DeferredRegister<Block> BLOCKS
             = DeferredRegister.create(ForgeRegistries.BLOCKS, FeywildMod.MOD_ID);
 
@@ -39,12 +36,8 @@ public class Registration {
     public static final DeferredRegister<EntityType<?>> ENTITIES
             = DeferredRegister.create(ForgeRegistries.ENTITIES, FeywildMod.MOD_ID);
 
-
-
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZER
             = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FeywildMod.MOD_ID);
-
-    //BIOMES
 
     public static final DeferredRegister<Biome> BIOMES
             = DeferredRegister.create(ForgeRegistries.BIOMES, FeywildMod.MOD_ID);
@@ -61,7 +54,6 @@ public class Registration {
         ENTITIES.register(eventBus);
         SOUND_EVENTS.register(eventBus);
         ITEMS.register(eventBus);
-
         RECIPE_SERIALIZER.register(eventBus);
         ModRecipeTypes.registerRecipes();
         ModStructures.STRUCTURES.register(eventBus);

@@ -83,9 +83,6 @@ public class ModItems {
             Registration.ITEMS.register("mandrake_seed",
                     () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
-
-
-
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
             Registration.ITEMS.register("fey_sheep_droppings",

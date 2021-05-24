@@ -36,7 +36,6 @@ import java.util.Set;
 public class ModConfiguredFeatures {
 
     /* SPRING */
-
     public static final ConfiguredFeature<?, ?> SPRING_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "spring_trees",
                     Feature.TREE.configured(new SpringTree().getConfiguredFeature(new Random(), true).config())
@@ -94,7 +93,6 @@ public class ModConfiguredFeatures {
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "winter_blocks",
                     Feature.RANDOM_PATCH.configured(WINTER_BLOCK_CONFIG)
                             .decorated(Placement.CHANCE.configured(new ChanceConfig(200))));
-
 
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerFeature(String key, ConfiguredFeature<FC, ?> feature)

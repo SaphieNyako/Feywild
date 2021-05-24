@@ -11,7 +11,6 @@ import java.util.function.Supplier;
 
 public abstract class BaseBiome {
 
-
     /* Check BiomeMaker for different setups for the Biomes */
     public abstract Biome biomeSetup (final Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale);
 
@@ -21,7 +20,6 @@ public abstract class BaseBiome {
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
         return mobSpawnBuilder;
     }
-
 
     protected int getSkyColorWithTemperatureModifier(float temperature) {
         float lvt_1_1_ = temperature / 3.0F;

@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class SummerPixieModel extends AnimatedGeoModel<SummerPixieEntity> {
+
     @Override
     public ResourceLocation getModelLocation(SummerPixieEntity summerPixieEntity) {
         return new ResourceLocation(FeywildMod.MOD_ID, "geo/summer_pixie.geo.json");

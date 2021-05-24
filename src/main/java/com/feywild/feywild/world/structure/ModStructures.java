@@ -31,7 +31,7 @@ public class ModStructures {
             public static final RegistryObject<Structure<NoFeatureConfig>> AUTUMN_WORLD_TREE = STRUCTURES.register("autumn_world_tree",
                     AutumnWorldTreeStructure::new);
 
-    public static final RegistryObject<Structure<NoFeatureConfig>> WINTER_WORLD_TREE = STRUCTURES.register("winter_world_tree",
+            public static final RegistryObject<Structure<NoFeatureConfig>> WINTER_WORLD_TREE = STRUCTURES.register("winter_world_tree",
                     WinterWorldTreeStructure::new);
 
              public static final RegistryObject<Structure<NoFeatureConfig>> BLACKSMITH = STRUCTURES.register("blacksmith",
@@ -39,7 +39,6 @@ public class ModStructures {
 
              public static final RegistryObject<Structure<NoFeatureConfig>> LIBRARY = STRUCTURES.register("library",
                     LibraryStructure::new);
-
 
     public static void setupStructures() {
         setupMapSpacingAndLand(SPRING_WORLD_TREE.get(),
@@ -88,11 +87,9 @@ public class ModStructures {
             boolean transformSurroundingLand) {
 
         //add our structures into the map in Structure class
-        //STRUCTURES_REGISTRY
         Structure.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);  //Might return Null
 
         //Whether surrounding land will be modified automatically to conform to the bottom of the structure.
-        //NOISE_AFFECTING_FEATURES
         if(transformSurroundingLand){
             Structure.NOISE_AFFECTING_FEATURES = ImmutableList.<Structure<?>>builder()
                     .addAll(Structure.NOISE_AFFECTING_FEATURES)

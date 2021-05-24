@@ -43,7 +43,6 @@ public class ModBiomes {
                    ModConfiguredSurfaceBuilders.WINTER_SURFACE), 0.125f, 0.05f));
 
 
-
    public static void register() {}
 
 }

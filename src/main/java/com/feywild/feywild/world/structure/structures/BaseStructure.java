@@ -28,7 +28,6 @@ import org.apache.logging.log4j.Level;
 
 public abstract class BaseStructure extends Structure<NoFeatureConfig> {
 
-
     public BaseStructure() {
         super(NoFeatureConfig.CODEC);
     }
@@ -38,7 +37,6 @@ public abstract class BaseStructure extends Structure<NoFeatureConfig> {
     public abstract int getMinDistanceBetweenChunks();
 
     public abstract int getSeedModifier();
-
 
     @Override
     public abstract IStartFactory<NoFeatureConfig> getStartFactory();

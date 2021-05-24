@@ -51,10 +51,8 @@ public class ModOreGeneration {
                     ore.getBlock().getRegistryName(),
                     Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
 
-            //determines wich biome to spawn in
             for(Biome biome : ForgeRegistries.BIOMES)
             {
-                // not NETHER or THEEND, can also specify specific biomes.
                 if(!biome.getBiomeCategory().equals(Biome.Category.NETHER)
                         && !biome.getBiomeCategory().equals(Biome.Category.THEEND))
                 {

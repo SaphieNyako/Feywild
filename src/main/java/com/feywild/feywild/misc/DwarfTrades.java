@@ -24,6 +24,7 @@ public class DwarfTrades {
     //TODO: Add correct recipes for dwarf
 
     public static void registerTrades(){
+
         /*UNTAMED*/
         addTrade(new ItemStack(Items.COAL,32), new ItemStack(Items.DIAMOND));
         addTrade(new ItemStack(Items.IRON_ORE,3), new ItemStack(Items.IRON_INGOT,5));
@@ -53,6 +54,7 @@ public class DwarfTrades {
     public static HashMap<ItemStack,ItemStack> getTrades(){
         return trades;
     }
+
     public static HashMap<ItemStack,ItemStack> getTamedTrades(){
         return tamedTrades;
     }

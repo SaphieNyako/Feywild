@@ -11,8 +11,6 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal{
     Supplier<Boolean> shouldReturn;
     int maxMovementRange;
 
-        //TODO: Check if GoToSummoningPositionGoal works as intended. Goal should go on until position is reached, or set a timer.
-
     public GoToSummoningPositionGoal(MobEntity entity,Supplier<BlockPos> pos, int maxMovementRange) {
         super(pos, maxMovementRange);
         this.entity = entity;

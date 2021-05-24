@@ -21,7 +21,6 @@ import java.util.List;
 
 public class Mandrake extends Item {
 
-    //Constructor
     public Mandrake(Item.Properties properties) {
         super(properties);
     }

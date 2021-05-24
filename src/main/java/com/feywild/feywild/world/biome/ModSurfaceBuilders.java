@@ -7,7 +7,6 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class ModSurfaceBuilders {
 
-    /* Default Surface builder */
 
     public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> LOGGING_DEFAULT =
             Registration.SURFACE_BUILDERS.register("logging_default",

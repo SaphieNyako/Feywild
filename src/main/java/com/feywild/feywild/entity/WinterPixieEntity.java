@@ -31,12 +31,11 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
-    //TAMED variable
+
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(WinterPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
     private boolean setBehaviors;
 
-    /* CONSTRUCTOR */
     public WinterPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
@@ -110,11 +109,9 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
-        //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-        //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));
 
         return list;
     }
@@ -155,8 +152,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         super.readAdditionalSaveData(tag);
         if (tag.contains("summoner_x"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
-
-        // this.entityData.set(TAMED, tag.getBoolean("tamed"));
 
         if (tag.contains("tamed")) {
             this.setTamed(tag.getBoolean("tamed"));

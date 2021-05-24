@@ -48,7 +48,6 @@ public class SummoningScrollSpringPixie extends Item {
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
-
         }
         return ActionResultType.SUCCESS;
     }

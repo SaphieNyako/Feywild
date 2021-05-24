@@ -84,26 +84,21 @@ import java.util.stream.Collectors;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(FeywildMod.MOD_ID)
 public class FeywildMod {
-    //Variables
-    //Sets Mod_ID
-    public static final String MOD_ID = "feywild";
 
-    //Creates custom Create Tab
-    public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
+    public static final String MOD_ID = "feywild";
+     public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
 
         @Override
         public ItemStack makeIcon() {
-            //Shows this item's icon
+
             return new ItemStack(ModItems.SHINY_FEY_GEM.get());
         }
     };
 
     public static IProxy proxy;
-
-    // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
 
-    //Constructor
+
     public FeywildMod() {
 
         GeckoLib.initialize();
@@ -124,22 +119,15 @@ public class FeywildMod {
 
     }
 
-
-    //Methodes
     private void setup(final FMLCommonSetupEvent event) {
 
         DwarfTrades.registerTrades();
         registerConfigs();
-
         proxy.init();
-
         entityQueue(event);
         structureQueue(event);
-
         loadConfigs();
-
         FeywildPacketHandler.register();
-
         SpawnData.registerSpawn();
     }
 
@@ -166,7 +154,6 @@ public class FeywildMod {
         ModBiomes.register();
         ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
-
         ModEntityTypes.register();
 
     }
@@ -240,17 +227,6 @@ public class FeywildMod {
 
 
     public void biomeModification(final BiomeLoadingEvent event) {
-
-        /*
-         * Add our structure to all biomes including other modded biomes.
-         * You can skip or add only to certain biomes based on stuff like biome category,
-         * temperature, scale, precipitation, mod id, etc. All kinds of options!
-         *
-         * You can even use the BiomeDictionary as well! To use BiomeDictionary, do
-         * RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName()) to get the biome's
-         * registrykey. Then that can be fed into the dictionary to get the biome's types.
-         */
-
 
         String SpringBiome = "spring_biome";
         String SummerBiome = "summer_biome";

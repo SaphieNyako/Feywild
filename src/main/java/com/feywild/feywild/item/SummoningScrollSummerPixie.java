@@ -41,6 +41,7 @@ public class SummoningScrollSummerPixie extends Item {
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
         }
+
         return ActionResultType.SUCCESS;
     }
 

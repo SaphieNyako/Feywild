@@ -36,7 +36,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     public BlockPos summonPos;
     private boolean setBehaviors;
 
-    /* CONSTRUCTOR */
     public SummerPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
@@ -60,7 +59,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     public void setTag(SummerPixieEntity entity) {
         entity.addTag("summer_quest_pixie");
     }
-
 
 
     /* Animation */
@@ -107,11 +105,9 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
-        //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-        //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));
 
         return list;
     }
@@ -130,8 +126,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
 
     /* SAVE DATA */
 
-
-    //write
     @Override
     public void addAdditionalSaveData(CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
@@ -145,7 +139,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     }
 
 
-    //read
     @Override
     public void readAdditionalSaveData(CompoundNBT tag) {
         super.readAdditionalSaveData(tag);

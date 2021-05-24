@@ -26,7 +26,7 @@ import java.util.List;
 import net.minecraft.item.Item.Properties;
 
 public class FeyDust extends Item {
-    //Constructor
+
     public FeyDust(Properties properties) {
         super(properties);
     }

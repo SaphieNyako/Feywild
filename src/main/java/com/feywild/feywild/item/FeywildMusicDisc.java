@@ -34,8 +34,6 @@ public class FeywildMusicDisc extends MusicDiscItem {
         super(comparatorValue, soundSupplier, builder);
     }
 
-
-
     @Override
     public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 

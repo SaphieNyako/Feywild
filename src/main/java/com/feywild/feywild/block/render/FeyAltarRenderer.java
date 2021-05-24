@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
 
     private Minecraft minecraft = Minecraft.getInstance();
-    //Constructor
+
     public FeyAltarRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
 
         super(rendererDispatcherIn, new FeyAltarModel());

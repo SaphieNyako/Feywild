@@ -31,8 +31,6 @@ public abstract class FeyEntity extends CreatureEntity  {
     private Random random = new Random();
     private PlayerEntity follow = null;
 
-    /* THIS IS A TEMPLATE FOR THE FEY , ALL CODE THAT SHOULD BE SHARED BETWEEN THEM WILL BE PLACED HERE */
-
     protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
 
         super(type, worldIn);
@@ -107,14 +105,6 @@ public abstract class FeyEntity extends CreatureEntity  {
     protected int getExperienceReward(PlayerEntity player) {
         return 0;
     }
-
-    /*
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0f));
-        this.goalSelector.addGoal(6, new FeyMoveGoal(this, 6,0.01));
-    }*/
 
     @Override
     public boolean canBeLeashed(PlayerEntity player) {
@@ -201,11 +191,9 @@ public abstract class FeyEntity extends CreatureEntity  {
     }
 
 
-    /* MOVEMENT */
-    /* This interferes with all the goals, we can't add custom goals if we keep this. Need another Solution.... */
+    /* MOVEMENT - NOT USED */
 
-
-    //Added a custom walk goal for the fey
+/*
     public class FeyMoveGoal extends Goal {
         private Vector3d targetPos;
         private FeyEntity entity;
@@ -284,7 +272,7 @@ public abstract class FeyEntity extends CreatureEntity  {
                     }
                }
 
-            /*
+
             else if (!level.isClientSide && followPlayer >= 0){
                 followPlayer();
                 this.followPlayer--;
@@ -307,6 +295,6 @@ public abstract class FeyEntity extends CreatureEntity  {
             entity.setDeltaMovement((this.targetPos.x() - entity.getX()) * speed * 10, (this.targetPos.y() - entity.getY()) * speed * 10, (this.targetPos.z() - entity.getZ()) * speed * 10);
             this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         } */
-    }
 
-}
+
+

@@ -31,7 +31,6 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
         return null;
     }
 
-    // is the entire inventory empty?
     @Override
     public boolean isEmpty() {
         for(int i = 0; i < getContainerSize(); i++){

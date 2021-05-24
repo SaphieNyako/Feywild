@@ -50,9 +50,6 @@ public class SpringBiome extends BaseBiome {
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
 
-        /* CUSTOMISED */ //THIS LINE CAUSES THE TREES NOT TO SPAWN IN FORESTS
-
-
         return (new Biome.Builder()).precipitation(Biome.RainType.RAIN)
                 .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
                 .specialEffects((new BiomeAmbience.Builder())
@@ -64,8 +61,6 @@ public class SpringBiome extends BaseBiome {
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-
-        //.setParticle
 
     }
 }

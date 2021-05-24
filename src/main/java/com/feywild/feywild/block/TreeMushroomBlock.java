@@ -34,7 +34,6 @@ public class TreeMushroomBlock extends HorizontalBlock {
                 .setValue(FACING, Direction.NORTH));
     }
 
-    // This is the black thing that surrounds the block and that prevents it from making blocks around it invisible
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return VoxelShapes.box(0.01,0.01,0.01,0.99,0.99,0.99);

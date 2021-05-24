@@ -34,7 +34,6 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID)
 public class ModTreeGeneration {
 
-
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event){
 
@@ -66,7 +65,6 @@ public class ModTreeGeneration {
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
 
-            //If Forest also spawn Autumn Trees
             if(types.contains(BiomeDictionary.Type.FOREST)) {
 
                 base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
@@ -84,7 +82,6 @@ public class ModTreeGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-
             base.add(() -> Feature.TREE.configured(summerTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
@@ -96,7 +93,6 @@ public class ModTreeGeneration {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
-
 
             base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)

@@ -74,50 +74,11 @@ public class ModEvents {
             }
         }
     }
-/*
-    @SubscribeEvent
-    public void interactWithPixie(PlayerInteractEvent.EntityInteract event){
-
-        LivingEntity target = (LivingEntity) event.getTarget();
-              PlayerEntity player = event.getPlayer();
 
 
-        //Check if it's a pixie
-        if(target instanceof SpringPixieEntity){
-            // Store player & pixie
+    /* EXAMPLE: An event handler is a class that contains one or more public void member methods that are marked with the @SubscribeEvent annotation. */
 
-            if(target.getTags().contains("spring_quest_pixie")){
-
-                player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
-
-                event.setCanceled(true);
-            }
-
-            if(feyEntity.getTags().contains("summerPixie")){
-
-                player.sendMessage(new TranslationTextComponent("summer_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
-                event.setCanceled(true);
-            }
-
-            if(feyEntity.getTags().contains("autumnPixie")){
-
-                player.sendMessage(new TranslationTextComponent("autumn_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
-                event.setCanceled(true);
-            }
-
-            if(feyEntity.getTags().contains("winterPixie")){
-
-                player.sendMessage(new TranslationTextComponent("winter_quest_pixie.feywild.summon_message"), event.getPlayer().getUUID());
-                event.setCanceled(true);
-
-
-
-        }
-    }}*/
-
-
-/*    //EXAMPLE: An event handler is a class that contains one or more public void member methods that are marked with the @SubscribeEvent annotation.
-    @SubscribeEvent
+    /*   @SubscribeEvent
     public void feyDustOnAnimal(PlayerInteractEvent.EntityInteract event) {
 
         //When player attacks with feydust in mainhand do this:

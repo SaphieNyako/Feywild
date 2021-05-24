@@ -26,7 +26,6 @@ public class SummoningScrollAutumnPixie extends Item {
         super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
-
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if(!context.getLevel().isClientSide){
@@ -38,7 +37,6 @@ public class SummoningScrollAutumnPixie extends Item {
 
             entity.setPos(context.getClickLocation().x(), context.getClickLocation().y(), context.getClickLocation().z());
             player.sendMessage(new TranslationTextComponent("autumn_quest_pixie.feywild.summon_message"), player.getUUID());
-
 
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);

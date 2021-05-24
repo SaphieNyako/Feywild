@@ -4,6 +4,7 @@ import com.feywild.feywild.block.ModBlocks;
 import net.minecraft.block.Block;
 
 public enum OreType {
+
     FEY_GEM_ORE(ModBlocks.FEY_GEM_BLOCK.get(),3,11, 45, 4);
 
     private final Block block;

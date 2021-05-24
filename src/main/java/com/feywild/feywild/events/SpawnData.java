@@ -27,15 +27,11 @@ import java.util.*;
 public class SpawnData {
 
     public static List<BiomeDictionary.Type> biomeSpring = Config.SPRING_PIXIE_CONFIG.getBiomes();
-    //public static String[] biomeSpring = new String[]{"MAGICAL", "RIVER", "FOREST", "PLAINS"};
     public static List<BiomeDictionary.Type> biomeSummer = Config.SUMMER_PIXIE_CONFIG.getBiomes();
-    //public static String[] biomeSummer = new String[]{"LUSH", "MAGICAL", "HOT"};
     public static List<BiomeDictionary.Type> biomeAutumn = Config.AUTUMN_PIXIE_CONFIG.getBiomes();
-    //public static String[] biomeAutumn = new String[]{"SWAMP", "MUSHROOM", "MAGICAL", "SPOOKY", "FOREST"};
     public static List<BiomeDictionary.Type> biomeWinter = Config.WINTER_PIXIE_CONFIG.getBiomes();
-    //public static String[] biomeWinter = new String[]{"DEAD", "MAGICAL", "SNOWY", "COLD"};
 
-    //Spawn entities on biome load
+
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event)
     {
@@ -87,32 +83,7 @@ public class SpawnData {
             event.getSpawns().getSpawner(classification).add(spawnInfo);
     }
 
-    /*check for climate and add
-    private static void addSpawnClimate(BiomeLoadingEvent event,Biome.Climate climate, EntityType<? extends Entity> type, EntityClassification classification,int weight, int min, int max)
-    {
-        if(type.equals(ModEntityTypes.SPRING_PIXIE.get()) && (climate.temperature >=0.6 || climate.temperature <=0.7f)) {
-            MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
-            event.getSpawns().getSpawner(classification).add(spawnInfo);
-        }
 
-        if(type.equals(ModEntityTypes.AUTUMN_PIXIE.get()) && (climate.temperature >=0.7 || climate.temperature <=0.8f)) {
-            MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
-            event.getSpawns().getSpawner(classification).add(spawnInfo);
-        }
-
-        if(type.equals(ModEntityTypes.SUMMER_PIXIE.get()) && (climate.temperature >=0.8)) {
-            MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
-            event.getSpawns().getSpawner(classification).add(spawnInfo);
-        }
-
-        if(type.equals(ModEntityTypes.WINTER_PIXIE.get()) && (climate.temperature <=0.0)) {
-            MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
-            event.getSpawns().getSpawner(classification).add(spawnInfo);
-        }
-    }*/
-
-
-    //Register spawning conditions
     public static void registerSpawn(){
         EntitySpawnPlacementRegistry.register(ModEntityTypes.SPRING_PIXIE.get(),
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
@@ -130,11 +101,6 @@ public class SpawnData {
                 EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnDwarf);
 
     }
-
-
-/* list consisting of elements from: |SAVANNA, CONIFEROUS, JUNGLE, SPOOKY, DEAD, LUSH,
- NETHER, END, MUSHROOM, MAGICAL, RARE, OCEAN, RIVER, WATER, MESA, FOREST, PLAINS,
- MOUNTAIN, HILLS, SWAMP, SANDY, SNOWY, WASTELAND, BEACH, VOID */
 
 }
 

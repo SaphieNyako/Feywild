@@ -19,14 +19,11 @@ import java.util.Random;
 
 public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
 
-
     public AutumnPumpkinsFeature() {
-
 
         super(NoFeatureConfig.CODEC);
 
     }
-
 
     @Override
     public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random rand, BlockPos pos, NoFeatureConfig config) {

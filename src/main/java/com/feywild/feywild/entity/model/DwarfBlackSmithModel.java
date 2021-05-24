@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class DwarfBlackSmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity> {
+
     @Override
     public ResourceLocation getModelLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
         return new ResourceLocation(FeywildMod.MOD_ID, "geo/dwarf_blacksmith.geo.json");

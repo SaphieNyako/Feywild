@@ -38,7 +38,6 @@ public class SummerBiome extends BaseBiome{
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE,new MobSpawnInfo.Spawners(EntityType.RAVAGER,50,2,5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
-
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
@@ -58,7 +57,6 @@ public class SummerBiome extends BaseBiome{
 
         DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
 
-
         return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
                 .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0.0F)
                 .specialEffects((new BiomeAmbience.Builder())
@@ -70,9 +68,6 @@ public class SummerBiome extends BaseBiome{
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-
-
-
 
     }
 }

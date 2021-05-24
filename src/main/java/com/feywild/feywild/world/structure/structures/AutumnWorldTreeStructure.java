@@ -32,7 +32,6 @@ public class AutumnWorldTreeStructure extends BaseStructure{
     private static String messageLocation = "Autumn World Tree at: ";
     private static String messagePool = "autumn_world_tree/start_pool";
 
-
     @Override
     public int getAverageDistanceBetweenChunks() {
         return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
@@ -67,7 +66,6 @@ public class AutumnWorldTreeStructure extends BaseStructure{
         public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
-
 
         @Override  //generatePieces
         public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {

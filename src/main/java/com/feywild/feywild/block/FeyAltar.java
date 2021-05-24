@@ -54,7 +54,6 @@ import java.util.stream.Stream;
 public class FeyAltar extends Block {
 Random random = new Random();
 
-     //Constructor
     public FeyAltar() {
 
         super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion().requiresCorrectToolForDrops().harvestTool(ToolType.PICKAXE));

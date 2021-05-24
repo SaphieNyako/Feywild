@@ -44,7 +44,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     public BlockPos summonPos;
     private boolean setBehaviors;
 
-    /* CONSTRUCTOR */
     public SpringPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
@@ -136,11 +135,9 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
-     //   list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D, Ingredient.of(Items.COOKIE),false)));
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-     //   list.add(new PrioritizedGoal(6, new FeyMoveGoal(this,5, 0.01)));
 
         return list;
     }

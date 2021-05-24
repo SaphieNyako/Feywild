@@ -60,9 +60,7 @@ public class WinterBiome extends BaseBiome{
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
 
         DefaultBiomeFeatures.addDefaultGrass(biomeGenerationSettingsBuilder);
-
         DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);
-
         DefaultBiomeFeatures.addIcebergs(biomeGenerationSettingsBuilder);
 
 
@@ -76,7 +74,6 @@ public class WinterBiome extends BaseBiome{
                       .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F))
                       .build())
               .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-
 
     }
 }
