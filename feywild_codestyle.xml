@@ -1,0 +1,10 @@
+<code_scheme name="Default" version="173">
+  <JSON>
+    <option name="OBJECT_WRAPPING" value="1" />
+    <option name="ARRAY_WRAPPING" value="1" />
+  </JSON>
+  <codeStyleSettings language="JAVA">
+    <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
+    <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
+  </codeStyleSettings>
+</code_scheme>
