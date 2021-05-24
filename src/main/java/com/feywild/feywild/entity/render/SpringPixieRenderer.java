@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
 
-public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity>{
+public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity> {
 
     public SpringPixieRenderer(EntityRendererManager renderManager) {
 

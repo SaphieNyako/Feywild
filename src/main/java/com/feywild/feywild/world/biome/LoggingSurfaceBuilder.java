@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 
-public class LoggingSurfaceBuilder <C extends ISurfaceBuilderConfig, S extends SurfaceBuilder<C>> extends SurfaceBuilder<C> {
+public class LoggingSurfaceBuilder<C extends ISurfaceBuilderConfig, S extends SurfaceBuilder<C>> extends SurfaceBuilder<C> {
 
     /* Helper class so we can see where our biomes spawn*/
 
@@ -31,19 +31,18 @@ public class LoggingSurfaceBuilder <C extends ISurfaceBuilderConfig, S extends S
 
     @Override
     public void apply(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
-                             BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, C config) {
+                      BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, C config) {
 
-            delegatedSurfaceBuilder.get().apply(random, chunkIn, biomeIn, x, z, startHeight,
-                    noise, defaultBlock, defaultFluid, seaLevel, seed, config);
+        delegatedSurfaceBuilder.get().apply(random, chunkIn, biomeIn, x, z, startHeight,
+                noise, defaultBlock, defaultFluid, seaLevel, seed, config);
 
-            if(!logged){
-                logged = true;
-                ChunkPos chunkPos = chunkIn.getPos();
-                LOGGER.info("Currently Generated at {} at {}, {}", biomeIn.getRegistryName(),
-                chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
-            }
+        if (!logged) {
+            logged = true;
+            ChunkPos chunkPos = chunkIn.getPos();
+            LOGGER.info("Currently Generated at {} at {}, {}", biomeIn.getRegistryName(),
+                    chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
+        }
     }
-
 
 
 }

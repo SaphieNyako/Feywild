@@ -7,7 +7,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 
-
 public class ModConfiguredSurfaceBuilders {
 
     public static RegistryKey<ConfiguredSurfaceBuilder<?>> SPRING_SURFACE

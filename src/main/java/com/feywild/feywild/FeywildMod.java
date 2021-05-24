@@ -3,13 +3,11 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.FeyEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.misc.DwarfTrades;
 import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
@@ -22,32 +20,23 @@ import com.feywild.feywild.world.feature.ModFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
-import com.sun.jna.platform.win32.WinNT;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -69,15 +58,10 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
-import software.bernie.geckolib3.compat.PatchouliCompat;
-import vazkii.patchouli.api.PatchouliAPI;
 
-import javax.swing.*;
 import java.lang.reflect.Method;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -86,7 +70,7 @@ import java.util.stream.Collectors;
 public class FeywildMod {
 
     public static final String MOD_ID = "feywild";
-     public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
+    public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
 
         @Override
         public ItemStack makeIcon() {
@@ -94,10 +78,9 @@ public class FeywildMod {
             return new ItemStack(ModItems.SHINY_FEY_GEM.get());
         }
     };
-
-    public static IProxy proxy;
     public static final Logger LOGGER = LogManager.getLogger();
-
+    public static IProxy proxy;
+    private static Method GETCODEC_METHOD;
 
     public FeywildMod() {
 
@@ -158,7 +141,6 @@ public class FeywildMod {
 
     }
 
-
     //Communication with other mods.
     private void enqueueIMC(final InterModEnqueueEvent event) {
         // some example code to dispatch IMC to another mod
@@ -168,7 +150,6 @@ public class FeywildMod {
         });
     }
 
-
     private void processIMC(final InterModProcessEvent event) {
         // some example code to receive and process InterModComms from other mods
         LOGGER.info("Got IMC {}", event.getIMCStream().
@@ -176,23 +157,11 @@ public class FeywildMod {
                 collect(Collectors.toList()));
     }
 
-
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
     }
 
     private void entityQueue(final FMLCommonSetupEvent event) {
@@ -217,7 +186,7 @@ public class FeywildMod {
         });
     }
 
-    private void modStructuresRegister(){
+    private void modStructuresRegister() {
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
@@ -240,15 +209,15 @@ public class FeywildMod {
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END)
                 && !types.contains(BiomeDictionary.Type.OCEAN)) {
 
-            if(types.contains(BiomeDictionary.Type.PLAINS)) {
+            if (types.contains(BiomeDictionary.Type.PLAINS)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_BLACKSMITH);
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
                 //TODO: add structure void blocks
             }
 
-            if(types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.HILLS)
-            && !types.contains(BiomeDictionary.Type.MOUNTAIN)&& !types.contains(BiomeDictionary.Type.COLD))  {
+            if (types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.HILLS)
+                    && !types.contains(BiomeDictionary.Type.MOUNTAIN) && !types.contains(BiomeDictionary.Type.COLD)) {
 
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
@@ -280,8 +249,6 @@ public class FeywildMod {
             }
         }
     }
-
-    private static Method GETCODEC_METHOD;
 
     public void addDimensionalSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {
@@ -321,6 +288,18 @@ public class FeywildMod {
             tempMap.putIfAbsent(ModStructures.LIBRARY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.LIBRARY.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 
+        }
+    }
+
+    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
+    // Event bus for receiving Registry Events)
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+
+        @SubscribeEvent
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+            // register a new block here
+            LOGGER.info("HELLO from Register Block");
         }
     }
 }

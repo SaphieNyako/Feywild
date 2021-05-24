@@ -2,7 +2,6 @@ package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -23,12 +22,14 @@ import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
-public class LibraryStructure extends BaseStructure{
+public class LibraryStructure extends BaseStructure {
 
     public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 40;
     public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 30;
-    public final static int SEED_MODIFIER =  1238904567;
-
+    public final static int SEED_MODIFIER = 1238904567;
+    private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
+            new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
+    );
     private static String messageLocation = "Library at: ";
     private static String messagePool = "library/start_pool";
 
@@ -52,11 +53,6 @@ public class LibraryStructure extends BaseStructure{
         return LibraryStructure.Start::new;
     }
 
-
-    private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
-    );
-
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
         return STRUCTURE_CREATURES;
@@ -65,6 +61,7 @@ public class LibraryStructure extends BaseStructure{
     //START CLASS
     //TODO: make BaseStart class
     public static class Start extends StructureStart<NoFeatureConfig> {
+
         public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
@@ -97,7 +94,7 @@ public class LibraryStructure extends BaseStructure{
             // Keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
 
             //OPTIONAL
-            this.pieces.forEach(piece -> piece.move(0,0,0));
+            this.pieces.forEach(piece -> piece.move(0, 0, 0));
             this.pieces.forEach(piece -> piece.getBoundingBox().y1 -= 1);
 
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();

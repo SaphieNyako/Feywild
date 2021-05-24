@@ -29,8 +29,8 @@ public class FeywildLexicon extends Item {
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
 
-        if(playerIn instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player=  (ServerPlayerEntity) playerIn;
+        if (playerIn instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
 
             PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getKey(this));
         }

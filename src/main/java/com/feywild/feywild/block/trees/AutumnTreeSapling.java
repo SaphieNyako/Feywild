@@ -3,13 +3,9 @@ package com.feywild.feywild.block.trees;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.Random;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class AutumnTreeSapling extends BaseSapling {
 
@@ -33,9 +29,9 @@ public class AutumnTreeSapling extends BaseSapling {
                 for (int x = -sizePodzol; x <= sizePodzol; x++) {
                     for (int z = -sizePodzol; z <= sizePodzol; z++) {
 
-                                if(rand.nextDouble() < 0.2) {
-                                    worldIn.setBlockAndUpdate(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), getBlocks(rand));
-                                }
+                        if (rand.nextDouble() < 0.2) {
+                            worldIn.setBlockAndUpdate(new BlockPos(pos.getX() - x, pos.getY(), pos.getZ() - z), getBlocks(rand));
+                        }
                     }
                 }
             }
@@ -45,12 +41,17 @@ public class AutumnTreeSapling extends BaseSapling {
     public BlockState getBlocks(Random random) {
 
         switch (random.nextInt(20)) {
-            case 0: return Blocks.PUMPKIN.defaultBlockState();
-            case 1: return Blocks.CARVED_PUMPKIN.defaultBlockState();
-            case 2: return Blocks.RED_MUSHROOM.defaultBlockState();
-            case 4: return Blocks.BROWN_MUSHROOM.defaultBlockState();
+            case 0:
+                return Blocks.PUMPKIN.defaultBlockState();
+            case 1:
+                return Blocks.CARVED_PUMPKIN.defaultBlockState();
+            case 2:
+                return Blocks.RED_MUSHROOM.defaultBlockState();
+            case 4:
+                return Blocks.BROWN_MUSHROOM.defaultBlockState();
 
-            default: return Blocks.FERN.defaultBlockState();
+            default:
+                return Blocks.FERN.defaultBlockState();
         }
     }
 }

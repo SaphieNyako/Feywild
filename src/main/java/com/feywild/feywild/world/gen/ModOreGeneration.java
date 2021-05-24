@@ -3,7 +3,6 @@ package com.feywild.feywild.world.gen;
 
 import com.feywild.feywild.FeywildMod;
 import com.google.common.collect.Lists;
-import jdk.nashorn.internal.ir.Block;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.Biome;
@@ -11,13 +10,10 @@ import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.ConfiguredPlacement;
-import net.minecraft.world.gen.placement.DepthAverageConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
-import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -33,17 +29,15 @@ import java.util.function.Supplier;
 public class ModOreGeneration {
 
     @SubscribeEvent
-    public static void generateOres(FMLLoadCompleteEvent event)
-    {
-        for(OreType ore : OreType.values())
-        {
+    public static void generateOres(FMLLoadCompleteEvent event) {
+        for (OreType ore : OreType.values()) {
             //replace base stone with the ore.
             OreFeatureConfig oreFeatureConfig = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,
                     ore.getBlock().defaultBlockState(), ore.getMaxVeinSize());
 
             //determines placement height and spawn weight
             ConfiguredPlacement configuredPlacement = Placement.RANGE.configured(
-                    new TopSolidRangeConfig(ore.getMinHeight(),0 , ore.getMaxHeight())).squared()
+                    new TopSolidRangeConfig(ore.getMinHeight(), 0, ore.getMaxHeight())).squared()
                     .count(ore.getSpawnWeight());
 
             //registration
@@ -51,11 +45,9 @@ public class ModOreGeneration {
                     ore.getBlock().getRegistryName(),
                     Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
 
-            for(Biome biome : ForgeRegistries.BIOMES)
-            {
-                if(!biome.getBiomeCategory().equals(Biome.Category.NETHER)
-                        && !biome.getBiomeCategory().equals(Biome.Category.THEEND))
-                {
+            for (Biome biome : ForgeRegistries.BIOMES) {
+                if (!biome.getBiomeCategory().equals(Biome.Category.NETHER)
+                        && !biome.getBiomeCategory().equals(Biome.Category.THEEND)) {
                     addFeatureToBiome(biome, GenerationStage.Decoration.UNDERGROUND_ORES,
                             WorldGenRegistries.CONFIGURED_FEATURE.get(ore.getBlock().getRegistryName()));
                 }

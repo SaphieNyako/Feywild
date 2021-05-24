@@ -1,12 +1,9 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.entity.AutumnPixieEntity;
-import com.feywild.feywild.entity.ModEntityTypes;
-import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
@@ -14,10 +11,6 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
-import java.util.Random;
 
 public class SummerTreeLog extends Block {
 
@@ -47,10 +40,10 @@ public class SummerTreeLog extends Block {
 
 
     public BlockState rotate(BlockState state, Rotation rot) {
-        switch(rot) {
+        switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch((Direction.Axis)state.getValue(AXIS)) {
+                switch ((Direction.Axis) state.getValue(AXIS)) {
                     case X:
                         return state.setValue(AXIS, Direction.Axis.Z);
                     case Z:

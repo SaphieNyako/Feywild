@@ -5,20 +5,20 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.function.Supplier;
 
-public class GoToSummoningPositionGoal extends MovementRestrictionGoal{
+public class GoToSummoningPositionGoal extends MovementRestrictionGoal {
 
     MobEntity entity;
     Supplier<Boolean> shouldReturn;
     int maxMovementRange;
 
-    public GoToSummoningPositionGoal(MobEntity entity,Supplier<BlockPos> pos, int maxMovementRange) {
+    public GoToSummoningPositionGoal(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.shouldReturn = () -> true;
         this.maxMovementRange = maxMovementRange;
     }
 
-    public GoToSummoningPositionGoal(MobEntity entity,Supplier<BlockPos> pos, int maxMovementRange, Supplier<Boolean> shouldReturn) {
+    public GoToSummoningPositionGoal(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, Supplier<Boolean> shouldReturn) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.shouldReturn = shouldReturn;
@@ -27,7 +27,7 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal{
 
     @Override
     public void tick() {
-        if(summoningPosition != null && distanceFrom(entity.blockPosition(), this.summoningPosition) > maxMovementRange){
+        if (summoningPosition != null && distanceFrom(entity.blockPosition(), this.summoningPosition) > maxMovementRange) {
             entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5); //1.5
         }
     }

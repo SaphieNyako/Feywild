@@ -1,43 +1,34 @@
 {
   "pixie_ambient": {
-    "category" : "entity",
-    "subtitle" : "pixie_ambient",
-    "sounds" : [
+    "category": "entity",
+    "subtitle": "pixie_ambient",
+    "sounds": [
       {
-        "name" : "feywild:pixie_ambient",
-        "stream" : true
-
+        "name": "feywild:pixie_ambient",
+        "stream": true
       }
-
     ]
   },
-
   "pixie_hurt": {
-    "category" : "entity",
-    "subtitle" : "pixie_hurt",
-    "sounds" : [
+    "category": "entity",
+    "subtitle": "pixie_hurt",
+    "sounds": [
       {
-        "name" : "feywild:pixie_hurt",
-        "stream" : true
-
+        "name": "feywild:pixie_hurt",
+        "stream": true
       }
-
     ]
   },
-
   "pixie_death": {
-    "category" : "entity",
-    "subtitle" : "pixie_death",
-    "sounds" : [
+    "category": "entity",
+    "subtitle": "pixie_death",
+    "sounds": [
       {
-        "name" : "feywild:pixie_death",
-        "stream" : true
-
+        "name": "feywild:pixie_death",
+        "stream": true
       }
-
     ]
   },
-
   "feywild_soundtrack": {
     "sounds": [
       {
@@ -46,7 +37,6 @@
       }
     ]
   },
-
   "spring_soundtrack": {
     "sounds": [
       {
@@ -55,7 +45,6 @@
       }
     ]
   },
-
   "summer_soundtrack": {
     "sounds": [
       {
@@ -64,7 +53,6 @@
       }
     ]
   },
-
   "autumn_soundtrack": {
     "sounds": [
       {
@@ -73,7 +61,6 @@
       }
     ]
   },
-
   "winter_soundtrack": {
     "sounds": [
       {

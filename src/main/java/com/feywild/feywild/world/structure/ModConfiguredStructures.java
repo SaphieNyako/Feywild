@@ -4,11 +4,8 @@ import com.feywild.feywild.FeywildMod;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
-
-import java.util.Map;
 
 public class ModConfiguredStructures {
 
@@ -41,7 +38,7 @@ public class ModConfiguredStructures {
         Registry.register(registry, new ResourceLocation(FeywildMod.MOD_ID, "configured_library"), CONFIGURED_LIBRARY);
     }
 
-        //Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
-       // FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
+    //Requires AccessTransformer ( see resources/META-INF/accesstransformer.cfg )
+    // FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SPRING_WORLD_TREE.get(), CONFIGURED_SPRING_WORLD_TREE);
 
 }

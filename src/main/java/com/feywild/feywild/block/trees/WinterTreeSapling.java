@@ -29,11 +29,11 @@ public class WinterTreeSapling extends BaseSapling {
                 //-4 to 4
                 for (int x = -sizePodzol; x <= sizePodzol; x++) {
                     for (int z = -sizePodzol; z <= sizePodzol; z++) {
-                        if (rand.nextDouble() < 0.7 ) {
+                        if (rand.nextDouble() < 0.7) {
                             //Only if its a Dirt Block
-                            if(worldIn.getBlockState(new BlockPos(pos.getX() -x, pos.getY()-1, pos.getZ()-z)).is(Blocks.GRASS_BLOCK)){
+                            if (worldIn.getBlockState(new BlockPos(pos.getX() - x, pos.getY() - 1, pos.getZ() - z)).is(Blocks.GRASS_BLOCK)) {
 
-                                worldIn.setBlockAndUpdate(new BlockPos(pos.getX() - x, pos.getY() , pos.getZ() - z), Blocks.SNOW.defaultBlockState());
+                                worldIn.setBlockAndUpdate(new BlockPos(pos.getX() - x, pos.getY(), pos.getZ() - z), Blocks.SNOW.defaultBlockState());
                             }
                         }
                     }

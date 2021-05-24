@@ -12,7 +12,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import software.bernie.geckolib3.core.snapshot.DirtyTracker;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,7 +19,7 @@ import javax.annotation.Nullable;
 public class DwarvenAnvilEntity extends TileEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(()-> itemHandler);
+    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
 
@@ -50,7 +49,7 @@ public class DwarvenAnvilEntity extends TileEntity {
 
     /* STORE ITEMS */
 
-    private ItemStackHandler createHandler(){
+    private ItemStackHandler createHandler() {
 
         return new ItemStackHandler(1) {
             @Override
@@ -72,7 +71,7 @@ public class DwarvenAnvilEntity extends TileEntity {
 
             @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate){
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
                 /* Insert Item into a specific slot */
 
                 return super.insertItem(slot, stack, simulate);
@@ -86,11 +85,11 @@ public class DwarvenAnvilEntity extends TileEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
 
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return handler.cast();
         }
 
-        return super.getCapability(capability,side);
+        return super.getCapability(capability, side);
 
     }
 }

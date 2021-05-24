@@ -10,9 +10,6 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -45,9 +42,7 @@ public class Registration {
     public static final DeferredRegister<SurfaceBuilder<?>> SURFACE_BUILDERS
             = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, FeywildMod.MOD_ID);
 
-    public static void init()
-
-    {
+    public static void init() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(eventBus);
         TILE_ENTITY_TYPES.register(eventBus);

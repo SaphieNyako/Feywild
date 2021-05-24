@@ -11,8 +11,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.FlyingPathNavigator;
-import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -27,22 +25,21 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
+public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
     //TODO: Add names for the fey in lang folder so it can be seen by HWYLA. - Update - names are added to lang but still not displayed by HWYLA
 
-    //Geckolib variable
-    private AnimationFactory factory = new AnimationFactory(this);
-
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(AutumnPixieEntity.class, DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    //Geckolib variable
+    private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public AutumnPixieEntity(EntityType<? extends FeyEntity> entityEntityType, World world) {
         super(entityEntityType, world);
         //Geckolib check
         this.noCulling = true;
-        this.moveControl = new FlyingMovementController(this,4,true);
+        this.moveControl = new FlyingMovementController(this, 4, true);
         addGoalsAfterConstructor();
     }
 
@@ -50,7 +47,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
         super(ModEntityTypes.AUTUMN_PIXIE.get(), worldIn);
         //Geckolib check
         this.noCulling = true;
-        this.moveControl = new FlyingMovementController(this,4,true);
+        this.moveControl = new FlyingMovementController(this, 4, true);
         this.entityData.set(TAMED, isTamed);
         this.summonPos = pos;
         addGoalsAfterConstructor();
@@ -65,8 +62,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
 
     /* Animation */
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
-    {
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
 
@@ -92,25 +88,25 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
     protected void registerGoals() {}
 
 
-    protected void addGoalsAfterConstructor(){
-        if(this.level.isClientSide())
+    protected void addGoalsAfterConstructor() {
+        if (this.level.isClientSide())
             return;
 
-        for(PrioritizedGoal goal : getGoals()){
+        for (PrioritizedGoal goal : getGoals()) {
             this.goalSelector.addGoal(goal.getPriority(), goal.getGoal());
         }
     }
 
-    public List<PrioritizedGoal> getGoals(){
+    public List<PrioritizedGoal> getGoals() {
         return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
     }
 
 
-    public List<PrioritizedGoal> getTamedGoals(){
+    public List<PrioritizedGoal> getTamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
-        list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
-        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos,10)));
+        list.add(new PrioritizedGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f)));
+        list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
 
@@ -118,12 +114,12 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
         return list;
     }
 
-    public List<PrioritizedGoal> getUntamedGoals(){
+    public List<PrioritizedGoal> getUntamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
-        list.add(new PrioritizedGoal(2, new LookAtGoal(this,PlayerEntity .class, 8.0f)));
+        list.add(new PrioritizedGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f)));
         list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
-                Ingredient.of(Items.COOKIE),false)));
+                Ingredient.of(Items.COOKIE), false)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
 
@@ -138,7 +134,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
     @Override
     public void addAdditionalSaveData(CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
-        if(summonPos != null){
+        if (summonPos != null) {
             tag.putInt("summonPos_X", summonPos.getX());
             tag.putInt("summonPos_Y", summonPos.getY());
             tag.putInt("summonPos_Z", summonPos.getZ());
@@ -161,13 +157,13 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable{
             this.setTamed(tag.getBoolean("tamed"));
         }
 
-        if(!setBehaviors){
+        if (!setBehaviors) {
             tryResetGoals();
             setBehaviors = true;
         }
     }
 
-    public void tryResetGoals(){
+    public void tryResetGoals() {
         this.goalSelector.availableGoals = new LinkedHashSet<>();
         this.addGoalsAfterConstructor();
     }

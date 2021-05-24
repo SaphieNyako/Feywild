@@ -10,17 +10,17 @@ public class MovementRestrictionGoal extends Goal {
     public BlockPos summoningPosition;
     public int maxMovementRange;
 
-  public MovementRestrictionGoal(Supplier<BlockPos> pos, int maxMovementRange){
-      this.summoningPosition = pos.get();
-      this.maxMovementRange = maxMovementRange;
-  }
-
-    public boolean isInRange(BlockPos pos){
-        return distanceFrom(pos, summoningPosition) <= maxMovementRange;
+    public MovementRestrictionGoal(Supplier<BlockPos> pos, int maxMovementRange) {
+        this.summoningPosition = pos.get();
+        this.maxMovementRange = maxMovementRange;
     }
 
-    public static double distanceFrom(BlockPos start, BlockPos end){
+    public static double distanceFrom(BlockPos start, BlockPos end) {
         return Math.sqrt(Math.pow(start.getX() - end.getX(), 2) + Math.pow(start.getY() - end.getY(), 2) + Math.pow(start.getZ() - end.getZ(), 2));
+    }
+
+    public boolean isInRange(BlockPos pos) {
+        return distanceFrom(pos, summoningPosition) <= maxMovementRange;
     }
 
     @Override

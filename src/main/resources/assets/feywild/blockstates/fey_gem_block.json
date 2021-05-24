@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": {"model": "feywild:block/fey_gem_block" }
+    "": {
+      "model": "feywild:block/fey_gem_block"
+    }
   }
 }

@@ -2,7 +2,6 @@ package com.feywild.feywild.world.biome.biomes;
 
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
@@ -12,7 +11,7 @@ import java.util.function.Supplier;
 public abstract class BaseBiome {
 
     /* Check BiomeMaker for different setups for the Biomes */
-    public abstract Biome biomeSetup (final Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale);
+    public abstract Biome biomeSetup(final Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale);
 
     protected MobSpawnInfo.Builder getStandardMobSpawnBuilder(MobSpawnInfo.Builder mobSpawnBuilder) {
 

@@ -1,14 +1,7 @@
 package com.feywild.feywild.world.feature;
 
-import com.feywild.feywild.block.ModBlocks;
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -29,9 +22,8 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
     public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random rand, BlockPos pos, NoFeatureConfig config) {
         int check = 0;
 
-        for(int i = 0; i < 32; ++i)
-        {
-          BlockPos blockpos = pos.offset(rand.nextInt(8)- rand.nextInt(8), rand.nextInt(4)-rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
+        for (int i = 0; i < 32; ++i) {
+            BlockPos blockpos = pos.offset(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
 
             if (world.getBlockState(blockpos).isAir(world, blockpos)
                     && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK || world.getBlockState(blockpos.below()).getBlock() == Blocks.PODZOL)) {
@@ -39,11 +31,11 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
 
                     world.setBlock(blockpos, getBlocks(rand), 2);
 
-                    }
                 }
-
-                ++check;
             }
+
+            ++check;
+        }
 
         return check > 0;
     }

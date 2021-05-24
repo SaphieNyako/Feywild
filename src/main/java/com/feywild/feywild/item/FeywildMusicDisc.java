@@ -3,16 +3,12 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.KeyboardHelper;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.JukeboxBlock;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.MusicDiscItem;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -27,7 +23,7 @@ public class FeywildMusicDisc extends MusicDiscItem {
 
 
     public FeywildMusicDisc() {
-       this(1, ()->ModSoundEvents.FEYWILD_SOUNDTRACK.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB).rarity(Rarity.RARE));
+        this(1, () -> ModSoundEvents.FEYWILD_SOUNDTRACK.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB).rarity(Rarity.RARE));
     }
 
     public FeywildMusicDisc(int comparatorValue, Supplier<SoundEvent> soundSupplier, Properties builder) {
@@ -53,7 +49,6 @@ public class FeywildMusicDisc extends MusicDiscItem {
     public IFormattableTextComponent getDisplayName() {
         return new TranslationTextComponent("message.feywild.music_disc_feywild_2");
     }
-
 
 
 }

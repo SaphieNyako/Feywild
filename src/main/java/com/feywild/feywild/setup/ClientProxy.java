@@ -19,7 +19,32 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import static com.feywild.feywild.entity.ModEntityTypes.DWARF_BLACKSMITH;
 
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ClientProxy implements IProxy{
+public class ClientProxy implements IProxy {
+
+    //@OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void registerRenderers(final FMLClientSetupEvent event) {
+        //Solved...still not called....
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPRING_PIXIE.get(),
+                SpringPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AUTUMN_PIXIE.get(),
+                AutumnPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SUMMER_PIXIE.get(),
+                SummerPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WINTER_PIXIE.get(),
+                WinterPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(DWARF_BLACKSMITH.get(),
+                DwarfBlacksmithRenderer::new);
+
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
+                FeyAltarRenderer::new);
+
+    }
+
     @Override
     public void init() {
         RenderTypeLookup.setRenderLayer(ModBlocks.MANDRAKE_CROP.get(), RenderType.cutout());
@@ -40,32 +65,6 @@ public class ClientProxy implements IProxy{
     @Override
     public World getClientWorld() {
         return Minecraft.getInstance().level;
-    }
-
-
-    //@OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void registerRenderers(final FMLClientSetupEvent event)
-    {
-        //Solved...still not called....
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPRING_PIXIE.get(),
-                SpringPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AUTUMN_PIXIE.get(),
-                AutumnPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SUMMER_PIXIE.get(),
-               SummerPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WINTER_PIXIE.get(),
-                WinterPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(DWARF_BLACKSMITH.get(),
-                DwarfBlacksmithRenderer::new);
-
-        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
-               FeyAltarRenderer::new);
-
     }
 
 }

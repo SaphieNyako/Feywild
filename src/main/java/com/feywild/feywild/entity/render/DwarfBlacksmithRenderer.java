@@ -1,11 +1,8 @@
 package com.feywild.feywild.entity.render;
 
-import com.feywild.feywild.entity.AutumnPixieEntity;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.model.AutumnPixieModel;
 import com.feywild.feywild.entity.model.DwarfBlackSmithModel;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class DwarfBlacksmithRenderer extends GeoEntityRenderer<DwarfBlacksmithEntity> {

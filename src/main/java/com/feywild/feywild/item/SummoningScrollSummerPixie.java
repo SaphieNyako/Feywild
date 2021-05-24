@@ -1,8 +1,6 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.entity.SummerPixieEntity;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -12,10 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 
 import java.util.List;
 
@@ -27,9 +23,9 @@ public class SummoningScrollSummerPixie extends Item {
 
     @Override
     public ActionResultType useOn(ItemUseContext context) {
-        if(!context.getLevel().isClientSide){
+        if (!context.getLevel().isClientSide) {
 
-            PlayerEntity player =  context.getPlayer();
+            PlayerEntity player = context.getPlayer();
 
             SummerPixieEntity entity = new SummerPixieEntity(context.getLevel(), true, context.getClickedPos());
             entity.setTag(entity);
@@ -46,13 +42,12 @@ public class SummoningScrollSummerPixie extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 
-        if(KeyboardHelper.isHoldingShift()){
+        if (KeyboardHelper.isHoldingShift()) {
 
             tooltip.add(new TranslationTextComponent("message.feywild.summer_pixie"));
-        }
-        else {
+        } else {
             tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
         }
 

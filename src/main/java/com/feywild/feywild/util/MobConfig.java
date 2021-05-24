@@ -29,14 +29,14 @@ public class MobConfig extends AbstractConfig {
     private int cachedWeight = -9999;
     private int cachedMin = -9999;
     private int cachedMax = -9999;
-
+    private List<BiomeDictionary.Type> cachedBiomes = null;
 
     //CONSTRUCTOR boolean concurrent has to be added...
     public MobConfig(String name, int weight, int min, int max, List<String> biomes) {
-        this(name, weight ,min,max, biomes, BiomeDictionary.Type.OVERWORLD, true);
+        this(name, weight, min, max, biomes, BiomeDictionary.Type.OVERWORLD, true);
     }
 
-    public MobConfig(String name, int weight, int min, int max, List<String> biomes, BiomeDictionary.Type restriction, boolean concurrent){
+    public MobConfig(String name, int weight, int min, int max, List<String> biomes, BiomeDictionary.Type restriction, boolean concurrent) {
         super(concurrent);
         this.name = name;
         this.weight = weight;
@@ -70,8 +70,6 @@ public class MobConfig extends AbstractConfig {
         }
         return cachedMax;
     }
-
-    private List<BiomeDictionary.Type> cachedBiomes = null;
 
     public List<BiomeDictionary.Type> getBiomes() {
         if (cachedBiomes == null) {
@@ -112,7 +110,6 @@ public class MobConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
-
 
 
     @Override

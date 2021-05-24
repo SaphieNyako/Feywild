@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": {"model": "feywild:block/summer_tree_sapling" }
+    "": {
+      "model": "feywild:block/summer_tree_sapling"
+    }
   }
 }

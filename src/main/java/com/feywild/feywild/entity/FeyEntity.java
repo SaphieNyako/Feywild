@@ -3,11 +3,9 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,7 +23,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public abstract class FeyEntity extends CreatureEntity  {
+public abstract class FeyEntity extends CreatureEntity {
 
     public BlockPos summonPos;
     private Random random = new Random();
@@ -36,6 +34,14 @@ public abstract class FeyEntity extends CreatureEntity  {
         super(type, worldIn);
     }
 
+    /* ATTRIBUTES */
+    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+
+        return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
+                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.35D)
+                .add(Attributes.LUCK, 0.2D);
+    }
 
     @Override
     protected PathNavigator createNavigation(World world) {
@@ -89,12 +95,10 @@ public abstract class FeyEntity extends CreatureEntity  {
         return false;
     }
 
-
     @Override
     protected int calculateFallDamage(float distance, float damageMultiplier) {
         return 0;
     }
-
 
     @Override
     public boolean causeFallDamage(float distance, float damageMultiplier) {
@@ -116,37 +120,26 @@ public abstract class FeyEntity extends CreatureEntity  {
         return false;
     }
 
-  public PlayerEntity getFollow(){
+    public PlayerEntity getFollow() {
         return follow;
-  }
+    }
 
     // on interact with cookie
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
-        if(!level.isClientSide && player.getItemInHand(hand).sameItem(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null){
-          //  this.follow = player;
+        if (!level.isClientSide && player.getItemInHand(hand).sameItem(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null) {
+            //  this.follow = player;
 
             heal(4f);
             player.getItemInHand(hand).shrink(1);
-            FeywildPacketHandler.sendToPlayersInRange(level,this.blockPosition(), new ParticleMessage(this.getX(),this.getY(),this.getZ(),0,0,0,5,1),32);
+            FeywildPacketHandler.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1), 32);
         }
         return ActionResultType.SUCCESS;
     }
 
-
     @Override
     public boolean isPushable() {
         return false;
-    }
-
-
-    /* ATTRIBUTES */
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-
-        return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35D)
-                .add(Attributes.LUCK, 0.2D);
     }
 
     @Override
@@ -185,8 +178,7 @@ public abstract class FeyEntity extends CreatureEntity  {
     }
 
     @Override
-    protected float getSoundVolume ()
-    {
+    protected float getSoundVolume() {
         return 0.6F;
     }
 
@@ -277,9 +269,9 @@ public abstract class FeyEntity extends CreatureEntity  {
                 followPlayer();
                 this.followPlayer--;
             } */
-        }
+}
 
-        // follow the player
+// follow the player
         /*
         private void followPlayer() {
             if(this.entity.getLastDamageSource() != null){

@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 
 public enum OreType {
 
-    FEY_GEM_ORE(ModBlocks.FEY_GEM_BLOCK.get(),3,11, 45, 4);
+    FEY_GEM_ORE(ModBlocks.FEY_GEM_BLOCK.get(), 3, 11, 45, 4);
 
     private final Block block;
     private final int maxVeinSize;
@@ -13,13 +13,25 @@ public enum OreType {
     private final int maxHeight;
     private final int spawnWeight;
 
-    OreType(Block block, int maxVeinSize, int minHeight, int maxHeight, int spawnWeight)
-    {
+    OreType(Block block, int maxVeinSize, int minHeight, int maxHeight, int spawnWeight) {
         this.block = block;
         this.maxVeinSize = maxVeinSize;
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
         this.spawnWeight = spawnWeight;
+    }
+
+    public static OreType get(Block block) {
+
+        for (OreType ore : values()) {
+
+            if (block == ore.block) {
+
+                return ore;
+            }
+        }
+
+        return null;
     }
 
     public Block getBlock() {
@@ -36,19 +48,6 @@ public enum OreType {
 
     public int getMaxHeight() {
         return maxHeight;
-    }
-
-    public static OreType get(Block block){
-
-        for(OreType ore : values()) {
-
-            if(block == ore.block){
-
-                return ore;
-            }
-        }
-
-        return null;
     }
 
     public int getSpawnWeight() {

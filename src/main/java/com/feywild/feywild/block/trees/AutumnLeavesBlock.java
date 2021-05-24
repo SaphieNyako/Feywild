@@ -1,23 +1,11 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SnowBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -44,7 +32,6 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
     }
 
 
-
     @Override
     public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 
@@ -68,31 +55,19 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
                             worldIn.setBlock(position.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), 2);
 
-                        }
-
-                        else
-
-                        if (worldIn.isEmptyBlock(position.east())) {
+                        } else if (worldIn.isEmptyBlock(position.east())) {
 
                             Rotation rotation = Rotation.CLOCKWISE_90;
 
                             worldIn.setBlock(position.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation), 2);
 
-                        }
-
-                        else
-
-                        if (worldIn.isEmptyBlock(position.south())) {
+                        } else if (worldIn.isEmptyBlock(position.south())) {
 
                             Rotation rotation = Rotation.CLOCKWISE_180;
 
                             worldIn.setBlock(position.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation), 2);
 
-                        }
-
-                        else
-
-                        if (worldIn.isEmptyBlock(position.west())) {
+                        } else if (worldIn.isEmptyBlock(position.west())) {
 
                             Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
 

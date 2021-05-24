@@ -1,31 +1,20 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.trees.WinterTree;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
-public class WinterBiome extends BaseBiome{
+public class WinterBiome extends BaseBiome {
 
 
     @Override
@@ -41,7 +30,7 @@ public class WinterBiome extends BaseBiome{
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ZOMBIE_VILLAGER, 50,3,5));
+        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ZOMBIE_VILLAGER, 50, 3, 5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
@@ -64,16 +53,16 @@ public class WinterBiome extends BaseBiome{
         DefaultBiomeFeatures.addIcebergs(biomeGenerationSettingsBuilder);
 
 
-      return (new Biome.Builder()).precipitation(Biome.RainType.SNOW)
-              .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0.0F).downfall(0.5F).specialEffects((new BiomeAmbience.Builder())
-                      .waterColor(4159204)
-                      .waterFogColor(329011)
-                      .fogColor(12638463)
-                      .skyColor(getSkyColorWithTemperatureModifier(0.0F))
-                      .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.WINTER_SOUNDTRACK.get(), 6000,12000, true))
-                      .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F))
-                      .build())
-              .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+        return (new Biome.Builder()).precipitation(Biome.RainType.SNOW)
+                .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0.0F).downfall(0.5F).specialEffects((new BiomeAmbience.Builder())
+                        .waterColor(4159204)
+                        .waterFogColor(329011)
+                        .fogColor(12638463)
+                        .skyColor(getSkyColorWithTemperatureModifier(0.0F))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.WINTER_SOUNDTRACK.get(), 6000, 12000, true))
+                        .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F))
+                        .build())
+                .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
 
     }
 }

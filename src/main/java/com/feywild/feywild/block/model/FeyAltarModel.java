@@ -1,7 +1,6 @@
 package com.feywild.feywild.block.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.FeyAltar;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

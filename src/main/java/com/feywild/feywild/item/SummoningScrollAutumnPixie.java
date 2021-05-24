@@ -2,19 +2,14 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.AutumnPixieEntity;
-import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
@@ -28,9 +23,9 @@ public class SummoningScrollAutumnPixie extends Item {
 
     @Override
     public ActionResultType useOn(ItemUseContext context) {
-        if(!context.getLevel().isClientSide){
+        if (!context.getLevel().isClientSide) {
 
-            PlayerEntity player =  context.getPlayer();
+            PlayerEntity player = context.getPlayer();
 
             AutumnPixieEntity entity = new AutumnPixieEntity(context.getLevel(), true, context.getClickedPos());
             entity.setTag(entity);
@@ -48,14 +43,13 @@ public class SummoningScrollAutumnPixie extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag){
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 
-        if(KeyboardHelper.isHoldingShift()){
+        if (KeyboardHelper.isHoldingShift()) {
 
             tooltip.add(new TranslationTextComponent("message.feywild.autumn_pixie"));
 
-        }
-        else {
+        } else {
             tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
 
         }

@@ -10,6 +10,7 @@ import net.minecraft.util.registry.Registry;
 import javax.annotation.Nonnull;
 
 public interface IAltarRecipe extends IRecipe<IInventory> {
+
     ResourceLocation TYPE_ID = new ResourceLocation(FeywildMod.MOD_ID, "fey_altar");
 
     @Nonnull

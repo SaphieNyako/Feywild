@@ -1,25 +1,17 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.world.feature.ModConfiguredFeatures;
-import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import com.feywild.feywild.world.structure.ModStructures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class SpringBiome extends BaseBiome {
@@ -34,7 +26,7 @@ public class SpringBiome extends BaseBiome {
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 40, 4, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50,1,3));
+        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
         getStandardMobSpawnBuilder(mobSpawnBuilder);
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
@@ -57,7 +49,7 @@ public class SpringBiome extends BaseBiome {
                         .waterFogColor(329011)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.7F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SPRING_SOUNDTRACK.get(), 6000,12000, true))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SPRING_SOUNDTRACK.get(), 6000, 12000, true))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();

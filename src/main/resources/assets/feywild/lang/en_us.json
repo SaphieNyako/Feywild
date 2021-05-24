@@ -4,33 +4,25 @@
   "item.feywild.shiny_fey_gem": "Shiny Fey Gem",
   "item.feywild.fey_dust": "Fey Dust",
   "item.feywild.brilliant_fey_gem": "Brilliant Fey Gem",
-
   "item.feywild.feywild_lexicon": "Feywild Lexicon",
   "item.feywild.music_disc_feywild": "Song of the Seasons",
-
   "item.feywild.summoning_scroll_spring_pixie": "Summoning Scroll Spring Pixie",
   "item.feywild.summoning_scroll_summer_pixie": "Summoning Scroll Summer Pixie",
   "item.feywild.summoning_scroll_autumn_pixie": "Summoning Scroll Autumn Pixie",
   "item.feywild.summoning_scroll_winter_pixie": "Summoning Scroll Winter Pixie",
   "item.feywild.summoning_scroll_dwarf_blacksmith": "Summoning Contract Dwarf Blacksmith",
-
   "item.feywild.fey_sheep_droppings": "Sheep Droppings",
-
   "item.feywild.fey_shovel": "Fey Shovel",
   "item.feywild.fey_hoe": "Fey Hoe",
-
   "item.feywild.fey_armor_helmet": "Fey Armor Helmet",
   "item.feywild.fey_armor_chest": "Fey Armor Chest",
   "item.feywild.fey_armor_leggings": "Fey Armor Leggings",
   "item.feywild.fey_armor_boots": "Fey Armor Boots",
-
   "block.feywild.mandrake_crop": "Mandrake Seed",
   "item.feywild.mandrake": "Mandrake",
-
   "block.feywild.fey_gem_block": "Fey Gem Block",
   "block.feywild.dwarven_anvil": "Dwarven Anvil",
-  "block.feywild.fey_altar" : "Fey Altar",
-
+  "block.feywild.fey_altar": "Fey Altar",
   "block.feywild.autumn_tree_log": "Autumn Tree Log",
   "block.feywild.autumn_tree_wood": "Autumn Tree Wood",
   "block.feywild.autumn_tree_leaves": "Autumn Tree Leaves",
@@ -48,48 +40,37 @@
   "block.feywild.winter_tree_leaves": "Winter Tree Leaves",
   "block.feywild.winter_tree_sapling": "Winter Tree Sapling",
   "block.feywild.tree_mushroom": "Tree Mushrooms",
-
-  "enity.feywild.spring_pixie" : "Spring Pixie",
-  "enity.feywild.summer_pixie" : "Summer Pixie",
-  "enity.feywild.autumn_pixie" : "Autumn Pixie",
-  "enity.feywild.winter_pixie" : "Winter Pixie",
-  "enity.feywild.dwarf_blacksmith" : "Dwarf Blacksmith",
-
-  "item.feywild.spring_pixie_spawn_egg" : "Spring Pixie Spawn Egg",
-  "item.feywild.summer_pixie_spawn_egg" : "Summer Pixie Spawn Egg",
-  "item.feywild.autumn_pixie_spawn_egg" : "Autumn Pixie Spawn Egg",
-  "item.feywild.winter_pixie_spawn_egg" : "Winter Pixie Spawn Egg",
-
+  "enity.feywild.spring_pixie": "Spring Pixie",
+  "enity.feywild.summer_pixie": "Summer Pixie",
+  "enity.feywild.autumn_pixie": "Autumn Pixie",
+  "enity.feywild.winter_pixie": "Winter Pixie",
+  "enity.feywild.dwarf_blacksmith": "Dwarf Blacksmith",
+  "item.feywild.spring_pixie_spawn_egg": "Spring Pixie Spawn Egg",
+  "item.feywild.summer_pixie_spawn_egg": "Summer Pixie Spawn Egg",
+  "item.feywild.autumn_pixie_spawn_egg": "Autumn Pixie Spawn Egg",
+  "item.feywild.winter_pixie_spawn_egg": "Winter Pixie Spawn Egg",
   "itemGroup.feywildTab": "Feywild Items",
-
-  "librarian.feywild.initial" : "Hello Stranger, welcome to the Feywild, the wonderful land of fey and magic.\nHave you seen a fey yet? They are a bit shy, but some tasty treats might help you gain their trust.\n Talk to me again if you like to know more about the Fey!",
-  "librarian.feywild.borrow" : "Ah! Curious about they Fey? You can borrow this book, it contains valuable information on the Fey Courts.",
-  "librarian.feywild.final" : "Here to return that book I borrowed you? No worries you can keep it for a while longer. Fair tidings!",
-
-  "spring_quest_pixie.feywild.summon_message" : "Where Am I? Who are you? Are you tasty? Let's go on an adventure! You wanna play? I'm hungry...",
-  "spring_quest_pixie.feywild.quest_01_message" :"What is that? A Cloud! No Wait, Cotton Candy! It doesn't taste very sweet....hmm! A sheep you say? Its so fluffy I'm gonna die! It must be lonely thou with out his friend who are all the way in the sky! What!? It cannot fly? Flying is the best thing there is! Wish this meep could experience the joy of flying like his friend can. Let's make it fly! We must find away! You're smart ...or maybe you just have a big head. Either way I'm sure you will find a way to make this meep fly!",
-
-  "summer_quest_pixie.feywild.summon_message" : "Peasant, bow down in the presence of your superior! How are you summon me like I am some sort of magician's familiar.",
-
-  "autumn_quest_pixie.feywild.summon_message" : "Darling, what took you so long! I've been waiting for a fine specimen just like you!",
-
-  "winter_quest_pixie.feywild.summon_message" : "Mortal. Summoning me shortens your lifespan. Now State your demand.",
-
-  "dwarf.feywild.dialogue" : "<Dwarf> Beardless friend! Talking is cheap, but ores are priceless. So, let's trade!",
-  "dwarf.feywild.trade" : "<Dwarf> Haha, it's always great trading with you!",
-  "dwarf.feywild.scroll" : "<Dwarf> Haha, I like your style. Tell me if you need anything.",
-
-  "message.feywild.itemmessage" : "Hold \"SHIFT\" for more information",
-  "message.feywild.feywild_lexicon" : "The return date has expired...",
-  "message.feywild.fey_dust" : "Think happy thoughts!",
+  "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of fey and magic.\nHave you seen a fey yet? They are a bit shy, but some tasty treats might help you gain their trust.\n Talk to me again if you like to know more about the Fey!",
+  "librarian.feywild.borrow": "Ah! Curious about they Fey? You can borrow this book, it contains valuable information on the Fey Courts.",
+  "librarian.feywild.final": "Here to return that book I borrowed you? No worries you can keep it for a while longer. Fair tidings!",
+  "spring_quest_pixie.feywild.summon_message": "Where Am I? Who are you? Are you tasty? Let's go on an adventure! You wanna play? I'm hungry...",
+  "spring_quest_pixie.feywild.quest_01_message": "What is that? A Cloud! No Wait, Cotton Candy! It doesn't taste very sweet....hmm! A sheep you say? Its so fluffy I'm gonna die! It must be lonely thou with out his friend who are all the way in the sky! What!? It cannot fly? Flying is the best thing there is! Wish this meep could experience the joy of flying like his friend can. Let's make it fly! We must find away! You're smart ...or maybe you just have a big head. Either way I'm sure you will find a way to make this meep fly!",
+  "summer_quest_pixie.feywild.summon_message": "Peasant, bow down in the presence of your superior! How are you summon me like I am some sort of magician's familiar.",
+  "autumn_quest_pixie.feywild.summon_message": "Darling, what took you so long! I've been waiting for a fine specimen just like you!",
+  "winter_quest_pixie.feywild.summon_message": "Mortal. Summoning me shortens your lifespan. Now State your demand.",
+  "dwarf.feywild.dialogue": "<Dwarf> Beardless friend! Talking is cheap, but ores are priceless. So, let's trade!",
+  "dwarf.feywild.trade": "<Dwarf> Haha, it's always great trading with you!",
+  "dwarf.feywild.scroll": "<Dwarf> Haha, I like your style. Tell me if you need anything.",
+  "message.feywild.itemmessage": "Hold \"SHIFT\" for more information",
+  "message.feywild.feywild_lexicon": "The return date has expired...",
+  "message.feywild.fey_dust": "Think happy thoughts!",
   "message.feywild.fey_dust_giggling": "You hear giggling.",
-  "message.feywild.mandrake" : "It doesn't seem very happy",
-  "message.feywild.dwarf_blacksmith" : "Use this scroll on a Dwarven Anvil to summon your Dwarven friend.",
+  "message.feywild.mandrake": "It doesn't seem very happy",
+  "message.feywild.dwarf_blacksmith": "Use this scroll on a Dwarven Anvil to summon your Dwarven friend.",
   "message.feywild.autumn_pixie": "A summoning scroll for a Autumn Pixie",
-  "message.feywild.spring_pixie" : "A summoning scroll for a Spring Pixie",
-  "message.feywild.summer_pixie" : "A summoning scroll for a Summer Pixie",
-  "message.feywild.winter_pixie" : "A summoning scroll for a Winter Pixie",
-  "message.feywild.music_disc_feywild" : "Music composed, mixed and mastered by: Davy Habets (IKIGA) - www.ikigamusic.com",
-  "message.feywild.music_disc_feywild_2" : "Song of the Seaons Composed, mixed and mastered by: Davy Habets (IKIGA)"
-
+  "message.feywild.spring_pixie": "A summoning scroll for a Spring Pixie",
+  "message.feywild.summer_pixie": "A summoning scroll for a Summer Pixie",
+  "message.feywild.winter_pixie": "A summoning scroll for a Winter Pixie",
+  "message.feywild.music_disc_feywild": "Music composed, mixed and mastered by: Davy Habets (IKIGA) - www.ikigamusic.com",
+  "message.feywild.music_disc_feywild_2": "Song of the Seaons Composed, mixed and mastered by: Davy Habets (IKIGA)"
 }

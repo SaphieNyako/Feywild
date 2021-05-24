@@ -1,27 +1,20 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.block.trees.SummerTree;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
-public class SummerBiome extends BaseBiome{
+public class SummerBiome extends BaseBiome {
 
 
     @Override
@@ -35,7 +28,7 @@ public class SummerBiome extends BaseBiome{
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE,new MobSpawnInfo.Spawners(EntityType.RAVAGER,50,2,5));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RAVAGER, 50, 2, 5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
@@ -64,7 +57,7 @@ public class SummerBiome extends BaseBiome{
                         .waterFogColor(329011)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.9F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SUMMER_SOUNDTRACK.get(), 6000,12000, true))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SUMMER_SOUNDTRACK.get(), 6000, 12000, true))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();

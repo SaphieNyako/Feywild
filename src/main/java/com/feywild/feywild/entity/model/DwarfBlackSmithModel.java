@@ -1,7 +1,6 @@
 package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.AutumnPixieEntity;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

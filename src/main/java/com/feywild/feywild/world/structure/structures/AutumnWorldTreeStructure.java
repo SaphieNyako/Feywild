@@ -3,7 +3,6 @@ package com.feywild.feywild.world.structure.structures;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -23,12 +22,14 @@ import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
-public class AutumnWorldTreeStructure extends BaseStructure{
+public class AutumnWorldTreeStructure extends BaseStructure {
 
     public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 100;
     public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 50;
-    public final static int SEED_MODIFIER =  890124567;
-
+    public final static int SEED_MODIFIER = 890124567;
+    private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
+            new MobSpawnInfo.Spawners(ModEntityTypes.AUTUMN_PIXIE.get(), 100, 4, 4)
+    );
     private static String messageLocation = "Autumn World Tree at: ";
     private static String messagePool = "autumn_world_tree/start_pool";
 
@@ -52,10 +53,6 @@ public class AutumnWorldTreeStructure extends BaseStructure{
         return AutumnWorldTreeStructure.Start::new;
     }
 
-    private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.AUTUMN_PIXIE.get(), 100, 4, 4)
-    );
-
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
         return STRUCTURE_CREATURES;
@@ -63,6 +60,7 @@ public class AutumnWorldTreeStructure extends BaseStructure{
 
     //START CLASS
     public static class Start extends StructureStart<NoFeatureConfig> {
+
         public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
@@ -95,7 +93,7 @@ public class AutumnWorldTreeStructure extends BaseStructure{
             // Keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
 
             //OPTIONAL
-            this.pieces.forEach(piece -> piece.move(0,1,0));
+            this.pieces.forEach(piece -> piece.move(0, 1, 0));
             this.pieces.forEach(piece -> piece.getBoundingBox().y1 -= 1);
 
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();

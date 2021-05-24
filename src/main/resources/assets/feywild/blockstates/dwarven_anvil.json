@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "feywild:block/dwarven_anvil" }
+    "": {
+      "model": "feywild:block/dwarven_anvil"
+    }
   }
 }

@@ -2,9 +2,6 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.SpringPixieEntity;
-import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -14,18 +11,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static com.feywild.feywild.entity.ModEntityTypes.*;
 
 public class ModItems {
 
@@ -59,8 +45,8 @@ public class ModItems {
             Registration.ITEMS.register("fey_dust",
                     () -> new FeyDust(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)
                             .food(new Food.Builder()
-                            .effect(() -> new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get() , 1), 1 )
-                            .build())));
+                                    .effect(() -> new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 1), 1)
+                                    .build())));
     //Can also give food item .hunger(5) .saturation(1.5f)
 
 
@@ -68,7 +54,7 @@ public class ModItems {
             Registration.ITEMS.register("mandrake",
                     () -> new Mandrake(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)
                             .food(new Food.Builder()
-                                    .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1 )
+                                    .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
                                     .build())));
 
     /* MUSIC DISC */
@@ -79,7 +65,7 @@ public class ModItems {
 
 
     //CROP ITEMS
-    public static final RegistryObject<Item> MANDRAKE_SEED=
+    public static final RegistryObject<Item> MANDRAKE_SEED =
             Registration.ITEMS.register("mandrake_seed",
                     () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
@@ -136,7 +122,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_summer_pixie",
-                   SummoningScrollSummerPixie::new);
+                    SummoningScrollSummerPixie::new);
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE =
             Registration.ITEMS.register("summoning_scroll_autumn_pixie",
@@ -151,15 +137,12 @@ public class ModItems {
                     SummoningScrollDwarfBlacksmith::new);
 
 
-
-
-
     //METHODES
 
     public static void register() {}
 
 
-        public enum ModItemTier implements IItemTier {
+    public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
 
         private final int maxUses;
@@ -211,8 +194,8 @@ public class ModItems {
     }
 
 
-    public enum ModArmorTier implements IArmorMaterial{
-        FEY_ARMOR(50, new int[] {2,7,5,3}, 10, SoundEvents.ARMOR_EQUIP_ELYTRA, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())),
+    public enum ModArmorTier implements IArmorMaterial {
+        FEY_ARMOR(50, new int[]{2, 7, 5, 3}, 10, SoundEvents.ARMOR_EQUIP_ELYTRA, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())),
                 FeywildMod.MOD_ID + ":fey_armor", 0, 1);
 
         private final int durability;

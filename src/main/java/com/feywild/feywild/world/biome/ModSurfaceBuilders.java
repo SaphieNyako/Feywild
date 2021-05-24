@@ -12,6 +12,6 @@ public class ModSurfaceBuilders {
             Registration.SURFACE_BUILDERS.register("logging_default",
                     () -> new LoggingSurfaceBuilder<>(() -> SurfaceBuilder.DEFAULT, SurfaceBuilderConfig.CODEC));
 
-    public static void register(){}
+    public static void register() {}
 
 }

@@ -6,9 +6,7 @@ import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
-import net.minecraft.world.gen.foliageplacer.MegaPineFoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
-import net.minecraft.world.gen.trunkplacer.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.MegaJungleTrunkPlacer;
 
 import javax.annotation.Nullable;
@@ -27,11 +25,10 @@ public abstract class BaseTree extends Tree {
     private static final int LEAVES_HEIGHT = 5;
 
 
-
     @Nullable
     @Override  //protected
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
-      BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
+        BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
                 new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),
                 getFoliagePlacer(),
@@ -44,13 +41,13 @@ public abstract class BaseTree extends Tree {
 
 
     protected FoliagePlacer getFoliagePlacer() {
-        return new BlobFoliagePlacer (
+        return new BlobFoliagePlacer(
                 FeatureSpread.fixed(getLeavesRadius()),
                 FeatureSpread.fixed(getLeavesOffset()), getLeavesHeight());
     }
 
     protected AbstractTrunkPlacer getGiantTrunkPlacer() {
-        return new  MegaJungleTrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
+        return new MegaJungleTrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
     }
 
     //Branch placer
@@ -85,7 +82,6 @@ public abstract class BaseTree extends Tree {
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
     }
-
 
 
 }

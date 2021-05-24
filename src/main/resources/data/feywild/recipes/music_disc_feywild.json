@@ -17,7 +17,7 @@
       "tag": "minecraft:music_discs"
     }
   ],
-  "output":{
-    "item" : "feywild:music_disc_feywild"
+  "output": {
+    "item": "feywild:music_disc_feywild"
   }
 }

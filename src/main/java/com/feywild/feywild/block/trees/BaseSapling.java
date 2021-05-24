@@ -17,8 +17,6 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public abstract class BaseSapling extends BushBlock implements IGrowable {
 
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
@@ -39,19 +37,19 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
     @Override
     public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
         //50% chance of Bonemeal working.
-        return (double)worldIn.random.nextFloat() < 0.50;
+        return (double) worldIn.random.nextFloat() < 0.50;
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         super.tick(state, worldIn, pos, rand);
-        if(!worldIn.isAreaLoaded(pos, 1)) {
+        if (!worldIn.isAreaLoaded(pos, 1)) {
 
             return;
         }
         //attempt to grow
-        if(worldIn.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
+        if (worldIn.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
 
             this.performBonemeal(worldIn, rand, pos, state);
         }
@@ -60,14 +58,12 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
     @Override
     public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 
-        if(state.getValue(STAGE) == 0){
+        if (state.getValue(STAGE) == 0) {
 
             worldIn.setBlock(pos, state.cycle(STAGE), 4); //state.cycle
-        }
-        else {
+        } else {
 
-            if(!ForgeEventFactory.saplingGrowTree(worldIn, rand, pos))
-            {
+            if (!ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
                 return;
             }
 

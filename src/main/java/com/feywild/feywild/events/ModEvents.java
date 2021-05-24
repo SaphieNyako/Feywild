@@ -1,74 +1,40 @@
 package com.feywild.feywild.events;
 
-import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
-import com.feywild.feywild.entity.FeyEntity;
-import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.util.Config;
-import com.mojang.brigadier.Message;
-import net.minecraft.client.resources.Language;
-import net.minecraft.command.arguments.MessageArgument;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.*;
-import net.minecraft.world.World;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.loading.progress.StartupMessageManager;
-import net.minecraftforge.server.command.TextComponentHelper;
-import org.apache.logging.log4j.LogManager;
-import vazkii.patchouli.api.PatchouliAPI;
-
-import java.util.Collection;
 
 public class ModEvents {
 
 
-
     //TODO: Add Summoning Text for Pixies
     @SubscribeEvent
-    public void interactWithVillager(PlayerInteractEvent.EntityInteract event){
+    public void interactWithVillager(PlayerInteractEvent.EntityInteract event) {
 
 
         //Check if it's a villager
-        if(event.getTarget() instanceof VillagerEntity){
+        if (event.getTarget() instanceof VillagerEntity) {
             // Store player & villager
             VillagerEntity villagerEntity = (VillagerEntity) event.getTarget();
             PlayerEntity player = event.getPlayer();
 
-            if(villagerEntity.getTags().contains("spawn_librarian") && !player.getTags().contains("speakToLib")){
+            if (villagerEntity.getTags().contains("spawn_librarian") && !player.getTags().contains("speakToLib")) {
                 //On first interaction
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
                 player.addTag("speakToLib");
                 event.setCanceled(true);
 
-            }else if(villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("speakToLib") && !player.getTags().contains("borrowLexicon")){
+            } else if (villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("speakToLib") && !player.getTags().contains("borrowLexicon")) {
 
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), event.getPlayer().getUUID());
                 player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
                 player.addTag("borrowLexicon");
                 event.setCanceled(true);
-            }
-            else if(villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("borrowLexicon")){
+            } else if (villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("borrowLexicon")) {
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
                 event.setCanceled(true);
             }
