@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 import java.util.function.Supplier;
 
-
 public class LoggingSurfaceBuilder<C extends ISurfaceBuilderConfig, S extends SurfaceBuilder<C>> extends SurfaceBuilder<C> {
 
     /* Helper class so we can see where our biomes spawn*/
@@ -43,6 +42,5 @@ public class LoggingSurfaceBuilder<C extends ISurfaceBuilderConfig, S extends Su
                     chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
         }
     }
-
 
 }

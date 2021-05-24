@@ -225,7 +225,6 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5)));
 
-
         return list;
     }
 
@@ -240,7 +239,6 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         //Easy way to test tamed/untamed:
         // list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,Ingredient.of(Items.COOKIE),false)));
 
-
         return list;
     }
 
@@ -250,7 +248,6 @@ public class DwarfBlacksmithEntity extends CreatureEntity implements IAnimatable
         compound.putBoolean("tamed", tamed);
         compound.putInt("level", levelInt);
         compound.putIntArray("trade_id", tradeId);
-
 
     }
 

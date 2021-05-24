@@ -33,12 +33,10 @@ public class ModItems {
             Registration.ITEMS.register("brilliant_fey_gem",
                     () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
-
     /* BOOK */ //TODO: COMPLETE GUIDE BOOK
     public static final RegistryObject<Item> FEYWILD_LEXICON =
             Registration.ITEMS.register("feywild_lexicon",
                     () -> new FeywildLexicon(new Item.Properties()));
-
 
     /* FOOD ITEMS */
     public static final RegistryObject<Item> FEY_DUST =
@@ -48,7 +46,6 @@ public class ModItems {
                                     .effect(() -> new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 1), 1)
                                     .build())));
     //Can also give food item .hunger(5) .saturation(1.5f)
-
 
     public static final RegistryObject<Item> MANDRAKE =
             Registration.ITEMS.register("mandrake",
@@ -62,7 +59,6 @@ public class ModItems {
     public static final RegistryObject<Item> MUSIC_DISC_FEYWILD =
             Registration.ITEMS.register("music_disc_feywild",
                     FeywildMusicDisc::new);
-
 
     //CROP ITEMS
     public static final RegistryObject<Item> MANDRAKE_SEED =
@@ -136,11 +132,9 @@ public class ModItems {
             Registration.ITEMS.register("summoning_scroll_dwarf_blacksmith",
                     SummoningScrollDwarfBlacksmith::new);
 
-
     //METHODES
 
     public static void register() {}
-
 
     public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
@@ -160,7 +154,6 @@ public class ModItems {
             this.enchantability = enchantability;
             this.repairMaterial = repairMaterial;
         }
-
 
         @Override
         public int getUses() {
@@ -193,7 +186,6 @@ public class ModItems {
         }
     }
 
-
     public enum ModArmorTier implements IArmorMaterial {
         FEY_ARMOR(50, new int[]{2, 7, 5, 3}, 10, SoundEvents.ARMOR_EQUIP_ELYTRA, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())),
                 FeywildMod.MOD_ID + ":fey_armor", 0, 1);
@@ -217,7 +209,6 @@ public class ModItems {
             this.toughness = toughness;
             this.knockbackResistance = knockbackResistance;
         }
-
 
         @Override
         public int getDurabilityForSlot(EquipmentSlotType slotIn) {
@@ -259,6 +250,5 @@ public class ModItems {
             return knockbackResistance;
         }
     }
-
 
 }

@@ -42,7 +42,6 @@ public class ModEntityTypes {
 
     public static void register() {}
 
-
     /* CUSTOM CONDITIONS */
     public static boolean spawnFey(EntityType<? extends FeyEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
 

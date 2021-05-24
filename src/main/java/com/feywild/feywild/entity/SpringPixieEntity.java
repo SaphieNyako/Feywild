@@ -82,7 +82,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 
-
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
 
         return PlayState.CONTINUE;
@@ -105,7 +104,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     @Override
     protected void registerGoals() { }
-
 
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
@@ -140,7 +138,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
 
-
         return list;
 
     }
@@ -159,7 +156,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
     }
-
 
     //read
     @Override
@@ -185,12 +181,10 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         this.addGoalsAfterConstructor();
     }
 
-
     public void setTamed(boolean isTamed) {
         this.entityData.set(TAMED, isTamed);
 
     }
-
 
     @Override
     protected void defineSynchedData() {
@@ -199,7 +193,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         this.entityData.define(TAMED, false);
 
     }
-
 
     @Override
     public boolean removeWhenFarAway(double p_213397_1_) {

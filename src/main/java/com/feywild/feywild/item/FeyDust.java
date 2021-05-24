@@ -33,14 +33,12 @@ public class FeyDust extends Item {
 
         } else {
 
-
             tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
             //tooltip.add(new StringTextComponent("Hold "+ "\u00A7e" + "SHIFT" + "\u00A77" + " for more information."));
         }
 
         super.appendHoverText(stack, world, tooltip, flag);
     }
-
 
     //Test
     @Override

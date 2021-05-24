@@ -13,12 +13,10 @@ public class SummerTreeSapling extends BaseSapling {
         super(SummerTree::new, Properties.copy(Blocks.OAK_SAPLING));
     }
 
-
     @Override
     public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 
         super.performBonemeal(worldIn, rand, pos, state);
-
 
         if (state.getValue(STAGE) == 1) {
 
@@ -59,7 +57,6 @@ public class SummerTreeSapling extends BaseSapling {
             default:
                 return Blocks.GRASS.defaultBlockState();
         }
-
 
     }
 

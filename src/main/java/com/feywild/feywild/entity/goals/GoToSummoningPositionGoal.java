@@ -37,7 +37,6 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal {
         return summoningPosition != null && distanceFrom(entity.blockPosition(), this.summoningPosition) > maxMovementRange && shouldReturn.get();
     }
 
-
     @Override
     public boolean canUse() {
         return entity.level.random.nextFloat() < 0.02f && summoningPosition != null && !this.isInRange(entity.blockPosition()) && shouldReturn.get();

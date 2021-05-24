@@ -38,12 +38,11 @@ public class SummerTreeLog extends Block {
                 .setValue(AXIS, context.getClickedFace().getAxis());
     }
 
-
     public BlockState rotate(BlockState state, Rotation rot) {
         switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch ((Direction.Axis) state.getValue(AXIS)) {
+                switch (state.getValue(AXIS)) {
                     case X:
                         return state.setValue(AXIS, Direction.Axis.Z);
                     case Z:

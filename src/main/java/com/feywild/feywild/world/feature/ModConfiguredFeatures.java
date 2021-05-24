@@ -20,7 +20,6 @@ import net.minecraft.world.gen.placement.Placement;
 
 import java.util.Random;
 
-
 public class ModConfiguredFeatures {
 
     /* SPRING */
@@ -44,11 +43,9 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 5))));
 
-
     public static final ConfiguredFeature<?, ?> AUTUMN_PUMPKINS = registerFeature("autumn_pumpkins",
             ModFeatures.AUTUMN_PUMPKINS.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
-
 
     /* WINTER */
     public static final ConfiguredFeature<?, ?> WINTER_TREES =
@@ -57,13 +54,11 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.3f, 2))));
 
-
     //Winter Flowers
     public static final BlockClusterFeatureConfig WINTER_FLOWER_CONFIG =
             (new BlockClusterFeatureConfig.Builder((new WeightedBlockStateProvider())
                     .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 2)
                     .add(Blocks.POPPY.defaultBlockState(), 1), SimpleBlockPlacer.INSTANCE)).tries(64).build();
-
 
     public static final ConfiguredFeature<?, ?> WINTER_FLOWERS =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "flower_default",
@@ -71,21 +66,17 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.ADD_32)
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE).count(2));
 
-
     public static final BlockClusterFeatureConfig WINTER_BLOCK_CONFIG =
             (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.WINTER_TREE_WOOD.get().defaultBlockState())
                     , new SimpleBlockPlacer())).tries(25).build();
-
 
     public static final ConfiguredFeature<?, ?> WINTER_BLOCKS =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "winter_blocks",
                     Feature.RANDOM_PATCH.configured(WINTER_BLOCK_CONFIG)
                             .decorated(Placement.CHANCE.configured(new ChanceConfig(200))));
 
-
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerFeature(String key, ConfiguredFeature<FC, ?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(FeywildMod.MOD_ID, key), feature);
     }
-
 
 }

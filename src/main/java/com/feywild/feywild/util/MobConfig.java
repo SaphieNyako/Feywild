@@ -111,7 +111,6 @@ public class MobConfig extends AbstractConfig {
         postApply(builder);
     }
 
-
     @Override
     public AbstractConfig clone() {
         return null;

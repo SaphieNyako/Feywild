@@ -16,18 +16,15 @@ public class ModBiomes {
     public static final SummerBiome summerBiome = new SummerBiome();
     public static final WinterBiome winterBiome = new WinterBiome();
 
-
     public static final RegistryObject<Biome> SPRING_BIOME
             = Registration.BIOMES.register("spring_biome",
             () -> springBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
                     ModConfiguredSurfaceBuilders.SPRING_SURFACE), 0.125f, 0.05f));
 
-
     public static final RegistryObject<Biome> SUMMER_BIOME
             = Registration.BIOMES.register("summer_biome",
             () -> summerBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
                     ModConfiguredSurfaceBuilders.SUMMER_SURFACE), 0.125f, 0.05f));
-
 
     public static final RegistryObject<Biome> AUTUMN_BIOME
             = Registration.BIOMES.register("autumn_biome",
@@ -38,7 +35,6 @@ public class ModBiomes {
             = Registration.BIOMES.register("winter_biome",
             () -> winterBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
                     ModConfiguredSurfaceBuilders.WINTER_SURFACE), 0.125f, 0.05f));
-
 
     public static void register() {}
 

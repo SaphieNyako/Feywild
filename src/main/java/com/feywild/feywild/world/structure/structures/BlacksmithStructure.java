@@ -71,7 +71,6 @@ public class BlacksmithStructure extends BaseStructure {
         return STRUCTURE_CREATURES;
     }
 
-
     //START CLASS
     public static class Start extends StructureStart<NoFeatureConfig> {
 

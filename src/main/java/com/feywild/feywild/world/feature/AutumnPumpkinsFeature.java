@@ -48,7 +48,6 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
             case 1:
                 return Blocks.CARVED_PUMPKIN.defaultBlockState();
 
-
             default:
                 return Blocks.PUMPKIN.defaultBlockState();
 

@@ -55,8 +55,6 @@ public class Registration {
         SURFACE_BUILDERS.register(eventBus);
         BIOMES.register(eventBus);
 
-
     }
-
 
 }

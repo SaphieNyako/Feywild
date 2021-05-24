@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class WinterTree extends BaseTree {
 
-
     @Override  //protected
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
@@ -24,7 +23,6 @@ public class WinterTree extends BaseTree {
 
         return Feature.TREE.configured(featureConfig);
     }
-
 
     @Override
     protected Block getLogBlock() {

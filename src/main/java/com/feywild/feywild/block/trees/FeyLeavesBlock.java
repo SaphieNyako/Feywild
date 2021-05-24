@@ -135,7 +135,6 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         }
     }
 
-
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder builder) {
 
@@ -146,6 +145,5 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return updateDistance(this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)), context.getLevel(), context.getClickedPos());
     }
-
 
 }

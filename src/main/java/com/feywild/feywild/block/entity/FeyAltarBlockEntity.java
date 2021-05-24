@@ -66,7 +66,6 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         }
     }
 
-
     @Override
     public void tick() {
         if (level.isClientSide) return;
@@ -103,7 +102,6 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             clearContent();
             FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0), 32);
         });
-
 
     }
 

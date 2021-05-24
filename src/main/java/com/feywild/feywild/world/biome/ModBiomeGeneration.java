@@ -56,7 +56,6 @@ public class ModBiomeGeneration {
         });
     }
 
-
     private static void registerConfiguredSurfaceBuilder(ResourceLocation surfaceBuilderRecourseLocation, BlockState topBlock, BlockState fillerBlock, BlockState underwaterBlock) {
 
         Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, surfaceBuilderRecourseLocation, ModSurfaceBuilders.LOGGING_DEFAULT.get().configured(

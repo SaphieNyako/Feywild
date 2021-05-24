@@ -45,7 +45,6 @@ public class AutumnTreeLog extends Block {
                 .setValue(AXIS, context.getClickedFace().getAxis());
     }
 
-
     public BlockState rotate(BlockState state, Rotation rot) {
         switch (rot) {
             case COUNTERCLOCKWISE_90:
@@ -69,7 +68,6 @@ public class AutumnTreeLog extends Block {
 
         return stateIn;
     }
-
 
     @Override
     public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {

@@ -16,7 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class ModStructures {
 
     public static final DeferredRegister<Structure<?>> STRUCTURES
@@ -81,7 +80,6 @@ public class ModStructures {
 
     }
 
-
     //Checks rarity of structure and determines if land conforms to it
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings,
                                                                        boolean transformSurroundingLand) {
@@ -113,7 +111,6 @@ public class ModStructures {
                 Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(structureMap);
                 tempMap.put(structure, structureSeparationSettings);
                 settings.getValue().structureSettings().structureConfig();
-
 
             } else {
                 structureMap.put(structure, structureSeparationSettings);

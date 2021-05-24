@@ -29,7 +29,6 @@ public class SpawnData {
     public static List<BiomeDictionary.Type> biomeAutumn = Config.AUTUMN_PIXIE_CONFIG.getBiomes();
     public static List<BiomeDictionary.Type> biomeWinter = Config.WINTER_PIXIE_CONFIG.getBiomes();
 
-
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event) {
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
@@ -39,7 +38,6 @@ public class SpawnData {
                 && !types.contains(Type.OCEAN)) {
 
             addSpawn(event, ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
-
 
             for (Type biomeName : biomeSpring) {
                 if (types.contains(biomeName)) {
@@ -78,7 +76,6 @@ public class SpawnData {
         MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
         event.getSpawns().getSpawner(classification).add(spawnInfo);
     }
-
 
     public static void registerSpawn() {
         EntitySpawnPlacementRegistry.register(ModEntityTypes.SPRING_PIXIE.get(),

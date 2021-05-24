@@ -19,7 +19,6 @@ public class WinterTreeSapling extends BaseSapling {
 
         super.performBonemeal(worldIn, rand, pos, state);
 
-
         if (state.getValue(STAGE) == 1) {
 
             if (!worldIn.isClientSide()) {
@@ -41,6 +40,5 @@ public class WinterTreeSapling extends BaseSapling {
             }
         }
     }
-
 
 }

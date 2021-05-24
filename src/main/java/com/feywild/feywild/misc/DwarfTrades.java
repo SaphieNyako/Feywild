@@ -31,7 +31,6 @@ public class DwarfTrades {
 
     public static void addTrade(ItemStack required, ItemStack reward) {trades.put(required, reward);}
 
-
     public static void addTamedTrade(ItemStack required, ItemStack reward) {tamedTrades.put(required, reward);}
 
     public static void removeTrade(ItemStack required) {

@@ -7,7 +7,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.io.File;
 import java.util.Arrays;
 
-
 public class Config {
 
     //TODO: CONFIG for Biomes, Spawn ore, Structure Spawn
@@ -32,10 +31,8 @@ public class Config {
         setFeyDustDuration(SERVER_BUILDER, CLIENT_BUILDER);
         setMobConfigs(SERVER_BUILDER, CLIENT_BUILDER);
 
-
         SERVER_CONFIG = SERVER_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
-
 
     }
 
@@ -65,7 +62,6 @@ public class Config {
         DWARF_CONFIG.apply(CLIENT_BUILDER);
 
     }
-
 
     //LOAD
     public static void loadConfigFile(ForgeConfigSpec config, String path) {

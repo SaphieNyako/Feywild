@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class SummerTree extends BaseTree {
 
-
     @Override  //protected
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
@@ -25,10 +24,8 @@ public class SummerTree extends BaseTree {
         ).decorators(ImmutableList.of(Features.Placements.BEEHIVE_005))
                 .build();
 
-
         return Feature.TREE.configured(featureConfig);
     }
-
 
     @Override
     protected Block getLogBlock() {

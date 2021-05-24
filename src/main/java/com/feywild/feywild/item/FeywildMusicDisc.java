@@ -21,7 +21,6 @@ import java.util.function.Supplier;
 
 public class FeywildMusicDisc extends MusicDiscItem {
 
-
     public FeywildMusicDisc() {
         this(1, () -> ModSoundEvents.FEYWILD_SOUNDTRACK.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB).rarity(Rarity.RARE));
     }
@@ -43,12 +42,10 @@ public class FeywildMusicDisc extends MusicDiscItem {
         }
     }
 
-
     @Override
     @OnlyIn(Dist.CLIENT)
     public IFormattableTextComponent getDisplayName() {
         return new TranslationTextComponent("message.feywild.music_disc_feywild_2");
     }
-
 
 }

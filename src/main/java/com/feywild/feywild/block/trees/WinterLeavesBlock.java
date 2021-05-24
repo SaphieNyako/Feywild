@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 
 public class WinterLeavesBlock extends FeyLeavesBlock {
 
-
     @Override
     public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 
@@ -17,6 +16,5 @@ public class WinterLeavesBlock extends FeyLeavesBlock {
 
         }
     }
-
 
 }

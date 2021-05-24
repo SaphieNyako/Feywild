@@ -1,6 +1,5 @@
 package com.feywild.feywild.world.gen;
 
-
 import com.feywild.feywild.FeywildMod;
 import com.google.common.collect.Lists;
 import net.minecraft.util.registry.Registry;
@@ -54,7 +53,6 @@ public class ModOreGeneration {
             }
         }
     }
-
 
     private static void addFeatureToBiome(Biome biome, GenerationStage.Decoration decoration
             , ConfiguredFeature<?, ?> configuredFeature) {

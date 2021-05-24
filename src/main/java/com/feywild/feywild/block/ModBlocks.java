@@ -49,10 +49,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SPRING_TREE_WOOD = register("spring_tree_wood",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_WOOD)), true);
 
-
     public static final RegistryObject<Block> SPRING_TREE_LEAVES = register("spring_tree_leaves",
             FeyLeavesBlock::new, true);
-
 
     public static final RegistryObject<Block> SPRING_TREE_SAPLING = register("spring_tree_sapling",
             SpringTreeSapling::new, true);
@@ -63,10 +61,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> SUMMER_TREE_WOOD = register("summer_tree_wood",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_WOOD)), true);
 
-
     public static final RegistryObject<Block> SUMMER_TREE_LEAVES = register("summer_tree_leaves",
             FeyLeavesBlock::new, true);
-
 
     public static final RegistryObject<Block> SUMMER_TREE_SAPLING = register("summer_tree_sapling",
             SummerTreeSapling::new, true);
@@ -80,7 +76,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> AUTUMN_TREE_LEAVES = register("autumn_tree_leaves",
             AutumnLeavesBlock::new, true);
 
-
     public static final RegistryObject<Block> AUTUMN_TREE_SAPLING = register("autumn_tree_sapling",
             AutumnTreeSapling::new, true);
 
@@ -93,13 +88,11 @@ public class ModBlocks {
     public static final RegistryObject<Block> WINTER_TREE_LEAVES = register("winter_tree_leaves",
             WinterLeavesBlock::new, true);
 
-
     public static final RegistryObject<Block> WINTER_TREE_SAPLING = register("winter_tree_sapling",
             WinterTreeSapling::new, true);
 
     public static final RegistryObject<Block> TREE_MUSHROOM_BLOCK = register("tree_mushroom",
             TreeMushroomBlock::new, true);
-
 
     public static void register() {}
 

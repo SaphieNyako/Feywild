@@ -17,7 +17,6 @@ public class AutumnTree extends BaseTree {
 
     protected static final BlockState PODZOL_STATE = Blocks.PODZOL.defaultBlockState();
 
-
     @Override  //protected
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
@@ -31,7 +30,6 @@ public class AutumnTree extends BaseTree {
 
         return Feature.TREE.configured(featureConfig);
     }
-
 
     @Override
     protected Block getLogBlock() {

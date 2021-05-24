@@ -16,7 +16,6 @@ public class ItemMessage {
     public BlockPos pos;
     public int index;
 
-
     //Read msg from buf
     public ItemMessage(PacketBuffer buf) {
         item = buf.readItem();

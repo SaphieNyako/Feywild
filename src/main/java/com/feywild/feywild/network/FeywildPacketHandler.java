@@ -12,7 +12,6 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class FeywildPacketHandler {
 
-
     private static final String PROTOCOL_VERSION = "1.0";
     //Network channel
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(

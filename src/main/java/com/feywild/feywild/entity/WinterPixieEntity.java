@@ -86,7 +86,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     @Override
     protected void registerGoals() {}
 
-
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
             return;
@@ -99,7 +98,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     public List<PrioritizedGoal> getGoals() {
         return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
     }
-
 
     public List<PrioritizedGoal> getTamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
@@ -127,7 +125,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
     /* SAVE DATA */
 
-
     //write
     @Override
     public void addAdditionalSaveData(CompoundNBT tag) {
@@ -140,7 +137,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
     }
-
 
     //read
     @Override
@@ -168,7 +164,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         this.entityData.set(TAMED, isTamed);
 
     }
-
 
     @Override
     protected void defineSynchedData() {
