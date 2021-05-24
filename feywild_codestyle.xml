@@ -1,9 +1,18 @@
-<code_scheme name="Default" version="173">
+<code_scheme name="Project" version="173">
+  <option name="DO_NOT_FORMAT">
+    <list>
+      <fileSet type="namedScope" name="ignore files" pattern="file[Feywild]:feywild_codestyle.xml" />
+    </list>
+  </option>
   <JSON>
     <option name="OBJECT_WRAPPING" value="1" />
     <option name="ARRAY_WRAPPING" value="1" />
   </JSON>
   <codeStyleSettings language="JAVA">
+    <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="1" />
+    <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+    <option name="KEEP_BLANK_LINES_BETWEEN_PACKAGE_DECLARATION_AND_HEADER" value="1" />
+    <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
     <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
     <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
   </codeStyleSettings>
