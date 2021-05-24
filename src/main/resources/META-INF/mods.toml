@@ -33,7 +33,7 @@ credits="Thanks to Feywild community" #optional
 # A text field displayed in the mod UI
 authors="Saphie" #optional
 # The description text for the mod (multi line!) (#mandatory)
-description="Feywild modpack"
+description="Feywild Mod"
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.examplemod]] #optional
     # the modid of the dependency
