@@ -15,5 +15,4 @@ public class SpringTree extends BaseTree {
         return ModBlocks.SPRING_TREE_LEAVES.get();
     }
 
-
 }

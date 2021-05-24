@@ -26,5 +26,4 @@ public abstract class BaseBiome {
         return MathHelper.hsvToRgb(0.62222224F - lvt_1_1_ * 0.05F, 0.5F + lvt_1_1_ * 0.1F, 1.0F);
     }
 
-
 }

@@ -19,11 +19,9 @@ import java.util.List;
 
 public class FeywildLexicon extends Item {
 
-
     public FeywildLexicon(Properties p_i48487_1_) {
         super(p_i48487_1_);
     }
-
 
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
@@ -37,7 +35,6 @@ public class FeywildLexicon extends Item {
 
         return new ActionResult<>(ActionResultType.PASS, stack);
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {

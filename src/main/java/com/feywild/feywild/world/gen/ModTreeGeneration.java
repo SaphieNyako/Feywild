@@ -1,6 +1,5 @@
 package com.feywild.feywild.world.gen;
 
-
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.block.trees.SpringTree;
@@ -55,7 +54,6 @@ public class ModTreeGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-
             base.add(() -> Feature.TREE.configured(springTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
@@ -99,7 +97,6 @@ public class ModTreeGeneration {
                 && !types.contains(BiomeDictionary.Type.MAGICAL)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
-
 
             base.add(() -> Feature.TREE.configured(winterTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)

@@ -16,7 +16,6 @@ import java.util.function.Supplier;
 
 public class WinterBiome extends BaseBiome {
 
-
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -51,7 +50,6 @@ public class WinterBiome extends BaseBiome {
         DefaultBiomeFeatures.addDefaultGrass(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addIcebergs(biomeGenerationSettingsBuilder);
-
 
         return (new Biome.Builder()).precipitation(Biome.RainType.SNOW)
                 .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0.0F).downfall(0.5F).specialEffects((new BiomeAmbience.Builder())

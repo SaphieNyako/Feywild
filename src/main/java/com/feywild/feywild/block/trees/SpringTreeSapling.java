@@ -19,7 +19,6 @@ public class SpringTreeSapling extends BaseSapling {
 
         super.performBonemeal(worldIn, rand, pos, state);
 
-
         if (state.getValue(STAGE) == 1) {
 
             if (!worldIn.isClientSide()) {
@@ -64,7 +63,6 @@ public class SpringTreeSapling extends BaseSapling {
             default:
                 return Blocks.GRASS.defaultBlockState();
         }
-
 
     }
 

@@ -36,11 +36,9 @@ public class SummoningScrollAutumnPixie extends Item {
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
-
         }
         return ActionResultType.SUCCESS;
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {

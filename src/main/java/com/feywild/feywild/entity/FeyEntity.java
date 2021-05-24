@@ -30,7 +30,6 @@ public abstract class FeyEntity extends CreatureEntity {
     private PlayerEntity follow = null;
 
     protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
-
         super(type, worldIn);
     }
 
@@ -147,14 +146,12 @@ public abstract class FeyEntity extends CreatureEntity {
         return true;
     }
 
-
     /* SOUND EFFECTS */
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSoundEvents.PIXIE_HURT.get();
     }
-
 
     //Ancient's note : we can keep them but adjust the pitch
     @Nullable

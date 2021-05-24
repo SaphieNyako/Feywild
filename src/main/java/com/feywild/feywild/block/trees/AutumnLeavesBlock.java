@@ -14,7 +14,6 @@ import java.util.Random;
 
 public class AutumnLeavesBlock extends FeyLeavesBlock {
 
-
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -31,7 +30,6 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
     }
 
-
     @Override
     public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 
@@ -40,9 +38,7 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
         if (!state.getValue(WinterLeavesBlock.PERSISTENT) && (state.getValue(WinterLeavesBlock.DISTANCE) <= 6 && state.getValue(WinterLeavesBlock.DISTANCE) != 0)
                 && worldIn.getBlockState(pos.below(3)).getBlock() instanceof AutumnTreeLog) {
 
-
             BlockPos position = pos;
-
 
             while (true) {
 
@@ -72,7 +68,6 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
                             Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
 
                             worldIn.setBlock(position.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation), 2);
-
 
                         }
 

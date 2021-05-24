@@ -185,7 +185,6 @@ public class FeywildMod {
 
     }
 
-
     public void biomeModification(final BiomeLoadingEvent event) {
 
         String SpringBiome = "spring_biome";
@@ -209,7 +208,6 @@ public class FeywildMod {
 
             if (types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.HILLS)
                     && !types.contains(BiomeDictionary.Type.MOUNTAIN) && !types.contains(BiomeDictionary.Type.COLD)) {
-
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
 

@@ -27,7 +27,7 @@ public class ModSoundEvents {
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "feywild_soundtrack")));
 
     public static final RegistryObject<SoundEvent> SPRING_SOUNDTRACK =
-            Registration.SOUND_EVENTS.register("spring_soundtrack",
+            Registration.SOUND_EVENTS.register("spring_so undtrack",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "spring_soundtrack")));
 
     public static final RegistryObject<SoundEvent> AUTUMN_SOUNDTRACK =
@@ -41,7 +41,6 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> WINTER_SOUNDTRACK =
             Registration.SOUND_EVENTS.register("winter_soundtrack",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "winter_soundtrack")));
-
 
     public static void register() {}
 }

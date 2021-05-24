@@ -77,7 +77,6 @@ public class AltarRecipe implements IAltarRecipe {
         }
     }
 
-
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AltarRecipe> {
 
         @Override

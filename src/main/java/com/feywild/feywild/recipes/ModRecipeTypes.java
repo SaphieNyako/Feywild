@@ -21,7 +21,6 @@ public class ModRecipeTypes {
         Registry.register(Registry.RECIPE_TYPE, AltarRecipe.TYPE_ID, ALTAR_RECIPE);
     }
 
-
     public static List<IRecipe<?>> getRecipes(IRecipeType<?> recipeType, RecipeManager manager) {
         List<IRecipe<?>> recipeList = new LinkedList<>();
         for (IRecipe<?> recipe : manager.getRecipes()) {
@@ -33,6 +32,5 @@ public class ModRecipeTypes {
         }
         return recipeList;
     }
-
 
 }

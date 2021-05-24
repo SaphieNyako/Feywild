@@ -24,7 +24,6 @@ public abstract class BaseTree extends Tree {
     private static final int LEAVES_OFFSET = 4;
     private static final int LEAVES_HEIGHT = 5;
 
-
     @Nullable
     @Override  //protected
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
@@ -38,7 +37,6 @@ public abstract class BaseTree extends Tree {
 
         return Feature.TREE.configured(featureConfig);
     }
-
 
     protected FoliagePlacer getFoliagePlacer() {
         return new BlobFoliagePlacer(
@@ -82,6 +80,5 @@ public abstract class BaseTree extends Tree {
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
     }
-
 
 }

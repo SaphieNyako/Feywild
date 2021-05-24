@@ -83,7 +83,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     @Override
     protected void registerGoals() {}
 
-
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
             return;
@@ -96,7 +95,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     public List<PrioritizedGoal> getGoals() {
         return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
     }
-
 
     public List<PrioritizedGoal> getTamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
@@ -135,7 +133,6 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
     }
 
-
     @Override
     public void readAdditionalSaveData(CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
@@ -154,12 +151,10 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
         }
     }
 
-
     public void tryResetGoals() {
         this.goalSelector.availableGoals = new LinkedHashSet<>();
         this.addGoalsAfterConstructor();
     }
-
 
     public void setTamed(boolean isTamed) {
         this.entityData.set(TAMED, isTamed);

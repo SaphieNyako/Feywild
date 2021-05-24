@@ -40,7 +40,6 @@ public class SummoningScrollSpringPixie extends Item {
         return ActionResultType.SUCCESS;
     }
 
-
     @Override
     public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
 

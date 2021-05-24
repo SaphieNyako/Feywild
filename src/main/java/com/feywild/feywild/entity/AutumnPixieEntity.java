@@ -87,7 +87,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     @Override
     protected void registerGoals() {}
 
-
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
             return;
@@ -101,7 +100,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
         return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
     }
 
-
     public List<PrioritizedGoal> getTamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
@@ -109,7 +107,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-
 
         return list;
     }
@@ -129,7 +126,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
     /* SAVE DATA */
 
-
     //write
     @Override
     public void addAdditionalSaveData(CompoundNBT tag) {
@@ -142,7 +138,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
     }
-
 
     //read
     @Override
@@ -173,7 +168,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
     }
 
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -186,7 +180,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
     }
-
 
 }
 

@@ -15,7 +15,6 @@ import javax.annotation.Nullable;
 
 public class TreeMushroomBlock extends HorizontalBlock {
 
-
     public TreeMushroomBlock() {
         super(AbstractBlock.Properties.of(Material.GRASS)
                 .sound(SoundType.FUNGUS)
