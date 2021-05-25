@@ -29,17 +29,17 @@ public class DwarvenAnvilContainer extends Container {
         if (tileEntity != null) {
 
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 29, 56)); //this will hold the feydust
-                addSlot(new SlotItemHandler(h, 1, 46, 9)); // this will hold the scheme
+                addSlot(new SlotItemHandler(h, 0, 30, 57)); //this will hold the feydust
+                addSlot(new SlotItemHandler(h, 1, 46, 10)); // this will hold the scheme
                 addSlot(new SlotItemHandler(h, 2, 110, 9)); // item 1
                 addSlot(new SlotItemHandler(h, 3, 87, 34)); // item 2
                 addSlot(new SlotItemHandler(h, 4, 133, 34)); // item 3
-                addSlot(new SlotItemHandler(h, 5, 99, 58)); // item 4
-                addSlot(new SlotItemHandler(h, 6, 122, 58)); // item 5
+                addSlot(new SlotItemHandler(h, 5, 99, 59)); // item 4
+                addSlot(new SlotItemHandler(h, 6, 122, 59)); // item 5
             });
         }
 
-        layoutPlayerInventorySlots(8, 83); //position on image for player inventory.
+        layoutPlayerInventorySlots(8, 84); //position on image for player inventory.
     }
 
     @Override //canInteractWith
@@ -107,32 +107,34 @@ public class DwarvenAnvilContainer extends Container {
 
     /* ADD PLAYER INVENTORY */
 
-    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-
-        for (int i = 0; i > amount; i++) {
-
+    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx)
+    {
+        for (int i = 0; i < amount; i++)
+        {
             addSlot(new SlotItemHandler(handler, index, x, y));
             x += dx;
             index++;
         }
+
         return index;
     }
 
-    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horizontalAmount, int dx,
-                           int verticalAmount, int dy) {
-
-        for (int j = 0; j < verticalAmount; j++) {
-            index = addSlotRange(handler, index, x, y, horizontalAmount, dx);
+    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy)
+    {
+        for (int j = 0; j < verAmount; j++)
+        {
+            index = addSlotRange(handler, index, x, y, horAmount, dx);
+            y += dy;
         }
 
         return index;
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-
+    private void layoutPlayerInventorySlots(int leftCol, int topRow)
+    {
         addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
 
-        topRow += 58; //???
+        topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 }
