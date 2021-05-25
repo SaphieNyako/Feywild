@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.container.DwarvenAnvilContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -15,9 +16,11 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
 
     private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID,
             "textures/gui/dwarven_anvil_gui.png");
+    private DwarvenAnvilContainer container;
 
     public DwarvenAnvilScreen(DwarvenAnvilContainer container, PlayerInventory inventory, ITextComponent name) {
         super(container, inventory, name);
+        this.container = container;
     }
 
     @Override
@@ -30,7 +33,10 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
 
     @Override //drawGuiContainerForegroundLayer
     protected void renderLabels(MatrixStack matrixStack, int x, int y) {
-        super.renderLabels(matrixStack, x, y);
+
+        //set text, position x, y, color
+        drawString(matrixStack, Minecraft.getInstance().font, "Mana: " + container.getMana(), 28, 46, 0xffffff);
+
     }
 
     @Override //drawGuiContainerBackgroundLayer
@@ -42,5 +48,9 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
         int j = this.topPos;
         this.blit(matrixStack, i, j, 0, 0, this.imageWidth, this.imageHeight); //might be wrong
 
+        //position to place x, y position to get x, y width height and height is determined by the manalevel
+        this.blit(matrixStack, i + 13, j + 9, 176, 0, 11, 64 - (int) (container.getMana() / 15.6f));
+
     }
+
 }
