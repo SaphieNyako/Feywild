@@ -3,9 +3,12 @@ package com.feywild.feywild.setup;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
+import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.screens.DwarvenAnvilScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.world.World;
@@ -58,6 +61,8 @@ public class ClientProxy implements IProxy {
         RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_LEAVES.get(), RenderType.cutout());
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
+
+        ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
 
     }
 

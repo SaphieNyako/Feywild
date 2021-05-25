@@ -1,6 +1,5 @@
 package com.feywild.feywild.misc;
 
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.item.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,8 +24,10 @@ public class DwarfTrades {
         addTrade(new ItemStack(Items.GOLD_ORE, 3), new ItemStack(Items.GOLD_INGOT, 5));
 
         /*TAMED*/
-        addTamedTrade(new ItemStack(Items.DIAMOND, 4), new ItemStack(ModBlocks.FEY_ALTAR.get().asItem()));
-
+        addTamedTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 4), new ItemStack(ModItems.GREATER_FEY_GEM.get(), 1));
+        addTamedTrade(new ItemStack(ModItems.GREATER_FEY_GEM.get(), 4), new ItemStack(ModItems.SHINY_FEY_GEM.get(), 1));
+        addTamedTrade(new ItemStack(ModItems.SHINY_FEY_GEM.get(), 4), new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1));
+        //4x Brilliant Fey Gem for Summoning Crystal. Recipe Fey Altar.
     }
 
     public static void addTrade(ItemStack required, ItemStack reward) {trades.put(required, reward);}

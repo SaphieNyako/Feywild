@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.screens.QuestScreen;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -11,7 +12,15 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -58,15 +67,46 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         entity.addTag("spring_quest_pixie");
     }
 
-    /*
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
         if (player.getItemInHand(hand).isEmpty()) {
-            if(this.getTags().contains("spring_quest_pixie")){
+            if (this.getTags().contains("spring_quest_pixie")) {
 
-            player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID());
+                player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID());
+
+                new QuestScreen(new ITextComponent() {
+                    @Override
+                    public Style getStyle() {
+                        return null;
+                    }
+
+                    @Override
+                    public String getContents() {
+                        return null;
+                    }
+
+                    @Override
+                    public List<ITextComponent> getSiblings() {
+                        return null;
+                    }
+
+                    @Override
+                    public IFormattableTextComponent plainCopy() {
+                        return null;
+                    }
+
+                    @Override
+                    public IFormattableTextComponent copy() {
+                        return null;
+                    }
+
+                    @Override
+                    public IReorderingProcessor getVisualOrderText() {
+                        return null;
+                    }
+                });
 
                 return ActionResultType.SUCCESS;
 
@@ -74,7 +114,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         }
 
         return ActionResultType.SUCCESS;
-    }  */
+    }
 
 
 

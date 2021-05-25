@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 public class DwarvenAnvilEntity extends TileEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
+
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
@@ -51,7 +52,7 @@ public class DwarvenAnvilEntity extends TileEntity {
 
     private ItemStackHandler createHandler() {
 
-        return new ItemStackHandler(1) {
+        return new ItemStackHandler(7) {
             @Override
             protected void onContentsChanged(int slot) {
 
