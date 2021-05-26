@@ -1,5 +1,7 @@
 package com.feywild.feywild.container;
 
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;
@@ -15,6 +17,13 @@ public class ModContainers {
                 BlockPos pos = data.readBlockPos();
                 World world = inv.player.getCommandSenderWorld();
                 return new DwarvenAnvilContainer(windowId, world, pos, inv, inv.player);
+            }))));
+
+    public static final RegistryObject<ContainerType<PixieContainer>> PIXIE_CONTAINER
+            = Registration.CONTAINERS.register("pixie_container",
+            () -> IForgeContainerType.create((((windowId, inv, data) -> {
+                SpringPixieEntity entity = new SpringPixieEntity(ModEntityTypes.SPRING_PIXIE.get(), inv.player.getCommandSenderWorld());
+                return new PixieContainer(windowId, inv, inv.player, entity);
             }))));
 
     public static void register() {}

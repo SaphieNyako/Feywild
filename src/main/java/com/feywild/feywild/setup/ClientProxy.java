@@ -7,6 +7,7 @@ import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
+import com.feywild.feywild.screens.PixieScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -63,6 +64,7 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
 
         ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
+        ScreenManager.register(ModContainers.PIXIE_CONTAINER.get(), PixieScreen::new);
 
     }
 
