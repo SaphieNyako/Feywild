@@ -35,11 +35,12 @@ public class DwarvenAnvilContainer extends Container {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 30, 57)); //this will hold the feydust
                 addSlot(new SlotItemHandler(h, 1, 46, 10)); // this will hold the scheme
-                addSlot(new SlotItemHandler(h, 2, 110, 9)); // item 1
-                addSlot(new SlotItemHandler(h, 3, 87, 34)); // item 2
-                addSlot(new SlotItemHandler(h, 4, 133, 34)); // item 3
-                addSlot(new SlotItemHandler(h, 5, 99, 59)); // item 4
-                addSlot(new SlotItemHandler(h, 6, 122, 59)); // item 5
+                addSlot(new SlotItemHandler(h, 2, 98, 9)); // item 1
+                addSlot(new SlotItemHandler(h, 3, 75, 34)); // item 2
+                addSlot(new SlotItemHandler(h, 4, 121, 34)); // item 3
+                addSlot(new SlotItemHandler(h, 5, 87, 59)); // item 4
+                addSlot(new SlotItemHandler(h, 6, 110, 59)); // item 5
+                addSlot(new SlotItemHandler(h, 7, 150, 59)); // Output
             });
         }
 
@@ -91,27 +92,22 @@ public class DwarvenAnvilContainer extends Container {
         return tileEntity.getCapability(CapabilityMana.MANA).map(IManaStorage::getManaStored).orElse(0);
     }
 
-    //transferStackInSlot
+    //transferStackInSlot - This makes it possible to put in items....
     @Override
     public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
 
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
-        //if slot is not null and has item get Item.
         if (slot != null && slot.hasItem()) {
             ItemStack stack = slot.getItem();
             itemstack = stack.copy();
 
-            //if index number is 0
             if (index == 0) {
 
-                //if not moveItemStackTo ??
-                //what are these numbers?
                 if (!this.moveItemStackTo(stack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
-                //slot.setChanged();
 
                 slot.onQuickCraft(stack, itemstack);
 
@@ -122,7 +118,6 @@ public class DwarvenAnvilContainer extends Container {
                         return ItemStack.EMPTY;
                     }
 
-                    //???
                 } else if (index < 28) {
                     if (!this.moveItemStackTo(stack, 28, 37, false)) {
                         return ItemStack.EMPTY;

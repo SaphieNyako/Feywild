@@ -5,11 +5,13 @@ import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.block.entity.mana.CustomManaStorage;
 import com.feywild.feywild.block.entity.mana.IManaStorage;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
+import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.BlockState;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -20,8 +22,9 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
-public class DwarvenAnvilEntity extends TileEntity implements ITickableTileEntity {
+public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
     private final CustomManaStorage manaStorage = createManaStorage();
@@ -78,9 +81,16 @@ public class DwarvenAnvilEntity extends TileEntity implements ITickableTileEntit
 
             tick = 0;
             setChanged(); //markDirty(); Might not be necessary here
+            updateInventory(-1, true);
+        }
+
+        if (!itemHandler.getStackInSlot(0).isEmpty()) {
+
         }
 
     }
+
+
 
     /* DATA */
 
@@ -105,7 +115,7 @@ public class DwarvenAnvilEntity extends TileEntity implements ITickableTileEntit
 
     private ItemStackHandler createHandler() {
 
-        return new ItemStackHandler(7) {
+        return new ItemStackHandler(8) {
             @Override
             protected void onContentsChanged(int slot) {
 
@@ -124,6 +134,7 @@ public class DwarvenAnvilEntity extends TileEntity implements ITickableTileEntit
 
                     case 0:
                         return stack.getItem() == ModItems.FEY_DUST.get();
+
                     default:
                         return true;
                 }
@@ -157,6 +168,38 @@ public class DwarvenAnvilEntity extends TileEntity implements ITickableTileEntit
         }
 
         return super.getCapability(capability, side);
+
+    }
+
+    @Override
+    public void updateInventory(int flags, boolean shouldCraft) {
+        if (shouldCraft) {
+            craft();
+        } else {
+            super.updateInventory(flags, false);
+        }
+    }
+
+    public void craft() {
+        Inventory inv = new Inventory(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inv.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        Optional<DwarvenAnvilRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE, inv, level);
+
+        recipe.ifPresent(iRecipe -> {
+            ItemStack output = iRecipe.getResultItem();
+            itemHandler.insertItem(7, output, false);
+            itemHandler.extractItem(2, 1, false);
+            itemHandler.extractItem(3, 1, false);
+            itemHandler.extractItem(4, 1, false);
+            itemHandler.extractItem(5, 1, false);
+            itemHandler.extractItem(6, 1, false);
+
+            //  clearContent();
+
+        });
 
     }
 

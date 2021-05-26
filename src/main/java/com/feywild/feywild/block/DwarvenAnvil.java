@@ -107,6 +107,7 @@ public class DwarvenAnvil extends Block {
 
                 throw new IllegalStateException("Our container provider is missing!");
             }
+
         }
         return ActionResultType.SUCCESS;
     }
