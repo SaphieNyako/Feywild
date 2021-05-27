@@ -35,7 +35,7 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
     protected void renderLabels(MatrixStack matrixStack, int x, int y) {
 
         //set text, position x, y, color
-        drawString(matrixStack, Minecraft.getInstance().font, "Mana: " + container.getMana(), 28, 46, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, "Mana: " + container.getMana(), 118, 8, 0xffffff);
 
     }
 

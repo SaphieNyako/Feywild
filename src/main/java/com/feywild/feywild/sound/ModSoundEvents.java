@@ -20,6 +20,10 @@ public class ModSoundEvents {
             Registration.SOUND_EVENTS.register("pixie_death",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "pixie_death")));
 
+    public static final RegistryObject<SoundEvent> PIXIE_SPELLCASTING =
+            Registration.SOUND_EVENTS.register("pixie_spellcasting",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "pixie_spellcasting")));
+
     //TODO Music needs to be lower in volume and slowly increase from soft to hard. Songs need to be longer.
 
     public static final RegistryObject<SoundEvent> FEYWILD_SOUNDTRACK =

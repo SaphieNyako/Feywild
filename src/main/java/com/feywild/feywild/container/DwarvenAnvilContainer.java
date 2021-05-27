@@ -33,14 +33,14 @@ public class DwarvenAnvilContainer extends Container {
         if (tileEntity != null) {
 
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 30, 57)); //this will hold the feydust
-                addSlot(new SlotItemHandler(h, 1, 46, 10)); // this will hold the scheme
-                addSlot(new SlotItemHandler(h, 2, 98, 9)); // item 1
-                addSlot(new SlotItemHandler(h, 3, 75, 34)); // item 2
-                addSlot(new SlotItemHandler(h, 4, 121, 34)); // item 3
-                addSlot(new SlotItemHandler(h, 5, 87, 59)); // item 4
-                addSlot(new SlotItemHandler(h, 6, 110, 59)); // item 5
-                addSlot(new SlotItemHandler(h, 7, 150, 59)); // Output
+                addSlot(new SlotItemHandler(h, 0, 30, 56)); //this will hold the feydust
+                addSlot(new SlotItemHandler(h, 1, 30, 8)); // this will hold the scheme
+                addSlot(new SlotItemHandler(h, 2, 82, 15)); // item 1
+                addSlot(new SlotItemHandler(h, 3, 55, 29)); // item 2
+                addSlot(new SlotItemHandler(h, 4, 112, 29)); // item 3
+                addSlot(new SlotItemHandler(h, 5, 70, 50)); // item 4
+                addSlot(new SlotItemHandler(h, 6, 96, 50)); // item 5
+                addSlot(new SlotItemHandler(h, 7, 149, 56)); // Output
             });
         }
 

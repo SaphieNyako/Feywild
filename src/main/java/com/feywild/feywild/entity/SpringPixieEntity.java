@@ -2,7 +2,11 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.sound.ModSoundEvents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -26,6 +30,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -36,6 +42,7 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -50,6 +57,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     //TAMED variable
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(SpringPixieEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
+            DataSerializers.BOOLEAN);
     //Container
     private final ItemStackHandler itemHandler = createHandler();
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
@@ -124,23 +133,56 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     /* Animation */
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
-
         return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
+        if (this.entityData.get(CASTING) && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.spellcasting", true));
+
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        AnimationController flyingController = new AnimationController(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController castingController = new AnimationController(this, "castingController", 0, this::castingPredicate);
+
+        //   castingController.registerSoundListener(this::castingSoundListener);
+
+        animationData.addAnimationController(flyingController);
+        animationData.addAnimationController(castingController);
+
+    }
+
+    private <ENTITY extends IAnimatable> void castingSoundListener(SoundKeyframeEvent<ENTITY> event) {
+
+        ClientPlayerEntity player = Minecraft.getInstance().player;
+        if (player != null) {
+            player.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
+        }
     }
 
     @Override
     public AnimationFactory getFactory() {
 
         return this.factory;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isCasting() {
+        return this.entityData.get(CASTING);
+    }
+
+    public void setCasting(boolean casting) {
+        this.entityData.set(CASTING, casting);
     }
 
 
@@ -169,6 +211,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(1, new TargetBreedGoal(this)));
 
         return list;
     }
@@ -180,7 +223,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
                 Ingredient.of(Items.COOKIE), false)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-        list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+        list.add(new PrioritizedGoal(6, new LookRandomlyGoal(this)));
 
         return list;
 
@@ -236,6 +279,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         super.defineSynchedData();
 
         this.entityData.define(TAMED, false);
+        this.entityData.define(CASTING, false);
 
     }
 
