@@ -4,9 +4,6 @@ import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -42,7 +39,6 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.SoundKeyframeEvent;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -155,19 +151,9 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         AnimationController flyingController = new AnimationController(this, "flyingController", 0, this::flyingPredicate);
         AnimationController castingController = new AnimationController(this, "castingController", 0, this::castingPredicate);
 
-        //   castingController.registerSoundListener(this::castingSoundListener);
-
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
 
-    }
-
-    private <ENTITY extends IAnimatable> void castingSoundListener(SoundKeyframeEvent<ENTITY> event) {
-
-        ClientPlayerEntity player = Minecraft.getInstance().player;
-        if (player != null) {
-            player.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
-        }
     }
 
     @Override
