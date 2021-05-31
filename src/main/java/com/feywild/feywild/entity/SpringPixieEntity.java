@@ -1,18 +1,40 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.entity.goals.TargetBreedGoal;
+import com.feywild.feywild.item.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -21,6 +43,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -29,7 +53,13 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     //TAMED variable
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(SpringPixieEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
+            DataSerializers.BOOLEAN);
+    //Container
+    private final ItemStackHandler itemHandler = createHandler();
+    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public BlockPos summonPos;
+    FeyEntity entity = this;
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
@@ -58,45 +88,87 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         entity.addTag("spring_quest_pixie");
     }
 
-    /*
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-        if (player.getItemInHand(hand).isEmpty()) {
-            if(this.getTags().contains("spring_quest_pixie")){
+        if (!player.getCommandSenderWorld().isClientSide && player.getItemInHand(hand).isEmpty()) {
+            if (this.getTags().contains("spring_quest_pixie")) {
 
-            player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID());
+                //  player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID()); //this works
 
-                return ActionResultType.SUCCESS;
+                INamedContainerProvider containerProvider = new INamedContainerProvider() {
+                    @Override
+                    public ITextComponent getDisplayName() {
+                        return new TranslationTextComponent("screen.feywild.pixie");
+                    }
 
+                    @Nullable
+                    @Override
+                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+
+                        return new PixieContainer(i, playerInventory, playerEntity, entity);
+                    }
+                };
+
+                NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
+
+            } else {
+
+                throw new IllegalStateException("Our container provider is missing!");
             }
+
         }
 
         return ActionResultType.SUCCESS;
-    }  */
+
+    }
+
 
 
 
     /* Animation */
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
-
         return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
+        if (this.entityData.get(CASTING) && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.spellcasting", true));
+
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        AnimationController flyingController = new AnimationController(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController castingController = new AnimationController(this, "castingController", 0, this::castingPredicate);
+
+        animationData.addAnimationController(flyingController);
+        animationData.addAnimationController(castingController);
+
     }
 
     @Override
     public AnimationFactory getFactory() {
 
         return this.factory;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isCasting() {
+        return this.entityData.get(CASTING);
+    }
+
+    public void setCasting(boolean casting) {
+        this.entityData.set(CASTING, casting);
     }
 
 
@@ -125,6 +197,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(1, new TargetBreedGoal(this)));
 
         return list;
     }
@@ -136,7 +209,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
                 Ingredient.of(Items.COOKIE), false)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-        list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+        list.add(new PrioritizedGoal(6, new LookRandomlyGoal(this)));
 
         return list;
 
@@ -154,6 +227,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
             tag.putInt("summonPos_Z", summonPos.getZ());
         }
 
+        tag.put("inventory", itemHandler.serializeNBT());
         this.entityData.set(TAMED, tag.getBoolean("tamed"));
     }
 
@@ -164,7 +238,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         if (tag.contains("summoner_x"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
 
-        // this.entityData.set(TAMED, tag.getBoolean("tamed"));
+        itemHandler.deserializeNBT(tag.getCompound("inventory"));
 
         if (tag.contains("tamed")) {
             this.setTamed(tag.getBoolean("tamed"));
@@ -191,11 +265,60 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         super.defineSynchedData();
 
         this.entityData.define(TAMED, false);
+        this.entityData.define(CASTING, false);
 
     }
+
+    /* CONTAINER */
 
     @Override
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
+    }
+
+    private ItemStackHandler createHandler() {
+
+        return new ItemStackHandler(7) {
+
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                /* Can we put in an item in a specific slot */
+
+                switch (slot) {
+
+                    case 0:
+                        return stack.getItem() == ModItems.FEY_DUST.get();
+                    default:
+                        return true;
+                }
+
+            }
+
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+                /* Insert Item into a specific slot */
+
+                if (!isItemValid(slot, stack)) {
+                    return stack;
+                }
+
+                return super.insertItem(slot, stack, simulate);
+
+            }
+        };
+
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
+
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return handler.cast();
+        }
+
+        return super.getCapability(capability, side);
+
     }
 }

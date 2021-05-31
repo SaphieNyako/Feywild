@@ -29,6 +29,16 @@
       }
     ]
   },
+  "pixie_spellcasting": {
+    "category": "entity",
+    "subtitle": "pixie_spellcasting",
+    "sounds": [
+      {
+        "name": "feywild:pixie_spellcasting",
+        "stream": true
+      }
+    ]
+  },
   "feywild_soundtrack": {
     "sounds": [
       {

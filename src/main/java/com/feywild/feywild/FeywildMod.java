@@ -1,6 +1,7 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.FeyEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.events.ModEvents;
@@ -123,6 +124,7 @@ public class FeywildMod {
         ModSoundEvents.register();
         ModItems.register();
         ModBlocks.register();
+        ModContainers.register();
         modStructuresRegister();
         ModFeatures.register();
         ModBiomes.register();

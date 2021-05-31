@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.entity.goals.SummonSnowManGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -13,6 +14,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -28,7 +31,11 @@ import java.util.List;
 public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
     public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(WinterPixieEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(WinterPixieEntity.class,
+            DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    private World worldIn;
+
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
@@ -36,6 +43,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     public WinterPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
+        this.worldIn = worldIn;
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
         addGoalsAfterConstructor();
@@ -45,6 +53,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     public WinterPixieEntity(World worldIn, boolean isTamed, BlockPos pos) {
         super(ModEntityTypes.WINTER_PIXIE.get(), worldIn);
         //Geckolib check
+        this.worldIn = worldIn;
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
         this.entityData.set(TAMED, isTamed);
@@ -62,17 +71,31 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
     /* Animation */
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
-
         return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
+        if (this.entityData.get(CASTING) && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.spellcasting", true));
+
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        AnimationController flyingController = new AnimationController(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController castingController = new AnimationController(this, "castingController", 0, this::castingPredicate);
+
+        animationData.addAnimationController(flyingController);
+        animationData.addAnimationController(castingController);
+
     }
 
     @Override
@@ -80,6 +103,16 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
         return this.factory;
     }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isCasting() {
+        return this.entityData.get(CASTING);
+    }
+
+    public void setCasting(boolean casting) {
+        this.entityData.set(CASTING, casting);
+    }
+
 
     /* GOALS */
 
@@ -106,6 +139,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
+        list.add(new PrioritizedGoal(1, new SummonSnowManGoal(this, () -> this.summonPos)));
 
         return list;
     }
@@ -121,7 +155,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
         return list;
     }
-
 
     /* SAVE DATA */
 
@@ -170,6 +203,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
         super.defineSynchedData();
 
         this.entityData.define(TAMED, false);
+        this.entityData.define(CASTING, false);
 
     }
 

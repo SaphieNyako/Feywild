@@ -12,13 +12,21 @@ import java.util.List;
 
 public class ModRecipeTypes {
 
-    public static final RegistryObject<AltarRecipe.Serializer> ALTAR_SERIALIZER = Registration.RECIPE_SERIALIZER.register("fey_altar", AltarRecipe.Serializer::new);
+    public static final RegistryObject<AltarRecipe.Serializer> ALTAR_SERIALIZER =
+            Registration.RECIPE_SERIALIZER.register("fey_altar", AltarRecipe.Serializer::new);
+
     public static final IRecipeType<AltarRecipe> ALTAR_RECIPE = new AltarRecipe.AltarRecipeType();
+
+    public static final RegistryObject<DwarvenAnvilRecipe.Serializer> DWARVEN_ANVIL_SERIALIZER =
+            Registration.RECIPE_SERIALIZER.register("dwarven_anvil", DwarvenAnvilRecipe.Serializer::new);
+
+    public static final IRecipeType<DwarvenAnvilRecipe> DWARVEN_ANVIL_RECIPE = new DwarvenAnvilRecipe.DwarvenAnvilRecipeType();
 
     public static void registerRecipes() {
         System.out.println("HELLO FROM RECIPES!");
 
         Registry.register(Registry.RECIPE_TYPE, AltarRecipe.TYPE_ID, ALTAR_RECIPE);
+        Registry.register(Registry.RECIPE_TYPE, DwarvenAnvilRecipe.TYPE_ID, DWARVEN_ANVIL_RECIPE);
     }
 
     public static List<IRecipe<?>> getRecipes(IRecipeType<?> recipeType, RecipeManager manager) {

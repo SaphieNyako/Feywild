@@ -36,7 +36,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
     }
 
-    //Read data on world init
+    /* DATA */
     @Override
     public void load(BlockState state, CompoundNBT nbt) {
         super.load(state, nbt);
@@ -44,8 +44,6 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             stackList.set(i, ItemStack.of((CompoundNBT) nbt.get("stack" + i)));
         }
     }
-
-    /* SAVE DATA */
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {

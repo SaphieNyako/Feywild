@@ -23,10 +23,9 @@ public class SummerTree extends BaseTree {
                 getTwoLayerFeature()
         ).decorators(ImmutableList.of(Features.Placements.BEEHIVE_005))
                 .build();
-        
+
         return Feature.TREE.configured(featureConfig);
     }
-
 
     @Override
     protected Block getLogBlock() {

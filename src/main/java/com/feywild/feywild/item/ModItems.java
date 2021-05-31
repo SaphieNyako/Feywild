@@ -54,16 +54,16 @@ public class ModItems {
                                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
                                     .build())));
 
+    //CROP ITEMS
+    public static final RegistryObject<Item> MANDRAKE_SEED =
+            Registration.ITEMS.register("mandrake_seed",
+                    () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
+
     /* MUSIC DISC */
 
     public static final RegistryObject<Item> MUSIC_DISC_FEYWILD =
             Registration.ITEMS.register("music_disc_feywild",
                     FeywildMusicDisc::new);
-
-    //CROP ITEMS
-    public static final RegistryObject<Item> MANDRAKE_SEED =
-            Registration.ITEMS.register("mandrake_seed",
-                    () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =

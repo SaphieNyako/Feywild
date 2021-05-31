@@ -17,7 +17,7 @@ public class ParticleMessage {
 
     public double posX, posY, posZ, velX, velY, velZ;
     public int repeat, id;
-    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.FLAME);
+    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME);
 
     //Read msg from buf
     public ParticleMessage(PacketBuffer buf) {
@@ -61,17 +61,18 @@ public class ParticleMessage {
         World world = new ClientProxy().getClientWorld();
         Random random = new Random();
         ctx.get().enqueueWork(() -> {
-            double newPosX,newPosY,newPosZ;
+            double newPosX, newPosY, newPosZ;
             //summon particles based on info
             for (int i = 0; i < repeat; i++) {
                 if (repeat > 1) {
                     world.addParticle((IParticleData) list.get(id), true, posX - 0.3 + random.nextDouble(), posY - 0.3 + random.nextDouble(), posZ - 0.3 + random.nextDouble(), velX, velY, velZ);
-                }if(repeat < 0){
-                     newPosX = posX - 0.3 + random.nextDouble();
-                     newPosY = posY - 0.3 + random.nextDouble();
-                     newPosZ = posZ - 0.3 + random.nextDouble();
-                    world.addParticle((IParticleData) list.get(id), true, newPosX, newPosY, newPosZ, (velX - newPosX) / 10,  (velY - newPosY)/10,  (velZ - newPosZ) / 10);
-                } else{
+                }
+                if (repeat < 0) {
+                    newPosX = posX - 0.3 + random.nextDouble();
+                    newPosY = posY - 0.3 + random.nextDouble();
+                    newPosZ = posZ - 0.3 + random.nextDouble();
+                    world.addParticle((IParticleData) list.get(id), true, newPosX, newPosY, newPosZ, (velX - newPosX) / 10, (velY - newPosY) / 10, (velZ - newPosZ) / 10);
+                } else {
                     world.addParticle((IParticleData) list.get(id), true, posX, posY, posZ, velX, velY, velZ);
                 }
             }
