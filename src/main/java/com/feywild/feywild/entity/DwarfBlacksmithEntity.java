@@ -5,18 +5,13 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.misc.DwarfTrades;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.MerchantOffer;
-import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
@@ -28,7 +23,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -42,8 +36,6 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
-
-    public Int2ObjectMap<VillagerTrades.ITrade[]> dwarvenTrades = new Int2ObjectOpenHashMap<>();
 
     public BlockPos summonPos;
     //Geckolib variable
@@ -97,18 +89,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
 
     /* TRADING */
-
-    @Override
-    protected void getTradersData() {
-
-        VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
-
-        if (dwarvenTradeList != null) {
-            MerchantOffers merchantoffers = this.getOffers();
-            this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
-        }
-
-    }
 
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
@@ -177,17 +157,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         else
             this.restrictTo(blockPosition(), 7);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    @Nullable
-    @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
-        return null;
-    }
-
-    @Override
-    protected void rewardTradeXp(MerchantOffer p_213713_1_) {
-
     }
 
     //Add trade to list
@@ -330,11 +299,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    protected void updateTrades() {
-
-    }
-
-    @Override
     protected boolean canRide(Entity entityIn) {
         return false;
     }
@@ -414,4 +378,5 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
         return this.factory;
     }
+
 }

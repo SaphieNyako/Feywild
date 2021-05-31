@@ -211,4 +211,5 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
     }
+
 }

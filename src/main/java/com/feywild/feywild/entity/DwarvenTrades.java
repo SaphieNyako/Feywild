@@ -18,10 +18,11 @@ import java.util.Random;
 public class DwarvenTrades {
 
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.FeyGemForItemsTrade(Items.IRON_ORE, 2, 3, 2),
-            new DwarvenTrades.FeyGemForItemsTrade(Items.GOLD_ORE, 2, 3, 2)
+            new DwarvenTrades.FeyGemForItemsTrade(Items.IRON_ORE, 3, 5, 1),
+            new DwarvenTrades.FeyGemForItemsTrade(Items.GOLD_ORE, 3, 5, 1),
+            //   new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND, 2, 1, 5, 2)
     }, 2, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND, 1, 1, 5)
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND, 1, 1, 1)
     }));
 
     private static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
