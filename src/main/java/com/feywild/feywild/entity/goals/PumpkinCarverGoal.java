@@ -10,6 +10,9 @@ import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.block.PumpkinBlock;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -30,30 +33,39 @@ public class PumpkinCarverGoal extends Goal {
 
     }
 
+    //add to list
+    //Loop over list
+
     @Override
     public void tick() {
-
-        if (block != null) {
-            count++;
-
-            if (count >= 120 && block != null) {
-                pumpkinCarving();
-                reset();
-
-            } else if (count == 10 && block != null) {
-                spellCasting();
-            }
+        if (block == null) {
+            return;
         }
+        count--;
+
+        if (count == 0 && block.getBlock() != Blocks.JACK_O_LANTERN.getBlock()) {
+            pumpkinCarving();
+            reset();
+
+        } else if (count == 110 && block.getBlock() != Blocks.JACK_O_LANTERN.getBlock()) {
+            spellCasting();
+        }
+
     }
 
     @Override
     public void start() {
+
+        count = 120;
+        block = null;
+
         World world = entity.getCommandSenderWorld();
-        for (BlockPos b : BlockPos.betweenClosed(entity.blockPosition().north(8).west(8).below(2), entity.blockPosition().south(8).east(8).above(3))) {
+        for (BlockPos b : BlockPos.betweenClosed(entity.blockPosition().north(4).west(4).below(3), entity.blockPosition().south(4).east(4).above(3))) {
             BlockState state = world.getBlockState(b);
             if (state.getBlock() instanceof PumpkinBlock) {
                 pumpkinPosition = b;
                 block = state;
+
                 return;
             }
             if (state.getBlock() instanceof CarvedPumpkinBlock) {
@@ -63,12 +75,14 @@ public class PumpkinCarverGoal extends Goal {
             }
 
         }
+
     }
 
     private void spellCasting() {
 
         if (block.getBlock() instanceof PumpkinBlock) {
             this.targetPos = new Vector3d(pumpkinPosition.getX(), pumpkinPosition.getY(), pumpkinPosition.getZ());
+
         }
         if (block.getBlock() instanceof CarvedPumpkinBlock) {
             this.targetPos = new Vector3d(carvedPumpkinPosition.getX(), carvedPumpkinPosition.getY(), carvedPumpkinPosition.getZ());
@@ -82,12 +96,12 @@ public class PumpkinCarverGoal extends Goal {
 
     private void pumpkinCarving() {
 
-        if (block.getBlock() instanceof PumpkinBlock && !block.getBlock().getTags().contains("carved")) {
-            worldLevel.removeBlock(pumpkinPosition, true);
-            worldLevel.setBlock(pumpkinPosition, Blocks.CARVED_PUMPKIN.defaultBlockState(), 1);
+        if (block.getBlock() instanceof PumpkinBlock) {
+            entity.level.removeBlock(pumpkinPosition, false);
+            entity.level.setBlock(pumpkinPosition, Blocks.CARVED_PUMPKIN.defaultBlockState(), 1);
         }
-        if (block.getBlock() instanceof CarvedPumpkinBlock && !block.getBlock().getTags().contains("carved")) {
-            worldLevel.removeBlock(carvedPumpkinPosition, true);
+        if (block.getBlock() instanceof CarvedPumpkinBlock) {
+            worldLevel.removeBlock(carvedPumpkinPosition, false);
             worldLevel.setBlock(carvedPumpkinPosition, Blocks.JACK_O_LANTERN.defaultBlockState(), 1);
             //add tag
         }
@@ -98,19 +112,21 @@ public class PumpkinCarverGoal extends Goal {
 
     }
 
+    private void dropItems() {
+
+        ItemEntity item = new ItemEntity(worldLevel, targetPos.x, targetPos.y, targetPos.z, new ItemStack(Items.PUMPKIN_SEEDS));
+    }
+
     private void reset() {
         entity.setCasting(false);
-        count = 0;
-        block = null;
         pumpkinPosition = null;
         carvedPumpkinPosition = null;
         targetPos = null;
-
     }
 
     @Override
     public boolean canContinueToUse() {
-        return block != null;
+        return count > 0;
     }
 
     @Override

@@ -72,8 +72,8 @@ public class SummonSnowManGoal extends Goal {
 
     private void reset() {
         entity.setCasting(false);
-        count = 0;
         targetPos = null;
+        count = 0;
     }
 
     private void summonSnowMan() {
