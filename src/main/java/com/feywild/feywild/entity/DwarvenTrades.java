@@ -1,0 +1,105 @@
+package com.feywild.feywild.entity;
+
+import com.feywild.feywild.item.ModItems;
+import com.google.common.collect.ImmutableMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.merchant.villager.VillagerTrades;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.MerchantOffer;
+import net.minecraft.util.IItemProvider;
+
+import java.util.Random;
+
+public class DwarvenTrades {
+
+    public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
+            new DwarvenTrades.FeyGemForItemsTrade(Items.IRON_ORE, 2, 3, 2),
+            new DwarvenTrades.FeyGemForItemsTrade(Items.GOLD_ORE, 2, 3, 2)
+    }, 2, new VillagerTrades.ITrade[]{
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND, 1, 1, 5)
+    }));
+
+    private static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
+        return new Int2ObjectOpenHashMap<>(p_221238_0_);
+    }
+
+    static class FeyGemForItemsTrade implements VillagerTrades.ITrade {
+
+        private final Item field_221183_a;
+
+        private final int field_221184_b;
+
+        private final int field_221185_c;
+
+        private final int field_221186_d;
+
+        private final float field_221187_e;
+
+        public FeyGemForItemsTrade(IItemProvider itemIn, int itemCountIn, int maxUsesIn, int givenXP) {
+            this.field_221183_a = itemIn.asItem();
+            this.field_221184_b = itemCountIn;
+            this.field_221185_c = maxUsesIn;
+            this.field_221186_d = givenXP;
+            this.field_221187_e = 0.05F;
+        }
+
+        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
+            ItemStack itemstack = new ItemStack(this.field_221183_a, this.field_221184_b);
+            return new MerchantOffer(itemstack, new ItemStack(ModItems.LESSER_FEY_GEM.get()), this.field_221185_c, this.field_221186_d, this.field_221187_e);
+        }
+
+    }
+
+    static class ItemsForFeyGemTrade implements VillagerTrades.ITrade {
+
+        private final ItemStack itemSold;
+
+        private final int feyGemCount;
+
+        private final int soldItemCount;
+
+        private final int maxUses;
+
+        private final int givenXP;
+
+        private final float priceMultiplier;
+
+        public ItemsForFeyGemTrade(Block itemSoldIn, int feyGemCount, int soldItemCountIn, int maxUsesIn, int givenXPIn) {
+            this(new ItemStack(itemSoldIn), feyGemCount, soldItemCountIn, maxUsesIn, givenXPIn);
+        }
+
+        public ItemsForFeyGemTrade(Item itemSoldIn, int feyGemCount, int soldItemCountIn, int givenXPIn) {
+            this(new ItemStack(itemSoldIn), feyGemCount, soldItemCountIn, 12, givenXPIn);
+        }
+
+        public ItemsForFeyGemTrade(Item itemSoldIn, int feyGemCount, int soldItemCountIn, int maxUsesIn, int givenXPIn) {
+            this(new ItemStack(itemSoldIn), feyGemCount, soldItemCountIn, maxUsesIn, givenXPIn);
+        }
+
+        public ItemsForFeyGemTrade(ItemStack itemSoldIn, int feyGemCount, int soldItemCountIn, int maxUsesIn, int givenXPIn) {
+            this(itemSoldIn, feyGemCount, soldItemCountIn, maxUsesIn, givenXPIn, 0.05F);
+        }
+
+        public ItemsForFeyGemTrade(ItemStack itemSoldIn, int feyGemCount, int soldItemCountIn, int maxUsesIn, int givenXPIn, float priceMultiplierIn) {
+            this.itemSold = itemSoldIn;
+            this.feyGemCount = feyGemCount;
+            this.soldItemCount = soldItemCountIn;
+            this.maxUses = maxUsesIn;
+            this.givenXP = givenXPIn;
+            this.priceMultiplier = priceMultiplierIn;
+        }
+
+        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
+            return new MerchantOffer(new ItemStack(ModItems.LESSER_FEY_GEM.get(), this.feyGemCount), new ItemStack(this.itemSold.getItem(), this.soldItemCount), this.maxUses, this.givenXP, this.priceMultiplier);
+
+        }
+
+    }
+}
+
+
