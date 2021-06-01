@@ -33,10 +33,10 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
     //TODO: Add names for the fey in lang folder so it can be seen by HWYLA. - Update - names are added to lang but still not displayed by HWYLA
 
-    public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(AutumnPixieEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(AutumnPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    private boolean tamed = false;
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
@@ -54,7 +54,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
         //Geckolib check
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
-        this.entityData.set(TAMED, isTamed);
+        setTamed(isTamed);
         this.summonPos = pos;
         addGoalsAfterConstructor();
     }
@@ -126,7 +126,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     }
 
     public List<PrioritizedGoal> getGoals() {
-        return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
+        return this.tamed ? getTamedGoals() : getUntamedGoals();
     }
 
     public List<PrioritizedGoal> getTamedGoals() {
@@ -166,7 +166,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
             tag.putInt("summonPos_Z", summonPos.getZ());
         }
 
-        this.entityData.set(TAMED, tag.getBoolean("tamed"));
+        tag.putBoolean("tamed", tamed);
     }
 
     //read
@@ -193,8 +193,12 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
         this.addGoalsAfterConstructor();
     }
 
-    public void setTamed(boolean isTamed) {
-        this.entityData.set(TAMED, isTamed);
+    public boolean isTamed() {
+        return tamed;
+    }
+
+    public void setTamed(boolean tamed) {
+        this.tamed = tamed;
 
     }
 
@@ -202,7 +206,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     protected void defineSynchedData() {
         super.defineSynchedData();
 
-        this.entityData.define(TAMED, false);
         this.entityData.define(CASTING, false);
     }
 

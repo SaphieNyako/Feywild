@@ -5,6 +5,7 @@ import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.block.entity.mana.CustomManaStorage;
 import com.feywild.feywild.block.entity.mana.IManaStorage;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.BlockState;
@@ -142,6 +143,9 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
                     case 0:
                         return stack.getItem() == ModItems.FEY_DUST.get();
+                    case 1:
+                        return stack.getItem() instanceof Schematics;
+
                     case 7:
                         return stack.isEmpty();
 
@@ -155,9 +159,6 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
                 /* Insert Item into a specific slot */
-
-
-                /* I DONT UNDERSTAND */
 
                 if (slot == -1) {
                     int count = Math.min(this.stacks.get(7).getMaxStackSize(), this.stacks.get(7).getCount() + stack.getCount());
@@ -211,7 +212,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
 
-            //if 7 is empty, if item in 7 is the same
+            //slot 1 should be a schematic
 
             if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
                     && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() && dwarfPresent) {

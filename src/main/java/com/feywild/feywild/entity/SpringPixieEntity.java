@@ -52,8 +52,6 @@ import java.util.List;
 
 public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
-    //TAMED variable
-    public static final DataParameter<Boolean> TAMED = EntityDataManager.defineId(SpringPixieEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
             DataSerializers.BOOLEAN);
     //Container
@@ -61,6 +59,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public BlockPos summonPos;
     FeyEntity entity = this;
+    //TAMED variable
+    private boolean tamed = false;
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
@@ -78,7 +78,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         //Geckolib check
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
-        this.entityData.set(TAMED, isTamed);
+        setTamed(isTamed);
         this.summonPos = pos;
         addGoalsAfterConstructor();
     }
@@ -188,7 +188,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     }
 
     public List<PrioritizedGoal> getGoals() {
-        return this.entityData.get(TAMED) ? getTamedGoals() : getUntamedGoals();
+        return this.tamed ? getTamedGoals() : getUntamedGoals();
     }
 
     public List<PrioritizedGoal> getTamedGoals() {
@@ -227,9 +227,9 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
             tag.putInt("summonPos_Y", summonPos.getY());
             tag.putInt("summonPos_Z", summonPos.getZ());
         }
-
+        tag.putBoolean("tamed", tamed);
         tag.put("inventory", itemHandler.serializeNBT());
-        this.entityData.set(TAMED, tag.getBoolean("tamed"));
+
     }
 
     //read
@@ -256,8 +256,12 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         this.addGoalsAfterConstructor();
     }
 
-    public void setTamed(boolean isTamed) {
-        this.entityData.set(TAMED, isTamed);
+    public boolean isTamed() {
+        return tamed;
+    }
+
+    public void setTamed(boolean tamed) {
+        this.tamed = tamed;
 
     }
 
@@ -265,7 +269,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     protected void defineSynchedData() {
         super.defineSynchedData();
 
-        this.entityData.define(TAMED, false);
+        //     this.entityData.define(TAMED, false);
         this.entityData.define(CASTING, false);
 
     }
