@@ -79,13 +79,22 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
 
     protected void updateTradesAgain(int number) {
 
-        VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
+        if (isTamed) {
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(number);
+            setVillagerLevel(number);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+            }
+        } else {
 
-        if (dwarvenTradeList != null) {
-            MerchantOffers merchantoffers = this.getOffers();
-            this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
+            setVillagerLevel(number);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+            }
         }
-
     }
 
     @Override

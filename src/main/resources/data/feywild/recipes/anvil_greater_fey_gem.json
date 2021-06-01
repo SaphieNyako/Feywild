@@ -2,6 +2,9 @@
   "type": "feywild:dwarven_anvil",
   "ingredients": [
     {
+      "item": "feywild:schematics_001"
+    },
+    {
       "item": "feywild:lesser_fey_gem"
     },
     {
@@ -18,6 +21,7 @@
     }
   ],
   "output": {
-    "item": "feywild:greater_fey_gem"
+    "item": "feywild:greater_fey_gem",
+    "count": 2
   }
 }

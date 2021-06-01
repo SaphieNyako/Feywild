@@ -1,0 +1,27 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "ingredients": [
+    {
+      "item": "feywild:schematics_001"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    }
+  ],
+  "output": {
+    "item": "feywild:brilliant_fey_gem",
+    "count": 2
+  }
+}

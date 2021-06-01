@@ -17,6 +17,8 @@ import java.util.Random;
 
 public class DwarvenTrades {
 
+    //TODO: Serialise the trades
+
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
             new DwarvenTrades.FeyGemForItemsTrade(Items.IRON_ORE, 3, 5, 1),
             new DwarvenTrades.FeyGemForItemsTrade(Items.GOLD_ORE, 3, 5, 1),
@@ -33,13 +35,16 @@ public class DwarvenTrades {
             new DwarvenTrades.ItemsForFeyGemTrade(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 30, 1, 1, 10)
     }));
 
+
+    /* TAMED */
+
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_BLACKSMITH_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
             new DwarvenTrades.ItemsForFeyGemTrade(ModItems.GREATER_FEY_GEM.get(), 4, 1, 1),
             new DwarvenTrades.ItemsForGreaterFeyGemTrade(ModItems.SHINY_FEY_GEM.get(), 4, 1, 2),
             new DwarvenTrades.ItemsForShinyFeyGemTrade(ModItems.BRILLIANT_FEY_GEM.get(), 4, 1, 3)
 
     }, 2, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND, 1, 1, 1)
+            new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_001.get(), 2, 1, 1, 5)
     }));
 
     private static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
