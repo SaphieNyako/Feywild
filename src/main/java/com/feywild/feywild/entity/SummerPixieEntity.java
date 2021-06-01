@@ -34,9 +34,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SummerPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
-    //TAMED variable
     private boolean tamed = false;
-    //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
@@ -110,6 +108,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     }
 
     /* GOALS */
+
     @Override
     protected void registerGoals() {}
 

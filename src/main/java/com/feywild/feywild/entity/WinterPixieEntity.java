@@ -36,8 +36,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     public BlockPos summonPos;
     private boolean tamed = false;
     private World worldIn;
-
-    //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 

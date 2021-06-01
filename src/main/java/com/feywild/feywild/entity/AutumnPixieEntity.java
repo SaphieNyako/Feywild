@@ -37,7 +37,6 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
     private boolean tamed = false;
-    //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
