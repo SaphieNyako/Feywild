@@ -18,6 +18,7 @@
   "item.feywild.fey_armor_chest": "Fey Armor Chest",
   "item.feywild.fey_armor_leggings": "Fey Armor Leggings",
   "item.feywild.fey_armor_boots": "Fey Armor Boots",
+  "item.feywild.schematics_001": "Schematics for Gem Transmutation",
   "block.feywild.mandrake_crop": "Mandrake Seed",
   "item.feywild.mandrake": "Mandrake",
   "block.feywild.fey_gem_block": "Fey Gem Block",
@@ -45,10 +46,6 @@
   "enity.feywild.autumn_pixie": "Autumn Pixie",
   "enity.feywild.winter_pixie": "Winter Pixie",
   "enity.feywild.dwarf_blacksmith": "Dwarf Blacksmith",
-  "item.feywild.spring_pixie_spawn_egg": "Spring Pixie Spawn Egg",
-  "item.feywild.summer_pixie_spawn_egg": "Summer Pixie Spawn Egg",
-  "item.feywild.autumn_pixie_spawn_egg": "Autumn Pixie Spawn Egg",
-  "item.feywild.winter_pixie_spawn_egg": "Winter Pixie Spawn Egg",
   "itemGroup.feywildTab": "Feywild Items",
   "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of fey and magic.\nHave you seen a fey yet? They are a bit shy, but some tasty treats might help you gain their trust.\n Talk to me again if you like to know more about the Fey!",
   "librarian.feywild.borrow": "Ah! Curious about they Fey? You can borrow this book, it contains valuable information on the Fey Courts.",
@@ -81,5 +78,6 @@
   "message.feywild.winter_pixie": "A summoning scroll for a Winter Pixie",
   "message.feywild.music_disc_feywild": "Music composed, mixed and mastered by: Davy Habets (IKIGA) - www.ikigamusic.com",
   "message.feywild.music_disc_feywild_2": "Song of the Seaons Composed, mixed and mastered by: Davy Habets (IKIGA)",
+  "message.feywild.schematics_001": "Schematics for transmuting fey gems",
   "screen.feywild.dwarven_anvil": "Dwarven Anvil"
 }

@@ -11,6 +11,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModItems {
@@ -64,6 +65,13 @@ public class ModItems {
     public static final RegistryObject<Item> MUSIC_DISC_FEYWILD =
             Registration.ITEMS.register("music_disc_feywild",
                     FeywildMusicDisc::new);
+
+    /* SCHEMATICS */
+
+    public static final RegistryObject<Item> SCHEMATICS_001 =
+            Registration.ITEMS.register("schematics_001",
+                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB),
+                            new TranslationTextComponent("message.feywild.schematics_001"), 001));
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
