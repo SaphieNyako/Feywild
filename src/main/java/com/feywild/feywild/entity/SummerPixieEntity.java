@@ -2,6 +2,7 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetFireGoal;
+import com.feywild.feywild.entity.util.FeyEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;

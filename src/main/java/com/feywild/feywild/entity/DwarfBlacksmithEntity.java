@@ -1,10 +1,8 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
-import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.misc.DwarfTrades;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.entity.util.TraderEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -33,7 +31,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
@@ -45,8 +42,16 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     private List<Integer> tradeId = new LinkedList<>();
     private int levelInt = 1;
 
+    public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World worldIn, boolean isTamed) {
+        super(type, worldIn, isTamed);
+        //Geckolib check
+        this.noCulling = true;
+        this.moveControl = new MovementController(this);
+        addGoalsAfterConstructor();
+    }
+
     public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World worldIn) {
-        super(type, worldIn);
+        super(type, worldIn, false);
         //Geckolib check
         this.noCulling = true;
         this.moveControl = new MovementController(this);
@@ -54,7 +59,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     public DwarfBlacksmithEntity(World worldIn, boolean isTamed, BlockPos pos) {
-        super(ModEntityTypes.DWARF_BLACKSMITH.get(), worldIn);
+        this(ModEntityTypes.DWARF_BLACKSMITH.get(), worldIn, isTamed);
         //Geckolib check
         this.noCulling = true;
         this.moveControl = new MovementController(this);
@@ -93,7 +98,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
-
+/*
         if (!tamed && levelInt >= 6) {
             if (trades.size() < 3) {
                 FeywildPacketHandler.sendToPlayersInRange(player.getCommandSenderWorld(), blockPosition(), new ParticleMessage(blockPosition().getX() + 0.5, blockPosition().getY() + 1.2, blockPosition().getZ() + 0.5, -4, -2, -4, 10, 3), 32);
@@ -111,13 +116,14 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         } else {
             addTrade(0);
         }
-
+*/
         if (player.getItemInHand(hand).isEmpty()) {
 
             this.setTradingPlayer(player); //added
             this.openTradingScreen(player, new TranslationTextComponent("Dwarven Trader"), 1); //added
 
             player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
+          /*
             trades.keySet().forEach(itemStack -> {
                 if (!tamed)
                     player.displayClientMessage(new TranslationTextComponent("").append("You give me " + itemStack.getCount()
@@ -141,25 +147,28 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
                 }
             });
             // add a check for item holding
+        } */
+            //Add trade
+
         }
-        //Add trade
         return ActionResultType.SUCCESS;
     }
-
     /* TAMED */
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason
+            reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         //Add a random first trade
-        if (!tamed)
-            addTrade(random.nextInt(DwarfTrades.getTrades().size()));
-        else
-            this.restrictTo(blockPosition(), 7);
+        //   if (!tamed)
+        // addTrade(random.nextInt(DwarfTrades.getTrades().size()));
+        //  else
+        this.restrictTo(blockPosition(), 7);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     //Add trade to list
+    /*
     private boolean addTrade(int i) {
         if (!tamed) {
             if (tradeId.contains(i)) {
@@ -188,7 +197,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         }
 
         return true;
-    }
+    } */
 
     /* GOALS */
 
@@ -253,7 +262,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("tamed", tamed);
         compound.putInt("level", levelInt);
-        compound.putIntArray("trade_id", tradeId);
+        //     compound.putIntArray("trade_id", tradeId);
 
     }
 
@@ -263,13 +272,13 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.levelInt = compound.getInt("level");
         this.tamed = compound.getBoolean("tamed");
 
-        if (!tamed) {
+       /* if (!tamed) {
             int[] array = compound.getIntArray("trade_id");
             //Initialize trades
             for (int j : array) {
                 addTrade(j);
             }
-        }
+        }*/
 
         tryResetGoals();
     }
@@ -321,6 +330,14 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     protected int getExperienceReward(PlayerEntity player) {
         return 0;
+    }
+
+    @Override
+    public void die(DamageSource p_70645_1_) {
+        super.die(p_70645_1_);
+        if (this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
+            ((DwarvenAnvilEntity) Objects.requireNonNull(this.level.getBlockEntity(summonPos))).setDwarfPresent(false);
+        }
     }
 
     /* SOUND EFFECTS */

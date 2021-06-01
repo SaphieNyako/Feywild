@@ -3,6 +3,7 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
+import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.item.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;

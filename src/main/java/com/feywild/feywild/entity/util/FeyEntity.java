@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity;
+package com.feywild.feywild.entity.util;
 
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;

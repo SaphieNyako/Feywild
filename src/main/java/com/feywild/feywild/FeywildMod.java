@@ -2,8 +2,8 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.container.ModContainers;
-import com.feywild.feywild.entity.FeyEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;

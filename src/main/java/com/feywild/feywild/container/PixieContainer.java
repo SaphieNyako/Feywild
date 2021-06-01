@@ -1,6 +1,6 @@
 package com.feywild.feywild.container;
 
-import com.feywild.feywild.entity.FeyEntity;
+import com.feywild.feywild.entity.util.FeyEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;

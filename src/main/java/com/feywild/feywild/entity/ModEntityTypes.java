@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;

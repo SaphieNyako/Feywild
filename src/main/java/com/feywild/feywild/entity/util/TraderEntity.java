@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity;
+package com.feywild.feywild.entity.util;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -33,11 +33,11 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     private int updateMerchantTimer;
     private boolean increaseProfessionLevelOnUpdate;
     private int villagerLevel;
+    private boolean isTamed;
 
-    public TraderEntity(EntityType<? extends AbstractVillagerEntity> entity, World world) {
+    public TraderEntity(EntityType<? extends AbstractVillagerEntity> entity, World world, boolean isTamed) {
         super(entity, world);
-        this.setVillagerData(this.getVillagerData().setType(VillagerType.PLAINS).setProfession(VillagerProfession.NONE));
-
+        this.isTamed = isTamed;
     }
 
     protected void rewardTradeXp(MerchantOffer p_213713_1_) {
@@ -59,13 +59,22 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     protected void updateTrades() {
 
-        VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
-        setVillagerLevel(1);
-        if (dwarvenTradeList != null) {
-            MerchantOffers merchantoffers = this.getOffers();
-            this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
-        }
+        if (isTamed) {
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(1);
+            setVillagerLevel(1);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+            }
+        } else {
 
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
+            setVillagerLevel(1);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+            }
+        }
     }
 
     protected void updateTradesAgain(int number) {
@@ -84,14 +93,14 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         super.addAdditionalSaveData(compound);
         //compound.putBoolean("tamed", tamed);
         compound.putInt("Xp", this.villagerXp);
-        compound.putInt("Level", this.getVillagerLevel());
+        //    compound.putInt("Level", this.getVillagerLevel());
 
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        //this.levelInt = compound.getInt("level");
+        //  this.levelInt = compound.getInt("level");
         if (compound.contains("Xp", 3)) {
             this.villagerXp = compound.getInt("Xp");
         }

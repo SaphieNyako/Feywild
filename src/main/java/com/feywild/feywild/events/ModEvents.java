@@ -10,7 +10,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ModEvents {
 
-    //TODO: Add Summoning Text for Pixies
     @SubscribeEvent
     public void interactWithVillager(PlayerInteractEvent.EntityInteract event) {
 

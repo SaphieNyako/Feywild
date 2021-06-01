@@ -14,6 +14,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -35,6 +37,8 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     private final int MAX_MANA = 1000; //TODO: Add to Config
     private final int FEY_DUST_MANA_COST = 50; //TODO: Add to Config
     private int tick = 0;
+
+    private boolean dwarfPresent;
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
 
@@ -80,8 +84,9 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             }
 
             tick = 0;
-            setChanged(); //markDirty(); Might not be necessary here
             updateInventory(-1, true);
+            setChanged(); //markDirty(); Might not be necessary here
+
         }
 
         if (!itemHandler.getStackInSlot(0).isEmpty()) {
@@ -97,6 +102,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     @Override
     public void load(BlockState state, CompoundNBT tag) {
 
+        dwarfPresent = tag.getBoolean("dwarf_present");
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         manaStorage.deserializeNBT(tag.getCompound("mana"));
         tick = tag.getInt("counter");
@@ -108,6 +114,8 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         tag.put("inventory", itemHandler.serializeNBT());
         tag.put("mana", manaStorage.serializeNBT());
         tag.putInt("counter", tick);
+        tag.putBoolean("dwarf_present", dwarfPresent);
+
         return super.save(tag);
     }
 
@@ -134,6 +142,8 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
                     case 0:
                         return stack.getItem() == ModItems.FEY_DUST.get();
+                    case 7:
+                        return stack.isEmpty();
 
                     default:
                         return true;
@@ -146,12 +156,22 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
                 /* Insert Item into a specific slot */
 
-                if (!isItemValid(slot, stack)) {
+
+                /* I DONT UNDERSTAND */
+
+                if (slot == -1) {
+                    int count = Math.min(this.stacks.get(7).getMaxStackSize(), this.stacks.get(7).getCount() + stack.getCount());
+                    stack.setCount(count);
+                    this.stacks.set(7, stack.copy());
                     return stack;
+                } else {
+
+                    if (!isItemValid(slot, stack)) {
+                        return stack;
+                    }
+
+                    return super.insertItem(slot, stack, simulate);
                 }
-
-                return super.insertItem(slot, stack, simulate);
-
             }
         };
 
@@ -190,17 +210,28 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
-            itemHandler.insertItem(7, output, false);
-            itemHandler.extractItem(2, 1, false);
-            itemHandler.extractItem(3, 1, false);
-            itemHandler.extractItem(4, 1, false);
-            itemHandler.extractItem(5, 1, false);
-            itemHandler.extractItem(6, 1, false);
 
+            //if 7 is empty, if item in 7 is the same
+
+            if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
+                    && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() && dwarfPresent) {
+
+                level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+
+                itemHandler.insertItem(-1, output, false);
+                itemHandler.extractItem(2, 1, false);
+                itemHandler.extractItem(3, 1, false);
+                itemHandler.extractItem(4, 1, false);
+                itemHandler.extractItem(5, 1, false);
+                itemHandler.extractItem(6, 1, false);
+            }
             //  clearContent();
 
         });
 
     }
 
+    public void setDwarfPresent(boolean dwarfPresent) {
+        this.dwarfPresent = dwarfPresent;
+    }
 }

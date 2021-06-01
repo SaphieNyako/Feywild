@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.DwarvenAnvil;
+import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -31,6 +32,10 @@ public class SummoningScrollDwarfBlacksmith extends Item {
 
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+
+            if (context.getLevel().getBlockEntity(context.getClickedPos()) instanceof DwarvenAnvilEntity) {
+                ((DwarvenAnvilEntity) context.getLevel().getBlockEntity(context.getClickedPos())).setDwarfPresent(true);
+            }
 
         }
         return ActionResultType.SUCCESS;
