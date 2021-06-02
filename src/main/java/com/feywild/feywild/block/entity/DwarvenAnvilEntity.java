@@ -215,7 +215,8 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             int manaUsage = iRecipe.getManaUsage();
 
             if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
-                    && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() && dwarfPresent) {
+                    && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() && dwarfPresent
+                    && manaStorage.getManaStored() > 0) {
 
                 level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 
