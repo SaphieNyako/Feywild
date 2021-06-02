@@ -212,7 +212,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
 
-            //slot 1 should be a schematic
+            int manaUsage = iRecipe.getManaUsage();
 
             if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
                     && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() && dwarfPresent) {
@@ -225,6 +225,9 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
                 itemHandler.extractItem(4, 1, false);
                 itemHandler.extractItem(5, 1, false);
                 itemHandler.extractItem(6, 1, false);
+
+                manaStorage.consumeMana(manaUsage);
+
             }
             //  clearContent();
 

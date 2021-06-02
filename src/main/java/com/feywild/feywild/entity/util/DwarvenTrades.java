@@ -29,7 +29,7 @@ public class DwarvenTrades {
     }, 2, new VillagerTrades.ITrade[]{
             new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND_PICKAXE, 10, 1, 1, 10),
             new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND_SHOVEL, 8, 1, 1, 10),
-            new DwarvenTrades.ItemsForFeyGemTrade(Items.LANTERN, 2, 1, 1, 2),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.LANTERN, 2, 1, 5, 2),
 
     }, 3, new VillagerTrades.ITrade[]{
             new DwarvenTrades.ItemsForFeyGemTrade(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 30, 1, 1, 10)

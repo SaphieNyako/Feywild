@@ -27,10 +27,12 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     private final ResourceLocation id;
     private final ItemStack output;
     private final List<Ingredient> inputs;
+    private final int manaUsage;
 
-    public DwarvenAnvilRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputs) {
+    public DwarvenAnvilRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputs, int manaUsage) {
         this.id = id;
         this.output = output;
+        this.manaUsage = manaUsage;
         this.inputs = new LinkedList<>();
         for (int i = 0; i < inputs.size(); i++)
             this.inputs.add(inputs.get(i));
@@ -52,6 +54,10 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     @Override
     public ItemStack getResultItem() {
         return output.copy();
+    }
+
+    public int getManaUsage() {
+        return manaUsage;
     }
 
     @Override
@@ -79,10 +85,10 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DwarvenAnvilRecipe> {
 
-        // Might have to add one more Json Object
-
         @Override
         public DwarvenAnvilRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+
+            int manaUsage = JSONUtils.getAsInt(json, "mana_usage"); //added
 
             ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "output"));
             JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
@@ -92,7 +98,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
                 inputs.add(Ingredient.fromJson(jsonElement));
             }
 
-            return new DwarvenAnvilRecipe(recipeId, output, inputs);
+            return new DwarvenAnvilRecipe(recipeId, output, inputs, manaUsage);
         }
 
         @Nullable
@@ -105,8 +111,9 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
             }
 
             ItemStack output = buffer.readItem();
+            int manaUsage = buffer.readInt(); //added
 
-            return new DwarvenAnvilRecipe(recipeId, output, Arrays.asList(inputs));
+            return new DwarvenAnvilRecipe(recipeId, output, Arrays.asList(inputs), manaUsage);
         }
 
         @Override

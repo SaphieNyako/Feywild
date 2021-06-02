@@ -23,5 +23,6 @@
   "output": {
     "item": "feywild:shiny_fey_gem",
     "count": 2
-  }
+  },
+  "mana_usage": 50
 }
