@@ -1,0 +1,62 @@
+{
+  "display": {
+    "icon": {
+      "item": "feywild:spring_tree_sapling"
+    },
+    "title": "Just a little sapling!",
+    "description": "found a fey tree sapling",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "winter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:winter_tree_sapling"
+          }
+        ]
+      }
+    },
+    "summer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:summer_tree_sapling"
+          }
+        ]
+      }
+    },
+    "spring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:spring_tree_sapling"
+          }
+        ]
+      }
+    }, "autumn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:autumn_tree_sapling"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "winter",
+      "summer",
+      "spring",
+      "autumn"
+    ]
+  ]
+}

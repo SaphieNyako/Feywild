@@ -1,0 +1,31 @@
+{
+  "parent": "feywild:adventure/dwarf_trade",
+  "display": {
+    "icon": {
+      "item": "feywild:fey_altar"
+    },
+    "title": "Pixie! I Choose you!",
+    "description": "Obtained a fey altar, now you can summon the Fey",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:fey_altar"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained"
+    ]
+  ]
+}

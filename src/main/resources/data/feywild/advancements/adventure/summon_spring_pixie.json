@@ -1,0 +1,31 @@
+{
+  "parent": "feywild:adventure/fey_altar",
+  "display": {
+    "icon": {
+      "item": "feywild:summoning_scroll_spring_pixie"
+    },
+    "title": "What flavour are you?",
+    "description": "Conjured a summoning scroll for a Spring Pixie",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "scroll": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:summoning_scroll_spring_pixie"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scroll"
+    ]
+  ]
+}

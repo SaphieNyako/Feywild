@@ -1,0 +1,31 @@
+{
+  "parent": "feywild:adventure/dwarf_trade",
+  "display": {
+    "icon": {
+      "item": "feywild:schematics_gem_transmutation"
+    },
+    "title": "Knowledge of Transmutation",
+    "description": "Purchased the fey gem transmutation schematics",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "schematic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:schematics_gem_transmutation"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "schematic"
+    ]
+  ]
+}

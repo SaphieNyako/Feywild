@@ -1,0 +1,31 @@
+{
+  "parent": "feywild:adventure/fey_altar",
+  "display": {
+    "icon": {
+      "item": "feywild:summoning_scroll_autumn_pixie"
+    },
+    "title": "Darling!",
+    "description": "Conjured a summoning scroll for a Autumn Pixie",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "scroll": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:summoning_scroll_autumn_pixie"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scroll"
+    ]
+  ]
+}

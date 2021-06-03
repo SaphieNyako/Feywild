@@ -29,7 +29,7 @@ public class FeyAltar extends Block {
     Random random = new Random();
 
     public FeyAltar() {
-        
+
         super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
 
