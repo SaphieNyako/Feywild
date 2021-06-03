@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "feywild:mandrake"
+    }
+  ],
+  "result": {
+    "item": "feywild:fey_ink_bottle"
+  }
+}

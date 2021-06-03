@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -30,8 +29,8 @@ public class FeyAltar extends Block {
     Random random = new Random();
 
     public FeyAltar() {
-
-        super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion().harvestTool(ToolType.PICKAXE));
+        
+        super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
 
     //Activate on player r click

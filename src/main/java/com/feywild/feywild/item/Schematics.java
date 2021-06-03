@@ -12,13 +12,11 @@ import java.util.List;
 
 public class Schematics extends Item {
 
-    int schematicsNumber;
     TranslationTextComponent text;
 
-    public Schematics(Properties properties, TranslationTextComponent text, int schematicsNumber) {
+    public Schematics(Properties properties, TranslationTextComponent text) {
         super(properties);
         this.text = text;
-        this.schematicsNumber = schematicsNumber;
     }
 
     @Override

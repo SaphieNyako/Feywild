@@ -2,7 +2,7 @@
   "type": "feywild:dwarven_anvil",
   "ingredients": [
     {
-      "item": "feywild:schematics_001"
+      "item": "feywild:schematics_gem_transmutation"
     },
     {
       "item": "feywild:lesser_fey_gem"

@@ -16,7 +16,7 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class ModItems {
 
-    /* GEMS */
+    /* ITEMS */
 
     public static final RegistryObject<Item> LESSER_FEY_GEM =
             Registration.ITEMS.register("lesser_fey_gem",
@@ -32,6 +32,14 @@ public class ModItems {
 
     public static final RegistryObject<Item> BRILLIANT_FEY_GEM =
             Registration.ITEMS.register("brilliant_fey_gem",
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> FEY_INK_BOTTLE =
+            Registration.ITEMS.register("fey_ink_bottle",
+                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL =
+            Registration.ITEMS.register("summoning_scroll",
                     () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
     /* BOOK */ //TODO: COMPLETE GUIDE BOOK
@@ -68,10 +76,13 @@ public class ModItems {
 
     /* SCHEMATICS */
 
-    public static final RegistryObject<Item> SCHEMATICS_001 =
-            Registration.ITEMS.register("schematics_001",
-                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB),
-                            new TranslationTextComponent("message.feywild.schematics_001"), 001));
+    public static final RegistryObject<Item> SCHEMATICS_GEM_TRANSMUTATION =
+            Registration.ITEMS.register("schematics_gem_transmutation",
+                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_gem_transmutation")));
+
+    public static final RegistryObject<Item> SCHEMATICS_FEY_ALTAR =
+            Registration.ITEMS.register("schematics_fey_altar",
+                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =

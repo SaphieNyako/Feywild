@@ -44,7 +44,8 @@ public class DwarvenTrades {
             new DwarvenTrades.ItemsForShinyFeyGemTrade(ModItems.BRILLIANT_FEY_GEM.get(), 4, 1, 3)
 
     }, 2, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_001.get(), 2, 1, 1, 5)
+            new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 2, 1, 1, 5),
+            new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_FEY_ALTAR.get(), 2, 1, 1, 10)
     }));
 
     private static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
