@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.SpringPixieEntity;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,6 +36,8 @@ public class SummoningScrollSpringPixie extends Item {
 
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+
+            entity.playSound(ModSoundEvents.SUMMONING_SPRING_PIXIE.get(), 1, 1);
 
         }
         return ActionResultType.SUCCESS;

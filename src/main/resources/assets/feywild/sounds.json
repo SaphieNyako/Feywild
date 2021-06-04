@@ -78,5 +78,37 @@
         "stream": true
       }
     ]
+  },
+  "summoning_spring_pixie": {
+    "sounds": [
+      {
+        "name": "feywild:spring_summon",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_summer_pixie": {
+    "sounds": [
+      {
+        "name": "feywild:summer_summon",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_autumn_pixie": {
+    "sounds": [
+      {
+        "name": "feywild:autumn_summon",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_winter_pixie": {
+    "sounds": [
+      {
+        "name": "feywild:winter_summon",
+        "stream": true
+      }
+    ]
   }
 }

@@ -24,6 +24,22 @@ public class ModSoundEvents {
             Registration.SOUND_EVENTS.register("pixie_spellcasting",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "pixie_spellcasting")));
 
+    public static final RegistryObject<SoundEvent> SUMMONING_SPRING_PIXIE =
+            Registration.SOUND_EVENTS.register("summoning_spring_pixie",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "summoning_spring_pixie")));
+
+    public static final RegistryObject<SoundEvent> SUMMONING_SUMMER_PIXIE =
+            Registration.SOUND_EVENTS.register("summoning_summer_pixie",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "summoning_summer_pixie")));
+
+    public static final RegistryObject<SoundEvent> SUMMONING_AUTUMN_PIXIE =
+            Registration.SOUND_EVENTS.register("summoning_autumn_pixie",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "summoning_autumn_pixie")));
+
+    public static final RegistryObject<SoundEvent> SUMMONING_WINTER_PIXIE =
+            Registration.SOUND_EVENTS.register("summoning_winter_pixie",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "summoning_winter_pixie")));
+
     //TODO Music needs to be lower in volume and slowly increase from soft to hard. Songs need to be longer.
 
     public static final RegistryObject<SoundEvent> FEYWILD_SOUNDTRACK =
