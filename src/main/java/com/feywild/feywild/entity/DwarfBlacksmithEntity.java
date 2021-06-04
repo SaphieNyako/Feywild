@@ -333,10 +333,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    public void die(DamageSource p_70645_1_) {
-        super.die(p_70645_1_);
-        if (this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
+    public void die(DamageSource p_706451) {
+        super.die(p_706451);
+        if (this.isTamed() && this.level.getBlockEntity(summonPos) != null && this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
             ((DwarvenAnvilEntity) Objects.requireNonNull(this.level.getBlockEntity(summonPos))).setDwarfPresent(false);
+
+            //THIS SHOULD ONLY APPLY TO A TAMED DWARF
         }
     }
 

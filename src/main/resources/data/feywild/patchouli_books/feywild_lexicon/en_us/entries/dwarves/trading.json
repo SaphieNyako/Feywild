@@ -1,0 +1,20 @@
+{
+  "advancement": "feywild:adventure/dwarf_trade",
+  "name": "Trading",
+  "icon": "minecraft:diamond_pickaxe",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "crafting",
+      "recipe": "feywild:dwarven_anvil",
+      "title": "Dwarven Anvil",
+      "text": "They don't easily make friends with outsiders, but if you are one of the few who has earned the gratitude of a dwarf, you have a friend for life."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_dwarf_blacksmith",
+      "title": "Summoning Contract",
+      "text": "You can obtain a summoning contract with a dwarf. If you provide them with a good workplace they will be happy to work with you."
+    }
+  ]
+}

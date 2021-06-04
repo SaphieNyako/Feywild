@@ -1,0 +1,55 @@
+{
+  "advancement": "feywild:adventure/dwarf_contract",
+  "name": "Dwarven Knowledge",
+  "icon": "feywild:schematics_fey_altar",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:schematics_fey_altar",
+      "title": "Schematics",
+      "text": "If you gain trust with a summoned dwarf, overtime they may reveal secrets only known to the dwarfs."
+    },
+    {
+      "advancement": "feywild:adventure/dwarf_schematics_gem_transmutation",
+      "type": "spotlight",
+      "item": "feywild:greater_fey_gem",
+      "title": "Gem Transmutation",
+      "text": "A Fey Altar allows you to summon Fey, if you know the correct summoning incantation."
+    },
+    {
+      "advancement": "feywild:adventure/dwarf_schematics_gem_transmutation",
+      "type": "image",
+      "title": "Gem Transmutation",
+      "images": ["feywild:textures/patchouli_images/schematics_gem_transmutation_book.png"],
+      "border": true,
+      "text": "Requires 50 - 150 mana stored into the dwarven Anvil."
+    },
+    {
+      "type": "text",
+      "text": "Either requires 5 Lesser, 5 Greater or 5 Shiny Fey Gems to transmute to their superior versions. Make sure the schematics are present for the Dwarf Blacksmith to receive instructions."
+    }, {
+      "type": "text",
+      "text": ""
+    },
+    {
+      "advancement": "feywild:adventure/dwarf_schematics_fey_altar",
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Fey Altar",
+      "text": "A Fey Altar allows you to summon Fey, if you know the correct summoning incantation."
+    },
+    {
+      "advancement": "feywild:adventure/dwarf_schematics_fey_altar",
+      "type": "image",
+      "title": "Fey Altar",
+      "images": ["feywild:textures/patchouli_images/schematics_fey_altar_book.png"],
+      "border": true,
+      "text": "Requires 1000 mana stored into the dwarven Anvil."
+    },
+    {
+      "type": "text",
+      "text": "The Ingredients are 1 Lesser Fey Gem, 2 Gold Ingots, 1 Heavy Weighted Pressure Plate and 1 Brilliant Fey Gem. Make sure the schematics are present for the Dwarf Blacksmith to receive instructions."
+    }
+  ]
+}

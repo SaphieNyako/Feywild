@@ -1,6 +1,6 @@
 {
   "name": "Winter Court",
-  "icon": "minecraft:writable_book",
+  "icon": "feywild:winter_tree_sapling",
   "category": "feywild",
   "sortnum": 4,
   "pages": [
@@ -9,8 +9,22 @@
       "text": "When leaves have fallen and the sky has turned to gray and the night has closed in on the day. That's when the Winter Court reigns supreme in the Feywild. These fey are not concerned with the living and their power struggles. Eventually death will come for us all and their purpose is to make sure the Feywild sees another turn of the year."
     },
     {
+      "type": "image",
+      "title": "Frozen Retreat",
+      "images": ["feywild:textures/patchouli_images/winter_book.png"],
+      "border": true
+    },
+    {
       "type": "text",
       "text": "They may seem cold and sullen at a first glance, but they will warm up to anyone who is willing to help the Feywild to its harshest most deadly period. Winter fey tend to be softspoken, slightly morbid and never choose their words without thinking about them. They seem to be a bit on the awkward side when it comes to social dealings, and some prefer the company of the dead. "
+    }, {
+      "type": "image",
+      "title": "Winter World Tree",
+      "images": ["feywild:textures/patchouli_images/winter_worldtree_book.png"],
+      "border": true
+    }, {
+      "type": "text",
+      "text": "Visit the World Tree to meet the Fey Court. In future patches there will be more members of the Court present at the World Tree, for now only the Pixies will show themselves to you. Maybe someday you are worthy of meeting the Queen of the Fey."
     }
   ]
 }

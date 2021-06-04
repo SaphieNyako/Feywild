@@ -1,6 +1,6 @@
 {
   "name": "Winter Pixie",
-  "icon": "minecraft:writable_book",
+  "icon": "feywild:summoning_scroll_winter_pixie",
   "category": "pixies",
   "pages": [
     {

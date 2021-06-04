@@ -1,7 +1,8 @@
 {
+  "advancement": "feywild:adventure/fey_dust",
   "name": "Fey Ore",
   "icon": "feywild:lesser_fey_gem",
-  "category": "fey_dust",
+  "category": "fey_gems",
   "pages": [
     {
       "type": "text",

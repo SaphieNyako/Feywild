@@ -1,6 +1,6 @@
 {
   "name": "Summer Court",
-  "icon": "minecraft:writable_book",
+  "icon": "feywild:summer_tree_sapling",
   "category": "feywild",
   "sortnum": 2,
   "pages": [
@@ -9,8 +9,19 @@
       "text": "The Summer Court is the primary reigning Court within the Feywild and they know it. Haughty and demanding, they expect anyone who addresses them to treat them as the royals they are. The other Courts and inhabitants of the Feywild are there to serve them, and though polite, they demand recognition of their self-claimed royal status."
     },
     {
+      "type": "image",
+      "title": "Golden Seelie Fields",
+      "images": ["feywild:textures/patchouli_images/summer_book.png"],
+      "border": true
+    },
+    {
       "type": "text",
       "text": "The Summer Court defend the Feywild against intruders which seek to take a hold of the Faerie Court's riches and are more combat orientated then the other Courts. They are quick to answer any threat or opposition with their righteous judgment."
+    }, {
+      "type": "image",
+      "title": "Summer World Tree",
+      "images": ["feywild:textures/patchouli_images/summer_worldtree_book.png"],
+      "border": true
     }
   ]
 }

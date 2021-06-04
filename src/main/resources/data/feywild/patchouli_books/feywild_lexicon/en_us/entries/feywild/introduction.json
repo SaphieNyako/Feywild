@@ -13,8 +13,15 @@
       "text": "Don't fret, you're not going mad! It's just the local fey showing you they care for you in their own very special way. Fey are pranksters, tricksters who enjoy teasing us big folk. Most of the time they are harmless, but just as with us, there might ba a bad seed or two amongst them. It's hard to gain the trust of a fairy, as they see the world in a different way that we do."
     },
     {
-      "type": "text",
-      "text": "If you want to learn more about them, there are special locations known as 'World Trees' where the Fey Courts resides. Though normally shy and careful around strangers, the fey in the Fey Court are open to strangers. Go visit them when you have the chance."
+      "type": "spotlight",
+      "item": "feywild:feywild_lexicon",
+      "text": "If you want to learn more about the Fey, you may want to visit a Library and speak to one of the librarians there. The also have guide books on magic, depending what magic you brought to the Feywild."
+    },
+    {
+      "type": "image",
+      "title": "Library",
+      "images": ["feywild:textures/patchouli_images/library_book.png"],
+      "border": true
     }
   ]
 }

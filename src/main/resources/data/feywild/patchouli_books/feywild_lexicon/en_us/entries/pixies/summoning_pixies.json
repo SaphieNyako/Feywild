@@ -1,0 +1,56 @@
+{
+  "advancement": "feywild:adventure/fey_altar",
+  "name": "Summoning Pixies",
+  "icon": "feywild:fey_altar",
+  "category": "pixies",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
+      "title": "Summoning Spring Pixie",
+      "text": "With this scroll you can summon a Spring Pixie. The presence of a Spring Pixie will cause life stock to more fertile."
+    },
+    {
+      "type": "image",
+      "title": "Summoning Ingredients",
+      "images": ["feywild:textures/patchouli_images/spring_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_summer_pixie",
+      "title": "Summoning Summer Pixie",
+      "text": "With this scroll you can summon a Summer Pixie. As a proud member of the Summer Court the Summer Pixie will smite down her foes."
+    },
+    {
+      "type": "image",
+      "title": "Summoning Ingredients",
+      "images": ["feywild:textures/patchouli_images/summer_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_autumn_pixie",
+      "title": "Summoning Autumn Pixie",
+      "text": "With this scroll you can summon a Autumn Pixie. Autumn Pixies will try to ward off any evil spirits by turning Pumpkins into Carved Pumpkins and Jack o Lanterns"
+    },
+    {
+      "type": "image",
+      "title": "Summoning Ingredients",
+      "images": ["feywild:textures/patchouli_images/autumn_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_winter_pixie",
+      "title": "Summoning Winter Pixie",
+      "text": "With this scroll you can summon a Winter Pixie. The Winter Pixie will occasionally summon back a soul into a snowman's body."
+    },
+    {
+      "type": "image",
+      "title": "Summoning Ingredients",
+      "images": ["feywild:textures/patchouli_images/winter_summon_book.png"],
+      "border": true
+    }
+  ]
+}

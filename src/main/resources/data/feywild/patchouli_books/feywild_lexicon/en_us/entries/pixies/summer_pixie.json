@@ -1,6 +1,6 @@
 {
   "name": "Summer Pixie",
-  "icon": "minecraft:writable_book",
+  "icon": "feywild:summoning_scroll_summer_pixie",
   "category": "pixies",
   "pages": [
     {

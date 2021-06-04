@@ -1,6 +1,6 @@
 {
   "name": "Autumn Pixie",
-  "icon": "minecraft:writable_book",
+  "icon": "feywild:summoning_scroll_autumn_pixie",
   "category": "pixies",
   "pages": [
     {

@@ -1,6 +1,6 @@
 {
   "name": "Spring Court",
-  "icon": "minecraft:writable_book",
+  "icon": "feywild:spring_tree_sapling",
   "category": "feywild",
   "sortnum": 1,
   "pages": [
@@ -9,8 +9,19 @@
       "text": "Bouncy, bubbly and completely void of the idea of personal space, the fey of the Spring Court treat everything as if they have never seen it before. They are like hyperactive children, always wondering what everything is, stuffing anything into their mouth that seems slightly edible and their only concern is not having either enough fun or food for the day."
     },
     {
+      "type": "image",
+      "title": "Blossoming Wealds",
+      "images": ["feywild:textures/patchouli_images/spring_book.png"],
+      "border": true
+    },
+    {
       "type": "text",
       "text": "They represent the birth of a new year and the coming of new life and are the most innocent of the Court. They are however, notoriously obnoxious when playing pranks, as they do not know the dangers or consequences of their actions. Nor do they care about it."
+    }, {
+      "type": "image",
+      "title": "Spring World Tree",
+      "images": ["feywild:textures/patchouli_images/spring_worldtree_book.png"],
+      "border": true
     }
   ]
 }
