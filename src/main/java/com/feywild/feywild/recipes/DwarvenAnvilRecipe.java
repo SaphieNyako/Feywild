@@ -124,7 +124,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
                 ing.toNetwork(buffer);
             }
             buffer.writeItemStack(recipe.getResultItem(), false);
-
+            buffer.writeInt(recipe.manaUsage);
         }
     }
 }
