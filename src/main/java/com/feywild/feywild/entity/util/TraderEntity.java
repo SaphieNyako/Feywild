@@ -34,6 +34,10 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     private boolean increaseProfessionLevelOnUpdate;
     private int villagerLevel;
     private boolean isTamed;
+    //restock
+    private long lastRestockGameTime;
+    private int numberOfRestocksToday;
+    private long lastRestockCheckDayTime;
 
     public TraderEntity(EntityType<? extends AbstractVillagerEntity> entity, World world, boolean isTamed) {
         super(entity, world);
@@ -100,9 +104,11 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        //compound.putBoolean("tamed", tamed);
-        compound.putInt("Xp", this.villagerXp);
         //    compound.putInt("Level", this.getVillagerLevel());
+        compound.putInt("Xp", this.villagerXp);
+
+        compound.putLong("LastRestock", this.lastRestockGameTime);
+        compound.putInt("RestocksToday", this.numberOfRestocksToday);
 
     }
 
@@ -114,6 +120,9 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
             this.villagerXp = compound.getInt("Xp");
         }
         this.villagerLevel = compound.getInt("Level");
+        this.lastRestockGameTime = compound.getLong("LastRestock");
+        this.numberOfRestocksToday = compound.getInt("RestocksToday");
+
     }
 
     protected void defineSynchedData() {
@@ -208,5 +217,82 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         this.brain.setMemory(MemoryModuleType.LAST_WOKEN, this.level.getGameTime());
     }
 */
+
+    /* RESTOCK */
+
+    public boolean canRestock() {
+        return true;
+    }
+
+    public void restock() {
+        this.updateDemand();
+
+        for (MerchantOffer merchantoffer : this.getOffers()) {
+            merchantoffer.resetUses();
+        }
+
+        this.lastRestockGameTime = this.level.getGameTime();
+        ++this.numberOfRestocksToday;
+    }
+
+    private boolean needsToRestock() {
+        for (MerchantOffer merchantoffer : this.getOffers()) {
+            if (merchantoffer.needsRestock()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean allowedToRestock() {
+        return this.numberOfRestocksToday == 0 || this.numberOfRestocksToday < 2 && this.level.getGameTime() > this.lastRestockGameTime + 2400L;
+    }
+
+    public boolean shouldRestock() {
+        long i = this.lastRestockGameTime + 12000L;
+        long j = this.level.getGameTime();
+        boolean flag = j > i;
+        long k = this.level.getDayTime();
+        if (this.lastRestockCheckDayTime > 0L) {
+            long l = this.lastRestockCheckDayTime / 24000L;
+            long i1 = k / 24000L;
+            flag |= i1 > l;
+        }
+
+        this.lastRestockCheckDayTime = k;
+        if (flag) {
+            this.lastRestockGameTime = j;
+            this.resetNumberOfRestocks();
+        }
+
+        return this.allowedToRestock() && this.needsToRestock();
+    }
+
+    private void catchUpDemand() {
+        int i = 2 - this.numberOfRestocksToday;
+        if (i > 0) {
+            for (MerchantOffer merchantoffer : this.getOffers()) {
+                merchantoffer.resetUses();
+            }
+        }
+
+        for (int j = 0; j < i; ++j) {
+            this.updateDemand();
+        }
+
+    }
+
+    private void updateDemand() {
+        for (MerchantOffer merchantoffer : this.getOffers()) {
+            merchantoffer.updateDemand();
+        }
+
+    }
+
+    private void resetNumberOfRestocks() {
+        this.catchUpDemand();
+        this.numberOfRestocksToday = 0;
+    }
 
 }

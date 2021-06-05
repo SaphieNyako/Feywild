@@ -2,6 +2,7 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.entity.goals.RefreshStockGoal;
 import com.feywild.feywild.entity.util.TraderEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -98,106 +99,31 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
-/*
-        if (!tamed && levelInt >= 6) {
-            if (trades.size() < 3) {
-                FeywildPacketHandler.sendToPlayersInRange(player.getCommandSenderWorld(), blockPosition(), new ParticleMessage(blockPosition().getX() + 0.5, blockPosition().getY() + 1.2, blockPosition().getZ() + 0.5, -4, -2, -4, 10, 3), 32);
-                boolean worked = true;
-                do {
-                    worked = addTrade(random.nextInt(DwarfTrades.getTrades().size()));
-                } while (!worked);
-                levelInt = 1;
-            } else {
-                player.addItem(new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get()));
-                player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.scroll"), false);
-                this.remove();
-                return ActionResultType.FAIL;
-            }
-        } else {
-            addTrade(0);
-        }
-*/
-        if (player.getItemInHand(hand).isEmpty()) {
 
-            this.setTradingPlayer(player); //added
-            this.openTradingScreen(player, new TranslationTextComponent("Dwarven Trader"), 1); //added
+        this.setTradingPlayer(player); //added
+        this.openTradingScreen(player, new TranslationTextComponent("Dwarven Trader"), 1); //added
 
-            player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
-          /*
-            trades.keySet().forEach(itemStack -> {
-                if (!tamed)
-                    player.displayClientMessage(new TranslationTextComponent("").append("You give me " + itemStack.getCount()
-                            + " " + itemStack.getItem().getDescription().getString() + " and I'll trade you " + DwarfTrades.getTrades().get(itemStack).getCount() + " " + DwarfTrades.getTrades().get(itemStack).getItem().getDescription().getString() + "."), false);
-                else
-                    player.displayClientMessage(new TranslationTextComponent("").append("You give me " + itemStack.getCount()
-                            + " " + itemStack.getItem().getDescription().getString() + " and I'll trade you " + DwarfTrades.getTamedTrades().get(itemStack).getCount() + " " + DwarfTrades.getTamedTrades().get(itemStack).getItem().getDescription().getString() + "."), false);
-            });
+        player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
 
-        } else {
-            trades.keySet().forEach(itemStack -> {
-                if (player.getItemInHand(hand).sameItem(itemStack) && player.getItemInHand(hand).getCount() >= itemStack.getCount()) {
-                    if (!tamed) {
-                        levelInt++;
-                        player.addItem(DwarfTrades.getTrades().get(itemStack).copy());
-                    } else {
-                        player.addItem(DwarfTrades.getTamedTrades().get(itemStack).copy());
-                    }
-                    player.getItemInHand(hand).shrink(itemStack.copy().getCount());
-                    player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.trade"), false);
-                }
-            });
-            // add a check for item holding
-        } */
-            //Add trade
+        /* This is a test to see if restocking works should be in a goal
+        if (player.getItemInHand(hand).isEmpty() && this.shouldRestock()) {
+            this.restock(); // this works
+        }*/
 
-        }
         return ActionResultType.SUCCESS;
     }
+
     /* TAMED */
 
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason
             reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        //Add a random first trade
-        //   if (!tamed)
-        // addTrade(random.nextInt(DwarfTrades.getTrades().size()));
-        //  else
+
         this.restrictTo(blockPosition(), 7);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    //Add trade to list
-    /*
-    private boolean addTrade(int i) {
-        if (!tamed) {
-            if (tradeId.contains(i)) {
-                return false;
-            }
-            AtomicInteger trade = new AtomicInteger(i);
-            tradeId.add(trade.get());
-            DwarfTrades.getTrades().keySet().forEach(itemStack -> {
-                if (trade.get() == 0) {
-                    trades.put(itemStack, DwarfTrades.getTrades().get(itemStack));
-                }
-                trade.set(trade.decrementAndGet());
-            });
-        } else {
-            if (tradeId.contains(i)) {
-                return false;
-            }
-            AtomicInteger trade = new AtomicInteger(i);
-            tradeId.add(trade.get());
-            DwarfTrades.getTamedTrades().keySet().forEach(itemStack -> {
-                if (trade.get() == 0) {
-                    trades.put(itemStack, DwarfTrades.getTamedTrades().get(itemStack));
-                }
-                trade.set(trade.decrementAndGet());
-            });
-        }
-
-        return true;
-    } */
 
     /* GOALS */
 
@@ -239,6 +165,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5)));
+        list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
 
         return list;
     }
@@ -251,6 +178,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
+        list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
         //Easy way to test tamed/untamed:
         // list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,Ingredient.of(Items.COOKIE),false)));
 
@@ -271,14 +199,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         super.readAdditionalSaveData(compound);
         this.levelInt = compound.getInt("level");
         this.tamed = compound.getBoolean("tamed");
-
-       /* if (!tamed) {
-            int[] array = compound.getIntArray("trade_id");
-            //Initialize trades
-            for (int j : array) {
-                addTrade(j);
-            }
-        }*/
 
         tryResetGoals();
     }

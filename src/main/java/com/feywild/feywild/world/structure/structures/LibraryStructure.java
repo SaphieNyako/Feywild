@@ -24,8 +24,8 @@ import java.util.List;
 
 public class LibraryStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 40;
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 30;
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = 35;
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = 25;
     public final static int SEED_MODIFIER = 1238904567;
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
