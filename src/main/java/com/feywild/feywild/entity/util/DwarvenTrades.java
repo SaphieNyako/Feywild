@@ -76,7 +76,6 @@ public class DwarvenTrades {
             ItemStack itemstack = new ItemStack(this.field_221183_a, this.field_221184_b);
             return new MerchantOffer(itemstack, new ItemStack(ModItems.LESSER_FEY_GEM.get()), this.field_221185_c, this.field_221186_d, this.field_221187_e);
         }
-
     }
 
     static class ItemsForFeyGemTrade implements VillagerTrades.ITrade {

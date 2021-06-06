@@ -2,6 +2,7 @@ package com.feywild.feywild.events;
 
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,41 +23,44 @@ public class ModEvents {
             // Store player & villager
             VillagerEntity villagerEntity = (VillagerEntity) event.getTarget();
             PlayerEntity player = event.getPlayer();
-            PlayerInventory playerInventory = new PlayerInventory(player);
+            PlayerInventory playerInventory = player.inventory;
 
-            if (villagerEntity.getTags().contains("spawn_librarian") && !player.getTags().contains("speakToLib")) {
-                //On first interaction
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
-                player.addTag("speakToLib");
-                event.setCanceled(true);
+            if (villagerEntity.getTags().contains("spawn_librarian")) {
 
-            } else if (villagerEntity.getTags().contains("spawn_librarian") && player.getTags().contains("speakToLib")
-                    && !player.getTags().contains("borrowLexicon") && !player.getTags().contains("foundLexicon")) {
+                if (!player.getTags().contains("speakToLib")) {
+                    //On first interaction
+                    player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
+                    player.addTag("speakToLib");
+                    event.setCanceled(true);
 
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), event.getPlayer().getUUID());
-                player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
-                player.addTag("borrowLexicon");
-                event.setCanceled(true);
+                } else if (player.getTags().contains("speakToLib")
+                        && !player.getTags().contains("borrowLexicon") && !player.getTags().contains("foundLexicon")) {
 
-            } else if (villagerEntity.getTags().contains("spawn_librarian")
-                    && (player.getTags().contains("foundLexicon"))) {
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.found"), event.getPlayer().getUUID());
-                player.addTag("borrowLexicon");
-                event.setCanceled(true);
+                    player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), event.getPlayer().getUUID());
+                    player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
+                    player.addTag("borrowLexicon");
+                    event.setCanceled(true);
 
-            } else if (villagerEntity.getTags().contains("spawn_librarian")
-                    && (player.getTags().contains("borrowLexicon"))) {  //&& playerInventory.contains(new ItemStack(ModItems.FEYWILD_LEXICON.get()))
+                } else if (player.getTags().contains("foundLexicon") && !player.getTags().contains("borrowLexicon")) {
+                    player.sendMessage(new TranslationTextComponent("librarian.feywild.found"), event.getPlayer().getUUID());
+                    player.addTag("borrowLexicon");
+                    event.setCanceled(true);
+                } else if (player.getTags().contains("borrowLexicon")) {
 
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
-                event.setCanceled(true);
+                    if (ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get())) {
 
-            } /* else if (villagerEntity.getTags().contains("spawn_librarian")
-                    && (player.getTags().contains("borrowLexicon") && !playerInventory.contains(new ItemStack(ModItems.FEYWILD_LEXICON.get())))) {
-                player.sendMessage(new TranslationTextComponent("librarian.feywild.lost"), event.getPlayer().getUUID());
-                player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
-                event.setCanceled(true);
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
+                        event.setCanceled(true);
+
+                    } else if (!(ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get()))) {
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.lost"), event.getPlayer().getUUID());
+
+                        player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
+                        event.setCanceled(true);
+                    }
+                }
+
             }
-*/
         }
     }
 
@@ -74,27 +78,27 @@ public class ModEvents {
 
             //This shows a screen when logging in:
 /*
-        BlockPos pos = player.blockPosition();
-        SpringPixieEntity entity = new SpringPixieEntity(player.level, true, pos);
+            BlockPos pos = player.blockPosition();
+            SpringPixieEntity entity = new SpringPixieEntity(player.level, true, pos);
 
-        INamedContainerProvider containerProvider = new INamedContainerProvider() {
-            @Override
-            public ITextComponent getDisplayName() {
-                return new TranslationTextComponent("screen.feywild.pixie");
-            }
+            INamedContainerProvider containerProvider = new INamedContainerProvider() {
+                @Override
+                public ITextComponent getDisplayName() {
+                    return new TranslationTextComponent("screen.feywild.pixie");
+                }
 
-            @Nullable
-            @Override
-            public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                @Nullable
+                @Override
+                public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
 
-                return new PixieContainer(i, playerInventory, playerEntity, entity);
-            }
-        };
+                    return new PixieContainer(i, playerInventory, playerEntity, entity);
+                }
+            };
 
-        NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
-        entity.remove();
-*/
+            NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
+            entity.remove();
 
+        } */
         }
     }
 }
