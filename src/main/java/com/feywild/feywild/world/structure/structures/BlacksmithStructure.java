@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -31,6 +32,9 @@ public class BlacksmithStructure extends BaseStructure {
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
     );
+    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
+            new MobSpawnInfo.Spawners(ModEntityTypes.DWARF_BLACKSMITH.get(), 1, 1, 1)
+    );
     private static String messageLocation = "Blacksmith at: ";
     private static String messagePool = "blacksmith/start_pool";
 
@@ -47,28 +51,22 @@ public class BlacksmithStructure extends BaseStructure {
     @Override
     public int getSeedModifier() {
         return SEED_MODIFIER;
-    }
+    }  // this was commented out
 
-    //Mob Spawn in Structure
     /*
-    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.DWARF_BLACKSMITH.get(), 1, 1, 1)
-    );
+        @Override
+        public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+            return STRUCTURE_MONSTERS;
+        }
 
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-        return STRUCTURE_MONSTERS;
-    }
- */
-
+        @Override
+        public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
+            return STRUCTURE_CREATURES;
+        }
+    */
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return BlacksmithStructure.Start::new;
-    }
-
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
-        return STRUCTURE_CREATURES;
     }
 
     //START CLASS

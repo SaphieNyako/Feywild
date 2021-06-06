@@ -92,11 +92,21 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
             }
         } else {
 
-            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
-            setVillagerLevel(number);
-            if (dwarvenTradeList != null) {
-                MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+            if (number == 1) {
+                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(2);
+                setVillagerLevel(2);
+                if (dwarvenTradeList != null) {
+                    MerchantOffers merchantoffers = this.getOffers();
+                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+                }
+            } else {
+
+                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
+                setVillagerLevel(number);
+                if (dwarvenTradeList != null) {
+                    MerchantOffers merchantoffers = this.getOffers();
+                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+                }
             }
         }
     }

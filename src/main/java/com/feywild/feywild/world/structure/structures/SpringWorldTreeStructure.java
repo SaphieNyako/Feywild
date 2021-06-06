@@ -61,18 +61,18 @@ public class SpringWorldTreeStructure extends BaseStructure {
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
         return STRUCTURE_MONSTERS;
+
+    }   */
+
+    @Override
+    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
+        return STRUCTURE_CREATURES;
     }
-    */
 
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
 
         return SpringWorldTreeStructure.Start::new;
-    }
-
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
-        return STRUCTURE_CREATURES;
     }
 
     //START CLASS
