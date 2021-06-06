@@ -43,7 +43,7 @@ public class Config {
         FEY_DUST_DURATION = CLIENT_BUILDER.comment("How long fey dust effect lasts:")
                 .defineInRange("fey_dust_duration", 15, 0, 180);
 
-        SPAWN_LEXICON = CLIENT_BUILDER.comment("Should the Feywild Lexicon be avialable on login: ").define("spawn_with_book", false);
+        SPAWN_LEXICON = CLIENT_BUILDER.comment("Should the Feywild Lexicon be avialable on login: ").define("spawn_with_book", true);
     }
 
     private static void setMobConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {

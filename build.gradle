@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0'
+version = '${minecraft_version}-${mod_version}'
 group = 'com.feywild.feywild' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'feywild'
 

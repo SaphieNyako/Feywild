@@ -19,7 +19,7 @@ modId="feywild" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
 # see the associated build.gradle script for how to populate this completely automatically during a build
-version="${file.jarVersion}" #mandatory
+version="1.16.5-1.0" #mandatory
  # A display name for the mod
 displayName="Feywild" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
@@ -29,13 +29,13 @@ displayName="Feywild" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="feywild_mod_logo.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks to Feywild community" #optional
+credits="Thanks to the Feywild community, with special thanks to HepheastusHammer, Kaupenjoe and DerringerCubed." #optional
 # A text field displayed in the mod UI
-authors="Saphie" #optional
+authors="Saphie & Playelectro" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description="Feywild Mod"
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.examplemod]] #optional
+[[dependencies.feywild]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -47,10 +47,16 @@ description="Feywild Mod"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.examplemod]]
-    modId="minecraft"
+[[dependencies.feywild]]
+     modId="patchouli"
+       mandatory=true
+       versionRange="[1.16.4-50,)"
+       ordering="AFTER"
+       side="BOTH"
+
+[[dependencies.feywild]]
+    modId="geckolib3"
     mandatory=true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.16.4,1.17)"
-    ordering="NONE"
+    versionRange="[geckolib-forge-1.16.5:3.0.33,)"
+    ordering="AFTER"
     side="BOTH"
