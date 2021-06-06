@@ -16,6 +16,7 @@ public class Config {
 
     //CONFIG VARIABLES
     public static ForgeConfigSpec.IntValue FEY_DUST_DURATION;
+    public static ForgeConfigSpec.BooleanValue SPAWN_LEXICON;
 
     public static MobConfig SPRING_PIXIE_CONFIG;
     public static MobConfig SUMMER_PIXIE_CONFIG;
@@ -28,7 +29,7 @@ public class Config {
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
         ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
-        setFeyDustDuration(SERVER_BUILDER, CLIENT_BUILDER);
+        setConfigVariables(SERVER_BUILDER, CLIENT_BUILDER);
         setMobConfigs(SERVER_BUILDER, CLIENT_BUILDER);
 
         SERVER_CONFIG = SERVER_BUILDER.build();
@@ -37,10 +38,12 @@ public class Config {
     }
 
     //CONFIG METHOD
-    private static void setFeyDustDuration(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
+    private static void setConfigVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
-        FEY_DUST_DURATION = CLIENT_BUILDER.comment("How long fey dust effect lasts")
+        FEY_DUST_DURATION = CLIENT_BUILDER.comment("How long fey dust effect lasts:")
                 .defineInRange("fey_dust_duration", 15, 0, 180);
+
+        SPAWN_LEXICON = CLIENT_BUILDER.comment("Should the Feywild Lexicon be avialable on login: ").define("spawn_with_book", false);
     }
 
     private static void setMobConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
