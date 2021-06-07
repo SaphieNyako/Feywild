@@ -48,7 +48,7 @@ public class ModBiomeGeneration {
 
         event.enqueueWork(() ->
         {
-            //TODO CONFIG FOR BIOMES, SPAWN ORE, DWARF SPAWN
+
             addBiome(ModBiomes.SPRING_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, FOREST);
             addBiome(ModBiomes.SUMMER_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, HOT);
             addBiome(ModBiomes.AUTUMN_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, MUSHROOM);

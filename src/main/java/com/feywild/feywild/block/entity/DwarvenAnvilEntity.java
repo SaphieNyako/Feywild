@@ -35,8 +35,8 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
 
-    private final int MAX_MANA = 1000; //TODO: Add to Config
-    private final int FEY_DUST_MANA_COST = 50; //TODO: Add to Config
+    private final int MAX_MANA = 1000;
+    private final int FEY_DUST_MANA_COST = 50;
     private int tick = 0;
 
     private boolean dwarfPresent;
@@ -73,7 +73,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
         tick++;
         //check every 20 ticks
-        if (tick == 20) { //TODO: Add to Config
+        if (tick == 20) {
             //  if there is feydust in slot 0 && // if mana is still below 1000
             if (this.itemHandler.getStackInSlot(0).getItem() == ModItems.FEY_DUST.get() && manaStorage.getManaStored() < MAX_MANA) {
                 // remove a feydust and add 50 mana

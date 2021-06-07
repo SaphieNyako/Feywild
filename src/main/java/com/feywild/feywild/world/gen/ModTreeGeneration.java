@@ -47,8 +47,6 @@ public class ModTreeGeneration {
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
-        //TODO: Make Tree patches CONFIG
-
         //SPRING TREE GENERATION
         if ((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
                 && !types.contains(BiomeDictionary.Type.MAGICAL)) {
@@ -107,7 +105,6 @@ public class ModTreeGeneration {
 
 
         /* BIOME DECORATION GENERATION */
-        //TODO: Make Biome Config
 
         if (biomeName.contains(SpringBiome)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =

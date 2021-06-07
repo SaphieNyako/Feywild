@@ -42,7 +42,7 @@ public class ModItems {
             Registration.ITEMS.register("summoning_scroll",
                     () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
-    /* BOOK */ //TODO: COMPLETE GUIDE BOOK
+    /* BOOK */
     public static final RegistryObject<Item> FEYWILD_LEXICON =
             Registration.ITEMS.register("feywild_lexicon",
                     () -> new FeywildLexicon(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));

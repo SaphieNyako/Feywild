@@ -27,8 +27,6 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
     private void generateParticles(Entity entity) {
         World world = entity.level;
 
-        //TODO: Check if world is paused.
-
         if (world.random.nextInt(11) == 0) {
             world.addParticle(
                     getParticleType(),

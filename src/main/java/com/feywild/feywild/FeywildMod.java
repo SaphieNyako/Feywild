@@ -204,7 +204,6 @@ public class FeywildMod {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_BLACKSMITH);
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_LIBRARY);
-                //TODO: add structure void blocks
             }
 
             if (types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.HILLS)

@@ -1,7 +1,27 @@
 {
   "variants": {
-    "": {
+    "facing=north": {
       "model": "feywild:block/dwarven_anvil"
+    },
+    "facing=south": {
+      "model": "feywild:block/dwarven_anvil",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "feywild:block/dwarven_anvil",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "feywild:block/dwarven_anvil",
+      "y": 90
+    },
+    "facing=up": {
+      "model": "feywild:block/dwarven_anvil",
+      "x": -90
+    },
+    "facing=down": {
+      "model": "feywild:block/dwarven_anvil",
+      "x": 90
     }
   }
 }
