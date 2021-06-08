@@ -5,6 +5,7 @@ import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.block.trees.SummerTree;
 import com.feywild.feywild.block.trees.WinterTree;
+import com.feywild.feywild.util.Config;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
@@ -27,6 +28,9 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID)
 public class ModTreeGeneration {
+
+    public final static double TREE_PATCHES_CHANCE = Config.TREE_PATCHES_CHANCE.get();
+    public final static int TREE_PATCHES_SIZE = Config.TREE_PATCHES_SIZE.get();
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event) {
@@ -56,13 +60,13 @@ public class ModTreeGeneration {
 
             base.add(() -> Feature.TREE.configured(springTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
 
             if (types.contains(BiomeDictionary.Type.FOREST)) {
 
                 base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
                         .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                        .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+                        .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
 
             }
 
@@ -77,7 +81,7 @@ public class ModTreeGeneration {
 
             base.add(() -> Feature.TREE.configured(summerTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
         }
 
         //AUTUMN TREE GENERATION
@@ -89,7 +93,7 @@ public class ModTreeGeneration {
 
             base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
         }
 
         //WINTER TREE GENERATION
@@ -100,7 +104,7 @@ public class ModTreeGeneration {
 
             base.add(() -> Feature.TREE.configured(winterTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, 0.01f, 3))));
+                    .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
         }
 
 

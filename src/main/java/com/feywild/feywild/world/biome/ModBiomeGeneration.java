@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.biome;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.util.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.RegistryKey;
@@ -49,10 +50,10 @@ public class ModBiomeGeneration {
         event.enqueueWork(() ->
         {
 
-            addBiome(ModBiomes.SPRING_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, FOREST);
-            addBiome(ModBiomes.SUMMER_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, HOT);
-            addBiome(ModBiomes.AUTUMN_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, MUSHROOM);
-            addBiome(ModBiomes.WINTER_BIOME.get(), BiomeManager.BiomeType.WARM, 20, MAGICAL, COLD);
+            addBiome(ModBiomes.SPRING_BIOME.get(), BiomeManager.BiomeType.WARM, Config.SPRING_BIOME_WEIGHT.get(), MAGICAL, FOREST);
+            addBiome(ModBiomes.SUMMER_BIOME.get(), BiomeManager.BiomeType.WARM, Config.SUMMER_BIOME_WEIGHT.get(), MAGICAL, HOT);
+            addBiome(ModBiomes.AUTUMN_BIOME.get(), BiomeManager.BiomeType.WARM, Config.AUTUMN_BIOME_WEIGHT.get(), MAGICAL, MUSHROOM);
+            addBiome(ModBiomes.WINTER_BIOME.get(), BiomeManager.BiomeType.ICY, Config.WINTER_BIOME_WEIGHT.get(), MAGICAL, COLD);
         });
     }
 

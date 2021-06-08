@@ -43,8 +43,6 @@ public class DwarvenAnvil extends Block {
                 .sound(SoundType.ANVIL)
                 .lightLevel(value -> 14));
 
-        //  StateContainer.Builder<Block, BlockState> builder = new StateContainer.Builder<>(this);
-        //  this.createBlockStateDefinition(builder.add(FACING));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 
     }
@@ -68,7 +66,7 @@ public class DwarvenAnvil extends Block {
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
-    
+
   /*  @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -76,11 +74,11 @@ public class DwarvenAnvil extends Block {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     } */
 
-    //TODO: Add correct voxel shapes.
     @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return VoxelShapes.box(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
+
     }
 
     @SuppressWarnings("deprecation")
@@ -160,7 +158,6 @@ public class DwarvenAnvil extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 
-        //  return ModBlocks.DWARVEN_ANVIL_ENTITY.get().create();
         return new DwarvenAnvilEntity();
     }
 

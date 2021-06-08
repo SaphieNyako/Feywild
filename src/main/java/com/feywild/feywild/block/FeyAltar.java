@@ -33,7 +33,6 @@ public class FeyAltar extends Block {
         super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
 
-    //Activate on player r click
     @SuppressWarnings("all")
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
