@@ -68,7 +68,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
             setVillagerLevel(1);
             if (dwarvenTradeList != null) {
                 MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
             }
         } else {
 
@@ -88,7 +88,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
             setVillagerLevel(number);
             if (dwarvenTradeList != null) {
                 MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
             }
         } else {
 
@@ -97,7 +97,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
                 setVillagerLevel(2);
                 if (dwarvenTradeList != null) {
                     MerchantOffers merchantoffers = this.getOffers();
-                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
                 }
             } else {
 
@@ -105,7 +105,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
                 setVillagerLevel(number);
                 if (dwarvenTradeList != null) {
                     MerchantOffers merchantoffers = this.getOffers();
-                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
                 }
             }
         }

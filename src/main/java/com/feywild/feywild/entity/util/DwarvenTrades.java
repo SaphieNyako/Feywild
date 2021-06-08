@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.util;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.item.ModItems;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -13,6 +14,8 @@ import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.util.IItemProvider;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class DwarvenTrades {
@@ -27,9 +30,14 @@ public class DwarvenTrades {
             new DwarvenTrades.FeyGemForItemsTrade(Items.LAPIS_LAZULI, 6, 5, 1)
 
     }, 2, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND_PICKAXE, 10, 1, 1, 20),
-            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND_SHOVEL, 8, 1, 1, 20),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND_PICKAXE, 10, 1, 1, 10),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.DIAMOND_SHOVEL, 8, 1, 1, 10),
             new DwarvenTrades.ItemsForFeyGemTrade(Items.LANTERN, 2, 1, 5, 5),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.TORCH, 1, 5, 10, 3),
+            new DwarvenTrades.ItemsForFeyGemTrade(ModItems.MANDRAKE.get(), 1, 1, 5, 3),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.TNT, 3, 1, 5, 5),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.MINECART, 5, 1, 2, 3),
+            new DwarvenTrades.ItemsForFeyGemTrade(Items.MULE_SPAWN_EGG, 10, 1, 1, 10)
 
     }, 3, new VillagerTrades.ITrade[]{
             new DwarvenTrades.ItemsForFeyGemTrade(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 30, 1, 1, 10)
@@ -39,14 +47,21 @@ public class DwarvenTrades {
     /* TAMED */
 
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_BLACKSMITH_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.ItemsForFeyGemTrade(ModItems.GREATER_FEY_GEM.get(), 4, 1, 1),
-            new DwarvenTrades.ItemsForGreaterFeyGemTrade(ModItems.SHINY_FEY_GEM.get(), 4, 1, 2),
-            new DwarvenTrades.ItemsForShinyFeyGemTrade(ModItems.BRILLIANT_FEY_GEM.get(), 4, 1, 3)
+                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
+                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
+                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
+                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
+            },
 
-    }, 2, new VillagerTrades.ITrade[]{
-            new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 2, 1, 1, 5),
-            new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_FEY_ALTAR.get(), 2, 1, 1, 10)
-    }));
+            2, new VillagerTrades.ITrade[]{
+                    new DwarvenTrades.ItemsForFeyGemTrade(ModItems.GREATER_FEY_GEM.get(), 4, 1, 1),
+                    new DwarvenTrades.ItemsForGreaterFeyGemTrade(ModItems.SHINY_FEY_GEM.get(), 4, 1, 2),
+                    new DwarvenTrades.ItemsForShinyFeyGemTrade(ModItems.BRILLIANT_FEY_GEM.get(), 4, 1, 3)
+
+            }, 3, new VillagerTrades.ITrade[]{
+                    new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 2, 1, 1, 5),
+                    new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_FEY_ALTAR.get(), 2, 1, 1, 10)
+            }));
 
     private static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
         return new Int2ObjectOpenHashMap<>(p_221238_0_);
@@ -258,6 +273,73 @@ public class DwarvenTrades {
         public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
             return new MerchantOffer(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), this.feyGemCount), new ItemStack(this.itemSold.getItem(), this.soldItemCount), this.maxUses, this.givenXP, this.priceMultiplier);
 
+        }
+
+    }
+
+    static class RandomFoodItemsForRandomOreItemsTrade implements VillagerTrades.ITrade {
+
+        private final int maxUses;
+
+        private final int givenXP;
+
+        private final float priceMultiplier;
+
+        public RandomFoodItemsForRandomOreItemsTrade() {
+            this.maxUses = 1;
+            this.givenXP = 1;
+            this.priceMultiplier = 0.05F;
+        }
+
+        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
+            return new MerchantOffer(getRandomFoodItem(), getRandomOreItem(),
+                    this.maxUses, this.givenXP, this.priceMultiplier);
+
+        }
+
+        public ItemStack getRandomOreItem() {
+
+            List<ItemStack> items = new ArrayList<>();
+            Random random = new Random();
+
+            items.add(new ItemStack(Items.ANDESITE, 10));
+            items.add(new ItemStack(Items.REDSTONE, 6));
+            items.add(new ItemStack(Items.IRON_ORE, 3));
+            items.add(new ItemStack(Items.GOLD_ORE, 3));
+            items.add(new ItemStack(Items.COBBLESTONE, 20));
+            items.add(new ItemStack(Items.DIORITE, 10));
+            items.add(new ItemStack(Items.GRANITE, 15));
+            items.add(new ItemStack(Items.COAL, 25));
+            items.add(new ItemStack(Items.DIAMOND, 1));
+            items.add(new ItemStack(Items.EMERALD, 2));
+            items.add(new ItemStack(Items.LAPIS_LAZULI, 6));
+            items.add(new ItemStack(Items.CLAY, 8));
+            items.add(new ItemStack(ModBlocks.FEY_GEM_BLOCK.get(), 1));
+
+            return items.get(random.nextInt(items.size()));
+
+        }
+
+        public ItemStack getRandomFoodItem() {
+
+            List<ItemStack> items = new ArrayList<>();
+            Random random = new Random();
+
+            items.add(new ItemStack(Items.APPLE, 4));
+            items.add(new ItemStack(Items.BREAD, 3));
+            items.add(new ItemStack(Items.COOKED_PORKCHOP, 2));
+            items.add(new ItemStack(Items.COOKED_COD, 2));
+            items.add(new ItemStack(Items.COOKED_SALMON, 2));
+            items.add(new ItemStack(Items.CAKE, 1));
+            items.add(new ItemStack(Items.COOKIE, 4));
+            items.add(new ItemStack(Items.MELON_SLICE, 6));
+            items.add(new ItemStack(Items.COOKED_BEEF, 2));
+            items.add(new ItemStack(Items.COOKED_CHICKEN, 2));
+            items.add(new ItemStack(Items.RABBIT_STEW, 2));
+            items.add(new ItemStack(Items.MUSHROOM_STEW, 2));
+            items.add(new ItemStack(Items.BEETROOT_SOUP, 2));
+
+            return items.get(random.nextInt(items.size()));
         }
 
     }
