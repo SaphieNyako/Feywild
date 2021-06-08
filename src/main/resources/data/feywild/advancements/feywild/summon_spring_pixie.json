@@ -1,23 +1,23 @@
 {
-  "parent": "feywild:adventure/dwarf_trade",
+  "parent": "feywild:feywild/fey_altar",
   "display": {
     "icon": {
-      "item": "feywild:summoning_scroll_dwarf_blacksmith"
+      "item": "feywild:summoning_scroll_spring_pixie"
     },
-    "title": "A Start of a beautifull friendship",
-    "description": "Purchased a contract",
+    "title": "What flavour are you?",
+    "description": "Conjured a summoning scroll for a Spring Pixie",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "contract": {
+    "scroll": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:summoning_scroll_dwarf_blacksmith"
+            "item": "feywild:summoning_scroll_spring_pixie"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "contract"
+      "scroll"
     ]
   ]
 }

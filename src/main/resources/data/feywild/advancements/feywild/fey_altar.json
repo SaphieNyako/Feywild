@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:adventure/dwarf_trade",
+  "parent": "feywild:feywild/dwarf_schematics_fey_altar",
   "display": {
     "icon": {
       "item": "feywild:fey_altar"

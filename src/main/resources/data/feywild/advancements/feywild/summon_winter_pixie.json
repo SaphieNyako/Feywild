@@ -1,11 +1,11 @@
 {
-  "parent": "feywild:adventure/fey_altar",
+  "parent": "feywild:feywild/fey_altar",
   "display": {
     "icon": {
-      "item": "feywild:summoning_scroll_autumn_pixie"
+      "item": "feywild:summoning_scroll_winter_pixie"
     },
-    "title": "Darling!",
-    "description": "Conjured a summoning scroll for a Autumn Pixie",
+    "title": "Maybe if you died we can be friends...",
+    "description": "Conjured a summoning scroll for a Winter Pixie",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:summoning_scroll_autumn_pixie"
+            "item": "feywild:summoning_scroll_winter_pixie"
           }
         ]
       }

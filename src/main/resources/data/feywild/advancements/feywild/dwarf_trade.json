@@ -1,4 +1,5 @@
 {
+  "parent": "feywild:feywild/fey_dust",
   "display": {
     "icon": {
       "item": "feywild:lesser_fey_gem"
@@ -10,7 +11,6 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "minecraft:adventure/root",
   "criteria": {
     "dwarf_trade": {
       "trigger": "minecraft:villager_trade",

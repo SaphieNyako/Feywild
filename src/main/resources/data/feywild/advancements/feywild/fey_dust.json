@@ -1,4 +1,5 @@
 {
+  "parent": "feywild:feywild/feywild_lexicon",
   "display": {
     "icon": {
       "item": "feywild:fey_dust"

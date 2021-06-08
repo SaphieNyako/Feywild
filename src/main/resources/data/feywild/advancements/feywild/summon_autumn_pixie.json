@@ -1,23 +1,23 @@
 {
-  "parent": "feywild:adventure/dwarf_trade",
+  "parent": "feywild:feywild/fey_altar",
   "display": {
     "icon": {
-      "item": "feywild:feywild_lexicon"
+      "item": "feywild:summoning_scroll_autumn_pixie"
     },
-    "title": "Welcome to the Feywild",
-    "description": "You borrowed the Feywild Lexicon from the Library",
-    "frame": "goal",
+    "title": "Darling!",
+    "description": "Conjured a summoning scroll for a Autumn Pixie",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "borrowed": {
+    "scroll": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:feywild_lexicon"
+            "item": "feywild:summoning_scroll_autumn_pixie"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "borrowed"
+      "scroll"
     ]
   ]
 }

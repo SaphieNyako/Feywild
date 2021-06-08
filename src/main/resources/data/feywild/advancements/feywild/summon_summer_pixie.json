@@ -1,11 +1,11 @@
 {
-  "parent": "feywild:adventure/fey_altar",
+  "parent": "feywild:feywild/fey_altar",
   "display": {
     "icon": {
-      "item": "feywild:summoning_scroll_spring_pixie"
+      "item": "feywild:summoning_scroll_summer_pixie"
     },
-    "title": "What flavour are you?",
-    "description": "Conjured a summoning scroll for a Spring Pixie",
+    "title": "Do I look like your pet?",
+    "description": "Conjured a summoning scroll for a Summer Pixie",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:summoning_scroll_spring_pixie"
+            "item": "feywild:summoning_scroll_summer_pixie"
           }
         ]
       }

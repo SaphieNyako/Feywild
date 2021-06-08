@@ -1,23 +1,23 @@
 {
-  "parent": "feywild:adventure/fey_altar",
+  "parent": "feywild:feywild/dwarf_trade",
   "display": {
     "icon": {
-      "item": "feywild:summoning_scroll_summer_pixie"
+      "item": "feywild:summoning_scroll_dwarf_blacksmith"
     },
-    "title": "Do I look like your pet?",
-    "description": "Conjured a summoning scroll for a Summer Pixie",
+    "title": "A Start of a beautifull friendship",
+    "description": "Purchased a contract from a Dwarf",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "scroll": {
+    "contract": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:summoning_scroll_summer_pixie"
+            "item": "feywild:summoning_scroll_dwarf_blacksmith"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "scroll"
+      "contract"
     ]
   ]
 }
