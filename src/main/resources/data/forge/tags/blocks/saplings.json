@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "feywild:spring_tree_sapling",
+    "feywild:summer_tree_sapling",
+    "feywild:autumn_tree_sapling",
+    "feywild:winter_tree_sapling"
+  ]
+}
