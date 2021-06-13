@@ -107,8 +107,10 @@ public class TargetBreedGoal extends Goal {
     protected void breed(AnimalEntity animalEntity, AnimalEntity partner) {
         animalEntity.spawnChildFromBreeding((ServerWorld) animalEntity.level, partner);
 
+
+        //For a better effect we should add our own particles
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(targetAnimal.getX(), targetAnimal.getY() + 1, targetAnimal.getZ(), 0, 0, 0, 10, 3)
+                , new ParticleMessage(this.entity.blockPosition().getX(), this.entity.blockPosition().getY() + 1,this.entity.blockPosition().getZ(), this.targetAnimal.blockPosition().getX()+ 0.5, this.targetAnimal.blockPosition().getY()+ 0.5, this.targetAnimal.blockPosition().getZ()+ 0.5, -10, 6,0.11f)
                 , 64);
 
     }

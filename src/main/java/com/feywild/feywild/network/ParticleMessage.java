@@ -17,7 +17,8 @@ public class ParticleMessage {
 
     public double posX, posY, posZ, velX, velY, velZ;
     public int repeat, id;
-    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME);
+    float speed;
+    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME, ParticleTypes.TOTEM_OF_UNDYING);
 
     //Read msg from buf
     public ParticleMessage(PacketBuffer buf) {
@@ -29,18 +30,20 @@ public class ParticleMessage {
         posY = buf.readDouble();
         posZ = buf.readDouble();
         id = buf.readInt();
+        speed = buf.readFloat();
     }
 
     //constructor
-    public ParticleMessage(double posX, double posY, double posZ, double velX, double velY, double velZ, int repeat, int id) {
+    public ParticleMessage(double posX, double posY, double posZ, double velX, double velY, double velZ, int repeat, int id, float speed) {
         this.velX = velX;
         this.velY = velY;
-        this.velY = velZ;
+        this.velZ = velZ;
         this.posX = posX;
         this.posY = posY;
         this.posZ = posZ;
         this.repeat = repeat;
         this.id = id;
+        this.speed=speed;
     }
 
     //Save msg to buf
@@ -53,6 +56,7 @@ public class ParticleMessage {
         buf.writeDouble(posY);
         buf.writeDouble(posZ);
         buf.writeInt(id);
+        buf.writeFloat(speed);
     }
 
     //handle package data
@@ -62,16 +66,17 @@ public class ParticleMessage {
         Random random = new Random();
         ctx.get().enqueueWork(() -> {
             double newPosX, newPosY, newPosZ;
+
             //summon particles based on info
-            for (int i = 0; i < repeat; i++) {
+            for (int i = 0; i < Math.abs(repeat); i++) {
                 if (repeat > 1) {
                     world.addParticle((IParticleData) list.get(id), true, posX - 0.3 + random.nextDouble(), posY - 0.3 + random.nextDouble(), posZ - 0.3 + random.nextDouble(), velX, velY, velZ);
-                }
+                }else
                 if (repeat < 0) {
-                    newPosX = posX - 0.3 + random.nextDouble();
-                    newPosY = posY - 0.3 + random.nextDouble();
-                    newPosZ = posZ - 0.3 + random.nextDouble();
-                    world.addParticle((IParticleData) list.get(id), true, newPosX, newPosY, newPosZ, (velX - newPosX) / 10, (velY - newPosY) / 10, (velZ - newPosZ) / 10);
+                    newPosX = posX - 0.5 + random.nextDouble();
+                    newPosY = posY - 0.5 + random.nextDouble();
+                    newPosZ = posZ - 0.5 + random.nextDouble();
+                    world.addParticle((IParticleData) list.get(id), true, newPosX, newPosY, newPosZ, (velX - newPosX) *speed, (velY - newPosY) * speed, (velZ - newPosZ)* speed);
                 } else {
                     world.addParticle((IParticleData) list.get(id), true, posX, posY, posZ, velX, velY, velZ);
                 }

@@ -107,7 +107,7 @@ public class PumpkinCarverGoal extends Goal {
         }
 
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(targetPos.x, targetPos.y + 1, targetPos.z, 0, 0, 0, 10, 0)
+                , new ParticleMessage(targetPos.x, targetPos.y + 1, targetPos.z, 0, 0, 0, 10, 0,0)
                 , 64);
 
     }
