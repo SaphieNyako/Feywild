@@ -21,13 +21,14 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
     @Override
     public void render(T entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
+
         generateParticles(entity);
     }
 
     private void generateParticles(Entity entity) {
         World world = entity.level;
 
-        if (world.random.nextInt(11) == 0) {
+        if (world.random.nextInt(11) == 0 ) {
             world.addParticle(
                     getParticleType(),
                     entity.getX() + (Math.random() - 0.5),
