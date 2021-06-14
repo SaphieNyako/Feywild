@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
+import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
 import com.feywild.feywild.entity.util.TraderEntity;
@@ -12,6 +13,9 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.*;
@@ -22,6 +26,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -34,6 +40,9 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
+
+    public static final DataParameter<Boolean> ATTACKING = EntityDataManager.defineId(SummerPixieEntity.class,
+            DataSerializers.BOOLEAN);
 
     public BlockPos summonPos;
     //Geckolib variable
@@ -75,9 +84,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
 
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 24.0D)
+                .add(Attributes.MAX_HEALTH, 36.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
+                .add(Attributes.ARMOR_TOUGHNESS, 5)
+                .add(Attributes.ARMOR, 15)
                 .add(Attributes.ATTACK_DAMAGE, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.1D);
+                .add(Attributes.MOVEMENT_SPEED, 0.35D);
     }
 
     public static boolean canSpawn(EntityType<DwarfBlacksmithEntity> dwarfBlacksmithEntityEntityType, IServerWorld iServerWorld, SpawnReason spawnReason, BlockPos pos, Random random) {
@@ -160,12 +172,13 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        list.add(new PrioritizedGoal(1, new MeleeAttackGoal(this, 0.8, false)));
+        //    list.add(new PrioritizedGoal(1, new MeleeAttackGoal(this, 0.8, false)));
         list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5)));
         list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
+        list.add(new PrioritizedGoal(1, new DwarvenAttackGoal(this)));
 
         return list;
     }
@@ -174,11 +187,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        list.add(new PrioritizedGoal(2, new MeleeAttackGoal(this, 0.8, false)));
+        //  list.add(new PrioritizedGoal(2, new MeleeAttackGoal(this, 0.8, false)));
         list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
+        list.add(new PrioritizedGoal(1, new DwarvenAttackGoal(this)));
         //Easy way to test tamed/untamed:
         // list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,Ingredient.of(Items.COOKIE),false)));
 
@@ -297,7 +311,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return 1F;
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState walkingPredicate(AnimationEvent<E> event) {
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
         } else {
@@ -306,16 +320,40 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
+    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
+        if (this.entityData.get(ATTACKING) && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
+
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
+    }
+
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        AnimationController walkingController = new AnimationController(this, "controller", 0, this::walkingPredicate);
+        AnimationController attackController = new AnimationController(this, "attackController", 0, this::attackPredicate);
+
+        animationData.addAnimationController(walkingController);
+        animationData.addAnimationController(attackController);
+
     }
 
     @Override
     public AnimationFactory getFactory() {
 
         return this.factory;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean isAttacking() {
+        return this.entityData.get(ATTACKING);
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
     }
 
 }

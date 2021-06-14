@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.container.ModContainers;
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
@@ -163,7 +164,7 @@ public class FeywildMod {
             GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), DwarfBlacksmithEntity.setCustomAttributes().build());
         });
     }
 
