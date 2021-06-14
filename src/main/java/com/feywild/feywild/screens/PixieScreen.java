@@ -28,6 +28,7 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
     @Override
     protected void init() {
         super.init();
+        //Ancient's note : test button will be repurposed for quest completion 
         addButton(new Button(this.width/2 - this.getXSize()/3 - 30, this.height/2 + this.getYSize()/3,20,20, new StringTextComponent("X"),button -> {
             this.onClose();
         }));
