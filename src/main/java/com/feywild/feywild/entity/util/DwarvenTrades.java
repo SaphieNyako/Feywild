@@ -287,8 +287,8 @@ public class DwarvenTrades {
         private final float priceMultiplier;
 
         public RandomCommonFoodItemsForRandomCommonOreItemsTrade() {
-            this.maxUses = 1;
-            this.givenXP = 1;
+            this.maxUses = 5;
+            this.givenXP = 2;
             this.priceMultiplier = 0.05F;
         }
 
@@ -348,8 +348,8 @@ public class DwarvenTrades {
         private final float priceMultiplier;
 
         public RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade() {
-            this.maxUses = 1;
-            this.givenXP = 1;
+            this.maxUses = 2;
+            this.givenXP = 5;
             this.priceMultiplier = 0.05F;
         }
 

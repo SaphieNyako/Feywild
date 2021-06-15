@@ -88,7 +88,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
             setVillagerLevel(number);
             if (dwarvenTradeList != null) {
                 MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
             }
         } else {
 
