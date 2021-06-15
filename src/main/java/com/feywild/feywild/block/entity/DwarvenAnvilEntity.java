@@ -222,12 +222,25 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
                 level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 
-                itemHandler.insertItem(-1, output, false);
+                itemHandler.insertItem(-1, output, false); // mana bucket
+
+                //TODO: When we have recipes with just 1 item it still deletes all items in the other slots.
+                // add: If item doesn't match with the item from the recipe don't delete it...
+
+                // This iRecipe.matches(inv, level) checks if total recipe matches with inv
+
+                //  List<Ingredient> ingredients = iRecipe.getIngredients(); //size = 0  getInput
+                // List<Ingredient> ingredients = iRecipe.getInputs(); // size = 6
+
+                for (int k = 2; k < 7; k++) {
+                    itemHandler.extractItem(k, 1, false);
+                }
+/*
                 itemHandler.extractItem(2, 1, false);
                 itemHandler.extractItem(3, 1, false);
                 itemHandler.extractItem(4, 1, false);
                 itemHandler.extractItem(5, 1, false);
-                itemHandler.extractItem(6, 1, false);
+                itemHandler.extractItem(6, 1, false); */
 
                 manaStorage.consumeMana(manaUsage);
 

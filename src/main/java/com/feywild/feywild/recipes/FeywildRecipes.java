@@ -11,24 +11,37 @@ public class FeywildRecipes {
 
     //Inefficient item match method
     public static boolean matches(List<Ingredient> ingredients, IInventory inv) {
-        //Copy the inventory in a separate place just so that I can remove stuff from it
-        List<ItemStack> stacks = new LinkedList<>();
-        for (int j = 0; j < inv.getContainerSize(); j++) {
-            stacks.add(inv.getItem(j));
-        }
 
-        //Item check
-        List<Ingredient> copy = new LinkedList<>(ingredients);
-        for (Ingredient ingredient : ingredients) {
+        int slot = 0;
+        //slot 0 is dust, slot 1 is schematics,
 
-            for (ItemStack stack : stacks) {
-                if (!stack.isEmpty() && ingredient.test(stack)) {
-                    copy.remove(ingredient);
-                    stacks.remove(stack);
-                    break;
-                }
+        for (int i = 1; i < inv.getContainerSize() - 1; i++) {
+            if (!inv.getItem(i).isEmpty()) {
+                slot++;
             }
         }
-        return copy.isEmpty();
+
+        if (ingredients.size() == slot) {
+            List<ItemStack> stacks = new LinkedList<>();
+
+            for (int j = 0; j < inv.getContainerSize(); j++) {
+                stacks.add(inv.getItem(j));
+            }
+
+            //Item check
+            List<Ingredient> copy = new LinkedList<>(ingredients);
+            for (Ingredient ingredient : ingredients) {
+
+                for (ItemStack stack : stacks) {
+                    if (!stack.isEmpty() && ingredient.test(stack)) {
+                        copy.remove(ingredient);
+                        stacks.remove(stack);
+                        break;
+                    }
+                }
+            }
+            return copy.isEmpty();
+        }
+        return false;
     }
 }

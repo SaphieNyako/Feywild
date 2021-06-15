@@ -1,0 +1,12 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "ingredients": [
+    {
+      "item": "minecraft:bucket"
+    }
+  ],
+  "output": {
+    "item": "minecraft:milk_bucket"
+  },
+  "mana_usage": 1000
+}

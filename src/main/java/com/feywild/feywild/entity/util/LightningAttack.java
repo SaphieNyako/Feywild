@@ -53,8 +53,8 @@ public class LightningAttack extends Entity {
         super.tick();
         if (this.life == 2) {
 
-            this.level.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), SoundEvents.TRIDENT_THUNDER, SoundCategory.NEUTRAL, 10000.0F, 0.8F + this.random.nextFloat() * 0.2F);
-            this.level.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), SoundEvents.TRIDENT_RETURN, SoundCategory.NEUTRAL, 2.0F, 0.5F + this.random.nextFloat() * 0.2F);
+            this.level.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), SoundEvents.TRIDENT_THUNDER, SoundCategory.NEUTRAL, 1.0F, 0.8F + this.random.nextFloat() * 0.2F);
+            this.level.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), SoundEvents.TRIDENT_RETURN, SoundCategory.NEUTRAL, 1.0F, 0.5F + this.random.nextFloat() * 0.2F);
         }
 
         --this.life;
