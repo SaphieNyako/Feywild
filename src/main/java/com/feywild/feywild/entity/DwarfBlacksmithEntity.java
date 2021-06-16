@@ -74,7 +74,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.noCulling = true;
         this.moveControl = new MovementController(this);
         setTamed(isTamed);
-        this.summonPos = pos;
+        setSummonPos(pos);
         addGoalsAfterConstructor();
     }
 
@@ -139,6 +139,10 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     /* GOALS */
 
+    public void setSummonPos(BlockPos summonPos) {
+        this.summonPos = summonPos;
+    }
+
     public boolean isTamed() {
         return tamed;
     }
@@ -202,8 +206,15 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
+        if (summonPos != null) {
+            compound.putInt("summonPos_X", summonPos.getX());
+            compound.putInt("summonPos_Y", summonPos.getY());
+            compound.putInt("summonPos_Z", summonPos.getZ());
+        }
+
         compound.putBoolean("tamed", tamed);
         compound.putInt("level", levelInt);
+
         //     compound.putIntArray("trade_id", tradeId);
 
     }
@@ -211,6 +222,9 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
+        if (compound.contains("summonPos_X"))
+            summonPos = new BlockPos(compound.getInt("summonPos_X"), compound.getInt("summonPos_Y"), compound.getInt("summonPos_Z"));
+
         this.levelInt = compound.getInt("level");
         this.tamed = compound.getBoolean("tamed");
 
@@ -272,7 +286,8 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         if (this.isTamed() && this.level.getBlockEntity(summonPos) != null && this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
             ((DwarvenAnvilEntity) Objects.requireNonNull(this.level.getBlockEntity(summonPos))).setDwarfPresent(false);
 
-            //THIS SHOULD ONLY APPLY TO A TAMED DWARF
+            //TODO: blacksmith entity die method still causes a crash occasionally.
+            //TODO: If two dwarves are linked to the anvil it shouldnt be set to false when just one dies.
         }
     }
 
