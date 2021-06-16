@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.KeyboardHelper;
+import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -10,6 +11,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.ScoreboardSaveData;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -43,32 +48,24 @@ public class FeyDust extends Item {
     //Test
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
-        if (target instanceof SheepEntity) {
-            //Get number of uses from item stack data
-            int count = playerIn.getItemInHand(hand).getOrCreateTag().getInt("uses");
+        if(playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
 
-            //Check number of uses
-            switch (count) {
-                case 1:
-                    playerIn.displayClientMessage(new TranslationTextComponent("message.feywild.fey_dust_giggling"), true);
-                    break;
-                case 2:
+        Score score = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), ModUtil.Scores.FW_FeyDustUse.toString(), playerIn.level);
+        Score quest = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), ModUtil.Scores.FW_Quest.toString(), playerIn.level);
 
-                    //  playerIn.addItem(new ItemStack(ModItems.FEY_SHEEP_DROPPINGS.get(), 1));
-                    target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 10));
-                    playerIn.getItemInHand(hand).getOrCreateTag().putInt("uses", 0);
-                    stack.shrink(1);
-                    return ActionResultType.SUCCESS;
+        // Only add if quest is given !!! UPDATE ONCE QUEST MAP HAS BEEN IMPLEMENTED
+        if (quest.getScore() == 1 && target instanceof SheepEntity) {
+            score.setScore(score.getScore() + 1);
+            if(score.getScore() > 3) {
+                playerIn.sendMessage(new TranslationTextComponent("message.quest_completion_spring"), playerIn.getUUID());
+                //QUEST COMPLETION UPDATE TO CLIENT
+                score.setScore(0);
             }
-
-            target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
-            playerIn.getItemInHand(hand).getOrCreateTag().putInt("uses", ++count);
-            stack.shrink(1);
-        } else {
-
-            target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
-            stack.shrink(1);
+        }else{
+            score.setScore(0);
         }
+            target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
+            stack.shrink(1);
 
         return ActionResultType.SUCCESS;
     }
