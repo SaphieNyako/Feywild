@@ -1,5 +1,5 @@
 {
-  "advancement": "feywild:adventure/dwarf_trade",
+  "advancement": "feywild:feywild/dwarf_trade",
   "name": "Trading",
   "icon": "minecraft:diamond_pickaxe",
   "category": "dwarves",

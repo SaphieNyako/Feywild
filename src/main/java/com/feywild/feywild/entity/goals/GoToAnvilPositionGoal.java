@@ -43,7 +43,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
             entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
 
         } else if (count == 50 && tile != null && summoningPosition != null && tile.getCanCraft()) {
-            
+
             entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5);
             entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(summoningPosition.getX(), summoningPosition.getY(), summoningPosition.getZ()));
             tile.updateInventory(-1, true);
