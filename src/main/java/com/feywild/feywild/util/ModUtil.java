@@ -14,8 +14,8 @@ public class ModUtil {
     public enum Scores{
         FW_FeyDustUse,
         FW_Quest
-
     }
+
     public static boolean inventoryContainsItem(PlayerInventory inventory, Item item) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             Item inventoryItem = inventory.getItem(i).getItem();

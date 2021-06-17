@@ -26,7 +26,7 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
         this.container = container;
     }
 
-    @Override
+   /* @Override
     protected void init() {
         super.init();
         //Ancient's note : test button will be repurposed for quest completion 
@@ -34,6 +34,8 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
             this.acceptQuest();
         }));
     }
+
+    */
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -43,20 +45,21 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
         this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
-    public void acceptQuest(){
-        /* Basic implementation :
+ /*   public void acceptQuest(){
+         Basic implementation :
                Send current quest level to client to display appropriate text
                On accept give a heads up to the server to update the current value
                Upon completion update the client
-         */
+
     }
+    */
 
     @Override //drawGuiContainerForegroundLayer
     protected void renderLabels(MatrixStack matrixStack, int x, int y) {
 
         // Add system for different quest branches
-        for(int i =1; i <= 9; i++){
-            drawString(matrixStack, Minecraft.getInstance().font, new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message_0" + i), -(this.imageWidth/4) + 10, 9 * i, 0xffffff);
+        for(int i =1; i <= container.getLines(); i++){
+            drawString(matrixStack, Minecraft.getInstance().font, new TranslationTextComponent("spring_quest_pixie.feywild.quest_"+Math.abs(container.getQuest())+"_message_" + i), -width /6, 9 * i, 0xffffff);
         }
     }
 

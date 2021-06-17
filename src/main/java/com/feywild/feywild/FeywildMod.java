@@ -9,6 +9,7 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
@@ -121,6 +122,7 @@ public class FeywildMod {
     private void registerModAdditions() {
 
         Registration.init();
+        QuestMap.loadQuests();
         ModSoundEvents.register();
         ModItems.register();
         ModBlocks.register();
@@ -136,11 +138,7 @@ public class FeywildMod {
 
     //Communication with other mods.
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> {
-            LOGGER.info("Hello world from the MDK");
-            return "Hello world";
-        });
+
     }
 
     private void processIMC(final InterModProcessEvent event) {

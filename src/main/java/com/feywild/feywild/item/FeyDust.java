@@ -1,5 +1,8 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
@@ -53,12 +56,13 @@ public class FeyDust extends Item {
         Score score = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), ModUtil.Scores.FW_FeyDustUse.toString(), playerIn.level);
         Score quest = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), ModUtil.Scores.FW_Quest.toString(), playerIn.level);
 
-        // Only add if quest is given !!! UPDATE ONCE QUEST MAP HAS BEEN IMPLEMENTED
+        // Only add if quest is given
         if (quest.getScore() == 1 && target instanceof SheepEntity) {
             score.setScore(score.getScore() + 1);
             if(score.getScore() > 3) {
                 playerIn.sendMessage(new TranslationTextComponent("message.quest_completion_spring"), playerIn.getUUID());
-                //QUEST COMPLETION UPDATE TO CLIENT
+                QuestMap.updateQuest(quest);
+                FeywildPacketHandler.sendToPlayer(new QuestMessage(playerIn.getUUID(),quest.getScore()),playerIn);
                 score.setScore(0);
             }
         }else{

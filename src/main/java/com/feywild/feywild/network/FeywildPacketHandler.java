@@ -1,6 +1,8 @@
 package com.feywild.feywild.network;
 
 import com.feywild.feywild.FeywildMod;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -28,6 +30,11 @@ public class FeywildPacketHandler {
     public static void register() {
         INSTANCE.registerMessage(nextPacketID(), ItemMessage.class, ItemMessage::toBytes, ItemMessage::new, ItemMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), QuestMessage.class, QuestMessage::toBytes,QuestMessage::new,QuestMessage::handle);
+    }
+
+    public static void sendToPlayer( Object message, PlayerEntity entity){
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) entity), message);
     }
 
     // send a packet to all players near the pos withing a specific range
