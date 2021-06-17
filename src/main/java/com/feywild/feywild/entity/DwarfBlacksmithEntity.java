@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity;
 
-import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
 import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
+import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
 import com.feywild.feywild.entity.util.TraderEntity;
@@ -41,8 +41,8 @@ import java.util.*;
 
 public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
-    public static final DataParameter<Boolean> ATTACKING = EntityDataManager.defineId(SummerPixieEntity.class,
-            DataSerializers.BOOLEAN);
+    public static final DataParameter<Integer> STATE = EntityDataManager.
+            defineId(DwarfBlacksmithEntity.class, DataSerializers.INT);
 
     public BlockPos summonPos;
     //Geckolib variable
@@ -176,11 +176,11 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        //    list.add(new PrioritizedGoal(1, new MeleeAttackGoal(this, 0.8, false)));
         list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5)));
+        list.add(new PrioritizedGoal(2, new GoToAnvilPositionGoal(this, () -> this.summonPos, 5)));
         list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
         list.add(new PrioritizedGoal(1, new DwarvenAttackGoal(this)));
 
@@ -191,7 +191,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        //  list.add(new PrioritizedGoal(2, new MeleeAttackGoal(this, 0.8, false)));
         list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
@@ -237,6 +236,13 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(STATE, 0);
+
+    }
+
+    @Override
     public boolean checkSpawnRules(IWorld worldIn, SpawnReason spawnReasonIn) {
         return super.checkSpawnRules(worldIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !worldIn.canSeeSky(this.blockPosition());
     }
@@ -279,17 +285,14 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     protected int getExperienceReward(PlayerEntity player) {
         return 0;
     }
-
+/*
     @Override
     public void die(DamageSource p_706451) {
         super.die(p_706451);
         if (this.isTamed() && this.level.getBlockEntity(summonPos) != null && this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
             ((DwarvenAnvilEntity) Objects.requireNonNull(this.level.getBlockEntity(summonPos))).setDwarfPresent(false);
-
-            //TODO: blacksmith entity die method still causes a crash occasionally.
-            //TODO: If two dwarves are linked to the anvil it shouldnt be set to false when just one dies.
         }
-    }
+    } */
 
     /* SOUND EFFECTS */
     @Nullable
@@ -326,33 +329,31 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return 1F;
     }
 
-    private <E extends IAnimatable> PlayState walkingPredicate(AnimationEvent<E> event) {
-        if (event.isMoving()) {
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
+            return PlayState.CONTINUE;
         }
-        return PlayState.CONTINUE;
-    }
-
-    private <E extends IAnimatable> PlayState attackPredicate(AnimationEvent<E> event) {
-        if (this.entityData.get(ATTACKING) && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+        // 1 = ATTACKING
+        if (this.entityData.get(STATE) == 1 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) { //&& !this.entityData.get(CRAFTING)
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
-
             return PlayState.CONTINUE;
         }
 
-        return PlayState.STOP;
+        // 2 == WORKING
+        if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
+            return PlayState.CONTINUE;
+        }
+
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
+        return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        AnimationController walkingController = new AnimationController(this, "controller", 0, this::walkingPredicate);
-        AnimationController attackController = new AnimationController(this, "attackController", 0, this::attackPredicate);
-
-        animationData.addAnimationController(walkingController);
-        animationData.addAnimationController(attackController);
+        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
 
     }
 
@@ -364,11 +365,10 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     @OnlyIn(Dist.CLIENT)
     public boolean isAttacking() {
-        return this.entityData.get(ATTACKING);
+        return this.entityData.get(STATE) == 1;
     }
 
-    public void setAttacking(boolean attacking) {
-        this.entityData.set(ATTACKING, attacking);
+    public void setState(Integer state) {
+        this.entityData.set(STATE, state);
     }
-
 }

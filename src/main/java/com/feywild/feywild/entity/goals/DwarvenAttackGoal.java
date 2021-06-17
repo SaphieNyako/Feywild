@@ -52,7 +52,7 @@ public class DwarvenAttackGoal extends Goal {
         entity.getNavigation().moveTo(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ(), 0.5);
         //  this.targetPos = new Vector3d(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
         entity.lookAt(EntityAnchorArgument.Type.EYES, targetMonster.position());
-        entity.setAttacking(true);
+        entity.setState(1);
 
     }
 
@@ -76,7 +76,7 @@ public class DwarvenAttackGoal extends Goal {
 
     protected void reset() {
         enchantMonstersNearby = false;
-        entity.setAttacking(false);
+        entity.setState(0);
         targetMonster = null;
         count = 0;
     }

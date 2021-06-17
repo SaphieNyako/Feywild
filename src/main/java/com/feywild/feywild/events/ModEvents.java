@@ -12,7 +12,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.lwjgl.system.CallbackI;
 
 public class ModEvents {
 
@@ -34,29 +33,28 @@ public class ModEvents {
                     player.addTag("speakToLib");
                     event.setCanceled(true);
 
-                } else
-                    if(!player.getTags().contains("borrowLexicon") ){
-                        if(!player.getTags().contains("foundLexicon")){
-                            player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), event.getPlayer().getUUID());
-                            player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
-                        }else {
-                            player.sendMessage(new TranslationTextComponent("librarian.feywild.found"), event.getPlayer().getUUID());
-                        }
-                        player.addTag("borrowLexicon");
-                        event.setCanceled(true);
-                    }else {
-                        if (ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get())) {
-
-                            player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
-                            event.setCanceled(true);
-
-                        } else if (!(ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get()))) {
-                            player.sendMessage(new TranslationTextComponent("librarian.feywild.lost"), event.getPlayer().getUUID());
-
-                            player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
-                            event.setCanceled(true);
-                        }
+                } else if (!player.getTags().contains("borrowLexicon")) {
+                    if (!player.getTags().contains("foundLexicon")) {
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), event.getPlayer().getUUID());
+                        player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
+                    } else {
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.found"), event.getPlayer().getUUID());
                     }
+                    player.addTag("borrowLexicon");
+                    event.setCanceled(true);
+                } else {
+                    if (ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get())) {
+
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
+                        event.setCanceled(true);
+
+                    } else if (!(ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get()))) {
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.lost"), event.getPlayer().getUUID());
+
+                        player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
+                        event.setCanceled(true);
+                    }
+                }
             }
         }
     }

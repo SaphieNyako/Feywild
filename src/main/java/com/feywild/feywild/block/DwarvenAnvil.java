@@ -95,11 +95,11 @@ public class DwarvenAnvil extends Block {
 
     @Override
     public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+
         return 14;
-
-        // return state.hasProperty(BlockStateProperties.POWERED) ? super.getLightValue(state.getBlockState(), world, pos) : 0;
-
     }
+
+
 
     /* TILE ENTITY */
 
@@ -160,5 +160,4 @@ public class DwarvenAnvil extends Block {
 
         return new DwarvenAnvilEntity();
     }
-
 }
