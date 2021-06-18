@@ -44,13 +44,13 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
         } else if (count == 50 && tile != null && summoningPosition != null && tile.getCanCraft()) {
 
-            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5);
-            entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(summoningPosition.getX(), summoningPosition.getY(), summoningPosition.getZ()));
             tile.updateInventory(-1, true);
             entity.setState(2);
-        } else if (count == 110 && summoningPosition != null && tile.getCanCraft()) {
 
-            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5); //1.5
+        } else if (count <= 110 && summoningPosition != null && tile.getCanCraft()) {
+
+            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5);
+            entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(summoningPosition.getX(), summoningPosition.getY(), summoningPosition.getZ()));
         }
 
     }

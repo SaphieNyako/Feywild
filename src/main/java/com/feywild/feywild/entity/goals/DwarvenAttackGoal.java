@@ -35,42 +35,38 @@ public class DwarvenAttackGoal extends Goal {
         }
 
         if (enchantMonstersNearby && targetMonster instanceof MonsterEntity) {
-            count++;
+            count--;
 
-            if (count >= 42) {
+            if (count == 0) {
+                reset();
+            } else if (count == 10) {
                 attackTarget();
 
-                reset();
+            } else if (count == 80) {
+                entity.setState(1);
+                entity.getNavigation().moveTo(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ(), 0.5);
 
-            } else if (count == 1) {
-                attackAnimation();
+            } else if (count <= 80) {
+                entity.lookAt(EntityAnchorArgument.Type.EYES, targetMonster.position());
+
             }
         }
     }
 
-    private void attackAnimation() {
-        entity.getNavigation().moveTo(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ(), 0.5);
-        //  this.targetPos = new Vector3d(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
-        entity.lookAt(EntityAnchorArgument.Type.EYES, targetMonster.position());
-        entity.setState(1);
-
+    @Override
+    public void start() {
+        count = 120;
     }
 
     protected void attackTarget() {
-
-        //    this.targetPos = new Vector3d(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
 
         LightningAttack lightningBoltEntity = new LightningAttack(EntityType.LIGHTNING_BOLT, worldLevel);
         lightningBoltEntity.setPos(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
         lightningBoltEntity.setVisualOnly(true);
         (worldLevel).addFreshEntity(lightningBoltEntity);
         targetMonster.hurt(DamageSource.LIGHTNING_BOLT, 20);
-        // targetMonster.setSecondsOnFire(120);
 
         this.entity.clearFire();
-        //  FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-        //          , new ParticleMessage(targetMonster.getX(), targetMonster.getY() + 1, targetMonster.getZ(), 0, 0, 0, 20, 4)
-        //           , 64);
 
     }
 
@@ -78,7 +74,6 @@ public class DwarvenAttackGoal extends Goal {
         enchantMonstersNearby = false;
         entity.setState(0);
         targetMonster = null;
-        count = 0;
     }
 
     @Override

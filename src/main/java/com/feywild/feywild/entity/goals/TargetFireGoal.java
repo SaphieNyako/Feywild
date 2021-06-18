@@ -50,10 +50,9 @@ public class TargetFireGoal extends Goal {
         if (selectTargetMonster(entity) != null) {
             targetMonster = selectTargetMonster(entity);
             enchantMonstersNearby = true;
-        }else{
+        } else {
             reset();
         }
-
 
         if (enchantMonstersNearby && !targetMonster.isOnFire()) {
             count++;
@@ -80,7 +79,7 @@ public class TargetFireGoal extends Goal {
         monsterEntity.setSecondsOnFire(120);
 
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(entity.blockPosition().getX(), entity.blockPosition().getY(), entity.blockPosition().getZ(), targetMonster.getX(), targetMonster.getY() + 1, targetMonster.getZ(), -20, 5,0.12f)
+                , new ParticleMessage(entity.blockPosition().getX(), entity.blockPosition().getY() + 1, entity.blockPosition().getZ(), targetMonster.getX(), targetMonster.getY() + 1, targetMonster.getZ(), -20, 5, 0.12f)
                 , 64);
 
     }

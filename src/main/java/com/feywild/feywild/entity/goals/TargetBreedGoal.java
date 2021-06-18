@@ -62,27 +62,31 @@ public class TargetBreedGoal extends Goal {
         }
 
         if (enchantAnimalsNearby) {
-            count++;
+            count--;
 
-            if (count >= 120 && partner != null) {
+            if (count <= 0 && partner != null) {
                 breed(targetAnimal, partner);
-
                 reset();
 
-            } else if (count == 1) {
+            } else if (count == 110) {
                 spellCasting();
 
+            } else if (count <= 100) {
+                entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+                entity.getNavigation().moveTo(targetAnimal.getX(), targetAnimal.getY(), targetAnimal.getZ(), 0.5);
             }
-
         }
     }
 
+    @Override
+    public void start() {
+        count = 120;
+    }
+
     private void spellCasting() {
-        entity.getNavigation().moveTo(targetAnimal.getX(), targetAnimal.getY(), targetAnimal.getZ(), 0.5);
 
         this.targetPos = new Vector3d(targetAnimal.getX(), targetAnimal.getY(), targetAnimal.getZ());
 
-        entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         entity.setCasting(true);
         entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
     }
@@ -107,10 +111,9 @@ public class TargetBreedGoal extends Goal {
     protected void breed(AnimalEntity animalEntity, AnimalEntity partner) {
         animalEntity.spawnChildFromBreeding((ServerWorld) animalEntity.level, partner);
 
-
         //For a better effect we should add our own particles
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(this.entity.blockPosition().getX(), this.entity.blockPosition().getY() + 1,this.entity.blockPosition().getZ(), this.targetAnimal.blockPosition().getX()+ 0.5, this.targetAnimal.blockPosition().getY()+ 0.5, this.targetAnimal.blockPosition().getZ()+ 0.5, -10, 6,0.11f)
+                , new ParticleMessage(this.entity.blockPosition().getX(), this.entity.blockPosition().getY() + 1, this.entity.blockPosition().getZ(), this.targetAnimal.blockPosition().getX() + 0.5, this.targetAnimal.blockPosition().getY() + 0.5, this.targetAnimal.blockPosition().getZ() + 0.5, -10, 6, 0.11f)
                 , 64);
 
     }
