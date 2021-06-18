@@ -25,7 +25,10 @@ public class QuestMessage {
     //Read msg from buf
     public QuestMessage(PacketBuffer buf) {
         this.quest = buf.readInt();
-        this.uuid = buf.readUUID();
+        if(buf.readBoolean()) {
+            this.uuid = buf.readUUID();
+        }else
+            this.uuid = null;
     }
 
     //constructor
@@ -37,22 +40,40 @@ public class QuestMessage {
     //Save msg to buf
     public void toBytes(PacketBuffer buf) {
         buf.writeInt(quest);
-        buf.writeUUID(uuid);
+        if(uuid == null)
+            buf.writeBoolean(false);
+            else {
+            buf.writeBoolean(true);
+            buf.writeUUID(uuid);
+        }
     }
 
     //handle package data
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        World world = new ClientProxy().getClientWorld();
-        PlayerEntity entity = world.getPlayerByUUID(uuid);
-        ctx.get().enqueueWork(() -> {
-            Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(),QuestMap.Scores.FW_Quest.toString(),world);
-            if(scores.getScore() != quest){
-                Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world);
-                reputation.setScore(QuestMap.getRepNumber(quest));
-            }
+        World world;
+        if(uuid != null) {
+            world = new ClientProxy().getClientWorld();
+            PlayerEntity entity = world.getPlayerByUUID(uuid);
+            ctx.get().enqueueWork(() -> {
+                Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), world);
+                if (scores.getScore() != quest) {
+                    Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world);
+                    reputation.setScore(QuestMap.getRepNumber(quest));
+                }
 
-            scores.setScore(quest);
-        });
+                scores.setScore(quest);
+            });
+        }else {
+            world = ctx.get().getSender().level;
+            PlayerEntity entity = ctx.get().getSender();
+            ctx.get().enqueueWork(() -> {
+                Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), world);
+                Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world);
+
+                QuestMap.updateQuest(scores,reputation);
+                FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), scores.getScore()), entity);
+            });
+        }
         ctx.get().setPacketHandled(true);
     }
 }

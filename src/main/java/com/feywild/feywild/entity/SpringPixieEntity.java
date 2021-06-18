@@ -104,15 +104,16 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
             if (this.getTags().contains("spring_quest_pixie")) {
 
 
-                Score score = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(),player.level);
+              /*  Score quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(),player.level);
                 Score rep = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Reputation.toString(),player.level);
-                if(score.getScore() == 0) {
+
+                if(quest.getScore() == 0) {
                     QuestMap.updateQuest(score, rep);
                     player.addTag(QuestMap.Courts.SpringAligned.toString());
-                    FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(),score.getScore()),player);
+                    FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(),quest.getScore()),player);
                 }
 
-                System.out.println(QuestMap.getCourtScore(QuestMap.Courts.SpringAligned.toString(), player.level));
+               */
 
                 //  player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID()); //this works
 

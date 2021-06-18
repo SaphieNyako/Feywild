@@ -1,6 +1,9 @@
 package com.feywild.feywild.events;
 
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.item.ItemEntity;
@@ -8,6 +11,8 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.scoreboard.Score;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -60,6 +65,24 @@ public class ModEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public void craftItem(PlayerEvent.ItemCraftedEvent craftedEvent){
+        PlayerEntity playerEntity = craftedEvent.getPlayer();
+
+        Score quest = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), playerEntity.level);
+        Score rep = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), playerEntity.level);
+
+        if( !playerEntity.level.isClientSide && quest.getScore() == 3 && craftedEvent.getCrafting().getItem() == Items.CAKE){
+
+            playerEntity.sendMessage(new TranslationTextComponent("message.quest_completion_spring"), playerEntity.getUUID());
+
+            QuestMap.updateQuest(quest,rep);
+            FeywildPacketHandler.sendToPlayer(new QuestMessage(playerEntity.getUUID(), quest.getScore()), playerEntity);
+        }
+
+    }
+
 
     @SubscribeEvent
     public void spawnWithItem(PlayerEvent.PlayerLoggedInEvent spawnEvent) {

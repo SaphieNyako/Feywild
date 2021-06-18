@@ -34,6 +34,7 @@ public class FeywildPacketHandler {
     }
 
     public static void sendToPlayer( Object message, PlayerEntity entity){
+        if(entity instanceof ServerPlayerEntity)
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) entity), message);
     }
 
