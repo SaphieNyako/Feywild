@@ -26,7 +26,7 @@ public class PixieContainer extends Container {
         this.entity = entity;
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        this.quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(),ModUtil.Scores.FW_Quest.toString(),player.level).getScore();
+        this.quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(),QuestMap.Scores.FW_Quest.toString(),player.level).getScore();
         this.lines = QuestMap.getLineNumber(quest);
 
         if (this.entity != null) {

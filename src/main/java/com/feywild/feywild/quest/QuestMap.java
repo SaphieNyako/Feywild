@@ -1,45 +1,79 @@
 package com.feywild.feywild.quest;
 
-import net.minecraft.entity.player.PlayerEntity;
+import com.feywild.feywild.util.ModUtil;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.world.World;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuestMap {
 
-    /*
-          QUEST MAP
 
-          1 - > 2
-
-          -1 - > -1
-
-
-          1. Fey dust quest
-          2. ???
-     */
-
-    static Map<Integer,Integer> questMap = new HashMap<>();
-    static Map<Integer, Integer> questLines = new HashMap<>();
+    static Map<Integer, List<Integer>> questMap = new HashMap<>();
 
     public static void loadQuests(){
-        loadLines();
-        questMap.put(0,1); // Common begin quest - Fey dust quest
-        questMap.put(1,2);
-
-        questMap.put(-1, -1); // Repeatable Fey Dust quest !!!! NEED TO FIND A WAY TO BREAK OUT OF THE LOOP!
+        questMap.put(0, Arrays.asList(1,0,25)); // Common begin quest - Fey dust quest
+        questMap.put(1, Arrays.asList(2,9,7));
+        questMap.put(2, Arrays.asList(3,1,4));
     }
 
-    public static void loadLines(){
-        questLines.put(0,0);
-        questLines.put(1,9);
-        questLines.put(2,1);
+    // USABLE SCORES
+    public enum Scores{
+        FW_FeyDustUse,
+        FW_Quest,
+        FW_Reputation
     }
 
-    public static void updateQuest(Score score){
-        score.setScore(questMap.get(score.getScore()));
+    public enum Courts{
+        SpringAligned,
+        AutumnAligned,
+        WinterAligned,
+        SummerAligned
+    }
+
+
+    public static int getCourtScore(String court, World world){
+        AtomicInteger score = new AtomicInteger();
+        world.players().forEach(playerEntity -> {
+            switch (court){
+                case "SpringAligned":
+                    if(playerEntity.getTags().contains(Courts.SpringAligned.toString())){
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        score.addAndGet(rep1.getScore());
+                    }
+                break;
+                case "AutumnAligned":
+                    if(playerEntity.getTags().contains(Courts.AutumnAligned.toString())){
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        score.addAndGet(rep1.getScore());
+                    }
+                    break;
+                case "WinterAligned":
+                    if(playerEntity.getTags().contains(Courts.WinterAligned.toString())){
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        score.addAndGet(rep1.getScore());
+                    }
+                    break;
+                case "SummerAligned":
+                    if(playerEntity.getTags().contains(Courts.SummerAligned.toString())){
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        score.addAndGet(rep1.getScore());
+                    }
+                    break;
+            }
+        });
+        return score.get();
+    }
+
+
+
+    public static void updateQuest(Score score, Score rep){
+        rep.setScore(rep.getScore() + getRepNumber(score.getScore()));
+        score.setScore(questMap.get(score.getScore()).get(0));
     }
 
     public static int getLineNumber(Score score){
@@ -47,14 +81,14 @@ public class QuestMap {
     }
 
     public static int getLineNumber(int quest){
-        return questLines.get(quest);
+        return questMap.get(quest).get(1);
     }
 
-    public static Map<Integer, Integer> getQuestLines() {
-        return questLines;
-    }
+    public static int getRepNumber(Score score) {return getRepNumber(score.getScore());}
 
-    public static Map<Integer, Integer> getQuestMap() {
+    public static int getRepNumber(int quest) {return questMap.get(quest).get(2);}
+
+    public static Map<Integer, List<Integer>> getQuestMap() {
         return questMap;
     }
 }

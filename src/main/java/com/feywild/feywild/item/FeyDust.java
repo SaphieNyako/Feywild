@@ -53,17 +53,18 @@ public class FeyDust extends Item {
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         if(playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
 
-        Score score = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), ModUtil.Scores.FW_FeyDustUse.toString(), playerIn.level);
-        Score quest = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), ModUtil.Scores.FW_Quest.toString(), playerIn.level);
-
+        Score score = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), QuestMap.Scores.FW_FeyDustUse.toString(), playerIn.level);
+        Score quest = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), QuestMap.Scores.FW_Quest.toString(), playerIn.level);
+        Score rep = ModUtil.getOrCreatePlayerScore(playerIn.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), playerIn.level);
         // Only add if quest is given
         if (quest.getScore() == 1 && target instanceof SheepEntity) {
             score.setScore(score.getScore() + 1);
             if(score.getScore() > 3) {
                 playerIn.sendMessage(new TranslationTextComponent("message.quest_completion_spring"), playerIn.getUUID());
-                QuestMap.updateQuest(quest);
+                QuestMap.updateQuest(quest,rep);
                 FeywildPacketHandler.sendToPlayer(new QuestMessage(playerIn.getUUID(),quest.getScore()),playerIn);
                 score.setScore(0);
+
             }
         }else{
             score.setScore(0);
