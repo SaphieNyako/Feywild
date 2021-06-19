@@ -4,24 +4,14 @@ import com.feywild.feywild.util.ModUtil;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuestMap {
 
 
-    static Map<Integer, List<Integer>> questMap = new HashMap<>();
-
-    public static void loadQuests(){
-        questMap.put(0, Arrays.asList(1,1,25,1)); // Welcome message
-        questMap.put(1, Arrays.asList(2,9,7,0));// Common begin quest - Fey dust quest
-        questMap.put(2,Arrays.asList(3,1,0,1)); // Congrats message
-        questMap.put(3, Arrays.asList(4,1,10,0)); // Cake quest
-        questMap.put(4, Arrays.asList(5,0,0,1));
-    }
+    static List<Quest> quests = new LinkedList<>();
 
     // USABLE SCORES
     public enum Scores{
@@ -75,21 +65,51 @@ public class QuestMap {
 
     public static void updateQuest(Score score, Score rep){
         rep.setScore(rep.getScore() + getRepNumber(score.getScore()));
-        score.setScore(questMap.get(score.getScore()).get(0));
+
+        AtomicInteger i = new AtomicInteger();
+        quests.forEach(quest -> {
+            if(quest.getId() == score.getScore()){
+                i.set(quest.getLink());
+            }
+        });
+
+        score.setScore(i.get());
     }
 
-    public static int getLineNumber(int quest){
-        return questMap.get(quest).get(1);
+    public static int getLineNumber(int id){
+
+        AtomicInteger i = new AtomicInteger();
+        quests.forEach(quest -> {
+            if(quest.getId() == id){
+                i.set(quest.getLines());
+            }
+        });
+
+        return i.get();
     }
 
 
-    public static int getRepNumber(int quest) {return questMap.get(quest).get(2);}
+    public static int getRepNumber(int id) {
+        AtomicInteger i = new AtomicInteger();
+        quests.forEach(quest -> {
+            if(quest.getId() == id){
+                i.set(quest.getRep());
+            }
+        });
 
-    public static boolean getCanSkip(int quest){
-        return questMap.get(quest).get(3) == 1;
+        return i.get();
     }
 
-    public static Map<Integer, List<Integer>> getQuestMap() {
-        return questMap;
+    public static boolean getCanSkip(int id){
+
+        AtomicBoolean i = new AtomicBoolean();
+        quests.forEach(quest -> {
+            if(quest.getId() == id){
+                i.set(quest.canSkip());
+            }
+        });
+
+        return i.get();
     }
+
 }

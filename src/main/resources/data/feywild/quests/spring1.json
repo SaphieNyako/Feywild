@@ -1,0 +1,8 @@
+{
+  "type" : "quest",
+  "id" : 1,
+  "lines" : 9,
+  "link" : 2,
+  "reputation" : 7,
+  "canSkip" : false
+}

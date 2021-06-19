@@ -9,6 +9,7 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
@@ -26,6 +27,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -39,6 +41,7 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -90,9 +93,14 @@ public class FeywildMod {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup); // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC); // Register the processIMC method for modloading
+        MinecraftForge.EVENT_BUS.addListener(this::reloadStuff);
         registerModAdditions();
-        MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);// Register ourselves for server and other game events we are interested in
 
+    }
+
+    public void reloadStuff(AddReloadListenerEvent event){
+        event.addListener(QuestManager.instance());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -105,6 +113,7 @@ public class FeywildMod {
         loadConfigs();
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
+        QuestManager.instance();
     }
 
     private void registerConfigs() {
@@ -122,7 +131,6 @@ public class FeywildMod {
     private void registerModAdditions() {
 
         Registration.init();
-        QuestMap.loadQuests();
         ModSoundEvents.register();
         ModItems.register();
         ModBlocks.register();
@@ -133,6 +141,7 @@ public class FeywildMod {
         ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
         ModEntityTypes.register();
+
 
     }
 
@@ -151,6 +160,8 @@ public class FeywildMod {
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
+
+
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
