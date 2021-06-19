@@ -32,7 +32,8 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
    @Override
     protected void init() {
         super.init();
-        //Ancient's note : test button will be repurposed for quest completion 
+        //Ancient's note : test button will be repurposed for quest completion
+       if(QuestMap.getCanSkip(container.getQuest()))
         addButton(new Button(this.width/2 - width / 3 + 20, this.height/2 + this.getYSize()/3,20,20, new StringTextComponent("X"),button -> {
             this.acceptQuest();
         }));
@@ -48,7 +49,6 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
     }
 
   public void acceptQuest(){
-    if(QuestMap.getCanSkip(container.getQuest()))
          FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage(null, container.getQuest()));
 
         this.onClose();

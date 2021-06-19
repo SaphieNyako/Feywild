@@ -60,18 +60,12 @@ public class QuestMessage {
                     Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world);
                     reputation.setScore(QuestMap.getRepNumber(quest));
                 }
-
                 scores.setScore(quest);
             });
         }else {
-            world = ctx.get().getSender().level;
             PlayerEntity entity = ctx.get().getSender();
             ctx.get().enqueueWork(() -> {
-                Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), world);
-                Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world);
-
-                QuestMap.updateQuest(scores,reputation);
-                FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), scores.getScore()), entity);
+                QuestMap.updateQuest(entity);
             });
         }
         ctx.get().setPacketHandled(true);

@@ -3,6 +3,7 @@
   "id" : 2,
   "lines" : 1,
   "link" : 3,
-  "reputation" : 10,
-  "canSkip" : true
+  "reputation" : 0,
+  "canSkip" : true,
+  "extraData" : "NULL"
 }

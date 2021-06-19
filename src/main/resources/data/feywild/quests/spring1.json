@@ -4,5 +4,6 @@
   "lines" : 9,
   "link" : 2,
   "reputation" : 7,
-  "canSkip" : false
+  "canSkip" : false,
+  "extraData" : "TARGET sheep ACTION use TIMES 3 USING fey_dust"
 }

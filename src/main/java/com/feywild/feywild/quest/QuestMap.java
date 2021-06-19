@@ -1,12 +1,17 @@
 package com.feywild.feywild.quest;
 
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.util.ModUtil;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class QuestMap {
 
@@ -15,7 +20,7 @@ public class QuestMap {
 
     // USABLE SCORES
     public enum Scores{
-        FW_FeyDustUse,
+        FW_Interact,
         FW_Quest,
         FW_Reputation
     }
@@ -63,17 +68,73 @@ public class QuestMap {
 
 
 
-    public static void updateQuest(Score score, Score rep){
-        rep.setScore(rep.getScore() + getRepNumber(score.getScore()));
+    public static void updateQuest( PlayerEntity entity){
 
-        AtomicInteger i = new AtomicInteger();
+        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level);
+        Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level);
+
+        //Add the court alignment once base quest are created
+        switch (score.getScore()){
+            case 0:
+                entity.addTag(Courts.SpringAligned.toString());
+            break;
+        }
+
+        rep.add(getRepNumber(score.getScore()));
+
+
+        AtomicReference<Quest> questA = new AtomicReference<>();
+        AtomicReference<Quest> questB = new AtomicReference<>();
+        AtomicInteger link = new AtomicInteger(-1);
         quests.forEach(quest -> {
             if(quest.getId() == score.getScore()){
-                i.set(quest.getLink());
+                link.set(quest.getLink());
+                questB.set(quest);
+                quests.forEach(quest1 -> {
+                    if(link.get() == quest1.getId()){
+                        questA.set(quest1);
+                    }
+                });
             }
         });
 
-        score.setScore(i.get());
+        score.setScore(link.get());
+
+            String[] tokens = questA.get().getData().toUpperCase().split(" ").clone();
+
+            Set<String> tags = new HashSet<>();
+            for (int i = 0; i < entity.getTags().size(); i++) {
+                if (!(entity.getTags().toArray()[i].toString().startsWith("FW_T_") || entity.getTags().toArray()[i].toString().startsWith("FW_A_") || entity.getTags().toArray()[i].toString().startsWith("FW_U_")|| entity.getTags().toArray()[i].toString().startsWith("FW_R_"))) {
+                        tags.add(entity.getTags().toArray()[i].toString());
+                }
+            }
+
+            /* MIGHT CREATE SOME CONFLICT WHEN IT COMES TO TAGS*/
+            entity.getTags().clear();
+            entity.getTags().addAll(tags);
+
+
+            for (int i = 0; i < tokens.length; i++) {
+                switch (tokens[i]) {
+                    case "TARGET":
+                        entity.addTag("FW_T_" + tokens[i + 1]);
+                        break;
+                    case "ACTION":
+                        entity.addTag("FW_A_" + tokens[i + 1]);
+                        break;
+                    case "USING":
+                        entity.addTag("FW_U_" + tokens[i + 1]);
+                        break;
+                    case "TIMES":
+                        entity.addTag("FW_R_" + tokens[i + 1]);
+                        break;
+                }
+            }
+
+            if(!questB.get().canSkip())
+        entity.sendMessage(new TranslationTextComponent("message.quest_completion_spring"), entity.getUUID());
+        FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(),score.getScore()),entity);
+
     }
 
     public static int getLineNumber(int id){

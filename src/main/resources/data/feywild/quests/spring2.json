@@ -2,7 +2,8 @@
   "type" : "quest",
   "id" : 3,
   "lines" : 1,
-  "link" : 1,
+  "link" : 4,
   "reputation" : 7,
-  "canSkip" : false
+  "canSkip" : false,
+  "extraData" : "TARGET cake ACTION craft TIMES 1"
 }
