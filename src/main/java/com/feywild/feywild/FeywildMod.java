@@ -84,11 +84,13 @@ public class FeywildMod {
 
     public FeywildMod() {
 
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         GeckoLib.initialize();
         proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup); // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC); // Register the processIMC method for modloading
+        eventBus.addListener(this::setup); // Register the setup method for modloading
+        eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
+        eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
         registerModAdditions();
         MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
 
