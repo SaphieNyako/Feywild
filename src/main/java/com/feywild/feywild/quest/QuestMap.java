@@ -5,6 +5,7 @@ import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
@@ -104,7 +105,7 @@ public class QuestMap {
 
             Set<String> tags = new HashSet<>();
             for (int i = 0; i < entity.getTags().size(); i++) {
-                if (!(entity.getTags().toArray()[i].toString().startsWith("FW_T_") || entity.getTags().toArray()[i].toString().startsWith("FW_A_") || entity.getTags().toArray()[i].toString().startsWith("FW_U_")|| entity.getTags().toArray()[i].toString().startsWith("FW_R_"))) {
+                if (!(entity.getTags().toArray()[i].toString().startsWith("FWT") || entity.getTags().toArray()[i].toString().startsWith("FWA") || entity.getTags().toArray()[i].toString().startsWith("FWU")|| entity.getTags().toArray()[i].toString().startsWith("FWR"))|| entity.getTags().toArray()[i].toString().startsWith("FWFF")|| entity.getTags().toArray()[i].toString().startsWith("FWFU")|| entity.getTags().toArray()[i].toString().startsWith("FWFT"))  {
                         tags.add(entity.getTags().toArray()[i].toString());
                 }
             }
@@ -117,22 +118,31 @@ public class QuestMap {
             for (int i = 0; i < tokens.length; i++) {
                 switch (tokens[i]) {
                     case "TARGET":
-                        entity.addTag("FW_T_" + tokens[i + 1]);
+                        entity.addTag("FWT" + tokens[i + 1]);
                         break;
                     case "ACTION":
-                        entity.addTag("FW_A_" + tokens[i + 1]);
+                        entity.addTag("FWA" + tokens[i + 1]);
                         break;
                     case "USING":
-                        entity.addTag("FW_U_" + tokens[i + 1]);
+                        entity.addTag("FWU" + tokens[i + 1]);
                         break;
                     case "TIMES":
-                        entity.addTag("FW_R_" + tokens[i + 1]);
+                        entity.addTag("FWR" + tokens[i + 1]);
+                        break;
+                    case "T_FROM":
+                        entity.addTag("FWFT" + tokens[i + 1]);
+                        break;
+                    case "U_FROM":
+                        entity.addTag("FWFU" + tokens[i + 1]);
+                        break;
+                    case "FROM":
+                        entity.addTag("FWFF" + tokens[i + 1]);
                         break;
                 }
             }
-
             if(!questB.get().canSkip())
-        entity.sendMessage(new TranslationTextComponent("message.quest_completion_spring"), entity.getUUID());
+                entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"),true);
+
         FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(),score.getScore()),entity);
 
     }

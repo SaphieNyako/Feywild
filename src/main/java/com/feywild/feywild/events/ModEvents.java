@@ -13,11 +13,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,30 +33,21 @@ public class ModEvents {
     }
 
     private void genericInteract(PlayerInteractEvent.EntityInteract event){
-        AtomicReference<String> target = new AtomicReference<>("null"), item = new AtomicReference<>("null"), action = new AtomicReference<>("null"), times = new AtomicReference<>("null");
-        event.getPlayer().getTags().forEach(s -> {
-            if(s.startsWith("FW_T_")){
-                target.set(s.substring(5));
-                target.set(target.get().replace(" ", "_"));
-            }else if(s.startsWith("FW_A_")){
-                action.set(s.substring(5));
-            }else if(s.startsWith("FW_U_")){
-                item.set(s.substring(5));
-            }else if(s.startsWith("FW_R_")){
-                times.set(s.substring(5));
-            }
-        });
+        if(!event.getPlayer().level.isClientSide) {
+            List<String> tokens = ModUtil.getTokens(event.getPlayer());
 
-        String stack = Objects.requireNonNull(event.getItemStack().getItem().getRegistryName()).getPath();
+            String stack = Objects.requireNonNull(event.getItemStack().getItem().getRegistryName()).toString();
 
-        if(action.get().equalsIgnoreCase("use") && event.getTarget().getName().getString().equalsIgnoreCase(target.get()) && stack.equalsIgnoreCase(item.get())){
-            Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getWorld());
+            if (tokens.get(2).equalsIgnoreCase("use") && Registry.ENTITY_TYPE.getKey(event.getTarget().getType()).toString().equalsIgnoreCase(tokens.get(0)) && (stack.equalsIgnoreCase(tokens.get(1)) || tokens.get(1).equalsIgnoreCase("empty"))) {
+                Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getWorld());
 
-            if(Integer.parseInt(times.get()) <= interact.getScore()){
-                interact.setScore(0);
-                QuestMap.updateQuest(event.getPlayer());
-            }else {
-                interact.add(1);
+                if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                    interact.setScore(0);
+                    QuestMap.updateQuest(event.getPlayer());
+                } else {
+                    event.getPlayer().displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)),true);
+                    interact.add(1);
+                }
             }
         }
     }
@@ -105,36 +99,27 @@ public class ModEvents {
 
 
     @SubscribeEvent
-    public void craftItem(PlayerEvent.ItemCraftedEvent event){
+    public void craftItem(PlayerEvent.ItemCraftedEvent event) {
 
         PlayerEntity playerEntity = event.getPlayer();
-        if(!playerEntity.level.isClientSide) {
-            AtomicReference<String> target = new AtomicReference<>("null"), action = new AtomicReference<>("null"), times = new AtomicReference<>("null");
-            event.getPlayer().getTags().forEach(s -> {
-                if (s.startsWith("FW_T_")) {
-                    target.set(s.substring(5));
-                } else if (s.startsWith("FW_A_")) {
-                    action.set(s.substring(5));
-                } else if (s.startsWith("FW_R_")) {
-                    times.set(s.substring(5));
-                }
-            });
+        if (!playerEntity.level.isClientSide) {
+            List<String> tokens = ModUtil.getTokens(playerEntity);
 
-            if (action.get().equalsIgnoreCase("craft") && event.getCrafting().getItem().getRegistryName().getPath().equalsIgnoreCase(target.get())) {
+            if (tokens.get(2).equalsIgnoreCase("craft") && Objects.requireNonNull(event.getCrafting().getItem().getRegistryName()).toString().equalsIgnoreCase(tokens.get(0))) {
                 QuestMap.updateQuest(event.getPlayer());
                 Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), playerEntity.level);
 
-                if(Integer.parseInt(times.get()) <= interact.getScore()){
+                if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
                     interact.setScore(0);
                     QuestMap.updateQuest(event.getPlayer());
-                }else {
+                } else {
                     interact.add(1);
                 }
 
             }
         }
-
     }
+
 
 
     @SubscribeEvent
