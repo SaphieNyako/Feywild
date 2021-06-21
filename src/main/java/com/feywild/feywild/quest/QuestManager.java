@@ -40,7 +40,7 @@ public class QuestManager implements IFutureReloadListener {
         return CompletableFuture.allOf(CompletableFuture.runAsync(() ->
         {
 
-            String path = "quests";
+            String path = "feywild_quests";
             Quest.Serializer serializer = new Quest.Serializer();
 
             List<ResourceLocation> resources = (List<ResourceLocation>) iResourceManager.listResources(path, s -> s.endsWith(".json"));
@@ -56,6 +56,7 @@ public class QuestManager implements IFutureReloadListener {
 
                     } catch (IOException e) {
                         e.printStackTrace();
+                        System.out.print("You are not abiding by the rules of the feywild! (Quest setup is wrong)");
                 }
             });
         },executor)).thenCompose(iStage::wait);

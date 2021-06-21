@@ -7,16 +7,22 @@ import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.conditions.KilledByPlayer;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -39,8 +45,9 @@ public class ModEvents {
 
             String stack = Objects.requireNonNull(event.getItemStack().getItem().getRegistryName()).toString();
 
+            if(tokens.get(2).equalsIgnoreCase("use") && Registry.ENTITY_TYPE.getKey(event.getTarget().getType()).toString().equalsIgnoreCase(tokens.get(0)))
             ModUtil.getTagTokens(tokens.get(1)).forEach(s -> {
-                if (tokens.get(2).equalsIgnoreCase("use") && Registry.ENTITY_TYPE.getKey(event.getTarget().getType()).toString().equalsIgnoreCase(tokens.get(0)) && (stack.equalsIgnoreCase(s) || s.equalsIgnoreCase("empty"))) {
+                if ((stack.equalsIgnoreCase(s) || s.equalsIgnoreCase("empty"))) {
                     Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getWorld(),1);
 
                     if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
@@ -108,20 +115,70 @@ public class ModEvents {
         if (!playerEntity.level.isClientSide) {
             List<String> tokens = ModUtil.getTokens(playerEntity);
 
+            if (tokens.get(2).equalsIgnoreCase("craft"))
+                ModUtil.getTagTokens(tokens.get(0)).forEach(s -> {
+                    if (Objects.requireNonNull(event.getCrafting().getItem().getRegistryName()).toString().equalsIgnoreCase(s)) {
+                        Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), playerEntity.level, 1);
 
-            ModUtil.getTagTokens(tokens.get(0)).forEach(s -> {
-                if (tokens.get(2).equalsIgnoreCase("craft") && Objects.requireNonNull(event.getCrafting().getItem().getRegistryName()).toString().equalsIgnoreCase(s)) {
-                    Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), playerEntity.level,1);
+                        if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                            interact.setScore(0);
+                            QuestMap.updateQuest(event.getPlayer());
+                        } else {
+                            event.getPlayer().displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)), true);
+                            interact.add(event.getCrafting().getCount());
+                        }
 
-                    if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
-                        interact.setScore(0);
-                        QuestMap.updateQuest(event.getPlayer());
-                    } else {
-                        interact.add(1);
                     }
+                });
+        }
+    }
 
-                }
-            });
+    @SubscribeEvent
+    public void genericAttackEvent(LivingDeathEvent event){
+        if(!event.getEntityLiving().level.isClientSide && event.getSource().getEntity() instanceof PlayerEntity) {
+
+            PlayerEntity playerEntity = (PlayerEntity) event.getSource().getEntity();
+            List<String> tokens = ModUtil.getTokens(playerEntity);
+            String stack = Objects.requireNonNull(playerEntity.getMainHandItem().getItem().getRegistryName()).toString();
+
+                if (tokens.get(2).equalsIgnoreCase("kill") && Registry.ENTITY_TYPE.getKey(event.getEntityLiving().getType()).toString().equalsIgnoreCase(tokens.get(0)))
+                    ModUtil.getTagTokens(tokens.get(1)).forEach(s -> {
+                        if ((stack.equalsIgnoreCase(s) || s.equalsIgnoreCase("empty"))) {
+                            Score interact = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), QuestMap.Scores.FW_Interact.toString(),playerEntity.level, 1);
+
+                            if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                                interact.setScore(0);
+                                QuestMap.updateQuest(playerEntity);
+                            } else {
+                                playerEntity.displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)), true);
+                                interact.add(1);
+                            }
+                        }
+                    });
+        }
+    }
+
+    @SubscribeEvent
+    public void genericPickUp(PlayerEvent.ItemPickupEvent event){
+        if(!event.getPlayer().level.isClientSide) {
+            List<String> tokens = ModUtil.getTokens(event.getPlayer());
+
+            ItemStack stack = event.getStack();
+            if (tokens.get(2).equalsIgnoreCase("get"))
+                ModUtil.getTagTokens(tokens.get(0)).forEach(s -> {
+                    if ((stack.getItem().getRegistryName().toString().equalsIgnoreCase(s))) {
+                        Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getPlayer().level, 1);
+
+                        if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                            interact.setScore(0);
+                            QuestMap.updateQuest(event.getPlayer());
+                        } else {
+                            event.getPlayer().displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)), true);
+                            interact.add(1);
+                        }
+                    }
+                });
+
         }
     }
 

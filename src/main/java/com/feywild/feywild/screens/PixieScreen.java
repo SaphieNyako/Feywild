@@ -35,7 +35,7 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
         //Ancient's note : test button will be repurposed for quest completion
        if(QuestMap.getCanSkip(container.getQuest()))
         addButton(new Button(this.width/2 - width / 3 + 20, this.height/2 + this.getYSize()/3,20,20, new StringTextComponent("X"),button -> {
-            this.acceptQuest();
+            this.onClose();
         }));
     }
 
@@ -48,12 +48,12 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
         this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
-  public void acceptQuest(){
-         FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage(null, container.getQuest()));
-
-        this.onClose();
+    @Override
+    public void onClose() {
+        if(QuestMap.getCanSkip(container.getQuest()))
+        FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage(null, container.getQuest()));
+        super.onClose();
     }
-
 
     @Override //drawGuiContainerForegroundLayer
     protected void renderLabels(MatrixStack matrixStack, int x, int y) {

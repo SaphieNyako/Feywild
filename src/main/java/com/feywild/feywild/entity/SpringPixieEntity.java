@@ -8,6 +8,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
@@ -100,22 +101,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-        if (!player.getCommandSenderWorld().isClientSide && player.getItemInHand(hand).isEmpty()) {
+        if (!player.getCommandSenderWorld().isClientSide && player.getItemInHand(hand).isEmpty() && Config.BETA.get()) {
             if (this.getTags().contains("spring_quest_pixie")) {
-
-
-              /*  Score quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(),player.level);
-                Score rep = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Reputation.toString(),player.level);
-
-                if(quest.getScore() == 0) {
-                    QuestMap.updateQuest(score, rep);
-                    player.addTag(QuestMap.Courts.SpringAligned.toString());
-                    FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(),quest.getScore()),player);
-                }
-
-               */
-
-                //  player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID()); //this works
 
                 INamedContainerProvider containerProvider = new INamedContainerProvider() {
                     @Override

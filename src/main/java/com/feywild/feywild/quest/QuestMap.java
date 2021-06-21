@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 public class QuestMap {
 
@@ -71,24 +72,24 @@ public class QuestMap {
 
     public static void updateQuest( PlayerEntity entity){
 
-        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level,0);
+        Score questId = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level,0);
         Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level,0);
 
         //Add the court alignment once base quest are created
-        switch (score.getScore()){
+        switch (questId.getScore()){
             case 0:
                 entity.addTag(Courts.SpringAligned.toString());
             break;
         }
 
-        rep.add(getRepNumber(score.getScore()));
+        rep.add(getRepNumber(questId.getScore()));
 
 
         AtomicReference<Quest> questA = new AtomicReference<>();
         AtomicReference<Quest> questB = new AtomicReference<>();
         AtomicInteger link = new AtomicInteger(-1);
         quests.forEach(quest -> {
-            if(quest.getId() == score.getScore()){
+            if(quest.getId() == questId.getScore()){
                 link.set(quest.getLink());
                 questB.set(quest);
                 quests.forEach(quest1 -> {
@@ -99,14 +100,14 @@ public class QuestMap {
             }
         });
 
-        score.setScore(link.get());
+        questId.setScore(link.get());
 
         storeQuestData(entity);
 
             if (!questB.get().canSkip())
                 entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
 
-            FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), score.getScore()), entity);
+            FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), questId.getScore()), entity);
         }
 
 
