@@ -3,17 +3,21 @@ package com.feywild.feywild.events;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ModEvents {
+
+
 
     @SubscribeEvent
     public void interactWithVillager(PlayerInteractEvent.EntityInteract event) {
@@ -57,6 +61,11 @@ public class ModEvents {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent){
+        ModUtil.librarians.forEach(LivingEntity::kill);
     }
 
     @SubscribeEvent

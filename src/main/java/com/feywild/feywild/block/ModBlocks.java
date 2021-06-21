@@ -22,6 +22,9 @@ public class ModBlocks {
                     .strength(3f, 10f)
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE)), true);
 
+    public static final RegistryObject<Block> BELL = register("bell",
+            Bell::new, true);
+
 
     /* TILE ENTITIES */
 
