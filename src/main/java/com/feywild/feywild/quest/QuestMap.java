@@ -40,25 +40,25 @@ public class QuestMap {
             switch (court){
                 case "SpringAligned":
                     if(playerEntity.getTags().contains(Courts.SpringAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
                         score.addAndGet(rep1.getScore());
                     }
                 break;
                 case "AutumnAligned":
                     if(playerEntity.getTags().contains(Courts.AutumnAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
                         score.addAndGet(rep1.getScore());
                     }
                     break;
                 case "WinterAligned":
                     if(playerEntity.getTags().contains(Courts.WinterAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
                         score.addAndGet(rep1.getScore());
                     }
                     break;
                 case "SummerAligned":
                     if(playerEntity.getTags().contains(Courts.SummerAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world);
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
                         score.addAndGet(rep1.getScore());
                     }
                     break;
@@ -71,8 +71,8 @@ public class QuestMap {
 
     public static void updateQuest( PlayerEntity entity){
 
-        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level);
-        Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level);
+        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level,0);
+        Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level,0);
 
         //Add the court alignment once base quest are created
         switch (score.getScore()){
@@ -101,50 +101,52 @@ public class QuestMap {
 
         score.setScore(link.get());
 
-            String[] tokens = questA.get().getData().toUpperCase().split(" ").clone();
+        storeQuestData(entity);
 
-            Set<String> tags = new HashSet<>();
-            for (int i = 0; i < entity.getTags().size(); i++) {
-                if (!(entity.getTags().toArray()[i].toString().startsWith("FWT") || entity.getTags().toArray()[i].toString().startsWith("FWA") || entity.getTags().toArray()[i].toString().startsWith("FWU")|| entity.getTags().toArray()[i].toString().startsWith("FWR"))|| entity.getTags().toArray()[i].toString().startsWith("FWFF")|| entity.getTags().toArray()[i].toString().startsWith("FWFU")|| entity.getTags().toArray()[i].toString().startsWith("FWFT"))  {
-                        tags.add(entity.getTags().toArray()[i].toString());
+            if (!questB.get().canSkip())
+                entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
+
+            FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), score.getScore()), entity);
+        }
+
+
+    public static void storeQuestData(PlayerEntity entity) {
+        AtomicReference<Quest> quest = new AtomicReference<>();
+        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level,0);
+
+        quests.forEach(quest1 -> {
+                if(quest1.getId() == score.getScore()){
+                    quest.set(quest1);
                 }
-            }
+            });
 
-            /* MIGHT CREATE SOME CONFLICT WHEN IT COMES TO TAGS*/
-            entity.getTags().clear();
-            entity.getTags().addAll(tags);
+        if (!entity.level.isClientSide) {
+            String[] tokens = quest.get().getData().toUpperCase().split(" ").clone();
 
+
+            //REMOVE
+            entity.getPersistentData().remove("FWT");
+            entity.getPersistentData().remove("FWA");
+            entity.getPersistentData().remove("FWU");
+            entity.getPersistentData().remove("FWR");
 
             for (int i = 0; i < tokens.length; i++) {
                 switch (tokens[i]) {
                     case "TARGET":
-                        entity.addTag("FWT" + tokens[i + 1]);
+                        entity.getPersistentData().putString("FWT", tokens[i + 1]);
                         break;
                     case "ACTION":
-                        entity.addTag("FWA" + tokens[i + 1]);
+                        entity.getPersistentData().putString("FWA", tokens[i + 1]);
                         break;
                     case "USING":
-                        entity.addTag("FWU" + tokens[i + 1]);
+                        entity.getPersistentData().putString("FWU", tokens[i + 1]);
                         break;
                     case "TIMES":
-                        entity.addTag("FWR" + tokens[i + 1]);
-                        break;
-                    case "T_FROM":
-                        entity.addTag("FWFT" + tokens[i + 1]);
-                        break;
-                    case "U_FROM":
-                        entity.addTag("FWFU" + tokens[i + 1]);
-                        break;
-                    case "FROM":
-                        entity.addTag("FWFF" + tokens[i + 1]);
+                        entity.getPersistentData().putInt("FWR", Integer.parseInt(tokens[i + 1]));
                         break;
                 }
             }
-            if(!questB.get().canSkip())
-                entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"),true);
-
-        FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(),score.getScore()),entity);
-
+        }
     }
 
     public static int getLineNumber(int id){

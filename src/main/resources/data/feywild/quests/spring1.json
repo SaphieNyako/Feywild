@@ -5,5 +5,5 @@
   "link" : 2,
   "reputation" : 7,
   "canSkip" : false,
-  "extraData" : "TARGET sheep ACTION use TIMES 3 USING fey_dust T_FROM minecraft U_FROM feywild"
+  "extraData" : "TARGET minecraft:sheep ACTION use TIMES 3 USING feywild:fey_dust"
 }

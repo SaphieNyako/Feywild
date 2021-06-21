@@ -55,9 +55,9 @@ public class QuestMessage {
             world = new ClientProxy().getClientWorld();
             PlayerEntity entity = world.getPlayerByUUID(uuid);
             ctx.get().enqueueWork(() -> {
-                Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), world);
+                Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), world,0);
                 if (scores.getScore() != quest) {
-                    Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world);
+                    Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world,0);
                     reputation.setScore(QuestMap.getRepNumber(quest));
                 }
                 scores.setScore(quest);

@@ -1,5 +1,6 @@
 package com.feywild.feywild.events;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
@@ -38,17 +39,19 @@ public class ModEvents {
 
             String stack = Objects.requireNonNull(event.getItemStack().getItem().getRegistryName()).toString();
 
-            if (tokens.get(2).equalsIgnoreCase("use") && Registry.ENTITY_TYPE.getKey(event.getTarget().getType()).toString().equalsIgnoreCase(tokens.get(0)) && (stack.equalsIgnoreCase(tokens.get(1)) || tokens.get(1).equalsIgnoreCase("empty"))) {
-                Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getWorld());
+            ModUtil.getTagTokens(tokens.get(1)).forEach(s -> {
+                if (tokens.get(2).equalsIgnoreCase("use") && Registry.ENTITY_TYPE.getKey(event.getTarget().getType()).toString().equalsIgnoreCase(tokens.get(0)) && (stack.equalsIgnoreCase(s) || s.equalsIgnoreCase("empty"))) {
+                    Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getWorld(),1);
 
-                if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
-                    interact.setScore(0);
-                    QuestMap.updateQuest(event.getPlayer());
-                } else {
-                    event.getPlayer().displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)),true);
-                    interact.add(1);
+                    if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                        interact.setScore(0);
+                        QuestMap.updateQuest(event.getPlayer());
+                    } else {
+                        event.getPlayer().displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)),true);
+                        interact.add(1);
+                    }
                 }
-            }
+            });
         }
     }
 
@@ -105,18 +108,20 @@ public class ModEvents {
         if (!playerEntity.level.isClientSide) {
             List<String> tokens = ModUtil.getTokens(playerEntity);
 
-            if (tokens.get(2).equalsIgnoreCase("craft") && Objects.requireNonNull(event.getCrafting().getItem().getRegistryName()).toString().equalsIgnoreCase(tokens.get(0))) {
-                QuestMap.updateQuest(event.getPlayer());
-                Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), playerEntity.level);
 
-                if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
-                    interact.setScore(0);
-                    QuestMap.updateQuest(event.getPlayer());
-                } else {
-                    interact.add(1);
+            ModUtil.getTagTokens(tokens.get(0)).forEach(s -> {
+                if (tokens.get(2).equalsIgnoreCase("craft") && Objects.requireNonNull(event.getCrafting().getItem().getRegistryName()).toString().equalsIgnoreCase(s)) {
+                    Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), playerEntity.level,1);
+
+                    if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                        interact.setScore(0);
+                        QuestMap.updateQuest(event.getPlayer());
+                    } else {
+                        interact.add(1);
+                    }
+
                 }
-
-            }
+            });
         }
     }
 
@@ -126,6 +131,18 @@ public class ModEvents {
     public void spawnWithItem(PlayerEvent.PlayerLoggedInEvent spawnEvent) {
 
         PlayerEntity player = spawnEvent.getPlayer();
+
+        if(!spawnEvent.getEntityLiving().getCommandSenderWorld().isClientSide && !player.getTags().contains("initQuests")){
+            player.getPersistentData().putString("FWT" , "null");
+            player.getPersistentData().putString("FWA" , "null");
+            player.getPersistentData().putString("FWU" , "empty");
+            player.getPersistentData().putInt("FWR" , 0);
+            player.addTag("initQuests");
+        }else{
+            Score score = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level,0);
+            QuestMap.storeQuestData(player);
+            FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), score.getScore()),player);
+        }
 
         if (!spawnEvent.getEntityLiving().getCommandSenderWorld().isClientSide && !player.getTags().contains("foundLexicon")
                 && Config.SPAWN_LEXICON.get()) {

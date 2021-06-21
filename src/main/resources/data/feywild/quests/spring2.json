@@ -5,5 +5,5 @@
   "link" : 4,
   "reputation" : 7,
   "canSkip" : false,
-  "extraData" : "TARGET cake ACTION craft TIMES 1 T_FROM minecraft"
+  "extraData" : "TARGET minecraft:cake ACTION craft TIMES 1"
 }
