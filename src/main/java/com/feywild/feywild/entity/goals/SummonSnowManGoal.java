@@ -21,6 +21,7 @@ public class SummonSnowManGoal extends Goal {
     protected final World worldLevel;
     public BlockPos summoningPosition;
     protected WinterPixieEntity entity;
+
     protected int count = 0;
 
     private Vector3d targetPos;
@@ -51,21 +52,30 @@ public class SummonSnowManGoal extends Goal {
     @Override
     public void tick() {
 
-        count++;
+        count--;
 
-        if (count >= 120) {
+        if (count <= 0) {
             summonSnowMan();
             reset();
 
-        } else if (count == 10) {
+        } else if (count == 110) {
             spellCasting();
+        } else if (count <= 100) {
+            entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         }
+
+    }
+
+    @Override
+    public void start() {
+        count = 120;
+        entity.setCasting(false);
     }
 
     private void spellCasting() {
 
         this.targetPos = new Vector3d(entity.getX() + entity.getRandom().nextInt(4 * 2) - 4, entity.getY() + 2, entity.getZ() + entity.getRandom().nextInt(4 * 2) - 4);
-        entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+
         entity.setCasting(true);
         entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
     }
@@ -73,10 +83,11 @@ public class SummonSnowManGoal extends Goal {
     private void reset() {
         entity.setCasting(false);
         targetPos = null;
-        count = 0;
+
     }
 
     private void summonSnowMan() {
+
         SnowGolemEntity snowman = new SnowGolemEntity(EntityType.SNOW_GOLEM, worldLevel);
         snowman.setPos(entity.getX(), entity.getY() + 1, entity.getZ());
         snowman.setDeltaMovement((targetPos.x - entity.getX()) / 8, (targetPos.y - entity.getY()) / 8, (targetPos.z - entity.getZ()) / 8);
@@ -90,6 +101,6 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.005f;
+        return entity.level.random.nextFloat() < 0.002f && !lookForSnowman(entity);
     }
 }

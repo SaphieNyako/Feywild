@@ -15,8 +15,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -39,7 +37,9 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     private final int FEY_DUST_MANA_COST = 50;
     private int tick = 0;
 
+    private boolean canCraft;
     private boolean dwarfPresent;
+    private int dwarvesPresent = 0;
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
 
@@ -85,7 +85,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             }
 
             tick = 0;
-            updateInventory(-1, true);
+            //     updateInventory(-1, true);
             setChanged(); //markDirty(); Might not be necessary here
 
         }
@@ -103,7 +103,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     @Override
     public void load(BlockState state, CompoundNBT tag) {
 
-        dwarfPresent = tag.getBoolean("dwarf_present");
+        //    dwarfPresent = tag.getBoolean("dwarf_present");
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         manaStorage.deserializeNBT(tag.getCompound("mana"));
         tick = tag.getInt("counter");
@@ -115,7 +115,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         tag.put("inventory", itemHandler.serializeNBT());
         tag.put("mana", manaStorage.serializeNBT());
         tag.putInt("counter", tick);
-        tag.putBoolean("dwarf_present", dwarfPresent);
+        //   tag.putBoolean("dwarf_present", dwarfPresent);
 
         return super.save(tag);
     }
@@ -217,17 +217,16 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             //check if there is enough mana
 
             if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
-                    && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() && dwarfPresent
+                    && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() // && dwarfPresent
                     && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage) {
 
-                level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                //  level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 
                 itemHandler.insertItem(-1, output, false);
-                itemHandler.extractItem(2, 1, false);
-                itemHandler.extractItem(3, 1, false);
-                itemHandler.extractItem(4, 1, false);
-                itemHandler.extractItem(5, 1, false);
-                itemHandler.extractItem(6, 1, false);
+
+                for (int k = 2; k < 7; k++) {
+                    itemHandler.extractItem(k, 1, false);
+                }
 
                 manaStorage.consumeMana(manaUsage);
 
@@ -238,7 +237,56 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
     }
 
+    public void checkForViableRecipe() {
+        Inventory inv = new Inventory(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inv.setItem(i, itemHandler.getStackInSlot(i));
+        }
+
+        Optional<DwarvenAnvilRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE, inv, level);
+
+        recipe.ifPresent(iRecipe -> {
+            ItemStack output = iRecipe.getResultItem();
+
+            int manaUsage = iRecipe.getManaUsage();
+
+            if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
+                    && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() //&& dwarfPresent
+                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage) {
+
+                setCanCraft(true);
+
+            } else {
+                setCanCraft(false);
+            }
+        });
+
+    }
+
+    public boolean getCanCraft() {
+        return canCraft;
+    }
+
+    public void setCanCraft(boolean canCraft) {
+        this.canCraft = canCraft;
+    }
+/*
     public void setDwarfPresent(boolean dwarfPresent) {
-        this.dwarfPresent = dwarfPresent;
+        if (dwarfPresent == false) {
+            dwarvesPresent--;
+            if (dwarvesPresent <= 0) {
+                this.dwarfPresent = false;
+            } else this.dwarfPresent = true;
+        }
+
+        if (dwarfPresent == true) {
+            dwarvesPresent++;
+            this.dwarfPresent = true;
+        }
+
+    } */
+
+    public int getMana() {
+        return manaStorage.getManaStored();
     }
 }

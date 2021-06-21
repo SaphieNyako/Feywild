@@ -1,5 +1,5 @@
 {
-  "advancement": "feywild:adventure/fey_dust",
+  "advancement": "feywild:feywild/fey_dust",
   "name": "Dwarves",
   "icon": "minecraft:diamond_pickaxe",
   "category": "dwarves",
@@ -9,11 +9,10 @@
       "text": "Brought into life by the spilling of Ymirs lifeblood, the dwarves have a strong binding with the earth, fire and the mountains. This makes them excellent and skilled metalworkers and craftsmen, and they take great pride in this."
     },
     {
-      "type": "image",
-      "title": "Dwarf",
-      "images": ["feywild:textures/patchouli_images/dwarf_book.png"],
-      "border": true,
-      "text": "The dwarves are not native to the Feywild. They come looking for ore, gems and ingots."
+      "type": "entity",
+      "entity": "feywild:dwarf_blacksmith",
+      "scale": 0.8,
+      "offset": 0.15
     }
   ]
 }

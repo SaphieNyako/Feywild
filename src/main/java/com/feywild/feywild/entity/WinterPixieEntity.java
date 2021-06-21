@@ -174,7 +174,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     @Override
     public void readAdditionalSaveData(CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
-        if (tag.contains("summoner_x"))
+        if (tag.contains("summonPos_X"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
 
         if (tag.contains("tamed")) {

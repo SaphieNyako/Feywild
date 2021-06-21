@@ -1,5 +1,5 @@
 {
-  "advancement": "feywild:adventure/fey_dust",
+  "advancement": "feywild:feywild/fey_dust",
   "name": "Fey Ore",
   "icon": "feywild:lesser_fey_gem",
   "category": "fey_gems",

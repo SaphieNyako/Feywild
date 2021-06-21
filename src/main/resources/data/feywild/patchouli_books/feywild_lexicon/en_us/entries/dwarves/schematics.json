@@ -1,5 +1,5 @@
 {
-  "advancement": "feywild:adventure/dwarf_contract",
+  "advancement": "feywild:feywild/dwarf_contract",
   "name": "Dwarven Knowledge",
   "icon": "feywild:schematics_fey_altar",
   "category": "dwarves",
@@ -11,14 +11,14 @@
       "text": "If you gain trust with a summoned dwarf, overtime they may reveal secrets only known to the dwarfs."
     },
     {
-      "advancement": "feywild:adventure/dwarf_schematics_gem_transmutation",
+      "advancement": "feywild:feywild/dwarf_schematics_gem_transmutation",
       "type": "spotlight",
       "item": "feywild:greater_fey_gem",
       "title": "Gem Transmutation",
       "text": "A Fey Altar allows you to summon Fey, if you know the correct summoning incantation."
     },
     {
-      "advancement": "feywild:adventure/dwarf_schematics_gem_transmutation",
+      "advancement": "feywild:feywild/dwarf_schematics_gem_transmutation",
       "type": "image",
       "title": "Gem Transmutation",
       "images": ["feywild:textures/patchouli_images/schematics_gem_transmutation_book.png"],
@@ -33,14 +33,14 @@
       "text": ""
     },
     {
-      "advancement": "feywild:adventure/dwarf_schematics_fey_altar",
+      "advancement": "feywild:feywild/dwarf_schematics_fey_altar",
       "type": "spotlight",
       "item": "feywild:fey_altar",
       "title": "Fey Altar",
       "text": "A Fey Altar allows you to summon Fey, if you know the correct summoning incantation."
     },
     {
-      "advancement": "feywild:adventure/dwarf_schematics_fey_altar",
+      "advancement": "feywild:feywild/dwarf_schematics_fey_altar",
       "type": "image",
       "title": "Fey Altar",
       "images": ["feywild:textures/patchouli_images/schematics_fey_altar_book.png"],

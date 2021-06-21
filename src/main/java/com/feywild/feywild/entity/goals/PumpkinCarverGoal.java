@@ -43,12 +43,14 @@ public class PumpkinCarverGoal extends Goal {
         }
         count--;
 
-        if (count == 0 && block.getBlock() != Blocks.JACK_O_LANTERN.getBlock()) {
+        if (count <= 0 && block.getBlock() != Blocks.JACK_O_LANTERN.getBlock()) {
             pumpkinCarving();
             reset();
 
         } else if (count == 110 && block.getBlock() != Blocks.JACK_O_LANTERN.getBlock()) {
             spellCasting();
+        } else if (count <= 100) {
+            entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         }
 
     }
@@ -57,6 +59,7 @@ public class PumpkinCarverGoal extends Goal {
     public void start() {
 
         count = 120;
+        entity.setCasting(false);
         block = null;
 
         World world = entity.getCommandSenderWorld();
@@ -89,7 +92,6 @@ public class PumpkinCarverGoal extends Goal {
         }
 
         entity.getNavigation().moveTo(targetPos.x, targetPos.y, targetPos.z, 0.5);
-        entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         entity.setCasting(true);
         entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
     }
@@ -107,7 +109,7 @@ public class PumpkinCarverGoal extends Goal {
         }
 
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(targetPos.x, targetPos.y + 1, targetPos.z, 0, 0, 0, 10, 0)
+                , new ParticleMessage(targetPos.x, targetPos.y + 1, targetPos.z, 0, 0, 0, 10, 0, 0)
                 , 64);
 
     }

@@ -47,20 +47,21 @@ public class DwarvenTrades {
     /* TAMED */
 
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_BLACKSMITH_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
-                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
-                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
-                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
-                    new DwarvenTrades.RandomFoodItemsForRandomOreItemsTrade(),
+                    new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
+                    new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
+                    new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
+                    new DwarvenTrades.RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade(),
             },
 
             2, new VillagerTrades.ITrade[]{
                     new DwarvenTrades.ItemsForFeyGemTrade(ModItems.GREATER_FEY_GEM.get(), 4, 1, 1),
                     new DwarvenTrades.ItemsForGreaterFeyGemTrade(ModItems.SHINY_FEY_GEM.get(), 4, 1, 2),
-                    new DwarvenTrades.ItemsForShinyFeyGemTrade(ModItems.BRILLIANT_FEY_GEM.get(), 4, 1, 3)
+                    new DwarvenTrades.ItemsForShinyFeyGemTrade(ModItems.BRILLIANT_FEY_GEM.get(), 4, 1, 3),
+                    new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_FEY_ALTAR.get(), 2, 1, 1, 10)
 
             }, 3, new VillagerTrades.ITrade[]{
                     new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 2, 1, 1, 5),
-                    new DwarvenTrades.ItemsForBrilliantFeyGemTrade(ModItems.SCHEMATICS_FEY_ALTAR.get(), 2, 1, 1, 10)
+
             }));
 
     private static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
@@ -277,7 +278,7 @@ public class DwarvenTrades {
 
     }
 
-    static class RandomFoodItemsForRandomOreItemsTrade implements VillagerTrades.ITrade {
+    static class RandomCommonFoodItemsForRandomCommonOreItemsTrade implements VillagerTrades.ITrade {
 
         private final int maxUses;
 
@@ -285,61 +286,101 @@ public class DwarvenTrades {
 
         private final float priceMultiplier;
 
-        public RandomFoodItemsForRandomOreItemsTrade() {
-            this.maxUses = 1;
-            this.givenXP = 1;
+        public RandomCommonFoodItemsForRandomCommonOreItemsTrade() {
+            this.maxUses = 5;
+            this.givenXP = 2;
             this.priceMultiplier = 0.05F;
         }
 
-        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
-            return new MerchantOffer(getRandomFoodItem(), getRandomOreItem(),
+        public MerchantOffer getOffer(Entity p_221182_1_, Random random) {
+            return new MerchantOffer(getCommonFoodItem().get(random.nextInt(getCommonFoodItem().size())),
+                    getCommonOreItem().get(random.nextInt(getCommonOreItem().size())),
                     this.maxUses, this.givenXP, this.priceMultiplier);
 
         }
 
-        public ItemStack getRandomOreItem() {
+        public List<ItemStack> getCommonOreItem() {
 
-            List<ItemStack> items = new ArrayList<>();
-            Random random = new Random();
+            List<ItemStack> commonItems = new ArrayList<>();
 
-            items.add(new ItemStack(Items.ANDESITE, 10));
-            items.add(new ItemStack(Items.REDSTONE, 6));
-            items.add(new ItemStack(Items.IRON_ORE, 3));
-            items.add(new ItemStack(Items.GOLD_ORE, 3));
-            items.add(new ItemStack(Items.COBBLESTONE, 20));
-            items.add(new ItemStack(Items.DIORITE, 10));
-            items.add(new ItemStack(Items.GRANITE, 15));
-            items.add(new ItemStack(Items.COAL, 25));
-            items.add(new ItemStack(Items.DIAMOND, 1));
-            items.add(new ItemStack(Items.EMERALD, 2));
-            items.add(new ItemStack(Items.LAPIS_LAZULI, 6));
-            items.add(new ItemStack(Items.CLAY, 8));
-            items.add(new ItemStack(ModBlocks.FEY_GEM_BLOCK.get(), 1));
+            commonItems.add(new ItemStack(Items.ANDESITE, 10));
+            commonItems.add(new ItemStack(Items.COBBLESTONE, 20));
+            commonItems.add(new ItemStack(Items.DIORITE, 10));
+            commonItems.add(new ItemStack(Items.GRANITE, 15));
+            commonItems.add(new ItemStack(Items.COAL, 25));
+            commonItems.add(new ItemStack(Items.CLAY, 8));
+            commonItems.add(new ItemStack(Items.REDSTONE, 6));
+            commonItems.add(new ItemStack(Items.IRON_ORE, 3));
+            commonItems.add(new ItemStack(Items.GOLD_ORE, 3));
+            commonItems.add(new ItemStack(Items.LAPIS_LAZULI, 6));
 
-            return items.get(random.nextInt(items.size()));
+            return commonItems;
 
         }
 
-        public ItemStack getRandomFoodItem() {
+        public List<ItemStack> getCommonFoodItem() {
 
-            List<ItemStack> items = new ArrayList<>();
-            Random random = new Random();
+            List<ItemStack> commonItems = new ArrayList<>();
 
-            items.add(new ItemStack(Items.APPLE, 4));
-            items.add(new ItemStack(Items.BREAD, 3));
-            items.add(new ItemStack(Items.COOKED_PORKCHOP, 2));
-            items.add(new ItemStack(Items.COOKED_COD, 2));
-            items.add(new ItemStack(Items.COOKED_SALMON, 2));
-            items.add(new ItemStack(Items.CAKE, 1));
-            items.add(new ItemStack(Items.COOKIE, 4));
-            items.add(new ItemStack(Items.MELON_SLICE, 6));
-            items.add(new ItemStack(Items.COOKED_BEEF, 2));
-            items.add(new ItemStack(Items.COOKED_CHICKEN, 2));
-            items.add(new ItemStack(Items.RABBIT_STEW, 2));
-            items.add(new ItemStack(Items.MUSHROOM_STEW, 2));
-            items.add(new ItemStack(Items.BEETROOT_SOUP, 2));
+            commonItems.add(new ItemStack(Items.APPLE, 4));
+            commonItems.add(new ItemStack(Items.BREAD, 3));
+            commonItems.add(new ItemStack(Items.COOKED_PORKCHOP, 2));
+            commonItems.add(new ItemStack(Items.COOKED_COD, 2));
+            commonItems.add(new ItemStack(Items.COOKED_SALMON, 2));
+            commonItems.add(new ItemStack(Items.COOKIE, 4));
+            commonItems.add(new ItemStack(Items.MELON_SLICE, 6));
+            commonItems.add(new ItemStack(Items.COOKED_BEEF, 2));
+            commonItems.add(new ItemStack(Items.COOKED_CHICKEN, 2));
+            commonItems.add(new ItemStack(Items.MUSHROOM_STEW, 2));
+            commonItems.add(new ItemStack(Items.BEETROOT_SOUP, 2));
 
-            return items.get(random.nextInt(items.size()));
+            return commonItems;
+        }
+
+    }
+
+    static class RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade implements VillagerTrades.ITrade {
+
+        private final int maxUses;
+
+        private final int givenXP;
+
+        private final float priceMultiplier;
+
+        public RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade() {
+            this.maxUses = 2;
+            this.givenXP = 5;
+            this.priceMultiplier = 0.05F;
+        }
+
+        public MerchantOffer getOffer(Entity p_221182_1_, Random random) {
+            return new MerchantOffer(getLegendaryFoodItem().get(random.nextInt(getLegendaryFoodItem().size())),
+                    getLegendaryOreItem().get(random.nextInt(getLegendaryOreItem().size())),
+                    this.maxUses, this.givenXP, this.priceMultiplier);
+
+        }
+
+        public List<ItemStack> getLegendaryOreItem() {
+
+            List<ItemStack> legendaryItems = new ArrayList<>();
+
+            legendaryItems.add(new ItemStack(Items.DIAMOND, 1));
+            legendaryItems.add(new ItemStack(Items.EMERALD, 2));
+            legendaryItems.add(new ItemStack(ModBlocks.FEY_GEM_BLOCK.get(), 1));
+
+            return legendaryItems;
+
+        }
+
+        public List<ItemStack> getLegendaryFoodItem() {
+
+            List<ItemStack> legendaryItems = new ArrayList<>();
+
+            legendaryItems.add(new ItemStack(Items.CAKE, 2));
+            legendaryItems.add(new ItemStack(Items.PUMPKIN_PIE, 2));
+            legendaryItems.add(new ItemStack(Items.RABBIT_STEW, 2));
+
+            return legendaryItems;
         }
 
     }

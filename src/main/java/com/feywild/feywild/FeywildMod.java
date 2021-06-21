@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.container.ModContainers;
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
@@ -83,11 +84,13 @@ public class FeywildMod {
 
     public FeywildMod() {
 
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
         GeckoLib.initialize();
         proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup); // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC); // Register the processIMC method for modloading
+        eventBus.addListener(this::setup); // Register the setup method for modloading
+        eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
+        eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
         registerModAdditions();
         MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
 
@@ -163,7 +166,7 @@ public class FeywildMod {
             GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), DwarfBlacksmithEntity.setCustomAttributes().build());
         });
     }
 

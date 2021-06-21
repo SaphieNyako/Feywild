@@ -79,7 +79,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             limit = random.nextInt(20 * 6);
             if (random.nextDouble() > 0.5) {
                 // send packet to player to summon particles
-                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + random.nextDouble(), worldPosition.getY() + random.nextDouble(), worldPosition.getZ() + random.nextDouble(), 0, 0, 0, 1, 2), 32);
+                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + random.nextDouble(), worldPosition.getY() + random.nextDouble(), worldPosition.getZ() + random.nextDouble(), 0, 0, 0, 1, 2,0), 32);
             }
             count = 0;
         }
@@ -98,7 +98,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, output);
             level.addFreshEntity(entity);
             clearContent();
-            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0), 32);
+            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0,0), 32);
         });
 
     }

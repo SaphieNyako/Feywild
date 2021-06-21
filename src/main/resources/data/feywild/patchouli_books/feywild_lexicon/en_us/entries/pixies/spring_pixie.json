@@ -8,10 +8,9 @@
       "text": "Bouncy, bubbly and completely void of the idea of personal space, the pixies of the Spring Court treat everything as if they have never seen it before. They are like hyperactive children, always wondering what everything is, stuffing anything into their mouth that seems slightly edible and their only concern is not having either enough fun or food for the day. "
     },
     {
-      "type": "image",
-      "title": "Spring Pixie",
-      "images": ["feywild:textures/patchouli_images/spring_pixie_book.png"],
-      "border": true
+      "type": "entity",
+      "entity": "feywild:spring_pixie",
+      "offset": 0.4
     },
     {
       "type": "text",

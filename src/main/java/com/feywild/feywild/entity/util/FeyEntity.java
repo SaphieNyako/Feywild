@@ -131,7 +131,7 @@ public abstract class FeyEntity extends CreatureEntity {
 
             heal(4f);
             player.getItemInHand(hand).shrink(1);
-            FeywildPacketHandler.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1), 32);
+            FeywildPacketHandler.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1,0), 32);
         }
         return ActionResultType.SUCCESS;
     }
