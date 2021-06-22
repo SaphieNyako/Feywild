@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.util;
 
+import com.feywild.feywild.entity.util.trades.DwarvenTrades;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.AgeableEntity;

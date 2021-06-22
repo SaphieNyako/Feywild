@@ -1,49 +1,73 @@
 {
   "type":"dwarf_trade",
   "rarity" : 0,
-  "length" : 11,
-  "entry0": {
-    "item" : "minecraft:apple",
-    "count": 4
-  },
-  "entry1": {
-    "item": "minecraft:bread",
-    "count": 3
-  },
-  "entry2": {
-    "item": "minecraft:cooked_porkchop",
-    "count": 2
-  },
-  "entry3": {
-    "item": "minecraft:cooked_cod",
-    "count": 2
-  },
-  "entry4": {
-    "item": "minecraft:cooked_salmon",
-    "count": 2
-  },
-  "entry5": {
-    "item": "minecraft:cookie",
-    "count": 4
-  },
-  "entry6": {
-    "item": "minecraft:melon_slice",
-    "count": 6
-  },
-  "entry7": {
-    "item": "minecraft:cooked_beef",
-    "count": 2
-  },
-  "entry8": {
-    "item": "minecraft:cooked_chicken",
-    "count": 2
-  },
-  "entry9": {
-    "item": "minecraft:mushroom_stew",
-    "count": 2
-  },
-  "entry10": {
-    "item": "minecraft:beetroot_soup",
-    "count": 2
-  }
+  "isLoot" : false,
+  "pool": [
+    {
+      "output": {
+        "item": "minecraft:apple",
+        "count": 4
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:bread",
+        "count": 3
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:cooked_porkchop",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:cooked_cod",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:cooked_salmon",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:cookie",
+        "count": 4
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:melon_slice",
+        "count": 6
+      }
+    },
+    {
+      "output": {
+      "item": "minecraft:cooked_beef",
+      "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:cooked_chicken",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:mushroom_stew",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:beetroot_soup",
+        "count": 2
+      }
+    }
+  ]
 }
