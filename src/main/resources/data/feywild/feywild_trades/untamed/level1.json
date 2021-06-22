@@ -34,7 +34,7 @@
       },
       "output": {
         "item": "feywild:lesser_fey_gem",
-        "count": 3
+        "count": 1
       },
       "maxUses" : 5,
       "givenXp" : 1,
@@ -47,7 +47,7 @@
       },
       "output": {
         "item": "feywild:lesser_fey_gem",
-        "count": 2
+        "count": 1
       },
       "maxUses" : 5,
       "givenXp" : 1,

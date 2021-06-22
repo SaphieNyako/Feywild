@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class TamedTradeManager implements IFutureReloadListener {
     private static final Gson GSON = new GsonBuilder().create();
     private static TamedTradeManager instance;
     private static String tamedPaths[] = {"feywild_trades/tamed/food", "feywild_trades/tamed/loot"};
-    private static String untamedPaths[] = {"feywild_trades/untamed"};
+    private static String untamedPaths[] = {"feywild_trades/untamed", "feywild_trades/tamed/static"};
 
     public static TamedTradeManager instance()
     {
@@ -95,13 +96,13 @@ public class TamedTradeManager implements IFutureReloadListener {
                         int level = Integer.parseInt(String.valueOf(resourceLocation.getPath().charAt(resourceLocation.getPath().length() - 6)));
                             switch (level){
                                 case 1 :
-                                    tamedLevel1.addAll(trades);
+                                    untamedLevel1.addAll(trades);
                                     break;
                                 case 2:
-                                    tamedLevel2.addAll(trades);
+                                    untamedLevel2.addAll(trades);
                                     break;
                                 case 3:
-                                    tamedLevel3.addAll(trades);
+                                    tamedLevel2.addAll(trades);
                                     break;
                                 default:
                                     //Do nothing
@@ -113,7 +114,7 @@ public class TamedTradeManager implements IFutureReloadListener {
                     }
                 });
                 DWARVEN_TRADES = toIntMap(ImmutableMap.of(
-                        1,getTrades(tamedLevel1),2, getTrades(tamedLevel2),3, getTrades(Collections.singletonList(new SimplyTrade(new ItemStack(ModItems.GREATER_FEY_GEM.get(), 5), new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 2), 1, 1, 10)
+                        1,getTrades(untamedLevel1),2, getTrades(untamedLevel2),3, getTrades(Collections.singletonList(new SimplyTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 20), new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 1), 1, 1, 10)
                         ))));
 
 
@@ -125,9 +126,9 @@ public class TamedTradeManager implements IFutureReloadListener {
                                 new DwarvenTrades.RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade(),
                         },
 
-                        2, getTrades(tamedLevel3),
+                        2, getTrades(tamedLevel2),
                         3, getTrades(Collections.singletonList(
-                                new SimplyTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 2), new ItemStack(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 1), 1, 1, 5)
+                                new SimplyTrade(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1), new ItemStack(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 1), 1, 1, 5)
                         ))));
             }
 

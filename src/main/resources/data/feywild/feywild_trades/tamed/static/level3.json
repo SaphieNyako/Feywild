@@ -10,8 +10,8 @@
         "item": "feywild:greater_fey_gem",
         "count": 1
       },
-      "maxUses" : 1,
-      "givenXp" : 1,
+      "maxUses" : 12,
+      "givenXp" : 3,
       "priceMult": 0.05
     },
     {
@@ -23,47 +23,34 @@
         "item": "feywild:shiny_fey_gem",
         "count": 1
       },
-      "maxUses" : 1,
-      "givenXp" : 2,
+      "maxUses" : 12,
+      "givenXp" : 4,
       "priceMult": 0.05
     },
     {
       "input": {
         "item": "feywild:greater_fey_gem",
-        "count": 3
+        "count": 4
       },
       "output": {
         "item": "feywild:brilliant_fey_gem",
         "count": 1
       },
-      "maxUses" : 1,
-      "givenXp" : 3,
+      "maxUses" : 12,
+      "givenXp" : 5,
       "priceMult": 0.05
     },
     {
       "input": {
         "item": "feywild:brilliant_fey_gem",
-        "count": 1
+        "count": 2
       },
       "output": {
         "item": "feywild:schematics_fey_altar",
-        "count": 2
+        "count": 1
       },
       "maxUses" : 1,
       "givenXp" : 10,
-      "priceMult": 0.05
-    },
-    {
-      "input": {
-        "item": "minecraft:lapis_lazuli",
-        "count": 6
-      },
-      "output": {
-        "item": "feywild:lesser_fey_gem",
-        "count": 2
-      },
-      "maxUses" : 5,
-      "givenXp" : 1,
       "priceMult": 0.05
     }
   ]

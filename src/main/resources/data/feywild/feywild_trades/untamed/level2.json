@@ -21,7 +21,7 @@
       },
       "input": {
         "item": "feywild:lesser_fey_gem",
-        "count": 7
+        "count": 8
       },
       "maxUses" : 1,
       "givenXp" : 10,
@@ -30,7 +30,7 @@
     {
       "output": {
         "item": "minecraft:lantern",
-        "count": 1
+        "count": 4
       },
       "input": {
         "item": "feywild:lesser_fey_gem",
@@ -56,24 +56,24 @@
     {
       "output": {
         "item": "feywild:mandrake",
-        "count": 1
+        "count": 5
       },
       "input": {
         "item": "feywild:lesser_fey_gem",
         "count": 1
       },
-      "maxUses" : 5,
+      "maxUses" : 3,
       "givenXp" : 3,
       "priceMult": 0.05
     },
     {
       "output": {
         "item": "minecraft:tnt",
-        "count": 1
+        "count": 3
       },
       "input": {
         "item": "feywild:lesser_fey_gem",
-        "count": 3
+        "count": 2
       },
       "maxUses" : 5,
       "givenXp" : 10,
@@ -86,7 +86,7 @@
       },
       "input": {
         "item": "feywild:lesser_fey_gem",
-        "count": 5
+        "count": 2
       },
       "maxUses" : 2,
       "givenXp" : 3,

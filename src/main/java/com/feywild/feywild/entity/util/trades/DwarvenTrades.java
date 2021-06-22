@@ -25,7 +25,7 @@ public class DwarvenTrades {
     //TODO: Serialise the trades
     public static final List<TradeData> commonLoot = new LinkedList<>(), legendaryLoot = new LinkedList<>();
     public static final List<TradeData> commonFood = new LinkedList<>(), legendaryFood = new LinkedList<>();
-    public static final List<SimplyTrade> tamedLevel1 = new LinkedList<>(), tamedLevel2 = new LinkedList<>(), tamedLevel3 = new LinkedList<>();
+    public static final List<SimplyTrade> untamedLevel1 = new LinkedList<>(), untamedLevel2 = new LinkedList<>(), tamedLevel2 = new LinkedList<>();
 
     public static Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES;
 

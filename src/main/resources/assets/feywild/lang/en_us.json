@@ -85,5 +85,7 @@
   "message.feywild.music_disc_feywild": "Music composed, mixed and mastered by: Davy Habets (IKIGA) - www.ikigamusic.com",
   "message.feywild.music_disc_feywild_2": "Song of the Seaons Composed, mixed and mastered by: Davy Habets (IKIGA)",
   "message.feywild.schematics_gem_transmutation": "Schematics for transmuting fey gems",
-  "screen.feywild.dwarven_anvil": "Dwarven Anvil"
+  "screen.feywild.dwarven_anvil": "Dwarven Anvil",
+  "message.feywild.bell.angry" : "I am calling security!",
+  "message.feywild.bell.annoyed" : "I am here already, please be quiet!"
 }
