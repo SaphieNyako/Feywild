@@ -1,0 +1,17 @@
+{
+  "type":"dwarf_trade",
+  "rarity" : 1,
+  "length" : 3,
+  "entry0": {
+    "item" : "minecraft:cake",
+    "count": 2
+  },
+  "entry1": {
+    "item": "minecraft:pumpkin_pie",
+    "count": 2
+  },
+  "entry2": {
+    "item": "minecraft:rabbit_stew",
+    "count": 2
+  }
+}

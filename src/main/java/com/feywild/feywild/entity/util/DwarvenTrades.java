@@ -3,6 +3,10 @@ package com.feywild.feywild.entity.util;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.item.ModItems;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.block.Block;
@@ -12,15 +16,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.JSONUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class DwarvenTrades {
 
     //TODO: Serialise the trades
+    public static final List<ItemStack> commonLoot = new LinkedList<>(), commonFood = new LinkedList<>(), legendaryLoot = new LinkedList<>(), legendaryFood = new LinkedList<>();
 
     public static final Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
             new DwarvenTrades.FeyGemForItemsTrade(Items.IRON_ORE, 3, 5, 1),
@@ -293,48 +302,10 @@ public class DwarvenTrades {
         }
 
         public MerchantOffer getOffer(Entity p_221182_1_, Random random) {
-            return new MerchantOffer(getCommonFoodItem().get(random.nextInt(getCommonFoodItem().size())),
-                    getCommonOreItem().get(random.nextInt(getCommonOreItem().size())),
+            return new MerchantOffer(commonFood.get(random.nextInt(commonFood.size())),
+                    commonLoot.get(random.nextInt(commonLoot.size())),
                     this.maxUses, this.givenXP, this.priceMultiplier);
 
-        }
-
-        public List<ItemStack> getCommonOreItem() {
-
-            List<ItemStack> commonItems = new ArrayList<>();
-
-            commonItems.add(new ItemStack(Items.ANDESITE, 10));
-            commonItems.add(new ItemStack(Items.COBBLESTONE, 20));
-            commonItems.add(new ItemStack(Items.DIORITE, 10));
-            commonItems.add(new ItemStack(Items.GRANITE, 15));
-            commonItems.add(new ItemStack(Items.COAL, 25));
-            commonItems.add(new ItemStack(Items.CLAY, 8));
-            commonItems.add(new ItemStack(Items.REDSTONE, 6));
-            commonItems.add(new ItemStack(Items.IRON_ORE, 3));
-            commonItems.add(new ItemStack(Items.GOLD_ORE, 3));
-            commonItems.add(new ItemStack(Items.LAPIS_LAZULI, 6));
-
-            return commonItems;
-
-        }
-
-        public List<ItemStack> getCommonFoodItem() {
-
-            List<ItemStack> commonItems = new ArrayList<>();
-
-            commonItems.add(new ItemStack(Items.APPLE, 4));
-            commonItems.add(new ItemStack(Items.BREAD, 3));
-            commonItems.add(new ItemStack(Items.COOKED_PORKCHOP, 2));
-            commonItems.add(new ItemStack(Items.COOKED_COD, 2));
-            commonItems.add(new ItemStack(Items.COOKED_SALMON, 2));
-            commonItems.add(new ItemStack(Items.COOKIE, 4));
-            commonItems.add(new ItemStack(Items.MELON_SLICE, 6));
-            commonItems.add(new ItemStack(Items.COOKED_BEEF, 2));
-            commonItems.add(new ItemStack(Items.COOKED_CHICKEN, 2));
-            commonItems.add(new ItemStack(Items.MUSHROOM_STEW, 2));
-            commonItems.add(new ItemStack(Items.BEETROOT_SOUP, 2));
-
-            return commonItems;
         }
 
     }
@@ -354,35 +325,37 @@ public class DwarvenTrades {
         }
 
         public MerchantOffer getOffer(Entity p_221182_1_, Random random) {
-            return new MerchantOffer(getLegendaryFoodItem().get(random.nextInt(getLegendaryFoodItem().size())),
-                    getLegendaryOreItem().get(random.nextInt(getLegendaryOreItem().size())),
+            return new MerchantOffer(legendaryFood.get(random.nextInt(legendaryFood.size())),
+                    legendaryLoot.get(random.nextInt(legendaryLoot.size())),
                     this.maxUses, this.givenXP, this.priceMultiplier);
 
         }
 
-        public List<ItemStack> getLegendaryOreItem() {
+    }
 
-            List<ItemStack> legendaryItems = new ArrayList<>();
+    // Ancient's note : Since it's all here already why not just continue :P
 
-            legendaryItems.add(new ItemStack(Items.DIAMOND, 1));
-            legendaryItems.add(new ItemStack(Items.EMERALD, 2));
-            legendaryItems.add(new ItemStack(ModBlocks.FEY_GEM_BLOCK.get(), 1));
 
-            return legendaryItems;
-
+    public static class TamedSerializer {
+        public TamedSerializer(){
         }
 
-        public List<ItemStack> getLegendaryFoodItem() {
+        public List<ItemStack> deserialize(JsonObject object, int tradeRarity){
 
-            List<ItemStack> legendaryItems = new ArrayList<>();
-
-            legendaryItems.add(new ItemStack(Items.CAKE, 2));
-            legendaryItems.add(new ItemStack(Items.PUMPKIN_PIE, 2));
-            legendaryItems.add(new ItemStack(Items.RABBIT_STEW, 2));
-
-            return legendaryItems;
+            try {
+                if(object.get("type").getAsString().equals("dwarf_trade") && tradeRarity == object.get("rarity").getAsInt()) {
+                    int pool = object.get("length").getAsInt();
+                    List<ItemStack> ret = new LinkedList<>();
+                    for (int i = 0; i < pool; i++) {
+                        ret.add(ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(object,"entry"+ i)));
+                    }
+                    return ret;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
         }
-
     }
 }
 

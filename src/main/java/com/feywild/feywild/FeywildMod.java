@@ -5,6 +5,7 @@ import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.util.TradeManager;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
@@ -38,6 +39,7 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -91,10 +93,17 @@ public class FeywildMod {
         eventBus.addListener(this::setup); // Register the setup method for modloading
         eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
         eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
+        MinecraftForge.EVENT_BUS.addListener(this::reloadStuff);
         registerModAdditions();
         MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
 
     }
+
+    //This might have a conflict when merging with the quests
+    public void reloadStuff(AddReloadListenerEvent event){
+        event.addListener(TradeManager.instance());
+    }
+
 
     private void setup(final FMLCommonSetupEvent event) {
 
@@ -106,6 +115,7 @@ public class FeywildMod {
         loadConfigs();
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
+        TradeManager.instance();
     }
 
     private void registerConfigs() {

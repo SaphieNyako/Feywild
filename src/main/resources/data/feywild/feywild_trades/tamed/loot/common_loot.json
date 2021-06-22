@@ -1,0 +1,45 @@
+{
+  "type":"dwarf_trade",
+  "rarity" : 0,
+  "length" : 10,
+  "entry0": {
+    "item" : "minecraft:cobblestone",
+    "count": 20
+  },
+  "entry1": {
+    "item": "minecraft:andesite",
+    "count": 10
+  },
+  "entry2": {
+    "item": "minecraft:diorite",
+    "count": 10
+  },
+  "entry3": {
+    "item": "minecraft:granite",
+    "count": 15
+  },
+  "entry4": {
+    "item": "minecraft:coal",
+    "count": 25
+  },
+  "entry5": {
+    "item": "minecraft:clay",
+    "count": 8
+  },
+  "entry6": {
+    "item": "minecraft:redstone",
+    "count": 6
+  },
+  "entry7": {
+    "item": "minecraft:iron_ore",
+    "count": 3
+  },
+  "entry8": {
+    "item": "minecraft:gold_ore",
+    "count": 3
+  },
+  "entry9": {
+    "item": "minecraft:lapis_lazuli",
+    "count": 6
+  }
+}

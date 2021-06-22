@@ -1,0 +1,17 @@
+{
+  "type":"dwarf_trade",
+  "rarity" : 1,
+  "length" : 3,
+  "entry0": {
+    "item" : "minecraft:diamond",
+    "count": 3
+  },
+  "entry1": {
+    "item": "minecraft:emerald",
+    "count": 6
+  },
+  "entry2": {
+    "item": "feywild:fey_gem_block",
+    "count": 1
+  }
+}
