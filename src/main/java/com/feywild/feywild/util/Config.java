@@ -148,14 +148,14 @@ public class Config {
 
     private static void setBiomeConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
-        SPRING_BIOME_WEIGHT = CLIENT_BUILDER.comment("Spring biome weight:")
-                .defineInRange("spring_biome_weight", 20, 0, 100);
-        SUMMER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Summer biome weight:")
-                .defineInRange("summer_biome_weight", 20, 0, 100);
-        AUTUMN_BIOME_WEIGHT = CLIENT_BUILDER.comment("Autumn biome weight:")
-                .defineInRange("autumn_biome_weight", 20, 0, 100);
-        WINTER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Winter biome weight:")
-                .defineInRange("winter_biome_weight", 20, 0, 100);
+        SPRING_BIOME_WEIGHT = CLIENT_BUILDER.comment("Blossoming Wealds spawn weight:")
+                .defineInRange("spring_biome_weight", 15, 0, 100);
+        SUMMER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Golden Seelie Fields spawn weight:")
+                .defineInRange("summer_biome_weight", 15, 0, 100);
+        AUTUMN_BIOME_WEIGHT = CLIENT_BUILDER.comment("Eternal Fall spawn weight:")
+                .defineInRange("autumn_biome_weight", 15, 0, 100);
+        WINTER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Frozen Retreat spawn weight:")
+                .defineInRange("winter_biome_weight", 15, 0, 100);
 
     }
 
