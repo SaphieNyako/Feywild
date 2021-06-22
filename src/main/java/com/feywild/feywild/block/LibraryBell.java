@@ -51,8 +51,8 @@ public class LibraryBell extends Block {
         super.randomTick(state, world, pos, random);
         count++;
         if (count > 3 && entity != null && entity.isAlive()) {
-                entity.setPos(entity.getX(),entity.getY()-4,entity.getZ());
-                entity.kill();
+            entity.setPos(entity.getX(), entity.getY() - 4, entity.getZ());
+            entity.kill();
             count = 0;
         }
     }
@@ -60,11 +60,11 @@ public class LibraryBell extends Block {
     @Override
     public void onRemove(BlockState p_196243_1_, World p_196243_2_, BlockPos p_196243_3_, BlockState p_196243_4_, boolean p_196243_5_) {
         if (entity != null && entity.isAlive()) {
-            entity.setPos(entity.getX(),entity.getY()-4,entity.getZ());
+            entity.setPos(entity.getX(), entity.getY() - 4, entity.getZ());
             entity.kill();
         }
 
-        if(iron != null && iron.isAlive())
+        if (iron != null && iron.isAlive())
             iron.remove();
         super.onRemove(p_196243_1_, p_196243_2_, p_196243_3_, p_196243_4_, p_196243_5_);
     }
@@ -82,43 +82,43 @@ public class LibraryBell extends Block {
             world.playSound(playerEntity, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
         } else {
 
-            if(playerEntity == this.player){
+            if (playerEntity == this.player) {
                 annoyance++;
-            }else{
-            this.player = playerEntity;
-            annoyance = 0;
+            } else {
+                this.player = playerEntity;
+                annoyance = 0;
             }
 
-            if(annoyance == 10){
+            if (annoyance == 10) {
                 annoyance = 0;
-                 iron = new IronGolemEntity(EntityType.IRON_GOLEM, world);
-                 iron.setTarget(playerEntity);
-                 playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), playerEntity.getUUID());
-                 iron.setPos(pos.getX(),pos.getY(),pos.getZ());
-                 world.addFreshEntity(iron);
-            }else
-            if(annoyance > 6){
+                iron = new IronGolemEntity(EntityType.IRON_GOLEM, world);
+                iron.setTarget(playerEntity);
+                playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), playerEntity.getUUID());
+                iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
+                world.addFreshEntity(iron);
+
+            } else if (annoyance > 6) {
                 playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
             }
             if (entity != null && entity.isAlive()) {
-                entity.setPos(entity.getX(),entity.getY()-4,entity.getZ());
-                entity.kill();
+                entity.setPos(entity.getX(), entity.getY() - 4, entity.getZ());
+                entity.remove(); // .kill()
             }
-                entity = new VillagerEntity(EntityType.VILLAGER, world);
-                entity.addTag("spawn_librarian");
-                if (world.getBlockState(pos.below().north()).isAir()) {
-                    entity.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() - 1);
-                } else if (world.getBlockState(pos.below().south()).isAir()) {
-                    entity.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() + 2);
-                } else if (world.getBlockState(pos.below().east()).isAir()) {
-                    entity.setPos(pos.getX() + 2, pos.getY() - 1, pos.getZ() + 0.5);
-                } else if (world.getBlockState(pos.below().west()).isAir()) {
-                    entity.setPos(pos.getX() - 1, pos.getY() - 1, pos.getZ() + 0.5);
-                }
-                world.addFreshEntity(entity);
+            entity = new VillagerEntity(EntityType.VILLAGER, world);
+            entity.addTag("spawn_librarian");
+            if (world.getBlockState(pos.below().north()).isAir()) {
+                entity.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() - 1);
+            } else if (world.getBlockState(pos.below().south()).isAir()) {
+                entity.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() + 2);
+            } else if (world.getBlockState(pos.below().east()).isAir()) {
+                entity.setPos(pos.getX() + 2, pos.getY() - 1, pos.getZ() + 0.5);
+            } else if (world.getBlockState(pos.below().west()).isAir()) {
+                entity.setPos(pos.getX() - 1, pos.getY() - 1, pos.getZ() + 0.5);
+            }
+            world.addFreshEntity(entity);
 
-                ModUtil.librarians.add(entity);
-            }
+            ModUtil.librarians.add(entity);
+        }
         return ActionResultType.SUCCESS;
 
     }
