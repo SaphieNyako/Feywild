@@ -25,6 +25,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> LIBRARY_BELL = register("library_bell",
             LibraryBell::new, true);
 
+    public static final RegistryObject<Block>  SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
+    public static final RegistryObject<Block>  SUNFLOWER = register("sunflower", Sunflower::new, false);
+
 
     /* TILE ENTITIES */
 

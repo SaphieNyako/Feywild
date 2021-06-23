@@ -2,6 +2,7 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -45,7 +46,6 @@ public class SummerBiome extends BaseBiome {
         DefaultBiomeFeatures.addWarmFlowers(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addSavannaExtraGrass(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addJungleExtraVegetation(biomeGenerationSettingsBuilder);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
 
         DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
 

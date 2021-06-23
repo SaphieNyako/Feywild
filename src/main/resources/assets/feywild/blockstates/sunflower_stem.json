@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/sunflower_stem"
+      },
+      {
+        "model": "feywild:block/sunflower_stem",
+        "y" : 90
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "variant=0": {
+      "model": "feywild:block/sunflower_flower1"
+    },
+    "variant=1": {
+      "model": "feywild:block/sunflower_flower2"
+    },
+    "variant=2": {
+      "model": "feywild:block/sunflower_flower3"
+    }
+  }
+}

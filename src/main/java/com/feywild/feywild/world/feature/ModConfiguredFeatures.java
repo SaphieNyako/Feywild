@@ -36,6 +36,10 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 2))));
 
+    public static final ConfiguredFeature<?, ?> SUMMER_SUNFLOWER = registerFeature("sunflower_feature",
+            ModFeatures.SUNFLOWER_FEATURE.configured(IFeatureConfig.NONE)
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE));
+
     /* AUTUMN */
     public static final ConfiguredFeature<?, ?> AUTUMN_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "autumn_trees",

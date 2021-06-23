@@ -122,6 +122,7 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> ModConfiguredFeatures.SUMMER_TREES);
+            base.add(() -> ModConfiguredFeatures.SUMMER_SUNFLOWER);
         }
 
         if (biomeName.contains(AutumnBiome)) {
