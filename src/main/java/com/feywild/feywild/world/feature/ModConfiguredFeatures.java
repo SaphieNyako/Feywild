@@ -29,6 +29,10 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 3))));
 
+    public static final ConfiguredFeature<?, ?> SPRING_DANDELION = registerFeature("dandelion_feature",
+            ModFeatures.DANDELION_FEATURE.configured(IFeatureConfig.NONE)
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE));
+
     /* SUMMER */
     public static final ConfiguredFeature<?, ?> SUMMER_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "summer_trees",

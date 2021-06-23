@@ -28,6 +28,9 @@ public class ModBlocks {
     public static final RegistryObject<Block>  SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
     public static final RegistryObject<Block>  SUNFLOWER = register("sunflower", Sunflower::new, false);
 
+    public static final RegistryObject<Block>  DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
+    public static final RegistryObject<Block>  DANDELION = register("dandelion", Dandelion::new, false);
+
 
     /* TILE ENTITIES */
 

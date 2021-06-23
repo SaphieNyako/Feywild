@@ -1,21 +1,21 @@
 package com.feywild.feywild.world.feature;
 
+import com.feywild.feywild.block.Dandelion;
+import com.feywild.feywild.block.DandelionStem;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.SunflowerStem;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.Random;
 
-public class SunflowerFeature extends Feature<NoFeatureConfig> {
+public class DandelionFeature extends Feature<NoFeatureConfig> {
 
-    public SunflowerFeature() {
+    public DandelionFeature() {
 
         super(NoFeatureConfig.CODEC);
 
@@ -31,7 +31,7 @@ public class SunflowerFeature extends Feature<NoFeatureConfig> {
             if (world.getBlockState(blockpos).isAir(world, blockpos)
                     && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK )) {
                 if(rand.nextInt(4) == 0)
-                    spawnFlower(world,blockpos);
+                    spawnFlower(world,blockpos, rand);
             }
 
             ++check;
@@ -40,11 +40,11 @@ public class SunflowerFeature extends Feature<NoFeatureConfig> {
         return check > 0;
     }
 
-    public void spawnFlower(ISeedReader world , BlockPos pos) {
-        world.setBlock(pos, ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);
-        world.setBlock(pos.above(1), ModBlocks.SUNFLOWER_STEM.get().defaultBlockState().setValue(SunflowerStem.HAS_MODEL, true), 2, 1);
-        world.setBlock(pos.above(2), ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);
-        world.setBlock(pos.above(3), ModBlocks.SUNFLOWER.get().defaultBlockState(), 2, 1);
+    public void spawnFlower(ISeedReader world , BlockPos pos,Random random) {
+        world.setBlock(pos, ModBlocks.DANDELION_STEM.get().defaultBlockState(), 2, 1);
+        world.setBlock(pos.above(1), ModBlocks.DANDELION_STEM.get().defaultBlockState().setValue(DandelionStem.HAS_MODEL, true), 2, 1);
+        world.setBlock(pos.above(2), ModBlocks.DANDELION_STEM.get().defaultBlockState(), 2, 1);
+        world.setBlock(pos.above(3), ModBlocks.DANDELION.get().defaultBlockState().setValue(Dandelion.VARIANT,random.nextInt(3)), 2, 1);
     }
 
 }

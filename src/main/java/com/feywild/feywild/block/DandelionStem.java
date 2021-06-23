@@ -1,10 +1,12 @@
 package com.feywild.feywild.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -12,15 +14,16 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 
 import java.util.Random;
 
-public class SunflowerStem extends Block {
+public class DandelionStem extends Block {
 
     public static final BooleanProperty HAS_MODEL = BooleanProperty.create("model");
-    public SunflowerStem() {
-        super(AbstractBlock.Properties.of(Material.PLANT).harvestTool(ToolType.AXE).noCollission().strength(1,1));
+    public DandelionStem() {
+        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).noCollission().strength(1,1));
         this.registerDefaultState(this.stateDefinition.any().setValue(HAS_MODEL, false));
     }
 
@@ -48,13 +51,13 @@ public class SunflowerStem extends Block {
         super.onRemove(state, world, pos, blockState, p_196243_5_);
         if(world.isClientSide) return;
 
-        if(world.getBlockState(pos.above()).is(ModBlocks.SUNFLOWER_STEM.get())){
+        if(world.getBlockState(pos.above()).is(ModBlocks.DANDELION_STEM.get())){
             world.destroyBlock(pos.above(),false);
         }
-        if(world.getBlockState(pos.below()).is(ModBlocks.SUNFLOWER_STEM.get())){
+        if(world.getBlockState(pos.below()).is(ModBlocks.DANDELION_STEM.get())){
             world.destroyBlock(pos.below(),false);
         }
-        if(world.getBlockState(pos.above()).is(ModBlocks.SUNFLOWER.get())){
+        if(world.getBlockState(pos.above()).is(ModBlocks.DANDELION.get())){
             world.destroyBlock(pos.above(),true);
         }
     }

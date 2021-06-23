@@ -22,10 +22,6 @@ public class ModItems {
             Registration.ITEMS.register("lesser_fey_gem",
                     () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
-    public static final RegistryObject<Item> SUNFLOWER_SEEDS =
-            Registration.ITEMS.register("sunflower_seeds",SunflowerSeeds::new
-                );
-
     public static final RegistryObject<Item> GREATER_FEY_GEM =
             Registration.ITEMS.register("greater_fey_gem",
                     () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
@@ -71,6 +67,14 @@ public class ModItems {
     public static final RegistryObject<Item> MANDRAKE_SEED =
             Registration.ITEMS.register("mandrake_seed",
                     () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> SUNFLOWER_SEEDS =
+            Registration.ITEMS.register("sunflower_seeds",SunflowerSeeds::new
+            );
+
+    public static final RegistryObject<Item> DANDELION_SEEDS =
+            Registration.ITEMS.register("dandelion_seeds",DandelionSeeds::new
+            );
 
     /* MUSIC DISC */
 

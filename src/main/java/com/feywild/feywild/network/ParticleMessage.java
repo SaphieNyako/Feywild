@@ -66,9 +66,12 @@ public class ParticleMessage {
         Random random = new Random();
         ctx.get().enqueueWork(() -> {
             double newPosX, newPosY, newPosZ;
-
+            int trueId = Math.abs(id);
             //summon particles based on info
             for (int i = 0; i < Math.abs(repeat); i++) {
+                if(id < 0){
+                    world.addParticle((IParticleData) list.get(trueId),true, posX, posY, posZ,velX - random.nextDouble(), -random.nextDouble() +velY, -random.nextDouble() +velZ);
+                }else
                 if (repeat > 1) {
                     world.addParticle((IParticleData) list.get(id), true, posX - 0.3 + random.nextDouble(), posY - 0.3 + random.nextDouble(), posZ - 0.3 + random.nextDouble(), velX, velY, velZ);
                 }else

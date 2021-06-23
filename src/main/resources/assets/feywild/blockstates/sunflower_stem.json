@@ -8,6 +8,11 @@
         "model": "feywild:block/sunflower_stem",
         "y" : 90
       }
+    ,
+      {
+        "model": "feywild:block/sunflower_stem",
+        "y" : 180
+      }
     ]
   }
 }

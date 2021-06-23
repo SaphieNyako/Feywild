@@ -63,6 +63,8 @@ public class ClientProxy implements IProxy {
         RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_LEAVES.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER_STEM.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION_STEM.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
 

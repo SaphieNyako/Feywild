@@ -115,6 +115,7 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> ModConfiguredFeatures.SPRING_TREES);
+            base.add(() -> ModConfiguredFeatures.SPRING_DANDELION);
         }
 
         if (biomeName.contains(SummerBiome)) {
