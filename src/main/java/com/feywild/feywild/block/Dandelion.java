@@ -4,6 +4,7 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -23,7 +24,7 @@ public class Dandelion extends Block {
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant",0,3);
 
     public Dandelion() {
-        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).randomTicks().strength(1,1));
+        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).randomTicks().strength(1,1));
         this.registerDefaultState(this.stateDefinition.any().setValue(VARIANT, 1));
     }
 

@@ -1,9 +1,6 @@
 package com.feywild.feywild.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -23,7 +20,7 @@ public class DandelionStem extends Block {
 
     public static final BooleanProperty HAS_MODEL = BooleanProperty.create("model");
     public DandelionStem() {
-        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).noCollission().strength(1,1));
+        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).noCollission().strength(1,1));
         this.registerDefaultState(this.stateDefinition.any().setValue(HAS_MODEL, false));
     }
 
