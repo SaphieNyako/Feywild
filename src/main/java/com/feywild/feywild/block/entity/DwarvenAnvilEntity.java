@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -23,6 +24,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEntity {
@@ -32,9 +34,10 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
-
     private final int MAX_MANA = 1000;
     private final int FEY_DUST_MANA_COST = 50;
+    NonNullList<ItemStack> stackList = NonNullList.withSize(itemHandler.getSlots(), ItemStack.EMPTY);
+
     private int tick = 0;
 
     private boolean canCraft;
@@ -49,6 +52,15 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     public DwarvenAnvilEntity() {
 
         this(ModBlocks.DWARVEN_ANVIL_ENTITY.get());
+    }
+
+    @Override
+    public List<ItemStack> getItems() {
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            stackList.set(i, itemHandler.getStackInSlot(i));
+        }
+
+        return stackList;
     }
 
     private CustomManaStorage createManaStorage() {
