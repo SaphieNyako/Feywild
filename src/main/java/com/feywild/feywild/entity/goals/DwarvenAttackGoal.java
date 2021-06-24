@@ -63,7 +63,7 @@ public class DwarvenAttackGoal extends Goal {
         if(worldLevel.canSeeSky(entity.blockPosition())) {
             summonLightning();
         }else if(entity.getRandom().nextDouble() > 0.2){
-            targetMonster.hurt(DamageSource.mobAttack(entity), 5.0f);
+            targetMonster.hurt(DamageSource.GENERIC, 10.0f);
         }else{
             summonLightning();
         }
