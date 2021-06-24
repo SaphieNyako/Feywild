@@ -1,29 +1,29 @@
 {
-  "type":"dwarf_trade",
-  "rarity" : 1,
-  "isLoot" : true,
+  "type": "dwarf_trade",
+  "rarity": 1,
+  "isLoot": true,
   "pool": [
     {
-      "maxUses" : 2,
-      "givenXp" : 4,
+      "maxUses": 2,
+      "givenXp": 4,
       "priceMult": 0.05,
       "output": {
-        "item" : "minecraft:diamond",
+        "item": "minecraft:diamond",
         "count": 3
       }
     },
     {
-      "maxUses" : 2,
-      "givenXp" : 4,
+      "maxUses": 2,
+      "givenXp": 4,
       "priceMult": 0.05,
       "output": {
         "item": "feywild:fey_gem_block",
-        "count": 1
+        "count": 3
       }
     },
     {
-      "maxUses" : 2,
-      "givenXp" : 4,
+      "maxUses": 2,
+      "givenXp": 4,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:emerald",

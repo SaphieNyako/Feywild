@@ -1,20 +1,20 @@
 {
-  "type":"dwarf_trade",
-  "rarity" : 0,
-  "isLoot" : true,
+  "type": "dwarf_trade",
+  "rarity": 0,
+  "isLoot": true,
   "pool": [
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
-        "item" : "minecraft:cobblestone",
+        "item": "minecraft:cobblestone",
         "count": 20
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:andesite",
@@ -22,8 +22,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:diorite",
@@ -31,8 +31,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:granite",
@@ -40,8 +40,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:coal",
@@ -49,8 +49,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:clay",
@@ -58,8 +58,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:redstone",
@@ -67,8 +67,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:iron_ore",
@@ -76,8 +76,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:gold_ore",
@@ -85,8 +85,8 @@
       }
     },
     {
-      "maxUses" : 5,
-      "givenXp" : 2,
+      "maxUses": 5,
+      "givenXp": 1,
       "priceMult": 0.05,
       "output": {
         "item": "minecraft:lapis_lazuli",
