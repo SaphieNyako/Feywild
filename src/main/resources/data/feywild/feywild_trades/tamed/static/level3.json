@@ -1,5 +1,5 @@
 {
-  "type":"dwarf_trade",
+  "type": "dwarf_trade",
   "pool": [
     {
       "input": {
@@ -10,8 +10,8 @@
         "item": "feywild:greater_fey_gem",
         "count": 1
       },
-      "maxUses" : 12,
-      "givenXp" : 3,
+      "maxUses": 12,
+      "givenXp": 3,
       "priceMult": 0.05
     },
     {
@@ -23,21 +23,21 @@
         "item": "feywild:shiny_fey_gem",
         "count": 1
       },
-      "maxUses" : 12,
-      "givenXp" : 4,
+      "maxUses": 12,
+      "givenXp": 4,
       "priceMult": 0.05
     },
     {
       "input": {
-        "item": "feywild:greater_fey_gem",
+        "item": "feywild:shiny_fey_gem",
         "count": 4
       },
       "output": {
         "item": "feywild:brilliant_fey_gem",
         "count": 1
       },
-      "maxUses" : 12,
-      "givenXp" : 5,
+      "maxUses": 12,
+      "givenXp": 5,
       "priceMult": 0.05
     },
     {
@@ -49,8 +49,8 @@
         "item": "feywild:schematics_fey_altar",
         "count": 1
       },
-      "maxUses" : 1,
-      "givenXp" : 10,
+      "maxUses": 1,
+      "givenXp": 10,
       "priceMult": 0.05
     }
   ]
