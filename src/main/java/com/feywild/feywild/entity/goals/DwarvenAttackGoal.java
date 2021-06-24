@@ -60,6 +60,18 @@ public class DwarvenAttackGoal extends Goal {
 
     protected void attackTarget() {
 
+        if(worldLevel.canSeeSky(entity.blockPosition())) {
+            summonLightning();
+        }else if(entity.getRandom().nextDouble() > 0.2){
+            targetMonster.hurt(DamageSource.mobAttack(entity), 5.0f);
+        }else{
+            summonLightning();
+        }
+
+    }
+
+
+    private void summonLightning(){
         LightningAttack lightningBoltEntity = new LightningAttack(EntityType.LIGHTNING_BOLT, worldLevel);
         lightningBoltEntity.setPos(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
         lightningBoltEntity.setVisualOnly(true);
@@ -67,7 +79,6 @@ public class DwarvenAttackGoal extends Goal {
         targetMonster.hurt(DamageSource.LIGHTNING_BOLT, 20);
 
         this.entity.clearFire();
-
     }
 
     protected void reset() {

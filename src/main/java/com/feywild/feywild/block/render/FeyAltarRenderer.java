@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.render;
 
+import com.feywild.feywild.block.ClientDataBlock;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -12,6 +13,7 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.LightType;
@@ -21,6 +23,7 @@ import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
 
     private Minecraft minecraft = Minecraft.getInstance();
+    double lerp = 1;
 
     public FeyAltarRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
 
@@ -30,22 +33,28 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
     @Override
     public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(tileEntityIn, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        if (tileEntityIn.isEmpty()) {
+        if (tileEntityIn.isEmpty() && tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock() instanceof ClientDataBlock) {
             // Initialize
-            ClientPlayerEntity playerEntity = minecraft.player;
-            int lightLevel = getLightLevel(tileEntityIn.getLevel(), tileEntityIn.getBlockPos().above());
-            // Another init just so I don't have to deal with the AtomicDouble
-            double shiftX, shiftZ, shiftY;
+                int data = ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).getData();
+                int lightLevel = getLightLevel(tileEntityIn.getLevel(), tileEntityIn.getBlockPos().above());
+                // Another init just so I don't have to deal with the AtomicDouble
+                double shiftX, shiftZ;
 
-            //Loop through items and render them
-            for (int i = 0; i < tileEntityIn.getContainerSize(); i++) {
-                //shift position for items
-                shiftX = Math.cos(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
-                shiftZ = Math.sin(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2;
-                //render item
-                renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, 999999999, lightLevel, 0.85f);
+                lerp = data == 1 ? lerp-0.01d : 1;
+
+                //Loop through items and render them
+                for (int i = 0; i < tileEntityIn.getContainerSize(); i++) {
+                    //shift position for items
+                    shiftX = Math.cos(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) /8) / 2 * lerp;
+                    shiftZ = Math.sin(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2 * lerp;
+                    //render item
+                    renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, 999999999, lightLevel, 0.85f);
+                }
+                if(lerp <= 0){
+                    ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).setData(0);
+                    lerp = 1;
+                }
             }
-        }
     }
 
     // render the item
