@@ -1,8 +1,12 @@
 package com.feywild.feywild.events;
 
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -196,7 +200,7 @@ public class ModEvents {
         }else{
             Score score = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level,0);
             QuestMap.storeQuestData(player);
-            FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), score.getScore()),player);
+            FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), score.getScore()), player);
         }
 
         if (!spawnEvent.getEntityLiving().getCommandSenderWorld().isClientSide && !player.getTags().contains("foundLexicon")
