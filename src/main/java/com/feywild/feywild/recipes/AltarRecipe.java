@@ -59,6 +59,10 @@ public class AltarRecipe implements IAltarRecipe {
         return id;
     }
 
+    public List<Ingredient> getInputs() {
+        return inputs;
+    }
+
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return ModRecipeTypes.ALTAR_SERIALIZER.get();
