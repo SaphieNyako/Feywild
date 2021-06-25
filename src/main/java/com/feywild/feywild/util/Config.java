@@ -17,6 +17,7 @@ public class Config {
     //CONFIG VARIABLES
     public static ForgeConfigSpec.IntValue FEY_DUST_DURATION;
     public static ForgeConfigSpec.BooleanValue SPAWN_LEXICON;
+    public static ForgeConfigSpec.BooleanValue BETA;
 
     public static ForgeConfigSpec.IntValue FEY_GEM_MAX_VEIN_SIZE;
     public static ForgeConfigSpec.IntValue FEY_GEM_MIN_HEIGHT;
@@ -62,6 +63,7 @@ public class Config {
         setStructureConfigs(SERVER_BUILDER, CLIENT_BUILDER);
         setTreePatchesConfig(SERVER_BUILDER, CLIENT_BUILDER);
         setBiomeConfig(SERVER_BUILDER, CLIENT_BUILDER);
+        setBetaVariables(SERVER_BUILDER,CLIENT_BUILDER);
 
         SERVER_CONFIG = SERVER_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
@@ -69,6 +71,11 @@ public class Config {
     }
 
     //CONFIG METHOD
+
+    private static void setBetaVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER){
+        BETA = CLIENT_BUILDER.comment("This may not work, expect fatal errors, here be dragons!\n Activate beta features:").define("beta", false);
+    }
+
     private static void setConfigVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
         FEY_DUST_DURATION = CLIENT_BUILDER.comment("How long fey dust effect lasts:")

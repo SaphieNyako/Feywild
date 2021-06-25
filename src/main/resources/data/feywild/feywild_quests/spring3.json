@@ -1,0 +1,9 @@
+{
+  "type" : "quest",
+  "id" : 5,
+  "lines" : 1,
+  "link" : 1,
+  "reputation" : 7,
+  "canSkip" : false,
+  "extraData" : "TARGET i#minecraft:beds ACTION craft TIMES 1"
+}

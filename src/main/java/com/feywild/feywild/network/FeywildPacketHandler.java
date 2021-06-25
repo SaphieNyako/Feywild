@@ -28,7 +28,13 @@ public class FeywildPacketHandler {
     public static void register() {
         INSTANCE.registerMessage(nextPacketID(), ItemMessage.class, ItemMessage::toBytes, ItemMessage::new, ItemMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), QuestMessage.class, QuestMessage::toBytes,QuestMessage::new,QuestMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), DataMessage.class, DataMessage::toBytes, DataMessage::new, DataMessage::handle);
+    }
+
+    public static void sendToPlayer( Object message, PlayerEntity entity){
+        if(entity instanceof ServerPlayerEntity)
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) entity), message);
     }
 
     // send a packet to all players near the pos withing a specific range

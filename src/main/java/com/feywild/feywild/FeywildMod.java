@@ -5,7 +5,6 @@ import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.entity.util.trades.TamedTradeManager;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
@@ -39,7 +38,6 @@ import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -102,8 +100,8 @@ public class FeywildMod {
     //This might have a conflict when merging with the quests
     public void reloadStuff(AddReloadListenerEvent event){
         event.addListener(TamedTradeManager.instance());
+        event.addListener(QuestManager.instance());
     }
-
 
     private void setup(final FMLCommonSetupEvent event) {
 
@@ -116,6 +114,7 @@ public class FeywildMod {
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
         TamedTradeManager.instance();
+        QuestManager.instance();
     }
 
     private void registerConfigs() {

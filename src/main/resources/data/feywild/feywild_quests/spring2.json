@@ -1,0 +1,9 @@
+{
+  "type" : "quest",
+  "id" : 3,
+  "lines" : 1,
+  "link" : 4,
+  "reputation" : 7,
+  "canSkip" : false,
+  "extraData" : "TARGET minecraft:zombie ACTION kill TIMES 3 USING empty"
+}
