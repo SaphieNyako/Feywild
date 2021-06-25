@@ -61,6 +61,7 @@ public class Quest {
         public Quest deserialize(JsonObject object){
 
             try {
+
                 if(object.get("type").getAsString().equals("quest"))
                     return new Quest(object.get("id").getAsInt(), object.get("link").getAsInt(), object.get("lines").getAsInt(), object.get("reputation").getAsInt(), object.get("canSkip").getAsBoolean(), object.get("extraData").getAsString(),object.get("sound").getAsString(),ShapedRecipe.itemFromJson(object.getAsJsonObject("reward")));
 

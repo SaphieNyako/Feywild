@@ -27,7 +27,7 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
 
     private void generateParticles(Entity entity) {
         World world = entity.level;
-        //This might cause a crash on servers
+
         if (world.random.nextInt(11) == 0 && !Minecraft.getInstance().isPaused()) {
             world.addParticle(
                     getParticleType(),

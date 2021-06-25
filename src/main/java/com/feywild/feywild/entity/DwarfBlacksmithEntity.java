@@ -349,6 +349,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return PlayState.CONTINUE;
     }
 
+
     @Override
     public void registerControllers(AnimationData animationData) {
 

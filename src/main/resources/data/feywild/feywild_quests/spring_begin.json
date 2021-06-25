@@ -5,10 +5,11 @@
   "link" : 1,
   "reputation" : 25,
   "canSkip" : true,
+
   "reward" : {
-    "item" : "minecraft:diamond",
+    "item" : "minecraft:air",
     "count": 1
   },
-  "sound": "minecraft:entity.wither.spawn",
+  "sound": "NULL",
   "extraData" : "NULL"
 }

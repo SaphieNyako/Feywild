@@ -91,6 +91,7 @@ public class QuestMap {
         rep.add(getRepNumber(questId.getScore()));
 
         if(!entity.level.isClientSide) {
+            if(!getSound(questId.getScore()).equals("NULL"))
             entity.level.playSound(null, entity.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
             entity.addItem(getReward(questId.getScore()));
         }

@@ -180,6 +180,7 @@ public abstract class FeyEntity extends CreatureEntity {
     }
 
 
+
     /* MOVEMENT - NOT USED */
 
 /*
