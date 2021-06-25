@@ -59,8 +59,17 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     @Override
     public void updateInventory(int flags, boolean shouldCraft) {
         if (shouldCraft) {
-            this.shouldCraft = true;
-            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(0,worldPosition), 100);
+            Inventory inv = new Inventory(5);
+            for (int i = 0; i < getItems().size(); i++) {
+                inv.setItem(i, getItems().get(i));
+            }
+
+            Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
+
+            recipe.ifPresent( altarRecipe -> {
+                this.shouldCraft = true;
+                }
+            );
         } else {
             super.updateInventory(flags, false);
         }
@@ -79,14 +88,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
         if(shouldCraft){
             craftCount++;
             if(craftCount == 10 ){
-                Inventory inv = new Inventory(5);
-                for (int i = 0; i < getItems().size(); i++) {
-                    inv.setItem(i, getItems().get(i));
-                }
-
-                Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
-
-                recipe.ifPresent(recipe1 -> FeywildPacketHandler.sendToPlayersInRange(level,worldPosition,new DataMessage(1, worldPosition),100));
+                FeywildPacketHandler.sendToPlayersInRange(level,worldPosition,new DataMessage(1, worldPosition),100);
             }
             if(craftCount > 40){
                 craft();
@@ -113,9 +115,10 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
         Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
 
+
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
-            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, output);
+            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 2, worldPosition.getZ() + 0.5, output);
             level.addFreshEntity(entity);
             clearContent();
             FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(0,worldPosition), 100);

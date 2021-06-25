@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
@@ -48,9 +49,11 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
                     shiftX = Math.cos(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) /8) / 2 * lerp;
                     shiftZ = Math.sin(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2 * lerp;
                     //render item
-                    renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, 999999999, lightLevel, 0.85f);
+                    if(lerp < 1)
+                    tileEntityIn.getLevel().addParticle(ParticleTypes.END_ROD,true,tileEntityIn.getBlockPos().getX()+0.5d + shiftX, tileEntityIn.getBlockPos().getY()+1d + 1- lerp, tileEntityIn.getBlockPos().getZ()+0.5d + shiftZ,0,0,0);
+                    renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d + 1- lerp, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, 999999999, lightLevel, 0.85f);
                 }
-                if(lerp <= 0){
+                if(lerp <= 0.07){
                     ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).setData(0);
                     lerp = 1;
                 }
