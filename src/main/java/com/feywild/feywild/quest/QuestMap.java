@@ -2,9 +2,15 @@ package com.feywild.feywild.quest;
 
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -83,6 +89,11 @@ public class QuestMap {
         }
 
         rep.add(getRepNumber(questId.getScore()));
+
+        if(!entity.level.isClientSide) {
+            entity.level.playSound(null, entity.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+            entity.addItem(getReward(questId.getScore()));
+        }
 
 
         AtomicReference<Quest> questA = new AtomicReference<>();
@@ -180,6 +191,28 @@ public class QuestMap {
         quests.forEach(quest -> {
             if(quest.getId() == id){
                 i.set(quest.canSkip());
+            }
+        });
+
+        return i.get();
+    }
+
+    public static String getSound(int id){
+        AtomicReference<String> i = new AtomicReference<>();
+        quests.forEach(quest -> {
+            if(quest.getId() == id){
+                i.set(quest.getSound());
+            }
+        });
+
+        return i.get();
+    }
+
+    public static ItemStack getReward(int id){
+        AtomicReference<ItemStack> i = new AtomicReference<>();
+        quests.forEach(quest -> {
+            if(quest.getId() == id){
+                i.set(quest.getStack());
             }
         });
 

@@ -5,5 +5,10 @@
   "link" : 5,
   "reputation" : 0,
   "canSkip" : true,
+  "reward" : {
+    "item" : "minecraft:diamond",
+    "count": 1
+  },
+  "sound": "minecraft:entity.wither.spawn",
   "extraData" : "NULL"
 }

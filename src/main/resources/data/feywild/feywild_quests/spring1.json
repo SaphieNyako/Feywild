@@ -5,5 +5,10 @@
   "link" : 2,
   "reputation" : 7,
   "canSkip" : false,
+  "reward" : {
+    "item" : "minecraft:dirt",
+    "count": 1
+  },
+  "sound": "minecraft:entity.wither.spawn",
   "extraData" : "TARGET minecraft:sheep ACTION use TIMES 3 USING feywild:fey_dust"
 }
