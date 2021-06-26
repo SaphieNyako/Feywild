@@ -203,10 +203,10 @@ public class FeywildMod {
 
     public void biomeModification(final BiomeLoadingEvent event) {
 
-        String SpringBiome = "spring_biome";
-        String SummerBiome = "summer_biome";
-        String AutumnBiome = "autumn_biome";
-        String WinterBiome = "winter_biome";
+        String SpringBiome = "blossoming_wealds";
+        String SummerBiome = "golden_seelie_fields";
+        String AutumnBiome = "eternal_fall";
+        String WinterBiome = "frozen_retreat";
         String biomeName = event.getName().toString();
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());

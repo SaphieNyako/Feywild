@@ -2,6 +2,8 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.structure.ModConfiguredStructures;
+import com.feywild.feywild.world.structure.ModStructures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -42,7 +44,7 @@ public class SpringBiome extends BaseBiome {
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
 
-        return (new Biome.Builder()).precipitation(Biome.RainType.RAIN)
+        return new Biome.Builder().precipitation(Biome.RainType.RAIN)
                 .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
                 .specialEffects((new BiomeAmbience.Builder())
                         .waterColor(4159204)

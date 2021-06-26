@@ -2,6 +2,7 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -38,6 +39,7 @@ public class WinterBiome extends BaseBiome {
 
         /* WINTER FEATURES */
         biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.IGLOO);
+
 
         DefaultBiomeFeatures.addBerryBushes(biomeGenerationSettingsBuilder);
 

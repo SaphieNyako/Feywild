@@ -51,6 +51,12 @@ public class Config {
     public static ForgeConfigSpec.IntValue AUTUMN_BIOME_WEIGHT;
     public static ForgeConfigSpec.IntValue WINTER_BIOME_WEIGHT;
 
+
+    public static ForgeConfigSpec.DoubleValue SPRING_BIOME_SIZE;
+    public static ForgeConfigSpec.DoubleValue SUMMER_BIOME_SIZE;
+    public static ForgeConfigSpec.DoubleValue AUTUMN_BIOME_SIZE;
+    public static ForgeConfigSpec.DoubleValue WINTER_BIOME_SIZE;
+
     static {
 
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
@@ -163,6 +169,11 @@ public class Config {
                 .defineInRange("autumn_biome_weight", 15, 0, 100);
         WINTER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Frozen Retreat spawn weight:")
                 .defineInRange("winter_biome_weight", 15, 0, 100);
+
+        SPRING_BIOME_SIZE = CLIENT_BUILDER.comment("Blossoming Wealds size:").defineInRange("spring_biome_size",0.005f,0,1);
+        SUMMER_BIOME_SIZE = CLIENT_BUILDER.comment("Golden Seelie Fields size:").defineInRange("summer_biome_size",0.005f,0,1);
+        AUTUMN_BIOME_SIZE = CLIENT_BUILDER.comment("Eternal Fall size:").defineInRange("autumn_biome_size",0.005f,0,1);
+        WINTER_BIOME_SIZE = CLIENT_BUILDER.comment("Frozen Retreat size:").defineInRange("winter_biome_size",0.005f,0,1);
 
     }
 
