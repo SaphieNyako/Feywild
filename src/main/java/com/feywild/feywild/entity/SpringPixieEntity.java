@@ -5,8 +5,6 @@ import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
@@ -25,7 +23,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.ServerPlayNetHandler;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -100,14 +97,12 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-        if (!player.getCommandSenderWorld().isClientSide && player.getItemInHand(hand).isEmpty() && Config.BETA.get()) {
+        if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get()) {  //&& player.getItemInHand(hand).isEmpty()
             if (this.getTags().contains("spring_quest_pixie")) {
-                Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level,0);
+                Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-
-                    if(!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
-
+                if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                    player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
                 INamedContainerProvider containerProvider = new INamedContainerProvider() {
                     @Override

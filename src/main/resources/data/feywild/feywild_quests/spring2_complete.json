@@ -1,14 +1,14 @@
 {
-  "type" : "quest",
-  "id" : 4,
-  "lines" : 1,
-  "link" : 5,
-  "reputation" : 0,
-  "canSkip" : true,
-  "reward" : {
-    "item" : "minecraft:diamond",
-    "count": 1
+  "type": "quest",
+  "id": 4,
+  "lines": 6,
+  "link": 5,
+  "reputation": 0,
+  "canSkip": true,
+  "reward": {
+    "item": "minecraft:sweet_berries",
+    "count": 6
   },
-  "sound": "minecraft:entity.wither.spawn",
-  "extraData" : "NULL"
+  "sound": "NULL",
+  "extraData": "NULL"
 }
