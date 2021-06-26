@@ -57,6 +57,12 @@ public class Config {
     public static ForgeConfigSpec.DoubleValue AUTUMN_BIOME_SIZE;
     public static ForgeConfigSpec.DoubleValue WINTER_BIOME_SIZE;
 
+
+    public static ForgeConfigSpec.BooleanValue SPRING_TREE_PATCH;
+    public static ForgeConfigSpec.BooleanValue SUMMER_TREE_PATCH;
+    public static ForgeConfigSpec.BooleanValue AUTUMN_TREE_PATCH;
+    public static ForgeConfigSpec.BooleanValue WINTER_TREE_PATCH;
+
     static {
 
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
@@ -157,6 +163,13 @@ public class Config {
                 .defineInRange("tree_patches_chance", 0.01, 0.0, 1.0);
         TREE_PATCHES_SIZE = CLIENT_BUILDER.comment("Size of the Fey Tree patches:")
                 .defineInRange("tree_patches_size", 3, 0, 10);
+
+
+        SPRING_TREE_PATCH = CLIENT_BUILDER.comment("Spawn spring tree patches:").define("spring_tree_patch",true);
+        AUTUMN_TREE_PATCH = CLIENT_BUILDER.comment("Spawn autumn tree patches:").define("autumn_tree_patch",true);
+        SUMMER_TREE_PATCH = CLIENT_BUILDER.comment("Spawn summer tree patches:").define("summer_tree_patch",true);
+        WINTER_TREE_PATCH = CLIENT_BUILDER.comment("Spawn winter tree patches:").define("winter_tree_patch",true);
+
     }
 
     private static void setBiomeConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
@@ -170,10 +183,10 @@ public class Config {
         WINTER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Frozen Retreat spawn weight:")
                 .defineInRange("winter_biome_weight", 15, 0, 100);
 
-        SPRING_BIOME_SIZE = CLIENT_BUILDER.comment("Blossoming Wealds size:").defineInRange("spring_biome_size",0.005f,0,1);
-        SUMMER_BIOME_SIZE = CLIENT_BUILDER.comment("Golden Seelie Fields size:").defineInRange("summer_biome_size",0.005f,0,1);
-        AUTUMN_BIOME_SIZE = CLIENT_BUILDER.comment("Eternal Fall size:").defineInRange("autumn_biome_size",0.005f,0,1);
-        WINTER_BIOME_SIZE = CLIENT_BUILDER.comment("Frozen Retreat size:").defineInRange("winter_biome_size",0.005f,0,1);
+        SPRING_BIOME_SIZE = CLIENT_BUILDER.comment("Blossoming Wealds size:").defineInRange("spring_biome_size",0.005d,0,1);
+        SUMMER_BIOME_SIZE = CLIENT_BUILDER.comment("Golden Seelie Fields size:").defineInRange("summer_biome_size",0.005d,0,1);
+        AUTUMN_BIOME_SIZE = CLIENT_BUILDER.comment("Eternal Fall size:").defineInRange("autumn_biome_size",0.005d,0,1);
+        WINTER_BIOME_SIZE = CLIENT_BUILDER.comment("Frozen Retreat size:").defineInRange("winter_biome_size",0.005d,0,1);
 
     }
 

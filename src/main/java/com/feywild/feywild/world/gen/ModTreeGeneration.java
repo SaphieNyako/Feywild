@@ -52,8 +52,8 @@ public class ModTreeGeneration {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         //SPRING TREE GENERATION
-        if ((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
+        if (((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
+                && !types.contains(BiomeDictionary.Type.MAGICAL))&& Config.SPRING_TREE_PATCH.get()) {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
@@ -73,8 +73,8 @@ public class ModTreeGeneration {
         }
 
         //SUMMER TREE GENERATION
-        if ((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
+        if (((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
+                && !types.contains(BiomeDictionary.Type.MAGICAL))&& Config.SUMMER_TREE_PATCH.get()) {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
@@ -85,8 +85,8 @@ public class ModTreeGeneration {
         }
 
         //AUTUMN TREE GENERATION
-        if ((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
+        if (((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) && Config.AUTUMN_TREE_PATCH.get()) {
 
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
@@ -97,8 +97,8 @@ public class ModTreeGeneration {
         }
 
         //WINTER TREE GENERATION
-        if ((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) {
+        if (((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
+                && !types.contains(BiomeDictionary.Type.MAGICAL))&& Config.WINTER_TREE_PATCH.get()) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
