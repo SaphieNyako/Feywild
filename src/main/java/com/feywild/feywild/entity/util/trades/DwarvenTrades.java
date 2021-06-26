@@ -20,18 +20,36 @@ import net.minecraft.util.JSONUtils;
 
 import java.util.*;
 
+import static com.feywild.feywild.entity.util.trades.DwarvenTrades.getTrades;
+import static com.feywild.feywild.entity.util.trades.DwarvenTrades.toIntMap;
+
 public class DwarvenTrades {
 
     //TODO: Serialise the trades
     public static final List<TradeData> commonLoot = new LinkedList<>(), legendaryLoot = new LinkedList<>();
     public static final List<TradeData> commonFood = new LinkedList<>(), legendaryFood = new LinkedList<>();
-    public static final List<SimplyTrade> untamedLevel1 = new LinkedList<>(), untamedLevel2 = new LinkedList<>(), tamedLevel2 = new LinkedList<>();
+    public static final List<SimplyTrade> untamedLevel1 = new LinkedList<>(), untamedLevel2 = new LinkedList<>();
 
     public static Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES;
 
 
     /* TAMED */
-    public static Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_BLACKSMITH_TRADES;
+    public static Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_BLACKSMITH_TRADES= toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
+                    new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
+                    new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
+                    new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
+                    new DwarvenTrades.RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade(),
+            },
+
+            2, new VillagerTrades.ITrade[]{
+                    new SimplyTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 4),new ItemStack(ModItems.GREATER_FEY_GEM.get(), 1),12,3,0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.GREATER_FEY_GEM.get(), 4),new ItemStack(ModItems.SHINY_FEY_GEM.get(), 1),12,4,0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.SHINY_FEY_GEM.get(), 4),new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1),12,5,0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 2),new ItemStack(ModItems.SCHEMATICS_FEY_ALTAR.get(), 1),1,10,0.05f),
+            },
+            3, getTrades(Collections.singletonList(
+                    new SimplyTrade(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1), new ItemStack(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 1), 1, 1, 5)
+            ))));
 
     public static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
         return new Int2ObjectOpenHashMap<>(p_221238_0_);

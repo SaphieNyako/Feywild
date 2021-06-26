@@ -60,13 +60,13 @@
     {
       "output": {
         "item": "minecraft:mushroom_stew",
-        "count": 2
+        "count": 1
       }
     },
     {
       "output": {
         "item": "minecraft:beetroot_soup",
-        "count": 2
+        "count": 1
       }
     }
   ]

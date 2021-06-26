@@ -101,9 +101,6 @@ public class TamedTradeManager implements IFutureReloadListener {
                                 case 2:
                                     untamedLevel2.addAll(trades);
                                     break;
-                                case 3:
-                                    tamedLevel2.addAll(trades);
-                                    break;
                                 default:
                                     //Do nothing
                                     break;
@@ -115,20 +112,6 @@ public class TamedTradeManager implements IFutureReloadListener {
                 });
                 DWARVEN_TRADES = toIntMap(ImmutableMap.of(
                         1,getTrades(untamedLevel1),2, getTrades(untamedLevel2),3, getTrades(Collections.singletonList(new SimplyTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 20), new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 1), 1, 1, 10)
-                        ))));
-
-
-
-                DWARVEN_BLACKSMITH_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
-                                new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
-                                new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
-                                new DwarvenTrades.RandomCommonFoodItemsForRandomCommonOreItemsTrade(),
-                                new DwarvenTrades.RandomLegendaryFoodItemsForRandomLegendaryOreItemsTrade(),
-                        },
-
-                        2, getTrades(tamedLevel2),
-                        3, getTrades(Collections.singletonList(
-                                new SimplyTrade(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1), new ItemStack(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 1), 1, 1, 5)
                         ))));
             }
 
