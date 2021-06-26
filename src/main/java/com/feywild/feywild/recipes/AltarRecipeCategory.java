@@ -87,20 +87,28 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
         iRecipeLayout.getItemStacks().init(iIngredients.getInputs(VanillaTypes.ITEM).size(), true, 32, 48);
         iRecipeLayout.getItemStacks().set(iIngredients.getInputs(VanillaTypes.ITEM).size(), iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
 */
-        iRecipeLayout.getItemStacks().init(0, true, 0, 32);
-        iRecipeLayout.getItemStacks().set(0, iIngredients.getInputs(VanillaTypes.ITEM).get(0));
-
-        iRecipeLayout.getItemStacks().init(1, true, 16, 64);
-        iRecipeLayout.getItemStacks().set(1, iIngredients.getInputs(VanillaTypes.ITEM).get(1));
-
-        iRecipeLayout.getItemStacks().init(2, true, 32, 0);
-        iRecipeLayout.getItemStacks().set(2, iIngredients.getInputs(VanillaTypes.ITEM).get(2));
-
-        iRecipeLayout.getItemStacks().init(3, true, 48, 64);
-        iRecipeLayout.getItemStacks().set(3, iIngredients.getInputs(VanillaTypes.ITEM).get(3));
-
-        iRecipeLayout.getItemStacks().init(4, true, 64, 32);
-        iRecipeLayout.getItemStacks().set(4, iIngredients.getInputs(VanillaTypes.ITEM).get(4));
+        for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
+            if (i == 0) {
+                iRecipeLayout.getItemStacks().init(i, true, 0, 32);
+                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
+            }
+            if (i == 1) {
+                iRecipeLayout.getItemStacks().init(i, true, 16, 64);
+                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
+            }
+            if (i == 2) {
+                iRecipeLayout.getItemStacks().init(i, true, 32, 0);
+                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
+            }
+            if (i == 3) {
+                iRecipeLayout.getItemStacks().init(i, true, 48, 64);
+                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
+            }
+            if (i == 4) {
+                iRecipeLayout.getItemStacks().init(i, true, 64, 32);
+                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
+            }
+        }
 
         iRecipeLayout.getItemStacks().init(iIngredients.getInputs(VanillaTypes.ITEM).size(), true, 32, -32);
         iRecipeLayout.getItemStacks().set(iIngredients.getInputs(VanillaTypes.ITEM).size(), iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
