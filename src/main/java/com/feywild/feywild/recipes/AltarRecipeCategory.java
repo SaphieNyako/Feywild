@@ -2,13 +2,9 @@ package com.feywild.feywild.recipes;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -22,7 +18,6 @@ import java.util.List;
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.MOD_ID, "fey_altar");
-    private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
     public IDrawable background;
     public IDrawable icon;
     IGuiHelper helper;
@@ -34,14 +29,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
         background = helper.createDrawable(location, 0, 0, 85, 85);
 
         icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.FEY_ALTAR.get()));
-        this.cachedArrows = CacheBuilder.newBuilder()
-                .maximumSize(25)
-                .build(new CacheLoader<Integer, IDrawableAnimated>() {
-                    @Override
-                    public IDrawableAnimated load(Integer key) throws Exception {
-                        return null;
-                    }
-                });
+
     }
 
     @Override
