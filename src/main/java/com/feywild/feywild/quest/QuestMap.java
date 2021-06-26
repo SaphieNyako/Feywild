@@ -14,6 +14,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -91,9 +92,7 @@ public class QuestMap {
         rep.add(getRepNumber(questId.getScore()));
 
         if(!entity.level.isClientSide) {
-            if(!getSound(questId.getScore()).equals("NULL"))
-            entity.level.playSound(null, entity.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
-            entity.addItem(getReward(questId.getScore()));
+           entity.addItem(getReward(questId.getScore()));
         }
 
 
@@ -205,7 +204,6 @@ public class QuestMap {
                 i.set(quest.getSound());
             }
         });
-
         return i.get();
     }
 

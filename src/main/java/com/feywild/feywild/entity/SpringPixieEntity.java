@@ -27,12 +27,10 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.ServerPlayNetHandler;
 import net.minecraft.scoreboard.Score;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -57,6 +55,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
@@ -103,6 +102,12 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
         if (!player.getCommandSenderWorld().isClientSide && player.getItemInHand(hand).isEmpty() && Config.BETA.get()) {
             if (this.getTags().contains("spring_quest_pixie")) {
+                Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level,0);
+
+
+                    if(!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+
 
                 INamedContainerProvider containerProvider = new INamedContainerProvider() {
                     @Override
