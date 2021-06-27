@@ -1,8 +1,11 @@
 package com.feywild.feywild.quest;
 
+import com.feywild.feywild.FeywildMod;
 import com.google.gson.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 
 public class Quest {
     private int id , link, lines, rep;
@@ -62,11 +65,13 @@ public class Quest {
 
             try {
 
+                if(Registry.SOUND_EVENT.get(new ResourceLocation(object.get("sound").getAsString())) == null){
+                    FeywildMod.LOGGER.fatal("Sound " + object.get("sound").getAsString() + " does not exist.");
+                }
                 if(object.get("type").getAsString().equals("quest"))
                     return new Quest(object.get("id").getAsInt(), object.get("link").getAsInt(), object.get("lines").getAsInt(), object.get("reputation").getAsInt(), object.get("canSkip").getAsBoolean(), object.get("extraData").getAsString(),object.get("sound").getAsString(),ShapedRecipe.itemFromJson(object.getAsJsonObject("reward")));
-
             }catch (Exception e){
-                e.printStackTrace();
+               e.printStackTrace();
             }
             return null;
         }

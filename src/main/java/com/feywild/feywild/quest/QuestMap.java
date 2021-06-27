@@ -1,5 +1,6 @@
 package com.feywild.feywild.quest;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
