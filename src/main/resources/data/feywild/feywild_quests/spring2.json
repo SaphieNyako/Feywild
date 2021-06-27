@@ -1,14 +1,14 @@
 {
-  "type" : "quest",
-  "id" : 3,
-  "lines" : 1,
-  "link" : 4,
-  "reputation" : 7,
-  "canSkip" : false,
-  "reward" : {
-    "item" : "minecraft:apple",
-    "count": 1
+  "type": "quest",
+  "id": 3,
+  "lines": 6,
+  "link": 4,
+  "reputation": 7,
+  "canSkip": false,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 3
   },
-  "sound": "minecraft:entity.wither.spawn",
-  "extraData" : "TARGET minecraft:zombie ACTION kill TIMES 3 USING empty"
+  "sound": "NULL",
+  "extraData": "TARGET minecraft:cake ACTION craft TIMES 2"
 }

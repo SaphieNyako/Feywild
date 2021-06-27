@@ -1,14 +1,14 @@
 {
-  "type" : "quest",
-  "id" : 5,
-  "lines" : 1,
-  "link" : 1,
-  "reputation" : 7,
-  "canSkip" : false,
-  "reward" : {
-    "item" : "minecraft:diamond",
+  "type": "quest",
+  "id": 5,
+  "lines": 6,
+  "link": 6,
+  "reputation": 7,
+  "canSkip": false,
+  "reward": {
+    "item": "minecraft:air",
     "count": 1
   },
-  "sound": "minecraft:entity.wither.spawn",
-  "extraData" : "TARGET i#minecraft:beds ACTION craft TIMES 1"
+  "sound": "NULL",
+  "extraData": "TARGET minecraft:honeycomb ACTION get TIMES 2"
 }

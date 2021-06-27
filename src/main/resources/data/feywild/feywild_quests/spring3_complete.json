@@ -1,12 +1,12 @@
 {
   "type": "quest",
-  "id": 2,
-  "lines": 2,
-  "link": 3,
-  "reputation": 0,
+  "id": 6,
+  "lines": 4,
+  "link": 7,
+  "reputation": 7,
   "canSkip": true,
   "reward": {
-    "item": "minecraft:air",
+    "item": "minecraft:honeycomb",
     "count": 1
   },
   "sound": "NULL",
