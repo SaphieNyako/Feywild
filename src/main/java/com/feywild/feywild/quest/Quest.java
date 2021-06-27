@@ -65,7 +65,7 @@ public class Quest {
 
             try {
 
-                if(Registry.SOUND_EVENT.get(new ResourceLocation(object.get("sound").getAsString())) == null){
+                if(!object.get("sound").getAsString().equalsIgnoreCase("NULL") && Registry.SOUND_EVENT.get(new ResourceLocation(object.get("sound").getAsString())) == null){
                     FeywildMod.LOGGER.fatal("Sound " + object.get("sound").getAsString() + " does not exist.");
                 }
                 if(object.get("type").getAsString().equals("quest"))
