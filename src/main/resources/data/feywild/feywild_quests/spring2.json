@@ -10,5 +10,5 @@
     "count": 3
   },
   "sound": "NULL",
-  "extraData": "TARGET minecraft:cake ACTION craft TIMES 2"
+  "extraData": "TARGET feywild:spring_pixie ACTION use TIMES 2 USING minecraft:cake"
 }

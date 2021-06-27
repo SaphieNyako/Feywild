@@ -60,6 +60,29 @@ public class ModEvents {
         }
     }
 
+    public static void genericInteract(PlayerEntity playerEntity, ItemStack itemStack, LivingEntity entity){
+        if(!playerEntity.level.isClientSide) {
+            List<String> tokens = ModUtil.getTokens(playerEntity);
+
+            String stack = Objects.requireNonNull(itemStack.getItem().getRegistryName()).toString();
+
+            if(tokens.get(2).equalsIgnoreCase("use") && Registry.ENTITY_TYPE.getKey(entity.getType()).toString().equalsIgnoreCase(tokens.get(0)))
+                ModUtil.getTagTokens(tokens.get(1)).forEach(s -> {
+                    if ((stack.equalsIgnoreCase(s) || s.equalsIgnoreCase("empty"))) {
+                        Score interact = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), QuestMap.Scores.FW_Interact.toString(), playerEntity.level,1);
+
+                        if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                            interact.setScore(0);
+                            QuestMap.updateQuest(playerEntity);
+                        } else {
+                            playerEntity.displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)),true);
+                            interact.add(1);
+                        }
+                    }
+                });
+        }
+    }
+
 
     private void villagerInteract(PlayerInteractEvent.EntityInteract event){
         //Check if it's a villager
@@ -177,7 +200,7 @@ public class ModEvents {
                             QuestMap.updateQuest(event.getPlayer());
                         } else {
                             event.getPlayer().displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)), true);
-                            interact.add(1);
+                            interact.add(event.getStack().getCount());
                         }
                     }
                 });

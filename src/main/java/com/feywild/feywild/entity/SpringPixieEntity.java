@@ -4,7 +4,10 @@ import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.ModUtil;
@@ -98,31 +101,38 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
         if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get()) {  //&& player.getItemInHand(hand).isEmpty()
-            if (this.getTags().contains("spring_quest_pixie")) {
-                Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
+            if(player.getItemInHand(hand).isEmpty()) {
+                if (this.getTags().contains("spring_quest_pixie")) {
+                    Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-                if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                    player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+                    if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-                INamedContainerProvider containerProvider = new INamedContainerProvider() {
-                    @Override
-                    public ITextComponent getDisplayName() {
-                        return new TranslationTextComponent("screen.feywild.pixie");
-                    }
+                    INamedContainerProvider containerProvider = new INamedContainerProvider() {
+                        @Override
+                        public ITextComponent getDisplayName() {
+                            return new TranslationTextComponent("screen.feywild.pixie");
+                        }
 
-                    @Nullable
-                    @Override
-                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                        @Nullable
+                        @Override
+                        public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
 
-                        return new PixieContainer(i, playerInventory, playerEntity, entity);
-                    }
-                };
+                            return new PixieContainer(i, playerInventory, playerEntity, entity);
+                        }
+                    };
 
-                NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
+                    NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
 
-            } else {
+                } else {
 
-                throw new IllegalStateException("Our container provider is missing!");
+                    throw new IllegalStateException("Our container provider is missing!");
+                }
+            }else{
+                ModEvents.genericInteract(player,player.getItemInHand(hand),this);
+                player.getItemInHand(hand).shrink(1);
+                player.sendMessage(new TranslationTextComponent("spring_fey_thanks"),player.getUUID());
+                FeywildPacketHandler.sendToPlayersInRange(player.level,blockPosition(),new ParticleMessage(getX()+0.5,getY()+0.5,getZ()+0.5,0,0,0,20,1,0),64);
             }
 
         }
