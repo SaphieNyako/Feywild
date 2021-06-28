@@ -3,9 +3,13 @@ package com.feywild.feywild.entity.util;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
+import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -131,7 +135,7 @@ public abstract class FeyEntity extends CreatureEntity {
 
             heal(4f);
             player.getItemInHand(hand).shrink(1);
-            FeywildPacketHandler.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1,0), 32);
+            FeywildPacketHandler.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1, 0), 32);
         }
         return ActionResultType.SUCCESS;
     }
@@ -180,111 +184,50 @@ public abstract class FeyEntity extends CreatureEntity {
     }
 
 
-
-    /* MOVEMENT - NOT USED */
-
-/*
-    public class FeyMoveGoal extends Goal {
+    /* MOVEMENT */
+    public class FeyWildPanic extends Goal {
         private Vector3d targetPos;
         private FeyEntity entity;
-        private int range, followPlayer, counter;
+        private int range;
         private double speed;
-        private int timeMoving;
 
 
-        public FeyMoveGoal(FeyEntity entity, int range, double speed){
+
+        public FeyWildPanic(FeyEntity entity, double speed, int range) {
             this.entity = entity;
-            this.range = range;
             this.speed = speed;
+            this.range = range;
         }
 
-        //at start sets timeMoving to 100
+
         @Override
         public void start() {
-
             super.start();
-            this.targetPos = this.entity.position();
-            this.timeMoving = 180;
+            targetPos = position();
+
+            if(targetPos.distanceTo(this.entity.position()) < 1.4){
+                do {
+                    this.targetPos = new Vector3d(entity.getX() - range + random.nextInt(range * 2), entity.getY() - range + random.nextInt(range * 2), entity.getZ() - range + random.nextInt(range * 2));
+                } while (!level.getBlockState(new BlockPos(this.targetPos.x(), this.targetPos.y(), this.targetPos.z())).isAir()); //if air go to location, otherwise repeat(do)
+
+                this.entity.setDeltaMovement((this.targetPos.x() - this.entity.getX()) * speed * 10, (this.targetPos.y() - this.entity.getY()) * speed * 10, (this.targetPos.z() - this.entity.getZ()) * speed * 10);
+                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+            }
+
         }
 
-        //Can continue to run when timeMoving is higher then 0;
         @Override
         public boolean canContinueToUse() {
-            return this.timeMoving > 0;
+            return false;
         }
 
-
-        //change for command to run, can be used on random check
         @Override
         public boolean canUse() {
-           return entity.getCommandSenderWorld().random.nextInt(200) <= 1;
+            return this.entity.getLastDamageSource() != null;
         }
 
-
-
-        // do movement
-        @Override
-        public void tick() {
-            this.entity.setNoGravity(true);
-            //super.tick();
-
-            this.timeMoving--;
-
-            if (!level.isClientSide) {
-                if (this.entity.blockPosition().closerThan(this.targetPos, 1)) { //check if you reached location
-
-                    counter = 0;
-
-                    do {
-                        this.targetPos = new Vector3d(entity.getX() - range + random.nextInt(range * 2), entity.getY() - range + random.nextInt(range * 2), entity.getZ() - range + random.nextInt(range * 2));
-
-                    } while (!level.getBlockState(new BlockPos(this.targetPos.x(), this.targetPos.y(), this.targetPos.z())).isAir()); //if air go to location, otherwise repeat(do)
-
-                } else
-
-                    // Reset desired position in case timer runs out
-                    if(counter > 100) { this.targetPos = this.entity.position(); }
-
-                    counter++;
-
-                    //Damaged Check
-                    if(this.entity.getLastDamageSource() != null){
-
-                        this.entity.setDeltaMovement((this.targetPos.x() - this.entity.getX()) * speed * 10, (this.targetPos.y() - this.entity.getY()) * speed* 10, (this.targetPos.z() - this.entity.getZ()) * speed* 10);
-                        this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
-
-                    }
-
-                    else{  //if not damaged then move normally
-                        // move to pos
-                        this.entity.setDeltaMovement((this.targetPos.x() - this.entity.getX()) * speed, (this.targetPos.y() - this.entity.getY()) * speed, (this.targetPos.z() - this.entity.getZ()) * speed);
-                        this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
-                    }
-               }
-
-
-            else if (!level.isClientSide && followPlayer >= 0){
-                followPlayer();
-                this.followPlayer--;
-            } */
+    }
 }
-
-// follow the player
-        /*
-        private void followPlayer() {
-            if(this.entity.getLastDamageSource() != null){
-                followPlayer = 400;
-                follow = null;
-                return;
-            }
-            this.targetPos = new Vector3d(follow.getX(), follow.getY() + 1, follow.getZ());
-            if (this.followPlayer == 0) {
-                this.followPlayer = 400;
-                follow = null;
-            }
-            entity.setDeltaMovement((this.targetPos.x() - entity.getX()) * speed * 10, (this.targetPos.y() - entity.getY()) * speed * 10, (this.targetPos.z() - entity.getZ()) * speed * 10);
-            this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
-        } */
 
 
 
