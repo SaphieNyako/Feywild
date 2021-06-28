@@ -101,7 +101,7 @@ public class FeywildMod {
     }
 
     //This might have a conflict when merging with the quests
-    public void reloadStuff(AddReloadListenerEvent event){
+    public void reloadStuff(AddReloadListenerEvent event) {
         event.addListener(TamedTradeManager.instance());
         event.addListener(QuestManager.instance());
     }
