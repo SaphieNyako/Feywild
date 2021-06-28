@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 307,
+  "lines": 3,
+  "link": 301,
+  "reputation": 7,
+  "canSkip": true,
+  "reward": {
+    "item": "feywild:winter_tree_sapling",
+    "count": 3
+  },
+  "sound": "NULL",
+  "extraData": "NULL"
+}
