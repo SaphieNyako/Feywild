@@ -69,7 +69,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
 
         ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
-        ScreenManager.register(ModContainers.PIXIE_CONTAINER.get(), PixieScreen::new);
 
     }
 

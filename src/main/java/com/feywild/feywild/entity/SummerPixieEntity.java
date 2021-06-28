@@ -6,6 +6,7 @@ import com.feywild.feywild.entity.goals.TargetFireGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
@@ -91,7 +92,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-        if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get()) {  //&& player.getItemInHand(hand).isEmpty()
+        if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get() && !player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.AutumnAligned.toString())) {  //&& player.getItemInHand(hand).isEmpty()
             if (player.getItemInHand(hand).isEmpty()) {
                 if (this.getTags().contains("summer_quest_pixie")) {
 
@@ -105,38 +106,21 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
                     if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                         player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-                    INamedContainerProvider containerProvider = new INamedContainerProvider() {
-                        @Override
-                        public ITextComponent getDisplayName() {
-                            return new TranslationTextComponent("screen.feywild.pixie");
-                        }
-
-                        @Nullable
-                        @Override
-                        public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-
-                            return new PixieContainer(i, playerInventory, playerEntity, entity);
-                        }
-                    };
-
-                    NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
-
+                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
                 } else {
 
-                    throw new IllegalStateException("Our container provider is missing!");
-                }
-
-            } else {
-
-                if (ModEvents.genericInteract(player, hand, this, true)) {
-                    player.sendMessage(new TranslationTextComponent("summer_fey_thanks"), player.getUUID());
-                    FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX() , getY() + 0.5, getZ(), 0, 0, 0, 10, 1, 0), 64);
+                    if (ModEvents.genericInteract(player, hand, this, true)) {
+                        player.sendMessage(new TranslationTextComponent("summer_fey_thanks"), player.getUUID());
+                        FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX(), getY() + 0.5, getZ(), 0, 0, 0, 10, 1, 0), 64);
+                    }
                 }
             }
-        }
-        return ActionResultType.SUCCESS;
 
+        }
+
+        return ActionResultType.SUCCESS;
     }
+
 
 
 

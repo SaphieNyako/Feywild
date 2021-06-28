@@ -6,6 +6,7 @@ import com.feywild.feywild.entity.goals.PumpkinCarverGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
@@ -93,7 +94,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-        if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get()) {  //&& player.getItemInHand(hand).isEmpty()
+        if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get() && !player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {  //&& player.getItemInHand(hand).isEmpty()
             if (player.getItemInHand(hand).isEmpty()) {
                 if (this.getTags().contains("autumn_quest_pixie")) {
 
@@ -107,25 +108,8 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
                     if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                         player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-                    INamedContainerProvider containerProvider = new INamedContainerProvider() {
-                        @Override
-                        public ITextComponent getDisplayName() {
-                            return new TranslationTextComponent("screen.feywild.pixie");
-                        }
+                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(),QuestMap.getLineNumber(questId.getScore())),player);
 
-                        @Nullable
-                        @Override
-                        public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-
-                            return new PixieContainer(i, playerInventory, playerEntity, entity);
-                        }
-                    };
-
-                    NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
-
-                } else {
-
-                    throw new IllegalStateException("Our container provider is missing!");
                 }
             } else {
 

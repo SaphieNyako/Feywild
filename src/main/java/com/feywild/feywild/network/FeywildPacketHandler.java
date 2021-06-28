@@ -32,6 +32,7 @@ public class FeywildPacketHandler {
         INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), QuestMessage.class, QuestMessage::toBytes,QuestMessage::new,QuestMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), DataMessage.class, DataMessage::toBytes, DataMessage::new, DataMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), OpenQuestScreen.class, OpenQuestScreen::toBytes, OpenQuestScreen::new, OpenQuestScreen::handle);
     }
 
     public static void sendToPlayer( Object message, PlayerEntity entity){
