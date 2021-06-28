@@ -1,8 +1,8 @@
 {
   "type": "quest",
-  "id": 102,
+  "id": 106,
   "lines": 3,
-  "link": 103,
+  "link": 107,
   "reputation": 0,
   "canSkip": true,
   "reward": {

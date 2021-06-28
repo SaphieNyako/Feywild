@@ -1,8 +1,8 @@
 {
   "type": "quest",
-  "id": 5,
-  "lines": 7,
-  "link": 6,
+  "id": 203,
+  "lines": 1,
+  "link": 204,
   "reputation": 7,
   "canSkip": false,
   "reward": {
@@ -10,5 +10,5 @@
     "count": 1
   },
   "sound": "NULL",
-  "extraData": "TARGET feywild:spring_pixie ACTION use TIMES 2 USING minecraft:honeycomb"
+  "extraData": "TARGET feywild:autumn_pixie ACTION use TIMES 9 USING minecraft:carrot"
 }

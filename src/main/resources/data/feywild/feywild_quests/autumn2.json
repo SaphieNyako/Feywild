@@ -1,8 +1,8 @@
 {
   "type": "quest",
-  "id": 5,
-  "lines": 7,
-  "link": 6,
+  "id": 205,
+  "lines": 4,
+  "link": 206,
   "reputation": 7,
   "canSkip": false,
   "reward": {
@@ -10,5 +10,5 @@
     "count": 1
   },
   "sound": "NULL",
-  "extraData": "TARGET feywild:spring_pixie ACTION use TIMES 2 USING minecraft:honeycomb"
+  "extraData": "TARGET minecraft:carved_pumpkin ACTION get TIMES 2"
 }

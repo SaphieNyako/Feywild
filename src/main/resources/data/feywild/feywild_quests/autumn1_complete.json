@@ -1,13 +1,13 @@
 {
   "type": "quest",
-  "id": 102,
-  "lines": 3,
-  "link": 103,
+  "id": 204,
+  "lines": 4,
+  "link": 205,
   "reputation": 0,
   "canSkip": true,
   "reward": {
-    "item": "minecraft:air",
-    "count": 1
+    "item": "minecraft:beetroot_soup",
+    "count": 9
   },
   "sound": "NULL",
   "extraData": "NULL"

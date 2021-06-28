@@ -1,14 +1,14 @@
 {
   "type": "quest",
-  "id": 102,
-  "lines": 3,
-  "link": 103,
-  "reputation": 0,
+  "id": 200,
+  "lines": 2,
+  "link": 201,
+  "reputation": 25,
   "canSkip": true,
   "reward": {
     "item": "minecraft:air",
     "count": 1
   },
-  "sound": "NULL",
+  "sound": "feywild:summoning_autumn_pixie",
   "extraData": "NULL"
 }
