@@ -131,7 +131,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
                 if (ModEvents.genericInteract(player, hand, this, true)) {
                     player.sendMessage(new TranslationTextComponent("spring_fey_thanks"), player.getUUID());
-                    FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX() + 0.5, getY() + 0.5, getZ() + 0.5, 0, 0, 0, 20, 1, 0), 64);
+                    FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX(), getY() + 0.5, getZ() , 0, 0, 0, 10, 1, 0), 64);
                 }
             }
 

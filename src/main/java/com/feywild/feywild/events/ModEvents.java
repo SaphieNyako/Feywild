@@ -195,7 +195,7 @@ public class ModEvents {
                     if ((stack.getItem().getRegistryName().toString().equalsIgnoreCase(s))) {
                         Score interact = ModUtil.getOrCreatePlayerScore(event.getPlayer().getName().getString(), QuestMap.Scores.FW_Interact.toString(), event.getPlayer().level, 1);
 
-                        if (Integer.parseInt(tokens.get(3)) <= interact.getScore()) {
+                        if (Integer.parseInt(tokens.get(3)) <= interact.getScore() + event.getStack().getCount()) {
                             interact.setScore(0);
                             QuestMap.updateQuest(event.getPlayer());
                         } else {
