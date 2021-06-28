@@ -1,73 +1,49 @@
 package com.feywild.feywild.quest;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
-import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Score;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.DeferredRegister;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
 
 public class QuestMap {
 
-
     static List<Quest> quests = new LinkedList<>();
 
-    // USABLE SCORES
-    public enum Scores{
-        FW_Interact,
-        FW_Quest,
-        FW_Reputation
-    }
-
-    public enum Courts{
-        SpringAligned,
-        AutumnAligned,
-        WinterAligned,
-        SummerAligned
-    }
-
-
-    public static int getCourtScore(String court, World world){
+    public static int getCourtScore(String court, World world) {
         AtomicInteger score = new AtomicInteger();
         world.players().forEach(playerEntity -> {
-            switch (court){
+            switch (court) {
                 case "SpringAligned":
-                    if(playerEntity.getTags().contains(Courts.SpringAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
+                    if (playerEntity.getTags().contains(Courts.SpringAligned.toString())) {
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
                         score.addAndGet(rep1.getScore());
                     }
-                break;
+                    break;
                 case "AutumnAligned":
-                    if(playerEntity.getTags().contains(Courts.AutumnAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
+                    if (playerEntity.getTags().contains(Courts.AutumnAligned.toString())) {
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
                         score.addAndGet(rep1.getScore());
                     }
                     break;
                 case "WinterAligned":
-                    if(playerEntity.getTags().contains(Courts.WinterAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
+                    if (playerEntity.getTags().contains(Courts.WinterAligned.toString())) {
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
                         score.addAndGet(rep1.getScore());
                     }
                     break;
                 case "SummerAligned":
-                    if(playerEntity.getTags().contains(Courts.SummerAligned.toString())){
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world,0);
+                    if (playerEntity.getTags().contains(Courts.SummerAligned.toString())) {
+                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
                         score.addAndGet(rep1.getScore());
                     }
                     break;
@@ -76,36 +52,42 @@ public class QuestMap {
         return score.get();
     }
 
+    public static void updateQuest(PlayerEntity entity) {
 
-
-    public static void updateQuest( PlayerEntity entity){
-
-        Score questId = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level,0);
-        Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level,0);
+        Score questId = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level, 0);
+        Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level, 0);
 
         //Add the court alignment once base quest are created
-        switch (questId.getScore()){
+        switch (questId.getScore()) {
             case 0:
                 entity.addTag(Courts.SpringAligned.toString());
-            break;
+                break;
+            case 100:
+                entity.addTag(Courts.SummerAligned.toString());
+                break;
+            case 200:
+                entity.addTag(Courts.AutumnAligned.toString());
+                break;
+            case 300:
+                entity.addTag(Courts.WinterAligned.toString());
+                break;
         }
 
         rep.add(getRepNumber(questId.getScore()));
 
-        if(!entity.level.isClientSide) {
-           entity.addItem(getReward(questId.getScore()));
+        if (!entity.level.isClientSide) {
+            entity.addItem(getReward(questId.getScore()));
         }
-
 
         AtomicReference<Quest> questA = new AtomicReference<>();
         AtomicReference<Quest> questB = new AtomicReference<>();
         AtomicInteger link = new AtomicInteger(-1);
         quests.forEach(quest -> {
-            if(quest.getId() == questId.getScore()){
+            if (quest.getId() == questId.getScore()) {
                 link.set(quest.getLink());
                 questB.set(quest);
                 quests.forEach(quest1 -> {
-                    if(link.get() == quest1.getId()){
+                    if (link.get() == quest1.getId()) {
                         questA.set(quest1);
                     }
                 });
@@ -116,26 +98,24 @@ public class QuestMap {
 
         storeQuestData(entity);
 
-            if (!questB.get().canSkip())
-                entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
+        if (!questB.get().canSkip())
+            entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
 
-            FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), questId.getScore()), entity);
-        }
-
+        FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), questId.getScore()), entity);
+    }
 
     public static void storeQuestData(PlayerEntity entity) {
         AtomicReference<Quest> quest = new AtomicReference<>();
-        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level,0);
+        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level, 0);
 
         quests.forEach(quest1 -> {
-                if(quest1.getId() == score.getScore()){
-                    quest.set(quest1);
-                }
-            });
+            if (quest1.getId() == score.getScore()) {
+                quest.set(quest1);
+            }
+        });
 
         if (!entity.level.isClientSide) {
             String[] tokens = quest.get().getData().toUpperCase().split(" ").clone();
-
 
             //REMOVE
             entity.getPersistentData().remove("FWT");
@@ -162,11 +142,11 @@ public class QuestMap {
         }
     }
 
-    public static int getLineNumber(int id){
+    public static int getLineNumber(int id) {
 
         AtomicInteger i = new AtomicInteger();
         quests.forEach(quest -> {
-            if(quest.getId() == id){
+            if (quest.getId() == id) {
                 i.set(quest.getLines());
             }
         });
@@ -174,11 +154,10 @@ public class QuestMap {
         return i.get();
     }
 
-
     public static int getRepNumber(int id) {
         AtomicInteger i = new AtomicInteger();
         quests.forEach(quest -> {
-            if(quest.getId() == id){
+            if (quest.getId() == id) {
                 i.set(quest.getRep());
             }
         });
@@ -186,11 +165,11 @@ public class QuestMap {
         return i.get();
     }
 
-    public static boolean getCanSkip(int id){
+    public static boolean getCanSkip(int id) {
 
         AtomicBoolean i = new AtomicBoolean();
         quests.forEach(quest -> {
-            if(quest.getId() == id){
+            if (quest.getId() == id) {
                 i.set(quest.canSkip());
             }
         });
@@ -198,25 +177,39 @@ public class QuestMap {
         return i.get();
     }
 
-    public static String getSound(int id){
+    public static String getSound(int id) {
         AtomicReference<String> i = new AtomicReference<>();
         quests.forEach(quest -> {
-            if(quest.getId() == id){
+            if (quest.getId() == id) {
                 i.set(quest.getSound());
             }
         });
         return i.get();
     }
 
-    public static ItemStack getReward(int id){
+    public static ItemStack getReward(int id) {
         AtomicReference<ItemStack> i = new AtomicReference<>();
         quests.forEach(quest -> {
-            if(quest.getId() == id){
+            if (quest.getId() == id) {
                 i.set(quest.getStack());
             }
         });
 
         return i.get();
+    }
+
+    // USABLE SCORES
+    public enum Scores {
+        FW_Interact,
+        FW_Quest,
+        FW_Reputation
+    }
+
+    public enum Courts {
+        SpringAligned,
+        AutumnAligned,
+        WinterAligned,
+        SummerAligned
     }
 
 }

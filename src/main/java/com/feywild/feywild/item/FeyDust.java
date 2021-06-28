@@ -1,11 +1,7 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.QuestMessage;
-import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.KeyboardHelper;
-import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -14,10 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScoreObjective;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.ScoreboardSaveData;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -51,10 +43,16 @@ public class FeyDust extends Item {
     //Test
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
-        if(playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
+        if (playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
 
+        if (target instanceof SheepEntity) {
+            target.addEffect(new EffectInstance(Effects.LEVITATION, 60, 2));
+
+        } else {
             target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
-            stack.shrink(1);
+        }
+
+        stack.shrink(1);
 
         return ActionResultType.SUCCESS;
     }

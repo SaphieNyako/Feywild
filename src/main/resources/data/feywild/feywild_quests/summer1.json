@@ -10,5 +10,5 @@
     "count": 1
   },
   "sound": "NULL",
-  "extraData": "TARGET minecraft:iron_golem ACTION kill TIMES 1"
+  "extraData": "TARGET minecraft:iron_golem ACTION kill TIMES 1 USING empty"
 }

@@ -3,6 +3,8 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.SummerPixieEntity;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
@@ -54,7 +56,12 @@ public class SummoningScrollSummerPixie extends Item {
 
             /* QUEST */
 
-            Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 100);
+            Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
+
+            if (!player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {
+                questId.setScore(100);
+                FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
+            }
 
             if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                 player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
