@@ -1,22 +1,40 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetFireGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -25,15 +43,18 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class SummerPixieEntity extends FeyEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SummerPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
+    FeyEntity entity = this;
     private boolean tamed = false;
     private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
@@ -61,6 +82,46 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     public void setTag(SummerPixieEntity entity) {
         entity.addTag("summer_quest_pixie");
     }
+
+    @Override
+    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+        if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
+
+        if (!player.getCommandSenderWorld().isClientSide && Config.BETA.get()) {  //&& player.getItemInHand(hand).isEmpty()
+            if (this.getTags().contains("summer_quest_pixie")) {
+                Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 100);
+
+                if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                    player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+
+                INamedContainerProvider containerProvider = new INamedContainerProvider() {
+                    @Override
+                    public ITextComponent getDisplayName() {
+                        return new TranslationTextComponent("screen.feywild.pixie");
+                    }
+
+                    @Nullable
+                    @Override
+                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+
+                        return new PixieContainer(i, playerInventory, playerEntity, entity);
+                    }
+                };
+
+                NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
+
+            } else {
+
+                throw new IllegalStateException("Our container provider is missing!");
+            }
+
+        }
+
+        return ActionResultType.SUCCESS;
+
+    }
+
+
 
 
     /* Animation */

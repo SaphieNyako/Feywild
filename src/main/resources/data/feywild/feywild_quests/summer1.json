@@ -1,8 +1,8 @@
 {
   "type": "quest",
-  "id": 1,
-  "lines": 8,
-  "link": 2,
+  "id": 101,
+  "lines": 5,
+  "link": 102,
   "reputation": 7,
   "canSkip": false,
   "reward": {
@@ -10,5 +10,5 @@
     "count": 1
   },
   "sound": "NULL",
-  "extraData": "TARGET minecraft:sheep ACTION use TIMES 3 USING feywild:fey_dust"
+  "extraData": "TARGET minecraft:iron_golem ACTION kill TIMES 1"
 }
