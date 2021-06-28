@@ -9,8 +9,6 @@ import java.util.Arrays;
 
 public class Config {
 
-    //TODO: CONFIG for Biomes, Spawn ore, Structure Spawn, Tree patches
-
     public static ForgeConfigSpec SERVER_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
 
