@@ -9,12 +9,13 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
+import net.minecraftforge.server.command.TextComponentHelper;
 
 public class PixieScreen extends ContainerScreen<PixieContainer> {
 
@@ -55,10 +56,20 @@ public class PixieScreen extends ContainerScreen<PixieContainer> {
 
     @Override //drawGuiContainerForegroundLayer
     protected void renderLabels(MatrixStack matrixStack, int x, int y) {
-
+        int xPos = 0;
         // Add system for different quest branches
         for (int i = 1; i <= container.getLines(); i++) {
-            drawString(matrixStack, Minecraft.getInstance().font, new TranslationTextComponent("quest.feywild.quest_" + Math.abs(container.getQuest()) + "_message_" + i), -width / 6, 9 * i, 0xffffff);
+            for(int j = 0; j < I18n.get("quest.feywild.quest_" + Math.abs(container.getQuest()) + "_message_" + i).split(" ").length; j++ ){
+                String[] string = I18n.get("quest.feywild.quest_" + Math.abs(container.getQuest()) + "_message_" + i).split(" ");
+                if(string[j].startsWith("g&")){
+                    drawString(matrixStack, Minecraft.getInstance().font,string[j].replace("g&",""),  -width / 6 + xPos, 9 * i, 0xA1FB59);
+                }else if(string[j].startsWith("r&")){
+                    drawString(matrixStack, Minecraft.getInstance().font,string[j].replace("r&",""), -width / 6 + xPos , 9 * i, 0xD14959);
+                }else
+                    drawString(matrixStack, Minecraft.getInstance().font,string[j],  -width / 6 + xPos, 9 * i, 0xFFFFFF);
+                xPos += Minecraft.getInstance().font.width(string[j].replace("g&", "").replace("r&", "")) + 5;
+            }
+            xPos = 0;
         }
     }
 
