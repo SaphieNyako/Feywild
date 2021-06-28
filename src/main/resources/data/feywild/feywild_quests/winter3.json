@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 305,
+  "lines": 7,
+  "link": 306,
+  "reputation": 7,
+  "canSkip": false,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "NULL",
+  "extraData": "TARGET minecraft:soul_lantern ACTION craft TIMES 1"
+}
