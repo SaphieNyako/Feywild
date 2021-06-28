@@ -221,6 +221,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     public List<PrioritizedGoal> getUntamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
+        list.add(new PrioritizedGoal(4,new FeyWildPanic(this,0.003D,13)));
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f)));
         list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,
