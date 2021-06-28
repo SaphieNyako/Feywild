@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.util.Hand;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -23,12 +24,15 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ModEvents {
 
-    public static void genericInteract(PlayerEntity playerEntity, ItemStack itemStack, LivingEntity entity) {
+    public static boolean genericInteract(PlayerEntity playerEntity, Hand hand, LivingEntity entity, boolean shrink) {
+        AtomicBoolean ret = new AtomicBoolean( false);
         if (!playerEntity.level.isClientSide) {
             List<String> tokens = ModUtil.getTokens(playerEntity);
+            ItemStack itemStack = playerEntity.getItemInHand(hand);
 
             String stack = Objects.requireNonNull(itemStack.getItem().getRegistryName()).toString();
 
@@ -44,9 +48,14 @@ public class ModEvents {
                             playerEntity.displayClientMessage(new StringTextComponent(interact.getScore() + "/" + tokens.get(3)), true);
                             interact.add(1);
                         }
+
+                        if(shrink)
+                            playerEntity.getItemInHand(hand).shrink(1);
+                        ret.set(true);
                     }
                 });
         }
+        return ret.get();
     }
 
     @SubscribeEvent

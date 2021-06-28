@@ -129,10 +129,11 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
                     throw new IllegalStateException("Our container provider is missing!");
                 }
             }else{
-                ModEvents.genericInteract(player,player.getItemInHand(hand),this);
-                player.getItemInHand(hand).shrink(1);
-                player.sendMessage(new TranslationTextComponent("spring_fey_thanks"),player.getUUID());
-                FeywildPacketHandler.sendToPlayersInRange(player.level,blockPosition(),new ParticleMessage(getX()+0.5,getY()+0.5,getZ()+0.5,0,0,0,20,1,0),64);
+
+                if(ModEvents.genericInteract(player,hand,this,true)){
+                    player.sendMessage(new TranslationTextComponent("spring_fey_thanks"), player.getUUID());
+                    FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX() + 0.5, getY() + 0.5, getZ() + 0.5, 0, 0, 0, 20, 1, 0), 64);
+                }
             }
 
         }
