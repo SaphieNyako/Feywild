@@ -207,6 +207,10 @@ public class FeywildMod {
         String SummerBiome = "golden_seelie_fields";
         String AutumnBiome = "eternal_fall";
         String WinterBiome = "frozen_retreat";
+        String AlfHeimPlains = "alfheim_plains";
+        String GoldenFields = "golden_fields";
+        String AlfHeimHills = "alfheim_hills";
+        String AlfHeimForest = "dreamwood_forest";
         String biomeName = event.getName().toString();
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
@@ -228,25 +232,25 @@ public class FeywildMod {
 
             }
 
-            if (biomeName.contains(SpringBiome)) {
+            if (biomeName.contains(SpringBiome) || biomeName.contains(AlfHeimPlains)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(SummerBiome)) {
+            if (biomeName.contains(SummerBiome) || biomeName.contains(GoldenFields)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(AutumnBiome)) {
+            if (biomeName.contains(AutumnBiome) || biomeName.contains(AlfHeimHills)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(WinterBiome)) {
+            if (biomeName.contains(WinterBiome) || biomeName.contains(AlfHeimForest)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
 

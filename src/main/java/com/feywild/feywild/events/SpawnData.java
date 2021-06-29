@@ -33,6 +33,7 @@ public class SpawnData {
     public static String SummerBiome = "golden_seelie_fields";
     public static String AutumnBiome = "eternal_fall";
     public static String WinterBiome = "frozen_retreat";
+    public static String Alfheim = "alfheim";
 
     @SubscribeEvent
     public static void spawnEntities(BiomeLoadingEvent event) {
@@ -47,28 +48,28 @@ public class SpawnData {
             addSpawn(event, ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
 
             for (Type biomeName : biomeSpring) {
-                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome)) {
+                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE,
                             Config.SPRING_PIXIE_CONFIG.getWeight(), Config.SPRING_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
                 }
             }
 
             for (Type biomeName : biomeSummer) {
-                if (types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome)) {
+                if (types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE,
                             Config.SUMMER_PIXIE_CONFIG.getWeight(), Config.SUMMER_PIXIE_CONFIG.getMin(), Config.SUMMER_PIXIE_CONFIG.getMax());
                 }
             }
 
             for (Type biomeName : biomeAutumn) {
-                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(SpringBiome) && !biome.contains(WinterBiome)) {
+                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(SpringBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE,
                             Config.AUTUMN_PIXIE_CONFIG.getWeight(), Config.AUTUMN_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
                 }
             }
 
             for (Type biomeName : biomeWinter) {
-                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(SpringBiome)) {
+                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(SpringBiome) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE,
                             Config.WINTER_PIXIE_CONFIG.getWeight(), Config.WINTER_PIXIE_CONFIG.getMin(), Config.WINTER_PIXIE_CONFIG.getMax());
                 }
