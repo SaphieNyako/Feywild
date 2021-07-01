@@ -36,19 +36,35 @@ public class PixieScreen extends Screen {
         int xPos = 0;
         renderBackground(matrixStack);
         // Add system for different quest branches
-        for (int i = 1; i <= lines; i++) {
-            for(int j = 0; j < I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ").length; j++ ){
-                String[] string = I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ");
-                if(string[j].startsWith("g&")){
-                    drawString(matrixStack, Minecraft.getInstance().font,string[j].replace("g&",""), this.width /4 + xPos, this.height /3 + 9 * i, 0xA1FB59);
-                }else if(string[j].startsWith("r&")){
-                    drawString(matrixStack, Minecraft.getInstance().font,string[j].replace("r&",""),  this.width /4 + xPos , this.height /3 + 9 * i, 0xD14959);
-                }else
-                    drawString(matrixStack, Minecraft.getInstance().font,string[j],   this.width /4 + xPos, this.height /3 + 9 * i, 0xFFFFFF);
-                xPos += Minecraft.getInstance().font.width(string[j].replace("g&", "").replace("r&", "")) + 5;
+        if(!this.minecraft.getWindow().isFullscreen()) {
+            for (int i = 1; i <= lines; i++) {
+                for (int j = 0; j < I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ").length; j++) {
+                    String[] string = I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ");
+                    if (string[j].startsWith("g&")) {
+                        drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("g&", ""), this.width / 12 + xPos, this.height / 3 + 9 * i, 0xA1FB59);
+                    } else if (string[j].startsWith("r&")) {
+                        drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("r&", ""), this.width / 12 + xPos, this.height / 3 + 9 * i, 0xD14959);
+                    } else
+                        drawString(matrixStack, Minecraft.getInstance().font, string[j], this.width / 12 + xPos, this.height / 3 + 9 * i, 0xFFFFFF);
+                    xPos += Minecraft.getInstance().font.width(string[j].replace("g&", "").replace("r&", "")) + 5;
+                }
+                xPos = 0;
             }
-            xPos = 0;
-        };
+        }else{
+            for (int i = 1; i <= lines; i++) {
+                for (int j = 0; j < I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ").length; j++) {
+                    String[] string = I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ");
+                    if (string[j].startsWith("g&")) {
+                        drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("g&", ""), this.width / 4 + xPos, this.height / 3 + 9 * i, 0xA1FB59);
+                    } else if (string[j].startsWith("r&")) {
+                        drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("r&", ""), this.width / 4 + xPos, this.height / 3 + 9 * i, 0xD14959);
+                    } else
+                        drawString(matrixStack, Minecraft.getInstance().font, string[j], this.width / 4 + xPos, this.height / 3 + 9 * i, 0xFFFFFF);
+                    xPos += Minecraft.getInstance().font.width(string[j].replace("g&", "").replace("r&", "")) + 5;
+                }
+                xPos = 0;
+            }
+        }
     }
 
     @Override
