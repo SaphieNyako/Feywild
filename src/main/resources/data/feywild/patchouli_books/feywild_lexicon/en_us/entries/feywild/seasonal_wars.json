@@ -43,7 +43,7 @@
       "type": "crafting",
       "title": "Fey Wood",
       "recipe": "feywild:spring_tree_wood",
-      "text": "When a fey tree is cut down with a normal axe, it will loose it's magic and turn back into the orginal wood. Occasionally dropping Fey Dust in the process."
+      "text": "When a fey tree is cut down with a normal axe, it will loose it's magic and turn back into the original wood. Occasionally dropping Fey Dust in the process."
     }
   ]
 }

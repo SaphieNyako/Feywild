@@ -39,6 +39,7 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -90,6 +91,9 @@ public class FeywildMod {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         GeckoLib.initialize();
+
+        registerConfigs();
+        loadConfigs();
         proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
         eventBus.addListener(this::setup); // Register the setup method for modloading
         eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
@@ -109,15 +113,14 @@ public class FeywildMod {
     private void setup(final FMLCommonSetupEvent event) {
 
         // DwarfTrades.registerTrades();
-        registerConfigs();
         proxy.init();
         entityQueue(event);
         structureQueue(event);
-        loadConfigs();
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
         TamedTradeManager.instance();
         QuestManager.instance();
+
     }
 
     private void registerConfigs() {
