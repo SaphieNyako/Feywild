@@ -1,17 +1,14 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.container.PixieContainer;
 import com.feywild.feywild.entity.SpringPixieEntity;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -23,9 +20,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,22 +54,7 @@ public class SummoningScrollSpringPixie extends Item {
             if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                 player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-            INamedContainerProvider containerProvider = new INamedContainerProvider() {
-                @Override
-                public ITextComponent getDisplayName() {
-                    return new TranslationTextComponent("screen.feywild.pixie");
-                }
-
-                @Nullable
-                @Override
-                public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-
-                    return new PixieContainer(i, playerInventory, playerEntity, entity);
-                }
-            };
-
-            NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
-
+            FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
         }
 
         return ActionResultType.SUCCESS;
