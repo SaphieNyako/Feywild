@@ -47,7 +47,7 @@ public class ModBiomeGeneration {
     @SubscribeEvent
     public static void setupBiome(final FMLCommonSetupEvent event) {
 
-        if (!Config.MYTHIC.get()) {
+        if (Config.MYTHIC.get() != 2) {
             event.enqueueWork(() ->
             {
 

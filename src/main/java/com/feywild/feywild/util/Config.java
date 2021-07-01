@@ -16,7 +16,9 @@ public class Config {
     public static ForgeConfigSpec.IntValue FEY_DUST_DURATION;
     public static ForgeConfigSpec.BooleanValue SPAWN_LEXICON;
     public static ForgeConfigSpec.BooleanValue BETA;
-    public static ForgeConfigSpec.BooleanValue MYTHIC;
+
+    public static ForgeConfigSpec.IntValue MYTHIC;
+    public static ForgeConfigSpec.BooleanValue DUNGEONS_GEAR;
 
     public static ForgeConfigSpec.IntValue FEY_GEM_MAX_VEIN_SIZE;
     public static ForgeConfigSpec.IntValue FEY_GEM_MIN_HEIGHT;
@@ -73,7 +75,7 @@ public class Config {
         setTreePatchesConfig(SERVER_BUILDER, CLIENT_BUILDER);
         setBiomeConfig(SERVER_BUILDER, CLIENT_BUILDER);
         setBetaVariables(SERVER_BUILDER, CLIENT_BUILDER);
-        setMythicVariables(SERVER_BUILDER, CLIENT_BUILDER);
+        setModPackVariables(SERVER_BUILDER, CLIENT_BUILDER);
 
         SERVER_CONFIG = SERVER_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
@@ -86,8 +88,10 @@ public class Config {
         BETA = CLIENT_BUILDER.comment("This may not work, expect fatal errors, here be dragons!\n Activate beta features:").define("beta", false);
     }
 
-    private static void setMythicVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-        MYTHIC = CLIENT_BUILDER.comment("Activate this if you only want feywild biome features to spawn in AlfHeim. Note: This requires the mod: Mythic Botany").define("mythic", false);
+    private static void setModPackVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
+        MYTHIC = CLIENT_BUILDER.comment("Note: This requires the mod: Mythic Botany. 0: feywild biomes spawn in overworld, default alfheim, 1: feywild biomes spawn in overworld, feywild features spawn in alfheim, 2: feywild biomes not active, feywild features spawn in alfheim ").defineInRange("mythic", 1, 0, 2);
+
+        DUNGEONS_GEAR = CLIENT_BUILDER.comment("Note: This requires the mod: Dungeons Gear. Set to True if you want Schematics Items for Dungeon Gear.").define("dungeons_gear", false);
     }
 
     private static void setConfigVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {

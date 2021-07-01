@@ -68,12 +68,12 @@ public class ModItems {
             Registration.ITEMS.register("mandrake_seed",
                     () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
-    public static final RegistryObject<Item> SUNFLOWER_SEEDS =
-            Registration.ITEMS.register("sunflower_seeds",SunflowerSeeds::new
+    public static final RegistryObject<Item> SUNFLOWER_SEED =
+            Registration.ITEMS.register("sunflower_seed", SunflowerSeeds::new
             );
 
-    public static final RegistryObject<Item> DANDELION_SEEDS =
-            Registration.ITEMS.register("dandelion_seeds",DandelionSeeds::new
+    public static final RegistryObject<Item> DANDELION_SEED =
+            Registration.ITEMS.register("dandelion_seed", DandelionSeeds::new
             );
 
     /* MUSIC DISC */
@@ -91,6 +91,19 @@ public class ModItems {
     public static final RegistryObject<Item> SCHEMATICS_FEY_ALTAR =
             Registration.ITEMS.register("schematics_fey_altar",
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
+
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_WEAPONS =
+            Registration.ITEMS.register("schematics_dungeons_gear_weapons",
+                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_weapons")));
+
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARTIFACTS =
+            Registration.ITEMS.register("schematics_dungeons_gear_artifacts",
+                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_artifacts")));
+
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARMOR =
+            Registration.ITEMS.register("schematics_dungeons_gear_armor",
+                    () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_armor")));
+
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =

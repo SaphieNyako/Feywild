@@ -232,25 +232,25 @@ public class FeywildMod {
 
             }
 
-            if (biomeName.contains(SpringBiome) || biomeName.contains(AlfHeimPlains)) {
+            if (biomeName.contains(SpringBiome) || (biomeName.contains(AlfHeimPlains) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(SummerBiome) || biomeName.contains(GoldenFields)) {
+            if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(AutumnBiome) || biomeName.contains(AlfHeimHills)) {
+            if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(WinterBiome) || biomeName.contains(AlfHeimForest)) {
+            if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
 

@@ -114,7 +114,7 @@ public class ModTreeGeneration {
 
         /* BIOME DECORATION GENERATION */
 
-        if (biomeName.contains(SpringBiome) || biomeName.contains(AlfHeimPlains)) {
+        if (biomeName.contains(SpringBiome) || (biomeName.contains(AlfHeimPlains) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -122,7 +122,7 @@ public class ModTreeGeneration {
             base.add(() -> ModConfiguredFeatures.SPRING_DANDELION);
         }
 
-        if (biomeName.contains(SummerBiome) || biomeName.contains(GoldenFields)) {
+        if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -130,7 +130,7 @@ public class ModTreeGeneration {
             base.add(() -> ModConfiguredFeatures.SUMMER_SUNFLOWER);
         }
 
-        if (biomeName.contains(AutumnBiome) || biomeName.contains(AlfHeimHills)) {
+        if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -138,7 +138,7 @@ public class ModTreeGeneration {
             base.add(() -> ModConfiguredFeatures.AUTUMN_PUMPKINS);
         }
 
-        if (biomeName.contains(WinterBiome) || biomeName.contains(AlfHeimForest)) {
+        if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
