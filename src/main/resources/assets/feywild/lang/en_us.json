@@ -51,11 +51,11 @@
   "block.feywild.winter_tree_leaves": "Winter Tree Leaves",
   "block.feywild.winter_tree_sapling": "Winter Tree Sapling",
   "block.feywild.tree_mushroom": "Tree Mushrooms",
-  "enity.feywild.spring_pixie": "Spring Pixie",
-  "enity.feywild.summer_pixie": "Summer Pixie",
-  "enity.feywild.autumn_pixie": "Autumn Pixie",
-  "enity.feywild.winter_pixie": "Winter Pixie",
-  "enity.feywild.dwarf_blacksmith": "Dwarf Blacksmith",
+  "entity.feywild.spring_pixie": "Spring Pixie",
+  "entity.feywild.summer_pixie": "Summer Pixie",
+  "entity.feywild.autumn_pixie": "Autumn Pixie",
+  "entity.feywild.winter_pixie": "Winter Pixie",
+  "entity.feywild.dwarf_blacksmith": "Dwarf Blacksmith",
   "itemGroup.feywildTab": "Feywild Items",
   "message.feywild.schematics_fey_altar": "Schematics for a Fey Altar",
   "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of fey and magic.\nHave you seen a fey yet? They are a bit shy, but with some tasty treats might help you gain their trust.\n Talk to me again if you like to know more about the Fey!",
@@ -228,5 +228,5 @@
   "summer_fey_thanks": "An offering? Job well done!",
   "autumn_fey_thanks": "A present? Thank you, darling.",
   "winter_fey_thanks": "...your effort is noted, mortal",
-  "message.feywild.aligned" : "This fey court recognises you as one of it's own."
+  "message.feywild.aligned": "This fey court recognises you as one of it's own."
 }

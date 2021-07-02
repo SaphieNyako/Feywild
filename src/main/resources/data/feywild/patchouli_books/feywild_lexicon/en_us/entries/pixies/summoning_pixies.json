@@ -6,6 +6,18 @@
   "pages": [
     {
       "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "Summoning",
+      "text": "Beware that when you summon a pixie, you are bound to their Court! This means other courts might not be willing to interact with you afterwards."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Summoning",
+      "text": "Also note that not all pixies are willing familiars, and they might trick you! Try interacting with your pixie after you summoned one, if possible try to gain their trust."
+    },
+    {
+      "type": "spotlight",
       "item": "feywild:summoning_scroll_spring_pixie",
       "title": "Summoning Spring Pixie",
       "text": "With this scroll you can summon a Spring Pixie. The presence of a Spring Pixie will cause life stock to more fertile."
