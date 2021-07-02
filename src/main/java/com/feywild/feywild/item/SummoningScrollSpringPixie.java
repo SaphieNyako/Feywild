@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
+import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
@@ -46,15 +47,20 @@ public class SummoningScrollSpringPixie extends Item {
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
             //   entity.playSound(ModSoundEvents.SUMMONING_SPRING_PIXIE.get(), 1, 1);
-
-            /* QUEST */
-
             Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-            if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+            /* QUEST */
+            if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {
+                questId.setScore(0);
+                FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
+                player.sendMessage(new TranslationTextComponent("message.feywild.aligned"), player.getUUID());
+            } else if (player.getTags().contains(QuestMap.Courts.SpringAligned.toString())) {
 
-            FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+                if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                    player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+
+                FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+            }
         }
 
         return ActionResultType.SUCCESS;

@@ -53,16 +53,18 @@ public class SummoningScrollAutumnPixie extends Item {
 
             Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-            if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString())) {
+            if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {
                 questId.setScore(200);
                 FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
+                player.sendMessage(new TranslationTextComponent("message.feywild.aligned"), player.getUUID());
+            }else if (player.getTags().contains(QuestMap.Courts.AutumnAligned.toString())) {
+
+                if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                    player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+
+                FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+
             }
-
-            if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
-
-            FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
-
         }
         return ActionResultType.SUCCESS;
     }

@@ -227,5 +227,6 @@
   "spring_fey_thanks": "Oh, for me? Thank you so much, human.",
   "summer_fey_thanks": "An offering? Job well done!",
   "autumn_fey_thanks": "A present? Thank you, darling.",
-  "winter_fey_thanks": "...your effort is noted, mortal"
+  "winter_fey_thanks": "...your effort is noted, mortal",
+  "message.feywild.aligned" : "This fey court recognises you as one of it's own."
 }
