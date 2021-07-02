@@ -6,6 +6,7 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.util.ITooltipFlag;
@@ -54,12 +55,17 @@ public class SummoningScrollSpringPixie extends Item {
                 questId.setScore(0);
                 FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
                 player.sendMessage(new TranslationTextComponent("message.feywild.aligned"), player.getUUID());
-            } else if (player.getTags().contains(QuestMap.Courts.SpringAligned.toString())) {
+                player.addTag(QuestMap.Courts.SpringAligned.toString());
+            }
+
+            if (player.getTags().contains(QuestMap.Courts.SpringAligned.toString())) {
 
                 if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                     player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
                 FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+            } else {
+                entity.playSound(ModSoundEvents.SUMMONING_SPRING_PIXIE.get(), 1, 1);
             }
         }
 
