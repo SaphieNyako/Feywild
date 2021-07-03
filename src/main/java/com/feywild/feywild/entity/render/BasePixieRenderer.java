@@ -2,6 +2,7 @@ package com.feywild.feywild.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -37,7 +38,7 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
     private void generateParticles(Entity entity) {
         World world = entity.level;
 
-        if (world.random.nextInt(11) == 0) {
+        if (world.random.nextInt(11) == 0 && !Minecraft.getInstance().isPaused()) {
             world.addParticle(
                     getParticleType(),
                     entity.getX() + (Math.random() - 0.5),

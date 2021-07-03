@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 0,
+  "lines": 5,
+  "link": 1,
+  "reputation": 25,
+  "canSkip": true,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "feywild:summoning_spring_pixie",
+  "extraData": "NULL"
+}

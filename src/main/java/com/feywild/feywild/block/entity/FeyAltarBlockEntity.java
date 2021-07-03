@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.network.DataMessage;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.recipes.AltarRecipe;
@@ -29,8 +30,8 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     Random random = new Random();
     NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
     private AnimationFactory factory = new AnimationFactory(this);
-    private boolean shouldLoad = true;
-    private int count = 0, limit;
+    private boolean shouldLoad = true, shouldCraft = false;
+    private int count = 0, limit, craftCount = 0;
 
     public FeyAltarBlockEntity() {
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
@@ -58,7 +59,17 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
     @Override
     public void updateInventory(int flags, boolean shouldCraft) {
         if (shouldCraft) {
-            craft();
+            Inventory inv = new Inventory(5);
+            for (int i = 0; i < getItems().size(); i++) {
+                inv.setItem(i, getItems().get(i));
+            }
+
+            Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
+
+            recipe.ifPresent(altarRecipe -> {
+                        this.shouldCraft = true;
+                    }
+            );
         } else {
             super.updateInventory(flags, false);
         }
@@ -74,12 +85,23 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             updateInventory(-1, false);
             shouldLoad = true;
         }
+        if (shouldCraft) {
+            craftCount++;
+            if (craftCount == 10) {
+                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(1, worldPosition), 100);
+            }
+            if (craftCount > 40) {
+                craft();
+                craftCount = 0;
+                shouldCraft = false;
+            }
+        }
         //summon particles randomly (did this here bc for some reason random ticks are killing me today)
         if (count > limit) {
             limit = random.nextInt(20 * 6);
             if (random.nextDouble() > 0.5) {
                 // send packet to player to summon particles
-                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + random.nextDouble(), worldPosition.getY() + random.nextDouble(), worldPosition.getZ() + random.nextDouble(), 0, 0, 0, 1, 2,0), 32);
+                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + random.nextDouble(), worldPosition.getY() + random.nextDouble(), worldPosition.getZ() + random.nextDouble(), 0, 0, 0, 1, 2, 0), 32);
             }
             count = 0;
         }
@@ -95,10 +117,13 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
-            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.1, worldPosition.getZ() + 0.5, output);
+            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 2, worldPosition.getZ() + 0.5, output);
             level.addFreshEntity(entity);
             clearContent();
-            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0,0), 32);
+            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(0, worldPosition), 100);
+            //  FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0,0), 32);
+            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, 0.5, 0.7, 0.5, 20, -2, 0), 64);
+
         });
 
     }

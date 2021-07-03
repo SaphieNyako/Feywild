@@ -41,7 +41,7 @@ public class AltarRecipe implements IAltarRecipe {
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        return FeywildRecipes.matches(inputs, inv);
+        return FeywildRecipes.matchesAltar(inputs, inv);
     }
 
     @Override
@@ -57,6 +57,10 @@ public class AltarRecipe implements IAltarRecipe {
     @Override
     public ResourceLocation getId() {
         return id;
+    }
+
+    public List<Ingredient> getInputs() {
+        return inputs;
     }
 
     @Override

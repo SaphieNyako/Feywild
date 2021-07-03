@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Random;
 
-public class FeyAltar extends Block {
+public class FeyAltar extends ClientDataBlock {
 
     Random random = new Random();
 

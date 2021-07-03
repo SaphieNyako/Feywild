@@ -47,14 +47,16 @@ public class ModBiomeGeneration {
     @SubscribeEvent
     public static void setupBiome(final FMLCommonSetupEvent event) {
 
-        event.enqueueWork(() ->
-        {
+        if (Config.MYTHIC.get() != 2) {
+            event.enqueueWork(() ->
+            {
 
-            addBiome(ModBiomes.SPRING_BIOME.get(), BiomeManager.BiomeType.WARM, Config.SPRING_BIOME_WEIGHT.get(), MAGICAL, FOREST);
-            addBiome(ModBiomes.SUMMER_BIOME.get(), BiomeManager.BiomeType.WARM, Config.SUMMER_BIOME_WEIGHT.get(), MAGICAL, HOT);
-            addBiome(ModBiomes.AUTUMN_BIOME.get(), BiomeManager.BiomeType.WARM, Config.AUTUMN_BIOME_WEIGHT.get(), MAGICAL, MUSHROOM);
-            addBiome(ModBiomes.WINTER_BIOME.get(), BiomeManager.BiomeType.ICY, Config.WINTER_BIOME_WEIGHT.get(), MAGICAL, COLD);
-        });
+                addBiome(ModBiomes.BLOSSOMING_WEALDS.get(), BiomeManager.BiomeType.WARM, Config.SPRING_BIOME_WEIGHT.get(), MAGICAL, FOREST);
+                addBiome(ModBiomes.GOLDEN_SEELIE_FIELDS.get(), BiomeManager.BiomeType.WARM, Config.SUMMER_BIOME_WEIGHT.get(), MAGICAL, HOT);
+                addBiome(ModBiomes.ETERNAL_FALL.get(), BiomeManager.BiomeType.WARM, Config.AUTUMN_BIOME_WEIGHT.get(), MAGICAL, MUSHROOM);
+                addBiome(ModBiomes.FROZEN_RETREAT.get(), BiomeManager.BiomeType.ICY, Config.WINTER_BIOME_WEIGHT.get(), MAGICAL, COLD);
+            });
+        }
     }
 
     private static void registerConfiguredSurfaceBuilder(ResourceLocation surfaceBuilderRecourseLocation, BlockState topBlock, BlockState fillerBlock, BlockState underwaterBlock) {

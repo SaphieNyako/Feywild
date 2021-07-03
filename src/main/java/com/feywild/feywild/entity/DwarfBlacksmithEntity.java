@@ -330,25 +330,25 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-            return PlayState.CONTINUE;
-        }
         // 1 = ATTACKING
         if (this.entityData.get(STATE) == 1 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) { //&& !this.entityData.get(CRAFTING)
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
             return PlayState.CONTINUE;
-        }
-
+        }else
         // 2 == WORKING
         if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
+            return PlayState.CONTINUE;
+        }else
+        if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
             return PlayState.CONTINUE;
         }
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
         return PlayState.CONTINUE;
     }
+
 
     @Override
     public void registerControllers(AnimationData animationData) {

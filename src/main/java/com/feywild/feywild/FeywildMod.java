@@ -5,10 +5,12 @@ import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.util.trades.TamedTradeManager;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
@@ -37,7 +39,9 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -87,25 +91,36 @@ public class FeywildMod {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         GeckoLib.initialize();
+
+        registerConfigs();
+        loadConfigs();
         proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
         eventBus.addListener(this::setup); // Register the setup method for modloading
         eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
         eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
+        MinecraftForge.EVENT_BUS.addListener(this::reloadStuff);
         registerModAdditions();
         MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
 
     }
 
+    //This might have a conflict when merging with the quests
+    public void reloadStuff(AddReloadListenerEvent event) {
+        event.addListener(TamedTradeManager.instance());
+        event.addListener(QuestManager.instance());
+    }
+
     private void setup(final FMLCommonSetupEvent event) {
 
         // DwarfTrades.registerTrades();
-        registerConfigs();
         proxy.init();
         entityQueue(event);
         structureQueue(event);
-        loadConfigs();
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
+        TamedTradeManager.instance();
+        QuestManager.instance();
+
     }
 
     private void registerConfigs() {
@@ -191,10 +206,14 @@ public class FeywildMod {
 
     public void biomeModification(final BiomeLoadingEvent event) {
 
-        String SpringBiome = "spring_biome";
-        String SummerBiome = "summer_biome";
-        String AutumnBiome = "autumn_biome";
-        String WinterBiome = "winter_biome";
+        String SpringBiome = "blossoming_wealds";
+        String SummerBiome = "golden_seelie_fields";
+        String AutumnBiome = "eternal_fall";
+        String WinterBiome = "frozen_retreat";
+        String AlfHeimPlains = "alfheim_plains";
+        String GoldenFields = "golden_fields";
+        String AlfHeimHills = "alfheim_hills";
+        String AlfHeimForest = "dreamwood_forest";
         String biomeName = event.getName().toString();
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
@@ -216,25 +235,25 @@ public class FeywildMod {
 
             }
 
-            if (biomeName.contains(SpringBiome)) {
+            if (biomeName.contains(SpringBiome) || (biomeName.contains(AlfHeimPlains) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(SummerBiome)) {
+            if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(AutumnBiome)) {
+            if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(WinterBiome)) {
+            if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && Config.MYTHIC.get() != 0)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
 

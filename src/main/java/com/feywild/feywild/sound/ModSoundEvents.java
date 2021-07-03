@@ -40,8 +40,6 @@ public class ModSoundEvents {
             Registration.SOUND_EVENTS.register("summoning_winter_pixie",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "summoning_winter_pixie")));
 
-    //TODO Music needs to be lower in volume and slowly increase from soft to hard. Songs need to be longer.
-
     public static final RegistryObject<SoundEvent> FEYWILD_SOUNDTRACK =
             Registration.SOUND_EVENTS.register("feywild_soundtrack",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "feywild_soundtrack")));

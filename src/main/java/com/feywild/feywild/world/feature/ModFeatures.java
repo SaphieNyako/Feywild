@@ -12,6 +12,12 @@ public class ModFeatures {
     public static final Feature<NoFeatureConfig> AUTUMN_PUMPKINS =
             register("autumn_pumpkins", new AutumnPumpkinsFeature());
 
+    public static final Feature<NoFeatureConfig> SUNFLOWER_FEATURE =
+            register("sunflower_feature", new SunflowerFeature());
+
+    public static final Feature<NoFeatureConfig> DANDELION_FEATURE =
+            register("dandelion_feature", new DandelionFeature());
+
     public static void register() {}
 
     private static <C extends IFeatureConfig, F extends Feature<C>> F register(String key, F value) {

@@ -9,14 +9,16 @@ import java.util.Arrays;
 
 public class Config {
 
-    //TODO: CONFIG for Biomes, Spawn ore, Structure Spawn, Tree patches
-
     public static ForgeConfigSpec SERVER_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
 
     //CONFIG VARIABLES
     public static ForgeConfigSpec.IntValue FEY_DUST_DURATION;
     public static ForgeConfigSpec.BooleanValue SPAWN_LEXICON;
+    public static ForgeConfigSpec.BooleanValue BETA;
+
+    public static ForgeConfigSpec.IntValue MYTHIC;
+    public static ForgeConfigSpec.BooleanValue DUNGEONS_GEAR;
 
     public static ForgeConfigSpec.IntValue FEY_GEM_MAX_VEIN_SIZE;
     public static ForgeConfigSpec.IntValue FEY_GEM_MIN_HEIGHT;
@@ -50,6 +52,16 @@ public class Config {
     public static ForgeConfigSpec.IntValue AUTUMN_BIOME_WEIGHT;
     public static ForgeConfigSpec.IntValue WINTER_BIOME_WEIGHT;
 
+    public static ForgeConfigSpec.DoubleValue SPRING_BIOME_SIZE;
+    public static ForgeConfigSpec.DoubleValue SUMMER_BIOME_SIZE;
+    public static ForgeConfigSpec.DoubleValue AUTUMN_BIOME_SIZE;
+    public static ForgeConfigSpec.DoubleValue WINTER_BIOME_SIZE;
+
+    public static ForgeConfigSpec.BooleanValue SPRING_TREE_PATCH;
+    public static ForgeConfigSpec.BooleanValue SUMMER_TREE_PATCH;
+    public static ForgeConfigSpec.BooleanValue AUTUMN_TREE_PATCH;
+    public static ForgeConfigSpec.BooleanValue WINTER_TREE_PATCH;
+
     static {
 
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
@@ -62,6 +74,8 @@ public class Config {
         setStructureConfigs(SERVER_BUILDER, CLIENT_BUILDER);
         setTreePatchesConfig(SERVER_BUILDER, CLIENT_BUILDER);
         setBiomeConfig(SERVER_BUILDER, CLIENT_BUILDER);
+        setBetaVariables(SERVER_BUILDER, CLIENT_BUILDER);
+        setModPackVariables(SERVER_BUILDER, CLIENT_BUILDER);
 
         SERVER_CONFIG = SERVER_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
@@ -69,6 +83,17 @@ public class Config {
     }
 
     //CONFIG METHOD
+
+    private static void setBetaVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
+        BETA = CLIENT_BUILDER.comment("This may not work, expect fatal errors, here be dragons!\n Activate beta features:").define("beta", false);
+    }
+
+    private static void setModPackVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
+        MYTHIC = CLIENT_BUILDER.comment("Note: This requires the mod: Mythic Botany. 0: feywild biomes spawn in overworld, default alfheim, 1: feywild biomes spawn in overworld, feywild features spawn in alfheim, 2: feywild biomes not active, feywild features spawn in alfheim ").defineInRange("mythic", 1, 0, 2);
+
+        DUNGEONS_GEAR = CLIENT_BUILDER.comment("Note: This requires the mod: Dungeons Gear. Set to True if you want Schematics Items for Dungeon Gear.").define("dungeons_gear", false);
+    }
+
     private static void setConfigVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
         FEY_DUST_DURATION = CLIENT_BUILDER.comment("How long fey dust effect lasts:")
@@ -93,13 +118,13 @@ public class Config {
     private static void setMobConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
         SPRING_PIXIE_CONFIG = new MobConfig("Spring Pixie", 20, 1, 1,
-                Arrays.asList("RIVER", "FOREST", "PLAINS"));
+                Arrays.asList("RIVER", "FOREST", "PLAINS", "MAGICAL"));
         SUMMER_PIXIE_CONFIG = new MobConfig("Summer Pixie", 20, 1, 1,
-                Arrays.asList("LUSH", "HOT"));
+                Arrays.asList("LUSH", "HOT", "MAGICAL"));
         AUTUMN_PIXIE_CONFIG = new MobConfig("Autumn Pixie", 20, 1, 1,
-                Arrays.asList("SWAMP", "MUSHROOM", "SPOOKY", "FOREST"));
+                Arrays.asList("SWAMP", "MUSHROOM", "SPOOKY", "FOREST", "MAGICAL"));
         WINTER_PIXIE_CONFIG = new MobConfig("Winter Pixie", 20, 1, 1,
-                Arrays.asList("DEAD", "SNOWY", "COLD"));
+                Arrays.asList("DEAD", "SNOWY", "COLD", "MAGICAL"));
         DWARF_CONFIG = new MobConfig("Dwarf", 20, 1, 1, Arrays.asList("ALL"));
 
         SPRING_PIXIE_CONFIG.apply(CLIENT_BUILDER);
@@ -144,18 +169,29 @@ public class Config {
                 .defineInRange("tree_patches_chance", 0.01, 0.0, 1.0);
         TREE_PATCHES_SIZE = CLIENT_BUILDER.comment("Size of the Fey Tree patches:")
                 .defineInRange("tree_patches_size", 3, 0, 10);
+
+        SPRING_TREE_PATCH = CLIENT_BUILDER.comment("Spawn spring tree patches:").define("spring_tree_patch", true);
+        AUTUMN_TREE_PATCH = CLIENT_BUILDER.comment("Spawn autumn tree patches:").define("autumn_tree_patch", true);
+        SUMMER_TREE_PATCH = CLIENT_BUILDER.comment("Spawn summer tree patches:").define("summer_tree_patch", true);
+        WINTER_TREE_PATCH = CLIENT_BUILDER.comment("Spawn winter tree patches:").define("winter_tree_patch", true);
+
     }
 
     private static void setBiomeConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
-        SPRING_BIOME_WEIGHT = CLIENT_BUILDER.comment("Spring biome weight:")
-                .defineInRange("spring_biome_weight", 20, 0, 100);
-        SUMMER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Summer biome weight:")
-                .defineInRange("summer_biome_weight", 20, 0, 100);
-        AUTUMN_BIOME_WEIGHT = CLIENT_BUILDER.comment("Autumn biome weight:")
-                .defineInRange("autumn_biome_weight", 20, 0, 100);
-        WINTER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Winter biome weight:")
-                .defineInRange("winter_biome_weight", 20, 0, 100);
+        SPRING_BIOME_WEIGHT = CLIENT_BUILDER.comment("Blossoming Wealds spawn weight:")
+                .defineInRange("spring_biome_weight", 15, 0, 100);
+        SUMMER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Golden Seelie Fields spawn weight:")
+                .defineInRange("summer_biome_weight", 15, 0, 100);
+        AUTUMN_BIOME_WEIGHT = CLIENT_BUILDER.comment("Eternal Fall spawn weight:")
+                .defineInRange("autumn_biome_weight", 15, 0, 100);
+        WINTER_BIOME_WEIGHT = CLIENT_BUILDER.comment("Frozen Retreat spawn weight:")
+                .defineInRange("winter_biome_weight", 15, 0, 100);
+
+        SPRING_BIOME_SIZE = CLIENT_BUILDER.comment("Blossoming Wealds size:").defineInRange("spring_biome_size", 0.005d, 0, 1);
+        SUMMER_BIOME_SIZE = CLIENT_BUILDER.comment("Golden Seelie Fields size:").defineInRange("summer_biome_size", 0.005d, 0, 1);
+        AUTUMN_BIOME_SIZE = CLIENT_BUILDER.comment("Eternal Fall size:").defineInRange("autumn_biome_size", 0.005d, 0, 1);
+        WINTER_BIOME_SIZE = CLIENT_BUILDER.comment("Frozen Retreat size:").defineInRange("winter_biome_size", 0.005d, 0, 1);
 
     }
 

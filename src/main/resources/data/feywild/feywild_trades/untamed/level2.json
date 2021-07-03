@@ -1,0 +1,109 @@
+{
+  "type": "dwarf_trade",
+  "pool": [
+    {
+      "output": {
+        "item": "minecraft:diamond_pickaxe",
+        "count": 1
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 10
+      },
+      "maxUses": 1,
+      "givenXp": 10,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "minecraft:diamond_shovel",
+        "count": 1
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 8
+      },
+      "maxUses": 1,
+      "givenXp": 10,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "minecraft:lantern",
+        "count": 4
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 2
+      },
+      "maxUses": 5,
+      "givenXp": 5,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "minecraft:torch",
+        "count": 5
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 1
+      },
+      "maxUses": 10,
+      "givenXp": 1,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "feywild:mandrake",
+        "count": 5
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 1
+      },
+      "maxUses": 3,
+      "givenXp": 3,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "minecraft:tnt",
+        "count": 3
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 2
+      },
+      "maxUses": 5,
+      "givenXp": 5,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "minecraft:minecart",
+        "count": 1
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 2
+      },
+      "maxUses": 2,
+      "givenXp": 3,
+      "priceMult": 0.05
+    },
+    {
+      "output": {
+        "item": "minecraft:mule_spawn_egg",
+        "count": 1
+      },
+      "input": {
+        "item": "feywild:lesser_fey_gem",
+        "count": 10
+      },
+      "maxUses": 1,
+      "givenXp": 10,
+      "priceMult": 0.05
+    }
+  ]
+}

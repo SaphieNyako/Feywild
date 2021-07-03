@@ -22,6 +22,15 @@ public class ModBlocks {
                     .strength(3f, 10f)
                     .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE)), true);
 
+    public static final RegistryObject<Block> LIBRARY_BELL = register("library_bell",
+            LibraryBell::new, true);
+
+    public static final RegistryObject<Block>  SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
+    public static final RegistryObject<Block>  SUNFLOWER = register("sunflower", Sunflower::new, false);
+
+    public static final RegistryObject<Block>  DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
+    public static final RegistryObject<Block>  DANDELION = register("dandelion", Dandelion::new, false);
+
 
     /* TILE ENTITIES */
 

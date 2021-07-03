@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 1,
+  "lines": 9,
+  "link": 2,
+  "reputation": 7,
+  "canSkip": false,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "NULL",
+  "extraData": "TARGET minecraft:sheep ACTION use TIMES 3 USING feywild:fey_dust"
+}

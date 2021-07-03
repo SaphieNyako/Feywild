@@ -3,7 +3,13 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.OpenQuestScreen;
+import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -15,8 +21,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.Direction;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,6 +48,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
@@ -77,35 +88,27 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     public void setTag(SpringPixieEntity entity) {
         entity.addTag("spring_quest_pixie");
     }
-/*
+
     @Override
     public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
-        if (!player.getCommandSenderWorld().isClientSide && player.getItemInHand(hand).isEmpty()) {
-            if (this.getTags().contains("spring_quest_pixie")) {
+        if (!player.getCommandSenderWorld().isClientSide && !player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {  //&& player.getItemInHand(hand).isEmpty()
+            if (player.getItemInHand(hand).isEmpty()) {
+                if (this.getTags().contains("spring_quest_pixie")) {
+                    Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-                //  player.sendMessage(new TranslationTextComponent("spring_quest_pixie.feywild.quest_01_message"), player.getUUID()); //this works
+                    if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
+                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-                INamedContainerProvider containerProvider = new INamedContainerProvider() {
-                    @Override
-                    public ITextComponent getDisplayName() {
-                        return new TranslationTextComponent("screen.feywild.pixie");
-                    }
-
-                    @Nullable
-                    @Override
-                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-
-                        return new PixieContainer(i, playerInventory, playerEntity, entity);
-                    }
-                };
-
-                NetworkHooks.openGui((ServerPlayerEntity) player, containerProvider);
-
+                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+                }
             } else {
 
-                throw new IllegalStateException("Our container provider is missing!");
+                if (ModEvents.genericInteract(player, hand, this, true)) {
+                    player.sendMessage(new TranslationTextComponent("spring_fey_thanks"), player.getUUID());
+                    FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX(), getY() + 0.5, getZ(), 0, 0, 0, 10, 1, 0), 64);
+                }
             }
 
         }
@@ -113,7 +116,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         return ActionResultType.SUCCESS;
 
     }
-*/
 
 
 
@@ -194,6 +196,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     public List<PrioritizedGoal> getUntamedGoals() {
         List<PrioritizedGoal> list = new ArrayList<>();
+        list.add(new PrioritizedGoal(4, new FeyWildPanic(this, 0.003D, 13)));
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(2, new LookAtGoal(this, PlayerEntity.class, 8.0f)));
         list.add(new PrioritizedGoal(1, new TemptGoal(this, 1.25D,

@@ -1,5 +1,7 @@
 package com.feywild.feywild.entity.goals;
 
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.util.FeyEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.BlockPos;
 
@@ -23,6 +25,14 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal {
         this.entity = entity;
         this.shouldReturn = shouldReturn;
 
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        if(distanceFrom(entity.blockPosition(),summoningPosition) > maxMovementRange * 2 ){
+            entity.setPos(summoningPosition.getX()+0.5,summoningPosition.getY()+1,summoningPosition.getZ()+0.5);
+        }
     }
 
     @Override

@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 300,
+  "lines": 5,
+  "link": 301,
+  "reputation": 25,
+  "canSkip": true,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "feywild:summoning_winter_pixie",
+  "extraData": "NULL"
+}

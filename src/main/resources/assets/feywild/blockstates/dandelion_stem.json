@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/dandelion_stem"
+      },
+      {
+        "model": "feywild:block/dandelion_stem",
+        "y" : 90
+      },
+      {
+        "model": "feywild:block/dandelion_stem",
+        "y" : 180
+      }
+    ]
+  }
+}

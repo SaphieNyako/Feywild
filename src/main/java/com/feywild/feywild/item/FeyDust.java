@@ -43,32 +43,16 @@ public class FeyDust extends Item {
     //Test
     @Override
     public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+        if (playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
+
         if (target instanceof SheepEntity) {
-            //Get number of uses from item stack data
-            int count = playerIn.getItemInHand(hand).getOrCreateTag().getInt("uses");
+            target.addEffect(new EffectInstance(Effects.LEVITATION, 60, 2));
 
-            //Check number of uses
-            switch (count) {
-                case 1:
-                    playerIn.displayClientMessage(new TranslationTextComponent("message.feywild.fey_dust_giggling"), true);
-                    break;
-                case 2:
-
-                    //  playerIn.addItem(new ItemStack(ModItems.FEY_SHEEP_DROPPINGS.get(), 1));
-                    target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 10));
-                    playerIn.getItemInHand(hand).getOrCreateTag().putInt("uses", 0);
-                    stack.shrink(1);
-                    return ActionResultType.SUCCESS;
-            }
-
-            target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
-            playerIn.getItemInHand(hand).getOrCreateTag().putInt("uses", ++count);
-            stack.shrink(1);
         } else {
-
             target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
-            stack.shrink(1);
         }
+
+        stack.shrink(1);
 
         return ActionResultType.SUCCESS;
     }

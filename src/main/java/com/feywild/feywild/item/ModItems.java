@@ -68,6 +68,14 @@ public class ModItems {
             Registration.ITEMS.register("mandrake_seed",
                     () -> new BlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB)));
 
+    public static final RegistryObject<Item> SUNFLOWER_SEED =
+            Registration.ITEMS.register("sunflower_seed", SunflowerSeeds::new
+            );
+
+    public static final RegistryObject<Item> DANDELION_SEED =
+            Registration.ITEMS.register("dandelion_seed", DandelionSeeds::new
+            );
+
     /* MUSIC DISC */
 
     public static final RegistryObject<Item> MUSIC_DISC_FEYWILD =
@@ -83,6 +91,20 @@ public class ModItems {
     public static final RegistryObject<Item> SCHEMATICS_FEY_ALTAR =
             Registration.ITEMS.register("schematics_fey_altar",
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
+
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_WEAPONS = registerBasedOnConfig("schematics_dungeons_gear_weapons",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_weapons")), Config.DUNGEONS_GEAR.get());
+
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARTIFACTS = registerBasedOnConfig("schematics_dungeons_gear_artifacts",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_artifacts")), Config.DUNGEONS_GEAR.get());
+
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARMOR = registerBasedOnConfig("schematics_dungeons_gear_armor",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_armor")), Config.DUNGEONS_GEAR.get());
+
+
+    private static <T extends Item> RegistryObject<T> registerBasedOnConfig(String name, T object, boolean shouldRegister){
+        if(shouldRegister) {
+            return Registration.ITEMS.register(name, () -> object);
+        }
+        return null;
+    }
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =

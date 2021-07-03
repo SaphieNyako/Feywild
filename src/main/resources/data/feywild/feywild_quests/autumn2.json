@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 205,
+  "lines": 4,
+  "link": 206,
+  "reputation": 7,
+  "canSkip": false,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "NULL",
+  "extraData": "TARGET minecraft:carved_pumpkin ACTION get TIMES 2"
+}

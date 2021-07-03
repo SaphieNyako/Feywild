@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 103,
+  "lines": 7,
+  "link": 104,
+  "reputation": 7,
+  "canSkip": false,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "NULL",
+  "extraData": "TARGET feywild:summer_pixie ACTION use TIMES 1 USING minecraft:bee_nest"
+}

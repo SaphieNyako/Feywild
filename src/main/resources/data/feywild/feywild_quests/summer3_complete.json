@@ -1,0 +1,14 @@
+{
+  "type": "quest",
+  "id": 106,
+  "lines": 3,
+  "link": 107,
+  "reputation": 0,
+  "canSkip": true,
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  },
+  "sound": "NULL",
+  "extraData": "NULL"
+}

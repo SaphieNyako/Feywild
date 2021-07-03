@@ -13,6 +13,24 @@
       "entity": "feywild:dwarf_blacksmith",
       "scale": 0.8,
       "offset": 0.15
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_dwarf_blacksmith",
+      "title": "Summoning Contract",
+      "text": "Most dwarves can be found underground mining and some have build a home, somewhere in the Feywild. If you trade alot with them, they may offer you a Summoning Contract."
+    },
+    {
+      "type": "crafting",
+      "recipe": "feywild:dwarven_anvil",
+      "title": "Dwarven Anvil",
+      "text": "They don't easily make friends with outsiders, but if you are one of the few who has earned the gratitude of a dwarf, you have a friend for life."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "Mana",
+      "text": "You can replenish the mana of the anvil, by placing fey_dust as fuel in the buttom-left slot of the anvil."
     }
   ]
 }

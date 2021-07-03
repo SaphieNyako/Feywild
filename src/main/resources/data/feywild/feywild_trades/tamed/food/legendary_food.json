@@ -1,0 +1,25 @@
+{
+  "type":"dwarf_trade",
+  "rarity" : 1,
+  "isLoot" : false,
+  "pool": [
+    {
+      "output": {
+        "item": "minecraft:cake",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:pumpkin_pie",
+        "count": 2
+      }
+    },
+    {
+      "output": {
+        "item": "minecraft:rabbit_stew",
+        "count": 1
+      }
+    }
+  ]
+}
