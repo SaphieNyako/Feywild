@@ -61,13 +61,15 @@ public class QuestMessage {
                     reputation.setScore(QuestMap.getRepNumber(quest));
                 }
                 scores.setScore(quest);
+                ctx.get().setPacketHandled(true);
             });
         }else {
             PlayerEntity entity = ctx.get().getSender();
             ctx.get().enqueueWork(() -> {
                 QuestMap.updateQuest(entity);
+                ctx.get().setPacketHandled(true);
             });
         }
-        ctx.get().setPacketHandled(true);
+        ctx.get().setPacketHandled(false);
     }
 }
