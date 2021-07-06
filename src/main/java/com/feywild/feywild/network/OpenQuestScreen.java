@@ -19,23 +19,27 @@ import java.util.function.Supplier;
 public class OpenQuestScreen {
 
     int lines, quest;
+    boolean canSkip;
     //Read msg from buf
     public OpenQuestScreen(PacketBuffer buf) {
         lines = buf.readInt();
         quest = buf.readInt();
+         canSkip = buf.readBoolean();
     }
 
     //constructor
-    public OpenQuestScreen(int quest, int lines) {
+    public OpenQuestScreen(int quest, int lines, boolean canSkip) {
 
         this.lines = lines;
         this.quest = quest;
+        this.canSkip = canSkip;
     }
 
     //Save msg to buf
     public void toBytes(PacketBuffer buf) {
         buf.writeInt(lines);
         buf.writeInt(quest);
+        buf.writeBoolean(canSkip);
     }
 
     //handle package data
@@ -43,7 +47,7 @@ public class OpenQuestScreen {
         ctx.get().enqueueWork( () -> {
             try{
                 if(ctx.get().getDirection().getReceptionSide().isClient()) {
-                    ClientUtil.openQuestScreen(quest, lines);
+                    ClientUtil.openQuestScreen(quest, lines, canSkip);
                     ctx.get().setPacketHandled(true);
                 }
             }catch (Exception e) {
