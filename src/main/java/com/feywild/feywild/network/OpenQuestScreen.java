@@ -3,6 +3,7 @@ package com.feywild.feywild.network;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.screens.PixieScreen;
 import com.feywild.feywild.setup.ClientProxy;
+import com.feywild.feywild.util.ClientUtil;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,8 +40,17 @@ public class OpenQuestScreen {
 
     //handle package data
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-
-        Minecraft.getInstance().setScreen(new PixieScreen(new StringTextComponent("Fey Quest"),quest,lines));
+        ctx.get().enqueueWork( () -> {
+            try{
+                if(ctx.get().getDirection().getReceptionSide().isClient()) {
+                    ClientUtil.openQuestScreen(quest, lines);
+                    ctx.get().setPacketHandled(true);
+                }
+            }catch (Exception e) {
+                ctx.get().setPacketHandled(false);
+                e.printStackTrace();
+            }
+        });
 
         ctx.get().setPacketHandled(true);
     }
