@@ -120,6 +120,7 @@ public class ModTreeGeneration {
 
             base.add(() -> ModConfiguredFeatures.SPRING_TREES);
             base.add(() -> ModConfiguredFeatures.SPRING_DANDELION);
+            base.add(() -> ModConfiguredFeatures.SPRING_FLOWERS);
         }
 
         if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && Config.MYTHIC.get() != 0)) {
@@ -128,6 +129,7 @@ public class ModTreeGeneration {
 
             base.add(() -> ModConfiguredFeatures.SUMMER_TREES);
             base.add(() -> ModConfiguredFeatures.SUMMER_SUNFLOWER);
+            base.add(() -> ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
         }
 
         if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {
@@ -136,6 +138,9 @@ public class ModTreeGeneration {
 
             base.add(() -> ModConfiguredFeatures.AUTUMN_TREES);
             base.add(() -> ModConfiguredFeatures.AUTUMN_PUMPKINS);
+            base.add(() -> ModConfiguredFeatures.AUTUMN_SWAMP_FLOWERS);
+            base.add(() -> ModConfiguredFeatures.AUTUMN_SMALL_MUSHROOMS);
+
         }
 
         if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && Config.MYTHIC.get() != 0)) {
