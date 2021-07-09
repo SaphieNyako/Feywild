@@ -1,10 +1,8 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.util.LightningAttack;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -47,16 +45,17 @@ public class DwarvenAttackGoal extends Goal {
                 reset();
             } else if (count == 10) {
                 sendShock = attackTarget();
+                entity.playSound(ModSoundEvents.DWARF_ATTACK.get(), 1, 1.2f);
 
-            } else if (count == 80) {
+            } else if (count == 30) {
                 entity.setState(1);
                 entity.getNavigation().moveTo(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ(), 0.5);
 
-            } else if (count <= 80) {
+            } else if (count <= 30) {
                 entity.lookAt(EntityAnchorArgument.Type.EYES, targetMonster.position());
-                if(sendShock){
+                if (sendShock) {
 
-                    switch (count){
+                    switch (count) {
                         case 8:
                             summonShockWave(1);
                             break;
@@ -74,47 +73,46 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public void start() {
-        count = 120;
+        count = 70;
     }
 
     protected boolean attackTarget() {
-        if(entity.getRandom().nextDouble() > 0.6){
+        if (entity.getRandom().nextDouble() > 0.6) {
             targetMonster.hurt(DamageSource.GENERIC, 15.0f);
             return false;
-        }else{
+        } else {
             targetMonster.hurt(DamageSource.GENERIC, 20.0f);
             return true;
         }
     }
 
-
-    private void summonShockWave(int i){
+    private void summonShockWave(int i) {
         BlockPos pos = entity.blockPosition().below();
 
         FallingBlockEntity fallingBlockEntity;
 
-
-
-        if(i == 3){
-            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.north().west().getX(),pos.north().west().getY(),pos.north().west().getZ(), worldLevel.getBlockState(pos.north().west()));
-            fallingBlockEntity.setDeltaMovement(0, 0.3d,0);
+        if (i == 3) {
+            entity.playSound(ModSoundEvents.DWARF_RUBBLE.get(), 1, 1);
+            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.north().west().getX(), pos.north().west().getY(), pos.north().west().getZ(), worldLevel.getBlockState(pos.north().west()));
+            fallingBlockEntity.setDeltaMovement(0, 0.3d, 0);
             fallingBlockEntity.setHurtsEntities(true);
             worldLevel.addFreshEntity(fallingBlockEntity);
 
-            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.south().west().getX(),pos.south().west().getY(),pos.south().west().getZ(), worldLevel.getBlockState(pos.south().west()));
-            fallingBlockEntity.setDeltaMovement(0,0.3d,0);
+            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.south().west().getX(), pos.south().west().getY(), pos.south().west().getZ(), worldLevel.getBlockState(pos.south().west()));
+            fallingBlockEntity.setDeltaMovement(0, 0.3d, 0);
             fallingBlockEntity.setHurtsEntities(true);
             worldLevel.addFreshEntity(fallingBlockEntity);
-            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.south().east().getX(),pos.south().east().getY(),pos.south().east().getZ(), worldLevel.getBlockState(pos.south().east()));
-            fallingBlockEntity.setDeltaMovement(0,0.3d,0);
+            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.south().east().getX(), pos.south().east().getY(), pos.south().east().getZ(), worldLevel.getBlockState(pos.south().east()));
+            fallingBlockEntity.setDeltaMovement(0, 0.3d, 0);
             fallingBlockEntity.setHurtsEntities(true);
             worldLevel.addFreshEntity(fallingBlockEntity);
 
-            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.north().east().getX(),pos.north().east().getY(),pos.north().east().getZ(), worldLevel.getBlockState(pos.east().north()));
-            fallingBlockEntity.setDeltaMovement(0,0.3d,0);
+            fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.north().east().getX(), pos.north().east().getY(), pos.north().east().getZ(), worldLevel.getBlockState(pos.east().north()));
+            fallingBlockEntity.setDeltaMovement(0, 0.3d, 0);
             fallingBlockEntity.setHurtsEntities(true);
             worldLevel.addFreshEntity(fallingBlockEntity);
-        }else {
+        } else {
+            entity.playSound(ModSoundEvents.DWARF_RUBBLE.get(), 1, 1);
             fallingBlockEntity = new FallingBlockEntity(worldLevel, pos.north(i).getX(), pos.north(i).getY(), pos.north(i).getZ(), worldLevel.getBlockState(pos.north(i)));
             fallingBlockEntity.setDeltaMovement(0, 0.3d, 0);
             fallingBlockEntity.setHurtsEntities(true);
