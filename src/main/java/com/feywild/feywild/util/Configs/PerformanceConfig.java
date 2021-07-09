@@ -10,7 +10,6 @@ public class PerformanceConfig extends AbstractConfig {
     protected String name;
     protected boolean spawnTreeLeafParticles;
 
-    //UNKNOWN
     protected ForgeConfigSpec.BooleanValue configTreeLeafParticles;
 
     private int cachedTreeParticlesValue = -1;

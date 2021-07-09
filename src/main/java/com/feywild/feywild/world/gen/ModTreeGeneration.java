@@ -5,7 +5,7 @@ import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.block.trees.SummerTree;
 import com.feywild.feywild.block.trees.WinterTree;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;

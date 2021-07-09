@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.gen;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import net.minecraft.block.Block;
 
 public enum OreType {

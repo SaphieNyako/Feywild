@@ -1,6 +1,6 @@
 package com.feywild.feywild.world.biome;
 
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.world.biome.biomes.AutumnBiome;
 import com.feywild.feywild.world.biome.biomes.SpringBiome;

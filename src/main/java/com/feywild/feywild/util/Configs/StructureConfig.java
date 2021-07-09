@@ -10,8 +10,6 @@ public class StructureConfig extends AbstractConfig {
     protected String name;
     protected int averageDistance, minDistance;
 
-
-    //UNKNOWN
     protected ForgeConfigSpec.IntValue configDistance, configMinDistance;
     private int cachedDistance = -1;
     private int cachedMinDistance= -1;

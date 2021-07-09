@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

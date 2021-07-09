@@ -13,8 +13,6 @@ public class OreConfig extends AbstractConfig {
     protected int minHeight;
     protected int maxHeight;
 
-
-    //UNKNOWN
     protected ForgeConfigSpec.IntValue configWeight;
     protected ForgeConfigSpec.IntValue configSize;
     protected ForgeConfigSpec.IntValue configMinHeight;

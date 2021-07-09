@@ -1,8 +1,9 @@
-package com.feywild.feywild.util;
+package com.feywild.feywild.util.Configs;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import com.feywild.feywild.util.Configs.*;
+import com.feywild.feywild.util.MobConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.lwjgl.system.CallbackI;
 

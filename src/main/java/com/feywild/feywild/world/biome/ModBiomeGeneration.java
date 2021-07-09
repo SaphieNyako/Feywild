@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.biome;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.RegistryKey;

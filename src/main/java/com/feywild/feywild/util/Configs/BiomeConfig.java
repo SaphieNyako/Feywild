@@ -16,8 +16,6 @@ public class BiomeConfig extends AbstractConfig {
     protected int weight;
     protected double size;
 
-
-    //UNKNOWN
     protected ForgeConfigSpec.IntValue configWeight;
     protected ForgeConfigSpec.DoubleValue configSize;
 

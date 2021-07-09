@@ -16,8 +16,6 @@ public class TreePatchesConfig extends AbstractConfig {
     protected double spawnChance;
     protected int spawnSize;
 
-
-    //UNKNOWN
     protected ForgeConfigSpec.BooleanValue configSpawnSpring;
     protected ForgeConfigSpec.BooleanValue configSpawnSummer;
     protected ForgeConfigSpec.BooleanValue configSpawnAutumn;
