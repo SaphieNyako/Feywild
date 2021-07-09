@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.goals;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.util.LightningAttack;
 import net.minecraft.command.arguments.EntityAnchorArgument;
@@ -59,26 +60,18 @@ public class DwarvenAttackGoal extends Goal {
     }
 
     protected void attackTarget() {
-
-        if(worldLevel.canSeeSky(entity.blockPosition())) {
-            summonLightning();
-        }else if(entity.getRandom().nextDouble() > 0.2){
-            targetMonster.hurt(DamageSource.GENERIC, 10.0f);
+        if(entity.getRandom().nextDouble() > 0.6){
+            targetMonster.hurt(DamageSource.GENERIC, 15.0f);
         }else{
+            targetMonster.hurt(DamageSource.GENERIC, 20.0f);
             summonLightning();
         }
-
     }
 
 
     private void summonLightning(){
-        LightningAttack lightningBoltEntity = new LightningAttack(EntityType.LIGHTNING_BOLT, worldLevel);
-        lightningBoltEntity.setPos(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
-        lightningBoltEntity.setVisualOnly(true);
-        (worldLevel).addFreshEntity(lightningBoltEntity);
+        worldLevel.setBlock(targetMonster.blockPosition(), ModBlocks.ELECTRIFIED_GROUND.get().defaultBlockState(), 2);
         targetMonster.hurt(DamageSource.LIGHTNING_BOLT, 20);
-
-        this.entity.clearFire();
     }
 
     protected void reset() {
@@ -94,6 +87,6 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.1f;
+        return entity.level.random.nextFloat() < 0.3f;
     }
 }

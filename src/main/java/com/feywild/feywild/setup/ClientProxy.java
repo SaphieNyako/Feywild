@@ -2,6 +2,7 @@ package com.feywild.feywild.setup;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.render.ElectrifiedGroundRenderer;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -48,6 +49,7 @@ public class ClientProxy implements IProxy {
                 FeyAltarRenderer::new);
 
 
+
     }
 
     @Override
@@ -67,6 +69,8 @@ public class ClientProxy implements IProxy {
         RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
+
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get(), ElectrifiedGroundRenderer::new);
 
         ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
 
