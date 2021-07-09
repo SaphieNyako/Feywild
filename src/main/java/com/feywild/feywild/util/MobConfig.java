@@ -26,9 +26,10 @@ public class MobConfig extends AbstractConfig {
     protected ForgeConfigSpec.IntValue configMax;
     protected ForgeConfigSpec.ConfigValue<String> configBiomes;
 
-    private int cachedWeight = -9999;
-    private int cachedMin = -9999;
-    private int cachedMax = -9999;
+
+    private int cachedWeight = -1;
+    private int cachedMin = -1;
+    private int cachedMax = -1;
     private List<BiomeDictionary.Type> cachedBiomes = null;
 
     //CONSTRUCTOR boolean concurrent has to be added...
@@ -46,47 +47,40 @@ public class MobConfig extends AbstractConfig {
         this.restriction = restriction;
     }
 
-    public BiomeDictionary.Type getRestriction() {
-        return restriction;
-    }
-
     public int getWeight() {
-        if (cachedWeight == -9999) {
+        if (cachedWeight == -1) {
             cachedWeight = configWeight.get();
         }
         return cachedWeight;
     }
 
     public int getMin() {
-        if (cachedMin == -9999) {
+        if (cachedMin == -1) {
             cachedMin = configMin.get();
         }
         return cachedMin;
     }
 
     public int getMax() {
-        if (cachedMax == -9999) {
+        if (cachedMax == -1) {
             cachedMax = configMax.get();
         }
         return cachedMax;
     }
 
+    public BiomeDictionary.Type getRestriction() {
+        return restriction;
+    }
+
     public List<BiomeDictionary.Type> getBiomes() {
         if (cachedBiomes == null) {
-            cachedBiomes = Stream.of(configBiomes.get().split(",")).map(o -> BiomeDictionary.Type.getType(o)).collect(Collectors.toList());
+            cachedBiomes = Stream.of(configBiomes.get().split(",")).map(BiomeDictionary.Type::getType).collect(Collectors.toList());
         }
         return cachedBiomes;
     }
 
-    public boolean shouldRegister() {
-        return getWeight() > 0;
-    }
-
-    protected void preApply(ForgeConfigSpec.Builder builder) {
-    }
-
     protected void doApply(ForgeConfigSpec.Builder builder) {
-        builder.comment(name + " spawn config.").push(name + "_spawn");
+        builder.comment(name + " spawn config.").push(name + " Spawn");
         configWeight = builder.comment("Chance to spawn (set to 0 to disable).").defineInRange("spawnChance", weight, 0, 256);
         configMin = builder.comment("Min to spawn in a group.").defineInRange("min", min, 0, 256);
         configMax = builder.comment("Max to spawn in a group.").defineInRange("max", max, 0, 256);
@@ -106,10 +100,10 @@ public class MobConfig extends AbstractConfig {
 
     //@Override
     public void apply(ForgeConfigSpec.Builder builder) {
-        preApply(builder);
         doApply(builder);
         postApply(builder);
     }
+
 
     @Override
     public AbstractConfig clone() {

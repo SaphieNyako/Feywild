@@ -26,8 +26,8 @@ import java.util.List;
 
 public class BlacksmithStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.BLACKSMITH_AVERAGE_DISTANCE.get();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.BLACKSMITH_MIN_DISTANCE.get();
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.BLACKSMITH_CONFIG.getCachedDistance();
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.BLACKSMITH_CONFIG.getCachedMinDistance();
     public final static int SEED_MODIFIER = 567890123;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(

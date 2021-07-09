@@ -25,8 +25,8 @@ import java.util.List;
 
 public class SummerWorldTreeStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.SUMMER_WORLD_TREE_AVERAGE_DISTANCE.get();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.SUMMER_WORLD_TREE_MIN_DISTANCE.get();
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.SUMMER_WORLD_TREE_CONFIG.getCachedDistance();
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.SUMMER_WORLD_TREE_CONFIG.getCachedMinDistance();
     public final static int SEED_MODIFIER = 890124567;
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 100, 4, 4)

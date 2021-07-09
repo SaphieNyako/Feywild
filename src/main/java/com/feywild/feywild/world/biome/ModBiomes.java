@@ -20,22 +20,22 @@ public class ModBiomes {
     public static final RegistryObject<Biome> BLOSSOMING_WEALDS
             = Registration.BIOMES.register("blossoming_wealds",
             () -> springBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
-                    ModConfiguredSurfaceBuilders.SPRING_SURFACE), 0.125f, Config.SPRING_BIOME_SIZE.get().floatValue()));
+                    ModConfiguredSurfaceBuilders.SPRING_SURFACE), 0.125f, (float) Config.SPRING_BIOME_CONFIG.getCachedSize()));
 
     public static final RegistryObject<Biome> GOLDEN_SEELIE_FIELDS
             = Registration.BIOMES.register("golden_seelie_fields",
             () -> summerBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
-                    ModConfiguredSurfaceBuilders.SUMMER_SURFACE), 0.125f, Config.SUMMER_BIOME_SIZE.get().floatValue()));
+                    ModConfiguredSurfaceBuilders.SUMMER_SURFACE), 0.125f, (float) Config.SUMMER_BIOME_CONFIG.getCachedSize()));
 
     public static final RegistryObject<Biome> ETERNAL_FALL
             = Registration.BIOMES.register("eternal_fall",
             () -> autumnBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
-                    ModConfiguredSurfaceBuilders.AUTUMN_SURFACE), 0.125f, Config.AUTUMN_BIOME_SIZE.get().floatValue()));
+                    ModConfiguredSurfaceBuilders.AUTUMN_SURFACE), 0.125f, (float) Config.AUTUMN_BIOME_CONFIG.getCachedSize()));
 
     public static final RegistryObject<Biome> FROZEN_RETREAT
             = Registration.BIOMES.register("frozen_retreat",
             () -> winterBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
-                    ModConfiguredSurfaceBuilders.WINTER_SURFACE), 0.125f, Config.WINTER_BIOME_SIZE.get().floatValue()));
+                    ModConfiguredSurfaceBuilders.WINTER_SURFACE), 0.125f, (float) Config.WINTER_BIOME_CONFIG.getCachedSize()));
 
     public static void register() {}
 

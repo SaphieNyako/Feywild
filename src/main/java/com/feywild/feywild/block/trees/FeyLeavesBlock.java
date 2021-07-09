@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.trees;
 
+import com.feywild.feywild.util.Config;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -112,26 +113,28 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if (worldIn.isRainingAt(pos.above())) {
-            if (rand.nextInt(15) == 1) {
-                BlockPos blockpos = pos.below();
-                BlockState blockstate = worldIn.getBlockState(blockpos);
-                if (!blockstate.canOcclude() || !blockstate.isFaceSturdy(worldIn, blockpos, Direction.UP)) {
-                    double d0 = (double) pos.getX() + rand.nextDouble();
-                    double d1 = (double) pos.getY() - 0.05D;
-                    double d2 = (double) pos.getZ() + rand.nextDouble();
-                    worldIn.addParticle(ParticleTypes.DRIPPING_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        if(Config.PERFORMANCE_CONFIG.cachedTreeParticlesValue()) {
+            if (worldIn.isRainingAt(pos.above())) {
+                if (rand.nextInt(15) == 1) {
+                    BlockPos blockpos = pos.below();
+                    BlockState blockstate = worldIn.getBlockState(blockpos);
+                    if (!blockstate.canOcclude() || !blockstate.isFaceSturdy(worldIn, blockpos, Direction.UP)) {
+                        double d0 = (double) pos.getX() + rand.nextDouble();
+                        double d1 = (double) pos.getY() - 0.05D;
+                        double d2 = (double) pos.getZ() + rand.nextDouble();
+                        worldIn.addParticle(ParticleTypes.DRIPPING_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                    }
                 }
             }
-        }
 
-        if (worldIn.isEmptyBlock(pos.below()) && rand.nextInt(30) == 1) {
-            double windStrength = 5 + Math.cos((double) worldIn.getGameTime() / 2000) * 2;
-            double windX = Math.cos((double) worldIn.getGameTime() / 1200) * windStrength;
-            double windZ = Math.sin((double) worldIn.getGameTime() / 1000) * windStrength;
+            if (worldIn.isEmptyBlock(pos.below()) && rand.nextInt(30) == 1) {
+                double windStrength = 5 + Math.cos((double) worldIn.getGameTime() / 2000) * 2;
+                double windX = Math.cos((double) worldIn.getGameTime() / 1200) * windStrength;
+                double windZ = Math.sin((double) worldIn.getGameTime() / 1000) * windStrength;
 
-            worldIn.addParticle(new BlockParticleData(ParticleTypes.BLOCK, stateIn), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, windX, -1.0, windZ);
+                worldIn.addParticle(new BlockParticleData(ParticleTypes.BLOCK, stateIn), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, windX, -1.0, windZ);
 
+            }
         }
     }
 
