@@ -1,4 +1,4 @@
-package com.feywild.feywild.util;
+package com.feywild.feywild.util.Configs;
 
 import com.electronwill.nightconfig.core.AbstractConfig;
 import com.electronwill.nightconfig.core.Config;
@@ -25,7 +25,6 @@ public class MobConfig extends AbstractConfig {
     protected ForgeConfigSpec.IntValue configMin;
     protected ForgeConfigSpec.IntValue configMax;
     protected ForgeConfigSpec.ConfigValue<String> configBiomes;
-
 
     private int cachedWeight = -1;
     private int cachedMin = -1;
@@ -103,7 +102,6 @@ public class MobConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
-
 
     @Override
     public AbstractConfig clone() {

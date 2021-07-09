@@ -92,19 +92,14 @@ public class ModItems {
             Registration.ITEMS.register("schematics_fey_altar",
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
 
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_WEAPONS = registerBasedOnConfig("schematics_dungeons_gear_weapons",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_weapons")), Config.DUNGEONS_GEAR.get());
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_WEAPONS = registerBasedOnConfig("schematics_dungeons_gear_weapons", new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_weapons")), Config.DUNGEONS_GEAR.get());
 
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARTIFACTS = registerBasedOnConfig("schematics_dungeons_gear_artifacts",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_artifacts")), Config.DUNGEONS_GEAR.get());
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARTIFACTS = registerBasedOnConfig("schematics_dungeons_gear_artifacts", new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_artifacts")), Config.DUNGEONS_GEAR.get());
 
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARMOR = registerBasedOnConfig("schematics_dungeons_gear_armor",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_armor")), Config.DUNGEONS_GEAR.get());
-
-
-    private static <T extends Item> RegistryObject<T> registerBasedOnConfig(String name, T object, boolean shouldRegister){
-        if(shouldRegister) {
-            return Registration.ITEMS.register(name, () -> object);
-        }
-        return null;
-    }
+    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARMOR = registerBasedOnConfig("schematics_dungeons_gear_armor", new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_armor")), Config.DUNGEONS_GEAR.get());
+    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
+            Registration.ITEMS.register("summoning_scroll_spring_pixie",
+                    SummoningScrollSpringPixie::new);
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
@@ -152,26 +147,25 @@ public class ModItems {
                             .tab(FeywildMod.FEYWILD_TAB)));  */
 
     /* SUMMONING SCROLL */
-
-    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
-            Registration.ITEMS.register("summoning_scroll_spring_pixie",
-                    SummoningScrollSpringPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_summer_pixie",
                     SummoningScrollSummerPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE =
             Registration.ITEMS.register("summoning_scroll_autumn_pixie",
                     SummoningScrollAutumnPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_winter_pixie",
                     SummoningScrollWinterPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_DWARF_BLACKSMITH =
             Registration.ITEMS.register("summoning_scroll_dwarf_blacksmith",
                     SummoningScrollDwarfBlacksmith::new);
+
+    private static <T extends Item> RegistryObject<T> registerBasedOnConfig(String name, T object, boolean shouldRegister) {
+        if (shouldRegister) {
+            return Registration.ITEMS.register(name, () -> object);
+        }
+        return null;
+    }
 
     //METHODES
 

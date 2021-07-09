@@ -113,7 +113,7 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
 
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if(Config.PERFORMANCE_CONFIG.cachedTreeParticlesValue()) {
+        if (Config.PERFORMANCE_CONFIG.cachedTreeParticlesValue()) {
             if (worldIn.isRainingAt(pos.above())) {
                 if (rand.nextInt(15) == 1) {
                     BlockPos blockpos = pos.below();

@@ -52,9 +52,9 @@ public class ModBiomeGeneration {
             {
 
                 addBiome(ModBiomes.BLOSSOMING_WEALDS.get(), BiomeManager.BiomeType.WARM, Config.SPRING_BIOME_CONFIG.getCachedWeight(), MAGICAL, FOREST);
-                addBiome(ModBiomes.GOLDEN_SEELIE_FIELDS.get(), BiomeManager.BiomeType.WARM,  Config.SUMMER_BIOME_CONFIG.getCachedWeight(), MAGICAL, HOT);
+                addBiome(ModBiomes.GOLDEN_SEELIE_FIELDS.get(), BiomeManager.BiomeType.WARM, Config.SUMMER_BIOME_CONFIG.getCachedWeight(), MAGICAL, HOT);
                 addBiome(ModBiomes.ETERNAL_FALL.get(), BiomeManager.BiomeType.WARM, Config.AUTUMN_BIOME_CONFIG.getCachedWeight(), MAGICAL, MUSHROOM);
-                addBiome(ModBiomes.FROZEN_RETREAT.get(), BiomeManager.BiomeType.ICY,  Config.WINTER_BIOME_CONFIG.getCachedWeight(), MAGICAL, COLD);
+                addBiome(ModBiomes.FROZEN_RETREAT.get(), BiomeManager.BiomeType.ICY, Config.WINTER_BIOME_CONFIG.getCachedWeight(), MAGICAL, COLD);
             });
         }
     }

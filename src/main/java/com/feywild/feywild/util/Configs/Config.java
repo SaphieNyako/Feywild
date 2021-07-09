@@ -2,10 +2,7 @@ package com.feywild.feywild.util.Configs;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import com.feywild.feywild.util.Configs.*;
-import com.feywild.feywild.util.MobConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.lwjgl.system.CallbackI;
 
 import java.io.File;
 import java.util.Arrays;
@@ -25,7 +22,7 @@ public class Config {
     public static ForgeConfigSpec.IntValue MYTHIC;
     public static ForgeConfigSpec.BooleanValue DUNGEONS_GEAR;
 
-   public static OreConfig FEY_GEM_CONFIG;
+    public static OreConfig FEY_GEM_CONFIG;
 
     public static MobConfig SPRING_PIXIE_CONFIG;
     public static MobConfig SUMMER_PIXIE_CONFIG;
@@ -38,7 +35,6 @@ public class Config {
     public static BiomeConfig SUMMER_BIOME_CONFIG;
     public static BiomeConfig WINTER_BIOME_CONFIG;
 
-
     public static TreePatchesConfig TREE_PATCH_CONFIG;
 
     public static StructureConfig SPRING_WORLD_TREE_CONFIG;
@@ -47,7 +43,6 @@ public class Config {
     public static StructureConfig WINTER_WORLD_TREE_CONFIG;
     public static StructureConfig BLACKSMITH_CONFIG;
     public static StructureConfig LIBRARY_CONFIG;
-
 
     static {
 
@@ -94,7 +89,7 @@ public class Config {
     }
 
     private static void setConfigOres(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-        FEY_GEM_CONFIG = new OreConfig("Fey Gem",10,5,11,48);
+        FEY_GEM_CONFIG = new OreConfig("Fey Gem", 10, 5, 11, 48);
 
         FEY_GEM_CONFIG.apply(SERVER_BUILDER);
 
@@ -122,14 +117,13 @@ public class Config {
 
     private static void setStructureConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
+        SPRING_WORLD_TREE_CONFIG = new StructureConfig("Spring World Tree", 100, 50);
+        SUMMER_WORLD_TREE_CONFIG = new StructureConfig("Summer World Tree", 100, 50);
+        AUTUMN_WORLD_TREE_CONFIG = new StructureConfig("Autumn World Tree", 100, 50);
+        WINTER_WORLD_TREE_CONFIG = new StructureConfig("Winter World Tree", 100, 50);
 
-        SPRING_WORLD_TREE_CONFIG = new StructureConfig("Spring World Tree",100,50);
-        SUMMER_WORLD_TREE_CONFIG = new StructureConfig("Summer World Tree",100,50);
-        AUTUMN_WORLD_TREE_CONFIG = new StructureConfig("Autumn World Tree",100,50);
-        WINTER_WORLD_TREE_CONFIG = new StructureConfig("Winter World Tree",100,50);
-
-        BLACKSMITH_CONFIG = new StructureConfig("Blacksmith",50,40);
-        LIBRARY_CONFIG = new StructureConfig("Library",35,25);
+        BLACKSMITH_CONFIG = new StructureConfig("Blacksmith", 50, 40);
+        LIBRARY_CONFIG = new StructureConfig("Library", 35, 25);
 
         SPRING_WORLD_TREE_CONFIG.apply(SERVER_BUILDER);
         SUMMER_WORLD_TREE_CONFIG.apply(SERVER_BUILDER);
@@ -142,19 +136,17 @@ public class Config {
     }
 
     private static void setTreePatchesConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-        TREE_PATCH_CONFIG = new TreePatchesConfig(true,true,true,true,0.05,3);
-
+        TREE_PATCH_CONFIG = new TreePatchesConfig(true, true, true, true, 0.05, 3);
 
         TREE_PATCH_CONFIG.apply(SERVER_BUILDER);
     }
 
     private static void setBiomeConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
 
-
         SPRING_BIOME_CONFIG = new BiomeConfig("Blossoming Wealds", 15,
-              0.005d);
-         SUMMER_BIOME_CONFIG = new BiomeConfig("Golden Seelie Fields", 15,
-                 0.005d);
+                0.005d);
+        SUMMER_BIOME_CONFIG = new BiomeConfig("Golden Seelie Fields", 15,
+                0.005d);
         AUTUMN_BIOME_CONFIG = new BiomeConfig("Eternal Fall", 15,
                 0.005d);
         WINTER_BIOME_CONFIG = new BiomeConfig("Frozen Retreat", 15,

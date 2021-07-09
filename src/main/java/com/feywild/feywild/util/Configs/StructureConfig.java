@@ -12,11 +12,11 @@ public class StructureConfig extends AbstractConfig {
 
     protected ForgeConfigSpec.IntValue configDistance, configMinDistance;
     private int cachedDistance = -1;
-    private int cachedMinDistance= -1;
+    private int cachedMinDistance = -1;
 
     //CONSTRUCTOR boolean concurrent has to be added...
     public StructureConfig(String name, int averageDistance, int minDistance) {
-        this(name, averageDistance,minDistance, true);
+        this(name, averageDistance, minDistance, true);
     }
 
     public StructureConfig(String name, int averageDistance, int minDistance, boolean concurrent) {
@@ -41,7 +41,7 @@ public class StructureConfig extends AbstractConfig {
     }
 
     protected void doApply(ForgeConfigSpec.Builder builder) {
-        builder.comment(name + " structure config.").push(name + " Structure");
+        builder.comment("Average distance should always be higher then the Minimum distance, and cannot be the same.").push(name + " Structure");
         configDistance = builder.comment("Average distance between structure.").defineInRange("averageDistance", averageDistance, 0, 500);
         configMinDistance = builder.comment("Minimum distance between structure.").defineInRange("minDistance", minDistance, 0, 500);
     }
@@ -50,11 +50,11 @@ public class StructureConfig extends AbstractConfig {
         builder.pop();
     }
 
-
     public void apply(ForgeConfigSpec.Builder builder) {
         doApply(builder);
         postApply(builder);
     }
+
     @Override
     public AbstractConfig clone() {
         return null;
