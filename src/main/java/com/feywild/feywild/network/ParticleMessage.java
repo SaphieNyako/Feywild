@@ -18,7 +18,7 @@ public class ParticleMessage {
     public double posX, posY, posZ, velX, velY, velZ;
     public int repeat, id;
     float speed;
-    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME, ParticleTypes.TOTEM_OF_UNDYING);
+    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME, ParticleTypes.TOTEM_OF_UNDYING, ParticleTypes.ENCHANTED_HIT);
 
     //Read msg from buf
     public ParticleMessage(PacketBuffer buf) {

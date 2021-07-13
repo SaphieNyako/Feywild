@@ -1,6 +1,6 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.KeyboardHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;

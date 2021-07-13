@@ -18,11 +18,13 @@ public class PixieScreen extends Screen {
             "textures/gui/pixie_quest_gui.png");
     int lines, quest;
     int xPos = 0;
+    boolean canSkip;
 
-    public PixieScreen(ITextComponent name, int quest, int lines) {
+    public PixieScreen(ITextComponent name, int quest, int lines, boolean canSkip) {
         super(name);
         this.lines = lines;
         this.quest = quest;
+        this.canSkip = canSkip;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class PixieScreen extends Screen {
 
     @Override
     public void onClose() {
-        if (QuestMap.getCanSkip(quest))
+        if (canSkip)
             FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage(null, quest));
         super.onClose();
     }

@@ -4,7 +4,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ModEvents {
 
     public static boolean genericInteract(PlayerEntity playerEntity, Hand hand, LivingEntity entity, boolean shrink) {
-        AtomicBoolean ret = new AtomicBoolean( false);
+        AtomicBoolean ret = new AtomicBoolean(false);
         if (!playerEntity.level.isClientSide) {
             List<String> tokens = ModUtil.getTokens(playerEntity);
             ItemStack itemStack = playerEntity.getItemInHand(hand);
@@ -49,7 +49,7 @@ public class ModEvents {
                             interact.add(1);
                         }
 
-                        if(shrink)
+                        if (shrink)
                             playerEntity.getItemInHand(hand).shrink(1);
                         ret.set(true);
                     }

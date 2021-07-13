@@ -1,12 +1,11 @@
 package com.feywild.feywild.world.gen;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import net.minecraft.block.Block;
 
 public enum OreType {
-
-    FEY_GEM_ORE(ModBlocks.FEY_GEM_BLOCK.get(), Config.FEY_GEM_MAX_VEIN_SIZE.get(), Config.FEY_GEM_MIN_HEIGHT.get(), Config.FEY_GEM_MAX_HEIGHT.get(), Config.FEY_GEM_WEIGHT.get());
+    FEY_GEM_ORE(ModBlocks.FEY_GEM_BLOCK.get(), Config.FEY_GEM_CONFIG.getCachedSize(), Config.FEY_GEM_CONFIG.getCachedMinHeight(), Config.FEY_GEM_CONFIG.getCachedMaxHeight(), Config.FEY_GEM_CONFIG.getCachedWeight());
 
     private final Block block;
     private final int maxVeinSize;

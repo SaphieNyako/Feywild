@@ -2,7 +2,7 @@ package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -26,8 +26,8 @@ import java.util.List;
 
 public class SpringWorldTreeStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.SPRING_WORLD_TREE_AVERAGE_DISTANCE.get();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.SPRING_WORLD_TREE_MIN_DISTANCE.get();
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.SPRING_WORLD_TREE_CONFIG.getCachedDistance();
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.SPRING_WORLD_TREE_CONFIG.getCachedMinDistance();
     public final static int SEED_MODIFIER = 1234567890;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(

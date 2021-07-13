@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.util.Config;
+import com.feywild.feywild.util.Configs.Config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -25,8 +25,8 @@ import java.util.List;
 
 public class LibraryStructure extends BaseStructure {
 
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.LIBRARY_AVERAGE_DISTANCE.get();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.LIBRARY_MIN_DISTANCE.get();
+    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.LIBRARY_CONFIG.getCachedDistance();
+    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.LIBRARY_CONFIG.getCachedMinDistance();
     public final static int SEED_MODIFIER = 1238904567;
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)

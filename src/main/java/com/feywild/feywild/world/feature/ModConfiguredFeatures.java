@@ -33,6 +33,27 @@ public class ModConfiguredFeatures {
             ModFeatures.DANDELION_FEATURE.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
+    //Spring Flowers
+    public static final BlockClusterFeatureConfig SPRING_FLOWER_CONFIG =
+            (new BlockClusterFeatureConfig.Builder((new WeightedBlockStateProvider())
+                    .add(Blocks.DANDELION.defaultBlockState(), 3)
+                    .add(Blocks.POPPY.defaultBlockState(), 1)
+                    .add(Blocks.ALLIUM.defaultBlockState(), 1)
+                    .add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
+                    .add(Blocks.RED_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
+                    .add(Blocks.CORNFLOWER.defaultBlockState(), 1)
+                    .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 1),
+                    SimpleBlockPlacer.INSTANCE)).tries(64).build();
+
+    public static final ConfiguredFeature<?, ?> SPRING_FLOWERS =
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "flower_default",
+                    Feature.FLOWER.configured(SPRING_FLOWER_CONFIG)
+                            .decorated(Features.Placements.ADD_32).decorated(Features.Placements.HEIGHTMAP_SQUARE).count(100));
+
     /* SUMMER */
     public static final ConfiguredFeature<?, ?> SUMMER_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "summer_trees",
@@ -44,6 +65,18 @@ public class ModConfiguredFeatures {
             ModFeatures.SUNFLOWER_FEATURE.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
+    //WARM FLOWERS
+    public static final BlockClusterFeatureConfig SUMMER_WARM_FLOWERS_CONFIG =
+            (new BlockClusterFeatureConfig.Builder((new WeightedBlockStateProvider())
+                    .add(Blocks.POPPY.defaultBlockState(), 2)
+                    .add(Blocks.DANDELION.defaultBlockState(), 1),
+                    SimpleBlockPlacer.INSTANCE)).tries(64).build();
+
+    public static final ConfiguredFeature<?, ?> SUMMER_WARM_FLOWERS =
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "flower_default",
+                    Feature.FLOWER.configured(SUMMER_WARM_FLOWERS_CONFIG)
+                            .decorated(Features.Placements.ADD_32).decorated(Features.Placements.HEIGHTMAP_SQUARE).count(4));
+
     /* AUTUMN */
     public static final ConfiguredFeature<?, ?> AUTUMN_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "autumn_trees",
@@ -54,6 +87,32 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> AUTUMN_PUMPKINS = registerFeature("autumn_pumpkins",
             ModFeatures.AUTUMN_PUMPKINS.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
+
+    //SWAMP FLOWERS
+
+    public static final BlockClusterFeatureConfig AUTUMN_SWAMP_FLOWERS_CONFIG =
+            (new BlockClusterFeatureConfig.Builder((new WeightedBlockStateProvider())
+                    .add(Blocks.BLUE_ORCHID.defaultBlockState(), 2),
+                    SimpleBlockPlacer.INSTANCE)).tries(64).build();
+
+    public static final ConfiguredFeature<?, ?> AUTUMN_SWAMP_FLOWERS =
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "flower_default",
+                    Feature.FLOWER.configured(AUTUMN_SWAMP_FLOWERS_CONFIG)
+                            .decorated(Features.Placements.ADD_32).decorated(Features.Placements.HEIGHTMAP_SQUARE));
+
+    //SMALL MUSHROOMS
+
+    public static final BlockClusterFeatureConfig AUTUMN_SMALL_MUSHROOMS_CONFIG =
+            (new BlockClusterFeatureConfig.Builder((new WeightedBlockStateProvider())
+                    .add(Blocks.BROWN_MUSHROOM.defaultBlockState(), 2)
+                    .add(Blocks.RED_MUSHROOM.defaultBlockState(), 1),
+                    SimpleBlockPlacer.INSTANCE)).tries(32).build();
+
+    public static final ConfiguredFeature<?, ?> AUTUMN_SMALL_MUSHROOMS =
+            Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "flower_default",
+                    Feature.FLOWER.configured(AUTUMN_SMALL_MUSHROOMS_CONFIG)
+                            //.decorated(Features.Placements.ADD_32).decorated(Features.Placements.HEIGHTMAP_SQUARE));
+                            .decorated(Features.Placements.HEIGHTMAP_SQUARE).count(2));
 
     /* WINTER */
     public static final ConfiguredFeature<?, ?> WINTER_TREES =

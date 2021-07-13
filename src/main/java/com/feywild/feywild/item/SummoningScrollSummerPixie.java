@@ -64,7 +64,7 @@ public class SummoningScrollSummerPixie extends Item {
                 if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                     player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-                FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+                FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore()), QuestMap.getCanSkip(questId.getScore())), player);
             } else {
                 entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
             }
