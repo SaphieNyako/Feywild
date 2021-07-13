@@ -3,6 +3,7 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.KeyboardHelper;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraft.item.Rarity;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.KeybindTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -31,14 +33,10 @@ public class FeywildMusicDisc extends MusicDiscItem {
 
     @Override
     public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-
         if (KeyboardHelper.isHoldingShift()) {
-
             tooltip.add(new TranslationTextComponent("message.feywild.music_disc_feywild"));
-
         } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
-
+            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage", new KeybindTextComponent("key.sneak")));
         }
     }
 

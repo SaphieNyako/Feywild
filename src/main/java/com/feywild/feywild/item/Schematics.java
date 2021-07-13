@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.KeyboardHelper;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class Schematics extends Item {
+public class Schematics extends TooltipItem {
 
     TranslationTextComponent text;
 
@@ -20,18 +21,8 @@ public class Schematics extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-
-        if (KeyboardHelper.isHoldingShift()) {
-
-            tooltip.add(text);
-
-        } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
-
-        }
-
-        super.appendHoverText(stack, world, tooltip, flag);
+    public List<ITextComponent> getTooltip(ItemStack stack, World world) {
+        return ImmutableList.of(text);
     }
 
 }

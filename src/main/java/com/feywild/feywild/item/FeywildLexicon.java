@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.KeyboardHelper;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -17,7 +18,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.List;
 
-public class FeywildLexicon extends Item {
+public class FeywildLexicon extends TooltipItem {
 
     public FeywildLexicon(Properties p_i48487_1_) {
         super(p_i48487_1_);
@@ -37,16 +38,8 @@ public class FeywildLexicon extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-
-        if (KeyboardHelper.isHoldingShift()) {
-
-            tooltip.add(new TranslationTextComponent("message.feywild.feywild_lexicon"));
-
-        } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
-
-        }
+    public List<ITextComponent> getTooltip(ItemStack stack, World world) {
+        return ImmutableList.of(new TranslationTextComponent("message.feywild.feywild_lexicon"));
     }
 
 }
