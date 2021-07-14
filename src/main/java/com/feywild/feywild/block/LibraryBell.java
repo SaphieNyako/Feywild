@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -91,31 +92,40 @@ public class LibraryBell extends Block {
                 blockEntity.setAnnoyance(0);
             }
 
-            if (blockEntity.getAnnoyance() == 10) {
-                blockEntity.setAnnoyance(0);
+            // Only display annoyed message and call security if the librarian is alive
+            // because it can get killed and if then called again might instantly be annoyed and call security
+            if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
+                if (blockEntity.getAnnoyance() >= 10) {
+                    blockEntity.setAnnoyance(0);
 
-                if(blockEntity.getSecurity() == null || !blockEntity.getSecurity().isAlive()) {
-                    IronGolemEntity iron = new IronGolemEntity(EntityType.IRON_GOLEM, world);
-                    iron.setTarget(playerEntity);
-                    playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), playerEntity.getUUID());
-                    iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
-                    world.addFreshEntity(iron);
-                    blockEntity.setSecurity(iron);
-                    ModUtil.killOnExit.add(iron);
-                }else{
-                    blockEntity.getSecurity().setPos(pos.getX(), pos.getY() - 1, pos.getZ());
+                    if (blockEntity.getSecurity() == null || !blockEntity.getSecurity().isAlive()) {
+                        IronGolemEntity iron = new IronGolemEntity(EntityType.IRON_GOLEM, world);
+                        iron.setPlayerCreated(false);
+                        iron.setTarget(playerEntity);
+                        playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), playerEntity.getUUID());
+                        iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
+                        world.addFreshEntity(iron);
+                        blockEntity.setSecurity(iron);
+                        ModUtil.killOnExit.add(iron);
+                    } else {
+                        blockEntity.getSecurity().setPos(pos.getX(), pos.getY() - 1, pos.getZ());
+                        if (blockEntity.getSecurity() instanceof MobEntity) {
+                            ((MobEntity) blockEntity.getSecurity()).setTarget(playerEntity);
+                        }
+                    }
+
+                } else if (blockEntity.getAnnoyance() > 6) {
+                    playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
                 }
-
-            } else if (blockEntity.getAnnoyance() > 6) {
-                playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
-            }
-            if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian() .isAlive()) {
+            
                 blockEntity.getLibrarian().setPos(blockEntity.getLibrarian() .getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
                 blockEntity.getLibrarian().remove(); // .kill()
             }
 
             VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, world);
             entity.addTag("spawn_librarian");
+            // Coordinates here need fixing but it would probably be better to solve this as a loop
+            // TODO change when doing the big refactor
             if (world.getBlockState(pos.below().north()).isAir()) {
                 entity.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() - 1);
             } else if (world.getBlockState(pos.below().south()).isAir()) {
@@ -124,6 +134,10 @@ public class LibraryBell extends Block {
                 entity.setPos(pos.getX() + 2, pos.getY() - 1, pos.getZ() + 0.5);
             } else if (world.getBlockState(pos.below().west()).isAir()) {
                 entity.setPos(pos.getX() - 1, pos.getY() - 1, pos.getZ() + 0.5);
+            } else {
+                // If the bell is obstructed just spawn the librarian inside the bell
+                // This is not perfect but better that not setting a osition and thus spawning it at 0 0 0 
+                entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             }
             world.addFreshEntity(entity);
             blockEntity.setLibrarian(entity);

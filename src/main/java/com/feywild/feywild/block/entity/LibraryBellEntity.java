@@ -2,30 +2,18 @@ package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.block.ModBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import net.minecraft.world.server.ServerWorld;
 
 public class LibraryBellEntity extends TileEntity {
 
     private int annoyance = 0;
     private PlayerEntity playerEntity = null;
-    private VillagerEntity librarian = null;
-    private IronGolemEntity security = null;
+    private Entity librarian = null;
+    private Entity security = null;
 
     public LibraryBellEntity() {
         super(ModBlocks.LIBRARY_BELL_ENTITY.get());
@@ -35,7 +23,7 @@ public class LibraryBellEntity extends TileEntity {
         return annoyance;
     }
 
-    public void setLibrarian(VillagerEntity librarian) {
+    public void setLibrarian(Entity librarian) {
         this.librarian = librarian;
     }
 
@@ -47,7 +35,7 @@ public class LibraryBellEntity extends TileEntity {
         this.annoyance = annoyance;
     }
 
-    public void setSecurity(IronGolemEntity security) {
+    public void setSecurity(Entity security) {
         this.security = security;
     }
 
@@ -55,11 +43,11 @@ public class LibraryBellEntity extends TileEntity {
         return playerEntity;
     }
 
-    public VillagerEntity getLibrarian() {
+    public Entity getLibrarian() {
         return librarian;
     }
 
-    public IronGolemEntity getSecurity() {
+    public Entity getSecurity() {
         return security;
     }
 
@@ -67,13 +55,17 @@ public class LibraryBellEntity extends TileEntity {
     public void load(BlockState state, CompoundNBT nbt) {
         super.load(state, nbt);
         annoyance = nbt.getInt("annoyance");
-        playerEntity = level.getPlayerByUUID(nbt.getUUID("player_UUID"));
+        playerEntity = level.getPlayerByUUID(nbt.getUUID("playerId"));
+        librarian = level instanceof ServerWorld ? ((ServerWorld) level).getEntity(nbt.getUUID("librarianId")) : null;
+        security = level instanceof ServerWorld ? ((ServerWorld) level).getEntity(nbt.getUUID("securityId")) : null;
     }
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         compound.putInt("annoyance",annoyance);
-        compound.putUUID("player_UUID", playerEntity.getUUID());
+        compound.putUUID("playerId", playerEntity.getUUID());
+        compound.putUUID("librarianId", librarian.getUUID());
+        compound.putUUID("securityId", security.getUUID());
         return super.save(compound);
     }
 }
