@@ -27,6 +27,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class LibraryBell extends Block {
@@ -53,7 +54,7 @@ public class LibraryBell extends Block {
 
     @Override
     public void onRemove(BlockState p_196243_1_, World world, BlockPos pos, BlockState p_196243_4_, boolean p_196243_5_) {
-
+    if(!world.isClientSide) {
         LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
         assert blockEntity != null;
         if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
@@ -63,6 +64,7 @@ public class LibraryBell extends Block {
 
         if (blockEntity.getSecurity() != null && blockEntity.getSecurity().isAlive())
             blockEntity.getSecurity().remove();
+    }
         super.onRemove(p_196243_1_, world, pos, p_196243_4_, p_196243_5_);
     }
 
