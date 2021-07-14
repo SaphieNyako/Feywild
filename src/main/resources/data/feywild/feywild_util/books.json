@@ -1,0 +1,11 @@
+{
+  "type": "library_books",
+  "pool" : [
+    {
+      "book":{
+      "item": "feywild:feywild_lexicon",
+      "count": 1
+      }
+    }
+  ]
+}

@@ -99,38 +99,24 @@ public class ModEvents {
             PlayerInventory playerInventory = player.inventory;
 
             if (villagerEntity.getTags().contains("spawn_librarian")) {
-
-                if (!player.getTags().contains("speakToLib")) {
-                    //On first interaction
-                    player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
-                    player.addTag("speakToLib");
-                    event.setCanceled(true);
-
-                } else if (!player.getTags().contains("borrowLexicon")) {
-                    if (!player.getTags().contains("foundLexicon")) {
-                        player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), event.getPlayer().getUUID());
-                        player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
-                    } else {
-                        player.sendMessage(new TranslationTextComponent("librarian.feywild.found"), event.getPlayer().getUUID());
+                    player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"),player.getUUID());
+                    ItemStack stack = ItemStack.EMPTY;
+                    for(int i = 0; i< ModUtil.librarianBooks.size(); i++){
+                        stack = ModUtil.librarianBooks.get(i).copy();
+                        if(!ModUtil.inventoryContainsItem(playerInventory, stack.getItem())){
+                            break;
+                        }
                     }
-                    player.addTag("borrowLexicon");
-                    event.setCanceled(true);
-                } else {
-                    if (ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get())) {
 
-                        player.sendMessage(new TranslationTextComponent("librarian.feywild.final"), event.getPlayer().getUUID());
-                        event.setCanceled(true);
-
-                    } else if (!(ModUtil.inventoryContainsItem(playerInventory, ModItems.FEYWILD_LEXICON.get()))) {
-                        player.sendMessage(new TranslationTextComponent("librarian.feywild.lost"), event.getPlayer().getUUID());
-
-                        player.addItem(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
-                        event.setCanceled(true);
+                    if(!stack.isEmpty()) {
+                        player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"),player.getUUID());
                     }
+
+                    player.addItem(stack);
+                    event.setCanceled(true);
                 }
             }
         }
-    }
 
     @SubscribeEvent
     public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {

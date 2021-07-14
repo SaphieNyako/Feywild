@@ -26,6 +26,8 @@ import java.util.List;
 public class ModUtil {
     public static List<LivingEntity> killOnExit = new LinkedList<>();
 
+    public static List<ItemStack> librarianBooks = new LinkedList<>();
+
     public static boolean inventoryContainsItem(PlayerInventory inventory, Item item) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             Item inventoryItem = inventory.getItem(i).getItem();

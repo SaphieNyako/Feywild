@@ -17,6 +17,7 @@ import com.feywild.feywild.setup.ServerProxy;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.util.serializer.UtilManager;
 import com.feywild.feywild.world.biome.ModBiomes;
 import com.feywild.feywild.world.biome.ModSurfaceBuilders;
 import com.feywild.feywild.world.feature.ModFeatures;
@@ -107,6 +108,7 @@ public class FeywildMod {
     public void reloadStuff(AddReloadListenerEvent event) {
         event.addListener(TamedTradeManager.instance());
         event.addListener(QuestManager.instance());
+        event.addListener(UtilManager.instance());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -119,6 +121,7 @@ public class FeywildMod {
         SpawnData.registerSpawn();
         TamedTradeManager.instance();
         QuestManager.instance();
+        UtilManager.instance();
 
     }
 
