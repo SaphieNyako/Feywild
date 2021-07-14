@@ -1,5 +1,6 @@
 package com.feywild.feywild.util;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ModUtil {
-    public static List<VillagerEntity> librarians = new LinkedList<>();
+    public static List<LivingEntity> killOnExit = new LinkedList<>();
 
     public static boolean inventoryContainsItem(PlayerInventory inventory, Item item) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {

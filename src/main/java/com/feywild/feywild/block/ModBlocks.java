@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
 import com.feywild.feywild.block.entity.ElectrifiedGroundTileEntity;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.block.entity.LibraryBellEntity;
 import com.feywild.feywild.block.trees.*;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.*;
@@ -41,6 +42,9 @@ public class ModBlocks {
 
     public static final RegistryObject<TileEntityType<ElectrifiedGroundTileEntity>> ELECTRIFIED_GROUND_ENTITY = registerTile("electrified_ground_entity",
             () -> TileEntityType.Builder.of(ElectrifiedGroundTileEntity::new, ELECTRIFIED_GROUND.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<LibraryBellEntity>> LIBRARY_BELL_ENTITY = registerTile("library_bell_entity",
+            () -> TileEntityType.Builder.of(LibraryBellEntity::new, LIBRARY_BELL.get()).build(null));
 
     public static final RegistryObject<TileEntityType<DwarvenAnvilEntity>> DWARVEN_ANVIL_ENTITY = registerTile("dwarven_anvil_entity",
             () -> TileEntityType.Builder.of(DwarvenAnvilEntity::new, DWARVEN_ANVIL.get()).build(null));

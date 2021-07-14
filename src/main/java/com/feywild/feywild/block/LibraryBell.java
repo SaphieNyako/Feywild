@@ -1,5 +1,6 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.block.entity.LibraryBellEntity;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -23,50 +25,45 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.Random;
 
 public class LibraryBell extends Block {
-
-    private VillagerEntity entity = null;
-    private IronGolemEntity iron = null;
-    private PlayerEntity player = null;
-    private int count, annoyance;
 
     public LibraryBell() {
         super(Properties.of(Material.METAL)
                 .strength(99999999f, 99999999f).noDrops()
                 .noCollission()
-                .randomTicks()
                 .sound(SoundType.STONE));
 
     }
 
+
     @Override
-    public boolean isRandomlyTicking(BlockState p_149653_1_) {
+    public boolean hasTileEntity(BlockState state) {
         return true;
     }
 
+    @Nullable
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        super.randomTick(state, world, pos, random);
-        count++;
-        if (count > 3 && entity != null && entity.isAlive()) {
-            entity.setPos(entity.getX(), entity.getY() - 4, entity.getZ());
-            entity.kill();
-            count = 0;
-        }
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new LibraryBellEntity();
     }
 
     @Override
-    public void onRemove(BlockState p_196243_1_, World p_196243_2_, BlockPos p_196243_3_, BlockState p_196243_4_, boolean p_196243_5_) {
-        if (entity != null && entity.isAlive()) {
-            entity.setPos(entity.getX(), entity.getY() - 4, entity.getZ());
-            entity.kill();
+    public void onRemove(BlockState p_196243_1_, World world, BlockPos pos, BlockState p_196243_4_, boolean p_196243_5_) {
+
+        LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
+        assert blockEntity != null;
+        if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
+            blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
+            blockEntity.getLibrarian().kill();
         }
 
-        if (iron != null && iron.isAlive())
-            iron.remove();
-        super.onRemove(p_196243_1_, p_196243_2_, p_196243_3_, p_196243_4_, p_196243_5_);
+        if (blockEntity.getSecurity() != null && blockEntity.getSecurity().isAlive())
+            blockEntity.getSecurity().remove();
+        super.onRemove(p_196243_1_, world, pos, p_196243_4_, p_196243_5_);
     }
 
     @SuppressWarnings("deprecation")
@@ -82,29 +79,40 @@ public class LibraryBell extends Block {
             world.playSound(playerEntity, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
         } else {
 
-            if (playerEntity == this.player) {
-                annoyance++;
+            LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
+            assert blockEntity != null;
+
+            if (playerEntity == blockEntity.getPlayerEntity()) {
+                blockEntity.setAnnoyance(blockEntity.getAnnoyance() + 1);
             } else {
-                this.player = playerEntity;
-                annoyance = 0;
+                blockEntity.setPlayerEntity(playerEntity);
+                blockEntity.setAnnoyance(0);
             }
 
-            if (annoyance == 10) {
-                annoyance = 0;
-                iron = new IronGolemEntity(EntityType.IRON_GOLEM, world);
-                iron.setTarget(playerEntity);
-                playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), playerEntity.getUUID());
-                iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
-                world.addFreshEntity(iron);
+            if (blockEntity.getAnnoyance() == 10) {
+                blockEntity.setAnnoyance(0);
 
-            } else if (annoyance > 6) {
+                if(blockEntity.getSecurity() == null || !blockEntity.getSecurity().isAlive()) {
+                    IronGolemEntity iron = new IronGolemEntity(EntityType.IRON_GOLEM, world);
+                    iron.setTarget(playerEntity);
+                    playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), playerEntity.getUUID());
+                    iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
+                    world.addFreshEntity(iron);
+                    blockEntity.setSecurity(iron);
+                    ModUtil.killOnExit.add(iron);
+                }else{
+                    blockEntity.getSecurity().setPos(pos.getX(), pos.getY() - 1, pos.getZ());
+                }
+
+            } else if (blockEntity.getAnnoyance() > 6) {
                 playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
             }
-            if (entity != null && entity.isAlive()) {
-                entity.setPos(entity.getX(), entity.getY() - 4, entity.getZ());
-                entity.remove(); // .kill()
+            if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian() .isAlive()) {
+                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian() .getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
+                blockEntity.getLibrarian().remove(); // .kill()
             }
-            entity = new VillagerEntity(EntityType.VILLAGER, world);
+
+            VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, world);
             entity.addTag("spawn_librarian");
             if (world.getBlockState(pos.below().north()).isAir()) {
                 entity.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() - 1);
@@ -116,8 +124,8 @@ public class LibraryBell extends Block {
                 entity.setPos(pos.getX() - 1, pos.getY() - 1, pos.getZ() + 0.5);
             }
             world.addFreshEntity(entity);
-
-            ModUtil.librarians.add(entity);
+            blockEntity.setLibrarian(entity);
+            ModUtil.killOnExit.add(entity);
         }
         return ActionResultType.SUCCESS;
 

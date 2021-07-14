@@ -131,7 +131,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {
-        ModUtil.librarians.forEach(LivingEntity::kill);
+        ModUtil.killOnExit.forEach(LivingEntity::kill);
     }
 
     @SubscribeEvent
