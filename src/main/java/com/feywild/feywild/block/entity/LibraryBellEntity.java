@@ -51,21 +51,18 @@ public class LibraryBellEntity extends TileEntity {
         return security;
     }
 
+
     @Override
     public void load(BlockState state, CompoundNBT nbt) {
         super.load(state, nbt);
         annoyance = nbt.getInt("annoyance");
         playerEntity = level.getPlayerByUUID(nbt.getUUID("playerId"));
-        librarian = level instanceof ServerWorld ? ((ServerWorld) level).getEntity(nbt.getUUID("librarianId")) : null;
-        security = level instanceof ServerWorld ? ((ServerWorld) level).getEntity(nbt.getUUID("securityId")) : null;
     }
 
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         compound.putInt("annoyance",annoyance);
         compound.putUUID("playerId", playerEntity.getUUID());
-        compound.putUUID("librarianId", librarian.getUUID());
-        compound.putUUID("securityId", security.getUUID());
         return super.save(compound);
     }
 }

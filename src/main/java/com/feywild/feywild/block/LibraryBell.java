@@ -120,6 +120,7 @@ public class LibraryBell extends Block {
             
                 blockEntity.getLibrarian().setPos(blockEntity.getLibrarian() .getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
                 blockEntity.getLibrarian().remove(); // .kill()
+
             }
 
             VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, world);

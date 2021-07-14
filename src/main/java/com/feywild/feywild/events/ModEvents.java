@@ -102,8 +102,8 @@ public class ModEvents {
                     player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"),player.getUUID());
                     ItemStack stack = ItemStack.EMPTY;
                     for(int i = 0; i< ModUtil.librarianBooks.size(); i++){
-                        stack = ModUtil.librarianBooks.get(i).copy();
                         if(!ModUtil.inventoryContainsItem(playerInventory, stack.getItem())){
+                            stack = ModUtil.librarianBooks.get(i).copy();
                             break;
                         }
                     }
@@ -120,7 +120,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {
-        ModUtil.killOnExit.forEach(LivingEntity::kill);
+        ModUtil.killOnExit.forEach(LivingEntity::remove);
     }
 
     @SubscribeEvent
