@@ -9,6 +9,7 @@ import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -26,7 +27,7 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Objects;
 
-public class SummoningScrollAutumnPixie extends Item {
+public class SummoningScrollAutumnPixie extends TooltipItem {
 
     public SummoningScrollAutumnPixie() {
         super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
@@ -75,17 +76,7 @@ public class SummoningScrollAutumnPixie extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-
-        if (KeyboardHelper.isHoldingShift()) {
-
-            tooltip.add(new TranslationTextComponent("message.feywild.autumn_pixie"));
-
-        } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
-
-        }
-
-        super.appendHoverText(stack, world, tooltip, flag);
+    public List<ITextComponent> getTooltip(ItemStack stack, World world) {
+        return ImmutableList.of(new TranslationTextComponent("message.feywild.autumn_pixie"));
     }
 }

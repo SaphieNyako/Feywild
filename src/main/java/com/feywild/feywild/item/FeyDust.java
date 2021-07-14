@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.KeyboardHelper;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -18,26 +19,15 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class FeyDust extends Item {
+public class FeyDust extends TooltipItem {
 
     public FeyDust(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-
-        if (KeyboardHelper.isHoldingShift()) {
-
-            tooltip.add(new TranslationTextComponent("message.feywild.fey_dust"));
-
-        } else {
-
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
-            //tooltip.add(new StringTextComponent("Hold "+ "\u00A7e" + "SHIFT" + "\u00A77" + " for more information."));
-        }
-
-        super.appendHoverText(stack, world, tooltip, flag);
+    public List<ITextComponent> getTooltip(ItemStack stack, World world) {
+        return ImmutableList.of(new TranslationTextComponent("message.feywild.fey_dust"));
     }
 
     //Test
