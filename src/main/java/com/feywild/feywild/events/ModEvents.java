@@ -5,7 +5,9 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.Configs.Config;
+import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.util.ModUtil;
+import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -17,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -133,6 +136,14 @@ public class ModEvents {
     public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {
         ModUtil.killOnExit.forEach(LivingEntity::kill);
     }
+
+    @SubscribeEvent
+    public void onGuiOpened(GuiOpenEvent event) {
+        if (Config.MENU_SCREEN.get() && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
+            event.setGui(new MenuScreen());
+        }
+    }
+
 
     @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
