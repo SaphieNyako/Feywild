@@ -27,13 +27,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> LIBRARY_BELL = register("library_bell",
             LibraryBell::new, true);
 
-    public static final RegistryObject<Block>  SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
-    public static final RegistryObject<Block>  SUNFLOWER = register("sunflower", Sunflower::new, false);
+    public static final RegistryObject<Block> SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
+    public static final RegistryObject<Block> SUNFLOWER = register("sunflower", Sunflower::new, false);
 
-    public static final RegistryObject<Block>  DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
-    public static final RegistryObject<Block>  DANDELION = register("dandelion", Dandelion::new, false);
+    public static final RegistryObject<Block> DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
+    public static final RegistryObject<Block> DANDELION = register("dandelion", Dandelion::new, false);
 
-    public static final RegistryObject<Block>  ELECTRIFIED_GROUND = register("electrified_ground", ElectrifiedGround::new, false);
+    public static final RegistryObject<Block> ELECTRIFIED_GROUND = register("electrified_ground", ElectrifiedGround::new, false);
 
 
     /* TILE ENTITIES */
@@ -113,7 +113,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> TREE_MUSHROOM_BLOCK = register("tree_mushroom",
             TreeMushroomBlock::new, true);
 
-    public static void register() {}
+    public static void register() {
+    }
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block, boolean createItem) {
 

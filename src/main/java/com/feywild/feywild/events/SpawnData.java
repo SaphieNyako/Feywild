@@ -2,7 +2,7 @@ package com.feywild.feywild.events;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.Configs.Config;
+import com.feywild.feywild.util.configs.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;

@@ -13,6 +13,8 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 
+import javax.annotation.Nonnull;
+
 public abstract class BaseStructure extends Structure<NoFeatureConfig> {
 
     public BaseStructure() {
@@ -25,9 +27,11 @@ public abstract class BaseStructure extends Structure<NoFeatureConfig> {
 
     public abstract int getSeedModifier();
 
+    @Nonnull
     @Override
     public abstract IStartFactory<NoFeatureConfig> getStartFactory();
 
+    @Nonnull
     @Override
     public GenerationStage.Decoration step() {
 
@@ -37,7 +41,7 @@ public abstract class BaseStructure extends Structure<NoFeatureConfig> {
     // Creatures methods are not always used
 
     @Override
-    protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+    protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, @Nonnull BiomeProvider biomeSource, long seed, @Nonnull SharedSeedRandom chunkRandom, int chunkX, int chunkZ, @Nonnull Biome biome, @Nonnull ChunkPos chunkPos, @Nonnull NoFeatureConfig featureConfig) {
         BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
 
         int landHeight = chunkGenerator.getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Type.WORLD_SURFACE_WG);

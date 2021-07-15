@@ -25,12 +25,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Random;
 
 public class LibraryBell extends Block {
 
@@ -39,9 +36,7 @@ public class LibraryBell extends Block {
                 .strength(99999999f, 99999999f).noDrops()
                 .noCollission()
                 .sound(SoundType.STONE));
-
     }
-
 
     @Override
     public boolean hasTileEntity(BlockState state) {
@@ -55,30 +50,32 @@ public class LibraryBell extends Block {
     }
 
     @Override
-    public void onRemove(BlockState p_196243_1_, World world, BlockPos pos, BlockState p_196243_4_, boolean p_196243_5_) {
-    if(!world.isClientSide) {
-        LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
-        assert blockEntity != null;
-        if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
-            blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
-            blockEntity.getLibrarian().kill();
-        }
+    public void onRemove(@Nonnull BlockState p_196243_1_, World world, @Nonnull BlockPos pos, @Nonnull BlockState p_196243_4_, boolean p_196243_5_) {
+        if (!world.isClientSide) {
+            LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
+            assert blockEntity != null;
+            if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
+                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
+                blockEntity.getLibrarian().kill();
+            }
 
-        if (blockEntity.getSecurity() != null && blockEntity.getSecurity().isAlive())
-            blockEntity.getSecurity().remove();
-    }
+            if (blockEntity.getSecurity() != null && blockEntity.getSecurity().isAlive())
+                blockEntity.getSecurity().remove();
+        }
         super.onRemove(p_196243_1_, world, pos, p_196243_4_, p_196243_5_);
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return VoxelShapes.box(0.35, 0.01, 0.34, 0.65, 0.25, 0.65);
 
     }
 
+    @Nonnull
     @Override
-    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult trace) {
+    public ActionResultType use(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity playerEntity, @Nonnull Hand hand, @Nonnull BlockRayTraceResult trace) {
         if (world.isClientSide) {
             world.playSound(playerEntity, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
         } else {
@@ -107,7 +104,7 @@ public class LibraryBell extends Block {
                         iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
                         world.addFreshEntity(iron);
                         blockEntity.setSecurity(iron);
-                        ModUtil.killOnExit.put(iron,playerEntity);
+                        ModUtil.killOnExit.put(iron, playerEntity);
                     } else {
                         blockEntity.getSecurity().setPos(pos.getX(), pos.getY() - 1, pos.getZ());
                         if (blockEntity.getSecurity() instanceof MobEntity) {
@@ -119,8 +116,8 @@ public class LibraryBell extends Block {
                     playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
                 }
 
-                ModUtil.killOnExit.remove((LivingEntity) blockEntity.getLibrarian(),playerEntity);
-                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian() .getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
+                ModUtil.killOnExit.remove((LivingEntity) blockEntity.getLibrarian(), playerEntity);
+                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
                 blockEntity.getLibrarian().remove(); // .kill()
 
             }
@@ -144,7 +141,7 @@ public class LibraryBell extends Block {
             }
             world.addFreshEntity(entity);
             blockEntity.setLibrarian(entity);
-            ModUtil.killOnExit.put(entity,playerEntity);
+            ModUtil.killOnExit.put(entity, playerEntity);
         }
         return ActionResultType.SUCCESS;
 

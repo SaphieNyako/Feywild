@@ -2,7 +2,7 @@ package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.Configs.Config;
+import com.feywild.feywild.util.configs.Config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +21,7 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.Level;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class SummerWorldTreeStructure extends BaseStructure {
@@ -31,8 +32,8 @@ public class SummerWorldTreeStructure extends BaseStructure {
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 100, 4, 4)
     );
-    private static String messageLocation = "Summer World Tree at: ";
-    private static String messagePool = "summer_world_tree/start_pool";
+    private static final String MESSAGE_LOCATION = "Summer World Tree at: ";
+    private static final String MESSAGE_POOL = "summer_world_tree/start_pool";
 
     @Override
     public int getAverageDistanceBetweenChunks() {
@@ -67,7 +68,7 @@ public class SummerWorldTreeStructure extends BaseStructure {
         }
 
         @Override  //generatePieces
-        public void generatePieces(DynamicRegistries dynamicRegistryManager, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
+        public void generatePieces(@Nonnull DynamicRegistries dynamicRegistryManager, @Nonnull ChunkGenerator chunkGenerator, @Nonnull TemplateManager templateManagerIn, int chunkX, int chunkZ, @Nonnull Biome biomeIn, @Nonnull NoFeatureConfig config) {
 
             // Turns the chunk coordinates into actual coordinates we can use. (Gets center of that chunk)
             int x = (chunkX << 4) + 7;
@@ -80,7 +81,7 @@ public class SummerWorldTreeStructure extends BaseStructure {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, messagePool)),
+                            .get(new ResourceLocation(FeywildMod.MOD_ID, MESSAGE_POOL)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -100,7 +101,7 @@ public class SummerWorldTreeStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.LOGGER.log(Level.DEBUG, messageLocation +
+            FeywildMod.LOGGER.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

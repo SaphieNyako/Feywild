@@ -1,13 +1,10 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.util.Configs.Config;
-import com.feywild.feywild.util.KeyboardHelper;
+import com.feywild.feywild.util.configs.Config;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -17,6 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class FeyDust extends TooltipItem {
@@ -31,8 +29,9 @@ public class FeyDust extends TooltipItem {
     }
 
     //Test
+    @Nonnull
     @Override
-    public ActionResultType interactLivingEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    public ActionResultType interactLivingEntity(@Nonnull ItemStack stack, PlayerEntity playerIn, @Nonnull LivingEntity target, @Nonnull Hand hand) {
         if (playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
 
         if (target instanceof SheepEntity) {

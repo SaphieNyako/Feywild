@@ -40,6 +40,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -49,10 +50,9 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SummerPixieEntity.class,
             DataSerializers.BOOLEAN);
+    private final AnimationFactory factory = new AnimationFactory(this);
     public BlockPos summonPos;
-    FeyEntity entity = this;
     private boolean tamed = false;
-    private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public SummerPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -163,7 +163,8 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     /* GOALS */
 
     @Override
-    protected void registerGoals() {}
+    protected void registerGoals() {
+    }
 
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
@@ -206,7 +207,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     /* SAVE DATA */
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT tag) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
         if (summonPos != null) {
             tag.putInt("summonPos_X", summonPos.getX());
@@ -218,7 +219,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT tag) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("summonPos_X"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));

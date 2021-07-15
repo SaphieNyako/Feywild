@@ -36,6 +36,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
@@ -100,16 +101,18 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         }
     }
 
+    @Nonnull
     @Override
-    protected PathNavigator createNavigation(World worldIn) {
+    protected PathNavigator createNavigation(@Nonnull World worldIn) {
         return new GroundPathNavigator(this, worldIn);
     }
 
 
     /* TRADING */
 
+    @Nonnull
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+    public ActionResultType interactAt(PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
         this.setTradingPlayer(player); //added
@@ -129,8 +132,9 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason
-            reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld worldIn, @Nonnull DifficultyInstance difficultyIn, @Nonnull SpawnReason
+            reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag
+    ) {
 
         this.restrictTo(blockPosition(), 7);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -243,7 +247,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    public boolean checkSpawnRules(IWorld worldIn, SpawnReason spawnReasonIn) {
+    public boolean checkSpawnRules(@Nonnull IWorld worldIn, @Nonnull SpawnReason spawnReasonIn) {
         return super.checkSpawnRules(worldIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !worldIn.canSeeSky(this.blockPosition());
     }
 
@@ -257,12 +261,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     /* ATTRIBUTES */
     @Override
-    public boolean canBeLeashed(PlayerEntity player) {
+    public boolean canBeLeashed(@Nonnull PlayerEntity player) {
         return false;
     }
 
     @Override
-    protected boolean canRide(Entity entityIn) {
+    protected boolean canRide(@Nonnull Entity entityIn) {
         return false;
     }
 
@@ -282,7 +286,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    protected int getExperienceReward(PlayerEntity player) {
+    protected int getExperienceReward(@Nonnull PlayerEntity player) {
         return 0;
     }
 /*
@@ -297,7 +301,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     /* SOUND EFFECTS */
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
         return SoundEvents.VILLAGER_HURT;
     }
 
@@ -334,16 +338,15 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         if (this.entityData.get(STATE) == 1 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) { //&& !this.entityData.get(CRAFTING)
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
             return PlayState.CONTINUE;
-        }else
-        // 2 == WORKING
-        if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
-            return PlayState.CONTINUE;
-        }else
-        if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-            return PlayState.CONTINUE;
-        }
+        } else
+            // 2 == WORKING
+            if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
+                return PlayState.CONTINUE;
+            } else if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
+                return PlayState.CONTINUE;
+            }
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
         return PlayState.CONTINUE;

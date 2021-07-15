@@ -8,7 +8,6 @@ import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
-import com.feywild.feywild.screens.PixieScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -49,7 +48,6 @@ public class ClientProxy implements IProxy {
                 FeyAltarRenderer::new);
 
 
-
     }
 
     @Override
@@ -76,6 +74,8 @@ public class ClientProxy implements IProxy {
 
     }
 
+    // TODO remove. You can directly access the world if careful. Or use the one proxy initialised in the mod object to access it.
+    // However currently for this method, always a new ClientProxy is constructed which makes this method useless.
     @Override
     public World getClientWorld() {
         return Minecraft.getInstance().level;

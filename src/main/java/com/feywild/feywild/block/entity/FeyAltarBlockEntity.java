@@ -21,17 +21,19 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
 
-    Random random = new Random();
-    NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
-    private AnimationFactory factory = new AnimationFactory(this);
+    // TODO use iitemhandler
+    private final NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean shouldLoad = true, shouldCraft = false;
-    private int count = 0, limit, craftCount = 0;
+    private int count = 0;
+    private int limit = 0;
+    private int craftCount = 0;
 
     public FeyAltarBlockEntity() {
         super(ModBlocks.FEY_ALTAR_ENTITY.get());
@@ -39,15 +41,16 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     /* DATA */
     @Override
-    public void load(BlockState state, CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         for (int i = 0; i < getContainerSize(); i++) {
             stackList.set(i, ItemStack.of((CompoundNBT) nbt.get("stack" + i)));
         }
     }
 
+    @Nonnull
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
+    public CompoundNBT save(@Nonnull CompoundNBT compound) {
         for (int i = 0; i < getItems().size(); i++) {
             CompoundNBT compoundNBT = new CompoundNBT();
             stackList.get(i).copy().save(compoundNBT);
@@ -64,11 +67,9 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
                 inv.setItem(i, getItems().get(i));
             }
 
-            Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
+            Optional<AltarRecipe> recipe = level == null ? Optional.empty() : level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
 
-            recipe.ifPresent(altarRecipe -> {
-                        this.shouldCraft = true;
-                    }
+            recipe.ifPresent(altarRecipe -> this.shouldCraft = true
             );
         } else {
             super.updateInventory(flags, false);
@@ -77,33 +78,35 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     @Override
     public void tick() {
-        if (level.isClientSide) return;
-        count++;
-        if (shouldLoad) {
-            // initialize limit and loop through all items to sync them with the client
-            limit = random.nextInt(20 * 6);
-            updateInventory(-1, false);
-            shouldLoad = true;
-        }
-        if (shouldCraft) {
-            craftCount++;
-            if (craftCount == 10) {
-                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(1, worldPosition), 100);
+        if (level != null && !level.isClientSide) {
+            count++;
+            if (shouldLoad) {
+                // initialize limit and loop through all items to sync them with the client
+                limit = level.random.nextInt(20 * 6);
+                updateInventory(-1, false);
+                shouldLoad = true;
             }
-            if (craftCount > 40) {
-                craft();
-                craftCount = 0;
-                shouldCraft = false;
+            if (shouldCraft) {
+                craftCount++;
+                if (craftCount == 10) {
+                    FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(1, worldPosition), 100);
+                }
+                if (craftCount > 40) {
+                    craft();
+                    craftCount = 0;
+                    shouldCraft = false;
+                }
             }
-        }
-        //summon particles randomly (did this here bc for some reason random ticks are killing me today)
-        if (count > limit) {
-            limit = random.nextInt(20 * 6);
-            if (random.nextDouble() > 0.5) {
-                // send packet to player to summon particles
-                FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + random.nextDouble(), worldPosition.getY() + random.nextDouble(), worldPosition.getZ() + random.nextDouble(), 0, 0, 0, 1, 2, 0), 32);
+            //summon particles randomly (did this here bc for some reason random ticks are killing me today)
+            if (count > limit) {
+                limit = level.random.nextInt(20 * 6);
+                if (level.random.nextDouble() > 0.5) {
+                    // send packet to player to summon particles
+                    // TODO possibly summon particles clients side, reduces network traffic
+                    FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + level.random.nextDouble(), worldPosition.getY() + level.random.nextDouble(), worldPosition.getZ() + level.random.nextDouble(), 0, 0, 0, 1, 2, 0), 32);
+                }
+                count = 0;
             }
-            count = 0;
         }
     }
 
@@ -113,7 +116,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
             inv.setItem(i, getItems().get(i));
         }
 
-        Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
+        Optional<AltarRecipe> recipe = level == null ? Optional.empty() : level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
@@ -143,15 +146,12 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.altar.motion", true));
-
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
-
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
-
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override

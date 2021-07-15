@@ -1,4 +1,4 @@
-package com.feywild.feywild.util.Configs;
+package com.feywild.feywild.util.configs;
 
 import com.electronwill.nightconfig.core.AbstractConfig;
 import com.electronwill.nightconfig.core.Config;
@@ -46,6 +46,7 @@ public class PerformanceConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
+
     @Override
     public AbstractConfig clone() {
         return null;

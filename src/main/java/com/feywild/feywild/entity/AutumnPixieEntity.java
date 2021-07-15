@@ -40,18 +40,21 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 
+// Pretty sure there's much more code that could go in FeyEntity
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
+
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(AutumnPixieEntity.class,
             DataSerializers.BOOLEAN);
+    private final AnimationFactory factory = new AnimationFactory(this);
     public BlockPos summonPos;
     FeyEntity entity = this;
     private boolean tamed = false;
-    private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public AutumnPixieEntity(EntityType<? extends FeyEntity> entityEntityType, World world) {
@@ -159,7 +162,8 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     /* GOALS */
 
     @Override
-    protected void registerGoals() {}
+    protected void registerGoals() {
+    }
 
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
@@ -204,7 +208,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
     //write
     @Override
-    public void addAdditionalSaveData(CompoundNBT tag) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
         if (summonPos != null) {
             tag.putInt("summonPos_X", summonPos.getX());
@@ -217,7 +221,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
 
     //read
     @Override
-    public void readAdditionalSaveData(CompoundNBT tag) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("summonPos_X"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));

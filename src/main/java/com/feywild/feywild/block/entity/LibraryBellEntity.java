@@ -6,7 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
 
 public class LibraryBellEntity extends TileEntity {
 
@@ -23,45 +24,45 @@ public class LibraryBellEntity extends TileEntity {
         return annoyance;
     }
 
-    public void setLibrarian(Entity librarian) {
-        this.librarian = librarian;
-    }
-
-    public void setPlayerEntity(PlayerEntity playerEntity) {
-        this.playerEntity = playerEntity;
-    }
-
     public void setAnnoyance(int annoyance) {
         this.annoyance = annoyance;
-    }
-
-    public void setSecurity(Entity security) {
-        this.security = security;
     }
 
     public PlayerEntity getPlayerEntity() {
         return playerEntity;
     }
 
+    public void setPlayerEntity(PlayerEntity playerEntity) {
+        this.playerEntity = playerEntity;
+    }
+
     public Entity getLibrarian() {
         return librarian;
+    }
+
+    public void setLibrarian(Entity librarian) {
+        this.librarian = librarian;
     }
 
     public Entity getSecurity() {
         return security;
     }
 
-
-    @Override
-    public void load(BlockState state, CompoundNBT nbt) {
-        super.load(state, nbt);
-        annoyance = nbt.getInt("annoyance");
-        playerEntity = level.getPlayerByUUID(nbt.getUUID("playerId"));
+    public void setSecurity(Entity security) {
+        this.security = security;
     }
 
     @Override
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+        super.load(state, nbt);
+        annoyance = nbt.getInt("annoyance");
+        playerEntity = level == null ? null : level.getPlayerByUUID(nbt.getUUID("playerId"));
+    }
+
+    @Nonnull
+    @Override
     public CompoundNBT save(CompoundNBT compound) {
-        compound.putInt("annoyance",annoyance);
+        compound.putInt("annoyance", annoyance);
         compound.putUUID("playerId", playerEntity.getUUID());
         return super.save(compound);
     }

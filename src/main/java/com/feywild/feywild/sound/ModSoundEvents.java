@@ -68,5 +68,6 @@ public class ModSoundEvents {
             Registration.SOUND_EVENTS.register("winter_soundtrack",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "winter_soundtrack")));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

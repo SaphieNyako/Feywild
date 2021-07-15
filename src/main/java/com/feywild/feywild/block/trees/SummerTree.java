@@ -9,12 +9,13 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class SummerTree extends BaseTree {
 
     @Override
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(@Nonnull Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
                 new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),

@@ -1,4 +1,4 @@
-package com.feywild.feywild.util.Configs;
+package com.feywild.feywild.util.configs;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
@@ -6,6 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Config {
 
@@ -75,8 +76,8 @@ public class Config {
         MYTHIC = SERVER_BUILDER.comment("Note: This requires the mod: Mythic Botany. 0: feywild biomes spawn in overworld, default alfheim, 1: feywild biomes spawn in overworld, feywild features spawn in alfheim, 2: feywild biomes not active, feywild features spawn in alfheim ").defineInRange("mythic", 1, 0, 2);
 
         DUNGEONS_GEAR = SERVER_BUILDER.comment("Note: This requires the mod: Dungeons Gear. Set to True if you want Schematics Items for Dungeon Gear.").define("dungeons_gear", false);
-        
-        MENU_SCREEN = CLIENT_BUILDER.comment("Use the Feywild background.").define("menu_screen",true);
+
+        MENU_SCREEN = CLIENT_BUILDER.comment("Use the Feywild background.").define("menu_screen", true);
     }
 
     private static void setConfigVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
@@ -108,7 +109,7 @@ public class Config {
                 Arrays.asList("SWAMP", "MUSHROOM", "SPOOKY", "FOREST", "MAGICAL"));
         WINTER_PIXIE_CONFIG = new MobConfig("Winter Pixie", 20, 1, 1,
                 Arrays.asList("DEAD", "SNOWY", "COLD", "MAGICAL"));
-        DWARF_CONFIG = new MobConfig("Dwarf", 20, 1, 1, Arrays.asList("ALL"));
+        DWARF_CONFIG = new MobConfig("Dwarf", 20, 1, 1, Collections.singletonList("ALL"));
 
         SPRING_PIXIE_CONFIG.apply(SERVER_BUILDER);
         SUMMER_PIXIE_CONFIG.apply(SERVER_BUILDER);

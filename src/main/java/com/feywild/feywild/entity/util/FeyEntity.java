@@ -5,11 +5,9 @@ import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -24,14 +22,10 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public abstract class FeyEntity extends CreatureEntity {
-
-    public BlockPos summonPos;
-    private Random random = new Random();
-    private PlayerEntity follow = null;
 
     protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
@@ -46,8 +40,9 @@ public abstract class FeyEntity extends CreatureEntity {
                 .add(Attributes.LUCK, 0.2D);
     }
 
+    @Nonnull
     @Override
-    protected PathNavigator createNavigation(World world) {
+    protected PathNavigator createNavigation(@Nonnull World world) {
         FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, world);
         flyingpathnavigator.setCanOpenDoors(false);
         flyingpathnavigator.setCanFloat(true);
@@ -55,7 +50,8 @@ public abstract class FeyEntity extends CreatureEntity {
         return flyingpathnavigator;
     }
 
-    public void travel(Vector3d positionIn) {
+    @Override
+    public void travel(@Nonnull Vector3d positionIn) {
         if (this.isInWater()) {
             this.moveRelative(0.02F, positionIn);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -94,6 +90,7 @@ public abstract class FeyEntity extends CreatureEntity {
         this.animationPosition += this.animationSpeed;
     }
 
+    @Override
     public boolean onClimbable() {
         return false;
     }
@@ -109,27 +106,24 @@ public abstract class FeyEntity extends CreatureEntity {
     }
 
     @Override
-    protected int getExperienceReward(PlayerEntity player) {
+    protected int getExperienceReward(@Nonnull PlayerEntity player) {
         return 0;
     }
 
     @Override
-    public boolean canBeLeashed(PlayerEntity player) {
+    public boolean canBeLeashed(@Nonnull PlayerEntity player) {
         return false;
     }
 
     @Override
-    protected boolean canRide(Entity entityIn) {
+    protected boolean canRide(@Nonnull Entity entityIn) {
         return false;
-    }
-
-    public PlayerEntity getFollow() {
-        return follow;
     }
 
     // on interact with cookie
+    @Nonnull
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
         if (!level.isClientSide && player.getItemInHand(hand).sameItem(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null) {
             //  this.follow = player;
 
@@ -153,7 +147,7 @@ public abstract class FeyEntity extends CreatureEntity {
     /* SOUND EFFECTS */
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
         return ModSoundEvents.PIXIE_HURT.get();
     }
 
@@ -186,12 +180,11 @@ public abstract class FeyEntity extends CreatureEntity {
 
     /* MOVEMENT */
     public class FeyWildPanic extends Goal {
+
         private Vector3d targetPos;
         private FeyEntity entity;
         private int range;
         private double speed;
-
-
 
         public FeyWildPanic(FeyEntity entity, double speed, int range) {
             this.entity = entity;
@@ -205,7 +198,7 @@ public abstract class FeyEntity extends CreatureEntity {
             super.start();
             targetPos = position();
 
-            if(targetPos.distanceTo(this.entity.position()) < 1.4){
+            if (targetPos.distanceTo(this.entity.position()) < 1.4) {
                 do {
                     this.targetPos = new Vector3d(entity.getX() - range + random.nextInt(range * 2), entity.getY() - range + random.nextInt(range * 2), entity.getZ() - range + random.nextInt(range * 2));
                 } while (!level.getBlockState(new BlockPos(this.targetPos.x(), this.targetPos.y(), this.targetPos.z())).isAir()); //if air go to location, otherwise repeat(do)

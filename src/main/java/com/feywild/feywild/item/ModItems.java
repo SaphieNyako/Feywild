@@ -2,8 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.util.configs.Config;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -13,6 +13,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.RegistryObject;
+
+import javax.annotation.Nonnull;
 
 public class ModItems {
 
@@ -169,7 +171,8 @@ public class ModItems {
 
     //METHODES
 
-    public static void register() {}
+    public static void register() {
+    }
 
     public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
@@ -215,6 +218,7 @@ public class ModItems {
             return enchantability;
         }
 
+        @Nonnull
         @Override
         public Ingredient getRepairIngredient() {
             return repairMaterial;
@@ -246,7 +250,7 @@ public class ModItems {
         }
 
         @Override
-        public int getDurabilityForSlot(EquipmentSlotType slotIn) {
+        public int getDurabilityForSlot(@Nonnull EquipmentSlotType slotIn) {
             return durability;
         }
 
@@ -260,16 +264,19 @@ public class ModItems {
             return enchantability;
         }
 
+        @Nonnull
         @Override
         public SoundEvent getEquipSound() {
             return soundEvent;
         }
 
+        @Nonnull
         @Override
         public Ingredient getRepairIngredient() {
             return repairMaterial;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

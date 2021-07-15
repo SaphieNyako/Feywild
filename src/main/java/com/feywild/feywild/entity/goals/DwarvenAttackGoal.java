@@ -93,21 +93,21 @@ public class DwarvenAttackGoal extends Goal {
         BlockPos pos = entity.blockPosition().below();
 
         // Explosion size
-    int size = 2;
+        int size = 2;
         List<FallingBlockEntity> entityList = new LinkedList<>();
 
         for (int i = 0; i <= size; i++) {
             for (int j = 0; j <= size; j++) {
                 int val = Math.abs(i) + Math.abs(j);
-                if(!(val > size) && !worldLevel.getBlockState(new BlockPos(pos.getX() + i , pos.below().getY(), pos.getZ() + j)).isAir() && worldLevel.getBlockState(new BlockPos(pos.getX() + i , pos.above().getY(), pos.getZ() + j)).isAir() && !( i ==0 && j == 0)) {
-                    if(stage == 1 || stage == 2) {
+                if (!(val > size) && !worldLevel.getBlockState(new BlockPos(pos.getX() + i, pos.below().getY(), pos.getZ() + j)).isAir() && worldLevel.getBlockState(new BlockPos(pos.getX() + i, pos.above().getY(), pos.getZ() + j)).isAir() && !(i == 0 && j == 0)) {
+                    if (stage == 1 || stage == 2) {
                         entityList.add(new FallingBlockEntity(worldLevel, pos.getX() + i, pos.getY(), pos.getZ() + j, worldLevel.getBlockState(new BlockPos(pos.getX() + i, pos.getY(), pos.getZ() + j))));
-                       entityList.add(new FallingBlockEntity(worldLevel, pos.getX() - i , pos.getY(), pos.getZ() - j, worldLevel.getBlockState(new BlockPos(pos.getX() - i , pos.getY(), pos.getZ() - j))));
+                        entityList.add(new FallingBlockEntity(worldLevel, pos.getX() - i, pos.getY(), pos.getZ() - j, worldLevel.getBlockState(new BlockPos(pos.getX() - i, pos.getY(), pos.getZ() - j))));
                     }
 
-                    if(stage == 3) {
-                        entityList.add( new FallingBlockEntity(worldLevel, pos.getX() + i, pos.getY(), pos.getZ() - j, worldLevel.getBlockState(new BlockPos(pos.getX() + i, pos.getY(), pos.getZ() - j))));
-                        entityList.add( new FallingBlockEntity(worldLevel, pos.getX() - i, pos.getY(), pos.getZ() + j, worldLevel.getBlockState(new BlockPos(pos.getX() - i, pos.getY(), pos.getZ() + j))));
+                    if (stage == 3) {
+                        entityList.add(new FallingBlockEntity(worldLevel, pos.getX() + i, pos.getY(), pos.getZ() - j, worldLevel.getBlockState(new BlockPos(pos.getX() + i, pos.getY(), pos.getZ() - j))));
+                        entityList.add(new FallingBlockEntity(worldLevel, pos.getX() - i, pos.getY(), pos.getZ() + j, worldLevel.getBlockState(new BlockPos(pos.getX() - i, pos.getY(), pos.getZ() + j))));
                     }
 
                 }

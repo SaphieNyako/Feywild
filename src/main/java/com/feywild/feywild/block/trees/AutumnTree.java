@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class AutumnTree extends BaseTree {
@@ -18,7 +19,7 @@ public class AutumnTree extends BaseTree {
     protected static final BlockState PODZOL_STATE = Blocks.PODZOL.defaultBlockState();
 
     @Override  //protected
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(@Nonnull Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
                 new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),

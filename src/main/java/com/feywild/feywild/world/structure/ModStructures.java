@@ -82,7 +82,8 @@ public class ModStructures {
 
     //Checks rarity of structure and determines if land conforms to it
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings,
-                                                                       boolean transformSurroundingLand) {
+                                                                       boolean transformSurroundingLand
+    ) {
 
         //add our structures into the map in Structure class
         Structure.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);  //Might return Null

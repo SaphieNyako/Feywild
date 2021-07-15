@@ -11,6 +11,9 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class ModContainers {
 
+    // TODO I'm not sure about how the defferred register stuff works but I think this could break
+    // if classes are loaded in a different order.
+    // needs testing tough
     public static final RegistryObject<ContainerType<DwarvenAnvilContainer>> DWARVEN_ANVIL_CONTAINER
             = Registration.CONTAINERS.register("dwarven_anvil_container",
             () -> IForgeContainerType.create((((windowId, inv, data) -> {
@@ -26,6 +29,6 @@ public class ModContainers {
                 return new PixieContainer(windowId, inv, inv.player, entity);
             }))));
 
-    public static void register() {}
-
+    public static void register() {
+    }
 }

@@ -16,6 +16,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -29,38 +30,33 @@ import java.util.Optional;
 
 public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEntity {
 
+    private static final int MAX_MANA = 1000;
+    private static final int FEY_DUST_MANA_COST = 50;
+
     private final ItemStackHandler itemHandler = createHandler();
     private final CustomManaStorage manaStorage = createManaStorage();
 
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
-    private final int MAX_MANA = 1000;
-    private final int FEY_DUST_MANA_COST = 50;
-    NonNullList<ItemStack> stackList = NonNullList.withSize(itemHandler.getSlots(), ItemStack.EMPTY);
-
-    private int tick = 0;
 
     private boolean canCraft;
-    private boolean dwarfPresent;
-    private int dwarvesPresent = 0;
+    ;
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
-
         super(tileEntityType);
     }
 
     public DwarvenAnvilEntity() {
-
         this(ModBlocks.DWARVEN_ANVIL_ENTITY.get());
     }
 
     @Override
     public List<ItemStack> getItems() {
+        List<ItemStack> list = NonNullList.withSize(itemHandler.getSlots(), ItemStack.EMPTY);
         for (int i = 0; i < itemHandler.getSlots(); i++) {
-            stackList.set(i, itemHandler.getStackInSlot(i));
+            list.set(i, itemHandler.getStackInSlot(i));
         }
-
-        return stackList;
+        return list;
     }
 
     private CustomManaStorage createManaStorage() {
@@ -79,33 +75,19 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         manaHandler.invalidate();
     }
 
+    @Override
     public void tick() {
-
-        if (level.isClientSide) return;
-
-        tick++;
-        //check every 20 ticks
-        if (tick == 20) {
-            //  if there is feydust in slot 0 && // if mana is still below 1000
-            if (this.itemHandler.getStackInSlot(0).getItem() == ModItems.FEY_DUST.get() && manaStorage.getManaStored() < MAX_MANA) {
-                // remove a feydust and add 50 mana
-                itemHandler.extractItem(0, 1, false);
-                manaStorage.generateMana(FEY_DUST_MANA_COST);
-
-                //reset tick
-                // tick = 0;
+        if (level != null && level instanceof ServerWorld) {
+            if (((ServerWorld) level).getServer().getTickCount() % 20 == 0) {
+                //  if there is feydust in slot 0 && // if mana is still below 1000
+                if (this.itemHandler.getStackInSlot(0).getItem() == ModItems.FEY_DUST.get() && manaStorage.getManaStored() < MAX_MANA) {
+                    // remove a feydust and add 50 mana
+                    itemHandler.extractItem(0, 1, false);
+                    manaStorage.generateMana(FEY_DUST_MANA_COST);
+                    setChanged();
+                }
             }
-
-            tick = 0;
-            //     updateInventory(-1, true);
-            setChanged(); //markDirty(); Might not be necessary here
-
         }
-
-        if (!itemHandler.getStackInSlot(0).isEmpty()) {
-
-        }
-
     }
 
 
@@ -113,22 +95,19 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     /* DATA */
 
     @Override
-    public void load(BlockState state, CompoundNBT tag) {
-
+    public void load(@Nonnull BlockState state, CompoundNBT tag) {
         //    dwarfPresent = tag.getBoolean("dwarf_present");
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         manaStorage.deserializeNBT(tag.getCompound("mana"));
-        tick = tag.getInt("counter");
         super.load(state, tag);
     }
 
+    @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.put("mana", manaStorage.serializeNBT());
-        tag.putInt("counter", tick);
         //   tag.putBoolean("dwarf_present", dwarfPresent);
-
         return super.save(tag);
     }
 
@@ -137,6 +116,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     private ItemStackHandler createHandler() {
 
         return new ItemStackHandler(8) {
+
             @Override
             protected void onContentsChanged(int slot) {
 
@@ -152,15 +132,12 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
                 /* Can we put in an item in a specific slot */
 
                 switch (slot) {
-
                     case 0:
                         return stack.getItem() == ModItems.FEY_DUST.get();
                     case 1:
-                        return stack.getItem() instanceof Schematics;
-
+                        return stack.getItem() instanceof Schematics; // TODO should use item tag
                     case 7:
-                        return stack.isEmpty();
-
+                        return false;
                     default:
                         return true;
                 }
@@ -172,17 +149,18 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
                 /* Insert Item into a specific slot */
 
+                // TODO Don't use this here
+                // maybe an abstract base class for inventories to handle stuff like this.
+                // this could then also handle getting a stack list
                 if (slot == -1) {
                     int count = Math.min(this.stacks.get(7).getMaxStackSize(), this.stacks.get(7).getCount() + stack.getCount());
                     stack.setCount(count);
                     this.stacks.set(7, stack.copy());
                     return stack;
                 } else {
-
                     if (!isItemValid(slot, stack)) {
                         return stack;
                     }
-
                     return super.insertItem(slot, stack, simulate);
                 }
             }
@@ -193,15 +171,13 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return handler.cast();
         } else if (capability == CapabilityMana.MANA) {
             return manaHandler.cast();
+        } else {
+            return super.getCapability(capability, side);
         }
-
-        return super.getCapability(capability, side);
-
     }
 
     @Override
@@ -219,7 +195,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             inv.setItem(i, itemHandler.getStackInSlot(i));
         }
 
-        Optional<DwarvenAnvilRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE, inv, level);
+        Optional<DwarvenAnvilRecipe> recipe = level == null ? Optional.empty() : level.getRecipeManager().getRecipeFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE, inv, level);
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
@@ -255,22 +231,16 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             inv.setItem(i, itemHandler.getStackInSlot(i));
         }
 
-        Optional<DwarvenAnvilRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE, inv, level);
+        Optional<DwarvenAnvilRecipe> recipe = level == null ? Optional.empty() : level.getRecipeManager().getRecipeFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE, inv, level);
 
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getResultItem();
 
             int manaUsage = iRecipe.getManaUsage();
 
-            if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
+            setCanCraft((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
                     && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() //&& dwarfPresent
-                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage) {
-
-                setCanCraft(true);
-
-            } else {
-                setCanCraft(false);
-            }
+                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage);
         });
 
     }

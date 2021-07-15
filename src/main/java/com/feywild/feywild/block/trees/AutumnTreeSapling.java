@@ -48,7 +48,6 @@ public class AutumnTreeSapling extends BaseSapling {
                 return Blocks.RED_MUSHROOM.defaultBlockState();
             case 4:
                 return Blocks.BROWN_MUSHROOM.defaultBlockState();
-
             default:
                 return Blocks.FERN.defaultBlockState();
         }

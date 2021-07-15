@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.biome;
 
-import com.feywild.feywild.util.Configs.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.world.biome.biomes.AutumnBiome;
 import com.feywild.feywild.world.biome.biomes.SpringBiome;
 import com.feywild.feywild.world.biome.biomes.SummerBiome;
@@ -37,6 +37,7 @@ public class ModBiomes {
             () -> winterBiome.biomeSetup(() -> WorldGenRegistries.CONFIGURED_SURFACE_BUILDER.getOrThrow(
                     ModConfiguredSurfaceBuilders.WINTER_SURFACE), 0.125f, (float) Config.WINTER_BIOME_CONFIG.getCachedSize()));
 
-    public static void register() {}
+    public static void register() {
+    }
 
 }

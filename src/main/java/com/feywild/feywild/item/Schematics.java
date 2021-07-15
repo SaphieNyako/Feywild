@@ -1,9 +1,6 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.util.KeyboardHelper;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;

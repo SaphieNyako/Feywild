@@ -10,7 +10,6 @@ import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.merchant.IReputationTracking;
 import net.minecraft.entity.merchant.IReputationType;
 import net.minecraft.entity.merchant.villager.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
@@ -23,6 +22,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TraderEntity extends AbstractVillagerEntity implements IReputationTracking {
@@ -30,7 +30,6 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     private static final DataParameter<VillagerData> DATA_VILLAGER_DATA = EntityDataManager.defineId(VillagerEntity.class, DataSerializers.VILLAGER_DATA);
     public Int2ObjectMap<VillagerTrades.ITrade[]> dwarvenTrades = new Int2ObjectOpenHashMap<>();
     private int villagerXp;
-    private PlayerEntity lastTradedPlayer;
     private int updateMerchantTimer;
     private boolean increaseProfessionLevelOnUpdate;
     private int villagerLevel;
@@ -45,10 +44,10 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         this.isTamed = isTamed;
     }
 
+    @Override
     protected void rewardTradeXp(MerchantOffer p_213713_1_) {
         int i = 3 + this.random.nextInt(4);
         this.villagerXp += p_213713_1_.getXp();
-        this.lastTradedPlayer = this.getTradingPlayer();
         if (this.shouldIncreaseLevel()) {
             this.updateMerchantTimer = 40;
             this.increaseProfessionLevelOnUpdate = true;
@@ -113,7 +112,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         //    compound.putInt("Level", this.getVillagerLevel());
         compound.putInt("Xp", this.villagerXp);
@@ -124,7 +123,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         //  this.levelInt = compound.getInt("level");
         if (compound.contains("Xp", 3)) {
@@ -136,6 +135,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
 
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_VILLAGER_DATA, new VillagerData(VillagerType.PLAINS, VillagerProfession.TOOLSMITH, 1));
@@ -146,6 +146,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         return VillagerData.canLevelUp(i) && this.villagerXp >= VillagerData.getMaxXpPerLevel(i);
     }
 
+    @Override
     protected void customServerAiStep() {
 
         if (!this.isTrading() && this.updateMerchantTimer > 0) {
@@ -183,6 +184,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         this.entityData.set(DATA_VILLAGER_DATA, p_213753_1_);
     }
 
+    @Override
     public int getVillagerXp() {
         return this.villagerXp;
     }
@@ -192,13 +194,13 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     }
 
     @Override
-    public void onReputationEventFrom(IReputationType p_213739_1_, Entity p_213739_2_) {
+    public void onReputationEventFrom(@Nonnull IReputationType p_213739_1_, @Nonnull Entity p_213739_2_) {
         //gossips added normally
     }
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) {
+    public AgeableEntity getBreedOffspring(@Nonnull ServerWorld p_241840_1_, @Nonnull AgeableEntity p_241840_2_) {
         return null;
     }
 
@@ -231,6 +233,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
 
     /* RESTOCK */
 
+    @Override
     public boolean canRestock() {
         return true;
     }
@@ -305,5 +308,4 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         this.catchUpDemand();
         this.numberOfRestocksToday = 0;
     }
-
 }

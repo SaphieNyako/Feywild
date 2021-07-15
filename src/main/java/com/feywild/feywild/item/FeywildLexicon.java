@@ -1,11 +1,8 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.util.KeyboardHelper;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -16,6 +13,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class FeywildLexicon extends TooltipItem {
@@ -24,8 +22,9 @@ public class FeywildLexicon extends TooltipItem {
         super(p_i48487_1_);
     }
 
+    @Nonnull
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> use(@Nonnull World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
         ItemStack stack = playerIn.getItemInHand(handIn);
 
         if (playerIn instanceof ServerPlayerEntity) {

@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class AutumnTreeLog extends Block {
@@ -32,24 +33,25 @@ public class AutumnTreeLog extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder builder) {
-
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN, AXIS);
-
     }
 
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.
 
+    @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.defaultBlockState().setValue(GROWN, Boolean.valueOf(false))
+        return this.defaultBlockState().setValue(GROWN, false)
                 .setValue(AXIS, context.getClickedFace().getAxis());
     }
 
-    public BlockState rotate(BlockState state, Rotation rot) {
+    @Nonnull
+    @Override
+    public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
         switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:
-                switch ((Direction.Axis) state.getValue(AXIS)) {
+                switch (state.getValue(AXIS)) {
                     case X:
                         return state.setValue(AXIS, Direction.Axis.Z);
                     case Z:
@@ -62,49 +64,42 @@ public class AutumnTreeLog extends Block {
         }
     }
 
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    @Nonnull
+    @Override
+    public BlockState updateShape(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
 
         worldIn.getBlockTicks().scheduleTick(currentPos, this, 1);
 
         return stateIn;
     }
 
+    // TODO i feel placing mushrooms here is the wrong way of doing it.
+    // Could cause incompatibilities with other mods I think
     @Override
-    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState oldState, boolean isMoving) {
 
         Random rand = new Random();
 
         if (!worldIn.isClientSide && state.getValue(AutumnTreeLog.GROWN))
             if (rand.nextDouble() < 0.05) {
-
                 if (worldIn.isEmptyBlock(pos.north())) {
 
                     worldIn.setBlockAndUpdate(pos.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState());
-                    return;
-                }
-
-                if (worldIn.isEmptyBlock(pos.east())) {
+                } else if (worldIn.isEmptyBlock(pos.east())) {
 
                     Rotation rotation = Rotation.CLOCKWISE_90;
 
                     worldIn.setBlockAndUpdate(pos.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation));
-                    return;
-                }
-
-                if (worldIn.isEmptyBlock(pos.south())) {
+                } else if (worldIn.isEmptyBlock(pos.south())) {
 
                     Rotation rotation = Rotation.CLOCKWISE_180;
 
                     worldIn.setBlockAndUpdate(pos.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation));
-                    return;
-                }
-
-                if (worldIn.isEmptyBlock(pos.west())) {
+                } else if (worldIn.isEmptyBlock(pos.west())) {
 
                     Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
 
                     worldIn.setBlockAndUpdate(pos.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().rotate(ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), rotation));
-                    return;
                 }
             }
     }
