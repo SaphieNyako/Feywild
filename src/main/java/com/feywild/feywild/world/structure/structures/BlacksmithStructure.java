@@ -66,6 +66,7 @@ public class BlacksmithStructure extends BaseStructure {
             return STRUCTURE_CREATURES;
         }
     */
+    @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return BlacksmithStructure.Start::new;

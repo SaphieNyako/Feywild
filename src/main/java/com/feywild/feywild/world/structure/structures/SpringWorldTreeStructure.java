@@ -71,6 +71,7 @@ public class SpringWorldTreeStructure extends BaseStructure {
         return STRUCTURE_CREATURES;
     }
 
+    @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
 

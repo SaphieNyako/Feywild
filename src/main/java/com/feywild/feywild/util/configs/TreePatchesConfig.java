@@ -11,7 +11,7 @@ public class TreePatchesConfig extends AbstractConfig {
     protected boolean spawnSummer;
     protected boolean spawnAutumn;
     protected boolean spawnWinter;
-    
+
     protected double spawnChance;
     protected int spawnSize;
 

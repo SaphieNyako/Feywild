@@ -50,6 +50,7 @@ public class SummerWorldTreeStructure extends BaseStructure {
         return SEED_MODIFIER;
     }
 
+    @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return SummerWorldTreeStructure.Start::new;

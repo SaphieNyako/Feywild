@@ -13,7 +13,7 @@ import net.minecraft.util.text.ITextComponent;
 import javax.annotation.Nonnull;
 
 public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
-    
+
     private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/dwarven_anvil_gui.png");
     private DwarvenAnvilContainer container;
 

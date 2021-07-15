@@ -23,8 +23,8 @@ import java.util.concurrent.Executor;
 public class UtilManager implements IFutureReloadListener {
 
     private static final Gson GSON = new GsonBuilder().create();
+    private static final String[] utilJson = new String[]{"feywild_util"};
     private static UtilManager instance;
-    private static final String[] utilJson = new String[]{ "feywild_util" };
 
     public static UtilManager instance() {
         if (instance == null) {

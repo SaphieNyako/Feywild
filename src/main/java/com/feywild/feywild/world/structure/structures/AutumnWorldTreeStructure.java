@@ -50,6 +50,7 @@ public class AutumnWorldTreeStructure extends BaseStructure {
         return SEED_MODIFIER;
     }
 
+    @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return AutumnWorldTreeStructure.Start::new;
