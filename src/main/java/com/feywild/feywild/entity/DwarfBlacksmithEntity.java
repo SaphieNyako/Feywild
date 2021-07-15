@@ -207,7 +207,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         if (summonPos != null) {
             compound.putInt("summonPos_X", summonPos.getX());
@@ -223,7 +223,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         if (compound.contains("summonPos_X"))
             summonPos = new BlockPos(compound.getInt("summonPos_X"), compound.getInt("summonPos_Y"), compound.getInt("summonPos_Z"));
@@ -356,7 +356,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
 
     }
 

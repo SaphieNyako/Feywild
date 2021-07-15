@@ -21,5 +21,4 @@ public class Schematics extends TooltipItem {
     public List<ITextComponent> getTooltip(ItemStack stack, World world) {
         return ImmutableList.of(text);
     }
-
 }

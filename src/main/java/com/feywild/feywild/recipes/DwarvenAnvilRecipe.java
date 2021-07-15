@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+// TODO I'm always wondering why the recipes are defined as interface and then implemented as concrete class.
+// Can't we get rid of it?
 public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
 
     private final ResourceLocation id;

@@ -50,6 +50,7 @@ public class LibraryStructure extends BaseStructure {
         return SEED_MODIFIER;
     }
 
+    @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return LibraryStructure.Start::new;

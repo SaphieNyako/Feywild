@@ -80,8 +80,9 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         entity.addTag("spring_quest_pixie");
     }
 
+    @Nonnull
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
         if (!player.getCommandSenderWorld().isClientSide && !player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {  //&& player.getItemInHand(hand).isEmpty()
@@ -131,8 +132,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        AnimationController flyingController = new AnimationController(this, "flyingController", 0, this::flyingPredicate);
-        AnimationController castingController = new AnimationController(this, "castingController", 0, this::castingPredicate);
+        AnimationController<SpringPixieEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<SpringPixieEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
 
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);

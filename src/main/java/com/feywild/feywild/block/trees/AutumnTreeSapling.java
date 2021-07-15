@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class AutumnTreeSapling extends BaseSapling {
@@ -14,7 +15,7 @@ public class AutumnTreeSapling extends BaseSapling {
     }
 
     @Override
-    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(@Nonnull ServerWorld worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, BlockState state) {
 
         super.performBonemeal(worldIn, rand, pos, state);
 

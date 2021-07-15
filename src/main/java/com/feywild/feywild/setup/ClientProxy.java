@@ -46,8 +46,6 @@ public class ClientProxy implements IProxy {
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
                 FeyAltarRenderer::new);
-
-
     }
 
     @Override
@@ -71,7 +69,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntityRenderer(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get(), ElectrifiedGroundRenderer::new);
 
         ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
-
     }
 
     // TODO remove. You can directly access the world if careful. Or use the one proxy initialised in the mod object to access it.
@@ -80,5 +77,4 @@ public class ClientProxy implements IProxy {
     public World getClientWorld() {
         return Minecraft.getInstance().level;
     }
-
 }

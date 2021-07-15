@@ -32,6 +32,8 @@ public class SummoningScrollAutumnPixie extends TooltipItem {
         super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
+    // TODO base class for all summoning scrolls and another base class for fey summoning scrolls
+    // Subclasses will probably no longer be needed.
     @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {

@@ -151,15 +151,13 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder builder) {
-
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(DISTANCE, PERSISTENT);
-
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return updateDistance(this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)), context.getLevel(), context.getClickedPos());
+        return updateDistance(this.defaultBlockState().setValue(PERSISTENT, true), context.getLevel(), context.getClickedPos());
     }
 
 }

@@ -17,7 +17,7 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void animateTick(@Nonnull BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
 
         super.animateTick(stateIn, worldIn, pos, rand);
 

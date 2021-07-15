@@ -9,6 +9,7 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
+// TODO stop magic numbers
 public class DataMessage {
 
     public int data;

@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -15,6 +14,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Objects;
 
 public class FeywildLexicon extends TooltipItem {
 
@@ -28,9 +28,7 @@ public class FeywildLexicon extends TooltipItem {
         ItemStack stack = playerIn.getItemInHand(handIn);
 
         if (playerIn instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
-
-            PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getKey(this));
+            PatchouliAPI.get().openBookGUI((ServerPlayerEntity) playerIn, Objects.requireNonNull(this.getRegistryName()));
         }
 
         return new ActionResult<>(ActionResultType.PASS, stack);
@@ -40,5 +38,4 @@ public class FeywildLexicon extends TooltipItem {
     public List<ITextComponent> getTooltip(ItemStack stack, World world) {
         return ImmutableList.of(new TranslationTextComponent("message.feywild.feywild_lexicon"));
     }
-
 }

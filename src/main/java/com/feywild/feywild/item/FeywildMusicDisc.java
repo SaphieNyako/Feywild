@@ -46,5 +46,4 @@ public class FeywildMusicDisc extends MusicDiscItem {
     public IFormattableTextComponent getDisplayName() {
         return new TranslationTextComponent("message.feywild.music_disc_feywild_2");
     }
-
 }

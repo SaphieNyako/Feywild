@@ -32,16 +32,16 @@ public class FeyDust extends TooltipItem {
     @Nonnull
     @Override
     public ActionResultType interactLivingEntity(@Nonnull ItemStack stack, PlayerEntity playerIn, @Nonnull LivingEntity target, @Nonnull Hand hand) {
-        if (playerIn.level.isClientSide()) return ActionResultType.SUCCESS;
+        if (!playerIn.level.isClientSide) {
 
-        if (target instanceof SheepEntity) {
-            target.addEffect(new EffectInstance(Effects.LEVITATION, 60, 2));
+            if (target instanceof SheepEntity) {
+                target.addEffect(new EffectInstance(Effects.LEVITATION, 60, 2));
+            } else {
+                target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
+            }
 
-        } else {
-            target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
+            stack.shrink(1);
         }
-
-        stack.shrink(1);
 
         return ActionResultType.SUCCESS;
     }

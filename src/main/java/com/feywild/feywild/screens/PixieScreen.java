@@ -15,8 +15,7 @@ import javax.annotation.Nonnull;
 
 public class PixieScreen extends Screen {
 
-    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID,
-            "textures/gui/pixie_quest_gui.png");
+    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/pixie_quest_gui.png");
     int lines, quest;
     int xPos = 0;
     boolean canSkip;
@@ -77,6 +76,5 @@ public class PixieScreen extends Screen {
                 xPos += Minecraft.getInstance().font.width(string[j].replace("g&", "").replace("r&", "").replace("y&", "").replace("b&", "")) + 5;
             }
         }
-
     }
 }

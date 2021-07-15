@@ -52,4 +52,5 @@ public class FeywildPacketHandler {
     }
 
     //Ancient's note : I hate networking -_- switch to singleplayer :P
+    //noeppi's note: Networking is not that bad once you have the basics running
 }

@@ -50,6 +50,7 @@ public class WinterWorldTreeStructure extends BaseStructure {
         return SEED_MODIFIER;
     }
 
+    @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return WinterWorldTreeStructure.Start::new;

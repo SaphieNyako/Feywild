@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// TODO not sure about this but would be a separate package for JEI better to keep things more organised
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.MOD_ID, "fey_altar");
@@ -28,9 +29,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
         this.helper = helper;
         //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
         background = helper.createDrawable(location, 0, 0, 85, 85);
-
         icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.FEY_ALTAR.get()));
-
     }
 
     @Nonnull

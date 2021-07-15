@@ -40,7 +40,6 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
 
     private boolean canCraft;
-    ;
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
         super(tileEntityType);

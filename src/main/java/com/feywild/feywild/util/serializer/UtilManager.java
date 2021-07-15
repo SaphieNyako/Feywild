@@ -23,8 +23,8 @@ import java.util.concurrent.Executor;
 public class UtilManager implements IFutureReloadListener {
 
     private static final Gson GSON = new GsonBuilder().create();
+    private static final String[] utilJson = new String[]{"feywild_util"};
     private static UtilManager instance;
-    private static String[] utilJson = {"feywild_util"};
 
     public static UtilManager instance() {
         if (instance == null) {
@@ -33,6 +33,7 @@ public class UtilManager implements IFutureReloadListener {
         return instance;
     }
 
+    // TODO add a method to handle all the reload methods as they are pretty similar
     @Nonnull
     @Override
     public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {

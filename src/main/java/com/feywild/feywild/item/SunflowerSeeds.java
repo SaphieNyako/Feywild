@@ -20,6 +20,10 @@ public class SunflowerSeeds extends Item {
     @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {
+        // TODO currently replaces all blockes, even bedrock
+        // TODO plant can only be broken at the second block from the bottom up
+        // TODO mining the plant will give you two seeds so you can duplicate them without any bonemeal
+        // Same goes for the dandelion
         BlockPos pos = context.getClickedPos().above();
         if (!context.getLevel().isClientSide && context.getLevel().getBlockState(context.getClickedPos()).is(Blocks.GRASS_BLOCK)) {
             context.getLevel().setBlock(pos, ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);
