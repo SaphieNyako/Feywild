@@ -41,7 +41,8 @@ public class ModEntityTypes {
                     .sized(1, 1)
                     .build(new ResourceLocation(FeywildMod.MOD_ID + "dwarf_blacksmith").toString()));
 
-    public static void register() {}
+    public static void register() {
+    }
 
     /* CUSTOM CONDITIONS */
     public static boolean spawnFey(EntityType<? extends FeyEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {

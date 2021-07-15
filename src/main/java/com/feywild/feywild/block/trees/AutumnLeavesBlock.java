@@ -30,7 +30,7 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
         }
 
     }
-    
+
     // TODO i feel placing mushrooms here is the wrong way of doing it.
     // Could cause incompatibilities with other mods I think
     @Override

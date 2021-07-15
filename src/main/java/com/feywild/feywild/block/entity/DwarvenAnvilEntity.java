@@ -32,14 +32,15 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
     private static final int MAX_MANA = 1000;
     private static final int FEY_DUST_MANA_COST = 50;
-    
+
     private final ItemStackHandler itemHandler = createHandler();
     private final CustomManaStorage manaStorage = createManaStorage();
 
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
-    
-    private boolean canCraft;;
+
+    private boolean canCraft;
+    ;
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
@@ -115,7 +116,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     private ItemStackHandler createHandler() {
 
         return new ItemStackHandler(8) {
-            
+
             @Override
             protected void onContentsChanged(int slot) {
 

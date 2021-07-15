@@ -10,7 +10,6 @@ import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.merchant.IReputationTracking;
 import net.minecraft.entity.merchant.IReputationType;
 import net.minecraft.entity.merchant.villager.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;

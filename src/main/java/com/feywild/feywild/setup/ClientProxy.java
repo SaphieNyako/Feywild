@@ -48,7 +48,6 @@ public class ClientProxy implements IProxy {
                 FeyAltarRenderer::new);
 
 
-
     }
 
     @Override

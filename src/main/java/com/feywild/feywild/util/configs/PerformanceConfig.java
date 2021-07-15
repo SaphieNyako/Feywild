@@ -46,6 +46,7 @@ public class PerformanceConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
+
     @Override
     public AbstractConfig clone() {
         return null;

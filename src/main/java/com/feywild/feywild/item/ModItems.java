@@ -2,8 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.util.configs.Config;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -171,7 +171,8 @@ public class ModItems {
 
     //METHODES
 
-    public static void register() {}
+    public static void register() {
+    }
 
     public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())));

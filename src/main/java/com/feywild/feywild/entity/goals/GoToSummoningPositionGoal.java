@@ -28,8 +28,8 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal {
     @Override
     public void start() {
         super.start();
-        if(distanceFrom(entity.blockPosition(),summoningPosition) > maxMovementRange * 2 ){
-            entity.setPos(summoningPosition.getX()+0.5,summoningPosition.getY()+1,summoningPosition.getZ()+0.5);
+        if (distanceFrom(entity.blockPosition(), summoningPosition) > maxMovementRange * 2) {
+            entity.setPos(summoningPosition.getX() + 0.5, summoningPosition.getY() + 1, summoningPosition.getZ() + 0.5);
         }
     }
 

@@ -34,28 +34,28 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
         super.render(tileEntityIn, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         if (tileEntityIn.isEmpty() && tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock() instanceof ClientDataBlock) {
             // Initialize
-                int data = ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).getData();
-                int lightLevel = getLightLevel(tileEntityIn.getLevel(), tileEntityIn.getBlockPos().above());
-                // Another init just so I don't have to deal with the AtomicDouble
-                double shiftX, shiftZ;
+            int data = ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).getData();
+            int lightLevel = getLightLevel(tileEntityIn.getLevel(), tileEntityIn.getBlockPos().above());
+            // Another init just so I don't have to deal with the AtomicDouble
+            double shiftX, shiftZ;
 
-                lerp = data == 1 ? lerp-0.01d : 1;
+            lerp = data == 1 ? lerp - 0.01d : 1;
 
-                //Loop through items and render them
-                for (int i = 0; i < tileEntityIn.getContainerSize(); i++) {
-                    //shift position for items
-                    shiftX = Math.cos(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) /8) / 2 * lerp;
-                    shiftZ = Math.sin(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2 * lerp;
-                    //render item
-                    if(lerp < 1)
-                    tileEntityIn.getLevel().addParticle(ParticleTypes.END_ROD,true,tileEntityIn.getBlockPos().getX()+0.5d + shiftX, tileEntityIn.getBlockPos().getY()+1d + 1- lerp, tileEntityIn.getBlockPos().getZ()+0.5d + shiftZ,0,0,0);
-                    renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d + 1- lerp, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, 999999999, lightLevel, 0.85f);
-                }
-                if(lerp <= 0.07){
-                    ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).setData(0);
-                    lerp = 1;
-                }
+            //Loop through items and render them
+            for (int i = 0; i < tileEntityIn.getContainerSize(); i++) {
+                //shift position for items
+                shiftX = Math.cos(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2 * lerp;
+                shiftZ = Math.sin(((tileEntityIn.getLevel().getGameTime()) + partialTicks + (i * 10)) / 8) / 2 * lerp;
+                //render item
+                if (lerp < 1)
+                    tileEntityIn.getLevel().addParticle(ParticleTypes.END_ROD, true, tileEntityIn.getBlockPos().getX() + 0.5d + shiftX, tileEntityIn.getBlockPos().getY() + 1d + 1 - lerp, tileEntityIn.getBlockPos().getZ() + 0.5d + shiftZ, 0, 0, 0);
+                renderItem(tileEntityIn.getItem(i), new double[]{0.5d + shiftX, 1d + 1 - lerp, 0.5d + shiftZ}, Vector3f.YP.rotation((tileEntityIn.getLevel().getGameTime() + partialTicks) / 20), matrixStackIn, bufferIn, partialTicks, 999999999, lightLevel, 0.85f);
             }
+            if (lerp <= 0.07) {
+                ((ClientDataBlock) tileEntityIn.getLevel().getBlockState(tileEntityIn.getBlockPos()).getBlock()).setData(0);
+                lerp = 1;
+            }
+        }
     }
 
     // render the item

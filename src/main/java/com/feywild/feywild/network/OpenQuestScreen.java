@@ -10,11 +10,12 @@ public class OpenQuestScreen {
 
     int lines, quest;
     boolean canSkip;
+
     //Read msg from buf
     public OpenQuestScreen(PacketBuffer buf) {
         lines = buf.readInt();
         quest = buf.readInt();
-         canSkip = buf.readBoolean();
+        canSkip = buf.readBoolean();
     }
 
     //constructor
@@ -34,13 +35,13 @@ public class OpenQuestScreen {
 
     //handle package data
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork( () -> {
-            try{
-                if(ctx.get().getDirection().getReceptionSide().isClient()) {
+        ctx.get().enqueueWork(() -> {
+            try {
+                if (ctx.get().getDirection().getReceptionSide().isClient()) {
                     ClientUtil.openQuestScreen(quest, lines, canSkip);
                     ctx.get().setPacketHandled(true);
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 ctx.get().setPacketHandled(false);
                 e.printStackTrace();
             }

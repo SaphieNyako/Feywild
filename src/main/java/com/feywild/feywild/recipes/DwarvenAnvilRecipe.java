@@ -41,7 +41,9 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
 
     }
 
-    public List<Ingredient> getInputs() { return inputs;}
+    public List<Ingredient> getInputs() {
+        return inputs;
+    }
 
     @Override
     public boolean matches(@Nonnull IInventory inv, @Nonnull World worldIn) {

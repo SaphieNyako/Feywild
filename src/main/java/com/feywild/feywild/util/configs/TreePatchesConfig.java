@@ -34,11 +34,11 @@ public class TreePatchesConfig extends AbstractConfig {
     private int cachedSpawnSize = -1;
 
     //CONSTRUCTOR boolean concurrent has to be added...
-    public TreePatchesConfig( boolean spawnSpring,boolean spawnSummer, boolean spawnAutumn, boolean spawnWinter, double spawnChance, int spawnSize) {
-        this( spawnSpring,spawnSummer,spawnAutumn,spawnWinter,spawnChance,spawnSize, true);
+    public TreePatchesConfig(boolean spawnSpring, boolean spawnSummer, boolean spawnAutumn, boolean spawnWinter, double spawnChance, int spawnSize) {
+        this(spawnSpring, spawnSummer, spawnAutumn, spawnWinter, spawnChance, spawnSize, true);
     }
 
-    public TreePatchesConfig( boolean spawnSpring,boolean spawnSummer, boolean spawnAutumn, boolean spawnWinter, double spawnChance, int spawnSize, boolean concurrent) {
+    public TreePatchesConfig(boolean spawnSpring, boolean spawnSummer, boolean spawnAutumn, boolean spawnWinter, double spawnChance, int spawnSize, boolean concurrent) {
         super(concurrent);
         this.spawnSpring = spawnSpring;
         this.spawnSummer = spawnSummer;
@@ -98,8 +98,8 @@ public class TreePatchesConfig extends AbstractConfig {
         configSpawnSummer = builder.comment("Spawn summer tree.").define("spawnSummerTree", spawnSummer);
         configSpawnWinter = builder.comment("Spawn spring tree.").define("spawnWinterTree", spawnWinter);
 
-        configSpawnChance = builder.comment("Tree patch spawn chance.").defineInRange("spawnChance", spawnChance, 0,1);
-        configSpawnSize = builder.comment("Tree patch size.").defineInRange("spawnSize", spawnSize, 0,10);
+        configSpawnChance = builder.comment("Tree patch spawn chance.").defineInRange("spawnChance", spawnChance, 0, 1);
+        configSpawnSize = builder.comment("Tree patch size.").defineInRange("spawnSize", spawnSize, 0, 10);
     }
 
     protected void postApply(ForgeConfigSpec.Builder builder) {
@@ -111,6 +111,7 @@ public class TreePatchesConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
+
     @Override
     public AbstractConfig clone() {
         return null;

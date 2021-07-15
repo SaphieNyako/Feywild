@@ -55,7 +55,8 @@ public class ModOreGeneration {
     }
 
     private static void addFeatureToBiome(Biome biome, GenerationStage.Decoration decoration
-            , ConfiguredFeature<?, ?> configuredFeature) {
+            , ConfiguredFeature<?, ?> configuredFeature
+    ) {
         List<List<Supplier<ConfiguredFeature<?, ?>>>> biomeFeatures = new ArrayList<>(
                 biome.getGenerationSettings().features()
         );

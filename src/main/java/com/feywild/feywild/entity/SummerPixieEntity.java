@@ -50,9 +50,9 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SummerPixieEntity.class,
             DataSerializers.BOOLEAN);
+    private final AnimationFactory factory = new AnimationFactory(this);
     public BlockPos summonPos;
     private boolean tamed = false;
-    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public SummerPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -163,7 +163,8 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     /* GOALS */
 
     @Override
-    protected void registerGoals() {}
+    protected void registerGoals() {
+    }
 
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())

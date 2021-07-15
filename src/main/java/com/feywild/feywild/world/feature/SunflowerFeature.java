@@ -28,9 +28,9 @@ public class SunflowerFeature extends Feature<NoFeatureConfig> {
             BlockPos blockpos = pos.offset(rand.nextInt(6) - rand.nextInt(6), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(6) - rand.nextInt(6));
 
             if (world.getBlockState(blockpos).isAir(world, blockpos)
-                    && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK )) {
-                if(rand.nextInt(4) == 0)
-                    spawnFlower(world,blockpos);
+                    && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK)) {
+                if (rand.nextInt(4) == 0)
+                    spawnFlower(world, blockpos);
             }
 
             ++check;
@@ -39,7 +39,7 @@ public class SunflowerFeature extends Feature<NoFeatureConfig> {
         return check > 0;
     }
 
-    public void spawnFlower(ISeedReader world , BlockPos pos) {
+    public void spawnFlower(ISeedReader world, BlockPos pos) {
         world.setBlock(pos, ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);
         world.setBlock(pos.above(1), ModBlocks.SUNFLOWER_STEM.get().defaultBlockState().setValue(SunflowerStem.HAS_MODEL, true), 2, 1);
         world.setBlock(pos.above(2), ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);

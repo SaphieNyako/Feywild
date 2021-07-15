@@ -18,18 +18,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public class QuestManager implements IFutureReloadListener {
+
     private static final Gson GSON = new GsonBuilder().create();
     private static QuestManager instance;
 
-    public static QuestManager instance()
-    {
-        if(instance == null)
-        {
+    public static QuestManager instance() {
+        if (instance == null) {
             instance = new QuestManager();
         }
         return instance;
     }
-
 
 
     @Nonnull
@@ -45,18 +43,18 @@ public class QuestManager implements IFutureReloadListener {
 
             resources.forEach(resourceLocation -> {
 
-                    try (InputStream stream = iResourceManager.getResource(resourceLocation).getInputStream();  Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))){
+                try (InputStream stream = iResourceManager.getResource(resourceLocation).getInputStream(); Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
 
-                        Quest quest = serializer.deserialize(Objects.requireNonNull(JSONUtils.fromJson(GSON, reader, JsonObject.class)));
+                    Quest quest = serializer.deserialize(Objects.requireNonNull(JSONUtils.fromJson(GSON, reader, JsonObject.class)));
 
-                        if(!QuestMap.quests.contains(quest))
-                            QuestMap.quests.add(quest);
+                    if (!QuestMap.quests.contains(quest))
+                        QuestMap.quests.add(quest);
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        System.out.print("You are not abiding by the rules of the feywild! (Quest setup is wrong)");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.print("You are not abiding by the rules of the feywild! (Quest setup is wrong)");
                 }
             });
-        },executor)).thenCompose(iStage::wait);
+        }, executor)).thenCompose(iStage::wait);
     }
 }

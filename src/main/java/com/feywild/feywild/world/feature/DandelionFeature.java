@@ -29,9 +29,9 @@ public class DandelionFeature extends Feature<NoFeatureConfig> {
             BlockPos blockpos = pos.offset(rand.nextInt(6) - rand.nextInt(6), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(6) - rand.nextInt(6));
 
             if (world.getBlockState(blockpos).isAir(world, blockpos)
-                    && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK )) {
-                if(rand.nextInt(4) == 0)
-                    spawnFlower(world,blockpos, rand);
+                    && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK)) {
+                if (rand.nextInt(4) == 0)
+                    spawnFlower(world, blockpos, rand);
             }
 
             ++check;
@@ -40,11 +40,11 @@ public class DandelionFeature extends Feature<NoFeatureConfig> {
         return check > 0;
     }
 
-    public void spawnFlower(ISeedReader world , BlockPos pos,Random random) {
+    public void spawnFlower(ISeedReader world, BlockPos pos, Random random) {
         world.setBlock(pos, ModBlocks.DANDELION_STEM.get().defaultBlockState(), 2, 1);
         world.setBlock(pos.above(1), ModBlocks.DANDELION_STEM.get().defaultBlockState().setValue(DandelionStem.HAS_MODEL, true), 2, 1);
         world.setBlock(pos.above(2), ModBlocks.DANDELION_STEM.get().defaultBlockState(), 2, 1);
-        world.setBlock(pos.above(3), ModBlocks.DANDELION.get().defaultBlockState().setValue(Dandelion.VARIANT,random.nextInt(3)), 2, 1);
+        world.setBlock(pos.above(3), ModBlocks.DANDELION.get().defaultBlockState().setValue(Dandelion.VARIANT, random.nextInt(3)), 2, 1);
     }
 
 }

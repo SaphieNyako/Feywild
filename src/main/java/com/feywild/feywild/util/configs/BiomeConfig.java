@@ -58,6 +58,7 @@ public class BiomeConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
+
     @Override
     public AbstractConfig clone() {
         return null;

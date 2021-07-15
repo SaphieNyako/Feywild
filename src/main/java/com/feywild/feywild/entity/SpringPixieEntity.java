@@ -20,7 +20,10 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.scoreboard.Score;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
@@ -46,11 +49,11 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
             DataSerializers.BOOLEAN);
+    //Geckolib variable
+    private final AnimationFactory factory = new AnimationFactory(this);
     public BlockPos summonPos;
     //TAMED variable
     private boolean tamed = false;
-    //Geckolib variable
-    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public SpringPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -155,7 +158,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     /* GOALS */
 
     @Override
-    protected void registerGoals() { }
+    protected void registerGoals() {
+    }
 
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())

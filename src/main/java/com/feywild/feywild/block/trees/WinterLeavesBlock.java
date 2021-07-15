@@ -17,18 +17,16 @@ public class WinterLeavesBlock extends FeyLeavesBlock {
         if (!worldIn.isClientSide && !state.getValue(WinterLeavesBlock.PERSISTENT) && worldIn.isEmptyBlock(pos.above())) {
 
             worldIn.setBlockAndUpdate(pos.above(), Blocks.SNOW.defaultBlockState());
-        }else
+        } else if (!worldIn.isClientSide && !state.getValue(WinterLeavesBlock.PERSISTENT) && worldIn.getBlockState(pos.below()).isAir()) {
 
-        if (!worldIn.isClientSide && !state.getValue(WinterLeavesBlock.PERSISTENT) && worldIn.getBlockState(pos.below()).isAir()) {
+            for (int i = 0; i < 30; i++) {
+                if (worldIn.getBlockState(pos.below(i)).isAir() && (worldIn.getBlockState(pos.below(i + 1)).getBlock() instanceof GrassBlock)) {
+                    worldIn.setBlock(pos.below(i), Blocks.SNOW.defaultBlockState(), 2);
 
-           for(int i = 0; i < 30; i++){
-               if(worldIn.getBlockState(pos.below(i)).isAir() && (worldIn.getBlockState(pos.below(i + 1)).getBlock() instanceof GrassBlock) ) {
-                   worldIn.setBlock(pos.below(i), Blocks.SNOW.defaultBlockState(), 2);
-
-                   if (worldIn.getBlockState(pos.below(i + 1)).hasProperty(SnowyDirtBlock.SNOWY))
-                       worldIn.setBlock(pos.below(i + 1), worldIn.getBlockState(pos.below(i+1)).setValue(SnowyDirtBlock.SNOWY, true), 2);
-               }
-           }
+                    if (worldIn.getBlockState(pos.below(i + 1)).hasProperty(SnowyDirtBlock.SNOWY))
+                        worldIn.setBlock(pos.below(i + 1), worldIn.getBlockState(pos.below(i + 1)).setValue(SnowyDirtBlock.SNOWY, true), 2);
+                }
+            }
         }
     }
 

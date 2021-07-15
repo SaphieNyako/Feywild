@@ -72,7 +72,7 @@ public class AutumnTreeLog extends Block {
 
         return stateIn;
     }
-    
+
     // TODO i feel placing mushrooms here is the wrong way of doing it.
     // Could cause incompatibilities with other mods I think
     @Override

@@ -9,7 +9,8 @@ public class CustomManaStorage extends ManaStorage implements INBTSerializable<C
         super(capacity, 0, maxTransfer);
     }
 
-    protected void onManaChanged() {}
+    protected void onManaChanged() {
+    }
 
     public void setMana(int mana) {
 
@@ -58,7 +59,9 @@ public class CustomManaStorage extends ManaStorage implements INBTSerializable<C
         return super.canReceive();
     }
 
-    public boolean isFullMana() { return getManaStored() >= getMaxManaStored(); }
+    public boolean isFullMana() {
+        return getManaStored() >= getMaxManaStored();
+    }
 
     @Override
     public CompoundNBT serializeNBT() {

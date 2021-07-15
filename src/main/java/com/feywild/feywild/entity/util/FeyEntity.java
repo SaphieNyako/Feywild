@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class FeyEntity extends CreatureEntity {
-    
+
     protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -180,7 +180,7 @@ public abstract class FeyEntity extends CreatureEntity {
 
     /* MOVEMENT */
     public class FeyWildPanic extends Goal {
-        
+
         private Vector3d targetPos;
         private FeyEntity entity;
         private int range;
@@ -198,7 +198,7 @@ public abstract class FeyEntity extends CreatureEntity {
             super.start();
             targetPos = position();
 
-            if(targetPos.distanceTo(this.entity.position()) < 1.4){
+            if (targetPos.distanceTo(this.entity.position()) < 1.4) {
                 do {
                     this.targetPos = new Vector3d(entity.getX() - range + random.nextInt(range * 2), entity.getY() - range + random.nextInt(range * 2), entity.getZ() - range + random.nextInt(range * 2));
                 } while (!level.getBlockState(new BlockPos(this.targetPos.x(), this.targetPos.y(), this.targetPos.z())).isAir()); //if air go to location, otherwise repeat(do)

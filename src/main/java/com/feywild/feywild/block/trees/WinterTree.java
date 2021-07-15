@@ -16,6 +16,7 @@ public class WinterTree extends BaseTree {
 
 
     protected static final BlockState SNOW = Blocks.GOLD_BLOCK.defaultBlockState();
+
     @Override  //protected
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(@Nonnull Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(

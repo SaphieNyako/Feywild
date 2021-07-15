@@ -12,7 +12,7 @@ public class TradeData {
 
     private final ItemStack stackIn;
 
-    public TradeData(int maxUses, int givenXP, float priceMultiplier, ItemStack stackIn){
+    public TradeData(int maxUses, int givenXP, float priceMultiplier, ItemStack stackIn) {
         this.maxUses = maxUses;
         this.givenXP = givenXP;
         this.priceMultiplier = priceMultiplier;

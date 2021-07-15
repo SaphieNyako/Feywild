@@ -29,5 +29,6 @@ public class ModContainers {
                 return new PixieContainer(windowId, inv, inv.player, entity);
             }))));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

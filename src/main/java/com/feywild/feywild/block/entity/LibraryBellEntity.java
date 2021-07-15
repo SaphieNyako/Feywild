@@ -24,34 +24,33 @@ public class LibraryBellEntity extends TileEntity {
         return annoyance;
     }
 
-    public void setLibrarian(Entity librarian) {
-        this.librarian = librarian;
-    }
-
-    public void setPlayerEntity(PlayerEntity playerEntity) {
-        this.playerEntity = playerEntity;
-    }
-
     public void setAnnoyance(int annoyance) {
         this.annoyance = annoyance;
-    }
-
-    public void setSecurity(Entity security) {
-        this.security = security;
     }
 
     public PlayerEntity getPlayerEntity() {
         return playerEntity;
     }
 
+    public void setPlayerEntity(PlayerEntity playerEntity) {
+        this.playerEntity = playerEntity;
+    }
+
     public Entity getLibrarian() {
         return librarian;
+    }
+
+    public void setLibrarian(Entity librarian) {
+        this.librarian = librarian;
     }
 
     public Entity getSecurity() {
         return security;
     }
 
+    public void setSecurity(Entity security) {
+        this.security = security;
+    }
 
     @Override
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
@@ -63,7 +62,7 @@ public class LibraryBellEntity extends TileEntity {
     @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT compound) {
-        compound.putInt("annoyance",annoyance);
+        compound.putInt("annoyance", annoyance);
         compound.putUUID("playerId", playerEntity.getUUID());
         return super.save(compound);
     }

@@ -28,7 +28,7 @@ public class OreConfig extends AbstractConfig {
         this(name, weight, size, minHeight, maxHeight, true);
     }
 
-    public OreConfig(String name, int weight, int size,int minHeight,int maxHeight, boolean concurrent) {
+    public OreConfig(String name, int weight, int size, int minHeight, int maxHeight, boolean concurrent) {
         super(concurrent);
         this.name = name;
         this.weight = weight;
@@ -69,8 +69,8 @@ public class OreConfig extends AbstractConfig {
         builder.comment(name + " ore config.").push(name + " Ore");
         configWeight = builder.comment("Chance to spawn.").defineInRange("spawnChance", weight, 0, 100);
         configSize = builder.comment("Size of an ore vein.").defineInRange("size", size, 0, 24);
-        configMinHeight = builder.comment("Min y value at which the ore can spawn.").defineInRange("minHeight",minHeight,0,64);
-        configMaxHeight = builder.comment("Max y value at which the ore can spawn.").defineInRange("maxHeight",maxHeight,0,64);
+        configMinHeight = builder.comment("Min y value at which the ore can spawn.").defineInRange("minHeight", minHeight, 0, 64);
+        configMaxHeight = builder.comment("Max y value at which the ore can spawn.").defineInRange("maxHeight", maxHeight, 0, 64);
     }
 
     protected void postApply(ForgeConfigSpec.Builder builder) {
@@ -82,6 +82,7 @@ public class OreConfig extends AbstractConfig {
         doApply(builder);
         postApply(builder);
     }
+
     @Override
     public AbstractConfig clone() {
         return null;

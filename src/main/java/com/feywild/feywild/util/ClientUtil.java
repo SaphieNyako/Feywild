@@ -6,7 +6,7 @@ import net.minecraft.util.text.StringTextComponent;
 
 public class ClientUtil {
 
-    public static void openQuestScreen(int quest , int lines, boolean canSkip){
-        Minecraft.getInstance().setScreen(new PixieScreen(new StringTextComponent("Fey Quest"),quest,lines, canSkip));
+    public static void openQuestScreen(int quest, int lines, boolean canSkip) {
+        Minecraft.getInstance().setScreen(new PixieScreen(new StringTextComponent("Fey Quest"), quest, lines, canSkip));
     }
 }

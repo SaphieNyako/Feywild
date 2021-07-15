@@ -1,6 +1,9 @@
 package com.feywild.feywild.block;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -17,8 +20,9 @@ import javax.annotation.Nonnull;
 public class DandelionStem extends Block {
 
     public static final BooleanProperty HAS_MODEL = BooleanProperty.create("model");
+
     public DandelionStem() {
-        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).noCollission().strength(1,1));
+        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).noCollission().strength(1, 1));
         this.registerDefaultState(this.stateDefinition.any().setValue(HAS_MODEL, false));
     }
 
@@ -37,24 +41,24 @@ public class DandelionStem extends Block {
     @Nonnull
     @Override
     public BlockRenderType getRenderShape(BlockState p_149645_1_) {
-        if(!p_149645_1_.getValue(HAS_MODEL))
-        return BlockRenderType.INVISIBLE;
+        if (!p_149645_1_.getValue(HAS_MODEL))
+            return BlockRenderType.INVISIBLE;
         return BlockRenderType.MODEL;
     }
 
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState blockState, boolean p_196243_5_) {
         super.onRemove(state, world, pos, blockState, p_196243_5_);
-        if(world.isClientSide) return;
+        if (world.isClientSide) return;
 
-        if(world.getBlockState(pos.above()).is(ModBlocks.DANDELION_STEM.get())){
-            world.destroyBlock(pos.above(),false);
+        if (world.getBlockState(pos.above()).is(ModBlocks.DANDELION_STEM.get())) {
+            world.destroyBlock(pos.above(), false);
         }
-        if(world.getBlockState(pos.below()).is(ModBlocks.DANDELION_STEM.get())){
-            world.destroyBlock(pos.below(),false);
+        if (world.getBlockState(pos.below()).is(ModBlocks.DANDELION_STEM.get())) {
+            world.destroyBlock(pos.below(), false);
         }
-        if(world.getBlockState(pos.above()).is(ModBlocks.DANDELION.get())){
-            world.destroyBlock(pos.above(),true);
+        if (world.getBlockState(pos.above()).is(ModBlocks.DANDELION.get())) {
+            world.destroyBlock(pos.above(), true);
         }
     }
 }

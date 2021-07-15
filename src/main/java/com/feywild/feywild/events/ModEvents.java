@@ -4,9 +4,9 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.util.ModUtil;
+import com.feywild.feywild.util.configs.Config;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -99,42 +99,42 @@ public class ModEvents {
             PlayerInventory playerInventory = player.inventory;
 
             if (villagerEntity.getTags().contains("spawn_librarian")) {
-                    player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"),player.getUUID());
-                    ItemStack stack = ItemStack.EMPTY;
-                    for(int i = 0; i< ModUtil.librarianBooks.size(); i++){
-                        if(!ModUtil.inventoryContainsItem(playerInventory, stack.getItem())){
-                            stack = ModUtil.librarianBooks.get(i).copy();
-                            break;
-                        }
+                player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), player.getUUID());
+                ItemStack stack = ItemStack.EMPTY;
+                for (int i = 0; i < ModUtil.librarianBooks.size(); i++) {
+                    if (!ModUtil.inventoryContainsItem(playerInventory, stack.getItem())) {
+                        stack = ModUtil.librarianBooks.get(i).copy();
+                        break;
                     }
-
-                    if(!stack.isEmpty()) {
-                        player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"),player.getUUID());
-                    }
-
-                    player.addItem(stack);
-                    event.setCanceled(true);
                 }
+
+                if (!stack.isEmpty()) {
+                    player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), player.getUUID());
+                }
+
+                player.addItem(stack);
+                event.setCanceled(true);
             }
         }
+    }
 
 
-        //Don't mind this as of now
-        @SubscribeEvent
-        public void savePlayerDataToFile(PlayerEvent.SaveToFile event){
+    //Don't mind this as of now
+    @SubscribeEvent
+    public void savePlayerDataToFile(PlayerEvent.SaveToFile event) {
 
-        }
+    }
 
-        @SubscribeEvent
-        public void loadPlayerDataFromFile(PlayerEvent.LoadFromFile event){
+    @SubscribeEvent
+    public void loadPlayerDataFromFile(PlayerEvent.LoadFromFile event) {
 
-        }
+    }
 
     @SubscribeEvent
     public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {
         ModUtil.killOnExit.keySet().forEach(entity -> {
-            if(leaveEvent.getPlayer().equals(ModUtil.killOnExit.get(entity))){
-                  entity.remove();
+            if (leaveEvent.getPlayer().equals(ModUtil.killOnExit.get(entity))) {
+                entity.remove();
             }
         });
     }

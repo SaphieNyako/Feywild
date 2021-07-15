@@ -20,16 +20,16 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 
 public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatable, ITickableTileEntity {
-    
+
+    private final AnimationFactory factory = new AnimationFactory(this);
     int life = 30;
     AxisAlignedBB box;
     boolean init = true;
-    private final AnimationFactory factory = new AnimationFactory(this);
-    
+
     public ElectrifiedGroundTileEntity() {
         super(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get());
     }
-    
+
     // ANIMATION
     @Override
     public void registerControllers(AnimationData animationData) {
@@ -49,22 +49,22 @@ public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatab
     // LIFE
     @Override
     public void tick() {
-        if(level != null && !level.isClientSide) {
-            if(life % 2 == 0) {
-                if(init){
+        if (level != null && !level.isClientSide) {
+            if (life % 2 == 0) {
+                if (init) {
                     box = new AxisAlignedBB(getBlockPos());
                     init = false;
                 }
                 box = box.inflate(0.2, 0.1, 0.2);
-                level.getEntities(null,box).forEach(entity -> {
-                    if(entity.isAlive() && entity instanceof MonsterEntity)
-                    entity.hurt(DamageSource.LIGHTNING_BOLT, 1);
+                level.getEntities(null, box).forEach(entity -> {
+                    if (entity.isAlive() && entity instanceof MonsterEntity)
+                        entity.hurt(DamageSource.LIGHTNING_BOLT, 1);
                 });
             }
 
             life--;
             if (life <= 0) {
-                level.setBlock(getBlockPos(), Blocks.AIR.defaultBlockState(),2);
+                level.setBlock(getBlockPos(), Blocks.AIR.defaultBlockState(), 2);
             }
         }
     }
@@ -79,7 +79,7 @@ public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatab
     @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT compound) {
-        compound.putInt("life",life);
+        compound.putInt("life", life);
         // TODO deserialise the AABB
         return super.save(compound);
     }

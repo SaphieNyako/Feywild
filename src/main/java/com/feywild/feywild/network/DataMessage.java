@@ -38,8 +38,8 @@ public class DataMessage {
         World world = new ClientProxy().getClientWorld();
 
         ctx.get().enqueueWork(() -> {
-            if(world.getBlockState(pos).getBlock() instanceof ClientDataBlock)
-            ((ClientDataBlock) world.getBlockState(pos).getBlock()).setData(data);
+            if (world.getBlockState(pos).getBlock() instanceof ClientDataBlock)
+                ((ClientDataBlock) world.getBlockState(pos).getBlock()).setData(data);
 
         });
         ctx.get().setPacketHandled(true);

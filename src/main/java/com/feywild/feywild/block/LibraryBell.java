@@ -37,7 +37,7 @@ public class LibraryBell extends Block {
                 .noCollission()
                 .sound(SoundType.STONE));
     }
-    
+
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;
@@ -51,17 +51,17 @@ public class LibraryBell extends Block {
 
     @Override
     public void onRemove(@Nonnull BlockState p_196243_1_, World world, @Nonnull BlockPos pos, @Nonnull BlockState p_196243_4_, boolean p_196243_5_) {
-    if(!world.isClientSide) {
-        LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
-        assert blockEntity != null;
-        if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
-            blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
-            blockEntity.getLibrarian().kill();
-        }
+        if (!world.isClientSide) {
+            LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
+            assert blockEntity != null;
+            if (blockEntity.getLibrarian() != null && blockEntity.getLibrarian().isAlive()) {
+                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
+                blockEntity.getLibrarian().kill();
+            }
 
-        if (blockEntity.getSecurity() != null && blockEntity.getSecurity().isAlive())
-            blockEntity.getSecurity().remove();
-    }
+            if (blockEntity.getSecurity() != null && blockEntity.getSecurity().isAlive())
+                blockEntity.getSecurity().remove();
+        }
         super.onRemove(p_196243_1_, world, pos, p_196243_4_, p_196243_5_);
     }
 
@@ -104,7 +104,7 @@ public class LibraryBell extends Block {
                         iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
                         world.addFreshEntity(iron);
                         blockEntity.setSecurity(iron);
-                        ModUtil.killOnExit.put(iron,playerEntity);
+                        ModUtil.killOnExit.put(iron, playerEntity);
                     } else {
                         blockEntity.getSecurity().setPos(pos.getX(), pos.getY() - 1, pos.getZ());
                         if (blockEntity.getSecurity() instanceof MobEntity) {
@@ -116,8 +116,8 @@ public class LibraryBell extends Block {
                     playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
                 }
 
-                ModUtil.killOnExit.remove((LivingEntity) blockEntity.getLibrarian(),playerEntity);
-                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian() .getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
+                ModUtil.killOnExit.remove((LivingEntity) blockEntity.getLibrarian(), playerEntity);
+                blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
                 blockEntity.getLibrarian().remove(); // .kill()
 
             }
@@ -141,7 +141,7 @@ public class LibraryBell extends Block {
             }
             world.addFreshEntity(entity);
             blockEntity.setLibrarian(entity);
-            ModUtil.killOnExit.put(entity,playerEntity);
+            ModUtil.killOnExit.put(entity, playerEntity);
         }
         return ActionResultType.SUCCESS;
 

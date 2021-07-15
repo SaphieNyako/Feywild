@@ -25,13 +25,13 @@ public class PixieContainer extends Container {
         this.entity = entity;
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        this.quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(),QuestMap.Scores.FW_Quest.toString(),player.level,0).getScore();
+        this.quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0).getScore();
         this.lines = QuestMap.getLineNumber(quest);
 
         if (this.entity != null) {
 
             entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-             //   addSlot(new SlotItemHandler(h, 0, -(size/4) + 40, 140));
+                //   addSlot(new SlotItemHandler(h, 0, -(size/4) + 40, 140));
             });
         }
     }

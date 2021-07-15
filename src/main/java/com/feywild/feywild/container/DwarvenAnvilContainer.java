@@ -59,7 +59,7 @@ public class DwarvenAnvilContainer extends Container {
 
     private void trackMana() {
         addDataSlot(new IntReferenceHolder() {
-            
+
             @Override
             public int get() {
                 return getMana() & 0xffff;
@@ -75,7 +75,7 @@ public class DwarvenAnvilContainer extends Container {
         });
 
         addDataSlot(new IntReferenceHolder() {
-            
+
             @Override
             public int get() {
                 return (getMana() >> 16) & 0xffff;

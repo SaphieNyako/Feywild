@@ -47,24 +47,24 @@ public class FeywildRecipes {
 
 
     public static boolean matchesAltar(List<Ingredient> ingredients, IInventory inv) {
-            List<ItemStack> stacks = new LinkedList<>();
+        List<ItemStack> stacks = new LinkedList<>();
 
-            for (int j = 0; j < inv.getContainerSize(); j++) {
-                stacks.add(inv.getItem(j));
-            }
+        for (int j = 0; j < inv.getContainerSize(); j++) {
+            stacks.add(inv.getItem(j));
+        }
 
-            //Item check
-            List<Ingredient> copy = new LinkedList<>(ingredients);
-            for (Ingredient ingredient : ingredients) {
+        //Item check
+        List<Ingredient> copy = new LinkedList<>(ingredients);
+        for (Ingredient ingredient : ingredients) {
 
-                for (ItemStack stack : stacks) {
-                    if (!stack.isEmpty() && ingredient.test(stack)) {
-                        copy.remove(ingredient);
-                        stacks.remove(stack);
-                        break;
-                    }
+            for (ItemStack stack : stacks) {
+                if (!stack.isEmpty() && ingredient.test(stack)) {
+                    copy.remove(ingredient);
+                    stacks.remove(stack);
+                    break;
                 }
             }
-            return copy.isEmpty();
+        }
+        return copy.isEmpty();
     }
 }

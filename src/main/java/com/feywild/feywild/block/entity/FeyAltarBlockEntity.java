@@ -24,7 +24,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
 
