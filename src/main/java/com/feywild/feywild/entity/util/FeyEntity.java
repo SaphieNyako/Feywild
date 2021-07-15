@@ -24,14 +24,9 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public abstract class FeyEntity extends CreatureEntity {
-
-    public BlockPos summonPos;
-    private Random random = new Random();
-    private PlayerEntity follow = null;
-
+    
     protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -125,10 +120,6 @@ public abstract class FeyEntity extends CreatureEntity {
         return false;
     }
 
-    public PlayerEntity getFollow() {
-        return follow;
-    }
-
     // on interact with cookie
     @Nonnull
     @Override
@@ -189,12 +180,11 @@ public abstract class FeyEntity extends CreatureEntity {
 
     /* MOVEMENT */
     public class FeyWildPanic extends Goal {
+        
         private Vector3d targetPos;
         private FeyEntity entity;
         private int range;
         private double speed;
-
-
 
         public FeyWildPanic(FeyEntity entity, double speed, int range) {
             this.entity = entity;

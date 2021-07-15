@@ -11,7 +11,6 @@ import net.minecraft.particles.ParticleTypes;
 public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity> {
 
     public SpringPixieRenderer(EntityRendererManager renderManager) {
-
         super(renderManager, new SpringPixieModel());
     }
 

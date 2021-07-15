@@ -44,10 +44,8 @@ public class PixieContainer extends Container {
         return lines;
     }
 
-    @Override //canInteractWith
+    @Override
     public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
-
     }
-
 }

@@ -33,10 +33,8 @@ public class AutumnTreeLog extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder builder) {
-
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN, AXIS);
-
     }
 
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.
@@ -74,7 +72,9 @@ public class AutumnTreeLog extends Block {
 
         return stateIn;
     }
-
+    
+    // TODO i feel placing mushrooms here is the wrong way of doing it.
+    // Could cause incompatibilities with other mods I think
     @Override
     public void onPlace(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState oldState, boolean isMoving) {
 

@@ -57,7 +57,7 @@ public class LibraryBellEntity extends TileEntity {
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         annoyance = nbt.getInt("annoyance");
-        playerEntity = level.getPlayerByUUID(nbt.getUUID("playerId"));
+        playerEntity = level == null ? null : level.getPlayerByUUID(nbt.getUUID("playerId"));
     }
 
     @Nonnull

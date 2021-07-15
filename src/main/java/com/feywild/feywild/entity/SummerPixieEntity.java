@@ -51,9 +51,8 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SummerPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
-    FeyEntity entity = this;
     private boolean tamed = false;
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public SummerPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {

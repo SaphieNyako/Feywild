@@ -12,6 +12,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import javax.annotation.Nonnull;
 import java.util.List;
 
+// TODO either remove or make it use an IItemHandlerModifiable that is acessible directly
 public abstract class InventoryTile extends TileEntity implements IInventory {
 
     public InventoryTile(TileEntityType<?> tileEntityTypeIn) {
@@ -23,6 +24,7 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
         return 5;
     }
 
+    // Currently copies the stacks into a list on each call. Inefficient and redundant.
     public List<ItemStack> getItems() {
         return null;
     }
@@ -57,9 +59,12 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
        flags = -1  means update the entire inventory
        otherwise update one item slot
      */
+    // TODO flags is named badly as these are no flags bu ta slot index
     public void updateInventory(int flags, boolean shouldCraft) {
         if (flags == -1) {
             for (int i = 0; i < getContainerSize(); i++) {
+                // TODO Don't ever send something position related to all players
+                // Maybe copy request / update of tile entities from LibX for this
                 FeywildPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new ItemMessage(getItems().get(i), worldPosition, i));
             }
         } else {

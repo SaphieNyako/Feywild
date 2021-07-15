@@ -6,8 +6,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class CustomManaStorage extends ManaStorage implements INBTSerializable<CompoundNBT> {
 
     public CustomManaStorage(int capacity, int maxTransfer) {
-        super(capacity, maxTransfer);
-        this.maxReceive = 0;
+        super(capacity, 0, maxTransfer);
     }
 
     protected void onManaChanged() {}

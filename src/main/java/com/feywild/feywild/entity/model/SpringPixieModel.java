@@ -16,7 +16,6 @@ public class SpringPixieModel extends AnimatedGeoModel<SpringPixieEntity> {
     public void setLivingAnimations(SpringPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
     }

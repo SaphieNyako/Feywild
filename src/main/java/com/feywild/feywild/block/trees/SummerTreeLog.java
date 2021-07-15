@@ -14,6 +14,7 @@ import net.minecraft.util.Rotation;
 
 import javax.annotation.Nonnull;
 
+// TODO let logs extends minecrafts own abstract log block
 public class SummerTreeLog extends Block {
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
@@ -28,10 +29,8 @@ public class SummerTreeLog extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder builder) {
-
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN, AXIS);
-
     }
 
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.

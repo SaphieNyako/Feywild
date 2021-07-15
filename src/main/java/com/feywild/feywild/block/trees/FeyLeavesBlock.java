@@ -30,6 +30,8 @@ import java.util.Random;
 
 public class FeyLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable {
 
+    // TODO use builtin properties
+    // Not changed yet because it would need changing the blockstate jsons so I'm waiting for datagen.
     public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent_leaves");
     private static final int maxDistance = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("more_distance", 0, maxDistance);

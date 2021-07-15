@@ -47,11 +47,10 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
-    FeyEntity entity = this;
     //TAMED variable
     private boolean tamed = false;
     //Geckolib variable
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public SpringPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {

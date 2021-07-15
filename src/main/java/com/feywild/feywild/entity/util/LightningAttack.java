@@ -85,7 +85,6 @@ public class LightningAttack extends Entity {
                 }
             }
         }
-
     }
 
     @Override

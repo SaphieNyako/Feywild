@@ -9,7 +9,6 @@ import net.minecraft.particles.ParticleTypes;
 public class SummerPixieRenderer extends BasePixieRenderer<SummerPixieEntity> {
 
     public SummerPixieRenderer(EntityRendererManager renderManager) {
-
         super(renderManager, new SummerPixieModel());
     }
 

@@ -75,6 +75,8 @@ public class ClientProxy implements IProxy {
 
     }
 
+    // TODO remove. You can directly access the world if careful. Or use the one proxy initialised in the mod object to access it.
+    // However currently for this method, always a new ClientProxy is constructed which makes this method useless.
     @Override
     public World getClientWorld() {
         return Minecraft.getInstance().level;

@@ -31,7 +31,6 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     private static final DataParameter<VillagerData> DATA_VILLAGER_DATA = EntityDataManager.defineId(VillagerEntity.class, DataSerializers.VILLAGER_DATA);
     public Int2ObjectMap<VillagerTrades.ITrade[]> dwarvenTrades = new Int2ObjectOpenHashMap<>();
     private int villagerXp;
-    private PlayerEntity lastTradedPlayer;
     private int updateMerchantTimer;
     private boolean increaseProfessionLevelOnUpdate;
     private int villagerLevel;
@@ -50,7 +49,6 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     protected void rewardTradeXp(MerchantOffer p_213713_1_) {
         int i = 3 + this.random.nextInt(4);
         this.villagerXp += p_213713_1_.getXp();
-        this.lastTradedPlayer = this.getTradingPlayer();
         if (this.shouldIncreaseLevel()) {
             this.updateMerchantTimer = 40;
             this.increaseProfessionLevelOnUpdate = true;
@@ -311,5 +309,4 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         this.catchUpDemand();
         this.numberOfRestocksToday = 0;
     }
-
 }

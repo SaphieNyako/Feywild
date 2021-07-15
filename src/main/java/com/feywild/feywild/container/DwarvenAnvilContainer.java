@@ -50,16 +50,16 @@ public class DwarvenAnvilContainer extends Container {
         trackMana();
     }
 
-    @Override //canInteractWith
+    @Override
     public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
-        //isWithinUsableDistance not available anymore
     }
 
     /* QUOTE: What the hell is going on? */
 
     private void trackMana() {
         addDataSlot(new IntReferenceHolder() {
+            
             @Override
             public int get() {
                 return getMana() & 0xffff;
@@ -75,6 +75,7 @@ public class DwarvenAnvilContainer extends Container {
         });
 
         addDataSlot(new IntReferenceHolder() {
+            
             @Override
             public int get() {
                 return (getMana() >> 16) & 0xffff;
@@ -158,6 +159,7 @@ public class DwarvenAnvilContainer extends Container {
         return index;
     }
 
+    // TODO These should go in an abstract class
     private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
         for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);

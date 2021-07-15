@@ -18,22 +18,19 @@ public class ElectrifiedGround extends Block {
     public ElectrifiedGround() {
         super(AbstractBlock.Properties.of(Material.AIR).noCollission());
     }
+   
     @Nonnull
     @Override
     public VoxelShape getShape(@Nonnull BlockState p_220053_1_, @Nonnull IBlockReader p_220053_2_, @Nonnull BlockPos p_220053_3_, @Nonnull ISelectionContext p_220053_4_) {
         return  VoxelShapes.box(0, 0, 0, 0, 0, 0);
     }
 
-
-
     @Nonnull
     @Override
     public BlockRenderType getRenderShape(@Nonnull BlockState state) {
             return BlockRenderType.ENTITYBLOCK_ANIMATED;
-
     }
-
-
+    
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;
@@ -42,6 +39,6 @@ public class ElectrifiedGround extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-            return new ElectrifiedGroundTileEntity();
+        return new ElectrifiedGroundTileEntity();
     }
 }

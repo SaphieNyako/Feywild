@@ -17,7 +17,6 @@ public class WinterPixieModel extends AnimatedGeoModel<WinterPixieEntity> {
     public void setLivingAnimations(WinterPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
     }

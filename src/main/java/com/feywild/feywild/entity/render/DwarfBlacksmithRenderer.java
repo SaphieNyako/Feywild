@@ -15,7 +15,6 @@ import javax.annotation.Nullable;
 public class DwarfBlacksmithRenderer extends GeoEntityRenderer<DwarfBlacksmithEntity> {
 
     public DwarfBlacksmithRenderer(EntityRendererManager renderManager) {
-
         super(renderManager, new DwarfBlackSmithModel());
         this.shadowRadius = 0.8F;
     }

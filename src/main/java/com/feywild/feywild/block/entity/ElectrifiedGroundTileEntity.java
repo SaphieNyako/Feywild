@@ -20,20 +20,20 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 
 public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatable, ITickableTileEntity {
+    
     int life = 30;
     AxisAlignedBB box;
     boolean init = true;
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
+    
     public ElectrifiedGroundTileEntity() {
         super(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get());
     }
-
-
-
+    
     // ANIMATION
     @Override
     public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -43,15 +43,13 @@ public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatab
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.circle.appear", false));
-
         return PlayState.CONTINUE;
     }
-
 
     // LIFE
     @Override
     public void tick() {
-        if(!level.isClientSide) {
+        if(level != null && !level.isClientSide) {
             if(life % 2 == 0) {
                 if(init){
                     box = new AxisAlignedBB(getBlockPos());
@@ -75,12 +73,14 @@ public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatab
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         life = nbt.getInt("life");
+        // TODO serialise the AABB
     }
 
     @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         compound.putInt("life",life);
+        // TODO deserialise the AABB
         return super.save(compound);
     }
 }

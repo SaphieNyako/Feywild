@@ -36,10 +36,8 @@ public class LibraryBell extends Block {
                 .strength(99999999f, 99999999f).noDrops()
                 .noCollission()
                 .sound(SoundType.STONE));
-
     }
-
-
+    
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;

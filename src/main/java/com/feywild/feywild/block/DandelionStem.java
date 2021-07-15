@@ -32,7 +32,6 @@ public class DandelionStem extends Block {
     @Override
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return VoxelShapes.box(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
-
     }
 
     @Nonnull

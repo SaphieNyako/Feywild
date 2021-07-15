@@ -40,6 +40,7 @@ public class TamedTradeManager implements IFutureReloadListener {
         return instance;
     }
 
+    // TODO consider using recipes here instead of custom data.
     @Nonnull
     @Override
     public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {

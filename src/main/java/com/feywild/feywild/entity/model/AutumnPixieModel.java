@@ -11,13 +11,11 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import javax.annotation.Nullable;
 
 public class AutumnPixieModel extends AnimatedGeoModel<AutumnPixieEntity> {
-
-
+    
     @Override
     public void setLivingAnimations(AutumnPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
     }

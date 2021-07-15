@@ -46,13 +46,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 
+// Pretty sure there's much more code that could go in FeyEntity
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(AutumnPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
     FeyEntity entity = this;
     private boolean tamed = false;
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public AutumnPixieEntity(EntityType<? extends FeyEntity> entityEntityType, World world) {

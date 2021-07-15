@@ -103,8 +103,6 @@ public class DwarvenAnvil extends Block {
         return 14;
     }
 
-
-
     /* TILE ENTITY */
 
     @Nonnull
@@ -123,7 +121,7 @@ public class DwarvenAnvil extends Block {
                         return new TranslationTextComponent("screen.feywild.dwarven_anvil");
                     }
 
-                    @Nullable
+                    @Nonnull
                     @Override
                     public Container createMenu(int i, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity playerEntity) {
 
@@ -144,12 +142,15 @@ public class DwarvenAnvil extends Block {
 
     @Override
     public void playerWillDestroy(World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull PlayerEntity player) {
-        IItemHandler cap = world.getBlockEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
+        TileEntity te = world.getBlockEntity(pos);
+        if (te != null) {
+            IItemHandler cap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
 
-        for (int i = 0; i < cap.getSlots(); i++) {
-            ItemStack toDrop = cap.getStackInSlot(i);
-            if (!toDrop.isEmpty()) {
-                InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), toDrop);
+            for (int i = 0; i < cap.getSlots(); i++) {
+                ItemStack toDrop = cap.getStackInSlot(i);
+                if (!toDrop.isEmpty()) {
+                    InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), toDrop);
+                }
             }
         }
         super.playerWillDestroy(world, pos, state, player);
@@ -163,7 +164,6 @@ public class DwarvenAnvil extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-
         return new DwarvenAnvilEntity();
     }
 }

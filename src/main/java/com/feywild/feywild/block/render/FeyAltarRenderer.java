@@ -21,7 +21,6 @@ import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
 
-    private Minecraft minecraft = Minecraft.getInstance();
     double lerp = 1;
 
     public FeyAltarRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
@@ -29,6 +28,7 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
         super(rendererDispatcherIn, new FeyAltarModel());
     }
 
+    // TODO code needs changing after other tODO comments got implemented.
     @Override
     public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(tileEntityIn, partialTicks, matrixStackIn, bufferIn, packedLightIn);
@@ -68,9 +68,9 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
         stack.scale(scale, scale, scale);
 
         //get item model
-        IBakedModel model = minecraft.getItemRenderer().getModel(itemStack, null, null);
+        IBakedModel model = Minecraft.getInstance().getItemRenderer().getModel(itemStack, null, null);
         //the line of code that actually renders the item
-        minecraft.getItemRenderer().render(itemStack, ItemCameraTransforms.TransformType.GROUND, true, stack, buf, lightLevel, combinedOverlay, model);
+        Minecraft.getInstance().getItemRenderer().render(itemStack, ItemCameraTransforms.TransformType.GROUND, true, stack, buf, lightLevel, combinedOverlay, model);
 
         stack.popPose();
     }
@@ -82,4 +82,5 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
     }
 
     //Ancient's note : holy cow this is so much more complicated than on fabric since you have to do most of the things yourself
+    //noeppi's note: holy cow you're doing it more complicated than needed :P
 }

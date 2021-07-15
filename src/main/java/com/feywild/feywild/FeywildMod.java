@@ -71,6 +71,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// General TODOs that affect so much code that I wrote them here
+// TODO: many entities and tile/block entities don't serialise all the fields they should.
+
 @Mod(FeywildMod.MOD_ID)
 public class FeywildMod {
 

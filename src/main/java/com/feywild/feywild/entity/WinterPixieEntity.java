@@ -51,16 +51,13 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(WinterPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;
-    FeyEntity entity = this;
     private boolean tamed = false;
-    private World worldIn;
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public WinterPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
         super(type, worldIn);
         //Geckolib check
-        this.worldIn = worldIn;
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
         addGoalsAfterConstructor();
@@ -70,7 +67,6 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     public WinterPixieEntity(World worldIn, boolean isTamed, BlockPos pos) {
         super(ModEntityTypes.WINTER_PIXIE.get(), worldIn);
         //Geckolib check
-        this.worldIn = worldIn;
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
         setTamed(isTamed);

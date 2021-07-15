@@ -41,6 +41,8 @@ public class SpringTreeSapling extends BaseSapling {
         }
     }
 
+    // TODO Stuff like this could go into the base class which might even make the overriding classes redundant
+    // Also for the other sapling classes
     public BlockState getBlocks(Random random) {
 
         switch (random.nextInt(30)) {
