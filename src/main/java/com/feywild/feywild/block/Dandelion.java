@@ -31,6 +31,7 @@ public class Dandelion extends Block {
 
     @Override
     public void randomTick(@Nonnull BlockState p_225542_1_, @Nonnull ServerWorld p_225542_2_, @Nonnull BlockPos pos, @Nonnull Random p_225542_4_) {
+        // TODO can use animate tick so you don't need networking here
         super.randomTick(p_225542_1_, p_225542_2_, pos, p_225542_4_);
         if (p_225542_1_.getValue(VARIANT) == 2)
             FeywildPacketHandler.sendToPlayersInRange(p_225542_2_, pos, new ParticleMessage(pos.getX(), pos.getY(), pos.getZ(), 0, 0, 0, 5, 2, 0), 64);

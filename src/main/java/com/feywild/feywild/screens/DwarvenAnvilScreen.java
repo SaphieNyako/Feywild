@@ -13,11 +13,8 @@ import net.minecraft.util.text.ITextComponent;
 import javax.annotation.Nonnull;
 
 public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
-
-    /* ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new); in CLIENTPROXY */
-
-    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID,
-            "textures/gui/dwarven_anvil_gui.png");
+    
+    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/dwarven_anvil_gui.png");
     private DwarvenAnvilContainer container;
 
     public DwarvenAnvilScreen(DwarvenAnvilContainer container, PlayerInventory inventory, ITextComponent name) {
@@ -33,7 +30,7 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
         this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
-    @Override //drawGuiContainerForegroundLayer
+    @Override
     protected void renderLabels(@Nonnull MatrixStack matrixStack, int x, int y) {
 
         //set text, position x, y, color
@@ -41,7 +38,7 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
 
     }
 
-    @Override //drawGuiContainerBackgroundLayer
+    @Override
     protected void renderBg(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y) {
 
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -54,5 +51,4 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
         this.blit(matrixStack, i + 13, j + 9, 176, 0, 11, 64 - (int) (container.getMana() / 15.6f));
 
     }
-
 }

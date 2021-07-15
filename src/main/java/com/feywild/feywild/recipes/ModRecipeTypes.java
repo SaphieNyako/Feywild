@@ -40,5 +40,4 @@ public class ModRecipeTypes {
         }
         return recipeList;
     }
-
 }

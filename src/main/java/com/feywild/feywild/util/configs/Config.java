@@ -47,7 +47,6 @@ public class Config {
     public static StructureConfig LIBRARY_CONFIG;
 
     static {
-
         ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
         ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
@@ -63,7 +62,6 @@ public class Config {
 
         SERVER_CONFIG = SERVER_BUILDER.build();
         CLIENT_CONFIG = CLIENT_BUILDER.build();
-
     }
 
     //CONFIG METHOD
@@ -81,7 +79,6 @@ public class Config {
     }
 
     private static void setConfigVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-
         FEY_DUST_DURATION = SERVER_BUILDER.comment("How long fey dust effect lasts:")
                 .defineInRange("fey_dust_duration", 15, 0, 180);
 
@@ -96,11 +93,9 @@ public class Config {
         FEY_GEM_CONFIG = new OreConfig("Fey Gem", 10, 5, 11, 48);
 
         FEY_GEM_CONFIG.apply(SERVER_BUILDER);
-
     }
 
     private static void setMobConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-
         SPRING_PIXIE_CONFIG = new MobConfig("Spring Pixie", 20, 1, 1,
                 Arrays.asList("RIVER", "FOREST", "PLAINS", "MAGICAL"));
         SUMMER_PIXIE_CONFIG = new MobConfig("Summer Pixie", 20, 1, 1,
@@ -116,11 +111,9 @@ public class Config {
         AUTUMN_PIXIE_CONFIG.apply(SERVER_BUILDER);
         WINTER_PIXIE_CONFIG.apply(SERVER_BUILDER);
         DWARF_CONFIG.apply(SERVER_BUILDER);
-
     }
 
     private static void setStructureConfigs(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-
         SPRING_WORLD_TREE_CONFIG = new StructureConfig("Spring World Tree", 100, 50);
         SUMMER_WORLD_TREE_CONFIG = new StructureConfig("Summer World Tree", 100, 50);
         AUTUMN_WORLD_TREE_CONFIG = new StructureConfig("Autumn World Tree", 100, 50);
@@ -136,7 +129,6 @@ public class Config {
 
         BLACKSMITH_CONFIG.apply(SERVER_BUILDER);
         LIBRARY_CONFIG.apply(SERVER_BUILDER);
-
     }
 
     private static void setTreePatchesConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
@@ -146,7 +138,6 @@ public class Config {
     }
 
     private static void setBiomeConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-
         SPRING_BIOME_CONFIG = new BiomeConfig("Blossoming Wealds", 15,
                 0.005d);
         SUMMER_BIOME_CONFIG = new BiomeConfig("Golden Seelie Fields", 15,
@@ -160,18 +151,14 @@ public class Config {
         SUMMER_BIOME_CONFIG.apply(SERVER_BUILDER);
         AUTUMN_BIOME_CONFIG.apply(SERVER_BUILDER);
         WINTER_BIOME_CONFIG.apply(SERVER_BUILDER);
-
     }
 
     //LOAD
     public static void loadConfigFile(ForgeConfigSpec config, String path) {
-
         final CommentedFileConfig file = CommentedFileConfig.builder(new File(path))
                 .sync().autosave().writingMode(WritingMode.REPLACE).build();
 
         file.load();
         config.setConfig(file);
-
     }
-
 }

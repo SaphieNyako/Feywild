@@ -36,7 +36,6 @@ public class AltarRecipe implements IAltarRecipe {
         this.inputs.addAll(inputs);
         System.out.println(this.inputs.size());
         System.out.println(inputs.size());
-
     }
 
     @Override
@@ -125,5 +124,4 @@ public class AltarRecipe implements IAltarRecipe {
             buffer.writeItemStack(recipe.getResultItem(), false);
         }
     }
-
 }

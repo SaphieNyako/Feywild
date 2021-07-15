@@ -73,6 +73,7 @@ import java.util.stream.Collectors;
 
 // General TODOs that affect so much code that I wrote them here
 // TODO: many entities and tile/block entities don't serialise all the fields they should.
+// TODO: Remove the many System.out.println s
 
 @Mod(FeywildMod.MOD_ID)
 public class FeywildMod {
@@ -117,7 +118,6 @@ public class FeywildMod {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
         // DwarfTrades.registerTrades();
         proxy.init();
         entityQueue(event);
@@ -131,19 +131,16 @@ public class FeywildMod {
     }
 
     private void registerConfigs() {
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
     }
 
     private void loadConfigs() {
-
         Config.loadConfigFile(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-client.toml").toString());
         Config.loadConfigFile(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-server.toml").toString());
     }
 
     private void registerModAdditions() {
-
         Registration.init();
         ModSoundEvents.register();
         ModItems.register();
@@ -196,7 +193,6 @@ public class FeywildMod {
     /*STRUCTURES*/
 
     private void structureQueue(final FMLCommonSetupEvent event) {
-
         event.enqueueWork(() -> {
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
@@ -204,7 +200,6 @@ public class FeywildMod {
     }
 
     private void modStructuresRegister() {
-
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
         forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
@@ -212,7 +207,6 @@ public class FeywildMod {
     }
 
     public void biomeModification(final BiomeLoadingEvent event) {
-
         String SpringBiome = "blossoming_wealds";
         String SummerBiome = "golden_seelie_fields";
         String AutumnBiome = "eternal_fall";

@@ -7,6 +7,7 @@ import net.minecraft.item.crafting.Ingredient;
 import java.util.LinkedList;
 import java.util.List;
 
+// TODO I think it's best to completely delete this
 public class FeywildRecipes {
 
     //Inefficient item match method
