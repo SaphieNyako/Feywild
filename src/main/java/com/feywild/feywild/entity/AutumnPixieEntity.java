@@ -46,9 +46,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
-
-    //TODO: Add names for the fey in lang folder so it can be seen by HWYLA. - Update - names are added to lang but still not displayed by HWYLA
-
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(AutumnPixieEntity.class,
             DataSerializers.BOOLEAN);
     public BlockPos summonPos;

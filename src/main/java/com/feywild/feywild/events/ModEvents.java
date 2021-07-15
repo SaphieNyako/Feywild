@@ -25,6 +25,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -118,9 +119,25 @@ public class ModEvents {
             }
         }
 
+
+        //Don't mind this as of now
+        @SubscribeEvent
+        public void savePlayerDataToFile(PlayerEvent.SaveToFile event){
+
+        }
+
+        @SubscribeEvent
+        public void loadPlayerDataFromFile(PlayerEvent.LoadFromFile event){
+
+        }
+
     @SubscribeEvent
     public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {
-        ModUtil.killOnExit.forEach(LivingEntity::remove);
+        ModUtil.killOnExit.keySet().forEach(entity -> {
+            if(leaveEvent.getPlayer().equals(ModUtil.killOnExit.get(entity))){
+                  entity.remove();
+            }
+        });
     }
 
     @SubscribeEvent

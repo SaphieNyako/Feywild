@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -106,7 +107,7 @@ public class LibraryBell extends Block {
                         iron.setPos(pos.getX(), pos.getY() - 1, pos.getZ());
                         world.addFreshEntity(iron);
                         blockEntity.setSecurity(iron);
-                        ModUtil.killOnExit.add(iron);
+                        ModUtil.killOnExit.put(iron,playerEntity);
                     } else {
                         blockEntity.getSecurity().setPos(pos.getX(), pos.getY() - 1, pos.getZ());
                         if (blockEntity.getSecurity() instanceof MobEntity) {
@@ -117,7 +118,8 @@ public class LibraryBell extends Block {
                 } else if (blockEntity.getAnnoyance() > 6) {
                     playerEntity.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), playerEntity.getUUID());
                 }
-            
+
+                ModUtil.killOnExit.remove((LivingEntity) blockEntity.getLibrarian(),playerEntity);
                 blockEntity.getLibrarian().setPos(blockEntity.getLibrarian() .getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
                 blockEntity.getLibrarian().remove(); // .kill()
 
@@ -142,7 +144,7 @@ public class LibraryBell extends Block {
             }
             world.addFreshEntity(entity);
             blockEntity.setLibrarian(entity);
-            ModUtil.killOnExit.add(entity);
+            ModUtil.killOnExit.put(entity,playerEntity);
         }
         return ActionResultType.SUCCESS;
 

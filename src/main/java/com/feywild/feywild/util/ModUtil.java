@@ -15,16 +15,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class ModUtil {
-    public static List<LivingEntity> killOnExit = new LinkedList<>();
+    public static HashMap<LivingEntity,PlayerEntity> killOnExit = new HashMap<>();
 
     public static List<ItemStack> librarianBooks = new LinkedList<>();
 

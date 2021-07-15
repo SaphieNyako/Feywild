@@ -54,9 +54,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
             DataSerializers.BOOLEAN);
-    //Container
-    private final ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public BlockPos summonPos;
     FeyEntity entity = this;
     //TAMED variable
@@ -220,7 +217,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
             tag.putInt("summonPos_Z", summonPos.getZ());
         }
         tag.putBoolean("tamed", tamed);
-        tag.put("inventory", itemHandler.serializeNBT());
 
     }
 
@@ -230,8 +226,6 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         super.readAdditionalSaveData(tag);
         if (tag.contains("summonPos_X"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
-
-        itemHandler.deserializeNBT(tag.getCompound("inventory"));
 
         if (tag.contains("tamed")) {
             this.setTamed(tag.getBoolean("tamed"));
@@ -266,56 +260,9 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     }
 
-    /* CONTAINER */
-
     @Override
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
     }
 
-    private ItemStackHandler createHandler() {
-
-        return new ItemStackHandler(7) {
-
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                /* Can we put in an item in a specific slot */
-
-                switch (slot) {
-
-                    case 0:
-                        return stack.getItem() == ModItems.FEY_DUST.get();
-                    default:
-                        return true;
-                }
-
-            }
-
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                /* Insert Item into a specific slot */
-
-                if (!isItemValid(slot, stack)) {
-                    return stack;
-                }
-
-                return super.insertItem(slot, stack, simulate);
-
-            }
-        };
-
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return handler.cast();
-        }
-
-        return super.getCapability(capability, side);
-
-    }
 }
