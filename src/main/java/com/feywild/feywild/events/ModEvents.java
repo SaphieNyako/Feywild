@@ -4,7 +4,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.Configs.Config;
+import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -25,7 +25,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;

@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.util.Configs.Config;
+import com.feywild.feywild.util.configs.Config;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,6 +25,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class FeyLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable {
@@ -63,7 +64,7 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
             }
         }
 
-        return state.setValue(DISTANCE, Integer.valueOf(i));
+        return state.setValue(DISTANCE, i);
     }
 
     private static int getDistance(BlockState neighbor) {
@@ -75,15 +76,19 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         }
     }
 
-    public VoxelShape getBlockSupportShape(BlockState state, IBlockReader reader, BlockPos pos) {
+    @Nonnull
+    @Override
+    public VoxelShape getBlockSupportShape(@Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos) {
         return VoxelShapes.empty();
     }
 
+    @Override
     public boolean isRandomlyTicking(BlockState state) {
         return state.getValue(DISTANCE) == maxDistance && !state.getValue(PERSISTENT);
     }
 
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+    @Override
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random) {
 
         updateDistance(state, worldIn, pos);
 
@@ -94,15 +99,19 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
     }
 
     //This causes the decay //what does flags do?
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+    @Override
+    public void tick(@Nonnull BlockState state, ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         worldIn.setBlock(pos, updateDistance(state, worldIn, pos), 3);
     }
 
-    public int getLightBlock(BlockState state, IBlockReader worldIn, BlockPos pos) {
+    @Override
+    public int getLightBlock(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
         return 1;
     }
 
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    @Nonnull
+    @Override
+    public BlockState updateShape(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos) {
         int i = getDistance(facingState) + 1;
         if (i != 1 || stateIn.getValue(DISTANCE) != i) {
             worldIn.getBlockTicks().scheduleTick(currentPos, this, 1);
@@ -111,8 +120,9 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         return stateIn;
     }
 
+    @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void animateTick(@Nonnull BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         if (Config.PERFORMANCE_CONFIG.cachedTreeParticlesValue()) {
             if (worldIn.isRainingAt(pos.above())) {
                 if (rand.nextInt(15) == 1) {
@@ -145,6 +155,7 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
 
     }
 
+    @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return updateDistance(this.defaultBlockState().setValue(PERSISTENT, Boolean.valueOf(true)), context.getLevel(), context.getClickedPos());
     }

@@ -1,19 +1,13 @@
 package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -23,7 +17,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
 
 public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatable, ITickableTileEntity {
     int life = 30;
@@ -78,11 +72,12 @@ public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatab
     }
 
     @Override
-    public void load(BlockState state, CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         life = nbt.getInt("life");
     }
 
+    @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         compound.putInt("life",life);

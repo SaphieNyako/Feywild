@@ -6,12 +6,13 @@ import net.minecraft.block.GrassBlock;
 import net.minecraft.block.SnowyDirtBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.Heightmap;
+
+import javax.annotation.Nonnull;
 
 public class WinterLeavesBlock extends FeyLeavesBlock {
 
     @Override
-    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState oldState, boolean isMoving) {
 
         if (!worldIn.isClientSide && !state.getValue(WinterLeavesBlock.PERSISTENT) && worldIn.isEmptyBlock(pos.above())) {
 

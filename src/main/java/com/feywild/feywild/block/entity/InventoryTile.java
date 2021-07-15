@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.network.PacketDistributor;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class InventoryTile extends TileEntity implements IInventory {
@@ -37,12 +38,14 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
     }
 
     //get stack
+    @Nonnull
     @Override
     public ItemStack getItem(int index) {
         return getItems().get(index);
     }
 
     //decrement
+    @Nonnull
     @Override
     public ItemStack removeItem(int index, int count) {
         ItemStack stack = getItem(index);
@@ -65,6 +68,7 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
     }
 
     // Clear slot
+    @Nonnull
     @Override
     public ItemStack removeItemNoUpdate(int index) {
         return getItems().set(index, ItemStack.EMPTY);
@@ -72,7 +76,7 @@ public abstract class InventoryTile extends TileEntity implements IInventory {
 
     //Set stack at index
     @Override
-    public void setItem(int index, ItemStack stack) {
+    public void setItem(int index, @Nonnull ItemStack stack) {
         getItems().set(index, stack);
     }
 

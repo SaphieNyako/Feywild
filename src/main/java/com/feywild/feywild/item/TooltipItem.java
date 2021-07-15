@@ -9,6 +9,7 @@ import net.minecraft.util.text.KeybindTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class TooltipItem extends Item {
@@ -20,7 +21,7 @@ public abstract class TooltipItem extends Item {
     public abstract List<ITextComponent> getTooltip(ItemStack stack, World world);
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         if (KeyboardHelper.isHoldingShift()) {
             tooltip.addAll(getTooltip(stack, world));
         } else {

@@ -3,7 +3,6 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.KeyboardHelper;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,13 +17,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class FeywildMusicDisc extends MusicDiscItem {
 
     public FeywildMusicDisc() {
-        this(1, () -> ModSoundEvents.FEYWILD_SOUNDTRACK.get(), new Item.Properties().tab(FeywildMod.FEYWILD_TAB).rarity(Rarity.RARE));
+        this(1, ModSoundEvents.FEYWILD_SOUNDTRACK, new Item.Properties().tab(FeywildMod.FEYWILD_TAB).rarity(Rarity.RARE));
     }
 
     public FeywildMusicDisc(int comparatorValue, Supplier<SoundEvent> soundSupplier, Properties builder) {
@@ -32,7 +32,7 @@ public class FeywildMusicDisc extends MusicDiscItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         if (KeyboardHelper.isHoldingShift()) {
             tooltip.add(new TranslationTextComponent("message.feywild.music_disc_feywild"));
         } else {
@@ -40,6 +40,7 @@ public class FeywildMusicDisc extends MusicDiscItem {
         }
     }
 
+    @Nonnull
     @Override
     @OnlyIn(Dist.CLIENT)
     public IFormattableTextComponent getDisplayName() {

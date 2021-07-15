@@ -4,12 +4,13 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.Dandelion;
 import com.feywild.feywild.block.DandelionStem;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.SunflowerStem;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
+
+import javax.annotation.Nonnull;
 
 public class DandelionSeeds extends Item {
 
@@ -17,6 +18,7 @@ public class DandelionSeeds extends Item {
         super(new Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
+    @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         BlockPos pos = context.getClickedPos().above();

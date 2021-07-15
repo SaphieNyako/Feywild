@@ -25,12 +25,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Random;
 
 public class LibraryBell extends Block {
 
@@ -55,7 +52,7 @@ public class LibraryBell extends Block {
     }
 
     @Override
-    public void onRemove(BlockState p_196243_1_, World world, BlockPos pos, BlockState p_196243_4_, boolean p_196243_5_) {
+    public void onRemove(@Nonnull BlockState p_196243_1_, World world, @Nonnull BlockPos pos, @Nonnull BlockState p_196243_4_, boolean p_196243_5_) {
     if(!world.isClientSide) {
         LibraryBellEntity blockEntity = (LibraryBellEntity) world.getBlockEntity(pos);
         assert blockEntity != null;
@@ -70,15 +67,17 @@ public class LibraryBell extends Block {
         super.onRemove(p_196243_1_, world, pos, p_196243_4_, p_196243_5_);
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return VoxelShapes.box(0.35, 0.01, 0.34, 0.65, 0.25, 0.65);
 
     }
 
+    @Nonnull
     @Override
-    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity playerEntity, Hand hand, BlockRayTraceResult trace) {
+    public ActionResultType use(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity playerEntity, @Nonnull Hand hand, @Nonnull BlockRayTraceResult trace) {
         if (world.isClientSide) {
             world.playSound(playerEntity, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
         } else {

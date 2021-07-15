@@ -2,8 +2,6 @@ package com.feywild.feywild.entity.util.trades;
 
 import net.minecraft.item.ItemStack;
 
-import java.util.Random;
-
 public class TradeData {
 
     private final int maxUses;

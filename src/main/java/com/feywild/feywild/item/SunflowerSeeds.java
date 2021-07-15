@@ -9,12 +9,15 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nonnull;
+
 public class SunflowerSeeds extends Item {
 
     public SunflowerSeeds() {
         super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
+    @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         BlockPos pos = context.getClickedPos().above();

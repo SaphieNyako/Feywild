@@ -1,6 +1,5 @@
 package com.feywild.feywild.util;
 
-import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.screens.PixieScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.StringTextComponent;

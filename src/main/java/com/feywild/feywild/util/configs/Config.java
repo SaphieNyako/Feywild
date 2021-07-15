@@ -1,4 +1,4 @@
-package com.feywild.feywild.util.Configs;
+package com.feywild.feywild.util.configs;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
@@ -6,6 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Config {
 
@@ -108,7 +109,7 @@ public class Config {
                 Arrays.asList("SWAMP", "MUSHROOM", "SPOOKY", "FOREST", "MAGICAL"));
         WINTER_PIXIE_CONFIG = new MobConfig("Winter Pixie", 20, 1, 1,
                 Arrays.asList("DEAD", "SNOWY", "COLD", "MAGICAL"));
-        DWARF_CONFIG = new MobConfig("Dwarf", 20, 1, 1, Arrays.asList("ALL"));
+        DWARF_CONFIG = new MobConfig("Dwarf", 20, 1, 1, Collections.singletonList("ALL"));
 
         SPRING_PIXIE_CONFIG.apply(SERVER_BUILDER);
         SUMMER_PIXIE_CONFIG.apply(SERVER_BUILDER);

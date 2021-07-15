@@ -6,7 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
 
 public class LibraryBellEntity extends TileEntity {
 
@@ -53,12 +54,13 @@ public class LibraryBellEntity extends TileEntity {
 
 
     @Override
-    public void load(BlockState state, CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         annoyance = nbt.getInt("annoyance");
         playerEntity = level.getPlayerByUUID(nbt.getUUID("playerId"));
     }
 
+    @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         compound.putInt("annoyance",annoyance);

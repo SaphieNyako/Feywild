@@ -34,8 +34,8 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
-    private final int MAX_MANA = 1000;
-    private final int FEY_DUST_MANA_COST = 50;
+    private static final int MAX_MANA = 1000;
+    private static final int FEY_DUST_MANA_COST = 50;
     NonNullList<ItemStack> stackList = NonNullList.withSize(itemHandler.getSlots(), ItemStack.EMPTY);
 
     private int tick = 0;
@@ -79,6 +79,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         manaHandler.invalidate();
     }
 
+    @Override
     public void tick() {
 
         if (level.isClientSide) return;
@@ -113,7 +114,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     /* DATA */
 
     @Override
-    public void load(BlockState state, CompoundNBT tag) {
+    public void load(@Nonnull BlockState state, CompoundNBT tag) {
 
         //    dwarfPresent = tag.getBoolean("dwarf_present");
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
@@ -122,6 +123,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         super.load(state, tag);
     }
 
+    @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT tag) {
         tag.put("inventory", itemHandler.serializeNBT());
@@ -262,15 +264,9 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
             int manaUsage = iRecipe.getManaUsage();
 
-            if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
+            setCanCraft((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
                     && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() //&& dwarfPresent
-                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage) {
-
-                setCanCraft(true);
-
-            } else {
-                setCanCraft(false);
-            }
+                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage);
         });
 
     }

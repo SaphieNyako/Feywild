@@ -1,4 +1,4 @@
-package com.feywild.feywild.util.Configs;
+package com.feywild.feywild.util.configs;
 
 import com.electronwill.nightconfig.core.AbstractConfig;
 import com.electronwill.nightconfig.core.Config;

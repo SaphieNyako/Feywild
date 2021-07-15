@@ -7,10 +7,8 @@ import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +22,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +32,7 @@ public class SummoningScrollSpringPixie extends TooltipItem {
         super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
+    @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if (!context.getLevel().isClientSide) {

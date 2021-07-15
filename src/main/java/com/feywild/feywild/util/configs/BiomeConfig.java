@@ -1,14 +1,9 @@
-package com.feywild.feywild.util.Configs;
+package com.feywild.feywild.util.configs;
 
 import com.electronwill.nightconfig.core.AbstractConfig;
 import com.electronwill.nightconfig.core.Config;
 import com.electronwill.nightconfig.core.ConfigFormat;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeConfigSpec;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BiomeConfig extends AbstractConfig {
 

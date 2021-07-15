@@ -3,7 +3,6 @@ package com.feywild.feywild.world.feature;
 import com.feywild.feywild.block.Dandelion;
 import com.feywild.feywild.block.DandelionStem;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.SunflowerStem;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -11,6 +10,7 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class DandelionFeature extends Feature<NoFeatureConfig> {
@@ -22,7 +22,7 @@ public class DandelionFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random rand, BlockPos pos, NoFeatureConfig config) {
+    public boolean place(@Nonnull ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
         int check = 0;
 
         for (int i = 0; i < 32; ++i) {

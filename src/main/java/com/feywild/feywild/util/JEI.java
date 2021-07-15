@@ -14,12 +14,14 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 @JeiPlugin
 public class JEI implements IModPlugin {
 
+    @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(FeywildMod.MOD_ID, "jei_plugin");
@@ -34,7 +36,7 @@ public class JEI implements IModPlugin {
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration registration) {
+    public void registerRecipes(@Nonnull IRecipeRegistration registration) {
 
         List<AltarRecipe> altarRecipeList = new ArrayList<>();
         List<DwarvenAnvilRecipe> anvilRecipeList = new ArrayList<>();

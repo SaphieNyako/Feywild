@@ -18,6 +18,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
+import javax.annotation.Nonnull;
+
 public class DwarvenAnvilContainer extends Container {
 
     private TileEntity tileEntity;
@@ -49,7 +51,7 @@ public class DwarvenAnvilContainer extends Container {
     }
 
     @Override //canInteractWith
-    public boolean stillValid(PlayerEntity playerIn) {
+    public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
         //isWithinUsableDistance not available anymore
     }
@@ -93,8 +95,9 @@ public class DwarvenAnvilContainer extends Container {
     }
 
     //transferStackInSlot - This makes it possible to put in items....
+    @Nonnull
     @Override
-    public ItemStack quickMoveStack(PlayerEntity playerIn, int index) {
+    public ItemStack quickMoveStack(@Nonnull PlayerEntity playerIn, int index) {
 
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);

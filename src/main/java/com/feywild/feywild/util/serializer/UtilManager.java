@@ -11,6 +11,7 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
@@ -19,13 +20,11 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
-import static com.feywild.feywild.entity.util.trades.DwarvenTrades.*;
-
 public class UtilManager implements IFutureReloadListener {
 
     private static final Gson GSON = new GsonBuilder().create();
     private static UtilManager instance;
-    private static String utilJson[] = {"feywild_util"};
+    private static String[] utilJson = {"feywild_util"};
 
     public static UtilManager instance()
     {
@@ -36,8 +35,9 @@ public class UtilManager implements IFutureReloadListener {
         return instance;
     }
 
+    @Nonnull
     @Override
-    public CompletableFuture<Void> reload(IStage iStage, IResourceManager iResourceManager, IProfiler iProfiler, IProfiler iProfiler1, Executor executor, Executor executor1) {
+    public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {
         return CompletableFuture.allOf(CompletableFuture.runAsync(() ->
         {
             for (String path : utilJson) {

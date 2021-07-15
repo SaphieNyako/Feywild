@@ -8,6 +8,7 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
@@ -19,7 +20,7 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean place(ISeedReader world, ChunkGenerator chunkGenerator, Random rand, BlockPos pos, NoFeatureConfig config) {
+    public boolean place(@Nonnull ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
         int check = 0;
 
         for (int i = 0; i < 32; ++i) {

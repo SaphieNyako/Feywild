@@ -1,7 +1,6 @@
 package com.feywild.feywild.util;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -17,9 +16,6 @@ import net.minecraft.world.World;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class ModUtil {
     public static HashMap<LivingEntity,PlayerEntity> killOnExit = new HashMap<>();
@@ -62,33 +58,25 @@ public class ModUtil {
 
 
             if(target.get().startsWith("B#")) {
-                BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("B#","").toLowerCase())).getValues().forEach(block -> {
-                    target.set(target.get() + "/" + block.getRegistryName());
-                });
+                BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("B#","").toLowerCase())).getValues().forEach(block -> target.set(target.get() + "/" + block.getRegistryName()));
                 target.set("#"+target.get());
             }
 
 
             if(target.get().startsWith("I#")) {
-                ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("I#","").toLowerCase())).getValues().forEach(block -> {
-                    target.set(target.get() + "/" + block.getRegistryName());
-                });
+                ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("I#","").toLowerCase())).getValues().forEach(block -> target.set(target.get() + "/" + block.getRegistryName()));
                 target.set("#"+target.get());
             }
 
 
             if(item.get().startsWith("B#")) {
-                BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("B#","").toLowerCase())).getValues().forEach(block -> {
-                    item.set(item.get() + "/" + block.getRegistryName());
-                });
+                BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("B#","").toLowerCase())).getValues().forEach(block -> item.set(item.get() + "/" + block.getRegistryName()));
                 item.set("#"+target.get());
             }
 
 
             if(item.get().startsWith("I#")) {
-                ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("I#","").toLowerCase())).getValues().forEach(block -> {
-                    item.set(item.get() + "/" + block.getRegistryName());
-                });
+                ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("I#","").toLowerCase())).getValues().forEach(block -> item.set(item.get() + "/" + block.getRegistryName()));
                 item.set("#"+target.get());
             }
 

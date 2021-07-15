@@ -30,6 +30,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DwarvenAnvil extends Block {
@@ -56,7 +57,7 @@ public class DwarvenAnvil extends Block {
     }
 
     @Override
-    public void setPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+    public void setPlacedBy(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nullable LivingEntity entity, @Nonnull ItemStack stack) {
         if (entity != null) {
             world.setBlock(pos, state.setValue(FACING, getFacingFromEntity(pos, entity)), 2);
         }
@@ -74,19 +75,22 @@ public class DwarvenAnvil extends Block {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     } */
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return VoxelShapes.box(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
 
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
     public BlockState rotate(BlockState state, Rotation direction) {
         return state.setValue(FACING, direction.rotate(state.getValue(FACING)));
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
@@ -103,15 +107,17 @@ public class DwarvenAnvil extends Block {
 
     /* TILE ENTITY */
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType use(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit) {
 
         if (!worldIn.isClientSide) {
             TileEntity tileEntity = worldIn.getBlockEntity(pos);
 
             if (tileEntity instanceof DwarvenAnvilEntity) {
                 INamedContainerProvider containerProvider = new INamedContainerProvider() {
+                    @Nonnull
                     @Override
                     public ITextComponent getDisplayName() {
                         return new TranslationTextComponent("screen.feywild.dwarven_anvil");
@@ -119,7 +125,7 @@ public class DwarvenAnvil extends Block {
 
                     @Nullable
                     @Override
-                    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+                    public Container createMenu(int i, @Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity playerEntity) {
 
                         return new DwarvenAnvilContainer(i, worldIn, pos, playerInventory, playerEntity);
                     }
@@ -137,7 +143,7 @@ public class DwarvenAnvil extends Block {
     }
 
     @Override
-    public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void playerWillDestroy(World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull PlayerEntity player) {
         IItemHandler cap = world.getBlockEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
 
         for (int i = 0; i < cap.getSlots(); i++) {

@@ -1,17 +1,12 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.scoreboard.Score;
-import net.minecraft.scoreboard.ScoreObjective;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.UUID;

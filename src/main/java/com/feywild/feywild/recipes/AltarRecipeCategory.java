@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,26 +33,31 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     }
 
+    @Nonnull
     @Override
     public ResourceLocation getUid() {
         return UID;
     }
 
+    @Nonnull
     @Override
     public Class<? extends AltarRecipe> getRecipeClass() {
         return AltarRecipe.class;
     }
 
+    @Nonnull
     @Override
     public String getTitle() {
         return "Fey Altar";
     }
 
+    @Nonnull
     @Override
     public IDrawable getBackground() {
         return background;
     }
 
+    @Nonnull
     @Override
     public IDrawable getIcon() {
         return icon;
@@ -74,7 +80,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, AltarRecipe altarRecipe, IIngredients iIngredients) {
+    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull AltarRecipe altarRecipe, IIngredients iIngredients) {
         //Where is the location of every item.
        /* int xPos = 0;
         int yPos = 8;

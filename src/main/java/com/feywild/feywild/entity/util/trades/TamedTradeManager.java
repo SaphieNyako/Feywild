@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.ItemStack;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IFutureReloadListener;
@@ -14,9 +13,9 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -29,8 +28,8 @@ public class TamedTradeManager implements IFutureReloadListener {
 
     private static final Gson GSON = new GsonBuilder().create();
     private static TamedTradeManager instance;
-    private static String tamedPaths[] = {"feywild_trades/tamed/food", "feywild_trades/tamed/loot"};
-    private static String untamedPaths[] = {"feywild_trades/untamed", "feywild_trades/tamed/static"};
+    private static String[] tamedPaths = {"feywild_trades/tamed/food", "feywild_trades/tamed/loot"};
+    private static String[] untamedPaths = {"feywild_trades/untamed", "feywild_trades/tamed/static"};
 
     public static TamedTradeManager instance()
     {
@@ -41,8 +40,9 @@ public class TamedTradeManager implements IFutureReloadListener {
         return instance;
     }
 
+    @Nonnull
     @Override
-    public CompletableFuture<Void> reload(IStage iStage, IResourceManager iResourceManager, IProfiler iProfiler, IProfiler iProfiler1, Executor executor, Executor executor1) {
+    public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {
         return CompletableFuture.allOf(CompletableFuture.runAsync(() ->
         {
             //For tamed

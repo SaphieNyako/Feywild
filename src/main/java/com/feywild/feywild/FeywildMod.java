@@ -15,7 +15,7 @@ import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.Configs.Config;
+import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.serializer.UtilManager;
 import com.feywild.feywild.world.biome.ModBiomes;
@@ -64,6 +64,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,6 +77,7 @@ public class FeywildMod {
     public static final String MOD_ID = "feywild";
     public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
 
+        @Nonnull
         @Override
         public ItemStack makeIcon() {
 

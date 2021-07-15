@@ -1,7 +1,5 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.util.FeyEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.BlockPos;
 

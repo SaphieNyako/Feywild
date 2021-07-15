@@ -7,17 +7,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.JSONUtils;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 import static com.feywild.feywild.entity.util.trades.DwarvenTrades.getTrades;
@@ -85,7 +82,7 @@ public class DwarvenTrades {
         }
 
         @Override
-        public MerchantOffer getOffer(Entity p_221182_1_, Random p_221182_2_) {
+        public MerchantOffer getOffer(@Nonnull Entity p_221182_1_, @Nonnull Random p_221182_2_) {
             return new MerchantOffer(itemStack, itemStackOut, this.maxUses,  this.givenXp , this.multiplier);
         }
     }
@@ -95,7 +92,8 @@ public class DwarvenTrades {
         public RandomCommonFoodItemsForRandomCommonOreItemsTrade() {
         }
 
-        public MerchantOffer getOffer(Entity p_221182_1_, Random random) {
+        @Override
+        public MerchantOffer getOffer(@Nonnull Entity p_221182_1_, Random random) {
             TradeData data = commonLoot.get(random.nextInt(commonLoot.size()));
 
             return new MerchantOffer(commonFood.get(random.nextInt(commonFood.size())).getStack(),
@@ -112,7 +110,8 @@ public class DwarvenTrades {
 
         }
 
-        public MerchantOffer getOffer(Entity p_221182_1_, Random random) {
+        @Override
+        public MerchantOffer getOffer(@Nonnull Entity p_221182_1_, Random random) {
             TradeData data = legendaryLoot.get(random.nextInt(legendaryLoot.size()));
             return new MerchantOffer(legendaryFood.get(random.nextInt(legendaryFood.size())).getStack(),
                     data.getStack(),

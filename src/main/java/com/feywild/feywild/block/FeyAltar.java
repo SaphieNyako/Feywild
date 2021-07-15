@@ -2,7 +2,6 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -20,6 +19,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Random;
@@ -71,7 +71,7 @@ public class FeyAltar extends ClientDataBlock {
     }
 
     @Override
-    public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void playerWillDestroy(World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull PlayerEntity player) {
         if (worldIn.isClientSide) {
             worldIn.playSound(player, pos, SoundEvents.STONE_BREAK, SoundCategory.BLOCKS, 1, 1);
             for (int i = 0; i < 20; i++) {
@@ -97,8 +97,9 @@ public class FeyAltar extends ClientDataBlock {
         return new FeyAltarBlockEntity();
     }
 
+    @Nonnull
     @Override
-    public BlockRenderType getRenderShape(BlockState state) {
+    public BlockRenderType getRenderShape(@Nonnull BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 

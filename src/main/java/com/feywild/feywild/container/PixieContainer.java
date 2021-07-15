@@ -8,10 +8,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI;
+import javax.annotation.Nonnull;
 
 public class PixieContainer extends Container {
 
@@ -46,7 +45,7 @@ public class PixieContainer extends Container {
     }
 
     @Override //canInteractWith
-    public boolean stillValid(PlayerEntity playerIn) {
+    public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
 
     }

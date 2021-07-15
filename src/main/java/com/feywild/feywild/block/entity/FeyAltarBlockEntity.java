@@ -21,6 +21,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -39,15 +40,16 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
     /* DATA */
     @Override
-    public void load(BlockState state, CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         for (int i = 0; i < getContainerSize(); i++) {
             stackList.set(i, ItemStack.of((CompoundNBT) nbt.get("stack" + i)));
         }
     }
 
+    @Nonnull
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
+    public CompoundNBT save(@Nonnull CompoundNBT compound) {
         for (int i = 0; i < getItems().size(); i++) {
             CompoundNBT compoundNBT = new CompoundNBT();
             stackList.get(i).copy().save(compoundNBT);
@@ -66,9 +68,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
 
             Optional<AltarRecipe> recipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
 
-            recipe.ifPresent(altarRecipe -> {
-                        this.shouldCraft = true;
-                    }
+            recipe.ifPresent(altarRecipe -> this.shouldCraft = true
             );
         } else {
             super.updateInventory(flags, false);
