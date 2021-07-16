@@ -41,6 +41,7 @@ public class SummerTreeSapling extends BaseSapling {
         }
     }
 
+    @Override
     public BlockState getBlocks(Random random) {
 
         switch (random.nextInt(10)) {
@@ -54,7 +55,6 @@ public class SummerTreeSapling extends BaseSapling {
                 return Blocks.ALLIUM.defaultBlockState();
             case 5:
                 return Blocks.CORNFLOWER.defaultBlockState();
-            //case 6: return Blocks.SUNFLOWER.getDefaultState();
             default:
                 return Blocks.GRASS.defaultBlockState();
         }

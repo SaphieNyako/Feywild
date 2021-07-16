@@ -28,7 +28,6 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
         super(rendererDispatcherIn, new FeyAltarModel());
     }
 
-    // TODO code needs changing after other tODO comments got implemented.
     @Override
     public void render(FeyAltarBlockEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(tileEntityIn, partialTicks, matrixStackIn, bufferIn, packedLightIn);

@@ -37,7 +37,7 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
 
     @Override
     public boolean isBonemealSuccess(World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-        //50% chance of Bonemeal working.
+
         return (double) worldIn.random.nextFloat() < 0.50;
     }
 
@@ -48,7 +48,7 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
         if (!worldIn.isAreaLoaded(pos, 1)) {
             return;
         }
-        //attempt to grow
+
         if (worldIn.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
             this.performBonemeal(worldIn, rand, pos, state);
         }
@@ -70,5 +70,9 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(STAGE);
+    }
+
+    public BlockState getBlocks(Random random) {
+        return null;
     }
 }

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "feywild:schematics_gem_transmutation",
+    "feywild:schematics_fey_altar"
+  ]
+}

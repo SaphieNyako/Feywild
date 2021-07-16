@@ -95,7 +95,6 @@ public class DwarvenAnvilContainer extends Container {
         return tileEntity.getCapability(CapabilityMana.MANA).map(IManaStorage::getManaStored).orElse(0);
     }
 
-    //transferStackInSlot - This makes it possible to put in items....
     @Nonnull
     @Override
     public ItemStack quickMoveStack(@Nonnull PlayerEntity playerIn, int index) {
@@ -165,7 +164,6 @@ public class DwarvenAnvilContainer extends Container {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }
-
         return index;
     }
 

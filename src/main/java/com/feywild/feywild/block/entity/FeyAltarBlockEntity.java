@@ -27,7 +27,7 @@ import java.util.Optional;
 
 public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
 
-    // TODO use iitemhandler
+    // TODO use itemhandler for FeyAltar
     private final NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
     private final AnimationFactory factory = new AnimationFactory(this);
     private boolean shouldLoad = true, shouldCraft = false;
@@ -102,7 +102,7 @@ public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileE
                 limit = level.random.nextInt(20 * 6);
                 if (level.random.nextDouble() > 0.5) {
                     // send packet to player to summon particles
-                    // TODO possibly summon particles clients side, reduces network traffic
+                    // TODO possibly summon particles clients side, reduces network traffic (Server test required)
                     FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + level.random.nextDouble(), worldPosition.getY() + level.random.nextDouble(), worldPosition.getZ() + level.random.nextDouble(), 0, 0, 0, 1, 2, 0), 32);
                 }
                 count = 0;

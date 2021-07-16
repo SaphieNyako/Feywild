@@ -14,7 +14,6 @@ import net.minecraft.util.Rotation;
 
 import javax.annotation.Nonnull;
 
-// TODO let logs extends minecrafts own abstract log block
 public class SummerTreeLog extends Block {
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;

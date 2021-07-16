@@ -1,21 +1,23 @@
 package com.feywild.feywild.block.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.block.entity.mana.CustomManaStorage;
 import com.feywild.feywild.block.entity.mana.IManaStorage;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -78,9 +80,9 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     public void tick() {
         if (level != null && level instanceof ServerWorld) {
             if (((ServerWorld) level).getServer().getTickCount() % 20 == 0) {
-                //  if there is feydust in slot 0 && // if mana is still below 1000
+
                 if (this.itemHandler.getStackInSlot(0).getItem() == ModItems.FEY_DUST.get() && manaStorage.getManaStored() < MAX_MANA) {
-                    // remove a feydust and add 50 mana
+
                     itemHandler.extractItem(0, 1, false);
                     manaStorage.generateMana(FEY_DUST_MANA_COST);
                     setChanged();
@@ -95,7 +97,6 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
     @Override
     public void load(@Nonnull BlockState state, CompoundNBT tag) {
-        //    dwarfPresent = tag.getBoolean("dwarf_present");
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         manaStorage.deserializeNBT(tag.getCompound("mana"));
         super.load(state, tag);
@@ -106,7 +107,6 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     public CompoundNBT save(CompoundNBT tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.put("mana", manaStorage.serializeNBT());
-        //   tag.putBoolean("dwarf_present", dwarfPresent);
         return super.save(tag);
     }
 
@@ -134,7 +134,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
                     case 0:
                         return stack.getItem() == ModItems.FEY_DUST.get();
                     case 1:
-                        return stack.getItem() instanceof Schematics; // TODO should use item tag
+                        return stack.getItem().is(ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(FeywildMod.MOD_ID, "schematics")));
                     case 7:
                         return false;
                     default:
@@ -148,9 +148,6 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
                 /* Insert Item into a specific slot */
 
-                // TODO Don't use this here
-                // maybe an abstract base class for inventories to handle stuff like this.
-                // this could then also handle getting a stack list
                 if (slot == -1) {
                     int count = Math.min(this.stacks.get(7).getMaxStackSize(), this.stacks.get(7).getCount() + stack.getCount());
                     stack.setCount(count);

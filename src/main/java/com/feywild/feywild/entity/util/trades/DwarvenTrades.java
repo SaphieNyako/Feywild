@@ -22,13 +22,11 @@ import java.util.Random;
 
 public class DwarvenTrades {
 
-    //TODO: Serialise the trades
     public static final List<TradeData> commonLoot = new LinkedList<>(), legendaryLoot = new LinkedList<>();
     public static final List<TradeData> commonFood = new LinkedList<>(), legendaryFood = new LinkedList<>();
     public static final List<SimplyTrade> untamedLevel1 = new LinkedList<>(), untamedLevel2 = new LinkedList<>();
 
     public static Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_TRADES;
-
 
     /* TAMED */
     public static Int2ObjectMap<VillagerTrades.ITrade[]> DWARVEN_BLACKSMITH_TRADES = toIntMap(ImmutableMap.of(1, new VillagerTrades.ITrade[]{
@@ -52,7 +50,6 @@ public class DwarvenTrades {
         return new Int2ObjectOpenHashMap<>(p_221238_0_);
     }
 
-
     public static VillagerTrades.ITrade[] getTrades(List<SimplyTrade> trades) {
         VillagerTrades.ITrade[] trades1 = new VillagerTrades.ITrade[trades.size()];
         for (int i = 0; i < trades.size(); i++) {
@@ -60,8 +57,6 @@ public class DwarvenTrades {
         }
         return trades1;
     }
-
-    // Ancient's note : why where there over 9000 types of trades that did the same thing?
 
     static class SimplyTrade implements VillagerTrades.ITrade {
 
@@ -120,9 +115,6 @@ public class DwarvenTrades {
         }
 
     }
-
-    // Ancient's note : Since it's all here already why not just continue :P
-
 
     public static class TamedSerializer {
 

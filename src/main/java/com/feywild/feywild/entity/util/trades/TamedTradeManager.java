@@ -1,6 +1,5 @@
 package com.feywild.feywild.entity.util.trades;
 
-
 import com.feywild.feywild.item.ModItems;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
@@ -38,7 +37,6 @@ public class TamedTradeManager implements IFutureReloadListener {
         return instance;
     }
 
-    // TODO consider using recipes here instead of custom data.
     @Nonnull
     @Override
     public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {
@@ -72,7 +70,6 @@ public class TamedTradeManager implements IFutureReloadListener {
                             }
                         }
 
-
                     } catch (IOException e) {
                         System.out.print("You are not abiding by the rules of the feywild! (Tamed trade setup is wrong)");
                         e.printStackTrace();
@@ -80,8 +77,6 @@ public class TamedTradeManager implements IFutureReloadListener {
                 });
             }
 
-            //For untamed
-            //Ancient's note : Keep an eye on this if more level are needed though I doubt that
             DwarvenTrades.UntamedSerializer untamedSerializer = new DwarvenTrades.UntamedSerializer();
 
             for (String path : untamedPaths) {

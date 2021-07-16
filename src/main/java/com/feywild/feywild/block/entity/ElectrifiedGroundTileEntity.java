@@ -73,14 +73,12 @@ public class ElectrifiedGroundTileEntity extends TileEntity implements IAnimatab
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         life = nbt.getInt("life");
-        // TODO serialise the AABB
     }
 
     @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT compound) {
         compound.putInt("life", life);
-        // TODO deserialise the AABB
         return super.save(compound);
     }
 }

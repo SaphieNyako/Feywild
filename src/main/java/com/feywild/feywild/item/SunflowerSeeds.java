@@ -20,12 +20,18 @@ public class SunflowerSeeds extends Item {
     @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {
-        // TODO currently replaces all blockes, even bedrock
-        // TODO plant can only be broken at the second block from the bottom up
-        // TODO mining the plant will give you two seeds so you can duplicate them without any bonemeal
-        // Same goes for the dandelion
+
         BlockPos pos = context.getClickedPos().above();
-        if (!context.getLevel().isClientSide && context.getLevel().getBlockState(context.getClickedPos()).is(Blocks.GRASS_BLOCK)) {
+        boolean canSpawn = true;
+
+        for (int i = 0; i < 4; i++) {
+            if (!context.getLevel().getBlockState(pos.above(i)).isAir()) {
+                canSpawn = false;
+                break;
+            }
+        }
+
+        if (!context.getLevel().isClientSide && context.getLevel().getBlockState(context.getClickedPos()).is(Blocks.GRASS_BLOCK) && canSpawn) {
             context.getLevel().setBlock(pos, ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);
             context.getLevel().setBlock(pos.above(1), ModBlocks.SUNFLOWER_STEM.get().defaultBlockState().setValue(SunflowerStem.HAS_MODEL, true), 2, 1);
             context.getLevel().setBlock(pos.above(2), ModBlocks.SUNFLOWER_STEM.get().defaultBlockState(), 2, 1);

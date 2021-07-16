@@ -1,6 +1,5 @@
 package com.feywild.feywild.util.serializer;
 
-
 import com.feywild.feywild.util.ModUtil;
 import com.google.gson.*;
 import net.minecraft.item.ItemStack;
@@ -33,7 +32,6 @@ public class UtilManager implements IFutureReloadListener {
         return instance;
     }
 
-    // TODO add a method to handle all the reload methods as they are pretty similar
     @Nonnull
     @Override
     public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {
@@ -59,7 +57,6 @@ public class UtilManager implements IFutureReloadListener {
             }
         }, executor)).thenCompose(iStage::wait);
     }
-
 
     public static class LibrarySerializer {
 

@@ -30,8 +30,6 @@ import java.util.Random;
 
 public class FeyLeavesBlock extends Block implements net.minecraftforge.common.IForgeShearable {
 
-    // TODO use builtin properties
-    // Not changed yet because it would need changing the blockstate jsons so I'm waiting for datagen.
     public static final BooleanProperty PERSISTENT = BooleanProperty.create("persistent_leaves");
     private static final int maxDistance = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("more_distance", 0, maxDistance);
@@ -73,7 +71,7 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         if (BlockTags.LOGS.contains(neighbor.getBlock())) {
             return 0;
         } else {
-            //is instance of FeyLeaves Block
+
             return neighbor.getBlock() instanceof FeyLeavesBlock ? neighbor.getValue(DISTANCE) : maxDistance;
         }
     }
@@ -100,7 +98,6 @@ public class FeyLeavesBlock extends Block implements net.minecraftforge.common.I
         }
     }
 
-    //This causes the decay //what does flags do?
     @Override
     public void tick(@Nonnull BlockState state, ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         worldIn.setBlock(pos, updateDistance(state, worldIn, pos), 3);

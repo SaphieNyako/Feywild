@@ -7,7 +7,7 @@ import net.minecraft.item.crafting.Ingredient;
 import java.util.LinkedList;
 import java.util.List;
 
-// TODO I think it's best to completely delete this
+// TODO Find a different way of checking if a recipe is correct
 public class FeywildRecipes {
 
     //Inefficient item match method
@@ -45,7 +45,6 @@ public class FeywildRecipes {
         }
         return false;
     }
-
 
     public static boolean matchesAltar(List<Ingredient> ingredients, IInventory inv) {
         List<ItemStack> stacks = new LinkedList<>();

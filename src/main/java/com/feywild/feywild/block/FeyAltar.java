@@ -33,8 +33,7 @@ public class FeyAltar extends ClientDataBlock {
         super(AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
 
-    // TODO don't suppress everything. Currently leaving it here as I'm thinking about rewriting the method
-    @SuppressWarnings("all")
+    // TODO: Noeppi might re-write this
     @Override
     public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         //Server check

@@ -120,11 +120,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
         player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
 
-        /* This is a test to see if restocking works should be in a goal
-        if (player.getItemInHand(hand).isEmpty() && this.shouldRestock()) {
-            this.restock(); // this works
-        }*/
-
         return ActionResultType.SUCCESS;
     }
 
@@ -218,8 +213,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         compound.putBoolean("tamed", tamed);
         compound.putInt("level", levelInt);
 
-        //     compound.putIntArray("trade_id", tradeId);
-
     }
 
     @Override
@@ -289,14 +282,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     protected int getExperienceReward(@Nonnull PlayerEntity player) {
         return 0;
     }
-/*
-    @Override
-    public void die(DamageSource p_706451) {
-        super.die(p_706451);
-        if (this.isTamed() && this.level.getBlockEntity(summonPos) != null && this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
-            ((DwarvenAnvilEntity) Objects.requireNonNull(this.level.getBlockEntity(summonPos))).setDwarfPresent(false);
-        }
-    } */
 
     /* SOUND EFFECTS */
     @Nullable
@@ -324,9 +309,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return 0.6f;
     }
 
-    /* Animation */
-
-    //TODO: Add working animation
+    /* ANIMATION */
 
     @Override
     protected float getSoundVolume() {
@@ -343,7 +326,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
             if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
                 return PlayState.CONTINUE;
-            } else if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
+            } else if (event.isMoving()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
                 return PlayState.CONTINUE;
             }
@@ -351,7 +334,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
         return PlayState.CONTINUE;
     }
-
 
     @Override
     public void registerControllers(AnimationData animationData) {

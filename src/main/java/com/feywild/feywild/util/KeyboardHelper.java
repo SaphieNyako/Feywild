@@ -7,8 +7,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.glfw.GLFW;
 
 // TODO use actual keybinds here instead of raw hardcoded calls to InputMappings
-// Need to figure out a way to get the actual key press value fr the sneak key
-// even with toggle sneak enabled
+// For now we want the player to press shift. Its not bound to the sneak.
 public class KeyboardHelper {
 
     @OnlyIn(Dist.CLIENT)

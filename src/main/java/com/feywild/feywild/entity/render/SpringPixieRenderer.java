@@ -19,8 +19,6 @@ public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity> {
         super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
     }
 
-    //TODO: Check if world is paused. Fix particle problem pixies after opening menu
-
     @Override
     protected BasicParticleType getParticleType() {
         return ParticleTypes.HAPPY_VILLAGER;

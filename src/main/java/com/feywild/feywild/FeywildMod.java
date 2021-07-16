@@ -24,7 +24,6 @@ import com.feywild.feywild.world.feature.ModFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -42,7 +41,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -300,18 +298,6 @@ public class FeywildMod {
             tempMap.putIfAbsent(ModStructures.LIBRARY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.LIBRARY.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 
-        }
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
         }
     }
 }
