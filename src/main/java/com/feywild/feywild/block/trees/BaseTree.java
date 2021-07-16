@@ -81,5 +81,4 @@ public abstract class BaseTree extends Tree {
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
     }
-
 }
