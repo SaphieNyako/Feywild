@@ -132,7 +132,7 @@ public class Config {
     }
 
     private static void setTreePatchesConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
-        TREE_PATCH_CONFIG = new TreePatchesConfig(true, true, true, true, 0.05, 3);
+        TREE_PATCH_CONFIG = new TreePatchesConfig(true, true, true, true, 0.01, 3);
 
         TREE_PATCH_CONFIG.apply(SERVER_BUILDER);
     }
