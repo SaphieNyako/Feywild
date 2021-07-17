@@ -94,15 +94,6 @@ public class ModItems {
             Registration.ITEMS.register("schematics_fey_altar",
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
 
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_WEAPONS = registerBasedOnConfig("schematics_dungeons_gear_weapons", new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_weapons")), Config.DUNGEONS_GEAR.get());
-
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARTIFACTS = registerBasedOnConfig("schematics_dungeons_gear_artifacts", new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_artifacts")), Config.DUNGEONS_GEAR.get());
-
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARMOR = registerBasedOnConfig("schematics_dungeons_gear_armor", new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_armor")), Config.DUNGEONS_GEAR.get());
-    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
-            Registration.ITEMS.register("summoning_scroll_spring_pixie",
-                    SummoningScrollSpringPixie::new);
-
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
             Registration.ITEMS.register("fey_sheep_droppings",
@@ -149,6 +140,9 @@ public class ModItems {
                             .tab(FeywildMod.FEYWILD_TAB)));  */
 
     /* SUMMONING SCROLL */
+    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
+            Registration.ITEMS.register("summoning_scroll_spring_pixie",
+                    SummoningScrollSpringPixie::new);
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_summer_pixie",
                     SummoningScrollSummerPixie::new);
@@ -168,8 +162,6 @@ public class ModItems {
         }
         return null;
     }
-
-    //METHODES
 
     public static void register() {
     }

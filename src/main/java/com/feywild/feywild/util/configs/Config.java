@@ -22,7 +22,6 @@ public class Config {
     public static PerformanceConfig PERFORMANCE_CONFIG;
 
     public static ForgeConfigSpec.IntValue MYTHIC;
-    public static ForgeConfigSpec.BooleanValue DUNGEONS_GEAR;
 
     public static OreConfig FEY_GEM_CONFIG;
 
@@ -72,8 +71,6 @@ public class Config {
 
     private static void setModPackVariables(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
         MYTHIC = SERVER_BUILDER.comment("Note: This requires the mod: Mythic Botany. 0: feywild biomes spawn in overworld, default alfheim, 1: feywild biomes spawn in overworld, feywild features spawn in alfheim, 2: feywild biomes not active, feywild features spawn in alfheim ").defineInRange("mythic", 1, 0, 2);
-
-        DUNGEONS_GEAR = SERVER_BUILDER.comment("Note: This requires the mod: Dungeons Gear. Set to True if you want Schematics Items for Dungeon Gear.").define("dungeons_gear", false);
 
         MENU_SCREEN = CLIENT_BUILDER.comment("Use the Feywild background.").define("menu_screen", true);
     }
