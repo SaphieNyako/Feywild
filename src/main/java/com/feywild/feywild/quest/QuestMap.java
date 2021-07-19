@@ -1,14 +1,22 @@
 package com.feywild.feywild.quest;
 
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.events.QuestCompletionEvent;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Score;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,26 +33,26 @@ public class QuestMap {
             switch (court) {
                 case "SpringAligned":
                     if (playerEntity.getTags().contains(Courts.SpringAligned.toString())) {
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
-                        score.addAndGet(rep1.getScore());
+                        int rep = playerEntity.getPersistentData().getInt("FWRep");
+                        score.addAndGet(rep);
                     }
                     break;
                 case "AutumnAligned":
                     if (playerEntity.getTags().contains(Courts.AutumnAligned.toString())) {
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
-                        score.addAndGet(rep1.getScore());
+                        int rep = playerEntity.getPersistentData().getInt("FWRep");
+                        score.addAndGet(rep);
                     }
                     break;
                 case "WinterAligned":
                     if (playerEntity.getTags().contains(Courts.WinterAligned.toString())) {
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
-                        score.addAndGet(rep1.getScore());
+                        int rep = playerEntity.getPersistentData().getInt("FWRep");
+                        score.addAndGet(rep);
                     }
                     break;
                 case "SummerAligned":
                     if (playerEntity.getTags().contains(Courts.SummerAligned.toString())) {
-                        Score rep1 = ModUtil.getOrCreatePlayerScore(playerEntity.getName().getString(), Scores.FW_Reputation.toString(), world, 0);
-                        score.addAndGet(rep1.getScore());
+                        int rep = playerEntity.getPersistentData().getInt("FWRep");
+                        score.addAndGet(rep);
                     }
                     break;
             }
@@ -52,157 +60,149 @@ public class QuestMap {
         return score.get();
     }
 
-    public static void updateQuest(PlayerEntity entity) {
-
-        Score questId = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level, 0);
-        Score rep = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), entity.level, 0);
-
-        //Add the court alignment once base quest are created
-        switch (questId.getScore()) {
-            case 0:
-                entity.addTag(Courts.SpringAligned.toString());
-                break;
-            case 100:
-                entity.addTag(Courts.SummerAligned.toString());
-                break;
-            case 200:
-                entity.addTag(Courts.AutumnAligned.toString());
-                break;
-            case 300:
-                entity.addTag(Courts.WinterAligned.toString());
-                break;
-        }
-
-        rep.add(getRepNumber(questId.getScore()));
-
-        if (!entity.level.isClientSide) {
-            entity.addItem(getReward(questId.getScore()));
-        }
-
-        AtomicReference<Quest> questA = new AtomicReference<>();
-        AtomicReference<Quest> questB = new AtomicReference<>();
-        AtomicInteger link = new AtomicInteger(-1);
-        quests.forEach(quest -> {
-            if (quest.getId() == questId.getScore()) {
-                link.set(quest.getLink());
-                questB.set(quest);
-                quests.forEach(quest1 -> {
-                    if (link.get() == quest1.getId()) {
-                        questA.set(quest1);
-                    }
-                });
-            }
-        });
-
-        questId.setScore(link.get());
-
-        storeQuestData(entity);
-
-        if (!questB.get().canSkip())
-            entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
-
-        FeywildPacketHandler.sendToPlayer(new QuestMessage(entity.getUUID(), questId.getScore()), entity);
+    public static boolean hasActiveQuest(@Nonnull String questProgressData,@Nonnull Quest quest){
+       return Arrays.stream(questProgressData.split("/")[0].split("-")).anyMatch(s -> s.contains(quest.getId().toString()));
     }
 
-    public static void storeQuestData(PlayerEntity entity) {
-        AtomicReference<Quest> quest = new AtomicReference<>();
-        Score score = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), entity.level, 0);
-
-        quests.forEach(quest1 -> {
-            if (quest1.getId() == score.getScore()) {
-                quest.set(quest1);
+    public static String getDataBasedOnAction(@Nonnull String questProgressData, @Nonnull String action){
+        StringBuilder data = new StringBuilder();
+        String[] arr = questProgressData.split("/");
+        for (Quest quest : quests) {
+            if(arr.length > 0 && arr[0].contains(quest.getId().toString()) && quest.getData().contains(action.toLowerCase())){
+                data.append(quest.getData()).append("&");
             }
-        });
+        }
+        return data.toString();
+    }
 
-        if (!entity.level.isClientSide) {
-            String[] tokens = quest.get().getData().toUpperCase().split(" ").clone();
+    public static List<Quest> getQuests() {
+        return quests;
+    }
 
-            //REMOVE
-            entity.getPersistentData().remove("FWT");
-            entity.getPersistentData().remove("FWA");
-            entity.getPersistentData().remove("FWU");
-            entity.getPersistentData().remove("FWR");
+    public static boolean isQuestRequired(@Nonnull Quest quest){
+        return quests.stream().anyMatch(q -> q.getRequiredQuests().contains(quest.getId()));
+    }
+
+    public static void clearQuests(){
+        quests.clear();
+    }
+
+    public static Quest getQuest(@Nonnull String id){
+        for (Quest quest : quests){
+            if(quest.getId().toString().equalsIgnoreCase(id)){
+                return quest;
+            }
+        }
+        return null;
+    }
+
+    public static void completeQuest(@Nonnull PlayerEntity entity, @Nonnull Quest quest) {
+
+        int rep = entity.getPersistentData().getInt("FWRep");
+        String questProgressData = entity.getPersistentData().getString("FWQuest");
+
+        if(hasActiveQuest(questProgressData,quest) && !entity.level.isClientSide) {
+
+            QuestCompletionEvent event = new QuestCompletionEvent(entity, quest, rep);
+            MinecraftForge.EVENT_BUS.post(event);
+
+            if (!event.isCanceled()) {
+                // Set court alignments
+                if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "spring_init"))) {
+                    entity.addTag(Courts.SpringAligned.toString());
+                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "summer_init"))) {
+                    entity.addTag(Courts.SummerAligned.toString());
+                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "autumn_init"))) {
+                    entity.addTag(Courts.AutumnAligned.toString());
+                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "winter_init"))) {
+                    entity.addTag(Courts.WinterAligned.toString());
+                }
+
+                //Reward Completion
+                entity.getPersistentData().putInt("FWRep", rep + quest.getRep());
+                entity.addItem(quest.getStack());
+
+                // update questProgress
+                questProgressData = questProgressData.replaceFirst(quest.getId().toString(), "");
+                questProgressData = questProgressData + "-" + quest.getId().toString();
+
+
+                String[] backQuests = questProgressData.split("/")[1].split("-");
+
+                // Update quest data - unused quests
+
+                assert backQuests.length > 0;
+                for (String s : backQuests) {
+                    boolean remove = true;
+                    for (Quest quest2 : quests) {
+                        if (quest2.getRequiredQuests().contains(new ResourceLocation(s)) && !questProgressData.contains(quest2.getId().toString())) {
+                            remove = false;
+                            break;
+                        }
+                    }
+                    if (remove) {
+                        questProgressData = questProgressData.replaceFirst(s, "");
+                    }
+                }
+
+                for (Quest quest1 : quests) {
+
+                    boolean add = true;
+                    for (ResourceLocation res : quest1.getRequiredQuests()) {
+                        if (!questProgressData.split("/")[1].contains(res.toString()) || questProgressData.contains(quest1.getId().toString())) {
+                            add = false;
+                            break;
+                        }
+                    }
+                    if (add) {
+                        questProgressData = quest1.getId().toString().concat("-").concat(questProgressData);
+                    }
+                }
+
+                // Do some clean up
+                questProgressData = questProgressData.replaceFirst("--", "-");
+                questProgressData = questProgressData.replaceFirst("/-", "/");
+                questProgressData = questProgressData.replaceFirst("-/", "/");
+
+                //Add repeatable quests
+                if(quest.isRepeatable())
+                questProgressData = questProgressData.replaceFirst("/", "-"+quest.getId().toString() + "/");
+
+                questProgressData = questProgressData.startsWith("-") ? questProgressData.replaceFirst("-", "") : questProgressData;
+
+                entity.getPersistentData().putString("FWQuest", questProgressData);
+
+                //this might need to be moved
+
+                entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
+                FeywildPacketHandler.sendToPlayer(new QuestMessage(questProgressData, entity.getUUID()), entity);
+            }
+        }
+
+    }
+
+    // get quest tokens
+    public static HashMap<String,String> getQuestData(Quest quest) {
+            HashMap<String, String> ret = new HashMap<>();
+            String[] tokens = quest.getData().toUpperCase().split(" ").clone();
 
             for (int i = 0; i < tokens.length; i++) {
                 switch (tokens[i]) {
                     case "TARGET":
-                        entity.getPersistentData().putString("FWT", tokens[i + 1]);
+                        ret.put("TARGET",tokens[i+1]);
                         break;
                     case "ACTION":
-                        entity.getPersistentData().putString("FWA", tokens[i + 1]);
+                        ret.put("ACTION",tokens[i+1]);
                         break;
                     case "USING":
-                        entity.getPersistentData().putString("FWU", tokens[i + 1]);
+                        ret.put("USING",tokens[i+1]);
                         break;
                     case "TIMES":
-                        entity.getPersistentData().putInt("FWR", Integer.parseInt(tokens[i + 1]));
+                        ret.put("TIMES",tokens[i+1]);
                         break;
                 }
             }
-        }
-    }
-
-    public static int getLineNumber(int id) {
-
-        AtomicInteger i = new AtomicInteger();
-        quests.forEach(quest -> {
-            if (quest.getId() == id) {
-                i.set(quest.getLines());
-            }
-        });
-
-        return i.get();
-    }
-
-    public static int getRepNumber(int id) {
-        AtomicInteger i = new AtomicInteger();
-        quests.forEach(quest -> {
-            if (quest.getId() == id) {
-                i.set(quest.getRep());
-            }
-        });
-
-        return i.get();
-    }
-
-    public static boolean getCanSkip(int id) {
-
-        AtomicBoolean i = new AtomicBoolean();
-        quests.forEach(quest -> {
-            if (quest.getId() == id) {
-                i.set(quest.canSkip());
-            }
-        });
-
-        return i.get();
-    }
-
-    public static String getSound(int id) {
-        AtomicReference<String> i = new AtomicReference<>();
-        quests.forEach(quest -> {
-            if (quest.getId() == id) {
-                i.set(quest.getSound());
-            }
-        });
-        return i.get();
-    }
-
-    public static ItemStack getReward(int id) {
-        AtomicReference<ItemStack> i = new AtomicReference<>();
-        quests.forEach(quest -> {
-            if (quest.getId() == id) {
-                i.set(quest.getStack());
-            }
-        });
-
-        return i.get();
-    }
-
-    // USABLE SCORES
-    public enum Scores {
-        FW_Interact,
-        FW_Quest,
-        FW_Reputation
+            return ret;
     }
 
     public enum Courts {

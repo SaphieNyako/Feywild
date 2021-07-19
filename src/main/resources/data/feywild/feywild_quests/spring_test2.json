@@ -1,18 +1,18 @@
 {
   "type": "quest",
-  "id": "feywild:spring_init",
-  "requirements": "",
+  "id": "feywild:spring_2",
+  "requirements": "feywild:spring_init",
   "reputation": 25,
   "sound": "feywild:summoning_spring_pixie",
   "repeatable" : false,
 
   "extraData": "NULL",
 
-  "name" : "Welcome to the Autumn court",
-  "text":"Darling, what took you so long! I've been waiting for a fine specimen /njust like you",
+  "name" : "CANDIES",
+  "text":"UFHDUSHFUI",
 
   "icon" : {
-    "item" : "minecraft:diamond",
+    "item" : "minecraft:sugar",
     "count" : 1
   },
   "reward": {

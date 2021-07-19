@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
@@ -7,6 +8,8 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
@@ -40,10 +43,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
@@ -88,12 +88,32 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         if (!player.getCommandSenderWorld().isClientSide && !player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {  //&& player.getItemInHand(hand).isEmpty()
             if (player.getItemInHand(hand).isEmpty()) {
                 if (this.getTags().contains("spring_quest_pixie")) {
-                    Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-                    if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+                    String questProgressData = player.getPersistentData().getString("FWQuest");
 
-                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore()), QuestMap.getCanSkip(questId.getScore())), player);
+                    if (!player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
+                        // initial quest
+                        ResourceLocation res = new ResourceLocation(FeywildMod.MOD_ID,"spring_init");
+
+                        Quest quest =QuestMap.getQuest(res.toString());
+                        assert quest != null;
+                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())),0), player);
+
+                        if(!quest.getSound().equals("NULL")){
+                            player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(quest.getSound()))), SoundCategory.VOICE, 1, 1);
+                        }
+
+                    }else{
+                        // Send over available quests
+
+                        List<MessageQuest> list = new LinkedList<>();
+                        Quest quest;
+                        for(String s : questProgressData.split("/")[0].split("-")){
+                            quest = QuestMap.getQuest(s);
+                            list.add(new MessageQuest(new ResourceLocation(s),Objects.requireNonNull(quest).getText(),Objects.requireNonNull(quest).getName(),Objects.requireNonNull(quest).getIcon(),quest.canSkip()));
+                        }
+                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(list,0), player);
+                    }
                 }
             } else {
 

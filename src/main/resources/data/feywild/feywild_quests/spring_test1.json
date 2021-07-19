@@ -1,15 +1,15 @@
 {
   "type": "quest",
-  "id": "feywild:spring_init",
-  "requirements": "",
+  "id": "feywild:spring_1",
+  "requirements": "feywild:spring_init",
   "reputation": 25,
   "sound": "feywild:summoning_spring_pixie",
   "repeatable" : false,
 
   "extraData": "NULL",
 
-  "name" : "Welcome to the Autumn court",
-  "text":"Darling, what took you so long! I've been waiting for a fine specimen /njust like you",
+  "name" : "Welcome to the SPRING court",
+  "text":"HELLO",
 
   "icon" : {
     "item" : "minecraft:diamond",

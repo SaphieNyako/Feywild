@@ -1,70 +1,82 @@
 package com.feywild.feywild.network;
 
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.setup.ClientProxy;
-import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.scoreboard.Score;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
+import org.lwjgl.system.CallbackI;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 public class QuestMessage {
-
-    UUID uuid;
-    int quest;
-
+    String quest;
+    UUID player;
     //Read msg from buf
     public QuestMessage(PacketBuffer buf) {
-        this.quest = buf.readInt();
-        if (buf.readBoolean()) {
-            this.uuid = buf.readUUID();
-        } else
-            this.uuid = null;
+        if(buf.readBoolean()){
+            this.player = buf.readUUID();
+        }else
+            this.player = null;
+        this.quest = buf.readUtf();
+
     }
 
     //constructor
-    public QuestMessage(UUID uuid, int quest) {
-        this.uuid = uuid;
+    public QuestMessage(String quest, UUID player) {
         this.quest = quest;
+        this.player = player;
     }
 
     //Save msg to buf
     public void toBytes(PacketBuffer buf) {
-        buf.writeInt(quest);
-        if (uuid == null)
-            buf.writeBoolean(false);
-        else {
+        if(player != null){
             buf.writeBoolean(true);
-            buf.writeUUID(uuid);
-        }
+            buf.writeUUID(player);
+        }else
+            buf.writeBoolean(false);
+        buf.writeUtf(quest);
+
     }
 
     //handle package data
+    //Update current quest order (we trust the client and that is bad)
+    // TODO make it so we can verify the client's claims
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         World world;
-        if (uuid != null) {
+
+        if(player != null) {
             world = new ClientProxy().getClientWorld();
-            PlayerEntity entity = world.getPlayerByUUID(uuid);
             ctx.get().enqueueWork(() -> {
-                Score scores = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Quest.toString(), world, 0);
-                if (scores.getScore() != quest) {
-                    Score reputation = ModUtil.getOrCreatePlayerScore(entity.getName().getString(), QuestMap.Scores.FW_Reputation.toString(), world, 0);
-                    reputation.setScore(QuestMap.getRepNumber(quest));
-                }
-                scores.setScore(quest);
-                ctx.get().setPacketHandled(true);
+                PlayerEntity entity = world.getPlayerByUUID(player);
+                assert entity != null;
+
+                entity.getPersistentData().putString("FWQuest", quest);
             });
-        } else {
+        }else{
             PlayerEntity entity = ctx.get().getSender();
             ctx.get().enqueueWork(() -> {
-                QuestMap.updateQuest(entity);
-                ctx.get().setPacketHandled(true);
+                assert entity != null;
+
+                String data = quest.split("&")[1];
+                if(quest.startsWith("remove&"))
+                    entity.getPersistentData().putString("FWQuest",entity.getPersistentData().getString("FWQuest").replaceFirst(data, ""));
+                if(quest.startsWith("append&")) {
+                    entity.getPersistentData().putString("FWQuest", entity.getPersistentData().getString("FWQuest").replaceFirst("/", "-" + data + "/"));
+                    Quest quest1 = QuestMap.getQuest(quest.replace("append&",""));
+                    if(Objects.requireNonNull(quest1).getData().contains("NULL")){
+                        QuestMap.completeQuest(entity,quest1);
+                    }
+                }
+
             });
         }
-        ctx.get().setPacketHandled(false);
+        ctx.get().setPacketHandled(true);
     }
 }

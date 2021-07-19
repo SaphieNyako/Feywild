@@ -1,30 +1,55 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.SpringPixieEntity;
+import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.network.RequestOpenQuestScreen;
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.screens.widget.LookingGlassWidget;
+import com.feywild.feywild.screens.widget.QuestWidget;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 
 import javax.annotation.Nonnull;
-
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+// Ancient's note : good luck reading this and I am sorry >.<
+// Tried my best to add comments
 public class PixieScreen extends Screen {
 
     private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/pixie_quest_gui.png");
-    int lines, quest;
-    int xPos = 0;
-    boolean canSkip;
+    List<StringTextComponent> lines = new LinkedList<>();
+    List<MessageQuest> quests = new LinkedList<>();
+    List<Widget> widgets = new LinkedList<>();
+    StringTextComponent title = new StringTextComponent("");
+    HashMap<Button,ResourceLocation> questMap = new HashMap<>();
+    // Id dictates which kind of border should the items have
+    int id;
 
-    public PixieScreen(ITextComponent name, int quest, int lines, boolean canSkip) {
+    public PixieScreen(ITextComponent name, List<MessageQuest> quest, int id) {
         super(name);
-        this.lines = lines;
-        this.quest = quest;
-        this.canSkip = canSkip;
+        quests.addAll(quest);
+        this.id = id;
     }
 
     @Override
@@ -32,19 +57,85 @@ public class PixieScreen extends Screen {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
 
         renderBackground(matrixStack);
-        // Add system for different quest branches
-        if (!this.minecraft.getWindow().isFullscreen()) {
-            drawTextLines(this.width / 12, matrixStack);
-        } else {
-            drawTextLines(this.width / 4, matrixStack);
+        drawTextLines(matrixStack, mouseX, mouseY);
+        // render quest icons
+        for(Widget child : this.widgets){
+            child.render(matrixStack, mouseX, mouseY, partialTicks);
         }
+        //render buttons
+        for (Widget button : this.buttons) {
+            button.render(matrixStack, mouseX, mouseY, partialTicks);
+        }
+
     }
 
     @Override
-    public void onClose() {
-        if (canSkip)
-            FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage(null, quest));
-        super.onClose();
+    protected void init() {
+        super.init();
+        //Clear everything
+        lines.clear();
+        this.buttons.clear();
+        this.widgets.clear();
+        this.questMap.clear();
+        //Wrap text
+        if(quests.size() == 1) {
+            String[] original = quests.get(0).getText().split("/n");
+
+            for (String value : original) {
+                StringTextComponent text = new StringTextComponent("");
+                String[] string = value.split(" ");
+                for (String s : string) {
+
+                    if (s.startsWith("g&")) {
+                        text.append(s.replace("g&", "")).withStyle(TextFormatting.GREEN).append(" ");
+                    } else if (s.startsWith("r&")) {
+                        text.append(s.replace("r&", "")).withStyle(TextFormatting.RED).append(" ");
+                    } else if (s.startsWith("y&")) {
+                        text.append(s.replace("y&", "")).withStyle(TextFormatting.YELLOW).append(" ");
+                    } else if (s.startsWith("b&")) {
+                        text.append(s.replace("g&", "")).withStyle(TextFormatting.BLUE).append(" ");
+                    } else
+                        text.append(s.replace("g&", "")).withStyle(TextFormatting.WHITE).append(" ");
+                }
+                lines.add(text);
+            }
+
+            //Unicode char for checkmark
+            int c = 0x2714;
+
+            addButton(new Button(this.width / 6, this.height / 3 + 9 * lines.size() + 40, 20, 20, new StringTextComponent(Character.toString((char) c)), button -> {
+                if(quests.get(0).canSkip())
+                FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage("append&"+quests.get(0).getId().toString(),null));
+                this.onClose();
+            }));
+
+            addButton(new Button(this.width / 6 + 40, this.height / 3 + 9 * lines.size() + 40, 20, 20, new StringTextComponent("x"), button -> {
+                this.onClose();
+            }));
+        }else{
+            //Load widgets if more quests are available
+            int widgetSize = 24;
+            int columns = 0;
+            for(int i = 0; i < quests.size(); i++){
+                columns = i % 3 == 0 ? columns + 1 : columns;
+                columns = this.height/6 + widgetSize * i + widgetSize + widgetSize >= this.height ? columns + 1 : columns;
+                this.addWidget(new QuestWidget(this.width/6 + widgetSize * columns , this.height / 6 + widgetSize * 2 * i,widgetSize,widgetSize, new StringTextComponent(quests.get(i).getName()), quests.get(i).getIcon(),id));
+                bindButtonToQuest(new LookingGlassWidget(this.width/6 + widgetSize * columns  - widgetSize /2 -5, this.height / 6 + widgetSize * 2 * i + 6, 12,12,new StringTextComponent(""), this::loadQuest), quests.get(i).getId());
+            }
+        }
+    }
+
+    private void addWidget(Widget widget){
+        widgets.add(widget);
+    }
+
+    private void bindButtonToQuest(Button button, ResourceLocation quest){
+        questMap.put(button, quest);
+        addButton(button);
+    }
+
+    private void loadQuest(Button button){
+        FeywildPacketHandler.INSTANCE.sendToServer(new RequestOpenQuestScreen(questMap.get(button), id));
     }
 
     @Override
@@ -55,26 +146,24 @@ public class PixieScreen extends Screen {
         this.blit(matrixStack, 0, 0, 0, 0, 256, 256);
     }
 
-    private void drawTextLines(int startingPosition, MatrixStack matrixStack) {
 
-        for (int i = 1; i <= lines; i++) {
+    private void drawTextLines(MatrixStack matrixStack, int x , int y) {
 
-            xPos = 0;
-
-            for (int j = 0; j < I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ").length; j++) {
-                String[] string = I18n.get("quest.feywild.quest_" + Math.abs(quest) + "_message_" + i).split(" ");
-                if (string[j].startsWith("g&")) {
-                    drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("g&", ""), startingPosition + xPos, this.height / 3 + 9 * i, 0x66cc99);
-                } else if (string[j].startsWith("r&")) {
-                    drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("r&", ""), startingPosition + xPos, this.height / 3 + 9 * i, 0xcc3333);
-                } else if (string[j].startsWith("y&")) {
-                    drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("y&", ""), startingPosition + xPos, this.height / 3 + 9 * i, 0xffcc00);
-                } else if (string[j].startsWith("b&")) {
-                    drawString(matrixStack, Minecraft.getInstance().font, string[j].replace("b&", ""), startingPosition + xPos, this.height / 3 + 9 * i, 0x74deeb);
-                } else
-                    drawString(matrixStack, Minecraft.getInstance().font, string[j], startingPosition + xPos, this.height / 3 + 9 * i, 0xFFFFFF);
-                xPos += Minecraft.getInstance().font.width(string[j].replace("g&", "").replace("r&", "").replace("y&", "").replace("b&", "")) + 5;
+        if(quests.size() == 1){
+            // Draw quest text
+            for (int i = 0; i < lines.size(); i++) {
+                drawString(matrixStack,minecraft.font,lines.get(i),this.width/6,this.height / 3 + 9 * i,0xFFFFFF);
             }
+        }else{
+            // Draw quest names
+            for(Widget widget : widgets){
+                if(widget instanceof QuestWidget){
+                    title = new StringTextComponent(((QuestWidget) widget).getComponent().getString());
+                    drawString(matrixStack,minecraft.font,title,widget.x + 28 ,widget.y + 8,0xFFFFFF);
+                }
+            }
+            title = new StringTextComponent("-Available Quests-");
+            drawString(matrixStack,minecraft.font,title,this.width / 2 - (minecraft.font.width(title) / 2),this.height / 8,0xFFFFFF);
         }
     }
 }

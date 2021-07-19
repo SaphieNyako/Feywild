@@ -102,13 +102,13 @@ public class FeywildMod {
         eventBus.addListener(this::setup); // Register the setup method for modloading
         eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
         eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
-        MinecraftForge.EVENT_BUS.addListener(this::reloadStuff);
         registerModAdditions();
         MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
 
     }
 
     //This might have a conflict when merging with the quests
+    @SubscribeEvent
     public void reloadStuff(AddReloadListenerEvent event) {
         event.addListener(TamedTradeManager.instance());
         event.addListener(QuestManager.instance());

@@ -5,6 +5,8 @@ import com.feywild.feywild.entity.SummerPixieEntity;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.ModUtil;
@@ -23,6 +25,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,11 +51,11 @@ public class SummoningScrollSummerPixie extends TooltipItem {
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
-            //  entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
+            entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
 
-            /* QUEST */
-
+           /*
             Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
+
             if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {
                 questId.setScore(100);
                 FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
@@ -69,6 +72,8 @@ public class SummoningScrollSummerPixie extends TooltipItem {
             } else {
                 entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
             }
+
+            */
         }
 
         return ActionResultType.SUCCESS;

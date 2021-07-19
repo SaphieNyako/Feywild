@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.PumpkinCarverGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
@@ -8,6 +9,8 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
@@ -41,10 +44,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 // Pretty sure there's much more code that could go in FeyEntity
 public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
@@ -90,18 +90,30 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
             if (player.getItemInHand(hand).isEmpty()) {
                 if (this.getTags().contains("autumn_quest_pixie")) {
 
-                    Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
+                    String questProgressData = player.getPersistentData().getString("FWQuest");
 
-                    if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString())) {
-                        questId.setScore(200);
-                        FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
-                    }
+                    if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
+                        // initial quest
+                        ResourceLocation res = new ResourceLocation(FeywildMod.MOD_ID,"autumn_init");
 
-                    if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+                        Quest quest =QuestMap.getQuest(res.toString());
+                        assert quest != null;
+                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())), 2), player);
 
-                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore()), QuestMap.getCanSkip(questId.getScore())), player);
+                        if(!quest.getSound().equals("NULL")){
+                            player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(quest.getSound()))), SoundCategory.VOICE, 1, 1);
+                        }
 
+                    }else{
+                        // Send over available quests
+                        List<MessageQuest> list = new LinkedList<>();
+                        Quest quest;
+                            for (String s : questProgressData.split("/")[0].split("-")) {
+                                quest = QuestMap.getQuest(s);
+                                list.add(new MessageQuest(new ResourceLocation(s), Objects.requireNonNull(quest).getText(), Objects.requireNonNull(quest).getName(), Objects.requireNonNull(quest).getIcon(), quest.canSkip()));
+                            }
+                            FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(list,2), player);
+                        }
                 }
             } else {
 

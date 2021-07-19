@@ -1,47 +1,79 @@
 package com.feywild.feywild.network;
 
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.screens.PixieScreen;
+import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.util.ClientUtil;
+import com.feywild.feywild.util.ModUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class OpenQuestScreen {
 
-    int lines, quest;
-    boolean canSkip;
-
+    //buf has a 256 byte cap
+    List<MessageQuest> quest = new LinkedList<>();
+    int id;
     //Read msg from buf
     public OpenQuestScreen(PacketBuffer buf) {
-        lines = buf.readInt();
-        quest = buf.readInt();
-        canSkip = buf.readBoolean();
+        int count = buf.readInt();
+        for (int i = 0; i < count; i++) {
+            if (count == 1) {
+                quest.add(new MessageQuest(buf.readResourceLocation(), buf.readUtf(), null, null, buf.readBoolean()));
+            } else {
+                quest.add(new MessageQuest(buf.readResourceLocation(),null, buf.readUtf(), buf.readItem(), false));
+            }
+        }
+        if(count != 1){
+            id = buf.readInt();
+        }
     }
 
     //constructor
-    public OpenQuestScreen(int quest, int lines, boolean canSkip) {
-
-        this.lines = lines;
+    public OpenQuestScreen(List<MessageQuest> quest, int id) {
         this.quest = quest;
-        this.canSkip = canSkip;
+        this.id = id;
     }
 
     //Save msg to buf
     public void toBytes(PacketBuffer buf) {
-        buf.writeInt(lines);
-        buf.writeInt(quest);
-        buf.writeBoolean(canSkip);
+        buf.writeInt(quest.size());
+            quest.forEach(quest1 -> {
+                buf.writeResourceLocation(quest1.getId());
+                if(quest.size() == 1) {
+                    buf.writeUtf(quest1.getText());
+                    buf.writeBoolean(quest1.canSkip());
+                }else {
+                    buf.writeUtf(quest1.getName());
+                    buf.writeItem(quest1.getIcon());
+                }
+            });
+            if(quest.size() != 1){
+                buf.writeInt(id);
+            }
     }
 
     //handle package data
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            try {
-                if (ctx.get().getDirection().getReceptionSide().isClient()) {
-                    ClientUtil.openQuestScreen(quest, lines, canSkip);
+        ctx.get().enqueueWork( () -> {
+            try{
+                if(ctx.get().getDirection().getReceptionSide().isClient()) {
+                    World world = new ClientProxy().getClientWorld();
+                    ClientUtil.openQuestScreen(quest, id);
                     ctx.get().setPacketHandled(true);
                 }
-            } catch (Exception e) {
+            }catch (Exception e) {
                 ctx.get().setPacketHandled(false);
                 e.printStackTrace();
             }

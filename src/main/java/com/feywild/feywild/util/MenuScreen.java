@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
@@ -21,8 +22,7 @@ public class MenuScreen extends MainMenuScreen {
         this.getMinecraft().getTextureManager().bind(SPLASH);
         int width = this.width;
         int height = this.height;
-        blit(matrixStack, 0, 0, 0, 0, width, height, width, height);
-
+        blit(matrixStack, 0, 0, 0, 0, this.width, this.height, width, height);
 
         ForgeHooksClient.renderMainMenu(this, matrixStack, this.getMinecraft().font, width, height);
         drawString(matrixStack, this.getMinecraft().font, "Copyright Mojang AB. Do not distribute!", width - font.width("Copyright Mojang AB. Do not distribute!") - 2, height - 10, 0xFFFFFFFF);

@@ -12,6 +12,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 
+
 public class PixieContainer extends Container {
 
     private PlayerEntity playerEntity;
@@ -25,8 +26,6 @@ public class PixieContainer extends Container {
         this.entity = entity;
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        this.quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0).getScore();
-        this.lines = QuestMap.getLineNumber(quest);
 
         if (this.entity != null) {
 
