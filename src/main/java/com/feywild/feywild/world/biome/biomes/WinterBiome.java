@@ -40,12 +40,17 @@ public class WinterBiome extends BaseBiome {
         biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.IGLOO);
 
         DefaultBiomeFeatures.addBerryBushes(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addSparseBerryBushes(biomeGenerationSettingsBuilder);
 
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+        //  biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.FOSSIL);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
+        //  biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.ICEBERG_PACKED);
+        //  biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.ICEBERG_BLUE);
 
         DefaultBiomeFeatures.addDefaultGrass(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);
