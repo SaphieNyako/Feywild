@@ -19,7 +19,7 @@ public class SunflowerStem extends Block {
     public static final BooleanProperty HAS_MODEL = BooleanProperty.create("model");
 
     public SunflowerStem() {
-        super(AbstractBlock.Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).noCollission().strength(1, 1));
+        super(AbstractBlock.Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1)); //.noCollission()
         this.registerDefaultState(this.stateDefinition.any().setValue(HAS_MODEL, false));
     }
 
