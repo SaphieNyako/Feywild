@@ -7,6 +7,7 @@ import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -70,6 +72,7 @@ public class ClientProxy implements IProxy {
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get(), ElectrifiedGroundRenderer::new);
 
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
         ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
     }
 

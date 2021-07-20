@@ -138,12 +138,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public void onGuiOpened(GuiOpenEvent event) {
-        ClientUtil.openMainMenuScreen(event);
-    }
-
-
-    @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
 
         PlayerEntity playerEntity = event.getPlayer();
