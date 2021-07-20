@@ -9,6 +9,7 @@ import com.feywild.feywild.util.ModUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.util.text.StringTextComponent;
@@ -30,9 +31,9 @@ public class OpenQuestScreen {
         int count = buf.readInt();
         for (int i = 0; i < count; i++) {
             if (count == 1) {
-                quest.add(new MessageQuest(buf.readResourceLocation(), buf.readUtf(), null, null, buf.readBoolean()));
+                quest.add(new MessageQuest(buf.readResourceLocation(), buf.readUtf(32767), null, null, buf.readBoolean()));
             } else {
-                quest.add(new MessageQuest(buf.readResourceLocation(),null, buf.readUtf(), buf.readItem(), false));
+                quest.add(new MessageQuest(buf.readResourceLocation(),null,buf.readUtf(32767), buf.readItem(), false));
             }
         }
         if(count != 1){
@@ -69,7 +70,6 @@ public class OpenQuestScreen {
         ctx.get().enqueueWork( () -> {
             try{
                 if(ctx.get().getDirection().getReceptionSide().isClient()) {
-                    World world = new ClientProxy().getClientWorld();
                     ClientUtil.openQuestScreen(quest, id);
                     ctx.get().setPacketHandled(true);
                 }

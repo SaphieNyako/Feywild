@@ -24,7 +24,7 @@ public class QuestMessage {
             this.player = buf.readUUID();
         }else
             this.player = null;
-        this.quest = buf.readUtf();
+        this.quest = buf.readUtf(32767);
 
     }
 
