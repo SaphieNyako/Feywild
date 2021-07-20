@@ -18,6 +18,9 @@ public class ModFeatures {
     public static final Feature<NoFeatureConfig> DANDELION_FEATURE =
             register("dandelion_feature", new DandelionFeature());
 
+    public static final Feature<NoFeatureConfig> CROCUS_FEATURE =
+            register("crocus_feature", new CrocusFeature());
+
     public static void register() {
     }
 

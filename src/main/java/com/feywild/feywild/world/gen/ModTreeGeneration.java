@@ -148,7 +148,9 @@ public class ModTreeGeneration {
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> ModConfiguredFeatures.WINTER_TREES);
+            base.add(() -> ModConfiguredFeatures.WINTER_CROCUS);
             base.add(() -> ModConfiguredFeatures.WINTER_FLOWERS);
+
         }
     }
 }

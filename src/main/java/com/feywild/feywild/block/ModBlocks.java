@@ -33,6 +33,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
     public static final RegistryObject<Block> DANDELION = register("dandelion", Dandelion::new, false);
 
+    public static final RegistryObject<Block> CROCUS_STEM = register("crocus_stem", CrocusStem::new, false);
+    public static final RegistryObject<Block> CROCUS = register("crocus", Crocus::new, false);
+
     public static final RegistryObject<Block> ELECTRIFIED_GROUND = register("electrified_ground", ElectrifiedGround::new, false);
 
 

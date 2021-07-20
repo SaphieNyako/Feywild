@@ -39,7 +39,6 @@ public class Dandelion extends Block {
             double windZ = Math.sin((double) p_180655_2_.getGameTime() / 1000) * windStrength;
 
             p_180655_2_.addParticle(ParticleTypes.END_ROD, p_180655_3_.getX() + p_180655_4_.nextDouble(), p_180655_3_.getY() + p_180655_4_.nextDouble(), p_180655_3_.getZ() + p_180655_4_.nextDouble(), windX, 0, windZ);
-
         }
     }
 

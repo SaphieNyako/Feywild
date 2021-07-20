@@ -1,7 +1,6 @@
 package com.feywild.feywild.world.feature;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.block.trees.SummerTree;
@@ -11,11 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
-import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 import java.util.Random;
@@ -133,14 +130,18 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.ADD_32)
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE).count(2));
 
-    public static final BlockClusterFeatureConfig WINTER_BLOCK_CONFIG =
+    public static final ConfiguredFeature<?, ?> WINTER_CROCUS = registerFeature("crocus_feature",
+            ModFeatures.CROCUS_FEATURE.configured(IFeatureConfig.NONE)
+                    .decorated(Features.Placements.HEIGHTMAP_SQUARE));
+
+  /*  public static final BlockClusterFeatureConfig WINTER_BLOCK_CONFIG =
             (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.WINTER_TREE_WOOD.get().defaultBlockState())
                     , new SimpleBlockPlacer())).tries(25).build();
 
     public static final ConfiguredFeature<?, ?> WINTER_BLOCKS =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "winter_blocks",
                     Feature.RANDOM_PATCH.configured(WINTER_BLOCK_CONFIG)
-                            .decorated(Placement.CHANCE.configured(new ChanceConfig(200))));
+                            .decorated(Placement.CHANCE.configured(new ChanceConfig(200)))); */
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerFeature(String key, ConfiguredFeature<FC, ?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(FeywildMod.MOD_ID, key), feature);

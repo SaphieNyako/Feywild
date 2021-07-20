@@ -39,7 +39,6 @@ public class WinterBiome extends BaseBiome {
         /* WINTER FEATURES */
         biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.IGLOO);
 
-
         DefaultBiomeFeatures.addBerryBushes(biomeGenerationSettingsBuilder);
 
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);

@@ -78,6 +78,10 @@ public class ModItems {
             Registration.ITEMS.register("dandelion_seed", DandelionSeeds::new
             );
 
+    public static final RegistryObject<Item> CROCUS_SEED =
+            Registration.ITEMS.register("crocus_seed", CrocusSeeds::new
+            );
+
     /* MUSIC DISC */
 
     public static final RegistryObject<Item> MUSIC_DISC_FEYWILD =
