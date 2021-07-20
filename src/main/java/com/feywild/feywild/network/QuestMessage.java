@@ -68,6 +68,7 @@ public class QuestMessage {
                 if(quest.startsWith("remove&"))
                     entity.getPersistentData().putString("FWQuest",entity.getPersistentData().getString("FWQuest").replaceFirst(data, ""));
                 if(quest.startsWith("append&")) {
+                    if(data.contains("init"))
                     entity.getPersistentData().putString("FWQuest", entity.getPersistentData().getString("FWQuest").replaceFirst("/", "-" + data + "/"));
                     Quest quest1 = QuestMap.getQuest(quest.replace("append&",""));
                     if(Objects.requireNonNull(quest1).getData().contains("NULL")){

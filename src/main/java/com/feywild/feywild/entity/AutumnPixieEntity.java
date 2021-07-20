@@ -91,6 +91,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
                 if (this.getTags().contains("autumn_quest_pixie")) {
 
                     String questProgressData = player.getPersistentData().getString("FWQuest");
+                    FeywildMod.LOGGER.debug(questProgressData);
 
                     if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
                         // initial quest

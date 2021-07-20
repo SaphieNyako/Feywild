@@ -115,13 +115,14 @@ public class PixieScreen extends Screen {
         }else{
             //Load widgets if more quests are available
             int widgetSize = 24;
-            int columns = 0, rows = 0;
+            int columns = 0, rows = 0, textSize = 0;
             for(int i = 0; i < quests.size(); i++){
-                this.addWidget(new QuestWidget(this.width/6 + widgetSize * columns , (int)(this.height / 6 + widgetSize * 1.5 * rows),widgetSize,widgetSize, new StringTextComponent(quests.get(i).getName()), quests.get(i).getIcon(),id));
-                bindButtonToQuest(new LookingGlassWidget(this.width/6 + widgetSize * columns  - widgetSize /2 -5, (int)(this.height / 6 + widgetSize * 1.5 * rows) + 6, 12,12,new StringTextComponent(""), this::loadQuest), quests.get(i).getId());
-                columns = (i % 3 == 0  && i > 0 )? columns + 4 : columns;
+                this.addWidget(new QuestWidget(this.width/6 + widgetSize * columns + textSize, (int)(this.height / 6 + widgetSize * 1.5 * rows),widgetSize,widgetSize, new StringTextComponent(quests.get(i).getName()), quests.get(i).getIcon(),id));
+                bindButtonToQuest(new LookingGlassWidget(this.width/6 + widgetSize * columns  - widgetSize /2 -5 + textSize, (int)(this.height / 6 + widgetSize * 1.5 * rows) + 6, 12,12,new StringTextComponent(""), this::loadQuest), quests.get(i).getId());
+                textSize = columns == 0 ? 0 : minecraft.font.width(quests.get(i - columns - rows).getName());
+                columns = (i % 5 == 0  && i > 0 )? columns + 4 : columns;
                 rows = (i % 5 == 0  && i > 0 )? 0 : rows + 1;
-                columns = this.width/6 + widgetSize * i + widgetSize + widgetSize >= this.width ? columns + 1 : columns;
+                columns = this.width/6 + widgetSize * i + widgetSize + widgetSize >= this.width ? columns + 4 : columns;
                 rows = this.height / 6 + widgetSize * i + widgetSize + widgetSize >= height ? 0 : rows;
             }
         }

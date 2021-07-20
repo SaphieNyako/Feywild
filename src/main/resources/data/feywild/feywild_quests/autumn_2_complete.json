@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:autumn_pumpkins_complete",
+  "requirements": "feywild:autumn_pumpkins",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Pumpkins",
+  "text":"Oh those look nice! What? The pumpkins of course. /nPlace them anywhere nearby and if we can turn them in g&Jack g&o g&Lanterns /nthey will keep our home safe from any evil spirits who might seek /nto interrupt us.",
+
+  "icon" : {
+    "item" : "minecraft:carved_pumpkin",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

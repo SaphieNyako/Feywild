@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:autumn_dyes_complete",
+  "requirements": "feywild:autumn_dyes",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Dyes",
+  "text":"Those are some nice colors! You've got good taste! /nLet's give all the happy little trees some color! /nTo make sure they are not alone, let's give all of them a little friend, /ndon't you agree darling?",
+
+  "icon" : {
+    "item" : "feywild:autumn_tree_sapling",
+    "count" : 3
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

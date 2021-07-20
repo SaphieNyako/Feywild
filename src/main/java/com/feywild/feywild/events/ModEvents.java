@@ -174,7 +174,7 @@ public class ModEvents {
         if (!event.getEntityLiving().level.isClientSide && event.getSource().getEntity() instanceof PlayerEntity) {
 
             PlayerEntity playerEntity = (PlayerEntity) event.getSource().getEntity();
-            String[][] tokenArr = ModUtil.getTokens(playerEntity, "craft");
+            String[][] tokenArr = ModUtil.getTokens(playerEntity, "kill");
             String stack = Objects.requireNonNull(playerEntity.getMainHandItem().getItem().getRegistryName()).toString();
 
             for (String[] tokens : tokenArr) {
@@ -200,7 +200,7 @@ public class ModEvents {
     @SubscribeEvent
     public void genericPickUp(PlayerEvent.ItemPickupEvent event) {
         if (!event.getPlayer().level.isClientSide) {
-            String[][] tokenArr = ModUtil.getTokens(event.getPlayer(), "craft");
+            String[][] tokenArr = ModUtil.getTokens(event.getPlayer(), "get");
 
             ItemStack stack = event.getStack();
             for (String[] tokens : tokenArr) {
@@ -209,7 +209,7 @@ public class ModEvents {
 
                             int interact = event.getPlayer().getPersistentData().getInt(tokens[3]+ "Progress") + event.getStack().getCount();
 
-                            if (Integer.parseInt(tokens[2]) <= interact + event.getStack().getCount()) {
+                            if (Integer.parseInt(tokens[2]) <= interact) {
                                 event.getPlayer().getPersistentData().remove(tokens[3]+ "Progress");
                                 QuestMap.completeQuest(event.getPlayer(),Objects.requireNonNull(QuestMap.getQuest(tokens[3])));
                             } else {

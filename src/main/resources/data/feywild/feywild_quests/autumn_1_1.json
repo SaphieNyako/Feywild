@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:autumn_potatoes",
+  "requirements": "feywild:autumn_init",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET feywild:autumn_pixie ACTION use TIMES 9 USING minecraft:potato",
+
+  "name" : "Living Supplies: Potatoes",
+  "text":"Hello dear! Let's make this place a nice a comfy home. /nAfter all we need to survive together now! /nSo would you be a darling and provide us with some extra g&food supplies? /nHmm how about a crate of firm g&potatoes?",
+
+  "icon" : {
+    "item" : "minecraft:potato",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

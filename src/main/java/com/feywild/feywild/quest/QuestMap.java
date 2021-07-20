@@ -6,6 +6,7 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.util.ResourceLocation;
@@ -120,7 +121,7 @@ public class QuestMap {
 
                 //Reward Completion
                 entity.getPersistentData().putInt("FWRep", rep + quest.getRep());
-                entity.addItem(quest.getStack());
+                entity.addItem(quest.getStack().copy());
 
                 // update questProgress
                 questProgressData = questProgressData.replaceFirst(quest.getId().toString(), "");
@@ -149,12 +150,12 @@ public class QuestMap {
 
                     boolean add = true;
                     for (ResourceLocation res : quest1.getRequiredQuests()) {
-                        if (!questProgressData.split("/")[1].contains(res.toString()) || questProgressData.contains(quest1.getId().toString())) {
+                        if (!questProgressData.split("/")[1].contains(res.toString())) {
                             add = false;
                             break;
                         }
                     }
-                    if (add) {
+                    if (add && !questProgressData.contains(quest1.getId().toString())) {
                         questProgressData = quest1.getId().toString().concat("-").concat(questProgressData);
                     }
                 }
