@@ -4,6 +4,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.util.ClientUtil;
 import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.util.ModUtil;
 import com.feywild.feywild.util.configs.Config;
@@ -138,9 +139,7 @@ public class ModEvents {
 
     @SubscribeEvent
     public void onGuiOpened(GuiOpenEvent event) {
-        if (Config.MENU_SCREEN.get() && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
-            event.setGui(new MenuScreen());
-        }
+        ClientUtil.openMainMenuScreen(event);
     }
 
 
