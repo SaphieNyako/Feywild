@@ -130,6 +130,7 @@ public class ModTreeGeneration {
             base.add(() -> ModConfiguredFeatures.SUMMER_TREES);
             base.add(() -> ModConfiguredFeatures.SUMMER_SUNFLOWER);
             base.add(() -> ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
+
         }
 
         if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {

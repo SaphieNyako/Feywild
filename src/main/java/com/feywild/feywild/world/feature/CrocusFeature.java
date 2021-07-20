@@ -23,12 +23,13 @@ public class CrocusFeature extends Feature<NoFeatureConfig> {
     public boolean place(@Nonnull ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
         int check = 0;
 
-        for (int i = 0; i < 12; ++i) {
+        for (int i = 0; i < 32; ++i) {
             BlockPos blockpos = pos.offset(rand.nextInt(6) - rand.nextInt(6), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(6) - rand.nextInt(6));
 
-            if (world.getBlockState(blockpos).getBlock() == Blocks.SNOW) {
+            if (world.getBlockState(blockpos).isAir(world, blockpos)
+                    && (world.getBlockState(blockpos.below()).getBlock() == Blocks.GRASS_BLOCK)) {
                 if (rand.nextInt(4) == 0)
-                    spawnFlower(world, blockpos, rand);
+                    spawnFlower(world, blockpos);
             }
 
             ++check;
@@ -37,10 +38,10 @@ public class CrocusFeature extends Feature<NoFeatureConfig> {
         return check > 0;
     }
 
-    public void spawnFlower(ISeedReader world, BlockPos pos, Random random) {
+    public void spawnFlower(ISeedReader world, BlockPos pos) {
         world.setBlock(pos, ModBlocks.CROCUS_STEM.get().defaultBlockState().setValue(CrocusStem.HAS_MODEL, true), 2, 1);
-        world.getLevel().setBlock(pos.above(1), ModBlocks.CROCUS_STEM.get().defaultBlockState(), 2, 1);
-        world.getLevel().setBlock(pos.above(2), ModBlocks.CROCUS.get().defaultBlockState().setValue(Crocus.VARIANT, 2), 2, 1);
+        world.setBlock(pos.above(1), ModBlocks.CROCUS_STEM.get().defaultBlockState(), 2, 1);
+        world.setBlock(pos.above(2), ModBlocks.CROCUS.get().defaultBlockState().setValue(Crocus.VARIANT, 2), 2, 1);
     }
 
 }
