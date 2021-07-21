@@ -12,7 +12,7 @@
   "text":"Now place these so I feel more at home ! Hmph ….-happy giggle-",
 
   "icon" : {
-    "item" : "minecraft:sunflower",
+    "item" : "feywild:summer_tree_sapling",
     "count" : 1
   },
   "reward": {

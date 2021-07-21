@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_1_complete",
+  "requirements": "feywild:winter_1",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Setting up defences",
+  "text": "Ah mortal. You have performed as expected of a non-fey being!/n– The pixie pats you on the head – /nThere, there, you have done well!",
+
+  "icon" : {
+    "item" : "minecraft:snowball",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:ice",
+    "count": 4
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_4",
+  "requirements": "feywild:winter_3_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Clear skies",
+  "text": "If it's not to much of a inconvenience... could you plant these trees./n...You are a good being.../nSomeone should mention that more often.",
+
+  "icon" : {
+    "item" : "feywild:winter_tree_sapling",
+    "count" : 1
+  },
+  "reward": {
+    "item": "feywild:winter_tree_sapling",
+    "count": 3
+  }
+}

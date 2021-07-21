@@ -16,7 +16,7 @@
     "count" : 1
   },
   "reward": {
-    "item": "minecraft:air",
-    "count": 1
+    "item": "minecraft:iron_ingot",
+    "count": 7
   }
 }

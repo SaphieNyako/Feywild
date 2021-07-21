@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_2",
+  "requirements": "feywild:winter_1_complete",
+  "reputation": 20,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET minecraft:zombie_head ACTION get TIMES 1",
+
+  "name" : "Peculiar Disguise",
+  "text": "Mortal...You seem to have upset the undead,/nand they say I have bad social skills.../nMaybe if you looked less alive, they would tolerate you more./ng&Procure a g&zombie's g&head and let's make you look more presentable.",
+
+  "icon" : {
+    "item" : "minecraft:zombie_head",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

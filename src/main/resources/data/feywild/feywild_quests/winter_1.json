@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_1",
+  "requirements": "feywild:winter_init",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET feywild:winter_pixie ACTION use TIMES 16 USING minecraft:snowball",
+
+  "name" : "Setting up defences",
+  "text":"Greetings mortal...Your arrival is as expected./nAs protection in the vicinity was severely lacking,/nI had to take it upon myself to summon souls to protect the base./nSigh.....such waste of time and magic./nAnd now their frozen bodies are collapsing,/nEither you g&provide me with more g&snow,/nor we can die a horrible death by a hungry zombie horde.../nEither way is fine by me...",
+
+  "icon" : {
+    "item" : "minecraft:snowball",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

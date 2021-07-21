@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_3_complete",
+  "requirements": "feywild:winter_3",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Light Spirits",
+  "text": "You succeeded at your task...how disappointing./nBut my lifespan is longer then yours,/nso I'll just have to be patient.",
+
+  "icon" : {
+    "item" : "minecraft:soul_lantern",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:bone",
+    "count": 5
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_3",
+  "requirements": "feywild:winter_2_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET minecraft:soul_lantern ACTION craft TIMES 1",
+
+  "name" : "Light Spirits",
+  "text": "Sigh You're still here? ... Why do you keep persisting, Mortal./nThou as much as I would like to be your friend./nYour presence in the mortal realm is required./nMaybe we should postpone our friendship.../nand strengthen your soul by keeping it safe in a g&soul g&lantern./nSo...why don't you g&craft one, Mortal./nBut...you don't have to hurry...",
+
+  "icon" : {
+    "item" : "minecraft:soul_lantern",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}
