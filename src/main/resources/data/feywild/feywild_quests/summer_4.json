@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_4",
+  "requirements": "feywild:summer_3_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Token of appreciation",
+  "text":"Now place these so I feel more at home ! Hmph ….-happy giggle-",
+
+  "icon" : {
+    "item" : "minecraft:sunflower",
+    "count" : 1
+  },
+  "reward": {
+    "item": "feywild:summer_tree_sapling",
+    "count": 3
+  }
+}

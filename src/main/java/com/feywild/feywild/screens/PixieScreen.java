@@ -86,16 +86,16 @@ public class PixieScreen extends Screen {
                 String[] string = value.split(" ");
                 for (String s : string) {
 
-                    if (s.startsWith("g&")) {
-                        text.append(s.replace("g&", "")).withStyle(TextFormatting.GREEN).append(" ");
-                    } else if (s.startsWith("r&")) {
-                        text.append(s.replace("r&", "")).withStyle(TextFormatting.RED).append(" ");
-                    } else if (s.startsWith("y&")) {
-                        text.append(s.replace("y&", "")).withStyle(TextFormatting.YELLOW).append(" ");
-                    } else if (s.startsWith("b&")) {
-                        text.append(s.replace("g&", "")).withStyle(TextFormatting.BLUE).append(" ");
+                    if (s.contains("g&")) {
+                        text.append(new StringTextComponent(s.replaceFirst("g&", "")).withStyle(TextFormatting.GREEN)).append(" ");
+                    } else if (s.contains("r&")) {
+                        text.append(new StringTextComponent(s.replaceFirst("r&", "")).withStyle(TextFormatting.RED)).append(" ");
+                    } else if (s.contains("y&")) {
+                        text.append(new StringTextComponent(s.replaceFirst("y&", "")).withStyle(TextFormatting.YELLOW)).append(" ");
+                    } else if (s.contains("b&")) {
+                        text.append(new StringTextComponent(s.replaceFirst("b&", "")).withStyle(TextFormatting.BLUE)).append(" ");
                     } else
-                        text.append(s.replace("g&", "")).withStyle(TextFormatting.WHITE).append(" ");
+                        text.append(s).withStyle(TextFormatting.WHITE).append(" ");
                 }
                 lines.add(text);
             }
@@ -103,13 +103,13 @@ public class PixieScreen extends Screen {
             //Unicode char for checkmark
             int c = 0x2714;
 
-            addButton(new Button(this.width / 6, this.height / 3 + 9 * lines.size() + 40, 20, 20, new StringTextComponent(Character.toString((char) c)), button -> {
+            addButton(new Button(this.width / 6, this.height / 3 + 9 * lines.size() + 20, 20, 20, new StringTextComponent(Character.toString((char) c)), button -> {
                 if(quests.get(0).canSkip())
                 FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage("append&"+quests.get(0).getId().toString(),null));
                 this.onClose();
             }));
 
-            addButton(new Button(this.width / 6 + 40, this.height / 3 + 9 * lines.size() + 40, 20, 20, new StringTextComponent("x"), button -> {
+            addButton(new Button(this.width / 6 + 40, this.height / 3 + 9 * lines.size() + 20, 20, 20, new StringTextComponent("x"), button -> {
                 this.onClose();
             }));
         }else{

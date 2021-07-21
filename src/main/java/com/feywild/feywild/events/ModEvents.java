@@ -108,21 +108,20 @@ public class ModEvents {
             PlayerEntity player = event.getPlayer();
             PlayerInventory playerInventory = player.inventory;
 
-            if (villagerEntity.getTags().contains("spawn_librarian")) {
+            if (villagerEntity.getTags().contains("spawn_librarian") && !event.getTarget().level.isClientSide) {
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), player.getUUID());
                 ItemStack stack = ItemStack.EMPTY;
-                for (int i = 0; i < ModUtil.librarianBooks.size(); i++) {
+                for (int i = 0; i < ModUtil.getLibrarianBooks().size(); i++) {
+                    stack = ModUtil.getLibrarianBooks().get(i).copy();
                     if (!ModUtil.inventoryContainsItem(playerInventory, stack.getItem())) {
-                        stack = ModUtil.librarianBooks.get(i).copy();
-                        break;
-                    }
+                        player.addItem(stack);
+                    }else
+                        stack = ItemStack.EMPTY;
                 }
 
                 if (!stack.isEmpty()) {
                     player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), player.getUUID());
                 }
-
-                player.addItem(stack);
                 event.setCanceled(true);
             }
         }

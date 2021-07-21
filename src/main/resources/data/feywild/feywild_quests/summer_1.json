@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_1",
+  "requirements": "feywild:summer_init",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET minecraft:iron_golem ACTION kill TIMES 1 USING empty",
+
+  "name" : "Trial of might",
+  "text":"Hmph you again.... /nIf you seek an audience with me you will have to prove your worth to me! /nHmm...So a trial of g&combat! You will fight a.... r&Golem! Yes an Iron Golem! /nI will deem you worthy to be in my presence. /nIf you survive....-evil giggle-...uh...cough cough...off you go!",
+
+  "icon" : {
+    "item" : "minecraft:iron_nugget",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

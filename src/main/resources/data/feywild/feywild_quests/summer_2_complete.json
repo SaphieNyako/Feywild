@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_2_complete",
+  "requirements": "feywild:summer_2",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Worthy steeds",
+  "text":"That was amazing! Hope those stingers didn't hurt to much?/nOr is that your normal face?/nIf that's the case, maybe you where better off getting stung...hehe",
+
+  "icon" : {
+    "item" : "minecraft:bee_nest",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

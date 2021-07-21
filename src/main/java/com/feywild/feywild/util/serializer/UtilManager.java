@@ -37,16 +37,17 @@ public class UtilManager implements IFutureReloadListener {
     public CompletableFuture<Void> reload(IStage iStage, @Nonnull IResourceManager iResourceManager, @Nonnull IProfiler iProfiler, @Nonnull IProfiler iProfiler1, @Nonnull Executor executor, @Nonnull Executor executor1) {
         return CompletableFuture.allOf(CompletableFuture.runAsync(() ->
         {
+
+            LibrarySerializer serializer = new LibrarySerializer();
+            List<ItemStack> stacks = new LinkedList<>();
             for (String path : utilJson) {
                 List<ResourceLocation> resources = (List<ResourceLocation>) iResourceManager.listResources(path, s -> s.endsWith(".json"));
-
                 resources.forEach(resourceLocation -> {
 
                     try (InputStream stream = iResourceManager.getResource(resourceLocation).getInputStream(); Reader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
 
                         if (resourceLocation.getPath().contains("books")) {
-                            LibrarySerializer serializer = new LibrarySerializer();
-                            ModUtil.librarianBooks.addAll(serializer.deserialize(Objects.requireNonNull(JSONUtils.fromJson(GSON, reader, JsonObject.class))));
+                            stacks.addAll(serializer.deserialize(Objects.requireNonNull(JSONUtils.fromJson(GSON, reader, JsonObject.class))));
                         }
 
                     } catch (IOException e) {
@@ -55,6 +56,7 @@ public class UtilManager implements IFutureReloadListener {
                     }
                 });
             }
+            ModUtil.setLibrarianBooks(stacks);
         }, executor)).thenCompose(iStage::wait);
     }
 

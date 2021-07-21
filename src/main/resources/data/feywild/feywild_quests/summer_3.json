@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_3",
+  "requirements": "feywild:summer_2_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET minecraft:pillager ACTION kill TIMES 5 USING empty",
+
+  "name" : "Bad guys",
+  "text":"Maybe you are not so useless after all!/nThe Summer Court is constantly under attack by a group of raiders,/nwho hunt down our kind to grind them into dust!/nWe, and by we I mean you, should g&take g&down those r&pillagers!/nThen with you as my champion we can share our victory with the Queen,/nand I will be forever in her favour!! -evil giggle- /nPerfect! So...why are you still standing here? Go! Now!",
+
+  "icon" : {
+    "item" : "minecraft:iron_axe",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

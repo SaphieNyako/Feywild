@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_1_complete",
+  "requirements": "feywild:summer_1",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Trial of might",
+  "text":"What a battle! I had a few good laughs with your struggles,/nbut you pulled through in the end! Which is something./nNot much, but something. Ah so funny! Ahum...",
+
+  "icon" : {
+    "item" : "minecraft:iron_ingot",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

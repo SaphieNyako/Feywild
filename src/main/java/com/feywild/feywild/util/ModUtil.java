@@ -26,7 +26,15 @@ public class ModUtil {
 
     public static HashMap<LivingEntity, PlayerEntity> killOnExit = new HashMap<>();
 
-    public static List<ItemStack> librarianBooks = new LinkedList<>();
+    public static List<ItemStack> librarianBooks;
+
+    public static void setLibrarianBooks(List<ItemStack> books) {
+        librarianBooks = books;
+    }
+
+    public static List<ItemStack> getLibrarianBooks() {
+        return librarianBooks;
+    }
 
     public static boolean inventoryContainsItem(PlayerInventory inventory, Item item) {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
