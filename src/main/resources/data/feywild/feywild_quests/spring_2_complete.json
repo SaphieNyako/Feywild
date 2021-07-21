@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_2_complete",
+  "requirements": "feywild:spring_2",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Cakes",
+  "text":"What is that smell? What are you making? /nA cake for me and my feykin? /nNo, no, no, this treasure is mine... uhm ours? /nLets quickly eat it before the other fey find out!/n *The tiny fey plunges her face inside of the cake* /nPhew, I'm stuffed. I think I might die. Huff puff.....got more?",
+
+  "icon" : {
+    "item" : "minecraft:sweet_berries",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:sweet_berries",
+    "count": 6
+  }
+}

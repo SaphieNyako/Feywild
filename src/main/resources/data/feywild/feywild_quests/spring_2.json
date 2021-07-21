@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_2",
+  "requirements": "feywild:spring_1_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET feywild:spring_pixie ACTION use TIMES 2 USING minecraft:cake",
+
+  "name" : "Cakes",
+  "text":"Hey it's you!  You have to taste these red bubbles of sweetness! /nSooo good! -The little faerie tries to stuff your face with berries.- /nAaaw now they are all gone... /nMaybe I shouldn't have given the last ones to you.. /nYou owe me! Now it's your turn to g&make me g&something g&tasty! /nA cake! No, g&TWO g&cakes!",
+
+  "icon" : {
+    "item" : "minecraft:cake",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

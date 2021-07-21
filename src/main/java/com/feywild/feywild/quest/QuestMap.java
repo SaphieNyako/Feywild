@@ -69,7 +69,7 @@ public class QuestMap {
         StringBuilder data = new StringBuilder();
         String[] arr = questProgressData.split("/");
         for (Quest quest : quests) {
-            if(arr.length > 0 && arr[0].contains(quest.getId().toString()) && quest.getData().contains(action.toLowerCase())){
+            if(arr.length > 0 && arr[0].contains(quest.getId().toString()) && quest.getData().contains("ACTION "+ action.toLowerCase())){
                 data.append(quest.getData()).append("&");
             }
         }

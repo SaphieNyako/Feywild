@@ -13,10 +13,10 @@
 
   "icon" : {
     "item" : "feywild:autumn_tree_sapling",
-    "count" : 3
+    "count" : 1
   },
   "reward": {
-    "item": "minecraft:air",
-    "count": 1
+    "item": "feywild:autumn_tree_sapling",
+    "count": 3
   }
 }

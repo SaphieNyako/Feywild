@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_4",
+  "requirements": "feywild:spring_3_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "Trees",
+  "text":"Thanks for being my friend! /nLet's plant these saplings, so I will feel more at home!",
+
+  "icon" : {
+    "item" : "feywild:spring_tree_sapling",
+    "count" : 1
+  },
+  "reward": {
+    "item": "feywild:spring_tree_sapling",
+    "count": 3
+  }
+}
