@@ -22,6 +22,18 @@
       "title": "Summer World Tree",
       "images": ["feywild:textures/patchouli_images/summer_worldtree_book.png"],
       "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Summer World Tree",
+      "text": "The Summer World tree is difficult to find, but it is the home of Queen Titania. Note: Only the pixies are implemented, other court members will be added in later updates. The World Tree also has a Fey altar for you to use."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:sunflower_seed",
+      "title": "Giant Sunflower",
+      "text": "In the Golden Seelie Fields you can find giant sunflowers. The giant sunflowers will face the sun's position. The flower will also drop sunflower seeds, which can be used to grow your own giant sunflowers. "
     }
   ]
 }

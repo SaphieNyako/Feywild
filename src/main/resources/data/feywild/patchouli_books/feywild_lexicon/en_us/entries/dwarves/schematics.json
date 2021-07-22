@@ -15,7 +15,7 @@
       "type": "spotlight",
       "item": "feywild:greater_fey_gem",
       "title": "Gem Transmutation",
-      "text": "A Fey Altar allows you to summon Fey, if you know the correct summoning incantation."
+      "text": "With the knowledge of gem transmutation you can easily make high quality fey gems."
     },
     {
       "advancement": "feywild:feywild/dwarf_schematics_gem_transmutation",
@@ -27,8 +27,10 @@
     },
     {
       "advancement": "feywild:feywild/dwarf_schematics_gem_transmutation",
-      "type": "text",
-      "text": "Either requires 5 Lesser, 5 Greater or 5 Shiny Fey Gems to transmute to their superior versions. Make sure the schematics are present for the Dwarf Blacksmith to receive instructions."
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "Recipe",
+      "text": "Either requires 5 Lesser, 5 Greater or 5 Shiny Fey Gems to transmute to their superior versions. Make sure the schematics for gem transmutation are present for the Dwarf Blacksmith to receive instructions and start crafting."
     }, {
       "type": "text",
       "text": ""
@@ -50,8 +52,10 @@
     },
     {
       "advancement": "feywild:feywild/dwarf_schematics_fey_altar",
-      "type": "text",
-      "text": "The Ingredients are 1 Lesser Fey Gem, 2 Gold Ingots, 1 Heavy Weighted Pressure Plate and 1 Brilliant Fey Gem. Make sure the schematics are present for the Dwarf Blacksmith to receive instructions."
+      "type": "spotlight",
+      "item": "feywild:schematics_fey_altar",
+      "title": "Recipe",
+      "text": "The Ingredients are 1 Lesser Fey Gem, 2 Gold Ingots, 1 Heavy Weighted Pressure Plate and 1 Brilliant Fey Gem. Make sure the schematics for the fey altar are present for the Dwarf Blacksmith to receive instructions and start crafting."
     }
   ]
 }
