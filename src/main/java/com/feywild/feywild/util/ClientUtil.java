@@ -37,6 +37,7 @@ public class ClientUtil {
     }
 
     public static void addBook(ItemStack stack){
+        if(!stack.isEmpty())
         books.add(stack);
     }
 }
