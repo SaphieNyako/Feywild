@@ -2,17 +2,15 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
-import com.feywild.feywild.entity.goals.PumpkinCarverGoal;
+import com.feywild.feywild.entity.goals.AddShieldGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.ParticleMessage;
-import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.MessageQuest;
 import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -23,7 +21,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.scoreboard.Score;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -199,7 +196,7 @@ public class AutumnPixieEntity extends FeyEntity implements IAnimatable {
         list.add(new PrioritizedGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0D)));
-        list.add(new PrioritizedGoal(1, new PumpkinCarverGoal(this)));
+        list.add(new PrioritizedGoal(1, new AddShieldGoal(this)));
 
         return list;
     }

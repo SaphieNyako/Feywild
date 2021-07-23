@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.container.ModContainers;
+import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
@@ -10,6 +11,7 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
@@ -150,7 +152,8 @@ public class FeywildMod {
         ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
         ModEntityTypes.register();
-
+        ModParticles.register();
+        ModEffects.register();
     }
 
     //Communication with other mods.

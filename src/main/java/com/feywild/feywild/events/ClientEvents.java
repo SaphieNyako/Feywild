@@ -9,5 +9,4 @@ public class ClientEvents {
     public void onGuiOpened(GuiOpenEvent event) {
         ClientUtil.openMainMenuScreen(event);
     }
-
 }

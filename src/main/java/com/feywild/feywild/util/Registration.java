@@ -8,6 +8,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;
@@ -21,6 +24,12 @@ public class Registration {
 
     public static final DeferredRegister<Block> BLOCKS
             = DeferredRegister.create(ForgeRegistries.BLOCKS, FeywildMod.MOD_ID);
+
+    public static final DeferredRegister<ParticleType<?>> PARTICLES
+            = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES,FeywildMod.MOD_ID);
+
+    public static final DeferredRegister<Effect> EFFECTS
+            = DeferredRegister.create(ForgeRegistries.POTIONS,FeywildMod.MOD_ID);
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS
             = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.MOD_ID);
@@ -59,7 +68,8 @@ public class Registration {
         ModStructures.STRUCTURES.register(eventBus);
         SURFACE_BUILDERS.register(eventBus);
         BIOMES.register(eventBus);
-
+        PARTICLES.register(eventBus);
+        EFFECTS.register(eventBus);
     }
 
 }
