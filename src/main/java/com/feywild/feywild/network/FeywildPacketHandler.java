@@ -1,6 +1,7 @@
 package com.feywild.feywild.network;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.screens.LibrarianScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +37,9 @@ public class FeywildPacketHandler {
         INSTANCE.registerMessage(nextPacketID(), DataMessage.class, DataMessage::toBytes, DataMessage::new, DataMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), OpenQuestScreen.class, OpenQuestScreen::toBytes, OpenQuestScreen::new, OpenQuestScreen::handle);
         INSTANCE.registerMessage(nextPacketID(), RequestOpenQuestScreen.class, RequestOpenQuestScreen::toBytes,RequestOpenQuestScreen::new,RequestOpenQuestScreen::handle);
+        INSTANCE.registerMessage(nextPacketID(), ItemEntityMessage.class, ItemEntityMessage::toBytes,ItemEntityMessage::new,ItemEntityMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), LibrarianScreenMessage.class, LibrarianScreenMessage::toBytes,LibrarianScreenMessage::new,LibrarianScreenMessage::handle);
+
     }
 
     public static void sendToPlayer(Object message, PlayerEntity entity) {

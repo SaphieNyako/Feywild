@@ -2,6 +2,8 @@ package com.feywild.feywild.events;
 
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.network.ItemEntityMessage;
+import com.feywild.feywild.network.LibrarianScreenMessage;
 import com.feywild.feywild.network.QuestMessage;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.ClientUtil;
@@ -24,6 +26,7 @@ import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
@@ -65,6 +68,7 @@ public class ModEvents {
 
         return ret.get();
     }
+
 
     @SubscribeEvent
     public void interactWithEntity(PlayerInteractEvent.EntityInteract event) {
@@ -110,18 +114,10 @@ public class ModEvents {
 
             if (villagerEntity.getTags().contains("spawn_librarian") && !event.getTarget().level.isClientSide) {
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), player.getUUID());
-                ItemStack stack = ItemStack.EMPTY;
                 for (int i = 0; i < ModUtil.getLibrarianBooks().size(); i++) {
-                    stack = ModUtil.getLibrarianBooks().get(i).copy();
-                    if (!ModUtil.inventoryContainsItem(playerInventory, stack.getItem())) {
-                        player.addItem(stack);
-                    }else
-                        stack = ItemStack.EMPTY;
+                    FeywildPacketHandler.sendToPlayer(new ItemEntityMessage(ModUtil.getLibrarianBooks().get(i)), player);
                 }
-
-                if (!stack.isEmpty()) {
-                    player.sendMessage(new TranslationTextComponent("librarian.feywild.borrow"), player.getUUID());
-                }
+                FeywildPacketHandler.sendToPlayer(new LibrarianScreenMessage(),player);
                 event.setCanceled(true);
             }
         }
