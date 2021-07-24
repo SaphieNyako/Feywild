@@ -26,9 +26,6 @@ public class AddShieldGoal extends Goal {
 
     }
 
-    //add to list
-    //Loop over list
-
     @Override
     public void tick() {
         if (target == null) {
@@ -58,7 +55,7 @@ public class AddShieldGoal extends Goal {
         World world = entity.getCommandSenderWorld();
         AxisAlignedBB box = new AxisAlignedBB(entity.blockPosition()).inflate(4);
         world.getEntities(null, box).forEach(entity1 -> {
-            if(entity1 instanceof PlayerEntity){
+            if (entity1 instanceof PlayerEntity) {
                 target = (PlayerEntity) entity1;
             }
         });
@@ -68,13 +65,13 @@ public class AddShieldGoal extends Goal {
     private void spellCasting() {
         entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
         entity.setCasting(true);
-        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 2, 2);
+        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
     }
 
     private void addShieldEffect() {
 
-        target.addEffect(new EffectInstance(ModEffects.WIND_WALK_EFFECT.get(), 20 * 60,2));
-        target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60,2));
+        target.addEffect(new EffectInstance(ModEffects.WIND_WALK_EFFECT.get(), 20 * 60, 2));
+        target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
                 , new ParticleMessage(target.getX(), target.getY(), target.getZ(), 0, 0, 0, 10, 0, 0)
                 , 64);
@@ -88,7 +85,7 @@ public class AddShieldGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return count > 0;
+        return target != null;
     }
 
     @Override

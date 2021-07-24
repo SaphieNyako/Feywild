@@ -65,6 +65,10 @@ public class ModItems {
                                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
                                     .build())));
 
+    public static final RegistryObject<Item> MANDRAKE_POTION =
+            Registration.ITEMS.register("mandrake_potion",
+                    () -> new MandrakePotion(new Item.Properties().tab(FeywildMod.FEYWILD_TAB).food(new Food.Builder().build())));
+
     //CROP ITEMS
     public static final RegistryObject<Item> MANDRAKE_SEED =
             Registration.ITEMS.register("mandrake_seed",

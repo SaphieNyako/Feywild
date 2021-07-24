@@ -4,25 +4,18 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.QuestCompletionEvent;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.QuestMessage;
-import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.scoreboard.Score;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class QuestMap {
 
@@ -61,15 +54,15 @@ public class QuestMap {
         return score.get();
     }
 
-    public static boolean hasActiveQuest(@Nonnull String questProgressData,@Nonnull Quest quest){
-       return Arrays.stream(questProgressData.split("/")[0].split("-")).anyMatch(s -> s.contains(quest.getId().toString()));
+    public static boolean hasActiveQuest(@Nonnull String questProgressData, @Nonnull Quest quest) {
+        return Arrays.stream(questProgressData.split("/")[0].split("-")).anyMatch(s -> s.contains(quest.getId().toString()));
     }
 
-    public static String getDataBasedOnAction(@Nonnull String questProgressData, @Nonnull String action){
+    public static String getDataBasedOnAction(@Nonnull String questProgressData, @Nonnull String action) {
         StringBuilder data = new StringBuilder();
         String[] arr = questProgressData.split("/");
         for (Quest quest : quests) {
-            if(arr.length > 0 && arr[0].contains(quest.getId().toString()) && quest.getData().contains("ACTION "+ action.toLowerCase())){
+            if (arr.length > 0 && arr[0].contains(quest.getId().toString()) && quest.getData().contains("ACTION " + action.toLowerCase())) {
                 data.append(quest.getData()).append("&");
             }
         }
@@ -80,17 +73,17 @@ public class QuestMap {
         return quests;
     }
 
-    public static boolean isQuestRequired(@Nonnull Quest quest){
+    public static boolean isQuestRequired(@Nonnull Quest quest) {
         return quests.stream().anyMatch(q -> q.getRequiredQuests().contains(quest.getId()));
     }
 
-    public static void clearQuests(){
+    public static void clearQuests() {
         quests.clear();
     }
 
-    public static Quest getQuest(@Nonnull String id){
-        for (Quest quest : quests){
-            if(quest.getId().toString().equalsIgnoreCase(id)){
+    public static Quest getQuest(@Nonnull String id) {
+        for (Quest quest : quests) {
+            if (quest.getId().toString().equalsIgnoreCase(id)) {
                 return quest;
             }
         }
@@ -102,7 +95,7 @@ public class QuestMap {
         int rep = entity.getPersistentData().getInt("FWRep");
         String questProgressData = entity.getPersistentData().getString("FWQuest");
 
-        if(hasActiveQuest(questProgressData,quest) && !entity.level.isClientSide) {
+        if (hasActiveQuest(questProgressData, quest) && !entity.level.isClientSide) {
 
             QuestCompletionEvent event = new QuestCompletionEvent(entity, quest, rep);
             MinecraftForge.EVENT_BUS.post(event);
@@ -126,7 +119,6 @@ public class QuestMap {
                 // update questProgress
                 questProgressData = questProgressData.replaceFirst(quest.getId().toString(), "");
                 questProgressData = questProgressData + "-" + quest.getId().toString();
-
 
                 String[] backQuests = questProgressData.split("/")[1].split("-");
 
@@ -161,19 +153,18 @@ public class QuestMap {
                 }
 
                 // Do some clean up
+                /* Never use - / in the json files */
                 questProgressData = questProgressData.replaceFirst("--", "-");
                 questProgressData = questProgressData.replaceFirst("/-", "/");
                 questProgressData = questProgressData.replaceFirst("-/", "/");
 
                 //Add repeatable quests
-                if(quest.isRepeatable())
-                questProgressData = questProgressData.replaceFirst("/", "-"+quest.getId().toString() + "/");
+                if (quest.isRepeatable())
+                    questProgressData = questProgressData.replaceFirst("/", "-" + quest.getId().toString() + "/");
 
                 questProgressData = questProgressData.startsWith("-") ? questProgressData.replaceFirst("-", "") : questProgressData;
 
                 entity.getPersistentData().putString("FWQuest", questProgressData);
-
-                //this might need to be moved
 
                 entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
                 FeywildPacketHandler.sendToPlayer(new QuestMessage(questProgressData, entity.getUUID()), entity);
@@ -183,27 +174,27 @@ public class QuestMap {
     }
 
     // get quest tokens
-    public static HashMap<String,String> getQuestData(Quest quest) {
-            HashMap<String, String> ret = new HashMap<>();
-            String[] tokens = quest.getData().toUpperCase().split(" ").clone();
+    public static HashMap<String, String> getQuestData(Quest quest) {
+        HashMap<String, String> ret = new HashMap<>();
+        String[] tokens = quest.getData().toUpperCase().split(" ").clone();
 
-            for (int i = 0; i < tokens.length; i++) {
-                switch (tokens[i]) {
-                    case "TARGET":
-                        ret.put("TARGET",tokens[i+1]);
-                        break;
-                    case "ACTION":
-                        ret.put("ACTION",tokens[i+1]);
-                        break;
-                    case "USING":
-                        ret.put("USING",tokens[i+1]);
-                        break;
-                    case "TIMES":
-                        ret.put("TIMES",tokens[i+1]);
-                        break;
-                }
+        for (int i = 0; i < tokens.length; i++) {
+            switch (tokens[i]) {
+                case "TARGET":
+                    ret.put("TARGET", tokens[i + 1]);
+                    break;
+                case "ACTION":
+                    ret.put("ACTION", tokens[i + 1]);
+                    break;
+                case "USING":
+                    ret.put("USING", tokens[i + 1]);
+                    break;
+                case "TIMES":
+                    ret.put("TIMES", tokens[i + 1]);
+                    break;
             }
-            return ret;
+        }
+        return ret;
     }
 
     public enum Courts {

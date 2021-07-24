@@ -1,6 +1,13 @@
 {
   "textures": [
     "feywild:leaf_particle",
-    "feywild:leaf_particle"
+    "feywild:leaf_particle_01",
+    "feywild:leaf_particle_02",
+    "feywild:leaf_particle_yellow_02",
+    "feywild:leaf_particle_yellow_01",
+    "feywild:leaf_particle_yellow",
+    "feywild:leaf_particle_brown",
+    "feywild:leaf_particle_brown_01",
+    "feywild:leaf_particle_brown_02"
   ]
 }

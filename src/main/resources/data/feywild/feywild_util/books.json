@@ -1,10 +1,40 @@
 {
   "type": "library_books",
-  "pool" : [
+  "pool": [
     {
-      "book":{
-      "item": "feywild:feywild_lexicon",
-      "count": 1
+      "book": {
+        "item": "feywild:feywild_lexicon",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "ars_nouveau:worn_notebook",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "astralsorcery:tome",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "botania:lexicon",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "eidolon:codex",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "occultism:dictionary_of_spirits",
+        "count": 1
       }
     }
   ]

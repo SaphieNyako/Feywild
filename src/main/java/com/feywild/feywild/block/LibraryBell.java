@@ -2,9 +2,7 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.LibraryBellEntity;
 import com.feywild.feywild.util.ModUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,10 +11,7 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -120,6 +115,21 @@ public class LibraryBell extends Block {
                 blockEntity.getLibrarian().setPos(blockEntity.getLibrarian().getX(), blockEntity.getLibrarian().getY() - 4, blockEntity.getLibrarian().getZ());
                 blockEntity.getLibrarian().remove(); // .kill()
 
+            }
+
+            BlockPos blockPos;
+            //x
+            for (int i = 0; i < 3; i++) {
+                //z
+                for (int j = 0; j < 3; j++) {
+
+                    blockPos = new BlockPos(pos.getX() - 1 + i, pos.getY() - 1, pos.getZ() - 1 + j);
+                    if (world.getBlockState(blockPos).getBlock() instanceof LecternBlock) {
+                        Direction direction = world.getBlockState(blockPos).getValue(LecternBlock.FACING);
+                        world.removeBlock(blockPos, false);
+                        world.setBlock(blockPos, Blocks.LECTERN.defaultBlockState().setValue(LecternBlock.FACING, direction), 1);
+                    }
+                }
             }
 
             VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, world);
