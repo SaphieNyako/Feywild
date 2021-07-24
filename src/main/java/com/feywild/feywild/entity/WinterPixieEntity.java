@@ -17,12 +17,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SStopSoundPacket;
 import net.minecraft.scoreboard.Score;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -100,6 +102,8 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
                             FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())),3), player);
 
                             if(!quest.getSound().equals("NULL")){
+                                ((ServerPlayerEntity)player).connection.send(new SStopSoundPacket(new ResourceLocation(quest.getSound()),SoundCategory.VOICE));
+
                                 player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(quest.getSound()))), SoundCategory.VOICE, 1, 1);
                             }
 
