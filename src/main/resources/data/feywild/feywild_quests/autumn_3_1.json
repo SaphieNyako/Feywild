@@ -1,0 +1,19 @@
+{
+  "type": "quest",
+  "id": "feywild:autumn_dyes_red",
+  "requirements": "feywild:autumn_pumpkins_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable": false,
+  "extraData": "TARGET minecraft:red_dye ACTION craft TIMES 1",
+  "name": "Dyes : Red",
+  "text": "Our House is coming along so nicely! /nWe should provide the trees with the correct colors, don't you think? /nOtherwise its going to be a boring and gray world and we see /nplenty of that during the winter. /nDarling, could you g&grab some r&red g&dye /n to add to our g&fabulous color g&pallet?",
+  "icon": {
+    "item": "minecraft:red_dye",
+    "count": 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

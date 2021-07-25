@@ -46,6 +46,11 @@ public class MandrakePotion extends TooltipItem {
 
             playerentity.awardStat(Stats.ITEM_USED.get(this));
 
+            String[] data = playerentity.getPersistentData().getString("FWQuest").split("/");
+            assert data.length > 0;
+            for(String string : data[0].split("-")){
+                playerentity.getPersistentData().remove(string+"Progress");
+            }
             playerentity.getPersistentData().putInt("FWRep", 0);
             playerentity.getPersistentData().putString("FWQuest", "/");
             playerentity.removeTag(QuestMap.Courts.AutumnAligned.toString());
