@@ -4,16 +4,13 @@
   "requirements": "feywild:spring_init",
   "reputation": 5,
   "sound": "NULL",
-  "repeatable" : false,
-
+  "repeatable": false,
   "extraData": "TARGET minecraft:sheep ACTION use TIMES 3 USING feywild:fey_dust",
-
-  "name" : "Cotton Candy?",
-  "text":"What is that? A cloud! No wait, cotton candy! /nIt doesn't taste very sweet... /nHmm! A r&sheep you say? It's so fluffy! /nIt must be lonely thou without his friends /nwho are all the way in the sky! /nIt cannot fly!? Flying is the best thing there is! /nLet's make it g&fly! We must g&find g&a g&way! /nYou're smart ...Or maybe you just have a big head. /nI'm sure you will find a way to make this meep fly!",
-
-  "icon" : {
-    "item" : "minecraft:pink_wool",
-    "count" : 1
+  "name": "Cotton Candy?",
+  "text": "What is that? A cloud! No wait, cotton candy! /nIt doesn't taste very sweet... /nHmm! A r&sheep you say? It's so fluffy! /nIt must be lonely thou without his friends /nwho are all the way in the sky! /nIt cannot fly!? Flying is the best thing there is! /nLet's make it g&fly! We must g&find g&a g&way! /nOw! I know! Let's use some fey dust on him!/nI'm so smart, hehe!",
+  "icon": {
+    "item": "minecraft:pink_wool",
+    "count": 1
   },
   "reward": {
     "item": "minecraft:air",
