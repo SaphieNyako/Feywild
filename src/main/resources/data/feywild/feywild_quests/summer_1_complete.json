@@ -8,9 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Trial of might",
-  "text":"What a battle! I had a few good laughs with your struggles,/nbut you pulled through in the end! Which is something./nNot much, but something. Ah so funny! Ahum...",
-
+  "name" : "quest.feywild.name.summer.might",
+  "text":"quest.feywild.summer.might_complete",
   "icon" : {
     "item" : "minecraft:iron_ingot",
     "count" : 1

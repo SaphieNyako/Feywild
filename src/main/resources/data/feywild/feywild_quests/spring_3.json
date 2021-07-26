@@ -6,8 +6,8 @@
   "sound": "NULL",
   "repeatable": false,
   "extraData": "TARGET feywild:spring_pixie ACTION use TIMES 2 USING minecraft:honeycomb",
-  "name": "Honey Combs",
-  "text": "Oh bravest of gullible wizards, I require your aid! /nJust now I was stealing some yummy honey from the Summer Courts Yard. /nI got caught by one of the Bee Knights patrolling the area /nand he stole my g&honey! /nYou have to steal it back for me,/nand make those evil Knights pay for their crimes! /nWhat you won't do it? /nYou just have to, or...we won't be friends anymore!",
+  "name": "quest.feywild.name.spring.honeycomb",
+  "text": "quest.feywild.spring.honeycomb",
   "icon": {
     "item": "minecraft:honeycomb",
     "count": 1

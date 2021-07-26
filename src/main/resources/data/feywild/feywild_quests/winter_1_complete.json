@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Setting up defences",
-  "text": "Ah mortal. You have performed as expected of a non-fey being!/n– The pixie pats you on the head – /nThere, there, you have done well!",
+  "name" : "quest.feywild.name.winter.defences",
+  "text": "quest.feywild.winter.defences_complete",
 
   "icon" : {
     "item" : "minecraft:snowball",

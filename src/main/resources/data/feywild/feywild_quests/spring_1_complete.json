@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Stick the landing",
-  "text":"You made him fly! He must have been so happy! /nWish we had taught it how to land....it's broken now...",
+  "name" : "quest.feywild.spring.fey_dust_complete",
+  "text": "quest.feywild.spring.fey_dust_complete",
 
   "icon" : {
     "item" : "minecraft:mutton",

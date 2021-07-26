@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Peculiar Disguise",
-  "text": "You look dreadful, Mortal...Why can't you always look like this?/nI can almost tolerate your existence now.",
+  "name" : "quest.feywild.name.winter.peculiar_disguise",
+  "text": "quest.feywild.winter.peculiar_disguise_complete",
 
   "icon" : {
     "item" : "minecraft:zombie_head",

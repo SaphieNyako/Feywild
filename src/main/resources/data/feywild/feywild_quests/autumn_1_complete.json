@@ -6,8 +6,8 @@
   "sound": "NULL",
   "repeatable": false,
   "extraData": "NULL",
-  "name": "Living Supplies: Complete",
-  "text": "I'm so happy you where able to get everything I asked. /nI saw you sweating and working those muscles while gathering our crops. /nNow that was a reward on it's own. /nHow about I make you a nice vegetable soup?",
+  "name": "quest.feywild.name.autumn.supplies",
+  "text": "quest.feywild.autumn.supplies",
   "icon": {
     "item": "minecraft:barrel",
     "count": 1

@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Welcome to the Autumn court",
-  "text":"Darling, what took you so long! I've been waiting for a fine specimen /njust like you. /n/nr&Accepting r&this r&quest r&will r&bind r&you r&to r&the r&Autumn r&Court!",
+  "name" : "quest.feywild.name.autumn.init",
+  "text": "quest.feywild.autumn.init",
 
   "icon" : {
     "item" : "minecraft:diamond",

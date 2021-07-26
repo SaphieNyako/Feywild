@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Honey Combs",
-  "text":"I hope you didn't kill one of those Summer Knights! /nJeez...I said make them pay, like make them give more honey! As payment! /nOh the Honey! Sweet! All mine now! That will teach those mean Knights. /nOmnomnomnom",
+  "name" : "quest.feywild.name.spring.honeycomb",
+  "text": "quest.feywild.spring.honeycomb_complete",
 
   "icon" : {
     "item" : "minecraft:honeycomb",

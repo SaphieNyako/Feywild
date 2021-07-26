@@ -8,7 +8,7 @@
 
   "extraData": "NULL",
 
-  "name" : "Clear skies",
+  "name" : "quest.feywild.name.winter.clear_skies" ,
   "text": "If it's not to much of a inconvenience... could you plant these trees./n...You are a good being.../nSomeone should mention that more often.",
 
   "icon" : {

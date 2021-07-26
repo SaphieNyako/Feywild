@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Bad guys",
-  "text":"You actually did it!!/nYou did an admirable job, and I hope you will continue to slaughter any of/nmy enemies! My very own champion – evil giggle – ",
+  "name" : "quest.feywild.name.summer.bad_guys",
+  "text":"quest.feywild.summer.bad_guys_complete",
 
   "icon" : {
     "item" : "minecraft:iron_axe",

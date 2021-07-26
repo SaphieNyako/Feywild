@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Token of appreciation",
-  "text":"Now place these so I feel more at home ! Hmph ….-happy giggle-",
+  "name" : "quest.feywild.name.summer.token",
+  "text":"quest.feywild.summer.token",
 
   "icon" : {
     "item" : "feywild:summer_tree_sapling",

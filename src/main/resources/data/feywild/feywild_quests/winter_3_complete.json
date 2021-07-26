@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Light Spirits",
-  "text": "You succeeded at your task...how disappointing./nBut my lifespan is longer then yours,/nso I'll just have to be patient.",
+  "name" : "quest.feywild.name.winter.spirits",
+  "text": "quest.feywild.winter.spirits_complete",
 
   "icon" : {
     "item" : "minecraft:soul_lantern",

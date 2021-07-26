@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Welcome to the Summer court",
-  "text":"How dare you summon me like I am some sort of magician's pet./nYou better know your place....hmph /n/ny&Accepting y&this y&quest y&will y&bind y&you y&to y&the y&Summer y&Court!",
+  "name" : "quest.feywild.name.summer.init",
+  "text":"quest.feywild.summer.init",
 
   "icon" : {
     "item" : "minecraft:diamond",

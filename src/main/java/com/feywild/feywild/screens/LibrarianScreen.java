@@ -50,12 +50,12 @@ public class LibrarianScreen extends Screen {
         this.buttons.clear();
         int widgetSize = 24;
         int columns = 0, rows = 0;
-        for (int i = 0; i < stacks.size(); i++) {
-            addButton(new BookWidget(this.width / 6 + widgetSize * rows, this.height / 6 + widgetSize * columns, widgetSize, widgetSize, new StringTextComponent(""), stacks.get(i)));
-            columns = (i % 10 == 0 && i > 0) ? columns + 1 : columns;
-            rows = (i % 10 == 0 && i > 0) ? 0 : rows + 1;
-            columns = this.width / 6 + widgetSize * i + widgetSize + widgetSize >= this.width ? columns + 1 : columns;
-            rows = this.height / 6 + widgetSize * i + widgetSize + widgetSize >= height ? 0 : rows;
+        for(int i = 0; i < stacks.size(); i++){
+            addButton(new BookWidget(this.width/6 + widgetSize * rows, this.height / 6 + widgetSize * columns, widgetSize,widgetSize,new StringTextComponent(""), stacks.get(i)));
+            columns = (i % 10 == 0  && i > 0 )? ++columns : columns;
+            rows = (i % 10 == 0  && i > 0 )? 0 : ++rows;
+            columns = this.height/6 + widgetSize * i + widgetSize + widgetSize >= this.height ? columns + 1 : columns;
+            rows = this.width / 6 + widgetSize * i + widgetSize + widgetSize >= width ? 0 : rows;
         }
     }
 

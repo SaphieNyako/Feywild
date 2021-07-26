@@ -79,7 +79,11 @@ public class PixieScreen extends Screen {
         this.questMap.clear();
         //Wrap text
         if(quests.size() == 1) {
-            String[] original = quests.get(0).getText().split("/n");
+            String[] original;
+            if(I18n.exists(quests.get(0).getText()))
+              original = I18n.get(quests.get(0).getText()).split("/n");
+            else
+                original = quests.get(0).getText().split("/n");
 
             for (String value : original) {
                 StringTextComponent text = new StringTextComponent("");
@@ -161,7 +165,10 @@ public class PixieScreen extends Screen {
             // Draw quest names
             for(Widget widget : widgets){
                 if(widget instanceof QuestWidget){
-                    title = new StringTextComponent(((QuestWidget) widget).getComponent().getString());
+                    if(I18n.exists(((QuestWidget) widget).getComponent().getString()))
+                        title = new StringTextComponent(I18n.get(((QuestWidget) widget).getComponent().getString()));
+                    else
+                        title = new StringTextComponent(((QuestWidget) widget).getComponent().getString());
                     drawString(matrixStack,minecraft.font,title,widget.x + 28 ,widget.y + 8,0xFFFFFF);
                 }
             }

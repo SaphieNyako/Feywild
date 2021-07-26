@@ -8,9 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Pumpkins",
-  "text":"Oh those look nice! What? The pumpkins of course. /nPlace them anywhere nearby and if we can turn them in g&Jack g&o g&Lanterns /nthey will keep our home safe from any evil spirits who might seek /nto interrupt us.",
-
+  "name" : "quest.feywild.name.autumn.pumpkins",
+  "text":"quest.feywild.autumn.pumpkins_complete",
   "icon" : {
     "item" : "minecraft:carved_pumpkin",
     "count" : 1

@@ -8,9 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Welcome to the Winter court",
-  "text":"Such inconvenience...why did you summon me Mortal?/nThis ordeal will most certainly lead to your premature demise./nBut then maybe we can be friends.../n/nb&Accepting b&this b&quest b&will b&bind b&you b&to b&the b&Winter b&Court!",
-
+  "name" :  "quest.feywild.name.winter.init",
+  "text":"quest.feywild.winter.init",
   "icon" : {
     "item" : "minecraft:diamond",
     "count" : 1

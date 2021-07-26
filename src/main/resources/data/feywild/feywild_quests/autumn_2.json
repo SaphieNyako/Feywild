@@ -8,9 +8,8 @@
 
   "extraData": "TARGET minecraft:carved_pumpkin ACTION get TIMES 2",
 
-  "name" : "Pumpkins",
-  "text":"Hello darling, I hope you aren't too tired from all that adventuring! /nI feel like our little home is lacking a bit in decorations. /nCould you be so kind and procure us a few g&carved g&pumpkins? /nI will work my magic on them!",
-
+  "name" : "quest.feywild.name.autumn.pumpkins",
+  "text": "quest.feywild.autumn.pumpkins",
   "icon" : {
     "item" : "minecraft:carved_pumpkin",
     "count" : 1

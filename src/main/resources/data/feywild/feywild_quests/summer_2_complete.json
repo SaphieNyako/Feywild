@@ -8,9 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Worthy steeds",
-  "text":"That was amazing! Hope those stingers didn't hurt to much?/nOr is that your normal face?/nIf that's the case, maybe you where better off getting stung...hehe",
-
+  "name" :  "quest.feywild.name.summer.steeds",
+  "text":"quest.feywild.summer.steeds_complete",
   "icon" : {
     "item" : "minecraft:bee_nest",
     "count" : 1

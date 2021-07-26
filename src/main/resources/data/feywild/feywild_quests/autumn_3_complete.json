@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Dyes",
-  "text":"Those are some nice colors! You've got good taste! /nLet's give all the happy little trees some color! /nTo make sure they are not alone, let's give all of them a little friend, /ndon't you agree darling?",
+  "name" : "quest.feywild.name.autumn.dyes_complete",
+  "text": "quest.feywild.autumn.dyes_complete",
 
   "icon" : {
     "item" : "feywild:autumn_tree_sapling",

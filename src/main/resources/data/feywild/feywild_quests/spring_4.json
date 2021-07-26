@@ -8,8 +8,8 @@
 
   "extraData": "NULL",
 
-  "name" : "Trees",
-  "text":"Thanks for being my friend! /nLet's plant these saplings, so I will feel more at home!",
+  "name" : "quest.feywild.name.spring.trees",
+  "text":"quest.feywild.spring.trees",
 
   "icon" : {
     "item" : "feywild:spring_tree_sapling",

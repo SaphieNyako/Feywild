@@ -8,9 +8,8 @@
 
   "extraData": "TARGET feywild:summer_pixie ACTION use TIMES 1 USING minecraft:bee_nest",
 
-  "name" : "Worthy steeds",
-  "text":"So you have some skill with a sword...that's nice and all, but do you have wits!/nTo prove you worthy of being my servant and protector, you should.../ng&get me....a g&bee's g&nest! Preferably with the bees still inside! Yes!/nWe require more steeds for our cavalry.../nThe Queen will be pleased with my offering!/nBe it the bees or this mortal's corpse....-evil giggle- uh cough cough!/nOw you still here! Now hop along and don't get stung!",
-
+  "name" :  "quest.feywild.name.summer.steeds",
+  "text": "quest.feywild.summer.steeds",
   "icon" : {
     "item" : "minecraft:bee_nest",
     "count" : 1
