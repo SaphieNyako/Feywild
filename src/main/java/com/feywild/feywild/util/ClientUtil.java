@@ -6,7 +6,6 @@ import com.feywild.feywild.screens.PixieScreen;
 import com.feywild.feywild.util.configs.Config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -22,22 +21,22 @@ public class ClientUtil {
         Minecraft.getInstance().setScreen(new PixieScreen(new StringTextComponent("Fey Quest"), quest, id));
     }
 
-    public static void resetBooks(){
+    public static void resetBooks() {
         books.clear();
     }
 
-    public static void openMainMenuScreen(GuiOpenEvent event){
+    public static void openMainMenuScreen(GuiOpenEvent event) {
         if (Config.MENU_SCREEN.get() && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
             event.setGui(new MenuScreen());
         }
     }
 
-    public static void openLibrarianScreen(){
-        Minecraft.getInstance().setScreen(new LibrarianScreen(new StringTextComponent("Librarian Screen"),books));
+    public static void openLibrarianScreen() {
+        Minecraft.getInstance().setScreen(new LibrarianScreen(new StringTextComponent("Librarian Screen"), books));
     }
 
-    public static void addBook(ItemStack stack){
-        if(!stack.isEmpty())
-        books.add(stack);
+    public static void addBook(ItemStack stack) {
+        if (!stack.isEmpty() && !stack.getDisplayName().getString().contains("Guide Book"))
+            books.add(stack);
     }
 }

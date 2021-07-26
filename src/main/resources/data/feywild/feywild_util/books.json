@@ -36,6 +36,42 @@
         "item": "occultism:dictionary_of_spirits",
         "count": 1
       }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "bloodmagic:guide"
+        },
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "patchouli:book_of_dragons"
+        },
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "naturesaura:book"
+        },
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "psi:encyclopaedia_psionica"
+        },
+        "count": 1
+      }
     }
   ]
 }

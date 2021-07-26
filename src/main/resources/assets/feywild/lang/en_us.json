@@ -65,8 +65,7 @@
   "entity.feywild.dwarf_blacksmith": "Dwarf Blacksmith",
   "itemGroup.feywildTab": "Feywild Items",
   "message.feywild.schematics_fey_altar": "Schematics for a Fey Altar",
-  "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of fey and magic.\nHave you seen a fey yet?",
-  "librarian.feywild.borrow": "Ah! Looking for books? You can borrow this, it might help you with your studies.",
+  "librarian.feywild.initial": "Hello Stranger, welcome to the Feywild, the wonderful land of fey and magic.\nAh! Looking for knowledge?",
   "spring_quest_pixie.feywild.summon_message": "Where Am I? Who are you? Are you tasty? Let's go on an adventure! You wanna play? I'm hungry...",
   "summer_quest_pixie.feywild.summon_message": "How dare you summon me like I am some sort of magician's pet. You better know your place....hmph",
   "autumn_quest_pixie.feywild.summon_message": "Darling, what took you so long! I've been waiting for a fine specimen just like you!",
@@ -97,5 +96,5 @@
   "autumn_fey_thanks": "A present? Thank you, darling.",
   "winter_fey_thanks": "...your effort is noted, mortal",
   "message.feywild.aligned": "This fey court recognises you as one of it's own.",
-  "effect.feywild.wind_walk" : "Wind Walk"
+  "effect.feywild.wind_walk": "Wind Walk"
 }

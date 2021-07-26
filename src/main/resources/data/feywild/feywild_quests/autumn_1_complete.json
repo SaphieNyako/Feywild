@@ -4,19 +4,16 @@
   "requirements": "feywild:autumn_potatoes,feywild:autumn_carrots,feywild:autumn_beetroots",
   "reputation": 5,
   "sound": "NULL",
-  "repeatable" : false,
-
+  "repeatable": false,
   "extraData": "NULL",
-
-  "name" : "Living Supplies: Complete",
-  "text":"I'm so happy you where able to get everything I asked. /nI saw you sweating and working those muscles while gathering our crops. /nNow that was a reward on it's own. /nHow about I make you a nice vegetable soup?",
-
-  "icon" : {
-    "item" : "minecraft:barrel",
-    "count" : 1
+  "name": "Living Supplies: Complete",
+  "text": "I'm so happy you where able to get everything I asked. /nI saw you sweating and working those muscles while gathering our crops. /nNow that was a reward on it's own. /nHow about I make you a nice vegetable soup?",
+  "icon": {
+    "item": "minecraft:barrel",
+    "count": 1
   },
   "reward": {
     "item": "minecraft:beetroot_soup",
-    "count": 9
+    "count": 1
   }
 }
