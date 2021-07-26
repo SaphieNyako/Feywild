@@ -55,7 +55,7 @@ public class LibrarianScreen extends Screen {
             columns = (i % 10 == 0  && i > 0 )? ++columns : columns;
             rows = (i % 10 == 0  && i > 0 )? 0 : ++rows;
             columns = this.height/6 + widgetSize * i + widgetSize + widgetSize >= this.height ? columns + 1 : columns;
-            rows = this.width / 6 + widgetSize * i + widgetSize + widgetSize >= width ? 0 : rows;
+            rows = this.height / 6 + widgetSize * i + widgetSize + widgetSize >= height ? 0 : rows;
         }
     }
 
