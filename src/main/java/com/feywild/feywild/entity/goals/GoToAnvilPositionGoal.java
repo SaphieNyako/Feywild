@@ -23,11 +23,6 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
         this.entity = entity;
         this.shouldReturn = () -> true;
         this.maxMovementRange = maxMovementRange;
-
-        TileEntity tileEntity = entity.level.getBlockEntity(entity.summonPos);
-        if (tileEntity instanceof DwarvenAnvilEntity) {
-            tile = (DwarvenAnvilEntity) tileEntity;
-        }
     }
 
     @Override
@@ -57,7 +52,10 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public void start() {
-
+        TileEntity tileEntity = entity.level.getBlockEntity(entity.summonPos);
+        if (tileEntity instanceof DwarvenAnvilEntity) {
+            tile = (DwarvenAnvilEntity) tileEntity;
+        }
         count = 120;
     }
 
