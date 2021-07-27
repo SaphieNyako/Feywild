@@ -93,10 +93,10 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
                     String questProgressData = player.getPersistentData().getString("FWQuest");
 
+                    FeywildMod.LOGGER.debug(questProgressData);
                     if (!player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
                         // initial quest
                         ResourceLocation res = new ResourceLocation(FeywildMod.MOD_ID,"spring_init");
-
                         Quest quest =QuestMap.getQuest(res.toString());
                         assert quest != null;
                         FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())),0), player);

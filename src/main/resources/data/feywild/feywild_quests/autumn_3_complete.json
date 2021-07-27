@@ -1,7 +1,7 @@
 {
   "type": "quest",
   "id": "feywild:autumn_dyes_complete",
-  "requirements": "feywild:autumn_dyes_yellow,feywild:autumn_dyes_red,feywild:autumn_dyes_orange",
+  "requirements": "feywild:autumn_dyes_red",
   "reputation": 5,
   "sound": "NULL",
   "repeatable" : false,

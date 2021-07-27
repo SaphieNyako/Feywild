@@ -63,50 +63,54 @@ public class ModUtil {
     public static String[][] getTokens(PlayerEntity playerEntity, String event) {
         AtomicReference<String> target = new AtomicReference<>("null"), item = new AtomicReference<>("empty");
 
-        String questData = playerEntity.getPersistentData().getString("FWQuest");
+        String[] data = playerEntity.getPersistentData().getString("FWQuest").split("/");
 
-        questData = QuestMap.getDataBasedOnAction(questData,event);
+        if(data.length > 0) {
+            String questData = data[0];
+            questData = QuestMap.getDataBasedOnAction(questData, event);
 
-        String[] array = questData.split("&");
-        String[] innerArr;
+            String[] array = questData.split("&");
+            String[] innerArr;
 
-        String[][] ret = new String[array.length][4];
+            String[][] ret = new String[array.length][4];
 
-        for (int i =0; i < array.length; i ++) {
-            innerArr = array[i].split(" ");
-            for(int j = 0; j < innerArr.length; j++) {
-                if (innerArr[j].equalsIgnoreCase("target")) {
-                    target.set(innerArr[j + 1]);
-                    target.set(target.get().replace(" ", "_"));
-                    if (target.get().startsWith("B#")) {
-                        BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("B#", "").toLowerCase())).getValues().forEach(block -> target.set(target.get() + "/" + block.getRegistryName()));
-                        target.set("#" + target.get());
-                    } else if (target.get().startsWith("I#")) {
-                        ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("I#", "").toLowerCase())).getValues().forEach(block -> target.set(target.get() + "/" + block.getRegistryName()));
-                        target.set("#" + target.get());
+            for (int i = 0; i < array.length; i++) {
+                innerArr = array[i].split(" ");
+                for (int j = 0; j < innerArr.length; j++) {
+                    if (innerArr[j].equalsIgnoreCase("target")) {
+                        target.set(innerArr[j + 1]);
+                        target.set(target.get().replace(" ", "_"));
+                        if (target.get().startsWith("B#")) {
+                            BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("B#", "").toLowerCase())).getValues().forEach(block -> target.set(target.get() + "/" + block.getRegistryName()));
+                            target.set("#" + target.get());
+                        } else if (target.get().startsWith("I#")) {
+                            ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(target.get().replaceFirst("I#", "").toLowerCase())).getValues().forEach(block -> target.set(target.get() + "/" + block.getRegistryName()));
+                            target.set("#" + target.get());
+                        }
+                        ret[i][0] = target.get();
+
+                    } else if (innerArr[j].equalsIgnoreCase("using")) {
+                        item.set(innerArr[j + 1]);
+                        if (item.get().startsWith("B#")) {
+                            BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("B#", "").toLowerCase())).getValues().forEach(block -> item.set(item.get() + "/" + block.getRegistryName()));
+                            item.set("#" + target.get());
+                        } else if (item.get().startsWith("I#")) {
+                            ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("I#", "").toLowerCase())).getValues().forEach(block -> item.set(item.get() + "/" + block.getRegistryName()));
+                            item.set("#" + target.get());
+                        }
+
+                        ret[i][1] = item.get();
+                    } else if (innerArr[j].equalsIgnoreCase("times")) {
+                        ret[i][2] = innerArr[j + 1];
+                    } else if (innerArr[j].equalsIgnoreCase("id")) {
+                        ret[i][3] = innerArr[j + 1];
                     }
-                    ret[i][0] = target.get();
-
-                } else if (innerArr[j].equalsIgnoreCase("using")) {
-                    item.set(innerArr[j + 1]);
-                    if (item.get().startsWith("B#")) {
-                        BlockTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("B#", "").toLowerCase())).getValues().forEach(block -> item.set(item.get() + "/" + block.getRegistryName()));
-                        item.set("#" + target.get());
-                    } else if (item.get().startsWith("I#")) {
-                        ItemTags.getAllTags().getTagOrEmpty(new ResourceLocation(item.get().replaceFirst("I#", "").toLowerCase())).getValues().forEach(block -> item.set(item.get() + "/" + block.getRegistryName()));
-                        item.set("#" + target.get());
-                    }
-
-                    ret[i][1] = item.get();
-                } else if (innerArr[j].equalsIgnoreCase("times")) {
-                    ret[i][2] = innerArr[j + 1];
-                }else if(innerArr[j].equalsIgnoreCase("id")){
-                    ret[i][3] = innerArr[j + 1];
                 }
             }
+            return ret;
         }
+        return new String[1][4];
 
-        return ret;
     }
 
 

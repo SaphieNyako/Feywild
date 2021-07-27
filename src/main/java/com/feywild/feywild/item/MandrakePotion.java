@@ -47,7 +47,7 @@ public class MandrakePotion extends TooltipItem {
             playerentity.awardStat(Stats.ITEM_USED.get(this));
 
             String[] data = playerentity.getPersistentData().getString("FWQuest").split("/");
-            assert data.length > 0;
+            if(data.length > 0 && data[0].split("-").length > 0)
             for(String string : data[0].split("-")){
                 playerentity.getPersistentData().remove(string+"Progress");
             }

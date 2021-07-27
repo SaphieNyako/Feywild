@@ -60,11 +60,13 @@ public class QuestMap {
 
     public static String getDataBasedOnAction(@Nonnull String questProgressData, @Nonnull String action) {
         StringBuilder data = new StringBuilder();
-        String[] arr = questProgressData.split("/");
+        String[] dataArr = questProgressData.split("-");
         for (Quest quest : quests) {
-            if (arr.length > 0 && arr[0].contains(quest.getId().toString()) && quest.getData().contains("ACTION " + action.toLowerCase())) {
-                data.append(quest.getData()).append("&");
-            }
+            Arrays.stream(dataArr).iterator().forEachRemaining(s -> {
+                if (s.equalsIgnoreCase(quest.getId().toString()) && quest.getData().contains("ACTION " + action.toLowerCase())) {
+                    data.append(quest.getData()).append("&");
+                }
+            });
         }
         return data.toString();
     }

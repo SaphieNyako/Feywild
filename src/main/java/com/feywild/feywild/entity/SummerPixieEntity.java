@@ -47,6 +47,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class SummerPixieEntity extends FeyEntity implements IAnimatable {
 
@@ -91,6 +92,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
                 if (this.getTags().contains("summer_quest_pixie")) {
 
                     String questProgressData = player.getPersistentData().getString("FWQuest");
+                    FeywildMod.LOGGER.debug(questProgressData);
 
                     if (!player.getTags().contains(QuestMap.Courts.SummerAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
                         // initial quest

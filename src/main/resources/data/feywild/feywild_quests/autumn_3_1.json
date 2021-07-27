@@ -5,7 +5,7 @@
   "reputation": 5,
   "sound": "NULL",
   "repeatable": false,
-  "extraData": "TARGET minecraft:red_dye ACTION craft TIMES 1",
+  "extraData": "TARGET I#feywild:dyes ACTION craft TIMES 9",
   "name": "quest.feywild.name.autumn.red_dye",
   "text": "quest.feywild.autumn.red_dye",
   "icon": {

@@ -142,12 +142,14 @@ public class ModEvents {
                     ModUtil.getTagTokens(tokens[0]).forEach(s -> {
                         if (Objects.requireNonNull(event.getCrafting().getItem().getRegistryName()).toString().equalsIgnoreCase(s)) {
 
-                                int interact = event.getCrafting().getCount();
+                                int interact = event.getCrafting().getCount() + event.getPlayer().getPersistentData().getInt(tokens[3]+ "Progress");
 
                                 if (Integer.parseInt(tokens[2]) <= interact) {
+                                    event.getPlayer().getPersistentData().remove(tokens[3]+ "Progress");
                                     QuestMap.completeQuest(event.getPlayer(), Objects.requireNonNull(QuestMap.getQuest(tokens[3])));
                                 } else {
                                     event.getPlayer().displayClientMessage(new StringTextComponent(interact + "/" + tokens[2]), true);
+                                    event.getPlayer().getPersistentData().putInt(tokens[3]+ "Progress", interact);
                                 }
                         }
                     });
