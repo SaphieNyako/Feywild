@@ -33,7 +33,8 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     private int updateMerchantTimer;
     private boolean increaseProfessionLevelOnUpdate;
     private int villagerLevel;
-    private boolean isTamed;
+    protected boolean isTamed;
+
     //restock
     private long lastRestockGameTime;
     private int numberOfRestocksToday;
@@ -116,6 +117,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         super.addAdditionalSaveData(compound);
         compound.putInt("Level", this.getVillagerLevel());
         compound.putInt("Xp", this.villagerXp);
+        compound.putBoolean("tamed", isTamed);
 
         compound.putLong("LastRestock", this.lastRestockGameTime);
         compound.putInt("RestocksToday", this.numberOfRestocksToday);
@@ -125,13 +127,15 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-
+        //  this.levelInt = compound.getInt("level");
+        this.isTamed = compound.getBoolean("tamed");
         if (compound.contains("Xp", 3)) {
             this.villagerXp = compound.getInt("Xp");
         }
         this.villagerLevel = compound.getInt("Level");
         this.lastRestockGameTime = compound.getLong("LastRestock");
         this.numberOfRestocksToday = compound.getInt("RestocksToday");
+
 
     }
 

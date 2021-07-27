@@ -48,7 +48,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public BlockPos summonPos;
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
-    private boolean tamed = false;
     private HashMap<ItemStack, ItemStack> trades = new HashMap<>();
     private List<Integer> tradeId = new LinkedList<>();
     private int levelInt = 1;
@@ -143,11 +142,11 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     public boolean isTamed() {
-        return tamed;
+        return isTamed;
     }
 
     public void setTamed(boolean tamed) {
-        this.tamed = tamed;
+        this.isTamed = tamed;
         if (tamed) {
             this.trades.clear();
             this.tradeId.clear();
@@ -166,7 +165,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     public List<PrioritizedGoal> getGoals() {
-        return this.tamed ? getTamedGoals() : getUntamedGoals();
+        return this.isTamed ? getTamedGoals() : getUntamedGoals();
     }
 
     /* SAVE DATA */
@@ -208,7 +207,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
             compound.putInt("summonPos_Z", summonPos.getZ());
         }
 
-        compound.putBoolean("tamed", tamed);
         compound.putInt("level", levelInt);
 
     }
@@ -217,7 +215,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         this.levelInt = compound.getInt("level");
-        this.tamed = compound.getBoolean("tamed");
 
         if (compound.contains("summonPos_X"))
             summonPos = new BlockPos(compound.getInt("summonPos_X"), compound.getInt("summonPos_Y"), compound.getInt("summonPos_Z"));
