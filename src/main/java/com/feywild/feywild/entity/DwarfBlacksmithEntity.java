@@ -175,7 +175,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5)));
@@ -190,7 +189,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
@@ -218,11 +216,11 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.contains("summonPos_X"))
-            summonPos = new BlockPos(compound.getInt("summonPos_X"), compound.getInt("summonPos_Y"), compound.getInt("summonPos_Z"));
-
         this.levelInt = compound.getInt("level");
         this.tamed = compound.getBoolean("tamed");
+
+        if (compound.contains("summonPos_X"))
+            summonPos = new BlockPos(compound.getInt("summonPos_X"), compound.getInt("summonPos_Y"), compound.getInt("summonPos_Z"));
 
         tryResetGoals();
     }
@@ -356,4 +354,5 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public void setState(Integer state) {
         this.entityData.set(STATE, state);
     }
+
 }

@@ -114,7 +114,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        //    compound.putInt("Level", this.getVillagerLevel());
+        compound.putInt("Level", this.getVillagerLevel());
         compound.putInt("Xp", this.villagerXp);
 
         compound.putLong("LastRestock", this.lastRestockGameTime);
@@ -125,7 +125,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        //  this.levelInt = compound.getInt("level");
+
         if (compound.contains("Xp", 3)) {
             this.villagerXp = compound.getInt("Xp");
         }
