@@ -52,11 +52,14 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public void start() {
+        count = 120;
+    }
+
+    private void refreshTileEntity() {
         TileEntity tileEntity = entity.level.getBlockEntity(entity.summonPos);
         if (tileEntity instanceof DwarvenAnvilEntity) {
             tile = (DwarvenAnvilEntity) tileEntity;
         }
-        count = 120;
     }
 
     protected void reset() {
@@ -66,14 +69,16 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public boolean canContinueToUse() {
-
-        //Check for Correct Recipe Available
-        //  tile.checkForViableRecipe();
+        refreshTileEntity();
+        if (tile == null) {
+            return false;
+        }
         return summoningPosition != null && tile.getCanCraft();
     }
 
     @Override
     public boolean canUse() {
+        refreshTileEntity();
         if (tile == null) {
             return false;
         }
