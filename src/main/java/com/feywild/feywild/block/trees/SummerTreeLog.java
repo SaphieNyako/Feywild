@@ -12,6 +12,8 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Rotation;
 
+import javax.annotation.Nonnull;
+
 public class SummerTreeLog extends Block {
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
@@ -26,19 +28,20 @@ public class SummerTreeLog extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder builder) {
-
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(GROWN, AXIS);
-
     }
 
     //WHEN PLACED BY PLAYER SHOULD BE FALSE.
+    @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.defaultBlockState().setValue(GROWN, Boolean.valueOf(false))
+        return this.defaultBlockState().setValue(GROWN, false)
                 .setValue(AXIS, context.getClickedFace().getAxis());
     }
 
-    public BlockState rotate(BlockState state, Rotation rot) {
+    @Nonnull
+    @Override
+    public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
         switch (rot) {
             case COUNTERCLOCKWISE_90:
             case CLOCKWISE_90:

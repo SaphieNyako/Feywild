@@ -18,7 +18,11 @@ public class ModFeatures {
     public static final Feature<NoFeatureConfig> DANDELION_FEATURE =
             register("dandelion_feature", new DandelionFeature());
 
-    public static void register() {}
+    public static final Feature<NoFeatureConfig> CROCUS_FEATURE =
+            register("crocus_feature", new CrocusFeature());
+
+    public static void register() {
+    }
 
     private static <C extends IFeatureConfig, F extends Feature<C>> F register(String key, F value) {
         value.setRegistryName(new ResourceLocation(FeywildMod.MOD_ID, key));

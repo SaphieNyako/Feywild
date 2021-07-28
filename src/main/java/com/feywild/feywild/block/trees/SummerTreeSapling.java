@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class SummerTreeSapling extends BaseSapling {
@@ -14,7 +15,7 @@ public class SummerTreeSapling extends BaseSapling {
     }
 
     @Override
-    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    public void performBonemeal(@Nonnull ServerWorld worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, BlockState state) {
 
         super.performBonemeal(worldIn, rand, pos, state);
 
@@ -40,6 +41,7 @@ public class SummerTreeSapling extends BaseSapling {
         }
     }
 
+    @Override
     public BlockState getBlocks(Random random) {
 
         switch (random.nextInt(10)) {
@@ -53,7 +55,6 @@ public class SummerTreeSapling extends BaseSapling {
                 return Blocks.ALLIUM.defaultBlockState();
             case 5:
                 return Blocks.CORNFLOWER.defaultBlockState();
-            //case 6: return Blocks.SUNFLOWER.getDefaultState();
             default:
                 return Blocks.GRASS.defaultBlockState();
         }

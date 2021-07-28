@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.container.ModContainers;
+import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
@@ -10,20 +11,21 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
+import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.setup.IProxy;
 import com.feywild.feywild.setup.ServerProxy;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.util.configs.Config;
+import com.feywild.feywild.util.serializer.UtilManager;
 import com.feywild.feywild.world.biome.ModBiomes;
 import com.feywild.feywild.world.biome.ModSurfaceBuilders;
 import com.feywild.feywild.world.feature.ModFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -39,10 +41,8 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -64,11 +64,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+// General TODOs that affect so much code that I wrote them here
+// TODO: many entities and tile/block entities don't serialise all the fields they should.
+// TODO: Remove the many System.out.println s
 
 @Mod(FeywildMod.MOD_ID)
 public class FeywildMod {
@@ -76,6 +81,7 @@ public class FeywildMod {
     public static final String MOD_ID = "feywild";
     public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
 
+        @Nonnull
         @Override
         public ItemStack makeIcon() {
 
@@ -98,20 +104,20 @@ public class FeywildMod {
         eventBus.addListener(this::setup); // Register the setup method for modloading
         eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
         eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
-        MinecraftForge.EVENT_BUS.addListener(this::reloadStuff);
         registerModAdditions();
         MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
 
     }
 
     //This might have a conflict when merging with the quests
+    @SubscribeEvent
     public void reloadStuff(AddReloadListenerEvent event) {
         event.addListener(TamedTradeManager.instance());
         event.addListener(QuestManager.instance());
+        event.addListener(UtilManager.instance());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
         // DwarfTrades.registerTrades();
         proxy.init();
         entityQueue(event);
@@ -120,23 +126,21 @@ public class FeywildMod {
         SpawnData.registerSpawn();
         TamedTradeManager.instance();
         QuestManager.instance();
+        UtilManager.instance();
 
     }
 
     private void registerConfigs() {
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
     }
 
     private void loadConfigs() {
-
         Config.loadConfigFile(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-client.toml").toString());
         Config.loadConfigFile(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-server.toml").toString());
     }
 
     private void registerModAdditions() {
-
         Registration.init();
         ModSoundEvents.register();
         ModItems.register();
@@ -148,7 +152,8 @@ public class FeywildMod {
         ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
         ModEntityTypes.register();
-
+        ModParticles.register();
+        ModEffects.register();
     }
 
     //Communication with other mods.
@@ -189,7 +194,6 @@ public class FeywildMod {
     /*STRUCTURES*/
 
     private void structureQueue(final FMLCommonSetupEvent event) {
-
         event.enqueueWork(() -> {
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
@@ -197,7 +201,6 @@ public class FeywildMod {
     }
 
     private void modStructuresRegister() {
-
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
         forgeBus.addListener(EventPriority.HIGH, this::biomeModification);
@@ -205,7 +208,6 @@ public class FeywildMod {
     }
 
     public void biomeModification(final BiomeLoadingEvent event) {
-
         String SpringBiome = "blossoming_wealds";
         String SummerBiome = "golden_seelie_fields";
         String AutumnBiome = "eternal_fall";
@@ -299,18 +301,6 @@ public class FeywildMod {
             tempMap.putIfAbsent(ModStructures.LIBRARY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.LIBRARY.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 
-        }
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
         }
     }
 }

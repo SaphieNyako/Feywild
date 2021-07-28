@@ -2,10 +2,10 @@ package com.feywild.feywild.block.entity.mana;
 
 public class ManaStorage implements IManaStorage {
 
+    protected final int capacity;
+    protected final int maxReceive;
+    protected final int maxExtract;
     protected int mana;
-    protected int capacity;
-    protected int maxReceive;
-    protected int maxExtract;
 
     public ManaStorage(int capacity) {
         this(capacity, capacity, capacity, 0);

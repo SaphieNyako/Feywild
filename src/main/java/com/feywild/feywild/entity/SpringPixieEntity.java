@@ -1,28 +1,34 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
-import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SStopSoundPacket;
 import net.minecraft.scoreboard.Score;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
@@ -30,11 +36,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -44,25 +45,17 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(SpringPixieEntity.class,
             DataSerializers.BOOLEAN);
-    //Container
-    private final ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    //Geckolib variable
+    private final AnimationFactory factory = new AnimationFactory(this);
     public BlockPos summonPos;
-    FeyEntity entity = this;
     //TAMED variable
     private boolean tamed = false;
-    //Geckolib variable
-    private AnimationFactory factory = new AnimationFactory(this);
     private boolean setBehaviors;
 
     public SpringPixieEntity(EntityType<? extends FeyEntity> type, World worldIn) {
@@ -89,19 +82,42 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
         entity.addTag("spring_quest_pixie");
     }
 
+    @Nonnull
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
         if (!player.getCommandSenderWorld().isClientSide && !player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {  //&& player.getItemInHand(hand).isEmpty()
             if (player.getItemInHand(hand).isEmpty()) {
                 if (this.getTags().contains("spring_quest_pixie")) {
-                    Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
 
-                    if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
-                        player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
+                    String questProgressData = player.getPersistentData().getString("FWQuest");
 
-                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+                    FeywildMod.LOGGER.debug(questProgressData);
+                    if (!player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
+                        // initial quest
+                        ResourceLocation res = new ResourceLocation(FeywildMod.MOD_ID,"spring_init");
+                        Quest quest =QuestMap.getQuest(res.toString());
+                        assert quest != null;
+                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())),0), player);
+
+                        if(!quest.getSound().equals("NULL")){
+                            ((ServerPlayerEntity)player).connection.send(new SStopSoundPacket(new ResourceLocation(quest.getSound()),SoundCategory.VOICE));
+
+                            player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(quest.getSound()))), SoundCategory.VOICE, 1, 1);
+                        }
+
+                    }else{
+                        // Send over available quests
+
+                        List<MessageQuest> list = new LinkedList<>();
+                        Quest quest;
+                        for(String s : questProgressData.split("/")[0].split("-")){
+                            quest = QuestMap.getQuest(s);
+                            list.add(new MessageQuest(new ResourceLocation(s),Objects.requireNonNull(quest).getText(),Objects.requireNonNull(quest).getName(),Objects.requireNonNull(quest).getIcon(),quest.canSkip()));
+                        }
+                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(list,0), player);
+                    }
                 }
             } else {
 
@@ -140,8 +156,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        AnimationController flyingController = new AnimationController(this, "flyingController", 0, this::flyingPredicate);
-        AnimationController castingController = new AnimationController(this, "castingController", 0, this::castingPredicate);
+        AnimationController<SpringPixieEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<SpringPixieEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
 
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
@@ -167,7 +183,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
     /* GOALS */
 
     @Override
-    protected void registerGoals() { }
+    protected void registerGoals() {
+    }
 
     protected void addGoalsAfterConstructor() {
         if (this.level.isClientSide())
@@ -212,7 +229,7 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     //write
     @Override
-    public void addAdditionalSaveData(CompoundNBT tag) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT tag) {
         super.addAdditionalSaveData(tag);
         if (summonPos != null) {
             tag.putInt("summonPos_X", summonPos.getX());
@@ -220,18 +237,15 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
             tag.putInt("summonPos_Z", summonPos.getZ());
         }
         tag.putBoolean("tamed", tamed);
-        tag.put("inventory", itemHandler.serializeNBT());
 
     }
 
     //read
     @Override
-    public void readAdditionalSaveData(CompoundNBT tag) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("summonPos_X"))
             summonPos = new BlockPos(tag.getInt("summonPos_X"), tag.getInt("summonPos_Y"), tag.getInt("summonPos_Z"));
-
-        itemHandler.deserializeNBT(tag.getCompound("inventory"));
 
         if (tag.contains("tamed")) {
             this.setTamed(tag.getBoolean("tamed"));
@@ -266,56 +280,9 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
 
     }
 
-    /* CONTAINER */
-
     @Override
     public boolean removeWhenFarAway(double p_213397_1_) {
         return false;
     }
 
-    private ItemStackHandler createHandler() {
-
-        return new ItemStackHandler(7) {
-
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                /* Can we put in an item in a specific slot */
-
-                switch (slot) {
-
-                    case 0:
-                        return stack.getItem() == ModItems.FEY_DUST.get();
-                    default:
-                        return true;
-                }
-
-            }
-
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                /* Insert Item into a specific slot */
-
-                if (!isItemValid(slot, stack)) {
-                    return stack;
-                }
-
-                return super.insertItem(slot, stack, simulate);
-
-            }
-        };
-
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return handler.cast();
-        }
-
-        return super.getCapability(capability, side);
-
-    }
 }

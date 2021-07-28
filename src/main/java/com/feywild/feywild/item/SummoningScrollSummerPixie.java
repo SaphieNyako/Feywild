@@ -5,11 +5,12 @@ import com.feywild.feywild.entity.SummerPixieEntity;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.network.OpenQuestScreen;
 import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.KeyboardHelper;
 import com.feywild.feywild.util.ModUtil;
-import net.minecraft.client.util.ITooltipFlag;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,15 +24,18 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class SummoningScrollSummerPixie extends Item {
+public class SummoningScrollSummerPixie extends TooltipItem {
 
     public SummoningScrollSummerPixie() {
         super(new Item.Properties().tab(FeywildMod.FEYWILD_TAB));
     }
 
+    @Nonnull
     @Override
     public ActionResultType useOn(ItemUseContext context) {
         if (!context.getLevel().isClientSide) {
@@ -47,11 +51,11 @@ public class SummoningScrollSummerPixie extends Item {
             context.getLevel().addFreshEntity(entity);
             context.getPlayer().getItemInHand(context.getHand()).shrink(1);
 
-            //  entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
+            entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
 
-            /* QUEST */
-
+           /*
             Score questId = ModUtil.getOrCreatePlayerScore(player.getName().getString(), QuestMap.Scores.FW_Quest.toString(), player.level, 0);
+
             if (!player.getTags().contains(QuestMap.Courts.AutumnAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SpringAligned.toString()) && !player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && !player.getTags().contains(QuestMap.Courts.SummerAligned.toString())) {
                 questId.setScore(100);
                 FeywildPacketHandler.sendToPlayer(new QuestMessage(player.getUUID(), questId.getScore()), player);
@@ -64,26 +68,19 @@ public class SummoningScrollSummerPixie extends Item {
                 if (!QuestMap.getSound(questId.getScore()).equals("NULL"))
                     player.level.playSound(null, player.blockPosition(), Objects.requireNonNull(Registry.SOUND_EVENT.get(new ResourceLocation(QuestMap.getSound(questId.getScore())))), SoundCategory.VOICE, 1, 1);
 
-                FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore())), player);
+                FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(questId.getScore(), QuestMap.getLineNumber(questId.getScore()), QuestMap.getCanSkip(questId.getScore())), player);
             } else {
                 entity.playSound(ModSoundEvents.SUMMONING_SUMMER_PIXIE.get(), 1, 1);
             }
+
+            */
         }
 
         return ActionResultType.SUCCESS;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-
-        if (KeyboardHelper.isHoldingShift()) {
-
-            tooltip.add(new TranslationTextComponent("message.feywild.summer_pixie"));
-        } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage"));
-        }
-
-        super.appendHoverText(stack, world, tooltip, flag);
+    public List<ITextComponent> getTooltip(ItemStack stack, World world) {
+        return ImmutableList.of(new TranslationTextComponent("message.feywild.summer_pixie"));
     }
-
 }

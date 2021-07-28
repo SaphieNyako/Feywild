@@ -1,0 +1,19 @@
+{
+  "type": "quest",
+  "id": "feywild:autumn_supplies_complete",
+  "requirements": "feywild:autumn_potatoes,feywild:autumn_carrots,feywild:autumn_beetroots",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable": false,
+  "extraData": "NULL",
+  "name": "quest.feywild.name.autumn.supplies",
+  "text": "quest.feywild.autumn.supplies",
+  "icon": {
+    "item": "minecraft:barrel",
+    "count": 1
+  },
+  "reward": {
+    "item": "minecraft:beetroot_soup",
+    "count": 1
+  }
+}

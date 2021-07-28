@@ -2,7 +2,6 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -40,14 +39,16 @@ public class WinterBiome extends BaseBiome {
         /* WINTER FEATURES */
         biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.IGLOO);
 
-
         DefaultBiomeFeatures.addBerryBushes(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addSparseBerryBushes(biomeGenerationSettingsBuilder);
 
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.FOSSIL);
+        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
 
         DefaultBiomeFeatures.addDefaultGrass(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);

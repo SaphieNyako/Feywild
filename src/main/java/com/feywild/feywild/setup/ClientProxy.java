@@ -2,18 +2,20 @@ package com.feywild.feywild.setup;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.render.ElectrifiedGroundRenderer;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
-import com.feywild.feywild.screens.PixieScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -46,8 +48,6 @@ public class ClientProxy implements IProxy {
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
                 FeyAltarRenderer::new);
-
-
     }
 
     @Override
@@ -65,16 +65,19 @@ public class ClientProxy implements IProxy {
         RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER_STEM.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION_STEM.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS_STEM.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS.get(), RenderType.cutout());
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
 
-        ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get(), ElectrifiedGroundRenderer::new);
 
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
+        ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
     }
 
     @Override
     public World getClientWorld() {
         return Minecraft.getInstance().level;
     }
-
 }

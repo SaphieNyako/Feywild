@@ -8,6 +8,14 @@ import net.minecraftforge.fml.RegistryObject;
 
 public class ModSoundEvents {
 
+    public static final RegistryObject<SoundEvent> DWARF_ATTACK =
+            Registration.SOUND_EVENTS.register("dwarf_attack",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "dwarf_attack")));
+
+    public static final RegistryObject<SoundEvent> DWARF_RUBBLE =
+            Registration.SOUND_EVENTS.register("dwarf_rubble",
+                    () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "dwarf_rubble")));
+
     public static final RegistryObject<SoundEvent> PIXIE_AMBIENT =
             Registration.SOUND_EVENTS.register("pixie_ambient",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "pixie_ambient")));
@@ -60,5 +68,6 @@ public class ModSoundEvents {
             Registration.SOUND_EVENTS.register("winter_soundtrack",
                     () -> new SoundEvent(new ResourceLocation(FeywildMod.MOD_ID, "winter_soundtrack")));
 
-    public static void register() {}
+    public static void register() {
+    }
 }

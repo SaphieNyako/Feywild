@@ -1,0 +1,19 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_3",
+  "requirements": "feywild:spring_2_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable": false,
+  "extraData": "TARGET feywild:spring_pixie ACTION use TIMES 2 USING minecraft:honeycomb",
+  "name": "quest.feywild.name.spring.honeycomb",
+  "text": "quest.feywild.spring.honeycomb",
+  "icon": {
+    "item": "minecraft:honeycomb",
+    "count": 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

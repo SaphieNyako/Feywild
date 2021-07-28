@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -30,51 +31,48 @@ public abstract class BaseSapling extends BushBlock implements IGrowable {
     }
 
     @Override
-    public boolean isValidBonemealTarget(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(World worldIn, Random rand, BlockPos pos, BlockState state) {
-        //50% chance of Bonemeal working.
+    public boolean isBonemealSuccess(World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+
         return (double) worldIn.random.nextFloat() < 0.50;
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+    public void tick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         super.tick(state, worldIn, pos, rand);
         if (!worldIn.isAreaLoaded(pos, 1)) {
-
             return;
         }
-        //attempt to grow
-        if (worldIn.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
 
+        if (worldIn.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
             this.performBonemeal(worldIn, rand, pos, state);
         }
     }
 
     @Override
-    public void performBonemeal(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-
+    public void performBonemeal(@Nonnull ServerWorld worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, BlockState state) {
         if (state.getValue(STAGE) == 0) {
 
             worldIn.setBlock(pos, state.cycle(STAGE), 4); //state.cycle
         } else {
-
             if (!ForgeEventFactory.saplingGrowTree(worldIn, rand, pos)) {
                 return;
             }
-
             this.tree.growTree(worldIn, worldIn.getChunkSource().getGenerator(), pos, state, rand);
         }
     }
 
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-
         builder.add(STAGE);
+    }
 
+    public BlockState getBlocks(Random random) {
+        return null;
     }
 }

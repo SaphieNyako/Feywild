@@ -1,0 +1,77 @@
+{
+  "type": "library_books",
+  "pool": [
+    {
+      "book": {
+        "item": "feywild:feywild_lexicon",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "ars_nouveau:worn_notebook",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "astralsorcery:tome",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "botania:lexicon",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "eidolon:codex",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "occultism:dictionary_of_spirits",
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "bloodmagic:guide"
+        },
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "patchouli:book_of_dragons"
+        },
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "naturesaura:book"
+        },
+        "count": 1
+      }
+    },
+    {
+      "book": {
+        "item": "patchouli:guide_book",
+        "nbt": {
+          "patchouli:book": "psi:encyclopaedia_psionica"
+        },
+        "count": 1
+      }
+    }
+  ]
+}

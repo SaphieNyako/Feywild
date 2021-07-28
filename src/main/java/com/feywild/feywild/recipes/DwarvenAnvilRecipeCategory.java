@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,26 +33,31 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
 
     }
 
+    @Nonnull
     @Override
     public ResourceLocation getUid() {
         return UID;
     }
 
+    @Nonnull
     @Override
     public Class<? extends DwarvenAnvilRecipe> getRecipeClass() {
         return DwarvenAnvilRecipe.class;
     }
 
+    @Nonnull
     @Override
     public String getTitle() {
         return "Dwarven Anvil";
     }
 
+    @Nonnull
     @Override
     public IDrawable getBackground() {
         return background;
     }
 
+    @Nonnull
     @Override
     public IDrawable getIcon() {
         return icon;
@@ -68,7 +74,7 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
     }
 
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
+    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
         for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
 
             if (i == 0) {

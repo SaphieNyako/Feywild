@@ -2,7 +2,9 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
+import com.feywild.feywild.block.entity.ElectrifiedGroundTileEntity;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.block.entity.LibraryBellEntity;
 import com.feywild.feywild.block.trees.*;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.block.*;
@@ -25,16 +27,27 @@ public class ModBlocks {
     public static final RegistryObject<Block> LIBRARY_BELL = register("library_bell",
             LibraryBell::new, true);
 
-    public static final RegistryObject<Block>  SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
-    public static final RegistryObject<Block>  SUNFLOWER = register("sunflower", Sunflower::new, false);
+    public static final RegistryObject<Block> SUNFLOWER_STEM = register("sunflower_stem", SunflowerStem::new, false);
+    public static final RegistryObject<Block> SUNFLOWER = register("sunflower", Sunflower::new, false);
 
-    public static final RegistryObject<Block>  DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
-    public static final RegistryObject<Block>  DANDELION = register("dandelion", Dandelion::new, false);
+    public static final RegistryObject<Block> DANDELION_STEM = register("dandelion_stem", DandelionStem::new, false);
+    public static final RegistryObject<Block> DANDELION = register("dandelion", Dandelion::new, false);
+
+    public static final RegistryObject<Block> CROCUS_STEM = register("crocus_stem", CrocusStem::new, false);
+    public static final RegistryObject<Block> CROCUS = register("crocus", Crocus::new, false);
+
+    public static final RegistryObject<Block> ELECTRIFIED_GROUND = register("electrified_ground", ElectrifiedGround::new, false);
 
 
     /* TILE ENTITIES */
 
     public static final RegistryObject<Block> DWARVEN_ANVIL = register("dwarven_anvil", DwarvenAnvil::new, true);
+
+    public static final RegistryObject<TileEntityType<ElectrifiedGroundTileEntity>> ELECTRIFIED_GROUND_ENTITY = registerTile("electrified_ground_entity",
+            () -> TileEntityType.Builder.of(ElectrifiedGroundTileEntity::new, ELECTRIFIED_GROUND.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<LibraryBellEntity>> LIBRARY_BELL_ENTITY = registerTile("library_bell_entity",
+            () -> TileEntityType.Builder.of(LibraryBellEntity::new, LIBRARY_BELL.get()).build(null));
 
     public static final RegistryObject<TileEntityType<DwarvenAnvilEntity>> DWARVEN_ANVIL_ENTITY = registerTile("dwarven_anvil_entity",
             () -> TileEntityType.Builder.of(DwarvenAnvilEntity::new, DWARVEN_ANVIL.get()).build(null));
@@ -103,7 +116,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> TREE_MUSHROOM_BLOCK = register("tree_mushroom",
             TreeMushroomBlock::new, true);
 
-    public static void register() {}
+    public static void register() {
+    }
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block, boolean createItem) {
 

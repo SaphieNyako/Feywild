@@ -9,6 +9,7 @@ import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.MegaJungleTrunkPlacer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public abstract class BaseTree extends Tree {
 
     @Nullable
     @Override  //protected
-    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(Random randomIn, boolean largeHive) {
+    public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(@Nonnull Random randomIn, boolean largeHive) {
         BaseTreeFeatureConfig featureConfig = new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
                 new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),
@@ -80,5 +81,4 @@ public abstract class BaseTree extends Tree {
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
     }
-
 }

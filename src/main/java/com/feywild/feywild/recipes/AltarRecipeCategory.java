@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,33 +26,35 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     public AltarRecipeCategory(IGuiHelper helper) {
         ResourceLocation location = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/fey_altar_jei.png");
         this.helper = helper;
-        //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
         background = helper.createDrawable(location, 0, 0, 85, 85);
-
         icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.FEY_ALTAR.get()));
-
     }
 
+    @Nonnull
     @Override
     public ResourceLocation getUid() {
         return UID;
     }
 
+    @Nonnull
     @Override
     public Class<? extends AltarRecipe> getRecipeClass() {
         return AltarRecipe.class;
     }
 
+    @Nonnull
     @Override
     public String getTitle() {
         return "Fey Altar";
     }
 
+    @Nonnull
     @Override
     public IDrawable getBackground() {
         return background;
     }
 
+    @Nonnull
     @Override
     public IDrawable getIcon() {
         return icon;
@@ -74,19 +77,8 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, AltarRecipe altarRecipe, IIngredients iIngredients) {
-        //Where is the location of every item.
-       /* int xPos = 0;
-        int yPos = 8;
+    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull AltarRecipe altarRecipe, IIngredients iIngredients) {
 
-        for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
-            iRecipeLayout.getItemStacks().init(i, true, xPos, yPos);
-            iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            xPos += 16;
-        }
-        iRecipeLayout.getItemStacks().init(iIngredients.getInputs(VanillaTypes.ITEM).size(), true, 32, 48);
-        iRecipeLayout.getItemStacks().set(iIngredients.getInputs(VanillaTypes.ITEM).size(), iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
-*/
         for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
             if (i == 0) {
                 iRecipeLayout.getItemStacks().init(i, true, 0, 32);

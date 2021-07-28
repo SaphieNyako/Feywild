@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_3_complete",
+  "requirements": "feywild:spring_3",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.spring.honeycomb",
+  "text": "quest.feywild.spring.honeycomb_complete",
+
+  "icon" : {
+    "item" : "minecraft:honeycomb",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:honey_bottle",
+    "count": 1
+  }
+}

@@ -17,7 +17,6 @@ public class DwarfBlackSmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity
     public void setLivingAnimations(DwarfBlacksmithEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
         head.setRotationY(MathHelper.clamp(extraData.netHeadYaw * ((float) Math.PI / 180F), -0.8f, 0.8f));
     }

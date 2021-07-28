@@ -2,8 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.util.Config;
 import com.feywild.feywild.util.Registration;
+import com.feywild.feywild.util.configs.Config;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -13,6 +13,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.RegistryObject;
+
+import javax.annotation.Nonnull;
 
 public class ModItems {
 
@@ -63,6 +65,10 @@ public class ModItems {
                                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
                                     .build())));
 
+    public static final RegistryObject<Item> MANDRAKE_POTION =
+            Registration.ITEMS.register("mandrake_potion",
+                    () -> new MandrakePotion(new Item.Properties().tab(FeywildMod.FEYWILD_TAB).food(new Food.Builder().build())));
+
     //CROP ITEMS
     public static final RegistryObject<Item> MANDRAKE_SEED =
             Registration.ITEMS.register("mandrake_seed",
@@ -74,6 +80,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> DANDELION_SEED =
             Registration.ITEMS.register("dandelion_seed", DandelionSeeds::new
+            );
+
+    public static final RegistryObject<Item> CROCUS_SEED =
+            Registration.ITEMS.register("crocus_seed", CrocusSeeds::new
             );
 
     /* MUSIC DISC */
@@ -91,20 +101,6 @@ public class ModItems {
     public static final RegistryObject<Item> SCHEMATICS_FEY_ALTAR =
             Registration.ITEMS.register("schematics_fey_altar",
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
-
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_WEAPONS = registerBasedOnConfig("schematics_dungeons_gear_weapons",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_weapons")), Config.DUNGEONS_GEAR.get());
-
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARTIFACTS = registerBasedOnConfig("schematics_dungeons_gear_artifacts",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_artifacts")), Config.DUNGEONS_GEAR.get());
-
-    public static final RegistryObject<Item> SCHEMATICS_DUNGEONS_GEAR_ARMOR = registerBasedOnConfig("schematics_dungeons_gear_armor",new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_dungeons_gear_armor")), Config.DUNGEONS_GEAR.get());
-
-
-    private static <T extends Item> RegistryObject<T> registerBasedOnConfig(String name, T object, boolean shouldRegister){
-        if(shouldRegister) {
-            return Registration.ITEMS.register(name, () -> object);
-        }
-        return null;
-    }
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
@@ -152,30 +148,31 @@ public class ModItems {
                             .tab(FeywildMod.FEYWILD_TAB)));  */
 
     /* SUMMONING SCROLL */
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE =
             Registration.ITEMS.register("summoning_scroll_spring_pixie",
                     SummoningScrollSpringPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_summer_pixie",
                     SummoningScrollSummerPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE =
             Registration.ITEMS.register("summoning_scroll_autumn_pixie",
                     SummoningScrollAutumnPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_PIXIE =
             Registration.ITEMS.register("summoning_scroll_winter_pixie",
                     SummoningScrollWinterPixie::new);
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_DWARF_BLACKSMITH =
             Registration.ITEMS.register("summoning_scroll_dwarf_blacksmith",
                     SummoningScrollDwarfBlacksmith::new);
 
-    //METHODES
+    private static <T extends Item> RegistryObject<T> registerBasedOnConfig(String name, T object, boolean shouldRegister) {
+        if (shouldRegister) {
+            return Registration.ITEMS.register(name, () -> object);
+        }
+        return null;
+    }
 
-    public static void register() {}
+    public static void register() {
+    }
 
     public enum ModItemTier implements IItemTier {
         FEY(250, 3f, 5f, 2, 15, Ingredient.of(new ItemStack(ModItems.GREATER_FEY_GEM.get())));
@@ -221,6 +218,7 @@ public class ModItems {
             return enchantability;
         }
 
+        @Nonnull
         @Override
         public Ingredient getRepairIngredient() {
             return repairMaterial;
@@ -252,7 +250,7 @@ public class ModItems {
         }
 
         @Override
-        public int getDurabilityForSlot(EquipmentSlotType slotIn) {
+        public int getDurabilityForSlot(@Nonnull EquipmentSlotType slotIn) {
             return durability;
         }
 
@@ -266,16 +264,19 @@ public class ModItems {
             return enchantability;
         }
 
+        @Nonnull
         @Override
         public SoundEvent getEquipSound() {
             return soundEvent;
         }
 
+        @Nonnull
         @Override
         public Ingredient getRepairIngredient() {
             return repairMaterial;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

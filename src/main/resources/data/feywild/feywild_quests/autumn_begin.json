@@ -1,14 +1,22 @@
 {
   "type": "quest",
-  "id": 200,
-  "lines": 4,
-  "link": 201,
+  "id": "feywild:autumn_init",
+  "requirements": "",
   "reputation": 25,
-  "canSkip": true,
+  "sound": "feywild:summoning_autumn_pixie",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.autumn.init",
+  "text": "quest.feywild.autumn.init",
+
+  "icon" : {
+    "item" : "minecraft:diamond",
+    "count" : 1
+  },
   "reward": {
     "item": "minecraft:air",
     "count": 1
-  },
-  "sound": "feywild:summoning_autumn_pixie",
-  "extraData": "NULL"
+  }
 }

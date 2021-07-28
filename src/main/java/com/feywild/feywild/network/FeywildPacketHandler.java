@@ -1,6 +1,7 @@
 package com.feywild.feywild.network;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.screens.LibrarianScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -24,20 +25,26 @@ public class FeywildPacketHandler {
     );
     private static int ID = 0;
 
-    public static int nextPacketID() {return ID++;}
+    public static int nextPacketID() {
+        return ID++;
+    }
 
     //Register Packet
     public static void register() {
         INSTANCE.registerMessage(nextPacketID(), ItemMessage.class, ItemMessage::toBytes, ItemMessage::new, ItemMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
-        INSTANCE.registerMessage(nextPacketID(), QuestMessage.class, QuestMessage::toBytes,QuestMessage::new,QuestMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), QuestMessage.class, QuestMessage::toBytes, QuestMessage::new, QuestMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), DataMessage.class, DataMessage::toBytes, DataMessage::new, DataMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), OpenQuestScreen.class, OpenQuestScreen::toBytes, OpenQuestScreen::new, OpenQuestScreen::handle);
+        INSTANCE.registerMessage(nextPacketID(), RequestOpenQuestScreen.class, RequestOpenQuestScreen::toBytes,RequestOpenQuestScreen::new,RequestOpenQuestScreen::handle);
+        INSTANCE.registerMessage(nextPacketID(), ItemEntityMessage.class, ItemEntityMessage::toBytes,ItemEntityMessage::new,ItemEntityMessage::handle);
+        INSTANCE.registerMessage(nextPacketID(), LibrarianScreenMessage.class, LibrarianScreenMessage::toBytes,LibrarianScreenMessage::new,LibrarianScreenMessage::handle);
+
     }
 
-    public static void sendToPlayer( Object message, PlayerEntity entity){
-        if(entity instanceof ServerPlayerEntity)
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) entity), message);
+    public static void sendToPlayer(Object message, PlayerEntity entity) {
+        if (entity instanceof ServerPlayerEntity)
+            INSTANCE.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) entity), message);
     }
 
     // send a packet to all players near the pos withing a specific range
@@ -50,4 +57,5 @@ public class FeywildPacketHandler {
     }
 
     //Ancient's note : I hate networking -_- switch to singleplayer :P
+    //noeppi's note: Networking is not that bad once you have the basics running
 }

@@ -110,5 +110,25 @@
         "stream": true
       }
     ]
+  },
+  "dwarf_attack": {
+    "category": "entity",
+    "subtitle": "dwarf_attack",
+    "sounds": [
+      {
+        "name": "feywild:dwarf_attack",
+        "stream": true
+      }
+    ]
+  },
+  "dwarf_rubble": {
+    "category": "entity",
+    "subtitle": "dwarf_rubble",
+    "sounds": [
+      {
+        "name": "feywild:dwarf_rubble",
+        "stream": true
+      }
+    ]
   }
 }

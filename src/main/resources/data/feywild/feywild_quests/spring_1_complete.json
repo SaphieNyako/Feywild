@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_1_complete",
+  "requirements": "feywild:spring_1",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.spring.fey_dust_complete",
+  "text": "quest.feywild.spring.fey_dust_complete",
+
+  "icon" : {
+    "item" : "minecraft:mutton",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

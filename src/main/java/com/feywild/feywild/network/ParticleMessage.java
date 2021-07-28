@@ -18,7 +18,7 @@ public class ParticleMessage {
     public double posX, posY, posZ, velX, velY, velZ;
     public int repeat, id;
     float speed;
-    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME, ParticleTypes.TOTEM_OF_UNDYING);
+    List<ParticleType> list = Arrays.asList(ParticleTypes.WITCH, ParticleTypes.HEART, ParticleTypes.END_ROD, ParticleTypes.HAPPY_VILLAGER, ParticleTypes.CRIT, ParticleTypes.FLAME, ParticleTypes.TOTEM_OF_UNDYING, ParticleTypes.ENCHANTED_HIT);
 
     //Read msg from buf
     public ParticleMessage(PacketBuffer buf) {
@@ -43,7 +43,7 @@ public class ParticleMessage {
         this.posZ = posZ;
         this.repeat = repeat;
         this.id = id;
-        this.speed=speed;
+        this.speed = speed;
     }
 
     //Save msg to buf
@@ -69,17 +69,15 @@ public class ParticleMessage {
             int trueId = Math.abs(id);
             //summon particles based on info
             for (int i = 0; i < Math.abs(repeat); i++) {
-                if(id < 0){
-                    world.addParticle((IParticleData) list.get(trueId),true, posX, posY, posZ,velX - random.nextDouble(), -random.nextDouble() +velY, -random.nextDouble() +velZ);
-                }else
-                if (repeat > 1) {
+                if (id < 0) {
+                    world.addParticle((IParticleData) list.get(trueId), true, posX, posY, posZ, velX - random.nextDouble(), -random.nextDouble() + velY, -random.nextDouble() + velZ);
+                } else if (repeat > 1) {
                     world.addParticle((IParticleData) list.get(id), true, posX - 0.3 + random.nextDouble(), posY - 0.3 + random.nextDouble(), posZ - 0.3 + random.nextDouble(), velX, velY, velZ);
-                }else
-                if (repeat < 0) {
+                } else if (repeat < 0) {
                     newPosX = posX - 0.5 + random.nextDouble();
                     newPosY = posY - 0.5 + random.nextDouble();
                     newPosZ = posZ - 0.5 + random.nextDouble();
-                    world.addParticle((IParticleData) list.get(id), true, newPosX, newPosY, newPosZ, (velX - newPosX) *speed, (velY - newPosY) * speed, (velZ - newPosZ)* speed);
+                    world.addParticle((IParticleData) list.get(id), true, newPosX, newPosY, newPosZ, (velX - newPosX) * speed, (velY - newPosY) * speed, (velZ - newPosZ) * speed);
                 } else {
                     world.addParticle((IParticleData) list.get(id), true, posX, posY, posZ, velX, velY, velZ);
                 }

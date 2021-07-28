@@ -11,7 +11,6 @@ import net.minecraft.particles.ParticleTypes;
 public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity> {
 
     public SpringPixieRenderer(EntityRendererManager renderManager) {
-
         super(renderManager, new SpringPixieModel());
     }
 
@@ -19,8 +18,6 @@ public class SpringPixieRenderer extends BasePixieRenderer<SpringPixieEntity> {
     public void render(SpringPixieEntity entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
     }
-
-    //TODO: Check if world is paused. Fix particle problem pixies after opening menu
 
     @Override
     protected BasicParticleType getParticleType() {

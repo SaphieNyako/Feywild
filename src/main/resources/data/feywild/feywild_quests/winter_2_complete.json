@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_2_complete",
+  "requirements": "feywild:winter_2",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.winter.peculiar_disguise",
+  "text": "quest.feywild.winter.peculiar_disguise_complete",
+
+  "icon" : {
+    "item" : "minecraft:zombie_head",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:wither_skeleton_skull",
+    "count": 1
+  }
+}

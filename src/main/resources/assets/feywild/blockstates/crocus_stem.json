@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/crocus_stem"
+      },
+      {
+        "model": "feywild:block/crocus_stem",
+        "y": 90
+      },
+      {
+        "model": "feywild:block/crocus_stem",
+        "y": 180
+      }
+    ]
+  }
+}

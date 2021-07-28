@@ -8,10 +8,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI;
+import javax.annotation.Nonnull;
+
 
 public class PixieContainer extends Container {
 
@@ -26,13 +26,11 @@ public class PixieContainer extends Container {
         this.entity = entity;
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        this.quest = ModUtil.getOrCreatePlayerScore(player.getName().getString(),QuestMap.Scores.FW_Quest.toString(),player.level,0).getScore();
-        this.lines = QuestMap.getLineNumber(quest);
 
         if (this.entity != null) {
 
             entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-             //   addSlot(new SlotItemHandler(h, 0, -(size/4) + 40, 140));
+                //   addSlot(new SlotItemHandler(h, 0, -(size/4) + 40, 140));
             });
         }
     }
@@ -45,10 +43,8 @@ public class PixieContainer extends Container {
         return lines;
     }
 
-    @Override //canInteractWith
-    public boolean stillValid(PlayerEntity playerIn) {
+    @Override
+    public boolean stillValid(@Nonnull PlayerEntity playerIn) {
         return true;
-
     }
-
 }

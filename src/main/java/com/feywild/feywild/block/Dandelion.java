@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
@@ -14,9 +15,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class Dandelion extends Block {
@@ -29,10 +30,16 @@ public class Dandelion extends Block {
     }
 
     @Override
-    public void randomTick(BlockState p_225542_1_, ServerWorld p_225542_2_, BlockPos pos, Random p_225542_4_) {
-        super.randomTick(p_225542_1_, p_225542_2_, pos, p_225542_4_);
-        if (p_225542_1_.getValue(VARIANT) == 2)
-            FeywildPacketHandler.sendToPlayersInRange(p_225542_2_, pos, new ParticleMessage(pos.getX(), pos.getY(), pos.getZ(), 0, 0, 0, 5, 2, 0), 64);
+    public void animateTick(BlockState p_180655_1_, World p_180655_2_, BlockPos p_180655_3_, Random p_180655_4_) {
+        super.animateTick(p_180655_1_, p_180655_2_, p_180655_3_, p_180655_4_);
+        if (p_180655_1_.getValue(VARIANT) == 2 && p_180655_4_.nextDouble() > 0.6) {
+
+            double windStrength = Math.cos((double) p_180655_2_.getGameTime() / 2000) / 8;
+            double windX = Math.cos((double) p_180655_2_.getGameTime() / 1200) * windStrength;
+            double windZ = Math.sin((double) p_180655_2_.getGameTime() / 1000) * windStrength;
+
+            p_180655_2_.addParticle(ParticleTypes.END_ROD, p_180655_3_.getX() + p_180655_4_.nextDouble(), p_180655_3_.getY() + p_180655_4_.nextDouble(), p_180655_3_.getZ() + p_180655_4_.nextDouble(), windX, 0, windZ);
+        }
     }
 
     @Override
@@ -41,12 +48,12 @@ public class Dandelion extends Block {
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState p_149653_1_) {
+    public boolean isRandomlyTicking(@Nonnull BlockState p_149653_1_) {
         return true;
     }
 
     @Override
-    public void onRemove(BlockState p_196243_1_, World world, BlockPos pos, BlockState p_196243_4_, boolean p_196243_5_) {
+    public void onRemove(@Nonnull BlockState p_196243_1_, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState p_196243_4_, boolean p_196243_5_) {
         super.onRemove(p_196243_1_, world, pos, p_196243_4_, p_196243_5_);
         if (world.isClientSide) return;
 
@@ -57,10 +64,10 @@ public class Dandelion extends Block {
         }
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return VoxelShapes.box(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
-
     }
 }

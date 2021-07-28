@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:winter_1_complete",
+  "requirements": "feywild:winter_1",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.winter.defences",
+  "text": "quest.feywild.winter.defences_complete",
+
+  "icon" : {
+    "item" : "minecraft:snowball",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:ice",
+    "count": 4
+  }
+}

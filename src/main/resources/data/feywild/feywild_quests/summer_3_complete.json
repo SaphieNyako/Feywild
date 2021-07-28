@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_3_complete",
+  "requirements": "feywild:summer_3",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.summer.bad_guys",
+  "text":"quest.feywild.summer.bad_guys_complete",
+
+  "icon" : {
+    "item" : "minecraft:iron_axe",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:gold_ingot",
+    "count": 3
+  }
+}

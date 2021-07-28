@@ -1,14 +1,21 @@
 {
   "type": "quest",
-  "id": 0,
-  "lines": 5,
-  "link": 1,
+  "id": "feywild:spring_init",
+  "requirements": "",
   "reputation": 25,
-  "canSkip": true,
+  "sound": "feywild:summoning_spring_pixie",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.autumn.init",
+  "text":"quest.feywild.spring.init",
+  "icon" : {
+    "item" : "minecraft:diamond",
+    "count" : 1
+  },
   "reward": {
     "item": "minecraft:air",
     "count": 1
-  },
-  "sound": "feywild:summoning_spring_pixie",
-  "extraData": "NULL"
+  }
 }

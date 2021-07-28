@@ -1,0 +1,21 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_1",
+  "requirements": "feywild:summer_init",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET minecraft:iron_golem ACTION kill TIMES 1 USING empty",
+
+  "name" : "Trial of might",
+  "text": "quest.feywild.summer.might",
+  "icon" : {
+    "item" : "minecraft:iron_nugget",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}

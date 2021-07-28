@@ -1,0 +1,19 @@
+{
+  "type": "quest",
+  "id": "feywild:autumn_carrots",
+  "requirements": "feywild:autumn_init",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable": false,
+  "extraData": "TARGET feywild:autumn_pixie ACTION use TIMES 9 USING minecraft:carrot",
+  "name": "quest.feywild.name.autumn.carrots",
+  "text": "quest.feywild.autumn.carrots",
+  "icon": {
+    "item": "minecraft:carrot",
+    "count": 1
+  },
+  "reward": {
+    "item": "minecraft:carrot",
+    "count": 9
+  }
+}

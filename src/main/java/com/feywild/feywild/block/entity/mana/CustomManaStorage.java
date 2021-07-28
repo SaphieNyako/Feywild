@@ -6,11 +6,11 @@ import net.minecraftforge.common.util.INBTSerializable;
 public class CustomManaStorage extends ManaStorage implements INBTSerializable<CompoundNBT> {
 
     public CustomManaStorage(int capacity, int maxTransfer) {
-        super(capacity, maxTransfer);
-        this.maxReceive = 0;
+        super(capacity, 0, maxTransfer);
     }
 
-    protected void onManaChanged() {}
+    protected void onManaChanged() {
+    }
 
     public void setMana(int mana) {
 
@@ -59,7 +59,9 @@ public class CustomManaStorage extends ManaStorage implements INBTSerializable<C
         return super.canReceive();
     }
 
-    public boolean isFullMana() { return getManaStored() >= getMaxManaStored(); }
+    public boolean isFullMana() {
+        return getManaStored() >= getMaxManaStored();
+    }
 
     @Override
     public CompoundNBT serializeNBT() {

@@ -1,0 +1,21 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_2_complete",
+  "requirements": "feywild:summer_2",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" :  "quest.feywild.name.summer.steeds",
+  "text":"quest.feywild.summer.steeds_complete",
+  "icon" : {
+    "item" : "minecraft:bee_nest",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:honeycomb",
+    "count": 1
+  }
+}

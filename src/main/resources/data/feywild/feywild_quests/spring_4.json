@@ -1,0 +1,22 @@
+{
+  "type": "quest",
+  "id": "feywild:spring_4",
+  "requirements": "feywild:spring_3_complete",
+  "reputation": 5,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "NULL",
+
+  "name" : "quest.feywild.name.spring.trees",
+  "text":"quest.feywild.spring.trees",
+
+  "icon" : {
+    "item" : "feywild:spring_tree_sapling",
+    "count" : 1
+  },
+  "reward": {
+    "item": "feywild:spring_tree_sapling",
+    "count": 3
+  }
+}

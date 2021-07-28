@@ -14,6 +14,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class Sunflower extends Block {
@@ -31,12 +32,12 @@ public class Sunflower extends Block {
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState p_149653_1_) {
+    public boolean isRandomlyTicking(@Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos p_225542_3_, Random p_225542_4_) {
+    public void randomTick(@Nonnull BlockState state, ServerWorld world, @Nonnull BlockPos p_225542_3_, @Nonnull Random p_225542_4_) {
         if (world.getDayTime() < 2800) {
             world.setBlock(p_225542_3_, state.setValue(VARIANT, 0), 2, 1);
         } else if (world.getDayTime() < 8400) {
@@ -47,10 +48,10 @@ public class Sunflower extends Block {
         super.randomTick(state, world, p_225542_3_, p_225542_4_);
     }
 
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return VoxelShapes.box(0.01, 0.01, 0.01, 0.99, 0.99, 0.99);
-
     }
 }

@@ -36,6 +36,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
@@ -47,7 +48,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public BlockPos summonPos;
     //Geckolib variable
     private AnimationFactory factory = new AnimationFactory(this);
-    private boolean tamed = false;
     private HashMap<ItemStack, ItemStack> trades = new HashMap<>();
     private List<Integer> tradeId = new LinkedList<>();
     private int levelInt = 1;
@@ -100,27 +100,24 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         }
     }
 
+    @Nonnull
     @Override
-    protected PathNavigator createNavigation(World worldIn) {
+    protected PathNavigator createNavigation(@Nonnull World worldIn) {
         return new GroundPathNavigator(this, worldIn);
     }
 
 
     /* TRADING */
 
+    @Nonnull
     @Override
-    public ActionResultType interactAt(PlayerEntity player, Vector3d vec, Hand hand) {
+    public ActionResultType interactAt(PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
         if (player.getCommandSenderWorld().isClientSide) return ActionResultType.SUCCESS;
 
         this.setTradingPlayer(player); //added
         this.openTradingScreen(player, new TranslationTextComponent("Dwarven Trader"), 1); //added
 
         player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);
-
-        /* This is a test to see if restocking works should be in a goal
-        if (player.getItemInHand(hand).isEmpty() && this.shouldRestock()) {
-            this.restock(); // this works
-        }*/
 
         return ActionResultType.SUCCESS;
     }
@@ -129,8 +126,9 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason
-            reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld worldIn, @Nonnull DifficultyInstance difficultyIn, @Nonnull SpawnReason
+            reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag
+    ) {
 
         this.restrictTo(blockPosition(), 7);
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -144,11 +142,11 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     public boolean isTamed() {
-        return tamed;
+        return isTamed;
     }
 
     public void setTamed(boolean tamed) {
-        this.tamed = tamed;
+        this.isTamed = tamed;
         if (tamed) {
             this.trades.clear();
             this.tradeId.clear();
@@ -167,7 +165,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     public List<PrioritizedGoal> getGoals() {
-        return this.tamed ? getTamedGoals() : getUntamedGoals();
+        return this.isTamed ? getTamedGoals() : getUntamedGoals();
     }
 
     /* SAVE DATA */
@@ -176,7 +174,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        list.add(new PrioritizedGoal(3, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5)));
@@ -191,7 +188,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         List<PrioritizedGoal> list = new ArrayList<>();
         list.add(new PrioritizedGoal(0, new SwimGoal(this)));
         list.add(new PrioritizedGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8)));
-        list.add(new PrioritizedGoal(2, new MoveTowardsTargetGoal(this, 0.4f, 8)));
         list.add(new PrioritizedGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D)));
         list.add(new PrioritizedGoal(2, new LookRandomlyGoal(this)));
         list.add(new PrioritizedGoal(6, new RefreshStockGoal(this)));
@@ -203,7 +199,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT compound) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         if (summonPos != null) {
             compound.putInt("summonPos_X", summonPos.getX());
@@ -211,21 +207,17 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
             compound.putInt("summonPos_Z", summonPos.getZ());
         }
 
-        compound.putBoolean("tamed", tamed);
         compound.putInt("level", levelInt);
-
-        //     compound.putIntArray("trade_id", tradeId);
 
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT compound) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
+        this.levelInt = compound.getInt("level");
+
         if (compound.contains("summonPos_X"))
             summonPos = new BlockPos(compound.getInt("summonPos_X"), compound.getInt("summonPos_Y"), compound.getInt("summonPos_Z"));
-
-        this.levelInt = compound.getInt("level");
-        this.tamed = compound.getBoolean("tamed");
 
         tryResetGoals();
     }
@@ -243,7 +235,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    public boolean checkSpawnRules(IWorld worldIn, SpawnReason spawnReasonIn) {
+    public boolean checkSpawnRules(@Nonnull IWorld worldIn, @Nonnull SpawnReason spawnReasonIn) {
         return super.checkSpawnRules(worldIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !worldIn.canSeeSky(this.blockPosition());
     }
 
@@ -257,12 +249,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     /* ATTRIBUTES */
     @Override
-    public boolean canBeLeashed(PlayerEntity player) {
+    public boolean canBeLeashed(@Nonnull PlayerEntity player) {
         return false;
     }
 
     @Override
-    protected boolean canRide(Entity entityIn) {
+    protected boolean canRide(@Nonnull Entity entityIn) {
         return false;
     }
 
@@ -282,22 +274,14 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
 
     @Override
-    protected int getExperienceReward(PlayerEntity player) {
+    protected int getExperienceReward(@Nonnull PlayerEntity player) {
         return 0;
     }
-/*
-    @Override
-    public void die(DamageSource p_706451) {
-        super.die(p_706451);
-        if (this.isTamed() && this.level.getBlockEntity(summonPos) != null && this.level.getBlockEntity(summonPos) instanceof DwarvenAnvilEntity) {
-            ((DwarvenAnvilEntity) Objects.requireNonNull(this.level.getBlockEntity(summonPos))).setDwarfPresent(false);
-        }
-    } */
 
     /* SOUND EFFECTS */
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
         return SoundEvents.VILLAGER_HURT;
     }
 
@@ -320,9 +304,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return 0.6f;
     }
 
-    /* Animation */
-
-    //TODO: Add working animation
+    /* ANIMATION */
 
     @Override
     protected float getSoundVolume() {
@@ -334,26 +316,24 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         if (this.entityData.get(STATE) == 1 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) { //&& !this.entityData.get(CRAFTING)
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
             return PlayState.CONTINUE;
-        }else
-        // 2 == WORKING
-        if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
-            return PlayState.CONTINUE;
-        }else
-        if (event.isMoving()) { //&& !this.entityData.get(CRAFTING)
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-            return PlayState.CONTINUE;
-        }
+        } else
+            // 2 == WORKING
+            if (this.entityData.get(STATE) == 2 && !(this.dead || this.getHealth() < 0.01 || this.isDeadOrDying())) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
+                return PlayState.CONTINUE;
+            } else if (event.isMoving()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
+                return PlayState.CONTINUE;
+            }
 
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
         return PlayState.CONTINUE;
     }
 
-
     @Override
     public void registerControllers(AnimationData animationData) {
 
-        animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
 
     }
 
@@ -371,4 +351,5 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public void setState(Integer state) {
         this.entityData.set(STATE, state);
     }
+
 }

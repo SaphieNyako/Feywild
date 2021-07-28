@@ -10,12 +10,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
+import javax.annotation.Nonnull;
+
 public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
 
-    /* ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new); in CLIENTPROXY */
-
-    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID,
-            "textures/gui/dwarven_anvil_gui.png");
+    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/dwarven_anvil_gui.png");
     private DwarvenAnvilContainer container;
 
     public DwarvenAnvilScreen(DwarvenAnvilContainer container, PlayerInventory inventory, ITextComponent name) {
@@ -24,23 +23,23 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
-    @Override //drawGuiContainerForegroundLayer
-    protected void renderLabels(MatrixStack matrixStack, int x, int y) {
+    @Override
+    protected void renderLabels(@Nonnull MatrixStack matrixStack, int x, int y) {
 
         //set text, position x, y, color
         drawString(matrixStack, Minecraft.getInstance().font, "Mana: " + container.getMana(), 118, 8, 0xffffff);
 
     }
 
-    @Override //drawGuiContainerBackgroundLayer
-    protected void renderBg(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    @Override
+    protected void renderBg(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y) {
 
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.minecraft.getTextureManager().bind(GUI);
@@ -52,5 +51,4 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
         this.blit(matrixStack, i + 13, j + 9, 176, 0, 11, 64 - (int) (container.getMana() / 15.6f));
 
     }
-
 }

@@ -1,0 +1,21 @@
+{
+  "type": "quest",
+  "id": "feywild:summer_2",
+  "requirements": "feywild:summer_1_complete",
+  "reputation": 20,
+  "sound": "NULL",
+  "repeatable" : false,
+
+  "extraData": "TARGET feywild:summer_pixie ACTION use TIMES 1 USING minecraft:bee_nest",
+
+  "name" :  "quest.feywild.name.summer.steeds",
+  "text": "quest.feywild.summer.steeds",
+  "icon" : {
+    "item" : "minecraft:bee_nest",
+    "count" : 1
+  },
+  "reward": {
+    "item": "minecraft:air",
+    "count": 1
+  }
+}
