@@ -13,20 +13,22 @@ public class CapabilityMana {
     public static Capability<IManaStorage> MANA = null;
 
     public static void register() {
+        
         CapabilityManager.INSTANCE.register(IManaStorage.class, new Capability.IStorage<IManaStorage>() {
-                    @Override
-                    public INBT writeNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side) {
-                        return IntNBT.valueOf(instance.getManaStored());
-                    }
+            
+                // These methods are actually never used if not used by the mod itself
+                // Will also be removed in 1.17
+                // We just do nothing.
+                @Override
+                public INBT writeNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side) {
+                    return IntNBT.valueOf(0);
+                }
 
-                    @Override
-                    public void readNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side, INBT nbt) {
-                        if (!(instance instanceof ManaStorage))
-                            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-                        ((ManaStorage) instance).mana = ((IntNBT) nbt).getAsInt();
-                    }
-                },
-                () -> new ManaStorage(1000));
+                @Override
+                public void readNBT(Capability<IManaStorage> capability, IManaStorage instance, Direction side, INBT nbt) {
+                    //
+                }
+            }, () -> new ManaStorage(1000)
+        );
     }
-
 }

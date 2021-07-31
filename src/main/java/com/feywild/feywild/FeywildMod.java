@@ -1,21 +1,23 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.render.ElectrifiedGroundRenderer;
+import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.entity.util.trades.TamedTradeManager;
+import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
-import com.feywild.feywild.setup.ClientProxy;
-import com.feywild.feywild.setup.IProxy;
-import com.feywild.feywild.setup.ServerProxy;
+import com.feywild.feywild.screens.DwarvenAnvilScreen;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
@@ -26,6 +28,10 @@ import com.feywild.feywild.world.feature.ModFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
+import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -40,6 +46,8 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -48,86 +56,137 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static com.feywild.feywild.entity.ModEntityTypes.DWARF_BLACKSMITH;
 
 // General TODOs that affect so much code that I wrote them here
 // TODO: many entities and tile/block entities don't serialise all the fields they should.
 // TODO: Remove the many System.out.println s
 
-@Mod(FeywildMod.MOD_ID)
-public class FeywildMod {
-
-    public static final String MOD_ID = "feywild";
-    public static final ItemGroup FEYWILD_TAB = new ItemGroup("feywildTab") {
-
-        @Nonnull
-        @Override
-        public ItemStack makeIcon() {
-
-            return new ItemStack(ModItems.SHINY_FEY_GEM.get());
-        }
-    };
-    public static final Logger LOGGER = LogManager.getLogger();
-    public static IProxy proxy;
-    private static Method GETCODEC_METHOD;
-
+@Mod("feywild")
+public class FeywildMod extends ModXRegistration {
+    
+    private static FeywildMod instance;
+    
     public FeywildMod() {
+        super("feywild", new ItemGroup("feywildTab") {
 
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+            @Nonnull
+            @Override
+            public ItemStack makeIcon() {
+                return new ItemStack(ModItems.SHINY_FEY_GEM.get());
+            }
+        });
+        
+        instance = this;
+        
         GeckoLib.initialize();
 
+        // TODO
         registerConfigs();
         loadConfigs();
-        proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-        eventBus.addListener(this::setup); // Register the setup method for modloading
-        eventBus.addListener(this::enqueueIMC);  // Register the enqueueIMC method for modloading
-        eventBus.addListener(this::processIMC); // Register the processIMC method for modloading
-        registerModAdditions();
-        MinecraftForge.EVENT_BUS.register(this); // Register ourselves for server and other game events we are interested in
-
+        
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        
+        MinecraftForge.EVENT_BUS.addListener(this::reloadData);
     }
 
-    //This might have a conflict when merging with the quests
-    @SubscribeEvent
-    public void reloadStuff(AddReloadListenerEvent event) {
-        event.addListener(TamedTradeManager.instance());
-        event.addListener(QuestManager.instance());
-        event.addListener(UtilManager.instance());
+    @Nonnull
+    public static FeywildMod getInstance() {
+        return instance;
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
-        // DwarfTrades.registerTrades();
-        proxy.init();
-        entityQueue(event);
-        structureQueue(event);
+    @Override
+    protected void setup(final FMLCommonSetupEvent event) {
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
         TamedTradeManager.instance();
         QuestManager.instance();
         UtilManager.instance();
 
+        event.enqueueWork(() -> {
+            // TODO use event (see javadoc of put)
+            GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), DwarfBlacksmithEntity.setCustomAttributes().build());
+            
+            ModStructures.setupStructures();
+            ModConfiguredStructures.registerConfiguredStructures();
+        });
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
+        RenderTypeLookup.setRenderLayer(ModBlocks.MANDRAKE_CROP.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SPRING_TREE_SAPLING.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SPRING_TREE_LEAVES.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SUMMER_TREE_SAPLING.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SUMMER_TREE_LEAVES.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_SAPLING.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_LEAVES.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_SAPLING.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_LEAVES.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER_STEM.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION_STEM.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS_STEM.get(), RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS.get(), RenderType.cutout());
+
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
+
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get(), ElectrifiedGroundRenderer::new);
+
+        MinecraftForge.EVENT_BUS.register(new ClientEvents());
+        ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPRING_PIXIE.get(),
+                SpringPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AUTUMN_PIXIE.get(),
+                AutumnPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SUMMER_PIXIE.get(),
+                SummerPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WINTER_PIXIE.get(),
+                WinterPixieRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(DWARF_BLACKSMITH.get(),
+                DwarfBlacksmithRenderer::new);
+
+        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
+                FeyAltarRenderer::new);
+    }
+
+    //This might have a conflict when merging with the quests
+    @SubscribeEvent
+    public void reloadData(AddReloadListenerEvent event) {
+        event.addListener(TamedTradeManager.instance());
+        event.addListener(QuestManager.instance());
+        event.addListener(UtilManager.instance());
     }
 
     private void registerConfigs() {
@@ -140,6 +199,7 @@ public class FeywildMod {
         Config.loadConfigFile(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-server.toml").toString());
     }
 
+    // TODO
     private void registerModAdditions() {
         Registration.init();
         ModSoundEvents.register();
@@ -158,48 +218,21 @@ public class FeywildMod {
 
     //Communication with other mods.
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> {
-            LOGGER.info("Hello world from the MDK");
-            return "Hello world";
-        });
+//        // some example code to dispatch IMC to another mod
+//        InterModComms.sendTo("examplemod", "helloworld", () -> {
+//            LOGGER.info("Hello world from the MDK");
+//            return "Hello world";
+//        });
     }
 
     private void processIMC(final InterModProcessEvent event) {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m -> m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
+//        // some example code to receive and process InterModComms from other mods
+//        LOGGER.info("Got IMC {}", event.getIMCStream().
+//                map(m -> m.getMessageSupplier().get()).
+//                collect(Collectors.toList()));
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
-        // do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    private void entityQueue(final FMLCommonSetupEvent event) {
-        // Ancient's note : switched this to event.enqueueWork to avoid a potential bug
-        event.enqueueWork(() -> {
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), DwarfBlacksmithEntity.setCustomAttributes().build());
-        });
-    }
-
-
-    /*STRUCTURES*/
-
-    private void structureQueue(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            ModStructures.setupStructures();
-            ModConfiguredStructures.registerConfiguredStructures();
-        });
-    }
-
+    // TODO put in separate class
     private void modStructuresRegister() {
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
@@ -268,13 +301,13 @@ public class FeywildMod {
             ServerWorld serverWorld = (ServerWorld) event.getWorld();
 
             try {
-                if (GETCODEC_METHOD == null)
-                    GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
-                ResourceLocation cgRL = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverWorld.getChunkSource().generator));
+//                if (GETCODEC_METHOD == null)
+//                    GETCODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "codec");
+//                ResourceLocation cgRL = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) GETCODEC_METHOD.invoke(serverWorld.getChunkSource().generator));
 
-                if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
+//                if (cgRL != null && cgRL.getNamespace().equals("terraforged")) return;
             } catch (Exception e) {
-                FeywildMod.LOGGER.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
+                FeywildMod.getInstance().logger.error("Was unable to check if " + serverWorld.dimension().location() + " is using Terraforged's ChunkGenerator.");
             }
 
             // Prevent spawning our structure in Vanilla's superflat world as

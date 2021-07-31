@@ -3,7 +3,6 @@ package com.feywild.feywild.block.entity;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
-import com.feywild.feywild.block.entity.mana.CustomManaStorage;
 import com.feywild.feywild.block.entity.mana.IManaStorage;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
@@ -81,7 +80,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
         if (level != null && level instanceof ServerWorld) {
             if (((ServerWorld) level).getServer().getTickCount() % 20 == 0) {
 
-                if (this.itemHandler.getStackInSlot(0).getItem() == ModItems.FEY_DUST.get() && manaStorage.getManaStored() < MAX_MANA) {
+                if (this.itemHandler.getStackInSlot(0).getItem() == ModItems.FEY_DUST.get() && manaStorage.getMana() < MAX_MANA) {
 
                     itemHandler.extractItem(0, 1, false);
                     manaStorage.generateMana(FEY_DUST_MANA_COST);
@@ -202,7 +201,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
             if ((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
                     && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() // && dwarfPresent
-                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage) {
+                    && manaStorage.getMana() > 0 && manaStorage.getMana() >= manaUsage) {
 
                 //  level.playSound(null, this.getBlockPos(), SoundEvents.ANVIL_USE, SoundCategory.BLOCKS, 1.0f, 1.0f);
 
@@ -236,7 +235,7 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
 
             setCanCraft((inv.getItem(7).isEmpty() || inv.getItem(7).getItem() == output.copy().getItem())
                     && inv.getItem(7).getCount() < inv.getItem(7).getMaxStackSize() //&& dwarfPresent
-                    && manaStorage.getManaStored() > 0 && manaStorage.getManaStored() >= manaUsage);
+                    && manaStorage.getMana() > 0 && manaStorage.getMana() >= manaUsage);
         });
 
     }
@@ -265,6 +264,6 @@ public class DwarvenAnvilEntity extends InventoryTile implements ITickableTileEn
     } */
 
     public int getMana() {
-        return manaStorage.getManaStored();
+        return manaStorage.getMana();
     }
 }

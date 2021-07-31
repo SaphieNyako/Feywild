@@ -1,7 +1,6 @@
 package com.feywild.feywild.container;
 
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
-import com.feywild.feywild.block.entity.mana.CustomManaStorage;
 import com.feywild.feywild.block.entity.mana.IManaStorage;
 import com.feywild.feywild.item.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
@@ -68,7 +67,7 @@ public class DwarvenAnvilContainer extends Container {
             @Override
             public void set(int value) {
                 tileEntity.getCapability(CapabilityMana.MANA).ifPresent(h -> {
-                    int manaStored = h.getManaStored() & 0xffff0000;
+                    int manaStored = h.getMana() & 0xffff0000;
                     ((CustomManaStorage) h).setMana(manaStored + (value & 0xffff));
                 });
             }
@@ -84,7 +83,7 @@ public class DwarvenAnvilContainer extends Container {
             @Override
             public void set(int value) {
                 tileEntity.getCapability(CapabilityMana.MANA).ifPresent(h -> {
-                    int manaStored = h.getManaStored() & 0x0000ffff;
+                    int manaStored = h.getMana() & 0x0000ffff;
                     ((CustomManaStorage) h).setMana(manaStored | (value << 16));
                 });
             }
@@ -92,7 +91,7 @@ public class DwarvenAnvilContainer extends Container {
     }
 
     public int getMana() {
-        return tileEntity.getCapability(CapabilityMana.MANA).map(IManaStorage::getManaStored).orElse(0);
+        return tileEntity.getCapability(CapabilityMana.MANA).map(IManaStorage::getMana).orElse(0);
     }
 
     @Nonnull
