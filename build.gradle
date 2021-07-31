@@ -99,10 +99,12 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
+    maven { url 'https://maven.melanx.de'}
 }
 
 dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.16.5:3.0.41")
+    implementation fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.16.3-1.0.78")
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
