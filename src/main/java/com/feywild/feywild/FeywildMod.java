@@ -148,12 +148,13 @@ public class FeywildMod extends ModXRegistration {
         RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_LEAVES.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_SAPLING.get(), RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_LEAVES.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER_STEM.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION_STEM.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS_STEM.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS.get(), RenderType.cutout());
+        // TODO probably not required
+//        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER.get(), RenderType.cutout());
+//        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER_STEM.get(), RenderType.cutout());
+//        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION_STEM.get(), RenderType.cutout());
+//        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
+//        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS_STEM.get(), RenderType.cutout());
+//        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS.get(), RenderType.cutout());
 
         ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
 
