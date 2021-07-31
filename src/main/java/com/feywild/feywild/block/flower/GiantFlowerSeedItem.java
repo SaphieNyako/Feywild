@@ -46,6 +46,6 @@ public class GiantFlowerSeedItem extends ItemBase {
             world.setBlock(pos.above(3), this.block.flowerState(world, pos.above(3), world.random).setValue(GiantFlowerBlock.PART, 3), 3);
             if (context.getPlayer() != null && !context.getPlayer().isCreative()) context.getItemInHand().shrink(1);
         }
-        return ActionResultType.SUCCESS;
+        return ActionResultType.sidedSuccess(world.isClientSide);
     }
 }

@@ -1,8 +1,11 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.quest.QuestMap;
-import com.google.common.collect.ImmutableList;
+import com.feywild.feywild.util.TooltipHelper;
+import io.github.noeppi_noeppi.libx.mod.ModX;
+import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -18,53 +21,58 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class MandrakePotion extends TooltipItem {
+public class MandrakePotion extends ItemBase {
 
-    public MandrakePotion(Item.Properties properties) {
-        super(properties);
+    public MandrakePotion(ModX mod, Item.Properties properties) {
+        super(mod, properties);
+    }
+    
+    @Nonnull
+    @Override
+    public UseAction getUseAnimation(@Nonnull ItemStack stack) {
+        return UseAction.DRINK;
+    }
+    
+    @Nonnull
+    @Override
+    public ActionResult<ItemStack> use(@Nonnull World world, @Nonnull PlayerEntity player, @Nonnull Hand hand) {
+        return DrinkHelper.useDrink(world, player, hand);
+    }
+    
+    @Nonnull
+    @Override
+    public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull LivingEntity living) {
+        PlayerEntity player = living instanceof PlayerEntity ? (PlayerEntity) living : null;
+        if (player instanceof ServerPlayerEntity) {
+            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
+            player.awardStat(Stats.ITEM_USED.get(this));
+            String[] data = player.getPersistentData().getString("FWQuest").split("/");
+            if(data.length > 0 && data[0].split("-").length > 0)
+            for(String string : data[0].split("-")){
+                player.getPersistentData().remove(string+"Progress");
+            }
+            player.getPersistentData().putInt("FWRep", 0);
+            player.getPersistentData().putString("FWQuest", "/");
+            player.removeTag(QuestMap.Courts.AutumnAligned.toString());
+            player.removeTag(QuestMap.Courts.SpringAligned.toString());
+            player.removeTag(QuestMap.Courts.SummerAligned.toString());
+            player.removeTag(QuestMap.Courts.WinterAligned.toString());
+
+            if (!player.isCreative()) {
+                stack.shrink(1);
+                player.inventory.add(new ItemStack(Items.GLASS_BOTTLE));
+            }
+        }
+        return stack;
     }
 
     @Override
-    public List<ITextComponent> getTooltip(ItemStack stack, World world) {
-        return ImmutableList.of(new TranslationTextComponent("message.feywild.mandrake_potion"));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.mandrake_potion"));
+        super.appendHoverText(stack, world, tooltip, flag);
     }
-
-    public UseAction getUseAnimation(ItemStack p_77661_1_) {
-        return UseAction.DRINK;
-    } //this works
-
-    public ActionResult<ItemStack> use(World p_77659_1_, PlayerEntity p_77659_2_, Hand p_77659_3_) {
-        return DrinkHelper.useDrink(p_77659_1_, p_77659_2_, p_77659_3_);
-    }
-
-    public ItemStack finishUsingItem(ItemStack p_77654_1_, World p_77654_2_, LivingEntity p_77654_3_) {
-        PlayerEntity playerentity = p_77654_3_ instanceof PlayerEntity ? (PlayerEntity) p_77654_3_ : null;
-        if (playerentity != null && playerentity instanceof ServerPlayerEntity) {
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) playerentity, p_77654_1_);
-
-            playerentity.awardStat(Stats.ITEM_USED.get(this));
-
-            String[] data = playerentity.getPersistentData().getString("FWQuest").split("/");
-            if(data.length > 0 && data[0].split("-").length > 0)
-            for(String string : data[0].split("-")){
-                playerentity.getPersistentData().remove(string+"Progress");
-            }
-            playerentity.getPersistentData().putInt("FWRep", 0);
-            playerentity.getPersistentData().putString("FWQuest", "/");
-            playerentity.removeTag(QuestMap.Courts.AutumnAligned.toString());
-            playerentity.removeTag(QuestMap.Courts.SpringAligned.toString());
-            playerentity.removeTag(QuestMap.Courts.SummerAligned.toString());
-            playerentity.removeTag(QuestMap.Courts.WinterAligned.toString());
-
-            if (!playerentity.abilities.instabuild) {
-                p_77654_1_.shrink(1);
-                playerentity.inventory.add(new ItemStack(Items.GLASS_BOTTLE));
-            }
-        }
-
-        return p_77654_1_;
-    }
-
 }

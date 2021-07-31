@@ -60,6 +60,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> MANDRAKE =
             Registration.ITEMS.register("mandrake",
+                    // Use ItemTooltip (new TranslationTextComponent("message.feywild.mandrake"))
                     () -> new Mandrake(new Item.Properties().tab(FeywildMod.FEYWILD_TAB)
                             .food(new Food.Builder()
                                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
@@ -96,10 +97,12 @@ public class ModItems {
 
     public static final RegistryObject<Item> SCHEMATICS_GEM_TRANSMUTATION =
             Registration.ITEMS.register("schematics_gem_transmutation",
+                    // use TooltipItem
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_gem_transmutation")));
 
     public static final RegistryObject<Item> SCHEMATICS_FEY_ALTAR =
             Registration.ITEMS.register("schematics_fey_altar",
+                    // use TooltipItem
                     () -> new Schematics(new Item.Properties().tab(FeywildMod.FEYWILD_TAB), new TranslationTextComponent("message.feywild.schematics_fey_altar")));
 
     /* QUEST ITEMS
