@@ -177,6 +177,16 @@ public abstract class FeyEntity extends CreatureEntity {
         return 0.6F;
     }
 
+    
+    // TODO just added now as it's needed in the item. Has to be fixed later
+    public void setTamed(boolean tamed) {
+        //
+    }
+    
+    public void setSummonPos(BlockPos summonPos) {
+        //
+    }
+    
 
     /* MOVEMENT */
     public class FeyWildPanic extends Goal {

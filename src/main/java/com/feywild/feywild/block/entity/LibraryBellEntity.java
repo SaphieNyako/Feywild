@@ -1,24 +1,31 @@
 package com.feywild.feywild.block.entity;
 
-import com.feywild.feywild.block.ModBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class LibraryBellEntity extends TileEntity {
 
     private int annoyance = 0;
-    private PlayerEntity playerEntity = null;
-    private Entity librarian = null;
-    private Entity security = null;
+    
+    @Nullable
+    private UUID player = null;
+    
+    @Nullable
+    private UUID librarian = null;
+    
+    @Nullable
+    private UUID security = null;
 
-    public LibraryBellEntity() {
-        super(ModBlocks.LIBRARY_BELL_ENTITY.get());
+    public LibraryBellEntity(TileEntityType<?> type) {
+        super(type);
     }
+
 
     public int getAnnoyance() {
         return annoyance;
@@ -28,27 +35,30 @@ public class LibraryBellEntity extends TileEntity {
         this.annoyance = annoyance;
     }
 
-    public PlayerEntity getPlayerEntity() {
-        return playerEntity;
+    @Nullable
+    public UUID getPlayer() {
+        return player;
     }
 
-    public void setPlayerEntity(PlayerEntity playerEntity) {
-        this.playerEntity = playerEntity;
+    public void setPlayer(@Nullable UUID player) {
+        this.player = player;
     }
 
-    public Entity getLibrarian() {
+    @Nullable
+    public UUID getLibrarian() {
         return librarian;
     }
 
-    public void setLibrarian(Entity librarian) {
+    public void setLibrarian(@Nullable UUID librarian) {
         this.librarian = librarian;
     }
 
-    public Entity getSecurity() {
+    @Nullable
+    public UUID getSecurity() {
         return security;
     }
 
-    public void setSecurity(Entity security) {
+    public void setSecurity(@Nullable UUID security) {
         this.security = security;
     }
 
@@ -56,14 +66,30 @@ public class LibraryBellEntity extends TileEntity {
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
         annoyance = nbt.getInt("annoyance");
-        playerEntity = level == null ? null : level.getPlayerByUUID(nbt.getUUID("playerId"));
+        player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
+        librarian = nbt.hasUUID("librarianId") ? nbt.getUUID("librarianId") : null;
+        security = nbt.hasUUID("securityId") ? nbt.getUUID("securityId") : null;
     }
 
     @Nonnull
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
-        compound.putInt("annoyance", annoyance);
-        compound.putUUID("playerId", playerEntity.getUUID());
-        return super.save(compound);
+    public CompoundNBT save(CompoundNBT nbt) {
+        nbt.putInt("annoyance", annoyance);
+        if (this.player == null) {
+            nbt.remove("playerId");
+        } else {
+            nbt.putUUID("playerId", this.player);
+        }
+        if (this.librarian == null) {
+            nbt.remove("librarianId");
+        } else {
+            nbt.putUUID("librarianId", this.librarian);
+        }
+        if (this.security == null) {
+            nbt.remove("securityId");
+        } else {
+            nbt.putUUID("securityId", this.security);
+        }
+        return super.save(nbt);
     }
 }

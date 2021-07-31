@@ -23,9 +23,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ModUtil {
-
-    public static HashMap<LivingEntity, PlayerEntity> killOnExit = new HashMap<>();
-
+    
     public static List<ItemStack> librarianBooks;
 
     public static void setLibrarianBooks(List<ItemStack> books) {
