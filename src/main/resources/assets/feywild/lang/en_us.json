@@ -96,6 +96,7 @@
   "autumn_fey_thanks": "A present? Thank you, darling.",
   "winter_fey_thanks": "...your effort is noted, mortal",
   "message.feywild.aligned": "This fey court recognises you as one of it's own.",
+  "screen.feywild.mana_amount": "Mana: %s",
   "effect.feywild.wind_walk": "Wind Walk",
   "quest.feywild.name.autumn.init" : "Welcome to the Autumn court",
   "quest.feywild.name.autumn.potatoes" : "Living Supplies: Potatoes",

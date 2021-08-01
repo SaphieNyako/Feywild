@@ -7,46 +7,46 @@ import java.util.function.Supplier;
 
 public class GoToSummoningPositionGoal extends MovementRestrictionGoal {
 
-    MobEntity entity;
-    Supplier<Boolean> shouldReturn;
-    int maxMovementRange;
+    private final MobEntity entity;
+    private final Supplier<Boolean> shouldReturn;
+    private final int triggerRangeSquared;
 
     public GoToSummoningPositionGoal(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.shouldReturn = () -> true;
-        this.maxMovementRange = maxMovementRange;
+        this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
 
     public GoToSummoningPositionGoal(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, Supplier<Boolean> shouldReturn) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.shouldReturn = shouldReturn;
-
+        this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
 
     @Override
     public void start() {
         super.start();
-        if (distanceFrom(entity.blockPosition(), summoningPosition) > maxMovementRange * 2) {
-            entity.setPos(summoningPosition.getX() + 0.5, summoningPosition.getY() + 1, summoningPosition.getZ() + 0.5);
+        if (distanceFromSquared(entity.blockPosition(), targetPosition) > triggerRangeSquared) {
+            entity.setPos(targetPosition.getX() + 0.5, targetPosition.getY() + 1, targetPosition.getZ() + 0.5);
         }
     }
 
     @Override
     public void tick() {
-        if (summoningPosition != null && distanceFrom(entity.blockPosition(), this.summoningPosition) > maxMovementRange) {
-            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5); //1.5
+        if (targetPosition != null && distanceFromSquared(entity.blockPosition(), this.targetPosition) > maxMovementRangeSquared) {
+            entity.getNavigation().moveTo(this.targetPosition.getX(), this.targetPosition.getY(), this.targetPosition.getZ(), 0.5); //1.5
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        return summoningPosition != null && distanceFrom(entity.blockPosition(), this.summoningPosition) > maxMovementRange && shouldReturn.get();
+        return targetPosition != null && distanceFromSquared(entity.blockPosition(), this.targetPosition) > maxMovementRangeSquared && shouldReturn.get();
     }
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.02f && summoningPosition != null && !this.isInRange(entity.blockPosition()) && shouldReturn.get();
+        return entity.level.random.nextFloat() < 0.02f && targetPosition != null && !this.isInRange(entity.blockPosition()) && shouldReturn.get();
     }
 }

@@ -1,9 +1,11 @@
 package com.feywild.feywild.recipes;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.Registration;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -20,8 +22,8 @@ public class ModRecipeTypes {
     public static final RegistryObject<DwarvenAnvilRecipe.Serializer> DWARVEN_ANVIL_SERIALIZER =
             Registration.RECIPE_SERIALIZER.register("dwarven_anvil", DwarvenAnvilRecipe.Serializer::new);
 
-    public static final IRecipeType<DwarvenAnvilRecipe> DWARVEN_ANVIL_RECIPE = new DwarvenAnvilRecipe.DwarvenAnvilRecipeType();
-
+    public static final IRecipeType<IDwarvenAnvilRecipe> DWARVEN_ANVIL_RECIPE = IRecipeType.register(IDwarvenAnvilRecipe.TYPE_ID.toString());
+            
     public static void registerRecipes() {
         System.out.println("HELLO FROM RECIPES!");
 

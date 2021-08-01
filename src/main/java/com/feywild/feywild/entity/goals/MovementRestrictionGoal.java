@@ -7,25 +7,24 @@ import java.util.function.Supplier;
 
 public class MovementRestrictionGoal extends Goal {
 
-    public BlockPos summoningPosition;
-    public int maxMovementRange;
+    public BlockPos targetPosition;
+    public int maxMovementRangeSquared;
 
     public MovementRestrictionGoal(Supplier<BlockPos> pos, int maxMovementRange) {
-        this.summoningPosition = pos.get();
-        this.maxMovementRange = maxMovementRange;
+        this.targetPosition = pos.get();
+        this.maxMovementRangeSquared = maxMovementRange * maxMovementRange;
     }
 
-    public static double distanceFrom(BlockPos start, BlockPos end) {
-        return Math.sqrt(Math.pow(start.getX() - end.getX(), 2) + Math.pow(start.getY() - end.getY(), 2) + Math.pow(start.getZ() - end.getZ(), 2));
+    public static double distanceFromSquared(BlockPos start, BlockPos end) {
+        return ((start.getX() - end.getX()) * (start.getX() - end.getX())) + ((start.getY() - end.getY()) * (start.getY() - end.getY())) + ((start.getZ() - end.getZ()) * (start.getZ() - end.getZ()));
     }
 
     public boolean isInRange(BlockPos pos) {
-        return distanceFrom(pos, summoningPosition) <= maxMovementRange;
+        return distanceFromSquared(pos, targetPosition) <= maxMovementRangeSquared;
     }
 
     @Override
     public boolean canUse() {
         return false;
     }
-
 }
