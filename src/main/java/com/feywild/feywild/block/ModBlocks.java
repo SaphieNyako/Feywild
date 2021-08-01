@@ -2,7 +2,6 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
-import com.feywild.feywild.block.entity.ElectrifiedGroundTileEntity;
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.block.entity.LibraryBellEntity;
 import com.feywild.feywild.block.trees.*;

@@ -59,6 +59,15 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
         return output.copy();
     }
 
+    @Nullable
+    public Ingredient getSchematics() {
+        return schematics;
+    }
+
+    public List<Ingredient> getInputs() {
+        return inputs;
+    }
+
     @Override
     public int getMana() {
         return mana;

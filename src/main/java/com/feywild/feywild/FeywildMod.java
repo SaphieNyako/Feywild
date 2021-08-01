@@ -1,7 +1,6 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.render.ElectrifiedGroundRenderer;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.effects.ModEffects;

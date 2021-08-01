@@ -1,6 +1,5 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.block.ClientDataBlock;
 import com.feywild.feywild.setup.ClientProxy;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;

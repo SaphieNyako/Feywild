@@ -17,7 +17,8 @@ public class ModRecipeTypes {
     public static final RegistryObject<AltarRecipe.Serializer> ALTAR_SERIALIZER =
             Registration.RECIPE_SERIALIZER.register("fey_altar", AltarRecipe.Serializer::new);
 
-    public static final IRecipeType<AltarRecipe> ALTAR_RECIPE = new AltarRecipe.AltarRecipeType();
+    public static final IRecipeType<IAltarRecipe> ALTAR_RECIPE = IRecipeType.register(IAltarRecipe.TYPE_ID.toString());
+
 
     public static final RegistryObject<DwarvenAnvilRecipe.Serializer> DWARVEN_ANVIL_SERIALIZER =
             Registration.RECIPE_SERIALIZER.register("dwarven_anvil", DwarvenAnvilRecipe.Serializer::new);

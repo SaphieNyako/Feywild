@@ -24,7 +24,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -59,7 +58,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
     // the current result item. It's lazy, so the result item is not computed on every
     // inventory or mana change but also not computed multiple times without a change.
     // Hold a pair of the recipe that is used and the result value.
-    private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipeResult = null;
+    private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipeResult = new LazyValue<>(Optional::empty);
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
@@ -97,20 +96,21 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
             }
         }
     }
-    
-    @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT tag) {
-        super.load(state, tag);
-        inventory.deserializeNBT(tag.getCompound("inventory"));
-        manaStorage.deserializeNBT(tag.getCompound("mana"));
-    }
 
     @Nonnull
     @Override
-    public CompoundNBT save(CompoundNBT tag) {
-        tag.put("inventory", inventory.serializeNBT());
-        tag.put("mana", manaStorage.serializeNBT());
-        return super.save(tag);
+    public CompoundNBT save(CompoundNBT nbt) {
+        nbt.put("inventory", inventory.serializeNBT());
+        nbt.put("mana", manaStorage.serializeNBT());
+        return super.save(nbt);
+    }
+
+    @Override
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+        super.load(state, nbt);
+        inventory.deserializeNBT(nbt.getCompound("inventory"));
+        manaStorage.deserializeNBT(nbt.getCompound("mana"));
+        this.updateRecipe();
     }
 
     @Nonnull
@@ -149,7 +149,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
         } else {
             this.recipeResult = new LazyValue<>(() -> {
                 ItemStack schematics = inventory.getStackInSlot(1);
-                List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(inventory::getStackInSlot).collect(Collectors.toList());
+                List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(schematics, inputs), r)) // Get a stream of all result items that match the current inputs.
                         .findFirst() // The stream should normally only contain one entry but with conflicting recipes it could contain more, so we only take the first

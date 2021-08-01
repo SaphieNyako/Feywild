@@ -9,16 +9,16 @@ public class FeyAltarModel extends AnimatedGeoModel<FeyAltarBlockEntity> {
 
     @Override
     public ResourceLocation getModelLocation(FeyAltarBlockEntity feyAltarBlockEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "geo/fey_altar.geo.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/fey_altar.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(FeyAltarBlockEntity feyAltarBlockEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "textures/block/fey_altar.png");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/block/fey_altar.png");
     }
 
     @Override
     public ResourceLocation getAnimationFileLocation(FeyAltarBlockEntity feyAltarBlockEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "animations/fey_altar.animation.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/fey_altar.animation.json");
     }
 }

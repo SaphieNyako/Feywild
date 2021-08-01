@@ -1,18 +1,20 @@
 package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.network.DataMessage;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
-import com.feywild.feywild.recipes.AltarRecipe;
+import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
+import com.feywild.feywild.util.StreamUtil;
+import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
+import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.NonNullList;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.LazyValue;
+import org.apache.commons.lang3.tuple.Pair;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -22,140 +24,155 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class FeyAltarBlockEntity extends InventoryTile implements ITickableTileEntity, IAnimatable {
+public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTileEntity, IAnimatable {
 
-    // TODO use itemhandler for FeyAltar
-    private final NonNullList<ItemStack> stackList = NonNullList.withSize(5, ItemStack.EMPTY);
-    private final AnimationFactory factory = new AnimationFactory(this);
-    private boolean shouldLoad = true, shouldCraft = false;
-    private int count = 0;
-    private int limit = 0;
-    private int craftCount = 0;
-
-    public FeyAltarBlockEntity() {
-        super(ModBlocks.FEY_ALTAR_ENTITY.get());
-    }
-
-    /* DATA */
-    @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
-        super.load(state, nbt);
-        for (int i = 0; i < getContainerSize(); i++) {
-            stackList.set(i, ItemStack.of((CompoundNBT) nbt.get("stack" + i)));
-        }
-    }
-
-    @Nonnull
-    @Override
-    public CompoundNBT save(@Nonnull CompoundNBT compound) {
-        for (int i = 0; i < getItems().size(); i++) {
-            CompoundNBT compoundNBT = new CompoundNBT();
-            stackList.get(i).copy().save(compoundNBT);
-            compound.put("stack" + i, compoundNBT);
-        }
-        return super.save(compound);
-    }
-
-    @Override
-    public void updateInventory(int flags, boolean shouldCraft) {
-        if (shouldCraft) {
-            Inventory inv = new Inventory(5);
-            for (int i = 0; i < getItems().size(); i++) {
-                inv.setItem(i, getItems().get(i));
-            }
-
-            Optional<AltarRecipe> recipe = level == null ? Optional.empty() : level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
-
-            recipe.ifPresent(altarRecipe -> this.shouldCraft = true
-            );
-        } else {
-            super.updateInventory(flags, false);
-        }
+    public static final int MAX_PROGRESS = 40;
+    
+    private final BaseItemStackHandler inventory;
+    private int progress = 0;
+    private int particleTimer = 0;
+    private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
+    private final AnimationFactory animationFactory = new AnimationFactory(this);
+    
+    public FeyAltarBlockEntity(TileEntityType<?> type) {
+        super(type);
+        this.inventory = new BaseItemStackHandler(5, slot -> {
+            this.setChanged();
+            this.updateRecipe();
+            this.markDispatchable(); // The tile entity is sent to the clients at the end of the tick.
+        });
+        this.inventory.setDefaultSlotLimit(1);
     }
 
     @Override
     public void tick() {
+        if (level == null) return;
+        if (!level.isClientSide) {
+            if (this.recipe.get().isPresent()) {
+                this.progress++;
+                if (this.progress >= MAX_PROGRESS) {
+                    // Clear the inventory
+                    for (int slot = 0; slot < this.inventory.getSlots(); slot++) {
+                        this.inventory.setStackInSlot(slot, ItemStack.EMPTY);
+                    }
+                    ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2, this.worldPosition.getZ() + 0.5, this.recipe.get().get().getLeft().copy());
+                    level.addFreshEntity(entity);
+                }
+                setChanged();
+                markDispatchable();
+            } else {
+                progress = 0;
+            }
+        } else {
+            if (this.progress > 0) {
+                if (this.progress >= (MAX_PROGRESS - 1)) {
+                    for (int i = 0; i < 20; i++) {
+                        this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.2, this.worldPosition.getZ() + 0.5, 0.5 - this.level.random.nextDouble(), 0.7 - this.level.random.nextDouble(), 0.5 - this.level.random.nextDouble());
+                    }
+                } else {
+                    List<ItemStack> stacks = new ArrayList<>();
+                    for (int slot = 0; slot < this.getInventory().getSlots(); slot++) {
+                        ItemStack stack = this.getInventory().getStackInSlot(slot);
+                        if (!stack.isEmpty()) stacks.add(stack);
+                    }
+                    if (!stacks.isEmpty()) {
+                        double progressScaled = this.progress / (double) FeyAltarBlockEntity.MAX_PROGRESS;
+                        double anglePerStack = (2 * Math.PI) / stacks.size();
+                        for (int idx = 0; idx < stacks.size(); idx++) {
+                            double shiftX = Math.cos((level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);
+                            double shiftZ = Math.sin((level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);
+                            this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + 0.5 + shiftX, this.worldPosition.getY() + 1 + progressScaled, this.worldPosition.getZ() + 0.5 + shiftZ, 0, 0, 0);
+                        }
+                    }
+                }
+            } else {
+                if (this.particleTimer <= 0) {
+                    this.particleTimer = level.random.nextInt(120);
+                    if (level.random.nextFloat() < 0.5) {
+                        this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + this.level.random.nextDouble(), this.worldPosition.getY() + this.level.random.nextDouble(), this.worldPosition.getZ() + this.level.random.nextDouble(), 0, 0, 0);
+                    }
+                } else {
+                    this.particleTimer--;
+                }
+            }
+        }
+    }
+    
+    private void updateRecipe() {
         if (level != null && !level.isClientSide) {
-            count++;
-            if (shouldLoad) {
-                // initialize limit and loop through all items to sync them with the client
-                limit = level.random.nextInt(20 * 6);
-                updateInventory(-1, false);
-                shouldLoad = true;
-            }
-            if (shouldCraft) {
-                craftCount++;
-                if (craftCount == 10) {
-                    FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(1, worldPosition), 100);
-                }
-                if (craftCount > 40) {
-                    craft();
-                    craftCount = 0;
-                    shouldCraft = false;
-                }
-            }
-            //summon particles randomly (did this here bc for some reason random ticks are killing me today)
-            if (count > limit) {
-                limit = level.random.nextInt(20 * 6);
-                if (level.random.nextDouble() > 0.5) {
-                    // send packet to player to summon particles
-                    // TODO possibly summon particles clients side, reduces network traffic (Server test required)
-                    FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + level.random.nextDouble(), worldPosition.getY() + level.random.nextDouble(), worldPosition.getZ() + level.random.nextDouble(), 0, 0, 0, 1, 2, 0), 32);
-                }
-                count = 0;
-            }
+            this.recipe = new LazyValue<>(() -> {
+                List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
+                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR_RECIPE).stream()
+                        .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
+                        .findFirst();
+            });
+        } else {
+            this.recipe = null;
         }
     }
 
-    public void craft() {
-        Inventory inv = new Inventory(5);
-        for (int i = 0; i < getItems().size(); i++) {
-            inv.setItem(i, getItems().get(i));
+    public BaseItemStackHandler getInventory() {
+        return inventory;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    @Nonnull
+    @Override
+    public CompoundNBT save(@Nonnull CompoundNBT nbt) {
+        nbt.put("inventory", inventory.serializeNBT());
+        nbt.putInt("progress", progress);
+        return super.save(nbt);
+    }
+
+    @Override
+    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+        super.load(state, nbt);
+        inventory.deserializeNBT(nbt.getCompound("inventory"));
+        progress = nbt.getInt("progress");
+        this.updateRecipe();
+    }
+
+    @Nonnull
+    @Override
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT nbt = super.getUpdateTag();
+        if (this.level != null && !this.level.isClientSide) {
+            nbt.put("inventory", inventory.serializeNBT());
+            nbt.putInt("progress", progress);
         }
-
-        Optional<AltarRecipe> recipe = level == null ? Optional.empty() : level.getRecipeManager().getRecipeFor(ModRecipeTypes.ALTAR_RECIPE, inv, level);
-
-        recipe.ifPresent(iRecipe -> {
-            ItemStack output = iRecipe.getResultItem();
-            ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 2, worldPosition.getZ() + 0.5, output);
-            level.addFreshEntity(entity);
-            clearContent();
-            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new DataMessage(0, worldPosition), 100);
-            //  FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, -4, -2, -4, 10, 0,0), 32);
-            FeywildPacketHandler.sendToPlayersInRange(level, worldPosition, new ParticleMessage(worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, 0.5, 0.7, 0.5, 20, -2, 0), 64);
-
-        });
-
+        return nbt;
     }
 
     @Override
-    public int getContainerSize() {
-        return 5;
+    public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
+        super.handleUpdateTag(state, nbt);
+        if (this.level != null && this.level.isClientSide) {
+            inventory.deserializeNBT(nbt.getCompound("inventory"));
+            progress = nbt.getInt("progress");
+        }
     }
 
-    @Override
-    public List<ItemStack> getItems() {
-        return stackList;
-    }
-
-
-    /* ANIMATION */
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.altar.motion", true));
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
     }
 
     @Override
     public AnimationFactory getFactory() {
-        return factory;
+        return animationFactory;
     }
 }
