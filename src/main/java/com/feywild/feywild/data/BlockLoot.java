@@ -25,9 +25,21 @@ public class BlockLoot extends BlockLootProviderBase {
     @Override
     protected void setup() {
         treeDrops(ModTrees.springTree, Blocks.OAK_LOG, Blocks.OAK_WOOD);
-        treeDrops(ModTrees.summerTree, Blocks.BIRCH_LOG, Blocks.BIRCH_WOOD);
         treeDrops(ModTrees.autumnTree, Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD);
         treeDrops(ModTrees.winterTree, Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD);
+        
+        this.drops(ModTrees.summerTree.getLeafBlock(), first(
+                item().with(or(silkCondition(), matchTool(Tags.Items.SHEARS))),
+                combine(
+                        stack(ModTrees.summerTree.getSapling()).with(randomFortune(0.02f)),
+                        stack(Items.STICK).with(count(1, 2)).with(randomFortune(0.02f)),
+                        stack(ModItems.feyDust).with(count(1, 2)).with(randomFortune(0.01f, 0.011f, 0.0125f, 0.032f, 0.05f)),
+                        stack(ModBlocks.mandrakeCrop.getSeed()).with(randomFortune(0.005f)),
+                        stack(Items.SWEET_BERRIES).with(count(1, 2)).with(randomFortune(0.02f))
+                )
+        ));
+        this.drops(ModTrees.summerTree.getLogBlock(), true, stack(Blocks.BIRCH_LOG));
+        this.drops(ModTrees.summerTree.getWoodBlock(), true, stack(Blocks.BIRCH_WOOD));
         
         drops(ModBlocks.sunflower, stack(ModBlocks.sunflower).with(count(1, 2)));
         drops(ModBlocks.dandelion, stack(ModBlocks.dandelion).with(count(1, 2)));
