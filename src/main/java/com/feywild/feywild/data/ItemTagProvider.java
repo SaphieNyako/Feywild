@@ -26,7 +26,6 @@ public class ItemTagProvider extends ItemTagProviderBase {
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
-        this.copy(BlockTags.TALL_FLOWERS, ItemTags.TALL_FLOWERS);
         this.copy(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copy(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
     }

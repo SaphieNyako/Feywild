@@ -1,6 +1,5 @@
 package com.feywild.feywild.data;
 
-import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.trees.BaseSapling;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.block.trees.FeyLogBlock;
@@ -32,8 +31,6 @@ public class BlockTagProvider extends BlockTagProviderBase {
             this.tag(BlockTags.LEAVES).add(block);
         } else if (block instanceof BaseSapling) {
             this.tag(BlockTags.SAPLINGS).add(block);
-        } else if (block instanceof GiantFlowerBlock) {
-            this.tag(BlockTags.TALL_FLOWERS).add(block);
         }
     }
 }
