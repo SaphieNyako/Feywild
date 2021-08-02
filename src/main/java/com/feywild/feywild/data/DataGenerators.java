@@ -10,5 +10,8 @@ public class DataGenerators {
         event.getGenerator().addProvider(new ItemModels(FeywildMod.getInstance(), event.getGenerator(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(new Advancements(FeywildMod.getInstance(), event.getGenerator()));
         event.getGenerator().addProvider(new BlockLoot(FeywildMod.getInstance(), event.getGenerator()));
+        BlockTagProvider blockTags = new BlockTagProvider(FeywildMod.getInstance(), event.getGenerator(), event.getExistingFileHelper());
+        event.getGenerator().addProvider(blockTags);
+        event.getGenerator().addProvider(new ItemTagProvider(FeywildMod.getInstance(), event.getGenerator(), event.getExistingFileHelper(), blockTags));
     }
 }

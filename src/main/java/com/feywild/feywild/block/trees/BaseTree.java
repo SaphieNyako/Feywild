@@ -34,7 +34,7 @@ public abstract class BaseTree extends Tree implements Registerable {
     private static final int LEAVES_OFFSET = 4;
     private static final int LEAVES_HEIGHT = 5;
     
-    private final RotatedPillarBlock logBlock;
+    private final FeyLogBlock logBlock;
     private final FeyWoodBlock woodBlock;
     private final BlockItem logItem;
     private final BlockItem woodItem;
@@ -49,7 +49,7 @@ public abstract class BaseTree extends Tree implements Registerable {
     }
     
     public BaseTree(ModX mod, Function<ModX, ? extends FeyLeavesBlock> leavesFactory) {
-        this.logBlock = new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_LOG));
+        this.logBlock = new FeyLogBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_LOG));
         this.woodBlock = new FeyWoodBlock(this.logBlock, AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.logItem = new BlockItem(this.logBlock, properties);
