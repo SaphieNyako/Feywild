@@ -1,6 +1,8 @@
 {
+  "type": "minecraft:block",
   "pools": [
     {
+      "name": "main",
       "rolls": 1,
       "entries": [
         {
@@ -8,30 +10,33 @@
           "children": [
             {
               "type": "minecraft:item",
-              "name": "feywild:spring_tree_log",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
                     "enchantments": [
                       {
-                        "enchantment": "minecraft:silk_touch"
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
                       }
                     ]
                   }
                 }
-              ]
+              ],
+              "name": "feywild:autumn_tree_log"
             },
             {
               "type": "minecraft:item",
-              "name": "minecraft:oak_log",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                }
-              ]
+              "name": "minecraft:dark_oak_log"
             }
           ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

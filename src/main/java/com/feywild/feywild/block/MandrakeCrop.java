@@ -67,4 +67,8 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return SHAPES[state.getValue(this.getAgeProperty())];
     }
+
+    public BlockItem getSeed() {
+        return seed;
+    }
 }

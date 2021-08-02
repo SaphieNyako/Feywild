@@ -2,11 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "name": "main",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "feywild:winter_tree_wood"
+          "name": "feywild:dwarven_anvil"
         }
       ],
       "conditions": [
