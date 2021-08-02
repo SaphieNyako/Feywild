@@ -95,7 +95,7 @@ public class ModBlocks {
             () -> new RotatedPillarBlock(AbstractBlock.Properties.copy(Blocks.SPRUCE_WOOD)), true);
 
     public static final RegistryObject<Block> AUTUMN_TREE_LEAVES = register("autumn_tree_leaves",
-            AutumnLeavesBlock::new, true);
+            AutumnLeaves::new, true);
 
     public static final RegistryObject<Block> AUTUMN_TREE_SAPLING = register("autumn_tree_sapling",
             AutumnTreeSapling::new, true);
