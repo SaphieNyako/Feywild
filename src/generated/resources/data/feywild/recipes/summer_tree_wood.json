@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "group": "bark",
   "pattern": [
-    "##",
-    "##"
+    "aa",
+    "aa"
   ],
   "key": {
-    "#": {
-      "item": "feywild:winter_tree_log"
+    "a": {
+      "item": "feywild:summer_tree_log"
     }
   },
   "result": {
-    "item": "feywild:winter_tree_wood",
+    "item": "feywild:summer_tree_wood",
     "count": 3
   }
 }

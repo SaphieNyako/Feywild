@@ -1,6 +1,7 @@
 package com.feywild.feywild.data;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.data.recipe.*;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 public class DataGenerators {
@@ -13,5 +14,11 @@ public class DataGenerators {
         BlockTagProvider blockTags = new BlockTagProvider(FeywildMod.getInstance(), event.getGenerator(), event.getExistingFileHelper());
         event.getGenerator().addProvider(blockTags);
         event.getGenerator().addProvider(new ItemTagProvider(FeywildMod.getInstance(), event.getGenerator(), event.getExistingFileHelper(), blockTags));
+        
+        event.getGenerator().addProvider(new CraftingRecipes(FeywildMod.getInstance(), event.getGenerator()));
+        event.getGenerator().addProvider(new SmeltingRecipes(FeywildMod.getInstance(), event.getGenerator()));
+        event.getGenerator().addProvider(new MiscRecipes(FeywildMod.getInstance(), event.getGenerator()));
+        event.getGenerator().addProvider(new AltarRecipes(FeywildMod.getInstance(), event.getGenerator()));
+        event.getGenerator().addProvider(new AnvilRecipes(FeywildMod.getInstance(), event.getGenerator()));
     }
 }

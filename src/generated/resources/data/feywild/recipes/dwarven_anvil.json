@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "fff",
+    " i ",
+    "iii"
+  ],
+  "key": {
+    "f": {
+      "item": "feywild:lesser_fey_gem"
+    },
+    "i": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "result": {
+    "item": "feywild:dwarven_anvil"
+  }
+}

@@ -1,14 +1,18 @@
 {
   "type": "feywild:dwarven_anvil",
+  "mana": 1000,
+  "output": {
+    "item": "feywild:fey_altar"
+  },
+  "schematics": {
+    "item": "feywild:schematics_fey_altar"
+  },
   "ingredients": [
     {
-      "item": "feywild:schematics_fey_altar"
+      "tag": "forge:ingots/gold"
     },
     {
-      "item": "minecraft:gold_ingot"
-    },
-    {
-      "item": "minecraft:gold_ingot"
+      "tag": "forge:ingots/gold"
     },
     {
       "item": "feywild:lesser_fey_gem"
@@ -19,9 +23,5 @@
     {
       "item": "feywild:brilliant_fey_gem"
     }
-  ],
-  "output": {
-    "item": "feywild:fey_altar"
-  },
-  "mana_usage": 1000
+  ]
 }

@@ -50,7 +50,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     @Nonnull
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.DWARVEN_ANVIL_SERIALIZER.get();
+        return ModRecipeTypes.DWARVEN_ANVIL_SERIALIZER;
     }
 
     @Nonnull

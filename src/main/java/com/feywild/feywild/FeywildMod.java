@@ -74,7 +74,7 @@ public class FeywildMod extends ModXRegistration {
     private static FeywildMod instance;
     
     public FeywildMod() {
-        super("feywild", new ItemGroup("feywildTab") {
+        super("feywild", new ItemGroup("feywild") {
 
             @Nonnull
             @Override

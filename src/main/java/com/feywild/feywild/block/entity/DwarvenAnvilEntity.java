@@ -69,7 +69,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
             case 0: return stack.getItem() == ModItems.feyDust;
             case 1: return ModItemTags.SCHEMATICS.contains(stack.getItem());
             case 7: return false;
-            default: return this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL_RECIPE, stack);
+            default: return this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL, stack);
         }
     }
 
@@ -150,7 +150,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
             this.recipeResult = new LazyValue<>(() -> {
                 ItemStack schematics = inventory.getStackInSlot(1);
                 List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL_RECIPE).stream()
+                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(schematics, inputs), r)) // Get a stream of all result items that match the current inputs.
                         .findFirst() // The stream should normally only contain one entry but with conflicting recipes it could contain more, so we only take the first
                         .filter(p -> p.getRight().getMana() >= this.manaStorage.getMana()) // Check that we have enough mana for the recipe

@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "group": "bark",
   "pattern": [
-    "##",
-    "##"
+    "aa",
+    "aa"
   ],
   "key": {
-    "#": {
+    "a": {
       "item": "feywild:autumn_tree_log"
     }
   },

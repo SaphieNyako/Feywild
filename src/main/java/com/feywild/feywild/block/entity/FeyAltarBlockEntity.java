@@ -1,6 +1,5 @@
 package com.feywild.feywild.block.entity;
 
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.util.StreamUtil;
@@ -108,7 +107,7 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
         if (level != null && !level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {
                 List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR_RECIPE).stream()
+                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
                         .findFirst();
             });

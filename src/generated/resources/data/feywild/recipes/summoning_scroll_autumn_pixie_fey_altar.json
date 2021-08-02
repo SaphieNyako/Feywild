@@ -1,5 +1,8 @@
 {
   "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:summoning_scroll_autumn_pixie"
+  },
   "ingredients": [
     {
       "item": "feywild:autumn_tree_sapling"
@@ -8,7 +11,7 @@
       "item": "minecraft:carved_pumpkin"
     },
     {
-      "item": "minecraft:red_mushroom"
+      "tag": "forge:mushrooms"
     },
     {
       "item": "minecraft:iron_hoe"
@@ -16,8 +19,5 @@
     {
       "item": "feywild:summoning_scroll"
     }
-  ],
-  "output": {
-    "item": "feywild:summoning_scroll_autumn_pixie"
-  }
+  ]
 }

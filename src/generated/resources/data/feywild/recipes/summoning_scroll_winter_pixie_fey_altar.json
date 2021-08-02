@@ -1,5 +1,8 @@
 {
   "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:summoning_scroll_winter_pixie"
+  },
   "ingredients": [
     {
       "item": "feywild:winter_tree_sapling"
@@ -16,8 +19,5 @@
     {
       "item": "feywild:summoning_scroll"
     }
-  ],
-  "output": {
-    "item": "feywild:summoning_scroll_winter_pixie"
-  }
+  ]
 }

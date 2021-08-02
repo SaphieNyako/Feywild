@@ -44,7 +44,7 @@ public class AltarRecipe implements IAltarRecipe {
     @Nonnull
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.ALTAR_SERIALIZER.get();
+        return ModRecipeTypes.ALTAR_SERIALIZER;
     }
 
     @Nonnull
