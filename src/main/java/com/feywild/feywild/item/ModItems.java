@@ -38,10 +38,10 @@ public class ModItems {
     
     public static final MandrakePotion mandrakePotion = new MandrakePotion(FeywildMod.getInstance(), new Item.Properties().food(new Food.Builder().build()));
 
-    public static final FeywildMusicDisc feywildMusicDisk = new FeywildMusicDisc();
+    public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();
 
-    public static final Item schematicsGemTransmutation = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_gem_transmutation"));
-    public static final Item schematicsFeyAltar = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_fey_altar"));
+    public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_gem_transmutation"));
+    public static final Item schematicsFeyAltar = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_fey_altar"));
 
     public static final SummoningScroll<DwarfBlacksmithEntity> summoningScrollDwarfBlacksmith = new SummoningScroll<>(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, null, new Item.Properties());
     public static final SummoningScroll<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScroll<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
