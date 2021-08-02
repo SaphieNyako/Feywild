@@ -1,6 +1,7 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.container.ModContainers;
+import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -89,6 +90,8 @@ public class FeywildMod extends ModXRegistration {
         // TODO
         registerConfigs();
         loadConfigs();
+        
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
         
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);

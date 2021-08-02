@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "part=0": {
+      "model": "feywild:block/crocus_0"
+    },
+    "part=1": [
+      {
+        "model": "feywild:block/crocus_stem"
+      },
+      {
+        "model": "feywild:block/crocus_stem",
+        "y": 90
+      },
+      {
+        "model": "feywild:block/crocus_stem",
+        "y": 180
+      },
+      {
+        "model": "feywild:block/crocus_stem",
+        "y": 270
+      }
+    ],
+    "part=2": {
+      "model": "feywild:block/crocus_0"
+    },
+    "opening_state=0,part=3": {
+      "model": "feywild:block/crocus_bud"
+    },
+    "opening_state=1,part=3": {
+      "model": "feywild:block/crocus_flower1"
+    },
+    "opening_state=2,part=3": {
+      "model": "feywild:block/crocus_flower2"
+    }
+  }
+}
