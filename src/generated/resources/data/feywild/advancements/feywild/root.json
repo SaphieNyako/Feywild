@@ -3,16 +3,20 @@
     "icon": {
       "item": "feywild:feywild_lexicon"
     },
-    "title": "Welcome to the Feywild",
-    "description": "You borrowed the Feywild Lexicon from the Library",
-    "frame": "goal",
-    "show_toast": true,
-    "announce_to_chat": true,
+    "title": {
+      "translate": "advancements.feywild.feywild.root.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
     "hidden": false,
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png"
   },
   "criteria": {
-    "borrowed": {
+    "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +29,7 @@
   },
   "requirements": [
     [
-      "borrowed"
+      "inventory_changed"
     ]
   ]
 }

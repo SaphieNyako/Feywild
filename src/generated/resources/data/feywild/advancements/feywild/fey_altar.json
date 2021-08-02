@@ -1,18 +1,22 @@
 {
-  "parent": "feywild:feywild/dwarf_schematics_fey_altar",
+  "parent": "feywild:feywild/schematics_fey_altar",
   "display": {
     "icon": {
       "item": "feywild:fey_altar"
     },
-    "title": "Pixie! I Choose you!",
-    "description": "Obtained a fey altar, now you can summon the Fey",
-    "frame": "goal",
+    "title": {
+      "translate": "advancements.feywild.feywild.fey_altar.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.fey_altar.description"
+    },
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "obtained": {
+    "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +29,7 @@
   },
   "requirements": [
     [
-      "obtained"
+      "inventory_changed"
     ]
   ]
 }

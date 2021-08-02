@@ -118,12 +118,20 @@ public abstract class BaseTree extends Tree implements Registerable {
 
     public abstract void decorateSaplingGrowth(ServerWorld world, BlockPos pos, Random random);
 
-    protected Block getLogBlock() {
+    public Block getLogBlock() {
         return this.logBlock;
     }
 
-    protected Block getLeafBlock() {
+    public Block getWoodBlock() {
+        return this.woodBlock;
+    }
+
+    public Block getLeafBlock() {
         return this.leaves;
+    }
+    
+    public Block getSapling() {
+        return this.sapling;
     }
 
     protected int getLeavesRadius() {

@@ -4,15 +4,19 @@
     "icon": {
       "item": "feywild:schematics_fey_altar"
     },
-    "title": "Knowledge of Summoning",
-    "description": "Purchased the fey altar schematics",
+    "title": {
+      "translate": "advancements.feywild.feywild.schematics_fey_altar.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.schematics_fey_altar.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "schematic_altar": {
+    "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +29,7 @@
   },
   "requirements": [
     [
-      "schematic_altar"
+      "inventory_changed"
     ]
   ]
 }

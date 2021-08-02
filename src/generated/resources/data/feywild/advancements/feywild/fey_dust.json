@@ -1,27 +1,22 @@
 {
-  "parent": "feywild:feywild/feywild_lexicon",
+  "parent": "feywild:feywild/root",
   "display": {
     "icon": {
       "item": "feywild:fey_dust"
     },
-    "title": "Dust to Dust",
-    "description": "All are of the dust, and all turn to dust again",
-    "frame": "goal",
+    "title": {
+      "translate": "advancements.feywild.feywild.fey_dust.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.fey_dust.description"
+    },
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "dust": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "feywild:fey_dust"
-          }
-        ]
-      }
-    }, "ore": {
+    "inventory_changed2": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -30,12 +25,24 @@
           }
         ]
       }
+    },
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:fey_dust"
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
-      "dust",
-      "ore"
+      "inventory_changed"
+    ],
+    [
+      "inventory_changed2"
     ]
   ]
 }

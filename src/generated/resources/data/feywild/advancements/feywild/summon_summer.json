@@ -4,15 +4,19 @@
     "icon": {
       "item": "feywild:summoning_scroll_summer_pixie"
     },
-    "title": "Do I look like your pet?",
-    "description": "Conjured a summoning scroll for a Summer Pixie",
+    "title": {
+      "translate": "advancements.feywild.feywild.summon_summer.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.summon_summer.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "scroll": {
+    "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +29,7 @@
   },
   "requirements": [
     [
-      "scroll"
+      "inventory_changed"
     ]
   ]
 }

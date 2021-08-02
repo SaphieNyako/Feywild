@@ -4,15 +4,19 @@
     "icon": {
       "item": "feywild:summoning_scroll_autumn_pixie"
     },
-    "title": "Darling!",
-    "description": "Conjured a summoning scroll for a Autumn Pixie",
+    "title": {
+      "translate": "advancements.feywild.feywild.summon_autumn.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.summon_autumn.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "scroll": {
+    "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +29,7 @@
   },
   "requirements": [
     [
-      "scroll"
+      "inventory_changed"
     ]
   ]
 }

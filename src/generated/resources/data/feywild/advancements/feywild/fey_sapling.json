@@ -1,18 +1,32 @@
 {
-  "parent": "feywild:feywild/feywild_lexicon",
+  "parent": "feywild:feywild/root",
   "display": {
     "icon": {
       "item": "feywild:spring_tree_sapling"
     },
-    "title": "Just a little sapling!",
-    "description": "found a fey tree sapling",
+    "title": {
+      "translate": "advancements.feywild.feywild.fey_sapling.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.fey_sapling.description"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "winter": {
+    "inventory_changed3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:autumn_tree_sapling"
+          }
+        ]
+      }
+    },
+    "inventory_changed4": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -22,7 +36,7 @@
         ]
       }
     },
-    "summer": {
+    "inventory_changed2": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -32,7 +46,7 @@
         ]
       }
     },
-    "spring": {
+    "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -41,23 +55,14 @@
           }
         ]
       }
-    }, "autumn": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "feywild:autumn_tree_sapling"
-          }
-        ]
-      }
     }
   },
   "requirements": [
     [
-      "winter",
-      "summer",
-      "spring",
-      "autumn"
+      "inventory_changed",
+      "inventory_changed2",
+      "inventory_changed3",
+      "inventory_changed4"
     ]
   ]
 }
