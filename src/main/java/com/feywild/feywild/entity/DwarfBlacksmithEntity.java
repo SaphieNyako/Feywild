@@ -226,7 +226,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     public static boolean canSpawn(EntityType<DwarfBlacksmithEntity> type, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
         //noinspection deprecation
-        if (pos.getY() >= world.getSeaLevel()) {
+        if (pos.getY() >= world.getSeaLevel() - 10 || world.canSeeSky(pos) || random.nextDouble() < 0.15) {
             return false;
         } else {
             return checkMobSpawnRules(type, world, reason, pos, random);

@@ -34,7 +34,7 @@ public class WindWalkEffect extends Effect {
                 }
             });
         } else {
-            world.addParticle(ModParticles.LEAF_PARTICLE.get(),living.getRandom().nextDouble() * 1.5 + living.getX() -1,living.getRandom().nextDouble() * 2 + living.getY() + 2,living.getRandom().nextDouble() * 1.5 + living.getZ() - 1,0,0,0);
+            world.addParticle(ModParticles.leafParticle,living.getRandom().nextDouble() * 1.5 + living.getX() -1,living.getRandom().nextDouble() * 2 + living.getY() + 2,living.getRandom().nextDouble() * 1.5 + living.getZ() - 1,0,0,0);
         }
     }
 }

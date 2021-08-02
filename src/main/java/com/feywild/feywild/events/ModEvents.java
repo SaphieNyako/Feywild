@@ -124,15 +124,6 @@ public class ModEvents {
     }
 
     @SubscribeEvent
-    public void onPlayerExit(PlayerEvent.PlayerLoggedOutEvent leaveEvent) {
-        ModUtil.killOnExit.keySet().forEach(entity -> {
-            if (leaveEvent.getPlayer().equals(ModUtil.killOnExit.get(entity))) {
-                entity.remove();
-            }
-        });
-    }
-
-    @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
 
         PlayerEntity playerEntity = event.getPlayer();
@@ -227,7 +218,7 @@ public class ModEvents {
                 && Config.SPAWN_LEXICON.get()) {
 
             spawnEvent.getEntityLiving().getCommandSenderWorld()
-                    .addFreshEntity(new ItemEntity(player.level, player.getX(), player.getY(), player.getZ(), new ItemStack(ModItems.FEYWILD_LEXICON.get())));
+                    .addFreshEntity(new ItemEntity(player.level, player.getX(), player.getY(), player.getZ(), new ItemStack(ModItems.feywildLexicon)));
             player.addTag("foundLexicon");
 
             //This shows a screen when logging in:

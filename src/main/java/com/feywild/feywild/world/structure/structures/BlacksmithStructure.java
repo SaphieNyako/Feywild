@@ -35,7 +35,7 @@ public class BlacksmithStructure extends BaseStructure {
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
     );
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.DWARF_BLACKSMITH.get(), 1, 1, 1)
+            new MobSpawnInfo.Spawners(ModEntityTypes.dwarfBlacksmith, 1, 1, 1)
     );
     private static final String MESSAGE_LOCATION = "Blacksmith at: ";
     private static final String MESSAGE_POOL = "blacksmith/start_pool";
@@ -93,7 +93,7 @@ public class BlacksmithStructure extends BaseStructure {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, MESSAGE_POOL)),
+                            .get(new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -113,7 +113,7 @@ public class BlacksmithStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.LOGGER.log(Level.DEBUG, MESSAGE_LOCATION +
+            FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

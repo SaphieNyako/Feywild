@@ -19,7 +19,7 @@ import java.util.List;
 // Tried my best to add comments
 public class LibrarianScreen extends Screen {
 
-    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/pixie_quest_gui.png");
+    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/pixie_quest_gui.png");
     StringTextComponent title = new StringTextComponent("-Available Books-");
     List<ItemStack> stacks;
 

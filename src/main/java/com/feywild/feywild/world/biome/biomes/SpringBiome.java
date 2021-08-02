@@ -25,7 +25,7 @@ public class SpringBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.springPixie, 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
         getStandardMobSpawnBuilder(mobSpawnBuilder);
         //Standard
@@ -49,7 +49,7 @@ public class SpringBiome extends BaseBiome {
                         .waterFogColor(329011)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.7F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SPRING_SOUNDTRACK.get(), 6000, 12000, true))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, true))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();

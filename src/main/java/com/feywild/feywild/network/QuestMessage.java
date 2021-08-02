@@ -1,15 +1,12 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.setup.ClientProxy;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
-import org.lwjgl.system.CallbackI;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -52,7 +49,8 @@ public class QuestMessage {
         World world;
 
         if(player != null) {
-            world = new ClientProxy().getClientWorld();
+            // FIXME will crash on server, fix later
+            world = Minecraft.getInstance().level;
             ctx.get().enqueueWork(() -> {
                 PlayerEntity entity = world.getPlayerByUUID(player);
                 assert entity != null;

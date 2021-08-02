@@ -77,7 +77,7 @@ public class SummonSnowManGoal extends Goal {
         this.targetPos = new Vector3d(entity.getX() + entity.getRandom().nextInt(4 * 2) - 4, entity.getY() + 2, entity.getZ() + entity.getRandom().nextInt(4 * 2) - 4);
 
         entity.setCasting(true);
-        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
+        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     private void reset() {

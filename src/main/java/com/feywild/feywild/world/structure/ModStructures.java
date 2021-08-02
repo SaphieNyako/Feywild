@@ -1,76 +1,61 @@
 package com.feywild.feywild.world.structure;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.world.structure.structures.*;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RegisterClass
 public class ModStructures {
+    
 
-    public static final DeferredRegister<Structure<?>> STRUCTURES
-            = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, FeywildMod.MOD_ID);
-
-    public static final RegistryObject<Structure<NoFeatureConfig>> SPRING_WORLD_TREE = STRUCTURES.register("spring_world_tree",
-            SpringWorldTreeStructure::new);
-
-    public static final RegistryObject<Structure<NoFeatureConfig>> SUMMER_WORLD_TREE = STRUCTURES.register("summer_world_tree",
-            SummerWorldTreeStructure::new);
-
-    public static final RegistryObject<Structure<NoFeatureConfig>> AUTUMN_WORLD_TREE = STRUCTURES.register("autumn_world_tree",
-            AutumnWorldTreeStructure::new);
-
-    public static final RegistryObject<Structure<NoFeatureConfig>> WINTER_WORLD_TREE = STRUCTURES.register("winter_world_tree",
-            WinterWorldTreeStructure::new);
-
-    public static final RegistryObject<Structure<NoFeatureConfig>> BLACKSMITH = STRUCTURES.register("blacksmith",
-            BlacksmithStructure::new);
-
-    public static final RegistryObject<Structure<NoFeatureConfig>> LIBRARY = STRUCTURES.register("library",
-            LibraryStructure::new);
+    public static final Structure<NoFeatureConfig> springWorldTree = new SpringWorldTreeStructure();
+    public static final Structure<NoFeatureConfig> summerWorldTree = new SummerWorldTreeStructure();
+    public static final Structure<NoFeatureConfig> autumnWorldTree = new AutumnWorldTreeStructure();
+    public static final Structure<NoFeatureConfig> winterWorldTree = new WinterWorldTreeStructure();
+    public static final Structure<NoFeatureConfig> blacksmith = new BlacksmithStructure();
+    public static final Structure<NoFeatureConfig> library = new LibraryStructure();
 
     public static void setupStructures() {
-        setupMapSpacingAndLand(SPRING_WORLD_TREE.get(),
+        setupMapSpacingAndLand(springWorldTree,
                 new StructureSeparationSettings(SpringWorldTreeStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         SpringWorldTreeStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         SpringWorldTreeStructure.SEED_MODIFIER),
                 true);
 
-        setupMapSpacingAndLand(SUMMER_WORLD_TREE.get(),
+        setupMapSpacingAndLand(summerWorldTree,
                 new StructureSeparationSettings(SummerWorldTreeStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         SummerWorldTreeStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         SummerWorldTreeStructure.SEED_MODIFIER),
                 true);
 
-        setupMapSpacingAndLand(AUTUMN_WORLD_TREE.get(),
+        setupMapSpacingAndLand(autumnWorldTree,
                 new StructureSeparationSettings(AutumnWorldTreeStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         AutumnWorldTreeStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         AutumnWorldTreeStructure.SEED_MODIFIER),
                 true);
 
-        setupMapSpacingAndLand(WINTER_WORLD_TREE.get(),
+        setupMapSpacingAndLand(winterWorldTree,
                 new StructureSeparationSettings(WinterWorldTreeStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         WinterWorldTreeStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         WinterWorldTreeStructure.SEED_MODIFIER),
                 true);
 
-        setupMapSpacingAndLand(BLACKSMITH.get(),
+        setupMapSpacingAndLand(blacksmith,
                 new StructureSeparationSettings(BlacksmithStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         BlacksmithStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         BlacksmithStructure.SEED_MODIFIER),
                 true);
 
-        setupMapSpacingAndLand(LIBRARY.get(),
+        setupMapSpacingAndLand(library,
                 new StructureSeparationSettings(LibraryStructure.AVERAGE_DISTANCE_BETWEEN_CHUNKS,
                         LibraryStructure.MIN_DISTANCE_BETWEEN_CHUNKS,
                         LibraryStructure.SEED_MODIFIER),

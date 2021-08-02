@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class TooltipItem extends ItemBase {
+public class TooltipItem extends ItemBase {
 
     private final ITextComponent[] itemTooltip;
     

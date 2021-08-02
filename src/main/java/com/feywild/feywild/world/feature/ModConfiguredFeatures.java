@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.feature;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.block.trees.SummerTree;
@@ -22,12 +23,12 @@ public class ModConfiguredFeatures {
     /* SPRING */
     public static final ConfiguredFeature<?, ?> SPRING_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "spring_trees",
-                    Feature.TREE.configured(new SpringTree().getConfiguredFeature(new Random(), true).config())
+                    Feature.TREE.configured(ModTrees.springTree.getConfiguredFeature(new Random(), true).config())
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 3))));
 
     public static final ConfiguredFeature<?, ?> SPRING_DANDELION = registerFeature("dandelion_feature",
-            ModFeatures.DANDELION_FEATURE.configured(IFeatureConfig.NONE)
+            ModFeatures.dandelions.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
     //Spring Flowers
@@ -54,12 +55,12 @@ public class ModConfiguredFeatures {
     /* SUMMER */
     public static final ConfiguredFeature<?, ?> SUMMER_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "summer_trees",
-                    Feature.TREE.configured(new SummerTree().getConfiguredFeature(new Random(), true).config())
+                    Feature.TREE.configured(ModTrees.summerTree.getConfiguredFeature(new Random(), true).config())
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 2))));
 
     public static final ConfiguredFeature<?, ?> SUMMER_SUNFLOWER = registerFeature("sunflower_feature",
-            ModFeatures.SUNFLOWER_FEATURE.configured(IFeatureConfig.NONE)
+            ModFeatures.sunflowers.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
     //WARM FLOWERS
@@ -77,12 +78,12 @@ public class ModConfiguredFeatures {
     /* AUTUMN */
     public static final ConfiguredFeature<?, ?> AUTUMN_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "autumn_trees",
-                    Feature.TREE.configured(new AutumnTree().getConfiguredFeature(new Random(), true).config())
+                    Feature.TREE.configured(ModTrees.autumnTree.getConfiguredFeature(new Random(), true).config())
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.5f, 5))));
 
     public static final ConfiguredFeature<?, ?> AUTUMN_PUMPKINS = registerFeature("autumn_pumpkins",
-            ModFeatures.AUTUMN_PUMPKINS.configured(IFeatureConfig.NONE)
+            ModFeatures.autumnPumpkins.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
     //SWAMP FLOWERS
@@ -114,7 +115,7 @@ public class ModConfiguredFeatures {
     /* WINTER */
     public static final ConfiguredFeature<?, ?> WINTER_TREES =
             Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, "winter_trees",
-                    Feature.TREE.configured(new WinterTree().getConfiguredFeature(new Random(), true).config())
+                    Feature.TREE.configured(ModTrees.winterTree.getConfiguredFeature(new Random(), true).config())
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                             .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(1, 0.3f, 2))));
 
@@ -131,7 +132,7 @@ public class ModConfiguredFeatures {
                             .decorated(Features.Placements.HEIGHTMAP_SQUARE).count(2));
 
     public static final ConfiguredFeature<?, ?> WINTER_CROCUS = registerFeature("crocus_feature",
-            ModFeatures.CROCUS_FEATURE.configured(IFeatureConfig.NONE)
+            ModFeatures.crocus.configured(IFeatureConfig.NONE)
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE));
 
   /*  public static final BlockClusterFeatureConfig WINTER_BLOCK_CONFIG =
@@ -144,7 +145,7 @@ public class ModConfiguredFeatures {
                             .decorated(Placement.CHANCE.configured(new ChanceConfig(200)))); */
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> registerFeature(String key, ConfiguredFeature<FC, ?> feature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(FeywildMod.MOD_ID, key), feature);
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, key), feature);
     }
 
 }

@@ -2,7 +2,6 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.client.util.ITooltipFlag;
@@ -26,7 +25,7 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     
     @Override
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() == ModBlocks.DWARVEN_ANVIL.get();
+        return world.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
     }
 
     @Override

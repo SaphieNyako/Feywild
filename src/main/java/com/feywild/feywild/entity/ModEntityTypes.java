@@ -3,6 +3,7 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.util.Registration;
+import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -14,46 +15,26 @@ import net.minecraftforge.fml.RegistryObject;
 
 import java.util.Random;
 
+@RegisterClass
 public class ModEntityTypes {
 
-    public static final RegistryObject<EntityType<SpringPixieEntity>> SPRING_PIXIE = Registration.ENTITIES.register("spring_pixie",
-            () -> EntityType.Builder.<SpringPixieEntity>of(SpringPixieEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.<DwarfBlacksmithEntity>of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
+    
+    public static final EntityType<SpringPixieEntity> springPixie = EntityType.Builder.<SpringPixieEntity>of(SpringPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1, 1)
-                    .build(new ResourceLocation(FeywildMod.MOD_ID + "spring_pixie").toString()));
+                    .build(FeywildMod.getInstance().modid + "_spring_pixie");
 
-    public static final RegistryObject<EntityType<AutumnPixieEntity>> AUTUMN_PIXIE = Registration.ENTITIES.register("autumn_pixie",
-            () -> EntityType.Builder.<AutumnPixieEntity>of(AutumnPixieEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<SummerPixieEntity> summerPixie = EntityType.Builder.<SummerPixieEntity>of(SummerPixieEntity::new, EntityClassification.CREATURE)
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_summer_pixie");
+    
+    public static final EntityType<AutumnPixieEntity> autumnPixie = EntityType.Builder.<AutumnPixieEntity>of(AutumnPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1, 1)
-                    .build(new ResourceLocation(FeywildMod.MOD_ID + "autumn_pixie").toString()));
-
-    public static final RegistryObject<EntityType<SummerPixieEntity>> SUMMER_PIXIE = Registration.ENTITIES.register("summer_pixie",
-            () -> EntityType.Builder.<SummerPixieEntity>of(SummerPixieEntity::new, EntityClassification.CREATURE)
+                    .build(FeywildMod.getInstance().modid + "_autumn_pixie");
+    
+    public static final EntityType<WinterPixieEntity> winterPixie = EntityType.Builder.<WinterPixieEntity>of(WinterPixieEntity::new, EntityClassification.CREATURE)
                     .sized(1, 1)
-                    .build(new ResourceLocation(FeywildMod.MOD_ID + "summer_pixie").toString()));
-
-    public static final RegistryObject<EntityType<WinterPixieEntity>> WINTER_PIXIE = Registration.ENTITIES.register("winter_pixie",
-            () -> EntityType.Builder.<WinterPixieEntity>of(WinterPixieEntity::new, EntityClassification.CREATURE)
-                    .sized(1, 1)
-                    .build(new ResourceLocation(FeywildMod.MOD_ID + "winter_pixie").toString()));
-
-    public static final RegistryObject<EntityType<DwarfBlacksmithEntity>> DWARF_BLACKSMITH = Registration.ENTITIES.register("dwarf_blacksmith",
-            () -> EntityType.Builder.<DwarfBlacksmithEntity>of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
-                    .sized(1, 1)
-                    .build(new ResourceLocation(FeywildMod.MOD_ID + "dwarf_blacksmith").toString()));
-
-    public static void register() {
-    }
-
-    /* CUSTOM CONDITIONS */
-    public static boolean spawnFey(EntityType<? extends FeyEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-
-        return worldIn.getBlockState(pos.below()).is(Blocks.DIRT) ||
-                worldIn.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK) ||
-                worldIn.getBlockState(pos.below()).is(Blocks.SAND);
-    }
-
-    public static boolean spawnDwarf(EntityType<? extends DwarfBlacksmithEntity> entity, IWorld worldIn, SpawnReason reason, BlockPos pos, Random random) {
-        return !worldIn.canSeeSky(pos) && pos.getY() < worldIn.getSeaLevel() - 10 && random.nextDouble() > 0.85;
-    }
-
+                    .build(FeywildMod.getInstance().modid + "_winter_pixie");
 }

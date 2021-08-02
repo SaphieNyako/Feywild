@@ -1,18 +1,28 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.item.ModItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropsBlock;
+import com.google.common.collect.ImmutableMap;
+import io.github.noeppi_noeppi.libx.mod.ModX;
+import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import net.minecraft.block.*;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.function.Consumer;
 
-public class MandrakeCrop extends CropsBlock {
+public class MandrakeCrop extends CropsBlock implements Registerable {
 
     private static final VoxelShape[] SHAPES = new VoxelShape[]{
             Block.box(0, 0, 0, 16, 2, 16),
@@ -24,15 +34,32 @@ public class MandrakeCrop extends CropsBlock {
             Block.box(0, 0, 0, 16, 14, 16),
             Block.box(0, 0, 0, 16, 16, 16)
     };
+    
+    private final BlockItem seed;
 
-    public MandrakeCrop(Properties builder) {
-        super(builder);
+    public MandrakeCrop(ModX mod) {
+        super(AbstractBlock.Properties.copy(Blocks.WHEAT));
+        Item.Properties properties = mod.tab == null ?  new Item.Properties() : new Item.Properties().tab(mod.tab);
+        this.seed = new BlockItem(this, properties);
+    }
+
+    @Override
+    public Map<String, Object> getNamedAdditionalRegisters() {
+        return ImmutableMap.of(
+                "seed", this.seed
+        );
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Nonnull
     @Override
     protected IItemProvider getBaseSeedId() {
-        return ModItems.MANDRAKE_SEED.get();
+        return this.seed;
     }
 
     @Nonnull

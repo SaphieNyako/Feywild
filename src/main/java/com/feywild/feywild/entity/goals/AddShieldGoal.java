@@ -65,12 +65,12 @@ public class AddShieldGoal extends Goal {
     private void spellCasting() {
         entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
         entity.setCasting(true);
-        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
+        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     private void addShieldEffect() {
 
-        target.addEffect(new EffectInstance(ModEffects.WIND_WALK_EFFECT.get(), 20 * 60, 2));
+        target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
         target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
         FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
                 , new ParticleMessage(target.getX(), target.getY(), target.getZ(), 0, 0, 0, 10, 0, 0)

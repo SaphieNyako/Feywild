@@ -105,7 +105,7 @@ public class TamedTradeManager implements IFutureReloadListener {
                     }
                 });
                 DWARVEN_TRADES = toIntMap(ImmutableMap.of(
-                        1, getTrades(untamedLevel1), 2, getTrades(untamedLevel2), 3, getTrades(Collections.singletonList(new SimplyTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 20), new ItemStack(ModItems.SUMMONING_SCROLL_DWARF_BLACKSMITH.get(), 1), 1, 1, 10)
+                        1, getTrades(untamedLevel1), 2, getTrades(untamedLevel2), 3, getTrades(Collections.singletonList(new SimplyTrade(new ItemStack(ModItems.lesserFeyGem, 20), new ItemStack(ModItems.summoningScrollDwarfBlacksmith, 1), 1, 1, 10)
                         ))));
             }
 

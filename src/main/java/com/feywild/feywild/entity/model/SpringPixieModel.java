@@ -16,23 +16,25 @@ public class SpringPixieModel extends AnimatedGeoModel<SpringPixieEntity> {
     public void setLivingAnimations(SpringPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
-        head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
+        if (customPredicate != null) {
+            //noinspection unchecked
+            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+            head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
+        }
     }
-
-
+    
     @Override
     public ResourceLocation getModelLocation(SpringPixieEntity springPixieEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "geo/spring_pixie.geo.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/spring_pixie.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(SpringPixieEntity springPixieEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "textures/entity/spring_pixie.png");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/spring_pixie.png");
     }
 
     @Override
     public ResourceLocation getAnimationFileLocation(SpringPixieEntity springPixieEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "animations/spring_pixie.animation.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/spring_pixie.animation.json");
     }
 }

@@ -67,7 +67,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
     }
 
     public WinterPixieEntity(World worldIn, boolean isTamed, BlockPos pos) {
-        super(ModEntityTypes.WINTER_PIXIE.get(), worldIn);
+        super(ModEntityTypes.winterPixie, worldIn);
         //Geckolib check
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
@@ -95,7 +95,7 @@ public class WinterPixieEntity extends FeyEntity implements IAnimatable {
 
                         if (!player.getTags().contains(QuestMap.Courts.WinterAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
                             // initial quest
-                            ResourceLocation res = new ResourceLocation(FeywildMod.MOD_ID,"winter_init");
+                            ResourceLocation res = new ResourceLocation(FeywildMod.getInstance().modid,"winter_init");
 
                             Quest quest =QuestMap.getQuest(res.toString());
                             assert quest != null;

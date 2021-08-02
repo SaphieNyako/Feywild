@@ -36,7 +36,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     
     public GiantFlowerBlock(ModX mod) {
         super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1));
-        this.registerDefaultState(this.stateDefinition.any().setValue(PART, 4));
+        this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
         this.item = new GiantFlowerSeedItem(mod, this);
     }
 
@@ -49,6 +49,10 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     protected void createBlockStateDefinition(@Nonnull StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(PART);
+    }
+
+    public GiantFlowerSeedItem getSeed() {
+        return item;
     }
 
     @Nonnull

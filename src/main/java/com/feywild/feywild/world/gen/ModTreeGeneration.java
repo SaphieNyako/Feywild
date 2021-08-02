@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.gen;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.AutumnTree;
 import com.feywild.feywild.block.trees.SpringTree;
 import com.feywild.feywild.block.trees.SummerTree;
@@ -26,7 +27,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID)
+// TODO
+@Mod.EventBusSubscriber(modid = "feywild")
 public class ModTreeGeneration {
 
     public final static double TREE_PATCHES_CHANCE = Config.TREE_PATCH_CONFIG.getCachedSpawnChance();
@@ -34,11 +36,6 @@ public class ModTreeGeneration {
 
     @SubscribeEvent
     public static void onBiomeLoad(BiomeLoadingEvent event) {
-
-        SpringTree springTree = new SpringTree();
-        AutumnTree autumnTree = new AutumnTree();
-        WinterTree winterTree = new WinterTree();
-        SummerTree summerTree = new SummerTree();
 
         Random random = new Random();
 
@@ -62,13 +59,13 @@ public class ModTreeGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-            base.add(() -> Feature.TREE.configured(springTree.getConfiguredFeature(random, true).config())
+            base.add(() -> Feature.TREE.configured(ModTrees.springTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
 
             if (types.contains(BiomeDictionary.Type.FOREST)) {
 
-                base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
+                base.add(() -> Feature.TREE.configured(ModTrees.autumnTree.getConfiguredFeature(random, true).config())
                         .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                         .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
 
@@ -83,7 +80,7 @@ public class ModTreeGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-            base.add(() -> Feature.TREE.configured(summerTree.getConfiguredFeature(random, true).config())
+            base.add(() -> Feature.TREE.configured(ModTrees.summerTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
         }
@@ -95,7 +92,7 @@ public class ModTreeGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-            base.add(() -> Feature.TREE.configured(autumnTree.getConfiguredFeature(random, true).config())
+            base.add(() -> Feature.TREE.configured(ModTrees.autumnTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
         }
@@ -106,7 +103,7 @@ public class ModTreeGeneration {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-            base.add(() -> Feature.TREE.configured(winterTree.getConfiguredFeature(random, true).config())
+            base.add(() -> Feature.TREE.configured(ModTrees.winterTree.getConfiguredFeature(random, true).config())
                     .decorated(Features.Placements.HEIGHTMAP_SQUARE)
                     .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (float) TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
         }

@@ -88,7 +88,7 @@ public class TargetBreedGoal extends Goal {
         this.targetPos = new Vector3d(targetAnimal.getX(), targetAnimal.getY(), targetAnimal.getZ());
 
         entity.setCasting(true);
-        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
+        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     private AnimalEntity getFreePartner(AnimalEntity animalEntity) {

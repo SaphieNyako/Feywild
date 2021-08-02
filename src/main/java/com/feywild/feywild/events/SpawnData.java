@@ -1,7 +1,9 @@
 package com.feywild.feywild.events;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.util.configs.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -21,7 +23,8 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.List;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID)
+// TODO
+@Mod.EventBusSubscriber(modid = "feywild")
 public class SpawnData {
 
     public static List<BiomeDictionary.Type> biomeSpring = Config.SPRING_PIXIE_CONFIG.getBiomes();
@@ -45,37 +48,37 @@ public class SpawnData {
         if (!types.contains(Type.NETHER) && !types.contains(Type.END)
                 && !types.contains(Type.OCEAN)) {
 
-            addSpawn(event, ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
+            addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
 
             for (Type biomeName : biomeSpring) {
                 if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
-                    addSpawn(event, ModEntityTypes.SPRING_PIXIE.get(), EntityClassification.CREATURE,
+                    addSpawn(event, ModEntityTypes.springPixie, EntityClassification.CREATURE,
                             Config.SPRING_PIXIE_CONFIG.getWeight(), Config.SPRING_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
                 }
             }
 
             for (Type biomeName : biomeSummer) {
                 if (types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
-                    addSpawn(event, ModEntityTypes.SUMMER_PIXIE.get(), EntityClassification.CREATURE,
+                    addSpawn(event, ModEntityTypes.summerPixie, EntityClassification.CREATURE,
                             Config.SUMMER_PIXIE_CONFIG.getWeight(), Config.SUMMER_PIXIE_CONFIG.getMin(), Config.SUMMER_PIXIE_CONFIG.getMax());
                 }
             }
 
             for (Type biomeName : biomeAutumn) {
                 if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(SpringBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
-                    addSpawn(event, ModEntityTypes.AUTUMN_PIXIE.get(), EntityClassification.CREATURE,
+                    addSpawn(event, ModEntityTypes.autumnPixie, EntityClassification.CREATURE,
                             Config.AUTUMN_PIXIE_CONFIG.getWeight(), Config.AUTUMN_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
                 }
             }
 
             for (Type biomeName : biomeWinter) {
                 if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(SpringBiome) || biome.contains(Alfheim)) {
-                    addSpawn(event, ModEntityTypes.WINTER_PIXIE.get(), EntityClassification.CREATURE,
+                    addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE,
                             Config.WINTER_PIXIE_CONFIG.getWeight(), Config.WINTER_PIXIE_CONFIG.getMin(), Config.WINTER_PIXIE_CONFIG.getMax());
                 }
             }
 
-            addSpawn(event, ModEntityTypes.DWARF_BLACKSMITH.get(), EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
+            addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
 
         }
     }
@@ -86,20 +89,20 @@ public class SpawnData {
     }
 
     public static void registerSpawn() {
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.SPRING_PIXIE.get(),
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie,
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
 
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.AUTUMN_PIXIE.get(),
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie,
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
 
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.SUMMER_PIXIE.get(),
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie,
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
 
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.WINTER_PIXIE.get(),
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnFey);
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie,
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
 
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.DWARF_BLACKSMITH.get(),
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModEntityTypes::spawnDwarf);
+        EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith,
+                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
 
     }
 

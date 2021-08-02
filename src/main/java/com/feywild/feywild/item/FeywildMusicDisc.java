@@ -24,11 +24,11 @@ import java.util.function.Supplier;
 public class FeywildMusicDisc extends MusicDiscItem {
 
     public FeywildMusicDisc() {
-        this(1, ModSoundEvents.FEYWILD_SOUNDTRACK, new Item.Properties().tab(FeywildMod.getInstance().tab).rarity(Rarity.RARE));
+        this(1, ModSoundEvents.feywildSoundtrack, new Item.Properties().tab(FeywildMod.getInstance().tab).rarity(Rarity.RARE));
     }
 
-    public FeywildMusicDisc(int comparatorValue, Supplier<SoundEvent> soundSupplier, Properties builder) {
-        super(comparatorValue, soundSupplier, builder);
+    public FeywildMusicDisc(int comparatorValue, SoundEvent sound, Properties builder) {
+        super(comparatorValue, () -> sound, builder);
     }
     
     @Nonnull

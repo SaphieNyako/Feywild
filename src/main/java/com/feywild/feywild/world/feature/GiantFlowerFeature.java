@@ -11,7 +11,7 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public abstract class GiantFlowerFeature extends Feature<NoFeatureConfig> {
+public class GiantFlowerFeature extends Feature<NoFeatureConfig> {
 
     private final GiantFlowerBlock block;
     

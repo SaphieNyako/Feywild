@@ -37,7 +37,7 @@ import java.util.List;
 // Tried my best to add comments
 public class PixieScreen extends Screen {
 
-    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/pixie_quest_gui.png");
+    private final ResourceLocation GUI = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/pixie_quest_gui.png");
     List<StringTextComponent> lines = new LinkedList<>();
     List<MessageQuest> quests = new LinkedList<>();
     List<Widget> widgets = new LinkedList<>();

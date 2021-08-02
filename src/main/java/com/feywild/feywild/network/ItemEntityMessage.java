@@ -1,16 +1,11 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
-import com.feywild.feywild.setup.ClientProxy;
 import com.feywild.feywild.util.ClientUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class ItemEntityMessage {

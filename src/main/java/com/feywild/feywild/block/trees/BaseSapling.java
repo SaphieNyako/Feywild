@@ -4,21 +4,27 @@ import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class BaseSapling extends BushBlock implements IGrowable, Registerable {
 
@@ -37,6 +43,12 @@ public class BaseSapling extends BushBlock implements IGrowable, Registerable {
     @Override
     public Set<Object> getAdditionalRegisters() {
         return ImmutableSet.of(item);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Override

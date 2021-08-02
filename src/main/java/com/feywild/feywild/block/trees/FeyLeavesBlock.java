@@ -3,8 +3,11 @@ package com.feywild.feywild.block.trees;
 import com.feywild.feywild.util.configs.Config;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
+import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -14,6 +17,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -23,12 +27,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
+import java.util.function.Consumer;
 
-public class FeyLeavesBlock extends BlockBase implements net.minecraftforge.common.IForgeShearable {
+public class FeyLeavesBlock extends BlockBase implements IForgeShearable, Registerable {
 
     public static final int MAX_DISTANCE = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
@@ -39,6 +45,12 @@ public class FeyLeavesBlock extends BlockBase implements net.minecraftforge.comm
                 .isViewBlocking((s, r, p) -> false));
 
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
     }
 
     protected static BlockState updateDistance(BlockState state, IWorld worldIn, BlockPos pos) {

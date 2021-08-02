@@ -25,7 +25,7 @@ public class WinterBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.WINTER_PIXIE.get(), 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.winterPixie, 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
@@ -60,7 +60,7 @@ public class WinterBiome extends BaseBiome {
                         .waterFogColor(329011)
                         .fogColor(12638463)
                         .skyColor(getSkyColorWithTemperatureModifier(0.0F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.WINTER_SOUNDTRACK.get(), 6000, 12000, true))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, true))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();

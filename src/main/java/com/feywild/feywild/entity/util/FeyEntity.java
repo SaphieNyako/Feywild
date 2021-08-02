@@ -20,10 +20,13 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public abstract class FeyEntity extends CreatureEntity {
 
@@ -33,11 +36,14 @@ public abstract class FeyEntity extends CreatureEntity {
 
     /* ATTRIBUTES */
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
-
         return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
                 .add(Attributes.LUCK, 0.2D);
+    }
+
+    public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
     }
 
     @Nonnull
@@ -148,7 +154,7 @@ public abstract class FeyEntity extends CreatureEntity {
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
-        return ModSoundEvents.PIXIE_HURT.get();
+        return ModSoundEvents.pixieHurt;
     }
 
     //Ancient's note : we can keep them but adjust the pitch
@@ -156,7 +162,7 @@ public abstract class FeyEntity extends CreatureEntity {
     @Override
     protected SoundEvent getDeathSound() {
         //Implement other Sound
-        return ModSoundEvents.PIXIE_DEATH.get();
+        return ModSoundEvents.pixieDeath;
     }
 
     @Nullable
@@ -164,7 +170,7 @@ public abstract class FeyEntity extends CreatureEntity {
     protected SoundEvent getAmbientSound() {
         //Implement other Sound
 
-        return random.nextBoolean() ? ModSoundEvents.PIXIE_AMBIENT.get() : null;
+        return random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
     }
 
     @Override

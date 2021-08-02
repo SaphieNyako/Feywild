@@ -23,7 +23,7 @@ public class BookWidget extends Button {
     boolean close =false;
     public BookWidget(int p_i232255_1_, int p_i232255_2_, int p_i232255_3_, int p_i232255_4_, ITextComponent p_i232255_5_, ItemStack stack) {
         super(p_i232255_1_, p_i232255_2_, p_i232255_3_, p_i232255_4_, p_i232255_5_, button -> FeywildPacketHandler.INSTANCE.sendToServer(new ItemEntityMessage(stack)));
-        this.image = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/librarian_gui.png");
+        this.image = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/librarian_gui.png");
         this.stack = stack;
         this.minecraft = Minecraft.getInstance();
     }

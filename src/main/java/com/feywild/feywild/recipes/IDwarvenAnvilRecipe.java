@@ -38,7 +38,7 @@ public interface IDwarvenAnvilRecipe extends IRecipe<IInventory> {
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.DWARVEN_ANVIL.get());
+        return new ItemStack(ModBlocks.dwarvenAnvil);
     }
 
     // We don't use vanilla matching against a vanilla inventory

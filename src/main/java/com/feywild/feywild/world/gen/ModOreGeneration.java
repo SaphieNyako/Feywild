@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 //Subscribe for event using Mod ID
-@Mod.EventBusSubscriber(modid = FeywildMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+// TODO
+@Mod.EventBusSubscriber(modid = "feywild", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModOreGeneration {
 
     @SubscribeEvent

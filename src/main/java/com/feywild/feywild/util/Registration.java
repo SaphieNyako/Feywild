@@ -20,40 +20,41 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+// TODO remove
 public class Registration {
 
     public static final DeferredRegister<Block> BLOCKS
-            = DeferredRegister.create(ForgeRegistries.BLOCKS, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.BLOCKS, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES
-            = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES,FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES,FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<Effect> EFFECTS
-            = DeferredRegister.create(ForgeRegistries.POTIONS,FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.POTIONS,FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS
-            = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<Item> ITEMS
-            = DeferredRegister.create(ForgeRegistries.ITEMS, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.ITEMS, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES
-            = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<EntityType<?>> ENTITIES
-            = DeferredRegister.create(ForgeRegistries.ENTITIES, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.ENTITIES, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZER
-            = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<Biome> BIOMES
-            = DeferredRegister.create(ForgeRegistries.BIOMES, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.BIOMES, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<SurfaceBuilder<?>> SURFACE_BUILDERS
-            = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.SURFACE_BUILDERS, FeywildMod.getInstance().modid);
 
     public static final DeferredRegister<ContainerType<?>> CONTAINERS
-            = DeferredRegister.create(ForgeRegistries.CONTAINERS, FeywildMod.MOD_ID);
+            = DeferredRegister.create(ForgeRegistries.CONTAINERS, FeywildMod.getInstance().modid);
 
     public static void init() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -65,7 +66,6 @@ public class Registration {
         ITEMS.register(eventBus);
         RECIPE_SERIALIZER.register(eventBus);
         ModRecipeTypes.registerRecipes();
-        ModStructures.STRUCTURES.register(eventBus);
         SURFACE_BUILDERS.register(eventBus);
         BIOMES.register(eventBus);
         PARTICLES.register(eventBus);

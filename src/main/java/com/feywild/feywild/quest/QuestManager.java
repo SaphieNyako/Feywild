@@ -60,7 +60,7 @@ public class QuestManager implements IFutureReloadListener {
 
             questHashMap.keySet().forEach(s -> QuestMap.quests.add(questHashMap.get(s)));
             questHashMap.clear();
-            FeywildMod.LOGGER.debug("QUESTS : " + QuestMap.getQuests().toString());
+            FeywildMod.getInstance().logger.debug("QUESTS : " + QuestMap.getQuests().toString());
         }, executor)).thenCompose(iStage::wait);
     }
 }

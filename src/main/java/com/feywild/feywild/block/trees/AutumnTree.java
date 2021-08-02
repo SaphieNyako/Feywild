@@ -62,16 +62,16 @@ public class AutumnTree extends BaseTree {
         protected void decorateLog(BlockState state, ISeedReader world, BlockPos pos, Random random) {
             if (random.nextDouble() < 0.05) {
                 if (world.isEmptyBlock(pos.north())) {
-                    world.setBlock(pos.north(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState(), 19);
+                    world.setBlock(pos.north(), ModBlocks.treeMushroom.defaultBlockState(), 19);
                 } else if (world.isEmptyBlock(pos.east())) {
                     Rotation rotation = Rotation.CLOCKWISE_90;
-                    world.setBlock(pos.east(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState().rotate(world, pos, rotation), 19);
+                    world.setBlock(pos.east(), ModBlocks.treeMushroom.defaultBlockState().rotate(world, pos, rotation), 19);
                 } else if (world.isEmptyBlock(pos.south())) {
                     Rotation rotation = Rotation.CLOCKWISE_180;
-                    world.setBlock(pos.south(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState().rotate(world, pos, rotation), 19);
+                    world.setBlock(pos.south(), ModBlocks.treeMushroom.defaultBlockState().rotate(world, pos, rotation), 19);
                 } else if (world.isEmptyBlock(pos.west())) {
                     Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
-                    world.setBlock(pos.west(), ModBlocks.TREE_MUSHROOM_BLOCK.get().defaultBlockState().rotate(world, pos, rotation), 19);
+                    world.setBlock(pos.west(), ModBlocks.treeMushroom.defaultBlockState().rotate(world, pos, rotation), 19);
                 }
             }
         }

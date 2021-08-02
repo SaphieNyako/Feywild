@@ -12,7 +12,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 
-
+// TODO remove
 public class PixieContainer extends Container {
 
     private PlayerEntity playerEntity;
@@ -22,7 +22,7 @@ public class PixieContainer extends Container {
 
     public PixieContainer(int windowId, PlayerInventory playerInventory, PlayerEntity player, FeyEntity entity) {
 
-        super(ModContainers.PIXIE_CONTAINER.get(), windowId);
+        super(ModContainers.pixieContainer, windowId);
         this.entity = entity;
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);

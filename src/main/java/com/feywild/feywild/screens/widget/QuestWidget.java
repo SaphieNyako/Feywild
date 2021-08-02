@@ -23,7 +23,7 @@ public class QuestWidget extends Widget {
     public QuestWidget(int p_i232254_1_, int p_i232254_2_, int p_i232254_3_, int p_i232254_4_, ITextComponent p_i232254_5_, ItemStack icon, int type) {
         super(p_i232254_1_, p_i232254_2_, p_i232254_3_, p_i232254_4_, p_i232254_5_);
         this.icon = icon;
-        this.image = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/quest_atlas.png");
+        this.image = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/quest_atlas.png");
         this.component = p_i232254_5_;
         //type = 0 - Spring ; 1 - Summer ; 2 - Autumn ; 3 - Winter
         xPos = 24 * type + type;

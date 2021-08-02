@@ -32,7 +32,7 @@ public class SpringWorldTreeStructure extends BaseStructure {
     public final static int SEED_MODIFIER = 1234567890;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.SPRING_PIXIE.get(), 100, 4, 4),
+            new MobSpawnInfo.Spawners(ModEntityTypes.springPixie, 100, 4, 4),
             new MobSpawnInfo.Spawners(EntityType.SHEEP, 10, 4, 1),
             new MobSpawnInfo.Spawners(EntityType.RABBIT, 10, 1, 2)
     );
@@ -99,7 +99,7 @@ public class SpringWorldTreeStructure extends BaseStructure {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, MESSAGE_POOL)),
+                            .get(new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -119,7 +119,7 @@ public class SpringWorldTreeStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.LOGGER.log(Level.DEBUG, MESSAGE_LOCATION +
+            FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

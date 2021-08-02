@@ -17,22 +17,25 @@ public class DwarfBlackSmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity
     public void setLivingAnimations(DwarfBlacksmithEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
-        head.setRotationY(MathHelper.clamp(extraData.netHeadYaw * ((float) Math.PI / 180F), -0.8f, 0.8f));
+        if (customPredicate != null) {
+            //noinspection unchecked
+            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+            head.setRotationY(MathHelper.clamp(extraData.netHeadYaw * ((float) Math.PI / 180F), -0.8f, 0.8f));
+        }
     }
 
     @Override
     public ResourceLocation getModelLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "geo/dwarf_blacksmith.geo.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/dwarf_blacksmith.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "textures/entity/dwarf_blacksmith.png");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/dwarf_blacksmith.png");
     }
 
     @Override
     public ResourceLocation getAnimationFileLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "animations/dwarf_blacksmith.animation.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/dwarf_blacksmith.animation.json");
     }
 }

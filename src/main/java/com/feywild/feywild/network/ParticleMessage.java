@@ -1,6 +1,6 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.setup.ClientProxy;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -61,8 +61,8 @@ public class ParticleMessage {
 
     //handle package data
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-
-        World world = new ClientProxy().getClientWorld();
+        // FIXME will crash on server, fix later
+        World world = Minecraft.getInstance().level;
         Random random = new Random();
         ctx.get().enqueueWork(() -> {
             double newPosX, newPosY, newPosZ;

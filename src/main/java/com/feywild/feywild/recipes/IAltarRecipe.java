@@ -38,7 +38,7 @@ public interface IAltarRecipe extends IRecipe<IInventory> {
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.FEY_ALTAR.get());
+        return new ItemStack(ModBlocks.feyAltar);
     }
     
     // We don't use vanilla matching against a vanilla inventory

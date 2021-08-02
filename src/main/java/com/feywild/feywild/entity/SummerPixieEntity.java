@@ -67,7 +67,7 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
     }
 
     public SummerPixieEntity(World worldIn, boolean isTamed, BlockPos pos) {
-        super(ModEntityTypes.SUMMER_PIXIE.get(), worldIn);
+        super(ModEntityTypes.summerPixie, worldIn);
         //Geckolib check
         this.noCulling = true;
         this.moveControl = new FlyingMovementController(this, 4, true);
@@ -92,11 +92,11 @@ public class SummerPixieEntity extends FeyEntity implements IAnimatable {
                 if (this.getTags().contains("summer_quest_pixie")) {
 
                     String questProgressData = player.getPersistentData().getString("FWQuest");
-                    FeywildMod.LOGGER.debug(questProgressData);
+                    FeywildMod.getInstance().logger.debug(questProgressData);
 
                     if (!player.getTags().contains(QuestMap.Courts.SummerAligned.toString()) && questProgressData.equalsIgnoreCase("/")) {
                         // initial quest
-                        ResourceLocation res = new ResourceLocation(FeywildMod.MOD_ID,"summer_init");
+                        ResourceLocation res = new ResourceLocation(FeywildMod.getInstance().modid,"summer_init");
 
                         Quest quest =QuestMap.getQuest(res.toString());
                         assert quest != null;

@@ -1,7 +1,5 @@
 package com.feywild.feywild;
 
-import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
@@ -16,7 +14,6 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
-import com.feywild.feywild.screens.DwarvenAnvilScreen;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
@@ -27,9 +24,6 @@ import com.feywild.feywild.world.feature.ModFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -53,7 +47,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -70,8 +63,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.feywild.feywild.entity.ModEntityTypes.DWARF_BLACKSMITH;
-
 // General TODOs that affect so much code that I wrote them here
 // TODO: many entities and tile/block entities don't serialise all the fields they should.
 // TODO: Remove the many System.out.println s
@@ -87,7 +78,7 @@ public class FeywildMod extends ModXRegistration {
             @Nonnull
             @Override
             public ItemStack makeIcon() {
-                return new ItemStack(ModItems.SHINY_FEY_GEM.get());
+                return new ItemStack(ModItems.shinyFeyGem);
             }
         });
         
@@ -120,11 +111,11 @@ public class FeywildMod extends ModXRegistration {
 
         event.enqueueWork(() -> {
             // TODO use event (see javadoc of put)
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SPRING_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.WINTER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SUMMER_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.AUTUMN_PIXIE.get(), FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.DWARF_BLACKSMITH.get(), DwarfBlacksmithEntity.getDefaultAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.springPixie, FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.winterPixie, FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.summerPixie, FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.autumnPixie, FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
             
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
@@ -134,47 +125,12 @@ public class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
-        RenderTypeLookup.setRenderLayer(ModBlocks.MANDRAKE_CROP.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SPRING_TREE_SAPLING.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SPRING_TREE_LEAVES.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SUMMER_TREE_SAPLING.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SUMMER_TREE_LEAVES.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_SAPLING.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.AUTUMN_TREE_LEAVES.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_SAPLING.get(), RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WINTER_TREE_LEAVES.get(), RenderType.cutout());
-        // TODO probably not required
-//        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER.get(), RenderType.cutout());
-//        RenderTypeLookup.setRenderLayer(ModBlocks.SUNFLOWER_STEM.get(), RenderType.cutout());
-//        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION_STEM.get(), RenderType.cutout());
-//        RenderTypeLookup.setRenderLayer(ModBlocks.DANDELION.get(), RenderType.cutout());
-//        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS_STEM.get(), RenderType.cutout());
-//        RenderTypeLookup.setRenderLayer(ModBlocks.CROCUS.get(), RenderType.cutout());
-
-        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(), FeyAltarRenderer::new);
-
-        ClientRegistry.bindTileEntityRenderer(ModBlocks.ELECTRIFIED_GROUND_ENTITY.get(), ElectrifiedGroundRenderer::new);
-
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
-        ScreenManager.register(ModContainers.DWARVEN_ANVIL_CONTAINER.get(), DwarvenAnvilScreen::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPRING_PIXIE.get(),
-                SpringPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AUTUMN_PIXIE.get(),
-                AutumnPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SUMMER_PIXIE.get(),
-                SummerPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WINTER_PIXIE.get(),
-                WinterPixieRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(DWARF_BLACKSMITH.get(),
-                DwarfBlacksmithRenderer::new);
-
-        ClientRegistry.bindTileEntityRenderer(ModBlocks.FEY_ALTAR_ENTITY.get(),
-                FeyAltarRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, AutumnPixieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, WinterPixieRenderer::new);
     }
 
     //This might have a conflict when merging with the quests
@@ -198,18 +154,8 @@ public class FeywildMod extends ModXRegistration {
     // TODO
     private void registerModAdditions() {
         Registration.init();
-        ModSoundEvents.register();
-        ModItems.register();
-        ModBlocks.register();
-        ModContainers.register();
         modStructuresRegister();
-        ModFeatures.register();
-        ModBiomes.register();
-        ModSurfaceBuilders.register();
         MinecraftForge.EVENT_BUS.register(new ModEvents());
-        ModEntityTypes.register();
-        ModParticles.register();
-        ModEffects.register();
     }
 
     //Communication with other mods.
@@ -322,12 +268,12 @@ public class FeywildMod extends ModXRegistration {
              */
 
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
-            tempMap.putIfAbsent(ModStructures.SPRING_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SPRING_WORLD_TREE.get()));
-            tempMap.putIfAbsent(ModStructures.SUMMER_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SUMMER_WORLD_TREE.get()));
-            tempMap.putIfAbsent(ModStructures.AUTUMN_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.AUTUMN_WORLD_TREE.get()));
-            tempMap.putIfAbsent(ModStructures.WINTER_WORLD_TREE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.AUTUMN_WORLD_TREE.get()));
-            tempMap.putIfAbsent(ModStructures.BLACKSMITH.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.BLACKSMITH.get()));
-            tempMap.putIfAbsent(ModStructures.LIBRARY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.LIBRARY.get()));
+            tempMap.putIfAbsent(ModStructures.springWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.springWorldTree));
+            tempMap.putIfAbsent(ModStructures.summerWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.summerWorldTree));
+            tempMap.putIfAbsent(ModStructures.autumnWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
+            tempMap.putIfAbsent(ModStructures.winterWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
+            tempMap.putIfAbsent(ModStructures.blacksmith, DimensionStructuresSettings.DEFAULTS.get(ModStructures.blacksmith));
+            tempMap.putIfAbsent(ModStructures.library, DimensionStructuresSettings.DEFAULTS.get(ModStructures.library));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
 
         }

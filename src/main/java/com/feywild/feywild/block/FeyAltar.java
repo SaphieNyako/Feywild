@@ -1,6 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.block.render.FeyAltarRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.AbstractBlock;
@@ -11,18 +12,29 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 public class FeyAltar extends BlockTE<FeyAltarBlockEntity> {
     
     public FeyAltar(ModX mod) {
         super(mod, FeyAltarBlockEntity.class, AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
-    
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        ClientRegistry.bindTileEntityRenderer(this.getTileType(), FeyAltarRenderer::new);
+    }
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")

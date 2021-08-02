@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 
 public class MenuScreen extends MainMenuScreen {
 
-    private static final ResourceLocation SPLASH = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/background/panorama_0.png");
+    private static final ResourceLocation SPLASH = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/background/panorama_0.png");
 
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {

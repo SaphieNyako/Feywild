@@ -18,16 +18,16 @@ import java.util.List;
 
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.MOD_ID, "fey_altar");
+    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "fey_altar");
     public IDrawable background;
     public IDrawable icon;
     IGuiHelper helper;
 
     public AltarRecipeCategory(IGuiHelper helper) {
-        ResourceLocation location = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/fey_altar_jei.png");
+        ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
         this.helper = helper;
         background = helper.createDrawable(location, 0, 0, 85, 85);
-        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.FEY_ALTAR.get()));
+        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
     }
 
     @Nonnull
@@ -71,7 +71,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     public void setIngredients(AltarRecipe altarRecipe, IIngredients iIngredients) {
         List<List<ItemStack>> itemStacks = new ArrayList<>();
 
-        altarRecipe.getInputs().forEach(ingredient -> itemStacks.add(Arrays.asList(ingredient.getItems())));
+        altarRecipe.getIngredients().forEach(ingredient -> itemStacks.add(Arrays.asList(ingredient.getItems())));
         iIngredients.setInputLists(VanillaTypes.ITEM, itemStacks);
         iIngredients.setOutput(VanillaTypes.ITEM, altarRecipe.getResultItem());
     }

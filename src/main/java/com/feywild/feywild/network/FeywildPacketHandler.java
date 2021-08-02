@@ -18,7 +18,7 @@ public class FeywildPacketHandler {
     private static final String PROTOCOL_VERSION = "1.0";
     //Network channel
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(FeywildMod.MOD_ID, "packet"),
+            new ResourceLocation(FeywildMod.getInstance().modid, "packet"),
             () -> PROTOCOL_VERSION,
             s -> true,
             s -> true
@@ -31,10 +31,8 @@ public class FeywildPacketHandler {
 
     //Register Packet
     public static void register() {
-        INSTANCE.registerMessage(nextPacketID(), ItemMessage.class, ItemMessage::toBytes, ItemMessage::new, ItemMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), ParticleMessage.class, ParticleMessage::toBytes, ParticleMessage::new, ParticleMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), QuestMessage.class, QuestMessage::toBytes, QuestMessage::new, QuestMessage::handle);
-        INSTANCE.registerMessage(nextPacketID(), DataMessage.class, DataMessage::toBytes, DataMessage::new, DataMessage::handle);
         INSTANCE.registerMessage(nextPacketID(), OpenQuestScreen.class, OpenQuestScreen::toBytes, OpenQuestScreen::new, OpenQuestScreen::handle);
         INSTANCE.registerMessage(nextPacketID(), RequestOpenQuestScreen.class, RequestOpenQuestScreen::toBytes,RequestOpenQuestScreen::new,RequestOpenQuestScreen::handle);
         INSTANCE.registerMessage(nextPacketID(), ItemEntityMessage.class, ItemEntityMessage::toBytes,ItemEntityMessage::new,ItemEntityMessage::handle);

@@ -104,13 +104,13 @@ public class QuestMap {
 
             if (!event.isCanceled()) {
                 // Set court alignments
-                if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "spring_init"))) {
+                if (quest.getId().equals(new ResourceLocation(FeywildMod.getInstance().modid, "spring_init"))) {
                     entity.addTag(Courts.SpringAligned.toString());
-                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "summer_init"))) {
+                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.getInstance().modid, "summer_init"))) {
                     entity.addTag(Courts.SummerAligned.toString());
-                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "autumn_init"))) {
+                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.getInstance().modid, "autumn_init"))) {
                     entity.addTag(Courts.AutumnAligned.toString());
-                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.MOD_ID, "winter_init"))) {
+                } else if (quest.getId().equals(new ResourceLocation(FeywildMod.getInstance().modid, "winter_init"))) {
                     entity.addTag(Courts.WinterAligned.toString());
                 }
 

@@ -72,7 +72,7 @@ public class TargetFireGoal extends Goal {
         this.targetPos = new Vector3d(targetMonster.getX(), targetMonster.getY(), targetMonster.getZ());
         entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
         entity.setCasting(true);
-        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
+        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     protected void setTargetOnFire(MonsterEntity monsterEntity) {

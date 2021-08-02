@@ -18,7 +18,7 @@ public class LookingGlassWidget extends Button {
     Minecraft minecraft;
     public LookingGlassWidget(int p_i232255_1_, int p_i232255_2_, int p_i232255_3_, int p_i232255_4_, ITextComponent p_i232255_5_, IPressable p_i232255_6_) {
         super(p_i232255_1_, p_i232255_2_, p_i232255_3_, p_i232255_4_, p_i232255_5_, p_i232255_6_);
-        this.image = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/looking_glass.png");
+        this.image = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/looking_glass.png");
 
         this.minecraft = Minecraft.getInstance();
     }

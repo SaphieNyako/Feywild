@@ -18,18 +18,18 @@ import java.util.List;
 
 public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.MOD_ID, "dwarven_anvil");
+    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "dwarven_anvil");
     public IDrawable background;
     public IDrawable icon;
     IGuiHelper helper;
 
     public DwarvenAnvilRecipeCategory(IGuiHelper helper) {
-        ResourceLocation location = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/dwarven_anvil_jei.png");
+        ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
         this.helper = helper;
         //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
         background = helper.createDrawable(location, 0, 0, 85, 85);
 
-        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.DWARVEN_ANVIL.get()));
+        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.dwarvenAnvil));
 
     }
 
@@ -63,6 +63,7 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
         return icon;
     }
 
+    // TODO needs fixing (new recipe format)
     @Override
     public void setIngredients(DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
         List<List<ItemStack>> itemStacks = new ArrayList<>();

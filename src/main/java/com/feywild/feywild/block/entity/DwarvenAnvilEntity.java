@@ -66,7 +66,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
     
     private boolean isItemValid(int slot, ItemStack stack) {
         switch (slot) {
-            case 0: return stack.getItem() == ModItems.FEY_DUST.get();
+            case 0: return stack.getItem() == ModItems.feyDust;
             case 1: return ModItemTags.SCHEMATICS.contains(stack.getItem());
             case 7: return false;
             default: return this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL_RECIPE, stack);
@@ -88,7 +88,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
             if (((ServerWorld) level).getServer().getTickCount() % 20 == 0) {
                 // Simulate extraction first
                 ItemStack extracted = inventory.extractItem(0, 1, true);
-                if (!extracted.isEmpty() && extracted.getItem() == ModItems.FEY_DUST.get()) {
+                if (!extracted.isEmpty() && extracted.getItem() == ModItems.feyDust) {
                     inventory.extractItem(0, 1, false);
                     manaStorage.receiveMana(FEY_DUST_MANA_COST, false);
                     setChanged();

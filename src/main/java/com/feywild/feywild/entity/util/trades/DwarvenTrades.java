@@ -37,13 +37,13 @@ public class DwarvenTrades {
             },
 
             2, new VillagerTrades.ITrade[]{
-                    new SimplyTrade(new ItemStack(ModItems.LESSER_FEY_GEM.get(), 4), new ItemStack(ModItems.GREATER_FEY_GEM.get(), 1), 12, 3, 0.05f),
-                    new SimplyTrade(new ItemStack(ModItems.GREATER_FEY_GEM.get(), 4), new ItemStack(ModItems.SHINY_FEY_GEM.get(), 1), 12, 4, 0.05f),
-                    new SimplyTrade(new ItemStack(ModItems.SHINY_FEY_GEM.get(), 4), new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1), 12, 5, 0.05f),
-                    new SimplyTrade(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 2), new ItemStack(ModItems.SCHEMATICS_FEY_ALTAR.get(), 1), 1, 10, 0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.lesserFeyGem, 4), new ItemStack(ModItems.greaterFeyGem, 1), 12, 3, 0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.greaterFeyGem, 4), new ItemStack(ModItems.shinyFeyGem, 1), 12, 4, 0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.shinyFeyGem, 4), new ItemStack(ModItems.brilliantFeyGem, 1), 12, 5, 0.05f),
+                    new SimplyTrade(new ItemStack(ModItems.brilliantFeyGem, 2), new ItemStack(ModItems.schematicsFeyAltar, 1), 1, 10, 0.05f),
             },
             3, getTrades(Collections.singletonList(
-                    new SimplyTrade(new ItemStack(ModItems.BRILLIANT_FEY_GEM.get(), 1), new ItemStack(ModItems.SCHEMATICS_GEM_TRANSMUTATION.get(), 1), 1, 1, 5)
+                    new SimplyTrade(new ItemStack(ModItems.brilliantFeyGem, 1), new ItemStack(ModItems.schematicsGemTransmutation, 1), 1, 1, 5)
             ))));
 
     public static Int2ObjectMap<VillagerTrades.ITrade[]> toIntMap(ImmutableMap<Integer, VillagerTrades.ITrade[]> p_221238_0_) {
