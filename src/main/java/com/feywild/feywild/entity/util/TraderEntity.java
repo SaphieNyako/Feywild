@@ -1,8 +1,6 @@
 package com.feywild.feywild.entity.util;
 
 import com.feywild.feywild.entity.util.trades.DwarvenTrades;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -25,30 +23,27 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TraderEntity extends AbstractVillagerEntity implements IReputationTracking {
+public abstract class TraderEntity extends AbstractVillagerEntity implements IReputationTracking {
 
     private static final DataParameter<VillagerData> DATA_VILLAGER_DATA = EntityDataManager.defineId(VillagerEntity.class, DataSerializers.VILLAGER_DATA);
-    public Int2ObjectMap<VillagerTrades.ITrade[]> dwarvenTrades = new Int2ObjectOpenHashMap<>();
-    private int villagerXp;
+    private int merchantXp;
     private int updateMerchantTimer;
     private boolean increaseProfessionLevelOnUpdate;
     private int villagerLevel;
     protected boolean isTamed;
 
-    //restock
     private long lastRestockGameTime;
     private int numberOfRestocksToday;
     private long lastRestockCheckDayTime;
 
-    public TraderEntity(EntityType<? extends AbstractVillagerEntity> entity, World world, boolean isTamed) {
+    public TraderEntity(EntityType<? extends AbstractVillagerEntity> entity, World world) {
         super(entity, world);
-        this.isTamed = isTamed;
     }
 
     @Override
     protected void rewardTradeXp(MerchantOffer p_213713_1_) {
         int i = 3 + this.random.nextInt(4);
-        this.villagerXp += p_213713_1_.getXp();
+        this.merchantXp += p_213713_1_.getXp();
         if (this.shouldIncreaseLevel()) {
             this.updateMerchantTimer = 40;
             this.increaseProfessionLevelOnUpdate = true;
@@ -64,59 +59,59 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     protected void updateTrades() {
 
-//        if (isTamed) {
-//            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(1);
-//            setVillagerLevel(1);
-//            if (dwarvenTradeList != null) {
-//                MerchantOffers merchantoffers = this.getOffers();
-//                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
-//            }
-//        } else {
-//
-//            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
-//            setVillagerLevel(1);
-//            if (dwarvenTradeList != null) {
-//                MerchantOffers merchantoffers = this.getOffers();
-//                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
-//            }
-//        }
+        if (isTamed) {
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(1);
+            setVillagerLevel(1);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
+            }
+        } else {
+
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
+            setVillagerLevel(1);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+            }
+        }
     }
 
     protected void updateTradesAgain(int number) {
 
-//        if (isTamed) {
-//            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(number);
-//            setVillagerLevel(number);
-//            if (dwarvenTradeList != null) {
-//                MerchantOffers merchantoffers = this.getOffers();
-//                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
-//            }
-//        } else {
-//
-//            if (number == 1) {
-//                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(2);
-//                setVillagerLevel(2);
-//                if (dwarvenTradeList != null) {
-//                    MerchantOffers merchantoffers = this.getOffers();
-//                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
-//                }
-//            } else {
-//
-//                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
-//                setVillagerLevel(number);
-//                if (dwarvenTradeList != null) {
-//                    MerchantOffers merchantoffers = this.getOffers();
-//                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
-//                }
-//            }
-//        }
+        if (isTamed) {
+            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(number);
+            setVillagerLevel(number);
+            if (dwarvenTradeList != null) {
+                MerchantOffers merchantoffers = this.getOffers();
+                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
+            }
+        } else {
+
+            if (number == 1) {
+                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(2);
+                setVillagerLevel(2);
+                if (dwarvenTradeList != null) {
+                    MerchantOffers merchantoffers = this.getOffers();
+                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+                }
+            } else {
+
+                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
+                setVillagerLevel(number);
+                if (dwarvenTradeList != null) {
+                    MerchantOffers merchantoffers = this.getOffers();
+                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+                }
+            }
+        }
     }
 
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Level", this.getVillagerLevel());
-        compound.putInt("Xp", this.villagerXp);
+        compound.putInt("Xp", this.merchantXp);
         compound.putBoolean("tamed", isTamed);
 
         compound.putLong("LastRestock", this.lastRestockGameTime);
@@ -130,7 +125,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
         //  this.levelInt = compound.getInt("level");
         this.isTamed = compound.getBoolean("tamed");
         if (compound.contains("Xp", 3)) {
-            this.villagerXp = compound.getInt("Xp");
+            this.merchantXp = compound.getInt("Xp");
         }
         this.villagerLevel = compound.getInt("Level");
         this.lastRestockGameTime = compound.getLong("LastRestock");
@@ -147,7 +142,7 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
 
     private boolean shouldIncreaseLevel() {
         int i = this.getVillagerData().getLevel();
-        return VillagerData.canLevelUp(i) && this.villagerXp >= VillagerData.getMaxXpPerLevel(i);
+        return VillagerData.canLevelUp(i) && this.merchantXp >= VillagerData.getMaxXpPerLevel(i);
     }
 
     @Override
@@ -190,11 +185,11 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
 
     @Override
     public int getVillagerXp() {
-        return this.villagerXp;
+        return this.merchantXp;
     }
 
-    public void setVillagerXp(int p_213761_1_) {
-        this.villagerXp = p_213761_1_;
+    public void setMerchantXp(int p_213761_1_) {
+        this.merchantXp = p_213761_1_;
     }
 
     @Override

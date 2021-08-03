@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 public class DatapackHelper {
 
     @SuppressWarnings("TrivialFunctionalExpressionUsage")
-    private static final Gson GSON = ((Supplier<Gson>) () -> {
+    public static final Gson GSON = ((Supplier<Gson>) () -> {
         GsonBuilder builder = new GsonBuilder();
         builder.disableHtmlEscaping();
         builder.setPrettyPrinting();
@@ -40,6 +40,10 @@ public class DatapackHelper {
             Collection<ResourceLocation> ids = rm.listResources(path, file -> file.endsWith(".json"));
             for (ResourceLocation id : ids) {
                 String realPath = id.getPath();
+                if (realPath.startsWith(path)) {
+                    realPath = realPath.substring(path.length());
+                    if (realPath.startsWith("/")) realPath = realPath.substring(1);
+                }
                 if (realPath.endsWith(".json")) {
                     realPath = realPath.substring(0, realPath.length() - 5);
                 }

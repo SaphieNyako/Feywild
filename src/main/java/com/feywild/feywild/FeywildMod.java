@@ -141,7 +141,7 @@ public class FeywildMod extends ModXRegistration {
     //This might have a conflict when merging with the quests
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
-//        event.addListener(TamedTradeManager.instance());
+        event.addListener(TamedTradeManager.instance());
 //        event.addListener(QuestManager.instance());
 //        event.addListener(UtilManager.instance());
     }

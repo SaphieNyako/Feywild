@@ -47,7 +47,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     private final AnimationFactory animationFactory = new AnimationFactory(this);
 
     public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World worldIn) {
-        super(type, worldIn, false);
+        super(type, worldIn);
         //GeckoLib check
         this.noCulling = true;
         this.moveControl = new MovementController(this);

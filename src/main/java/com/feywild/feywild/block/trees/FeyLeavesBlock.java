@@ -39,7 +39,7 @@ public class FeyLeavesBlock extends BlockBase implements IForgeShearable, Regist
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
     
     public FeyLeavesBlock(ModX mod) {
-        super(mod, AbstractBlock.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).lightLevel(s -> 1)
+        super(mod, AbstractBlock.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS)
                 .harvestTool(ToolType.HOE).noOcclusion().isValidSpawn((s, r, p, t) -> false).isSuffocating((s, r, p) -> false)
                 .isViewBlocking((s, r, p) -> false));
 
