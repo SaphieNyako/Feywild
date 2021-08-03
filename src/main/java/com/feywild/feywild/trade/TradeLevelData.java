@@ -41,8 +41,8 @@ public class TradeLevelData {
         if (this.minTrades < 0 || this.maxTrades <= 0) {
             throw new IllegalStateException("Trader level data must be able to select at least one trade. Current range: [" + this.minTrades + ";" + this.maxTrades + "]");
         }
-        if (this.allowDuplicates || this.trades.size() < this.maxTrades) {
-            throw new IllegalStateException("Trader level data must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
+        if (!this.allowDuplicates && this.trades.size() < this.maxTrades) {
+            throw new IllegalStateException("Trader level data without duplicates must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
     }
 

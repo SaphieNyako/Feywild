@@ -16,6 +16,7 @@ import com.feywild.feywild.network.FeywildPacketHandler;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.util.serializer.UtilManager;
@@ -141,6 +142,7 @@ public class FeywildMod extends ModXRegistration {
     //This might have a conflict when merging with the quests
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
+        event.addListener(TradeManager.createReloadListener());
         event.addListener(TamedTradeManager.instance());
 //        event.addListener(QuestManager.instance());
 //        event.addListener(UtilManager.instance());

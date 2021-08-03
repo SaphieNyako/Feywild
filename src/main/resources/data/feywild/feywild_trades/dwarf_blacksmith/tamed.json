@@ -134,11 +134,78 @@
     ]
   },
   {
-    "output": {
-      
-    },
-    "input": {
-      
-    }
+    "amount": 4,
+    "trades": [
+      {
+        "output": {
+          "item": "feywild:greater_fey_gem",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 4
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      },
+      {
+        "output": {
+          "item": "feywild:shiny_fey_gem",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:greater_fey_gem",
+          "count": 4
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      },
+      {
+        "output": {
+          "item": "feywild:brilliant_fey_gem",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:shiny_fey_gem",
+          "count": 4
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      },
+      {
+        "output": {
+          "item": "feywild:schematics_fey_altar",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:brilliant_fey_gem",
+          "count": 2
+        },
+        "uses": 1,
+        "exp": 5,
+        "mul": 0.05
+      }
+    ]
+  },
+  {
+    "amount": 1,
+    "trades": [
+      {
+        "output": {
+          "item": "feywild:schematics_gem_transmutation",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:brilliant_fey_gem",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      }
+    ]
   }
 ]
