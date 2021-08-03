@@ -97,6 +97,8 @@ public class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
         
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
+        
+        registerModAdditions();
     }
 
     @Nonnull

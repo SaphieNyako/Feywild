@@ -65,7 +65,11 @@ public class DatapackHelper {
                     Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
                     JsonElement json = GSON.fromJson(reader, JsonElement.class);
                     for (JsonElement elem : json.getAsJsonArray()) {
-                        list.add(CraftingHelper.getItemStack(json.getAsJsonObject(), true));
+                        try {
+                            list.add(CraftingHelper.getItemStack(elem.getAsJsonObject(), true));
+                        } catch (JsonSyntaxException e) {
+                            //
+                        }
                     }
                 }
             }

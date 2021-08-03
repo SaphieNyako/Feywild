@@ -26,12 +26,12 @@ import javax.annotation.Nonnull;
 
 public class LibraryBell extends BlockTE<LibraryBellEntity> {
 
-    public static final VoxelShape SHAPE = box(5.5, 0.01, 0.34, 0.65, 0.25, 0.65);
-
+    public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);
+    
     public LibraryBell(ModX mod) {
         super(mod, LibraryBellEntity.class, Properties.of(Material.METAL)
                 .strength(-1.0F, 3600000.0F).noDrops()
-                .noCollission()
+                .noOcclusion()
                 .sound(SoundType.STONE));
     }
 
@@ -108,7 +108,7 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
                 for (Direction dir : Direction.values()) {
                     if (dir.getAxis() != Direction.Axis.Y) {
                         BlockPos target = pos.below().relative(dir);
-                        if (world.getBlockState(pos).isAir()) {
+                        if (world.getBlockState(target).isAir()) {
                             entity.setPos(target.getX() + 0.5, target.getY(), target.getZ() + 0.5);
                             break;
                         }

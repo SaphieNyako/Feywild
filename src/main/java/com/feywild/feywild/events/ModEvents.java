@@ -112,7 +112,7 @@ public class ModEvents {
             PlayerEntity player = event.getPlayer();
             PlayerInventory playerInventory = player.inventory;
 
-            if (villagerEntity.getTags().contains("spawn_librarian") && !event.getTarget().level.isClientSide) {
+            if (villagerEntity.getTags().contains("feywild_librarian") && !event.getTarget().level.isClientSide) {
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), player.getUUID());
                 for (int i = 0; i < ModUtil.getLibrarianBooks().size(); i++) {
                     FeywildPacketHandler.sendToPlayer(new ItemEntityMessage(ModUtil.getLibrarianBooks().get(i)), player);
