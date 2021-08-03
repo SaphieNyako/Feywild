@@ -83,18 +83,19 @@ public class BaseSapling extends BushBlock implements IGrowable, Registerable {
             world.setBlock(pos, state.setValue(STAGE, 1), 4);
         } else {
             if (ForgeEventFactory.saplingGrowTree(world, random, pos)) {
-                this.tree.growTree(world, world.getChunkSource().getGenerator(), pos, state, random);
-                for (int xd = -4; xd <= 4; xd++) {
-                    for (int zd = -4; zd <= 4; zd++) {
-                        // Try to find the block pos directly above ground
-                        // to prevent floating pumpkins
-                        for (int yd = 2; yd >= -2; yd--) {
-                            BlockPos target = pos.offset(xd, yd, zd);
-                            //noinspection deprecation
-                            if (world.getBlockState(target).isAir() || world.getBlockState(target).getMaterial().isReplaceable()) {
-                                if (world.getBlockState(target.below()).isFaceSturdy(world, pos.below(), Direction.UP)) {
-                                    this.tree.decorateSaplingGrowth(world, pos.offset(xd, 0, zd), random);
-                                    break;
+                if (this.tree.growTree(world, world.getChunkSource().getGenerator(), pos, state, random)) {
+                    for (int xd = -4; xd <= 4; xd++) {
+                        for (int zd = -4; zd <= 4; zd++) {
+                            // Try to find the block pos directly above ground
+                            // to prevent floating pumpkins
+                            for (int yd = 2; yd >= -2; yd--) {
+                                BlockPos target = pos.offset(xd, yd, zd);
+                                //noinspection deprecation
+                                if (world.getBlockState(target).isAir() || world.getBlockState(target).getMaterial().isReplaceable()) {
+                                    if (world.getBlockState(target.below()).isFaceSturdy(world, pos.below(), Direction.UP)) {
+                                        this.tree.decorateSaplingGrowth(world, target, random);
+                                        break;
+                                    }
                                 }
                             }
                         }

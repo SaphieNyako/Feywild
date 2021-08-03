@@ -1,10 +1,10 @@
 package com.feywild.feywild.recipes;
 
+import com.feywild.feywild.util.Util;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.github.noeppi_noeppi.libx.crafting.recipe.RecipeHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -61,7 +61,7 @@ public class AltarRecipe implements IAltarRecipe {
 
     @Override
     public Optional<ItemStack> getResult(List<ItemStack> inputs) {
-        return RecipeHelper.matches(this, inputs, true) ? Optional.of(this.getResultItem()) : Optional.empty();
+        return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem()) : Optional.empty();
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AltarRecipe> {

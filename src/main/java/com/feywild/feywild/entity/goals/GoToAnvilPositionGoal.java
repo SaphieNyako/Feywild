@@ -26,23 +26,25 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
         this.init();
         if (!entity.isTamed()) {
             reset();
-        } else if (tile != null) {
+        } else if (tile != null && ticksLeft > 0) {
             ticksLeft--;
-            if (ticksLeft <= 0) {
+            if (ticksLeft == 0) {
                 tile.craft();
                 reset();
-            } else if (targetPosition != null && tile.canCraft()) {
-                if (ticksLeft == 20) {
-                    entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
-                } else if (ticksLeft == 50) {
-                    tile.craft();
-                    entity.setState(DwarfBlacksmithEntity.State.WORKING);
-                } else if (ticksLeft <= 110) {
-                    entity.getNavigation().moveTo(this.targetPosition.getX(), this.targetPosition.getY(), this.targetPosition.getZ(), 0.5);
-                    entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(targetPosition.getX(), targetPosition.getY(), targetPosition.getZ()));
-                }
             } else {
-                reset();
+                BlockPos target = targetPosition.get();
+                if (target != null && tile.canCraft()) {
+                    if (ticksLeft == 20) {
+                        entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
+                    } else if (ticksLeft == 50) {
+                        entity.setState(DwarfBlacksmithEntity.State.WORKING);
+                    } else if (ticksLeft <= 110) {
+                        entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
+                        entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(target.getX(), target.getY(), target.getZ()));
+                    }
+                } else {
+                    reset();
+                }
             }
         }
     }
@@ -54,18 +56,19 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     protected void reset() {
         entity.setState(DwarfBlacksmithEntity.State.IDLE);
+        ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
         init();
-        return entity.isTamed() && tile != null && targetPosition != null && tile.canCraft();
+        return ticksLeft > 0 && entity.isTamed() && tile != null && targetPosition.get() != null && tile.canCraft();
     }
 
     @Override
     public boolean canUse() {
         init();
-        return tile != null && targetPosition != null && entity.level.random.nextFloat() < 0.05f && tile.canCraft();
+        return tile != null && targetPosition.get() != null && tile.canCraft();
     }
     
     private void init() {

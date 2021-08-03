@@ -82,7 +82,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     }
     
     public void setSummonPos(BlockPos summonPos) {
-        this.summonPos = summonPos;
+        this.summonPos = summonPos.immutable();
     }
 
     public boolean isTamed() {
@@ -108,8 +108,8 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
         this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(2, new GoToSummoningPositionGoal(this, () -> this.summonPos, 5));
-        this.goalSelector.addGoal(2, new GoToAnvilPositionGoal(this, () -> this.summonPos, 5));
+        this.goalSelector.addGoal(2, new GoToSummoningPositionGoal(this, this::getSummonPos, 5));
+        this.goalSelector.addGoal(2, new GoToAnvilPositionGoal(this, this::getSummonPos, 5));
         this.goalSelector.addGoal(6, new RefreshStockGoal(this));
         this.targetSelector.addGoal(1, new DwarvenAttackGoal(this));
     }
@@ -119,8 +119,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         super.addAdditionalSaveData(nbt);
         if (this.summonPos != null) {
             NBTX.putPos(nbt, "SummonPos", this.summonPos);
-        } else {
-            nbt.remove("SummonPos");
         }
     }
 

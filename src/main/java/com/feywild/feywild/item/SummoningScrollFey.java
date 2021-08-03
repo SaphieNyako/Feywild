@@ -25,11 +25,6 @@ public class SummoningScrollFey<T extends FeyEntity> extends SummoningScroll<T> 
     }
 
     @Override
-    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos) {
-        return super.canSummon(world, player, pos);
-    }
-
-    @Override
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
         entity.setTamed(true);
         entity.setSummonPos(pos);

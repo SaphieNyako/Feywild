@@ -2,15 +2,17 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.sound.ModSoundEvents;
+import net.minecraft.block.BlockState;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DwarvenAttackGoal extends Goal {
@@ -26,7 +28,7 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public void tick() {
-        if (entity.getLastHurtByMob() != null && entity.getLastHurtByMob() instanceof MonsterEntity) {
+        if (entity.getLastHurtByMob() instanceof MonsterEntity) {
             target = entity.getLastHurtByMob();
             ticksLeft--;
             if (ticksLeft == 0) {
@@ -75,7 +77,7 @@ public class DwarvenAttackGoal extends Goal {
         BlockPos centerPos = entity.blockPosition().below();
 
         int size = 2;
-        List<FallingBlockEntity> entityList = new LinkedList<>();
+        List<FallingBlockEntity> entityList = new ArrayList<>();
 
         for (int xd = 0; xd <= size; xd++) {
             for (int zd = 0; zd <= size; zd++) {
@@ -83,11 +85,11 @@ public class DwarvenAttackGoal extends Goal {
                 //noinspection deprecation
                 if (dist <= size && !this.entity.level.getBlockState(centerPos.offset(xd, -1, zd)).isAir() && this.entity.level.getBlockState(new BlockPos(centerPos.offset(xd, 0, zd))).isAir() && (xd != 0 || zd != 0)) {
                     if (stage) {
-                        entityList.add(new FallingBlockEntity(this.entity.level, centerPos.getX() + xd + 0.5, centerPos.getY(), centerPos.getZ() + zd + 0.5, this.entity.level.getBlockState(centerPos.offset(xd, 0, zd))));
-                        entityList.add(new FallingBlockEntity(this.entity.level, centerPos.getX() - xd + 0.5, centerPos.getY(), centerPos.getZ() - zd + 0.5, this.entity.level.getBlockState(centerPos.offset(-xd, 0, -zd))));
+                        waveBlock(entityList, centerPos.offset(xd, 0, zd));
+                        waveBlock(entityList, centerPos.offset(-xd, 0, -zd));
                     } else {
-                        entityList.add(new FallingBlockEntity(this.entity.level, centerPos.getX() + xd + 0.5, centerPos.getY(), centerPos.getZ() - zd + 0.5, this.entity.level.getBlockState(centerPos.offset(xd, 0, -zd))));
-                        entityList.add(new FallingBlockEntity(this.entity.level, centerPos.getX() - xd + 0.5, centerPos.getY(), centerPos.getZ() + zd + 0.5, this.entity.level.getBlockState(centerPos.offset(-xd, 0, zd))));
+                        waveBlock(entityList, centerPos.offset(xd, 0, -zd));
+                        waveBlock(entityList, centerPos.offset(-xd, 0, zd));
                     }
                 }
             }
@@ -100,20 +102,29 @@ public class DwarvenAttackGoal extends Goal {
             this.entity.level.addFreshEntity(block);
         });
     }
+    
+    private void waveBlock(List<FallingBlockEntity> entityList, BlockPos pos) {
+        BlockState state = this.entity.level.getBlockState(pos);
+        if (!state.hasTileEntity() && state.getDestroySpeed(this.entity.level, pos) >= 0) {
+            // No blocks with tile entities and no unbreakable blocks.
+            entityList.add(new FallingBlockEntity(this.entity.level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, state));
+        }
+    }
 
     protected void reset() {
         entity.setState(DwarfBlacksmithEntity.State.IDLE);
         target = null;
         sendShock = false;
+        ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.entity.getLastHurtByMob() != null;
+        return ticksLeft > 0 && entity.getLastHurtByMob() instanceof MobEntity && !entity.getLastHurtByMob().isInvulnerable();
     }
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.3f;
+        return entity.getLastHurtByMob() instanceof MobEntity && !entity.getLastHurtByMob().isInvulnerable() && entity.canSee(entity.getLastHurtByMob());
     }
 }

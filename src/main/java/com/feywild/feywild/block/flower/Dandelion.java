@@ -19,7 +19,7 @@ public class Dandelion extends GiantFlowerBlock {
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 3);
 
     public Dandelion(ModX mod) {
-        super(mod);
+        super(mod, 4);
     }
 
     @Override

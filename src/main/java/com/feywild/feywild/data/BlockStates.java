@@ -5,6 +5,7 @@ import com.feywild.feywild.block.flower.Crocus;
 import com.feywild.feywild.block.flower.Dandelion;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.Sunflower;
+import com.feywild.feywild.block.trees.BaseSapling;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.block.trees.FeyWoodBlock;
 import io.github.noeppi_noeppi.libx.data.provider.BlockStateProviderBase;
@@ -108,6 +109,8 @@ public class BlockStates extends BlockStateProviderBase {
                 || block instanceof FeyLeavesBlock) {
             // Models are created in `defaultState`
             return null;
+        } else if (block instanceof BaseSapling) {
+            return models().cross(id.getPath(), blockTexture(block));
         } else {
             return super.defaultModel(id, block);
         }

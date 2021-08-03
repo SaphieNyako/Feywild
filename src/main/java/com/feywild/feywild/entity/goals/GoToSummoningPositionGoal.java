@@ -28,25 +28,29 @@ public class GoToSummoningPositionGoal extends MovementRestrictionGoal {
     @Override
     public void start() {
         super.start();
-        if (distanceFromSquared(entity.blockPosition(), targetPosition) > triggerRangeSquared) {
-            entity.setPos(targetPosition.getX() + 0.5, targetPosition.getY() + 1, targetPosition.getZ() + 0.5);
+        BlockPos target = targetPosition.get();
+        if (target != null && distanceFromSquared(entity.blockPosition(), target) > triggerRangeSquared) {
+            entity.setPos(target.getX() + 0.5, target.getY() + 1, target.getZ() + 0.5);
         }
     }
 
     @Override
     public void tick() {
-        if (targetPosition != null && distanceFromSquared(entity.blockPosition(), this.targetPosition) > maxMovementRangeSquared) {
-            entity.getNavigation().moveTo(this.targetPosition.getX(), this.targetPosition.getY(), this.targetPosition.getZ(), 0.5); //1.5
+        BlockPos target = targetPosition.get();
+        if (target != null && distanceFromSquared(entity.blockPosition(), target) > maxMovementRangeSquared) {
+            entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5); //1.5
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        return targetPosition != null && distanceFromSquared(entity.blockPosition(), this.targetPosition) > maxMovementRangeSquared && shouldReturn.get();
+        BlockPos target = targetPosition.get();
+        return target != null && distanceFromSquared(entity.blockPosition(), target) > maxMovementRangeSquared && shouldReturn.get();
     }
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.02f && targetPosition != null && !this.isInRange(entity.blockPosition()) && shouldReturn.get();
+        BlockPos target = targetPosition.get();
+        return entity.level.random.nextFloat() < 0.02f && target != null && !this.isInRange(entity.blockPosition()) && shouldReturn.get();
     }
 }

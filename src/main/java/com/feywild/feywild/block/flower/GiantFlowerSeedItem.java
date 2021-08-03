@@ -40,10 +40,10 @@ public class GiantFlowerSeedItem extends ItemBase {
         }
 
         if (!world.isClientSide) {
-            world.setBlock(pos, this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 0), 3);
-            world.setBlock(pos.above(1), this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 1), 3);
-            world.setBlock(pos.above(2), this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 2), 3);
-            world.setBlock(pos.above(3), this.block.flowerState(world, pos.above(3), world.random).setValue(GiantFlowerBlock.PART, 3), 3);
+            world.setBlock(pos, this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 4 - this.block.height), 3);
+            if (this.block.height >= 2) world.setBlock(pos.above(1), this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 5 - this.block.height), 3);
+            if (this.block.height >= 3) world.setBlock(pos.above(2), this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 6 - this.block.height), 3);
+            if (this.block.height >= 4) world.setBlock(pos.above(3), this.block.flowerState(world, pos.above(3), world.random).setValue(GiantFlowerBlock.PART, 7 - this.block.height), 3);
             if (context.getPlayer() != null && !context.getPlayer().isCreative()) context.getItemInHand().shrink(1);
         }
         return ActionResultType.sidedSuccess(world.isClientSide);

@@ -6,14 +6,19 @@ import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -24,18 +29,22 @@ import net.minecraftforge.common.ToolType;
 import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public abstract class GiantFlowerBlock extends Block implements Registerable {
     
-    public static final VoxelShape STEM_SHAPE = box(2, 0, 2, 14, 16, 14);
+    public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
+    public static final VoxelShape FLOWER_SHAPE = box(1, 0, 1, 15, 15, 15);
     
     // 0 - 2 = stem, 3 = flower
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 3);
     
     private final GiantFlowerSeedItem item;
+    public final int height;
     
-    public GiantFlowerBlock(ModX mod) {
-        super(Properties.of(Material.PLANT).harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1));
+    public GiantFlowerBlock(ModX mod, int height) {
+        super(Properties.of(Material.PLANT).noOcclusion().harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1));
+        this.height = height;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
         this.item = new GiantFlowerSeedItem(mod, this);
     }
@@ -43,6 +52,12 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     @Override
     public Map<String, Object> getNamedAdditionalRegisters() {
         return ImmutableMap.of("seed", this.item);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Override
@@ -59,21 +74,35 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
-        return state.getValue(PART) == 3 ? VoxelShapes.block() : STEM_SHAPE;
+        return state.getValue(PART) == 3 ? FLOWER_SHAPE : STEM_SHAPE;
+    }
+    
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public VoxelShape getVisualShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+        return VoxelShapes.empty();
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
     public BlockRenderType getRenderShape(@Nonnull BlockState state) {
-        return state.getValue(PART) == 2 || state.getValue(PART) == 4 ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
+        return state.getValue(PART) == 1 || state.getValue(PART) == 3 ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
     }
-    
+
+    @Override
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
+        return new ItemStack(getSeed());
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     public void onRemove(@Nonnull BlockState oldState, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
+        if (oldState.getBlock() != newState.getBlock()) {
+            removeOthers(world, oldState, pos);
+        }
         super.onRemove(oldState, world, pos, newState, moving);
-        removeOthers(world, oldState, pos);
     }
     
     @Nonnull
@@ -111,10 +140,10 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     public abstract BlockState flowerState(IWorld world, BlockPos pos, Random random);
 
     protected void removeOthers(World world, BlockState state, BlockPos pos) {
-        int blocksBelow = state.getValue(PART);
+        int blocksBelow = state.getValue(PART) - (4 - height);
         int blocksAbove = 3 - state.getValue(PART);
         
-        for (int i = 0; i < blocksBelow; i++) {
+        for (int i = 1; i <= blocksBelow; i++) {
             BlockPos target = pos.offset(0, -i, 0);
             if (world.getBlockState(target).getBlock() == this) {
                 // No block update
@@ -122,7 +151,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
             }
         }
         
-        for (int i = 0; i < blocksAbove; i++) {
+        for (int i = 1; i <= blocksAbove; i++) {
             BlockPos target = pos.offset(0, i, 0);
             if (world.getBlockState(target).getBlock() == this) {
                 // No block update

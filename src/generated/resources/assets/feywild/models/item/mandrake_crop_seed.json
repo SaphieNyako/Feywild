@@ -1,3 +1,6 @@
 {
-  "parent": "feywild:block/mandrake_crop_seed"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "feywild:item/mandrake_crop_seed"
+  }
 }

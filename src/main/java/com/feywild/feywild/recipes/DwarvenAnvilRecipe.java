@@ -1,10 +1,10 @@
 package com.feywild.feywild.recipes;
 
+import com.feywild.feywild.util.Util;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.github.noeppi_noeppi.libx.crafting.recipe.RecipeHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -83,7 +83,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     public Optional<ItemStack> getResult(ItemStack schematics, List<ItemStack> inputs) {
         if (this.schematics != null && (schematics.isEmpty() || !this.schematics.test(schematics))) {
             return Optional.empty();
-        } else if (!RecipeHelper.matches(this, inputs, true)) {
+        } else if (!Util.simpleMatch(this.inputs, inputs)) {
             return Optional.empty();
         } else {
             return Optional.of(this.getResultItem());

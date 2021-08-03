@@ -36,7 +36,10 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
     private final BaseItemStackHandler inventory;
     private int progress = 0;
     private int particleTimer = 0;
+    
+    private boolean needsUpdate = false;
     private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
+    
     private final AnimationFactory animationFactory = new AnimationFactory(this);
     
     public FeyAltarBlockEntity(TileEntityType<?> type) {
@@ -53,15 +56,23 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
     public void tick() {
         if (level == null) return;
         if (!level.isClientSide) {
+            if (needsUpdate) {
+                this.updateRecipe();
+                needsUpdate = false;
+            }
             if (this.recipe.get().isPresent()) {
+                // We need to save the result before changing the inventory
+                // as changing the inventory will invalidate the result.
+                Pair<ItemStack, IAltarRecipe> currentRecipe = this.recipe.get().get();
                 this.progress++;
                 if (this.progress >= MAX_PROGRESS) {
                     // Clear the inventory
                     for (int slot = 0; slot < this.inventory.getSlots(); slot++) {
                         this.inventory.setStackInSlot(slot, ItemStack.EMPTY);
                     }
-                    ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2, this.worldPosition.getZ() + 0.5, this.recipe.get().get().getLeft().copy());
+                    ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2, this.worldPosition.getZ() + 0.5, currentRecipe.getLeft().copy());
                     level.addFreshEntity(entity);
+                    this.progress = 0;
                 }
                 setChanged();
                 markDispatchable();
@@ -74,6 +85,7 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
                     for (int i = 0; i < 20; i++) {
                         this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 1.2, this.worldPosition.getZ() + 0.5, 0.5 - this.level.random.nextDouble(), 0.7 - this.level.random.nextDouble(), 0.5 - this.level.random.nextDouble());
                     }
+                    this.progress = 0;
                 } else {
                     List<ItemStack> stacks = new ArrayList<>();
                     for (int slot = 0; slot < this.getInventory().getSlots(); slot++) {
@@ -96,8 +108,6 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
                     if (level.random.nextFloat() < 0.5) {
                         this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + this.level.random.nextDouble(), this.worldPosition.getY() + this.level.random.nextDouble(), this.worldPosition.getZ() + this.level.random.nextDouble(), 0, 0, 0);
                     }
-                } else {
-                    this.particleTimer--;
                 }
             }
         }
@@ -112,7 +122,7 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
                         .findFirst();
             });
         } else {
-            this.recipe = null;
+            this.recipe = new LazyValue<>(Optional::empty);
         }
     }
 
@@ -137,7 +147,7 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
         super.load(state, nbt);
         inventory.deserializeNBT(nbt.getCompound("inventory"));
         progress = nbt.getInt("progress");
-        this.updateRecipe();
+        needsUpdate = true;
     }
 
     @Nonnull

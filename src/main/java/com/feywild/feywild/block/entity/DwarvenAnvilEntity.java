@@ -54,11 +54,14 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
     private final LazyOptional<IItemHandlerModifiable> itemHandlerBottom = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
 
+    // As `load` is often called without a level, we need to store that a recipe update
+    // is required, so it can be updated next tick.
+    private boolean needsUpdate = false;
     // Whenever the inventory or mana changes, this is reset to a new lazy value holding
     // the current result item. It's lazy, so the result item is not computed on every
     // inventory or mana change but also not computed multiple times without a change.
     // Hold a pair of the recipe that is used and the result value.
-    private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipeResult = new LazyValue<>(Optional::empty);
+    private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipe = new LazyValue<>(Optional::empty);
 
     public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
@@ -85,7 +88,11 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
     @Override
     public void tick() {
         if (level != null && level instanceof ServerWorld) {
-            if (((ServerWorld) level).getServer().getTickCount() % 20 == 0) {
+            if (needsUpdate) {
+                this.updateRecipe();
+                needsUpdate = false;
+            }
+            if (((ServerWorld) level).getServer().getTickCount() % 20 == 0 && manaStorage.getMana() + FEY_DUST_MANA_COST <= manaStorage.getMaxMana()) {
                 // Simulate extraction first
                 ItemStack extracted = inventory.extractItem(0, 1, true);
                 if (!extracted.isEmpty() && extracted.getItem() == ModItems.feyDust) {
@@ -110,7 +117,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
         super.load(state, nbt);
         inventory.deserializeNBT(nbt.getCompound("inventory"));
         manaStorage.deserializeNBT(nbt.getCompound("mana"));
-        this.updateRecipe();
+        needsUpdate = true;
     }
 
     @Nonnull
@@ -131,7 +138,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
     }
 
     public void craft() {
-        this.recipeResult.get().ifPresent(pair -> {
+        this.recipe.get().ifPresent(pair -> {
             ItemStack result = pair.getLeft();
             IDwarvenAnvilRecipe recipe = pair.getRight();
             // Consume the mana
@@ -139,28 +146,28 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
             // Remove one item from all inputs.
             IntStream.range(2, 7).forEach(slot -> this.inventory.extractItem(slot, 1, false));
             // Insert result item into the output slot
-            this.inventory.insertItem(7, result.copy(), false);
+            this.inventory.getUnrestricted().insertItem(7, result.copy(), false);
         });
     }
 
     private void updateRecipe() {
         if (level == null || level.isClientSide) {
-            this.recipeResult = new LazyValue<>(Optional::empty);
+            this.recipe = new LazyValue<>(Optional::empty);
         } else {
-            this.recipeResult = new LazyValue<>(() -> {
+            this.recipe = new LazyValue<>(() -> {
                 ItemStack schematics = inventory.getStackInSlot(1);
                 List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(schematics, inputs), r)) // Get a stream of all result items that match the current inputs.
                         .findFirst() // The stream should normally only contain one entry but with conflicting recipes it could contain more, so we only take the first
-                        .filter(p -> p.getRight().getMana() >= this.manaStorage.getMana()) // Check that we have enough mana for the recipe
-                        .filter(p -> this.inventory.insertItem(7, p.getLeft(), true).isEmpty()); // Check that the resulting item stack can completely be inserted into the result slot.
+                        .filter(p -> p.getRight().getMana() <= this.manaStorage.getMana()) // Check that we have enough mana for the recipe
+                        .filter(p -> this.inventory.getUnrestricted().insertItem(7, p.getLeft(), true).isEmpty()); // Check that the resulting item stack can completely be inserted into the result slot.
             });
         }
     }
 
     public boolean canCraft() {
-        return this.recipeResult.get().isPresent();
+        return this.recipe.get().isPresent();
     }
 
     public BaseItemStackHandler getInventory() {

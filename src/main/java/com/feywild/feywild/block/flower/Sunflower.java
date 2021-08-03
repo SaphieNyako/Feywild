@@ -18,7 +18,7 @@ public class Sunflower extends GiantFlowerBlock {
     public static final IntegerProperty TIME_VARIANT = IntegerProperty.create("time_variant", 0, 2);
 
     public Sunflower(ModX mod) {
-        super(mod);
+        super(mod, 4);
     }
 
     @Override

@@ -7,11 +7,11 @@ import java.util.function.Supplier;
 
 public class MovementRestrictionGoal extends Goal {
 
-    public BlockPos targetPosition;
+    public Supplier<BlockPos> targetPosition;
     public int maxMovementRangeSquared;
 
     public MovementRestrictionGoal(Supplier<BlockPos> pos, int maxMovementRange) {
-        this.targetPosition = pos.get();
+        this.targetPosition = pos;
         this.maxMovementRangeSquared = maxMovementRange * maxMovementRange;
     }
 
@@ -20,7 +20,8 @@ public class MovementRestrictionGoal extends Goal {
     }
 
     public boolean isInRange(BlockPos pos) {
-        return distanceFromSquared(pos, targetPosition) <= maxMovementRangeSquared;
+        BlockPos target = targetPosition.get();
+        return target != null && distanceFromSquared(pos, target) <= maxMovementRangeSquared;
     }
 
     @Override

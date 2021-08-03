@@ -5,7 +5,8 @@ import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Rotation;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
@@ -60,18 +61,18 @@ public class AutumnTree extends BaseTree {
 
         @Override
         protected void decorateLog(BlockState state, ISeedReader world, BlockPos pos, Random random) {
-            if (random.nextDouble() < 0.05) {
+            if (random.nextDouble() < 0.1) {
                 if (world.isEmptyBlock(pos.north())) {
-                    world.setBlock(pos.north(), ModBlocks.treeMushroom.defaultBlockState(), 19);
-                } else if (world.isEmptyBlock(pos.east())) {
-                    Rotation rotation = Rotation.CLOCKWISE_90;
-                    world.setBlock(pos.east(), ModBlocks.treeMushroom.defaultBlockState().rotate(world, pos, rotation), 19);
-                } else if (world.isEmptyBlock(pos.south())) {
-                    Rotation rotation = Rotation.CLOCKWISE_180;
-                    world.setBlock(pos.south(), ModBlocks.treeMushroom.defaultBlockState().rotate(world, pos, rotation), 19);
-                } else if (world.isEmptyBlock(pos.west())) {
-                    Rotation rotation = Rotation.COUNTERCLOCKWISE_90;
-                    world.setBlock(pos.west(), ModBlocks.treeMushroom.defaultBlockState().rotate(world, pos, rotation), 19);
+                    world.setBlock(pos.north(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH), 19);
+                }
+                if (world.isEmptyBlock(pos.east())) {
+                    world.setBlock(pos.east(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST), 19);
+                }
+                if (world.isEmptyBlock(pos.south())) {
+                    world.setBlock(pos.south(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH), 19);
+                }
+                if (world.isEmptyBlock(pos.west())) {
+                    world.setBlock(pos.west(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST), 19);
                 }
             }
         }

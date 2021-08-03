@@ -59,10 +59,14 @@ public class BlockLoot extends BlockLootProviderBase {
                 properties().hasProperty(BlockStateProperties.AGE_7, 7)
         )));
         
-        this.drops(ModBlocks.treeMushroom, first(
+        drops(ModBlocks.treeMushroom, first(
                 item().with(or(silkCondition(), matchTool(Tags.Items.SHEARS))),
                 stack(Items.RED_MUSHROOM).with(randomFortune(0.5f))
         ));
+        
+        drops(ModBlocks.dandelion, stack(ModBlocks.dandelion.getSeed()).with(count(1, 2)));
+        drops(ModBlocks.sunflower, stack(ModBlocks.sunflower.getSeed()).with(count(1, 2)));
+        drops(ModBlocks.crocus, stack(ModBlocks.crocus.getSeed()).with(count(1, 2)));
     }
     
     private void treeDrops(BaseTree tree, IItemProvider baseLog, IItemProvider baseWood) {

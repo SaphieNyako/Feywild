@@ -1,9 +1,14 @@
 package com.feywild.feywild.util;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IntReferenceHolder;
 
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Util {
 
@@ -35,5 +40,21 @@ public class Util {
                 setter.accept((getter.get() & 0xFFFF0000) | (value & 0xFFFF));
             }
         };
+    }
+    
+    public static boolean simpleMatch(List<Ingredient> ingredients, List<ItemStack> stacks) {
+        if (ingredients.size() != stacks.size()) return false;
+        List<ItemStack> left = new ArrayList<>(stacks);
+        ingredients: for (Ingredient ingredient : ingredients) {
+            Iterator<ItemStack> itr = left.iterator();
+            while (itr.hasNext()) {
+                if (ingredient.test(itr.next())) {
+                    itr.remove();
+                    continue ingredients;
+                }
+            }
+            return false;
+        }
+        return true;
     }
 }

@@ -64,52 +64,52 @@ public class TraderEntity extends AbstractVillagerEntity implements IReputationT
     @Override
     protected void updateTrades() {
 
-        if (isTamed) {
-            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(1);
-            setVillagerLevel(1);
-            if (dwarvenTradeList != null) {
-                MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
-            }
-        } else {
-
-            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
-            setVillagerLevel(1);
-            if (dwarvenTradeList != null) {
-                MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
-            }
-        }
+//        if (isTamed) {
+//            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(1);
+//            setVillagerLevel(1);
+//            if (dwarvenTradeList != null) {
+//                MerchantOffers merchantoffers = this.getOffers();
+//                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
+//            }
+//        } else {
+//
+//            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(1);
+//            setVillagerLevel(1);
+//            if (dwarvenTradeList != null) {
+//                MerchantOffers merchantoffers = this.getOffers();
+//                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 2);
+//            }
+//        }
     }
 
     protected void updateTradesAgain(int number) {
 
-        if (isTamed) {
-            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(number);
-            setVillagerLevel(number);
-            if (dwarvenTradeList != null) {
-                MerchantOffers merchantoffers = this.getOffers();
-                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
-            }
-        } else {
-
-            if (number == 1) {
-                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(2);
-                setVillagerLevel(2);
-                if (dwarvenTradeList != null) {
-                    MerchantOffers merchantoffers = this.getOffers();
-                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
-                }
-            } else {
-
-                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
-                setVillagerLevel(number);
-                if (dwarvenTradeList != null) {
-                    MerchantOffers merchantoffers = this.getOffers();
-                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
-                }
-            }
-        }
+//        if (isTamed) {
+//            VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_BLACKSMITH_TRADES.get(number);
+//            setVillagerLevel(number);
+//            if (dwarvenTradeList != null) {
+//                MerchantOffers merchantoffers = this.getOffers();
+//                this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 4);
+//            }
+//        } else {
+//
+//            if (number == 1) {
+//                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(2);
+//                setVillagerLevel(2);
+//                if (dwarvenTradeList != null) {
+//                    MerchantOffers merchantoffers = this.getOffers();
+//                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+//                }
+//            } else {
+//
+//                VillagerTrades.ITrade[] dwarvenTradeList = DwarvenTrades.DWARVEN_TRADES.get(number);
+//                setVillagerLevel(number);
+//                if (dwarvenTradeList != null) {
+//                    MerchantOffers merchantoffers = this.getOffers();
+//                    this.addOffersFromItemListings(merchantoffers, dwarvenTradeList, 3);
+//                }
+//            }
+//        }
     }
 
     @Override
