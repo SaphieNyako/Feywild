@@ -19,9 +19,10 @@ public class TradeLevelData {
     private final int minTrades;
     private final int maxTrades;
     private final int maxWeight;
+    private final boolean allowDuplicates;
     private final List<Pair<Integer, VillagerTrades.ITrade>> trades;
 
-    public TradeLevelData(int minTrades, int maxTrades, List<TradeEntry> trades) {
+    public TradeLevelData(int minTrades, int maxTrades, List<TradeEntry> trades, boolean allowDuplicates) {
         this.minTrades = Math.min(minTrades, maxTrades);
         this.maxTrades = Math.max(minTrades, maxTrades);
         
@@ -35,11 +36,12 @@ public class TradeLevelData {
         }
         this.maxWeight = maxWeight;
         this.trades = weightedTrades.build();
+        this.allowDuplicates = allowDuplicates;
         
         if (this.minTrades < 0 || this.maxTrades <= 0) {
             throw new IllegalStateException("Trader level data must be able to select at least one trade. Current range: [" + this.minTrades + ";" + this.maxTrades + "]");
         }
-        if (this.trades.size() < this.maxTrades) {
+        if (this.allowDuplicates || this.trades.size() < this.maxTrades) {
             throw new IllegalStateException("Trader level data must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
     }
@@ -61,6 +63,9 @@ public class TradeLevelData {
             return ImmutableList.of();
         } else if (tradesToSelect == 1) {
             return ImmutableList.of(this.trades.get(selectRandomTrade(random)).getRight());
+        } else if (!allowDuplicates && tradesToSelect == this.trades.size()) {
+            //noinspection UnstableApiUsage
+            return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         } else {
             // Stores which indices have been used, so no trade is selected twice.
             Set<Integer> usedIndices = new HashSet<>();
@@ -70,7 +75,9 @@ public class TradeLevelData {
                 do {
                     tradeIdx = selectRandomTrade(random);
                 } while (usedIndices.contains(tradeIdx));
-                usedIndices.add(tradeIdx);
+                if (!allowDuplicates) {
+                    usedIndices.add(tradeIdx);
+                }
                 builtTrades.add(this.trades.get(tradeIdx).getRight());
             }
             return builtTrades.build();
@@ -102,6 +109,7 @@ public class TradeLevelData {
         for (JsonElement elem : json.get("trades").getAsJsonArray()) {
             trades.add(TradeEntry.fromJson(elem.getAsJsonObject()));
         }
-        return new TradeLevelData(min, max, trades.build());
+        boolean allowDuplicates = json.has("duplicates") && json.get("duplicates").getAsBoolean();
+        return new TradeLevelData(min, max, trades.build(), allowDuplicates);
     }
 }

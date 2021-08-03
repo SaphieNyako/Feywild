@@ -36,7 +36,7 @@ public class SimpleTrade implements VillagerTrades.ITrade {
     public static SimpleTrade fromJson(JsonObject json) {
         StackFactory input = StackFactory.fromJson(json.get("input"));
         StackFactory money;
-        if (!json.has("money")) {
+        if (!json.has("additional")) {
             money = EmptyStackFactory.INSTANCE;
         } else if (json.get("additional").isJsonPrimitive()) {
             int amount = json.get("additional").getAsInt();
