@@ -5,6 +5,7 @@ import com.feywild.feywild.trade.entries.SimpleTrade;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 
+// Holds one trade with a weight
 public class TradeEntry {
     
     public final int weight;

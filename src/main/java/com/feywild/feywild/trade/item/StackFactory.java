@@ -13,6 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
 
+// Interface that can create an ItemStack based on a Random
 public interface StackFactory {
     
     ItemStack createStack(Random random);

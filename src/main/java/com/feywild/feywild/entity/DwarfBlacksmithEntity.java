@@ -42,6 +42,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public static final DataParameter<Integer> STATE = EntityDataManager.defineId(DwarfBlacksmithEntity.class, DataSerializers.INT);
 
     private BlockPos summonPos;
+    private boolean isTamed;
     
     //GeckoLib variable
     private final AnimationFactory animationFactory = new AnimationFactory(this);
@@ -51,6 +52,11 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         //GeckoLib check
         this.noCulling = true;
         this.moveControl = new MovementController(this);
+    }
+
+    @Override
+    public String getTradeCategory() {
+        return this.isTamed() ? "tamed" : "untamed";
     }
 
     @Override
@@ -117,6 +123,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
+        nbt.putBoolean("Tamed", this.isTamed);
         if (this.summonPos != null) {
             NBTX.putPos(nbt, "SummonPos", this.summonPos);
         }
@@ -125,6 +132,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
+        this.isTamed = nbt.getBoolean("Tamed");
         this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
     }
 

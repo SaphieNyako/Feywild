@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 import java.util.Random;
 
+// Stack factory that picks randomly from a list of stack factories
 public class CompoundStackFactory implements StackFactory {
 
     private final List<StackFactory> factories;

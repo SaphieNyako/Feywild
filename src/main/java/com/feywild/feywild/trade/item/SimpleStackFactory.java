@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
+// Factory for an ItemStack with optional random count
 public class SimpleStackFactory implements StackFactory {
 
     private final ItemStack stack;

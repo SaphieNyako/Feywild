@@ -7,7 +7,6 @@ import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.entity.util.trades.TamedTradeManager;
 import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
@@ -111,7 +110,6 @@ public class FeywildMod extends ModXRegistration {
     protected void setup(final FMLCommonSetupEvent event) {
         FeywildPacketHandler.register();
         SpawnData.registerSpawn();
-        TamedTradeManager.instance();
         QuestManager.instance();
         UtilManager.instance();
 
@@ -143,7 +141,6 @@ public class FeywildMod extends ModXRegistration {
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(TradeManager.createReloadListener());
-        event.addListener(TamedTradeManager.instance());
 //        event.addListener(QuestManager.instance());
 //        event.addListener(UtilManager.instance());
     }
