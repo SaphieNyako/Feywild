@@ -1,6 +1,6 @@
 package com.feywild.feywild.util;
 
-import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.old.MessageQuest;
 import com.feywild.feywild.screens.LibrarianScreen;
 import com.feywild.feywild.screens.PixieScreen;
 import com.feywild.feywild.util.configs.Config;

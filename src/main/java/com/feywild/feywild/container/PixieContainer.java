@@ -1,8 +1,6 @@
 package com.feywild.feywild.container;
 
 import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;

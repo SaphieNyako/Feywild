@@ -1,14 +1,12 @@
 package com.feywild.feywild.network.old;
 
-import com.feywild.feywild.quest.MessageQuest;
-import com.feywild.feywild.quest.Quest;
-import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.quest.old.Quest;
+import com.feywild.feywild.quest.old.QuestMap;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.Collections;
 import java.util.function.Supplier;
 
 public class RequestOpenQuestScreen {

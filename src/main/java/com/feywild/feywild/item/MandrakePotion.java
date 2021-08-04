@@ -1,6 +1,6 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.quest.old.QuestMap;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;

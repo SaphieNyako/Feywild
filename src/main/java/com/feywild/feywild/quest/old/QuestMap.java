@@ -1,9 +1,7 @@
-package com.feywild.feywild.quest;
+package com.feywild.feywild.quest.old;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.QuestCompletionEvent;
-import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.network.old.QuestMessage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;

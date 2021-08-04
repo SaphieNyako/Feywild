@@ -1,6 +1,6 @@
 package com.feywild.feywild.events;
 
-import com.feywild.feywild.quest.Quest;
+import com.feywild.feywild.quest.old.Quest;
 import com.google.common.base.Preconditions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;

@@ -2,11 +2,8 @@ package com.feywild.feywild.events;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
-import com.feywild.feywild.network.old.ItemEntityMessage;
-import com.feywild.feywild.network.old.LibrarianScreenMessage;
-import com.feywild.feywild.quest.QuestMap;
+import com.feywild.feywild.quest.old.QuestMap;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.ModUtil;
 import com.feywild.feywild.util.configs.Config;

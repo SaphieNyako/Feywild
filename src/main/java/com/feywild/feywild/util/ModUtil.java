@@ -1,7 +1,6 @@
 package com.feywild.feywild.util;
 
-import com.feywild.feywild.quest.QuestMap;
-import net.minecraft.entity.LivingEntity;
+import com.feywild.feywild.quest.old.QuestMap;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -15,9 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;

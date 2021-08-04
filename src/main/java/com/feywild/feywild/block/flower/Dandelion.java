@@ -5,6 +5,10 @@ import com.feywild.feywild.network.ParticleSerializer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.network.play.server.SChangeBlockPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -32,9 +36,36 @@ public class Dandelion extends GiantFlowerBlock {
 
     @Override
     protected void tickFlower(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        
+        if (state.getValue(VARIANT) == 3 && world.random.nextInt(3) == 0) {
+            world.setBlock(pos, state.setValue(VARIANT, 2), 3);
+        }
     }
 
+    @Override
+    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
+        if (this.replaceFlower(world, pos.above(3 - state.getValue(PART)))) {
+            if (!world.isClientSide && player instanceof ServerPlayerEntity) {
+                // Forge notifies the client of the block break before calling this
+                // So we just tell the client that the block is still there
+                ((ServerPlayerEntity) player).connection.send(new SChangeBlockPacket(world, pos));
+            }
+            return true;
+        }
+        return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
+    }
+
+    private boolean replaceFlower(@Nonnull World world, @Nonnull BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        if (state.getBlock() == this && state.getValue(PART) == 3 && state.getValue(VARIANT) == 2) {
+            if (!world.isClientSide) {
+                world.setBlock(pos, state.setValue(VARIANT, 3), 3);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     @Override
     public void onRemove(@Nonnull BlockState oldState, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
         super.onRemove(oldState, world, pos, newState, moving);

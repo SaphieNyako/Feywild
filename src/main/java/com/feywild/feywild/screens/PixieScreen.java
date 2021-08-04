@@ -1,10 +1,7 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.network.old.QuestMessage;
-import com.feywild.feywild.network.old.RequestOpenQuestScreen;
-import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.old.MessageQuest;
 import com.feywild.feywild.screens.widget.LookingGlassWidget;
 import com.feywild.feywild.screens.widget.QuestWidget;
 import com.mojang.blaze3d.matrix.MatrixStack;

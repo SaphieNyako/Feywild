@@ -10,7 +10,7 @@ import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.quest.QuestManager;
+import com.feywild.feywild.quest.old.QuestManager;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.Registration;

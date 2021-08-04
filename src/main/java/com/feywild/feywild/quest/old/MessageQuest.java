@@ -1,4 +1,4 @@
-package com.feywild.feywild.quest;
+package com.feywild.feywild.quest.old;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

@@ -1,103 +1,53 @@
 package com.feywild.feywild.quest;
 
-import com.feywild.feywild.FeywildMod;
-import com.google.gson.*;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipe;
+import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Quest {
-    private ResourceLocation id;
-    private List<ResourceLocation> requiredQuests = new LinkedList<>();
-    private int rep;
-    private String data,sound, name, text;
-    private ItemStack stack, icon;
-    private boolean canSkip, repeatable;
 
-    public Quest(ResourceLocation id, String requiredQuests, int rep, String data, String sound, ItemStack stack, String name, String text, ItemStack icon, boolean repeatable){
+    public final ResourceLocation id;
+    public final int priority;
+    
+    public final int reputation;
+    
+    public final QuestDisplay start;
+    public final QuestDisplay complete;
+    
+    public final List<QuestTask> tasks;
+    public final List<QuestReward> rewards;
+
+    public Quest(ResourceLocation id, int priority, int reputation, QuestDisplay start, QuestDisplay complete, List<QuestTask> tasks, List<QuestReward> rewards) {
         this.id = id;
-        for (String s : requiredQuests.split(",")) {
-            this.requiredQuests.add(new ResourceLocation(s));
-        }
-        this.canSkip = data.contains("NULL");
-        this.name = name;
-        this.text = text;
-        this.rep = rep;
-        this.data = data;
-        this.sound = sound;
-        this.stack = stack;
-        this.icon = icon;
-        this.repeatable = repeatable;
+        this.priority = priority;
+        this.reputation = reputation;
+        this.start = start;
+        this.complete = complete;
+        this.tasks = tasks;
+        this.rewards = rewards;
     }
-
-
-    public boolean isRepeatable() {
-        return repeatable;
-    }
-
-    public String getSound() {
-        return sound;
-    }
-
-    public ItemStack getStack() {
-        return stack;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public ItemStack getIcon() {
-        return icon;
-    }
-
-    public ResourceLocation getId() {
-        return id;
-    }
-
-    public List<ResourceLocation> getRequiredQuests() {
-        return requiredQuests;
-    }
-
-    public int getRep() {
-        return rep;
-    }
-
-
-    public String getData() {
-        return data;
-    }
-
-    public boolean canSkip() {
-        return canSkip;
-    }
-
-    public static class Serializer {
-
-        public Serializer(){
-        }
-
-        public Quest deserialize(JsonObject object){
-
-            try {
-                if(!object.get("sound").getAsString().equalsIgnoreCase("NULL") && Registry.SOUND_EVENT.get(new ResourceLocation(object.get("sound").getAsString())) == null){
-                    FeywildMod.getInstance().logger.fatal("Sound " + object.get("sound").getAsString() + " does not exist.");
-                }else
-                if(object.get("type").getAsString().equals("quest"))
-                    return new Quest(ResourceLocation.tryParse(object.get("id").getAsString()), object.get("requirements").getAsString(), object.get("reputation").getAsInt(), object.get("extraData").getAsString() + " ID " + object.get("id").getAsString(),object.get("sound").getAsString(),ShapedRecipe.itemFromJson(object.getAsJsonObject("reward")), object.get("name").getAsString(), object.get("text").getAsString(),ShapedRecipe.itemFromJson(object.getAsJsonObject("icon")),object.get("repeatable").getAsBoolean());
-            }catch (Exception e){
-               e.printStackTrace();
+    
+    public static Quest fromJson(ResourceLocation id, JsonElement data) {
+        JsonObject json = data.getAsJsonObject();
+        int priority = json.get("priority").getAsInt();
+        int reputation = json.has("reputation") ? json.get("reputation").getAsInt() : 5;
+        QuestDisplay start = QuestDisplay.fromJson(json.get("start").getAsJsonObject());
+        QuestDisplay complete = QuestDisplay.fromJson(json.get("complete").getAsJsonObject());
+        ImmutableList.Builder<QuestTask> tasks = ImmutableList.builder();
+        if (json.has("tasks")) {
+            for (JsonElement elem : json.get("tasks").getAsJsonArray()) {
+                tasks.add(QuestTask.fromJson(elem.getAsJsonObject()));
             }
-            return null;
         }
+        ImmutableList.Builder<QuestReward> rewards = ImmutableList.builder();
+        if (json.has("rewards")) {
+            for (JsonElement elem : json.get("rewards").getAsJsonArray()) {
+                rewards.add(QuestReward.fromJson(elem.getAsJsonObject()));
+            }
+        }
+        return new Quest(id, priority, reputation, start, complete, tasks.build(), rewards.build());
     }
 }

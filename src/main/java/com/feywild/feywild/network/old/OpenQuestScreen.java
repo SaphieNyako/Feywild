@@ -1,6 +1,6 @@
 package com.feywild.feywild.network.old;
 
-import com.feywild.feywild.quest.MessageQuest;
+import com.feywild.feywild.quest.old.MessageQuest;
 import com.feywild.feywild.util.ClientUtil;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
