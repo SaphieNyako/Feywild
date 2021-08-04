@@ -27,6 +27,10 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
         if (!entity.isTamed()) {
             reset();
         } else if (tile != null && ticksLeft > 0) {
+            if (!tile.canCraft()) {
+                this.reset();
+                return;
+            }
             ticksLeft--;
             if (ticksLeft == 0) {
                 tile.craft();
@@ -36,7 +40,6 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
                 if (target != null && tile.canCraft()) {
                     if (ticksLeft == 20) {
                         entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
-                        entity.setState(DwarfBlacksmithEntity.State.IDLE);
                     } else if (ticksLeft == 50) {
                         entity.setState(DwarfBlacksmithEntity.State.WORKING);
                     } else if (ticksLeft <= 110) {
@@ -69,7 +72,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
     @Override
     public boolean canUse() {
         init();
-        return tile != null && targetPosition.get() != null && tile.canCraft();
+        return tile != null && targetPosition.get() != null;
     }
 
     private void init() {
