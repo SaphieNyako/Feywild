@@ -36,6 +36,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
                 if (target != null && tile.canCraft()) {
                     if (ticksLeft == 20) {
                         entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
+                        entity.setState(DwarfBlacksmithEntity.State.IDLE);
                     } else if (ticksLeft == 50) {
                         entity.setState(DwarfBlacksmithEntity.State.WORKING);
                     } else if (ticksLeft <= 110) {
@@ -70,7 +71,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
         init();
         return tile != null && targetPosition.get() != null && tile.canCraft();
     }
-    
+
     private void init() {
         if (this.tile == null && entity.getSummonPos() != null) {
             TileEntity tile = entity.level.getBlockEntity(entity.getSummonPos());

@@ -36,6 +36,7 @@ public class DwarvenAttackGoal extends Goal {
             } else if (ticksLeft == 10) {
                 sendShock = attackTarget();
                 entity.playSound(ModSoundEvents.dwarfAttack, 1, 1.2f);
+                entity.setState(DwarfBlacksmithEntity.State.IDLE);
             } else if (ticksLeft == 30) {
                 entity.setState(DwarfBlacksmithEntity.State.ATTACKING);
                 entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
@@ -94,7 +95,7 @@ public class DwarvenAttackGoal extends Goal {
                 }
             }
         }
-        
+
         entityList.forEach(block -> {
             entity.playSound(ModSoundEvents.dwarfAttack, 1, 1);
             block.setDeltaMovement(0, 0.3d, 0);
@@ -102,7 +103,7 @@ public class DwarvenAttackGoal extends Goal {
             this.entity.level.addFreshEntity(block);
         });
     }
-    
+
     private void waveBlock(List<FallingBlockEntity> entityList, BlockPos pos) {
         BlockState state = this.entity.level.getBlockState(pos);
         if (!state.hasTileEntity() && state.getDestroySpeed(this.entity.level, pos) >= 0) {
