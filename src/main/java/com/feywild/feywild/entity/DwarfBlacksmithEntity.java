@@ -38,20 +38,37 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
-    
-    public static final DataParameter<Integer> STATE = EntityDataManager.defineId(DwarfBlacksmithEntity.class, DataSerializers.INT);
 
-    private BlockPos summonPos;
-    private boolean isTamed;
-    
+    public static final DataParameter<Integer> STATE = EntityDataManager.defineId(DwarfBlacksmithEntity.class, DataSerializers.INT);
     //GeckoLib variable
     private final AnimationFactory animationFactory = new AnimationFactory(this);
+    private BlockPos summonPos;
+    private boolean isTamed;
 
     public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World worldIn) {
         super(type, worldIn);
         //GeckoLib check
         this.noCulling = true;
         this.moveControl = new MovementController(this);
+    }
+
+    public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
+        return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
+                .add(Attributes.MAX_HEALTH, 36.0D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
+                .add(Attributes.ARMOR_TOUGHNESS, 5)
+                .add(Attributes.ARMOR, 15)
+                .add(Attributes.ATTACK_DAMAGE, 4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.35D);
+    }
+
+    public static boolean canSpawn(EntityType<DwarfBlacksmithEntity> type, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        //noinspection deprecation
+        if (pos.getY() >= world.getSeaLevel() - 10 || world.canSeeSky(pos) || random.nextDouble() < 0.15) {
+            return false;
+        } else {
+            return checkMobSpawnRules(type, world, reason, pos, random);
+        }
     }
 
     @Override
@@ -64,7 +81,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
     }
-    
+
     @Nonnull
     @Override
     public ActionResultType interactAt(PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
@@ -75,7 +92,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         }
         return ActionResultType.sidedSuccess(this.level.isClientSide);
     }
-    
+
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld world, @Nonnull DifficultyInstance difficulty, @Nonnull SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataNbt) {
@@ -86,7 +103,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     public BlockPos getSummonPos() {
         return summonPos;
     }
-    
+
     public void setSummonPos(BlockPos summonPos) {
         this.summonPos = summonPos.immutable();
     }
@@ -99,13 +116,13 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.isTamed = tamed;
     }
 
-    public void setState(State state) {
-        this.entityData.set(STATE, state.ordinal());
-    }
-
     public State getState() {
         State[] states = State.values();
         return states[MathHelper.clamp(this.entityData.get(STATE), 0, states.length - 1)];
+    }
+
+    public void setState(State state) {
+        this.entityData.set(STATE, state.ordinal());
     }
 
     @Override
@@ -148,7 +165,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.goalSelector.setControlFlag(Goal.Flag.JUMP, true);
         this.goalSelector.setControlFlag(Goal.Flag.LOOK, true);
     }
-    
+
     @Override
     protected boolean canRide(@Nonnull Entity entityIn) {
         return false;
@@ -195,7 +212,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         if (!this.dead && !this.isDeadOrDying()) {
             if (this.getState() == State.ATTACKING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", false));
                 return PlayState.CONTINUE;
             } else if (this.getState() == State.WORKING) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
@@ -220,25 +237,6 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         return this.animationFactory;
     }
 
-    public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 36.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.ARMOR_TOUGHNESS, 5)
-                .add(Attributes.ARMOR, 15)
-                .add(Attributes.ATTACK_DAMAGE, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35D);
-    }
-
-    public static boolean canSpawn(EntityType<DwarfBlacksmithEntity> type, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        //noinspection deprecation
-        if (pos.getY() >= world.getSeaLevel() - 10 || world.canSeeSky(pos) || random.nextDouble() < 0.15) {
-            return false;
-        } else {
-            return checkMobSpawnRules(type, world, reason, pos, random);
-        }
-    }
-    
     public enum State {
         IDLE, ATTACKING, WORKING
     }

@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 public class LibraryBell extends BlockTE<LibraryBellEntity> {
 
     public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);
-    
+
     public LibraryBell(ModX mod) {
         super(mod, LibraryBellEntity.class, Properties.of(Material.METAL)
                 .strength(-1.0F, 3600000.0F).noDrops()
@@ -73,7 +73,7 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
                 blockEntity.setPlayer(player.getGameProfile().getId());
                 blockEntity.setAnnoyance(0);
             }
-            
+
             if (world instanceof ServerWorld) {
                 Entity librarian = blockEntity.getLibrarian() != null ? ((ServerWorld) world).getEntity(blockEntity.getLibrarian()) : null;
                 Entity security = blockEntity.getSecurity() != null ? ((ServerWorld) world).getEntity(blockEntity.getSecurity()) : null;
@@ -84,7 +84,7 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
                         golem.setPlayerCreated(false);
                         golem.setTarget(player);
                         player.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), player.getUUID());
-                        golem.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                        golem.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() + 0.5);
                         world.addFreshEntity(golem);
                         blockEntity.setSecurity(golem.getUUID());
                     } else {
