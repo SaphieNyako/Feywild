@@ -116,20 +116,29 @@ public class QuestProvider implements IDataProvider {
                 .startSound(ModSoundEvents.summoningAutumnPixie)
                 .build();
         
+        QuestDisplay foodComplete = new QuestDisplay(
+                new TranslationTextComponent("quest.feywild.autumn.food.complete.title"),
+                new TranslationTextComponent("quest.feywild.autumn.food.complete.description"),
+                null
+        );
+        
         quest(AUTUMN, "food_potatoes")
                 .parent("root")
+                .complete(foodComplete)
                 .gift(Ingredient.of(Items.POTATO), 9)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();
         
         quest(AUTUMN, "food_beetroots")
                 .parent("root")
+                .complete(foodComplete)
                 .gift(Ingredient.of(Items.BEETROOT), 9)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();
         
         quest(AUTUMN, "food_carrots")
                 .parent("root")
+                .complete(foodComplete)
                 .gift(Ingredient.of(Items.CARROT), 9)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();

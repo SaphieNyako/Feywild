@@ -12,10 +12,10 @@
   },
   "complete": {
     "title": {
-      "translate": "quest.feywild.autumn.food_beetroots.complete.title"
+      "translate": "quest.feywild.autumn.food.complete.title"
     },
     "description": {
-      "translate": "quest.feywild.autumn.food_beetroots.complete.description"
+      "translate": "quest.feywild.autumn.food.complete.description"
     }
   },
   "tasks": [
