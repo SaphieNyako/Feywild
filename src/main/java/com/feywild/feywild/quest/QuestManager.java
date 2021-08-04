@@ -9,14 +9,10 @@ import net.minecraft.resources.IResourceManager;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class QuestManager {
-    
-    public static final Comparator<Quest> QUEST_ORDER = Comparator.<Quest>comparingInt(q -> 0 /*q.priority*/)
-            .thenComparing(q -> q.id.getPath()).thenComparing(q -> q.id.getNamespace());
 
     private static Map<Alignment, QuestLine> questLines = ImmutableMap.of();
 

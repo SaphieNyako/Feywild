@@ -27,4 +27,14 @@ public class QuestDisplay {
         SoundEvent sound = json.has("sound") ? ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(json.get("start_sound").getAsString())) : null;
         return new QuestDisplay(title, description, sound);
     }
+
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.add("title", ITextComponent.Serializer.toJsonTree(this.title));
+        json.add("description", ITextComponent.Serializer.toJsonTree(this.description));
+        if (this.sound != null && this.sound.getRegistryName() != null) {
+            json.addProperty("sound", this.sound.getRegistryName().toString());
+        }
+        return json;
+    }
 }

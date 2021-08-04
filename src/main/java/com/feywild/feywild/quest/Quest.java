@@ -2,6 +2,7 @@ package com.feywild.feywild.quest;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.ResourceLocation;
@@ -25,15 +26,47 @@ public class Quest {
 
     public Quest(ResourceLocation id, Set<ResourceLocation> parents, int reputation, QuestDisplay start, QuestDisplay complete, List<QuestTask> tasks, List<QuestReward> rewards) {
         this.id = id;
-        this.parents = parents;
+        this.parents = ImmutableSet.copyOf(parents);
         this.reputation = reputation;
         this.start = start;
         this.complete = complete;
-        this.tasks = tasks;
-        this.rewards = rewards;
+        this.tasks = ImmutableList.copyOf(tasks);
+        this.rewards = ImmutableList.copyOf(rewards);
         if (this.parents.isEmpty() && !this.id.getPath().endsWith("/root")) {
             throw new IllegalStateException("Can't create non-root quest without parents.");
         }
+        if (this.parents.contains(this.id)) {
+            throw new IllegalStateException("Can't create quest with self-reference.");
+        }
+    }
+    
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        if (this.parents.size() == 1) {
+            json.addProperty("parent", this.parents.iterator().next().toString());
+        } else if (!this.parents.isEmpty()) {
+            JsonArray array = new JsonArray();
+            this.parents.forEach(rl -> array.add(rl.toString()));
+            json.add("parent", array);
+        }
+        json.addProperty("reputation", this.reputation);
+        json.add("start", this.start.toJson());
+        json.add("complete", this.start.toJson());
+        if (!this.tasks.isEmpty()) {
+            JsonArray array = new JsonArray();
+            for (QuestTask task : this.tasks) {
+                array.add(task.toJson());
+            }
+            json.add("tasks", array);
+        }
+        if (!this.rewards.isEmpty()) {
+            JsonArray array = new JsonArray();
+            for (QuestReward task : this.rewards) {
+                array.add(task.toJson());
+            }
+            json.add("rewards", array);
+        }
+        return json;
     }
     
     public static Quest fromJson(ResourceLocation id, JsonElement data) {
