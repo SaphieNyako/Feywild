@@ -13,6 +13,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -49,7 +50,7 @@ public class Dandelion extends GiantFlowerBlock {
                 // So we just tell the client that the block is still there
                 ((ServerPlayerEntity) player).connection.send(new SChangeBlockPacket(world, pos));
             }
-            return true;
+            return false;
         }
         return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
     }
@@ -72,6 +73,12 @@ public class Dandelion extends GiantFlowerBlock {
         if (oldState.getValue(VARIANT) == 2) {
             FeywildMod.getNetwork().sendParticles(world, ParticleSerializer.Type.DANDELION_FLUFF, pos);
         }
+    }
+    
+    @Override
+    @SuppressWarnings("deprecation")
+    public float getDestroyProgress(@Nonnull BlockState state, @Nonnull PlayerEntity player, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+        return state.getValue(PART) == 3 && state.getValue(VARIANT) == 2 ? 1 : super.getDestroyProgress(state, player, world, pos);
     }
 
     @Override

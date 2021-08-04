@@ -11,6 +11,9 @@ import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.quest.old.QuestManager;
+import com.feywild.feywild.quest.reward.ItemReward;
+import com.feywild.feywild.quest.reward.RewardTypes;
+import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.Registration;
@@ -23,6 +26,7 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -95,6 +99,15 @@ public class FeywildMod extends ModXRegistration {
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
         
         registerModAdditions();
+        
+        
+        // TODO move
+        TaskTypes.register(new ResourceLocation(modid, "craft"), CraftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(modid, "fey_gift"), FeyGiftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(modid, "item"), ItemTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(modid, "kill"), KillTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(modid, "special"), SpecialTask.INSTANCE);
+        RewardTypes.register(new ResourceLocation(modid, "item"), ItemReward.INSTANCE);
     }
 
     @Nonnull
