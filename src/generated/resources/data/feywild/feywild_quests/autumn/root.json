@@ -1,0 +1,12 @@
+{
+  "reputation": 25,
+  "icon": "minecraft:diamond",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn.root.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn.root.start.description"
+    }
+  }
+}

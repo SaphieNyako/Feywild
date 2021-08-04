@@ -20,5 +20,7 @@ public class DataGenerators {
         event.getGenerator().addProvider(new MiscRecipes(FeywildMod.getInstance(), event.getGenerator()));
         event.getGenerator().addProvider(new AltarRecipes(FeywildMod.getInstance(), event.getGenerator()));
         event.getGenerator().addProvider(new AnvilRecipes(FeywildMod.getInstance(), event.getGenerator()));
+        
+        event.getGenerator().addProvider(new QuestProvider(FeywildMod.getInstance(), event.getGenerator()));
     }
 }

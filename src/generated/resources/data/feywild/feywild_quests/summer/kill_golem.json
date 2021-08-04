@@ -1,0 +1,36 @@
+{
+  "parent": "feywild:summer/root",
+  "reputation": 5,
+  "icon": "minecraft:iron_nugget",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer.kill_golem.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer.kill_golem.start.description"
+    }
+  },
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer.kill_golem.complete.title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer.kill_golem.complete.description"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:iron_golem",
+      "id": "feywild:kill_empty_hand"
+    }
+  ],
+  "rewards": [
+    {
+      "item": {
+        "item": "minecraft:iron_ingot",
+        "count": 7
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

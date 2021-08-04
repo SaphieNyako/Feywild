@@ -1,0 +1,22 @@
+{
+  "parent": "feywild:summer/kill_pillager",
+  "reputation": 5,
+  "icon": "feywild:summer_tree_sapling",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer.sapling.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer.sapling.start.description"
+    }
+  },
+  "rewards": [
+    {
+      "item": {
+        "item": "feywild:summer_tree_sapling",
+        "count": 3
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

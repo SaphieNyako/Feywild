@@ -1,0 +1,40 @@
+{
+  "parent": "feywild:winter/root",
+  "reputation": 5,
+  "icon": "minecraft:snowball",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter.snowballs.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter.snowballs.start.description"
+    }
+  },
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter.snowballs.complete.title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter.snowballs.complete.description"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "winter",
+      "item": {
+        "item": "minecraft:snowball"
+      },
+      "id": "feywild:fey_gift",
+      "times": 16
+    }
+  ],
+  "rewards": [
+    {
+      "item": {
+        "item": "minecraft:ice",
+        "count": 4
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

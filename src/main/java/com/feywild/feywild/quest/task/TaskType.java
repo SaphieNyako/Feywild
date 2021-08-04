@@ -2,6 +2,9 @@ package com.feywild.feywild.quest.task;
 
 import com.google.gson.JsonObject;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
+
+import javax.annotation.Nullable;
 
 public interface TaskType<T, X> {
     
@@ -15,5 +18,10 @@ public interface TaskType<T, X> {
     
     default boolean repeatable() {
         return true;
+    }
+    
+    @Nullable
+    default Item icon(T element) {
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import com.feywild.feywild.quest.task.TaskType;
 import com.feywild.feywild.quest.task.TaskTypes;
 import com.google.gson.JsonObject;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
 public class QuestTask {
@@ -24,11 +25,11 @@ public class QuestTask {
         }
     }
     
-    public <T> QuestTask of(TaskType<T, ?> type, T element) {
+    public static <T> QuestTask of(TaskType<T, ?> type, T element) {
         return of(type, element, 1);
     }
     
-    public <T> QuestTask of(TaskType<T, ?> type, T element, int times) {
+    public static <T> QuestTask of(TaskType<T, ?> type, T element, int times) {
         //noinspection unchecked
         return new QuestTask((TaskType<Object, Object>) type, element, times);
     }
@@ -41,9 +42,16 @@ public class QuestTask {
         }
     }
     
+    public Item icon() {
+        return this.task.icon(this.element);
+    }
+    
     public JsonObject toJson() {
         JsonObject json = this.task.toJson(this.element);
         json.addProperty("id", TaskTypes.getId(this.task).toString());
+        if (this.times != 1) {
+            json.addProperty("times", this.times);
+        }
         return json;
     }
 

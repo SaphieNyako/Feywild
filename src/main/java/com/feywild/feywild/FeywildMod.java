@@ -106,6 +106,7 @@ public class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(modid, "fey_gift"), FeyGiftTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(modid, "item"), ItemTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(modid, "kill"), KillTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(modid, "kill_empty_hand"), EmptyHandKillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(modid, "special"), SpecialTask.INSTANCE);
         RewardTypes.register(new ResourceLocation(modid, "item"), ItemReward.INSTANCE);
     }

@@ -1,0 +1,39 @@
+{
+  "parent": "feywild:autumn/root",
+  "reputation": 5,
+  "icon": "minecraft:potato",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn.food_potatoes.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn.food_potatoes.start.description"
+    }
+  },
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn.food_potatoes.complete.title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn.food_potatoes.complete.description"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "autumn",
+      "item": {
+        "item": "minecraft:potato"
+      },
+      "id": "feywild:fey_gift",
+      "times": 9
+    }
+  ],
+  "rewards": [
+    {
+      "item": {
+        "item": "minecraft:beetroot_soup"
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

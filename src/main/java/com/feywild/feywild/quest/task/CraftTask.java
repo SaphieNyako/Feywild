@@ -2,8 +2,11 @@ package com.feywild.feywild.quest.task;
 
 import com.google.gson.JsonObject;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+
+import javax.annotation.Nullable;
 
 public class CraftTask implements TaskType<Ingredient, ItemStack> {
     
@@ -38,5 +41,21 @@ public class CraftTask implements TaskType<Ingredient, ItemStack> {
         JsonObject json = new JsonObject();
         json.add("item", element.toJson());
         return json;
+    }
+
+    @Override
+    public boolean repeatable() {
+        return TaskType.super.repeatable();
+    }
+
+    @Nullable
+    @Override
+    public Item icon(Ingredient element) {
+        ItemStack[] matching = element.getItems();
+        if (matching.length == 1 && !matching[0].isEmpty()) {
+            return matching[0].getItem();
+        } else {
+            return null;
+        }
     }
 }

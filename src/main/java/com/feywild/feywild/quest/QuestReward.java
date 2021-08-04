@@ -19,7 +19,7 @@ public class QuestReward {
         }
     }
 
-    public <T> QuestReward of(RewardType<T> type, T element) {
+    public static <T> QuestReward of(RewardType<T> type, T element) {
         //noinspection unchecked
         return new QuestReward((RewardType<Object>) type, element);
     }

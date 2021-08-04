@@ -5,9 +5,13 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Quest {
@@ -17,17 +21,20 @@ public class Quest {
     public final Set<ResourceLocation> parents;
     
     public final int reputation;
-    
+
+    public final Item icon;
     public final QuestDisplay start;
+    @Nullable
     public final QuestDisplay complete;
-    
+
     public final List<QuestTask> tasks;
     public final List<QuestReward> rewards;
 
-    public Quest(ResourceLocation id, Set<ResourceLocation> parents, int reputation, QuestDisplay start, QuestDisplay complete, List<QuestTask> tasks, List<QuestReward> rewards) {
+    public Quest(ResourceLocation id, Set<ResourceLocation> parents, int reputation, Item icon, QuestDisplay start, @Nullable QuestDisplay complete, List<QuestTask> tasks, List<QuestReward> rewards) {
         this.id = id;
         this.parents = ImmutableSet.copyOf(parents);
         this.reputation = reputation;
+        this.icon = icon;
         this.start = start;
         this.complete = complete;
         this.tasks = ImmutableList.copyOf(tasks);
@@ -37,6 +44,11 @@ public class Quest {
         }
         if (this.parents.contains(this.id)) {
             throw new IllegalStateException("Can't create quest with self-reference.");
+        }
+        if (this.complete == null && !this.tasks.isEmpty()) {
+            throw new IllegalStateException("A quest that has tasks needs a completion.");
+        } else if (this.complete != null && this.tasks.isEmpty()) {
+            throw new IllegalStateException("A quest that has no tasks can't have a completion.");
         }
     }
     
@@ -50,8 +62,11 @@ public class Quest {
             json.add("parent", array);
         }
         json.addProperty("reputation", this.reputation);
+        json.addProperty("icon", Objects.requireNonNull(this.icon.getRegistryName()).toString());
         json.add("start", this.start.toJson());
-        json.add("complete", this.start.toJson());
+        if (this.complete != null) {
+            json.add("complete", this.complete.toJson());
+        }
         if (!this.tasks.isEmpty()) {
             JsonArray array = new JsonArray();
             for (QuestTask task : this.tasks) {
@@ -80,8 +95,9 @@ public class Quest {
             parents.add(new ResourceLocation(json.get("parent").getAsString()));
         }
         int reputation = json.has("reputation") ? json.get("reputation").getAsInt() : 5;
+        Item icon = ForgeRegistries.ITEMS.getValue(new ResourceLocation(json.get("icon").getAsString()));
         QuestDisplay start = QuestDisplay.fromJson(json.get("start").getAsJsonObject());
-        QuestDisplay complete = QuestDisplay.fromJson(json.get("complete").getAsJsonObject());
+        QuestDisplay complete = json.has("complete") ? QuestDisplay.fromJson(json.get("complete").getAsJsonObject()) : null;
         ImmutableList.Builder<QuestTask> tasks = ImmutableList.builder();
         if (json.has("tasks")) {
             for (JsonElement elem : json.get("tasks").getAsJsonArray()) {
@@ -94,6 +110,6 @@ public class Quest {
                 rewards.add(QuestReward.fromJson(elem.getAsJsonObject()));
             }
         }
-        return new Quest(id, parents.build(), reputation, start, complete, tasks.build(), rewards.build());
+        return new Quest(id, parents.build(), reputation, icon, start, complete, tasks.build(), rewards.build());
     }
 }
