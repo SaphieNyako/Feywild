@@ -1,5 +1,7 @@
 package com.feywild.feywild.block.flower;
 
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.network.ParticleSerializer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,6 +33,14 @@ public class Dandelion extends GiantFlowerBlock {
     @Override
     protected void tickFlower(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         
+    }
+
+    @Override
+    public void onRemove(@Nonnull BlockState oldState, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
+        super.onRemove(oldState, world, pos, newState, moving);
+        if (oldState.getValue(VARIANT) == 2) {
+            FeywildMod.getNetwork().sendParticles(world, ParticleSerializer.Type.DANDELION_FLUFF, pos);
+        }
     }
 
     @Override
