@@ -1,35 +1,32 @@
 package com.feywild.feywild.events;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ItemEntityMessage;
-import com.feywild.feywild.network.LibrarianScreenMessage;
-import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.OpenLibraryScreenSerializer;
+import com.feywild.feywild.network.old.ItemEntityMessage;
+import com.feywild.feywild.network.old.LibrarianScreenMessage;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.ClientUtil;
-import com.feywild.feywild.util.MenuScreen;
+import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.ModUtil;
 import com.feywild.feywild.util.configs.Config;
-import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.scoreboard.Score;
 import net.minecraft.util.Hand;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.network.PacketDistributor;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -104,6 +101,7 @@ public class ModEvents {
         }
     }
 
+    // TODO cleanup later, just temporarily added the network here to test the screen
     private void villagerInteract(PlayerInteractEvent.EntityInteract event) {
         //Check if it's a villager
         if (event.getTarget() instanceof VillagerEntity) {
@@ -112,12 +110,10 @@ public class ModEvents {
             PlayerEntity player = event.getPlayer();
             PlayerInventory playerInventory = player.inventory;
 
-            if (villagerEntity.getTags().contains("feywild_librarian") && !event.getTarget().level.isClientSide) {
+            if (villagerEntity.getTags().contains("feywild_librarian") && !event.getTarget().level.isClientSide && player instanceof ServerPlayerEntity) {
                 player.sendMessage(new TranslationTextComponent("librarian.feywild.initial"), player.getUUID());
-                for (int i = 0; i < ModUtil.getLibrarianBooks().size(); i++) {
-                    FeywildPacketHandler.sendToPlayer(new ItemEntityMessage(ModUtil.getLibrarianBooks().get(i)), player);
-                }
-                FeywildPacketHandler.sendToPlayer(new LibrarianScreenMessage(),player);
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new OpenLibraryScreenSerializer.Message(villagerEntity.getDisplayName(), LibraryBooks.getLibraryBooks()));
+                player.swing(event.getHand(), true);
                 event.setCanceled(true);
             }
         }

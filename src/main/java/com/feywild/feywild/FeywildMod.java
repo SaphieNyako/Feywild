@@ -1,8 +1,6 @@
 package com.feywild.feywild;
 
-import com.feywild.feywild.container.ModContainers;
 import com.feywild.feywild.data.DataGenerators;
-import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
@@ -11,17 +9,13 @@ import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.quest.QuestManager;
-import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.trade.TradeManager;
+import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.util.serializer.UtilManager;
-import com.feywild.feywild.world.biome.ModBiomes;
-import com.feywild.feywild.world.biome.ModSurfaceBuilders;
-import com.feywild.feywild.world.feature.ModFeatures;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -72,6 +66,7 @@ import java.util.Set;
 public class FeywildMod extends ModXRegistration {
     
     private static FeywildMod instance;
+    private static FeywildNetwork network;
     
     public FeywildMod() {
         super("feywild", new ItemGroup("feywild") {
@@ -84,6 +79,7 @@ public class FeywildMod extends ModXRegistration {
         });
         
         instance = this;
+        network = new FeywildNetwork(this);
         
         GeckoLib.initialize();
 
@@ -106,9 +102,13 @@ public class FeywildMod extends ModXRegistration {
         return instance;
     }
 
+    @Nonnull
+    public static FeywildNetwork getNetwork() {
+        return network;
+    }
+
     @Override
     protected void setup(final FMLCommonSetupEvent event) {
-        FeywildPacketHandler.register();
         SpawnData.registerSpawn();
         QuestManager.instance();
         UtilManager.instance();
@@ -140,6 +140,7 @@ public class FeywildMod extends ModXRegistration {
     //This might have a conflict when merging with the quests
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
+        event.addListener(LibraryBooks.createReloadListener());
         event.addListener(TradeManager.createReloadListener());
 //        event.addListener(QuestManager.instance());
 //        event.addListener(UtilManager.instance());

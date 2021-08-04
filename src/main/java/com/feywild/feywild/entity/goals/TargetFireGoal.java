@@ -1,8 +1,8 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.SummerPixieEntity;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.EntityPredicate;
@@ -78,9 +78,10 @@ public class TargetFireGoal extends Goal {
     protected void setTargetOnFire(MonsterEntity monsterEntity) {
         monsterEntity.setSecondsOnFire(120);
 
-        FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(entity.blockPosition().getX(), entity.blockPosition().getY() + 1, entity.blockPosition().getZ(), targetMonster.getX(), targetMonster.getY() + 1, targetMonster.getZ(), -20, 5, 0.12f)
-                , 64);
+        // TODO networking
+//        FeywildNetwork.sendToPlayersInRange(worldLevel, entity.blockPosition()
+//                , new ParticleMessage(entity.blockPosition().getX(), entity.blockPosition().getY() + 1, entity.blockPosition().getZ(), targetMonster.getX(), targetMonster.getY() + 1, targetMonster.getZ(), -20, 5, 0.12f)
+//                , 64);
 
     }
 

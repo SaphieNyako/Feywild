@@ -9,10 +9,9 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import org.apache.commons.io.IOUtils;
+import net.minecraftforge.fml.ModList;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -69,10 +68,12 @@ public class DatapackHelper {
                     Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
                     JsonElement json = GSON.fromJson(reader, JsonElement.class);
                     for (JsonElement elem : json.getAsJsonArray()) {
-                        try {
-                            list.add(CraftingHelper.getItemStack(elem.getAsJsonObject(), true));
-                        } catch (JsonSyntaxException e) {
-                            //
+                        if (!elem.isJsonObject() || !elem.getAsJsonObject().has("mod") || ModList.get().isLoaded(elem.getAsJsonObject().get("mod").getAsString())) {
+                            try {
+                                list.add(CraftingHelper.getItemStack(elem.getAsJsonObject(), true));
+                            } catch (JsonSyntaxException e) {
+                                //
+                            }
                         }
                     }
                 }

@@ -1,35 +1,24 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.SpringPixieEntity;
-import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.OpenQuestScreen;
-import com.feywild.feywild.network.QuestMessage;
-import com.feywild.feywild.network.RequestOpenQuestScreen;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.QuestMessage;
+import com.feywild.feywild.network.old.RequestOpenQuestScreen;
 import com.feywild.feywild.quest.MessageQuest;
 import com.feywild.feywild.screens.widget.LookingGlassWidget;
 import com.feywild.feywild.screens.widget.QuestWidget;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -108,8 +97,9 @@ public class PixieScreen extends Screen {
             int c = 0x2714;
 
             addButton(new Button(this.width / 6, this.height / 3 + 9 * lines.size() + 20, 20, 20, new StringTextComponent(Character.toString((char) c)), button -> {
-                if(quests.get(0).canSkip())
-                FeywildPacketHandler.INSTANCE.sendToServer(new QuestMessage("append&"+quests.get(0).getId().toString(),null));
+                // TODO networking
+//                if(quests.get(0).canSkip())
+//                FeywildNetwork.INSTANCE.sendToServer(new QuestMessage("append&"+quests.get(0).getId().toString(),null));
                 this.onClose();
             }));
 
@@ -142,7 +132,8 @@ public class PixieScreen extends Screen {
     }
 
     private void loadQuest(Button button){
-        FeywildPacketHandler.INSTANCE.sendToServer(new RequestOpenQuestScreen(questMap.get(button), id));
+        // TODO networking
+//        FeywildNetwork.INSTANCE.sendToServer(new RequestOpenQuestScreen(questMap.get(button), id));
     }
 
     @Override

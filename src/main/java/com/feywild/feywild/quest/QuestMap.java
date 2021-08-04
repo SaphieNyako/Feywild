@@ -2,8 +2,8 @@ package com.feywild.feywild.quest;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.QuestCompletionEvent;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.QuestMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.QuestMessage;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -169,7 +169,8 @@ public class QuestMap {
                 entity.getPersistentData().putString("FWQuest", questProgressData);
 
                 entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
-                FeywildPacketHandler.sendToPlayer(new QuestMessage(questProgressData, entity.getUUID()), entity);
+                // TODO networking
+//                FeywildNetwork.sendToPlayer(new QuestMessage(questProgressData, entity.getUUID()), entity);
             }
         }
 

@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.util;
 
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.*;
@@ -135,7 +135,8 @@ public abstract class FeyEntity extends CreatureEntity {
 
             heal(4f);
             player.getItemInHand(hand).shrink(1);
-            FeywildPacketHandler.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1, 0), 32);
+            // TODO networking
+//            FeywildNetwork.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1, 0), 32);
         }
         return ActionResultType.SUCCESS;
     }

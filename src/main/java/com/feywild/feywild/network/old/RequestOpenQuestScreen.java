@@ -1,19 +1,14 @@
-package com.feywild.feywild.network;
+package com.feywild.feywild.network.old;
 
 import com.feywild.feywild.quest.MessageQuest;
 import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.ClientUtil;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class RequestOpenQuestScreen {
@@ -44,7 +39,7 @@ public class RequestOpenQuestScreen {
                 if(ctx.get().getDirection().getReceptionSide().isServer()) {
                     PlayerEntity playerEntity = ctx.get().getSender();
                     Quest quest1 = QuestMap.getQuest(quest.toString());
-                    FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(quest1.getId(),quest1.getText(),quest1.getName(),quest1.getIcon(),quest1.canSkip())), id),playerEntity);
+//                    FeywildNetwork.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(quest1.getId(),quest1.getText(),quest1.getName(),quest1.getIcon(),quest1.canSkip())), id),playerEntity);
                     ctx.get().setPacketHandled(true);
                 }
             }catch (Exception e) {

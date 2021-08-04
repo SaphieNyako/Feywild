@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.feature;
 
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
+import com.feywild.feywild.block.flower.GiantFlowerSeedItem;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -42,17 +43,14 @@ public class GiantFlowerFeature extends Feature<NoFeatureConfig> {
             return false;
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < this.block.height; i++) {
             //noinspection deprecation
             if (!world.getBlockState(pos.above(i)).isAir()) {
                 return false;
             }
         }
-
-        world.setBlock(pos, this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 0), 3);
-        world.setBlock(pos.above(1), this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 1), 3);
-        world.setBlock(pos.above(2), this.block.defaultBlockState().setValue(GiantFlowerBlock.PART, 2), 3);
-        world.setBlock(pos.above(3), this.block.flowerState(world, pos.above(3), random).setValue(GiantFlowerBlock.PART, 3), 3);
+        
+        GiantFlowerSeedItem.placeFlower(this.block, world, pos, random, 3);
         return true;
     }
 }

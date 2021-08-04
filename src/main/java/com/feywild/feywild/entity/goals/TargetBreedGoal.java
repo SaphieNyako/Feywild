@@ -1,8 +1,8 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.SpringPixieEntity;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.EntityPredicate;
@@ -111,10 +111,11 @@ public class TargetBreedGoal extends Goal {
     protected void breed(AnimalEntity animalEntity, AnimalEntity partner) {
         animalEntity.spawnChildFromBreeding((ServerWorld) animalEntity.level, partner);
 
+        // TODO networking
         //For a better effect we should add our own particles
-        FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(this.entity.blockPosition().getX(), this.entity.blockPosition().getY() + 1, this.entity.blockPosition().getZ(), this.targetAnimal.blockPosition().getX() + 0.5, this.targetAnimal.blockPosition().getY() + 0.5, this.targetAnimal.blockPosition().getZ() + 0.5, -10, 6, 0.11f)
-                , 64);
+//        FeywildNetwork.sendToPlayersInRange(worldLevel, entity.blockPosition()
+//                , new ParticleMessage(this.entity.blockPosition().getX(), this.entity.blockPosition().getY() + 1, this.entity.blockPosition().getZ(), this.targetAnimal.blockPosition().getX() + 0.5, this.targetAnimal.blockPosition().getY() + 0.5, this.targetAnimal.blockPosition().getZ() + 0.5, -10, 6, 0.11f)
+//                , 64);
 
     }
 

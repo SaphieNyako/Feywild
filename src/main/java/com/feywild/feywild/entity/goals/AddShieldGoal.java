@@ -2,8 +2,8 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.AutumnPixieEntity;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.ai.goal.Goal;
@@ -72,9 +72,10 @@ public class AddShieldGoal extends Goal {
 
         target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
         target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
-        FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(target.getX(), target.getY(), target.getZ(), 0, 0, 0, 10, 0, 0)
-                , 64);
+        // TODO networking
+//        FeywildNetwork.sendToPlayersInRange(worldLevel, entity.blockPosition()
+//                , new ParticleMessage(target.getX(), target.getY(), target.getZ(), 0, 0, 0, 10, 0, 0)
+//                , 64);
 
     }
 

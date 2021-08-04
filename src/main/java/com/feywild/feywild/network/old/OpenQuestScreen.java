@@ -1,4 +1,4 @@
-package com.feywild.feywild.network;
+package com.feywild.feywild.network.old;
 
 import com.feywild.feywild.quest.MessageQuest;
 import com.feywild.feywild.util.ClientUtil;

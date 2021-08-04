@@ -1,4 +1,4 @@
-package com.feywild.feywild.network;
+package com.feywild.feywild.network.old;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;

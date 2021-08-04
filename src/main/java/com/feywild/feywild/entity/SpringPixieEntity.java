@@ -5,13 +5,12 @@ import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
 import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.events.ModEvents;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.OpenQuestScreen;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.network.old.OpenQuestScreen;
+import com.feywild.feywild.network.old.ParticleMessage;
 import com.feywild.feywild.quest.MessageQuest;
 import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestMap;
-import com.feywild.feywild.util.ModUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -24,7 +23,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SStopSoundPacket;
-import net.minecraft.scoreboard.Score;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -99,7 +97,8 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
                         ResourceLocation res = new ResourceLocation(FeywildMod.getInstance().modid,"spring_init");
                         Quest quest =QuestMap.getQuest(res.toString());
                         assert quest != null;
-                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())),0), player);
+                        // TODO networking
+//                        FeywildNetwork.sendToPlayer(new OpenQuestScreen(Collections.singletonList(new MessageQuest(res, quest.getText(), quest.getName(), quest.getIcon(),quest.canSkip())),0), player);
 
                         if(!quest.getSound().equals("NULL")){
                             ((ServerPlayerEntity)player).connection.send(new SStopSoundPacket(new ResourceLocation(quest.getSound()),SoundCategory.VOICE));
@@ -116,14 +115,16 @@ public class SpringPixieEntity extends FeyEntity implements IAnimatable {
                             quest = QuestMap.getQuest(s);
                             list.add(new MessageQuest(new ResourceLocation(s),Objects.requireNonNull(quest).getText(),Objects.requireNonNull(quest).getName(),Objects.requireNonNull(quest).getIcon(),quest.canSkip()));
                         }
-                        FeywildPacketHandler.sendToPlayer(new OpenQuestScreen(list,0), player);
+                        // TODO networking
+//                        FeywildNetwork.sendToPlayer(new OpenQuestScreen(list,0), player);
                     }
                 }
             } else {
 
                 if (ModEvents.genericInteract(player, hand, this, true)) {
                     player.sendMessage(new TranslationTextComponent("spring_fey_thanks"), player.getUUID());
-                    FeywildPacketHandler.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX(), getY() + 0.5, getZ(), 0, 0, 0, 10, 1, 0), 64);
+                    // TODO networking
+//                    FeywildNetwork.sendToPlayersInRange(player.level, blockPosition(), new ParticleMessage(getX(), getY() + 0.5, getZ(), 0, 0, 0, 10, 1, 0), 64);
                 }
             }
 
