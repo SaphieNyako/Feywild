@@ -59,7 +59,7 @@ public class TradeLevelData {
     }
     
     public List<VillagerTrades.ITrade> selectTrades(int trades, Random random) {
-        int tradesToSelect = Math.min(trades, this.trades.size());
+        int tradesToSelect = this.allowDuplicates ? trades : Math.min(trades, this.trades.size());
         if (tradesToSelect == 0) {
             return ImmutableList.of();
         } else if (tradesToSelect == 1) {
