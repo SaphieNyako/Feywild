@@ -1,6 +1,5 @@
 package com.feywild.feywild.world.biome;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.configs.Config;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -52,10 +51,10 @@ public class ModBiomeGeneration {
             event.enqueueWork(() ->
             {
 
-                addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, Config.SPRING_BIOME_CONFIG.getCachedWeight(), MAGICAL, FOREST);
-                addBiome(ModBiomes.goldenSeelieFields, BiomeManager.BiomeType.WARM, Config.SUMMER_BIOME_CONFIG.getCachedWeight(), MAGICAL, HOT);
-                addBiome(ModBiomes.eternalFall, BiomeManager.BiomeType.WARM, Config.AUTUMN_BIOME_CONFIG.getCachedWeight(), MAGICAL, MUSHROOM);
-                addBiome(ModBiomes.frozenRetreat, BiomeManager.BiomeType.ICY, Config.WINTER_BIOME_CONFIG.getCachedWeight(), MAGICAL, COLD);
+                addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, BiomeDictionary.Type.OVERWORLD, Config.SPRING_BIOME_CONFIG.getCachedWeight(), MAGICAL, FOREST);
+                addBiome(ModBiomes.goldenSeelieFields, BiomeManager.BiomeType.WARM, BiomeDictionary.Type.OVERWORLD, Config.SUMMER_BIOME_CONFIG.getCachedWeight(), MAGICAL, HOT);
+                addBiome(ModBiomes.eternalFall, BiomeManager.BiomeType.WARM, BiomeDictionary.Type.OVERWORLD, Config.AUTUMN_BIOME_CONFIG.getCachedWeight(), MAGICAL, MUSHROOM);
+                addBiome(ModBiomes.frozenRetreat, BiomeManager.BiomeType.ICY, BiomeDictionary.Type.OVERWORLD, Config.WINTER_BIOME_CONFIG.getCachedWeight(), MAGICAL, COLD);
             });
         }
     }
@@ -66,11 +65,12 @@ public class ModBiomeGeneration {
                 new SurfaceBuilderConfig(topBlock, fillerBlock, underwaterBlock)));
     }
 
-    private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
+    private static void addBiome(Biome biome, BiomeManager.BiomeType type, BiomeDictionary.Type worldType, int weight, BiomeDictionary.Type... types) {
 
         RegistryKey<Biome> key = RegistryKey.create(ForgeRegistries.Keys.BIOMES,
                 Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
 
+        BiomeDictionary.addTypes(key, worldType); //Terraforged
         BiomeDictionary.addTypes(key, types);
         BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
 
