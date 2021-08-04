@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
+// A trade that picks randomly from a list of other trades
 public class CompoundTrade implements VillagerTrades.ITrade {
     
     private final List<VillagerTrades.ITrade> trades;

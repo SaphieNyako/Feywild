@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+// Holds aĺl trades possible for one trader level
 public class TradeLevelData {
     
     private final int minTrades;

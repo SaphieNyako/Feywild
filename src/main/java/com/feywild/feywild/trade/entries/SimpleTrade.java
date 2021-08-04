@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+// A simple trade
 public class SimpleTrade implements VillagerTrades.ITrade {
     
     private final StackFactory input;

@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.List;
 import java.util.Random;
 
+// Holds all trades for one trade category (e.g. tamed and untamed) for all levels
 public class TradeData {
     
     public static final TradeData EMPTY = new TradeData(ImmutableList.of());
@@ -28,6 +29,15 @@ public class TradeData {
         return this.levels.get(level - 1);
     }
 
+    public VillagerData initialize(Entity merchant, VillagerData data, MerchantOffers offers, Random random) {
+        if (getMaxLevel() >= 1) {
+            getLevel(1).applyTo(merchant, offers, random);
+            return new VillagerData(data.getType(), data.getProfession(), 1);
+        } else {
+            return data;
+        }
+    }
+    
     public VillagerData levelUp(Entity merchant, VillagerData data, MerchantOffers offers, Random random) {
         if (data.getLevel() < this.getMaxLevel()) {
             getLevel(data.getLevel() + 1).applyTo(merchant, offers, random);
