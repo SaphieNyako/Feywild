@@ -84,11 +84,11 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
                         golem.setPlayerCreated(false);
                         golem.setTarget(player);
                         player.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), player.getUUID());
-                        golem.setPos(pos.getX() + 0.5, pos.getY() - 1, pos.getZ() + 0.5);
+                        golem.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
                         world.addFreshEntity(golem);
                         blockEntity.setSecurity(golem.getUUID());
                     } else {
-                        security.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                        security.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
                         if (security instanceof MobEntity) {
                             ((MobEntity) security).setTarget(player);
                         }
