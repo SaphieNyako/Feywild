@@ -1,7 +1,7 @@
 {
   "variants": {
     "part=0": {
-      "model": "feywild:block/crocus_0"
+      "model": "feywild:block/crocus_stem"
     },
     "part=1": [
       {
@@ -21,7 +21,7 @@
       }
     ],
     "part=2": {
-      "model": "feywild:block/crocus_0"
+      "model": "feywild:block/crocus_stem"
     },
     "opening_state=0,part=3": {
       "model": "feywild:block/crocus_bud"

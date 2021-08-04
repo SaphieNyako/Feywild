@@ -51,9 +51,8 @@ public class GiantFlowerSeedItem extends ItemBase {
     
     public static void placeFlower(GiantFlowerBlock block, IWorld world, BlockPos pos, Random random, int placeFlags) {
         for (int i = 0; i < block.height; i++) {
-            BlockState baseState = (i == block.height - 1) ? block.flowerState(world, pos, random) : block.defaultBlockState();
-            world.setBlock(pos.above(1), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);
-
+            BlockState baseState = (i == block.height - 1) ? block.flowerState(world, pos.above(i), random) : block.defaultBlockState();
+            world.setBlock(pos.above(i), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);
         }
     }
 }

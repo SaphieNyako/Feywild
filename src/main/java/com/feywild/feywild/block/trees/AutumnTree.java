@@ -61,7 +61,7 @@ public class AutumnTree extends BaseTree {
 
         @Override
         protected void decorateLog(BlockState state, ISeedReader world, BlockPos pos, Random random) {
-            if (random.nextDouble() < 0.1) {
+            if (random.nextDouble() < 0.02) {
                 if (world.isEmptyBlock(pos.north())) {
                     world.setBlock(pos.north(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH), 19);
                 }

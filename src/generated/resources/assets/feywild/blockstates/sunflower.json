@@ -1,7 +1,7 @@
 {
   "variants": {
     "part=0": {
-      "model": "feywild:block/sunflower_0"
+      "model": "feywild:block/sunflower_stem"
     },
     "part=1": [
       {
@@ -21,7 +21,7 @@
       }
     ],
     "part=2": {
-      "model": "feywild:block/sunflower_0"
+      "model": "feywild:block/sunflower_stem"
     },
     "part=3,time_variant=0": {
       "model": "feywild:block/sunflower_flower0"

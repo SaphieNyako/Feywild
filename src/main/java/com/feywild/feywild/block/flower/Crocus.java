@@ -31,9 +31,9 @@ public class Crocus extends GiantFlowerBlock {
     @Override
     protected void tickFlower(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (world.isNight()) {
-            world.setBlock(pos, state.setValue(OPENING_STATE, Math.max(0, state.getValue(OPENING_STATE) - 1)), 2);
+            world.setBlock(pos, state.setValue(OPENING_STATE, 0), 2);
         } else if (random.nextDouble() <= 0.4) {
-            world.setBlock(pos, state.setValue(OPENING_STATE, Math.min(2, state.getValue(OPENING_STATE) + 1)), 2);
+            world.setBlock(pos, state.setValue(OPENING_STATE, 1 + random.nextInt(2)), 2);
         }
     }
 
@@ -48,6 +48,14 @@ public class Crocus extends GiantFlowerBlock {
 
     @Override
     public BlockState flowerState(IWorld world, BlockPos pos, Random random) {
-        return this.defaultBlockState();
+        if (world instanceof World) {
+            if (((World) world).isNight()) {
+                return this.defaultBlockState().setValue(OPENING_STATE, 0);
+            } else {
+                return this.defaultBlockState().setValue(OPENING_STATE, 1 + random.nextInt(2));
+            }
+        } else {
+            return this.defaultBlockState();
+        }
     }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "part=0": {
-      "model": "feywild:block/dandelion_0"
+      "model": "feywild:block/dandelion_stem"
     },
     "part=1": [
       {
@@ -21,7 +21,7 @@
       }
     ],
     "part=2": {
-      "model": "feywild:block/dandelion_0"
+      "model": "feywild:block/dandelion_stem"
     },
     "part=3,variant=0": {
       "model": "feywild:block/dandelion_bud"

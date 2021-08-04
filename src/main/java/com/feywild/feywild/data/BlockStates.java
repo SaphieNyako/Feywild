@@ -58,8 +58,9 @@ public class BlockStates extends BlockStateProviderBase {
             });
         } else if (block instanceof GiantFlowerBlock) {
             VariantBlockStateBuilder builder = getVariantBuilder(block);
-            builder.partialState().with(GiantFlowerBlock.PART, 0).addModels(new ConfiguredModel(models().getBuilder(id.getPath() + "_0")));
-            builder.partialState().with(GiantFlowerBlock.PART, 2).addModels(new ConfiguredModel(models().getBuilder(id.getPath() + "_0")));
+            // 0 and 2 only for particles
+            builder.partialState().with(GiantFlowerBlock.PART, 0).addModels(new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_stem"))));
+            builder.partialState().with(GiantFlowerBlock.PART, 2).addModels(new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_stem"))));
             builder.partialState().with(GiantFlowerBlock.PART, 1).addModels(
                     new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_stem"))),
                     new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_stem")), 0, 90, false),
