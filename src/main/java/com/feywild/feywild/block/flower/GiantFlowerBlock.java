@@ -32,18 +32,17 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 public abstract class GiantFlowerBlock extends Block implements Registerable {
-    
+
     public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
     public static final VoxelShape FLOWER_SHAPE = box(1, 0, 1, 15, 15, 15);
-    
+
     // 0 - 2 = stem, 3 = flower
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 3);
-    
-    private final GiantFlowerSeedItem item;
     public final int height;
-    
+    private final GiantFlowerSeedItem item;
+
     public GiantFlowerBlock(ModX mod, int height) {
-        super(Properties.of(Material.PLANT).noOcclusion().harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1));
+        super(Properties.of(Material.PLANT).noOcclusion().harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8));
         this.height = height;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
         this.item = new GiantFlowerSeedItem(mod, this);
@@ -76,7 +75,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return state.getValue(PART) == 3 ? FLOWER_SHAPE : STEM_SHAPE;
     }
-    
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -104,7 +103,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
         }
         super.onRemove(oldState, world, pos, newState, moving);
     }
-    
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -117,14 +116,14 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
         // Only tick flower head
         return state.getValue(PART) == 3;
     }
-    
+
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.randomTick(state, world, pos, random);
         if (state.getValue(PART) == 3) tickFlower(state, world, pos, random);
     }
-    
+
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random random) {
@@ -136,13 +135,13 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
 
     @OnlyIn(Dist.CLIENT)
     protected abstract void animateFlower(BlockState state, World world, BlockPos pos, Random random);
-    
+
     public abstract BlockState flowerState(IWorld world, BlockPos pos, Random random);
 
     protected void removeOthers(World world, BlockState state, BlockPos pos) {
         int blocksBelow = state.getValue(PART) - (4 - height);
         int blocksAbove = 3 - state.getValue(PART);
-        
+
         for (int i = 1; i <= blocksBelow; i++) {
             BlockPos target = pos.offset(0, -i, 0);
             if (world.getBlockState(target).getBlock() == this) {
@@ -150,7 +149,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
                 world.setBlock(target, Blocks.AIR.defaultBlockState(), 2);
             }
         }
-        
+
         for (int i = 1; i <= blocksAbove; i++) {
             BlockPos target = pos.offset(0, i, 0);
             if (world.getBlockState(target).getBlock() == this) {

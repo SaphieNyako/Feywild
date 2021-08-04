@@ -4,6 +4,7 @@ import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.trees.BaseSapling;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.block.trees.FeyLogBlock;
+import com.feywild.feywild.block.trees.FeyWoodBlock;
 import com.feywild.feywild.tag.ModBlockTags;
 import io.github.noeppi_noeppi.libx.data.provider.BlockTagProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -13,7 +14,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockTagProvider extends BlockTagProviderBase {
-    
+
     public BlockTagProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
         super(mod, generator, fileHelper);
     }
@@ -26,7 +27,7 @@ public class BlockTagProvider extends BlockTagProviderBase {
 
     @Override
     public void defaultBlockTags(Block block) {
-        if (block instanceof FeyLogBlock) {
+        if (block instanceof FeyLogBlock || block instanceof FeyWoodBlock) {
             this.tag(ModBlockTags.FEY_LOGS).add(block);
         } else if (block instanceof FeyLeavesBlock) {
             this.tag(BlockTags.LEAVES).add(block);

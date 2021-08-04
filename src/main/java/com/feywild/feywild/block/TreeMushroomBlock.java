@@ -3,7 +3,10 @@ package com.feywild.feywild.block;
 import io.github.noeppi_noeppi.libx.block.DirectionShape;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
@@ -30,12 +33,12 @@ public class TreeMushroomBlock extends BlockBase {
             box(7.5, 4.75, 12, 12.5, 5.75, 16),
             box(5.0625, 12.75, 12, 10.0625, 13.75, 16)
     ));
-    
+
     public TreeMushroomBlock(ModX mod) {
         super(mod, AbstractBlock.Properties.of(Material.GRASS)
                 .sound(SoundType.FUNGUS)
                 .noOcclusion().noCollission()
-                .lightLevel(value -> 8)
+                .lightLevel(value -> 10)
         );
 
         this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
@@ -45,7 +48,7 @@ public class TreeMushroomBlock extends BlockBase {
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
-    
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
