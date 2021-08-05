@@ -89,9 +89,9 @@ public class Quest {
         public Quest deserialize(JsonObject object){
 
             try {
-                if(!object.get("sound").getAsString().equalsIgnoreCase("NULL") && Registry.SOUND_EVENT.get(new ResourceLocation(object.get("sound").getAsString())) == null){
-                    FeywildMod.getInstance().logger.fatal("Sound " + object.get("sound").getAsString() + " does not exist.");
-                }else
+//                if(!object.get("sound").getAsString().equalsIgnoreCase("NULL") && Registry.SOUND_EVENT.get(new ResourceLocation(object.get("sound").getAsString())) == null){
+//                    FeywildMod.getInstance().logger.fatal("Sound " + object.get("sound").getAsString() + " does not exist.");
+//                }else
                 if(object.get("type").getAsString().equals("quest"))
                     return new Quest(ResourceLocation.tryParse(object.get("id").getAsString()), object.get("requirements").getAsString(), object.get("reputation").getAsInt(), object.get("extraData").getAsString() + " ID " + object.get("id").getAsString(),object.get("sound").getAsString(),ShapedRecipe.itemFromJson(object.getAsJsonObject("reward")), object.get("name").getAsString(), object.get("text").getAsString(),ShapedRecipe.itemFromJson(object.getAsJsonObject("icon")),object.get("repeatable").getAsBoolean());
             }catch (Exception e){

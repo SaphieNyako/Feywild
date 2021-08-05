@@ -1,5 +1,6 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -11,6 +12,7 @@ import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.quest.old.QuestManager;
+import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
@@ -22,6 +24,7 @@ import com.feywild.feywild.util.serializer.UtilManager;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -98,6 +101,9 @@ public class FeywildMod extends ModXRegistration {
         
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
         
+        MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
+        MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
+        
         registerModAdditions();
         
         
@@ -123,6 +129,9 @@ public class FeywildMod extends ModXRegistration {
 
     @Override
     protected void setup(final FMLCommonSetupEvent event) {
+        CapabilityMana.register();
+        CapabilityQuests.register();
+        
         SpawnData.registerSpawn();
         QuestManager.instance();
         UtilManager.instance();
@@ -156,7 +165,7 @@ public class FeywildMod extends ModXRegistration {
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(LibraryBooks.createReloadListener());
         event.addListener(TradeManager.createReloadListener());
-//        event.addListener(QuestManager.instance());
+        event.addListener(QuestManager.instance());
 //        event.addListener(UtilManager.instance());
     }
 

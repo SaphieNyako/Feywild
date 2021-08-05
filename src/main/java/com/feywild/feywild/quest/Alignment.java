@@ -4,6 +4,7 @@ import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;
 import net.minecraft.entity.EntityType;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public enum Alignment {
@@ -28,6 +29,19 @@ public enum Alignment {
             case "autumn": return AUTUMN;
             case "winter": return WINTER;
             default: throw new IllegalArgumentException("Invalid fey alignment: " + id);
+        }
+    }
+    
+    public static String optionId(@Nullable Alignment alignment) {
+        return alignment == null ? "unaligned" : alignment.id;
+    }
+    
+    @Nullable
+    public static Alignment byOptionId(String id) {
+        try {
+            return byId(id);
+        } catch (IllegalArgumentException e) {
+            return null;
         }
     }
 }

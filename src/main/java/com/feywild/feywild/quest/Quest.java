@@ -20,6 +20,7 @@ public class Quest {
     // One of them is required
     public final Set<ResourceLocation> parents;
     
+    public final boolean repeatable;
     public final int reputation;
 
     public final Item icon;
@@ -30,9 +31,10 @@ public class Quest {
     public final List<QuestTask> tasks;
     public final List<QuestReward> rewards;
 
-    public Quest(ResourceLocation id, Set<ResourceLocation> parents, int reputation, Item icon, QuestDisplay start, @Nullable QuestDisplay complete, List<QuestTask> tasks, List<QuestReward> rewards) {
+    public Quest(ResourceLocation id, Set<ResourceLocation> parents, boolean repeatable, int reputation, Item icon, QuestDisplay start, @Nullable QuestDisplay complete, List<QuestTask> tasks, List<QuestReward> rewards) {
         this.id = id;
         this.parents = ImmutableSet.copyOf(parents);
+        this.repeatable = repeatable;
         this.reputation = reputation;
         this.icon = icon;
         this.start = start;
@@ -50,6 +52,9 @@ public class Quest {
         } else if (this.complete != null && this.tasks.isEmpty()) {
             throw new IllegalStateException("A quest that has no tasks can't have a completion.");
         }
+        if (this.tasks.isEmpty() && this.repeatable) {
+            throw new IllegalStateException("A quest that has no tasks can't be repeatable.");
+        }
     }
     
     public JsonObject toJson() {
@@ -60,6 +65,9 @@ public class Quest {
             JsonArray array = new JsonArray();
             this.parents.forEach(rl -> array.add(rl.toString()));
             json.add("parent", array);
+        }
+        if (this.repeatable) {
+            json.addProperty("repeatable", true);
         }
         json.addProperty("reputation", this.reputation);
         json.addProperty("icon", Objects.requireNonNull(this.icon.getRegistryName()).toString());
@@ -94,6 +102,7 @@ public class Quest {
         } else if (json.has("parent")) {
             parents.add(new ResourceLocation(json.get("parent").getAsString()));
         }
+        boolean repeatable = json.has("repeatable") && json.get("repeatable").getAsBoolean();
         int reputation = json.has("reputation") ? json.get("reputation").getAsInt() : 5;
         Item icon = ForgeRegistries.ITEMS.getValue(new ResourceLocation(json.get("icon").getAsString()));
         QuestDisplay start = QuestDisplay.fromJson(json.get("start").getAsJsonObject());
@@ -110,6 +119,6 @@ public class Quest {
                 rewards.add(QuestReward.fromJson(elem.getAsJsonObject()));
             }
         }
-        return new Quest(id, parents.build(), reputation, icon, start, complete, tasks.build(), rewards.build());
+        return new Quest(id, parents.build(), repeatable, reputation, icon, start, complete, tasks.build(), rewards.build());
     }
 }

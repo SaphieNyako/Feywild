@@ -231,6 +231,7 @@ public class QuestProvider implements IDataProvider {
         private final Alignment alignment;
         private final ResourceLocation id;
         private final Set<String> parents;
+        private boolean repeatable = false;
         private int reputation;
         private Item icon;
         private QuestDisplay start;
@@ -260,6 +261,11 @@ public class QuestProvider implements IDataProvider {
         
         public QuestBuilder parent(String... ids) {
             this.parents.addAll(Arrays.asList(ids));
+            return this;
+        }
+        
+        public QuestBuilder repeatable() {
+            this.repeatable = true;
             return this;
         }
         
@@ -322,7 +328,7 @@ public class QuestProvider implements IDataProvider {
                 throw new IllegalStateException("Can't build quest without icon: " + this.id);
             }
             Set<ResourceLocation> parents = this.parents.stream().map(str -> new ResourceLocation(mod.modid, alignment.id + "/" + str)).collect(Collectors.toSet());
-            Quest quest = new Quest(this.id, parents, this.reputation, icon, this.start, this.tasks.isEmpty() ? null : this.complete, this.tasks, this.rewards);
+            Quest quest = new Quest(this.id, parents, repeatable, this.reputation, icon, this.start, this.tasks.isEmpty() ? null : this.complete, this.tasks, this.rewards);
             quests.computeIfAbsent(this.alignment, k -> new HashSet<>()).add(quest);
         }
     }
