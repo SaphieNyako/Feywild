@@ -1,0 +1,25 @@
+{
+  "parent": [
+    "feywild:food_potatoes",
+    "feywild:food_beetroots",
+    "feywild:food_carrots"
+  ],
+  "reputation": 5,
+  "icon": "minecraft:beetroot_soup",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn.food_complete.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn.food_complete.start.description"
+    }
+  },
+  "rewards": [
+    {
+      "item": {
+        "item": "minecraft:beetroot_soup"
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

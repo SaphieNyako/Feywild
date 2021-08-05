@@ -1,6 +1,7 @@
 package com.feywild.feywild.quest;
 
 import com.google.gson.JsonObject;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
@@ -36,5 +37,19 @@ public class QuestDisplay {
             json.addProperty("sound", this.sound.getRegistryName().toString());
         }
         return json;
+    }
+    
+    public static QuestDisplay fromNetwork(PacketBuffer buffer) {
+        ITextComponent title = buffer.readComponent();
+        ITextComponent description = buffer.readComponent();
+        SoundEvent sound = buffer.readBoolean() ? buffer.readRegistryId() : null;
+        return new QuestDisplay(title, description, sound);
+    }
+    
+    public void toNetwork(PacketBuffer buffer) {
+        buffer.writeComponent(title);
+        buffer.writeComponent(description);
+        buffer.writeBoolean(this.sound != null);
+        if (this.sound != null) buffer.writeRegistryId(this.sound);
     }
 }

@@ -2,13 +2,9 @@ package com.feywild.feywild.util;
 
 import com.feywild.feywild.quest.old.MessageQuest;
 import com.feywild.feywild.screens.LibrarianScreen;
-import com.feywild.feywild.screens.PixieScreen;
-import com.feywild.feywild.util.configs.Config;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.client.event.GuiOpenEvent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +14,7 @@ public class ClientUtil {
     static List<ItemStack> books = new LinkedList<>();
 
     public static void openQuestScreen(List<MessageQuest> quest, int id) {
-        Minecraft.getInstance().setScreen(new PixieScreen(new StringTextComponent("Fey Quest"), quest, id));
+//        Minecraft.getInstance().setScreen(new PixieScreen(new StringTextComponent("Fey Quest"), quest, id));
     }
 
     public static void resetBooks() {

@@ -21,7 +21,8 @@
   "tasks": [
     {
       "action": "levitate_sheep",
-      "id": "feywild:special"
+      "id": "feywild:special",
+      "times": 3
     }
   ]
 }

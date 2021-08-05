@@ -54,7 +54,7 @@ public class QuestProvider implements IDataProvider {
         quest(SPRING, "levitate_sheep")
                 .parent("root")
                 .icon(Blocks.PINK_WOOL)
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP, 3))
                 .build();
         
         quest(SPRING, "cake")
@@ -116,35 +116,33 @@ public class QuestProvider implements IDataProvider {
                 .startSound(ModSoundEvents.summoningAutumnPixie)
                 .build();
         
-        QuestDisplay foodComplete = new QuestDisplay(
-                new TranslationTextComponent("quest.feywild.autumn.food.complete.title"),
-                new TranslationTextComponent("quest.feywild.autumn.food.complete.description"),
-                null
-        );
-        
         quest(AUTUMN, "food_potatoes")
                 .parent("root")
-                .complete(foodComplete)
+                .complete(null)
                 .gift(Ingredient.of(Items.POTATO), 9)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();
         
         quest(AUTUMN, "food_beetroots")
                 .parent("root")
-                .complete(foodComplete)
+                .complete(null)
                 .gift(Ingredient.of(Items.BEETROOT), 9)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();
         
         quest(AUTUMN, "food_carrots")
                 .parent("root")
-                .complete(foodComplete)
+                .complete(null)
                 .gift(Ingredient.of(Items.CARROT), 9)
+                .build();
+        
+        quest(AUTUMN, "food_complete")
+                .parent("food_potatoes", "food_beetroots", "food_carrots")
+                .icon(Items.BEETROOT_SOUP)
+                .complete(null)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();
         
         quest(AUTUMN, "pumpkin")
-                .parent("food_potatoes", "food_beetroots", "food_carrots")
+                .parent("food_complete")
                 .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
                 .build();
         
@@ -233,6 +231,7 @@ public class QuestProvider implements IDataProvider {
         private int reputation;
         private Item icon;
         private QuestDisplay start;
+        @Nullable
         private QuestDisplay complete;
         private final List<QuestTask> tasks;
         private final List<QuestReward> rewards;
@@ -282,7 +281,7 @@ public class QuestProvider implements IDataProvider {
             return this;
         }
         
-        public QuestBuilder complete(QuestDisplay display) {
+        public QuestBuilder complete(@Nullable QuestDisplay display) {
             this.complete = display;
             return this;
         }
@@ -293,6 +292,7 @@ public class QuestProvider implements IDataProvider {
         }
         
         public QuestBuilder completeSound(@Nullable SoundEvent sound) {
+            if (this.complete == null) throw new IllegalStateException("Can't set sound on null completion.");
             this.complete = new QuestDisplay(this.complete.title, this.complete.description, sound);
             return this;
         }

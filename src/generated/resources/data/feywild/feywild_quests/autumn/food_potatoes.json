@@ -10,14 +10,6 @@
       "translate": "quest.feywild.autumn.food_potatoes.start.description"
     }
   },
-  "complete": {
-    "title": {
-      "translate": "quest.feywild.autumn.food.complete.title"
-    },
-    "description": {
-      "translate": "quest.feywild.autumn.food.complete.description"
-    }
-  },
   "tasks": [
     {
       "alignment": "autumn",
@@ -26,14 +18,6 @@
       },
       "id": "feywild:fey_gift",
       "times": 9
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:beetroot_soup"
-      },
-      "id": "feywild:item"
     }
   ]
 }

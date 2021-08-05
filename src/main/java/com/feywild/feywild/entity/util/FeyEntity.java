@@ -4,21 +4,26 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeyWildPanicGoal;
 import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.network.quest.OpenQuestDisplaySerializer;
+import com.feywild.feywild.network.quest.OpenQuestSelectionSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
+import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,10 +39,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraftforge.fml.network.PacketDistributor;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -221,49 +227,40 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
         if (!level.isClientSide) {
             if (player instanceof ServerPlayerEntity && tryAcceptGift((ServerPlayerEntity) player, hand)) {
                 player.swing(hand, true);
-                return ActionResultType.CONSUME;
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 heal(4);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
-                return ActionResultType.CONSUME;
             } else if (this.isTamed() && player instanceof ServerPlayerEntity) {
-                return this.interactQuest((ServerPlayerEntity) player, hand); 
-            } else {
-                return ActionResultType.PASS;
+                this.interactQuest((ServerPlayerEntity) player, hand); 
             }
-        } else {
-            return ActionResultType.PASS;
         }
+        return ActionResultType.CONSUME;
     }
     
-    private ActionResultType interactQuest(ServerPlayerEntity player, Hand hand) {
+    private void interactQuest(ServerPlayerEntity player, Hand hand) {
         QuestData quests = QuestData.get(player);
         if (quests.canComplete(this.alignment)) {
-            QuestDisplay display = quests.completePendingQuest();
-            if (display != null) {
-                // TODO completion screen
-                return ActionResultType.CONSUME;
+            QuestDisplay completionDisplay = quests.completePendingQuest();
+            if (completionDisplay != null) {
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false));
+                player.swing(hand, true);
             } else {
-                List<Pair<Item, QuestDisplay>> active = quests.getActiveQuests();
-                if (active.isEmpty()) {
-                    return ActionResultType.PASS;
-                } else if (active.size() == 1) {
-                    // TODO start screen
-                    return ActionResultType.CONSUME;
-                } else {
-                    // TODO selection screen
-                    return ActionResultType.CONSUME;
+                List<SelectableQuest> active = quests.getActiveQuests();
+                if (active.size() == 1) {
+                    FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false));
+                    player.swing(hand, true);
+                } else if (!active.isEmpty()) {
+                    FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestSelectionSerializer.Message(this.getDisplayName(), this.alignment, active));
+                    player.swing(hand, true);
                 }
             }
         } else {
-            QuestDisplay display = quests.initialize(this.alignment);
-            if (display != null) {
-                // TODO confirmation screen
-                return ActionResultType.CONSUME;
-            } else {
-                return ActionResultType.PASS;
+            QuestDisplay initDisplay = quests.initialize(this.alignment);
+            if (initDisplay != null) {
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true));
+                player.swing(hand, true);
             }
         }
     }
@@ -274,6 +271,7 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
             AlignmentStack input = new AlignmentStack(this.alignment, stack);
             if (QuestData.get(player).checkComplete(FeyGiftTask.INSTANCE, input)) {
                 stack.shrink(1);
+                player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_thanks"), player.getUUID());
                 return true;
             }
         }
@@ -319,7 +317,7 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
-        if (this.entityData.get(CASTING) && !(this.dead || this.isDeadOrDying())) {
+        if (this.isCasting() && !(this.dead || this.isDeadOrDying())) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.spellcasting", true));
             return PlayState.CONTINUE;
         }

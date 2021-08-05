@@ -47,9 +47,7 @@ public class Quest {
         if (this.parents.contains(this.id)) {
             throw new IllegalStateException("Can't create quest with self-reference: " + this.id);
         }
-        if (this.complete == null && !this.tasks.isEmpty()) {
-            throw new IllegalStateException("A quest that has tasks needs a completion: " + this.id);
-        } else if (this.complete != null && this.tasks.isEmpty()) {
+        if (this.complete != null && this.tasks.isEmpty()) {
             throw new IllegalStateException("A quest that has no tasks can't have a completion: " + this.id);
         }
         if (this.tasks.isEmpty() && this.repeatable) {

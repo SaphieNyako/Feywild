@@ -4,16 +4,16 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.QuestCompletionEvent;
 import com.feywild.feywild.quest.*;
 import com.feywild.feywild.quest.task.TaskType;
+import com.feywild.feywild.quest.util.SelectableQuest;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -71,7 +71,7 @@ public class QuestData {
     }
 
     public void acceptAlignment() {
-        if (this.pendingAlignment != null && this.alignment == null) {
+        if (this.pendingAlignment != null && this.alignment == null && this.player != null) {
             this.alignment = this.pendingAlignment;
             this.pendingAlignment = null;
             this.reputation = 0;
@@ -81,6 +81,10 @@ public class QuestData {
             QuestLine quests = QuestManager.getQuests(this.alignment);
             Quest rootQuest = quests == null ? null : quests.getQuest(new ResourceLocation(FeywildMod.getInstance().modid, "root"));
             if (rootQuest != null && rootQuest.tasks.isEmpty()) {
+                for (QuestReward reward : rootQuest.rewards) {
+                    reward.grantReward(this.player);
+                }
+                this.reputation += rootQuest.reputation;
                 this.completedQuests.add(rootQuest.id);
             }
             this.startNextQuests();
@@ -105,6 +109,37 @@ public class QuestData {
     public QuestLine getQuestLine() {
         return alignment == null ? null : QuestManager.getQuests(alignment);
     }
+
+    @Nullable
+    public QuestDisplay getActiveQuestDisplay(ResourceLocation id) {
+        QuestLine quests = this.getQuestLine();
+        if (quests != null && this.player != null && this.activeQuests.containsKey(id)) {
+            Quest quest = quests.getQuest(id);
+            if (quest != null) {
+                return quest.start;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public List<SelectableQuest> getActiveQuests() {
+        QuestLine quests = this.getQuestLine();
+        if (quests != null && this.player != null) {
+            ImmutableList.Builder<SelectableQuest> list = ImmutableList.builder();
+            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).collect(Collectors.toList())) {
+                Quest quest = quests.getQuest(progress.quest);
+                if (quest != null) {
+                    list.add(new SelectableQuest(quest.id, quest.icon, quest.start));
+                }
+            }
+            return list.build();
+        } else {
+            return ImmutableList.of();
+        }
+    }
     
     // if there are quests pending for completion, picks the first one, grants
     // rewards and returns a quest display for the user
@@ -122,22 +157,6 @@ public class QuestData {
             }
         }
         return null;
-    }
-    
-    public List<Pair<Item, QuestDisplay>> getActiveQuests() {
-        QuestLine quests = this.getQuestLine();
-        if (quests != null && this.player != null) {
-            ImmutableList.Builder<Pair<Item, QuestDisplay>> list = ImmutableList.builder();
-            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).collect(Collectors.toList())) {
-                Quest quest = quests.getQuest(progress.quest);
-                if (quest != null) {
-                    list.add(Pair.of(quest.icon, quest.start));
-                }
-            }
-            return list.build();
-        } else {
-            return ImmutableList.of();
-        }
     }
     
     @Nullable
@@ -180,6 +199,7 @@ public class QuestData {
             if (success) {
                 // Something was completed. Move all completed quests into the
                 // completed quests set and unlock new quests
+                boolean shouldNotify = false;
                 Iterator<QuestProgress> itr = this.activeQuests.values().iterator();
                 while (itr.hasNext()) {
                     QuestProgress progress = itr.next();
@@ -187,8 +207,12 @@ public class QuestData {
                         // grant rewards and remove quest from active quests
                         this.pendingCompletion.add(progress.quest);
                         this.completedQuests.add(progress.quest);
+                        shouldNotify = true;
                         itr.remove();
                     }
+                }
+                if (shouldNotify) {
+                    this.player.displayClientMessage(new TranslationTextComponent("message.feywild.quest_completion"), true);
                 }
                 this.startNextQuests();
             }

@@ -25,10 +25,10 @@ public class LibrarianScreen extends Screen {
     protected void init() {
         super.init();
         this.buttons.clear();
-        int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / 29, this.stacks.size()));
+        int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (BookWidget.WIDTH + 4), this.stacks.size()));
         int paddingStart = (this.width - (buttonsPerRow * 29)) / 2;
         for (int i = 0; i < stacks.size(); i++) {
-            addButton(new BookWidget(this, paddingStart + ((i % buttonsPerRow) * 29) + 2, 40 + (29 * (i / buttonsPerRow)), 25, 25, i, stacks.get(i)));
+            addButton(new BookWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 40 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)), i, stacks.get(i)));
         }
     }
 
@@ -39,17 +39,9 @@ public class LibrarianScreen extends Screen {
 
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
         renderBackground(matrixStack);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
         drawTextLines(matrixStack, mouseX, mouseY);
-        for (Widget child : this.buttons) {
-            child.render(matrixStack, mouseX, mouseY, partialTicks);
-        }
-    }
-
-    @Override
-    public void renderBackground(@Nonnull MatrixStack matrixStack) {
-        // No super call as we don't want the grey
     }
 
     private void drawTextLines(MatrixStack matrixStack, int x, int y) {

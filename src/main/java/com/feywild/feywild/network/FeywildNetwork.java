@@ -1,5 +1,6 @@
 package com.feywild.feywild.network;
 
+import com.feywild.feywild.network.quest.*;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.network.NetworkX;
 import net.minecraft.util.math.BlockPos;
@@ -29,9 +30,11 @@ public class FeywildNetwork extends NetworkX {
         this.register(new OpenLibraryScreenSerializer(), () -> OpenLibraryScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new RequestLibraryBookSerializer(), () -> RequestLibraryBookHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ParticleSerializer(), () -> ParticleHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        // TODO currently missing:
-        //  QuestMessage
-        //  RequestOpenQuestScreen
+        
+        this.register(new OpenQuestSelectionSerializer(), () -> OpenQuestSelectionHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
+        this.register(new OpenQuestDisplaySerializer(), () -> OpenQuestDisplayHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
+        this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
+        this.register(new ConfirmQuestSerializer(), () -> ConfirmQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
     }
 
     @Override
