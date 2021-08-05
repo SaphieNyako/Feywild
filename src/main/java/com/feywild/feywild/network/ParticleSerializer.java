@@ -1,9 +1,7 @@
 package com.feywild.feywild.network;
 
-
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
 
 public class ParticleSerializer implements PacketSerializer<ParticleSerializer.Message> {
 
@@ -18,6 +16,9 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
         buffer.writeDouble(msg.x);
         buffer.writeDouble(msg.y);
         buffer.writeDouble(msg.z);
+        buffer.writeDouble(msg.vx);
+        buffer.writeDouble(msg.vy);
+        buffer.writeDouble(msg.vz);
     }
 
     @Override
@@ -26,7 +27,10 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
         double x = buffer.readDouble();
         double y = buffer.readDouble();
         double z = buffer.readDouble();
-        return new Message(type, x, y, z);
+        double vx = buffer.readDouble();
+        double vy = buffer.readDouble();
+        double vz = buffer.readDouble();
+        return new Message(type, x, y, z, vx, vy, vz);
     }
 
     public static class Message {
@@ -34,17 +38,27 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
         public final double x;
         public final double y;
         public final double z;
+        public final double vx;
+        public final double vy;
+        public final double vz;
         public final Type type;
         
         public Message(Type type, double x, double y, double z) {
+            this(type, x, y, z, 0, 0, 0);
+        }
+        
+        public Message(Type type, double x, double y, double z, double vx, double vy, double vz) {
             this.x = x;
             this.y = y;
             this.z = z;
+            this.vx = vx;
+            this.vy = vy;
+            this.vz = vz;
             this.type = type;
         }
     }
     
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART
+        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE
     }
 }

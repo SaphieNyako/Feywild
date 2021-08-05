@@ -43,15 +43,19 @@ public class FeywildNetwork extends NetworkX {
     }
     
     public void sendParticles(World world, ParticleSerializer.Type type, BlockPos pos) {
-        sendParticles(world, type, pos, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+        sendParticles(world, type, pos, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
     }
 
     public void sendParticles(World world, ParticleSerializer.Type type, double x, double y, double z) {
-        BlockPos chunk = new BlockPos((int) x, (int) y, (int) z);
-        sendParticles(world, type, chunk, x, y, z);
+        sendParticles(world, type, x, y, z, 0, 0, 0);
     }
     
-    private void sendParticles(World world, ParticleSerializer.Type type, BlockPos chunk, double x, double y, double z) {
+    public void sendParticles(World world, ParticleSerializer.Type type, double x, double y, double z, double vx, double vy, double vz) {
+        BlockPos chunk = new BlockPos((int) x, (int) y, (int) z);
+        sendParticles(world, type, chunk, x, y, z, vx, vy, vz);
+    }
+    
+    private void sendParticles(World world, ParticleSerializer.Type type, BlockPos chunk, double x, double y, double z, double vx, double vy, double vz) {
         if (world instanceof ServerWorld) {
             this.instance.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z));
         }

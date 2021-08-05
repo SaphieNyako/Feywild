@@ -25,7 +25,7 @@ public class QuestDisplay {
     public static QuestDisplay fromJson(JsonObject json) {
         ITextComponent title = ITextComponent.Serializer.fromJson(json.get("title"));
         ITextComponent description = ITextComponent.Serializer.fromJson(json.get("description"));
-        SoundEvent sound = json.has("sound") ? ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(json.get("start_sound").getAsString())) : null;
+        SoundEvent sound = json.has("sound") ? ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(json.get("sound").getAsString())) : null;
         return new QuestDisplay(title, description, sound);
     }
 

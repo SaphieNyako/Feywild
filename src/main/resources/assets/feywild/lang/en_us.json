@@ -151,7 +151,7 @@
   "quest.feywild.winter.root.start.title": "Welcome to the Winter court",
   "quest.feywild.winter.root.start.description": "Such inconvenience...why did you summon me Mortal?$(n)This ordeal will most certainly lead to your premature demise.$(n)But then maybe we can be friends...$(n)$(n)$(b;blue)Accepting this quest will bind you to the Winter Court!$()",
   "quest.feywild.winter.snowballs.start.title": "Setting up defences",
-  "quest.feywild.winter.snowballs.start.description": "Greetings mortal...Your arrival is as expected.$(n)As protection in the vicinity was severely lacking,$(n)I had to take it upon myself to summon souls to protect the base.$(n)Sigh.....such waste of time and magic.$(n)And now their frozen bodies are collapsing,$(n)Either you $(green)provide$() me with more $(green)snow(),$(n)or we can die a horrible death by a hungry zombie horde...$(n)Either way is fine by me...",
+  "quest.feywild.winter.snowballs.start.description": "Greetings mortal...Your arrival is as expected.$(n)As protection in the vicinity was severely lacking,$(n)I had to take it upon myself to summon souls to protect the base.$(n)Sigh.....such waste of time and magic.$(n)And now their frozen bodies are collapsing,$(n)Either you $(green)provide$() me with more $(green)snow$(),$(n)or we can die a horrible death by a hungry zombie horde...$(n)Either way is fine by me...",
   "quest.feywild.winter.snowballs.complete.title": "Setting up defences",
   "quest.feywild.winter.snowballs.complete.description": "Ah mortal. You have performed as expected of a non-fey being!$(n)– The pixie pats you on the head –$(n)There, there, you have done well!",
   "quest.feywild.winter.skull.start.title": "Peculiar Disguise",

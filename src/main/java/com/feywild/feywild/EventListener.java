@@ -73,6 +73,7 @@ public class EventListener {
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getPlayer().level.isClientSide && !event.getPlayer().getPersistentData().getBoolean("feywild_got_lexicon") && Config.SPAWN_LEXICON.get()) {
             event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
+            event.getPlayer().getPersistentData().putBoolean("feywild_got_lexicon", true);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.feywild.feywild.network;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -22,6 +23,27 @@ public class ParticleHandler {
                     case FEY_HEART:
                         for (int i = 0; i < 5; i++) {
                             world.addParticle(ParticleTypes.HEART, true, msg.x - 0.3 + (0.6 * world.random.nextDouble()), msg.y + (0.6 * world.random.nextDouble()), msg.z - 0.3 + (0.6 * world.random.nextDouble()), 0, 0, 0);
+                        }
+                        break;
+                    case WIND_WALK:
+                        for (int i = 0; i < 10; i++) {
+                            world.addParticle(ParticleTypes.WITCH, true, msg.x - 0.5 + world.random.nextDouble(), msg.y + 0.25 + world.random.nextDouble(), msg.z - 0.5 + world.random.nextDouble(), 0, 0, 0);
+                        }
+                        break;
+                    case ANIMAL_BREED:
+                        for (int i = 0; i < 10; i++) {
+                            double x = msg.x - 0.5 + world.random.nextDouble();
+                            double y = msg.y + world.random.nextDouble();
+                            double z = msg.z - 0.5 + world.random.nextDouble();
+                            world.addParticle(ParticleTypes.TOTEM_OF_UNDYING, true, x, y, z, (msg.vx - x) * 0.11, (msg.vy - y) * 0.11, (msg.vz - z) * 0.11);
+                        }
+                        break;
+                    case MONSTER_FIRE:
+                        for (int i = 0; i < 20; i++) {
+                            double x = msg.x - 0.5 + world.random.nextDouble();
+                            double y = msg.y + world.random.nextDouble();
+                            double z = msg.z - 0.5 + world.random.nextDouble();
+                            world.addParticle(ParticleTypes.FLAME, true, x, y, z, (msg.vx - x) * 0.15, (msg.vy - y) * 0.15, (msg.vz - z) * 0.15);
                         }
                         break;
                 }
