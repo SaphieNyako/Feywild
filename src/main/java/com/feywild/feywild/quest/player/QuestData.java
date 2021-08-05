@@ -29,6 +29,7 @@ public class QuestData {
     
     @Nullable
     private Alignment alignment;
+    private int reputation;
     // Quests are completed but the player did not interact with the fey since then
     private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
     private final Set<ResourceLocation> completedQuests = new HashSet<>();
@@ -49,6 +50,7 @@ public class QuestData {
             QuestLine quests = QuestManager.getQuests(alignment);
             if (quests != null) {
                 this.alignment = alignment;
+                this.reputation = 0;
                 this.startNextQuests();
                 return true;
             } else {
@@ -57,6 +59,16 @@ public class QuestData {
         } else {
             return this.alignment == alignment;
         }
+    }
+    
+    public boolean reset() {
+        Alignment oldAlignment = this.alignment;
+        this.alignment = null;
+        this.reputation = 0;
+        this.pendingCompletion.clear();
+        this.completedQuests.clear();
+        this.activeQuests.clear();
+        return oldAlignment != null;
     }
     
     @Nullable
@@ -91,6 +103,7 @@ public class QuestData {
                 for (QuestReward reward : quest.rewards) {
                     reward.grantReward(player);
                 }
+                this.reputation += quest.reputation;
                 return display;
             } else {
                 return null;
@@ -158,6 +171,7 @@ public class QuestData {
     public CompoundNBT write() {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("Alignment", Alignment.optionId(this.alignment));
+        nbt.putInt("Reputation", 0);
         ListNBT pending = new ListNBT();
         for (ResourceLocation quest : this.pendingCompletion) {
             pending.add(StringNBT.valueOf(quest.toString()));
@@ -178,6 +192,7 @@ public class QuestData {
 
     public void read(CompoundNBT nbt) {
         this.alignment = Alignment.byOptionId(nbt.getString("Alignment"));
+        this.reputation = nbt.getInt("Reputation");
         ListNBT pending = nbt.getList("Pending", Constants.NBT.TAG_STRING);
         this.pendingCompletion.clear();
         for (int i = 0; i < pending.size(); i++) {
