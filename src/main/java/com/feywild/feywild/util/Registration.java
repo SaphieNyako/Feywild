@@ -61,7 +61,7 @@ public class Registration {
         BLOCKS.register(eventBus);
         TILE_ENTITY_TYPES.register(eventBus);
         CONTAINERS.register(eventBus);
-        ENTITIES.register(eventBus);
+//        ENTITIES.register(eventBus);
         SOUND_EVENTS.register(eventBus);
         ITEMS.register(eventBus);
         RECIPE_SERIALIZER.register(eventBus);

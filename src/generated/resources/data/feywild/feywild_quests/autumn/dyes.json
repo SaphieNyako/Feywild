@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:autumn/pumpkin",
+  "parent": "feywild:pumpkin",
   "reputation": 5,
   "icon": "minecraft:red_dye",
   "start": {

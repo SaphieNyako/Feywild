@@ -6,12 +6,10 @@ import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.events.ClientEvents;
-import com.feywild.feywild.events.ModEvents;
 import com.feywild.feywild.events.SpawnData;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.quest.old.QuestManager;
+import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.reward.RewardTypes;
@@ -20,7 +18,6 @@ import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
-import com.feywild.feywild.util.serializer.UtilManager;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -103,6 +100,7 @@ public class FeywildMod extends ModXRegistration {
         
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
+        MinecraftForge.EVENT_BUS.register(new EventListener());
         
         registerModAdditions();
         
@@ -133,15 +131,13 @@ public class FeywildMod extends ModXRegistration {
         CapabilityQuests.register();
         
         SpawnData.registerSpawn();
-        QuestManager.instance();
-        UtilManager.instance();
 
         event.enqueueWork(() -> {
             // TODO use event (see javadoc of put)
-            GlobalEntityTypeAttributes.put(ModEntityTypes.springPixie, FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.winterPixie, FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.summerPixie, FeyEntity.setCustomAttributes().build());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.autumnPixie, FeyEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.springPixie, FeyEntity.getDefaultAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.winterPixie, FeyEntity.getDefaultAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.summerPixie, FeyEntity.getDefaultAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntityTypes.autumnPixie, FeyEntity.getDefaultAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
             
             ModStructures.setupStructures();
@@ -152,7 +148,6 @@ public class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
-        MinecraftForge.EVENT_BUS.register(new ClientEvents());
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
@@ -165,7 +160,7 @@ public class FeywildMod extends ModXRegistration {
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(LibraryBooks.createReloadListener());
         event.addListener(TradeManager.createReloadListener());
-        event.addListener(QuestManager.instance());
+        event.addListener(QuestManager.createReloadListener());
 //        event.addListener(UtilManager.instance());
     }
 
@@ -183,7 +178,6 @@ public class FeywildMod extends ModXRegistration {
     private void registerModAdditions() {
         Registration.init();
         modStructuresRegister();
-        MinecraftForge.EVENT_BUS.register(new ModEvents());
     }
 
     //Communication with other mods.

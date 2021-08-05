@@ -99,6 +99,6 @@ public class TargetFireGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.005f;
+        return entity.isTamed() && entity.level.random.nextFloat() < 0.005f;
     }
 }

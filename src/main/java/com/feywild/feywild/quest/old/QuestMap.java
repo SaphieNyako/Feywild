@@ -97,10 +97,10 @@ public class QuestMap {
 
         if (hasActiveQuest(questProgressData, quest) && !entity.level.isClientSide) {
 
-            QuestCompletionEvent event = new QuestCompletionEvent(entity, quest, rep);
-            MinecraftForge.EVENT_BUS.post(event);
+//            QuestCompletionEvent event = new QuestCompletionEvent(entity, quest, rep);
+//            MinecraftForge.EVENT_BUS.post(event);
 
-            if (!event.isCanceled()) {
+//            if (!event.isCanceled()) {
                 // Set court alignments
                 if (quest.getId().equals(new ResourceLocation(FeywildMod.getInstance().modid, "spring_init"))) {
                     entity.addTag(Courts.SpringAligned.toString());
@@ -169,7 +169,7 @@ public class QuestMap {
                 entity.displayClientMessage(new TranslationTextComponent("message.quest_completion_spring"), true);
                 // TODO networking
 //                FeywildNetwork.sendToPlayer(new QuestMessage(questProgressData, entity.getUUID()), entity);
-            }
+//            }
         }
 
     }

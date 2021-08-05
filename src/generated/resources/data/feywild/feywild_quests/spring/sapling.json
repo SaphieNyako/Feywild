@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:spring/honey",
+  "parent": "feywild:honey",
   "reputation": 5,
   "icon": "feywild:spring_tree_sapling",
   "start": {

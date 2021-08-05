@@ -45,6 +45,5 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
         this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight); //might be wrong
         //position to place x, y position to get x, y width height and height is determined by the manalevel
         this.blit(matrixStack, this.leftPos + 13, this.topPos + 9, 176, 0, 11, 64 - (int) (container.tile.getMana() / 15.6f));
-
     }
 }

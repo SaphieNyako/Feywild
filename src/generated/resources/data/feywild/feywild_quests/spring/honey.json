@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:spring/cake",
+  "parent": "feywild:cake",
   "reputation": 5,
   "icon": "minecraft:honeycomb",
   "start": {

@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:summer/bee_nest",
+  "parent": "feywild:bee_nest",
   "reputation": 5,
   "icon": "minecraft:iron_axe",
   "start": {

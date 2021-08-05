@@ -41,19 +41,19 @@ public class Quest {
         this.complete = complete;
         this.tasks = ImmutableList.copyOf(tasks);
         this.rewards = ImmutableList.copyOf(rewards);
-        if (this.parents.isEmpty() && !this.id.getPath().endsWith("/root")) {
-            throw new IllegalStateException("Can't create non-root quest without parents.");
+        if (this.parents.isEmpty() && !this.id.getPath().equals("root")) {
+            throw new IllegalStateException("Can't create non-root quest without parents: " + this.id);
         }
         if (this.parents.contains(this.id)) {
-            throw new IllegalStateException("Can't create quest with self-reference.");
+            throw new IllegalStateException("Can't create quest with self-reference: " + this.id);
         }
         if (this.complete == null && !this.tasks.isEmpty()) {
-            throw new IllegalStateException("A quest that has tasks needs a completion.");
+            throw new IllegalStateException("A quest that has tasks needs a completion: " + this.id);
         } else if (this.complete != null && this.tasks.isEmpty()) {
-            throw new IllegalStateException("A quest that has no tasks can't have a completion.");
+            throw new IllegalStateException("A quest that has no tasks can't have a completion: " + this.id);
         }
         if (this.tasks.isEmpty() && this.repeatable) {
-            throw new IllegalStateException("A quest that has no tasks can't be repeatable.");
+            throw new IllegalStateException("A quest that has no tasks can't be repeatable: " + this.id);
         }
     }
     

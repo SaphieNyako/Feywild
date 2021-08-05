@@ -91,6 +91,6 @@ public class AddShieldGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.002f;
+        return entity.level.random.nextFloat() < 0.002f && !entity.isTamed();
     }
 }

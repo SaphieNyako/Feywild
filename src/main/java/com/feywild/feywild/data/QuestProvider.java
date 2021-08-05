@@ -190,14 +190,12 @@ public class QuestProvider implements IDataProvider {
     @Override
     public void run(@Nonnull DirectoryCache cache) throws IOException {
         this.setup();
-        Set<ResourceLocation> allIds = new HashSet<>();
         for (Alignment alignment : quests.keySet()) {
             Set<ResourceLocation> ids = new HashSet<>();
             for (Quest quest : quests.get(alignment)) {
-                if (allIds.contains(quest.id)) {
+                if (ids.contains(quest.id)) {
                     throw new IllegalStateException("Duplicate quest id: " + quest.id);
                 } else {
-                    allIds.add(quest.id);
                     ids.add(quest.id);
                 }
             }
@@ -207,7 +205,7 @@ public class QuestProvider implements IDataProvider {
                         throw new IllegalStateException("Reference to unknown quest: " + parent + " (in " + quest.id + ")");
                     }
                 }
-                IDataProvider.save(DatapackHelper.GSON, cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(quest.id.getPath() + ".json"));
+                IDataProvider.save(DatapackHelper.GSON, cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
             }
         }
     }
@@ -241,7 +239,7 @@ public class QuestProvider implements IDataProvider {
 
         public QuestBuilder(Alignment alignment, String name) {
             this.alignment = alignment;
-            this.id = new ResourceLocation(mod.modid, alignment.id + "/" + name);
+            this.id = new ResourceLocation(mod.modid, name);
             this.parents = new HashSet<>();
             this.reputation = 5;
             this.icon = null;
@@ -327,7 +325,7 @@ public class QuestProvider implements IDataProvider {
             if (icon == null) {
                 throw new IllegalStateException("Can't build quest without icon: " + this.id);
             }
-            Set<ResourceLocation> parents = this.parents.stream().map(str -> new ResourceLocation(mod.modid, alignment.id + "/" + str)).collect(Collectors.toSet());
+            Set<ResourceLocation> parents = this.parents.stream().map(str -> new ResourceLocation(mod.modid, str)).collect(Collectors.toSet());
             Quest quest = new Quest(this.id, parents, repeatable, this.reputation, icon, this.start, this.tasks.isEmpty() ? null : this.complete, this.tasks, this.rewards);
             quests.computeIfAbsent(this.alignment, k -> new HashSet<>()).add(quest);
         }

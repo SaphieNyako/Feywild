@@ -1,29 +1,22 @@
 package com.feywild.feywild.events;
 
-import com.feywild.feywild.quest.old.Quest;
-import com.google.common.base.Preconditions;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraftforge.eventbus.api.Cancelable;
+import com.feywild.feywild.quest.Quest;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.eventbus.api.Event;
 
-
-//TODO add a base event class in case more events are needed
-@Cancelable
 public class QuestCompletionEvent extends Event {
 
-    private PlayerEntity entity;
-    private Quest quest;
-    private int reputation;
-    private ActionResultType cancellationResult = ActionResultType.PASS;
-
-    public QuestCompletionEvent(PlayerEntity entity, Quest quest, int reputation){
-        this.entity = Preconditions.checkNotNull(entity, "Player is null!");
-        this.quest = Preconditions.checkNotNull(quest, "Quest is null!");
-        this.reputation = reputation;
+    private final ServerPlayerEntity entity;
+    private final Quest quest;
+    private final int totalReputation;
+    
+    public QuestCompletionEvent(ServerPlayerEntity entity, Quest quest, int totalReputation) {
+        this.entity = entity;
+        this.quest = quest;
+        this.totalReputation = totalReputation;
     }
 
-    public PlayerEntity getEntity() {
+    public ServerPlayerEntity getEntity() {
         return entity;
     }
 
@@ -31,7 +24,7 @@ public class QuestCompletionEvent extends Event {
         return quest;
     }
 
-    public int getReputation() {
-        return reputation;
+    public int getTotalReputation() {
+        return totalReputation;
     }
 }

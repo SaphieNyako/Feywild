@@ -101,6 +101,6 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.002f && !lookForSnowman(entity);
+        return entity.isTamed() && entity.level.random.nextFloat() < 0.002f && !lookForSnowman(entity);
     }
 }

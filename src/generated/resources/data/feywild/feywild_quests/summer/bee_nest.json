@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:summer/kill_golem",
+  "parent": "feywild:kill_golem",
   "reputation": 20,
   "icon": "minecraft:bee_nest",
   "start": {

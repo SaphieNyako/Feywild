@@ -25,12 +25,6 @@ public class ClientUtil {
         books.clear();
     }
 
-    public static void openMainMenuScreen(GuiOpenEvent event) {
-        if (Config.MENU_SCREEN.get() && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
-            event.setGui(new MenuScreen());
-        }
-    }
-
     public static void openLibrarianScreen() {
         Minecraft.getInstance().setScreen(new LibrarianScreen(new StringTextComponent("Librarian Screen"), books));
     }

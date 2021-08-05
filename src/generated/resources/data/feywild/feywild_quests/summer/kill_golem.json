@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:summer/root",
+  "parent": "feywild:root",
   "reputation": 5,
   "icon": "minecraft:iron_nugget",
   "start": {

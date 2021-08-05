@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:autumn/root",
+  "parent": "feywild:root",
   "reputation": 5,
   "icon": "minecraft:carrot",
   "start": {

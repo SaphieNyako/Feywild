@@ -1,17 +1,23 @@
 package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.events.QuestCompletionEvent;
 import com.feywild.feywild.quest.*;
 import com.feywild.feywild.quest.task.TaskType;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class QuestData {
     
@@ -29,6 +35,8 @@ public class QuestData {
     
     @Nullable
     private Alignment alignment;
+    @Nullable // Before the player accepted the first quest, this will hold the alignment it would have
+    private Alignment pendingAlignment;
     private int reputation;
     // Quests are completed but the player did not interact with the fey since then
     private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
@@ -42,23 +50,45 @@ public class QuestData {
         this.startNextQuests();
     }
     
-    // Tries to initialize the quests for one aligment
-    // returns false if already aligned for different alinment.
-    // true for the same alignment
-    public boolean initialize(Alignment alignment) {
+    public boolean canComplete(Alignment alignment) {
+        return this.alignment == alignment;
+    }
+    
+    @Nullable
+    public QuestDisplay initialize(Alignment alignment) {
         if (this.alignment == null) {
             QuestLine quests = QuestManager.getQuests(alignment);
-            if (quests != null) {
-                this.alignment = alignment;
-                this.reputation = 0;
-                this.startNextQuests();
-                return true;
+            Quest rootQuest = quests == null ? null : quests.getQuest(new ResourceLocation(FeywildMod.getInstance().modid, "root"));
+            if (rootQuest != null) {
+                this.pendingAlignment = alignment;
+                return rootQuest.start;
             } else {
-                return false;
+                return null;
             }
         } else {
-            return this.alignment == alignment;
+            return null;
         }
+    }
+
+    public void acceptAlignment() {
+        if (this.pendingAlignment != null && this.alignment == null) {
+            this.alignment = this.pendingAlignment;
+            this.pendingAlignment = null;
+            this.reputation = 0;
+            this.pendingCompletion.clear();
+            this.completedQuests.clear();
+            this.activeQuests.clear();
+            QuestLine quests = QuestManager.getQuests(this.alignment);
+            Quest rootQuest = quests == null ? null : quests.getQuest(new ResourceLocation(FeywildMod.getInstance().modid, "root"));
+            if (rootQuest != null && rootQuest.tasks.isEmpty()) {
+                this.completedQuests.add(rootQuest.id);
+            }
+            this.startNextQuests();
+        }
+    }
+    
+    public void denyAlignment() {
+        this.pendingAlignment = null;
     }
     
     public boolean reset() {
@@ -94,6 +124,22 @@ public class QuestData {
         return null;
     }
     
+    public List<Pair<Item, QuestDisplay>> getActiveQuests() {
+        QuestLine quests = this.getQuestLine();
+        if (quests != null && this.player != null) {
+            ImmutableList.Builder<Pair<Item, QuestDisplay>> list = ImmutableList.builder();
+            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).collect(Collectors.toList())) {
+                Quest quest = quests.getQuest(progress.quest);
+                if (quest != null) {
+                    list.add(Pair.of(quest.icon, quest.start));
+                }
+            }
+            return list.build();
+        } else {
+            return ImmutableList.of();
+        }
+    }
+    
     @Nullable
     private QuestDisplay tryComplete(ServerPlayerEntity player, QuestLine quests, ResourceLocation id) {
         Quest quest = quests.getQuest(id);
@@ -104,6 +150,7 @@ public class QuestData {
                     reward.grantReward(player);
                 }
                 this.reputation += quest.reputation;
+                MinecraftForge.EVENT_BUS.post(new QuestCompletionEvent(this.player, quest, this.reputation));
                 return display;
             } else {
                 return null;

@@ -1,6 +1,6 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.quest.old.QuestMap;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
@@ -50,18 +50,7 @@ public class MandrakePotion extends ItemBase {
         if (player instanceof ServerPlayerEntity) {
             CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
             player.awardStat(Stats.ITEM_USED.get(this));
-            String[] data = player.getPersistentData().getString("FWQuest").split("/");
-            if(data.length > 0 && data[0].split("-").length > 0)
-            for(String string : data[0].split("-")){
-                player.getPersistentData().remove(string+"Progress");
-            }
-            player.getPersistentData().putInt("FWRep", 0);
-            player.getPersistentData().putString("FWQuest", "/");
-            player.removeTag(QuestMap.Courts.AutumnAligned.toString());
-            player.removeTag(QuestMap.Courts.SpringAligned.toString());
-            player.removeTag(QuestMap.Courts.SummerAligned.toString());
-            player.removeTag(QuestMap.Courts.WinterAligned.toString());
-
+            QuestData.get((ServerPlayerEntity) player).reset();
             if (!player.isCreative()) {
                 stack.shrink(1);
                 player.inventory.add(new ItemStack(Items.GLASS_BOTTLE));

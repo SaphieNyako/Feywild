@@ -1,8 +1,10 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.quest.task.SpecialTask;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.util.configs.Config;
-import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -43,6 +45,9 @@ public class FeyDust extends ItemBase {
         if (!player.level.isClientSide) {
             if (target instanceof SheepEntity) {
                 target.addEffect(new EffectInstance(Effects.LEVITATION, 60, 2));
+                if (player instanceof ServerPlayerEntity) {
+                    QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
+                }
             } else {
                 target.addEffect(new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 2));
             }

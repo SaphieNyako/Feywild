@@ -1,16 +1,30 @@
 package com.feywild.feywild.entity.util;
 
-import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.network.old.ParticleMessage;
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.goals.FeyWildPanicGoal;
+import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.quest.Alignment;
+import com.feywild.feywild.quest.QuestDisplay;
+import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.quest.task.FeyGiftTask;
+import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.command.arguments.EntityAnchorArgument;
+import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.controller.FlyingMovementController;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.ActionResultType;
@@ -23,19 +37,39 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
+import org.apache.commons.lang3.tuple.Pair;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
-public abstract class FeyEntity extends CreatureEntity {
+public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
 
-    protected FeyEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
-        super(type, worldIn);
+    public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(FeyEntity.class, DataSerializers.BOOLEAN);
+    
+    public final Alignment alignment;
+    private BlockPos summonPos;
+    private boolean isTamed;
+    
+    private final AnimationFactory factory = new AnimationFactory(this);
+
+    protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
+        super(type, world);
+        this.alignment = alignment;
+        this.noCulling = true;
+        this.moveControl = new FlyingMovementController(this, 4, true);
     }
 
     /* ATTRIBUTES */
-    public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
+    public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D)
@@ -44,6 +78,62 @@ public abstract class FeyEntity extends CreatureEntity {
 
     public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
+    }
+
+    public BlockPos getSummonPos() {
+        return summonPos;
+    }
+
+    public void setSummonPos(BlockPos summonPos) {
+        this.summonPos = summonPos.immutable();
+    }
+
+    public boolean isTamed() {
+        return isTamed;
+    }
+
+    public void setTamed(boolean tamed) {
+        this.isTamed = tamed;
+    }
+    
+    public boolean isCasting() {
+        return this.entityData.get(CASTING);
+    }
+    
+    public void setCasting(boolean casting) {
+        this.entityData.set(CASTING, casting);
+    }
+    
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CASTING, false);
+    }
+    
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(4, new FeyWildPanicGoal(this, 0.003, 13));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8f));
+        this.goalSelector.addGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10));
+        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putBoolean("Tamed", this.isTamed);
+        if (this.summonPos != null) {
+            NBTX.putPos(nbt, "SummonPos", this.summonPos);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.isTamed = nbt.getBoolean("Tamed");
+        this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
     }
 
     @Nonnull
@@ -57,42 +147,41 @@ public abstract class FeyEntity extends CreatureEntity {
     }
 
     @Override
-    public void travel(@Nonnull Vector3d positionIn) {
+    public void travel(@Nonnull Vector3d position) {
         if (this.isInWater()) {
-            this.moveRelative(0.02F, positionIn);
+            this.moveRelative(0.02f, position);
             this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.8));
         } else if (this.isInLava()) {
-            this.moveRelative(0.02F, positionIn);
+            this.moveRelative(0.02f, position);
             this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
         } else {
-            BlockPos ground = new BlockPos(this.getX(), this.getY() - 1.0D, this.getZ());
-            float f = 0.91F;
+            BlockPos ground = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
+            float slipperiness = 0.91f;
             if (this.onGround) {
-                f = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
+                slipperiness = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
             }
 
-            float f1 = 0.16277137F / (f * f * f);
-            f = 0.91F;
+            float groundMovementModifier = 0.16277137f / (slipperiness * slipperiness * slipperiness);
+            slipperiness = 0.91f;
             if (this.onGround) {
-                f = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
+                slipperiness = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
             }
 
-            this.moveRelative(this.onGround ? 0.1F * f1 : 0.02F, positionIn);
+            this.moveRelative(this.onGround ? 0.1f * groundMovementModifier : 0.02f, position);
             this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(f));
+            this.setDeltaMovement(this.getDeltaMovement().scale(slipperiness));
         }
 
         this.animationSpeedOld = this.animationSpeed;
-        double d1 = this.getX() - this.xo;
-        double d0 = this.getZ() - this.zo;
-        float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-        if (f2 > 1.0F) {
-            f2 = 1.0F;
+        double dx = this.getX() - this.xo;
+        double dz = this.getZ() - this.zo;
+        float scaledLastHorizontalMotion = MathHelper.sqrt(dx * dx + dz * dz) * 4;
+        if (scaledLastHorizontalMotion > 1.0F) {
+            scaledLastHorizontalMotion = 1.0F;
         }
-
-        this.animationSpeed += (f2 - this.animationSpeed) * 0.4F;
+        this.animationSpeed += (scaledLastHorizontalMotion - this.animationSpeed) * 0.4;
         this.animationPosition += this.animationSpeed;
     }
 
@@ -126,116 +215,128 @@ public abstract class FeyEntity extends CreatureEntity {
         return false;
     }
 
-    // on interact with cookie
     @Nonnull
     @Override
-    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
-        if (!level.isClientSide && player.getItemInHand(hand).sameItem(new ItemStack(Items.COOKIE)) && this.getLastDamageSource() == null) {
-            //  this.follow = player;
-
-            heal(4f);
-            player.getItemInHand(hand).shrink(1);
-            // TODO networking
-//            FeywildNetwork.sendToPlayersInRange(level, this.blockPosition(), new ParticleMessage(this.getX(), this.getY(), this.getZ(), 0, 0, 0, 5, 1, 0), 32);
+    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
+        if (!level.isClientSide) {
+            if (player instanceof ServerPlayerEntity && tryAcceptGift((ServerPlayerEntity) player, hand)) {
+                player.swing(hand, true);
+                return ActionResultType.CONSUME;
+            } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+                heal(4);
+                if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
+                player.swing(hand, true);
+                return ActionResultType.CONSUME;
+            } else if (this.isTamed() && player instanceof ServerPlayerEntity) {
+                return this.interactQuest((ServerPlayerEntity) player, hand); 
+            } else {
+                return ActionResultType.PASS;
+            }
+        } else {
+            return ActionResultType.PASS;
         }
-        return ActionResultType.SUCCESS;
     }
-
-    @Override
-    public boolean isPushable() {
+    
+    private ActionResultType interactQuest(ServerPlayerEntity player, Hand hand) {
+        QuestData quests = QuestData.get(player);
+        if (quests.canComplete(this.alignment)) {
+            QuestDisplay display = quests.completePendingQuest();
+            if (display != null) {
+                // TODO completion screen
+                return ActionResultType.CONSUME;
+            } else {
+                List<Pair<Item, QuestDisplay>> active = quests.getActiveQuests();
+                if (active.isEmpty()) {
+                    return ActionResultType.PASS;
+                } else if (active.size() == 1) {
+                    // TODO start screen
+                    return ActionResultType.CONSUME;
+                } else {
+                    // TODO selection screen
+                    return ActionResultType.CONSUME;
+                }
+            }
+        } else {
+            QuestDisplay display = quests.initialize(this.alignment);
+            if (display != null) {
+                // TODO confirmation screen
+                return ActionResultType.CONSUME;
+            } else {
+                return ActionResultType.PASS;
+            }
+        }
+    }
+    
+    private boolean tryAcceptGift(ServerPlayerEntity player, Hand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!stack.isEmpty()) {
+            AlignmentStack input = new AlignmentStack(this.alignment, stack);
+            if (QuestData.get(player).checkComplete(FeyGiftTask.INSTANCE, input)) {
+                stack.shrink(1);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean requiresCustomPersistence() {
-        return true;
+        return this.isTamed;
     }
 
-    /* SOUND EFFECTS */
+    @Override
+    public boolean removeWhenFarAway(double distanceSq) {
+        return false;
+    }
+
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
         return ModSoundEvents.pixieHurt;
     }
 
-    //Ancient's note : we can keep them but adjust the pitch
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        //Implement other Sound
         return ModSoundEvents.pixieDeath;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        //Implement other Sound
-
         return random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
     }
 
     @Override
-    protected float getVoicePitch() {
-        return 1.0f;
+    protected float getSoundVolume() {
+        return 0.6f;
+    }
+
+    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
+        return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
+        if (this.entityData.get(CASTING) && !(this.dead || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.spellcasting", true));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
     }
 
     @Override
-    protected float getSoundVolume() {
-        return 0.6F;
+    public void registerControllers(AnimationData animationData) {
+        AnimationController<FeyEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<FeyEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
+        animationData.addAnimationController(flyingController);
+        animationData.addAnimationController(castingController);
     }
 
-    
-    // TODO just added now as it's needed in the item. Has to be fixed later
-    public void setTamed(boolean tamed) {
-        //
-    }
-    
-    public void setSummonPos(BlockPos summonPos) {
-        //
-    }
-    
-
-    /* MOVEMENT */
-    public class FeyWildPanic extends Goal {
-
-        private Vector3d targetPos;
-        private FeyEntity entity;
-        private int range;
-        private double speed;
-
-        public FeyWildPanic(FeyEntity entity, double speed, int range) {
-            this.entity = entity;
-            this.speed = speed;
-            this.range = range;
-        }
-
-
-        @Override
-        public void start() {
-            super.start();
-            targetPos = position();
-
-            if (targetPos.distanceTo(this.entity.position()) < 1.4) {
-                do {
-                    this.targetPos = new Vector3d(entity.getX() - range + random.nextInt(range * 2), entity.getY() - range + random.nextInt(range * 2), entity.getZ() - range + random.nextInt(range * 2));
-                } while (!level.getBlockState(new BlockPos(this.targetPos.x(), this.targetPos.y(), this.targetPos.z())).isAir()); //if air go to location, otherwise repeat(do)
-
-                this.entity.setDeltaMovement((this.targetPos.x() - this.entity.getX()) * speed * 10, (this.targetPos.y() - this.entity.getY()) * speed * 10, (this.targetPos.z() - this.entity.getZ()) * speed * 10);
-                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
-            }
-
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.entity.getLastDamageSource() != null;
-        }
-
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
     }
 }
 

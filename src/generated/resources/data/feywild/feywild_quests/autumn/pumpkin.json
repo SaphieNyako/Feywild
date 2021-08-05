@@ -1,8 +1,8 @@
 {
   "parent": [
-    "feywild:autumn/food_beetroots",
-    "feywild:autumn/food_potatoes",
-    "feywild:autumn/food_carrots"
+    "feywild:food_potatoes",
+    "feywild:food_beetroots",
+    "feywild:food_carrots"
   ],
   "reputation": 5,
   "icon": "minecraft:carved_pumpkin",

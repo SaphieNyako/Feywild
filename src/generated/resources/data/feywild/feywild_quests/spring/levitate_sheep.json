@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:spring/root",
+  "parent": "feywild:root",
   "reputation": 5,
   "icon": "minecraft:pink_wool",
   "start": {

@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:winter/snowballs",
+  "parent": "feywild:snowballs",
   "reputation": 5,
   "icon": "minecraft:zombie_head",
   "start": {
