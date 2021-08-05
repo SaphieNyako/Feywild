@@ -2,7 +2,6 @@ package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

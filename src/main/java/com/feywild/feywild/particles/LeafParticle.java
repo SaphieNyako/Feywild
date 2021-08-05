@@ -8,6 +8,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
+// TODO
 @OnlyIn(Dist.CLIENT)
 public class LeafParticle extends SpriteTexturedParticle {
     float move = 0;
@@ -16,7 +17,7 @@ public class LeafParticle extends SpriteTexturedParticle {
         super(p_i232447_1_, p_i232447_2_, p_i232447_4_, p_i232447_6_);
         this.setSize(0.5f,0.5f);
         this.alpha = 0;
-        this.lifetime = (int)(10.0D / (Math.random() * 0.8D)) + 20;
+        this.lifetime = (int)(10 / (Math.random() * 0.8D)) + 20;
         this.initX = p_i232447_2_;
         this.initY = p_i232447_4_;
         this.initZ = p_i232447_6_;
@@ -52,7 +53,7 @@ public class LeafParticle extends SpriteTexturedParticle {
         @Override
         public Particle createParticle(BasicParticleType p_199234_1_, ClientWorld p_199234_2_, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
             LeafParticle particle = new LeafParticle(p_199234_2_,p_199234_3_,p_199234_5_,p_199234_7_);
-            particle.setColor(1.0F,1.0F,1.0F);
+            particle.setColor(1,1,1);
             particle.pickSprite(sprite);
             return particle;
         }

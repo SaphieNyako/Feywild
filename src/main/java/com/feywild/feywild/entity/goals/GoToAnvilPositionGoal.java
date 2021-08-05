@@ -39,7 +39,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
                 BlockPos target = targetPosition.get();
                 if (target != null && tile.canCraft()) {
                     if (ticksLeft == 20) {
-                        entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
+                        entity.playSound(SoundEvents.ANVIL_USE, 1, 1);
                     } else if (ticksLeft == 50) {
                         entity.setState(DwarfBlacksmithEntity.State.WORKING);
                     } else if (ticksLeft <= 110) {

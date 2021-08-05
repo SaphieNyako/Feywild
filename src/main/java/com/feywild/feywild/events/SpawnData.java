@@ -1,6 +1,5 @@
 package com.feywild.feywild.events;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.util.FeyEntity;

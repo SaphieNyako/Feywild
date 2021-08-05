@@ -1,12 +1,10 @@
 package com.feywild.feywild.quest.old;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.events.QuestCompletionEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;

@@ -54,12 +54,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 36.0D)
+                .add(Attributes.MAX_HEALTH, 36)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
                 .add(Attributes.ARMOR_TOUGHNESS, 5)
                 .add(Attributes.ARMOR, 15)
-                .add(Attributes.ATTACK_DAMAGE, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35D);
+                .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
     public static boolean canSpawn(EntityType<DwarfBlacksmithEntity> type, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {

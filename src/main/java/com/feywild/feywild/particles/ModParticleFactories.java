@@ -1,8 +1,6 @@
 package com.feywild.feywild.particles;
 
-import com.feywild.feywild.FeywildMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.particles.ParticleType;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

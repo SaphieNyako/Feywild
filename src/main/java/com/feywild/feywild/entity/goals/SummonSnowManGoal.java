@@ -12,7 +12,7 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public class SummonSnowManGoal extends Goal {
 
-    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8.0D).allowInvulnerable().allowSameTeam().allowUnseeable().selector(living -> !(living instanceof FeyEntity));
+    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable().selector(living -> !(living instanceof FeyEntity));
 
     private final FeyEntity entity;
     private int ticksLeft = 0;
@@ -78,6 +78,6 @@ public class SummonSnowManGoal extends Goal {
     }
     
     private boolean noSnowManNearby() {
-        return entity.level.getNearbyEntities(SnowGolemEntity.class, TARGETING, entity, entity.getBoundingBox().inflate(8.0D)).isEmpty();
+        return entity.level.getNearbyEntities(SnowGolemEntity.class, TARGETING, entity, entity.getBoundingBox().inflate(8)).isEmpty();
     }
 }

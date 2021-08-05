@@ -19,7 +19,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class FeywildMusicDisc extends MusicDiscItem {
 

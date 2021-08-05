@@ -2,7 +2,6 @@ package com.feywild.feywild.util;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.recipes.ModRecipeTypes;
-import com.feywild.feywild.world.structure.ModStructures;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
@@ -10,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.biome.Biome;

@@ -1,6 +1,5 @@
 package com.feywild.feywild.block;
 
-import com.feywild.feywild.item.ModItems;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;

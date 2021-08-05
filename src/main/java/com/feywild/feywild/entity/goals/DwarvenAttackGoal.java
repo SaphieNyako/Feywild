@@ -66,10 +66,10 @@ public class DwarvenAttackGoal extends Goal {
 
     protected boolean attackTarget() {
         if (entity.getRandom().nextDouble() > 0.6) {
-            target.hurt(DamageSource.mobAttack(this.entity), 15.0f);
+            target.hurt(DamageSource.mobAttack(this.entity), 15);
             return false;
         } else {
-            target.hurt(DamageSource.mobAttack(this.entity), 20.0f);
+            target.hurt(DamageSource.mobAttack(this.entity), 20);
             return true;
         }
     }

@@ -1,25 +1,15 @@
 package com.feywild.feywild.screens;
 
-import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.quest.ConfirmQuestSerializer;
 import com.feywild.feywild.quest.Alignment;
-import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.screens.widget.QuestWidget;
-import com.feywild.feywild.util.TextProcessor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.RenderComponentsUtil;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SelectQuestScreen extends Screen {
 

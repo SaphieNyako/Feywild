@@ -1,8 +1,6 @@
 package com.feywild.feywild.network.old;
 
 import com.feywild.feywild.util.ClientUtil;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 

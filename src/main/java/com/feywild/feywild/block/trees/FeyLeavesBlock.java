@@ -4,7 +4,10 @@ import com.feywild.feywild.util.configs.Config;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -135,7 +138,7 @@ public class FeyLeavesBlock extends BlockBase implements IForgeShearable, Regist
                         double d0 = (double) pos.getX() + rand.nextDouble();
                         double d1 = (double) pos.getY() - 0.05D;
                         double d2 = (double) pos.getZ() + rand.nextDouble();
-                        world.addParticle(ParticleTypes.DRIPPING_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+                        world.addParticle(ParticleTypes.DRIPPING_WATER, d0, d1, d2, 0, 0, 0);
                     }
                 }
             }

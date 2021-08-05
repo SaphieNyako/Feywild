@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 public class TargetBreedGoal extends Goal {
 
-    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8.0D).allowInvulnerable().allowSameTeam().allowUnseeable();
+    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable();
 
     private final FeyEntity entity;
     private AnimalEntity targetAnimal;

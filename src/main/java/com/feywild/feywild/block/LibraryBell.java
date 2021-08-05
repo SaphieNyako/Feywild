@@ -30,7 +30,7 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
 
     public LibraryBell(ModX mod) {
         super(mod, LibraryBellEntity.class, Properties.of(Material.METAL)
-                .strength(-1.0F, 3600000.0F).noDrops()
+                .strength(-1, 3600000).noDrops()
                 .noOcclusion()
                 .sound(SoundType.STONE));
     }

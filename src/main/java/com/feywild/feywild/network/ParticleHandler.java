@@ -1,7 +1,6 @@
 package com.feywild.feywild.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;

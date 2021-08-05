@@ -1,11 +1,6 @@
 package com.feywild.feywild.world.gen;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.AutumnTree;
-import com.feywild.feywild.block.trees.SpringTree;
-import com.feywild.feywild.block.trees.SummerTree;
-import com.feywild.feywild.block.trees.WinterTree;
 import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
@@ -19,34 +14,29 @@ import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
-// TODO
-@Mod.EventBusSubscriber(modid = "feywild")
 public class ModTreeGeneration {
 
     public final static double TREE_PATCHES_CHANCE = Config.TREE_PATCH_CONFIG.getCachedSpawnChance();
     public final static int TREE_PATCHES_SIZE = Config.TREE_PATCH_CONFIG.getCachedSpawnSize();
 
-    @SubscribeEvent
-    public static void onBiomeLoad(BiomeLoadingEvent event) {
+    public static void loadBiome(BiomeLoadingEvent event) {
 
         Random random = new Random();
 
-        String SpringBiome = "blossoming_wealds";
-        String SummerBiome = "golden_seelie_fields";
-        String AutumnBiome = "eternal_fall";
-        String WinterBiome = "frozen_retreat";
-        String AlfHeimPlains = "alfheim_plains";
-        String GoldenFields = "golden_fields";
-        String AlfHeimHills = "alfheim_hills";
-        String AlfHeimForest = "dreamwood_forest";
+        String springBiome = "blossoming_wealds";
+        String summerBiome = "golden_seelie_fields";
+        String autumnBiome = "eternal_fall";
+        String winterBiome = "frozen_retreat";
+        String alfheimPlains = "alfheim_plains";
+        String goldenFields = "golden_fields";
+        String alfheimHills = "alfheim_hills";
+        String alfheimForest = "dreamwood_forest";
         String biomeName = event.getName().toString();
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
@@ -111,7 +101,7 @@ public class ModTreeGeneration {
 
         /* BIOME DECORATION GENERATION */
 
-        if (biomeName.contains(SpringBiome) || (biomeName.contains(AlfHeimPlains) && Config.MYTHIC.get() != 0)) {
+        if (biomeName.contains(springBiome) || (biomeName.contains(alfheimPlains) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -120,7 +110,7 @@ public class ModTreeGeneration {
             base.add(() -> ModConfiguredFeatures.SPRING_FLOWERS);
         }
 
-        if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && Config.MYTHIC.get() != 0)) {
+        if (biomeName.contains(summerBiome) || (biomeName.contains(goldenFields) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -130,7 +120,7 @@ public class ModTreeGeneration {
 
         }
 
-        if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {
+        if (biomeName.contains(autumnBiome) || (biomeName.contains(alfheimHills) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
@@ -141,7 +131,7 @@ public class ModTreeGeneration {
 
         }
 
-        if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && Config.MYTHIC.get() != 0)) {
+        if (biomeName.contains(winterBiome) || (biomeName.contains(alfheimForest) && Config.MYTHIC.get() != 0)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 

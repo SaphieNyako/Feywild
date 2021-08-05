@@ -77,9 +77,9 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
     /* ATTRIBUTES */
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35D)
-                .add(Attributes.LUCK, 0.2D);
+                .add(Attributes.MAX_HEALTH, 12)
+                .add(Attributes.MOVEMENT_SPEED, 0.35)
+                .add(Attributes.LUCK, 0.2);
     }
 
     public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
@@ -184,8 +184,8 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
         double dx = this.getX() - this.xo;
         double dz = this.getZ() - this.zo;
         float scaledLastHorizontalMotion = MathHelper.sqrt(dx * dx + dz * dz) * 4;
-        if (scaledLastHorizontalMotion > 1.0F) {
-            scaledLastHorizontalMotion = 1.0F;
+        if (scaledLastHorizontalMotion > 1) {
+            scaledLastHorizontalMotion = 1;
         }
         this.animationSpeed += (scaledLastHorizontalMotion - this.animationSpeed) * 0.4;
         this.animationPosition += this.animationSpeed;

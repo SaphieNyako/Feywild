@@ -18,6 +18,9 @@ import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
+import com.feywild.feywild.world.BiomeLoader;
+import com.feywild.feywild.world.biome.ModBiomeGeneration;
+import com.feywild.feywild.world.gen.ModOreGeneration;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -100,6 +103,7 @@ public class FeywildMod extends ModXRegistration {
         
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
+        MinecraftForge.EVENT_BUS.addListener(BiomeLoader::loadBiome);
         MinecraftForge.EVENT_BUS.register(new EventListener());
         
         registerModAdditions();
@@ -131,6 +135,8 @@ public class FeywildMod extends ModXRegistration {
         CapabilityQuests.register();
         
         SpawnData.registerSpawn();
+        event.enqueueWork(ModBiomeGeneration::setupBiomes);
+        event.enqueueWork(ModOreGeneration::setupOres);
 
         event.enqueueWork(() -> {
             // TODO use event (see javadoc of put)

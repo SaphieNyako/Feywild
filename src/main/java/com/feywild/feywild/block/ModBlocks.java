@@ -1,27 +1,19 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
-import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
 import com.feywild.feywild.block.entity.LibraryBellEntity;
 import com.feywild.feywild.block.flower.Crocus;
 import com.feywild.feywild.block.flower.Dandelion;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.Sunflower;
-import com.feywild.feywild.block.trees.*;
-import com.feywild.feywild.util.Registration;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.RegistryObject;
-
-import java.util.function.Supplier;
 
 @RegisterClass
 public class ModBlocks {

@@ -16,6 +16,12 @@ import java.util.function.Supplier;
 
 public class WinterBiome extends BaseBiome {
 
+    public static final WinterBiome INSTANCE = new WinterBiome();
+
+    private WinterBiome() {
+
+    }
+    
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -55,15 +61,14 @@ public class WinterBiome extends BaseBiome {
         DefaultBiomeFeatures.addIcebergs(biomeGenerationSettingsBuilder);
 
         return (new Biome.Builder()).precipitation(Biome.RainType.SNOW)
-                .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0.0F).downfall(0.5F).specialEffects((new BiomeAmbience.Builder())
-                        .waterColor(4159204)
-                        .waterFogColor(329011)
-                        .fogColor(12638463)
-                        .skyColor(getSkyColorWithTemperatureModifier(0.0F))
+                .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0).downfall(0.5F).specialEffects((new BiomeAmbience.Builder())
+                        .waterColor(0x3f76e4)
+                        .waterFogColor(0x50533)
+                        .fogColor(0xc0d8ff)
+                        .skyColor(BiomeMaker.calculateSkyColor(0))
                         .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, true))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-
     }
 }

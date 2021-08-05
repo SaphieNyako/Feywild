@@ -5,7 +5,6 @@ import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
 
 public class AutumnPixieEntity extends FeyEntity {
 
