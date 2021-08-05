@@ -270,7 +270,7 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
         if (!stack.isEmpty()) {
             AlignmentStack input = new AlignmentStack(this.alignment, stack);
             if (QuestData.get(player).checkComplete(FeyGiftTask.INSTANCE, input)) {
-                stack.shrink(1);
+                if (!player.isCreative()) stack.shrink(1);
                 player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_thanks"), player.getUUID());
                 return true;
             }
