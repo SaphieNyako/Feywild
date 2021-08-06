@@ -12,7 +12,7 @@ public interface IManaStorage {
     int receiveMana(int maxReceive, boolean simulate);
 
     /**
-     * Removesmana from the storage. Returns quantity of mana that was removed.
+     * Removes mana from the storage. Returns quantity of mana that was removed.
      *
      * @param maxExtract Maximum amount of mana to be extracted.
      * @param simulate   If {@code true}, the extraction will only be simulated.

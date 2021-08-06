@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 @OnlyIn(Dist.CLIENT)
 public class QuestWidget extends Button {
 
-    public static int WIDTH = 40;
-    public static int HEIGHT = 24;
+    public static final int WIDTH = 40;
+    public static final int HEIGHT = 24;
     
     public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/looking_glass.png");
     public static final ResourceLocation SLOT_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/quest_atlas.png");

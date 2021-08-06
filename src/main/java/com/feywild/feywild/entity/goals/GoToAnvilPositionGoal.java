@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
-    DwarfBlacksmithEntity entity;
+    private final DwarfBlacksmithEntity entity;
     private DwarvenAnvil tile;
     private int ticksLeft = 0;
 

@@ -36,7 +36,7 @@ public class StructureLoader {
                 ResourceLocation generatorId = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) method.invoke(world.getChunkSource().generator));
                 if (generatorId != null && generatorId.getNamespace().equals("terraforged")) return;
             } catch (Exception e) {
-                FeywildMod.getInstance().logger.error("Was unable to check if " + world.dimension().location() + " is using Terraforged's ChunkGenerator.");
+                FeywildMod.getInstance().logger.error("Was unable to check if " + world.dimension().location() + " is using a Terraforged ChunkGenerator.");
             }
             
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(world.getChunkSource().generator.getSettings().structureConfig());

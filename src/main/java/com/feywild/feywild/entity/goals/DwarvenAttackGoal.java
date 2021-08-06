@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DwarvenAttackGoal extends Goal {
 
-    protected DwarfBlacksmithEntity entity;
+    protected final DwarfBlacksmithEntity entity;
     protected LivingEntity target;
     protected boolean sendShock = false;
     protected int ticksLeft = 0;

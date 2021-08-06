@@ -11,8 +11,9 @@ import javax.annotation.Nullable;
 
 public class LeafParticle extends SpriteTexturedParticle {
     
-    float move = 0;
-    double initX, initY, initZ;
+    private float move = 0;
+    private final double initX;
+    private final double initZ;
     
     public LeafParticle(ClientWorld world, double x, double y, double z) {
         super(world, x, y, z);
@@ -20,7 +21,6 @@ public class LeafParticle extends SpriteTexturedParticle {
         this.alpha = 0;
         this.lifetime = (int)(10 / (Math.random() * 0.8D)) + 20;
         this.initX = x;
-        this.initY = y;
         this.initZ = z;
     }
 

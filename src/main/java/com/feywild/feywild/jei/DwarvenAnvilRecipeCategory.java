@@ -20,13 +20,11 @@ import java.util.List;
 public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "dwarven_anvil");
-    public IDrawable background;
-    public IDrawable icon;
-    IGuiHelper helper;
+    private final IDrawable background;
+    private final IDrawable icon;
 
     public DwarvenAnvilRecipeCategory(IGuiHelper helper) {
         ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
-        this.helper = helper;
         //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
         this.background = helper.createDrawable(location, 0, 0, 85, 85);
 

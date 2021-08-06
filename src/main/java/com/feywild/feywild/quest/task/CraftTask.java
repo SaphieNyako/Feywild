@@ -43,11 +43,6 @@ public class CraftTask implements TaskType<Ingredient, ItemStack> {
         return json;
     }
 
-    @Override
-    public boolean repeatable() {
-        return TaskType.super.repeatable();
-    }
-
     @Nullable
     @Override
     public Item icon(Ingredient element) {

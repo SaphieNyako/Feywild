@@ -52,18 +52,17 @@ public class BlacksmithStructure extends BaseStructure {
     public int getSeedModifier() {
         return SEED_MODIFIER;
     }  // this was commented out
-
-    /*
-        @Override
-        public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-            return STRUCTURE_MONSTERS;
-        }
-
-        @Override
-        public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
-            return STRUCTURE_CREATURES;
-        }
-    */
+    
+//    @Override
+//    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+//        return STRUCTURE_MONSTERS;
+//    }
+//
+//    @Override
+//    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
+//        return STRUCTURE_CREATURES;
+//    }
+    
     @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {

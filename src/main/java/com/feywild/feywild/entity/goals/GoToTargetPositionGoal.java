@@ -30,11 +30,6 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
     }
 
     @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
     public void tick() {
         Vector3d target = this.targetPosition.get();
         if (target != null && distanceFromSquared(this.entity.position(), target) > this.triggerRangeSquared) {

@@ -51,18 +51,16 @@ public class SpringWorldTreeStructure extends BaseStructure {
     public int getSeedModifier() {
         return SEED_MODIFIER;
     }
-
-    //Mob Spawn in Structure
-    /*
-    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
-    );
-
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-        return STRUCTURE_MONSTERS;
-
-    }   */
+    
+//    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
+//            new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 100, 4, 9)
+//    );
+//
+//    @Override
+//    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+//        return STRUCTURE_MONSTERS;
+//
+//    }
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {

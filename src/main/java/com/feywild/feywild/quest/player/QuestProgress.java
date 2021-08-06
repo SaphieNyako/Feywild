@@ -38,7 +38,7 @@ public class QuestProgress {
     
     public boolean valid(QuestLine quests) {
         // If a quest got removed we still store the progress in case the
-        // datapack is added later. However we don't display it.
+        // datapack is added later. However, we don't display it.
         return quests.getQuest(this.quest) != null;
     }
     

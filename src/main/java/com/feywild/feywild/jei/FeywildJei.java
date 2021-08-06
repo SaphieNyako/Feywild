@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @JeiPlugin
 public class FeywildJei implements IModPlugin {
@@ -48,8 +49,8 @@ public class FeywildJei implements IModPlugin {
         List<AltarRecipe> altarRecipeList = new ArrayList<>();
         List<DwarvenAnvilRecipe> anvilRecipeList = new ArrayList<>();
 
-        RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-        for (IRecipe recipe : manager.getRecipes()) {
+        RecipeManager manager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
+        for (IRecipe<?> recipe : manager.getRecipes()) {
             if (recipe instanceof AltarRecipe) {
                 altarRecipeList.add((AltarRecipe) recipe);
             }

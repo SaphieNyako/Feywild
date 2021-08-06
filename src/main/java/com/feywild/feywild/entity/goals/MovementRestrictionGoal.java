@@ -8,8 +8,8 @@ import java.util.function.Supplier;
 
 public class MovementRestrictionGoal extends Goal {
 
-    public Supplier<Vector3d> targetPosition;
-    public int maxMovementRangeSquared;
+    public final Supplier<Vector3d> targetPosition;
+    public final int maxMovementRangeSquared;
     
     public MovementRestrictionGoal(Supplier<Vector3d> pos, int maxMovementRange) {
         this.targetPosition = pos;

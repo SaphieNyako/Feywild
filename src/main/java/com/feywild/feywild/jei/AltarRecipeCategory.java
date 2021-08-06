@@ -20,13 +20,11 @@ import java.util.List;
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "fey_altar");
-    public IDrawable background;
-    public IDrawable icon;
-    IGuiHelper helper;
+    private final IDrawable background;
+    private final IDrawable icon;
 
     public AltarRecipeCategory(IGuiHelper helper) {
         ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
-        this.helper = helper;
         this.background = helper.createDrawable(location, 0, 0, 85, 85);
         this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
     }
@@ -61,12 +59,12 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
         return this.icon;
     }
 
-    /*
-    @Override
-    public void draw(AltarRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-        IDrawableAnimated arrow = this.cachedArrows.getUnchecked(40); // The crafting arrow ???
-        arrow.draw(matrixStack, 38, 6); //location on screen
-    } */
+    
+//    @Override
+//    public void draw(AltarRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+//        IDrawableAnimated arrow = this.cachedArrows.getUnchecked(40); // The crafting arrow ???
+//        arrow.draw(matrixStack, 38, 6); //location on screen
+//    }
 
     @Override
     public void setIngredients(AltarRecipe altarRecipe, IIngredients iIngredients) {
