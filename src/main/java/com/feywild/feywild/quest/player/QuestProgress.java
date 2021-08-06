@@ -7,6 +7,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,21 +20,22 @@ public class QuestProgress {
         this.quest = quest;
     }
 
-    public <T> boolean checkComplete(ServerPlayerEntity player, QuestLine quests, TaskType<?, T> type, T element) {
-        boolean success = false;
+    @Nullable
+    public <T> String checkComplete(ServerPlayerEntity player, QuestLine quests, TaskType<?, T> type, T element) {
+        String progressMsg = null;
         Quest quest = quests.getQuest(this.quest);
         if (quest != null) {
             // Check each task of the quest
             for (int i = 0; i < quest.tasks.size(); i++) {
                 if (quest.tasks.get(i).checkCompleted(player, type, element)) {
-                    success = true;
                     // Success. Increase the counter for that task by one.
                     this.taskProgress.putIfAbsent(i, 0);
                     this.taskProgress.computeIfPresent(i, (idx, value) -> value + 1);
+                    if (progressMsg == null) progressMsg = this.taskProgress.get(i) + " / " + quest.tasks.get(i).times;
                 }
             }
         }
-        return success;
+        return progressMsg;
     }
     
     public boolean valid(QuestLine quests) {

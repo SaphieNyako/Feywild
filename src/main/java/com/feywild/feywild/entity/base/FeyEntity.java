@@ -162,7 +162,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
-        this.goalSelector.addGoal(10, new TameCheckingGoal(this, true, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
+        this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
     }
 
     @Override

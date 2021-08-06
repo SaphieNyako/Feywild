@@ -46,4 +46,8 @@ public class QuestLine {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
     }
+    
+    public int getQuestCount() {
+        return quests.size();
+    }
 }

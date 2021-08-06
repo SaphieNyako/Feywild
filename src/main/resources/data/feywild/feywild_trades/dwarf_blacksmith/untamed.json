@@ -205,8 +205,8 @@
           "item": "feywild:lesser_fey_gem",
           "count": [ 18, 24 ]
         },
-        "uses": 5,
-        "exp": 1,
+        "uses": 1,
+        "exp": 5,
         "mul": 0.05
       }
     ]

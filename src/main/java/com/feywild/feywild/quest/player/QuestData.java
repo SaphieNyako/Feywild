@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
@@ -189,11 +190,14 @@ public class QuestData {
         boolean success = false;
         QuestLine quests = this.getQuestLine();
         if (quests != null && this.player != null) {
+            String msgToDisplay = null;
             // Check each active quest if the task can be completed somewhere
             for (QuestProgress progress : this.activeQuests.values()) {
-                if (progress.checkComplete(this.player, quests, type, element)) {
+                String progressMsg = progress.checkComplete(this.player, quests, type, element);
+                if (progressMsg != null) {
                     // Something was completed. Set the success flag
                     success = true;
+                    if (msgToDisplay == null) msgToDisplay = progressMsg;
                 }
             }
             if (success) {
@@ -213,6 +217,8 @@ public class QuestData {
                 }
                 if (shouldNotify) {
                     this.player.displayClientMessage(new TranslationTextComponent("message.feywild.quest_completion"), true);
+                } else {
+                    this.player.displayClientMessage(new StringTextComponent(msgToDisplay), true);
                 }
                 this.startNextQuests();
             }
