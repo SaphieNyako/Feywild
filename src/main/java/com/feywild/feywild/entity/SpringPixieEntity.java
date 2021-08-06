@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.goals.TargetBreedGoal;
-import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;

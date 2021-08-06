@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTileEntity, IAnimatable {
+public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAnimatable {
 
     public static final int MAX_PROGRESS = 40;
     
@@ -42,7 +42,7 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
     
     private final AnimationFactory animationFactory = new AnimationFactory(this);
     
-    public FeyAltarBlockEntity(TileEntityType<?> type) {
+    public FeyAltar(TileEntityType<?> type) {
         super(type);
         this.inventory = new BaseItemStackHandler(5, slot -> {
             this.setChanged();
@@ -93,7 +93,7 @@ public class FeyAltarBlockEntity extends TileEntityBase implements ITickableTile
                         if (!stack.isEmpty()) stacks.add(stack);
                     }
                     if (!stacks.isEmpty()) {
-                        double progressScaled = this.progress / (double) FeyAltarBlockEntity.MAX_PROGRESS;
+                        double progressScaled = this.progress / (double) FeyAltar.MAX_PROGRESS;
                         double anglePerStack = (2 * Math.PI) / stacks.size();
                         for (int idx = 0; idx < stacks.size(); idx++) {
                             double shiftX = Math.cos((level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);

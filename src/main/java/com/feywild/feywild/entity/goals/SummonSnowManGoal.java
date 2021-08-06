@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.WinterPixieEntity;
-import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.EntityPredicate;

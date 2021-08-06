@@ -11,7 +11,7 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import javax.annotation.Nullable;
 
-public class DwarfBlackSmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity> {
+public class DwarfBlacksmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity> {
 
     @Override
     public void setLivingAnimations(DwarfBlacksmithEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {

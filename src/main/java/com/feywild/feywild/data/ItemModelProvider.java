@@ -1,7 +1,7 @@
 package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.trees.BaseSapling;
+import com.feywild.feywild.block.trees.BaseSaplingBlock;
 import com.feywild.feywild.item.Schematics;
 import io.github.noeppi_noeppi.libx.data.provider.ItemModelProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -11,9 +11,9 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class ItemModels extends ItemModelProviderBase {
+public class ItemModelProvider extends ItemModelProviderBase {
 
-    public ItemModels(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
+    public ItemModelProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
         super(mod, generator, fileHelper);
     }
 
@@ -33,7 +33,7 @@ public class ItemModels extends ItemModelProviderBase {
 
     @Override
     protected void defaultBlock(ResourceLocation id, BlockItem item) {
-        if (item.getBlock() instanceof BaseSapling) {
+        if (item.getBlock() instanceof BaseSaplingBlock) {
             this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation(id.getNamespace(), "block/" + id.getPath()));
         } else if (item == ModBlocks.mandrakeCrop.getSeed()) {
             this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation(id.getNamespace(), "item/" + id.getPath()));

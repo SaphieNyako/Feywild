@@ -1,6 +1,6 @@
 package com.feywild.feywild.block;
 
-import com.feywild.feywild.block.entity.LibraryBellEntity;
+import com.feywild.feywild.block.entity.LibraryBell;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.BlockState;
@@ -24,12 +24,12 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nonnull;
 
-public class LibraryBell extends BlockTE<LibraryBellEntity> {
+public class LibraryBellBlock extends BlockTE<LibraryBell> {
 
     public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);
 
-    public LibraryBell(ModX mod) {
-        super(mod, LibraryBellEntity.class, Properties.of(Material.METAL)
+    public LibraryBellBlock(ModX mod) {
+        super(mod, LibraryBell.class, Properties.of(Material.METAL)
                 .strength(-1, 3600000).noDrops()
                 .noOcclusion()
                 .sound(SoundType.STONE));
@@ -38,7 +38,7 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
     @Override
     public void onRemove(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
         if (!world.isClientSide && world instanceof ServerWorld) {
-            LibraryBellEntity tile = getTile(world, pos);
+            LibraryBell tile = getTile(world, pos);
             if (tile.getLibrarian() != null) {
                 Entity librarian = ((ServerWorld) world).getEntity(tile.getLibrarian());
                 if (librarian instanceof VillagerEntity) ((VillagerEntity) librarian).releaseAllPois();
@@ -66,7 +66,7 @@ public class LibraryBell extends BlockTE<LibraryBellEntity> {
         if (world.isClientSide) {
             world.playSound(player, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
         } else {
-            LibraryBellEntity blockEntity = getTile(world, pos);
+            LibraryBell blockEntity = getTile(world, pos);
             if (player.getGameProfile().getId().equals(blockEntity.getPlayer())) {
                 blockEntity.setAnnoyance(blockEntity.getAnnoyance() + 1);
             } else {

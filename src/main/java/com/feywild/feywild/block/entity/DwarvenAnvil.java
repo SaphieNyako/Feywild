@@ -33,7 +33,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileEntity {
+public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity {
 
     private static final int MAX_MANA = 1000;
     private static final int FEY_DUST_MANA_COST = 50;
@@ -63,7 +63,7 @@ public class DwarvenAnvilEntity extends TileEntityBase implements ITickableTileE
     // Hold a pair of the recipe that is used and the result value.
     private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipe = new LazyValue<>(Optional::empty);
 
-    public DwarvenAnvilEntity(TileEntityType<?> tileEntityType) {
+    public DwarvenAnvil(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
     }
     

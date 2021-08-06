@@ -21,7 +21,7 @@ import java.util.Random;
 public class AutumnTree extends BaseTree {
 
     public AutumnTree(ModX mod) {
-        super(mod, AutumnLeaves::new);
+        super(mod, AutumnLeavesBlock::new);
     }
 
     @Override

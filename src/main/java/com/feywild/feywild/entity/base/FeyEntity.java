@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.util;
+package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeyWildPanicGoal;

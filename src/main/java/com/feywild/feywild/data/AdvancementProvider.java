@@ -17,9 +17,9 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class Advancements extends AdvancementProviderBase {
+public class AdvancementProvider extends AdvancementProviderBase {
 
-    public Advancements(ModX mod, DataGenerator generator) {
+    public AdvancementProvider(ModX mod, DataGenerator generator) {
         super(mod, generator);
     }
 

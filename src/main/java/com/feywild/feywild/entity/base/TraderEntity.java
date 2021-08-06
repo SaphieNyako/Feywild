@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.util;
+package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.trade.TradeManager;
 import net.minecraft.entity.AgeableEntity;

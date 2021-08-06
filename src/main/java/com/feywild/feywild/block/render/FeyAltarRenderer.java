@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.render;
 
-import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.noeppi_noeppi.libx.render.ClientTickHandler;
@@ -16,17 +16,17 @@ import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltarBlockEntity> {
+public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
     
     public FeyAltarRenderer(TileEntityRendererDispatcher dispatcher) {
         super(dispatcher, new FeyAltarModel());
     }
 
     @Override
-    public void render(FeyAltarBlockEntity tile, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int light) {
+    public void render(FeyAltar tile, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int light) {
         super.render(tile, partialTicks, matrixStack, buffer, light);
         
-        double progressScaled = tile.getProgress() / (double) FeyAltarBlockEntity.MAX_PROGRESS;
+        double progressScaled = tile.getProgress() / (double) FeyAltar.MAX_PROGRESS;
         
         List<ItemStack> stacks = new ArrayList<>();
         for (int slot = 0; slot < tile.getInventory().getSlots(); slot++) {

@@ -3,7 +3,7 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.AutumnPixieEntity;
-import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;

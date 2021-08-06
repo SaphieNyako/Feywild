@@ -16,9 +16,9 @@ import net.minecraftforge.common.Tags;
 import static net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties;
 import static net.minecraft.loot.conditions.BlockStateProperty.hasBlockStateProperties;
 
-public class BlockLoot extends BlockLootProviderBase {
+public class BlockLootProvider extends BlockLootProviderBase {
 
-    public BlockLoot(ModX mod, DataGenerator generator) {
+    public BlockLootProvider(ModX mod, DataGenerator generator) {
         super(mod, generator);
     }
 

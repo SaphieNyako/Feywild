@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
+import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.tileentity.TileEntity;
@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     DwarfBlacksmithEntity entity;
-    private DwarvenAnvilEntity tile;
+    private DwarvenAnvil tile;
     private int ticksLeft = 0;
 
     public GoToAnvilPositionGoal(DwarfBlacksmithEntity entity, Supplier<BlockPos> pos, int maxMovementRange) {
@@ -78,7 +78,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
     private void init() {
         if (this.tile == null && entity.getSummonPos() != null) {
             TileEntity tile = entity.level.getBlockEntity(entity.getSummonPos());
-            this.tile = tile instanceof DwarvenAnvilEntity ? (DwarvenAnvilEntity) tile : null;
+            this.tile = tile instanceof DwarvenAnvil ? (DwarvenAnvil) tile : null;
         }
     }
 }

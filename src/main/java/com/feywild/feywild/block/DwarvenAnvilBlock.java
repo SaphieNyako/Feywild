@@ -1,6 +1,6 @@
 package com.feywild.feywild.block;
 
-import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
+import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.container.DwarvenAnvilContainer;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
 import io.github.noeppi_noeppi.libx.block.DirectionShape;
@@ -32,15 +32,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class DwarvenAnvil extends BlockGUI<DwarvenAnvilEntity, DwarvenAnvilContainer> {
+public class DwarvenAnvilBlock extends BlockGUI<DwarvenAnvil, DwarvenAnvilContainer> {
 
     public static final DirectionShape SHAPE = new DirectionShape(
             box(-0.375, 0.0625, 3.875, 16.625, 10.25, 12.6875)
     );
     
-    public DwarvenAnvil(ModX mod) {
+    public DwarvenAnvilBlock(ModX mod) {
         super(
-                mod, DwarvenAnvilEntity.class, ContainerBase.createContainerType(DwarvenAnvilContainer::new),
+                mod, DwarvenAnvil.class, ContainerBase.createContainerType(DwarvenAnvilContainer::new),
                 AbstractBlock.Properties.of(Material.HEAVY_METAL)
                         .strength(3f, 10f)
                         .harvestLevel(2)

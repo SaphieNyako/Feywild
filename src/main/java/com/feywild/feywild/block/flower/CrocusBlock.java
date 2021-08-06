@@ -14,11 +14,11 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class Crocus extends GiantFlowerBlock {
+public class CrocusBlock extends GiantFlowerBlock {
 
     public static final IntegerProperty OPENING_STATE = IntegerProperty.create("opening_state", 0, 2);
     
-    public Crocus(ModX mod) {
+    public CrocusBlock(ModX mod) {
         super(mod, 3);
     }
 

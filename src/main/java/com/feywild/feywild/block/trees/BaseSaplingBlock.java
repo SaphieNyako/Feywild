@@ -26,14 +26,14 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class BaseSapling extends BushBlock implements IGrowable, Registerable {
+public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerable {
 
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
     private final BaseTree tree;
     private final BlockItem item;
 
-    public BaseSapling(ModX mod, BaseTree tree) {
+    public BaseSaplingBlock(ModX mod, BaseTree tree) {
         super(AbstractBlock.Properties.copy(Blocks.OAK_SAPLING));
         this.tree = tree;
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);

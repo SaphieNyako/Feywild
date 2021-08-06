@@ -1,11 +1,11 @@
 package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.flower.Crocus;
-import com.feywild.feywild.block.flower.Dandelion;
+import com.feywild.feywild.block.flower.CrocusBlock;
+import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
-import com.feywild.feywild.block.flower.Sunflower;
-import com.feywild.feywild.block.trees.BaseSapling;
+import com.feywild.feywild.block.flower.SunflowerBlock;
+import com.feywild.feywild.block.trees.BaseSaplingBlock;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.block.trees.FeyWoodBlock;
 import io.github.noeppi_noeppi.libx.data.provider.BlockStateProviderBase;
@@ -69,28 +69,28 @@ public class BlockStates extends BlockStateProviderBase {
             );
             if (block == ModBlocks.sunflower) {
                 //noinspection CodeBlock2Expr
-                Sunflower.TIME_VARIANT.getPossibleValues().forEach(i -> {
-                    builder.partialState().with(GiantFlowerBlock.PART, 3).with(Sunflower.TIME_VARIANT, i).addModels(
+                SunflowerBlock.TIME_VARIANT.getPossibleValues().forEach(i -> {
+                    builder.partialState().with(GiantFlowerBlock.PART, 3).with(SunflowerBlock.TIME_VARIANT, i).addModels(
                             new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_flower" + i)))
                     );
                 });
             } else if (block == ModBlocks.dandelion) {
-                builder.partialState().with(GiantFlowerBlock.PART, 3).with(Dandelion.VARIANT, 0).addModels(
+                builder.partialState().with(GiantFlowerBlock.PART, 3).with(DandelionBlock.VARIANT, 0).addModels(
                         new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_bud")))
                 );
-                builder.partialState().with(GiantFlowerBlock.PART, 3).with(Dandelion.VARIANT, 1).addModels(
+                builder.partialState().with(GiantFlowerBlock.PART, 3).with(DandelionBlock.VARIANT, 1).addModels(
                         new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_flower")))
                 );
-                builder.partialState().with(GiantFlowerBlock.PART, 3).with(Dandelion.VARIANT, 2).addModels(
+                builder.partialState().with(GiantFlowerBlock.PART, 3).with(DandelionBlock.VARIANT, 2).addModels(
                         new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_fluff")))
                 );
-                builder.partialState().with(GiantFlowerBlock.PART, 3).with(Dandelion.VARIANT, 3).addModels(
+                builder.partialState().with(GiantFlowerBlock.PART, 3).with(DandelionBlock.VARIANT, 3).addModels(
                         new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_nofluff")))
                 );
             } else if (block == ModBlocks.crocus) {
                 //noinspection CodeBlock2Expr
-                Crocus.OPENING_STATE.getPossibleValues().forEach(i -> {
-                    builder.partialState().with(GiantFlowerBlock.PART, 3).with(Crocus.OPENING_STATE, i).addModels(
+                CrocusBlock.OPENING_STATE.getPossibleValues().forEach(i -> {
+                    builder.partialState().with(GiantFlowerBlock.PART, 3).with(CrocusBlock.OPENING_STATE, i).addModels(
                             new ConfiguredModel(models().getExistingFile(new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + (i == 0 ? "_bud" : "_flower" + i))))
                     );
                 });
@@ -110,7 +110,7 @@ public class BlockStates extends BlockStateProviderBase {
                 || block instanceof FeyLeavesBlock) {
             // Models are created in `defaultState`
             return null;
-        } else if (block instanceof BaseSapling) {
+        } else if (block instanceof BaseSaplingBlock) {
             return models().cross(id.getPath(), blockTexture(block));
         } else {
             return super.defaultModel(id, block);

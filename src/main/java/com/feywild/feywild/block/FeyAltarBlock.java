@@ -1,6 +1,6 @@
 package com.feywild.feywild.block;
 
-import com.feywild.feywild.block.entity.FeyAltarBlockEntity;
+import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
@@ -23,10 +23,10 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class FeyAltar extends BlockTE<FeyAltarBlockEntity> {
+public class FeyAltarBlock extends BlockTE<FeyAltar> {
     
-    public FeyAltar(ModX mod) {
-        super(mod, FeyAltarBlockEntity.class, AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
+    public FeyAltarBlock(ModX mod) {
+        super(mod, FeyAltar.class, AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class FeyAltar extends BlockTE<FeyAltarBlockEntity> {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
-        FeyAltarBlockEntity tile = this.getTile(world, pos);
+        FeyAltar tile = this.getTile(world, pos);
         if (!world.isClientSide) {
             if (player.isShiftKeyDown()) {
                 for (int slot = tile.getInventory().getSlots() - 1; slot >= 0; slot--) {

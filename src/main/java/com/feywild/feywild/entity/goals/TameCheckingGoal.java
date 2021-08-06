@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.entity.util.ITameable;
+import com.feywild.feywild.entity.base.ITameable;
 import net.minecraft.entity.ai.goal.Goal;
 
 import javax.annotation.Nonnull;
@@ -45,7 +45,7 @@ public class TameCheckingGoal extends Goal {
     }
 
     @Override
-    public void setFlags(EnumSet<Flag> flags) {
+    public void setFlags(@Nonnull EnumSet<Flag> flags) {
         this.parent.setFlags(flags);
     }
 

@@ -13,11 +13,11 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class Sunflower extends GiantFlowerBlock {
+public class SunflowerBlock extends GiantFlowerBlock {
 
     public static final IntegerProperty TIME_VARIANT = IntegerProperty.create("time_variant", 0, 2);
 
-    public Sunflower(ModX mod) {
+    public SunflowerBlock(ModX mod) {
         super(mod, 4);
     }
 

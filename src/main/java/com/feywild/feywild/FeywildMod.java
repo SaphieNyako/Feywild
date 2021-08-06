@@ -5,8 +5,7 @@ import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.render.*;
-import com.feywild.feywild.entity.util.FeyEntity;
-import com.feywild.feywild.events.SpawnData;
+import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.quest.QuestManager;
@@ -16,7 +15,6 @@ import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.util.Registration;
 import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.world.BiomeLoader;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
@@ -25,6 +23,7 @@ import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -34,6 +33,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.FlatChunkGenerator;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
@@ -134,7 +134,6 @@ public class FeywildMod extends ModXRegistration {
         CapabilityMana.register();
         CapabilityQuests.register();
         
-        SpawnData.registerSpawn();
         event.enqueueWork(ModBiomeGeneration::setupBiomes);
         event.enqueueWork(ModOreGeneration::setupOres);
 
@@ -147,7 +146,12 @@ public class FeywildMod extends ModXRegistration {
             GlobalEntityTypeAttributes.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
             
             ModStructures.setupStructures();
-            ModConfiguredStructures.registerConfiguredStructures();
+
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
         });
     }
 
@@ -182,7 +186,6 @@ public class FeywildMod extends ModXRegistration {
 
     // TODO
     private void registerModAdditions() {
-        Registration.init();
         modStructuresRegister();
     }
 

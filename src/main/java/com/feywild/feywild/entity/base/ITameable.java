@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.util;
+package com.feywild.feywild.entity.base;
 
 public interface ITameable {
     

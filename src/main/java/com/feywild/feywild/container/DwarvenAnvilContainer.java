@@ -1,6 +1,6 @@
 package com.feywild.feywild.container;
 
-import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
+import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.util.Util;
 import io.github.noeppi_noeppi.libx.inventory.container.ContainerBase;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +12,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nullable;
 
-public class DwarvenAnvilContainer extends ContainerBase<DwarvenAnvilEntity> {
+public class DwarvenAnvilContainer extends ContainerBase<DwarvenAnvil> {
 
     public DwarvenAnvilContainer(@Nullable ContainerType<?> type, int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
         super(type, windowId, world, pos, playerInventory, player, 7, 8);

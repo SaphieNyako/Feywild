@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class LibraryBellEntity extends TileEntity {
+public class LibraryBell extends TileEntity {
 
     private int annoyance = 0;
     
@@ -22,7 +22,7 @@ public class LibraryBellEntity extends TileEntity {
     @Nullable
     private UUID security = null;
 
-    public LibraryBellEntity(TileEntityType<?> type) {
+    public LibraryBell(TileEntityType<?> type) {
         super(type);
     }
 

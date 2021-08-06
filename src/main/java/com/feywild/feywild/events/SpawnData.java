@@ -1,18 +1,14 @@
 package com.feywild.feywild.events;
 
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.util.FeyEntity;
 import com.feywild.feywild.util.configs.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -86,25 +82,6 @@ public class SpawnData {
         MobSpawnInfo.Spawners spawnInfo = new MobSpawnInfo.Spawners(type, weight, min, max);
         event.getSpawns().getSpawner(classification).add(spawnInfo);
     }
-
-    public static void registerSpawn() {
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-
-        EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith,
-                EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
-
-    }
-
 }
 
 

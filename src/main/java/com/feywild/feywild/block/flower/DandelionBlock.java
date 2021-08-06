@@ -21,11 +21,11 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class Dandelion extends GiantFlowerBlock {
+public class DandelionBlock extends GiantFlowerBlock {
 
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 3);
 
-    public Dandelion(ModX mod) {
+    public DandelionBlock(ModX mod) {
         super(mod, 4);
     }
 

@@ -43,7 +43,7 @@ public abstract class BaseTree extends Tree implements Registerable {
     private final Registerable logRegister;
     private final Registerable woodRegister;
     private final FeyLeavesBlock leaves;
-    private final BaseSapling sapling;
+    private final BaseSaplingBlock sapling;
     
     public BaseTree(ModX mod) {
         this(mod, FeyLeavesBlock::new);
@@ -70,7 +70,7 @@ public abstract class BaseTree extends Tree implements Registerable {
         };
         
         this.leaves = leavesFactory.apply(mod);
-        this.sapling = new BaseSapling(mod, this);
+        this.sapling = new BaseSaplingBlock(mod, this);
     }
 
     @Override

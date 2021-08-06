@@ -1,7 +1,8 @@
-package com.feywild.feywild.recipes;
+package com.feywild.feywild.jei;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.recipes.AltarRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,21 +17,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilRecipe> {
+public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "dwarven_anvil");
+    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "fey_altar");
     public IDrawable background;
     public IDrawable icon;
     IGuiHelper helper;
 
-    public DwarvenAnvilRecipeCategory(IGuiHelper helper) {
-        ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
+    public AltarRecipeCategory(IGuiHelper helper) {
+        ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
         this.helper = helper;
-        //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
         background = helper.createDrawable(location, 0, 0, 85, 85);
-
-        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.dwarvenAnvil));
-
+        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
     }
 
     @Nonnull
@@ -41,14 +39,14 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
 
     @Nonnull
     @Override
-    public Class<? extends DwarvenAnvilRecipe> getRecipeClass() {
-        return DwarvenAnvilRecipe.class;
+    public Class<? extends AltarRecipe> getRecipeClass() {
+        return AltarRecipe.class;
     }
 
     @Nonnull
     @Override
     public String getTitle() {
-        return "Dwarven Anvil";
+        return "Fey Altar";
     }
 
     @Nonnull
@@ -63,43 +61,44 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
         return icon;
     }
 
-    // TODO needs fixing (new recipe format)
+    /*
     @Override
-    public void setIngredients(DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
+    public void draw(AltarRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        IDrawableAnimated arrow = this.cachedArrows.getUnchecked(40); // The crafting arrow ???
+        arrow.draw(matrixStack, 38, 6); //location on screen
+    } */
+
+    @Override
+    public void setIngredients(AltarRecipe altarRecipe, IIngredients iIngredients) {
         List<List<ItemStack>> itemStacks = new ArrayList<>();
 
-        recipe.getInputs().forEach(ingredient -> itemStacks.add(Arrays.asList(ingredient.getItems())));
+        altarRecipe.getIngredients().forEach(ingredient -> itemStacks.add(Arrays.asList(ingredient.getItems())));
         iIngredients.setInputLists(VanillaTypes.ITEM, itemStacks);
-        iIngredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-
+        iIngredients.setOutput(VanillaTypes.ITEM, altarRecipe.getResultItem());
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
-        for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
+    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull AltarRecipe altarRecipe, IIngredients iIngredients) {
 
+        for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
             if (i == 0) {
-                iRecipeLayout.getItemStacks().init(i, true, 0, 0);
+                iRecipeLayout.getItemStacks().init(i, true, 0, 32);
                 iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
             }
             if (i == 1) {
-                iRecipeLayout.getItemStacks().init(i, true, 22, 32);  // 0 32
+                iRecipeLayout.getItemStacks().init(i, true, 16, 64);
                 iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
             }
             if (i == 2) {
-                iRecipeLayout.getItemStacks().init(i, true, 32, 54);  //16 64
+                iRecipeLayout.getItemStacks().init(i, true, 32, 0);
                 iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
             }
             if (i == 3) {
-                iRecipeLayout.getItemStacks().init(i, true, 42, 12);
+                iRecipeLayout.getItemStacks().init(i, true, 48, 64);
                 iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
             }
             if (i == 4) {
-                iRecipeLayout.getItemStacks().init(i, true, 54, 54);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 5) {
-                iRecipeLayout.getItemStacks().init(i, true, 66, 32);
+                iRecipeLayout.getItemStacks().init(i, true, 64, 32);
                 iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
             }
         }

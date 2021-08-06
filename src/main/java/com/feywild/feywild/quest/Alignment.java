@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest;
 
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.base.FeyEntity;
 import net.minecraft.entity.EntityType;
 
 import javax.annotation.Nullable;

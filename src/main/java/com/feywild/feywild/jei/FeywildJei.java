@@ -1,11 +1,11 @@
-package com.feywild.feywild.util;
+package com.feywild.feywild.jei;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.recipes.AltarRecipe;
-import com.feywild.feywild.recipes.AltarRecipeCategory;
+import com.feywild.feywild.jei.AltarRecipeCategory;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
-import com.feywild.feywild.recipes.DwarvenAnvilRecipeCategory;
+import com.feywild.feywild.jei.DwarvenAnvilRecipeCategory;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JeiPlugin
-public class JEI implements IModPlugin {
+public class FeywildJei implements IModPlugin {
 
     @Nonnull
     @Override

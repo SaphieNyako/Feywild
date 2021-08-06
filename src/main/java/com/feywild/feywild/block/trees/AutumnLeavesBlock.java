@@ -12,9 +12,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AutumnLeaves extends FeyLeavesBlock {
+public class AutumnLeavesBlock extends FeyLeavesBlock {
 
-    public AutumnLeaves(ModX mod) {
+    public AutumnLeavesBlock(ModX mod) {
         super(mod);
     }
 

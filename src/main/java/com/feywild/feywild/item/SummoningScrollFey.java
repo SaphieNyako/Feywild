@@ -1,6 +1,6 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.entity.util.FeyEntity;
+import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.client.util.ITooltipFlag;
