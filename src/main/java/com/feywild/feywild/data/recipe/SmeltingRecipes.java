@@ -17,6 +17,6 @@ public class SmeltingRecipes extends SmeltingProviderBase {
 
     @Override
     protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        this.smelting(consumer, ModItems.feyDust, ModItems.lesserFeyGem, 0.1f, 100);
+        this.smelting(consumer, ModItems.lesserFeyGem, ModItems.feyDust, 0.1f, 100);
     }
 }
