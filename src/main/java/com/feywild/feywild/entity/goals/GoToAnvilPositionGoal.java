@@ -66,13 +66,13 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
     @Override
     public boolean canContinueToUse() {
         this.init();
-        return this.ticksLeft > 0 && this.entity.isTamed() && this.tile != null && this.targetPosition.get() != null && this.tile.canCraft();
+        return this.ticksLeft > 0 && this.entity.isTamed() && this.tile != null && this.targetPosition.get() != null;
     }
 
     @Override
     public boolean canUse() {
         this.init();
-        return this.tile != null && this.targetPosition.get() != null;
+        return this.tile != null && this.targetPosition.get() != null && this.tile.canCraft();
     }
 
     private void init() {

@@ -79,7 +79,7 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull DwarvenAnvilRecipe recipe, IIngredients ii) {
-        layout.getItemStacks().init(0, true, 18, 0);
+        layout.getItemStacks().init(0, true, 18, 1);
         if (ii.getInputs(VanillaTypes.ITEM).size() >= 2) layout.getItemStacks().init(1, true, 70, 8);
         if (ii.getInputs(VanillaTypes.ITEM).size() >= 3) layout.getItemStacks().init(2, true, 100, 22);
         if (ii.getInputs(VanillaTypes.ITEM).size() >= 4) layout.getItemStacks().init(3, true, 84, 43);
