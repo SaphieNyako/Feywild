@@ -1,6 +1,8 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
+import com.feywild.feywild.config.*;
+import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -15,12 +17,12 @@ import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.util.configs.Config;
 import com.feywild.feywild.world.BiomeLoader;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.gen.ModOreGeneration;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
+import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -48,16 +50,13 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
 import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
@@ -87,12 +86,15 @@ public class FeywildMod extends ModXRegistration {
         
         instance = this;
         network = new FeywildNetwork(this);
+
+        ConfigManager.registerValueMapper(new ResourceLocation(modid, "biome_types"), new BiomeTypesMapper());
+        ConfigManager.registerConfig(new ResourceLocation(modid, "misc"), MiscConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(modid, "world_gen"), WorldGenConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(modid, "mob_spawns"), MobConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(modid, "compat"), CompatConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(modid, "client"), ClientConfig.class, true);
         
         GeckoLib.initialize();
-
-        // TODO
-        registerConfigs();
-        loadConfigs();
         
         FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
         
@@ -173,17 +175,7 @@ public class FeywildMod extends ModXRegistration {
         event.addListener(QuestManager.createReloadListener());
 //        event.addListener(UtilManager.instance());
     }
-
-    private void registerConfigs() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
-    }
-
-    private void loadConfigs() {
-        Config.loadConfigFile(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-client.toml").toString());
-        Config.loadConfigFile(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("feywild-server.toml").toString());
-    }
-
+    
     // TODO
     private void registerModAdditions() {
         modStructuresRegister();
@@ -243,25 +235,25 @@ public class FeywildMod extends ModXRegistration {
 
             }
 
-            if (biomeName.contains(SpringBiome) || (biomeName.contains(AlfHeimPlains) && Config.MYTHIC.get() != 0)) {
+            if (biomeName.contains(SpringBiome) || (biomeName.contains(AlfHeimPlains) && CompatConfig.mythic_alfheim.alfheim)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && Config.MYTHIC.get() != 0)) {
+            if (biomeName.contains(SummerBiome) || (biomeName.contains(GoldenFields) && CompatConfig.mythic_alfheim.alfheim)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && Config.MYTHIC.get() != 0)) {
+            if (biomeName.contains(AutumnBiome) || (biomeName.contains(AlfHeimHills) && CompatConfig.mythic_alfheim.alfheim)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
 
             }
 
-            if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && Config.MYTHIC.get() != 0)) {
+            if (biomeName.contains(WinterBiome) || (biomeName.contains(AlfHeimForest) && CompatConfig.mythic_alfheim.alfheim)) {
 
                 event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
 

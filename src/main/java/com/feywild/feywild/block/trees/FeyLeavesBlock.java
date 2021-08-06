@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.util.configs.Config;
+import com.feywild.feywild.config.ClientConfig;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -129,7 +129,7 @@ public class FeyLeavesBlock extends BlockBase implements IForgeShearable, Regist
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        if (Config.PERFORMANCE_CONFIG.cachedTreeParticlesValue()) {
+        if (ClientConfig.tree_particles) {
             if (world.isRainingAt(pos.above())) {
                 if (rand.nextInt(15) == 1) {
                     BlockPos blockpos = pos.below();

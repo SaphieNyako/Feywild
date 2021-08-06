@@ -1,8 +1,8 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.configs.Config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -25,9 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class AutumnWorldTreeStructure extends BaseStructure {
-
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.AUTUMN_WORLD_TREE_CONFIG.getCachedDistance();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.AUTUMN_WORLD_TREE_CONFIG.getCachedMinDistance();
+    
     public final static int SEED_MODIFIER = 890124567;
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie, 100, 4, 4)
@@ -37,12 +35,12 @@ public class AutumnWorldTreeStructure extends BaseStructure {
 
     @Override
     public int getAverageDistanceBetweenChunks() {
-        return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.autumn_world_tree.average_distance;
     }
 
     @Override
     public int getMinDistanceBetweenChunks() {
-        return MIN_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.autumn_world_tree.minimum_distance;
     }
 
     @Override

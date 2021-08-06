@@ -1,5 +1,7 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.config.ClientConfig;
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.quest.player.QuestData;
@@ -9,7 +11,7 @@ import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
-import com.feywild.feywild.util.configs.Config;
+import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -71,7 +73,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide && !event.getPlayer().getPersistentData().getBoolean("feywild_got_lexicon") && Config.SPAWN_LEXICON.get()) {
+        if (!event.getPlayer().level.isClientSide && !event.getPlayer().getPersistentData().getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
             event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
             event.getPlayer().getPersistentData().putBoolean("feywild_got_lexicon", true);
         }
@@ -80,8 +82,15 @@ public class EventListener {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void openGui(GuiOpenEvent event) {
-        if (Config.MENU_SCREEN.get() && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
+        if (ClientConfig.replace_menu && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
             event.setGui(new MenuScreen());
+        }
+    }
+    
+    @SubscribeEvent
+    public void loadConfig(ConfigLoadedEvent event) {
+        if (event.getConfigClass() == MiscConfig.class) {
+            ModItems.feyDust.updateFood();
         }
     }
 }

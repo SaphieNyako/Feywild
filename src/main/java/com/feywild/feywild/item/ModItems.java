@@ -3,7 +3,6 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.configs.Config;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
 import net.minecraft.item.Food;
@@ -24,11 +23,7 @@ public class ModItems {
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
 
     //Can also give food item .hunger(5) .saturation(1.5f)
-    public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
-            new Food.Builder()
-                    .effect(() -> new EffectInstance(Effects.LEVITATION, Config.FEY_DUST_DURATION.get(), 1), 1)
-                    .build()
-    ));
+    public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties());
     
     public static final Item mandrake = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder()

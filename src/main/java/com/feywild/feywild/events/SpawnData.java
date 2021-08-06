@@ -1,7 +1,7 @@
 package com.feywild.feywild.events;
 
+import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.configs.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -15,17 +15,11 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
 import java.util.Set;
 
 // TODO
 @Mod.EventBusSubscriber(modid = "feywild")
 public class SpawnData {
-
-    public static List<BiomeDictionary.Type> biomeSpring = Config.SPRING_PIXIE_CONFIG.getBiomes();
-    public static List<BiomeDictionary.Type> biomeSummer = Config.SUMMER_PIXIE_CONFIG.getBiomes();
-    public static List<BiomeDictionary.Type> biomeAutumn = Config.AUTUMN_PIXIE_CONFIG.getBiomes();
-    public static List<BiomeDictionary.Type> biomeWinter = Config.WINTER_PIXIE_CONFIG.getBiomes();
 
     public static String SpringBiome = "blossoming_wealds";
     public static String SummerBiome = "golden_seelie_fields";
@@ -43,38 +37,35 @@ public class SpawnData {
         if (!types.contains(Type.NETHER) && !types.contains(Type.END)
                 && !types.contains(Type.OCEAN)) {
 
-            addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
+            addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
 
-            for (Type biomeName : biomeSpring) {
-                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
+            for (Type biomeName : MobConfig.spring_pixie.biomes) {
+                if ((types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome)) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.springPixie, EntityClassification.CREATURE,
-                            Config.SPRING_PIXIE_CONFIG.getWeight(), Config.SPRING_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
+                            MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
                 }
             }
 
-            for (Type biomeName : biomeSummer) {
-                if (types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
+            for (Type biomeName : MobConfig.summer_pixie.biomes) {
+                if ((types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(AutumnBiome) && !biome.contains(WinterBiome)) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.summerPixie, EntityClassification.CREATURE,
-                            Config.SUMMER_PIXIE_CONFIG.getWeight(), Config.SUMMER_PIXIE_CONFIG.getMin(), Config.SUMMER_PIXIE_CONFIG.getMax());
+                            MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
                 }
             }
 
-            for (Type biomeName : biomeAutumn) {
-                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(SpringBiome) && !biome.contains(WinterBiome) || biome.contains(Alfheim)) {
+            for (Type biomeName : MobConfig.autumn_pixie.biomes) {
+                if ((types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(SummerBiome) && !biome.contains(WinterBiome)) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.autumnPixie, EntityClassification.CREATURE,
-                            Config.AUTUMN_PIXIE_CONFIG.getWeight(), Config.AUTUMN_PIXIE_CONFIG.getMin(), Config.AUTUMN_PIXIE_CONFIG.getMax());
+                            MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
                 }
             }
 
-            for (Type biomeName : biomeWinter) {
-                if (types.contains(biomeName) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome) && !biome.contains(SpringBiome) || biome.contains(Alfheim)) {
+            for (Type biomeName : MobConfig.winter_pixie.biomes) {
+                if ((types.contains(biomeName) && !biome.contains(SpringBiome) && !biome.contains(SummerBiome) && !biome.contains(AutumnBiome)) || biome.contains(Alfheim)) {
                     addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE,
-                            Config.WINTER_PIXIE_CONFIG.getWeight(), Config.WINTER_PIXIE_CONFIG.getMin(), Config.WINTER_PIXIE_CONFIG.getMax());
+                            MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
                 }
             }
-
-            addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, Config.DWARF_CONFIG.getWeight(), Config.DWARF_CONFIG.getMin(), Config.DWARF_CONFIG.getMax());
-
         }
     }
 

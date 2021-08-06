@@ -3,7 +3,8 @@ package com.feywild.feywild.world.gen;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.BaseTree;
-import com.feywild.feywild.util.configs.Config;
+import com.feywild.feywild.config.CompatConfig;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -21,9 +22,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class ModTreeGeneration {
-
-    public final static float TREE_PATCHES_CHANCE = (float) Config.TREE_PATCH_CONFIG.getCachedSpawnChance();
-    public final static int TREE_PATCHES_SIZE = Config.TREE_PATCH_CONFIG.getCachedSpawnSize();
 
     public static final ResourceLocation SPRING_BIOME = new ResourceLocation(FeywildMod.getInstance().modid, "blossoming_wealds");
     public static final ResourceLocation SUMMER_BIOME = new ResourceLocation(FeywildMod.getInstance().modid, "golden_seelie_fields");
@@ -45,51 +43,51 @@ public class ModTreeGeneration {
 
         //SPRING TREE GENERATION
         if (((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && Config.TREE_PATCH_CONFIG.getCachedSpawnSpring()) {
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.spring) {
             addLooseTrees(event, ModTrees.springTree, random, types.contains(BiomeDictionary.Type.FOREST));
         }
 
         //SUMMER TREE GENERATION
         if (((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && Config.TREE_PATCH_CONFIG.getCachedSpawnSummer()) {
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.summer) {
             addLooseTrees(event, ModTrees.summerTree, random, false);
         }
 
         //AUTUMN TREE GENERATION
         if (((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && Config.TREE_PATCH_CONFIG.getCachedSpawnAutumn()) {
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.autumn) {
             addLooseTrees(event, ModTrees.autumnTree, random, false);
         }
 
         //WINTER TREE GENERATION
         if (((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && Config.TREE_PATCH_CONFIG.getCachedSpawnWinter()) {
+                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.winter) {
             addLooseTrees(event, ModTrees.winterTree, random, false);
         }
 
 
         /* BIOME DECORATION GENERATION */
 
-        if (SPRING_BIOME.equals(biomeId) || (ALFHEIM_PLAINS.equals(biomeId) && Config.MYTHIC.get() != 0)) {
+        if (SPRING_BIOME.equals(biomeId) || (ALFHEIM_PLAINS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_DANDELION);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_FLOWERS);
         }
 
-        if (SUMMER_BIOME.equals(biomeId) || (GOLDEN_FIELDS.equals(biomeId) && Config.MYTHIC.get() != 0)) {
+        if (SUMMER_BIOME.equals(biomeId) || (GOLDEN_FIELDS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_SUNFLOWER);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
         }
 
-        if (AUTUMN_BIOME.equals(biomeId) || (ALFHEIM_HILLS.equals(biomeId) && Config.MYTHIC.get() != 0)) {
+        if (AUTUMN_BIOME.equals(biomeId) || (ALFHEIM_HILLS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_PUMPKINS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SWAMP_FLOWERS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SMALL_MUSHROOMS);
         }
 
-        if (WINTER_BIOME.equals(biomeId) || (DREAMWOOD_FOREST.equals(biomeId) && Config.MYTHIC.get() != 0)) {
+        if (WINTER_BIOME.equals(biomeId) || (DREAMWOOD_FOREST.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_CROCUS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
@@ -99,6 +97,6 @@ public class ModTreeGeneration {
     private static void addLooseTrees(BiomeLoadingEvent event, BaseTree tree, Random random, boolean isForest) {
         event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true)
                 .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (isForest ? 2 : 1) * TREE_PATCHES_CHANCE, TREE_PATCHES_SIZE))));
+                .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (isForest ? 2 : 1) * WorldGenConfig.tree_patches.chance, WorldGenConfig.tree_patches.size))));
     }
 }

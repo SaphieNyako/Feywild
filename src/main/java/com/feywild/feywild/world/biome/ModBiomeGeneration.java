@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.biome;
 
-import com.feywild.feywild.util.configs.Config;
+import com.feywild.feywild.config.CompatConfig;
+import com.feywild.feywild.config.WorldGenConfig;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -14,11 +15,11 @@ import static net.minecraftforge.common.BiomeDictionary.Type.*;
 public class ModBiomeGeneration {
     
     public static void setupBiomes() {
-        if (Config.MYTHIC.get() != 2) {
-            addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, Config.SPRING_BIOME_CONFIG.getCachedWeight(), MAGICAL, FOREST);
-            addBiome(ModBiomes.goldenSeelieFields, BiomeManager.BiomeType.WARM, Config.SUMMER_BIOME_CONFIG.getCachedWeight(), MAGICAL, HOT);
-            addBiome(ModBiomes.eternalFall, BiomeManager.BiomeType.WARM, Config.AUTUMN_BIOME_CONFIG.getCachedWeight(), MAGICAL, MUSHROOM);
-            addBiome(ModBiomes.frozenRetreat, BiomeManager.BiomeType.ICY, Config.WINTER_BIOME_CONFIG.getCachedWeight(), MAGICAL, COLD);
+        if (CompatConfig.mythic_alfheim.overworld) {
+            addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.spring.weight, MAGICAL, FOREST);
+            addBiome(ModBiomes.goldenSeelieFields, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.summer.weight, MAGICAL, HOT);
+            addBiome(ModBiomes.eternalFall, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.autumn.weight, MAGICAL, MUSHROOM);
+            addBiome(ModBiomes.frozenRetreat, BiomeManager.BiomeType.ICY, WorldGenConfig.biomes.winter.weight, MAGICAL, COLD);
         }
     }
 
