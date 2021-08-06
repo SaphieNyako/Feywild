@@ -58,8 +58,7 @@ public class AdvancementProvider extends AdvancementProviderBase {
         
         this.advancement("fey_dust")
                 .display(ModItems.feyDust)
-                .task(this.items(ModItems.feyDust))
-                .task(this.items(ModItems.lesserFeyGem));
+                .task(this.items(ModItems.feyDust), this.items(ModItems.lesserFeyGem));
         
         this.advancement("dwarf_trade").parent("fey_dust")
                 .display(ModItems.lesserFeyGem)

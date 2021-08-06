@@ -75,6 +75,7 @@ public class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
         
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
+        MinecraftForge.EVENT_BUS.addListener(this::entityAttributes);
 
         MinecraftForge.EVENT_BUS.addListener(BiomeLoader::loadBiome);
         MinecraftForge.EVENT_BUS.addListener(StructureLoader::addStructureSettings);

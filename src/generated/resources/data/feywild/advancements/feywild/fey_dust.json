@@ -39,9 +39,7 @@
   },
   "requirements": [
     [
-      "inventory_changed"
-    ],
-    [
+      "inventory_changed",
       "inventory_changed2"
     ]
   ]
