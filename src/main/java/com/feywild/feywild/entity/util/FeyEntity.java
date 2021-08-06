@@ -342,6 +342,11 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
     }
 
     @Override
+    public void remove() {
+        super.remove();
+    }
+
+    @Override
     public boolean removeWhenFarAway(double distanceSq) {
         return false;
     }

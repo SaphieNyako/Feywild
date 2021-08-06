@@ -59,6 +59,14 @@ public class TextProcessor {
                         style = style.withUnderlined(true);
                     } else if ("s".equalsIgnoreCase(part.trim()) || "strikethrough".equalsIgnoreCase(part.trim())) {
                         style = style.setStrikethrough(true);
+                    } else if ("spring".equalsIgnoreCase(part.trim())) {
+                        style = style.withColor(Color.fromRgb(0x66cc99));
+                    } else if ("summer".equalsIgnoreCase(part.trim())) {
+                        style = style.withColor(Color.fromRgb(0xffcc00));
+                    } else if ("autumn".equalsIgnoreCase(part.trim())) {
+                        style = style.withColor(Color.fromRgb(0xcc3333));
+                    } else if ("winter".equalsIgnoreCase(part.trim())) {
+                        style = style.withColor(Color.fromRgb(0x66ccff));
                     } else {
                         for (TextFormatting tf : TextFormatting.values()) {
                             if (tf.getName().equalsIgnoreCase(part.trim())) {
