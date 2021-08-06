@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "feywild:smelting/lesser_fey_gem"
+      "feywild:smelting/fey_dust"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:fey_dust"
+            "item": "feywild:lesser_fey_gem"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "feywild:smelting/lesser_fey_gem"
+        "recipe": "feywild:smelting/fey_dust"
       }
     }
   },
