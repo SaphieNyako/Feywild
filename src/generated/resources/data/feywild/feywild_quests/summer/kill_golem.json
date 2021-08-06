@@ -21,7 +21,7 @@
   "tasks": [
     {
       "entity": "minecraft:iron_golem",
-      "id": "feywild:kill_empty_hand"
+      "id": "feywild:kill"
     }
   ],
   "rewards": [

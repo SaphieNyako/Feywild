@@ -222,12 +222,15 @@ public class QuestData {
     
     public void startNextQuests() {
         QuestLine quests = this.getQuestLine();
+        boolean hasEmptyQuests = false;
         if (quests != null) {
             for (Quest newQuest : quests.getNextQuests(this.activeQuests.keySet(), this.completedQuests)) {
                 if (newQuest.tasks.isEmpty()) {
                     // Empty quest will never be active but always pending for completion
                     if (!this.pendingCompletion.contains(newQuest.id)) {
                         this.pendingCompletion.add(newQuest.id);
+                        this.completedQuests.add(newQuest.id);
+                        hasEmptyQuests = true;
                     }
                 } else {
                     if (!this.activeQuests.containsKey(newQuest.id)) {
@@ -236,6 +239,11 @@ public class QuestData {
                     }
                 }
             }
+        }
+        if (hasEmptyQuests) {
+            // We have quests that instantly got pending for completion
+            // so we need to start their children quests now.
+            startNextQuests();
         }
     }
     

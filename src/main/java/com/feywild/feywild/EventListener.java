@@ -6,7 +6,6 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
-import com.feywild.feywild.quest.task.EmptyHandKillTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.util.LibraryBooks;
@@ -16,7 +15,6 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,9 +41,6 @@ public class EventListener {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getSource().getEntity();
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
-            if (player.getItemInHand(Hand.MAIN_HAND).isEmpty()) {
-                quests.checkComplete(EmptyHandKillTask.INSTANCE, event.getEntityLiving());
-            }
         }
     }
     
