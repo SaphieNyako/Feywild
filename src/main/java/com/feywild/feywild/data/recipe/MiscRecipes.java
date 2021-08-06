@@ -21,21 +21,21 @@ public class MiscRecipes extends AnyRecipeProvider {
     @Nonnull
     @Override
     public String getName() {
-        return mod.modid + " miscellaneous recipes";
+        return this.mod.modid + " miscellaneous recipes";
     }
 
     @Override
     protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
         stonecutting(Ingredient.of(ModItems.greaterFeyGem), ModItems.lesserFeyGem, 2)
                 .unlocks("has_item", has((ModItems.greaterFeyGem)))
-                .save(consumer, loc(ModItems.lesserFeyGem, "cutting"));
+                .save(consumer, this.loc(ModItems.lesserFeyGem, "cutting"));
         
         stonecutting(Ingredient.of(ModItems.shinyFeyGem), ModItems.greaterFeyGem, 2)
                 .unlocks("has_item", has((ModItems.shinyFeyGem)))
-                .save(consumer, loc(ModItems.greaterFeyGem, "cutting"));
+                .save(consumer, this.loc(ModItems.greaterFeyGem, "cutting"));
         
         stonecutting(Ingredient.of(ModItems.brilliantFeyGem), ModItems.shinyFeyGem, 2)
                 .unlocks("has_item", has((ModItems.brilliantFeyGem)))
-                .save(consumer, loc(ModItems.shinyFeyGem, "cutting"));
+                .save(consumer, this.loc(ModItems.shinyFeyGem, "cutting"));
     }
 }

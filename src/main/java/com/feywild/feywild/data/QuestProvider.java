@@ -45,140 +45,140 @@ public class QuestProvider implements IDataProvider {
     }
 
     public void setup() {
-        root(SPRING)
+        this.root(SPRING)
                 .icon(Items.DIAMOND)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningSpringPixie)
                 .build();
-        
-        quest(SPRING, "levitate_sheep")
+
+        this.quest(SPRING, "levitate_sheep")
                 .parent("root")
                 .icon(Blocks.PINK_WOOL)
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP, 3))
                 .build();
-        
-        quest(SPRING, "cake")
+
+        this.quest(SPRING, "cake")
                 .parent("levitate_sheep")
                 .gift(Ingredient.of(Items.CAKE), 2)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.SWEET_BERRIES, 6)))
                 .build();
-                
-        quest(SPRING, "honey")
+
+        this.quest(SPRING, "honey")
                 .parent("cake")
                 .gift(Ingredient.of(Items.HONEYCOMB), 2)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.HONEY_BOTTLE, 1)))
                 .build();
-        
-        quest(SPRING, "sapling")
+
+        this.quest(SPRING, "sapling")
                 .parent("honey")
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
                 .build();
-                
-        
-        root(SUMMER)
+
+
+        this.root(SUMMER)
                 .icon(Items.DIAMOND)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningSummerPixie)
                 .build();
-        
-        quest(SUMMER, "kill_golem")
+
+        this.quest(SUMMER, "kill_golem")
                 .parent("root")
                 .icon(Items.IRON_NUGGET)
                 .task(QuestTask.of(EmptyHandKillTask.INSTANCE, EntityType.IRON_GOLEM))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.IRON_INGOT, 7)))
                 .build();
-                
-        quest(SUMMER, "bee_nest")
+
+        this.quest(SUMMER, "bee_nest")
                 .reputation(20)
                 .parent("kill_golem")
                 .gift(Ingredient.of(Blocks.BEE_NEST))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.HONEYCOMB)))
                 .build();
-        
-        quest(SUMMER, "kill_pillager")
+
+        this.quest(SUMMER, "kill_pillager")
                 .parent("bee_nest")
                 .icon(Items.IRON_AXE)
                 .task(QuestTask.of(EmptyHandKillTask.INSTANCE, EntityType.PILLAGER, 5))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.GOLD_INGOT, 3)))
                 .build();
-        
-        quest(SUMMER, "sapling")
+
+        this.quest(SUMMER, "sapling")
                 .parent("kill_pillager")
                 .icon(ModTrees.summerTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
                 .build();
-                
-        
-        root(AUTUMN)
+
+
+        this.root(AUTUMN)
                 .icon(Items.DIAMOND)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningAutumnPixie)
                 .build();
-        
-        quest(AUTUMN, "food_potatoes")
+
+        this.quest(AUTUMN, "food_potatoes")
                 .parent("root")
                 .complete(null)
                 .gift(Ingredient.of(Items.POTATO), 9)
                 .build();
-        
-        quest(AUTUMN, "food_beetroots")
+
+        this.quest(AUTUMN, "food_beetroots")
                 .parent("root")
                 .complete(null)
                 .gift(Ingredient.of(Items.BEETROOT), 9)
                 .build();
-        
-        quest(AUTUMN, "food_carrots")
+
+        this.quest(AUTUMN, "food_carrots")
                 .parent("root")
                 .complete(null)
                 .gift(Ingredient.of(Items.CARROT), 9)
                 .build();
-        
-        quest(AUTUMN, "food_complete")
+
+        this.quest(AUTUMN, "food_complete")
                 .parent("food_potatoes", "food_beetroots", "food_carrots")
                 .icon(Items.BEETROOT_SOUP)
                 .complete(null)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
                 .build();
-        
-        quest(AUTUMN, "pumpkin")
+
+        this.quest(AUTUMN, "pumpkin")
                 .parent("food_complete")
                 .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
                 .build();
-        
-        quest(AUTUMN, "dyes")
+
+        this.quest(AUTUMN, "dyes")
                 .parent("pumpkin")
                 .icon(Items.RED_DYE)
                 .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.DYES), 9))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
                 .build();
-        
-        
-        root(WINTER)
+
+
+        this.root(WINTER)
                 .icon(Items.DIAMOND)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningWinterPixie)
                 .build();
-        
-        quest(WINTER, "snowballs")
+
+        this.quest(WINTER, "snowballs")
                 .parent("root")
                 .gift(Ingredient.of(Items.SNOWBALL), 16)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Blocks.ICE, 4)))
                 .build();
-        
-        quest(WINTER, "skull")
+
+        this.quest(WINTER, "skull")
                 .parent("snowballs")
                 .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ZOMBIE_HEAD), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.WITHER_SKELETON_SKULL)))
                 .build();
-        
-        quest(WINTER, "lantern")
+
+        this.quest(WINTER, "lantern")
                 .parent("skull")
                 .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.SOUL_LANTERN)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BONE, 5)))
                 .build();
-        
-        quest(WINTER, "sapling")
+
+        this.quest(WINTER, "sapling")
                 .parent("lantern")
                 .icon(ModTrees.winterTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
@@ -188,16 +188,16 @@ public class QuestProvider implements IDataProvider {
     @Override
     public void run(@Nonnull DirectoryCache cache) throws IOException {
         this.setup();
-        for (Alignment alignment : quests.keySet()) {
+        for (Alignment alignment : this.quests.keySet()) {
             Set<ResourceLocation> ids = new HashSet<>();
-            for (Quest quest : quests.get(alignment)) {
+            for (Quest quest : this.quests.get(alignment)) {
                 if (ids.contains(quest.id)) {
                     throw new IllegalStateException("Duplicate quest id: " + quest.id);
                 } else {
                     ids.add(quest.id);
                 }
             }
-            for (Quest quest : quests.get(alignment)) {
+            for (Quest quest : this.quests.get(alignment)) {
                 for (ResourceLocation parent : quest.parents) {
                     if (!ids.contains(parent)) {
                         throw new IllegalStateException("Reference to unknown quest: " + parent + " (in " + quest.id + ")");
@@ -211,11 +211,11 @@ public class QuestProvider implements IDataProvider {
     @Nonnull
     @Override
     public String getName() {
-        return mod.modid + "quests";
+        return this.mod.modid + "quests";
     }
     
     public QuestBuilder root(Alignment alignment) {
-        return quest(alignment, "root");
+        return this.quest(alignment, "root");
     }
     
     public QuestBuilder quest(Alignment alignment, String name) {
@@ -238,18 +238,18 @@ public class QuestProvider implements IDataProvider {
 
         public QuestBuilder(Alignment alignment, String name) {
             this.alignment = alignment;
-            this.id = new ResourceLocation(mod.modid, name);
+            this.id = new ResourceLocation(QuestProvider.this.mod.modid, name);
             this.parents = new HashSet<>();
             this.reputation = 5;
             this.icon = null;
             this.start = new QuestDisplay(
-                    new TranslationTextComponent("quest." + mod.modid + "." + alignment.id + "." + name + ".start.title"),
-                    new TranslationTextComponent("quest." + mod.modid + "." + alignment.id + "." + name + ".start.description"),
+                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.title"),
+                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.description"),
                     null
             );
             this.complete = new QuestDisplay(
-                    new TranslationTextComponent("quest." + mod.modid + "." + alignment.id + "." + name + ".complete.title"),
-                    new TranslationTextComponent("quest." + mod.modid + "." + alignment.id + "." + name + ".complete.description"),
+                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.title"),
+                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.description"),
                     null
             );
             this.tasks = new ArrayList<>();
@@ -304,7 +304,7 @@ public class QuestProvider implements IDataProvider {
         
         // Shorthand for fey gift task with current alignment
         public QuestBuilder gift(Ingredient ingredient) {
-            return gift(ingredient, 1);
+            return this.gift(ingredient, 1);
         }
         
         public QuestBuilder gift(Ingredient ingredient, int times) {
@@ -325,9 +325,9 @@ public class QuestProvider implements IDataProvider {
             if (icon == null) {
                 throw new IllegalStateException("Can't build quest without icon: " + this.id);
             }
-            Set<ResourceLocation> parents = this.parents.stream().map(str -> new ResourceLocation(mod.modid, str)).collect(Collectors.toSet());
-            Quest quest = new Quest(this.id, parents, repeatable, this.reputation, icon, this.start, this.tasks.isEmpty() ? null : this.complete, this.tasks, this.rewards);
-            quests.computeIfAbsent(this.alignment, k -> new HashSet<>()).add(quest);
+            Set<ResourceLocation> parents = this.parents.stream().map(str -> new ResourceLocation(QuestProvider.this.mod.modid, str)).collect(Collectors.toSet());
+            Quest quest = new Quest(this.id, parents, this.repeatable, this.reputation, icon, this.start, this.tasks.isEmpty() ? null : this.complete, this.tasks, this.rewards);
+            QuestProvider.this.quests.computeIfAbsent(this.alignment, k -> new HashSet<>()).add(quest);
         }
     }
 }

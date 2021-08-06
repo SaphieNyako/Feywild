@@ -28,9 +28,9 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
         ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
         this.helper = helper;
         //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
-        background = helper.createDrawable(location, 0, 0, 85, 85);
+        this.background = helper.createDrawable(location, 0, 0, 85, 85);
 
-        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.dwarvenAnvil));
+        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.dwarvenAnvil));
 
     }
 
@@ -55,13 +55,13 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
     @Nonnull
     @Override
     public IDrawable getBackground() {
-        return background;
+        return this.background;
     }
 
     @Nonnull
     @Override
     public IDrawable getIcon() {
-        return icon;
+        return this.icon;
     }
 
     // TODO needs fixing (new recipe format)

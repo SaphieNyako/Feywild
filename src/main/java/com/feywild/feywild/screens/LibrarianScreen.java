@@ -27,8 +27,8 @@ public class LibrarianScreen extends Screen {
         this.buttons.clear();
         int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (BookWidget.WIDTH + 4), this.stacks.size()));
         int paddingStart = (this.width - (buttonsPerRow * 29)) / 2;
-        for (int i = 0; i < stacks.size(); i++) {
-            addButton(new BookWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 40 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)), i, stacks.get(i)));
+        for (int i = 0; i < this.stacks.size(); i++) {
+            this.addButton(new BookWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 40 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)), i, this.stacks.get(i)));
         }
     }
 
@@ -39,18 +39,18 @@ public class LibrarianScreen extends Screen {
 
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(matrixStack);
+        this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawTextLines(matrixStack, mouseX, mouseY);
+        this.drawTextLines(matrixStack, mouseX, mouseY);
     }
 
     private void drawTextLines(MatrixStack matrixStack, int x, int y) {
-        if (minecraft != null) {
-            drawString(matrixStack, minecraft.font, title, this.width / 2 - (minecraft.font.width(title) / 2), 10, 0xFFFFFF);
-            for (Widget widget : buttons) {
+        if (this.minecraft != null) {
+            drawString(matrixStack, this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 10, 0xFFFFFF);
+            for (Widget widget : this.buttons) {
                 if (widget instanceof BookWidget && ((BookWidget) widget).isHovered(x, y)) {
                     ITextComponent name = widget.getMessage();
-                    drawString(matrixStack, minecraft.font, name, this.width / 2 - (minecraft.font.width(name) / 2), 10 + minecraft.font.lineHeight + 2, 0xFFFFFF);
+                    drawString(matrixStack, this.minecraft.font, name, this.width / 2 - (this.minecraft.font.width(name) / 2), 10 + this.minecraft.font.lineHeight + 2, 0xFFFFFF);
                     break;
                 }
             }

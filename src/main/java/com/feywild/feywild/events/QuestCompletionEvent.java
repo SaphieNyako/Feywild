@@ -17,14 +17,14 @@ public class QuestCompletionEvent extends Event {
     }
 
     public ServerPlayerEntity getEntity() {
-        return entity;
+        return this.entity;
     }
 
     public Quest getQuest() {
-        return quest;
+        return this.quest;
     }
 
     public int getTotalReputation() {
-        return totalReputation;
+        return this.totalReputation;
     }
 }

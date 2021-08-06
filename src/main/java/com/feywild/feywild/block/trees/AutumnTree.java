@@ -33,7 +33,7 @@ public class AutumnTree extends BaseTree {
 
     @Override
     protected AbstractTrunkPlacer getGiantTrunkPlacer() {
-        return new TrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
+        return new TrunkPlacer(this.getBaseHeight(), this.getFirstRandomHeight(), this.getSecondRandomHeight());
     }
 
     @Override

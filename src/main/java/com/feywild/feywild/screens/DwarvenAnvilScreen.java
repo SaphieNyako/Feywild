@@ -33,7 +33,7 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
 
     @Override
     protected void renderLabels(@Nonnull MatrixStack matrixStack, int x, int y) {
-        drawString(matrixStack, Minecraft.getInstance().font, new TranslationTextComponent("screen.feywild.mana_amount", container.tile.getMana()), 118, 8, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, new TranslationTextComponent("screen.feywild.mana_amount", this.container.tile.getMana()), 118, 8, 0xffffff);
     }
 
     @Override
@@ -41,9 +41,9 @@ public class DwarvenAnvilScreen extends ContainerScreen<DwarvenAnvilContainer> {
         //noinspection deprecation
         RenderSystem.color4f(1, 1, 1, 1);
         //noinspection ConstantConditions
-        this.minecraft.getTextureManager().bind(TEXTURE);
+        this.minecraft.getTextureManager().bind(this.TEXTURE);
         this.blit(matrixStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight); //might be wrong
         //position to place x, y position to get x, y width height and height is determined by the manalevel
-        this.blit(matrixStack, this.leftPos + 13, this.topPos + 9, 176, 0, 11, 64 - (int) (container.tile.getMana() / 15.6f));
+        this.blit(matrixStack, this.leftPos + 13, this.topPos + 9, 176, 0, 11, 64 - (int) (this.container.tile.getMana() / 15.6f));
     }
 }

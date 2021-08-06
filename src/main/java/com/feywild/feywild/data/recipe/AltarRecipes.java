@@ -37,20 +37,20 @@ public class AltarRecipes extends AnyRecipeProvider {
     @Nonnull
     @Override
     public String getName() {
-        return mod.modid + " fey anvil recipes";
+        return this.mod.modid + " fey anvil recipes";
     }
 
     @Override
     protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        altar(ModItems.feywildMusicDisc)
+        this.altar(ModItems.feywildMusicDisc)
                 .requires(ItemTags.MUSIC_DISCS)
                 .requires(ModTrees.springTree.getSapling())
                 .requires(ModTrees.summerTree.getSapling())
                 .requires(ModTrees.autumnTree.getSapling())
                 .requires(ModTrees.winterTree.getSapling())
                 .build(consumer);
-        
-        altar(ModItems.summoningScrollSpringPixie)
+
+        this.altar(ModItems.summoningScrollSpringPixie)
                 .requires(ModTrees.springTree.getSapling())
                 .requires(Blocks.OXEYE_DAISY)
                 .requires(Items.WHEAT_SEEDS)
@@ -58,7 +58,7 @@ public class AltarRecipes extends AnyRecipeProvider {
                 .requires(ModItems.summoningScroll)
                 .build(consumer);
 
-        altar(ModItems.summoningScrollSummerPixie)
+        this.altar(ModItems.summoningScrollSummerPixie)
                 .requires(ModTrees.summerTree.getSapling())
                 .requires(Blocks.SUNFLOWER)
                 .requires(Items.HONEYCOMB)
@@ -66,7 +66,7 @@ public class AltarRecipes extends AnyRecipeProvider {
                 .requires(ModItems.summoningScroll)
                 .build(consumer);
 
-        altar(ModItems.summoningScrollAutumnPixie)
+        this.altar(ModItems.summoningScrollAutumnPixie)
                 .requires(ModTrees.autumnTree.getSapling())
                 .requires(Blocks.CARVED_PUMPKIN)
                 .requires(Tags.Items.MUSHROOMS)
@@ -74,7 +74,7 @@ public class AltarRecipes extends AnyRecipeProvider {
                 .requires(ModItems.summoningScroll)
                 .build(consumer);
 
-        altar(ModItems.summoningScrollWinterPixie)
+        this.altar(ModItems.summoningScrollWinterPixie)
                 .requires(ModTrees.winterTree.getSapling())
                 .requires(Items.SNOWBALL)
                 .requires(Blocks.ICE)
@@ -84,11 +84,11 @@ public class AltarRecipes extends AnyRecipeProvider {
     }
 
     private AltarRecipeBuilder altar(IItemProvider result) {
-        return altar(new ItemStack(result));
+        return this.altar(new ItemStack(result));
     }
 
     private AltarRecipeBuilder altar(IItemProvider result, int amount) {
-        return altar(new ItemStack(result, amount));
+        return this.altar(new ItemStack(result, amount));
     }
     
     private AltarRecipeBuilder altar(ItemStack result) {
@@ -106,20 +106,20 @@ public class AltarRecipes extends AnyRecipeProvider {
         }
         
         public AltarRecipeBuilder requires(IItemProvider item) {
-            return requires(Ingredient.of(item));
+            return this.requires(Ingredient.of(item));
         }
 
         public AltarRecipeBuilder requires(ITag<Item> item) {
-            return requires(Ingredient.of(item));
+            return this.requires(Ingredient.of(item));
         }
 
         public AltarRecipeBuilder requires(Ingredient item) {
-            inputs.add(item);
+            this.inputs.add(item);
             return this;
         }
         
         public void build(Consumer<IFinishedRecipe> consumer) {
-            build(consumer, loc(result.getItem(), "fey_altar"));
+            this.build(consumer, AltarRecipes.this.loc(this.result.getItem(), "fey_altar"));
         }
         
         public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
@@ -129,9 +129,9 @@ public class AltarRecipes extends AnyRecipeProvider {
                 
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
-                    json.add("output", CraftingHelper2.serializeItemStack(result, true));
+                    json.add("output", CraftingHelper2.serializeItemStack(AltarRecipeBuilder.this.result, true));
                     JsonArray inputList = new JsonArray();
-                    inputs.forEach(i -> inputList.add(i.toJson()));
+                    AltarRecipeBuilder.this.inputs.forEach(i -> inputList.add(i.toJson()));
                     json.add("ingredients", inputList);
                 }
 

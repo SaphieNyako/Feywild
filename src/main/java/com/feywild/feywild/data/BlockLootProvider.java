@@ -24,62 +24,62 @@ public class BlockLootProvider extends BlockLootProviderBase {
 
     @Override
     protected void setup() {
-        treeDrops(ModTrees.springTree, Blocks.OAK_LOG, Blocks.OAK_WOOD);
-        treeDrops(ModTrees.autumnTree, Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD);
-        treeDrops(ModTrees.winterTree, Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD);
+        this.treeDrops(ModTrees.springTree, Blocks.OAK_LOG, Blocks.OAK_WOOD);
+        this.treeDrops(ModTrees.autumnTree, Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD);
+        this.treeDrops(ModTrees.winterTree, Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD);
         
-        this.drops(ModTrees.summerTree.getLeafBlock(), first(
-                item().with(or(silkCondition(), matchTool(Tags.Items.SHEARS))),
-                combine(
-                        stack(ModTrees.summerTree.getSapling()).with(randomFortune(0.02f)),
-                        stack(Items.STICK).with(count(1, 2)).with(randomFortune(0.02f)),
-                        stack(ModItems.feyDust).with(count(1, 2)).with(randomFortune(0.01f, 0.011f, 0.0125f, 0.032f, 0.05f)),
-                        stack(ModBlocks.mandrakeCrop.getSeed()).with(randomFortune(0.005f)),
-                        stack(Items.SWEET_BERRIES).with(count(1, 2)).with(randomFortune(0.02f))
+        this.drops(ModTrees.summerTree.getLeafBlock(), this.first(
+                this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
+                this.combine(
+                        this.stack(ModTrees.summerTree.getSapling()).with(this.randomFortune(0.02f)),
+                        this.stack(Items.STICK).with(this.count(1, 2)).with(this.randomFortune(0.02f)),
+                        this.stack(ModItems.feyDust).with(this.count(1, 2)).with(this.randomFortune(0.01f, 0.011f, 0.0125f, 0.032f, 0.05f)),
+                        this.stack(ModBlocks.mandrakeCrop.getSeed()).with(this.randomFortune(0.005f)),
+                        this.stack(Items.SWEET_BERRIES).with(this.count(1, 2)).with(this.randomFortune(0.02f))
                 )
         ));
-        this.drops(ModTrees.summerTree.getLogBlock(), true, stack(Blocks.BIRCH_LOG));
-        this.drops(ModTrees.summerTree.getWoodBlock(), true, stack(Blocks.BIRCH_WOOD));
-        
-        drops(ModBlocks.sunflower, stack(ModBlocks.sunflower).with(count(1, 2)));
-        drops(ModBlocks.dandelion, stack(ModBlocks.dandelion).with(count(1, 2)));
-        drops(ModBlocks.crocus, stack(ModBlocks.crocus).with(count(1, 2)));
-        
-        drops(ModBlocks.feyGemBlock, true, first(
-                stack(ModItems.lesserFeyGem).with(random(0.6f)),
-                stack(ModItems.greaterFeyGem).with(random(0.6f)),
-                stack(ModItems.shinyFeyGem).with(random(0.6f)),
-                stack(ModItems.brilliantFeyGem)
+        this.drops(ModTrees.summerTree.getLogBlock(), true, this.stack(Blocks.BIRCH_LOG));
+        this.drops(ModTrees.summerTree.getWoodBlock(), true, this.stack(Blocks.BIRCH_WOOD));
+
+        this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower).with(this.count(1, 2)));
+        this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion).with(this.count(1, 2)));
+        this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus).with(this.count(1, 2)));
+
+        this.drops(ModBlocks.feyGemBlock, true, this.first(
+                this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),
+                this.stack(ModItems.greaterFeyGem).with(this.random(0.6f)),
+                this.stack(ModItems.shinyFeyGem).with(this.random(0.6f)),
+                this.stack(ModItems.brilliantFeyGem)
         ));
-        
-        drops(ModBlocks.mandrakeCrop, combine(
-                stack(ModItems.mandrake),
-                stack(ModBlocks.mandrakeCrop.getSeed()).with(fortuneBinomial(0.6f, 1))
+
+        this.drops(ModBlocks.mandrakeCrop, this.combine(
+                this.stack(ModItems.mandrake),
+                this.stack(ModBlocks.mandrakeCrop.getSeed()).with(this.fortuneBinomial(0.6f, 1))
         ).with(hasBlockStateProperties(ModBlocks.mandrakeCrop).setProperties(
                 properties().hasProperty(BlockStateProperties.AGE_7, 7)
         )));
-        
-        drops(ModBlocks.treeMushroom, first(
-                item().with(or(silkCondition(), matchTool(Tags.Items.SHEARS))),
-                stack(Items.RED_MUSHROOM).with(randomFortune(0.5f))
+
+        this.drops(ModBlocks.treeMushroom, this.first(
+                this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
+                this.stack(Items.RED_MUSHROOM).with(this.randomFortune(0.5f))
         ));
-        
-        drops(ModBlocks.dandelion, stack(ModBlocks.dandelion.getSeed()).with(count(1, 2)));
-        drops(ModBlocks.sunflower, stack(ModBlocks.sunflower.getSeed()).with(count(1, 2)));
-        drops(ModBlocks.crocus, stack(ModBlocks.crocus.getSeed()).with(count(1, 2)));
+
+        this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion.getSeed()).with(this.count(1, 2)));
+        this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower.getSeed()).with(this.count(1, 2)));
+        this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus.getSeed()).with(this.count(1, 2)));
     }
     
     private void treeDrops(BaseTree tree, IItemProvider baseLog, IItemProvider baseWood) {
-        this.drops(tree.getLeafBlock(), first(
-                item().with(or(silkCondition(), matchTool(Tags.Items.SHEARS))),
-                combine(
-                        stack(tree.getSapling()).with(randomFortune(0.02f)),
-                        stack(Items.STICK).with(count(1, 2)).with(randomFortune(0.02f)),
-                        stack(ModItems.feyDust).with(count(1, 2)).with(randomFortune(0.01f, 0.011f, 0.0125f, 0.032f, 0.05f)),
-                        stack(ModBlocks.mandrakeCrop.getSeed()).with(randomFortune(0.005f))
+        this.drops(tree.getLeafBlock(), this.first(
+                this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
+                this.combine(
+                        this.stack(tree.getSapling()).with(this.randomFortune(0.02f)),
+                        this.stack(Items.STICK).with(this.count(1, 2)).with(this.randomFortune(0.02f)),
+                        this.stack(ModItems.feyDust).with(this.count(1, 2)).with(this.randomFortune(0.01f, 0.011f, 0.0125f, 0.032f, 0.05f)),
+                        this.stack(ModBlocks.mandrakeCrop.getSeed()).with(this.randomFortune(0.005f))
                 )
         ));
-        this.drops(tree.getLogBlock(), true, stack(baseLog));
-        this.drops(tree.getWoodBlock(), true, stack(baseWood));
+        this.drops(tree.getLogBlock(), true, this.stack(baseLog));
+        this.drops(tree.getWoodBlock(), true, this.stack(baseWood));
     }
 }

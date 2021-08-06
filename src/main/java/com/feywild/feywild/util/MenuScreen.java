@@ -25,7 +25,7 @@ public class MenuScreen extends MainMenuScreen {
         blit(matrixStack, 0, 0, 0, 0, this.width, this.height, width, height);
 
         ForgeHooksClient.renderMainMenu(this, matrixStack, this.getMinecraft().font, width, height, -1);
-        drawString(matrixStack, this.getMinecraft().font, "Copyright Mojang AB. Do not distribute!", width - font.width("Copyright Mojang AB. Do not distribute!") - 2, height - 10, 0xFFFFFFFF);
+        drawString(matrixStack, this.getMinecraft().font, "Copyright Mojang AB. Do not distribute!", width - this.font.width("Copyright Mojang AB. Do not distribute!") - 2, height - 10, 0xFFFFFFFF);
         for (net.minecraft.client.gui.widget.Widget button : this.buttons) {
             button.render(matrixStack, mouseX, mouseY, partialTicks);
         }

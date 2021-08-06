@@ -59,6 +59,6 @@ public class TreeMushroomBlock extends BlockBase {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
     }
 }

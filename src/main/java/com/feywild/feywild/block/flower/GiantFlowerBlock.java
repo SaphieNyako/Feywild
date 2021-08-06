@@ -66,7 +66,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     }
 
     public GiantFlowerSeedItem getSeed() {
-        return item;
+        return this.item;
     }
 
     @Nonnull
@@ -92,14 +92,14 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
 
     @Override
     public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
-        return new ItemStack(getSeed());
+        return new ItemStack(this.getSeed());
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void onRemove(@Nonnull BlockState oldState, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
         if (oldState.getBlock() != newState.getBlock()) {
-            removeOthers(world, oldState, pos);
+            this.removeOthers(world, oldState, pos);
         }
         super.onRemove(oldState, world, pos, newState, moving);
     }
@@ -121,14 +121,14 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     @SuppressWarnings("deprecation")
     public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.randomTick(state, world, pos, random);
-        if (state.getValue(PART) == 3) tickFlower(state, world, pos, random);
+        if (state.getValue(PART) == 3) this.tickFlower(state, world, pos, random);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.animateTick(state, world, pos, random);
-        if (state.getValue(PART) == 3) animateFlower(state, world, pos, random);
+        if (state.getValue(PART) == 3) this.animateFlower(state, world, pos, random);
     }
 
     protected abstract void tickFlower(BlockState state, ServerWorld world, BlockPos pos, Random random);
@@ -139,7 +139,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     public abstract BlockState flowerState(IWorld world, BlockPos pos, Random random);
 
     protected void removeOthers(World world, BlockState state, BlockPos pos) {
-        int blocksBelow = state.getValue(PART) - (4 - height);
+        int blocksBelow = state.getValue(PART) - (4 - this.height);
         int blocksAbove = 3 - state.getValue(PART);
 
         for (int i = 1; i <= blocksBelow; i++) {

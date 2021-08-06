@@ -28,7 +28,7 @@ public class CraftingRecipes extends RecipeProviderBase {
         ForgeRegistries.BLOCKS.getValues().stream()
                 .filter(b -> this.mod.modid.equals(b.getRegistryName().getNamespace()))
                 .filter(b -> b instanceof FeyWoodBlock)
-                .forEach(b -> makeWoodRecipe((FeyWoodBlock) b, consumer));
+                .forEach(b -> this.makeWoodRecipe((FeyWoodBlock) b, consumer));
         
         ShapedRecipeBuilder.shaped(ModBlocks.dwarvenAnvil)
                 .pattern("fff")
@@ -72,6 +72,6 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .define('a', block.getLogBlock())
                 .group("bark")
                 .unlockedBy("has_item", has(block.getLogBlock()))
-                .save(consumer, loc(block));
+                .save(consumer, this.loc(block));
     }
 }

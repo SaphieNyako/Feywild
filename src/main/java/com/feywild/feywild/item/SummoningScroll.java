@@ -38,13 +38,13 @@ public class SummoningScroll<T extends LivingEntity> extends ItemBase {
     @Nonnull
     @Override
     public ActionResultType useOn(@Nonnull ItemUseContext context) {
-        if (context.getPlayer() != null && canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable())) {
+        if (context.getPlayer() != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable())) {
             if (!context.getLevel().isClientSide) {
                 T entity = this.type.create(context.getLevel());
                 if (entity != null) {
                     BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
                     entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
-                    prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
+                    this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
                     context.getLevel().addFreshEntity(entity);
                     if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
                     if (!context.getPlayer().isCreative()) context.getItemInHand().shrink(1);

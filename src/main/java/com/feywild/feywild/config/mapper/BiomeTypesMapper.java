@@ -3,7 +3,6 @@ package com.feywild.feywild.config.mapper;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
 import io.github.noeppi_noeppi.libx.config.ValueMapper;
 import net.minecraftforge.common.BiomeDictionary;
 

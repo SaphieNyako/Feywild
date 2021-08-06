@@ -27,11 +27,11 @@ public class AdvancementProvider extends AdvancementProviderBase {
     public void setup() {
         this.root()
                 .display(ModItems.feywildLexicon)
-                .task(items(ModItems.feywildLexicon));
+                .task(this.items(ModItems.feywildLexicon));
         
         // Don't ask about this
         try {
-            ResourceLocation rl = new ResourceLocation(mod.modid, mod.modid + "/root");
+            ResourceLocation rl = new ResourceLocation(this.mod.modid, this.mod.modid + "/root");
             Field mapField = AdvancementProviderBase.class.getDeclaredField("advancements");
             mapField.setAccessible(true);
             //noinspection unchecked
@@ -58,52 +58,52 @@ public class AdvancementProvider extends AdvancementProviderBase {
         
         this.advancement("fey_dust")
                 .display(ModItems.feyDust)
-                .task(items(ModItems.feyDust))
-                .task(items(ModItems.lesserFeyGem));
+                .task(this.items(ModItems.feyDust))
+                .task(this.items(ModItems.lesserFeyGem));
         
         this.advancement("dwarf_trade").parent("fey_dust")
                 .display(ModItems.lesserFeyGem)
-                .task(new VillagerTradeTrigger.Instance(EntityPredicate.AndPredicate.ANY, entity(ModEntityTypes.dwarfBlacksmith), stack(ModItems.lesserFeyGem)));
+                .task(new VillagerTradeTrigger.Instance(EntityPredicate.AndPredicate.ANY, this.entity(ModEntityTypes.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
         
         this.advancement("dwarf_contract").parent("dwarf_trade")
                 .display(ModItems.summoningScrollDwarfBlacksmith)
-                .task(items(ModItems.summoningScrollDwarfBlacksmith));
+                .task(this.items(ModItems.summoningScrollDwarfBlacksmith));
         
         this.advancement("schematics_fey_altar").parent("dwarf_contract")
                 .display(ModItems.schematicsFeyAltar)
-                .task(items(ModItems.schematicsFeyAltar));
+                .task(this.items(ModItems.schematicsFeyAltar));
         
         this.advancement("schematics_gem_transmutation").parent("dwarf_contract")
                 .display(ModItems.schematicsGemTransmutation)
-                .task(items(ModItems.schematicsGemTransmutation));
+                .task(this.items(ModItems.schematicsGemTransmutation));
         
         this.advancement("fey_altar").parent("schematics_fey_altar")
                 .display(ModBlocks.feyAltar)
-                .task(items(ModBlocks.feyAltar));
+                .task(this.items(ModBlocks.feyAltar));
         
         this.advancement("fey_sapling")
                 .display(ModTrees.springTree.getSapling())
                 .task(
-                        items(ModTrees.springTree.getSapling()),
-                        items(ModTrees.summerTree.getSapling()),
-                        items(ModTrees.autumnTree.getSapling()),
-                        items(ModTrees.winterTree.getSapling())
+                        this.items(ModTrees.springTree.getSapling()),
+                        this.items(ModTrees.summerTree.getSapling()),
+                        this.items(ModTrees.autumnTree.getSapling()),
+                        this.items(ModTrees.winterTree.getSapling())
                 );
         
         this.advancement("summon_spring").parent("fey_altar")
                 .display(ModItems.summoningScrollSpringPixie)
-                .task(items(ModItems.summoningScrollSpringPixie));
+                .task(this.items(ModItems.summoningScrollSpringPixie));
 
         this.advancement("summon_summer").parent("fey_altar")
                 .display(ModItems.summoningScrollSummerPixie)
-                .task(items(ModItems.summoningScrollSummerPixie));
+                .task(this.items(ModItems.summoningScrollSummerPixie));
 
         this.advancement("summon_autumn").parent("fey_altar")
                 .display(ModItems.summoningScrollAutumnPixie)
-                .task(items(ModItems.summoningScrollAutumnPixie));
+                .task(this.items(ModItems.summoningScrollAutumnPixie));
 
         this.advancement("summon_winter").parent("fey_altar")
                 .display(ModItems.summoningScrollWinterPixie)
-                .task(items(ModItems.summoningScrollWinterPixie));
+                .task(this.items(ModItems.summoningScrollWinterPixie));
     }
 }

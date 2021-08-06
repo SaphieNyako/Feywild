@@ -44,7 +44,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     @Nonnull
     @Override
     public ResourceLocation getId() {
-        return id;
+        return this.id;
     }
     
     @Nonnull
@@ -56,21 +56,21 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     @Nonnull
     @Override
     public ItemStack getResultItem() {
-        return output.copy();
+        return this.output.copy();
     }
 
     @Nullable
     public Ingredient getSchematics() {
-        return schematics;
+        return this.schematics;
     }
 
     public List<Ingredient> getInputs() {
-        return inputs;
+        return this.inputs;
     }
 
     @Override
     public int getMana() {
-        return mana;
+        return this.mana;
     }
 
     @Nonnull

@@ -25,7 +25,7 @@ public class QuestReward {
     }
 
     public void grantReward(ServerPlayerEntity player) {
-        reward.grantReward(player, element);
+        this.reward.grantReward(player, this.element);
     }
 
     public JsonObject toJson() {

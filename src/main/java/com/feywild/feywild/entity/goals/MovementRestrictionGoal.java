@@ -21,8 +21,8 @@ public class MovementRestrictionGoal extends Goal {
     }
 
     public boolean isInRange(Vector3d pos) {
-        Vector3d target = targetPosition.get();
-        return target != null && distanceFromSquared(pos, target) <= maxMovementRangeSquared;
+        Vector3d target = this.targetPosition.get();
+        return target != null && distanceFromSquared(pos, target) <= this.maxMovementRangeSquared;
     }
 
     @Override

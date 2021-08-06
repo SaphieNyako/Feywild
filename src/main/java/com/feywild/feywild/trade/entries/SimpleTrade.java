@@ -56,8 +56,8 @@ public class SimpleTrade implements VillagerTrades.ITrade {
     @Override
     public MerchantOffer getOffer(@Nonnull Entity merchant, @Nonnull Random random) {
         return new MerchantOffer(
-                input.createStack(random), additional.createStack(random), output.createStack(random),
-                0, uses.select(random), exp.select(random), mul, 0
+                this.input.createStack(random), this.additional.createStack(random), this.output.createStack(random),
+                0, this.uses.select(random), this.exp.select(random), this.mul, 0
         );
     }
 
@@ -72,7 +72,7 @@ public class SimpleTrade implements VillagerTrades.ITrade {
         }
         
         public int select(Random random) {
-            return min + random.nextInt(1 + (max - min));
+            return this.min + random.nextInt(1 + (this.max - this.min));
         }
         
         public static Range of(int value) {

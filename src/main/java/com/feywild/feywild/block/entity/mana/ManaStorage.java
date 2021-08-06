@@ -44,27 +44,27 @@ public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> 
 
     @Override
     public int receiveMana(int maxReceive, boolean simulate) {
-        if (!canReceive())
+        if (!this.canReceive())
             return 0;
-        int manaReceived = Math.min(capacity - mana, Math.min(this.maxReceive, maxReceive));
+        int manaReceived = Math.min(this.capacity - this.mana, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
-            mana += manaReceived;
+            this.mana += manaReceived;
         return manaReceived;
     }
 
     @Override
     public int extractMana(int maxExtract, boolean simulate) {
-        if (!canExtract())
+        if (!this.canExtract())
             return 0;
-        int manaExtracted = Math.min(mana, Math.min(this.maxExtract, maxExtract));
+        int manaExtracted = Math.min(this.mana, Math.min(this.maxExtract, maxExtract));
         if (!simulate)
-            mana -= manaExtracted;
+            this.mana -= manaExtracted;
         return manaExtracted;
     }
 
     @Override
     public int getMana() {
-        return MathHelper.clamp(mana, 0, capacity);
+        return MathHelper.clamp(this.mana, 0, this.capacity);
     }
 
     public void setMana(int mana) {
@@ -74,7 +74,7 @@ public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> 
 
     @Override
     public int getMaxMana() {
-        return capacity;
+        return this.capacity;
     }
 
     @Override
@@ -90,12 +90,12 @@ public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> 
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT tag = new CompoundNBT();
-        tag.putInt("mana", getMana());
+        tag.putInt("mana", this.getMana());
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        setMana(nbt.getInt("mana"));
+        this.setMana(nbt.getInt("mana"));
     }
 }

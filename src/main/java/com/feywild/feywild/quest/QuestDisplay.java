@@ -47,8 +47,8 @@ public class QuestDisplay {
     }
     
     public void toNetwork(PacketBuffer buffer) {
-        buffer.writeComponent(title);
-        buffer.writeComponent(description);
+        buffer.writeComponent(this.title);
+        buffer.writeComponent(this.description);
         buffer.writeBoolean(this.sound != null);
         if (this.sound != null) buffer.writeRegistryId(this.sound);
     }

@@ -52,7 +52,7 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
     private final LazyOptional<IItemHandlerModifiable> itemHandlerTop = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
     private final LazyOptional<IItemHandlerModifiable> itemHandlerSide = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
     private final LazyOptional<IItemHandlerModifiable> itemHandlerBottom = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
-    private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> manaStorage);
+    private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> this.manaStorage);
 
     // As `load` is often called without a level, we need to store that a recipe update
     // is required, so it can be updated next tick.
@@ -79,26 +79,26 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
     @Override
     public void setRemoved() {
         super.setRemoved();
-        itemHandlerTop.invalidate();
-        itemHandlerSide.invalidate();
-        itemHandlerBottom.invalidate();
-        manaHandler.invalidate();
+        this.itemHandlerTop.invalidate();
+        this.itemHandlerSide.invalidate();
+        this.itemHandlerBottom.invalidate();
+        this.manaHandler.invalidate();
     }
 
     @Override
     public void tick() {
-        if (level != null && level instanceof ServerWorld) {
-            if (needsUpdate) {
+        if (this.level != null && this.level instanceof ServerWorld) {
+            if (this.needsUpdate) {
                 this.updateRecipe();
-                needsUpdate = false;
+                this.needsUpdate = false;
             }
-            if (((ServerWorld) level).getServer().getTickCount() % 20 == 0 && manaStorage.getMana() + FEY_DUST_MANA_COST <= manaStorage.getMaxMana()) {
+            if (((ServerWorld) this.level).getServer().getTickCount() % 20 == 0 && this.manaStorage.getMana() + FEY_DUST_MANA_COST <= this.manaStorage.getMaxMana()) {
                 // Simulate extraction first
-                ItemStack extracted = inventory.extractItem(0, 1, true);
+                ItemStack extracted = this.inventory.extractItem(0, 1, true);
                 if (!extracted.isEmpty() && extracted.getItem() == ModItems.feyDust) {
-                    inventory.extractItem(0, 1, false);
-                    manaStorage.receiveMana(FEY_DUST_MANA_COST, false);
-                    setChanged();
+                    this.inventory.extractItem(0, 1, false);
+                    this.manaStorage.receiveMana(FEY_DUST_MANA_COST, false);
+                    this.setChanged();
                 }
             }
         }
@@ -107,31 +107,31 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
     @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT nbt) {
-        nbt.put("inventory", inventory.serializeNBT());
-        nbt.put("mana", manaStorage.serializeNBT());
+        nbt.put("inventory", this.inventory.serializeNBT());
+        nbt.put("mana", this.manaStorage.serializeNBT());
         return super.save(nbt);
     }
 
     @Override
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
-        inventory.deserializeNBT(nbt.getCompound("inventory"));
-        manaStorage.deserializeNBT(nbt.getCompound("mana"));
-        needsUpdate = true;
+        this.inventory.deserializeNBT(nbt.getCompound("inventory"));
+        this.manaStorage.deserializeNBT(nbt.getCompound("mana"));
+        this.needsUpdate = true;
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (side == null) return itemHandlerGeneric.cast();
+            if (side == null) return this.itemHandlerGeneric.cast();
             switch (side) {
-                case UP: return itemHandlerTop.cast();
-                case DOWN: return itemHandlerBottom.cast();
-                default: return itemHandlerSide.cast();
+                case UP: return this.itemHandlerTop.cast();
+                case DOWN: return this.itemHandlerBottom.cast();
+                default: return this.itemHandlerSide.cast();
             }
         } else if (capability == CapabilityMana.MANA) {
-            return manaHandler.cast();
+            return this.manaHandler.cast();
         } else {
             return super.getCapability(capability, side);
         }
@@ -151,13 +151,13 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
     }
 
     private void updateRecipe() {
-        if (level == null || level.isClientSide) {
+        if (this.level == null || this.level.isClientSide) {
             this.recipe = new LazyValue<>(Optional::empty);
         } else {
             this.recipe = new LazyValue<>(() -> {
-                ItemStack schematics = inventory.getStackInSlot(1);
-                List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream()
+                ItemStack schematics = this.inventory.getStackInSlot(1);
+                List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
+                return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(schematics, inputs), r)) // Get a stream of all result items that match the current inputs.
                         .findFirst() // The stream should normally only contain one entry but with conflicting recipes it could contain more, so we only take the first
                         .filter(p -> p.getRight().getMana() <= this.manaStorage.getMana()) // Check that we have enough mana for the recipe
@@ -171,7 +171,7 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
     }
 
     public BaseItemStackHandler getInventory() {
-        return inventory;
+        return this.inventory;
     }
     
     public int getMana() {

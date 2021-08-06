@@ -22,7 +22,7 @@ public class TradeData {
     }
 
     public int getMaxLevel() {
-        return levels.size();
+        return this.levels.size();
     }
     
     public TradeLevelData getLevel(int level) {
@@ -30,8 +30,8 @@ public class TradeData {
     }
 
     public VillagerData initialize(Entity merchant, VillagerData data, MerchantOffers offers, Random random) {
-        if (getMaxLevel() >= 1) {
-            getLevel(1).applyTo(merchant, offers, random);
+        if (this.getMaxLevel() >= 1) {
+            this.getLevel(1).applyTo(merchant, offers, random);
             return new VillagerData(data.getType(), data.getProfession(), 1);
         } else {
             return data;
@@ -40,7 +40,7 @@ public class TradeData {
     
     public VillagerData levelUp(Entity merchant, VillagerData data, MerchantOffers offers, Random random) {
         if (data.getLevel() < this.getMaxLevel()) {
-            getLevel(data.getLevel() + 1).applyTo(merchant, offers, random);
+            this.getLevel(data.getLevel() + 1).applyTo(merchant, offers, random);
             return new VillagerData(data.getType(), data.getProfession(), data.getLevel() + 1);
         } else {
             return data;

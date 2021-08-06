@@ -68,6 +68,6 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     }
 
     public BlockItem getSeed() {
-        return seed;
+        return this.seed;
     }
 }

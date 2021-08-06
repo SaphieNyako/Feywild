@@ -12,6 +12,6 @@ public class FeyWoodBlock extends RotatedPillarBlock {
     }
 
     public RotatedPillarBlock getLogBlock() {
-        return logBlock;
+        return this.logBlock;
     }
 }

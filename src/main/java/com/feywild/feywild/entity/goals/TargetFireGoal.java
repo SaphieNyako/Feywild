@@ -24,28 +24,28 @@ public class TargetFireGoal extends Goal {
     @Override
     public void tick() {
         if (this.ticksLeft > 0) {
-            ticksLeft--;
+            this.ticksLeft--;
             if (this.targetMonster == null) {
-                this.targetMonster = findTarget();
-                if (targetMonster == null) {
+                this.targetMonster = this.findTarget();
+                if (this.targetMonster == null) {
                     this.reset();
                     return;
                 }
             }
-            if (ticksLeft <= 0) {
+            if (this.ticksLeft <= 0) {
                 this.targetMonster.setSecondsOnFire(120);
-                FeywildMod.getNetwork().sendParticles(entity.level, ParticleSerializer.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetMonster.getX(), this.targetMonster.getY(), this.targetMonster.getZ());
-                reset();
-            } else if (ticksLeft == 110) {
-                spellCasting();
+                FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetMonster.getX(), this.targetMonster.getY(), this.targetMonster.getZ());
+                this.reset();
+            } else if (this.ticksLeft == 110) {
+                this.spellCasting();
             }
         }
     }
 
     private void spellCasting() {
-        entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetMonster.position());
-        entity.setCasting(true);
-        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
+        this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetMonster.position());
+        this.entity.setCasting(true);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     @Override
@@ -55,9 +55,9 @@ public class TargetFireGoal extends Goal {
     }
 
     protected void reset() {
-        entity.setCasting(false);
-        targetMonster = null;
-        ticksLeft = -1;
+        this.entity.setCasting(false);
+        this.targetMonster = null;
+        this.ticksLeft = -1;
     }
 
     @Override
@@ -67,16 +67,16 @@ public class TargetFireGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return entity.isTamed() && entity.level.random.nextFloat() < 0.005f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f;
     }
 
     private MonsterEntity findTarget() {
         double distance = Double.MAX_VALUE;
         MonsterEntity current = null;
-        for (MonsterEntity monster : entity.level.getNearbyEntities(MonsterEntity.class, TARGETING, entity, entity.getBoundingBox().inflate(8))) {
-            if (entity.distanceToSqr(monster) < distance && !monster.isOnFire()) {
+        for (MonsterEntity monster : this.entity.level.getNearbyEntities(MonsterEntity.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+            if (this.entity.distanceToSqr(monster) < distance && !monster.isOnFire()) {
                 current = monster;
-                distance = entity.distanceToSqr(monster);
+                distance = this.entity.distanceToSqr(monster);
             }
         }
         return current;

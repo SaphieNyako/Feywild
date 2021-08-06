@@ -31,14 +31,14 @@ public class BookWidget extends Button {
     }
 
     public ItemStack getStack() {
-        return stack;
+        return this.stack;
     }
 
     @Override
     public void onPress() {
         super.onPress();
         FeywildMod.getNetwork().instance.sendToServer(new RequestLibraryBookSerializer.Message(this.idx));
-        screen.onClose();
+        this.screen.onClose();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BookWidget extends Button {
             this.blit(matrixStack, this.x, this.y, 25, 0, 25, 25);
             this.setBlitOffset(this.getBlitOffset() - 10);
         }
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(stack,this.x + 4,this.y + 4);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack,this.x + 4,this.y + 4);
     }
 
     public boolean isHovered(int x, int y) {

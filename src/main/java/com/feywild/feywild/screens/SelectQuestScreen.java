@@ -26,21 +26,21 @@ public class SelectQuestScreen extends Screen {
     protected void init() {
         super.init();
         this.buttons.clear();
-        for (int i = 0; i < quests.size(); i++) {
+        for (int i = 0; i < this.quests.size(); i++) {
             this.addButton(new QuestWidget(20, 40 + ((QuestWidget.HEIGHT + 4) * i), this.alignment, this.quests.get(i)));
         }
     }
 
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(matrixStack);
+        this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawTextLines(matrixStack, mouseX, mouseY);
+        this.drawTextLines(matrixStack, mouseX, mouseY);
     }
 
     private void drawTextLines(MatrixStack matrixStack, int mouseX, int mouseY) {
-        if (minecraft != null) {
-            drawString(matrixStack, minecraft.font, title, this.width / 2 - (minecraft.font.width(title) / 2), 10, 0xFFFFFF);
+        if (this.minecraft != null) {
+            drawString(matrixStack, this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 10, 0xFFFFFF);
         }
     }
 

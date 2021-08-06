@@ -92,7 +92,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
 
     @Nullable
     public BlockPos getCurrentTargetPos() {
-        return currentTargetPos;
+        return this.currentTargetPos;
     }
 
     public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
@@ -101,7 +101,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
 
     @Override
     public boolean isTamed() {
-        return isTamed;
+        return this.isTamed;
     }
 
     public void setTamed(boolean tamed) {
@@ -110,16 +110,16 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
 
     @Nullable
     public PlayerEntity getOwner() {
-        return owner == null ? null : this.level.getPlayerByUUID(this.owner);
+        return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
     }
     
     @Nullable
     public UUID getOwnerId() {
-        return owner;
+        return this.owner;
     }
 
     public void setOwner(@Nullable PlayerEntity owner) {
-        setOwner(owner == null ? null : owner.getUUID());
+        this.setOwner(owner == null ? null : owner.getUUID());
     }
 
     public void setOwner(@Nullable UUID owner) {
@@ -272,21 +272,21 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
     @Nonnull
     @Override
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
-        if (!level.isClientSide) {
+        if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
                     if (this.getCurrentTargetPos() == null) {
                         this.setCurrentTargetPos(this.blockPosition());
-                        player.sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     } else {
                         this.setCurrentTargetPos(null);
-                        player.sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     }
                 }
-            } else if (player instanceof ServerPlayerEntity && tryAcceptGift((ServerPlayerEntity) player, hand)) {
+            } else if (player instanceof ServerPlayerEntity && this.tryAcceptGift((ServerPlayerEntity) player, hand)) {
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                heal(4);
+                this.heal(4);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
@@ -361,7 +361,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
+        return this.random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
     }
 
     @Override

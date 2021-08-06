@@ -21,7 +21,7 @@ public class SimpleStackFactory implements StackFactory {
     @Override
     public ItemStack createStack(Random random) {
         ItemStack stack = this.stack.copy();
-        stack.setCount(minAmount + random.nextInt(1 + (maxAmount - minAmount)));
+        stack.setCount(this.minAmount + random.nextInt(1 + (this.maxAmount - this.minAmount)));
         return stack;
     }
 }

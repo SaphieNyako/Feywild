@@ -28,7 +28,7 @@ public class LibraryBell extends TileEntity {
 
 
     public int getAnnoyance() {
-        return annoyance;
+        return this.annoyance;
     }
 
     public void setAnnoyance(int annoyance) {
@@ -37,7 +37,7 @@ public class LibraryBell extends TileEntity {
 
     @Nullable
     public UUID getPlayer() {
-        return player;
+        return this.player;
     }
 
     public void setPlayer(@Nullable UUID player) {
@@ -46,7 +46,7 @@ public class LibraryBell extends TileEntity {
 
     @Nullable
     public UUID getLibrarian() {
-        return librarian;
+        return this.librarian;
     }
 
     public void setLibrarian(@Nullable UUID librarian) {
@@ -55,7 +55,7 @@ public class LibraryBell extends TileEntity {
 
     @Nullable
     public UUID getSecurity() {
-        return security;
+        return this.security;
     }
 
     public void setSecurity(@Nullable UUID security) {
@@ -65,16 +65,16 @@ public class LibraryBell extends TileEntity {
     @Override
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
-        annoyance = nbt.getInt("annoyance");
-        player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
-        librarian = nbt.hasUUID("librarianId") ? nbt.getUUID("librarianId") : null;
-        security = nbt.hasUUID("securityId") ? nbt.getUUID("securityId") : null;
+        this.annoyance = nbt.getInt("annoyance");
+        this.player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
+        this.librarian = nbt.hasUUID("librarianId") ? nbt.getUUID("librarianId") : null;
+        this.security = nbt.hasUUID("securityId") ? nbt.getUUID("securityId") : null;
     }
 
     @Nonnull
     @Override
     public CompoundNBT save(CompoundNBT nbt) {
-        nbt.putInt("annoyance", annoyance);
+        nbt.putInt("annoyance", this.annoyance);
         if (this.player == null) {
             nbt.remove("playerId");
         } else {

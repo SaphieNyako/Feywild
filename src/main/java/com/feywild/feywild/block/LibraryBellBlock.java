@@ -38,7 +38,7 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
     @Override
     public void onRemove(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
         if (!world.isClientSide && world instanceof ServerWorld) {
-            LibraryBell tile = getTile(world, pos);
+            LibraryBell tile = this.getTile(world, pos);
             if (tile.getLibrarian() != null) {
                 Entity librarian = ((ServerWorld) world).getEntity(tile.getLibrarian());
                 if (librarian instanceof VillagerEntity) ((VillagerEntity) librarian).releaseAllPois();
@@ -66,7 +66,7 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
         if (world.isClientSide) {
             world.playSound(player, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
         } else {
-            LibraryBell blockEntity = getTile(world, pos);
+            LibraryBell blockEntity = this.getTile(world, pos);
             if (player.getGameProfile().getId().equals(blockEntity.getPlayer())) {
                 blockEntity.setAnnoyance(blockEntity.getAnnoyance() + 1);
             } else {

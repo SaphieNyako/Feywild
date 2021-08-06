@@ -46,11 +46,11 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
         BlockPos.Mutable current = new BlockPos.Mutable();
 
         for(int i = 0; i < height; ++i) {
-            tryPlaceLog(world, random, current, blocks, box, config, pos, 0, i, 0, decoratables);
+            this.tryPlaceLog(world, random, current, blocks, box, config, pos, 0, i, 0, decoratables);
             if (i < height - 1) {
-                tryPlaceLog(world, random, current, blocks, box, config, pos, 1, i, 0, decoratables);
-                tryPlaceLog(world, random, current, blocks, box, config, pos, 1, i, 1, decoratables);
-                tryPlaceLog(world, random, current, blocks, box, config, pos, 0, i, 1, decoratables);
+                this.tryPlaceLog(world, random, current, blocks, box, config, pos, 1, i, 0, decoratables);
+                this.tryPlaceLog(world, random, current, blocks, box, config, pos, 1, i, 1, decoratables);
+                this.tryPlaceLog(world, random, current, blocks, box, config, pos, 0, i, 1, decoratables);
             }
         }
 
@@ -62,7 +62,7 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
     public List<FoliagePlacer.Foliage> placeTrunk(@Nonnull IWorldGenerationReader world, @Nonnull Random random, int height, @Nonnull BlockPos pos, @Nonnull Set<BlockPos> blocks, @Nonnull MutableBoundingBox box, @Nonnull BaseTreeFeatureConfig config) {
         List<FoliagePlacer.Foliage> list = Lists.newArrayList();
         List<Pair<BlockPos, BlockState>> decoratables = new ArrayList<>();
-        list.addAll(placeBaseTrunk(world, random, height, pos, blocks, box, config, decoratables));
+        list.addAll(this.placeBaseTrunk(world, random, height, pos, blocks, box, config, decoratables));
         for(int y = (height - 2 - random.nextInt(4)); y > (height / 2); y -= (2 + random.nextInt(4))) {
             float f = random.nextFloat() * (float) (Math.PI * 2);
             int x = 0;
@@ -86,7 +86,7 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
             // code will query block states and expects the whole trunk to be paced
             for (Pair<BlockPos, BlockState> entry : decoratables) {
                 if (((ISeedReader) world).getBlockState(entry.getLeft()).equals(entry.getRight())) {
-                    decorateLog(entry.getRight(), (ISeedReader) world, entry.getLeft(), random);
+                    this.decorateLog(entry.getRight(), (ISeedReader) world, entry.getLeft(), random);
                 }
             }
         }

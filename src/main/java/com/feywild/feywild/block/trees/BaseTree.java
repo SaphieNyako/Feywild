@@ -59,13 +59,13 @@ public abstract class BaseTree extends Tree implements Registerable {
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters() {
-                return ImmutableSet.of(logBlock, logItem);
+                return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem);
             }
         };
         this.woodRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters() {
-                return ImmutableSet.of(woodBlock, woodItem);
+                return ImmutableSet.of(BaseTree.this.woodBlock, BaseTree.this.woodItem);
             }
         };
         
@@ -76,40 +76,40 @@ public abstract class BaseTree extends Tree implements Registerable {
     @Override
     public Map<String, Object> getNamedAdditionalRegisters() {
         return ImmutableMap.of(
-                "log", logRegister,
-                "wood", woodRegister,
-                "leaves", leaves,
-                "sapling", sapling
+                "log", this.logRegister,
+                "wood", this.woodRegister,
+                "leaves", this.leaves,
+                "sapling", this.sapling
         );
     }
 
     @Nonnull
     @Override
     public ConfiguredFeature<BaseTreeFeatureConfig, ?> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
-        BaseTreeFeatureConfig featureConfig = getFeatureBuilder(random, largeHive).build();
+        BaseTreeFeatureConfig featureConfig = this.getFeatureBuilder(random, largeHive).build();
         return Feature.TREE.configured(featureConfig);
     }
     
     protected BaseTreeFeatureConfig.Builder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return new BaseTreeFeatureConfig.Builder(
-                new SimpleBlockStateProvider(getLogBlock().defaultBlockState()),
-                new SimpleBlockStateProvider(getLeafBlock().defaultBlockState()),
-                getFoliagePlacer(),
-                getGiantTrunkPlacer(),
-                getTwoLayerFeature()
+                new SimpleBlockStateProvider(this.getLogBlock().defaultBlockState()),
+                new SimpleBlockStateProvider(this.getLeafBlock().defaultBlockState()),
+                this.getFoliagePlacer(),
+                this.getGiantTrunkPlacer(),
+                this.getTwoLayerFeature()
         );
     }
 
     protected FoliagePlacer getFoliagePlacer() {
         return new BlobFoliagePlacer(
-                FeatureSpread.fixed(getLeavesRadius()),
-                FeatureSpread.fixed(getLeavesOffset()),
-                getLeavesHeight()
+                FeatureSpread.fixed(this.getLeavesRadius()),
+                FeatureSpread.fixed(this.getLeavesOffset()),
+                this.getLeavesHeight()
         );
     }
 
     protected AbstractTrunkPlacer getGiantTrunkPlacer() {
-        return new MegaJungleTrunkPlacer(getBaseHeight(), getFirstRandomHeight(), getSecondRandomHeight());
+        return new MegaJungleTrunkPlacer(this.getBaseHeight(), this.getFirstRandomHeight(), this.getSecondRandomHeight());
     }
 
     //Branch placer

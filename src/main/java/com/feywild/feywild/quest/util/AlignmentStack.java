@@ -14,6 +14,6 @@ public class AlignmentStack {
     }
 
     public ItemStack getStack() {
-        return stack;
+        return this.stack;
     }
 }

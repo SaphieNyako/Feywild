@@ -33,7 +33,7 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
             //noinspection deprecation
             if (world.getBlockState(target).isAir(world, target) && Tags.Blocks.DIRT.contains(world.getBlockState(target.below()).getBlock())) {
                 if (random.nextInt(3) == 0) {
-                    world.setBlock(target, getPumpkinState(random), 3);
+                    world.setBlock(target, this.getPumpkinState(random), 3);
                     success = true;
                 }
             }

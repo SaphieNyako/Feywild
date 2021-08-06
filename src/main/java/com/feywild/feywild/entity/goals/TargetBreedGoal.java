@@ -27,72 +27,72 @@ public class TargetBreedGoal extends Goal {
 
     @Override
     public void tick() {
-        if (ticksLeft > 0) {
-            ticksLeft--;
+        if (this.ticksLeft > 0) {
+            this.ticksLeft--;
             if (this.targetAnimal == null || this.partner == null || !this.targetAnimal.isAlive() || !this.partner.isAlive()) {
                 this.targetAnimal = this.findTarget();
                 this.partner = this.findPartner();
                 if (this.targetAnimal == null || this.partner == null || !this.targetAnimal.isAlive() || !this.partner.isAlive()) {
-                    reset();
+                    this.reset();
                     return;
                 }
             }
             if (!this.targetAnimal.isAlive() || !this.partner.isAlive() || this.targetAnimal.getAge() != 0 || this.partner.getAge() != 0) {
-                reset();
+                this.reset();
                 return;
             }
-            if (ticksLeft <= 0) {
-                if (entity.level instanceof ServerWorld) {
-                    this.targetAnimal.spawnChildFromBreeding((ServerWorld) entity.level, partner);
-                    FeywildMod.getNetwork().sendParticles(entity.level, ParticleSerializer.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
+            if (this.ticksLeft <= 0) {
+                if (this.entity.level instanceof ServerWorld) {
+                    this.targetAnimal.spawnChildFromBreeding((ServerWorld) this.entity.level, this.partner);
+                    FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
                 }
-                reset();
-            } else if (ticksLeft == 110) {
-                spellCasting();
-            } else if (ticksLeft <= 100) {
-                entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetAnimal.position());
-                entity.getNavigation().moveTo(targetAnimal, 0.5);
+                this.reset();
+            } else if (this.ticksLeft == 110) {
+                this.spellCasting();
+            } else if (this.ticksLeft <= 100) {
+                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetAnimal.position());
+                this.entity.getNavigation().moveTo(this.targetAnimal, 0.5);
             }
         }
     }
 
     @Override
     public void start() {
-        ticksLeft = 120;
+        this.ticksLeft = 120;
         this.targetAnimal = null;
         this.partner = null;
     }
 
     private void spellCasting() {
-        entity.setCasting(true);
-        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
+        this.entity.setCasting(true);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     protected void reset() {
-        entity.setCasting(false);
-        targetAnimal = null;
-        partner = null;
-        ticksLeft = -1;
+        this.entity.setCasting(false);
+        this.targetAnimal = null;
+        this.partner = null;
+        this.ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return ticksLeft > 0;
+        return this.ticksLeft > 0;
     }
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.01f;
+        return this.entity.level.random.nextFloat() < 0.01f;
     }
 
     @Nullable
     private AnimalEntity findTarget() {
         double distance = Double.MAX_VALUE;
         AnimalEntity current = null;
-        for (AnimalEntity animal : entity.level.getNearbyEntities(AnimalEntity.class, TARGETING, entity, entity.getBoundingBox().inflate(8))) {
-            if (animal.getAge() == 0 && entity.distanceToSqr(animal) < distance) {
+        for (AnimalEntity animal : this.entity.level.getNearbyEntities(AnimalEntity.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+            if (animal.getAge() == 0 && this.entity.distanceToSqr(animal) < distance) {
                 current = animal;
-                distance = entity.distanceToSqr(animal);
+                distance = this.entity.distanceToSqr(animal);
             }
         }
         return current;

@@ -36,24 +36,24 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public void tick() {
-        Vector3d target = targetPosition.get();
-        if (target != null && distanceFromSquared(entity.position(), target) > triggerRangeSquared) {
-            entity.setPos(target.x, target.y, target.z);
-        } else if (target != null && distanceFromSquared(entity.position(), target) > maxMovementRangeSquared) {
-            entity.getNavigation().moveTo(target.x, target.y, target.z, this.speed);
+        Vector3d target = this.targetPosition.get();
+        if (target != null && distanceFromSquared(this.entity.position(), target) > this.triggerRangeSquared) {
+            this.entity.setPos(target.x, target.y, target.z);
+        } else if (target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared) {
+            this.entity.getNavigation().moveTo(target.x, target.y, target.z, this.speed);
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        Vector3d target = targetPosition.get();
-        return target != null && distanceFromSquared(entity.position(), target) > maxMovementRangeSquared && shouldReturn.get();
+        Vector3d target = this.targetPosition.get();
+        return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared && this.shouldReturn.get();
     }
 
     @Override
     public boolean canUse() {
-        Vector3d target = targetPosition.get();
-        return entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(entity.position()) && shouldReturn.get();
+        Vector3d target = this.targetPosition.get();
+        return this.entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position()) && this.shouldReturn.get();
     }
     
     public static GoToTargetPositionGoal byBlockPos(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {

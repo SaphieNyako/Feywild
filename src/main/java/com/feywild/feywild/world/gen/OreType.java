@@ -53,27 +53,27 @@ public enum OreType {
     }
 
     public Block getBlock() {
-        return block;
+        return this.block;
     }
 
     public int getMaxVeinSize() {
-        return maxVeinSize;
+        return this.maxVeinSize;
     }
 
     public int getMinHeight() {
-        return minHeight;
+        return this.minHeight;
     }
 
     public int getMaxHeight() {
-        return maxHeight;
+        return this.maxHeight;
     }
 
     public int getSpawnWeight() {
-        return spawnWeight;
+        return this.spawnWeight;
     }
 
     public ConfiguredFeature<?, ?> getFeature() {
-        return feature.get();
+        return this.feature.get();
     }
 
     public static void setupOres() {

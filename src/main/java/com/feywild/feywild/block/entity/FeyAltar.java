@@ -54,11 +54,11 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
 
     @Override
     public void tick() {
-        if (level == null) return;
-        if (!level.isClientSide) {
-            if (needsUpdate) {
+        if (this.level == null) return;
+        if (!this.level.isClientSide) {
+            if (this.needsUpdate) {
                 this.updateRecipe();
-                needsUpdate = false;
+                this.needsUpdate = false;
             }
             if (this.recipe.get().isPresent()) {
                 // We need to save the result before changing the inventory
@@ -71,13 +71,13 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
                         this.inventory.setStackInSlot(slot, ItemStack.EMPTY);
                     }
                     ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2, this.worldPosition.getZ() + 0.5, currentRecipe.getLeft().copy());
-                    level.addFreshEntity(entity);
+                    this.level.addFreshEntity(entity);
                     this.progress = 0;
                 }
-                setChanged();
-                markDispatchable();
+                this.setChanged();
+                this.markDispatchable();
             } else {
-                progress = 0;
+                this.progress = 0;
             }
         } else {
             if (this.progress > 0) {
@@ -96,16 +96,16 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
                         double progressScaled = this.progress / (double) FeyAltar.MAX_PROGRESS;
                         double anglePerStack = (2 * Math.PI) / stacks.size();
                         for (int idx = 0; idx < stacks.size(); idx++) {
-                            double shiftX = Math.cos((level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);
-                            double shiftZ = Math.sin((level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);
+                            double shiftX = Math.cos((this.level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);
+                            double shiftZ = Math.sin((this.level.getGameTime() / (double) 8) + (idx * anglePerStack)) * (1 - progressScaled);
                             this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + 0.5 + shiftX, this.worldPosition.getY() + 1 + progressScaled, this.worldPosition.getZ() + 0.5 + shiftZ, 0, 0, 0);
                         }
                     }
                 }
             } else {
                 if (this.particleTimer <= 0) {
-                    this.particleTimer = level.random.nextInt(120);
-                    if (level.random.nextFloat() < 0.5) {
+                    this.particleTimer = this.level.random.nextInt(120);
+                    if (this.level.random.nextFloat() < 0.5) {
                         this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + this.level.random.nextDouble(), this.worldPosition.getY() + this.level.random.nextDouble(), this.worldPosition.getZ() + this.level.random.nextDouble(), 0, 0, 0);
                     }
                 }
@@ -114,10 +114,10 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     }
     
     private void updateRecipe() {
-        if (level != null && !level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {
-                List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-                return level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR).stream()
+                List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
+                return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
                         .findFirst();
             });
@@ -127,27 +127,27 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     }
 
     public BaseItemStackHandler getInventory() {
-        return inventory;
+        return this.inventory;
     }
 
     public int getProgress() {
-        return progress;
+        return this.progress;
     }
 
     @Nonnull
     @Override
     public CompoundNBT save(@Nonnull CompoundNBT nbt) {
-        nbt.put("inventory", inventory.serializeNBT());
-        nbt.putInt("progress", progress);
+        nbt.put("inventory", this.inventory.serializeNBT());
+        nbt.putInt("progress", this.progress);
         return super.save(nbt);
     }
 
     @Override
     public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
         super.load(state, nbt);
-        inventory.deserializeNBT(nbt.getCompound("inventory"));
-        progress = nbt.getInt("progress");
-        needsUpdate = true;
+        this.inventory.deserializeNBT(nbt.getCompound("inventory"));
+        this.progress = nbt.getInt("progress");
+        this.needsUpdate = true;
     }
 
     @Nonnull
@@ -155,8 +155,8 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     public CompoundNBT getUpdateTag() {
         CompoundNBT nbt = super.getUpdateTag();
         if (this.level != null && !this.level.isClientSide) {
-            nbt.put("inventory", inventory.serializeNBT());
-            nbt.putInt("progress", progress);
+            nbt.put("inventory", this.inventory.serializeNBT());
+            nbt.putInt("progress", this.progress);
         }
         return nbt;
     }
@@ -165,8 +165,8 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
         super.handleUpdateTag(state, nbt);
         if (this.level != null && this.level.isClientSide) {
-            inventory.deserializeNBT(nbt.getCompound("inventory"));
-            progress = nbt.getInt("progress");
+            this.inventory.deserializeNBT(nbt.getCompound("inventory"));
+            this.progress = nbt.getInt("progress");
         }
     }
 
@@ -182,6 +182,6 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
 
     @Override
     public AnimationFactory getFactory() {
-        return animationFactory;
+        return this.animationFactory;
     }
 }

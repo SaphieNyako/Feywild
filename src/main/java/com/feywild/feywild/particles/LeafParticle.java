@@ -33,14 +33,14 @@ public class LeafParticle extends SpriteTexturedParticle {
     @Override
     public void tick() {
         super.tick();
-        setPos(initX + Math.sin(move) * 2,y-0.04,initZ + Math.cos(move) * 2);
-        move+= 0.1;
-        if(lifetime == 0){
+        this.setPos(this.initX + Math.sin(this.move) * 2, this.y -0.04, this.initZ + Math.cos(this.move) * 2);
+        this.move += 0.1;
+        if(this.lifetime == 0){
             this.remove();
         }
-        lifetime--;
-        if(move > 0.3)
-        alpha = 1;
+        this.lifetime--;
+        if(this.move > 0.3)
+            this.alpha = 1;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -56,7 +56,7 @@ public class LeafParticle extends SpriteTexturedParticle {
         public Particle createParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld world, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
             LeafParticle particle = new LeafParticle(world,p_199234_3_,p_199234_5_,p_199234_7_);
             particle.setColor(1,1,1);
-            particle.pickSprite(sprite);
+            particle.pickSprite(this.sprite);
             return particle;
         }
     }

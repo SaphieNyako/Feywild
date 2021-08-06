@@ -31,9 +31,9 @@ public class WinterTree extends BaseTree {
     @Override
     protected FoliagePlacer getFoliagePlacer() {
         return new LeavesPlacer(
-                FeatureSpread.fixed(getLeavesRadius()),
-                FeatureSpread.fixed(getLeavesOffset()),
-                getLeavesHeight()
+                FeatureSpread.fixed(this.getLeavesRadius()),
+                FeatureSpread.fixed(this.getLeavesOffset()),
+                this.getLeavesHeight()
         );
     }
 

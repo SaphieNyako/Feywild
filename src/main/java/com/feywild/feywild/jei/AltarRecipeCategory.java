@@ -27,8 +27,8 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     public AltarRecipeCategory(IGuiHelper helper) {
         ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
         this.helper = helper;
-        background = helper.createDrawable(location, 0, 0, 85, 85);
-        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
+        this.background = helper.createDrawable(location, 0, 0, 85, 85);
+        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
     }
 
     @Nonnull
@@ -52,13 +52,13 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     @Nonnull
     @Override
     public IDrawable getBackground() {
-        return background;
+        return this.background;
     }
 
     @Nonnull
     @Override
     public IDrawable getIcon() {
-        return icon;
+        return this.icon;
     }
 
     /*

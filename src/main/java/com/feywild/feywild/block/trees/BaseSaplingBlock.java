@@ -42,7 +42,7 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
 
     @Override
     public Set<Object> getAdditionalRegisters() {
-        return ImmutableSet.of(item);
+        return ImmutableSet.of(this.item);
     }
 
     @Override

@@ -28,54 +28,54 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public void tick() {
-        if (entity.getLastHurtByMob() instanceof MonsterEntity) {
-            target = entity.getLastHurtByMob();
-            ticksLeft--;
-            if (ticksLeft == 0) {
-                reset();
-            } else if (ticksLeft == 10) {
-                sendShock = attackTarget();
-                entity.playSound(ModSoundEvents.dwarfAttack, 1, 1.2f);
-                entity.setState(DwarfBlacksmithEntity.State.IDLE);
-            } else if (ticksLeft == 30) {
-                entity.setState(DwarfBlacksmithEntity.State.ATTACKING);
-                entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
-            } else if (ticksLeft <= 30) {
-                entity.lookAt(EntityAnchorArgument.Type.EYES, target.position());
-                if (sendShock) {
-                    switch (ticksLeft) {
+        if (this.entity.getLastHurtByMob() instanceof MonsterEntity) {
+            this.target = this.entity.getLastHurtByMob();
+            this.ticksLeft--;
+            if (this.ticksLeft == 0) {
+                this.reset();
+            } else if (this.ticksLeft == 10) {
+                this.sendShock = this.attackTarget();
+                this.entity.playSound(ModSoundEvents.dwarfAttack, 1, 1.2f);
+                this.entity.setState(DwarfBlacksmithEntity.State.IDLE);
+            } else if (this.ticksLeft == 30) {
+                this.entity.setState(DwarfBlacksmithEntity.State.ATTACKING);
+                this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
+            } else if (this.ticksLeft <= 30) {
+                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.target.position());
+                if (this.sendShock) {
+                    switch (this.ticksLeft) {
                         case 4:
                         case 8:
-                            summonShockWave(true);
+                            this.summonShockWave(true);
                             break;
                         case 6:
-                            summonShockWave(false);
+                            this.summonShockWave(false);
                             break;
                     }
                 }
             }
         } else {
-            reset();
+            this.reset();
         }
     }
 
     @Override
     public void start() {
-        ticksLeft = 70;
+        this.ticksLeft = 70;
     }
 
     protected boolean attackTarget() {
-        if (entity.getRandom().nextDouble() > 0.6) {
-            target.hurt(DamageSource.mobAttack(this.entity), 15);
+        if (this.entity.getRandom().nextDouble() > 0.6) {
+            this.target.hurt(DamageSource.mobAttack(this.entity), 15);
             return false;
         } else {
-            target.hurt(DamageSource.mobAttack(this.entity), 20);
+            this.target.hurt(DamageSource.mobAttack(this.entity), 20);
             return true;
         }
     }
 
     private void summonShockWave(boolean stage) {
-        BlockPos centerPos = entity.blockPosition().below();
+        BlockPos centerPos = this.entity.blockPosition().below();
 
         int size = 2;
         List<FallingBlockEntity> entityList = new ArrayList<>();
@@ -86,18 +86,18 @@ public class DwarvenAttackGoal extends Goal {
                 //noinspection deprecation
                 if (dist <= size && !this.entity.level.getBlockState(centerPos.offset(xd, -1, zd)).isAir() && this.entity.level.getBlockState(new BlockPos(centerPos.offset(xd, 0, zd))).isAir() && (xd != 0 || zd != 0)) {
                     if (stage) {
-                        waveBlock(entityList, centerPos.offset(xd, 0, zd));
-                        waveBlock(entityList, centerPos.offset(-xd, 0, -zd));
+                        this.waveBlock(entityList, centerPos.offset(xd, 0, zd));
+                        this.waveBlock(entityList, centerPos.offset(-xd, 0, -zd));
                     } else {
-                        waveBlock(entityList, centerPos.offset(xd, 0, -zd));
-                        waveBlock(entityList, centerPos.offset(-xd, 0, zd));
+                        this.waveBlock(entityList, centerPos.offset(xd, 0, -zd));
+                        this.waveBlock(entityList, centerPos.offset(-xd, 0, zd));
                     }
                 }
             }
         }
 
         entityList.forEach(block -> {
-            entity.playSound(ModSoundEvents.dwarfAttack, 1, 1);
+            this.entity.playSound(ModSoundEvents.dwarfAttack, 1, 1);
             block.setDeltaMovement(0, 0.3d, 0);
             block.setHurtsEntities(true);
             this.entity.level.addFreshEntity(block);
@@ -113,19 +113,19 @@ public class DwarvenAttackGoal extends Goal {
     }
 
     protected void reset() {
-        entity.setState(DwarfBlacksmithEntity.State.IDLE);
-        target = null;
-        sendShock = false;
-        ticksLeft = -1;
+        this.entity.setState(DwarfBlacksmithEntity.State.IDLE);
+        this.target = null;
+        this.sendShock = false;
+        this.ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return ticksLeft > 0 && entity.getLastHurtByMob() instanceof MobEntity && !entity.getLastHurtByMob().isInvulnerable();
+        return this.ticksLeft > 0 && this.entity.getLastHurtByMob() instanceof MobEntity && !this.entity.getLastHurtByMob().isInvulnerable();
     }
 
     @Override
     public boolean canUse() {
-        return entity.getLastHurtByMob() instanceof MobEntity && !entity.getLastHurtByMob().isInvulnerable() && entity.canSee(entity.getLastHurtByMob());
+        return this.entity.getLastHurtByMob() instanceof MobEntity && !this.entity.getLastHurtByMob().isInvulnerable() && this.entity.canSee(this.entity.getLastHurtByMob());
     }
 }

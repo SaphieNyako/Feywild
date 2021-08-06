@@ -53,7 +53,6 @@ public class FeywildMod extends ModXRegistration {
     
     public FeywildMod() {
         super("feywild", new ItemGroup("feywild") {
-
             @Nonnull
             @Override
             public ItemStack makeIcon() {
@@ -64,12 +63,12 @@ public class FeywildMod extends ModXRegistration {
         instance = this;
         network = new FeywildNetwork(this);
 
-        ConfigManager.registerValueMapper(new ResourceLocation(modid, "biome_types"), new BiomeTypesMapper());
-        ConfigManager.registerConfig(new ResourceLocation(modid, "misc"), MiscConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(modid, "world_gen"), WorldGenConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(modid, "mob_spawns"), MobConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(modid, "compat"), CompatConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(modid, "client"), ClientConfig.class, true);
+        ConfigManager.registerValueMapper(new ResourceLocation(this.modid, "biome_types"), new BiomeTypesMapper());
+        ConfigManager.registerConfig(new ResourceLocation(this.modid, "misc"), MiscConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(this.modid, "world_gen"), WorldGenConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
+        ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
         
         GeckoLib.initialize();
         
@@ -86,13 +85,13 @@ public class FeywildMod extends ModXRegistration {
         MinecraftForge.EVENT_BUS.register(new EventListener());
 
         // Quest task & reward types. Not in setup as they are required for datagen.
-        TaskTypes.register(new ResourceLocation(modid, "craft"), CraftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(modid, "fey_gift"), FeyGiftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(modid, "item"), ItemTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(modid, "kill"), KillTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(modid, "kill_empty_hand"), EmptyHandKillTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(modid, "special"), SpecialTask.INSTANCE);
-        RewardTypes.register(new ResourceLocation(modid, "item"), ItemReward.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "fey_gift"), FeyGiftTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "item"), ItemTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "kill_empty_hand"), EmptyHandKillTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+        RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
     }
 
     @Nonnull

@@ -1,11 +1,11 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.entity.base.ITameable;
+import com.feywild.feywild.entity.base.TraderEntity;
 import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
 import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
-import com.feywild.feywild.entity.base.ITameable;
-import com.feywild.feywild.entity.base.TraderEntity;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -97,12 +97,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld world, @Nonnull DifficultyInstance difficulty, @Nonnull SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataNbt) {
-        this.restrictTo(blockPosition(), 7);
+        this.restrictTo(this.blockPosition(), 7);
         return super.finalizeSpawn(world, difficulty, reason, spawnData, dataNbt);
     }
 
     public BlockPos getSummonPos() {
-        return summonPos;
+        return this.summonPos;
     }
 
     public void setSummonPos(BlockPos summonPos) {
@@ -111,7 +111,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
 
     @Override
     public boolean isTamed() {
-        return isTamed;
+        return this.isTamed;
     }
 
     public void setTamed(boolean tamed) {

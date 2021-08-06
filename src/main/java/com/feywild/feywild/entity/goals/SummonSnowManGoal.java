@@ -25,59 +25,59 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public void tick() {
-        if (ticksLeft > 0) {
-            ticksLeft--;
-            if (!noSnowManNearby()) {
-                reset();
+        if (this.ticksLeft > 0) {
+            this.ticksLeft--;
+            if (!this.noSnowManNearby()) {
+                this.reset();
                 return;
             }
-            if (ticksLeft <= 0) {
-                summonSnowMan();
-                reset();
-            } else if (ticksLeft == 110) {
-                spellCasting();
-            } else if (ticksLeft <= 100) {
-                entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
+            if (this.ticksLeft <= 0) {
+                this.summonSnowMan();
+                this.reset();
+            } else if (this.ticksLeft == 110) {
+                this.spellCasting();
+            } else if (this.ticksLeft <= 100) {
+                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetPos);
             }
         }
     }
 
     @Override
     public void start() {
-        ticksLeft = 120;
-        entity.setCasting(false);
+        this.ticksLeft = 120;
+        this.entity.setCasting(false);
     }
 
     private void spellCasting() {
-        this.targetPos = new Vector3d(entity.getX() + entity.getRandom().nextInt(8) - 4, entity.getY() + 2, entity.getZ() + entity.getRandom().nextInt(8) - 4);
-        entity.setCasting(true);
-        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
+        this.targetPos = new Vector3d(this.entity.getX() + this.entity.getRandom().nextInt(8) - 4, this.entity.getY() + 2, this.entity.getZ() + this.entity.getRandom().nextInt(8) - 4);
+        this.entity.setCasting(true);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     private void reset() {
-        entity.setCasting(false);
-        targetPos = null;
+        this.entity.setCasting(false);
+        this.targetPos = null;
         this.ticksLeft = -1;
     }
 
     private void summonSnowMan() {
-        SnowGolemEntity snowman = new SnowGolemEntity(EntityType.SNOW_GOLEM, entity.level);
-        snowman.setPos(entity.getX(), entity.getY() + 1, entity.getZ());
-        snowman.setDeltaMovement((targetPos.x - entity.getX()) / 8, (targetPos.y - entity.getY()) / 8, (targetPos.z - entity.getZ()) / 8);
+        SnowGolemEntity snowman = new SnowGolemEntity(EntityType.SNOW_GOLEM, this.entity.level);
+        snowman.setPos(this.entity.getX(), this.entity.getY() + 1, this.entity.getZ());
+        snowman.setDeltaMovement((this.targetPos.x - this.entity.getX()) / 8, (this.targetPos.y - this.entity.getY()) / 8, (this.targetPos.z - this.entity.getZ()) / 8);
         this.entity.level.addFreshEntity(snowman);
     }
 
     @Override
     public boolean canContinueToUse() {
-        return ticksLeft > 0;
+        return this.ticksLeft > 0;
     }
 
     @Override
     public boolean canUse() {
-        return entity.isTamed() && entity.level.random.nextFloat() < 0.002f && noSnowManNearby();
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f && this.noSnowManNearby();
     }
     
     private boolean noSnowManNearby() {
-        return entity.level.getNearbyEntities(SnowGolemEntity.class, TARGETING, entity, entity.getBoundingBox().inflate(8)).isEmpty();
+        return this.entity.level.getNearbyEntities(SnowGolemEntity.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8)).isEmpty();
     }
 }

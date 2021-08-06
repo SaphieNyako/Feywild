@@ -30,7 +30,7 @@ public class GiantFlowerFeature extends Feature<NoFeatureConfig> {
                     random.nextInt(4) - random.nextInt(4),
                     random.nextInt(6) - random.nextInt(6)
             );
-            if (trySpawnFlower(world, target, random)) {
+            if (this.trySpawnFlower(world, target, random)) {
                 success = true;
             }
         }

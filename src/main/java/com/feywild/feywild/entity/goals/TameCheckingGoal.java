@@ -21,7 +21,7 @@ public class TameCheckingGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return entity.isTamed() == this.tamed && this.parent.canContinueToUse();
+        return this.entity.isTamed() == this.tamed && this.parent.canContinueToUse();
     }
 
     @Override

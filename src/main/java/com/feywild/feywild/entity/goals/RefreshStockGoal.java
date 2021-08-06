@@ -18,18 +18,18 @@ public class RefreshStockGoal extends Goal {
     @Override
     public boolean canContinueToUse() {
         //boolean restocked
-        return entity.shouldRestock();
+        return this.entity.shouldRestock();
     }
 
     @Override
     public boolean canUse() {
-        return worldLevel.isNight();
+        return this.worldLevel.isNight();
     }
 
     @Override
     public void start() {
-        if (entity.shouldRestock()) {
-            entity.restock();
+        if (this.entity.shouldRestock()) {
+            this.entity.restock();
         }
     }
 }

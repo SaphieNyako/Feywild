@@ -31,7 +31,7 @@ public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
                     if (TreeFeature.validTreePos(world, current)) {
                         world.setBlock(current, config.leavesProvider.getState(random, current), 19);
                         if (world instanceof ISeedReader) {
-                            decorateLeaves(((ISeedReader) world).getBlockState(current), (ISeedReader) world, current, random);
+                            this.decorateLeaves(((ISeedReader) world).getBlockState(current), (ISeedReader) world, current, random);
                         }
                         box.expand(new MutableBoundingBox(current, current));
                         positions.add(current.immutable());

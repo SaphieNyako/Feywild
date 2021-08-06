@@ -26,60 +26,60 @@ public class AddShieldGoal extends Goal {
 
     @Override
     public void tick() {
-        if (ticksLeft > 0) {
-            if (target == null) {
-                reset();
+        if (this.ticksLeft > 0) {
+            if (this.target == null) {
+                this.reset();
                 return;
             }
-            ticksLeft--;
-            if (ticksLeft <= 0) {
-                addShieldEffect();
-                reset();
-            } else if (ticksLeft == 110) {
-                spellCasting();
-            } else if (ticksLeft <= 100) {
-                entity.lookAt(EntityAnchorArgument.Type.EYES, target.position());
+            this.ticksLeft--;
+            if (this.ticksLeft <= 0) {
+                this.addShieldEffect();
+                this.reset();
+            } else if (this.ticksLeft == 110) {
+                this.spellCasting();
+            } else if (this.ticksLeft <= 100) {
+                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.target.position());
             }
         }
     }
 
     @Override
     public void start() {
-        ticksLeft = 120;
-        entity.setCasting(false);
-        target = null;
-        AxisAlignedBB box = new AxisAlignedBB(entity.blockPosition()).inflate(4);
-        for (PlayerEntity match : entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
-            target = match;
+        this.ticksLeft = 120;
+        this.entity.setCasting(false);
+        this.target = null;
+        AxisAlignedBB box = new AxisAlignedBB(this.entity.blockPosition()).inflate(4);
+        for (PlayerEntity match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+            this.target = match;
             break;
         }
     }
 
     private void spellCasting() {
-        entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
-        entity.setCasting(true);
-        entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
+        this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
+        this.entity.setCasting(true);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     private void addShieldEffect() {
-        target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
-        target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
-        FeywildMod.getNetwork().sendParticles(entity.level, ParticleSerializer.Type.WIND_WALK, entity.getX(), entity.getY(), entity.getZ());
+        this.target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
+        this.target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
+        FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
     }
 
     private void reset() {
-        entity.setCasting(false);
-        target = null;
-        ticksLeft = -1;
+        this.entity.setCasting(false);
+        this.target = null;
+        this.ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return ticksLeft > 0;
+        return this.ticksLeft > 0;
     }
 
     @Override
     public boolean canUse() {
-        return entity.isTamed() && entity.level.random.nextFloat() < 0.002f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f;
     }
 }

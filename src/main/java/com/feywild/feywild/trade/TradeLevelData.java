@@ -63,8 +63,8 @@ public class TradeLevelData {
         if (tradesToSelect == 0) {
             return ImmutableList.of();
         } else if (tradesToSelect == 1) {
-            return ImmutableList.of(this.trades.get(selectRandomTrade(random)).getRight());
-        } else if (!allowDuplicates && tradesToSelect == this.trades.size()) {
+            return ImmutableList.of(this.trades.get(this.selectRandomTrade(random)).getRight());
+        } else if (!this.allowDuplicates && tradesToSelect == this.trades.size()) {
             //noinspection UnstableApiUsage
             return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         } else {
@@ -74,9 +74,9 @@ public class TradeLevelData {
             for (int i = 0; i < tradesToSelect; i++) {
                 int tradeIdx;
                 do {
-                    tradeIdx = selectRandomTrade(random);
+                    tradeIdx = this.selectRandomTrade(random);
                 } while (usedIndices.contains(tradeIdx));
-                if (!allowDuplicates) {
+                if (!this.allowDuplicates) {
                     usedIndices.add(tradeIdx);
                 }
                 builtTrades.add(this.trades.get(tradeIdx).getRight());

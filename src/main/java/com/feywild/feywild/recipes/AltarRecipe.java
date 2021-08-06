@@ -38,7 +38,7 @@ public class AltarRecipe implements IAltarRecipe {
     @Nonnull
     @Override
     public ResourceLocation getId() {
-        return id;
+        return this.id;
     }
 
     @Nonnull
@@ -50,13 +50,13 @@ public class AltarRecipe implements IAltarRecipe {
     @Nonnull
     @Override
     public ItemStack getResultItem() {
-        return output.copy();
+        return this.output.copy();
     }
 
     @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return inputList;
+        return this.inputList;
     }
 
     @Override

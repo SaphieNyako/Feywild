@@ -33,7 +33,7 @@ public class SpringBiome extends BaseBiome {
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.springPixie, 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
-        addDefaultSpawns(mobSpawnBuilder);
+        this.addDefaultSpawns(mobSpawnBuilder);
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);

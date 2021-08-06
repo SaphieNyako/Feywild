@@ -36,7 +36,7 @@ public class QuestTask {
 
     public boolean checkCompleted(ServerPlayerEntity player, TaskType<?, ?> type, Object match) {
         if (this.task == type && this.task.testType().isAssignableFrom(match.getClass())) {
-            return task.checkCompleted(player, element, match);
+            return this.task.checkCompleted(player, this.element, match);
         } else {
             return false;
         }

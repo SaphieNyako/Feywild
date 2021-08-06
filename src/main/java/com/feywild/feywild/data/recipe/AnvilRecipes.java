@@ -35,16 +35,16 @@ public class AnvilRecipes extends AnyRecipeProvider {
     @Nonnull
     @Override
     public String getName() {
-        return mod.modid + " fey anvil recipes";
+        return this.mod.modid + " fey anvil recipes";
     }
 
     @Override
     protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        gemTransmutation(consumer, ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
-        gemTransmutation(consumer, ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
-        gemTransmutation(consumer, ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);
-        
-        anvil(ModBlocks.feyAltar)
+        this.gemTransmutation(consumer, ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
+        this.gemTransmutation(consumer, ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
+        this.gemTransmutation(consumer, ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);
+
+        this.anvil(ModBlocks.feyAltar)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(ModItems.lesserFeyGem)
@@ -56,7 +56,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
     }
     
     private void gemTransmutation(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider result, int mana) {
-        anvil(result, 2)
+        this.anvil(result, 2)
                 .requires(input)
                 .requires(input)
                 .requires(input)
@@ -68,11 +68,11 @@ public class AnvilRecipes extends AnyRecipeProvider {
     }
 
     private AnvilRecipeBuilder anvil(IItemProvider result) {
-        return anvil(new ItemStack(result));
+        return this.anvil(new ItemStack(result));
     }
 
     private AnvilRecipeBuilder anvil(IItemProvider result, int amount) {
-        return anvil(new ItemStack(result, amount));
+        return this.anvil(new ItemStack(result, amount));
     }
     
     private AnvilRecipeBuilder anvil(ItemStack result) {
@@ -93,24 +93,24 @@ public class AnvilRecipes extends AnyRecipeProvider {
         }
         
         public AnvilRecipeBuilder requires(IItemProvider item) {
-            return requires(Ingredient.of(item));
+            return this.requires(Ingredient.of(item));
         }
 
         public AnvilRecipeBuilder requires(ITag<Item> item) {
-            return requires(Ingredient.of(item));
+            return this.requires(Ingredient.of(item));
         }
 
         public AnvilRecipeBuilder requires(Ingredient item) {
-            inputs.add(item);
+            this.inputs.add(item);
             return this;
         }
         
         public AnvilRecipeBuilder schematics(IItemProvider item) {
-            return schematics(Ingredient.of(item));
+            return this.schematics(Ingredient.of(item));
         }
 
         public AnvilRecipeBuilder schematics(ITag<Item> item) {
-            return schematics(Ingredient.of(item));
+            return this.schematics(Ingredient.of(item));
         }
 
         public AnvilRecipeBuilder schematics(Ingredient item) {
@@ -126,7 +126,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
         }
         
         public void build(Consumer<IFinishedRecipe> consumer) {
-            build(consumer, loc(result.getItem(), "dwarven_anvil"));
+            this.build(consumer, AnvilRecipes.this.loc(this.result.getItem(), "dwarven_anvil"));
         }
         
         public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
@@ -137,13 +137,13 @@ public class AnvilRecipes extends AnyRecipeProvider {
                 
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
-                    json.addProperty("mana", mana);
-                    json.add("output", CraftingHelper2.serializeItemStack(result, true));
-                    if (schematics != null) {
-                        json.add("schematics", schematics.toJson());
+                    json.addProperty("mana", AnvilRecipeBuilder.this.mana);
+                    json.add("output", CraftingHelper2.serializeItemStack(AnvilRecipeBuilder.this.result, true));
+                    if (AnvilRecipeBuilder.this.schematics != null) {
+                        json.add("schematics", AnvilRecipeBuilder.this.schematics.toJson());
                     }
                     JsonArray inputList = new JsonArray();
-                    inputs.forEach(i -> inputList.add(i.toJson()));
+                    AnvilRecipeBuilder.this.inputs.forEach(i -> inputList.add(i.toJson()));
                     json.add("ingredients", inputList);
                 }
 

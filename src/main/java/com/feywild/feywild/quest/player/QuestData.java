@@ -107,7 +107,7 @@ public class QuestData {
     
     @Nullable
     public QuestLine getQuestLine() {
-        return alignment == null ? null : QuestManager.getQuests(alignment);
+        return this.alignment == null ? null : QuestManager.getQuests(this.alignment);
     }
 
     @Nullable
@@ -230,7 +230,7 @@ public class QuestData {
                         this.pendingCompletion.add(newQuest.id);
                     }
                 } else {
-                    if (!activeQuests.containsKey(newQuest.id)) {
+                    if (!this.activeQuests.containsKey(newQuest.id)) {
                         QuestProgress progress = new QuestProgress(newQuest.id);
                         this.activeQuests.put(newQuest.id, progress);
                     }

@@ -35,11 +35,11 @@ public class QuestLine {
 
     @Nullable
     public Quest getQuest(ResourceLocation id) {
-        return quests.getOrDefault(id, null);
+        return this.quests.getOrDefault(id, null);
     }
 
     public Set<Quest> getNextQuests(Set<ResourceLocation> active, Set<ResourceLocation> completed) {
-        return questOrder.entrySet().stream()
+        return this.questOrder.entrySet().stream()
                 .filter(entry -> !active.contains(entry.getKey().id)) // Filter out quests that are currently active
                 .filter(entry -> entry.getKey().repeatable || !completed.contains(entry.getKey().id)) // Only repeatable or not yet completed quests
                 .filter(entry -> entry.getValue().stream().allMatch(quest -> completed.contains(quest.id))) // Check that all required quests are completed

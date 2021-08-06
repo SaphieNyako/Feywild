@@ -34,7 +34,7 @@ public class FeyDust extends ItemBase {
     
     public FeyDust(ModX mod, Properties properties) {
         super(mod, properties);
-        updateFood();
+        this.updateFood();
     }
 
     @Override

@@ -40,7 +40,7 @@ public class QuestWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        FeywildMod.getNetwork().instance.sendToServer(new SelectQuestSerializer.Message(quest.id));
+        FeywildMod.getNetwork().instance.sendToServer(new SelectQuestSerializer.Message(this.quest.id));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class QuestWidget extends Button {
         //noinspection deprecation
         RenderSystem.color4f(1, 1, 1, 1);
         Minecraft.getInstance().getTextureManager().bind(SELECTION_TEXTURE);
-        if (isHovered(mouseX, mouseY)) {
+        if (this.isHovered(mouseX, mouseY)) {
             this.blit(matrixStack, this.x, this.y + 5, 12, 0, 14, 14);
         } else {
             this.blit(matrixStack, this.x, this.y + 5, 0, 0, 14, 14);

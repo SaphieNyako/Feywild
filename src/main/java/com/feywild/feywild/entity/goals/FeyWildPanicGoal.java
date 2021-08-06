@@ -21,16 +21,16 @@ public class FeyWildPanicGoal extends Goal {
     @Override
     public void start() {
         super.start();
-        Vector3d targetPos = entity.position();
+        Vector3d targetPos = this.entity.position();
         if (targetPos.distanceTo(this.entity.position()) < 1.4) {
             for (int i = 0; i < 30; i++) {
-                targetPos = new Vector3d(entity.getX() - range + entity.getRandom().nextInt(range * 2), entity.getY() - range + entity.getRandom().nextInt(range * 2), entity.getZ() - range + entity.getRandom().nextInt(range * 2));
+                targetPos = new Vector3d(this.entity.getX() - this.range + this.entity.getRandom().nextInt(this.range * 2), this.entity.getY() - this.range + this.entity.getRandom().nextInt(this.range * 2), this.entity.getZ() - this.range + this.entity.getRandom().nextInt(this.range * 2));
                 //noinspection deprecation
-                if (entity.level.getBlockState(new BlockPos(targetPos.x(), targetPos.y(), targetPos.z())).isAir()) {
+                if (this.entity.level.getBlockState(new BlockPos(targetPos.x(), targetPos.y(), targetPos.z())).isAir()) {
                     break;
                 }
             }
-            this.entity.setDeltaMovement((targetPos.x() - this.entity.getX()) * speed * 10, (targetPos.y() - this.entity.getY()) * speed * 10, (targetPos.z() - this.entity.getZ()) * speed * 10);
+            this.entity.setDeltaMovement((targetPos.x() - this.entity.getX()) * this.speed * 10, (targetPos.y() - this.entity.getY()) * this.speed * 10, (targetPos.z() - this.entity.getZ()) * this.speed * 10);
             this.entity.lookAt(EntityAnchorArgument.Type.EYES, targetPos);
         }
     }

@@ -54,7 +54,7 @@ public interface IAltarRecipe extends IRecipe<IInventory> {
     @Override
     @Deprecated
     default ItemStack assemble(@Nonnull IInventory inventory) {
-        return getResultItem();
+        return this.getResultItem();
     }
     
     Optional<ItemStack> getResult(List<ItemStack> inputs);
