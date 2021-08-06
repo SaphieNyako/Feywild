@@ -54,8 +54,7 @@ public class ModStructures {
         }
 
         //DEFAULT
-        DimensionStructuresSettings.DEFAULTS =
-                ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()
+        DimensionStructuresSettings.DEFAULTS = ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()
                         .putAll(DimensionStructuresSettings.DEFAULTS)
                         .put(structure, separationSettings)
                         .build();
@@ -72,5 +71,4 @@ public class ModStructures {
             }
         });
     }
-
 }

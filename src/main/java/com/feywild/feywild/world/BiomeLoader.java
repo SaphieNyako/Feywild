@@ -9,6 +9,7 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.gen.OreType;
+import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -64,8 +65,9 @@ public class BiomeLoader {
         
         ores(event, biomeId, types, random);
         treePatches(event, biomeId, types, random);
-        biomeFeatures(event, biomeId, types, random);
+        feywildBiomes(event, biomeId, types, random);
         mobSpawns(event, biomeId, types, random);
+        commonStructures(event, biomeId, types, random);
     }
     
     private static void ores(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
@@ -77,24 +79,26 @@ public class BiomeLoader {
     }
 
     private static void treePatches(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
-        if (((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.spring) {
-            addLooseTrees(event, ModTrees.springTree, random, types.contains(BiomeDictionary.Type.FOREST));
-        }
+        if (types.contains(BiomeDictionary.Type.OVERWORLD)) {
+            if (((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
+                    && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.spring) {
+                addLooseTrees(event, ModTrees.springTree, random, types.contains(BiomeDictionary.Type.FOREST));
+            }
 
-        if (((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.summer) {
-            addLooseTrees(event, ModTrees.summerTree, random, false);
-        }
+            if (((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
+                    && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.summer) {
+                addLooseTrees(event, ModTrees.summerTree, random, false);
+            }
 
-        if (((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.autumn) {
-            addLooseTrees(event, ModTrees.autumnTree, random, false);
-        }
+            if (((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
+                    && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.autumn) {
+                addLooseTrees(event, ModTrees.autumnTree, random, false);
+            }
 
-        if (((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
-                && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.winter) {
-            addLooseTrees(event, ModTrees.winterTree, random, false);
+            if (((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
+                    && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.winter) {
+                addLooseTrees(event, ModTrees.winterTree, random, false);
+            }
         }
     }
     
@@ -104,17 +108,19 @@ public class BiomeLoader {
                 .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (isForest ? 2 : 1) * WorldGenConfig.tree_patches.chance, WorldGenConfig.tree_patches.size))));
     }
 
-    private static void biomeFeatures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
+    private static void feywildBiomes(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (SPRING_BIOME.equals(biomeId) || (ALFHEIM_PLAINS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_DANDELION);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_FLOWERS);
+            event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
         }
 
         if (SUMMER_BIOME.equals(biomeId) || (GOLDEN_FIELDS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_SUNFLOWER);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
+            event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
         }
 
         if (AUTUMN_BIOME.equals(biomeId) || (ALFHEIM_HILLS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
@@ -122,12 +128,14 @@ public class BiomeLoader {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_PUMPKINS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SWAMP_FLOWERS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SMALL_MUSHROOMS);
+            event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
         }
 
         if (WINTER_BIOME.equals(biomeId) || (DREAMWOOD_FOREST.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_CROCUS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
+            event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
         }
     }
 
@@ -151,5 +159,14 @@ public class BiomeLoader {
 
     private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, EntityClassification classification, int weight, int min, int max) {
         event.getSpawns().getSpawner(classification).add(new MobSpawnInfo.Spawners(type, weight, min, max));
+    }
+
+    private static void commonStructures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
+        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !types.contains(BiomeDictionary.Type.OCEAN)) {
+            if (types.contains(BiomeDictionary.Type.PLAINS)) {
+                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
+                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_LIBRARY);
+            }
+        }
     }
 }
