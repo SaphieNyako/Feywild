@@ -6,23 +6,25 @@ import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-// TODO
-@OnlyIn(Dist.CLIENT)
 public class LeafParticle extends SpriteTexturedParticle {
+    
     float move = 0;
     double initX, initY, initZ;
-    protected LeafParticle(ClientWorld p_i232447_1_, double p_i232447_2_, double p_i232447_4_, double p_i232447_6_) {
-        super(p_i232447_1_, p_i232447_2_, p_i232447_4_, p_i232447_6_);
+    
+    public LeafParticle(ClientWorld world, double x, double y, double z) {
+        super(world, x, y, z);
         this.setSize(0.5f,0.5f);
         this.alpha = 0;
         this.lifetime = (int)(10 / (Math.random() * 0.8D)) + 20;
-        this.initX = p_i232447_2_;
-        this.initY = p_i232447_4_;
-        this.initZ = p_i232447_6_;
+        this.initX = x;
+        this.initY = y;
+        this.initZ = z;
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
@@ -51,8 +53,8 @@ public class LeafParticle extends SpriteTexturedParticle {
 
         @Nullable
         @Override
-        public Particle createParticle(BasicParticleType p_199234_1_, ClientWorld p_199234_2_, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
-            LeafParticle particle = new LeafParticle(p_199234_2_,p_199234_3_,p_199234_5_,p_199234_7_);
+        public Particle createParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld world, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
+            LeafParticle particle = new LeafParticle(world,p_199234_3_,p_199234_5_,p_199234_7_);
             particle.setColor(1,1,1);
             particle.pickSprite(sprite);
             return particle;

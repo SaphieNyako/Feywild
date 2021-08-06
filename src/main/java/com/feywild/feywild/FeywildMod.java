@@ -19,7 +19,7 @@ import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.BiomeLoader;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
-import com.feywild.feywild.world.gen.ModOreGeneration;
+import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
@@ -137,7 +137,7 @@ public class FeywildMod extends ModXRegistration {
         CapabilityQuests.register();
         
         event.enqueueWork(ModBiomeGeneration::setupBiomes);
-        event.enqueueWork(ModOreGeneration::setupOres);
+        event.enqueueWork(OreType::setupOres);
 
         event.enqueueWork(() -> {
             // TODO use event (see javadoc of put)

@@ -75,4 +75,11 @@ public enum OreType {
     public ConfiguredFeature<?, ?> getFeature() {
         return feature.get();
     }
+
+    public static void setupOres() {
+        for (OreType ore : values()) {
+            // Will trigger registration
+            ore.getFeature();
+        }
+    }
 }
