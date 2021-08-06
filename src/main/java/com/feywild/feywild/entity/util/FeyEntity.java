@@ -2,7 +2,8 @@ package com.feywild.feywild.entity.util;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeyWildPanicGoal;
-import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
+import com.feywild.feywild.entity.goals.TameCheckingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.network.quest.OpenQuestDisplaySerializer;
 import com.feywild.feywild.network.quest.OpenQuestSelectionSerializer;
@@ -18,14 +19,12 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -39,6 +38,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -56,14 +56,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
-public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
+public abstract class FeyEntity extends CreatureEntity implements ITameable, IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(FeyEntity.class, DataSerializers.BOOLEAN);
     
     public final Alignment alignment;
-    private BlockPos summonPos;
+    @Nullable
+    private BlockPos currentTargetPos;
     private boolean isTamed;
+    @Nullable
+    private UUID owner;
     
     private final AnimationFactory factory = new AnimationFactory(this);
 
@@ -86,20 +90,54 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
     }
 
-    public BlockPos getSummonPos() {
-        return summonPos;
+    @Nullable
+    public BlockPos getCurrentTargetPos() {
+        return currentTargetPos;
     }
 
-    public void setSummonPos(BlockPos summonPos) {
-        this.summonPos = summonPos.immutable();
+    public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
+        this.currentTargetPos = currentTargetPos == null ? null : currentTargetPos.immutable();
     }
 
+    @Override
     public boolean isTamed() {
         return isTamed;
     }
 
     public void setTamed(boolean tamed) {
         this.isTamed = tamed;
+    }
+
+    @Nullable
+    public PlayerEntity getOwner() {
+        return owner == null ? null : this.level.getPlayerByUUID(this.owner);
+    }
+    
+    @Nullable
+    public UUID getOwnerId() {
+        return owner;
+    }
+
+    public void setOwner(@Nullable PlayerEntity owner) {
+        setOwner(owner == null ? null : owner.getUUID());
+    }
+
+    public void setOwner(@Nullable UUID owner) {
+        this.owner = owner;
+    }
+
+    public Vector3d getCurrentPointOfInterest() {
+        if (!this.isTamed()) {
+            return null;
+        } else if (this.currentTargetPos != null) {
+            return new Vector3d(this.currentTargetPos.getX() + 0.5, this.currentTargetPos.getY() + 0.5, this.currentTargetPos.getZ() + 0.5);
+        } else {
+            PlayerEntity player = this.getOwner();
+            if (player != null) {
+                return player.position();
+            }
+        }
+        return null;
     }
     
     public boolean isCasting() {
@@ -118,20 +156,24 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
     
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new FeyWildPanicGoal(this, 0.003, 13));
+        this.goalSelector.addGoal(50, new FeyWildPanicGoal(this, 0.003, 13));
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(3, new GoToSummoningPositionGoal(this, () -> this.summonPos, 10));
-        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1));
+        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
+        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
+        this.goalSelector.addGoal(10, new TameCheckingGoal(this, true, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
     }
 
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Tamed", this.isTamed);
-        if (this.summonPos != null) {
-            NBTX.putPos(nbt, "SummonPos", this.summonPos);
+        if (this.currentTargetPos != null) {
+            NBTX.putPos(nbt, "CurrentTarget", this.currentTargetPos);
+        }
+        if (this.owner != null) {
+            NBTX.putPos(nbt, "Owner", this.currentTargetPos);
         }
     }
 
@@ -139,7 +181,8 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
-        this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
+        this.currentTargetPos = NBTX.getPos(nbt, "CurrentTarget", null);
+        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
     }
 
     @Nonnull
@@ -221,18 +264,33 @@ public abstract class FeyEntity extends CreatureEntity implements IAnimatable {
         return false;
     }
 
+    @Override
+    protected float getVoicePitch() {
+        return 1;
+    }
+
     @Nonnull
     @Override
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
         if (!level.isClientSide) {
-            if (player instanceof ServerPlayerEntity && tryAcceptGift((ServerPlayerEntity) player, hand)) {
+            if (player.isShiftKeyDown()) {
+                if (this.owner != null && this.owner.equals(player.getUUID())) {
+                    if (this.getCurrentTargetPos() == null) {
+                        this.setCurrentTargetPos(this.blockPosition());
+                        player.sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                    } else {
+                        this.setCurrentTargetPos(null);
+                        player.sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                    }
+                }
+            } else if (player instanceof ServerPlayerEntity && tryAcceptGift((ServerPlayerEntity) player, hand)) {
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 heal(4);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
-            } else if (this.isTamed() && player instanceof ServerPlayerEntity) {
+            } else if (this.isTamed() && player instanceof ServerPlayerEntity && this.owner != null && this.owner.equals(player.getUUID())) {
                 this.interactQuest((ServerPlayerEntity) player, hand); 
             }
         }

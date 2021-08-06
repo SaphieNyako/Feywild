@@ -2,8 +2,9 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
 import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
-import com.feywild.feywild.entity.goals.GoToSummoningPositionGoal;
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
+import com.feywild.feywild.entity.util.ITameable;
 import com.feywild.feywild.entity.util.TraderEntity;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.*;
@@ -37,7 +38,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
+public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IAnimatable {
 
     public static final DataParameter<Integer> STATE = EntityDataManager.defineId(DwarfBlacksmithEntity.class, DataSerializers.INT);
     //GeckoLib variable
@@ -108,6 +109,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.summonPos = summonPos.immutable();
     }
 
+    @Override
     public boolean isTamed() {
         return isTamed;
     }
@@ -131,7 +133,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements IAnimatable {
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
         this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(2, new GoToSummoningPositionGoal(this, this::getSummonPos, 5));
+        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
         this.goalSelector.addGoal(2, new GoToAnvilPositionGoal(this, this::getSummonPos, 5));
         this.goalSelector.addGoal(6, new RefreshStockGoal(this));
         this.targetSelector.addGoal(1, new DwarvenAttackGoal(this));

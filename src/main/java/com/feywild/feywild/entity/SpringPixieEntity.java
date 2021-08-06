@@ -15,6 +15,6 @@ public class SpringPixieEntity extends FeyEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new TargetBreedGoal(this));
+        this.goalSelector.addGoal(20, new TargetBreedGoal(this));
     }
 }

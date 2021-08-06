@@ -15,6 +15,6 @@ public class WinterPixieEntity extends FeyEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new SummonSnowManGoal(this));
+        this.goalSelector.addGoal(20, new SummonSnowManGoal(this));
     }
 }

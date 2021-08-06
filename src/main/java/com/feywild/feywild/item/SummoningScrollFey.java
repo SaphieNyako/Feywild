@@ -27,12 +27,11 @@ public class SummoningScrollFey<T extends FeyEntity> extends SummoningScroll<T> 
     @Override
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
         entity.setTamed(true);
-        entity.setSummonPos(pos);
+        entity.setOwner(player);
     }
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        // TODO check that tooltips match
         TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild." + Objects.requireNonNull(this.type.getRegistryName()).getPath()));
         super.appendHoverText(stack, world, tooltip, flag);
     }

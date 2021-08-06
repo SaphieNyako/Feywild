@@ -17,7 +17,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
     private int ticksLeft = 0;
 
     public GoToAnvilPositionGoal(DwarfBlacksmithEntity entity, Supplier<BlockPos> pos, int maxMovementRange) {
-        super(pos, maxMovementRange);
+        super(asVector(pos), maxMovementRange);
         this.entity = entity;
     }
 
@@ -36,15 +36,15 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
                 tile.craft();
                 reset();
             } else {
-                BlockPos target = targetPosition.get();
+                Vector3d target = targetPosition.get();
                 if (target != null && tile.canCraft()) {
                     if (ticksLeft == 20) {
                         entity.playSound(SoundEvents.ANVIL_USE, 1, 1);
                     } else if (ticksLeft == 50) {
                         entity.setState(DwarfBlacksmithEntity.State.WORKING);
                     } else if (ticksLeft <= 110) {
-                        entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
-                        entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(target.getX(), target.getY(), target.getZ()));
+                        entity.getNavigation().moveTo(target.x, target.y, target.z, 0.5);
+                        entity.lookAt(EntityAnchorArgument.Type.EYES, target);
                     }
                 } else {
                     reset();

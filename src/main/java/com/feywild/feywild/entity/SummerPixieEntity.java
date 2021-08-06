@@ -15,7 +15,7 @@ public class SummerPixieEntity extends FeyEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new TargetFireGoal(this));
+        this.goalSelector.addGoal(20, new TargetFireGoal(this));
     }
 }
 
