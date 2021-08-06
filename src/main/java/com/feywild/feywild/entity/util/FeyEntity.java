@@ -173,7 +173,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
             NBTX.putPos(nbt, "CurrentTarget", this.currentTargetPos);
         }
         if (this.owner != null) {
-            NBTX.putPos(nbt, "Owner", this.currentTargetPos);
+            nbt.putUUID("Owner", this.owner);
         }
     }
 
@@ -338,12 +338,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
 
     @Override
     public boolean requiresCustomPersistence() {
-        return this.isTamed;
-    }
-
-    @Override
-    public void remove() {
-        super.remove();
+        return true;
     }
 
     @Override
