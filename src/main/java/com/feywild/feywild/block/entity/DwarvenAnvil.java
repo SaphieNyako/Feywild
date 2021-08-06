@@ -35,8 +35,8 @@ import java.util.stream.IntStream;
 
 public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity {
 
-    private static final int MAX_MANA = 1000;
-    private static final int FEY_DUST_MANA_COST = 50;
+    public static final int MAX_MANA = 1000;
+    public static final int FEY_DUST_MANA_COST = 50;
 
     private final BaseItemStackHandler inventory = new BaseItemStackHandler(8, slot -> {
         this.setChanged();

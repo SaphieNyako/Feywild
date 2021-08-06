@@ -13,19 +13,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "fey_altar");
+    public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
+            
     private final IDrawable background;
     private final IDrawable icon;
 
     public AltarRecipeCategory(IGuiHelper helper) {
-        ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
-        this.background = helper.createDrawable(location, 0, 0, 85, 85);
+        this.background = helper.createDrawable(TEXTURE, 0, 0, 85, 85);
         this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
     }
 
@@ -44,7 +42,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     @Nonnull
     @Override
     public String getTitle() {
-        return "Fey Altar";
+        return ModBlocks.feyAltar.getName().getString();
     }
 
     @Nonnull
@@ -59,50 +57,23 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
         return this.icon;
     }
 
-    
-//    @Override
-//    public void draw(AltarRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-//        IDrawableAnimated arrow = this.cachedArrows.getUnchecked(40); // The crafting arrow ???
-//        arrow.draw(matrixStack, 38, 6); //location on screen
-//    }
-
     @Override
-    public void setIngredients(AltarRecipe altarRecipe, IIngredients iIngredients) {
-        List<List<ItemStack>> itemStacks = new ArrayList<>();
-
-        altarRecipe.getIngredients().forEach(ingredient -> itemStacks.add(Arrays.asList(ingredient.getItems())));
-        iIngredients.setInputLists(VanillaTypes.ITEM, itemStacks);
-        iIngredients.setOutput(VanillaTypes.ITEM, altarRecipe.getResultItem());
+    public void setIngredients(AltarRecipe recipe, IIngredients ii) {
+        ii.setInputIngredients(recipe.getIngredients());
+        ii.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull AltarRecipe altarRecipe, IIngredients iIngredients) {
-
-        for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
-            if (i == 0) {
-                iRecipeLayout.getItemStacks().init(i, true, 0, 32);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 1) {
-                iRecipeLayout.getItemStacks().init(i, true, 16, 64);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 2) {
-                iRecipeLayout.getItemStacks().init(i, true, 32, 0);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 3) {
-                iRecipeLayout.getItemStacks().init(i, true, 48, 64);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 4) {
-                iRecipeLayout.getItemStacks().init(i, true, 64, 32);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
+    public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull AltarRecipe recipe, IIngredients ii) {
+        double anglePerItem = (2 * Math.PI) / ii.getInputs(VanillaTypes.ITEM).size();
+        for (int i = 0; i < ii.getInputs(VanillaTypes.ITEM).size(); i++) {
+            double xd = Math.round(29 * Math.sin(anglePerItem * i));
+            double yd = -Math.round(29 * Math.cos(anglePerItem * i));
+            int x = (int) Math.round(43 + xd - 8);
+            int z = (int) Math.round(45 + yd - 8);
+            layout.getItemStacks().init(i, true, x, z);
         }
-
-        iRecipeLayout.getItemStacks().init(iIngredients.getInputs(VanillaTypes.ITEM).size(), true, 32, -32);
-        iRecipeLayout.getItemStacks().set(iIngredients.getInputs(VanillaTypes.ITEM).size(), iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
-
+        layout.getItemStacks().init(ii.getInputs(VanillaTypes.ITEM).size(), false, 35, 37);
+        layout.getItemStacks().set(ii);
     }
 }

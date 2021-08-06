@@ -2,34 +2,40 @@ package com.feywild.feywild.jei;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "dwarven_anvil");
+    public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
+
     private final IDrawable background;
     private final IDrawable icon;
+    private final IDrawableStatic manaOverlay;
 
     public DwarvenAnvilRecipeCategory(IGuiHelper helper) {
-        ResourceLocation location = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
-        //background = helper.createBlankDrawable(85, 85); //Would we be able to get a 85x85 image?
-        this.background = helper.createDrawable(location, 0, 0, 85, 85);
-
+        this.background = helper.createDrawable(TEXTURE, 0, 0, 156, 69);
         this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.dwarvenAnvil));
-
+        this.manaOverlay = helper.createDrawable(TEXTURE, 156, 0, 13, 66);
     }
 
     @Nonnull
@@ -47,7 +53,7 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
     @Nonnull
     @Override
     public String getTitle() {
-        return "Dwarven Anvil";
+        return ModBlocks.dwarvenAnvil.getName().getString();
     }
 
     @Nonnull
@@ -62,49 +68,31 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
         return this.icon;
     }
 
-    // TODO needs fixing (new recipe format)
     @Override
-    public void setIngredients(DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
-        List<List<ItemStack>> itemStacks = new ArrayList<>();
-
-        recipe.getInputs().forEach(ingredient -> itemStacks.add(Arrays.asList(ingredient.getItems())));
-        iIngredients.setInputLists(VanillaTypes.ITEM, itemStacks);
-        iIngredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-
+    public void setIngredients(DwarvenAnvilRecipe recipe, IIngredients ii) {
+        List<Ingredient> inputs = new ArrayList<>();
+        inputs.add(recipe.getSchematics());
+        inputs.addAll(recipe.getInputs());
+        ii.setInputIngredients(inputs);
+        ii.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayout iRecipeLayout, @Nonnull DwarvenAnvilRecipe recipe, IIngredients iIngredients) {
-        for (int i = 0; i < iIngredients.getInputs(VanillaTypes.ITEM).size(); i++) {
+    public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull DwarvenAnvilRecipe recipe, IIngredients ii) {
+        layout.getItemStacks().init(0, true, 18, 0);
+        if (ii.getInputs(VanillaTypes.ITEM).size() >= 2) layout.getItemStacks().init(1, true, 70, 8);
+        if (ii.getInputs(VanillaTypes.ITEM).size() >= 3) layout.getItemStacks().init(2, true, 100, 22);
+        if (ii.getInputs(VanillaTypes.ITEM).size() >= 4) layout.getItemStacks().init(3, true, 84, 43);
+        if (ii.getInputs(VanillaTypes.ITEM).size() >= 5) layout.getItemStacks().init(4, true, 58, 43);
+        if (ii.getInputs(VanillaTypes.ITEM).size() >= 6) layout.getItemStacks().init(5, true, 43, 22);
+        layout.getItemStacks().init(ii.getInputs(VanillaTypes.ITEM).size(), false, 137, 49);
+        layout.getItemStacks().set(ii);
+    }
 
-            if (i == 0) {
-                iRecipeLayout.getItemStacks().init(i, true, 0, 0);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 1) {
-                iRecipeLayout.getItemStacks().init(i, true, 22, 32);  // 0 32
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 2) {
-                iRecipeLayout.getItemStacks().init(i, true, 32, 54);  //16 64
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 3) {
-                iRecipeLayout.getItemStacks().init(i, true, 42, 12);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 4) {
-                iRecipeLayout.getItemStacks().init(i, true, 54, 54);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-            if (i == 5) {
-                iRecipeLayout.getItemStacks().init(i, true, 66, 32);
-                iRecipeLayout.getItemStacks().set(i, iIngredients.getInputs(VanillaTypes.ITEM).get(i));
-            }
-        }
-
-        iRecipeLayout.getItemStacks().init(iIngredients.getInputs(VanillaTypes.ITEM).size(), true, 32, -32);
-        iRecipeLayout.getItemStacks().set(iIngredients.getInputs(VanillaTypes.ITEM).size(), iIngredients.getOutputs(VanillaTypes.ITEM).get(0));
-
+    @Override
+    public void draw(@Nonnull DwarvenAnvilRecipe recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY) {
+        int maskBottom = (int) Math.round((MathHelper.clamp(recipe.getMana(), 0, DwarvenAnvil.MAX_MANA) / (double) DwarvenAnvil.MAX_MANA) * this.manaOverlay.getHeight());
+        this.manaOverlay.draw(matrixStack, 1, 2, 0, maskBottom, 0, 0);
+        Minecraft.getInstance().font.draw(matrixStack, new TranslationTextComponent("screen.feywild.mana_amount", recipe.getMana()), 100, 0, 0xFFFFFF);
     }
 }
