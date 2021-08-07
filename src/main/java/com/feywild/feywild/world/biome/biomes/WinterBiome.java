@@ -21,7 +21,7 @@ public class WinterBiome extends BaseBiome {
     private WinterBiome() {
 
     }
-    
+
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -41,6 +41,9 @@ public class WinterBiome extends BaseBiome {
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultMonsterRoom(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultOverworldLandStructures(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultCarvers(biomeGenerationSettingsBuilder);
 
         /* WINTER FEATURES */
         biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.IGLOO);

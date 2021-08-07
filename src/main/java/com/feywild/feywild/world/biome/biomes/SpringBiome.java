@@ -21,7 +21,7 @@ public class SpringBiome extends BaseBiome {
     private SpringBiome() {
 
     }
-    
+
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -37,6 +37,9 @@ public class SpringBiome extends BaseBiome {
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addExtraEmeralds(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultOverworldLandStructures(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultCarvers(biomeGenerationSettingsBuilder);
 
         /* SPRING FEATURES */
         biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.JUNGLE_TEMPLE);

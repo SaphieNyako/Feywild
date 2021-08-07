@@ -21,7 +21,7 @@ public class SummerBiome extends BaseBiome {
     private SummerBiome() {
 
     }
-    
+
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -33,15 +33,18 @@ public class SummerBiome extends BaseBiome {
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RAVAGER, 50, 2, 5));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
         DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
         DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultOverworldLandStructures(biomeGenerationSettingsBuilder);
+        DefaultBiomeFeatures.addDefaultCarvers(biomeGenerationSettingsBuilder);
 
         /* SUMMER FEATURES */
-        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.DESERT_PYRAMID);
+        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
 
         biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
 
