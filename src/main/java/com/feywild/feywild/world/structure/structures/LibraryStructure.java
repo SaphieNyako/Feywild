@@ -31,11 +31,15 @@ public class LibraryStructure extends BaseStructure {
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
     );
     private static final String MESSAGE_LOCATION = "Library at: ";
-    private static final String MESSAGE_POOL = "library/start_pool";
+    private static final String[] MESSAGE_POOL = {"library/start_pool","library/vanilla_start_pool"};
 
     @Override
     public int getAverageDistanceBetweenChunks() {
         return WorldGenConfig.structures.library.average_distance;
+    }
+
+    public boolean shouldUseModdedBlocks(){
+        return WorldGenConfig.structures.library.vanilla_version;
     }
 
     @Override
@@ -76,12 +80,20 @@ public class LibraryStructure extends BaseStructure {
 
             BlockPos blockpos = new BlockPos(x, 0, z);
 
+            ResourceLocation res;
+
+            if(getFeature() instanceof LibraryStructure){
+                res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[((LibraryStructure) getFeature()).shouldUseModdedBlocks() ? 1 : 0]);
+            }
+            else
+                res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[0]);
+
             //addpieces()
             JigsawManager.addPieces(
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL)),
+                            .get(res),
                             10),
 
                     AbstractVillagePiece::new,
@@ -101,10 +113,11 @@ public class LibraryStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
+           /* FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);
+            */
         }
     }
 

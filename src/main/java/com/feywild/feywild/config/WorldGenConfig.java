@@ -108,6 +108,10 @@ public class WorldGenConfig {
             @Config("The average distance between two libraries. Must be higher than minimum.")
             @IntRange(min = 1)
             public static int average_distance = 50;
+
+            //If we don't find an alt solution we can change this to int and have different versions e.g. pure vanilla , vanilla + waystone, modded, modded - waystone
+            @Config("Restrict blocks used in the library to vanilla and feywild.")
+            public static boolean vanilla_version = false;
         }
 
         public static class blacksmith {
