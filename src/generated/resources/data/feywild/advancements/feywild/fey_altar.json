@@ -1,0 +1,35 @@
+{
+  "parent": "feywild:feywild/schematics_fey_altar",
+  "display": {
+    "icon": {
+      "item": "feywild:fey_altar"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.fey_altar.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.fey_altar.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:fey_altar"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}

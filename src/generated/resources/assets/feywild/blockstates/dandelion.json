@@ -1,0 +1,39 @@
+{
+  "variants": {
+    "part=0": {
+      "model": "feywild:block/dandelion_stem"
+    },
+    "part=1": [
+      {
+        "model": "feywild:block/dandelion_stem"
+      },
+      {
+        "model": "feywild:block/dandelion_stem",
+        "y": 90
+      },
+      {
+        "model": "feywild:block/dandelion_stem",
+        "y": 180
+      },
+      {
+        "model": "feywild:block/dandelion_stem",
+        "y": 270
+      }
+    ],
+    "part=2": {
+      "model": "feywild:block/dandelion_stem"
+    },
+    "part=3,variant=0": {
+      "model": "feywild:block/dandelion_bud"
+    },
+    "part=3,variant=1": {
+      "model": "feywild:block/dandelion_flower"
+    },
+    "part=3,variant=2": {
+      "model": "feywild:block/dandelion_fluff"
+    },
+    "part=3,variant=3": {
+      "model": "feywild:block/dandelion_nofluff"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "feywild:snowballs",
+  "reputation": 5,
+  "icon": "minecraft:zombie_head",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter.skull.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter.skull.start.description"
+    }
+  },
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter.skull.complete.title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter.skull.complete.description"
+    }
+  },
+  "tasks": [
+    {
+      "item": {
+        "item": "minecraft:zombie_head"
+      },
+      "amount": 1,
+      "id": "feywild:item"
+    }
+  ],
+  "rewards": [
+    {
+      "item": {
+        "item": "minecraft:wither_skeleton_skull"
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

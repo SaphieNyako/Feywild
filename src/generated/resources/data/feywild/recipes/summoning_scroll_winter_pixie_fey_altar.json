@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:summoning_scroll_winter_pixie"
+  },
+  "ingredients": [
+    {
+      "item": "feywild:winter_tree_sapling"
+    },
+    {
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    }
+  ]
+}

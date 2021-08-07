@@ -1,0 +1,39 @@
+{
+  "parent": "feywild:pumpkin",
+  "reputation": 5,
+  "icon": "minecraft:red_dye",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn.dyes.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn.dyes.start.description"
+    }
+  },
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn.dyes.complete.title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn.dyes.complete.description"
+    }
+  },
+  "tasks": [
+    {
+      "item": {
+        "tag": "forge:dyes"
+      },
+      "id": "feywild:craft",
+      "times": 9
+    }
+  ],
+  "rewards": [
+    {
+      "item": {
+        "item": "feywild:autumn_tree_sapling",
+        "count": 3
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

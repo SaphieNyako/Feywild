@@ -16,6 +16,12 @@ import java.util.function.Supplier;
 
 public class SummerBiome extends BaseBiome {
 
+    public static final SummerBiome INSTANCE = new SummerBiome();
+
+    private SummerBiome() {
+
+    }
+    
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -25,7 +31,7 @@ public class SummerBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RAVAGER, 50, 2, 5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
@@ -49,16 +55,15 @@ public class SummerBiome extends BaseBiome {
         DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
 
         return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
-                .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0.0F)
+                .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0)
                 .specialEffects((new BiomeAmbience.Builder())
-                        .waterColor(4159204)
-                        .waterFogColor(329011)
-                        .fogColor(12638463)
-                        .skyColor(getSkyColorWithTemperatureModifier(0.9F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.SUMMER_SOUNDTRACK.get(), 6000, 12000, true))
+                        .waterColor(0x3f76e4)
+                        .waterFogColor(0x50533)
+                        .fogColor(0xc0d8ff)
+                        .skyColor(BiomeMaker.calculateSkyColor(0.9F))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, true))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F))
                         .build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-
     }
 }

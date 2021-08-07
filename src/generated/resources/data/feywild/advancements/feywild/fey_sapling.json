@@ -1,0 +1,68 @@
+{
+  "parent": "feywild:feywild/root",
+  "display": {
+    "icon": {
+      "item": "feywild:spring_tree_sapling"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.fey_sapling.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.fey_sapling.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:autumn_tree_sapling"
+          }
+        ]
+      }
+    },
+    "inventory_changed4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:winter_tree_sapling"
+          }
+        ]
+      }
+    },
+    "inventory_changed2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:summer_tree_sapling"
+          }
+        ]
+      }
+    },
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:spring_tree_sapling"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed",
+      "inventory_changed2",
+      "inventory_changed3",
+      "inventory_changed4"
+    ]
+  ]
+}

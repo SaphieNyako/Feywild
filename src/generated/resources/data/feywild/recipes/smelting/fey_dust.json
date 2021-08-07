@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "feywild:lesser_fey_gem"
+  },
+  "result": "feywild:fey_dust",
+  "experience": 0.1,
+  "cookingtime": 100
+}

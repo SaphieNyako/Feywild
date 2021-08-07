@@ -1,34 +1,16 @@
 package com.feywild.feywild.world.feature;
 
-import com.feywild.feywild.FeywildMod;
-import net.minecraft.util.ResourceLocation;
+import com.feywild.feywild.block.ModBlocks;
+import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraftforge.registries.ForgeRegistries;
 
+@RegisterClass
 public class ModFeatures {
 
-    public static final Feature<NoFeatureConfig> AUTUMN_PUMPKINS =
-            register("autumn_pumpkins", new AutumnPumpkinsFeature());
-
-    public static final Feature<NoFeatureConfig> SUNFLOWER_FEATURE =
-            register("sunflower_feature", new SunflowerFeature());
-
-    public static final Feature<NoFeatureConfig> DANDELION_FEATURE =
-            register("dandelion_feature", new DandelionFeature());
-
-    public static final Feature<NoFeatureConfig> CROCUS_FEATURE =
-            register("crocus_feature", new CrocusFeature());
-
-    public static void register() {
-    }
-
-    private static <C extends IFeatureConfig, F extends Feature<C>> F register(String key, F value) {
-        value.setRegistryName(new ResourceLocation(FeywildMod.MOD_ID, key));
-        ForgeRegistries.FEATURES.register(value);
-        return value;
-    }
-
+    public static final Feature<NoFeatureConfig> autumnPumpkins = new AutumnPumpkinsFeature();
+    public static final Feature<NoFeatureConfig> sunflowers = new GiantFlowerFeature(ModBlocks.sunflower);
+    public static final Feature<NoFeatureConfig> dandelions = new GiantFlowerFeature(ModBlocks.dandelion);
+    public static final Feature<NoFeatureConfig> crocus = new GiantFlowerFeature(ModBlocks.crocus);
 }
 

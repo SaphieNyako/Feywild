@@ -1,0 +1,28 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 150,
+  "output": {
+    "item": "feywild:brilliant_fey_gem",
+    "count": 2
+  },
+  "schematics": {
+    "item": "feywild:schematics_gem_transmutation"
+  },
+  "ingredients": [
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    }
+  ]
+}

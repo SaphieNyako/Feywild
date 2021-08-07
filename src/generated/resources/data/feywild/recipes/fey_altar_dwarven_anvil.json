@@ -1,0 +1,27 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 1000,
+  "output": {
+    "item": "feywild:fey_altar"
+  },
+  "schematics": {
+    "item": "feywild:schematics_fey_altar"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "item": "feywild:lesser_fey_gem"
+    },
+    {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    },
+    {
+      "item": "feywild:brilliant_fey_gem"
+    }
+  ]
+}

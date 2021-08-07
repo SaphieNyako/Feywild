@@ -1,0 +1,35 @@
+{
+  "parent": "feywild:feywild/dwarf_trade",
+  "display": {
+    "icon": {
+      "item": "feywild:summoning_scroll_dwarf_blacksmith"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.dwarf_contract.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.dwarf_contract.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:summoning_scroll_dwarf_blacksmith"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}

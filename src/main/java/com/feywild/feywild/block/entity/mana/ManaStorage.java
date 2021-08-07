@@ -1,61 +1,85 @@
 package com.feywild.feywild.block.entity.mana;
 
-public class ManaStorage implements IManaStorage {
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.util.INBTSerializable;
+
+import javax.annotation.Nullable;
+
+public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> {
 
     protected final int capacity;
     protected final int maxReceive;
     protected final int maxExtract;
     protected int mana;
+    @Nullable
+    protected Runnable manaChanged;
 
     public ManaStorage(int capacity) {
-        this(capacity, capacity, capacity, 0);
+        this(capacity, Integer.MAX_VALUE);
     }
 
     public ManaStorage(int capacity, int maxTransfer) {
-        this(capacity, maxTransfer, maxTransfer, 0);
+        this(capacity, maxTransfer, maxTransfer);
     }
 
     public ManaStorage(int capacity, int maxReceive, int maxExtract) {
-        this(capacity, maxReceive, maxExtract, 0);
+        this(capacity, maxReceive, maxExtract, null);
     }
 
-    public ManaStorage(int capacity, int maxReceive, int maxExtract, int mana) {
+    public ManaStorage(int capacity, @Nullable Runnable manaChange) {
+        this(capacity, Integer.MAX_VALUE);
+    }
+
+    public ManaStorage(int capacity, int maxTransfer, @Nullable Runnable manaChange) {
+        this(capacity, maxTransfer, maxTransfer);
+    }
+
+    public ManaStorage(int capacity, int maxReceive, int maxExtract, @Nullable Runnable manaChange) {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;
-        this.mana = Math.max(0, Math.min(capacity, mana));
+        this.mana = 0;
     }
 
     @Override
     public int receiveMana(int maxReceive, boolean simulate) {
-        if (!canReceive())
+        if (!this.canReceive())
             return 0;
-
-        int manaReceived = Math.min(capacity - mana, Math.min(this.maxReceive, maxReceive));
+        int manaReceived = Math.min(this.capacity - this.mana, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
-            mana += manaReceived;
+            this.mana += manaReceived;
         return manaReceived;
     }
 
     @Override
     public int extractMana(int maxExtract, boolean simulate) {
-        if (!canExtract())
+        if (!this.canExtract())
             return 0;
-
-        int manaExtracted = Math.min(mana, Math.min(this.maxExtract, maxExtract));
+        int manaExtracted = Math.min(this.mana, Math.min(this.maxExtract, maxExtract));
         if (!simulate)
-            mana -= manaExtracted;
+            this.mana -= manaExtracted;
         return manaExtracted;
     }
 
     @Override
-    public int getManaStored() {
-        return mana;
+    public int getMana() {
+        return MathHelper.clamp(this.mana, 0, this.capacity);
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+        if (this.manaChanged != null) this.manaChanged.run();
     }
 
     @Override
-    public int getMaxManaStored() {
-        return capacity;
+    public int getMaxMana() {
+        return this.capacity;
+    }
+
+    @Override
+    public boolean canReceive() {
+        return this.maxReceive > 0;
     }
 
     @Override
@@ -64,7 +88,14 @@ public class ManaStorage implements IManaStorage {
     }
 
     @Override
-    public boolean canReceive() {
-        return this.maxReceive > 0;
+    public CompoundNBT serializeNBT() {
+        CompoundNBT tag = new CompoundNBT();
+        tag.putInt("mana", this.getMana());
+        return tag;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        this.setMana(nbt.getInt("mana"));
     }
 }

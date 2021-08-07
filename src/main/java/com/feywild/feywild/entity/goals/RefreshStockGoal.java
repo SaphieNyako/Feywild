@@ -6,30 +6,26 @@ import net.minecraft.world.World;
 
 public class RefreshStockGoal extends Goal {
 
-    protected final World worldLevel;
-    protected DwarfBlacksmithEntity entity;
+    protected final DwarfBlacksmithEntity entity;
 
     public RefreshStockGoal(DwarfBlacksmithEntity entity) {
         this.entity = entity;
-        this.worldLevel = entity.level;
-
     }
 
     @Override
     public boolean canContinueToUse() {
-        //boolean restocked
-        return entity.shouldRestock();
+        return this.entity.shouldRestock();
     }
 
     @Override
     public boolean canUse() {
-        return worldLevel.isNight();
+        return this.entity.level.isNight();
     }
 
     @Override
     public void start() {
-        if (entity.shouldRestock()) {
-            entity.restock();
+        if (this.entity.shouldRestock()) {
+            this.entity.restock();
         }
     }
 }

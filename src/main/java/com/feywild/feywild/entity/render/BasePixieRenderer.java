@@ -26,13 +26,13 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
 
     @Override
     public RenderType getRenderType(T animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        return RenderType.entityTranslucent(getTextureLocation(animatable));
+        return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
 
     @Override
     public void render(T entity, float entityYaw, float partialTicks, MatrixStack stack, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entity, entityYaw, partialTicks, stack, bufferIn, packedLightIn);
-        generateParticles(entity);
+        this.generateParticles(entity);
     }
 
     private void generateParticles(Entity entity) {
@@ -40,7 +40,7 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
 
         if (world.random.nextInt(11) == 0 && !Minecraft.getInstance().isPaused()) {
             world.addParticle(
-                    getParticleType(),
+                    this.getParticleType(),
                     entity.getX() + (Math.random() - 0.5),
                     entity.getY() + 1 + (Math.random() - 0.5),
                     entity.getZ() + (Math.random() - 0.5),

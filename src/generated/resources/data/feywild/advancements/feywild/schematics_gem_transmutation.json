@@ -1,0 +1,35 @@
+{
+  "parent": "feywild:feywild/dwarf_contract",
+  "display": {
+    "icon": {
+      "item": "feywild:schematics_gem_transmutation"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.schematics_gem_transmutation.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.schematics_gem_transmutation.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:schematics_gem_transmutation"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}
