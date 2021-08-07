@@ -4,10 +4,7 @@ import com.feywild.feywild.config.ClientConfig;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -36,7 +33,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class FeyLeavesBlock extends BlockBase implements IForgeShearable, Registerable {
+public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShearable {
 
     public static final int MAX_DISTANCE = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
@@ -47,6 +44,11 @@ public class FeyLeavesBlock extends BlockBase implements IForgeShearable, Regist
                 .isViewBlocking((s, r, p) -> false));
 
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
+    }
+    
+    @Override
+    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> ComposterBlock.add(0.4f, this));
     }
 
     @Override

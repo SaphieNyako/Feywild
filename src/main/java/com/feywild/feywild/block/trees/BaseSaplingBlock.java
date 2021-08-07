@@ -46,6 +46,11 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
     }
 
     @Override
+    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> ComposterBlock.add(0.4f, this));
+    }
+
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
