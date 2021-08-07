@@ -1,8 +1,8 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.configs.Config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -25,24 +25,22 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class SummerWorldTreeStructure extends BaseStructure {
-
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.SUMMER_WORLD_TREE_CONFIG.getCachedDistance();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.SUMMER_WORLD_TREE_CONFIG.getCachedMinDistance();
+    
     public final static int SEED_MODIFIER = 890124567;
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.SUMMER_PIXIE.get(), 100, 4, 4)
+            new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 100, 4, 4)
     );
     private static final String MESSAGE_LOCATION = "Summer World Tree at: ";
     private static final String MESSAGE_POOL = "summer_world_tree/start_pool";
 
     @Override
     public int getAverageDistanceBetweenChunks() {
-        return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.summer_world_tree.average_distance;
     }
 
     @Override
     public int getMinDistanceBetweenChunks() {
-        return MIN_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.summer_world_tree.minimum_distance;
     }
 
     @Override
@@ -82,7 +80,7 @@ public class SummerWorldTreeStructure extends BaseStructure {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, MESSAGE_POOL)),
+                            .get(new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -102,7 +100,7 @@ public class SummerWorldTreeStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.LOGGER.log(Level.DEBUG, MESSAGE_LOCATION +
+            FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

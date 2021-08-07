@@ -8,6 +8,7 @@ import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,25 +25,20 @@ public class LoggingSurfaceBuilder<C extends ISurfaceBuilderConfig, S extends Su
     private boolean logged = false;
 
     public LoggingSurfaceBuilder(final Supplier<S> delegatedSurfaceBuilder, final Codec<C> codec) {
-
         super(codec);
         this.delegatedSurfaceBuilder = Lazy.of(delegatedSurfaceBuilder);
     }
 
     @Override
     public void apply(@Nonnull Random random, @Nonnull IChunk chunkIn, @Nonnull Biome biomeIn, int x, int z, int startHeight, double noise,
-                      @Nonnull BlockState defaultBlock, @Nonnull BlockState defaultFluid, int seaLevel, long seed, @Nonnull C config
-    ) {
+                      @Nonnull BlockState defaultBlock, @Nonnull BlockState defaultFluid, int seaLevel, long seed, @Nonnull C config) {
+        this.delegatedSurfaceBuilder.get().apply(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
 
-        delegatedSurfaceBuilder.get().apply(random, chunkIn, biomeIn, x, z, startHeight,
-                noise, defaultBlock, defaultFluid, seaLevel, seed, config);
-
-        if (!logged) {
-            logged = true;
+        // Only log in dev
+        if (!this.logged && !FMLEnvironment.production) {
+            this.logged = true;
             ChunkPos chunkPos = chunkIn.getPos();
-            LOGGER.info("Currently Generated at {} at {}, {}", biomeIn.getRegistryName(),
-                    chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
+            LOGGER.info("Currently Generated at {} at {}, {}", biomeIn.getRegistryName(), chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
         }
     }
-
 }

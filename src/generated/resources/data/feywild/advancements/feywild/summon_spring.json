@@ -1,0 +1,35 @@
+{
+  "parent": "feywild:feywild/fey_altar",
+  "display": {
+    "icon": {
+      "item": "feywild:summoning_scroll_spring_pixie"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.summon_spring.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.summon_spring.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:summoning_scroll_spring_pixie"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}

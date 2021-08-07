@@ -1,0 +1,13 @@
+{
+  "reputation": 25,
+  "icon": "minecraft:diamond",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.spring.root.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.spring.root.start.description"
+    },
+    "sound": "feywild:summoning_spring_pixie"
+  }
+}

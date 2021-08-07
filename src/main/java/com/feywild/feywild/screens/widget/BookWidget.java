@@ -1,61 +1,61 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ItemEntityMessage;
+import com.feywild.feywild.network.RequestLibraryBookSerializer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.logging.Logger;
+import javax.annotation.Nonnull;
 
-@OnlyIn(Dist.CLIENT)
 public class BookWidget extends Button {
-    ResourceLocation image;
-    Minecraft minecraft;
-    ItemStack stack;
-    boolean close =false;
-    public BookWidget(int p_i232255_1_, int p_i232255_2_, int p_i232255_3_, int p_i232255_4_, ITextComponent p_i232255_5_, ItemStack stack) {
-        super(p_i232255_1_, p_i232255_2_, p_i232255_3_, p_i232255_4_, p_i232255_5_, button -> FeywildPacketHandler.INSTANCE.sendToServer(new ItemEntityMessage(stack)));
-        this.image = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/librarian_gui.png");
+    
+    public static final int WIDTH = 25;
+    public static final int HEIGHT = 25;
+    
+    public static final ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/librarian_gui.png");
+    
+    private final Screen screen;
+    private final int idx;
+    private final ItemStack stack;
+    
+    public BookWidget(Screen screen, int x, int y, int idx, ItemStack stack) {
+        super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {});
+        this.screen = screen;
+        this.idx = idx;
         this.stack = stack;
-        this.minecraft = Minecraft.getInstance();
     }
 
     public ItemStack getStack() {
-        return stack;
+        return this.stack;
     }
 
     @Override
     public void onPress() {
         super.onPress();
-        close = true;
-    }
-
-    public boolean isClose() {
-        return close;
+        FeywildMod.getNetwork().instance.sendToServer(new RequestLibraryBookSerializer.Message(this.idx));
+        this.screen.onClose();
     }
 
     @Override
-    public void render(MatrixStack p_230430_1_, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bind(image);
-        if (this.isHovered(p_230430_2_,p_230430_3_)) {
-            this.blit(p_230430_1_, this.x, this.y, 25, 0, 25, 25);
-        }else{
-            this.blit(p_230430_1_, this.x, this.y, 0, 0, 25, 25);
+    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        //noinspection deprecation
+        RenderSystem.color4f(1, 1, 1, 1);
+        Minecraft.getInstance().getTextureManager().bind(TEXTURE);
+        this.blit(matrixStack, this.x, this.y, 0, 0, 25, 25);
+        if (this.isHovered(mouseX, mouseY)) {
+            this.setBlitOffset(this.getBlitOffset() + 10);
+            this.blit(matrixStack, this.x, this.y, 25, 0, 25, 25);
+            this.setBlitOffset(this.getBlitOffset() - 10);
         }
-        this.minecraft.getItemRenderer().renderGuiItem(stack,this.x+4,this.y+4);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack,this.x + 4,this.y + 4);
     }
 
     public boolean isHovered(int x, int y) {
-        return this.x < x && this.x + 24 > x && this.y < y && this.y + 24 > y;
+        return this.x <= x && this.x + WIDTH >= x && this.y <= y && this.y + HEIGHT >= y;
     }
-
 }

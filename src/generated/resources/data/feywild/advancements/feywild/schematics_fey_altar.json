@@ -1,0 +1,35 @@
+{
+  "parent": "feywild:feywild/dwarf_contract",
+  "display": {
+    "icon": {
+      "item": "feywild:schematics_fey_altar"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.schematics_fey_altar.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.schematics_fey_altar.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:schematics_fey_altar"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}

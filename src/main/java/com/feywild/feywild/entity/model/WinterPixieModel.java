@@ -17,23 +17,26 @@ public class WinterPixieModel extends AnimatedGeoModel<WinterPixieEntity> {
     public void setLivingAnimations(WinterPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
-        head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
+        if (customPredicate != null) {
+            //noinspection unchecked
+            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+            head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
+        }
     }
 
 
     @Override
     public ResourceLocation getModelLocation(WinterPixieEntity winterPixieEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "geo/winter_pixie.geo.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/winter_pixie.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(WinterPixieEntity winterPixieEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "textures/entity/winter_pixie.png");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/winter_pixie.png");
     }
 
     @Override
     public ResourceLocation getAnimationFileLocation(WinterPixieEntity winterPixieEntity) {
-        return new ResourceLocation(FeywildMod.MOD_ID, "animations/winter_pixie.animation.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/winter_pixie.animation.json");
     }
 }

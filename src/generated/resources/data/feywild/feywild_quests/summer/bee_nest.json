@@ -1,0 +1,38 @@
+{
+  "parent": "feywild:kill_golem",
+  "reputation": 20,
+  "icon": "minecraft:bee_nest",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer.bee_nest.start.title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer.bee_nest.start.description"
+    }
+  },
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer.bee_nest.complete.title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer.bee_nest.complete.description"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "summer",
+      "item": {
+        "item": "minecraft:bee_nest"
+      },
+      "id": "feywild:fey_gift"
+    }
+  ],
+  "rewards": [
+    {
+      "item": {
+        "item": "minecraft:honeycomb"
+      },
+      "id": "feywild:item"
+    }
+  ]
+}

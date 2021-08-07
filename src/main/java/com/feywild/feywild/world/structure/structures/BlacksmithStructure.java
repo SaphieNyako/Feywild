@@ -1,8 +1,8 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.util.configs.Config;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -26,46 +26,43 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlacksmithStructure extends BaseStructure {
-
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.BLACKSMITH_CONFIG.getCachedDistance();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.BLACKSMITH_CONFIG.getCachedMinDistance();
+    
     public final static int SEED_MODIFIER = 567890123;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
     );
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(ModEntityTypes.DWARF_BLACKSMITH.get(), 1, 1, 1)
+            new MobSpawnInfo.Spawners(ModEntityTypes.dwarfBlacksmith, 1, 1, 1)
     );
     private static final String MESSAGE_LOCATION = "Blacksmith at: ";
     private static final String MESSAGE_POOL = "blacksmith/start_pool";
 
     @Override
     public int getAverageDistanceBetweenChunks() {
-        return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.blacksmith.average_distance;
     }
 
     @Override
     public int getMinDistanceBetweenChunks() {
-        return MIN_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.blacksmith.minimum_distance;
     }
 
     @Override
     public int getSeedModifier() {
         return SEED_MODIFIER;
     }  // this was commented out
-
-    /*
-        @Override
-        public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-            return STRUCTURE_MONSTERS;
-        }
-
-        @Override
-        public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
-            return STRUCTURE_CREATURES;
-        }
-    */
+    
+//    @Override
+//    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+//        return STRUCTURE_MONSTERS;
+//    }
+//
+//    @Override
+//    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
+//        return STRUCTURE_CREATURES;
+//    }
+    
     @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
@@ -93,7 +90,7 @@ public class BlacksmithStructure extends BaseStructure {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, MESSAGE_POOL)),
+                            .get(new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -113,7 +110,7 @@ public class BlacksmithStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.LOGGER.log(Level.DEBUG, MESSAGE_LOCATION +
+            FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

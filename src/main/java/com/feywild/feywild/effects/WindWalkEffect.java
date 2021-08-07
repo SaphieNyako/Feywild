@@ -9,7 +9,10 @@ import net.minecraft.potion.EffectType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class WindWalkEffect extends Effect {
+    
     protected WindWalkEffect() {
         super(EffectType.BENEFICIAL, 0x994C00);
     }
@@ -20,18 +23,18 @@ public class WindWalkEffect extends Effect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity p_76394_1_, int p_76394_2_) {
-        super.applyEffectTick(p_76394_1_, p_76394_2_);
-        World world = p_76394_1_.level;
-        if(!world.isClientSide) {
-            AxisAlignedBB box = new AxisAlignedBB(p_76394_1_.blockPosition()).inflate(p_76394_2_);
+    public void applyEffectTick(@Nonnull LivingEntity living, int amplifier) {
+        super.applyEffectTick(living, amplifier);
+        World world = living.level;
+        if (!world.isClientSide) {
+            AxisAlignedBB box = new AxisAlignedBB(living.blockPosition()).inflate(amplifier);
             world.getEntities(null, box).forEach(entity -> {
                 if (entity instanceof MonsterEntity || entity instanceof ProjectileEntity) {
-                    entity.setDeltaMovement((entity.getX() - p_76394_1_.getX()) / 10, (entity.getY() - p_76394_1_.getY()) / 10, (entity.getZ() - p_76394_1_.getZ()) / 10);
+                    entity.setDeltaMovement((entity.getX() - living.getX()) / 10, (entity.getY() - living.getY()) / 10, (entity.getZ() - living.getZ()) / 10);
                 }
             });
-        }else{
-            world.addParticle(ModParticles.LEAF_PARTICLE.get(),p_76394_1_.getRandom().nextDouble() * 1.5 + p_76394_1_.getX() -1,p_76394_1_.getRandom().nextDouble() * 2 + p_76394_1_.getY() + 2,p_76394_1_.getRandom().nextDouble() * 1.5 + p_76394_1_.getZ() - 1,0,0,0);
+        } else {
+            world.addParticle(ModParticles.leafParticle,living.getRandom().nextDouble() * 1.5 + living.getX() -1,living.getRandom().nextDouble() * 2 + living.getY() + 2,living.getRandom().nextDouble() * 1.5 + living.getZ() - 1,0,0,0);
         }
     }
 }

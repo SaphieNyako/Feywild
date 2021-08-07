@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.render;
 
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.model.DwarfBlackSmithModel;
+import com.feywild.feywild.entity.model.DwarfBlacksmithModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -15,13 +15,13 @@ import javax.annotation.Nullable;
 public class DwarfBlacksmithRenderer extends GeoEntityRenderer<DwarfBlacksmithEntity> {
 
     public DwarfBlacksmithRenderer(EntityRendererManager renderManager) {
-        super(renderManager, new DwarfBlackSmithModel());
+        super(renderManager, new DwarfBlacksmithModel());
         this.shadowRadius = 0.8F;
     }
 
     @Override
     public RenderType getRenderType(DwarfBlacksmithEntity animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        return RenderType.entityTranslucent(getTextureLocation(animatable));
+        return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
 
 }

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "feywild:block/tree_mushroom"
+    },
+    "facing=south": {
+      "model": "feywild:block/tree_mushroom",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "feywild:block/tree_mushroom",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "feywild:block/tree_mushroom",
+      "y": 90
+    }
+  }
+}

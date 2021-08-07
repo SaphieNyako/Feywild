@@ -6,8 +6,6 @@
   "item.feywild.brilliant_fey_gem": "Glänzender Feen-Kristall",
   "item.feywild.feywild_lexicon": "Feywild Lexikon",
   "item.feywild.music_disc_feywild": "Musik der Jahreszeiten",
-  "item.feywild.dandelion_seeds": "Löwenzahnsamen",
-  "item.feywild.sunflower_seeds": "Sonnenblumenkerne",
   "item.feywild.summoning_scroll_spring_pixie": "Beschwörungs-Schriftrolle: Frühlingsfee",
   "item.feywild.summoning_scroll_summer_pixie": "Beschwörungs-Schriftrolle: Sommerliche Fee",
   "item.feywild.summoning_scroll_autumn_pixie": "Beschwörungs-Schriftrolle: Herbstliche Fee",
@@ -68,5 +66,6 @@
   "summer_fey_thanks": "Ein Angebot? Gut gemacht!",
   "autumn_fey_thanks": "Ein Geschenk? Vielen Dank Liebling..",
   "winter_fey_thanks": "...deine Anstrengungen sind notiert, Sterblicher.",
-  "message.feywild.aligned": "Diese Feen-Hof erkennt dich als Mitglied an."
+  "message.feywild.aligned": "Diese Feen-Hof erkennt dich als Mitglied an.",
+  "screen.feywild.mana_amount": "Mana: %s"
 }

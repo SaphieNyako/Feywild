@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:feywild_music_disc"
+  },
+  "ingredients": [
+    {
+      "tag": "minecraft:music_discs"
+    },
+    {
+      "item": "feywild:spring_tree_sapling"
+    },
+    {
+      "item": "feywild:summer_tree_sapling"
+    },
+    {
+      "item": "feywild:autumn_tree_sapling"
+    },
+    {
+      "item": "feywild:winter_tree_sapling"
+    }
+  ]
+}

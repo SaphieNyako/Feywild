@@ -11,6 +11,7 @@ out
 *.ipr
 *.iws
 *.iml
+*.cache
 .idea
 
 # gradle
@@ -19,12 +20,7 @@ build
 
 # other
 eclipse
-/run*
+run
 
 # Files from Forge MDK
 forge*changelog.txt
-/src/generated/resources/.cache
-
-/logs
-hs_err_pid*
-replay_pid*

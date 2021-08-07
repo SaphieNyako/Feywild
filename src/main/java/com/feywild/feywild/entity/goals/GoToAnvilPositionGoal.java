@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.block.entity.DwarvenAnvilEntity;
+import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.tileentity.TileEntity;
@@ -12,80 +12,74 @@ import java.util.function.Supplier;
 
 public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
-    protected int count = 0;
-    DwarfBlacksmithEntity entity;
-    Supplier<Boolean> shouldReturn;
-    int maxMovementRange;
-    private DwarvenAnvilEntity tile;
+    private final DwarfBlacksmithEntity entity;
+    private DwarvenAnvil tile;
+    private int ticksLeft = 0;
 
     public GoToAnvilPositionGoal(DwarfBlacksmithEntity entity, Supplier<BlockPos> pos, int maxMovementRange) {
-        super(pos, maxMovementRange);
+        super(asVector(pos), maxMovementRange);
         this.entity = entity;
-        this.shouldReturn = () -> true;
-        this.maxMovementRange = maxMovementRange;
     }
 
     @Override
     public void tick() {
-        if (tile == null) {
-            return;
+        this.init();
+        if (!this.entity.isTamed()) {
+            this.reset();
+        } else if (this.tile != null && this.ticksLeft > 0) {
+            if (!this.tile.canCraft()) {
+                this.reset();
+                return;
+            }
+            this.ticksLeft--;
+            if (this.ticksLeft == 0) {
+                this.tile.craft();
+                this.reset();
+            } else {
+                Vector3d target = this.targetPosition.get();
+                if (target != null && this.tile.canCraft()) {
+                    if (this.ticksLeft == 20) {
+                        this.entity.playSound(SoundEvents.ANVIL_USE, 1, 1);
+                    } else if (this.ticksLeft == 50) {
+                        this.entity.setState(DwarfBlacksmithEntity.State.WORKING);
+                    } else if (this.ticksLeft <= 110) {
+                        this.entity.getNavigation().moveTo(target.x, target.y, target.z, 0.5);
+                        this.entity.lookAt(EntityAnchorArgument.Type.EYES, target);
+                    }
+                } else {
+                    this.reset();
+                }
+            }
         }
-        count--;
-
-        if (count == 0) {
-            reset();
-        } else if (count == 20 && tile != null && summoningPosition != null && tile.getCanCraft()) {
-            entity.playSound(SoundEvents.ANVIL_USE, 1.0f, 1.0f);
-
-        } else if (count == 50 && tile != null && summoningPosition != null && tile.getCanCraft()) {
-
-            tile.updateInventory(-1, true);
-            entity.setState(2);
-
-        } else if (count <= 110 && summoningPosition != null && tile.getCanCraft()) {
-
-            entity.getNavigation().moveTo(this.summoningPosition.getX(), this.summoningPosition.getY(), this.summoningPosition.getZ(), 0.5);
-            entity.lookAt(EntityAnchorArgument.Type.EYES, new Vector3d(summoningPosition.getX(), summoningPosition.getY(), summoningPosition.getZ()));
-        }
-
     }
 
     @Override
     public void start() {
-        count = 120;
-    }
-
-    private void refreshTileEntity() {
-        TileEntity tileEntity = entity.level.getBlockEntity(entity.summonPos);
-        if (tileEntity instanceof DwarvenAnvilEntity) {
-            tile = (DwarvenAnvilEntity) tileEntity;
-        }
+        this.ticksLeft = 120;
     }
 
     protected void reset() {
-        entity.setState(0);
-        tile.setCanCraft(false);
+        this.entity.setState(DwarfBlacksmithEntity.State.IDLE);
+        this.ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        refreshTileEntity();
-        if (tile == null) {
-            return false;
-        }
-        return summoningPosition != null && tile.getCanCraft();
+        this.init();
+        return this.ticksLeft > 0 && this.entity.isTamed() && this.tile != null && this.targetPosition.get() != null;
     }
 
     @Override
     public boolean canUse() {
-        refreshTileEntity();
-        if (tile == null) {
-            return false;
+        this.init();
+        return this.tile != null && this.targetPosition.get() != null && this.tile.canCraft();
+    }
+
+    private void init() {
+        if (this.tile == null && this.entity.getSummonPos() != null) {
+            TileEntity tile = this.entity.level.getBlockEntity(this.entity.getSummonPos());
+            this.tile = tile instanceof DwarvenAnvil ? (DwarvenAnvil) tile : null;
         }
-
-        tile.checkForViableRecipe();
-        return entity.level.random.nextFloat() < 0.05f && summoningPosition != null && tile.getCanCraft();
-
     }
 }
 

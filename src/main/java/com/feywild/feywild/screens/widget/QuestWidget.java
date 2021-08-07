@@ -1,50 +1,66 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.network.quest.SelectQuestSerializer;
+import com.feywild.feywild.quest.Alignment;
+import com.feywild.feywild.quest.util.SelectableQuest;
+import com.feywild.feywild.util.TextProcessor;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.system.CallbackI;
+
+import javax.annotation.Nonnull;
 
 @OnlyIn(Dist.CLIENT)
-public class QuestWidget extends Widget {
-    ItemStack icon;
-    ResourceLocation image;
-    ITextComponent component;
-    int xPos;
-    Minecraft minecraft;
-    public QuestWidget(int p_i232254_1_, int p_i232254_2_, int p_i232254_3_, int p_i232254_4_, ITextComponent p_i232254_5_, ItemStack icon, int type) {
-        super(p_i232254_1_, p_i232254_2_, p_i232254_3_, p_i232254_4_, p_i232254_5_);
-        this.icon = icon;
-        this.image = new ResourceLocation(FeywildMod.MOD_ID, "textures/gui/quest_atlas.png");
-        this.component = p_i232254_5_;
-        //type = 0 - Spring ; 1 - Summer ; 2 - Autumn ; 3 - Winter
-        xPos = 24 * type + type;
+public class QuestWidget extends Button {
 
-        this.minecraft = Minecraft.getInstance();
+    public static final int WIDTH = 40;
+    public static final int HEIGHT = 24;
+    
+    public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/looking_glass.png");
+    public static final ResourceLocation SLOT_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/quest_atlas.png");
+    
+    private final Alignment alignment;
+    private final SelectableQuest quest;
+    private final ItemStack iconStack;
 
+    public QuestWidget(int x, int y, Alignment alignment, SelectableQuest quest) {
+        super(x, y, WIDTH, HEIGHT, TextProcessor.processLine(quest.display.title), b -> {});
+        this.alignment = alignment;
+        this.quest = quest;
+        this.iconStack = new ItemStack(quest.icon);
     }
+
     @Override
-    public void render(MatrixStack p_230430_1_, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bind(image);
-        this.blit(p_230430_1_, this.x, this.y, this.xPos, 0, 24, 24);
-        this.minecraft.getItemRenderer().renderGuiItem(icon,this.x + 4,this.y + 4);
+    public void onPress() {
+        super.onPress();
+        FeywildMod.getNetwork().instance.sendToServer(new SelectQuestSerializer.Message(this.quest.id));
     }
 
-
+    @Override
+    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        //noinspection deprecation
+        RenderSystem.color4f(1, 1, 1, 1);
+        Minecraft.getInstance().getTextureManager().bind(SELECTION_TEXTURE);
+        if (this.isHovered(mouseX, mouseY)) {
+            this.blit(matrixStack, this.x, this.y + 5, 12, 0, 14, 14);
+        } else {
+            this.blit(matrixStack, this.x, this.y + 5, 0, 0, 14, 14);
+        }
+        Minecraft.getInstance().getTextureManager().bind(SLOT_TEXTURE);
+        this.blit(matrixStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack,this.x + 19,this.y + 4);
+        FontRenderer font = Minecraft.getInstance().font;
+        drawString(matrixStack, font, this.getMessage(), this.x + 44, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
+    }
+    
     public boolean isHovered(int x, int y) {
-        return this.x < x && this.x + 24 > x && this.y < y && this.y + 24 > y;
-    }
-
-    public ITextComponent getComponent() {
-        return component;
+        return this.x <= x && this.x + WIDTH >= x && this.y <= y && this.y + HEIGHT >= y;
     }
 }

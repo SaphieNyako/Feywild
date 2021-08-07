@@ -1,77 +1,55 @@
-{
-  "type": "library_books",
-  "pool": [
-    {
-      "book": {
-        "item": "feywild:feywild_lexicon",
-        "count": 1
-      }
+[
+  {
+    "item": "feywild:feywild_lexicon",
+    "count": 1
+  },
+  {
+    "mod": "ars_nouveau",
+    "item": "ars_nouveau:worn_notebook",
+    "count": 1
+  },
+  {
+    "mod": "astralsorcery",
+    "item": "astralsorcery:tome",
+    "count": 1
+  },
+  {
+    "mod": "botania",
+    "item": "botania:lexicon",
+    "count": 1
+  },
+  {
+    "mod": "eidolon",
+    "item": "eidolon:codex",
+    "count": 1
+  },
+  {
+    "mod": "occultism",
+    "item": "occultism:dictionary_of_spirits",
+    "count": 1
+  },
+  {
+    "mod": "bloodmagic",
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "bloodmagic:guide"
     },
-    {
-      "book": {
-        "item": "ars_nouveau:worn_notebook",
-        "count": 1
-      }
+    "count": 1
+  },
+  {
+    "mod": "naturesaura",
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "naturesaura:book"
     },
-    {
-      "book": {
-        "item": "astralsorcery:tome",
-        "count": 1
-      }
+    "count": 1
+  },
+  {
+    "mod": "psi",
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "psi:encyclopaedia_psionica"
     },
-    {
-      "book": {
-        "item": "botania:lexicon",
-        "count": 1
-      }
-    },
-    {
-      "book": {
-        "item": "eidolon:codex",
-        "count": 1
-      }
-    },
-    {
-      "book": {
-        "item": "occultism:dictionary_of_spirits",
-        "count": 1
-      }
-    },
-    {
-      "book": {
-        "item": "patchouli:guide_book",
-        "nbt": {
-          "patchouli:book": "bloodmagic:guide"
-        },
-        "count": 1
-      }
-    },
-    {
-      "book": {
-        "item": "patchouli:guide_book",
-        "nbt": {
-          "patchouli:book": "patchouli:book_of_dragons"
-        },
-        "count": 1
-      }
-    },
-    {
-      "book": {
-        "item": "patchouli:guide_book",
-        "nbt": {
-          "patchouli:book": "naturesaura:book"
-        },
-        "count": 1
-      }
-    },
-    {
-      "book": {
-        "item": "patchouli:guide_book",
-        "nbt": {
-          "patchouli:book": "psi:encyclopaedia_psionica"
-        },
-        "count": 1
-      }
-    }
-  ]
-}
+    "count": 1
+  }
+]

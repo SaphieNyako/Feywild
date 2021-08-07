@@ -1,95 +1,85 @@
 package com.feywild.feywild.entity.goals;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.AutumnPixieEntity;
-import com.feywild.feywild.network.FeywildPacketHandler;
-import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.World;
 
 public class AddShieldGoal extends Goal {
 
-    protected final World worldLevel;
-    protected AutumnPixieEntity entity;
-    protected PlayerEntity target;
-    protected int count = 0;
+    private final FeyEntity entity;
+    private PlayerEntity target;
+    private int ticksLeft = 0;
 
     public AddShieldGoal(AutumnPixieEntity entity) {
         this.entity = entity;
-        this.worldLevel = entity.level;
-
     }
 
     @Override
     public void tick() {
-        if (target == null) {
-            return;
+        if (this.ticksLeft > 0) {
+            if (this.target == null) {
+                this.reset();
+                return;
+            }
+            this.ticksLeft--;
+            if (this.ticksLeft <= 0) {
+                this.addShieldEffect();
+                this.reset();
+            } else if (this.ticksLeft == 110) {
+                this.spellCasting();
+            } else if (this.ticksLeft <= 100) {
+                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.target.position());
+            }
         }
-        count--;
-
-        if (count <= 0) {
-            addShieldEffect();
-            reset();
-
-        } else if (count == 110) {
-            spellCasting();
-        } else if (count <= 100) {
-            entity.lookAt(EntityAnchorArgument.Type.EYES, target.position());
-        }
-
     }
 
     @Override
     public void start() {
-
-        count = 120;
-        entity.setCasting(false);
-        target = null;
-
-        World world = entity.getCommandSenderWorld();
-        AxisAlignedBB box = new AxisAlignedBB(entity.blockPosition()).inflate(4);
-        world.getEntities(null, box).forEach(entity1 -> {
-            if (entity1 instanceof PlayerEntity) {
-                target = (PlayerEntity) entity1;
-            }
-        });
-
+        this.ticksLeft = 120;
+        this.entity.setCasting(false);
+        this.target = null;
+        AxisAlignedBB box = new AxisAlignedBB(this.entity.blockPosition()).inflate(4);
+        for (PlayerEntity match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+            this.target = match;
+            break;
+        }
     }
 
     private void spellCasting() {
-        entity.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 0.5);
-        entity.setCasting(true);
-        entity.playSound(ModSoundEvents.PIXIE_SPELLCASTING.get(), 1, 1);
+        this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
+        this.entity.setCasting(true);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
 
     private void addShieldEffect() {
-
-        target.addEffect(new EffectInstance(ModEffects.WIND_WALK_EFFECT.get(), 20 * 60, 2));
-        target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
-        FeywildPacketHandler.sendToPlayersInRange(worldLevel, entity.blockPosition()
-                , new ParticleMessage(target.getX(), target.getY(), target.getZ(), 0, 0, 0, 10, 0, 0)
-                , 64);
-
+        this.target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
+        this.target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
+        FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
     }
 
     private void reset() {
-        entity.setCasting(false);
-        target = null;
+        this.entity.setCasting(false);
+        this.target = null;
+        this.ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return target != null;
+        return this.ticksLeft > 0;
     }
 
     @Override
     public boolean canUse() {
-        return entity.level.random.nextFloat() < 0.002f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f;
     }
 }

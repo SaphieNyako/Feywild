@@ -1,0 +1,28 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 50,
+  "output": {
+    "item": "feywild:greater_fey_gem",
+    "count": 2
+  },
+  "schematics": {
+    "item": "feywild:schematics_gem_transmutation"
+  },
+  "ingredients": [
+    {
+      "item": "feywild:lesser_fey_gem"
+    },
+    {
+      "item": "feywild:lesser_fey_gem"
+    },
+    {
+      "item": "feywild:lesser_fey_gem"
+    },
+    {
+      "item": "feywild:lesser_fey_gem"
+    },
+    {
+      "item": "feywild:lesser_fey_gem"
+    }
+  ]
+}

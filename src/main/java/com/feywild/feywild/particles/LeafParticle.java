@@ -6,22 +6,25 @@ import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
 public class LeafParticle extends SpriteTexturedParticle {
-    float move = 0;
-    double initX, initY, initZ;
-    protected LeafParticle(ClientWorld p_i232447_1_, double p_i232447_2_, double p_i232447_4_, double p_i232447_6_) {
-        super(p_i232447_1_, p_i232447_2_, p_i232447_4_, p_i232447_6_);
+    
+    private float move = 0;
+    private final double initX;
+    private final double initZ;
+    
+    public LeafParticle(ClientWorld world, double x, double y, double z) {
+        super(world, x, y, z);
         this.setSize(0.5f,0.5f);
         this.alpha = 0;
-        this.lifetime = (int)(10.0D / (Math.random() * 0.8D)) + 20;
-        this.initX = p_i232447_2_;
-        this.initY = p_i232447_4_;
-        this.initZ = p_i232447_6_;
+        this.lifetime = (int)(10 / (Math.random() * 0.8D)) + 20;
+        this.initX = x;
+        this.initZ = z;
     }
 
+    @Nonnull
     @Override
     public IParticleRenderType getRenderType() {
         return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
@@ -30,14 +33,14 @@ public class LeafParticle extends SpriteTexturedParticle {
     @Override
     public void tick() {
         super.tick();
-        setPos(initX + Math.sin(move) * 2,y-0.04,initZ + Math.cos(move) * 2);
-        move+= 0.1;
-        if(lifetime == 0){
+        this.setPos(this.initX + Math.sin(this.move) * 2, this.y -0.04, this.initZ + Math.cos(this.move) * 2);
+        this.move += 0.1;
+        if(this.lifetime == 0){
             this.remove();
         }
-        lifetime--;
-        if(move > 0.3)
-        alpha = 1;
+        this.lifetime--;
+        if(this.move > 0.3)
+            this.alpha = 1;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -50,10 +53,10 @@ public class LeafParticle extends SpriteTexturedParticle {
 
         @Nullable
         @Override
-        public Particle createParticle(BasicParticleType p_199234_1_, ClientWorld p_199234_2_, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
-            LeafParticle particle = new LeafParticle(p_199234_2_,p_199234_3_,p_199234_5_,p_199234_7_);
-            particle.setColor(1.0F,1.0F,1.0F);
-            particle.pickSprite(sprite);
+        public Particle createParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld world, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
+            LeafParticle particle = new LeafParticle(world,p_199234_3_,p_199234_5_,p_199234_7_);
+            particle.setColor(1,1,1);
+            particle.pickSprite(this.sprite);
             return particle;
         }
     }

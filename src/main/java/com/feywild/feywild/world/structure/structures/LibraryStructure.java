@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.util.configs.Config;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -25,9 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class LibraryStructure extends BaseStructure {
-
-    public final static int AVERAGE_DISTANCE_BETWEEN_CHUNKS = Config.LIBRARY_CONFIG.getCachedDistance();
-    public final static int MIN_DISTANCE_BETWEEN_CHUNKS = Config.LIBRARY_CONFIG.getCachedMinDistance();
+    
     public final static int SEED_MODIFIER = 1238904567;
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
@@ -37,12 +35,12 @@ public class LibraryStructure extends BaseStructure {
 
     @Override
     public int getAverageDistanceBetweenChunks() {
-        return AVERAGE_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.library.average_distance;
     }
 
     @Override
     public int getMinDistanceBetweenChunks() {
-        return MIN_DISTANCE_BETWEEN_CHUNKS;
+        return WorldGenConfig.structures.library.minimum_distance;
     }
 
     @Override
@@ -83,7 +81,7 @@ public class LibraryStructure extends BaseStructure {
                     dynamicRegistryManager,
 
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(FeywildMod.MOD_ID, MESSAGE_POOL)),
+                            .get(new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL)),
                             10),
 
                     AbstractVillagePiece::new,
@@ -103,7 +101,7 @@ public class LibraryStructure extends BaseStructure {
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
 
-            FeywildMod.LOGGER.log(Level.DEBUG, MESSAGE_LOCATION +
+            FeywildMod.getInstance().logger.log(Level.DEBUG, MESSAGE_LOCATION +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

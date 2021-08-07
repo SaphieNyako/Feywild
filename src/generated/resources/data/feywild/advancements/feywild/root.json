@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "feywild:feywild_lexicon"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.root.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png"
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:feywild_lexicon"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "bark",
+  "pattern": [
+    "aa",
+    "aa"
+  ],
+  "key": {
+    "a": {
+      "item": "feywild:winter_tree_log"
+    }
+  },
+  "result": {
+    "item": "feywild:winter_tree_wood",
+    "count": 3
+  }
+}
