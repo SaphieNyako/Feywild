@@ -39,7 +39,9 @@ public class LibraryStructure extends BaseStructure {
     }
 
     public boolean shouldUseModdedBlocks(){
-        return WorldGenConfig.structures.library.vanilla_version;
+        // TODO
+        return true;
+//        return WorldGenConfig.structures.library.vanilla_version;
     }
 
     @Override

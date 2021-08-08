@@ -8,7 +8,7 @@
         "location": "feywild:vanilla_library",
         "processors": "minecraft:empty",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "element_type": "feywild:structure_piece"
       }
     }
   ]
