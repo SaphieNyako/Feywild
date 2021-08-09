@@ -51,7 +51,7 @@ public class QuestWidget extends Button {
         if (this.isHovered(mouseX, mouseY)) {
             this.blit(matrixStack, this.x, this.y + 5, 12, 0, 14, 14);
         } else {
-            this.blit(matrixStack, this.x, this.y + 5, 0, 0, 14, 14);
+            this.blit(matrixStack, this.x, this.y + 5, 0, 0, 12, 12);
         }
         Minecraft.getInstance().getTextureManager().bind(SLOT_TEXTURE);
         this.blit(matrixStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24);
