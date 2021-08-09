@@ -85,7 +85,7 @@ public class LibraryStructure extends BaseStructure {
             ResourceLocation res;
 
             if(getFeature() instanceof LibraryStructure){
-                res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[((LibraryStructure) getFeature()).shouldUseModdedBlocks() ? 1 : 0]);
+                res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[((LibraryStructure) getFeature()).shouldUseModdedBlocks() ? 0 : 1]);
             }
             else
                 res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[0]);
