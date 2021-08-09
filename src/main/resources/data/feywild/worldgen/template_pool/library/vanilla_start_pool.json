@@ -1,11 +1,11 @@
 {
-  "name": "feywild:blacksmith/start_pool",
+  "name": "feywild:library/start_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "feywild:blacksmith",
+        "location": "feywild:vanilla_library",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "feywild:structure_piece"

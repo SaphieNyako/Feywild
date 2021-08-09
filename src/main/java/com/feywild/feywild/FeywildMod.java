@@ -22,6 +22,7 @@ import com.feywild.feywild.world.StructureLoader;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModStructures;
+import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import net.minecraft.entity.Entity;
@@ -29,6 +30,7 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -108,7 +110,8 @@ public class FeywildMod extends ModXRegistration {
     protected void setup(FMLCommonSetupEvent event) {
         CapabilityMana.register();
         CapabilityQuests.register();
-        event.enqueueWork(() -> {    
+        event.enqueueWork(() -> {
+            Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);
             ModBiomeGeneration.setupBiomes();
             OreType.setupOres();
             ModStructures.setupStructures();
