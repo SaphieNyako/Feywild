@@ -2,19 +2,12 @@
   "music_menu": {
     "sounds": [
       {
-        "name": "feywild:menu/calm1",
-        "stream": true
+        "name": "feywild:menu/menu1",
+        "stream": true,
+        "weight": 3
       },
       {
-        "name": "feywild:menu/calm2",
-        "stream": true
-      },
-      {
-        "name": "feywild:menu/calm3",
-        "stream": true
-      },
-      {
-        "name": "feywild:menu/piano1",
+        "name": "feywild:menu/menu2",
         "stream": true
       }
     ]
@@ -26,15 +19,7 @@
         "type": "event"
       },
       {
-        "name": "feywild:menu/creative1",
-        "stream": true
-      },
-      {
-        "name": "feywild:menu/creative2",
-        "stream": true
-      },
-      {
-        "name": "feywild:menu/creative3",
+        "name": "feywild:menu/menu1",
         "stream": true
       }
     ]
