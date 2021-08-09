@@ -1,4 +1,44 @@
 {
+  "music_menu": {
+    "sounds": [
+      {
+        "name": "feywild:menu/calm1",
+        "stream": true
+      },
+      {
+        "name": "feywild:menu/calm2",
+        "stream": true
+      },
+      {
+        "name": "feywild:menu/calm3",
+        "stream": true
+      },
+      {
+        "name": "feywild:menu/piano1",
+        "stream": true
+      }
+    ]
+  },
+  "music_creative": {
+    "sounds": [
+      {
+        "name": "feywild:music_menu",
+        "type": "event"
+      },
+      {
+        "name": "feywild:menu/creative1",
+        "stream": true
+      },
+      {
+        "name": "feywild:menu/creative2",
+        "stream": true
+      },
+      {
+        "name": "feywild:menu/creative3",
+        "stream": true
+      }
+    ]
+  },
   "pixie_ambient": {
     "category": "entity",
     "subtitle": "pixie_ambient",

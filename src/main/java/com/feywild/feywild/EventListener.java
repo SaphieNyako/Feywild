@@ -8,17 +8,21 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -79,6 +83,18 @@ public class EventListener {
     public void openGui(GuiOpenEvent event) {
         if (ClientConfig.replace_menu && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
             event.setGui(new MenuScreen());
+        }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void playSound(PlaySoundEvent event) {
+        if (ClientConfig.replace_menu) {
+            if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
+                event.setResultSound(SimpleSound.forMusic(ModSoundEvents.musicMenu));
+            } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.getLocation())) {
+                event.setResultSound(SimpleSound.forMusic(ModSoundEvents.musicCreative));
+            }
         }
     }
     

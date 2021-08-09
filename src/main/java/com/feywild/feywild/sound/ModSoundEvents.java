@@ -8,6 +8,9 @@ import net.minecraft.util.SoundEvent;
 @RegisterClass
 public class ModSoundEvents {
 
+    public static final SoundEvent musicMenu = new SoundEvent(new ResourceLocation(FeywildMod. getInstance().modid, "music_menu"));
+    public static final SoundEvent musicCreative = new SoundEvent(new ResourceLocation(FeywildMod. getInstance().modid, "music_creative"));
+    
     public static final SoundEvent dwarfAttack = new SoundEvent(new ResourceLocation(FeywildMod. getInstance().modid, "dwarf_attack"));
     public static final SoundEvent dwarfRubble = new SoundEvent(new ResourceLocation(FeywildMod. getInstance().modid, "dwarf_rubble"));
     public static final SoundEvent pixieAmbient = new SoundEvent(new ResourceLocation(FeywildMod. getInstance().modid, "pixie_ambient"));
