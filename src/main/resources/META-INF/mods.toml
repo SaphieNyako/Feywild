@@ -11,6 +11,13 @@ authors="Saphie & Playelectro"
 description="Feywild Mod"
 
 [[dependencies.feywild]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.feywild]]
     modId="forge"
     mandatory=true
     versionRange="[35,)"
@@ -18,11 +25,11 @@ description="Feywild Mod"
     side="BOTH"
 
 [[dependencies.feywild]]
-     modId="patchouli"
-       mandatory=true
-       versionRange="[1.16.4-50,)"
-       ordering="AFTER"
-       side="BOTH"
+    modId="patchouli"
+    mandatory=true
+    versionRange="[1.16.4-50,)"
+    ordering="AFTER"
+    side="BOTH"
 
 [[dependencies.feywild]]
     modId="geckolib3"
