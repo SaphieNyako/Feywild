@@ -15,6 +15,7 @@ import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
+import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.BiomeLoader;
@@ -38,6 +39,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -86,6 +88,7 @@ public class FeywildMod extends ModXRegistration {
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
         
         MinecraftForge.EVENT_BUS.register(new EventListener());
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
         // Quest task & reward types. Not in setup as they are required for datagen.
         TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
