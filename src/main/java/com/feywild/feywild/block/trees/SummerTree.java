@@ -19,6 +19,23 @@ public class SummerTree extends BaseTree {
         super(mod);
     }
 
+    private static BlockState getDecorationBlock(Random random) {
+        switch (random.nextInt(30)) {
+            case 0:
+                return Blocks.OXEYE_DAISY.defaultBlockState();
+            case 1:
+                return Blocks.DANDELION.defaultBlockState();
+            case 2:
+                return Blocks.POPPY.defaultBlockState();
+            case 4:
+                return Blocks.ALLIUM.defaultBlockState();
+            case 5:
+                return Blocks.CORNFLOWER.defaultBlockState();
+            default:
+                return Blocks.GRASS.defaultBlockState();
+        }
+    }
+
     @Override
     protected BaseTreeFeatureConfig.Builder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
@@ -30,17 +47,6 @@ public class SummerTree extends BaseTree {
     public void decorateSaplingGrowth(ServerWorld world, BlockPos pos, Random random) {
         if (Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock())) {
             world.setBlockAndUpdate(pos, getDecorationBlock(random));
-        }
-    }
-
-    private static BlockState getDecorationBlock(Random random) {
-        switch (random.nextInt(10)) {
-            case 0: return Blocks.OXEYE_DAISY.defaultBlockState();
-            case 1: return Blocks.DANDELION.defaultBlockState();
-            case 2: return Blocks.POPPY.defaultBlockState();
-            case 4: return Blocks.ALLIUM.defaultBlockState();
-            case 5: return Blocks.CORNFLOWER.defaultBlockState();
-            default: return Blocks.GRASS.defaultBlockState();
         }
     }
 }

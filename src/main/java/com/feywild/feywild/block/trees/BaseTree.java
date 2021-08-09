@@ -6,11 +6,14 @@ import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
@@ -34,28 +37,28 @@ public abstract class BaseTree extends Tree implements Registerable {
     private static final int LEAVES_RADIUS = 5;
     private static final int LEAVES_OFFSET = 4;
     private static final int LEAVES_HEIGHT = 5;
-    
+
     private final FeyLogBlock logBlock;
     private final FeyWoodBlock woodBlock;
     private final BlockItem logItem;
     private final BlockItem woodItem;
-    
+
     private final Registerable logRegister;
     private final Registerable woodRegister;
     private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
-    
+
     public BaseTree(ModX mod) {
         this(mod, FeyLeavesBlock::new);
     }
-    
+
     public BaseTree(ModX mod, Function<ModX, ? extends FeyLeavesBlock> leavesFactory) {
         this.logBlock = new FeyLogBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_LOG));
         this.woodBlock = new FeyWoodBlock(this.logBlock, AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.logItem = new BlockItem(this.logBlock, properties);
         this.woodItem = new BlockItem(this.woodBlock, properties);
-        
+
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters() {
@@ -68,7 +71,7 @@ public abstract class BaseTree extends Tree implements Registerable {
                 return ImmutableSet.of(BaseTree.this.woodBlock, BaseTree.this.woodItem);
             }
         };
-        
+
         this.leaves = leavesFactory.apply(mod);
         this.sapling = new BaseSaplingBlock(mod, this);
     }
@@ -89,7 +92,7 @@ public abstract class BaseTree extends Tree implements Registerable {
         BaseTreeFeatureConfig featureConfig = this.getFeatureBuilder(random, largeHive).build();
         return Feature.TREE.configured(featureConfig);
     }
-    
+
     protected BaseTreeFeatureConfig.Builder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return new BaseTreeFeatureConfig.Builder(
                 new SimpleBlockStateProvider(this.getLogBlock().defaultBlockState()),
@@ -130,7 +133,7 @@ public abstract class BaseTree extends Tree implements Registerable {
     public Block getLeafBlock() {
         return this.leaves;
     }
-    
+
     public Block getSapling() {
         return this.sapling;
     }
@@ -158,4 +161,25 @@ public abstract class BaseTree extends Tree implements Registerable {
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
     }
+
+    @Override
+    public boolean growTree(ServerWorld world, ChunkGenerator generator, BlockPos pos, BlockState state, Random random) {
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (!(i == 0 && j == 0)) {
+                    if (!world.isStateAtPosition(pos.offset(i, 0, j), AbstractBlock.AbstractBlockState::isAir) &&
+                            !world.isStateAtPosition(pos.offset(i, 0, j), blockState -> blockState.getMaterial().equals(Material.REPLACEABLE_PLANT))) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        super.growTree(world, generator, pos, state, random);
+
+        return true;
+
+    }
+
 }

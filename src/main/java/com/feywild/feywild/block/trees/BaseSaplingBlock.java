@@ -114,4 +114,5 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(STAGE);
     }
+
 }

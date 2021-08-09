@@ -36,7 +36,7 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
             }
         }
     }
-    
+
     private List<FoliagePlacer.Foliage> placeBaseTrunk(@Nonnull IWorldGenerationReader world, @Nonnull Random random, int height, @Nonnull BlockPos pos, @Nonnull Set<BlockPos> blocks, @Nonnull MutableBoundingBox box, @Nonnull BaseTreeFeatureConfig config, List<Pair<BlockPos, BlockState>> decoratables) {
         BlockPos blockpos = pos.below();
         setDirtAt(world, blockpos);
@@ -45,7 +45,7 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
         setDirtAt(world, blockpos.south().east());
         BlockPos.Mutable current = new BlockPos.Mutable();
 
-        for(int i = 0; i < height; ++i) {
+        for (int i = 0; i < height; ++i) {
             this.tryPlaceLog(world, random, current, blocks, box, config, pos, 0, i, 0, decoratables);
             if (i < height - 1) {
                 this.tryPlaceLog(world, random, current, blocks, box, config, pos, 1, i, 0, decoratables);
@@ -56,14 +56,16 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
 
         return ImmutableList.of(new FoliagePlacer.Foliage(pos.above(height), 0, true));
     }
-    
+
     @Nonnull
     @Override
     public List<FoliagePlacer.Foliage> placeTrunk(@Nonnull IWorldGenerationReader world, @Nonnull Random random, int height, @Nonnull BlockPos pos, @Nonnull Set<BlockPos> blocks, @Nonnull MutableBoundingBox box, @Nonnull BaseTreeFeatureConfig config) {
         List<FoliagePlacer.Foliage> list = Lists.newArrayList();
         List<Pair<BlockPos, BlockState>> decoratables = new ArrayList<>();
         list.addAll(this.placeBaseTrunk(world, random, height, pos, blocks, box, config, decoratables));
-        for(int y = (height - 2 - random.nextInt(4)); y > (height / 2); y -= (2 + random.nextInt(4))) {
+
+        //Top to Bottom
+        for (int y = (height - 2 - random.nextInt(4)); y > (height / 2); y -= (2 + random.nextInt(4))) {
             float f = random.nextFloat() * (float) (Math.PI * 2);
             int x = 0;
             int z = 0;
@@ -94,4 +96,5 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
     }
 
     protected abstract void decorateLog(BlockState state, ISeedReader world, BlockPos pos, Random random);
+
 }

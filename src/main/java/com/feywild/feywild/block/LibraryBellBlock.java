@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class LibraryBellBlock extends BlockTE<LibraryBell> {
 
@@ -32,6 +33,7 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
         super(mod, LibraryBell.class, Properties.of(Material.METAL)
                 .strength(-1, 3600000).noDrops()
                 .noOcclusion()
+                .randomTicks()
                 .sound(SoundType.STONE));
     }
 
@@ -119,5 +121,23 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
             }
         }
         return ActionResultType.sidedSuccess(world.isClientSide);
+    }
+
+    @Override
+    public boolean isRandomlyTicking(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        LibraryBell entity = (LibraryBell) world.getBlockEntity(pos);
+
+        if (world.getEntity(entity.getSecurity()) != null) {
+            entity.setDespawnTimer(entity.getDespawnTimer() + 1);
+            if (entity.getDespawnTimer() >= 2) {
+                entity.setDespawnTimer(0);
+                world.getEntity(entity.getSecurity()).remove();
+            }
+        }
     }
 }
