@@ -5,6 +5,7 @@ import com.feywild.feywild.config.CompatConfig;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -15,10 +16,7 @@ import net.minecraft.world.gen.feature.jigsaw.IJigsawDeserializer;
 import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
 import net.minecraft.world.gen.feature.jigsaw.SingleJigsawPiece;
 import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.feature.template.PlacementSettings;
-import net.minecraft.world.gen.feature.template.StructureProcessorList;
-import net.minecraft.world.gen.feature.template.Template;
-import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.gen.feature.template.*;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -44,21 +42,31 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
     @Override
     public boolean place(@Nonnull TemplateManager templates, @Nonnull ISeedReader world, @Nonnull StructureManager structures, @Nonnull ChunkGenerator generator, @Nonnull BlockPos fromPos, @Nonnull BlockPos toPos, @Nonnull Rotation rot, @Nonnull MutableBoundingBox box, @Nonnull Random random, boolean jigsaw) {
         Template template = this.template.map(templates::getOrCreate, Function.identity());
-        PlacementSettings placementsettings = this.getSettings(rot, box, jigsaw);
-        if (!template.placeInWorld(world, fromPos, toPos, placementsettings, random, 18)) {
+        PlacementSettings settings = this.getSettings(rot, box, jigsaw);
+        if (!template.placeInWorld(world, fromPos, toPos, settings, random, 18)) {
             return false;
         } else {
-            for(Template.BlockInfo template$blockinfo : Template.processBlockInfos(world, fromPos, toPos, placementsettings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
-                this.handleCustomDataMarker(templates, structures, world, template$blockinfo, fromPos, rot, random, box);
+            for(Template.BlockInfo info : Template.processBlockInfos(world, fromPos, toPos, settings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
+                this.handleCustomDataMarker(templates, structures, world, info, info.pos, rot, random, box);
             }
-
             return true;
         }
     }
-    
+
+    @Nonnull
+    @Override
+    protected PlacementSettings getSettings(@Nonnull Rotation rot, @Nonnull MutableBoundingBox box, boolean jigsaw) {
+        PlacementSettings settings = super.getSettings(rot, box, jigsaw);
+        // Don't ignore structure blocks
+        settings.popProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+        return settings;
+    }
+
     // Same as handleDataMarker but will get the template manager
     public void handleCustomDataMarker(TemplateManager templates, StructureManager structures, ISeedReader world, Template.BlockInfo block, BlockPos pos, Rotation rot, Random random, MutableBoundingBox box) {
         String data = block.nbt == null ? "" : block.nbt.getString("metadata");
+        // Replace structure block in all cases
+        world.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
         if (data.equals("Waystone") && CompatConfig.waystones) {
             placePiece(templates, world, "waystone", pos, random);
         }
