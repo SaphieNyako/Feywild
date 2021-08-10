@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="[35,)"
 license="All rights reserved"
+
 [[mods]]
 modId="feywild"
 version="${file.jarVersion}"
