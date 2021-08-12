@@ -63,7 +63,7 @@ public class AddShieldGoal extends Goal {
 
     private void addShieldEffect() {
         this.target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
-        this.target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 2));
+        this.target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 0));
         FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
     }
 

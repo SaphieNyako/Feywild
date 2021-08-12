@@ -42,6 +42,6 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="libx"
     mandatory=true
-    versionRange="[1.16.3-1.0.78,)"
+    versionRange="[1.16.3-1.0.76,)"
     ordering="NONE"
     side="BOTH"
