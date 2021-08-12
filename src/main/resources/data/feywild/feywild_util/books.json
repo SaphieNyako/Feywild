@@ -51,5 +51,15 @@
       "patchouli:book": "psi:encyclopaedia_psionica"
     },
     "count": 1
+  },
+  {
+    "mod": "malum",
+    "item": "malum:encyclopedia_arcana",
+    "count": 1
+  },
+  {
+    "mod": "mana-and-artifice",
+    "item": "mana-and-artifice:guide_book",
+    "count": 1
   }
 ]
