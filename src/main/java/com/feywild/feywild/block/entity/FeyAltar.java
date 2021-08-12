@@ -4,6 +4,7 @@ import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.util.StreamUtil;
 import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
+import io.github.noeppi_noeppi.libx.inventory.ItemStackHandlerWrapper;
 import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
@@ -12,7 +13,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.LazyValue;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -23,6 +29,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +46,8 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     
     private boolean needsUpdate = false;
     private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
-    
+    private final LazyOptional<IItemHandlerModifiable> itemHandler;
+
     private final AnimationFactory animationFactory = new AnimationFactory(this);
     
     public FeyAltar(TileEntityType<?> type) {
@@ -50,6 +58,17 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
             this.markDispatchable(); // The tile entity is sent to the clients at the end of the tick.
         });
         this.inventory.setDefaultSlotLimit(1);
+        this.itemHandler = ItemStackHandlerWrapper.createLazy(() -> this.inventory);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return this.itemHandler.cast();
+        } else {
+            return super.getCapability(capability, side);
+        }
     }
 
     @Override

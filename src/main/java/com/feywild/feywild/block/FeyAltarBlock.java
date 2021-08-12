@@ -2,7 +2,6 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
-import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.AbstractBlock;
@@ -10,7 +9,6 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -101,13 +99,5 @@ public class FeyAltarBlock extends BlockTE<FeyAltar> {
     @Override
     protected boolean shouldDropInventory(World world, BlockPos pos, BlockState state) {
         return true;
-    }
-
-    @Override
-    public void onRemove(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-        BaseItemStackHandler itemStackHandler = this.getTile(world, pos).getInventory();
-        InventoryHelper.dropContents(world, pos, itemStackHandler.toIInventory());
-
-        super.onRemove(state, world, pos, newState, isMoving);
     }
 }
