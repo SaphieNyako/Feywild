@@ -1,0 +1,16 @@
+{
+  "name": "feywild:market_place_dimension",
+  "ultrawarm": false,
+  "natural": true,
+  "piglin_safe": false,
+  "respawn_anchor_works": false,
+  "bed_works": true,
+  "has_raids": true,
+  "has_skylight": true,
+  "has_ceiling": false,
+  "fixed_time": 6000,
+  "coordinate_scale": 1,
+  "ambient_light": 15,
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_overworld"
+}

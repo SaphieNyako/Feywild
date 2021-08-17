@@ -41,6 +41,8 @@ public class ModItems {
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_gem_transmutation"));
     public static final Item schematicsFeyAltar = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_fey_altar"));
 
+    public static final MarketScroll marketScroll = new MarketScroll(FeywildMod.getInstance(),new Item.Properties().stacksTo(1));
+
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, new Item.Properties());
     public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
     public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixie, new Item.Properties());

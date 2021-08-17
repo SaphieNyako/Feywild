@@ -14,6 +14,7 @@
   "item.feywild.fey_sheep_droppings": "Sheep Droppings",
   "item.feywild.fey_shovel": "Fey Shovel",
   "item.feywild.fey_hoe": "Fey Hoe",
+  "item.feywild.market_scroll" : "Market Ticket",
   "item.feywild.fey_armor_helmet": "Fey Armor Helmet",
   "item.feywild.fey_armor_chest": "Fey Armor Chest",
   "item.feywild.fey_armor_leggings": "Fey Armor Leggings",
@@ -106,6 +107,8 @@
   "message.feywild.autumn_fey_follow": "Going for a walk? I'd like to come with you!",
   "message.feywild.winter_fey_follow": "Such inconvenience... Can't you go out on your own?",
   "message.feywild.aligned": "This fey court recognises you as one of it's own.",
+  "message.feywild.market_closed": "Hello dear customer, \nWe are sorry for the inconvenience but the market is temporarily closed, please come back later! \n-Market Place Management",
+  "toolTip.feywild.market_scroll" : "This item is used as a method of entering the dwarf market.",
   "screen.feywild.mana_amount": "Mana: %s",
   "effect.feywild.wind_walk": "Wind Walk",
   "quest.feywild.spring.root.start.title": "Welcome to the Spring court",
@@ -197,5 +200,9 @@
   "advancements.feywild.feywild.summon_autumn.title": "Darling!",
   "advancements.feywild.feywild.summon_autumn.description": "Conjure a summoning scroll for a Autumn Pixie",
   "advancements.feywild.feywild.summon_winter.title": "Maybe if you died we can be friends...",
-  "advancements.feywild.feywild.summon_winter.description": "Conjure a summoning scroll for a Winter Pixie"
+  "advancements.feywild.feywild.summon_winter.description": "Conjure a summoning scroll for a Winter Pixie",
+  "biome.feywild.blossoming_wealds": "Blossoming Wealds",
+  "biome.feywild.golden_seelie_fields": "Golden Seelie Fields",
+  "biome.feywild.eternal_fall": "Eternal Fall",
+  "biome.feywild.frozen_retreat": "Frozen Retreat"
 }

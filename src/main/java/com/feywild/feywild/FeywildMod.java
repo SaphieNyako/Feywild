@@ -21,6 +21,7 @@ import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.BiomeLoader;
 import com.feywild.feywild.world.StructureLoader;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
+import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
@@ -97,6 +98,7 @@ public class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
+        ModDimensions.register();
     }
 
     @Nonnull
