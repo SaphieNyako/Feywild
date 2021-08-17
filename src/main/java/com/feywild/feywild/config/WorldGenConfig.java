@@ -166,4 +166,10 @@ public class WorldGenConfig {
         @IntRange(min = 1)
         public static int size = 3;
     }
+
+    public static class dwarf_market{
+        @Config("The time between the market refresh.")
+        @IntRange(min = 1)
+        public static int refresh_time = 10000;
+    }
 }

@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.quest.player.QuestData;
@@ -9,6 +10,7 @@ import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.util.LibraryBooks;
+import com.feywild.feywild.util.MarketHandler;
 import com.feywild.feywild.util.MenuScreen;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -16,6 +18,8 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -86,6 +90,15 @@ public class EventListener {
     public void loadConfig(ConfigLoadedEvent event) {
         if (event.getConfigClass() == MiscConfig.class) {
             ModItems.feyDust.updateFood();
+        }
+    }
+
+    @SubscribeEvent
+    public void tick(TickEvent.WorldTickEvent event){
+        World world = event.world;
+
+        if(world instanceof ServerWorld && Math.abs(world.getDayTime() - MarketHandler.getInstance().getDate()) > WorldGenConfig.dwarf_market.refresh_time){
+            MarketHandler.getInstance().updateMarket(world.getServer(), world.getDayTime());
         }
     }
 }
