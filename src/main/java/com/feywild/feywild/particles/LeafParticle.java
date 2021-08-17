@@ -13,15 +13,19 @@ public class LeafParticle extends SpriteTexturedParticle {
     
     private float move = 0;
     private final double initX;
+    private double velY;
     private final double initZ;
-    
-    public LeafParticle(ClientWorld world, double x, double y, double z) {
+    private int remover = 1;
+
+    public LeafParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ) {
         super(world, x, y, z);
         this.setSize(0.5f,0.5f);
         this.alpha = 0;
         this.lifetime = (int)(10 / (Math.random() * 0.8D)) + 20;
         this.initX = x;
         this.initZ = z;
+        this.velY = velY;
+       this.remover = velX == velZ ? 1 : 0;
     }
 
     @Nonnull
@@ -33,7 +37,7 @@ public class LeafParticle extends SpriteTexturedParticle {
     @Override
     public void tick() {
         super.tick();
-        this.setPos(this.initX + Math.sin(this.move) * 2, this.y -0.04, this.initZ + Math.cos(this.move) * 2);
+        this.setPos(this.initX + Math.sin(this.move) * 2, this.y + velY, this.initZ + Math.cos(this.move) * 2 * remover);
         this.move += 0.1;
         if(this.lifetime == 0){
             this.remove();
@@ -54,7 +58,7 @@ public class LeafParticle extends SpriteTexturedParticle {
         @Nullable
         @Override
         public Particle createParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld world, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
-            LeafParticle particle = new LeafParticle(world,p_199234_3_,p_199234_5_,p_199234_7_);
+            LeafParticle particle = new LeafParticle(world,p_199234_3_,p_199234_5_,p_199234_7_,p_199234_9_,p_199234_11_,p_199234_13_);
             particle.setColor(1,1,1);
             particle.pickSprite(this.sprite);
             return particle;
