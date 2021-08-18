@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.trees;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
@@ -21,7 +22,7 @@ public class SummerLeavesBlock extends FeyLeavesBlock {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
         super.animateTick(state, world, pos, rand);
-        if (world.isEmptyBlock(pos.below()) && rand.nextInt(20) == 1) {
+        if (world.isEmptyBlock(pos.below()) && rand.nextInt(20) == 1 && ClientConfig.tree_particles) {
             world.addParticle(ModParticles.summerLeafParticle, pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
         }
     }

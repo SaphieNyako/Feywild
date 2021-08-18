@@ -34,6 +34,7 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
                 .strength(-1, 3600000).noDrops()
                 .noOcclusion()
                 .randomTicks()
+                .noCollission()
                 .sound(SoundType.STONE));
     }
 
