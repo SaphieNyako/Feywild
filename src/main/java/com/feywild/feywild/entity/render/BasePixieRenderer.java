@@ -17,6 +17,7 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import javax.annotation.Nullable;
 
+
 public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> extends GeoEntityRenderer<T> {
 
     protected BasePixieRenderer(EntityRendererManager renderManager, AnimatedGeoModel<T> modelProvider) {
@@ -26,7 +27,8 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
 
     @Override
     public RenderType getRenderType(T animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        return RenderType.entityTranslucent(this.getTextureLocation(animatable));
+        //RenderType.entityTranslucent(this.getTextureLocation(animatable)); - render without glow for patchouli
+        return RendererUtil.glowRender(this.getTextureLocation(animatable));
     }
 
     @Override
