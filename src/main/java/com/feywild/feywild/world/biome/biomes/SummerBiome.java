@@ -33,7 +33,7 @@ public class SummerBiome extends BaseBiome {
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 4, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
+        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
