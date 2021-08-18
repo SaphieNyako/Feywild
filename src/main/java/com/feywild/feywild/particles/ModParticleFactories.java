@@ -12,5 +12,8 @@ public class ModParticleFactories {
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerParticles(ParticleFactoryRegisterEvent event){
         Minecraft.getInstance().particleEngine.register(ModParticles.leafParticle, LeafParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
     }
 }

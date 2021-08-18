@@ -16,7 +16,7 @@ import java.util.Random;
 public class SummerTree extends BaseTree {
 
     public SummerTree(ModX mod) {
-        super(mod);
+        super(mod, SummerLeavesBlock::new);
     }
 
     private static BlockState getDecorationBlock(Random random) {

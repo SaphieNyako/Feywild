@@ -144,15 +144,6 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
                     }
                 }
             }
-
-            if (world.isEmptyBlock(pos.below()) && rand.nextInt(30) == 1) {
-                double windStrength = 5 + Math.cos((double) world.getGameTime() / 2000) * 2;
-                double windX = Math.cos((double) world.getGameTime() / 1200) * windStrength;
-                double windZ = Math.sin((double) world.getGameTime() / 1000) * windStrength;
-
-                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, windX, -1.0, windZ);
-
-            }
         }
     }
 }

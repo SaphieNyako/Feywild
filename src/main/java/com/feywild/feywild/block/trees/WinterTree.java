@@ -18,7 +18,7 @@ import java.util.Random;
 public class WinterTree extends BaseTree {
 
     public WinterTree(ModX mod) {
-        super(mod);
+        super(mod, WinterLeavesBlock::new);
     }
 
     @Override

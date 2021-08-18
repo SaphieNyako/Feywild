@@ -8,4 +8,7 @@ import net.minecraft.particles.BasicParticleType;
 public class ModParticles {
     
     public static final BasicParticleType leafParticle = new BasicParticleType(true);
+    public static final BasicParticleType springLeafParticle = new BasicParticleType(true);
+    public static final BasicParticleType summerLeafParticle = new BasicParticleType(true);
+    public static final BasicParticleType winterLeafParticle = new BasicParticleType(true);
 }

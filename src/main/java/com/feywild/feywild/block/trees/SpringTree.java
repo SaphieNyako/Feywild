@@ -12,7 +12,7 @@ import java.util.Random;
 public class SpringTree extends BaseTree {
 
     public SpringTree(ModX mod) {
-        super(mod);
+        super(mod, SpringLeavesBlock::new);
     }
 
     private static BlockState getDecorationBlock(Random random) {
