@@ -82,7 +82,7 @@ public class TargetBreedGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.level.random.nextFloat() < 0.01f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.01f;
     }
 
     @Nullable
@@ -97,7 +97,7 @@ public class TargetBreedGoal extends Goal {
         }
         return current;
     }
-    
+
     @Nullable
     private AnimalEntity findPartner() {
         if (this.targetAnimal != null) {

@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
@@ -13,7 +14,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 @RegisterClass
 public class ModItems {
-    
+
     public static final Item lesserFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item greaterFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item shinyFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
@@ -23,14 +24,16 @@ public class ModItems {
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
 
     //Can also give food item .hunger(5) .saturation(1.5f)
-    public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties());
-    
+    public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
+            new Food.Builder().effect(
+                    () -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));
+
     public static final Item mandrake = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder()
                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
                     .build()
     ), new TranslationTextComponent("message.feywild.mandrake"));
-    
+
     public static final MandrakePotion mandrakePotion = new MandrakePotion(FeywildMod.getInstance(), new Item.Properties().food(new Food.Builder().build()));
 
     public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();

@@ -173,7 +173,7 @@
   "quest.feywild.winter.lantern.complete.title": "Light Spirits",
   "quest.feywild.winter.lantern.complete.description": "You succeeded at your task...how disappointing.$(n)But my lifespan is longer than yours,$(n)so I'll just have to be patient.",
   "quest.feywild.winter.sapling.start.title": "Clear Skies",
-  "quest.feywild.winter.sapling.start.start.description": "If it's not to much of a inconvenience... could you plant these trees.$(n)...You are a good being...$(n)Someone should mention that more often.",
+  "quest.feywild.winter.sapling.start.description": "If it's not to much of a inconvenience... could you plant these trees.$(n)...You are a good being...$(n)Someone should mention that more often.",
   "advancements.feywild.feywild.root.title": "Welcome to the Feywild",
   "advancements.feywild.feywild.root.start.description": "Borrow the Feywild Lexicon from the Library",
   "advancements.feywild.feywild.fey_dust.title": "Dust to Dust",
