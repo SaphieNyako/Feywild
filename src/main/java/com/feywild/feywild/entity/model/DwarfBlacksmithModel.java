@@ -10,6 +10,7 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class DwarfBlacksmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity> {
 
@@ -26,16 +27,21 @@ public class DwarfBlacksmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity
 
     @Override
     public ResourceLocation getModelLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/dwarf_blacksmith.geo.json");
+        String string = Objects.requireNonNull(dwarfBlacksmithEntity.getType().getRegistryName()).getPath();
+
+        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/"+string+".geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/dwarf_blacksmith.png");
+        String string = Objects.requireNonNull(dwarfBlacksmithEntity.getType().getRegistryName()).getPath();
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/"+string+".png");
     }
 
     @Override
     public ResourceLocation getAnimationFileLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/dwarf_blacksmith.animation.json");
+        String string = Objects.requireNonNull(dwarfBlacksmithEntity.getType().getRegistryName()).getPath();
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/"+string+".animation.json");
     }
+
 }

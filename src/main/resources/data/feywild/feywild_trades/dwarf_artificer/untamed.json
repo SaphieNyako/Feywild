@@ -1,0 +1,39 @@
+[
+  {
+    "amount": 2,
+    "trades": [
+      {
+        "input": {
+          "item": "minecraft:diamond",
+          "count": [
+            3,
+            4
+          ]
+        },
+        "output": {
+          "item": "minecraft:diamond",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      },
+       {
+        "input": {
+          "item": "minecraft:book",
+          "count": [
+            3,
+            4
+          ]
+        },
+        "output": {
+          "item": "minecraft:book",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      }
+    ]
+  }
+]

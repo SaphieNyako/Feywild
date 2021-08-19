@@ -1,0 +1,39 @@
+[
+  {
+    "amount": 2,
+    "trades": [
+      {
+        "input": {
+          "item": "minecraft:bread",
+          "count": [
+            3,
+            4
+          ]
+        },
+        "output": {
+          "item": "minecraft:bread",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      },
+       {
+        "input": {
+          "item": "minecraft:apple",
+          "count": [
+            3,
+            4
+          ]
+        },
+        "output": {
+          "item": "minecraft:apple",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      }
+    ]
+  }
+]
