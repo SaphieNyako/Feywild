@@ -94,19 +94,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
     @Override
     public ActionResultType interactAt(PlayerEntity player, @Nonnull Vector3d vec, @Nonnull Hand hand) {
         if (!player.getCommandSenderWorld().isClientSide) {
-            if(typeS.equalsIgnoreCase("dwarf_blacksmith")) {
-                    trade(player);
-            }else if(player.level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION){
-               trade(player);
-            }else
-            {
-                player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.annoyed"), false);
-            }
+            trade(player);
         }
         return ActionResultType.sidedSuccess(this.level.isClientSide);
     }
 
-    private void trade(PlayerEntity player){
+    protected void trade(PlayerEntity player){
         this.setTradingPlayer(player); //added
         this.openTradingScreen(player, new TranslationTextComponent("Dwarven Trader"), 1);
         player.displayClientMessage(new TranslationTextComponent("dwarf.feywild.dialogue"), false);

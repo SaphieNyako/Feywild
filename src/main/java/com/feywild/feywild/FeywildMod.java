@@ -5,6 +5,7 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.MarketDwarfEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.render.*;
@@ -132,6 +133,7 @@ public class FeywildMod extends ModXRegistration {
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, DwarfBlacksmithRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
@@ -145,7 +147,8 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.summerPixie, FeyEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.autumnPixie, FeyEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfArtificer, DwarfBlacksmithEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfArtificer, MarketDwarfEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfBaker, MarketDwarfEntity.getDefaultAttributes().build());
     }
 
     //This might have a conflict when merging with the quests
