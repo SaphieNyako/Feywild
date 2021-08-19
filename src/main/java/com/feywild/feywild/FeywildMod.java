@@ -131,6 +131,7 @@ public class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
@@ -144,6 +145,7 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.summerPixie, FeyEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.autumnPixie, FeyEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfArtificer, DwarfBlacksmithEntity.getDefaultAttributes().build());
     }
 
     //This might have a conflict when merging with the quests

@@ -12,6 +12,10 @@ public class ModEntityTypes {
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 
+    public static final EntityType<DwarfBlacksmithEntity> dwarfArtificer = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
+            .sized(1,1)
+            .build(FeywildMod.getInstance().modid+"_dwarf_artificer");
+
     public static final EntityType<SpringPixieEntity> springPixie = EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_spring_pixie");
