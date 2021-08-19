@@ -20,6 +20,18 @@ public class ModEntityTypes {
             .sized(1,1)
             .build(FeywildMod.getInstance().modid+"_dwarf_baker");
 
+    public static final EntityType<MarketDwarfEntity> dwarfShepherd = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+            .sized(1,1)
+            .build(FeywildMod.getInstance().modid+"_dwarf_shepherd");
+
+    public static final EntityType<MarketDwarfEntity> dwarfDragonHunter = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+            .sized(1,1)
+            .build(FeywildMod.getInstance().modid+"_dwarf_dragon_hunter");
+
+    public static final EntityType<MarketDwarfEntity> dwarfBlacksmithMarket = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+            .sized(1,1)
+            .build(FeywildMod.getInstance().modid+"_dwarf_blacksmith_market");
+
     public static final EntityType<SpringPixieEntity> springPixie = EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_spring_pixie");

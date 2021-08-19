@@ -1,0 +1,23 @@
+[
+  {
+    "amount": 1,
+    "trades": [
+      {
+        "input": {
+          "item": "minecraft:blue_wool",
+          "count": [
+            3,
+            4
+          ]
+        },
+        "output": {
+          "item": "minecraft:blue_wool",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      }
+    ]
+  }
+]
