@@ -27,8 +27,7 @@ public abstract class BasePixieRenderer<T extends LivingEntity & IAnimatable> ex
 
     @Override
     public RenderType getRenderType(T animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
-        //RenderType.entityTranslucent(this.getTextureLocation(animatable)); - render without glow for patchouli
-        return RendererUtil.glowRender(this.getTextureLocation(animatable));
+        return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
 
     @Override
