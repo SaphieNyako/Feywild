@@ -17,28 +17,37 @@ import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.network.PacketDistributor;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class EventListener {
-    
+
     @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
         if (event.getPlayer() instanceof ServerPlayerEntity) {
             QuestData.get((ServerPlayerEntity) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
         }
     }
-    
+
     @SubscribeEvent
     public void playerKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayerEntity) {
@@ -47,7 +56,7 @@ public class EventListener {
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
         }
     }
-    
+
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         // Only check one / second
@@ -57,7 +66,7 @@ public class EventListener {
             player.inventory.items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
         }
     }
-    
+
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayerEntity) {
@@ -85,7 +94,7 @@ public class EventListener {
             event.setGui(new MenuScreen());
         }
     }
-    
+
     @SubscribeEvent
     public void loadConfig(ConfigLoadedEvent event) {
         if (event.getConfigClass() == MiscConfig.class) {
@@ -94,11 +103,41 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void tick(TickEvent.WorldTickEvent event){
+    public void tick(TickEvent.WorldTickEvent event) {
         World world = event.world;
 
-        if(world instanceof ServerWorld && Math.abs(world.getDayTime() - MarketHandler.getInstance().getDate()) > WorldGenConfig.dwarf_market.refresh_time){
+        if (world instanceof ServerWorld && Math.abs(world.getDayTime() - MarketHandler.getInstance().getDate()) > WorldGenConfig.dwarf_market.refresh_time) {
             MarketHandler.getInstance().updateMarket(world.getServer(), world.getDayTime());
+        }
+    }
+
+    /* LOOTTABLES */
+
+    @SubscribeEvent
+    public void lootTableLoad(LootTableLoadEvent event) {
+        if (event.getName().equals(LootTables.ABANDONED_MINESHAFT)) {
+            @Nullable
+            LootPool pool = event.getTable().getPool("main");
+            //noinspection ConstantConditions
+            if (pool != null) {
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsFeyAltar).setWeight(5).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(5).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(5).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.feywildMusicDisc).setWeight(1).build());
+            }
+        }
+    }
+
+    private void addEntry(LootPool pool, LootEntry entry) {
+        try {
+            //noinspection unchecked
+            List<LootEntry> lootEntries = (List<LootEntry>) ObfuscationReflectionHelper.findField(LootPool.class, "field_186453_a").get(pool);
+            if (lootEntries.stream().noneMatch(e -> e == entry)) {
+                lootEntries.add(entry);
+            }
+        } catch (ReflectiveOperationException e) {
+            //
         }
     }
 }

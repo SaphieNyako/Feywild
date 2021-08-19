@@ -14,7 +14,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
@@ -22,8 +21,9 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MarketScroll extends TooltipItem{
-    public MarketScroll(ModX mod, Properties prop) {
+public class MarketRuneStone extends TooltipItem {
+
+    public MarketRuneStone(ModX mod, Properties prop) {
         super(mod, prop, new TranslationTextComponent("toolTip.feywild.market_scroll"));
     }
 
@@ -85,8 +85,7 @@ public class MarketScroll extends TooltipItem{
                         entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 60, 60));
                         entity.setGameMode(GameType.ADVENTURE);
 
-
-                    } else{
+                    } else {
                         entity.sendMessage(new TranslationTextComponent("message.feywild.market_closed"), entity.getUUID());
                     }
                 }

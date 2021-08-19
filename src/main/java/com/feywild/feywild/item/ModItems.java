@@ -22,6 +22,8 @@ public class ModItems {
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item summoningScroll = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item inactiveMarketRuneStone = new ItemBase(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
+    public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
 
     //Can also give food item .hunger(5) .saturation(1.5f)
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
@@ -40,8 +42,6 @@ public class ModItems {
 
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_gem_transmutation"));
     public static final Item schematicsFeyAltar = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_fey_altar"));
-
-    public static final MarketScroll marketScroll = new MarketScroll(FeywildMod.getInstance(),new Item.Properties().stacksTo(1));
 
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, new Item.Properties());
     public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
