@@ -50,12 +50,10 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
     private final AnimationFactory animationFactory = new AnimationFactory(this);
     private BlockPos summonPos;
     private boolean isTamed;
-    private final String typeS;
 
     public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World worldIn) {
         super(type, worldIn);
         //GeckoLib check
-        typeS = Objects.requireNonNull(getType().getRegistryName()).getPath();
         this.noCulling = true;
         this.moveControl = new MovementController(this);
     }
@@ -225,17 +223,17 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         if (!this.dead && !this.isDeadOrDying()) {
             if (this.getState() == State.ATTACKING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation."+typeS+".smash", false));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", false));
                 return PlayState.CONTINUE;
             } else if (this.getState() == State.WORKING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation."+typeS+".craft", true));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
                 return PlayState.CONTINUE;
             }
         }
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation."+typeS+".walk", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation."+typeS+".stand", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
         }
         return PlayState.CONTINUE;
     }

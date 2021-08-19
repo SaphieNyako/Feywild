@@ -40,8 +40,7 @@ public class DwarfBlacksmithModel extends AnimatedGeoModel<DwarfBlacksmithEntity
 
     @Override
     public ResourceLocation getAnimationFileLocation(DwarfBlacksmithEntity dwarfBlacksmithEntity) {
-        String string = Objects.requireNonNull(dwarfBlacksmithEntity.getType().getRegistryName()).getPath();
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/"+string+".animation.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/dwarf_blacksmith.animation.json");
     }
 
 }
