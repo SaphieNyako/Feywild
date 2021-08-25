@@ -41,6 +41,8 @@ public class BiomeLoader {
     public static final ResourceLocation GOLDEN_FIELDS = new ResourceLocation("mythicbotany", "golden_fields");
     public static final ResourceLocation ALFHEIM_HILLS = new ResourceLocation("mythicbotany", "alfheim_hills");
     public static final ResourceLocation DREAMWOOD_FOREST = new ResourceLocation("mythicbotany", "dreamwood_forest");
+    public static final ResourceLocation MUSHROOM_FIELDS = new ResourceLocation("minecraft", "mushroom_fields");
+    public static final ResourceLocation MUSHROOM_SHORE = new ResourceLocation("minecraft", "mushroom_field_shore");
 
     public static final Set<ResourceLocation> IGNORED_BIOMES = ImmutableSet.of(
             new ResourceLocation("bingolobby", "lobby")
@@ -49,7 +51,7 @@ public class BiomeLoader {
     public static final Set<ResourceLocation> SEASONAL_BIOMES = ImmutableSet.of(
             SPRING_BIOME, SUMMER_BIOME, AUTUMN_BIOME, WINTER_BIOME
     );
-    
+
     public static final Set<ResourceLocation> ALFHEIM_BIOMES = ImmutableSet.of(
             ALFHEIM_PLAINS, GOLDEN_FIELDS, ALFHEIM_HILLS, DREAMWOOD_FOREST
     );
@@ -62,14 +64,14 @@ public class BiomeLoader {
 
         RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, biomeId);
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
-        
+
         ores(event, biomeId, types, random);
         treePatches(event, biomeId, types, random);
         feywildBiomes(event, biomeId, types, random);
         mobSpawns(event, biomeId, types, random);
         commonStructures(event, biomeId, types, random);
     }
-    
+
     private static void ores(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         for (OreType ore : OreType.values()) {
             if (!event.getCategory().equals(Biome.Category.NETHER) && !event.getCategory().equals(Biome.Category.THEEND)) {
@@ -101,7 +103,7 @@ public class BiomeLoader {
             }
         }
     }
-    
+
     private static void addLooseTrees(BiomeLoadingEvent event, BaseTree tree, Random random, boolean isForest) {
         event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true)
                 .decorated(Features.Placements.HEIGHTMAP_SQUARE)
@@ -141,20 +143,22 @@ public class BiomeLoader {
 
     private static void mobSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !types.contains(BiomeDictionary.Type.OCEAN)) {
-            addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
+            if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
+                addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
+            }
             addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, types, MobConfig.spring_pixie.biomes, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
             addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, types, MobConfig.summer_pixie.biomes, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
             addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, types, MobConfig.autumn_pixie.biomes, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
             addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, types, MobConfig.winter_pixie.biomes, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
         }
     }
-    
+
     private static void addPixieSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, Set<BiomeDictionary.Type> types, List<BiomeDictionary.Type> targetBiomes, int weight, int min, int max) {
         for (BiomeDictionary.Type biomeTag : targetBiomes) {
-                if ((types.contains(biomeTag) && (targetBiome.equals(biomeId) || !SEASONAL_BIOMES.contains(biomeId))) || ALFHEIM_BIOMES.contains(biomeId)) {
-                    addSpawn(event, type, EntityClassification.CREATURE, weight, min, max);
-                }
+            if ((types.contains(biomeTag) && (targetBiome.equals(biomeId) || !SEASONAL_BIOMES.contains(biomeId))) || ALFHEIM_BIOMES.contains(biomeId)) {
+                addSpawn(event, type, EntityClassification.CREATURE, weight, min, max);
             }
+        }
     }
 
     private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, EntityClassification classification, int weight, int min, int max) {

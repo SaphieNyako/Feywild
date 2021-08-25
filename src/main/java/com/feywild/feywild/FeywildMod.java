@@ -62,7 +62,7 @@ public class FeywildMod extends ModXRegistration {
             @Nonnull
             @Override
             public ItemStack makeIcon() {
-                return new ItemStack(ModItems.shinyFeyGem);
+                return new ItemStack(ModItems.summoningScrollSpringPixie);
             }
         });
 

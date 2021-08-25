@@ -248,6 +248,12 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
         return this.animationFactory;
     }
 
+    /*
+    @Override
+    public boolean removeWhenFarAway(double p_213397_1_) {
+        return !this.isTamed && this.getVillagerXp() == 0;
+    } */
+
     public enum State {
         IDLE, ATTACKING, WORKING
     }
