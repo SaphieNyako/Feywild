@@ -51,19 +51,19 @@ import javax.annotation.Nonnull;
 
 @Mod("feywild")
 public class FeywildMod extends ModXRegistration {
-    
+
     private static FeywildMod instance;
     private static FeywildNetwork network;
-    
+
     public FeywildMod() {
         super("feywild", new ItemGroup("feywild") {
             @Nonnull
             @Override
             public ItemStack makeIcon() {
-                return new ItemStack(ModItems.shinyFeyGem);
+                return new ItemStack(ModItems.summoningScrollSpringPixie);
             }
         });
-        
+
         instance = this;
         network = new FeywildNetwork(this);
 
@@ -73,9 +73,9 @@ public class FeywildMod extends ModXRegistration {
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
-        
+
         GeckoLib.initialize();
-        
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
 
@@ -83,10 +83,10 @@ public class FeywildMod extends ModXRegistration {
 
         MinecraftForge.EVENT_BUS.addListener(BiomeLoader::loadBiome);
         MinecraftForge.EVENT_BUS.addListener(StructureLoader::addStructureSettings);
-        
+
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
-        
+
         MinecraftForge.EVENT_BUS.register(new EventListener());
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
@@ -135,7 +135,7 @@ public class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, AutumnPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, WinterPixieRenderer::new);
     }
-    
+
     private void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.springPixie, FeyEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.winterPixie, FeyEntity.getDefaultAttributes().build());

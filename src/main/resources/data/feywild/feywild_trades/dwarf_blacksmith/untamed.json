@@ -94,7 +94,7 @@
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": [ 8, 12 ]
+          "count": [8, 12]
         },
         "uses": 1,
         "exp": 10,
@@ -107,7 +107,7 @@
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": [ 6, 8 ]
+          "count": [6, 8]
         },
         "uses": 1,
         "exp": 10,
@@ -116,7 +116,7 @@
       {
         "output": {
           "item": "minecraft:lantern",
-          "count": [ 3, 5 ]
+          "count": [3, 5]
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
@@ -129,7 +129,7 @@
       {
         "output": {
           "item": "minecraft:torch",
-          "count": [ 5, 7 ]
+          "count": [5, 7]
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
@@ -146,7 +146,7 @@
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": [ 1, 2 ]
+          "count": [1, 2]
         },
         "uses": 3,
         "exp": 3,
@@ -155,7 +155,7 @@
       {
         "output": {
           "item": "minecraft:tnt",
-          "count": [ 3, 4 ]
+          "count": [3, 4]
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
@@ -177,19 +177,6 @@
         "uses": 2,
         "exp": 3,
         "mul": 0.05
-      },
-      {
-        "output": {
-          "item": "minecraft:mule_spawn_egg",
-          "count": 1
-        },
-        "input": {
-          "item": "feywild:lesser_fey_gem",
-          "count": [ 10, 14 ]
-        },
-        "uses": 5,
-        "exp": 1,
-        "mul": 0.05
       }
     ]
   },
@@ -203,7 +190,7 @@
         },
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": [ 18, 24 ]
+          "count": [18, 24]
         },
         "uses": 1,
         "exp": 5,
