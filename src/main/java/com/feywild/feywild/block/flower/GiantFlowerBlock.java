@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.flower;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -128,7 +129,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.animateTick(state, world, pos, random);
-        if (state.getValue(PART) == 3) this.animateFlower(state, world, pos, random);
+        if (state.getValue(PART) == 3 && ClientConfig.flower_particles) this.animateFlower(state, world, pos, random);
     }
 
     protected abstract void tickFlower(BlockState state, ServerWorld world, BlockPos pos, Random random);

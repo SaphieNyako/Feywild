@@ -1,6 +1,5 @@
 package com.feywild.feywild.block.flower;
 
-import com.feywild.feywild.config.ClientConfig;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -40,12 +39,10 @@ public class CrocusBlock extends GiantFlowerBlock {
 
     @Override
     protected void animateFlower(BlockState state, World world, BlockPos pos, Random random) {
-        if (ClientConfig.flower_particles) {
-            if (world.isNight()) {
-                world.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
-            } else {
-                world.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
-            }
+        if (world.isNight()) {
+            world.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
+        } else {
+            world.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
         }
     }
 
