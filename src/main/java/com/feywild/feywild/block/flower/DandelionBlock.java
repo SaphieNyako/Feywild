@@ -1,7 +1,6 @@
 package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.network.ParticleSerializer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.Block;
@@ -84,13 +83,11 @@ public class DandelionBlock extends GiantFlowerBlock {
 
     @Override
     protected void animateFlower(BlockState state, World world, BlockPos pos, Random random) {
-        if (ClientConfig.flower_particles) {
-            if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
-                double windStrength = Math.cos((double) world.getGameTime() / 2000) / 8;
-                double windX = Math.cos((double) world.getGameTime() / 1200) * windStrength;
-                double windZ = Math.sin((double) world.getGameTime() / 1000) * windStrength;
-                world.addParticle(ParticleTypes.END_ROD, pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), windX, 0, windZ);
-            }
+        if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
+            double windStrength = Math.cos((double) world.getGameTime() / 2000) / 8;
+            double windX = Math.cos((double) world.getGameTime() / 1200) * windStrength;
+            double windZ = Math.sin((double) world.getGameTime() / 1000) * windStrength;
+            world.addParticle(ParticleTypes.END_ROD, pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), windX, 0, windZ);
         }
     }
 
