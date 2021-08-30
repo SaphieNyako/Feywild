@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityType;
 @RegisterClass
 public class ModEntityTypes {
 
-    public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.MONSTER)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 

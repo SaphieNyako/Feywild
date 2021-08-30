@@ -239,11 +239,45 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
         return this.animationFactory;
     }
 
-    /*
+    @Override
+    public boolean isPersistenceRequired() { //is required when tamed is true, and xp is higher then 0
+        return this.isTamed || this.getVillagerXp() > 0;
+    }
+/*
     @Override
     public boolean removeWhenFarAway(double p_213397_1_) {
         return !this.isTamed && this.getVillagerXp() == 0;
     } */
+
+    @Override
+    public void checkDespawn() {
+        if (!this.isPersistenceRequired()) {
+            Entity entity = this.level.getNearestPlayer(this, -1.0D);
+            net.minecraftforge.eventbus.api.Event.Result result = net.minecraftforge.event.ForgeEventFactory.canEntityDespawn(this);
+            if (result == net.minecraftforge.eventbus.api.Event.Result.DENY) {
+                noActionTime = 0;
+                entity = null;
+            } else if (result == net.minecraftforge.eventbus.api.Event.Result.ALLOW) {
+                this.remove();
+                entity = null;
+            }
+            if (entity != null) {
+                double distance = entity.distanceToSqr(this);
+
+                int k = this.getType().getCategory().getNoDespawnDistance();
+                int l = k * k;
+
+                if (this.noActionTime > 2400 && this.random.nextInt(800) == 0 && distance > (double) l && this.removeWhenFarAway(distance * 2)) {
+                    this.remove();
+                } else if (distance < (double) l) {
+                    this.noActionTime = 0;
+                }
+            }
+
+        } else {
+            this.noActionTime = 0;
+        }
+    }
 
     public enum State {
         IDLE, ATTACKING, WORKING
