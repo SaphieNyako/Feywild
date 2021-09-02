@@ -5,6 +5,7 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.entity.MarketDwarfEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.base.FeyEntity;
@@ -132,6 +133,7 @@ public class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
+
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, DwarfBlacksmithRenderer::new);
@@ -142,6 +144,7 @@ public class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, AutumnPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, WinterPixieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragora, MandragoraRenderer::new);
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -155,6 +158,7 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfBlacksmithMarket, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.mandragora, MandragoraEntity.getDefaultAttributes().build());
     }
 
     //This might have a conflict when merging with the quests

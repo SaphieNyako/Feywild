@@ -8,29 +8,33 @@ import net.minecraft.entity.EntityType;
 @RegisterClass
 public class ModEntityTypes {
 
+    public static final EntityType<MandragoraEntity> mandragora = EntityType.Builder.of(MandragoraEntity::new, EntityClassification.CREATURE)
+            .sized(0.7f, 1)
+            .build(FeywildMod.getInstance().modid + "_mandragora");
+
     public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.MONSTER)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 
     public static final EntityType<MarketDwarfEntity> dwarfArtificer = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
-            .sized(1,1)
-            .build(FeywildMod.getInstance().modid+"_dwarf_artificer");
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_artificer");
 
     public static final EntityType<MarketDwarfEntity> dwarfBaker = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
-            .sized(1,1)
-            .build(FeywildMod.getInstance().modid+"_dwarf_baker");
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_baker");
 
     public static final EntityType<MarketDwarfEntity> dwarfShepherd = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
-            .sized(1,1)
-            .build(FeywildMod.getInstance().modid+"_dwarf_shepherd");
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_shepherd");
 
     public static final EntityType<MarketDwarfEntity> dwarfDragonHunter = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
-            .sized(1,1)
-            .build(FeywildMod.getInstance().modid+"_dwarf_dragon_hunter");
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_dragon_hunter");
 
     public static final EntityType<MarketDwarfEntity> dwarfBlacksmithMarket = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
-            .sized(1,1)
-            .build(FeywildMod.getInstance().modid+"_dwarf_blacksmith_market");
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith_market");
 
     public static final EntityType<SpringPixieEntity> springPixie = EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
