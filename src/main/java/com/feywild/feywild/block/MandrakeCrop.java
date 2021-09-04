@@ -1,5 +1,6 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -78,11 +79,13 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult trace) {
+        if (player.getItemInHand(hand).getItem() != ModItems.magicalHoneyCookie.getItem()) { //this doesn't work like I want to...
+            if (world.isClientSide) {
 
-        if (world.isClientSide) {
-
-            world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
+                world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
+            }
         }
+
         return super.use(state, world, pos, player, hand, trace);
     }
 }

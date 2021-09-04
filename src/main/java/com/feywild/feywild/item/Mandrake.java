@@ -6,15 +6,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
 public class Mandrake extends TooltipItem {
 
-    public Mandrake(ModX mod, Properties properties, ITextComponent... itemTooltip) {
-        super(mod, properties, itemTooltip);
+    public Mandrake(ModX mod, Properties properties) {
+        super(mod, properties, new TranslationTextComponent("message.feywild.mandrake"));
     }
 
     @Nonnull

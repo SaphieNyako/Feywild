@@ -10,6 +10,7 @@ import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
 
 @RegisterClass
@@ -24,30 +25,37 @@ public class ModItems {
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item inactiveMarketRuneStone = new ItemBase(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
-
-    //Can also give food item .hunger(5) .saturation(1.5f)
-    public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
-            new Food.Builder().effect(
-                    () -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));
-
-    public static final Item mandrake = new Mandrake(FeywildMod.getInstance(), new Item.Properties().food(
-            new Food.Builder()
-                    .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
-                    .build()
-    ), new TranslationTextComponent("message.feywild.mandrake"));
-
-    public static final MandrakePotion mandrakePotion = new MandrakePotion(FeywildMod.getInstance(), new Item.Properties().food(new Food.Builder().build()));
-
     public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();
-
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_gem_transmutation"));
     public static final Item schematicsFeyAltar = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_fey_altar"));
-
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, new Item.Properties());
     public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
     public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixie, new Item.Properties());
     public static final SummoningScrollFey<AutumnPixieEntity> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixie, new Item.Properties());
     public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixie, new Item.Properties());
+
+    /* FOOD */
+    public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
+            new Food.Builder().effect(() -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));
+
+    public static final Item mandrake = new Mandrake(FeywildMod.getInstance(), new Item.Properties().food(
+            new Food.Builder()
+                    .nutrition(3)
+                    .saturationMod(1.2f)
+                    .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
+                    .build()));
+
+    public static final MandrakePotion mandrakePotion = new MandrakePotion(FeywildMod.getInstance(), new Item.Properties().food(
+            new Food.Builder().build()));
+
+    public static final Item magicalHoneyCookie = new MagicalHoneyCookie(FeywildMod.getInstance(), ModEntityTypes.mandragora, SoundEvents.FOX_EAT, new Item.Properties().food(
+            new Food.Builder()
+                    .nutrition(5)
+                    .saturationMod(2.0f)
+                    .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 300, 0), 1)
+                    .build()));
+
+
 
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
