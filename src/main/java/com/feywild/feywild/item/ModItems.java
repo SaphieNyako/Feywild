@@ -30,7 +30,7 @@ public class ModItems {
             new Food.Builder().effect(
                     () -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));
 
-    public static final Item mandrake = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().food(
+    public static final Item mandrake = new Mandrake(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder()
                     .effect(() -> new EffectInstance(Effects.BLINDNESS, 200, 0), 1)
                     .build()

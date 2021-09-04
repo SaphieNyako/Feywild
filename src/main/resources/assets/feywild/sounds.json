@@ -155,5 +155,14 @@
         "stream": true
       }
     ]
+  },
+  "mandrake_scream": {
+    "subtitle": "mandrake_scream",
+    "sounds": [
+      {
+        "name": "feywild:mandrake_scream",
+        "stream": true
+      }
+    ]
   }
 }

@@ -1,19 +1,22 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -33,12 +36,12 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
             Block.box(0, 0, 0, 16, 14, 16),
             Block.box(0, 0, 0, 16, 16, 16)
     };
-    
+
     private final BlockItem seed;
 
     public MandrakeCrop(ModX mod) {
         super(AbstractBlock.Properties.copy(Blocks.WHEAT));
-        Item.Properties properties = mod.tab == null ?  new Item.Properties() : new Item.Properties().tab(mod.tab);
+        Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.seed = new BlockItem(this, properties);
     }
 
@@ -69,5 +72,17 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
 
     public BlockItem getSeed() {
         return this.seed;
+    }
+
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public ActionResultType use(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult trace) {
+
+        if (world.isClientSide) {
+
+            world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
+        }
+        return super.use(state, world, pos, player, hand, trace);
     }
 }
