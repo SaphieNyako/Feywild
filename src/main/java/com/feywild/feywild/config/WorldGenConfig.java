@@ -5,7 +5,7 @@ import io.github.noeppi_noeppi.libx.config.validator.FloatRange;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 
 public class WorldGenConfig {
-    
+
     public static class biomes {
 
         public static class spring {
@@ -52,15 +52,15 @@ public class WorldGenConfig {
             public static float size = 0.005f;
         }
     }
-    
+
     public static class structures {
-        
+
         public static class spring_world_tree {
-            
+
             @Config("The minimum distance between two spring world trees")
             @IntRange(min = 1)
             public static int minimum_distance = 50;
-            
+
             @Config("The average distance between two spring world trees. Must be higher than minimum.")
             @IntRange(min = 1)
             public static int average_distance = 100;
@@ -121,31 +121,31 @@ public class WorldGenConfig {
             public static int average_distance = 35;
         }
     }
-    
+
     public static class ores {
-        
+
         public static class fey_gem {
-            
+
             @Config("Weight for fey gems to spawn")
             @IntRange(min = 0)
             public static int weight = 10;
-            
+
             @Config("Size for fey gems vines")
             @IntRange(min = 0)
             public static int size = 5;
-            
+
             @Config("Minimum height for fey gems vines")
             @IntRange(min = 0, max = 255)
             public static int min_height = 11;
-            
+
             @Config("Maximum height for fey gems vines")
             @IntRange(min = 0, max = 255)
             public static int max_height = 5;
         }
     }
-    
+
     public static class tree_patches {
-        
+
         @Config("Whether spring tree patches should be enabled")
         public static boolean spring = true;
 
@@ -157,11 +157,11 @@ public class WorldGenConfig {
 
         @Config("Whether winter tree patches should be enabled")
         public static boolean winter = true;
-        
+
         @Config("Tree patch spawn chance.")
         @FloatRange(min = 0, max = 1)
         public static float chance = 0.01f;
-        
+
         @Config("Tree patch spawn size.")
         @IntRange(min = 1)
         public static int size = 3;

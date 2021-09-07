@@ -28,7 +28,7 @@ public class StructureLoader {
             if (world.getChunkSource().generator instanceof FlatChunkGenerator && world.dimension().equals(World.OVERWORLD)) {
                 return;
             }
-            
+
             try {
                 Method method = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
                 method.setAccessible(true);
@@ -38,7 +38,7 @@ public class StructureLoader {
             } catch (Exception e) {
                 FeywildMod.getInstance().logger.error("Was unable to check if " + world.dimension().location() + " is using a Terraforged ChunkGenerator.");
             }
-            
+
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(world.getChunkSource().generator.getSettings().structureConfig());
             tempMap.putIfAbsent(ModStructures.springWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.springWorldTree));
             tempMap.putIfAbsent(ModStructures.summerWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.summerWorldTree));
@@ -48,5 +48,6 @@ public class StructureLoader {
             tempMap.putIfAbsent(ModStructures.library, DimensionStructuresSettings.DEFAULTS.get(ModStructures.library));
             world.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
+
     }
 }

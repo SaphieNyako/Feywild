@@ -3,6 +3,7 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypesMapper;
+import com.feywild.feywild.config.mapper.ResourceLocationMapper;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.MandragoraEntity;
@@ -71,6 +72,7 @@ public class FeywildMod extends ModXRegistration {
         network = new FeywildNetwork(this);
 
         ConfigManager.registerValueMapper(new ResourceLocation(this.modid, "biome_types"), new BiomeTypesMapper());
+        ConfigManager.registerValueMapper(new ResourceLocation(this.modid, "resource_location"), new ResourceLocationMapper());
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "misc"), MiscConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "world_gen"), WorldGenConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);

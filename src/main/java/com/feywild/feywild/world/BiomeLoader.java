@@ -56,6 +56,8 @@ public class BiomeLoader {
             ALFHEIM_PLAINS, GOLDEN_FIELDS, ALFHEIM_HILLS, DREAMWOOD_FOREST
     );
 
+    public static final Set<ResourceLocation> BLACKLIST_BIOMES = MobConfig.dimensions.black_list_biomes;
+
     public static void loadBiome(BiomeLoadingEvent event) {
         Random random = new Random();
         @Nullable
@@ -142,7 +144,7 @@ public class BiomeLoader {
     }
 
     private static void mobSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
-        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !types.contains(BiomeDictionary.Type.OCEAN)) {
+        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
             if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
                 addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
             }
@@ -156,6 +158,7 @@ public class BiomeLoader {
     private static void addPixieSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, Set<BiomeDictionary.Type> types, List<BiomeDictionary.Type> targetBiomes, int weight, int min, int max) {
         for (BiomeDictionary.Type biomeTag : targetBiomes) {
             if ((types.contains(biomeTag) && (targetBiome.equals(biomeId) || !SEASONAL_BIOMES.contains(biomeId))) || ALFHEIM_BIOMES.contains(biomeId)) {
+
                 addSpawn(event, type, EntityClassification.CREATURE, weight, min, max);
             }
         }
@@ -166,7 +169,7 @@ public class BiomeLoader {
     }
 
     private static void commonStructures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
-        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !types.contains(BiomeDictionary.Type.OCEAN)) {
+        if (!types.contains(BiomeDictionary.Type.OCEAN) && types.contains(BiomeDictionary.Type.OVERWORLD)) {
             if (types.contains(BiomeDictionary.Type.PLAINS)) {
                 event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
                 event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_LIBRARY);

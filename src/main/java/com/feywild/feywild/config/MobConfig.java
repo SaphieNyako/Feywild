@@ -1,11 +1,14 @@
 package com.feywild.feywild.config;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;
+import java.util.Set;
 
 public class MobConfig {
 
@@ -109,5 +112,22 @@ public class MobConfig {
         @Config("Maximum entities to spawn in a group group")
         @IntRange(min = 1)
         public static int max = 1;
+    }
+
+    public static class dimensions {
+
+        @Config(value = "What dimension biomes should be blacklisted for Feywild mobs", mapper = "feywild:resource_location")
+        @SuppressWarnings("config")
+        public static Set<ResourceLocation> black_list_biomes = ImmutableSet.of(
+                new ResourceLocation("undergarden", "barren_abyss"),
+                new ResourceLocation("undergarden", "dense_forest"),
+                new ResourceLocation("undergarden", "forgotten_field"),
+                new ResourceLocation("undergarden", "frostfields"),
+                new ResourceLocation("undergarden", "gronglegrowth"),
+                new ResourceLocation("undergarden", "mushroom_bog"),
+                new ResourceLocation("undergarden", "smog_spires"),
+                new ResourceLocation("undergarden", "smogstem_forest"),
+                new ResourceLocation("undergarden", "wigglewood_forest")
+        );
     }
 }
