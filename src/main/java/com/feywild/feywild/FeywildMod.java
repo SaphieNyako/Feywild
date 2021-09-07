@@ -23,6 +23,7 @@ import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.BiomeLoader;
 import com.feywild.feywild.world.StructureLoader;
+import com.feywild.feywild.world.biome.ModAlfheimBiomes;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.gen.OreType;
@@ -44,6 +45,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -80,6 +82,11 @@ public class FeywildMod extends ModXRegistration {
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
 
         GeckoLib.initialize();
+        
+        if (ModList.get().isLoaded("mythicbotany")) {
+            this.addRegistrationHandler(ModAlfheimBiomes::register);
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
+        }
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
