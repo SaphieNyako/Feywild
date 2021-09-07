@@ -9,6 +9,8 @@ import com.feywild.feywild.world.biome.biomes.WinterBiome;
 import mythicbotany.alfheim.AlfheimBiomeManager;
 import mythicbotany.alfheim.AlfheimBiomes;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 // No @RegisterClass as this may not be loaded if MythicBotany is
@@ -21,7 +23,10 @@ public class ModAlfheimBiomes {
             .specialEffects(SpringBiome.ambience().build())
             .biomeCategory(Biome.Category.FOREST)
             .mobSpawnSettings(AlfheimBiomes.alfheimMobs().build())
-            .generationSettings(AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY).build())
+            .generationSettings(
+                    AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY)
+                            .build()
+            )
             .build();
 
     public static final Biome alfheimSummer = AlfheimBiomes.alfheimBiome()
@@ -29,7 +34,10 @@ public class ModAlfheimBiomes {
             .specialEffects(SummerBiome.ambience().build())
             .biomeCategory(Biome.Category.FOREST)
             .mobSpawnSettings(AlfheimBiomes.alfheimMobs().build())
-            .generationSettings(AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY).build())
+            .generationSettings(
+                    AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY)
+                            .build()
+            )
             .build();
 
     public static final Biome alfheimAutumn = AlfheimBiomes.alfheimBiome()
@@ -37,7 +45,10 @@ public class ModAlfheimBiomes {
             .specialEffects(AutumnBiome.ambience().build())
             .biomeCategory(Biome.Category.FOREST)
             .mobSpawnSettings(AlfheimBiomes.alfheimMobs().build())
-            .generationSettings(AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY).build())
+            .generationSettings(
+                    AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY)
+                            .build()
+            )
             .build();
 
     public static final Biome alfheimWinter = AlfheimBiomes.alfheimBiome()
@@ -45,7 +56,11 @@ public class ModAlfheimBiomes {
             .specialEffects(WinterBiome.ambience().build())
             .biomeCategory(Biome.Category.FOREST)
             .mobSpawnSettings(AlfheimBiomes.alfheimMobs().build())
-            .generationSettings(AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY).build())
+            .generationSettings(
+                    AlfheimBiomes.alfheimGen(AlfheimBiomes.AlfBiomeType.GRASSY)
+                            .addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Features.FREEZE_TOP_LAYER)
+                            .build()
+            )
             .build();
     
     public static void register() {
