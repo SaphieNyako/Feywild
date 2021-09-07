@@ -37,10 +37,10 @@ public class BiomeLoader {
     public static final ResourceLocation SUMMER_BIOME = new ResourceLocation(FeywildMod.getInstance().modid, "golden_seelie_fields");
     public static final ResourceLocation AUTUMN_BIOME = new ResourceLocation(FeywildMod.getInstance().modid, "eternal_fall");
     public static final ResourceLocation WINTER_BIOME = new ResourceLocation(FeywildMod.getInstance().modid, "frozen_retreat");
-    public static final ResourceLocation ALFHEIM_PLAINS = new ResourceLocation("mythicbotany", "alfheim_plains");
-    public static final ResourceLocation GOLDEN_FIELDS = new ResourceLocation("mythicbotany", "golden_fields");
-    public static final ResourceLocation ALFHEIM_HILLS = new ResourceLocation("mythicbotany", "alfheim_hills");
-    public static final ResourceLocation DREAMWOOD_FOREST = new ResourceLocation("mythicbotany", "dreamwood_forest");
+    public static final ResourceLocation SPRING_ALFHEIM = new ResourceLocation(FeywildMod.getInstance().modid, "alfheim_spring");
+    public static final ResourceLocation SUMMER_ALFHEIM = new ResourceLocation(FeywildMod.getInstance().modid, "alfheim_summer");
+    public static final ResourceLocation AUTUMN_ALFHEIM = new ResourceLocation(FeywildMod.getInstance().modid, "alfheim_autumn");
+    public static final ResourceLocation WINTER_ALFHEIM = new ResourceLocation(FeywildMod.getInstance().modid, "alfheim_winter");
     public static final ResourceLocation MUSHROOM_FIELDS = new ResourceLocation("minecraft", "mushroom_fields");
     public static final ResourceLocation MUSHROOM_SHORE = new ResourceLocation("minecraft", "mushroom_field_shore");
 
@@ -53,7 +53,7 @@ public class BiomeLoader {
     );
 
     public static final Set<ResourceLocation> ALFHEIM_BIOMES = ImmutableSet.of(
-            ALFHEIM_PLAINS, GOLDEN_FIELDS, ALFHEIM_HILLS, DREAMWOOD_FOREST
+            SPRING_ALFHEIM, SUMMER_ALFHEIM, AUTUMN_ALFHEIM, WINTER_ALFHEIM
     );
 
     public static final Set<ResourceLocation> BLACKLIST_BIOMES = MobConfig.dimensions.black_list_biomes;
@@ -113,21 +113,21 @@ public class BiomeLoader {
     }
 
     private static void feywildBiomes(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
-        if (SPRING_BIOME.equals(biomeId) || (ALFHEIM_PLAINS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
+        if (SPRING_BIOME.equals(biomeId) || (SPRING_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_DANDELION);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_FLOWERS);
             event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
         }
 
-        if (SUMMER_BIOME.equals(biomeId) || (GOLDEN_FIELDS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
+        if (SUMMER_BIOME.equals(biomeId) || (SUMMER_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_SUNFLOWER);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
             event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
         }
 
-        if (AUTUMN_BIOME.equals(biomeId) || (ALFHEIM_HILLS.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
+        if (AUTUMN_BIOME.equals(biomeId) || (AUTUMN_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_PUMPKINS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SWAMP_FLOWERS);
@@ -135,7 +135,7 @@ public class BiomeLoader {
             event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
         }
 
-        if (WINTER_BIOME.equals(biomeId) || (DREAMWOOD_FOREST.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
+        if (WINTER_BIOME.equals(biomeId) || (WINTER_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_CROCUS);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);

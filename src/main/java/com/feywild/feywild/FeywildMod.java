@@ -83,7 +83,7 @@ public class FeywildMod extends ModXRegistration {
 
         GeckoLib.initialize();
         
-        if (ModList.get().isLoaded("mythicbotany")) {
+        if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
             this.addRegistrationHandler(ModAlfheimBiomes::register);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
         }
