@@ -61,15 +61,14 @@ import java.util.UUID;
 public abstract class FeyEntity extends CreatureEntity implements ITameable, IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(FeyEntity.class, DataSerializers.BOOLEAN);
-    
+
     public final Alignment alignment;
+    private final AnimationFactory factory = new AnimationFactory(this);
     @Nullable
     private BlockPos currentTargetPos;
     private boolean isTamed;
     @Nullable
     private UUID owner;
-    
-    private final AnimationFactory factory = new AnimationFactory(this);
 
     protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
         super(type, world);
@@ -112,11 +111,6 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
     public PlayerEntity getOwner() {
         return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
     }
-    
-    @Nullable
-    public UUID getOwnerId() {
-        return this.owner;
-    }
 
     public void setOwner(@Nullable PlayerEntity owner) {
         this.setOwner(owner == null ? null : owner.getUUID());
@@ -124,6 +118,11 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
 
     public void setOwner(@Nullable UUID owner) {
         this.owner = owner;
+    }
+
+    @Nullable
+    public UUID getOwnerId() {
+        return this.owner;
     }
 
     public Vector3d getCurrentPointOfInterest() {
@@ -139,21 +138,21 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
         }
         return null;
     }
-    
+
     public boolean isCasting() {
         return this.entityData.get(CASTING);
     }
-    
+
     public void setCasting(boolean casting) {
         this.entityData.set(CASTING, casting);
     }
-    
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CASTING, false);
     }
-    
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(50, new FeyWildPanicGoal(this, 0.003, 13));
@@ -291,12 +290,12 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
             } else if (this.isTamed() && player instanceof ServerPlayerEntity && this.owner != null && this.owner.equals(player.getUUID())) {
-                this.interactQuest((ServerPlayerEntity) player, hand); 
+                this.interactQuest((ServerPlayerEntity) player, hand);
             }
         }
         return ActionResultType.CONSUME;
     }
-    
+
     private void interactQuest(ServerPlayerEntity player, Hand hand) {
         QuestData quests = QuestData.get(player);
         if (quests.canComplete(this.alignment)) {
@@ -322,7 +321,7 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
             }
         }
     }
-    
+
     private boolean tryAcceptGift(ServerPlayerEntity player, Hand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!stack.isEmpty()) {
