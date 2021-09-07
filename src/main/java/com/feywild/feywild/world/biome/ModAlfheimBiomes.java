@@ -57,10 +57,10 @@ public class ModAlfheimBiomes {
     
     public static void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            AlfheimBiomeManager.addRareBiome(alfheimSpring.getRegistryName());
-            AlfheimBiomeManager.addRareBiome(alfheimSummer.getRegistryName());
-            AlfheimBiomeManager.addRareBiome(alfheimAutumn.getRegistryName());
-            AlfheimBiomeManager.addRareBiome(alfheimWinter.getRegistryName());
+            AlfheimBiomeManager.addUncommonBiome(alfheimSpring.getRegistryName());
+            AlfheimBiomeManager.addUncommonBiome(alfheimSummer.getRegistryName());
+            AlfheimBiomeManager.addUncommonBiome(alfheimAutumn.getRegistryName());
+            AlfheimBiomeManager.addUncommonBiome(alfheimWinter.getRegistryName());
         });
     }
 }

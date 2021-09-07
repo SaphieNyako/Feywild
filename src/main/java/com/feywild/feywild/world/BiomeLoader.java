@@ -144,21 +144,28 @@ public class BiomeLoader {
     }
 
     private static void mobSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
-        if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
-            if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
-                addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
+        if (CompatConfig.mythic_alfheim.locked) {
+            // No dwarves, they can only be summoned using an ancient rune stone
+            if (SPRING_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.springPixie, EntityClassification.CREATURE, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
+            if (SUMMER_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.summerPixie, EntityClassification.CREATURE, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
+            if (AUTUMN_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.autumnPixie, EntityClassification.CREATURE, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
+            if (WINTER_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
+        } else {
+            if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
+                if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
+                    addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
+                }
+                addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, types, MobConfig.spring_pixie.biomes, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
+                addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, types, MobConfig.summer_pixie.biomes, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
+                addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, types, MobConfig.autumn_pixie.biomes, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
+                addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, types, MobConfig.winter_pixie.biomes, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
             }
-            addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, types, MobConfig.spring_pixie.biomes, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
-            addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, types, MobConfig.summer_pixie.biomes, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
-            addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, types, MobConfig.autumn_pixie.biomes, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
-            addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, types, MobConfig.winter_pixie.biomes, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
         }
     }
 
     private static void addPixieSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, Set<BiomeDictionary.Type> types, List<BiomeDictionary.Type> targetBiomes, int weight, int min, int max) {
         for (BiomeDictionary.Type biomeTag : targetBiomes) {
             if ((types.contains(biomeTag) && (targetBiome.equals(biomeId) || !SEASONAL_BIOMES.contains(biomeId))) || ALFHEIM_BIOMES.contains(biomeId)) {
-
                 addSpawn(event, type, EntityClassification.CREATURE, weight, min, max);
             }
         }
