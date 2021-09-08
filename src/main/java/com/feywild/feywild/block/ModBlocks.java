@@ -6,6 +6,7 @@ import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
+import com.feywild.feywild.block.runestone.AncientRunestoneBlock;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
@@ -31,4 +32,6 @@ public class ModBlocks {
     
     public static final TreeMushroomBlock treeMushroom = new TreeMushroomBlock(FeywildMod.getInstance());
     public static final MandrakeCrop mandrakeCrop = new MandrakeCrop(FeywildMod.getInstance());
+
+    public static final AncientRunestoneBlock ancientRunestone = new AncientRunestoneBlock(FeywildMod.getInstance());
 }
