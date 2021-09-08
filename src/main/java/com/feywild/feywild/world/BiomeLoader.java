@@ -11,6 +11,7 @@ import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.google.common.collect.ImmutableSet;
+import mythicbotany.alfheim.AlfheimBiomeManager;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.RegistryKey;
@@ -76,8 +77,15 @@ public class BiomeLoader {
 
     private static void ores(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         for (OreType ore : OreType.values()) {
-            if (!event.getCategory().equals(Biome.Category.NETHER) && !event.getCategory().equals(Biome.Category.THEEND)) {
-                event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore.getFeature());
+            if (!CompatConfig.mythic_alfheim.locked) {
+                if (!event.getCategory().equals(Biome.Category.NETHER) && !event.getCategory().equals(Biome.Category.THEEND)) {
+                    event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore.getFeature());
+                }
+            }
+            if (CompatConfig.mythic_alfheim.alfheim) {
+                if (types.contains(AlfheimBiomeManager.ALFHEIM)) {
+                    event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
+                }
             }
         }
     }
