@@ -59,14 +59,17 @@ public class SummerBiome extends BaseBiome {
 
         return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
                 .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0)
-                .specialEffects((new BiomeAmbience.Builder())
-                        .waterColor(0x3f76e4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xc0d8ff)
-                        .skyColor(BiomeMaker.calculateSkyColor(0.9F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, true))
-                        .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F))
-                        .build())
+                .specialEffects(ambience().build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+    }
+
+    public static BiomeAmbience.Builder ambience() {
+        return new BiomeAmbience.Builder()
+                .waterColor(0x3f76e4)
+                .waterFogColor(0x50533)
+                .fogColor(0xc0d8ff)
+                .skyColor(BiomeMaker.calculateSkyColor(0.9F))
+                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, true))
+                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F));
     }
 }

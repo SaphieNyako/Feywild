@@ -53,14 +53,17 @@ public class SpringBiome extends BaseBiome {
 
         return new Biome.Builder().precipitation(Biome.RainType.RAIN)
                 .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
-                .specialEffects((new BiomeAmbience.Builder())
-                        .waterColor(0x3f76e4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xc0d8ff)
-                        .skyColor(BiomeMaker.calculateSkyColor(0.7F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, true))
-                        .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F))
-                        .build())
+                .specialEffects(ambience().build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+    }
+    
+    public static BiomeAmbience.Builder ambience() {
+        return new BiomeAmbience.Builder()
+                .waterColor(0x3f76e4)
+                .waterFogColor(0x50533)
+                .fogColor(0xc0d8ff)
+                .skyColor(BiomeMaker.calculateSkyColor(0.7F))
+                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, true))
+                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F));
     }
 }

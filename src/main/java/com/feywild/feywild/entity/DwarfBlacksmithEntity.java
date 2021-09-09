@@ -51,8 +51,8 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
     private BlockPos summonPos;
     private boolean isTamed;
 
-    public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World worldIn) {
-        super(type, worldIn);
+    public DwarfBlacksmithEntity(EntityType<? extends TraderEntity> type, World world) {
+        super(type, world);
         //GeckoLib check
         this.noCulling = true;
         this.moveControl = new MovementController(this);

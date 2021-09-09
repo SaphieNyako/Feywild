@@ -34,6 +34,7 @@
   "item.feywild.mandrake": "Mandrake",
   "item.feywild.magical_honey_cookie": "Magical Honey Cookie",
   "block.feywild.fey_gem_block": "Fey Gem Block",
+  "block.feywild.fey_gem_block_livingrock": "Fey Gem Block",
   "block.feywild.dwarven_anvil": "Dwarven Anvil",
   "block.feywild.fey_altar": "Fey Altar",
   "block.feywild.autumn_tree_log": "Autumn Tree Log",
@@ -60,6 +61,7 @@
   "block.feywild.crocus_stem": "Crocus Stem",
   "block.feywild.sunflower_stem": "Sunflower Stem",
   "block.feywild.dandelion_stem": "Dandelion Stem",
+  "block.feywild.ancient_runestone": "Ancient Runestone",
   "entity.feywild.spring_pixie": "Spring Pixie",
   "entity.feywild.summer_pixie": "Summer Pixie",
   "entity.feywild.autumn_pixie": "Autumn Pixie",
@@ -211,5 +213,9 @@
   "biome.feywild.blossoming_wealds": "Blossoming Wealds",
   "biome.feywild.eternal_fall": "Eternal Fall",
   "biome.feywild.golden_seelie_fields": "Golden Seelie Fields",
-  "biome.feywild.frozen_retreat": "Frozen Retreat"
+  "biome.feywild.frozen_retreat": "Frozen Retreat",
+  "biome.feywild.alfheim_spring": "Alfheim Blossoming Wealds",
+  "biome.feywild.alfheim_summer": "Alfheim Eternal Fall",
+  "biome.feywild.alfheim_autumn": "Alfheim Golden Seelie Fields",
+  "biome.feywild.alfheim_winter": "Alfheim Frozen Retreat"
 }

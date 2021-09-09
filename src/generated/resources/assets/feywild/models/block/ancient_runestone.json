@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_top",
+  "textures": {
+    "side": "feywild:block/ancient_runestone_side",
+    "top": "feywild:block/ancient_runestone_top"
+  }
+}

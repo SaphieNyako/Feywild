@@ -1,7 +1,10 @@
 package com.feywild.feywild.world.structure.load;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.CompatConfig;
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -69,6 +72,8 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
         world.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
         if (data.equals("Waystone") && CompatConfig.waystones) {
             placePiece(templates, world, "waystone", pos, random);
+        } else if (data.equals("Dwarf")) {
+            placeDwarf(world, pos);
         }
         super.handleDataMarker(world, block, pos, rot, random, box);
     }
@@ -82,5 +87,16 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
     private void placePiece(TemplateManager templates, ISeedReader world, String name, BlockPos pos, Random random) {
         Template template = templates.getOrCreate(new ResourceLocation(FeywildMod.getInstance().modid, "parts/" + name));
         template.placeInWorld(world, pos, new PlacementSettings(), random);
+    }
+    
+    private void placeDwarf(ISeedReader world, BlockPos pos) {
+        if (CompatConfig.mythic_alfheim.locked) {
+            world.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
+        } else {
+            DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.dwarfBlacksmith, world.getLevel());
+            entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+            entity.setTamed(false);
+            world.addFreshEntity(entity);
+        }
     }
 }
