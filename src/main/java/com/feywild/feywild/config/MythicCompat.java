@@ -5,7 +5,7 @@ public enum MythicCompat {
     OVERWORLD(true, false, false),
     ALFHEIM(false, true, false),
     BOTH(true, true, false),
-    ALFHEIM_LOCKED(false, true, false);
+    ALFHEIM_LOCKED(false, true, true);
     
     public final boolean overworld;
     public final boolean alfheim;
