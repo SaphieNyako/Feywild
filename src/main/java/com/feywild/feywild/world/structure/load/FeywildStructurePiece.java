@@ -9,12 +9,14 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.feature.jigsaw.IJigsawDeserializer;
 import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
 import net.minecraft.world.gen.feature.jigsaw.SingleJigsawPiece;
@@ -96,6 +98,18 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
             DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.dwarfBlacksmith, world.getLevel());
             entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             entity.setTamed(false);
+            addEntity(world, entity);
+        }
+    }
+    
+    private void addEntity(ISeedReader world, Entity entity) {
+        if (world instanceof WorldGenRegion) {
+            int x = ((int) Math.floor(entity.getX())) >> 4;
+            int z = ((int) Math.floor(entity.getZ())) >> 4;
+            if (((WorldGenRegion) world).getCenterX() == x && ((WorldGenRegion) world).getCenterZ() == z) {
+                world.addFreshEntity(entity);
+            }
+        } else {
             world.addFreshEntity(entity);
         }
     }
