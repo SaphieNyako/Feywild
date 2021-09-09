@@ -34,10 +34,10 @@ public class AlfheimAutumnBiome extends BaseBiome {
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 4, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie, 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 1, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie, 50, 1, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH, 50, 1, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.alfPixie, 50, 4, 10));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.alfPixie, 30, 4, 10));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
@@ -69,7 +69,7 @@ public class AlfheimAutumnBiome extends BaseBiome {
                         .waterFogColor(0x041f33)
                         .fogColor(0xc0d8ff)
                         .skyColor(BiomeMaker.calculateSkyColor(0.8F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, true))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false))
                         .foliageColorOverride(0x6a7039)
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001F))
                         .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP).build())

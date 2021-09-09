@@ -33,10 +33,10 @@ public class AlfheimSummerBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 50, 1, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 1, 2, 5));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.alfPixie, 50, 4, 10));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.alfPixie, 30, 4, 10));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
         //Standard
@@ -65,7 +65,7 @@ public class AlfheimSummerBiome extends BaseBiome {
                         .waterFogColor(0x041f33)
                         .fogColor(0xc0d8ff)
                         .skyColor(BiomeMaker.calculateSkyColor(0.9F))
-                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, true))
+                        .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false))
                         .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F))
                         .build())
                 .biomeCategory(Biome.Category.SAVANNA).temperature(0.9F).downfall(0)

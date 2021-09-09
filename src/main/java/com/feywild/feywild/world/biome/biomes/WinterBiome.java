@@ -22,6 +22,16 @@ public class WinterBiome extends BaseBiome {
 
     }
 
+    public static BiomeAmbience.Builder ambience() {
+        return new BiomeAmbience.Builder()
+                .waterColor(0x3f76e4)
+                .waterFogColor(0x50533)
+                .fogColor(0xc0d8ff)
+                .skyColor(BiomeMaker.calculateSkyColor(0))
+                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, false))
+                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F));
+    }
+
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -31,7 +41,7 @@ public class WinterBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.winterPixie, 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.winterPixie, 40, 1, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
@@ -67,15 +77,5 @@ public class WinterBiome extends BaseBiome {
                 .biomeCategory(Biome.Category.ICY).depth(depth).scale(scale).temperature(0).downfall(0.5F)
                 .specialEffects(ambience().build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-    }
-
-    public static BiomeAmbience.Builder ambience() {
-        return new BiomeAmbience.Builder()
-                .waterColor(0x3f76e4)
-                .waterFogColor(0x50533)
-                .fogColor(0xc0d8ff)
-                .skyColor(BiomeMaker.calculateSkyColor(0))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, true))
-                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001F));
     }
 }

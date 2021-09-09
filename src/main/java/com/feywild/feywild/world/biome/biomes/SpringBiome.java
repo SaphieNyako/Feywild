@@ -22,6 +22,16 @@ public class SpringBiome extends BaseBiome {
 
     }
 
+    public static BiomeAmbience.Builder ambience() {
+        return new BiomeAmbience.Builder()
+                .waterColor(0x3f76e4)
+                .waterFogColor(0x50533)
+                .fogColor(0xc0d8ff)
+                .skyColor(BiomeMaker.calculateSkyColor(0.7F))
+                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false))
+                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F));
+    }
+
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -31,7 +41,7 @@ public class SpringBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.springPixie, 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.springPixie, 40, 1, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
         this.addDefaultSpawns(mobSpawnBuilder);
         //Standard
@@ -55,15 +65,5 @@ public class SpringBiome extends BaseBiome {
                 .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
                 .specialEffects(ambience().build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-    }
-    
-    public static BiomeAmbience.Builder ambience() {
-        return new BiomeAmbience.Builder()
-                .waterColor(0x3f76e4)
-                .waterFogColor(0x50533)
-                .fogColor(0xc0d8ff)
-                .skyColor(BiomeMaker.calculateSkyColor(0.7F))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, true))
-                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F));
     }
 }

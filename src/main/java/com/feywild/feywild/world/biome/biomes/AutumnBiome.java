@@ -22,6 +22,18 @@ public class AutumnBiome extends BaseBiome {
 
     }
 
+    public static BiomeAmbience.Builder ambience() {
+        return new BiomeAmbience.Builder()
+                .waterColor(0x617b64)
+                .waterFogColor(0x232317)
+                .fogColor(0xc0d8ff)
+                .skyColor(BiomeMaker.calculateSkyColor(0.8F))
+                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false))
+                .foliageColorOverride(0x6a7039)
+                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001F))
+                .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP);
+    }
+
     @Override
     public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
 
@@ -33,7 +45,7 @@ public class AutumnBiome extends BaseBiome {
 
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 4, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie, 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie, 40, 1, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH, 50, 1, 3));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
 
@@ -64,17 +76,5 @@ public class AutumnBiome extends BaseBiome {
                 .biomeCategory(Biome.Category.MUSHROOM).depth(depth).scale(scale).temperature(0.8F).downfall(0.9F)
                 .specialEffects(ambience().build())
                 .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
-    }
-    
-    public static BiomeAmbience.Builder ambience() {
-        return new BiomeAmbience.Builder()
-                .waterColor(0x617b64)
-                .waterFogColor(0x232317)
-                .fogColor(0xc0d8ff)
-                .skyColor(BiomeMaker.calculateSkyColor(0.8F))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, true))
-                .foliageColorOverride(0x6a7039)
-                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001F))
-                .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP);
     }
 }

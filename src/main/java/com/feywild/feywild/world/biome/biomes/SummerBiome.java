@@ -28,7 +28,7 @@ public class SummerBiome extends BaseBiome {
                 .waterFogColor(0x50533)
                 .fogColor(0xc0d8ff)
                 .skyColor(BiomeMaker.calculateSkyColor(0.9F))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, true))
+                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false))
                 .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F));
 
     }
@@ -42,7 +42,7 @@ public class SummerBiome extends BaseBiome {
         // Mob Spawn
         final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 4, 4));
+        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 1, 4));
         mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
         mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
         DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
