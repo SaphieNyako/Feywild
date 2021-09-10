@@ -8,7 +8,6 @@ import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.render.*;
-import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
@@ -30,8 +29,6 @@ import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.Heightmap;
@@ -59,13 +56,7 @@ public class FeywildMod extends ModXRegistration {
     private static FeywildNetwork network;
 
     public FeywildMod() {
-        super("feywild", new ItemGroup("feywild") {
-            @Nonnull
-            @Override
-            public ItemStack makeIcon() {
-                return new ItemStack(ModItems.summoningScrollSpringPixie);
-            }
-        });
+        super("feywild", new FeywildTab("feywild"));
 
         instance = this;
         network = new FeywildNetwork(this);
