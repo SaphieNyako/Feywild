@@ -111,6 +111,11 @@ public class QuestData {
         return this.alignment == null ? null : QuestManager.getQuests(this.alignment);
     }
 
+    public int getReputation(){ return this.alignment == null ? 0 : this.reputation;}
+
+    @Nullable
+    public Alignment getAlignment(){return this.alignment;}
+
     @Nullable
     public QuestDisplay getActiveQuestDisplay(ResourceLocation id) {
         QuestLine quests = this.getQuestLine();

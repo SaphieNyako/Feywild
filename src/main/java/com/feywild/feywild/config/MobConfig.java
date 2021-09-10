@@ -55,6 +55,12 @@ public class MobConfig {
         );
     }
 
+    public static class summer_bee_knight {
+        @Config("How much reputation the player needs to have for the guards to not attack him.")
+        @IntRange(min = 0)
+        public static int required_reputation = 35;
+    }
+
     public static class autumn_pixie {
 
         @Config("Autumn pixie spawn chance")

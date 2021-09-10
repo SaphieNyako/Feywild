@@ -116,6 +116,8 @@
   "message.feywild.autumn_fey_follow": "Going for a walk? I'd like to come with you!",
   "message.feywild.winter_fey_follow": "Such inconvenience... Can't you go out on your own?",
   "message.feywild.aligned": "This fey court recognises you as one of it's own.",
+  "message.feywild.bee_knight_pass" : "Hmm our queen said you can pass but I will keep my eyes on you.",
+  "message.feywild.bee_knight_fail" : "You are unworthy of our respect, thread carefully.",
   "message.feywild.market_closed": "Hello dear customer, \nWe are sorry for the inconvenience but the market is temporarily closed, please come back later! \n-Market Place Management",
   "toolTip.feywild.market_scroll": "This item is used as a method of entering the dwarf market.",
   "screen.feywild.mana_amount": "Mana: %s",

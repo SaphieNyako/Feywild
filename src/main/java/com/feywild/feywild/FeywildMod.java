@@ -5,10 +5,7 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.config.mapper.ResourceLocationMapper;
 import com.feywild.feywild.data.DataGenerators;
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.MandragoraEntity;
-import com.feywild.feywild.entity.MarketDwarfEntity;
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.item.ModItems;
@@ -143,6 +140,7 @@ public class FeywildMod extends ModXRegistration {
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
 
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.beeKnight, BeeKnightRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, DwarfBlacksmithRenderer::new);
@@ -168,6 +166,7 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.mandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }
 
     //This might have a conflict when merging with the quests
