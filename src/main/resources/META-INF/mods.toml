@@ -80,6 +80,6 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="mythicbotany"
     mandatory=false
-    versionRange="[1.16.5-1.4.6,)"
+    versionRange="[1.16.5-1.4.7,)"
     ordering="NONE"
     side="BOTH"

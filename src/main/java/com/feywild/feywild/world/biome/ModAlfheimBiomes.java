@@ -6,6 +6,7 @@ import com.feywild.feywild.world.biome.biomes.AlfheimAutumnBiome;
 import com.feywild.feywild.world.biome.biomes.AlfheimSpringBiome;
 import com.feywild.feywild.world.biome.biomes.AlfheimSummerBiome;
 import com.feywild.feywild.world.biome.biomes.AlfheimWinterBiome;
+import com.feywild.feywild.world.structure.ModStructures;
 import mythicbotany.alfheim.AlfheimBiomeManager;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -82,6 +83,11 @@ public class ModAlfheimBiomes {
             AlfheimBiomeManager.addUncommonBiome(alfheimSummer.getRegistryName());
             AlfheimBiomeManager.addUncommonBiome(alfheimAutumn.getRegistryName());
             AlfheimBiomeManager.addUncommonBiome(alfheimWinter.getRegistryName());
+            
+            AlfheimBiomeManager.addStructure(ModStructures.springWorldTree, ModStructures.springWorldTree.getSettings());
+            AlfheimBiomeManager.addStructure(ModStructures.summerWorldTree, ModStructures.summerWorldTree.getSettings());
+            AlfheimBiomeManager.addStructure(ModStructures.autumnWorldTree, ModStructures.autumnWorldTree.getSettings());
+            AlfheimBiomeManager.addStructure(ModStructures.winterWorldTree, ModStructures.winterWorldTree.getSettings());
         });
     }
 }

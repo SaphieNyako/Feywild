@@ -12,6 +12,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
 import javax.annotation.Nonnull;
 
@@ -27,6 +28,14 @@ public abstract class BaseStructure extends Structure<NoFeatureConfig> {
 
     public abstract int getSeedModifier();
 
+    public final StructureSeparationSettings getSettings() {
+        return new StructureSeparationSettings(
+                getAverageDistanceBetweenChunks(),
+                getMinDistanceBetweenChunks(),
+                getSeedModifier()
+        );
+    }
+    
     @Nonnull
     @Override
     public abstract IStartFactory<NoFeatureConfig> getStartFactory();
@@ -34,7 +43,6 @@ public abstract class BaseStructure extends Structure<NoFeatureConfig> {
     @Nonnull
     @Override
     public GenerationStage.Decoration step() {
-
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 

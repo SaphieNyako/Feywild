@@ -34,12 +34,7 @@ public class ModStructures {
 
     //Checks rarity of structure and determines if land conforms to it
     public static void setupMapSpacingAndLand(BaseStructure structure, boolean transformSurroundingLand) {
-
-        StructureSeparationSettings separationSettings = new StructureSeparationSettings(
-                structure.getAverageDistanceBetweenChunks(),
-                structure.getMinDistanceBetweenChunks(),
-                structure.getSeedModifier()
-        );
+        StructureSeparationSettings separationSettings = structure.getSettings();
         
         //add our structures into the map in Structure class
         Structure.STRUCTURES_REGISTRY.put(Objects.requireNonNull(structure.getRegistryName()).toString(), structure);  //Might return Null
