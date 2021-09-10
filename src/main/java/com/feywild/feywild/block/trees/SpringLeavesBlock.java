@@ -1,6 +1,5 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
@@ -20,9 +19,9 @@ public class SpringLeavesBlock extends FeyLeavesBlock {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        super.animateTick(state, world, pos, rand);
-        if (world.isEmptyBlock(pos.below()) && rand.nextInt(14) == 1 && ClientConfig.tree_particles) {
+    public void animateLeaves(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
+        super.animateLeaves(state, world, pos, rand);
+        if (rand.nextInt(14) == 1 && world.isEmptyBlock(pos.below())) {
             world.addParticle(ModParticles.springLeafParticle, pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
         }
     }

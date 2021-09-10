@@ -49,10 +49,10 @@ public class SpringBiome implements BiomeType {
     @Override
     public void ambience(BiomeAmbience.Builder builder) {
         builder.waterColor(0x3f76e4);
-        builder .waterFogColor(0x50533);
-        builder .fogColor(0xc0d8ff);
-        builder .skyColor(BiomeMaker.calculateSkyColor(0.7f));
-        builder .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false));
+        builder.waterFogColor(0x50533);
+        builder.fogColor(0xc0d8ff);
+        builder.skyColor(BiomeMaker.calculateSkyColor(0.7f));
+        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false));
         builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001f));
     }
 

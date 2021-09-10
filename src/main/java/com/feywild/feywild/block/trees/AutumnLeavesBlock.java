@@ -1,13 +1,9 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.config.ClientConfig;
-import com.feywild.feywild.particles.LeafParticle;
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,9 +20,9 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        super.animateTick(state, world, pos, rand);
-        if (world.isEmptyBlock(pos.below()) && rand.nextInt(10) == 1 && ClientConfig.tree_particles) {
+    public void animateLeaves(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
+        super.animateLeaves(state, world, pos, rand);
+        if (rand.nextInt(10) == 1 && world.isEmptyBlock(pos.below())) {
             world.addParticle(ModParticles.leafParticle, pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
         }
     }
