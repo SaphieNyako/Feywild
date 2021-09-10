@@ -1,7 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -12,58 +13,63 @@ import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
-import java.util.function.Supplier;
-
-public class SpringBiome extends BaseBiome {
+public class SpringBiome implements BiomeType {
 
     public static final SpringBiome INSTANCE = new SpringBiome();
-
+    
     private SpringBiome() {
-
+        
     }
-
-    public static BiomeAmbience.Builder ambience() {
-        return new BiomeAmbience.Builder()
-                .waterColor(0x3f76e4)
-                .waterFogColor(0x50533)
-                .fogColor(0xc0d8ff)
-                .skyColor(BiomeMaker.calculateSkyColor(0.7F))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false))
-                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001F));
+    
+    @Override
+    public Biome.Category category() {
+        return Biome.Category.FOREST;
     }
 
     @Override
-    public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
+    public float scale() {
+        return WorldGenConfig.biomes.spring.size;
+    }
 
-        final BiomeGenerationSettings.Builder biomeGenerationSettingsBuilder =
-                (new BiomeGenerationSettings.Builder()).surfaceBuilder(surfaceBuilder);
+    @Override
+    public float temperature() {
+        return 0.7f;
+    }
 
-        // Mob Spawn
-        final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
+    @Override
+    public float downfall() {
+        return 0.8f;
+    }
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.springPixie, 40, 1, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
-        this.addDefaultSpawns(mobSpawnBuilder);
-        //Standard
-        DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addExtraEmeralds(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultOverworldLandStructures(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultCarvers(biomeGenerationSettingsBuilder);
+    @Override
+    public ConfiguredSurfaceBuilder<?> surface() {
+        return ModConfiguredSurfaceBuilders.SPRING_SURFACE;
+    }
 
-        /* SPRING FEATURES */
-        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.JUNGLE_TEMPLE);
+    @Override
+    public void ambience(BiomeAmbience.Builder builder) {
+        builder.waterColor(0x3f76e4);
+        builder .waterFogColor(0x50533);
+        builder .fogColor(0xc0d8ff);
+        builder .skyColor(BiomeMaker.calculateSkyColor(0.7f));
+        builder .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false));
+        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001f));
+    }
 
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+    @Override
+    public void generation(BiomeGenerationSettings.Builder builder) {
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
+    }
 
-        // biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_FOREST);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
+    @Override
+    public void overworldSpawns(MobSpawnInfo.Builder builder) {
+        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
+    }
 
-        return new Biome.Builder().precipitation(Biome.RainType.RAIN)
-                .biomeCategory(Biome.Category.FOREST).depth(depth).scale(scale).temperature(0.7F).downfall(0.8F)
-                .specialEffects(ambience().build())
-                .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+    @Override
+    public void overworldGen(BiomeGenerationSettings.Builder builder) {
+        builder.addStructureStart(StructureFeatures.JUNGLE_TEMPLE);
     }
 }

@@ -1,7 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -12,9 +13,7 @@ import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
-import java.util.function.Supplier;
-
-public class SummerBiome extends BaseBiome {
+public class SummerBiome implements BiomeType {
 
     public static final SummerBiome INSTANCE = new SummerBiome();
 
@@ -22,55 +21,68 @@ public class SummerBiome extends BaseBiome {
 
     }
 
-    public static BiomeAmbience.Builder ambience() {
-        return new BiomeAmbience.Builder()
-                .waterColor(0x3f76e4)
-                .waterFogColor(0x50533)
-                .fogColor(0xc0d8ff)
-                .skyColor(BiomeMaker.calculateSkyColor(0.9F))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false))
-                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001F));
-
+    @Override
+    public Biome.Category category() {
+        return Biome.Category.SAVANNA;
     }
 
     @Override
-    public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
+    public Biome.RainType rain() {
+        return Biome.RainType.NONE;
+    }
 
-        final BiomeGenerationSettings.Builder biomeGenerationSettingsBuilder =
-                (new BiomeGenerationSettings.Builder()).surfaceBuilder(surfaceBuilder);
+    @Override
+    public float scale() {
+        return WorldGenConfig.biomes.summer.size;
+    }
 
-        // Mob Spawn
-        final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
+    @Override
+    public float temperature() {
+        return 0.9f;
+    }
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.summerPixie, 40, 1, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
-        DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
+    @Override
+    public float downfall() {
+        return 0;
+    }
 
-        //Standard
-        DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultOverworldLandStructures(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultCarvers(biomeGenerationSettingsBuilder);
+    @Override
+    public ConfiguredSurfaceBuilder<?> surface() {
+        return ModConfiguredSurfaceBuilders.SUMMER_SURFACE;
+    }
 
-        /* SUMMER FEATURES */
-        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
+    @Override
+    public void ambience(BiomeAmbience.Builder builder) {
+        builder.waterColor(0x3f76e4);
+        builder.waterFogColor(0x50533);
+        builder.fogColor(0xc0d8ff);
+        builder.skyColor(BiomeMaker.calculateSkyColor(0.9f));
+        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
+        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001f));
+    }
 
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+    @Override
+    public void spawns(MobSpawnInfo.Builder builder) {
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
+    }
 
-        DefaultBiomeFeatures.addSavannaGrass(biomeGenerationSettingsBuilder);
-        // DefaultBiomeFeatures.addWarmFlowers(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addForestFlowers(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addSavannaExtraGrass(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addJungleExtraVegetation(biomeGenerationSettingsBuilder);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
+    @Override
+    public void generation(BiomeGenerationSettings.Builder builder) {
+        DefaultBiomeFeatures.addSavannaGrass(builder);
+        DefaultBiomeFeatures.addForestFlowers(builder);
+        DefaultBiomeFeatures.addSavannaExtraGrass(builder);
+        DefaultBiomeFeatures.addJungleExtraVegetation(builder);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
+        DefaultBiomeFeatures.addExtraGold(builder);
+    }
 
-        DefaultBiomeFeatures.addExtraGold(biomeGenerationSettingsBuilder);
+    @Override
+    public void overworldSpawns(MobSpawnInfo.Builder builder) {
+        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
+    }
 
-        return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
-                .biomeCategory(Biome.Category.SAVANNA).depth(depth).scale(scale).temperature(0.9F).downfall(0)
-                .specialEffects(ambience().build())
-                .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+    @Override
+    public void overworldGen(BiomeGenerationSettings.Builder builder) {
+        builder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
     }
 }

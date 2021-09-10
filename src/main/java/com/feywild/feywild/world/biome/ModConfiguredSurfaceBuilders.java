@@ -17,7 +17,6 @@ public class ModConfiguredSurfaceBuilders {
     public static final ConfiguredSurfaceBuilder<?> WINTER_SURFACE = registerConfiguredSurfaceBuilder(new ResourceLocation(FeywildMod.getInstance().modid, "winter_surface"), Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.SNOW_BLOCK.defaultBlockState(), Blocks.SAND.defaultBlockState());
 
     private static ConfiguredSurfaceBuilder<?> registerConfiguredSurfaceBuilder(ResourceLocation surfaceBuilderRecourseLocation, BlockState topBlock, BlockState fillerBlock, BlockState underwaterBlock) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, surfaceBuilderRecourseLocation, ModSurfaceBuilders.loggingDefault.configured(
-                new SurfaceBuilderConfig(topBlock, fillerBlock, underwaterBlock)));
+        return Registry.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER, surfaceBuilderRecourseLocation, ModSurfaceBuilders.loggingDefault.configured(new SurfaceBuilderConfig(topBlock, fillerBlock, underwaterBlock)));
     }
 }

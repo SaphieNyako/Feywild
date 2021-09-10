@@ -1,7 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -12,9 +13,7 @@ import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
-import java.util.function.Supplier;
-
-public class AutumnBiome extends BaseBiome {
+public class AutumnBiome implements BiomeType {
 
     public static final AutumnBiome INSTANCE = new AutumnBiome();
 
@@ -22,59 +21,68 @@ public class AutumnBiome extends BaseBiome {
 
     }
 
-    public static BiomeAmbience.Builder ambience() {
-        return new BiomeAmbience.Builder()
-                .waterColor(0x617b64)
-                .waterFogColor(0x232317)
-                .fogColor(0xc0d8ff)
-                .skyColor(BiomeMaker.calculateSkyColor(0.8F))
-                .backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false))
-                .foliageColorOverride(0x6a7039)
-                .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001F))
-                .grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP);
+    @Override
+    public Biome.Category category() {
+        return Biome.Category.MUSHROOM;
     }
 
     @Override
-    public Biome biomeSetup(Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
+    public float scale() {
+        return WorldGenConfig.biomes.autumn.size;
+    }
 
-        final BiomeGenerationSettings.Builder biomeGenerationSettingsBuilder =
-                (new BiomeGenerationSettings.Builder()).surfaceBuilder(surfaceBuilder);
+    @Override
+    public float temperature() {
+        return 0.8f;
+    }
 
-        // Mob Spawn
-        final MobSpawnInfo.Builder mobSpawnBuilder = new MobSpawnInfo.Builder();
+    @Override
+    public float downfall() {
+        return 0.9f;
+    }
 
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 4, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie, 40, 1, 4));
-        mobSpawnBuilder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH, 50, 1, 3));
-        DefaultBiomeFeatures.commonSpawns(mobSpawnBuilder);
+    @Override
+    public ConfiguredSurfaceBuilder<?> surface() {
+        return ModConfiguredSurfaceBuilders.AUTUMN_SURFACE;
+    }
 
-        //Standard
-        DefaultBiomeFeatures.addDefaultUndergroundVariety(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultOres(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addSwampClayDisk(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultOverworldLandStructures(biomeGenerationSettingsBuilder);
-        DefaultBiomeFeatures.addDefaultCarvers(biomeGenerationSettingsBuilder);
+    @Override
+    public void ambience(BiomeAmbience.Builder builder) {
+        builder.waterColor(0x617b64);
+        builder.waterFogColor(0x232317);
+        builder.fogColor(0xc0d8ff);
+        builder.skyColor(BiomeMaker.calculateSkyColor(0.8f));
+        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false));
+        builder.foliageColorOverride(0x6a7039);
+        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001f));
+        builder.grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP);
+    }
 
-        /* AUTUMN FEATURES*/
-        biomeGenerationSettingsBuilder.addStructureStart(StructureFeatures.SWAMP_HUT);
+    @Override
+    public void spawns(MobSpawnInfo.Builder builder) {
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
+    }
 
-        DefaultBiomeFeatures.addMushroomFieldVegetation(biomeGenerationSettingsBuilder);
+    @Override
+    public void generation(BiomeGenerationSettings.Builder builder) {
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_WATERLILLY);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_LARGE_FERN);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SEAGRASS_SWAMP);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_RED_MUSHROOM);
+        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_BROWN_MUSHROOM);
+        DefaultBiomeFeatures.addSurfaceFreezing(builder);
+    }
 
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_WATERLILLY);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_LARGE_FERN);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SEAGRASS_SWAMP);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_RED_MUSHROOM);
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_BROWN_MUSHROOM);
+    @Override
+    public void overworldSpawns(MobSpawnInfo.Builder builder) {
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 4, 4));
+        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH, 50, 1, 3));
+    }
 
-        biomeGenerationSettingsBuilder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
-
-        DefaultBiomeFeatures.addSurfaceFreezing(biomeGenerationSettingsBuilder);
-        return (new Biome.Builder()).precipitation(Biome.RainType.RAIN)
-                .biomeCategory(Biome.Category.MUSHROOM).depth(depth).scale(scale).temperature(0.8F).downfall(0.9F)
-                .specialEffects(ambience().build())
-                .mobSpawnSettings(mobSpawnBuilder.build()).generationSettings(biomeGenerationSettingsBuilder.build()).build();
+    @Override
+    public void overworldGen(BiomeGenerationSettings.Builder builder) {
+        builder.addStructureStart(StructureFeatures.SWAMP_HUT);
     }
 }
