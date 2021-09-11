@@ -79,6 +79,7 @@ public class SummerBiome implements BiomeType {
     @Override
     public void overworldSpawns(MobSpawnInfo.Builder builder) {
         builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
+        DefaultBiomeFeatures.farmAnimals(builder);
     }
 
     @Override

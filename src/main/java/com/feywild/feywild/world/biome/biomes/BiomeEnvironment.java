@@ -7,18 +7,8 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public interface BiomeEnvironment {
 
-    BiomeAmbience.Builder defaultAmbience();
-    MobSpawnInfo.Builder defaultSpawns();
-    BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface);
-    default Biome.Builder init() { return new Biome.Builder(); }
-    
-    default void postProcess(BiomeAmbience.Builder builder, BiomeType biome) {}
-    default void postProcess(MobSpawnInfo.Builder builder, BiomeType biome) {}
-    default void postProcess(BiomeGenerationSettings.Builder builder, BiomeType biome) {}
-    default void postProcess(Biome.Builder builder, BiomeType biome) {}
-    
     BiomeEnvironment OVERWORLD = new BiomeEnvironment() {
-        
+
         @Override
         public BiomeAmbience.Builder defaultAmbience() {
             return new BiomeAmbience.Builder();
@@ -28,7 +18,6 @@ public interface BiomeEnvironment {
         public MobSpawnInfo.Builder defaultSpawns() {
             MobSpawnInfo.Builder builder = new MobSpawnInfo.Builder();
             DefaultBiomeFeatures.commonSpawns(builder);
-            DefaultBiomeFeatures.farmAnimals(builder);
             return builder;
         }
 
@@ -38,7 +27,6 @@ public interface BiomeEnvironment {
             builder.surfaceBuilder(surface);
             DefaultBiomeFeatures.addDefaultUndergroundVariety(builder);
             DefaultBiomeFeatures.addDefaultOres(builder);
-            DefaultBiomeFeatures.addExtraEmeralds(builder);
             DefaultBiomeFeatures.addDefaultOverworldLandStructures(builder);
             DefaultBiomeFeatures.addDefaultCarvers(builder);
             builder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
@@ -55,4 +43,20 @@ public interface BiomeEnvironment {
             biome.overworldGen(builder);
         }
     };
+
+    BiomeAmbience.Builder defaultAmbience();
+
+    MobSpawnInfo.Builder defaultSpawns();
+
+    BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface);
+
+    default Biome.Builder init() {return new Biome.Builder();}
+
+    default void postProcess(BiomeAmbience.Builder builder, BiomeType biome) {}
+
+    default void postProcess(MobSpawnInfo.Builder builder, BiomeType biome) {}
+
+    default void postProcess(BiomeGenerationSettings.Builder builder, BiomeType biome) {}
+
+    default void postProcess(Biome.Builder builder, BiomeType biome) {}
 }

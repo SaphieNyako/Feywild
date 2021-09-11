@@ -16,11 +16,11 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 public class SpringBiome implements BiomeType {
 
     public static final SpringBiome INSTANCE = new SpringBiome();
-    
+
     private SpringBiome() {
-        
+
     }
-    
+
     @Override
     public Biome.Category category() {
         return Biome.Category.FOREST;
@@ -61,11 +61,13 @@ public class SpringBiome implements BiomeType {
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
+        DefaultBiomeFeatures.addExtraEmeralds(builder);
     }
 
     @Override
     public void overworldSpawns(MobSpawnInfo.Builder builder) {
         builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
+        DefaultBiomeFeatures.farmAnimals(builder);
     }
 
     @Override

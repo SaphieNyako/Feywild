@@ -180,7 +180,7 @@ public class BiomeLoader {
         for (BiomeDictionary.Type biomeTag : targetBiomes) {
             boolean tagged = types.contains(biomeTag);
             if ((types.contains(biomeTag) && (targeted || !seasonal)) || regularAlfheim) {
-                addSpawn(event, type, EntityClassification.CREATURE, weight, min, max);
+                addSpawn(event, type, EntityClassification.CREATURE, targeted ? 2 * weight : weight, min, max);
             }
         }
     }

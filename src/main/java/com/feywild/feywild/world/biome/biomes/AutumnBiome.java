@@ -72,7 +72,7 @@ public class AutumnBiome implements BiomeType {
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SEAGRASS_SWAMP);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_RED_MUSHROOM);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_BROWN_MUSHROOM);
-        DefaultBiomeFeatures.addSurfaceFreezing(builder);
+        DefaultBiomeFeatures.addMushroomFieldVegetation(builder);
     }
 
     @Override
