@@ -140,7 +140,7 @@ public class WorldGenConfig {
 
             @Config("Maximum height for fey gems vines")
             @IntRange(min = 0, max = 255)
-            public static int max_height = 5;
+            public static int max_height = 45;
         }
     }
 
@@ -167,7 +167,8 @@ public class WorldGenConfig {
         public static int size = 3;
     }
 
-    public static class dwarf_market{
+    public static class dwarf_market {
+
         @Config("The time between the market refresh.")
         @IntRange(min = 1)
         public static int refresh_time = 10000;
