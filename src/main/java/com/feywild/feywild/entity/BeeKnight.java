@@ -33,15 +33,14 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-//TODO make aggravated a data param and make it sync so that the texture can change
 public class BeeKnight extends FeyBase implements IAnimatable {
 
     // Model changes
-    public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(FeyBase.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(BeeKnight.class, DataSerializers.BOOLEAN);
 
     private BlockPos treasureBlock;
 
-    protected BeeKnight(EntityType<? extends FeyBase> type, World world) {
+    protected BeeKnight(EntityType<? extends BeeKnight> type, World world) {
         super(type, Alignment.SUMMER, world);
     }
 
@@ -73,12 +72,12 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(1, new RestrictedAttackGoal(this,1.2f,true));
+        this.goalSelector.addGoal(1, new RestrictedAttackGoal(this, 1.2f, true));
     }
 
     @Override
     public void tick() {
-        if(!this.level.isClientSide && hurtTime > 0){
+        if(!this.level.isClientSide && hurtTime > 0 && getTarget() != null){
             setAggravated(true);
         }
         super.tick();
@@ -146,7 +145,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         return new Vector3d(treasureBlock.getX(),treasureBlock.getY(),treasureBlock.getZ());
     }
 
-    class RestrictedAttackGoal extends MeleeAttackGoal{
+    private static class RestrictedAttackGoal extends MeleeAttackGoal{
         BeeKnight creature;
         public RestrictedAttackGoal(BeeKnight creature, double speed, boolean visualContact) {
             super(creature, speed, visualContact);
