@@ -1,22 +1,23 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.config.MobConfig;
+import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.monster.PhantomEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DifficultyInstance;
@@ -32,16 +33,15 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-//TODO make another base class for fey that doesn't have quest behaviour
 //TODO make aggravated a data param and make it sync so that the texture can change
-public class BeeKnight extends FeyEntity {
+public class BeeKnight extends FeyBase implements IAnimatable {
 
     // Model changes
-    private boolean aggravated;
+    public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(FeyBase.class, DataSerializers.BOOLEAN);
 
     private BlockPos treasureBlock;
 
-    protected BeeKnight(EntityType<? extends FeyEntity> type, World world) {
+    protected BeeKnight(EntityType<? extends FeyBase> type, World world) {
         super(type, Alignment.SUMMER, world);
     }
 
@@ -78,10 +78,10 @@ public class BeeKnight extends FeyEntity {
 
     @Override
     public void tick() {
-        super.tick();
-        if(hurtTime > 0){
+        if(!this.level.isClientSide && hurtTime > 0){
             setAggravated(true);
         }
+        super.tick();
     }
 
     @Nonnull
@@ -100,14 +100,12 @@ public class BeeKnight extends FeyEntity {
     }
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        this.aggravated = nbt.getBoolean("aggravated");
         this.setTreasureBlock(new BlockPos(nbt.getInt("TreasureX"),nbt.getInt("TreasureY"),nbt.getInt("TreasureZ")));
         super.readAdditionalSaveData(nbt);
     }
 
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        nbt.putBoolean("aggravated", this.aggravated);
         nbt.putInt("TreasureX", treasureBlock.getX());
         nbt.putInt("TreasureY", treasureBlock.getY());
         nbt.putInt("TreasureZ", treasureBlock.getZ());
@@ -120,16 +118,23 @@ public class BeeKnight extends FeyEntity {
     }
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<FeyEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<BeeKnight> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
         animationData.addAnimationController(flyingController);
     }
 
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(AGGRAVATED, false);
+    }
+
     public boolean isAggravated() {
-        return aggravated;
+        return this.entityData.get(AGGRAVATED);
     }
 
     public void setAggravated(boolean aggravated) {
-        this.aggravated = aggravated;
+        this.entityData.set(AGGRAVATED,aggravated);
     }
 
     public BlockPos getTreasureBlock() {

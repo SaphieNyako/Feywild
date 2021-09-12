@@ -121,7 +121,7 @@ public class EventListener {
         updateKnights(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
-
+// Temporary code, move to glass dome block when added
     private void updateKnights(World world, PlayerEntity player, BlockPos pos){
         //Should be changed to special honey block when that is implemented
         if(!world.isClientSide && world.getBlockState(pos).getBlock() instanceof BeehiveBlock){

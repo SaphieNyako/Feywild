@@ -58,12 +58,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public abstract class FeyEntity extends CreatureEntity implements ITameable, IAnimatable {
+public abstract class FeyEntity extends FeyBase implements ITameable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(FeyEntity.class, DataSerializers.BOOLEAN);
 
-    public final Alignment alignment;
-    private final AnimationFactory factory = new AnimationFactory(this);
     @Nullable
     private BlockPos currentTargetPos;
     private boolean isTamed;
@@ -71,19 +69,9 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
     private UUID owner;
 
     protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
-        super(type, world);
-        this.alignment = alignment;
-        this.noCulling = true;
-        this.moveControl = new FlyingMovementController(this, 4, true);
+        super(type, alignment, world);
     }
 
-    /* ATTRIBUTES */
-    public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
-                .add(Attributes.LUCK, 0.2);
-    }
 
     public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
@@ -186,90 +174,6 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
 
     @Nonnull
     @Override
-    protected PathNavigator createNavigation(@Nonnull World world) {
-        FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, world);
-        flyingpathnavigator.setCanOpenDoors(false);
-        flyingpathnavigator.setCanFloat(true);
-        flyingpathnavigator.setCanPassDoors(true);
-        return flyingpathnavigator;
-    }
-
-    @Override
-    public void travel(@Nonnull Vector3d position) {
-        if (this.isInWater()) {
-            this.moveRelative(0.02f, position);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.8));
-        } else if (this.isInLava()) {
-            this.moveRelative(0.02f, position);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
-        } else {
-            BlockPos ground = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
-            float slipperiness = 0.91f;
-            if (this.onGround) {
-                slipperiness = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
-            }
-
-            float groundMovementModifier = 0.16277137f / (slipperiness * slipperiness * slipperiness);
-            slipperiness = 0.91f;
-            if (this.onGround) {
-                slipperiness = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
-            }
-
-            this.moveRelative(this.onGround ? 0.1f * groundMovementModifier : 0.02f, position);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(slipperiness));
-        }
-
-        this.animationSpeedOld = this.animationSpeed;
-        double dx = this.getX() - this.xo;
-        double dz = this.getZ() - this.zo;
-        float scaledLastHorizontalMotion = MathHelper.sqrt(dx * dx + dz * dz) * 4;
-        if (scaledLastHorizontalMotion > 1) {
-            scaledLastHorizontalMotion = 1;
-        }
-        this.animationSpeed += (scaledLastHorizontalMotion - this.animationSpeed) * 0.4;
-        this.animationPosition += this.animationSpeed;
-    }
-
-    @Override
-    public boolean onClimbable() {
-        return false;
-    }
-
-    @Override
-    protected int calculateFallDamage(float distance, float damageMultiplier) {
-        return 0;
-    }
-
-    @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
-        return false;
-    }
-
-    @Override
-    protected int getExperienceReward(@Nonnull PlayerEntity player) {
-        return 0;
-    }
-
-    @Override
-    public boolean canBeLeashed(@Nonnull PlayerEntity player) {
-        return false;
-    }
-
-    @Override
-    protected boolean canRide(@Nonnull Entity entityIn) {
-        return false;
-    }
-
-    @Override
-    protected float getVoicePitch() {
-        return 1;
-    }
-
-    @Nonnull
-    @Override
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
@@ -335,39 +239,6 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
         return false;
     }
 
-    @Override
-    public boolean requiresCustomPersistence() {
-        return true;
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double distanceSq) {
-        return false;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
-        return ModSoundEvents.pixieHurt;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return ModSoundEvents.pixieDeath;
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return this.random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
-    }
-
-    @Override
-    protected float getSoundVolume() {
-        return 0.6f;
-    }
-
     private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
         return PlayState.CONTINUE;
@@ -387,11 +258,6 @@ public abstract class FeyEntity extends CreatureEntity implements ITameable, IAn
         AnimationController<FeyEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
     }
 }
 
