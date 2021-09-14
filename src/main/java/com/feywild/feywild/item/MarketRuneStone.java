@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MarketRuneStone extends TooltipItem {
 
     public MarketRuneStone(ModX mod, Properties prop) {
-        super(mod, prop, new TranslationTextComponent("toolTip.feywild.market_scroll"));
+        super(mod, prop, new TranslationTextComponent("message.feywild.market_scroll"));
     }
 
     @Override

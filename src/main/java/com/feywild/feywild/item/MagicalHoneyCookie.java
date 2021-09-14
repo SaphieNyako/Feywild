@@ -33,6 +33,11 @@ public class MagicalHoneyCookie extends SummoningScroll<MandragoraEntity> {
     }
 
     @Override
+    protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, MandragoraEntity entity) {
+        entity.setSummonPos(pos);
+    }
+
+    @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.magical_honey_cookie"));
         super.appendHoverText(stack, world, tooltip, flag);

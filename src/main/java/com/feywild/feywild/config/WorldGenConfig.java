@@ -130,15 +130,15 @@ public class WorldGenConfig {
             @IntRange(min = 0)
             public static int weight = 10;
 
-            @Config("Size for fey gems vines")
+            @Config("Size for fey gems veins")
             @IntRange(min = 0)
             public static int size = 5;
 
-            @Config("Minimum height for fey gems vines")
+            @Config("Minimum height for fey gems veins")
             @IntRange(min = 0, max = 255)
             public static int min_height = 11;
 
-            @Config("Maximum height for fey gems vines")
+            @Config("Maximum height for fey gems veins")
             @IntRange(min = 0, max = 255)
             public static int max_height = 45;
         }

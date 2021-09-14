@@ -1,7 +1,9 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.network.ParticleSerializer;
+import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -13,7 +15,12 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -30,7 +37,9 @@ import java.util.Random;
 
 public class MandragoraEntity extends CreatureEntity implements IAnimatable {
 
+    public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
     private final AnimationFactory factory = new AnimationFactory(this);
+    private BlockPos summonPos;
     // private String variation;
     private Variation mandragoraVariation;
 
@@ -45,7 +54,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.1)
+                .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.LUCK, 0.2);
     }
 
@@ -73,14 +82,58 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         return mandragoraVariation;
     }
 
+    public BlockPos getSummonPos() {
+        return this.summonPos;
+    }
+
+    public void setSummonPos(BlockPos summonPos) {
+        this.summonPos = summonPos.immutable();
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomWalkingGoal(this, 1));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 1));
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 8));
+        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundNBT nbt) {
+        super.addAdditionalSaveData(nbt);
+        if (this.summonPos != null) {
+            NBTX.putPos(nbt, "SummonPos", this.summonPos);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundNBT nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CASTING, false);
+    }
+
+    @Override
+    protected void updateControlFlags() {
+        super.updateControlFlags();
+        this.goalSelector.setControlFlag(Goal.Flag.MOVE, true);
+        this.goalSelector.setControlFlag(Goal.Flag.JUMP, true);
+        this.goalSelector.setControlFlag(Goal.Flag.LOOK, true);
+    }
+
+    public boolean isCasting() {
+        return this.entityData.get(CASTING);
+    }
+
+    public void setCasting(boolean casting) {
+        this.entityData.set(CASTING, casting);
     }
 
     @Override
@@ -149,17 +202,24 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         return ActionResultType.CONSUME;
     }
 
-    private <E extends IAnimatable> PlayState walkPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
+    /*ANIMATION */
+    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
+        if (this.isCasting() && !(this.dead || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.sing", false));
+            return PlayState.CONTINUE;
+        }
+
+        if (event.isMoving()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.idle", true));
+        }
         return PlayState.CONTINUE;
     }
 
-    /*ANIMATION */
-
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<MandragoraEntity> walkController = new AnimationController<>(this, "walkController", 0, this::walkPredicate);
-        animationData.addAnimationController(walkController);
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
     }
 
     @Override
