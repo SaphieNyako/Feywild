@@ -2,11 +2,13 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
-import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.CapabilityQuests;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
@@ -22,7 +24,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -32,6 +36,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class BeeKnight extends FeyBase implements IAnimatable {
 
@@ -44,15 +49,8 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         super(type, Alignment.SUMMER, world);
     }
 
-    @Nullable
-    @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
-        setTreasureBlock(this.blockPosition());
-        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
-    }
-
-    public void setTreasureBlock(BlockPos treasureBlock) {
-        this.treasureBlock = treasureBlock;
+    public static boolean canSpawn(EntityType<? extends BeeKnight> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
     }
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
@@ -62,6 +60,13 @@ public class BeeKnight extends FeyBase implements IAnimatable {
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.FOLLOW_RANGE, 40)
                 .add(Attributes.ATTACK_DAMAGE, 4);
+    }
+
+    @Nullable
+    @Override
+    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
+        setTreasureBlock(this.blockPosition());
+        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
     }
 
     @Override
@@ -77,7 +82,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
     @Override
     public void tick() {
-        if(!this.level.isClientSide && hurtTime > 0 && getTarget() != null){
+        if (!this.level.isClientSide && hurtTime > 0 && getTarget() != null) {
             setAggravated(true);
         }
         super.tick();
@@ -86,20 +91,21 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     @Nonnull
     @Override
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
-        if(!player.level.isClientSide){
+        if (!player.level.isClientSide) {
             player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
-                if(cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER){
+                if (cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER) {
                     player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_pass"), player.getUUID());
-                }else{
+                } else {
                     player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_fail"), player.getUUID());
                 }
             });
         }
         return ActionResultType.SUCCESS;
     }
+
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        this.setTreasureBlock(new BlockPos(nbt.getInt("TreasureX"),nbt.getInt("TreasureY"),nbt.getInt("TreasureZ")));
+        this.setTreasureBlock(new BlockPos(nbt.getInt("TreasureX"), nbt.getInt("TreasureY"), nbt.getInt("TreasureZ")));
         super.readAdditionalSaveData(nbt);
     }
 
@@ -115,12 +121,12 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bee_knight.fly", true));
         return PlayState.CONTINUE;
     }
+
     @Override
     public void registerControllers(AnimationData animationData) {
         AnimationController<BeeKnight> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
         animationData.addAnimationController(flyingController);
     }
-
 
     @Override
     protected void defineSynchedData() {
@@ -133,20 +139,25 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     }
 
     public void setAggravated(boolean aggravated) {
-        this.entityData.set(AGGRAVATED,aggravated);
+        this.entityData.set(AGGRAVATED, aggravated);
     }
 
     public BlockPos getTreasureBlock() {
         return treasureBlock;
     }
 
-
-    public Vector3d getTreasureVector() {
-        return new Vector3d(treasureBlock.getX(),treasureBlock.getY(),treasureBlock.getZ());
+    public void setTreasureBlock(BlockPos treasureBlock) {
+        this.treasureBlock = treasureBlock;
     }
 
-    private static class RestrictedAttackGoal extends MeleeAttackGoal{
+    public Vector3d getTreasureVector() {
+        return new Vector3d(treasureBlock.getX(), treasureBlock.getY(), treasureBlock.getZ());
+    }
+
+    private static class RestrictedAttackGoal extends MeleeAttackGoal {
+
         BeeKnight creature;
+
         public RestrictedAttackGoal(BeeKnight creature, double speed, boolean visualContact) {
             super(creature, speed, visualContact);
             this.creature = creature;
@@ -154,20 +165,20 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
         @Override
         public boolean canUse() {
-            return creature.isAggravated();
+            return creature.isAggravated() && creature.getTarget() != null && !creature.getTarget().isDeadOrDying();
         }
 
         @Override
         public void start() {
             super.start();
-            if(creature.getTreasureBlock() == null || creature.getTreasureBlock().closerThan(new BlockPos(0,0,0),1)){
+            if (creature.getTreasureBlock() == null || creature.getTreasureBlock().closerThan(new BlockPos(0, 0, 0), 1)) {
                 creature.setTreasureBlock(creature.blockPosition());
             }
         }
 
         @Override
         public boolean canContinueToUse() {
-            return creature.isAggravated() && creature.getTreasureBlock().closerThan(creature.blockPosition(),10);
+            return creature.isAggravated() && creature.getTreasureBlock().closerThan(creature.blockPosition(), 10) && creature.getTarget() != null && !creature.getTarget().isDeadOrDying();
         }
 
         @Override

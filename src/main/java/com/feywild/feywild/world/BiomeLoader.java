@@ -154,10 +154,16 @@ public class BiomeLoader {
     private static void mobSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (CompatConfig.mythic_alfheim.locked) {
             // No dwarves, they can only be summoned using an ancient rune stone
-            if (SPRING_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.springPixie, EntityClassification.CREATURE, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
-            if (SUMMER_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.summerPixie, EntityClassification.CREATURE, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
-            if (AUTUMN_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.autumnPixie, EntityClassification.CREATURE, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
-            if (WINTER_ALFHEIM.equals(biomeId)) addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
+            if (SPRING_ALFHEIM.equals(biomeId))
+                addSpawn(event, ModEntityTypes.springPixie, EntityClassification.CREATURE, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
+            if (SUMMER_ALFHEIM.equals(biomeId)) {
+                addSpawn(event, ModEntityTypes.summerPixie, EntityClassification.CREATURE, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
+                addSpawn(event, ModEntityTypes.beeKnight, EntityClassification.CREATURE, MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max);
+            }
+            if (AUTUMN_ALFHEIM.equals(biomeId))
+                addSpawn(event, ModEntityTypes.autumnPixie, EntityClassification.CREATURE, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
+            if (WINTER_ALFHEIM.equals(biomeId))
+                addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
         } else {
             if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
                 if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {

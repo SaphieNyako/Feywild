@@ -1,6 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import net.minecraft.client.audio.BackgroundMusicSelector;
@@ -64,6 +66,8 @@ public class SummerBiome implements BiomeType {
     @Override
     public void spawns(MobSpawnInfo.Builder builder) {
         builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.beeKnight,
+                MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max));
     }
 
     @Override
@@ -78,7 +82,7 @@ public class SummerBiome implements BiomeType {
 
     @Override
     public void overworldSpawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 10, 2, 5));
+        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 3, 2, 5));
         DefaultBiomeFeatures.farmAnimals(builder);
     }
 

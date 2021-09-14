@@ -5,7 +5,6 @@ import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.BeeKnight;
-import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.quest.Alignment;
@@ -112,23 +111,23 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void blockInteract(PlayerInteractEvent.RightClickBlock event){
+    public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
         updateKnights(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
     @SubscribeEvent
-    public void blockInteract(PlayerInteractEvent.LeftClickBlock event){
+    public void blockInteract(PlayerInteractEvent.LeftClickBlock event) {
         updateKnights(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
-// Temporary code, move to glass dome block when added
-    private void updateKnights(World world, PlayerEntity player, BlockPos pos){
+    // Temporary code, move to glass dome block when added
+    private void updateKnights(World world, PlayerEntity player, BlockPos pos) {
         //Should be changed to special honey block when that is implemented
-        if(!world.isClientSide && world.getBlockState(pos).getBlock() instanceof BeehiveBlock){
+        if (!world.isClientSide && world.getBlockState(pos).getBlock() instanceof BeehiveBlock) {
             player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
-                if(!(cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER)) {
-                    world.getEntities(null, new AxisAlignedBB(pos).inflate(3)).forEach(entity -> {
-                        if(entity instanceof BeeKnight){
+                if (!(cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER)) {
+                    world.getEntities(null, new AxisAlignedBB(pos).inflate(MobConfig.summer_bee_knight.aggrevation_range)).forEach(entity -> {
+                        if (entity instanceof BeeKnight) {
                             ((BeeKnight) entity).setAggravated(true);
                         }
                     });

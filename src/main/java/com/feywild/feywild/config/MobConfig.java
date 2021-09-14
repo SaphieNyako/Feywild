@@ -56,9 +56,27 @@ public class MobConfig {
     }
 
     public static class summer_bee_knight {
+
         @Config("How much reputation the player needs to have for the guards to not attack him.")
         @IntRange(min = 0)
         public static int required_reputation = 35;
+
+        @Config("What should be the aggrevation range of the Bee Knights, when someone tries to steal their honey!")
+        @IntRange(min = 3)
+        public static int aggrevation_range = 5;
+
+        @Config("Bee knight spawn chance")
+        @IntRange(min = 0)
+        public static int weight = 25;
+
+        @Config("Minimum entities to spawn in a group group")
+        @IntRange(min = 1)
+        public static int min = 1;
+
+        @Config("Maximum entities to spawn in a group group")
+        @IntRange(min = 1)
+        public static int max = 2;
+
     }
 
     public static class autumn_pixie {

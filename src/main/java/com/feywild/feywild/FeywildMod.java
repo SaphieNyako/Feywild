@@ -70,7 +70,7 @@ public class FeywildMod extends ModXRegistration {
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
 
         GeckoLib.initialize();
-        
+
         if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
             this.addRegistrationHandler(ModAlfheimBiomes::register);
             FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
@@ -124,6 +124,7 @@ public class FeywildMod extends ModXRegistration {
             EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.beeKnight, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
         });
     }
 
