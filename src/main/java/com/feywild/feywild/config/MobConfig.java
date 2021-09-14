@@ -63,7 +63,7 @@ public class MobConfig {
 
         @Config("What should be the aggrevation range of the Bee Knights, when someone tries to steal their honey!")
         @IntRange(min = 3)
-        public static int aggrevation_range = 5;
+        public static int aggrevation_range = 10;
 
         @Config("Bee knight spawn chance")
         @IntRange(min = 0)

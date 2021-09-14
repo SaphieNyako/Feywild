@@ -45,6 +45,11 @@ public class ParticleHandler {
                             world.addParticle(ParticleTypes.FLAME, true, x, y, z, (msg.vx - x) * 0.15, (msg.vy - y) * 0.15, (msg.vz - z) * 0.15);
                         }
                         break;
+                    case CROPS_GROW:
+                        for (int i = 0; i < 5; i++) {
+                            world.addParticle(ParticleTypes.HAPPY_VILLAGER, true, msg.x - 0.3 + (0.6 * world.random.nextDouble()), msg.y + (0.3 * world.random.nextDouble()), msg.z - 0.3 + (0.6 * world.random.nextDouble()), 0, 0, 0);
+                        }
+                        break;
                 }
             }
         });

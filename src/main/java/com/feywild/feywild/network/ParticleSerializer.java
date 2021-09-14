@@ -33,8 +33,12 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
         return new Message(type, x, y, z, vx, vy, vz);
     }
 
+    public enum Type {
+        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW
+    }
+
     public static class Message {
-        
+
         public final double x;
         public final double y;
         public final double z;
@@ -42,11 +46,11 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
         public final double vy;
         public final double vz;
         public final Type type;
-        
+
         public Message(Type type, double x, double y, double z) {
             this(type, x, y, z, 0, 0, 0);
         }
-        
+
         public Message(Type type, double x, double y, double z, double vx, double vy, double vz) {
             this.x = x;
             this.y = y;
@@ -56,9 +60,5 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
             this.vz = vz;
             this.type = type;
         }
-    }
-    
-    public enum Type {
-        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE
     }
 }

@@ -2,6 +2,7 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
+import com.feywild.feywild.entity.goals.SingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
@@ -98,6 +99,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 8));
         this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
+        this.goalSelector.addGoal(20, new SingGoal(this));
     }
 
     @Override

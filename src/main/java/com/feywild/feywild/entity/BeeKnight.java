@@ -73,7 +73,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getTreasureVector, 10, 1.5f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getTreasureVector, MobConfig.summer_bee_knight.aggrevation_range, 1.5f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
