@@ -1,5 +1,6 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.MobConfig;
@@ -120,10 +121,10 @@ public class EventListener {
         updateKnights(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
-    // Temporary code, move to glass dome block when added
+    // Might want to make a copy in the use method of display glass and remove the check for it here -low prio-
     private void updateKnights(World world, PlayerEntity player, BlockPos pos) {
         //Should be changed to special honey block when that is implemented
-        if (!world.isClientSide && world.getBlockState(pos).getBlock() instanceof BeehiveBlock) {
+        if (!world.isClientSide && ( world.getBlockState(pos).getBlock() instanceof BeehiveBlock || world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() instanceof DisplayGlassBlock && world.getBlockState(pos).getValue(DisplayGlassBlock.GENERATOR)))) {
             player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
                 if (!(cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER)) {
                     world.getEntities(null, new AxisAlignedBB(pos).inflate(MobConfig.summer_bee_knight.aggrevation_range)).forEach(entity -> {

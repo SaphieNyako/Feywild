@@ -46,6 +46,7 @@ public class StructureLoader {
             tempMap.putIfAbsent(ModStructures.winterWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
             tempMap.putIfAbsent(ModStructures.blacksmith, DimensionStructuresSettings.DEFAULTS.get(ModStructures.blacksmith));
             tempMap.putIfAbsent(ModStructures.library, DimensionStructuresSettings.DEFAULTS.get(ModStructures.library));
+            tempMap.putIfAbsent(ModStructures.beekeep, DimensionStructuresSettings.DEFAULTS.get(ModStructures.beekeep));
             world.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
 

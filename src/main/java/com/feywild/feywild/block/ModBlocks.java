@@ -37,4 +37,6 @@ public class ModBlocks {
     public static final MandrakeCrop mandrakeCrop = new MandrakeCrop(FeywildMod.getInstance());
 
     public static final AncientRunestoneBlock ancientRunestone = new AncientRunestoneBlock(FeywildMod.getInstance());
+
+    public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
 }

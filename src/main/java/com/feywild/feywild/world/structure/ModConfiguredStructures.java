@@ -15,4 +15,5 @@ public class ModConfiguredStructures {
     public static final StructureFeature<?, ?> CONFIGURED_WINTER_WORLD_TREE = Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, "configured_winter_world_tree"), ModStructures.winterWorldTree.configured(IFeatureConfig.NONE));
     public static final StructureFeature<?, ?> CONFIGURED_BLACKSMITH = Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, "configured_blacksmith"), ModStructures.blacksmith.configured(IFeatureConfig.NONE));
     public static final StructureFeature<?, ?> CONFIGURED_LIBRARY = Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, "configured_library"), ModStructures.library.configured(IFeatureConfig.NONE));
+    public static final StructureFeature<?,?> CONFIGURED_BEEKEEP = Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid,"configured_beekeep"),ModStructures.beekeep.configured(IFeatureConfig.NONE));
 }

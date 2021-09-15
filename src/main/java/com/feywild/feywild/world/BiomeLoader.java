@@ -133,6 +133,7 @@ public class BiomeLoader {
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_SUNFLOWER);
             event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
             event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
+            event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
         }
 
         if (AUTUMN_BIOME.equals(biomeId) || (AUTUMN_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {

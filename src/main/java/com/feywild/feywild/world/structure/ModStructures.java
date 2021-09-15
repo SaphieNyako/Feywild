@@ -22,6 +22,7 @@ public class ModStructures {
     public static final BaseStructure winterWorldTree = new WinterWorldTreeStructure();
     public static final BaseStructure blacksmith = new BlacksmithStructure();
     public static final BaseStructure library = new LibraryStructure();
+    public static final BaseStructure beekeep = new BeekeepStructure();
 
     public static void setupStructures() {
         setupMapSpacingAndLand(springWorldTree, true);
@@ -30,6 +31,7 @@ public class ModStructures {
         setupMapSpacingAndLand(winterWorldTree, true);
         setupMapSpacingAndLand(library, true);
         setupMapSpacingAndLand(blacksmith, true);
+        setupMapSpacingAndLand(beekeep, true);
     }
 
     //Checks rarity of structure and determines if land conforms to it
