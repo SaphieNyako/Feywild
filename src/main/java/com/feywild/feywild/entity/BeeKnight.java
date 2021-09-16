@@ -5,6 +5,7 @@ import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.CapabilityQuests;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.MobEntity;
@@ -17,8 +18,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -58,7 +58,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
                 .add(Attributes.MAX_HEALTH, 24)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2)
-                .add(Attributes.FOLLOW_RANGE, 40)
+                .add(Attributes.FOLLOW_RANGE, 80)
                 .add(Attributes.ATTACK_DAMAGE, 4);
     }
 
@@ -73,7 +73,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getTreasureVector, MobConfig.summer_bee_knight.aggrevation_range, 1.5f));
+        this.goalSelector.addGoal(70, new GoToTargetPositionGoal(this, this::getTreasureVector, 20, 1.5f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
@@ -82,8 +82,10 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
     @Override
     public void tick() {
-        if (!this.level.isClientSide && hurtTime > 0 && getTarget() != null) {
+        if (!this.level.isClientSide && hurtTime > 0) {  //&& getTarget() != null
+            setTarget(getLastHurtByMob());
             setAggravated(true);
+
         }
         super.tick();
     }
@@ -154,6 +156,24 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         return new Vector3d(treasureBlock.getX(), treasureBlock.getY(), treasureBlock.getZ());
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
+        return this.random.nextBoolean() ? ModSoundEvents.pixieHurt : SoundEvents.BEE_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return this.random.nextBoolean() ? ModSoundEvents.pixieDeath : SoundEvents.BEE_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.BEE_LOOP;
+    }
+
     private static class RestrictedAttackGoal extends MeleeAttackGoal {
 
         BeeKnight creature;
@@ -171,6 +191,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         @Override
         public void start() {
             super.start();
+            // creature.setTarget(creature.getLastHurtByMob());
             if (creature.getTreasureBlock() == null || creature.getTreasureBlock().closerThan(new BlockPos(0, 0, 0), 1)) {
                 creature.setTreasureBlock(creature.blockPosition());
             }
@@ -178,7 +199,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
         @Override
         public boolean canContinueToUse() {
-            return creature.isAggravated() && creature.getTreasureBlock().closerThan(creature.blockPosition(), 10) && creature.getTarget() != null && !creature.getTarget().isDeadOrDying();
+            return creature.isAggravated() && creature.getTreasureBlock().closerThan(creature.blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range) && creature.getTarget() != null && !creature.getTarget().isDeadOrDying();
         }
 
         @Override

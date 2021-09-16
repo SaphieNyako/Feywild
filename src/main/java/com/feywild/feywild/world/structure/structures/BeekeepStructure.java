@@ -4,7 +4,6 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -26,7 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BeekeepStructure extends BaseStructure {
-    
+
     public final static int SEED_MODIFIER = 345820124;
     /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
@@ -34,6 +33,10 @@ public class BeekeepStructure extends BaseStructure {
     );
     private static final String MESSAGE_LOCATION = "Beekeep at: ";
     private static final String MESSAGE_POOL = "beekeep/start_pool";
+
+    public static List<MobSpawnInfo.Spawners> getStructureMonsters() {
+        return STRUCTURE_MONSTERS;
+    }
 
     @Override
     public int getAverageDistanceBetweenChunks() {
@@ -49,15 +52,11 @@ public class BeekeepStructure extends BaseStructure {
     public int getSeedModifier() {
         return SEED_MODIFIER;
     }  // this was commented out
-    
+
     @Nonnull
     @Override
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return BeekeepStructure.Start::new;
-    }
-
-    public static List<MobSpawnInfo.Spawners> getStructureMonsters() {
-        return STRUCTURE_MONSTERS;
     }
 
     //START CLASS
@@ -74,7 +73,7 @@ public class BeekeepStructure extends BaseStructure {
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
 
-            BlockPos blockpos = new BlockPos(x, 1, z);
+            BlockPos blockpos = new BlockPos(x, 0, z);
 
             //addpieces()
             JigsawManager.addPieces(
@@ -95,8 +94,8 @@ public class BeekeepStructure extends BaseStructure {
             // Keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
 
             //OPTIONAL
-            this.pieces.forEach(piece -> piece.move(0, 1, 0));
-            //this.pieces.forEach(piece -> piece.getBoundingBox().y1 -= 1);
+            this.pieces.forEach(piece -> piece.move(0, 0, 0));
+            this.pieces.forEach(piece -> piece.getBoundingBox().y1 -= 1);
 
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
             this.calculateBoundingBox();
