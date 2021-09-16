@@ -95,7 +95,7 @@ public class BeekeepStructure extends BaseStructure {
             // Keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
 
             //OPTIONAL
-            this.pieces.forEach(piece -> piece.move(0, 2, 0));
+            this.pieces.forEach(piece -> piece.move(0, 1, 0));
             //this.pieces.forEach(piece -> piece.getBoundingBox().y1 -= 1);
 
             // Sets the bounds of the structure once you are finished. // calculateBoundingBox();
