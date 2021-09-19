@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "state=0": {
       "model": "feywild:block/display_glass"
+    },
+    "state=1": {
+      "model": "feywild:block/display_glass1"
+    },
+    "state=2": {
+      "model": "feywild:block/display_glass2"
+    },
+    "state=3": {
+      "model": "feywild:block/display_glass3"
+    },
+    "state=4": {
+      "model": "feywild:block/display_glass4"
     }
   }
 }

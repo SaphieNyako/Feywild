@@ -13,6 +13,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -25,7 +28,8 @@ public class DisplayGlassEntity extends TileEntityBase implements ITickableTileE
 
     private final BaseItemStackHandler inv;
     private final LazyOptional<IItemHandlerModifiable> itemHandler;
-    private int cooldown = 0;
+    private int cooldown = 0, hits =0;
+    private boolean canTick = false;
 
     public DisplayGlassEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -52,6 +56,8 @@ public class DisplayGlassEntity extends TileEntityBase implements ITickableTileE
     public CompoundNBT save(@Nonnull CompoundNBT nbt) {
         nbt.put("inventory", this.inv.serializeNBT());
         nbt.putInt("cooldown", this.cooldown);
+        nbt.putInt("hits", this.hits);
+        nbt.putBoolean("tick",this.canTick);
         return super.save(nbt);
     }
 
@@ -60,6 +66,8 @@ public class DisplayGlassEntity extends TileEntityBase implements ITickableTileE
         super.load(state, nbt);
         this.inv.deserializeNBT(nbt.getCompound("inventory"));
         this.cooldown = nbt.getInt("cooldown");
+        this.hits = nbt.getInt("hits");
+        this.canTick = nbt.getBoolean("tick");
     }
 
     @Nonnull
@@ -70,6 +78,20 @@ public class DisplayGlassEntity extends TileEntityBase implements ITickableTileE
             nbt.put("inventory", this.inv.serializeNBT());
         }
         return nbt;
+    }
+
+    public void hitGlass(World world){
+        hits++;
+        world.playSound(null,worldPosition, SoundEvents.GLASS_HIT, SoundCategory.BLOCKS,1,1);
+        if(hits > 3 && world.getBlockState(worldPosition).getBlock() instanceof DisplayGlassBlock){
+            if(world.getBlockState(worldPosition).getValue(DisplayGlassBlock.STATE) == 3)
+                canTick = true;
+            if(world.getBlockState(worldPosition).getValue(DisplayGlassBlock.STATE) < 4) {
+                world.setBlock(worldPosition, world.getBlockState(worldPosition).setValue(DisplayGlassBlock.STATE, world.getBlockState(worldPosition).getValue(DisplayGlassBlock.STATE) + 1), 2);
+                world.playSound(null, worldPosition, SoundEvents.GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);
+                hits = 0;
+            }
+        }
     }
 
     @Override
@@ -88,9 +110,11 @@ public class DisplayGlassEntity extends TileEntityBase implements ITickableTileE
     public void tick() {
         if(!level.isClientSide){
             if(cooldown <= 0 && getInventory().getStackInSlot(0).isEmpty() && level.getBlockState(worldPosition).getBlock() instanceof DisplayGlassBlock && level.getBlockState(worldPosition).getValue(DisplayGlassBlock.GENERATOR) ){
+                level.setBlock(worldPosition, level.getBlockState(worldPosition).setValue(DisplayGlassBlock.STATE, 0), 2);
                 getInventory().insertItem(0, new ItemStack(ModItems.honeycomb).copy(),false);
                 cooldown = WorldGenConfig.structures.bee_keep.honey_timer;
-            }else if(cooldown > 0)
+                canTick = false;
+            }else if(canTick)
                 cooldown--;
         }
     }

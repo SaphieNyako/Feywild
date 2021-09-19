@@ -1,8 +1,10 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.entity.DisplayGlassEntity;
 import com.feywild.feywild.block.render.DisplayGlassRenderer;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
+import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.AbstractBlock;
@@ -14,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -33,26 +36,29 @@ import java.util.function.Consumer;
 public class DisplayGlassBlock extends BlockTE<DisplayGlassEntity> {
 
     public static final BooleanProperty GENERATOR = BooleanProperty.create("generator");
+    public static final IntegerProperty STATE = IntegerProperty.create("state", 0,4);
     public DisplayGlassBlock(ModX mod) {
-        super(mod, DisplayGlassEntity.class, AbstractBlock.Properties.of(Material.GLASS).strength(2f).noOcclusion());
-        this.registerDefaultState(this.stateDefinition.any().setValue(GENERATOR, false));
+        super(mod, DisplayGlassEntity.class, AbstractBlock.Properties.of(Material.GLASS).strength(9999999f).noOcclusion());
+        this.registerDefaultState(this.stateDefinition.any().setValue(GENERATOR, false).setValue(STATE,0));
     }
-
 
     @Override
-    public ActionResultType use(BlockState pState, World pLevel, BlockPos pPos, PlayerEntity pPlayer, Hand pHand, BlockRayTraceResult pHit) {
-        if(!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof DisplayGlassEntity){
-            DisplayGlassEntity entity = (DisplayGlassEntity) pLevel.getBlockEntity(pPos);
-            pPlayer.addItem(entity.getInventory().getStackInSlot(0).copy());
-            entity.getInventory().extractItem(0,entity.getInventory().getStackInSlot(0).getCount(),false);
-        }
-        return ActionResultType.SUCCESS;
+    protected boolean shouldDropInventory(World world, BlockPos pos, BlockState state) {
+        return state.getValue(STATE) == 3;
     }
 
+    @Override
+    public void attack(BlockState pState, World pLevel, BlockPos pPos, PlayerEntity pPlayer) {
+        super.attack(pState, pLevel, pPos, pPlayer);
+        if(!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof DisplayGlassEntity){
+            DisplayGlassEntity entity = (DisplayGlassEntity)pLevel.getBlockEntity(pPos);
+            entity.hitGlass(pLevel);
+        }
+    }
 
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(GENERATOR);
+        builder.add(GENERATOR).add(STATE);
     }
 
     @Override
