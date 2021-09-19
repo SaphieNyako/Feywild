@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.config.ClientConfig;
+import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -10,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
@@ -40,6 +42,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
     
     public static final int MAX_PARTICLE_DISTANCE = 48;
+
     
     public FeyLeavesBlock(ModX mod) {
         super(mod, AbstractBlock.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS)
@@ -59,6 +62,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
     }
+
 
     protected static BlockState updateDistance(BlockState state, IWorld worldIn, BlockPos pos) {
         int distance = MAX_DISTANCE;
@@ -80,6 +84,14 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
         } else {
             return MAX_DISTANCE;
         }
+    }
+
+    public int getChance() {
+        return 100;
+    }
+
+    public BasicParticleType getParticle(){
+        return ModParticles.leafParticle;
     }
 
     @Override
@@ -154,6 +166,9 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
                 double z = pos.getZ() + rand.nextDouble();
                 world.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0, 0, 0);
             }
+        }
+        if (rand.nextInt(getChance()) == 1 && world.isEmptyBlock(pos.below())) {
+            world.addParticle(getParticle(), pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
         }
     }
 }

@@ -4,6 +4,7 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,13 +19,15 @@ public class AutumnLeavesBlock extends FeyLeavesBlock {
         super(mod);
     }
 
+
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void animateLeaves(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        super.animateLeaves(state, world, pos, rand);
-        if (rand.nextInt(10) == 1 && world.isEmptyBlock(pos.below())) {
-            world.addParticle(ModParticles.leafParticle, pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
-        }
+    public int getChance() {
+        return 10;
+    }
+
+    @Override
+    public BasicParticleType getParticle() {
+        return ModParticles.leafParticle;
     }
 }
 
