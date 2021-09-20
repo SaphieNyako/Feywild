@@ -1,8 +1,8 @@
 {
   "name": "Summer Court",
   "icon": "feywild:summer_tree_sapling",
-  "category": "feywild",
-  "sortnum": 2,
+  "category": "summer_court",
+  "sortnum": 0,
   "pages": [
     {
       "type": "text",

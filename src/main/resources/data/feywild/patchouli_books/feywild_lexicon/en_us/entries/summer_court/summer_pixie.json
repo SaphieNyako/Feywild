@@ -1,7 +1,8 @@
 {
   "name": "Summer Pixie",
   "icon": "feywild:summoning_scroll_summer_pixie",
-  "category": "pixies",
+  "category": "summer_court",
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

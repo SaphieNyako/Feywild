@@ -3,7 +3,7 @@
   "name": "Summoning Fey",
   "icon": "feywild:fey_altar",
   "category": "feywild",
-  "sortnum": 5,
+  "sortnum": 2,
   "pages": [
     {
       "type": "spotlight",

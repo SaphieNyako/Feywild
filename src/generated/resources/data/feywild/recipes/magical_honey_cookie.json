@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "#b#",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "feywild:honeycomb"
+    },
+    "b": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "#": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "feywild:magical_honey_cookie",
+    "count": 4
+  }
+}

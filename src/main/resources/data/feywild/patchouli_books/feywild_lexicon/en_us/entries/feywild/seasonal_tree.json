@@ -1,8 +1,8 @@
 {
-  "name": "Seasonal Wars",
+  "name": "Seasonal Trees",
   "icon": "feywild:autumn_tree_sapling",
   "category": "feywild",
-  "sortnum": 5,
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",

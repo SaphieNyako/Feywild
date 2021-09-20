@@ -1,8 +1,8 @@
 {
   "name": "Spring Court",
   "icon": "feywild:spring_tree_sapling",
-  "category": "feywild",
-  "sortnum": 1,
+  "category": "spring_court",
+  "sortnum": 0,
   "pages": [
     {
       "type": "text",

@@ -29,7 +29,7 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .filter(b -> this.mod.modid.equals(b.getRegistryName().getNamespace()))
                 .filter(b -> b instanceof FeyWoodBlock)
                 .forEach(b -> this.makeWoodRecipe((FeyWoodBlock) b, consumer));
-        
+
         ShapedRecipeBuilder.shaped(ModBlocks.dwarvenAnvil)
                 .pattern("fff")
                 .pattern(" i ")
@@ -47,7 +47,7 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .unlockedBy("has_item0", has(ModItems.feyDust))
                 .unlockedBy("has_item1", has(ModItems.mandrake))
                 .save(consumer);
-        
+
         ShapelessRecipeBuilder.shapeless(ModItems.mandrakePotion)
                 .requires(Items.GLASS_BOTTLE)
                 .requires(ModItems.mandrake)
@@ -56,15 +56,25 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .unlockedBy("has_item0", has(Items.GHAST_TEAR))
                 .unlockedBy("has_item1", has(ModItems.mandrake))
                 .save(consumer);
-        
+
         ShapelessRecipeBuilder.shapeless(ModItems.summoningScroll)
                 .requires(Items.PAPER)
                 .requires(ModItems.feyInkBottle)
                 .requires(Items.FEATHER)
                 .unlockedBy("has_item", has(ModItems.feyInkBottle))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModItems.magicalHoneyCookie, 4)
+                .pattern(" a ")
+                .pattern("#b#")
+                .pattern(" a ")
+                .define('a', ModItems.honeycomb)
+                .define('b', Items.COCOA_BEANS)
+                .define('#', Items.WHEAT)
+                .unlockedBy("has_item", has(ModItems.honeycomb))
+                .save(consumer);
     }
-    
+
     private void makeWoodRecipe(FeyWoodBlock block, Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(block, 3)
                 .pattern("aa")

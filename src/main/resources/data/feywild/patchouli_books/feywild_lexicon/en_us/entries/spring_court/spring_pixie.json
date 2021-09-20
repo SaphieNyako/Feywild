@@ -1,7 +1,8 @@
 {
   "name": "Spring Pixie",
   "icon": "feywild:summoning_scroll_spring_pixie",
-  "category": "pixies",
+  "category": "spring_court",
+  "sortnum": 1,
   "pages": [
     {
       "type": "text",
