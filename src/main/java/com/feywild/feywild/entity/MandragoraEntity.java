@@ -192,7 +192,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        switch (random.nextInt(4)) {
+        switch (random.nextInt(5)) {
             case 0:
                 return ModSoundEvents.mandragoraAmbience01;
             case 1:

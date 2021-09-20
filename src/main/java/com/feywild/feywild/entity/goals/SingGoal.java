@@ -59,7 +59,7 @@ public class SingGoal extends Goal {
                 for (int yd = 2; yd >= -2; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
 
-                    if (world.getBlockState(target).getBlock() instanceof CropsBlock && world.random.nextFloat() < 0.05f) {
+                    if (world.getBlockState(target).getBlock() instanceof CropsBlock && world.random.nextFloat() < 0.08f) {
 
                         ((CropsBlock) world.getBlockState(target).getBlock()).growCrops(world, target, world.getBlockState(target));
                         FeywildMod.getNetwork().sendParticles(world, ParticleSerializer.Type.CROPS_GROW, target);
@@ -72,7 +72,7 @@ public class SingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return world.random.nextFloat() < 0.005f && world.getBlockState(entity.blockPosition()).getBlock() instanceof FarmlandBlock; //if on farmblock
+        return world.random.nextFloat() < 0.003f && world.getBlockState(entity.blockPosition()).getBlock() instanceof FarmlandBlock; //if on farmblock
     }
 
     private void reset() {

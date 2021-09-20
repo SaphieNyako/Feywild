@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "feywild:block/glass_dome1"
+    "all": "feywild:block/display_glass1"
   }
 }
