@@ -191,7 +191,7 @@
     ]
   },
   {
-    "amount": 1,
+    "amount": 2,
     "trades": [
       {
         "output": {
@@ -200,6 +200,19 @@
         },
         "input": {
           "item": "feywild:brilliant_fey_gem",
+          "count": 1
+        },
+        "uses": 1,
+        "exp": 5,
+        "mul": 0.05
+      },
+      {
+        "output": {
+          "item": "feywild:market_rune_stone",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:inactive_market_rune_stone",
           "count": 1
         },
         "uses": 1,
