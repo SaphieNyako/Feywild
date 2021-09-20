@@ -1,5 +1,6 @@
 package com.feywild.feywild.data;
 
+import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
@@ -49,6 +50,14 @@ public class BlockStates extends BlockStateProviderBase {
                     new ConfiguredModel(this.cubeAll(block)),
                     new ConfiguredModel(this.models().cubeAll(id.getPath() + "_02", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_02")))
             );
+        } else if (block instanceof DisplayGlassBlock) {
+            VariantBlockStateBuilder builder = this.getVariantBuilder(block);
+
+            DisplayGlassBlock.STATE.getPossibleValues().forEach(i -> {
+                builder.partialState().with(DisplayGlassBlock.STATE, i).addModels(
+                        new ConfiguredModel(this.models().withExistingParent(id.getPath() + i, new ResourceLocation("minecraft", "block/cube_all"))
+                                .texture("all", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + i))));
+            });
         } else if (block instanceof FeyWoodBlock) {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(((FeyWoodBlock) block).getLogBlock()), this.blockTexture(((FeyWoodBlock) block).getLogBlock()));
         } else if (block instanceof RotatedPillarBlock) {

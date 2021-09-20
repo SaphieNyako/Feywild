@@ -1,7 +1,7 @@
 {
   "parent": "feywild:cake",
   "reputation": 5,
-  "icon": "minecraft:honeycomb",
+  "icon": "feywild:honeycomb",
   "start": {
     "title": {
       "translate": "quest.feywild.spring.honey.start.title"
@@ -22,16 +22,15 @@
     {
       "alignment": "spring",
       "item": {
-        "item": "minecraft:honeycomb"
+        "item": "feywild:honeycomb"
       },
-      "id": "feywild:fey_gift",
-      "times": 2
+      "id": "feywild:fey_gift"
     }
   ],
   "rewards": [
     {
       "item": {
-        "item": "minecraft:honey_bottle"
+        "item": "feywild:honeycomb"
       },
       "id": "feywild:item"
     }

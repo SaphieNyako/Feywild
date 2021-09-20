@@ -1,6 +1,7 @@
 package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModTrees;
+import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.*;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.task.*;
@@ -65,8 +66,8 @@ public class QuestProvider implements IDataProvider {
 
         this.quest(SPRING, "honey")
                 .parent("cake")
-                .gift(Ingredient.of(Items.HONEYCOMB), 2)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.HONEY_BOTTLE, 1)))
+                .gift(Ingredient.of(ModItems.honeycomb), 1)
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.honeycomb, 1)))
                 .build();
 
         this.quest(SPRING, "sapling")
@@ -74,7 +75,6 @@ public class QuestProvider implements IDataProvider {
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
                 .build();
-
 
         this.root(SUMMER)
                 .icon(Items.DIAMOND)
@@ -108,7 +108,6 @@ public class QuestProvider implements IDataProvider {
                 .icon(ModTrees.summerTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
                 .build();
-
 
         this.root(AUTUMN)
                 .icon(Items.DIAMOND)
@@ -153,7 +152,6 @@ public class QuestProvider implements IDataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
                 .build();
 
-
         this.root(WINTER)
                 .icon(Items.DIAMOND)
                 .reputation(25)
@@ -184,7 +182,7 @@ public class QuestProvider implements IDataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
                 .build();
     }
-    
+
     @Override
     public void run(@Nonnull DirectoryCache cache) throws IOException {
         this.setup();
@@ -213,28 +211,28 @@ public class QuestProvider implements IDataProvider {
     public String getName() {
         return this.mod.modid + "quests";
     }
-    
+
     public QuestBuilder root(Alignment alignment) {
         return this.quest(alignment, "root");
     }
-    
+
     public QuestBuilder quest(Alignment alignment, String name) {
         return new QuestBuilder(alignment, name);
     }
-    
+
     public class QuestBuilder {
-        
+
         private final Alignment alignment;
         private final ResourceLocation id;
         private final Set<String> parents;
+        private final List<QuestTask> tasks;
+        private final List<QuestReward> rewards;
         private boolean repeatable = false;
         private int reputation;
         private Item icon;
         private QuestDisplay start;
         @Nullable
         private QuestDisplay complete;
-        private final List<QuestTask> tasks;
-        private final List<QuestReward> rewards;
 
         public QuestBuilder(Alignment alignment, String name) {
             this.alignment = alignment;
@@ -255,68 +253,68 @@ public class QuestProvider implements IDataProvider {
             this.tasks = new ArrayList<>();
             this.rewards = new ArrayList<>();
         }
-        
+
         public QuestBuilder parent(String... ids) {
             this.parents.addAll(Arrays.asList(ids));
             return this;
         }
-        
+
         public QuestBuilder repeatable() {
             this.repeatable = true;
             return this;
         }
-        
+
         public QuestBuilder reputation(int reputation) {
             this.reputation = reputation;
             return this;
         }
-        
+
         public QuestBuilder icon(IItemProvider icon) {
             this.icon = icon.asItem();
             return this;
         }
-        
+
         public QuestBuilder start(QuestDisplay display) {
             this.start = display;
             return this;
         }
-        
+
         public QuestBuilder complete(@Nullable QuestDisplay display) {
             this.complete = display;
             return this;
         }
-        
+
         public QuestBuilder startSound(@Nullable SoundEvent sound) {
             this.start = new QuestDisplay(this.start.title, this.start.description, sound);
             return this;
         }
-        
+
         public QuestBuilder completeSound(@Nullable SoundEvent sound) {
             if (this.complete == null) throw new IllegalStateException("Can't set sound on null completion.");
             this.complete = new QuestDisplay(this.complete.title, this.complete.description, sound);
             return this;
         }
-        
+
         public QuestBuilder task(QuestTask... tasks) {
             this.tasks.addAll(Arrays.asList(tasks));
             return this;
         }
-        
+
         // Shorthand for fey gift task with current alignment
         public QuestBuilder gift(Ingredient ingredient) {
             return this.gift(ingredient, 1);
         }
-        
+
         public QuestBuilder gift(Ingredient ingredient, int times) {
             this.tasks.add(QuestTask.of(FeyGiftTask.INSTANCE, new FeyGift(this.alignment, ingredient), times));
             return this;
         }
-        
+
         public QuestBuilder reward(QuestReward... rewards) {
             this.rewards.addAll(Arrays.asList(rewards));
             return this;
         }
-        
+
         public void build() {
             Item icon = this.icon;
             if (this.icon == null && this.tasks.size() == 1) {

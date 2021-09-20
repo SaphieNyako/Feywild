@@ -20,19 +20,19 @@ import net.minecraftforge.common.ToolType;
 public class ModBlocks {
 
     public static final Block feyGemBlock = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.of(Material.STONE).strength(3f, 10f)
-                    .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE));
+            .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE));
 
     public static final Block feyGemBlockLivingrock = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.of(Material.STONE).strength(3f, 10f)
             .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE));
-    
+
     public static final BlockTE<LibraryBell> libraryBell = new LibraryBellBlock(FeywildMod.getInstance());
     public static final GiantFlowerBlock sunflower = new SunflowerBlock(FeywildMod.getInstance());
     public static final GiantFlowerBlock dandelion = new DandelionBlock(FeywildMod.getInstance());
     public static final GiantFlowerBlock crocus = new CrocusBlock(FeywildMod.getInstance());
-    
+
     public static final DwarvenAnvilBlock dwarvenAnvil = new DwarvenAnvilBlock(FeywildMod.getInstance());
     public static final FeyAltarBlock feyAltar = new FeyAltarBlock(FeywildMod.getInstance());
-    
+
     public static final TreeMushroomBlock treeMushroom = new TreeMushroomBlock(FeywildMod.getInstance());
     public static final MandrakeCrop mandrakeCrop = new MandrakeCrop(FeywildMod.getInstance());
 

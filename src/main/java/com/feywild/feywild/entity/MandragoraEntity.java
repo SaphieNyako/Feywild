@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.SingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -20,7 +21,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -94,10 +98,10 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(10, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomWalkingGoal(this, 1));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 8));
-        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 4));
+        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.2f));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(20, new SingGoal(this));
     }
@@ -176,19 +180,26 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
-        return SoundEvents.FOX_HURT;
+        return ModSoundEvents.mandragoraHurt;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.FOX_DEATH;
+        return ModSoundEvents.mandragoraDeath;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.FOX_AMBIENT;
+        switch (random.nextInt(5)) {
+            case 0:
+                return ModSoundEvents.mandragoraAmbience01;
+            case 1:
+                return ModSoundEvents.mandragoraAmbience02;
+            default:
+                return null;
+        }
     }
 
     @Override

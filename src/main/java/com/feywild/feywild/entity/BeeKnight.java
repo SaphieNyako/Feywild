@@ -37,7 +37,6 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
-import java.util.function.Supplier;
 
 public class BeeKnight extends FeyBase implements IAnimatable {
 
@@ -74,7 +73,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(70, new GoToTargetPositionGoal(this, this::getTreasureVector, 20, 2f));
+        this.goalSelector.addGoal(70, new GoToTargetPositionGoal(this, this::getTreasureVector, MobConfig.summer_bee_knight.aggrevation_range, 2f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
@@ -84,10 +83,10 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     @Override
     public void tick() {
         if (!this.level.isClientSide && hurtTime > 0) {  //&& getTarget() != null
-            if( getTreasureBlock().closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
+            if (getTreasureBlock().closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
                 setTarget(getLastHurtByMob());
                 setAggravated(true);
-            }else
+            } else
                 heal(20);
 
         }

@@ -3,6 +3,7 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.ai.goal.Goal;
@@ -36,6 +37,7 @@ public class SingGoal extends Goal {
                 this.growCropsBySinging(entity.blockPosition());
             } else if (this.ticksLeft == 160) {
                 this.singing();
+                this.entity.playSound(ModSoundEvents.mandragoraSinging, 1, 1);
             }
         }
     }
@@ -57,10 +59,11 @@ public class SingGoal extends Goal {
                 for (int yd = 2; yd >= -2; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
 
-                    if (world.getBlockState(target).getBlock() instanceof CropsBlock && world.random.nextFloat() < 0.05f) {
+                    if (world.getBlockState(target).getBlock() instanceof CropsBlock && world.random.nextFloat() < 0.08f) {
 
                         ((CropsBlock) world.getBlockState(target).getBlock()).growCrops(world, target, world.getBlockState(target));
                         FeywildMod.getNetwork().sendParticles(world, ParticleSerializer.Type.CROPS_GROW, target);
+
                     }
                 }
             }
@@ -69,7 +72,7 @@ public class SingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return world.random.nextFloat() < 0.005f && world.getBlockState(entity.blockPosition()).getBlock() instanceof FarmlandBlock; //if on farmblock
+        return world.random.nextFloat() < 0.003f && world.getBlockState(entity.blockPosition()).getBlock() instanceof FarmlandBlock; //if on farmblock
     }
 
     private void reset() {
