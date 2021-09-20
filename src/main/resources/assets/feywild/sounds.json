@@ -164,5 +164,50 @@
         "stream": true
       }
     ]
+  },
+  "mandragora_ambience_01": {
+    "subtitle": "mandragora_humming",
+    "sounds": [
+      {
+        "name": "feywild:mandragora_ambience_01",
+        "stream": true
+      }
+    ]
+  },
+  "mandragora_ambience_02": {
+    "subtitle": "mandragora_humming",
+    "sounds": [
+      {
+        "name": "feywild:mandragora_ambience_02",
+        "stream": true
+      }
+    ]
+  },
+  "mandragora_death": {
+    "subtitle": "mandragora_death",
+    "sounds": [
+      {
+        "name": "feywild:mandragora_death",
+        "stream": true
+      }
+    ]
+  },
+  "mandragora_hurt": {
+    "subtitle": "mandragora_hurt",
+    "sounds": [
+      {
+        "name": "feywild:mandragora_hurt",
+        "stream": true
+      }
+    ]
+  },
+  "mandragora_singing": {
+    "subtitle": "mandragora_singing",
+    "sounds": [
+      {
+        "name": "feywild:mandragora_singing",
+        "stream": true
+      }
+    ]
   }
 }

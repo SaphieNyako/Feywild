@@ -10,7 +10,11 @@ public class ModSoundEvents {
 
     public static final SoundEvent musicMenu = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "music_menu"));
     public static final SoundEvent musicCreative = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "music_creative"));
-
+    public static final SoundEvent mandragoraAmbience01 = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_ambience_01"));
+    public static final SoundEvent mandragoraAmbience02 = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_ambience_02"));
+    public static final SoundEvent mandragoraDeath = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_death"));
+    public static final SoundEvent mandragoraHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_hurt"));
+    public static final SoundEvent mandragoraSinging = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_singing"));
     public static final SoundEvent mandrakeScream = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandrake_scream"));
     public static final SoundEvent dwarfAttack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "dwarf_attack"));
     public static final SoundEvent dwarfRubble = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "dwarf_rubble"));

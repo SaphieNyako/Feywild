@@ -3,6 +3,7 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.ai.goal.Goal;
@@ -36,6 +37,7 @@ public class SingGoal extends Goal {
                 this.growCropsBySinging(entity.blockPosition());
             } else if (this.ticksLeft == 160) {
                 this.singing();
+                this.entity.playSound(ModSoundEvents.mandragoraSinging, 1, 1);
             }
         }
     }
@@ -61,6 +63,7 @@ public class SingGoal extends Goal {
 
                         ((CropsBlock) world.getBlockState(target).getBlock()).growCrops(world, target, world.getBlockState(target));
                         FeywildMod.getNetwork().sendParticles(world, ParticleSerializer.Type.CROPS_GROW, target);
+
                     }
                 }
             }
