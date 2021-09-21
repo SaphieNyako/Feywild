@@ -1,5 +1,9 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.entity.MarketDwarfEntity;
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.util.MarketHandler;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.teleporters.MarketPlaceTeleporter;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -76,14 +80,29 @@ public class MarketRuneStone extends TooltipItem {
                         entity.addTag("z" + pos.getZ());
                         entity.changeDimension(marketWorld, new MarketPlaceTeleporter(new BlockPos(0, 0, 0), true));
 
-                        if (!entity.level.getBlockState(new BlockPos(0, 0, 0)).equals(Blocks.GOLD_BLOCK.defaultBlockState())) {
-                            StructureHelper.spawnStructure("feywild:market", new BlockPos(-10, 57, -10), Rotation.NONE, 1, (ServerWorld) entity.level, true).loadStructure((ServerWorld) entity.level);
-                            entity.level.setBlock(new BlockPos(0, 0, 0), Blocks.GOLD_BLOCK.defaultBlockState(), 2);
-                        }
+                            if (!entity.level.getBlockState(new BlockPos(0, 0, 0)).equals(Blocks.GOLD_BLOCK.defaultBlockState())) {
+                                StructureHelper.spawnStructure("feywild:market", new BlockPos(-10, 57, -10), Rotation.NONE, 1, (ServerWorld) entity.level, true).loadStructure((ServerWorld) entity.level);
+                                entity.level.setBlock(new BlockPos(0, 0, 0), Blocks.GOLD_BLOCK.defaultBlockState(), 2);
 
-                        entity.addEffect(new EffectInstance(Effects.BLINDNESS, 60, 60));
-                        entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 60, 60));
-                        entity.setGameMode(GameType.ADVENTURE);
+                                //TRADERS
+                                MarketDwarfEntity trader = new MarketDwarfEntity(ModEntityTypes.dwarfBlacksmithMarket, entity.level);
+
+                                trader.setPos(11, 64, 20);
+                                entity.level.addFreshEntity(trader);
+
+                                trader = new MarketDwarfEntity(ModEntityTypes.dwarfBaker, entity.level);
+                                trader.setPos(-3,64,10);
+                                entity.level.addFreshEntity(trader);
+
+                                trader = new MarketDwarfEntity(ModEntityTypes.dwarfShepherd, entity.level);
+                                trader.setPos(-2,64,0);
+                                entity.level.addFreshEntity(trader);
+
+                            }
+
+                            entity.addEffect(new EffectInstance(Effects.BLINDNESS, 60, 60));
+                            entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 60, 60));
+                            entity.setGameMode(GameType.ADVENTURE);
 
                     } else {
                         entity.sendMessage(new TranslationTextComponent("message.feywild.market_closed"), entity.getUUID());

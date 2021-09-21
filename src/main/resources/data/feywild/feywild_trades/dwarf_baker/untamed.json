@@ -1,37 +1,109 @@
 [
   {
-    "amount": 2,
+    "amount": 3,
     "trades": [
       {
         "input": {
-          "item": "minecraft:bread",
-          "count": [
-            3,
-            4
-          ]
+          "item": "feywild:lesser_fey_gem",
+          "count": 2
         },
         "output": {
-          "item": "minecraft:bread",
-          "count": 1
+          "item": "minecraft:apple",
+          "count": 3
         },
-        "uses": 5,
-        "exp": 1,
+        "uses": 10,
+        "exp": 0,
         "mul": 0.05
       },
-       {
+      {
         "input": {
-          "item": "minecraft:apple",
-          "count": [
-            3,
-            4
-          ]
-        },
-        "output": {
-          "item": "minecraft:apple",
+          "item": "feywild:greater_fey_gem",
           "count": 1
         },
+        "output": {
+          "item": "minecraft:cookie",
+          "count": 8
+        },
         "uses": 5,
-        "exp": 1,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:shiny_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:cake",
+          "count": 1
+        },
+        "uses": 3,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:brilliant_fey_gem",
+          "count": 5
+        },
+        "output": {
+          "item": "minecraft:enchanted_golden_apple",
+          "count": 2
+        },
+        "uses": 1,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:greater_fey_gem",
+          "count": 3
+        },
+        "output": {
+          "item": "minecraft:rabbit_stew",
+          "count": 1
+        },
+        "uses": 2,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:greater_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:mushroom_stew",
+          "count": 1
+        },
+        "uses": 2,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:greater_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:beetroot_soup",
+          "count": 1
+        },
+        "uses": 2,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 6
+        },
+        "output": {
+          "item": "minecraft:honey_bottle",
+          "count": 1
+        },
+        "uses": 2,
+        "exp": 0,
         "mul": 0.05
       }
     ]
