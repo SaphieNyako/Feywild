@@ -141,7 +141,7 @@ public class EventListener {
     public void tick(TickEvent.WorldTickEvent event) {
         World world = event.world;
 
-        if (world instanceof ServerWorld && Math.abs(world.getDayTime() - MarketHandler.getInstance().getDate()) > WorldGenConfig.dwarf_market.refresh_time) {
+        if (world instanceof ServerWorld && world.getServer().overworld().getDayTime() == 13002) {
             MarketHandler.getInstance().updateMarket(world.getServer(), world.getDayTime());
         }
     }
