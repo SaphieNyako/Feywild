@@ -5,7 +5,7 @@
       {
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": 2
+          "count": 1
         },
         "output": {
           "item": "minecraft:stone",
@@ -43,12 +43,12 @@
       },
       {
         "input": {
-          "item": "feywild:greater_fey_gem",
+          "item": "feywild:lesser_fey_gem",
           "count": 1
         },
         "output": {
           "item": "minecraft:andesite",
-          "count": 31
+          "count": 21
         },
         "uses": 20,
         "exp": 0,
@@ -56,12 +56,12 @@
       },
       {
         "input": {
-          "item": "feywild:greater_fey_gem",
+          "item": "feywild:lesser_fey_gem",
           "count": 1
         },
         "output": {
           "item": "minecraft:iron_ingot",
-          "count": 5
+          "count": 4
         },
         "uses": 4,
         "exp": 0,
@@ -69,12 +69,12 @@
       },
       {
         "input": {
-          "item": "feywild:greater_fey_gem",
-          "count": 2
+          "item": "feywild:lesser_fey_gem",
+          "count": 1
         },
         "output": {
           "item": "minecraft:gold_ingot",
-          "count": 7
+          "count": 3
         },
         "uses": 4,
         "exp": 0,
@@ -82,12 +82,12 @@
       },
       {
         "input": {
-          "item": "feywild:greater_fey_gem",
+          "item": "feywild:lesser_fey_gem",
           "count": 1
         },
         "output": {
           "item": "minecraft:redstone",
-          "count": 16
+          "count": 14
         },
         "uses": 10,
         "exp": 0,
@@ -96,7 +96,7 @@
       {
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": 2
+          "count": 1
         },
         "output": {
           "item": "minecraft:lapis_lazuli",
@@ -109,11 +109,11 @@
       {
         "input": {
           "item": "feywild:lesser_fey_gem",
-          "count": 3
+          "count": 1
         },
         "output": {
           "item": "minecraft:coal",
-          "count": 24
+          "count": 20
         },
         "uses": 5,
         "exp": 0,
@@ -121,18 +121,95 @@
       },
       {
         "input": {
-          "item": "feywild:greater_fey_gem",
+          "item": "feywild:lesser_fey_gem",
           "count": 3
         },
         "output": {
           "item": "minecraft:emerald",
-          "count": 4
+          "count": 3
         },
         "uses": 2,
         "exp": 0,
         "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 3
+        },
+        "output": {
+          "item": "minecraft:powered_rail",
+          "count": 8
+        },
+        "uses": 4,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 3
+        },
+        "output": {
+          "item": "minecraft:detector_rail",
+          "count": 8
+        },
+        "uses": 4,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:rail",
+          "count": 16
+        },
+        "uses": 4,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 3
+        },
+        "output": {
+          "item": "minecraft:activator_rail",
+          "count": 8
+        },
+        "uses": 4,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:tnt",
+          "count": 4
+        },
+        "uses": 4,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 1
+        },
+        "output": {
+          "item": "minecraft:minecraft",
+          "count": 1
+        },
+        "uses": 4,
+        "exp": 0,
+        "mul": 0.05
       }
-
     ]
   }
 ]

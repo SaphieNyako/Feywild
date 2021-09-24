@@ -133,12 +133,13 @@ public class FeywildMod extends ModXRegistration {
     protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.beeKnight, BeeKnightRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, DwarfBlacksmithRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, DwarfBlacksmithRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, DwarfBlacksmithRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmithMarket, DwarfBlacksmithRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfToolsmith, MarketDwarfRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, MarketDwarfRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmithMarket, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfShepherd, DwarfBlacksmithRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, AutumnPixieRenderer::new);
@@ -157,6 +158,7 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfBlacksmithMarket, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.mandragora, MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }

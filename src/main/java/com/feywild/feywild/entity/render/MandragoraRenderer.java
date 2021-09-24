@@ -19,6 +19,7 @@ public class MandragoraRenderer extends GeoEntityRenderer<MandragoraEntity> {
 
     public MandragoraRenderer(EntityRendererManager renderManager) {
         super(renderManager, new MandragoraModel());
+        this.shadowRadius = 0.2F;
     }
 
     @Override

@@ -222,6 +222,19 @@
         "uses": 16,
         "exp": 0,
         "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:leather",
+          "count": 8
+        },
+        "uses": 16,
+        "exp": 0,
+        "mul": 0.05
       }
     ]
   }

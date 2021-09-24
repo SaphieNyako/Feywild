@@ -20,6 +20,10 @@ public class ModEntityTypes {
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 
+    public static final EntityType<MarketDwarfEntity> dwarfToolsmith = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.MONSTER)
+            .sized(1, 1)
+            .build(FeywildMod.getInstance().modid + "_dwarf_toolsmith");
+
     public static final EntityType<MarketDwarfEntity> dwarfArtificer = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_artificer");
