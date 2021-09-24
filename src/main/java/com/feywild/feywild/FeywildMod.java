@@ -137,7 +137,7 @@ public class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmithMarket, MarketDwarfRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfMiner, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
@@ -155,7 +155,7 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfArtificer, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBaker, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfBlacksmithMarket, MarketDwarfEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfMiner, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());

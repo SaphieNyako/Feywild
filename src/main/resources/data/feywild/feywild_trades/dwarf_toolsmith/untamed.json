@@ -1,6 +1,6 @@
 [
   {
-    "amount": 4,
+    "amount": 3,
     "trades": [
       {
         "input": {
@@ -21,7 +21,7 @@
           "count": 8
         },
         "output": {
-          "item": "minecraft:diamond_chestplat",
+          "item": "minecraft:diamond_chestplate",
           "count": 1
         },
         "uses": 3,

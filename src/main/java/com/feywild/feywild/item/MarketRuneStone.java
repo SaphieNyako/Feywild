@@ -90,7 +90,7 @@ public class MarketRuneStone extends TooltipItem {
                             entity.level.setBlock(new BlockPos(0, 0, 0), Blocks.GOLD_BLOCK.defaultBlockState(), 2);
 
                             //TRADERS
-                            MarketDwarfEntity trader = new MarketDwarfEntity(ModEntityTypes.dwarfBlacksmithMarket, entity.level);
+                            MarketDwarfEntity trader = new MarketDwarfEntity(ModEntityTypes.dwarfMiner, entity.level);
 
                             trader.setPos(11, 64, 20);
                             entity.level.addFreshEntity(trader);

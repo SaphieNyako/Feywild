@@ -235,6 +235,32 @@
         "uses": 16,
         "exp": 0,
         "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:greater_fey_gem",
+          "count": 2
+        },
+        "output": {
+          "item": "minecraft:name_tag",
+          "count": 1
+        },
+        "uses": 2,
+        "exp": 0,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "feywild:greater_fey_gem",
+          "count": 1
+        },
+        "output": {
+          "item": "minecraft:lead",
+          "count": 1
+        },
+        "uses": 3,
+        "exp": 0,
+        "mul": 0.05
       }
     ]
   }

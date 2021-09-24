@@ -40,9 +40,9 @@ public class ModEntityTypes {
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_dragon_hunter");
 
-    public static final EntityType<MarketDwarfEntity> dwarfBlacksmithMarket = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MarketDwarfEntity> dwarfMiner = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
             .sized(1, 1)
-            .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith_market");
+            .build(FeywildMod.getInstance().modid + "_dwarf_miner");
 
     public static final EntityType<SpringPixieEntity> springPixie = EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
