@@ -10,7 +10,6 @@ import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
 
 @RegisterClass
@@ -49,12 +48,19 @@ public class ModItems {
     public static final MandrakePotion mandrakePotion = new MandrakePotion(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder().build()));
 
-    public static final Item magicalHoneyCookie = new MagicalHoneyCookie(FeywildMod.getInstance(), ModEntityTypes.mandragora, SoundEvents.FOX_EAT, new Item.Properties().food(
+    public static final Item magicalHoneyCookie = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder()
                     .nutrition(5)
                     .saturationMod(2.0f)
                     .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 300, 0), 1)
-                    .build()));
+                    .build()), new TranslationTextComponent("message.feywild.magical_honey_cookie"));
+            
+//            new MagicalHoneyCookie(FeywildMod.getInstance(), ModEntityTypes.mandragora, SoundEvents.FOX_EAT, new Item.Properties().food(
+//            new Food.Builder()
+//                    .nutrition(5)
+//                    .saturationMod(2.0f)
+//                    .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 300, 0), 1)
+//                    .build()));
 
 
 

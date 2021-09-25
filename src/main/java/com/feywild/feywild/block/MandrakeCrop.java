@@ -1,5 +1,7 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.entity.MandragoraEntity;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.google.common.collect.ImmutableMap;
@@ -78,14 +80,22 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult trace) {
-        if (player.getItemInHand(hand).getItem() != ModItems.magicalHoneyCookie.getItem()) { //this doesn't work like I want to...
-            if (world.isClientSide) {
-
-                world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
+    public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
+        if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie) {
+            if (!world.isClientSide) {
+                MandragoraEntity entity = ModEntityTypes.mandragora.create(world);
+                if (entity != null) {
+                    entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+                    entity.setSummonPos(pos);
+                    world.addFreshEntity(entity);
+                    entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+                    if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                }
             }
+            return ActionResultType.sidedSuccess(world.isClientSide);
+        } else {
+            world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
+            return super.use(state, world, pos, player, hand, hit);
         }
-
-        return super.use(state, world, pos, player, hand, trace);
     }
 }

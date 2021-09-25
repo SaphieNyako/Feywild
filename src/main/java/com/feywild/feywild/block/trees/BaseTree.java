@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public abstract class BaseTree extends Tree implements Registerable {
@@ -164,6 +163,7 @@ public abstract class BaseTree extends Tree implements Registerable {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (!(i == 0 && j == 0)) {
+                    //noinspection deprecation
                     if (!world.isStateAtPosition(pos.offset(i, 0, j), AbstractBlock.AbstractBlockState::isAir) &&
                             !world.isStateAtPosition(pos.offset(i, 0, j), blockState -> blockState.getMaterial().equals(Material.REPLACEABLE_PLANT))) {
                         return false;
@@ -175,7 +175,6 @@ public abstract class BaseTree extends Tree implements Registerable {
         super.growTree(world, generator, pos, state, random);
 
         return true;
-
     }
 
 }

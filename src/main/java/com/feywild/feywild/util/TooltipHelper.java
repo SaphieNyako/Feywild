@@ -2,6 +2,7 @@ package com.feywild.feywild.util;
 
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.KeybindTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class TooltipHelper {
         if (KeyboardHelper.isHoldingShift()) {
             tooltip.addAll(Arrays.asList(lines));
         } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage", new KeybindTextComponent("key.sneak")));
+            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage", new KeybindTextComponent("key.sneak")).withStyle(TextFormatting.GRAY));
         }
     }
 }
