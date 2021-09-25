@@ -1,8 +1,9 @@
-package com.feywild.feywild.block.runestone;
+package com.feywild.feywild.block.render;
 
+import com.feywild.feywild.block.AncientRunestoneBlock;
+import com.feywild.feywild.block.entity.AncientRunestone;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.github.noeppi_noeppi.libx.render.ClientTickHandler;
-import mythicbotany.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.LightTexture;
@@ -14,7 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;

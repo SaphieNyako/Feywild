@@ -1,4 +1,4 @@
-package com.feywild.feywild.block.runestone;
+package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.ModEntityTypes;

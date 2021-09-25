@@ -1,5 +1,7 @@
-package com.feywild.feywild.block.runestone;
+package com.feywild.feywild.block;
 
+import com.feywild.feywild.block.entity.AncientRunestone;
+import com.feywild.feywild.block.render.AncientRunestoneRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.AbstractBlock;
