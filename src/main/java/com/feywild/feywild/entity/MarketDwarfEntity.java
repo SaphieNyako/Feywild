@@ -30,4 +30,14 @@ public class MarketDwarfEntity extends DwarfBlacksmithEntity{
         }
         return ActionResultType.SUCCESS;
     }
+
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
+
+    @Override
+    public boolean isPersistenceRequired() {
+        return true;
+    }
 }

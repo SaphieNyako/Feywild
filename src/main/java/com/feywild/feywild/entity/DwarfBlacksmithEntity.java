@@ -250,7 +250,7 @@ public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IA
 
     @Override
     public boolean isPersistenceRequired() { //is required when tamed is true, and xp is higher then 0
-        return this.isTamed || this.getVillagerXp() > 0;
+        return this.isTamed || this.getVillagerXp() > 0 || super.isPersistenceRequired();
     }
 /*
     @Override
