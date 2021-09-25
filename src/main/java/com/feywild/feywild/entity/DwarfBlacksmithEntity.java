@@ -1,16 +1,12 @@
 package com.feywild.feywild.entity;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.base.TraderEntity;
 import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
 import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
-import com.feywild.feywild.entity.model.DwarfBlacksmithModel;
-import com.feywild.feywild.world.dimension.ModDimensions;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.client.world.DimensionRenderInfo;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -40,7 +36,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.Random;
 
 public class DwarfBlacksmithEntity extends TraderEntity implements ITameable, IAnimatable {

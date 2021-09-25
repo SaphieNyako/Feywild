@@ -1,6 +1,5 @@
 package com.feywild.feywild.util;
 
-import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.teleporters.MarketPlaceTeleporter;
 import net.minecraft.block.Blocks;
@@ -9,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.Dimension;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 

@@ -89,6 +89,7 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
                     entity.setSummonPos(pos);
                     world.addFreshEntity(entity);
                     entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+                    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                     if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 }
             }

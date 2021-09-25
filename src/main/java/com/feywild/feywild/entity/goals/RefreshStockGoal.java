@@ -2,7 +2,6 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.world.World;
 
 public class RefreshStockGoal extends Goal {
 

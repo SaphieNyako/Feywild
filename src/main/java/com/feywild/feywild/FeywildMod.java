@@ -130,8 +130,7 @@ public class FeywildMod extends ModXRegistration {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void clientSetup(FMLClientSetupEvent fmlClientSetupEvent) {
-
+    protected void clientSetup(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.beeKnight, BeeKnightRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfToolsmith, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
@@ -163,7 +162,6 @@ public class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }
 
-    //This might have a conflict when merging with the quests
     @SubscribeEvent
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(LibraryBooks.createReloadListener());

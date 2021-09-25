@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
+// TODO can we delete this?
 public class RendererUtil {
 
     public static RenderType glowRender(ResourceLocation texture) {

@@ -43,10 +43,11 @@ import java.util.Random;
 public class MandragoraEntity extends CreatureEntity implements IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
+    
     private final AnimationFactory factory = new AnimationFactory(this);
+    
     private BlockPos summonPos;
-    // private String variation;
-    private Variation mandragoraVariation;
+    private MandragoraVariant variant;
 
     protected MandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
@@ -55,7 +56,6 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         setVariation();
     }
 
-    /* ATTRIBUTES */
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12)
@@ -65,26 +65,12 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
 
     public void setVariation() {
         Random random = new Random();
-        switch (random.nextInt(5)) {
-            case 0:
-                mandragoraVariation = Variation.MELON;
-                break;
-            case 1:
-                mandragoraVariation = Variation.ONION;
-                break;
-            case 2:
-                mandragoraVariation = Variation.POTATO;
-                break;
-            case 3:
-                mandragoraVariation = Variation.PUMPKIN;
-                break;
-            default:
-                mandragoraVariation = Variation.TOMATO;
-        }
+        MandragoraVariant[] variants = MandragoraVariant.values();
+        variant = variants[random.nextInt(variants.length)];
     }
 
-    public Variation getVariation() {
-        return mandragoraVariation;
+    public MandragoraVariant getVariation() {
+        return variant;
     }
 
     public BlockPos getSummonPos() {
@@ -107,7 +93,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundNBT nbt) {
+    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
         if (this.summonPos != null) {
             NBTX.putPos(nbt, "SummonPos", this.summonPos);
@@ -115,7 +101,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundNBT nbt) {
+    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
         this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
     }
@@ -202,26 +188,28 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         }
     }
 
+    @Nonnull
     @Override
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
         if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-            this.heal(4);
-            if (!player.isCreative()) {
-                player.getItemInHand(hand).shrink(1);
+            if (!level.isClientSide) {
+                this.heal(4);
+                if (!player.isCreative()) {
+                    player.getItemInHand(hand).shrink(1);
+                }
+                FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
+                player.swing(hand, true);
             }
-            FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
-            player.swing(hand, true);
+            return ActionResultType.sidedSuccess(level.isClientSide);
         }
-        return ActionResultType.CONSUME;
+        return super.interactAt(player, hitVec, hand);
     }
 
-    /*ANIMATION */
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         if (this.isCasting() && !(this.dead || this.isDeadOrDying())) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.sing", false));
             return PlayState.CONTINUE;
         }
-
         if (event.isMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
         } else {
@@ -240,5 +228,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         return this.factory;
     }
 
-    public enum Variation {MELON, ONION, POTATO, PUMPKIN, TOMATO}
+    public enum MandragoraVariant {
+        MELON, ONION, POTATO, PUMPKIN, TOMATO
+    }
 }

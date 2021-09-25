@@ -1,11 +1,16 @@
 package com.feywild.feywild.entity.base;
 
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
@@ -38,6 +43,18 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                 .add(Attributes.MAX_HEALTH, 12)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2);
+    }
+
+    @Nullable
+    public abstract Vector3d getCurrentPointOfInterest();
+    
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
+        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
     }
 
     @Override

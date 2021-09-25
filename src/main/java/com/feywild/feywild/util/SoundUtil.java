@@ -1,6 +1,5 @@
 package com.feywild.feywild.util;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.LocatableSound;
 import net.minecraft.client.audio.SimpleSound;

@@ -2,18 +2,19 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
-import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
+import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.quest.Alignment;
-import com.feywild.feywild.quest.player.CapabilityQuests;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
+import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -40,12 +41,12 @@ import java.util.Random;
 
 public class BeeKnight extends FeyBase implements IAnimatable {
 
-    // Model changes
     public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(BeeKnight.class, DataSerializers.BOOLEAN);
 
-    private BlockPos treasureBlock;
+    @Nullable
+    private BlockPos treasurePos = null;
 
-    protected BeeKnight(EntityType<? extends BeeKnight> type, World world) {
+    public BeeKnight(EntityType<? extends BeeKnight> type, World world) {
         super(type, Alignment.SUMMER, world);
     }
 
@@ -54,41 +55,36 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     }
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
+        return FeyBase.getDefaultAttributes()
                 .add(Attributes.MAX_HEALTH, 24)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
-                .add(Attributes.LUCK, 0.2)
                 .add(Attributes.FOLLOW_RANGE, 80)
                 .add(Attributes.ATTACK_DAMAGE, 4);
     }
 
     @Nullable
     @Override
-    public ILivingEntityData finalizeSpawn(IServerWorld p_213386_1_, DifficultyInstance p_213386_2_, SpawnReason p_213386_3_, @Nullable ILivingEntityData p_213386_4_, @Nullable CompoundNBT p_213386_5_) {
-        setTreasureBlock(this.blockPosition());
-        return super.finalizeSpawn(p_213386_1_, p_213386_2_, p_213386_3_, p_213386_4_, p_213386_5_);
+    public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld world, @Nonnull DifficultyInstance difficulty, @Nonnull SpawnReason reason, @Nullable ILivingEntityData data, @Nullable CompoundNBT nbt) {
+        setTreasurePos(this.blockPosition());
+        return super.finalizeSpawn(world, difficulty, reason, data, nbt);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(70, new GoToTargetPositionGoal(this, this::getTreasureVector, MobConfig.summer_bee_knight.aggrevation_range, 2f));
-        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(1, new RestrictedAttackGoal(this, 1.2f, true));
+        super.registerGoals();
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.goalSelector.addGoal(1, new BeeRestrictAttackGoal(this, 1.2f, true));
     }
 
     @Override
     public void tick() {
         if (!this.level.isClientSide && hurtTime > 0) {  //&& getTarget() != null
-            if (getTreasureBlock().closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
+            if (treasurePos != null && treasurePos.closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
                 setTarget(getLastHurtByMob());
                 setAggravated(true);
-            } else
+            } else {
+                // TODO what on earth?
                 heal(20);
-
+            }
         }
         super.tick();
     }
@@ -96,29 +92,28 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     @Nonnull
     @Override
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
-        if (!player.level.isClientSide) {
-            player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
-                if (cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER) {
-                    player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_pass"), player.getUUID());
-                } else {
-                    player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_fail"), player.getUUID());
-                }
-            });
+        if (!player.level.isClientSide && player instanceof ServerPlayerEntity) {
+            QuestData quests = QuestData.get((ServerPlayerEntity) player);
+            if (quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.summer_bee_knight.required_reputation) {
+                player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_pass"), player.getUUID());
+            } else {
+                player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_fail"), player.getUUID());
+            }
         }
         return ActionResultType.SUCCESS;
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        this.setTreasureBlock(new BlockPos(nbt.getInt("TreasureX"), nbt.getInt("TreasureY"), nbt.getInt("TreasureZ")));
+        setTreasurePos(NBTX.getPos(nbt, "TreasurePos", null));
         super.readAdditionalSaveData(nbt);
     }
 
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        nbt.putInt("TreasureX", treasureBlock.getX());
-        nbt.putInt("TreasureY", treasureBlock.getY());
-        nbt.putInt("TreasureZ", treasureBlock.getZ());
+        if (treasurePos != null) {
+            NBTX.putPos(nbt, "TreasurePos", treasurePos);
+        }
         super.addAdditionalSaveData(nbt);
     }
 
@@ -147,21 +142,28 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         this.entityData.set(AGGRAVATED, aggravated);
     }
 
-    public BlockPos getTreasureBlock() {
-        return treasureBlock;
+    @Nullable
+    public BlockPos getTreasurePos() {
+        return treasurePos;
     }
 
-    public void setTreasureBlock(BlockPos treasureBlock) {
-        this.treasureBlock = treasureBlock;
-    }
-
-    public Vector3d getTreasureVector() {
-        return new Vector3d(treasureBlock.getX(), treasureBlock.getY(), treasureBlock.getZ());
+    public void setTreasurePos(@Nullable BlockPos treasurePos) {
+        this.treasurePos = treasurePos;
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
+    public Vector3d getCurrentPointOfInterest() {
+        if (treasurePos == null) {
+            return null;
+        } else {
+            return new Vector3d(treasurePos.getX(), treasurePos.getY(), treasurePos.getZ());
+        }
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damage) {
         return this.random.nextBoolean() ? ModSoundEvents.pixieHurt : SoundEvents.BEE_HURT;
     }
 
@@ -176,40 +178,4 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     protected SoundEvent getAmbientSound() {
         return SoundEvents.BEE_LOOP;
     }
-
-    private static class RestrictedAttackGoal extends MeleeAttackGoal {
-
-        BeeKnight creature;
-
-        public RestrictedAttackGoal(BeeKnight creature, double speed, boolean visualContact) {
-            super(creature, speed, visualContact);
-            this.creature = creature;
-        }
-
-        @Override
-        public boolean canUse() {
-            return creature.isAggravated() && creature.getTarget() != null && !creature.getTarget().isDeadOrDying();
-        }
-
-        @Override
-        public void start() {
-            super.start();
-            // creature.setTarget(creature.getLastHurtByMob());
-            if (creature.getTreasureBlock() == null || creature.getTreasureBlock().closerThan(new BlockPos(0, 0, 0), 1)) {
-                creature.setTreasureBlock(creature.blockPosition());
-            }
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            return creature.isAggravated() && creature.getTreasureBlock().closerThan(creature.blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range) && creature.getTarget() != null && !creature.getTarget().isDeadOrDying();
-        }
-
-        @Override
-        public void stop() {
-            super.stop();
-            creature.setAggravated(false);
-        }
-    }
-
 }

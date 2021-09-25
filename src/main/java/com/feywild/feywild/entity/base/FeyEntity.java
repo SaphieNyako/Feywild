@@ -2,7 +2,6 @@ package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeyWildPanicGoal;
-import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.network.quest.OpenQuestDisplaySerializer;
@@ -13,13 +12,10 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -29,14 +25,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.FlyingPathNavigator;
-import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -50,7 +41,6 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -71,7 +61,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
     protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
         super(type, alignment, world);
     }
-
 
     public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
@@ -113,6 +102,8 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
         return this.owner;
     }
 
+    @Nullable
+    @Override
     public Vector3d getCurrentPointOfInterest() {
         if (!this.isTamed()) {
             return null;
@@ -143,12 +134,8 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(50, new FeyWildPanicGoal(this, 0.003, 13));
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
-        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
-        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
         this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
     }
 
