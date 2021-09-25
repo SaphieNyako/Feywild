@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.trees;
 
+import com.feywild.feywild.particles.ModParticles;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
@@ -16,7 +17,7 @@ import java.util.Random;
 public class SummerTree extends BaseTree {
 
     public SummerTree(ModX mod) {
-        super(mod, SummerLeavesBlock::new);
+        super(mod, () -> new FeyLeavesBlock(mod, 20, ModParticles.summerLeafParticle));
     }
 
     private static BlockState getDecorationBlock(Random random) {

@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.trees;
 
+import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,7 +19,7 @@ import java.util.Random;
 public class WinterTree extends BaseTree {
 
     public WinterTree(ModX mod) {
-        super(mod, WinterLeavesBlock::new);
+        super(mod, () -> new FeyLeavesBlock(mod, 15, ModParticles.winterLeafParticle));
     }
 
     @Override

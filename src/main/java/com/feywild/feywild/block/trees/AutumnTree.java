@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.particles.ModParticles;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
@@ -21,7 +22,7 @@ import java.util.Random;
 public class AutumnTree extends BaseTree {
 
     public AutumnTree(ModX mod) {
-        super(mod, AutumnLeavesBlock::new);
+        super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.trees;
 
+import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,7 +13,7 @@ import java.util.Random;
 public class SpringTree extends BaseTree {
 
     public SpringTree(ModX mod) {
-        super(mod, SpringLeavesBlock::new);
+        super(mod, () -> new FeyLeavesBlock(mod, 14, ModParticles.springLeafParticle));
     }
 
     private static BlockState getDecorationBlock(Random random) {

@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public abstract class BaseTree extends Tree implements Registerable {
 
@@ -48,11 +49,7 @@ public abstract class BaseTree extends Tree implements Registerable {
     private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
 
-    public BaseTree(ModX mod) {
-        this(mod, FeyLeavesBlock::new);
-    }
-
-    public BaseTree(ModX mod, Function<ModX, ? extends FeyLeavesBlock> leavesFactory) {
+    public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.logBlock = new FeyLogBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_LOG));
         this.woodBlock = new FeyWoodBlock(this.logBlock, AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
@@ -72,7 +69,7 @@ public abstract class BaseTree extends Tree implements Registerable {
             }
         };
 
-        this.leaves = leavesFactory.apply(mod);
+        this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
     }
 
@@ -163,8 +160,7 @@ public abstract class BaseTree extends Tree implements Registerable {
     }
 
     @Override
-    public boolean growTree(ServerWorld world, ChunkGenerator generator, BlockPos pos, BlockState state, Random random) {
-
+    public boolean growTree(@Nonnull ServerWorld world, @Nonnull ChunkGenerator generator, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Random random) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (!(i == 0 && j == 0)) {

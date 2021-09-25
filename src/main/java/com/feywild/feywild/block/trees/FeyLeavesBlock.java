@@ -1,7 +1,6 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.config.ClientConfig;
-import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -12,7 +11,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -43,11 +41,15 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     
     public static final int MAX_PARTICLE_DISTANCE = 48;
 
+    private final int chance;
+    private final BasicParticleType particle;
     
-    public FeyLeavesBlock(ModX mod) {
+    public FeyLeavesBlock(ModX mod, int chance, BasicParticleType particle) {
         super(mod, AbstractBlock.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS)
                 .harvestTool(ToolType.HOE).noOcclusion().isValidSpawn((s, r, p, t) -> false).isSuffocating((s, r, p) -> false)
                 .isViewBlocking((s, r, p) -> false));
+        this.chance = chance;
+        this.particle = particle;
 
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
     }
@@ -84,14 +86,6 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
         } else {
             return MAX_DISTANCE;
         }
-    }
-
-    public int getChance() {
-        return 100;
-    }
-
-    public BasicParticleType getParticle(){
-        return ModParticles.leafParticle;
     }
 
     @Override
@@ -167,8 +161,8 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
                 world.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0, 0, 0);
             }
         }
-        if (rand.nextInt(getChance()) == 1 && world.isEmptyBlock(pos.below())) {
-            world.addParticle(getParticle(), pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
+        if (rand.nextInt(chance) == 1 && world.isEmptyBlock(pos.below())) {
+            world.addParticle(particle, pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
         }
     }
 }
