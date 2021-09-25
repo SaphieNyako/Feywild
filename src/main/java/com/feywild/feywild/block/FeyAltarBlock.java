@@ -32,7 +32,7 @@ public class FeyAltarBlock extends BlockTE<FeyAltar> {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        ClientRegistry.bindTileEntityRenderer(this.getTileType(), FeyAltarRenderer::new);
+        defer.accept(() -> ClientRegistry.bindTileEntityRenderer(this.getTileType(), FeyAltarRenderer::new));
     }
 
     @Nonnull

@@ -40,8 +40,10 @@ public class DisplayGlassBlock extends BlockTE<DisplayGlass> {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        ClientRegistry.bindTileEntityRenderer(this.getTileType(), DisplayGlassRenderer::new);
-        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.translucent()));
+        defer.accept(() -> {
+            ClientRegistry.bindTileEntityRenderer(this.getTileType(), DisplayGlassRenderer::new);
+            RenderTypeLookup.setRenderLayer(this, RenderType.translucent());
+        });
     }
 
     @Override
