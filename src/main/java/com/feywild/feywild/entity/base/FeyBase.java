@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.DamageSource;
@@ -48,6 +49,8 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     @Nullable
     public abstract Vector3d getCurrentPointOfInterest();
     
+    public abstract BasicParticleType getParticle();
+    
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
@@ -55,6 +58,20 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (level.isClientSide && random.nextInt(11) == 0) {
+            level.addParticle(
+                    this.getParticle(),
+                    this.getX() + (Math.random() - 0.5),
+                    this.getY() + 1 + (Math.random() - 0.5),
+                    this.getZ() + (Math.random() - 0.5),
+                    0, -0.1, 0
+            );
+        }
     }
 
     @Override
@@ -181,5 +198,4 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     public AnimationFactory getFactory() {
         return this.factory;
     }
-
 }

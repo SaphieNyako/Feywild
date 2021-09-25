@@ -19,6 +19,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -77,6 +79,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
     @Override
     public void tick() {
+        super.tick();
         if (!this.level.isClientSide && hurtTime > 0) {  //&& getTarget() != null
             if (treasurePos != null && treasurePos.closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
                 setTarget(getLastHurtByMob());
@@ -86,7 +89,11 @@ public class BeeKnight extends FeyBase implements IAnimatable {
                 heal(20);
             }
         }
-        super.tick();
+    }
+
+    @Override
+    public BasicParticleType getParticle() {
+        return ParticleTypes.CRIT;
     }
 
     @Nonnull

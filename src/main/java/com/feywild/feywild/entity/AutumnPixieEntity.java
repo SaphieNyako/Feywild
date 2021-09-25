@@ -4,6 +4,8 @@ import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.goals.AddShieldGoal;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.world.World;
 
 public class AutumnPixieEntity extends FeyEntity {
@@ -16,5 +18,10 @@ public class AutumnPixieEntity extends FeyEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(20, new AddShieldGoal(this));
+    }
+
+    @Override
+    public BasicParticleType getParticle() {
+        return ParticleTypes.WITCH;
     }
 }

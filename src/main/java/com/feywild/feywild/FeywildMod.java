@@ -7,6 +7,7 @@ import com.feywild.feywild.config.mapper.ResourceLocationMapper;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.quest.QuestManager;
@@ -131,7 +132,7 @@ public class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.beeKnight, BeeKnightRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfToolsmith, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
@@ -139,10 +140,10 @@ public class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfMiner, MarketDwarfRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, SpringPixieRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, SummerPixieRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, AutumnPixieRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, WinterPixieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragora, MandragoraRenderer::new);
     }
 
