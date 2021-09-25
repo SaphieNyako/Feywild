@@ -4,7 +4,6 @@ import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.MobConfig;
-import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
@@ -124,7 +123,7 @@ public class EventListener {
     // Might want to make a copy in the use method of display glass and remove the check for it here -low prio-
     private void updateKnights(World world, PlayerEntity player, BlockPos pos) {
         //Should be changed to special honey block when that is implemented
-        if (!world.isClientSide && (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() instanceof DisplayGlassBlock && world.getBlockState(pos).getValue(DisplayGlassBlock.GENERATOR)))) {
+        if (!world.isClientSide && (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() instanceof DisplayGlassBlock && world.getBlockState(pos).getValue(DisplayGlassBlock.CAN_GENERATE)))) {
             player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
                 if (!(cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER)) {
                     world.getEntities(null, new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range)).forEach(entity -> {

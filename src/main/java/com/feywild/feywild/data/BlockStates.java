@@ -52,12 +52,15 @@ public class BlockStates extends BlockStateProviderBase {
             );
         } else if (block instanceof DisplayGlassBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
-
-            DisplayGlassBlock.STATE.getPossibleValues().forEach(i -> {
-                builder.partialState().with(DisplayGlassBlock.STATE, i).addModels(
-                        new ConfiguredModel(this.models().withExistingParent(id.getPath() + i, new ResourceLocation("minecraft", "block/cube_all"))
-                                .texture("all", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + i))));
-            });
+            DisplayGlassBlock.BREAKAGE.getPossibleValues().forEach(i ->
+                    builder.partialState().with(DisplayGlassBlock.BREAKAGE, i)
+                            .addModels(
+                                    new ConfiguredModel(this.models().cubeAll(
+                                            id.getPath() + i,
+                                            new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + i)
+                                    ))
+                            )
+            );
         } else if (block instanceof FeyWoodBlock) {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(((FeyWoodBlock) block).getLogBlock()), this.blockTexture(((FeyWoodBlock) block).getLogBlock()));
         } else if (block instanceof RotatedPillarBlock) {
