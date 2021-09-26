@@ -18,12 +18,12 @@ import java.util.Random;
 // A simple trade
 public class SimpleTrade implements VillagerTrades.ITrade {
     
-    private final StackFactory input;
-    private final StackFactory additional;
-    private final StackFactory output;
-    private final Range uses;
-    private final Range exp;
-    private final float mul;
+    public final StackFactory input;
+    public final StackFactory additional;
+    public final StackFactory output;
+    public final Range uses;
+    public final Range exp;
+    public final float mul;
 
     public SimpleTrade(StackFactory input, StackFactory additional, StackFactory output, Range uses, Range exp, float mul) {
         this.input = input;
@@ -61,7 +61,7 @@ public class SimpleTrade implements VillagerTrades.ITrade {
         );
     }
 
-    private static class Range {
+    public static class Range {
         
         public final int min;
         public final int max;

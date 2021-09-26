@@ -4,15 +4,19 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
+import com.feywild.feywild.network.TradesSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
+import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
+import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -81,9 +85,12 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide && !FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
-            event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
-            FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
+        if (!event.getPlayer().level.isClientSide) {
+            FeywildMod.getNetwork().instance.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
+            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
+                event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
+                FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
+            }
         }
     }
 
@@ -118,10 +125,15 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void tick(TickEvent.WorldTickEvent event) {
+    public void tickWorld(TickEvent.WorldTickEvent event) {
         if (event.world instanceof ServerWorld && event.world.dimension() == World.OVERWORLD) {
             MarketHandler.update(((ServerWorld) event.world).getServer());
         }
+    }
+    
+    @SubscribeEvent
+    public void afterReload(DatapacksReloadedEvent event) {
+        FeywildMod.getNetwork().instance.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
     }
 
     /* LOOTTABLES */

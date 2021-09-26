@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
+import net.minecraft.util.LazyValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
@@ -22,6 +23,7 @@ public class TradeLevelData {
     private final int maxWeight;
     private final boolean allowDuplicates;
     private final List<Pair<Integer, VillagerTrades.ITrade>> trades;
+    private final LazyValue<List<VillagerTrades.ITrade>> tradeView;
 
     public TradeLevelData(int minTrades, int maxTrades, List<TradeEntry> trades, boolean allowDuplicates) {
         this.minTrades = Math.min(minTrades, maxTrades);
@@ -45,6 +47,11 @@ public class TradeLevelData {
         if (!this.allowDuplicates && this.trades.size() < this.maxTrades) {
             throw new IllegalStateException("Trader level data without duplicates must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
+        
+        this.tradeView = new LazyValue<>(() -> {
+            //noinspection UnstableApiUsage
+            return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
+        });
     }
 
     public void applyTo(Entity merchant, MerchantOffers offers, Random random) {
@@ -93,6 +100,10 @@ public class TradeLevelData {
             }
         }
         return this.trades.size() - 1;
+    }
+    
+    public List<VillagerTrades.ITrade> getAllTrades() {
+        return this.tradeView.get();
     }
     
     public static TradeLevelData fromJson(JsonObject json) {

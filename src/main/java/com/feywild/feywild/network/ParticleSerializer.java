@@ -47,10 +47,6 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
         public final double vz;
         public final Type type;
 
-        public Message(Type type, double x, double y, double z) {
-            this(type, x, y, z, 0, 0, 0);
-        }
-
         public Message(Type type, double x, double y, double z, double vx, double vy, double vz) {
             this.x = x;
             this.y = y;

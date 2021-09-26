@@ -9,7 +9,7 @@ import java.util.Random;
 // Stack factory that picks randomly from a list of stack factories
 public class CompoundStackFactory implements StackFactory {
 
-    private final List<StackFactory> factories;
+    public final List<StackFactory> factories;
 
     public CompoundStackFactory(List<StackFactory> factories) {
         this.factories = ImmutableList.copyOf(factories);

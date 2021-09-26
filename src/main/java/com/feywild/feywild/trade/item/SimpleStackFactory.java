@@ -8,8 +8,8 @@ import java.util.Random;
 public class SimpleStackFactory implements StackFactory {
 
     private final ItemStack stack;
-    private final int minAmount;
-    private final int maxAmount;
+    public final int minAmount;
+    public final int maxAmount;
 
     public SimpleStackFactory(ItemStack stack, int minAmount, int maxAmount) {
         this.stack = stack.copy();
@@ -23,5 +23,9 @@ public class SimpleStackFactory implements StackFactory {
         ItemStack stack = this.stack.copy();
         stack.setCount(this.minAmount + random.nextInt(1 + (this.maxAmount - this.minAmount)));
         return stack;
+    }
+
+    public ItemStack getStack() {
+        return stack.copy();
     }
 }

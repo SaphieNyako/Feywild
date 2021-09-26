@@ -20,7 +20,8 @@ public class FeywildNetwork extends NetworkX {
         this.register(new OpenLibraryScreenSerializer(), () -> OpenLibraryScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new RequestLibraryBookSerializer(), () -> RequestLibraryBookHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ParticleSerializer(), () -> ParticleHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        
+        this.register(new TradesSerializer(), () -> TradesHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
+
         this.register(new OpenQuestSelectionSerializer(), () -> OpenQuestSelectionHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new OpenQuestDisplaySerializer(), () -> OpenQuestDisplayHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
@@ -29,7 +30,7 @@ public class FeywildNetwork extends NetworkX {
 
     @Override
     protected String getProtocolVersion() {
-        return "2";
+        return "3";
     }
     
     public void sendParticles(World world, ParticleSerializer.Type type, BlockPos pos) {
@@ -47,7 +48,7 @@ public class FeywildNetwork extends NetworkX {
     
     private void sendParticles(World world, ParticleSerializer.Type type, BlockPos chunk, double x, double y, double z, double vx, double vy, double vz) {
         if (world instanceof ServerWorld) {
-            this.instance.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z));
+            this.instance.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z, vx, vy, vz));
         }
     }
 }

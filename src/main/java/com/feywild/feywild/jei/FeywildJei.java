@@ -2,14 +2,17 @@ package com.feywild.feywild.jei;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.jei.util.FeywildJeiReloader;
 import com.feywild.feywild.recipes.AltarRecipe;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
+import com.feywild.feywild.trade.TradeManager;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
@@ -17,11 +20,14 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @JeiPlugin
 public class FeywildJei implements IModPlugin {
 
+    private static IJeiRuntime runtime;
+    
     @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
@@ -32,7 +38,8 @@ public class FeywildJei implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
                 new AltarRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
-                new DwarvenAnvilRecipeCategory(registration.getJeiHelpers().getGuiHelper())
+                new DwarvenAnvilRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
+                new TradeRecipeCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -47,5 +54,17 @@ public class FeywildJei implements IModPlugin {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
         registration.addRecipes(rm.getAllRecipesFor(ModRecipeTypes.ALTAR).stream().filter(r -> r instanceof AltarRecipe).collect(Collectors.toList()), AltarRecipeCategory.UID);
         registration.addRecipes(rm.getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream().filter(r -> r instanceof DwarvenAnvilRecipe).collect(Collectors.toList()), DwarvenAnvilRecipeCategory.UID);
+        registration.addRecipes(FeywildJeiReloader.clientTrades, TradeRecipeCategory.UID);
+    }
+
+    @Override
+    public void onRuntimeAvailable(@Nonnull IJeiRuntime runtime) {
+        FeywildJei.runtime = runtime;
+    }
+    
+    public static void runtime(Consumer<IJeiRuntime> action) {
+        if (runtime != null) {
+            action.accept(runtime);
+        }
     }
 }
