@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
@@ -14,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO discuss the market being regenerated each minecraft day
-//  currently disabled
 public class MarketGenerator {
     
     public static final BlockPos BASE_POS = new BlockPos(-10, 57, -10);
@@ -36,22 +35,27 @@ public class MarketGenerator {
         MarketData data = MarketData.get(world);
         if (data != null) {
             if (data.tryGenerate()) {
+                purge(world);
                 generateBase(world);
             }
-            for (Map.Entry<ResourceLocation, DwarfEntry> entry : DWARVES.entrySet()) {
-                if (data.trySpawnDwarf(entry.getKey())) {
-                    Entity entity = entry.getValue().type.create(world);
-                    if (entity != null) {
-                        entity.setPos(
-                                entry.getValue().position.getX() + 0.5,
-                                entry.getValue().position.getY(),
-                                entry.getValue().position.getZ() + 0.5
-                        );
-                        world.addFreshEntity(entity);
-                    }
+            for (DwarfEntry entry : DWARVES.values()) {
+                Entity entity = entry.type.create(world);
+                if (entity != null) {
+                    entity.setPos(
+                            entry.position.getX() + 0.5,
+                            entry.position.getY(), 
+                            entry.position.getZ() + 0.5
+                    );
+                    world.addFreshEntity(entity);
                 }
             }
         }
+    }
+    
+    private static void purge(ServerWorld world) {
+        world.getEntities()
+                .filter(e -> !(e instanceof PlayerEntity))
+                .forEach(Entity::remove);
     }
     
     private static void generateBase(ServerWorld world) {
