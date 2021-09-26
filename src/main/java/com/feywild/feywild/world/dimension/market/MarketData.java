@@ -1,9 +1,11 @@
 package com.feywild.feywild.world.dimension.market;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.world.dimension.ModDimensions;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
@@ -11,6 +13,7 @@ import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +22,14 @@ import java.util.List;
 // regenerating the world
 public class MarketData extends WorldSavedData  {
 
+    @Nullable
     public static MarketData get(ServerWorld world) {
+        if (world.dimension() != ModDimensions.MARKET_PLACE_DIMENSION) return null;
         DimensionSavedDataManager storage = world.getDataStorage();
-        return storage.get(MarketData::new, FeywildMod.getInstance().modid);
+        return storage.computeIfAbsent(MarketData::new, FeywildMod.getInstance().modid);
     }
 
+    private boolean open;
     private boolean generated;
     private final List<ResourceLocation> spawnedDwarves;
     
@@ -35,6 +41,7 @@ public class MarketData extends WorldSavedData  {
     
     @Override
     public void load(@Nonnull CompoundNBT nbt) {
+        open = nbt.getBoolean("Open");
         generated = nbt.getBoolean("Generated");
         spawnedDwarves.clear();
         if (nbt.contains("SpawnedDwarves", Constants.NBT.TAG_LIST)) {
@@ -49,6 +56,7 @@ public class MarketData extends WorldSavedData  {
     @Nonnull
     @Override
     public CompoundNBT save(@Nonnull CompoundNBT nbt) {
+        nbt.putBoolean("Open", open);
         nbt.putBoolean("Generated", generated);
         ListNBT list = new ListNBT();
         spawnedDwarves.forEach(rl -> list.add(StringNBT.valueOf(rl.toString())));
@@ -74,5 +82,21 @@ public class MarketData extends WorldSavedData  {
         } else {
             return false;
         }
+    }
+
+    public void update(MinecraftServer server, Runnable onClose) {
+        ServerWorld world = server.overworld();
+        boolean shouldBeOpen = world.getDayTime() < 13000;
+        if (shouldBeOpen != open) {
+            if (!shouldBeOpen) {
+                onClose.run();
+            }
+            open = shouldBeOpen;
+            setDirty();
+        }
+    }
+    
+    public boolean isOpen() {
+        return open;
     }
 }

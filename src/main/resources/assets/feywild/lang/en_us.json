@@ -124,6 +124,7 @@
   "message.feywild.aligned": "This fey court recognises you as one of it's own.",
   "message.feywild.bee_knight_pass": "Hmm our queen said you can pass but I will keep my eyes on you.",
   "message.feywild.bee_knight_fail": "You are unworthy of our respect, thread carefully.",
+  "message.feywild.market_wrong_source": "Hello dear customer, \nWe are sorry for the inconvenience but we can't bring you here from that dimension you're in. \n-Market Place Management",
   "message.feywild.market_closed": "Hello dear customer, \nWe are sorry for the inconvenience but the market is temporarily closed, please come back later! \n-Market Place Management",
   "message.feywild.magical_honey_cookie": "Mandrakes love these cookies!",
   "message.feywild.inactive_market_rune_stone": "This seems to be crafted by the Dwarves. A Dwarf will know what to do with it.",

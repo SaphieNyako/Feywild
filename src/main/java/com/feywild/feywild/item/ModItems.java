@@ -54,16 +54,7 @@ public class ModItems {
                     .saturationMod(2.0f)
                     .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 300, 0), 1)
                     .build()), new TranslationTextComponent("message.feywild.magical_honey_cookie"));
-            
-//            new MagicalHoneyCookie(FeywildMod.getInstance(), ModEntityTypes.mandragora, SoundEvents.FOX_EAT, new Item.Properties().food(
-//            new Food.Builder()
-//                    .nutrition(5)
-//                    .saturationMod(2.0f)
-//                    .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 300, 0), 1)
-//                    .build()));
-
-
-
+    
     /* QUEST ITEMS
     public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
             Registration.ITEMS.register("fey_sheep_droppings",

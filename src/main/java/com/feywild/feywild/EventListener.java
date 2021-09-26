@@ -14,8 +14,8 @@ import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.util.MarketHandler;
 import com.feywild.feywild.util.MenuScreen;
+import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import net.minecraft.block.BeehiveBlock;
 import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -144,11 +144,8 @@ public class EventListener {
 
     @SubscribeEvent
     public void tick(TickEvent.WorldTickEvent event) {
-        // TODO
-        World world = event.world;
-
-        if (world instanceof ServerWorld && world.getServer().overworld().getDayTime() == 13002) {
-            MarketHandler.getInstance().updateMarket(world.getServer(), world.getDayTime());
+        if (event.world instanceof ServerWorld && event.world.dimension() == World.OVERWORLD) {
+            MarketHandler.update(((ServerWorld) event.world).getServer());
         }
     }
 
