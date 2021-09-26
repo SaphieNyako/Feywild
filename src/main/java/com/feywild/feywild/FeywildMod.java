@@ -91,6 +91,7 @@ public class FeywildMod extends ModXRegistration {
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
+        MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
         // Quest task & reward types. Not in setup as they are required for datagen.
