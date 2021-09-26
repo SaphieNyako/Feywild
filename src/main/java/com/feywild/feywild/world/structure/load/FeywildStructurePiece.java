@@ -98,6 +98,7 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
             DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.dwarfBlacksmith, world.getLevel());
             entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             entity.setTamed(false);
+            entity.setPersistenceRequired();
             addEntity(world, entity);
         }
     }

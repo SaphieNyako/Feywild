@@ -23,5 +23,4 @@ public class DwarfBlacksmithRenderer extends GeoEntityRenderer<DwarfBlacksmithEn
     public RenderType getRenderType(DwarfBlacksmithEntity animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
         return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
-
 }

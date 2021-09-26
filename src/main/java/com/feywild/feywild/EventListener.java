@@ -89,10 +89,15 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide && !event.getPlayer().getPersistentData().getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
+        if (!event.getPlayer().level.isClientSide && !FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
             event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
-            event.getPlayer().getPersistentData().putBoolean("feywild_got_lexicon", true);
+            FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
         }
+    }
+
+    @SubscribeEvent
+    public void playerClone(PlayerEvent.Clone event) {
+        FeyPlayerData.copy(event.getOriginal(), event.getPlayer());
     }
 
     @SubscribeEvent
@@ -122,6 +127,7 @@ public class EventListener {
 
     // Might want to make a copy in the use method of display glass and remove the check for it here -low prio-
     private void updateKnights(World world, PlayerEntity player, BlockPos pos) {
+        // TODO
         //Should be changed to special honey block when that is implemented
         if (!world.isClientSide && (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() instanceof DisplayGlassBlock && world.getBlockState(pos).getValue(DisplayGlassBlock.CAN_GENERATE)))) {
             player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
@@ -138,6 +144,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void tick(TickEvent.WorldTickEvent event) {
+        // TODO
         World world = event.world;
 
         if (world instanceof ServerWorld && world.getServer().overworld().getDayTime() == 13002) {

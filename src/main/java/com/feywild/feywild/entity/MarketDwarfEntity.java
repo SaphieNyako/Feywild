@@ -3,7 +3,6 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.entity.base.TraderEntity;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtCustomerGoal;
@@ -25,13 +24,13 @@ public class MarketDwarfEntity extends DwarfBlacksmithEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 36)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.ARMOR_TOUGHNESS, 5)
-                .add(Attributes.ARMOR, 15)
-                .add(Attributes.ATTACK_DAMAGE, 4)
+        return DwarfBlacksmithEntity.getDefaultAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0);
+    }
+
+    @Override
+    public String getTradeCategory() {
+        return "trades";
     }
 
     @Nonnull
@@ -49,6 +48,7 @@ public class MarketDwarfEntity extends DwarfBlacksmithEntity {
 
     @Override
     protected void registerGoals() {
+        // No super call as the marked dwarves should not inherit goals
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(3, new LookAtCustomerGoal(this));
