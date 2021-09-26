@@ -53,7 +53,7 @@ import software.bernie.geckolib3.GeckoLib;
 import javax.annotation.Nonnull;
 
 @Mod("feywild")
-public class FeywildMod extends ModXRegistration {
+public final class FeywildMod extends ModXRegistration {
 
     private static FeywildMod instance;
     private static FeywildNetwork network;
