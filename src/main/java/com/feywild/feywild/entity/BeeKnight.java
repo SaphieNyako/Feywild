@@ -1,12 +1,16 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.block.DisplayGlassBlock;
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.quest.Alignment;
+import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
+import net.minecraft.block.BeehiveBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
@@ -22,6 +26,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -85,7 +90,6 @@ public class BeeKnight extends FeyBase implements IAnimatable {
                 setTarget(getLastHurtByMob());
                 setAggravated(true);
             } else {
-                // TODO what on earth?
                 heal(20);
             }
         }
@@ -184,5 +188,17 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.BEE_LOOP;
+    }
+
+    public static void anger(World world, PlayerEntity player, BlockPos pos) {
+        if (!world.isClientSide && player instanceof ServerPlayerEntity) {
+            if (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() == ModBlocks.displayGlass && world.getBlockState(pos).getValue(DisplayGlassBlock.CAN_GENERATE))) {
+                QuestData quests = QuestData.get((ServerPlayerEntity) player);
+                if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
+                    AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
+                    world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> entity.setAggravated(true));
+                }
+            }
+        }
     }
 }

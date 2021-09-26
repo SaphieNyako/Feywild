@@ -10,6 +10,7 @@ import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
+import com.feywild.feywild.particles.ModParticleFactories;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.ItemReward;
@@ -40,6 +41,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -81,6 +83,7 @@ public final class FeywildMod extends ModXRegistration {
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
 

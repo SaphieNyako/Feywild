@@ -1,14 +1,10 @@
 package com.feywild.feywild;
 
-import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
-import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
-import com.feywild.feywild.quest.Alignment;
-import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
@@ -17,18 +13,14 @@ import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
-import net.minecraft.block.BeehiveBlock;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootEntry;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -117,29 +109,12 @@ public class EventListener {
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
-        updateKnights(event.getWorld(), event.getPlayer(), event.getPos());
+        BeeKnight.anger(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.LeftClickBlock event) {
-        updateKnights(event.getWorld(), event.getPlayer(), event.getPos());
-    }
-
-    // Might want to make a copy in the use method of display glass and remove the check for it here -low prio-
-    private void updateKnights(World world, PlayerEntity player, BlockPos pos) {
-        // TODO
-        //Should be changed to special honey block when that is implemented
-        if (!world.isClientSide && (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() instanceof DisplayGlassBlock && world.getBlockState(pos).getValue(DisplayGlassBlock.CAN_GENERATE)))) {
-            player.getCapability(CapabilityQuests.QUESTS).ifPresent(cap -> {
-                if (!(cap.getReputation() >= MobConfig.summer_bee_knight.required_reputation && cap.getAlignment() == Alignment.SUMMER)) {
-                    world.getEntities(null, new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range)).forEach(entity -> {
-                        if (entity instanceof BeeKnight) {
-                            ((BeeKnight) entity).setAggravated(true);
-                        }
-                    });
-                }
-            });
-        }
+        BeeKnight.anger(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
     @SubscribeEvent

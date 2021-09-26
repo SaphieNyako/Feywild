@@ -29,18 +29,12 @@ public class LibraryStructure extends BaseStructure {
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.VILLAGER, 1, 1, 2)
     );
-    private static final String MESSAGE_LOCATION = "Library at: ";
-    private static final String[] MESSAGE_POOL = {"library/start_pool","library/vanilla_start_pool"};
+    
+    private static final String POOL = "library/start_pool";
 
     @Override
     public int getAverageDistanceBetweenChunks() {
         return WorldGenConfig.structures.library.average_distance;
-    }
-
-    public boolean shouldUseModdedBlocks(){
-        // TODO
-        return true;
-//        return WorldGenConfig.structures.library.vanilla_version;
     }
 
     @Override
@@ -84,10 +78,10 @@ public class LibraryStructure extends BaseStructure {
             ResourceLocation res;
 
             if(getFeature() instanceof LibraryStructure){
-                res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[((LibraryStructure) getFeature()).shouldUseModdedBlocks() ? 0 : 1]);
+                res = new ResourceLocation(FeywildMod.getInstance().modid, POOL);
             }
             else
-                res = new ResourceLocation(FeywildMod.getInstance().modid, MESSAGE_POOL[0]);
+                res = new ResourceLocation(FeywildMod.getInstance().modid, POOL);
 
             //addpieces()
             JigsawManager.addPieces(
