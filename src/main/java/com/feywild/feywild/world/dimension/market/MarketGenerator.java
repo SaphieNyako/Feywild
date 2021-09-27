@@ -4,7 +4,6 @@ import com.feywild.feywild.FeywildMod;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
@@ -50,12 +49,6 @@ public class MarketGenerator {
                 }
             }
         }
-    }
-
-    public static void purge(ServerWorld world) {
-        world.getEntities()
-                .filter(e -> !(e instanceof PlayerEntity))
-                .forEach(Entity::remove);
     }
 
     private static void generateBase(ServerWorld world) {
