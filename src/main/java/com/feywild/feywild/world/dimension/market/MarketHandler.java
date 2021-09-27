@@ -14,20 +14,21 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class MarketHandler {
-    
+
     public static void update(MinecraftServer server) {
         ServerWorld market = server.getLevel(ModDimensions.MARKET_PLACE_DIMENSION);
         if (market != null) {
             MarketData data = MarketData.get(market);
             if (data != null) {
                 data.update(server, () -> market.getPlayers(player -> true).forEach(player -> {
+                    MarketGenerator.purge(market);
                     teleportToOverworld(player);
                     player.displayClientMessage(new TranslationTextComponent("message.feywild.market_closed"), false);
                 }));
             }
         }
     }
-    
+
     public static boolean teleportToMarket(ServerPlayerEntity player) {
         if (player.getLevel().dimension() == World.OVERWORLD) {
             ServerWorld targetLevel = player.getLevel().getServer().getLevel(ModDimensions.MARKET_PLACE_DIMENSION);
@@ -51,7 +52,7 @@ public class MarketHandler {
         }
         return false;
     }
-    
+
     public static boolean teleportToOverworld(ServerPlayerEntity player) {
         if (player.getLevel().dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
             ServerWorld targetLevel = player.getLevel().getServer().overworld();
@@ -67,6 +68,7 @@ public class MarketHandler {
                 // Should never happen
                 targetPos = new BlockPos(0, 64, 0);
             }
+
             player.changeDimension(targetLevel, new SimpleTeleporter(targetPos));
             player.addEffect(new EffectInstance(Effects.BLINDNESS, 60, 0));
             player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 60, 63));

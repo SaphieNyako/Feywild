@@ -16,26 +16,26 @@ import java.util.List;
 import java.util.Map;
 
 public class MarketGenerator {
-    
+
     public static final BlockPos BASE_POS = new BlockPos(-10, 57, -10);
     public static final List<EntityType<?>> LIVESTOCK = ImmutableList.of(
             EntityType.COW, EntityType.PIG, EntityType.SHEEP, EntityType.HORSE, EntityType.CHICKEN, EntityType.LLAMA
     );
-    
+
     private static final Map<ResourceLocation, DwarfEntry> DWARVES = new HashMap<>();
-    
+
     public static void registerMarketDwarf(ResourceLocation id, EntityType<?> type, BlockPos position) {
         synchronized (DWARVES) {
             if (DWARVES.containsKey(id)) throw new IllegalStateException("Dwarf entry registered twice: " + id);
             DWARVES.put(id, new DwarfEntry(type, position.immutable()));
         }
     }
-    
+
     public static void generate(ServerWorld world) {
         MarketData data = MarketData.get(world);
         if (data != null) {
             if (data.tryGenerate()) {
-                purge(world);
+                //   purge(world);
                 generateBase(world);
             }
             for (DwarfEntry entry : DWARVES.values()) {
@@ -43,7 +43,7 @@ public class MarketGenerator {
                 if (entity != null) {
                     entity.setPos(
                             entry.position.getX() + 0.5,
-                            entry.position.getY(), 
+                            entry.position.getY(),
                             entry.position.getZ() + 0.5
                     );
                     world.addFreshEntity(entity);
@@ -51,23 +51,23 @@ public class MarketGenerator {
             }
         }
     }
-    
-    private static void purge(ServerWorld world) {
+
+    public static void purge(ServerWorld world) {
         world.getEntities()
                 .filter(e -> !(e instanceof PlayerEntity))
                 .forEach(Entity::remove);
     }
-    
+
     private static void generateBase(ServerWorld world) {
-       Template template = world.getStructureManager().get(new ResourceLocation(FeywildMod.getInstance().modid, "market"));
-       if (template != null) {
-           template.placeInWorld(world, BASE_POS, new PlacementSettings(), world.random);
-       }
-       for (int i = 0; i < 4; i++) {
-           addLivestock(world, -3.5, 63, 1.5);
-       }
+        Template template = world.getStructureManager().get(new ResourceLocation(FeywildMod.getInstance().modid, "market"));
+        if (template != null) {
+            template.placeInWorld(world, BASE_POS, new PlacementSettings(), world.random);
+        }
+        for (int i = 0; i < 4; i++) {
+            addLivestock(world, -3.5, 63, 1.5);
+        }
     }
-    
+
     @SuppressWarnings("SameParameterValue")
     private static void addLivestock(ServerWorld world, double x, double y, double z) {
         EntityType<?> type = LIVESTOCK.get(world.random.nextInt(LIVESTOCK.size()));
@@ -77,9 +77,9 @@ public class MarketGenerator {
             world.addFreshEntity(entity);
         }
     }
-    
+
     private static class DwarfEntry {
-        
+
         public final EntityType<?> type;
         public final BlockPos position;
 
