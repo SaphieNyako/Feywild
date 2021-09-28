@@ -4,8 +4,6 @@ import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.SimpleTeleporter;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -23,7 +21,6 @@ public class MarketHandler {
             MarketData data = MarketData.get(market);
             if (data != null) {
                 data.update(server, () -> market.getPlayers(player -> true).forEach(player -> {
-                    purge(market);
                     teleportToOverworld(player);
                     player.displayClientMessage(new TranslationTextComponent("message.feywild.market_closed"), false);
                 }));
@@ -77,11 +74,5 @@ public class MarketHandler {
             return true;
         }
         return false;
-    }
-
-    private static void purge(ServerWorld world) {
-        world.getEntities()
-                .filter(e -> !(e instanceof PlayerEntity))
-                .forEach(Entity::remove);
     }
 }

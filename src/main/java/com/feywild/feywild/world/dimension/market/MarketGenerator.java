@@ -1,10 +1,13 @@
 package com.feywild.feywild.world.dimension.market;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.util.BoundingBoxUtil;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -34,7 +37,6 @@ public class MarketGenerator {
         MarketData data = MarketData.get(world);
         if (data != null) {
             if (data.tryGenerate()) {
-                //   purge(world);
                 generateBase(world);
             }
             for (DwarfEntry entry : DWARVES.values()) {
@@ -50,10 +52,17 @@ public class MarketGenerator {
             }
         }
     }
-
+    
     private static void generateBase(ServerWorld world) {
         Template template = world.getStructureManager().get(new ResourceLocation(FeywildMod.getInstance().modid, "market"));
         if (template != null) {
+            // Remove all entities from the world
+            // Must use version with bounding box to load the chunks
+            AxisAlignedBB aabb = BoundingBoxUtil.get(template.getBoundingBox(new PlacementSettings(), BASE_POS)).inflate(10);
+            world.getEntities(null, aabb).stream()
+                    .filter(e -> !(e instanceof PlayerEntity))
+                    .forEach(Entity::remove);
+            
             template.placeInWorld(world, BASE_POS, new PlacementSettings(), world.random);
         }
         for (int i = 0; i < 4; i++) {
