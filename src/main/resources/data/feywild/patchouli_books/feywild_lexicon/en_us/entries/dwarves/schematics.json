@@ -1,5 +1,5 @@
 {
-  "advancement": "feywild:feywild/dwarf_contract",
+  "advancement": "feywild:feywild/fey_dust",
   "name": "Dwarven Knowledge",
   "icon": "feywild:schematics_fey_altar",
   "category": "dwarves",
@@ -8,7 +8,7 @@
       "type": "spotlight",
       "item": "feywild:schematics_fey_altar",
       "title": "Schematics",
-      "text": "If you gain trust with a summoned dwarf, overtime they may reveal secrets only known to the dwarfs."
+      "text": "If you gain trust with a summoned dwarf, overtime they may reveal secrets only known to the dwarfs. Some dwarves hide their secrets and most valued items in mine shafts."
     },
     {
       "advancement": "feywild:feywild/schematics_gem_transmutation",

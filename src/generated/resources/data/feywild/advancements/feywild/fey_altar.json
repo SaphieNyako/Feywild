@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:feywild/schematics_fey_altar",
+  "parent": "feywild:feywild/root",
   "display": {
     "icon": {
       "item": "feywild:fey_altar"
