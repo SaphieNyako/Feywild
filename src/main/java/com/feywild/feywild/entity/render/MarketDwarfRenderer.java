@@ -16,7 +16,7 @@ public class MarketDwarfRenderer extends GeoEntityRenderer<DwarfBlacksmithEntity
 
     public MarketDwarfRenderer(EntityRendererManager renderManager) {
         super(renderManager, new DwarfBlacksmithModel());
-        this.shadowRadius = 0.0F;
+        this.shadowRadius = 0.8F;
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.quest.Alignment;
-import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
@@ -68,6 +67,18 @@ public class BeeKnight extends FeyBase implements IAnimatable {
                 .add(Attributes.ATTACK_DAMAGE, 4);
     }
 
+    public static void anger(World world, PlayerEntity player, BlockPos pos) {
+        if (!world.isClientSide && player instanceof ServerPlayerEntity) {
+            if (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() == ModBlocks.displayGlass && world.getBlockState(pos).getValue(DisplayGlassBlock.CAN_GENERATE))) {
+                QuestData quests = QuestData.get((ServerPlayerEntity) player);
+                if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
+                    AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
+                    world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> entity.setAggravated(true));
+                }
+            }
+        }
+    }
+
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld world, @Nonnull DifficultyInstance difficulty, @Nonnull SpawnReason reason, @Nullable ILivingEntityData data, @Nullable CompoundNBT nbt) {
@@ -80,6 +91,11 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         super.registerGoals();
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(1, new BeeRestrictAttackGoal(this, 1.2f, true));
+    }
+
+    @Override
+    protected int getMovementRange() {
+        return 2 * MobConfig.summer_bee_knight.aggrevation_range;
     }
 
     @Override
@@ -188,17 +204,5 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.BEE_LOOP;
-    }
-
-    public static void anger(World world, PlayerEntity player, BlockPos pos) {
-        if (!world.isClientSide && player instanceof ServerPlayerEntity) {
-            if (world.getBlockState(pos).getBlock() instanceof BeehiveBlock || (world.getBlockState(pos).getBlock() == ModBlocks.displayGlass && world.getBlockState(pos).getValue(DisplayGlassBlock.CAN_GENERATE))) {
-                QuestData quests = QuestData.get((ServerPlayerEntity) player);
-                if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
-                    AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
-                    world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> entity.setAggravated(true));
-                }
-            }
-        }
     }
 }
