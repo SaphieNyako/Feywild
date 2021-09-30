@@ -1,0 +1,21 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 500,
+  "output": {
+    "item": "botania:rune_summer"
+  },
+  "schematics": {
+    "tag": "feywild:seasonal_books"
+  },
+  "ingredients": [
+    {
+      "tag": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:melon_slice"
+    }
+  ]
+}

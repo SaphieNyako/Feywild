@@ -1,0 +1,28 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 250,
+  "output": {
+    "item": "botania:rune_fire",
+    "count": 3
+  },
+  "schematics": {
+    "tag": "feywild:elemental_books"
+  },
+  "ingredients": [
+    {
+      "item": "botania:mana_powder"
+    },
+    {
+      "item": "botania:manasteel_ingot"
+    },
+    {
+      "item": "minecraft:nether_brick"
+    },
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ]
+}

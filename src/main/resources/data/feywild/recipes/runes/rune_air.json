@@ -1,0 +1,28 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 250,
+  "output": {
+    "item": "botania:rune_air",
+    "count": 3
+  },
+  "schematics": {
+    "tag": "feywild:elemental_books"
+  },
+  "ingredients": [
+    {
+      "item": "botania:mana_powder"
+    },
+    {
+      "item": "botania:manasteel_ingot"
+    },
+    {
+      "tag": "minecraft:carpets"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ]
+}

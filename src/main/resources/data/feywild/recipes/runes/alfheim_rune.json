@@ -1,0 +1,18 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 1000,
+  "output": {
+    "item": "mythicbotany:alfheim_rune"
+  },
+  "schematics": {
+    "tag": "feywild:yggdrasil_books"
+  },
+  "ingredients": [
+    {
+      "tag": "minecraft:leaves"
+    },
+    {
+      "item": "botania:elementium_ingot"
+    }
+  ]
+}

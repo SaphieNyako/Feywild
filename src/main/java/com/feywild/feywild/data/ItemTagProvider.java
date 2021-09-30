@@ -22,7 +22,19 @@ public class ItemTagProvider extends ItemTagProviderBase {
     @Override
     protected void setup() {
         this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.feywildMusicDisc);
-        
+        this.tag(ModItemTags.SCHEMATICS).add(ModItems.schematicsElementalRuneCrafting);
+        this.tag(ModItemTags.SCHEMATICS).add(ModItems.schematicsSeasonalRuneCrafting);
+        this.tag(ModItemTags.SCHEMATICS).add(ModItems.schematicsDeadlyRuneCrafting);
+        this.tag(ModItemTags.SCHEMATICS).add(ModItems.schematicsYggdrasilRuneCrafting);
+
+        this.tag(ModItemTags.YGGDRASIL_BOOKS).add(ModItems.schematicsYggdrasilRuneCrafting);
+        this.tag(ModItemTags.DEADLY_BOOKS).add(ModItems.schematicsDeadlyRuneCrafting);
+        this.tag(ModItemTags.DEADLY_BOOKS).addTag(ModItemTags.YGGDRASIL_BOOKS);
+        this.tag(ModItemTags.SEASONAL_BOOKS).add(ModItems.schematicsSeasonalRuneCrafting);
+        this.tag(ModItemTags.SEASONAL_BOOKS).addTag(ModItemTags.DEADLY_BOOKS);
+        this.tag(ModItemTags.ELEMENTAL_BOOKS).add(ModItems.schematicsElementalRuneCrafting);
+        this.tag(ModItemTags.ELEMENTAL_BOOKS).addTag(ModItemTags.SEASONAL_BOOKS);
+
         this.copy(BlockTags.LOGS, ItemTags.LOGS);
         this.copy(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
         this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
@@ -34,6 +46,6 @@ public class ItemTagProvider extends ItemTagProviderBase {
     public void defaultItemTags(Item item) {
         if (item instanceof Schematics) {
             this.tag(ModItemTags.SCHEMATICS).add(item);
-        } 
+        }
     }
 }

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "AXC",
+    " D "
+  ],
+  "key": {
+    "X": {
+      "item": "feywild:schematics_elemental_rune_crafting"
+    },
+    "A": {
+      "item": "botania:rune_spring"
+    },
+    "B": {
+      "item": "botania:rune_summer"
+    },
+    "C": {
+      "item": "botania:rune_autumn"
+    },
+    "D": {
+      "item": "botania:rune_winter"
+    }
+  },
+  "result": {"item": "feywild:schematics_seasonal_rune_crafting"}
+}

@@ -1,0 +1,18 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 1000,
+  "output": {
+    "item": "mythicbotany:nidavellir_rune"
+  },
+  "schematics": {
+    "tag": "feywild:yggdrasil_books"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:iron_block"
+    },
+    {
+      "item": "minecraft:brick"
+    }
+  ]
+}

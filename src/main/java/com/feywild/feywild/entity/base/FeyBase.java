@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class FeyBase extends CreatureEntity implements IAnimatable {
+
     public final Alignment alignment;
 
     private final AnimationFactory factory = new AnimationFactory(this);
@@ -48,16 +49,20 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
 
     @Nullable
     public abstract Vector3d getCurrentPointOfInterest();
-    
+
     public abstract BasicParticleType getParticle();
-    
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
-        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, getMovementRange(), 1.5f));
         this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
+    }
+
+    protected int getMovementRange() {
+        return 6;
     }
 
     @Override
@@ -148,7 +153,6 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
         return 1;
     }
 
-
     @Nonnull
     @Override
     protected PathNavigator createNavigation(@Nonnull World world) {
@@ -158,7 +162,6 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
         flyingpathnavigator.setCanPassDoors(true);
         return flyingpathnavigator;
     }
-
 
     @Override
     public boolean requiresCustomPersistence() {
@@ -187,7 +190,6 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     protected SoundEvent getAmbientSound() {
         return this.random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
     }
-
 
     @Override
     protected float getSoundVolume() {

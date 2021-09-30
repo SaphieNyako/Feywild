@@ -1,0 +1,21 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 500,
+  "output": {
+    "item": "botania:rune_autumn"
+  },
+  "schematics": {
+    "tag": "feywild:seasonal_books"
+  },
+  "ingredients": [
+    {
+      "item": "feywild:summer_tree_leaves"
+    },
+    {
+      "item": "feywild:summer_tree_leaves"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ]
+}

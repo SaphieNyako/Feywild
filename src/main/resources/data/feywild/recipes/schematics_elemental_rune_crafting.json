@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "AXC",
+    " D "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:writable_book"
+    },
+    "A": {
+      "item": "botania:rune_water"
+    },
+    "B": {
+      "item": "botania:rune_fire"
+    },
+    "C": {
+      "item": "botania:rune_earth"
+    },
+    "D": {
+      "item": "botania:rune_air"
+    }
+  },
+  "result": {"item": "feywild:schematics_elemental_rune_crafting"}
+}
