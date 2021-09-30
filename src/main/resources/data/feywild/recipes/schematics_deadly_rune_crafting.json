@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    " XD",
+    "EFG"
+  ],
+  "key": {
+    "X": {
+      "item": "feywild:schematics_seasonal_rune_crafting"
+    },
+    "A": {
+      "item": "botania:rune_lust"
+    },
+    "B": {
+      "item": "botania:rune_gluttony"
+    },
+    "C": {
+      "item": "botania:rune_greed"
+    },
+    "D": {
+      "item": "botania:rune_sloth"
+    },
+    "E": {
+      "item": "botania:rune_wrath"
+    },
+    "F": {
+      "item": "botania:rune_envy"
+    },
+    "G": {
+      "item": "botania:rune_pride"
+    }
+  },
+  "result": {"item": "feywild:schematics_deadly_rune_crafting"}
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+  ],
+  "optional": [
+    "feywild:spring_pixie",
+    "feywild:autumn_pixie",
+    "feywild:summer_pixie",
+    "feywild:winter_pixie"
+  ]
+}

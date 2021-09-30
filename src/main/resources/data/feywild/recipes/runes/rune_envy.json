@@ -1,0 +1,24 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "mana": 750,
+  "output": {
+    "item": "botania:rune_envy"
+  },
+  "schematics": {
+    "tag": "feywild:deadly_books"
+  },
+  "ingredients": [
+    {
+      "item": "botania:mana_diamond"
+    },
+    {
+      "item": "botania:mana_diamond"
+    },
+    {
+      "item": "feywild:winter_tree_sapling"
+    },
+    {
+      "item": "feywild:autumn_tree_sapling"
+    }
+  ]
+}
