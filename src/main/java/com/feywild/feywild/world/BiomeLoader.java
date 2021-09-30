@@ -11,7 +11,6 @@ import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.google.common.collect.ImmutableSet;
-import mythicbotany.alfheim.AlfheimBiomeManager;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.RegistryKey;
@@ -83,7 +82,7 @@ public class BiomeLoader {
                 }
             }
             if (CompatConfig.mythic_alfheim.alfheim) {
-                if (types.contains(AlfheimBiomeManager.ALFHEIM)) {
+                if (AlfheimCompat.isAlfheim(types)) {
                     event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
                 }
             }
@@ -178,7 +177,7 @@ public class BiomeLoader {
         boolean seasonalOverworld = SEASONAL_BIOMES.contains(biomeId);
         boolean seasonalAlfheim = ALFHEIM_BIOMES.contains(biomeId);
         boolean seasonal = seasonalOverworld || seasonalAlfheim;
-        boolean regularAlfheim = !seasonalAlfheim && types.contains(AlfheimBiomeManager.ALFHEIM);
+        boolean regularAlfheim = !seasonalAlfheim && AlfheimCompat.isAlfheim(types);
         for (BiomeDictionary.Type biomeTag : targetBiomes) {
             boolean tagged = types.contains(biomeTag);
             if ((types.contains(biomeTag) && (targeted || !seasonal)) || regularAlfheim) {
