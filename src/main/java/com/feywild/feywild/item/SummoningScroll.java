@@ -1,18 +1,24 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.base.FeyEntity;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class SummoningScroll<T extends LivingEntity> extends ItemBase {
     
@@ -28,7 +34,7 @@ public class SummoningScroll<T extends LivingEntity> extends ItemBase {
     }
 
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos) {
-        return true;
+        return false;
     }
     
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
@@ -54,4 +60,25 @@ public class SummoningScroll<T extends LivingEntity> extends ItemBase {
         }
         return ActionResultType.PASS;
     }
+
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
+        if (!entity.level.isClientSide && entity instanceof FeyEntity && (Objects.equals(((FeyEntity) entity).getOwner(), player) || player.isCreative()) && !canSummon(entity.level, player, entity.blockPosition())) {
+            if (entity.getType().equals(ModEntityTypes.springPixie)) {
+                player.addItem(new ItemStack(ModItems.summoningScrollSpringPixie));
+            } else if (entity.getType().equals(ModEntityTypes.autumnPixie)) {
+                player.addItem(new ItemStack(ModItems.summoningScrollAutumnPixie));
+            } else if (entity.getType().equals(ModEntityTypes.summerPixie)) {
+                player.addItem(new ItemStack(ModItems.summoningScrollSummerPixie));
+            } else if (entity.getType().equals(ModEntityTypes.winterPixie)) {
+                player.addItem(new ItemStack(ModItems.summoningScrollWinterPixie));
+            }
+            entity.remove();
+            if(!player.isCreative())
+            stack.shrink(1);
+        }
+        return true;
+    }
 }
+

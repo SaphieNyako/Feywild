@@ -3,6 +3,7 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
@@ -20,7 +21,7 @@ public class ModItems {
     public static final Item shinyFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item brilliantFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
-    public static final Item summoningScroll = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item summoningScroll = new SummoningScroll<>(FeywildMod.getInstance(),ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item inactiveMarketRuneStone = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().stacksTo(1), new TranslationTextComponent("message.feywild.inactive_market_rune_stone"));

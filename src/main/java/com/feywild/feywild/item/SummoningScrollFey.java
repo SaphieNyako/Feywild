@@ -31,6 +31,11 @@ public class SummoningScrollFey<T extends FeyEntity> extends SummoningScroll<T> 
     }
 
     @Override
+    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos) {
+        return true;
+    }
+
+    @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild." + Objects.requireNonNull(this.type.getRegistryName()).getPath()));
         super.appendHoverText(stack, world, tooltip, flag);
