@@ -138,6 +138,7 @@
   "message.feywild.schematics_seasonal_rune_crafting": "When Botania is installed this book can be used to craft Runes with the Dwarven anvil more efficiently. This version also includes all the elemental runes.",
   "message.feywild.schematics_deadly_rune_crafting": "When Botania is installed this book can be used to craft Runes with the Dwarven anvil. This version also includes all the elemental and seasonal runes.",
   "message.feywild.schematics_yggdrasil_rune_crafting": "When Mythic Botany is installed this book can be used to craft Runes with the Dwarven anvil. This version also includes all the elemental, seasonal and deadly sins Runes.",
+  "message.feywild.summoning_scroll": "Used in summoning rituals but can also be used to recapture a summoned Fey.",
   "screen.feywild.mana_amount": "Mana: %s",
   "effect.feywild.wind_walk": "Wind Walk",
   "quest.feywild.spring.root.start.title": "Welcome to the Spring court",
