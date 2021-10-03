@@ -138,6 +138,7 @@
   "message.feywild.schematics_seasonal_rune_crafting": "When Botania is installed this book can be used to craft Runes with the Dwarven anvil more efficiently. This version also includes all the elemental runes.",
   "message.feywild.schematics_deadly_rune_crafting": "When Botania is installed this book can be used to craft Runes with the Dwarven anvil. This version also includes all the elemental and seasonal runes.",
   "message.feywild.schematics_yggdrasil_rune_crafting": "When Mythic Botany is installed this book can be used to craft Runes with the Dwarven anvil. This version also includes all the elemental, seasonal and deadly sins Runes.",
+  "message.feywild.summoning_scroll": "Used in summoning rituals but can also be used to recapture a summoned Fey.",
   "screen.feywild.mana_amount": "Mana: %s",
   "screen.feywild.opening_screen": "A dream or a nightmare, you are uncertain. As you wake up you find yourself in a world of the mystical. Crossing from another world or reality, you have forgotten where you are from.\nBut you where drawn to the seasonal allure of this plain. The colours, the smell it reminds you of your favourite season:",
   "effect.feywild.wind_walk": "Wind Walk",

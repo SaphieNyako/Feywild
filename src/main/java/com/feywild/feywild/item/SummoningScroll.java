@@ -2,8 +2,9 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,19 +12,21 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 
-public class SummoningScroll<T extends LivingEntity> extends ItemBase {
-    
+public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
+
     protected final EntityType<T> type;
-    
+
     @Nullable
     private final SoundEvent soundEvent;
 
@@ -36,11 +39,11 @@ public class SummoningScroll<T extends LivingEntity> extends ItemBase {
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos) {
         return false;
     }
-    
+
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
-        
+
     }
-    
+
     @Nonnull
     @Override
     public ActionResultType useOn(@Nonnull ItemUseContext context) {
@@ -64,7 +67,6 @@ public class SummoningScroll<T extends LivingEntity> extends ItemBase {
         return ActionResultType.PASS;
     }
 
-
     @Override
     public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
         if (!entity.level.isClientSide && entity instanceof FeyEntity && (Objects.equals(((FeyEntity) entity).getOwner(), player) || player.isCreative()) && !canSummon(entity.level, player, entity.blockPosition())) {
@@ -78,10 +80,15 @@ public class SummoningScroll<T extends LivingEntity> extends ItemBase {
                 player.addItem(new ItemStack(ModItems.summoningScrollWinterPixie));
             }
             entity.remove();
-            if(!player.isCreative())
-            stack.shrink(1);
+            if (!player.isCreative())
+                stack.shrink(1);
         }
         return true;
+    }
+
+    @Override
+    public void appendHoverText(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.summoning_scroll"));
     }
 }
 
