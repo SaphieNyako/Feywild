@@ -6,6 +6,7 @@ import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
+import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
@@ -90,6 +91,10 @@ public class EventListener {
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
                 event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
+            }
+            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll) {
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
         }
     }
