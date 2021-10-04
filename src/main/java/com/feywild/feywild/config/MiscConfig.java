@@ -9,7 +9,7 @@ public class MiscConfig {
     public static boolean initial_lexicon = true;
 
     @Config("Whether the players should be able to select one of the court's scrolls on first login.")
-    public static boolean initial_scroll = true;
+    public static boolean initial_scroll = false;
 
     @Config("The duration in ticks for the levitation effect applied by fey dust.")
     @IntRange(min = 1)

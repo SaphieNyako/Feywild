@@ -21,16 +21,6 @@ public class LibraryBooks {
     
     public static ItemStack getBook(int idx) {
         if (idx < 0 || idx >= books.size()) {
-            switch (idx-books.size()){
-                case 0:
-                    return new ItemStack(ModItems.summoningScrollWinterPixie);
-                case 1:
-                    return new ItemStack(ModItems.summoningScrollAutumnPixie);
-                case 2:
-                    return new ItemStack(ModItems.summoningScrollSpringPixie);
-                case 3:
-                    return new ItemStack(ModItems.summoningScrollSummerPixie);
-            }
             return ItemStack.EMPTY;
         } else {
             return books.get(idx).copy();

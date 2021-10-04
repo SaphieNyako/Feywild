@@ -18,7 +18,7 @@ public class FeywildNetwork extends NetworkX {
     @Override
     protected void registerPackets() {
         this.register(new OpenLibraryScreenSerializer(), () -> OpenLibraryScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        this.register(new RequestLibraryBookSerializer(), () -> RequestLibraryBookHandler::handle, NetworkDirection.PLAY_TO_SERVER);
+        this.register(new RequestItemSerializer(), () -> RequestItemHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ParticleSerializer(), () -> ParticleHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new TradesSerializer(), () -> TradesHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new OpeningScreenSerializer(), () -> OpeningScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
