@@ -38,16 +38,16 @@ public class MarketGenerator {
         if (data != null) {
             if (data.tryGenerate()) {
                 generateBase(world);
-            }
-            for (DwarfEntry entry : DWARVES.values()) {
-                Entity entity = entry.type.create(world);
-                if (entity != null) {
-                    entity.setPos(
-                            entry.position.getX() + 0.5,
-                            entry.position.getY(),
-                            entry.position.getZ() + 0.5
-                    );
-                    world.addFreshEntity(entity);
+                for (DwarfEntry entry : DWARVES.values()) {
+                    Entity entity = entry.type.create(world);
+                    if (entity != null) {
+                        entity.setPos(
+                                entry.position.getX() + 0.5,
+                                entry.position.getY(),
+                                entry.position.getZ() + 0.5
+                        );
+                        world.addFreshEntity(entity);
+                    }
                 }
             }
         }

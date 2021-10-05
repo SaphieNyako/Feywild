@@ -15,6 +15,8 @@ import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
+import com.feywild.feywild.world.dimension.ModDimensions;
+import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
@@ -95,6 +97,10 @@ public class EventListener {
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll) {
                 FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
+            }
+            // Move player back if still in market and the market is closed
+            if(event.getPlayer().level.getDayTime() < 13000 && event.getPlayer().level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION && event.getPlayer() instanceof ServerPlayerEntity){
+                MarketHandler.teleportToOverworld((ServerPlayerEntity) event.getPlayer());
             }
         }
     }
