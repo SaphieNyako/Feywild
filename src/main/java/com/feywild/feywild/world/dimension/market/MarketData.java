@@ -11,7 +11,7 @@ import net.minecraft.world.storage.WorldSavedData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-// Holds data about the curren tstae of the dwarf market
+// Holds data about the current state of the dwarf market
 public class MarketData extends WorldSavedData  {
 
     @Nullable
