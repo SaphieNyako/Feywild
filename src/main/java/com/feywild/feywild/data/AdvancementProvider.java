@@ -129,5 +129,13 @@ public class AdvancementProvider extends AdvancementProviderBase {
                         new VillagerTradeTrigger.Instance(EntityPredicate.AndPredicate.ANY, this.entity(ModEntityTypes.dwarfDragonHunter), ItemPredicate.ANY)
                 );
 
+        this.advancement("honeycomb")
+                .display(ModItems.honeycomb)
+                .task(this.items(ModItems.honeycomb));
+
+        this.advancement("magical_honey_cookie").parent("honeycomb")
+                .display(ModItems.magicalHoneyCookie)
+                .task(this.items(ModItems.magicalHoneyCookie));
+
     }
 }

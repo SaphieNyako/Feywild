@@ -1,0 +1,35 @@
+{
+  "parent": "feywild:feywild/root",
+  "display": {
+    "icon": {
+      "item": "feywild:honeycomb"
+    },
+    "title": {
+      "translate": "advancements.feywild.feywild.honeycomb.title"
+    },
+    "description": {
+      "translate": "advancements.feywild.feywild.honeycomb.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "feywild:honeycomb"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}
