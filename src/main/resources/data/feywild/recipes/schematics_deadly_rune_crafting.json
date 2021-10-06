@@ -1,35 +1,34 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ABC",
-    " XD",
-    "EFG"
-  ],
-  "key": {
-    "A": {
+  "type": "botania:elven_trade",
+  "ingredients": [
+    {
+      "item": "feywild:schematics_seasonal_rune_crafting"
+    },
+    {
       "item": "botania:rune_lust"
     },
-    "B": {
+    {
       "item": "botania:rune_gluttony"
     },
-    "C": {
+    {
       "item": "botania:rune_greed"
     },
-    "D": {
-      "item": "botania:rune_sloth"
-    },
-    "E": {
+    {
       "item": "botania:rune_wrath"
     },
-    "F": {
+    {
+      "item": "botania:rune_sloth"
+    },
+    {
       "item": "botania:rune_envy"
     },
-    "G": {
+    {
       "item": "botania:rune_pride"
-    },
-    "X": {
-      "item": "feywild:schematics_seasonal_rune_crafting"
     }
-  },
-  "result": {"item": "feywild:schematics_deadly_rune_crafting"}
+  ],
+  "output": [
+    {
+      "item": "feywild:schematics_deadly_rune_crafting"
+    }
+  ]
 }
