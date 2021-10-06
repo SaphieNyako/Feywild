@@ -118,11 +118,11 @@ public class WorldGenConfig {
 
             @Config("The minimum distance between two libraries")
             @IntRange(min = 1)
-            public static int minimum_distance = 40;
+            public static int minimum_distance = 25;
 
             @Config("The average distance between two libraries. Must be higher than minimum.")
             @IntRange(min = 1)
-            public static int average_distance = 50;
+            public static int average_distance = 35;
         }
 
         public static class blacksmith {
