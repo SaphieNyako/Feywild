@@ -39,7 +39,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
                 )
         ));
         this.drops(ModTrees.summerTree.getLogBlock(), true, this.stack(Blocks.BIRCH_LOG));
-        this.drops(ModTrees.summerTree.getWoodBlock(), true, this.stack(ModTrees.summerTree.getWoodBlock()));
+        this.drops(ModTrees.summerTree.getWoodBlock(), false, this.stack(ModTrees.summerTree.getWoodBlock()));
 
         this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower).with(this.count(1, 2)));
         this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion).with(this.count(1, 2)));
