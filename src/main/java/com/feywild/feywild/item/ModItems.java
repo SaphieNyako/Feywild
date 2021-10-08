@@ -52,12 +52,7 @@ public class ModItems {
     public static final MandrakePotion mandrakePotion = new MandrakePotion(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder().build()));
 
-    public static final Item magicalHoneyCookie = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().food(
-            new Food.Builder()
-                    .nutrition(5)
-                    .saturationMod(2.0f)
-                    .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 900, 0), 1)
-                    .build()), new TranslationTextComponent("message.feywild.magical_honey_cookie"));
+    public static final Item magicalHoneyCookie = new MagicalCookie(FeywildMod.getInstance());
     
     /* QUEST ITEMS
 
