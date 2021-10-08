@@ -34,6 +34,7 @@ public class BlockStates extends BlockStateProviderBase {
         this.manualModel(ModBlocks.feyAltar);
         this.manualModel(ModBlocks.libraryBell);
         this.manualModel(ModBlocks.treeMushroom);
+        // this.manualModel(ModBlocks.autumnTreeStairs);
 
         //noinspection ConstantConditions
         this.manualModel(ModBlocks.ancientRunestone, this.models().cubeTop(

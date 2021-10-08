@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "feywild:block/spring_tree_slab"
+    },
+    "type=double": {
+      "model": "feywild:block/spring_tree_wood"
+    },
+    "type=top": {
+      "model": "feywild:block/spring_tree_slab_top"
+    }
+  }
+}
