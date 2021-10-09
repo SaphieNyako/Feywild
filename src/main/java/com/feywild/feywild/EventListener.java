@@ -98,6 +98,10 @@ public class EventListener {
                 FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
+            // Move player back if still in market and the market is closed
+            if(event.getPlayer().level.getDayTime() < 13000 && event.getPlayer().level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION && event.getPlayer() instanceof ServerPlayerEntity){
+                MarketHandler.teleportToOverworld((ServerPlayerEntity) event.getPlayer());
+            }
         }
     }
 

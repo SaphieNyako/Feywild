@@ -10,8 +10,6 @@ import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -45,7 +43,7 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     private final BlockItem seed;
 
     public MandrakeCrop(ModX mod) {
-        super(AbstractBlock.Properties.copy(Blocks.WHEAT).noCollission());
+        super(AbstractBlock.Properties.copy(Blocks.WHEAT));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.seed = new BlockItem(this, properties);
     }
@@ -62,7 +60,6 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
     }
-
 
     @Nonnull
     @Override
@@ -84,7 +81,22 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
+        if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie) {
+            if (!world.isClientSide) {
+                MandragoraEntity entity = ModEntityTypes.mandragora.create(world);
+                if (entity != null) {
+                    entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+                    entity.setSummonPos(pos);
+                    world.addFreshEntity(entity);
+                    entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+                    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                    if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                }
+            }
+            return ActionResultType.sidedSuccess(world.isClientSide);
+        } else {
             world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
             return super.use(state, world, pos, player, hand, hit);
+        }
     }
 }
