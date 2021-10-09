@@ -36,6 +36,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -97,10 +98,6 @@ public class EventListener {
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll) {
                 FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
-            }
-            // Move player back if still in market and the market is closed
-            if(event.getPlayer().level.getDayTime() < 13000 && event.getPlayer().level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION && event.getPlayer() instanceof ServerPlayerEntity){
-                MarketHandler.teleportToOverworld((ServerPlayerEntity) event.getPlayer());
             }
         }
     }
