@@ -73,10 +73,6 @@ public class AdvancementProvider extends AdvancementProviderBase {
                 .display(ModItems.summoningScrollDwarfBlacksmith)
                 .task(this.items(ModItems.summoningScrollDwarfBlacksmith));
 
-        this.advancement("schematics_fey_altar").parent("dwarf_contract")
-                .display(ModItems.schematicsFeyAltar)
-                .task(this.items(ModItems.schematicsFeyAltar));
-
         this.advancement("schematics_gem_transmutation").parent("dwarf_contract")
                 .display(ModItems.schematicsGemTransmutation)
                 .task(this.items(ModItems.schematicsGemTransmutation));

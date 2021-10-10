@@ -31,4 +31,8 @@ public class ModSoundEvents {
     public static final SoundEvent summerSoundtrack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summer_soundtrack"));
     public static final SoundEvent autumnSoundtrack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "autumn_soundtrack"));
     public static final SoundEvent winterSoundtrack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "winter_soundtrack"));
+    public static final SoundEvent summoningSpringPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_spring_pixie_short"));
+    public static final SoundEvent summoningSummerPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_summer_pixie_short"));
+    public static final SoundEvent summoningAutumnPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_autumn_pixie_short"));
+    public static final SoundEvent summoningWinterPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_winter_pixie_short"));
 }

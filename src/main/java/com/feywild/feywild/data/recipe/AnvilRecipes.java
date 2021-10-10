@@ -1,6 +1,5 @@
 package com.feywild.feywild.data.recipe;
 
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.google.gson.JsonArray;
@@ -8,7 +7,6 @@ import com.google.gson.JsonObject;
 import io.github.noeppi_noeppi.libx.data.CraftingHelper2;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.AnyRecipeProvider;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -18,7 +16,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,6 +41,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
         this.gemTransmutation(consumer, ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(consumer, ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);
 
+        /* EXAMPLE
         this.anvil(ModBlocks.feyAltar)
                 .requires(Tags.Items.INGOTS_GOLD)
                 .requires(Tags.Items.INGOTS_GOLD)
@@ -52,9 +50,9 @@ public class AnvilRecipes extends AnyRecipeProvider {
                 .requires(ModItems.brilliantFeyGem)
                 .schematics(ModItems.schematicsFeyAltar)
                 .mana(1000)
-                .build(consumer);
+                .build(consumer); */
     }
-    
+
     private void gemTransmutation(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider result, int mana) {
         this.anvil(result, 2)
                 .requires(input)
@@ -74,24 +72,24 @@ public class AnvilRecipes extends AnyRecipeProvider {
     private AnvilRecipeBuilder anvil(IItemProvider result, int amount) {
         return this.anvil(new ItemStack(result, amount));
     }
-    
+
     private AnvilRecipeBuilder anvil(ItemStack result) {
         return new AnvilRecipeBuilder(result);
     }
-    
+
     private class AnvilRecipeBuilder {
-        
+
         private final ItemStack result;
+        private final List<Ingredient> inputs;
         @Nullable
         private Ingredient schematics;
         private int mana = -1;
-        private final List<Ingredient> inputs;
 
         public AnvilRecipeBuilder(ItemStack result) {
             this.result = result;
             this.inputs = new ArrayList<>();
         }
-        
+
         public AnvilRecipeBuilder requires(IItemProvider item) {
             return this.requires(Ingredient.of(item));
         }
@@ -104,7 +102,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
             this.inputs.add(item);
             return this;
         }
-        
+
         public AnvilRecipeBuilder schematics(IItemProvider item) {
             return this.schematics(Ingredient.of(item));
         }
@@ -114,27 +112,30 @@ public class AnvilRecipes extends AnyRecipeProvider {
         }
 
         public AnvilRecipeBuilder schematics(Ingredient item) {
-            if (this.schematics != null) throw new IllegalStateException("Can't build dwarven anvil recipe with multiple schematics");
+            if (this.schematics != null)
+                throw new IllegalStateException("Can't build dwarven anvil recipe with multiple schematics");
             this.schematics = item;
             return this;
         }
-        
+
         public AnvilRecipeBuilder mana(int mana) {
             if (this.mana >= 0) throw new IllegalStateException("Mana can only set once per dwarven anvil recipe.");
             this.mana = mana;
             return this;
         }
-        
+
         public void build(Consumer<IFinishedRecipe> consumer) {
             this.build(consumer, AnvilRecipes.this.loc(this.result.getItem(), "dwarven_anvil"));
         }
-        
+
         public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-            if (this.inputs.isEmpty()) throw new IllegalStateException("Can't build dwarven anvil recipe without inputs: " + id);
-            if (this.inputs.size() > 5) throw new IllegalStateException("Can't build dwarven anvil recipe with more than 5 inputs: " + id);
+            if (this.inputs.isEmpty())
+                throw new IllegalStateException("Can't build dwarven anvil recipe without inputs: " + id);
+            if (this.inputs.size() > 5)
+                throw new IllegalStateException("Can't build dwarven anvil recipe with more than 5 inputs: " + id);
             if (this.mana < 0) throw new IllegalStateException("mana not set for dwarven anvil recipe: " + id);
             consumer.accept(new IFinishedRecipe() {
-                
+
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
                     json.addProperty("mana", AnvilRecipeBuilder.this.mana);

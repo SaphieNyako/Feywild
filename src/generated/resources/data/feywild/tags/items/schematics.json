@@ -5,7 +5,6 @@
     "feywild:schematics_seasonal_rune_crafting",
     "feywild:schematics_deadly_rune_crafting",
     "feywild:schematics_yggdrasil_rune_crafting",
-    "feywild:schematics_gem_transmutation",
-    "feywild:schematics_fey_altar"
+    "feywild:schematics_gem_transmutation"
   ]
 }

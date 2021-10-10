@@ -4,7 +4,6 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
@@ -16,7 +15,6 @@ import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.world.dimension.ModDimensions;
-import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
@@ -95,11 +93,11 @@ public class EventListener {
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
             }
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
             // Move player back if still in market and the market is closed
-            if(event.getPlayer().level.getDayTime() < 13000 && event.getPlayer().level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION && event.getPlayer() instanceof ServerPlayerEntity){
+            if (event.getPlayer().level.getDayTime() < 13000 && event.getPlayer().level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION && event.getPlayer() instanceof ServerPlayerEntity) {
                 MarketHandler.teleportToOverworld((ServerPlayerEntity) event.getPlayer());
             }
         }
@@ -141,7 +139,7 @@ public class EventListener {
             MarketHandler.update(((ServerWorld) event.world).getServer());
         }
     }
-    
+
     @SubscribeEvent
     public void afterReload(DatapacksReloadedEvent event) {
         FeywildMod.getNetwork().instance.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
@@ -156,7 +154,6 @@ public class EventListener {
             LootPool pool = event.getTable().getPool("main");
             //noinspection ConstantConditions
             if (pool != null) {
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsFeyAltar).setWeight(5).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(5).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(5).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());
