@@ -1,5 +1,7 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.BeeKnight;
+import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -18,7 +20,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class SummoningScrollFey<T extends FeyEntity> extends SummoningScroll<T> {
+public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> {
 
     public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
         super(mod, type, soundEvent, properties);
@@ -26,8 +28,11 @@ public class SummoningScrollFey<T extends FeyEntity> extends SummoningScroll<T> 
 
     @Override
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
-        entity.setTamed(true);
+        if(entity instanceof FeyEntity)
+            ((FeyEntity) entity).setTamed(true);
         entity.setOwner(player);
+        if(entity instanceof BeeKnight)
+            ((BeeKnight) entity).setTreasurePos(pos);
     }
 
     @Override

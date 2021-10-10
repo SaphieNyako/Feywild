@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -69,7 +70,8 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
 
     @Override
     public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
-        if (!entity.level.isClientSide && entity instanceof FeyEntity && (Objects.equals(((FeyEntity) entity).getOwner(), player) || player.isCreative()) && !canSummon(entity.level, player, entity.blockPosition())) {
+        //There definitely must be a better way of doing this
+        if (!entity.level.isClientSide && entity instanceof FeyBase && (Objects.equals(((FeyBase) entity).getOwner(), player) || player.isCreative()) && !canSummon(entity.level, player, entity.blockPosition())) {
             if (entity.getType().equals(ModEntityTypes.springPixie)) {
                 player.addItem(new ItemStack(ModItems.summoningScrollSpringPixie));
             } else if (entity.getType().equals(ModEntityTypes.autumnPixie)) {
@@ -78,6 +80,8 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                 player.addItem(new ItemStack(ModItems.summoningScrollSummerPixie));
             } else if (entity.getType().equals(ModEntityTypes.winterPixie)) {
                 player.addItem(new ItemStack(ModItems.summoningScrollWinterPixie));
+            }else if(entity.getType().equals(ModEntityTypes.beeKnight)){
+                player.addItem(new ItemStack(ModItems.summoningScrollBeeKnight));
             }
             entity.remove();
             if (!player.isCreative())
