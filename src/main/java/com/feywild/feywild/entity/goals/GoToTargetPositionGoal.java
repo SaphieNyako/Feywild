@@ -42,7 +42,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
     @Override
     public boolean canContinueToUse() {
         Vector3d target = this.targetPosition.get();
-        return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared && this.shouldReturn.get();
+        return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared / 2.0 && this.shouldReturn.get();
     }
 
     @Override

@@ -14,7 +14,9 @@ public class TooltipHelper {
         if (KeyboardHelper.isHoldingShift()) {
             tooltip.addAll(Arrays.asList(lines));
         } else {
-            tooltip.add(new TranslationTextComponent("message.feywild.itemmessage", new KeybindTextComponent("key.sneak")).withStyle(TextFormatting.GRAY));
+            TranslationTextComponent textComponent = (TranslationTextComponent) new TranslationTextComponent("message.feywild.itemmessage", new KeybindTextComponent("key.sneak")).withStyle(TextFormatting.GRAY);
+            if(!tooltip.contains(textComponent))
+                tooltip.add(textComponent);
         }
     }
 }

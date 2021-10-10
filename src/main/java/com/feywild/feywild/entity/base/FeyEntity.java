@@ -55,8 +55,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
     @Nullable
     private BlockPos currentTargetPos;
     private boolean isTamed;
-    @Nullable
-    private UUID owner;
 
     protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
         super(type, alignment, world);
@@ -82,24 +80,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     public void setTamed(boolean tamed) {
         this.isTamed = tamed;
-    }
-
-    @Nullable
-    public PlayerEntity getOwner() {
-        return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
-    }
-
-    public void setOwner(@Nullable PlayerEntity owner) {
-        this.setOwner(owner == null ? null : owner.getUUID());
-    }
-
-    public void setOwner(@Nullable UUID owner) {
-        this.owner = owner;
-    }
-
-    @Nullable
-    public UUID getOwnerId() {
-        return this.owner;
     }
 
     @Nullable
@@ -146,9 +126,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
         if (this.currentTargetPos != null) {
             NBTX.putPos(nbt, "CurrentTarget", this.currentTargetPos);
         }
-        if (this.owner != null) {
-            nbt.putUUID("Owner", this.owner);
-        }
     }
 
     @Override
@@ -156,7 +133,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
         this.currentTargetPos = NBTX.getPos(nbt, "CurrentTarget", null);
-        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
     }
 
     @Nonnull

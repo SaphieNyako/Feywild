@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
@@ -26,12 +27,16 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public abstract class FeyBase extends CreatureEntity implements IAnimatable {
 
     public final Alignment alignment;
 
     private final AnimationFactory factory = new AnimationFactory(this);
+
+    @Nullable
+    protected UUID owner;
 
     protected FeyBase(EntityType<? extends CreatureEntity> entityType, Alignment alignment, World world) {
         super(entityType, world);
@@ -45,6 +50,24 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                 .add(Attributes.MAX_HEALTH, 12)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2);
+    }
+
+    @Nullable
+    public PlayerEntity getOwner() {
+        return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
+    }
+
+    public void setOwner(@Nullable PlayerEntity owner) {
+        this.setOwner(owner == null ? null : owner.getUUID());
+    }
+
+    public void setOwner(@Nullable UUID owner) {
+        this.owner = owner;
+    }
+
+    @Nullable
+    public UUID getOwnerId() {
+        return this.owner;
     }
 
     @Nullable
@@ -199,5 +222,19 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    @Override
+    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+        super.addAdditionalSaveData(nbt);
+        if (this.owner != null) {
+            nbt.putUUID("Owner", this.owner);
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
     }
 }
