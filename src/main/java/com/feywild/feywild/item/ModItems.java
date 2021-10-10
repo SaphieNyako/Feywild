@@ -32,10 +32,10 @@ public class ModItems {
     public static final Item schematicsDeadlyRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_deadly_rune_crafting"));
     public static final Item schematicsYggdrasilRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_yggdrasil_rune_crafting"));
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, new Item.Properties());
-    public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
-    public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixie, new Item.Properties());
-    public static final SummoningScrollFey<AutumnPixieEntity> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixie, new Item.Properties());
-    public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixie, new Item.Properties());
+    public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<AutumnPixieEntity> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixieShort, new Item.Properties());
     public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
