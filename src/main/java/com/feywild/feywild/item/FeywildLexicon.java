@@ -1,5 +1,11 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.FeyPlayerData;
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.MiscConfig;
+import com.feywild.feywild.config.ScrollConfig;
+import com.feywild.feywild.network.OpeningScreenSerializer;
+import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
@@ -13,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.PacketDistributor;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
@@ -31,7 +38,11 @@ public class FeywildLexicon extends ItemBase {
     public ActionResult<ItemStack> use(@Nonnull World worldIn, @Nonnull PlayerEntity player, @Nonnull Hand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayerEntity) {
-            PatchouliAPI.get().openBookGUI((ServerPlayerEntity) player, Objects.requireNonNull(this.getRegistryName()));
+            if (!FeyPlayerData.get(player).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.BOOK) {
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) player), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeyPlayerData.get(player).putBoolean("feywild_got_scroll", true);
+            }else
+                PatchouliAPI.get().openBookGUI((ServerPlayerEntity) player, Objects.requireNonNull(this.getRegistryName()));
         }
         return new ActionResult<>(ActionResultType.FAIL, stack);
     }

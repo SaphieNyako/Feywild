@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
+import com.feywild.feywild.config.ScrollConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
@@ -95,7 +96,7 @@ public class EventListener {
                 event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
             }
-            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll) {
+            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.LOGIN) {
                 FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
