@@ -3,6 +3,9 @@ package com.feywild.feywild.block;
 import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.quest.task.SpecialTask;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -11,6 +14,7 @@ import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.*;
@@ -91,6 +95,7 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
                     entity.playSound(SoundEvents.FOX_EAT, 1, 1);
                     world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                     if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                    QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
                 }
             }
             return ActionResultType.sidedSuccess(world.isClientSide);

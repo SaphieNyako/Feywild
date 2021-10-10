@@ -6,7 +6,6 @@ import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Items;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -24,9 +23,9 @@ public class BlockLootProvider extends BlockLootProviderBase {
 
     @Override
     protected void setup() {
-        this.treeDrops(ModTrees.springTree, Blocks.OAK_LOG, ModTrees.springTree.getWoodBlock());
-        this.treeDrops(ModTrees.autumnTree, Blocks.DARK_OAK_LOG, ModTrees.autumnTree.getWoodBlock());
-        this.treeDrops(ModTrees.winterTree, Blocks.SPRUCE_LOG, ModTrees.winterTree.getWoodBlock());
+        this.treeDrops(ModTrees.springTree, ModTrees.springTree.getLogBlock(), ModTrees.springTree.getWoodBlock());
+        this.treeDrops(ModTrees.autumnTree, ModTrees.autumnTree.getLogBlock(), ModTrees.autumnTree.getWoodBlock());
+        this.treeDrops(ModTrees.winterTree, ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getWoodBlock());
 
         this.drops(ModTrees.summerTree.getLeafBlock(), this.first(
                 this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
@@ -38,7 +37,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
                         this.stack(Items.SWEET_BERRIES).with(this.count(1, 2)).with(this.randomFortune(0.02f))
                 )
         ));
-        this.drops(ModTrees.summerTree.getLogBlock(), true, this.stack(Blocks.BIRCH_LOG));
+        this.drops(ModTrees.summerTree.getLogBlock(), false, this.stack(ModTrees.summerTree.getLogBlock()));
         this.drops(ModTrees.summerTree.getWoodBlock(), false, this.stack(ModTrees.summerTree.getWoodBlock()));
 
         this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower).with(this.count(1, 2)));
@@ -86,7 +85,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
                         this.stack(ModBlocks.mandrakeCrop.getSeed()).with(this.randomFortune(0.005f))
                 )
         ));
-        this.drops(tree.getLogBlock(), true, this.stack(baseLog));
+        this.drops(tree.getLogBlock(), false, this.stack(baseLog));
         this.drops(tree.getWoodBlock(), false, this.stack(baseWood));
     }
 }

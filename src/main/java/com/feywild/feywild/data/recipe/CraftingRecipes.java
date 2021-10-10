@@ -73,6 +73,23 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .define('#', Items.WHEAT)
                 .unlockedBy("has_item", has(ModItems.honeycomb))
                 .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(ModItems.feywildLexicon)
+                .requires(Items.BOOK)
+                .requires(ModItems.feyDust)
+                .unlockedBy("has_item", has(ModItems.feyDust))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.feyAltar)
+                .pattern("fpf")
+                .pattern("pdp")
+                .pattern("ggg")
+                .define('f', ModItems.feyDust)
+                .define('p', Items.IRON_INGOT)
+                .define('d', ModItems.brilliantFeyGem)
+                .define('g', Items.GOLD_NUGGET)
+                .unlockedBy("has_item", has(ModItems.feyDust))
+                .save(consumer);
     }
 
     private void makeWoodRecipe(FeyWoodBlock block, Consumer<IFinishedRecipe> consumer) {

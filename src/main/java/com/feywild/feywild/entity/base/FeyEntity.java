@@ -29,6 +29,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
@@ -156,8 +157,16 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
+            } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
+                setCustomName(new StringTextComponent(player.getItemInHand(hand).getDisplayName().getString()
+                        .substring(1, player.getItemInHand(hand).getDisplayName().getString().length() - 1)));
+                setCustomNameVisible(true);
+                player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_name"), player.getUUID());
             } else if (this.isTamed() && player instanceof ServerPlayerEntity && this.owner != null && this.owner.equals(player.getUUID())) {
-                this.interactQuest((ServerPlayerEntity) player, hand);
+                ItemStack stack = player.getItemInHand(hand);
+                if (stack.isEmpty()) {
+                    this.interactQuest((ServerPlayerEntity) player, hand);
+                }
             }
         }
         return ActionResultType.CONSUME;

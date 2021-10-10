@@ -22,6 +22,11 @@
       "title": "Library",
       "images": ["feywild:textures/patchouli_images/library_book.png"],
       "border": true
+    },
+    {
+      "type": "crafting",
+      "title": "Feywild Lexicon",
+      "recipe": "feywild:feywild_lexicon"
     }
   ]
 }

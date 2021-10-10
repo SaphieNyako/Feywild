@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:summoning_scroll_bee_knight"
+  },
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_summer_pixie"
+    },
+    {
+      "item": "feywild:honeycomb"
+    },
+    {
+      "item": "minecraft:bee_nest"
+    },
+    {
+      "item": "minecraft:lead"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    }
+  ]
+}

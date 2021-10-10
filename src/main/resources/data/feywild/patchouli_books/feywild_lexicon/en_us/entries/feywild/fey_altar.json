@@ -9,7 +9,7 @@
       "type": "spotlight",
       "item": "feywild:fey_altar",
       "title": "Fey Altar",
-      "text": "With the right ingredients and incantation written on a summoning scroll with magic ink, you can summon back a Fey. The summoning ritual requires a Fey Altar, which can be crafted with the help of a dwarf, or can be found at a World Tree."
+      "text": "With the right ingredients and incantation written on a summoning scroll with magic ink, you can summon back a Fey. The summoning ritual requires a Fey Altar, which can be crafted or can be found at a World Tree."
     }, {
       "type": "crafting",
       "title": "Summoning Scroll",
@@ -26,10 +26,9 @@
       "text": "A Mandrake Seed can be found in the Fey trees. As a normal tree is corrupted by the fey's magic some seeds will turn into a mandrake seed."
     },
     {
-      "type": "spotlight",
-      "item": "feywild:schematics_fey_altar",
-      "title": "Crafted",
-      "text": "The knowledge for crafting a fey altar is known by the dwarves. Seek one out and gain their trust and friendship."
+      "type": "crafting",
+      "item": "feywild:fey_altar",
+      "recipe": "feywild:fey_altar"
     }
   ]
 }
