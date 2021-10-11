@@ -90,7 +90,7 @@ public enum OreType {
     }
     
     public ConfiguredFeature<?, ?> getAlfheimFeature() {
-        return this.feature.get();
+        return this.alfheimFeature.get();
     }
 
     public static void setupOres() {
