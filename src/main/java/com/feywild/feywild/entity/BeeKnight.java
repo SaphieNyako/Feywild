@@ -124,7 +124,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
         if (!player.level.isClientSide && player instanceof ServerPlayerEntity) {
             QuestData quests = QuestData.get((ServerPlayerEntity) player);
-            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.summer_bee_knight.required_reputation) ||player.getUUID() == owner) {
+            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.summer_bee_knight.required_reputation && getOwner() == null ) || player.getUUID() == owner) {
                 player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_pass"), player.getUUID());
             } else {
                 player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_fail"), player.getUUID());
