@@ -63,6 +63,7 @@ public class SpringBiome implements BiomeType {
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
         DefaultBiomeFeatures.addExtraEmeralds(builder);
+        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
     }
 
     @Override
@@ -74,6 +75,5 @@ public class SpringBiome implements BiomeType {
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         builder.addStructureStart(StructureFeatures.JUNGLE_TEMPLE);
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
     }
 }

@@ -74,6 +74,7 @@ public class AutumnBiome implements BiomeType {
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_RED_MUSHROOM);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_BROWN_MUSHROOM);
         DefaultBiomeFeatures.addMushroomFieldVegetation(builder);
+        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
     }
 
     @Override
@@ -85,6 +86,5 @@ public class AutumnBiome implements BiomeType {
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         builder.addStructureStart(StructureFeatures.SWAMP_HUT);
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
     }
 }

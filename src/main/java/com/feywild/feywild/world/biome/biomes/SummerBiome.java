@@ -79,6 +79,7 @@ public class SummerBiome implements BiomeType {
         DefaultBiomeFeatures.addJungleExtraVegetation(builder);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
         DefaultBiomeFeatures.addExtraGold(builder);
+        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
     }
 
     @Override
@@ -91,6 +92,5 @@ public class SummerBiome implements BiomeType {
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         builder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
     }
 }

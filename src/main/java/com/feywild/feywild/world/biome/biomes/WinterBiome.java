@@ -81,6 +81,7 @@ public class WinterBiome implements BiomeType {
         DefaultBiomeFeatures.addDefaultGrass(builder);
         DefaultBiomeFeatures.addSurfaceFreezing(builder);
         DefaultBiomeFeatures.addIcebergs(builder);
+        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
     }
 
     @Override
@@ -93,6 +94,5 @@ public class WinterBiome implements BiomeType {
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         builder.addStructureStart(StructureFeatures.IGLOO);
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
     }
 }

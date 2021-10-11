@@ -13,6 +13,7 @@ public class AlfheimCompat {
             try {
                 return types.contains(AlfheimBiomeManager.ALFHEIM);
             } catch (NoClassDefFoundError e) {
+                e.printStackTrace();
                 return false;
             }
         } else {
