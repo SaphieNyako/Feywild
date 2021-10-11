@@ -5,6 +5,7 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
+import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -78,7 +79,8 @@ public class SummerBiome implements BiomeType {
         DefaultBiomeFeatures.addJungleExtraVegetation(builder);
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
         DefaultBiomeFeatures.addExtraGold(builder);
-
+        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
+        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
     }
 
     @Override
@@ -90,7 +92,5 @@ public class SummerBiome implements BiomeType {
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         builder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
-        //   builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
-        //   builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
     }
 }

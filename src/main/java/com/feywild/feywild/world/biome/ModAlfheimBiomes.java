@@ -70,6 +70,7 @@ public class ModAlfheimBiomes {
             AlfheimBiomeManager.addStructure(ModStructures.summerWorldTree, ModStructures.summerWorldTree.getSettings());
             AlfheimBiomeManager.addStructure(ModStructures.autumnWorldTree, ModStructures.autumnWorldTree.getSettings());
             AlfheimBiomeManager.addStructure(ModStructures.winterWorldTree, ModStructures.winterWorldTree.getSettings());
+            AlfheimBiomeManager.addStructure(ModStructures.beekeep, ModStructures.beekeep.getSettings());
         });
     }
 }
