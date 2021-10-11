@@ -36,9 +36,9 @@
     },
     {
       "type": "spotlight",
-      "item": "feywild:schematics_fey_altar",
+      "item": "feywild:schematics_gem_transmutation",
       "title": "Schematics",
-      "text": "Most recipes for the anvil will require schematics. You can place the schematics in the top-left slot of the anvil. Schematics are obtained by trading with a summoned dwarf."
+      "text": "Most recipes for the anvil will require schematics. You can place the schematics in the top-left slot of the anvil."
     },
     {
       "type": "text",

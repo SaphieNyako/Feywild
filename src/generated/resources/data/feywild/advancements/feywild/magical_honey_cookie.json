@@ -1,14 +1,14 @@
 {
-  "parent": "feywild:feywild/dwarf_contract",
+  "parent": "feywild:feywild/honeycomb",
   "display": {
     "icon": {
-      "item": "feywild:schematics_fey_altar"
+      "item": "feywild:magical_honey_cookie"
     },
     "title": {
-      "translate": "advancements.feywild.feywild.schematics_fey_altar.title"
+      "translate": "advancements.feywild.feywild.magical_honey_cookie.title"
     },
     "description": {
-      "translate": "advancements.feywild.feywild.schematics_fey_altar.description"
+      "translate": "advancements.feywild.feywild.magical_honey_cookie.description"
     },
     "frame": "task",
     "show_toast": true,
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:schematics_fey_altar"
+            "item": "feywild:magical_honey_cookie"
           }
         ]
       }

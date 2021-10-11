@@ -32,9 +32,9 @@ public interface IDwarvenAnvilRecipe extends IRecipe<IInventory> {
 
     @Override
     default boolean isSpecial() {
-        return true;
+        return false;
     }
-    
+
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
@@ -56,11 +56,11 @@ public interface IDwarvenAnvilRecipe extends IRecipe<IInventory> {
     default ItemStack assemble(@Nonnull IInventory inventory) {
         return this.getResultItem();
     }
-    
+
     // Single method for matching and the result.
     // Has the advantage that we can write much shorter expressions to find
     // a recipe
     Optional<ItemStack> getResult(ItemStack schematics, List<ItemStack> inputs);
-    
+
     int getMana();
 }

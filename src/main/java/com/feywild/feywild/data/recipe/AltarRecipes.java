@@ -81,6 +81,14 @@ public class AltarRecipes extends AnyRecipeProvider {
                 .requires(Items.ROTTEN_FLESH)
                 .requires(ModItems.summoningScroll)
                 .build(consumer);
+
+        this.altar(ModItems.summoningScrollBeeKnight)
+                .requires(ModItems.summoningScrollSummerPixie)
+                .requires(ModItems.honeycomb)
+                .requires(Blocks.BEE_NEST)
+                .requires(Items.LEAD)
+                .requires(ModItems.summoningScroll)
+                .build(consumer);
     }
 
     private AltarRecipeBuilder altar(IItemProvider result) {
@@ -90,13 +98,13 @@ public class AltarRecipes extends AnyRecipeProvider {
     private AltarRecipeBuilder altar(IItemProvider result, int amount) {
         return this.altar(new ItemStack(result, amount));
     }
-    
+
     private AltarRecipeBuilder altar(ItemStack result) {
         return new AltarRecipeBuilder(result);
     }
-    
+
     private class AltarRecipeBuilder {
-        
+
         private final ItemStack result;
         private final List<Ingredient> inputs;
 
@@ -104,7 +112,7 @@ public class AltarRecipes extends AnyRecipeProvider {
             this.result = result;
             this.inputs = new ArrayList<>();
         }
-        
+
         public AltarRecipeBuilder requires(IItemProvider item) {
             return this.requires(Ingredient.of(item));
         }
@@ -117,16 +125,18 @@ public class AltarRecipes extends AnyRecipeProvider {
             this.inputs.add(item);
             return this;
         }
-        
+
         public void build(Consumer<IFinishedRecipe> consumer) {
             this.build(consumer, AltarRecipes.this.loc(this.result.getItem(), "fey_altar"));
         }
-        
+
         public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-            if (this.inputs.isEmpty()) throw new IllegalStateException("Can't build fey altar recipe without inputs: " + id);
-            if (this.inputs.size() > 5) throw new IllegalStateException("Can't build fey altar recipe with more than 5 inputs: " + id);
+            if (this.inputs.isEmpty())
+                throw new IllegalStateException("Can't build fey altar recipe without inputs: " + id);
+            if (this.inputs.size() > 5)
+                throw new IllegalStateException("Can't build fey altar recipe with more than 5 inputs: " + id);
             consumer.accept(new IFinishedRecipe() {
-                
+
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
                     json.add("output", CraftingHelper2.serializeItemStack(AltarRecipeBuilder.this.result, true));

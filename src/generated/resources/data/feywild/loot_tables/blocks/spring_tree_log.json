@@ -6,32 +6,8 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
-              "name": "feywild:spring_tree_log"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "minecraft:oak_log"
-            }
-          ]
+          "type": "minecraft:item",
+          "name": "feywild:spring_tree_log"
         }
       ],
       "conditions": [

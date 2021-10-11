@@ -97,3 +97,10 @@ description="Feywild Mod"
     versionRange="[1.16.5-0.15.2b,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.feywild]]
+     modId="botania"
+     mandatory=false
+     versionRange="[1.16.5-419,)"
+     ordering="NONE"
+     side="BOTH"

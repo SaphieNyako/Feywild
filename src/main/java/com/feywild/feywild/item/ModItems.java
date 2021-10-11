@@ -20,24 +20,23 @@ public class ModItems {
     public static final Item shinyFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item brilliantFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
-    public static final Item summoningScroll = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item summoningScroll = new SummoningScroll<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item inactiveMarketRuneStone = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().stacksTo(1), new TranslationTextComponent("message.feywild.inactive_market_rune_stone"));
     public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_gem_transmutation"));
-    public static final Item schematicsFeyAltar = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_fey_altar"));
     public static final Item schematicsElementalRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_elemental_rune_crafting"));
     public static final Item schematicsSeasonalRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_seasonal_rune_crafting"));
     public static final Item schematicsDeadlyRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_deadly_rune_crafting"));
     public static final Item schematicsYggdrasilRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslationTextComponent("message.feywild.schematics_yggdrasil_rune_crafting"));
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, new Item.Properties());
-    public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixie, new Item.Properties());
-    public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixie, new Item.Properties());
-    public static final SummoningScrollFey<AutumnPixieEntity> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixie, new Item.Properties());
-    public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixie, new Item.Properties());
-
+    public static final SummoningScrollFey<SpringPixieEntity> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<AutumnPixieEntity> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixieShort, new Item.Properties());
+    public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder().effect(() -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));
@@ -56,13 +55,10 @@ public class ModItems {
             new Food.Builder()
                     .nutrition(5)
                     .saturationMod(2.0f)
-                    .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 300, 0), 1)
+                    .effect(() -> new EffectInstance(Effects.DAMAGE_RESISTANCE, 900, 0), 1)
                     .build()), new TranslationTextComponent("message.feywild.magical_honey_cookie"));
     
     /* QUEST ITEMS
-    public static final RegistryObject<Item> FEY_SHEEP_DROPPINGS =
-            Registration.ITEMS.register("fey_sheep_droppings",
-                    () -> new Item(new Item.Properties().tab(FeywildMod.FEYWILD_TAB))); */
 
     /* TOOLS
 

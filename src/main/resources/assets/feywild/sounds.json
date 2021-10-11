@@ -209,5 +209,37 @@
         "stream": true
       }
     ]
+  },
+  "summoning_spring_pixie_short": {
+    "sounds": [
+      {
+        "name": "feywild:spring_summon_short",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_summer_pixie_short": {
+    "sounds": [
+      {
+        "name": "feywild:summer_summon_short",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_autumn_pixie_short": {
+    "sounds": [
+      {
+        "name": "feywild:autumn_summon_short",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_winter_pixie_short": {
+    "sounds": [
+      {
+        "name": "feywild:winter_summon_short",
+        "stream": true
+      }
+    ]
   }
 }

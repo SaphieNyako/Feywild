@@ -6,7 +6,6 @@ import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Items;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -24,10 +23,10 @@ public class BlockLootProvider extends BlockLootProviderBase {
 
     @Override
     protected void setup() {
-        this.treeDrops(ModTrees.springTree, Blocks.OAK_LOG, Blocks.OAK_WOOD);
-        this.treeDrops(ModTrees.autumnTree, Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD);
-        this.treeDrops(ModTrees.winterTree, Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD);
-        
+        this.treeDrops(ModTrees.springTree, ModTrees.springTree.getLogBlock(), ModTrees.springTree.getWoodBlock());
+        this.treeDrops(ModTrees.autumnTree, ModTrees.autumnTree.getLogBlock(), ModTrees.autumnTree.getWoodBlock());
+        this.treeDrops(ModTrees.winterTree, ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getWoodBlock());
+
         this.drops(ModTrees.summerTree.getLeafBlock(), this.first(
                 this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(
@@ -38,8 +37,8 @@ public class BlockLootProvider extends BlockLootProviderBase {
                         this.stack(Items.SWEET_BERRIES).with(this.count(1, 2)).with(this.randomFortune(0.02f))
                 )
         ));
-        this.drops(ModTrees.summerTree.getLogBlock(), true, this.stack(Blocks.BIRCH_LOG));
-        this.drops(ModTrees.summerTree.getWoodBlock(), true, this.stack(Blocks.BIRCH_WOOD));
+        this.drops(ModTrees.summerTree.getLogBlock(), false, this.stack(ModTrees.summerTree.getLogBlock()));
+        this.drops(ModTrees.summerTree.getWoodBlock(), false, this.stack(ModTrees.summerTree.getWoodBlock()));
 
         this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower).with(this.count(1, 2)));
         this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion).with(this.count(1, 2)));
@@ -51,7 +50,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
                 this.stack(ModItems.shinyFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.brilliantFeyGem)
         ));
-        
+
         this.drops(ModBlocks.feyGemBlockLivingrock, true, this.first(
                 this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.greaterFeyGem).with(this.random(0.6f)),
@@ -75,7 +74,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower.getSeed()).with(this.count(1, 2)));
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus.getSeed()).with(this.count(1, 2)));
     }
-    
+
     private void treeDrops(BaseTree tree, IItemProvider baseLog, IItemProvider baseWood) {
         this.drops(tree.getLeafBlock(), this.first(
                 this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
@@ -86,7 +85,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
                         this.stack(ModBlocks.mandrakeCrop.getSeed()).with(this.randomFortune(0.005f))
                 )
         ));
-        this.drops(tree.getLogBlock(), true, this.stack(baseLog));
-        this.drops(tree.getWoodBlock(), true, this.stack(baseWood));
+        this.drops(tree.getLogBlock(), false, this.stack(baseLog));
+        this.drops(tree.getWoodBlock(), false, this.stack(baseWood));
     }
 }

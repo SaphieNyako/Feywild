@@ -1,5 +1,6 @@
 package com.feywild.feywild.util;
 
+import com.feywild.feywild.item.ModItems;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.resources.ReloadListener;
 import net.minecraft.item.ItemStack;

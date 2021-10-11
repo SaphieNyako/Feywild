@@ -2,10 +2,12 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
+import com.feywild.feywild.config.ScrollConfig;
+import com.feywild.feywild.config.ScrollConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
+import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
@@ -14,6 +16,7 @@ import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
+import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
@@ -33,6 +36,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -91,6 +95,10 @@ public class EventListener {
                 event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
             }
+            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.LOGIN) {
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
+            }
         }
     }
 
@@ -130,7 +138,7 @@ public class EventListener {
             MarketHandler.update(((ServerWorld) event.world).getServer());
         }
     }
-    
+
     @SubscribeEvent
     public void afterReload(DatapacksReloadedEvent event) {
         FeywildMod.getNetwork().instance.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
@@ -145,7 +153,6 @@ public class EventListener {
             LootPool pool = event.getTable().getPool("main");
             //noinspection ConstantConditions
             if (pool != null) {
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsFeyAltar).setWeight(5).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(5).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(5).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());

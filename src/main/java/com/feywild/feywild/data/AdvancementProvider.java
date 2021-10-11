@@ -73,10 +73,6 @@ public class AdvancementProvider extends AdvancementProviderBase {
                 .display(ModItems.summoningScrollDwarfBlacksmith)
                 .task(this.items(ModItems.summoningScrollDwarfBlacksmith));
 
-        this.advancement("schematics_fey_altar").parent("dwarf_contract")
-                .display(ModItems.schematicsFeyAltar)
-                .task(this.items(ModItems.schematicsFeyAltar));
-
         this.advancement("schematics_gem_transmutation").parent("dwarf_contract")
                 .display(ModItems.schematicsGemTransmutation)
                 .task(this.items(ModItems.schematicsGemTransmutation));
@@ -128,6 +124,14 @@ public class AdvancementProvider extends AdvancementProviderBase {
                         new VillagerTradeTrigger.Instance(EntityPredicate.AndPredicate.ANY, this.entity(ModEntityTypes.dwarfMiner), ItemPredicate.ANY),
                         new VillagerTradeTrigger.Instance(EntityPredicate.AndPredicate.ANY, this.entity(ModEntityTypes.dwarfDragonHunter), ItemPredicate.ANY)
                 );
+
+        this.advancement("honeycomb")
+                .display(ModItems.honeycomb)
+                .task(this.items(ModItems.honeycomb));
+
+        this.advancement("magical_honey_cookie").parent("honeycomb")
+                .display(ModItems.magicalHoneyCookie)
+                .task(this.items(ModItems.magicalHoneyCookie));
 
     }
 }

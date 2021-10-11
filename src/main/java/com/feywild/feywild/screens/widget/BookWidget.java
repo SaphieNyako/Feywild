@@ -1,7 +1,7 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.RequestLibraryBookSerializer;
+import com.feywild.feywild.network.RequestItemSerializer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -14,14 +14,12 @@ import javax.annotation.Nonnull;
 
 public class BookWidget extends Button {
     
-    public static final int WIDTH = 25;
-    public static final int HEIGHT = 25;
+  public static int WIDTH = 25;
+    public static int HEIGHT = 25;
     
-    public static final ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/librarian_gui.png");
-    
-    private final Screen screen;
-    private final int idx;
-    private final ItemStack stack;
+    protected final Screen screen;
+    protected final int idx;
+    protected final ItemStack stack;
     
     public BookWidget(Screen screen, int x, int y, int idx, ItemStack stack) {
         super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {});
@@ -37,15 +35,19 @@ public class BookWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        FeywildMod.getNetwork().instance.sendToServer(new RequestLibraryBookSerializer.Message(this.idx));
+        FeywildMod.getNetwork().instance.sendToServer(new RequestItemSerializer.Message(this.idx, RequestItemSerializer.State.books));
         this.screen.onClose();
+    }
+
+    public ResourceLocation getTexture(){
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/librarian_gui.png");
     }
 
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         //noinspection deprecation
         RenderSystem.color4f(1, 1, 1, 1);
-        Minecraft.getInstance().getTextureManager().bind(TEXTURE);
+        Minecraft.getInstance().getTextureManager().bind(getTexture());
         this.blit(matrixStack, this.x, this.y, 0, 0, 25, 25);
         if (this.isHovered(mouseX, mouseY)) {
             this.setBlitOffset(this.getBlitOffset() + 10);
@@ -56,6 +58,6 @@ public class BookWidget extends Button {
     }
 
     public boolean isHovered(int x, int y) {
-        return this.x <= x && this.x + WIDTH >= x && this.y <= y && this.y + HEIGHT >= y;
+        return this.x <= x && this.x + this.WIDTH >= x && this.y <= y && this.y + this.HEIGHT >= y;
     }
 }

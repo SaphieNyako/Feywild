@@ -29,6 +29,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
@@ -55,8 +56,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
     @Nullable
     private BlockPos currentTargetPos;
     private boolean isTamed;
-    @Nullable
-    private UUID owner;
 
     protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
         super(type, alignment, world);
@@ -82,24 +81,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     public void setTamed(boolean tamed) {
         this.isTamed = tamed;
-    }
-
-    @Nullable
-    public PlayerEntity getOwner() {
-        return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
-    }
-
-    public void setOwner(@Nullable PlayerEntity owner) {
-        this.setOwner(owner == null ? null : owner.getUUID());
-    }
-
-    public void setOwner(@Nullable UUID owner) {
-        this.owner = owner;
-    }
-
-    @Nullable
-    public UUID getOwnerId() {
-        return this.owner;
     }
 
     @Nullable
@@ -146,9 +127,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
         if (this.currentTargetPos != null) {
             NBTX.putPos(nbt, "CurrentTarget", this.currentTargetPos);
         }
-        if (this.owner != null) {
-            nbt.putUUID("Owner", this.owner);
-        }
     }
 
     @Override
@@ -156,7 +134,6 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
         this.currentTargetPos = NBTX.getPos(nbt, "CurrentTarget", null);
-        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
     }
 
     @Nonnull
@@ -180,8 +157,16 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
+            } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
+                setCustomName(new StringTextComponent(player.getItemInHand(hand).getDisplayName().getString()
+                        .substring(1, player.getItemInHand(hand).getDisplayName().getString().length() - 1)));
+                setCustomNameVisible(true);
+                player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_name"), player.getUUID());
             } else if (this.isTamed() && player instanceof ServerPlayerEntity && this.owner != null && this.owner.equals(player.getUUID())) {
-                this.interactQuest((ServerPlayerEntity) player, hand);
+                ItemStack stack = player.getItemInHand(hand);
+                if (stack.isEmpty()) {
+                    this.interactQuest((ServerPlayerEntity) player, hand);
+                }
             }
         }
         return ActionResultType.CONSUME;

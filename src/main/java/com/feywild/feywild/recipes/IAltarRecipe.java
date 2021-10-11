@@ -32,7 +32,7 @@ public interface IAltarRecipe extends IRecipe<IInventory> {
 
     @Override
     default boolean isSpecial() {
-        return true;
+        return false;
     }
 
     @Nonnull
@@ -40,7 +40,7 @@ public interface IAltarRecipe extends IRecipe<IInventory> {
     default ItemStack getToastSymbol() {
         return new ItemStack(ModBlocks.feyAltar);
     }
-    
+
     // We don't use vanilla matching against a vanilla inventory
     // Modded inventories normally are IItemHandlers.
     @Override
@@ -56,6 +56,6 @@ public interface IAltarRecipe extends IRecipe<IInventory> {
     default ItemStack assemble(@Nonnull IInventory inventory) {
         return this.getResultItem();
     }
-    
+
     Optional<ItemStack> getResult(List<ItemStack> inputs);
 }
