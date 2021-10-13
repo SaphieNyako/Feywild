@@ -4,5 +4,11 @@ package com.feywild.feywild.quest.util;
 public enum SpecialTaskAction {
 
     LEVITATE_SHEEP,  //called in fey dust item
-    SUMMON_MANDRAGORA  // called in mandrake block
+    SUMMON_MANDRAGORA,  // called in mandrake block
+    ENTER_SPRING, //called in events
+    ENTER_SUMMER,
+    ENTER_AUTUMN,
+    ENTER_WINTER,
+    SUMMON_LIBRARIAN,
+    ANNOY_LIBRARIAN
 }

@@ -3,7 +3,6 @@ package com.feywild.feywild;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.ScrollConfig;
-import com.feywild.feywild.config.ScrollConfig;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
@@ -13,10 +12,11 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
+import com.feywild.feywild.quest.task.SpecialTask;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
-import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
@@ -36,7 +36,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -72,6 +71,22 @@ public class EventListener {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             QuestData quests = QuestData.get(player);
             player.inventory.items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
+
+            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("blossoming_wealds")) {
+                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_SPRING);
+            }
+
+            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("frozen_retreat")) {
+                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_WINTER);
+            }
+
+            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("golden_seelie_field")) {
+                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_SUMMER);
+            }
+
+            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("eternal_fall")) {
+                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_AUTUMN);
+            }
         }
     }
 
@@ -96,7 +111,7 @@ public class EventListener {
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
             }
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.LOGIN) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
         }

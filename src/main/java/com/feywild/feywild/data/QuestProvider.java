@@ -75,6 +75,12 @@ public class QuestProvider implements IDataProvider {
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
                 .build();
+/*
+        this.quest(SPRING, "visit")
+                .parent("sapling")
+                .icon(ModTrees.springTree.getSapling())
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_LIBRARIAN, 1))
+                .build(); */
 
         this.root(SUMMER)
                 .icon(Items.DIAMOND)

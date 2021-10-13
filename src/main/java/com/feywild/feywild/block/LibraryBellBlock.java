@@ -1,6 +1,9 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.LibraryBell;
+import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.quest.task.SpecialTask;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.BlockState;
@@ -12,6 +15,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -90,6 +94,7 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
                         golem.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
                         world.addFreshEntity(golem);
                         blockEntity.setSecurity(golem.getUUID());
+                        QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ANNOY_LIBRARIAN);
                     } else {
                         security.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
                         if (security instanceof MobEntity) {
@@ -119,6 +124,7 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
                 }
                 world.addFreshEntity(entity);
                 blockEntity.setLibrarian(entity.getUUID());
+                QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_LIBRARIAN);
             }
         }
         return ActionResultType.sidedSuccess(world.isClientSide);
