@@ -105,6 +105,7 @@ public final class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "item"), ItemTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
     }
 
@@ -127,7 +128,7 @@ public final class FeywildMod extends ModXRegistration {
             ModBiomeGeneration.setupBiomes();
             OreType.setupOres();
             ModStructures.setupStructures();
-            
+
             EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);

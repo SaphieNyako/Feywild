@@ -9,11 +9,10 @@ import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.quest.task.BiomeTask;
 import com.feywild.feywild.quest.task.CraftTask;
 import com.feywild.feywild.quest.task.ItemTask;
 import com.feywild.feywild.quest.task.KillTask;
-import com.feywild.feywild.quest.task.SpecialTask;
-import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.MenuScreen;
@@ -71,22 +70,8 @@ public class EventListener {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             QuestData quests = QuestData.get(player);
             player.inventory.items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
-
-            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("blossoming_wealds")) {
-                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_SPRING);
-            }
-
-            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("frozen_retreat")) {
-                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_WINTER);
-            }
-
-            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("golden_seelie_field")) {
-                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_SUMMER);
-            }
-
-            if (player.getLevel().getBiomeName(player.blockPosition()).toString().contains("eternal_fall")) {
-                quests.checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ENTER_AUTUMN);
-            }
+            //Quest Check for Biome
+            quests.checkComplete(BiomeTask.INSTANCE, player.getLevel().getBiomeName(player.blockPosition()).get().location());
         }
     }
 
