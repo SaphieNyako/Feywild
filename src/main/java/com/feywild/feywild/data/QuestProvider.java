@@ -75,7 +75,7 @@ public class QuestProvider implements IDataProvider {
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
                 .build();
-
+        
         this.root(SUMMER)
                 .icon(Items.DIAMOND)
                 .reputation(25)
