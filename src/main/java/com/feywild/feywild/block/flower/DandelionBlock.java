@@ -2,6 +2,9 @@ package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.quest.task.SpecialTask;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -49,6 +52,7 @@ public class DandelionBlock extends GiantFlowerBlock {
                 // Forge notifies the client of the block break before calling this
                 // So we just tell the client that the block is still there
                 ((ServerPlayerEntity) player).connection.send(new SChangeBlockPacket(world, pos));
+                QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION);
             }
             return false;
         }
