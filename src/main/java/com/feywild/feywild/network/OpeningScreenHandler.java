@@ -1,6 +1,5 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.screens.LibrarianScreen;
 import com.feywild.feywild.screens.OpeningScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.network.NetworkEvent;

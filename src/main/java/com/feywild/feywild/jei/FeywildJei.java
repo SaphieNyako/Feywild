@@ -6,7 +6,6 @@ import com.feywild.feywild.jei.util.FeywildJeiReloader;
 import com.feywild.feywild.recipes.AltarRecipe;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
-import com.feywild.feywild.trade.TradeManager;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;

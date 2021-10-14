@@ -1,8 +1,5 @@
 package com.feywild.feywild.entity;
 
-import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.DisplayGlassBlock;
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
@@ -11,13 +8,11 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.block.BeehiveBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -75,7 +70,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
                 if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
                     AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
                     world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> {
-                        if(pos.closerThan(entity.treasurePos, MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
+                        if(entity.treasurePos != null && pos.closerThan(entity.treasurePos, MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
                             entity.setAggravated(true);
                     });
                 }

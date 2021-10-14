@@ -1,7 +1,5 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.block.entity.LibraryBell;
-import com.feywild.feywild.util.LibraryBooks;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
 import net.minecraft.network.PacketBuffer;
 

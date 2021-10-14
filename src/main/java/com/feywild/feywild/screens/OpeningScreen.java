@@ -1,29 +1,21 @@
 package com.feywild.feywild.screens;
 
-import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.SpringPixieEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.screens.widget.BookWidget;
 import com.feywild.feywild.screens.widget.ScrollWidget;
-import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.TextProcessor;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.RenderComponentsUtil;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class OpeningScreen extends Screen {
