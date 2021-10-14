@@ -71,7 +71,7 @@ public class EventListener {
             QuestData quests = QuestData.get(player);
             player.inventory.items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
             //Quest Check for Biome
-            quests.checkComplete(BiomeTask.INSTANCE, player.getLevel().getBiomeName(player.blockPosition()).get().location());
+            player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
         }
     }
 

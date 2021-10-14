@@ -1,20 +1,17 @@
 package com.feywild.feywild.quest.task;
 
-import com.google.gson.JsonObject;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class BiomeTask implements TaskType<ResourceLocation, ResourceLocation> {
+// Test type must be a resource locations as biomes are handled in a weird way
+public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
 
     public static final BiomeTask INSTANCE = new BiomeTask();
 
     private BiomeTask() {
-
-    }
-
-    @Override
-    public Class<ResourceLocation> element() {
-        return ResourceLocation.class;
+        super("biome", ForgeRegistries.BIOMES);
     }
 
     @Override
@@ -23,21 +20,13 @@ public class BiomeTask implements TaskType<ResourceLocation, ResourceLocation> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayerEntity player, ResourceLocation element, ResourceLocation match) {
-        return element.equals(match);
+    public boolean checkCompleted(ServerPlayerEntity player, Biome element, ResourceLocation match) {
+        return element.getRegistryName() != null && element.getRegistryName().equals(match);
     }
 
     @Override
-    public ResourceLocation fromJson(JsonObject json) {
-        return ResourceLocation.tryParse(json.get("biome_name").getAsString());
+    public boolean repeatable() {
+        return false;
     }
-
-    @Override
-    public JsonObject toJson(ResourceLocation element) {
-        JsonObject json = new JsonObject();
-        json.addProperty("biome_name", element.toString());
-        return json;
-    }
-
 }
 

@@ -8,6 +8,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -24,7 +25,7 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     }
     
     @Override
-    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos) {
+    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag) {
         return world.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
     }
 
