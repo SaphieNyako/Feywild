@@ -43,17 +43,17 @@ import java.util.Random;
 public class MandragoraEntity extends CreatureEntity implements IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
-    
+    public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     
     private BlockPos summonPos;
-    private MandragoraVariant variant;
+   // private MandragoraVariant variant;
+    private int variant;
 
     protected MandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
         this.noCulling = true;
         this.moveControl = new MovementController(this);
-        setVariation();
     }
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
@@ -63,14 +63,9 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
                 .add(Attributes.LUCK, 0.2);
     }
 
-    public void setVariation() {
-        Random random = new Random();
-        MandragoraVariant[] variants = MandragoraVariant.values();
-        variant = variants[random.nextInt(variants.length)];
-    }
 
     public MandragoraVariant getVariation() {
-        return variant;
+        return MandragoraVariant.values()[this.entityData.get(VARIANT)];
     }
 
     public BlockPos getSummonPos() {
@@ -110,6 +105,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CASTING, false);
+        this.entityData.define(VARIANT, random.nextInt(MandragoraVariant.values().length));
     }
 
     @Override
@@ -226,6 +222,11 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    @Override
+    public boolean isPersistenceRequired() {
+        return true;
     }
 
     public enum MandragoraVariant {
