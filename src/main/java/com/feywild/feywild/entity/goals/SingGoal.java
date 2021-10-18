@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.MandragoraEntity;
+import com.feywild.feywild.entity.base.MandragoraEntity;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.block.CropsBlock;

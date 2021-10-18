@@ -5,8 +5,12 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.config.mapper.ResourceLocationMapper;
 import com.feywild.feywild.data.DataGenerators;
-import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.BeeKnight;
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.MarketDwarfEntity;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.MandragoraEntity;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.BasePixieRenderer;
 import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
@@ -161,7 +165,11 @@ public final class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragora, MandragoraRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.melonMandragora, MandragoraRenderer.create(MelonMandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.onionMandragora, MandragoraRenderer.create(OnionMandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.potatoMandragora, MandragoraRenderer.create(PotatoMandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.pumpkinMandragora, MandragoraRenderer.create(PumpkinMandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.tomatoMandragora, MandragoraRenderer.create(TomatoMandragoraModel::new));
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -176,7 +184,11 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.mandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.melonMandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.onionMandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.potatoMandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.pumpkinMandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.tomatoMandragora, MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }
 

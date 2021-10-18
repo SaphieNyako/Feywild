@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity;
+package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
@@ -38,17 +38,16 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class MandragoraEntity extends CreatureEntity implements IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
-    
+
     private BlockPos summonPos;
-   // private MandragoraVariant variant;
-    private int variant;
+    // private MandragoraVariant variant;
+    // private int variant;
 
     protected MandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
@@ -62,7 +61,6 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
                 .add(Attributes.LUCK, 0.2);
     }
-
 
     public MandragoraVariant getVariation() {
         return MandragoraVariant.values()[this.entityData.get(VARIANT)];
@@ -105,7 +103,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CASTING, false);
-        this.entityData.define(VARIANT, random.nextInt(MandragoraVariant.values().length));
+        this.entityData.define(VARIANT, VARIANT.getId());
     }
 
     @Override

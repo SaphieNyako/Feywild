@@ -1,7 +1,7 @@
 package com.feywild.feywild.block;
 
-import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.base.MandragoraEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
@@ -85,9 +85,11 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @Override
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
-        if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie) {
+        if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
             if (!world.isClientSide) {
-                MandragoraEntity entity = ModEntityTypes.mandragora.create(world);
+
+                MandragoraEntity entity = getModEntityType(world);
+
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
                     entity.setSummonPos(pos);
@@ -102,6 +104,22 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
         } else {
             world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
             return super.use(state, world, pos, player, hand, hit);
+        }
+    }
+
+    private MandragoraEntity getModEntityType(World world) {
+        switch (world.random.nextInt(5)) {
+            case 1:
+                return ModEntityTypes.onionMandragora.create(world);
+            case 2:
+                return ModEntityTypes.potatoMandragora.create(world);
+            case 3:
+                return ModEntityTypes.pumpkinMandragora.create(world);
+            case 4:
+                return ModEntityTypes.tomatoMandragora.create(world);
+            case 0:
+            default:
+                return ModEntityTypes.melonMandragora.create(world);
         }
     }
 }
