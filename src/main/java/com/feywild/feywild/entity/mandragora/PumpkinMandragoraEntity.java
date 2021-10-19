@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class PumpkinMandragoraEntity extends MandragoraEntity {
 
-    protected PumpkinMandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
+    public PumpkinMandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
         this.entityData.set(VARIANT, 3);
     }

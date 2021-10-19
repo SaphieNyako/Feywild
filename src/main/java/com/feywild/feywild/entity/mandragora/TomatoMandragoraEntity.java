@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class TomatoMandragoraEntity extends MandragoraEntity {
 
-    protected TomatoMandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
+    public TomatoMandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
         this.entityData.set(VARIANT, 4);
     }

@@ -165,11 +165,11 @@ public final class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.melonMandragora, MandragoraRenderer.create(MelonMandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.onionMandragora, MandragoraRenderer.create(OnionMandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.potatoMandragora, MandragoraRenderer.create(PotatoMandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.pumpkinMandragora, MandragoraRenderer.create(PumpkinMandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.tomatoMandragora, MandragoraRenderer.create(TomatoMandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.melonMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.onionMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.potatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.pumpkinMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.tomatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {

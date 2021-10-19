@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class OnionMandragoraEntity extends MandragoraEntity {
 
-    protected OnionMandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
+    public OnionMandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
         super(type, world);
         this.entityData.set(VARIANT, 1);
     }
