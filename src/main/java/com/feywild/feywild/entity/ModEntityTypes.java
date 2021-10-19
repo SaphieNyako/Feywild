@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.mandragora.*;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

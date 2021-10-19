@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.PumpkinMandragoraEntity;
+import com.feywild.feywild.entity.mandragora.PumpkinMandragoraEntity;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

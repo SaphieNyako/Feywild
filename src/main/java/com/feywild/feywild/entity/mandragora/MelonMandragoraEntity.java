@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity;
+package com.feywild.feywild.entity.mandragora;
 
 import com.feywild.feywild.entity.base.MandragoraEntity;
 import net.minecraft.entity.CreatureEntity;

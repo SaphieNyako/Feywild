@@ -8,9 +8,7 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +19,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -40,6 +40,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 
 public class BeeKnight extends FeyBase implements IAnimatable {
@@ -61,7 +62,8 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         return FeyBase.getDefaultAttributes()
                 .add(Attributes.MAX_HEALTH, 24)
                 .add(Attributes.FOLLOW_RANGE, 80)
-                .add(Attributes.ATTACK_DAMAGE, 4);
+                .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.FLYING_SPEED, 2.25);
     }
 
     public static void anger(World world, PlayerEntity player, BlockPos pos) {
@@ -136,9 +138,8 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        if (treasurePos != null) {
+            if (treasurePos != null)
             NBTX.putPos(nbt, "TreasurePos", treasurePos);
-        }
         super.addAdditionalSaveData(nbt);
     }
 
@@ -184,6 +185,13 @@ public class BeeKnight extends FeyBase implements IAnimatable {
         } else {
             return new Vector3d(treasurePos.getX(), treasurePos.getY(), treasurePos.getZ());
         }
+    }
+
+    @Override
+    public boolean doHurtTarget(@Nonnull Entity pEntity) {
+        if(pEntity instanceof LivingEntity)
+            ((LivingEntity) pEntity).addEffect(new EffectInstance(Effects.POISON,20 * 5,1));
+        return super.doHurtTarget(pEntity);
     }
 
     @Nullable
