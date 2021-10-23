@@ -15,4 +15,8 @@ public class MiscConfig {
     @IntRange(min = 1)
     public static int fey_dust_ticks = 30;
 
+    @Config("This determines the weight of the rune stone appearing in mineshaft treasure chests.")
+    @IntRange(min = 1, max = 100)
+    public static int rune_stone_weight = 20;
+
 }

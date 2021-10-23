@@ -153,10 +153,13 @@ public class EventListener {
             LootPool pool = event.getTable().getPool("main");
             //noinspection ConstantConditions
             if (pool != null) {
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(5).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(5).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(8).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(MiscConfig.rune_stone_weight).build());
                 addEntry(pool, ItemLootEntry.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.feywildMusicDisc).setWeight(1).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.greaterFeyGem).setWeight(15).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.shinyFeyGem).setWeight(8).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.brilliantFeyGem).setWeight(4).build());
+                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.feywildMusicDisc).setWeight(2).build());
             }
         }
     }
