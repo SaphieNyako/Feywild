@@ -8,8 +8,6 @@ import com.feywild.feywild.world.dimension.ModDimensions;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.AdvancementProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -18,10 +16,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
-
-import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.function.Supplier;
 
 @Datagen
 public class AdvancementProvider extends AdvancementProviderBase {

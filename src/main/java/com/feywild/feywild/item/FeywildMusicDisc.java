@@ -19,6 +19,7 @@ import java.util.List;
 public class FeywildMusicDisc extends RecordItem {
 
     public FeywildMusicDisc() {
+        //noinspection ConstantConditions
         this(1, ModSoundEvents.feywildSoundtrack, new Item.Properties().tab(FeywildMod.getInstance().tab).rarity(Rarity.RARE));
     }
 

@@ -86,6 +86,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
         return TYPE;
     }
     
+    @SuppressWarnings("SameParameterValue")
     private void placePiece(StructureManager templates, WorldGenLevel level, String name, BlockPos pos, Random random) {
         StructureTemplate template = templates.getOrCreate(new ResourceLocation(FeywildMod.getInstance().modid, "parts/" + name));
         template.placeInWorld(level, pos, pos, new StructurePlaceSettings(), random, 4);

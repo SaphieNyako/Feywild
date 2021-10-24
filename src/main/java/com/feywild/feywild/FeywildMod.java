@@ -58,8 +58,6 @@ import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
 
-// TODO structure files need updating for 1.17
-
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 

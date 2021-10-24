@@ -3,6 +3,7 @@ package com.feywild.feywild.trade;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -23,7 +24,7 @@ public class TradeLevelData {
     private final int maxWeight;
     private final boolean allowDuplicates;
     private final List<Pair<Integer, VillagerTrades.ItemListing>> trades;
-    private final LazyLoadedValue<List<VillagerTrades.ItemListing>> tradeView;
+    private final LazyValue<List<VillagerTrades.ItemListing>> tradeView;
 
     public TradeLevelData(int minTrades, int maxTrades, List<TradeEntry> trades, boolean allowDuplicates) {
         this.minTrades = Math.min(minTrades, maxTrades);
@@ -48,7 +49,7 @@ public class TradeLevelData {
             throw new IllegalStateException("Trader level data without duplicates must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
         
-        this.tradeView = new LazyLoadedValue<>(() -> {
+        this.tradeView = new LazyValue<>(() -> {
             //noinspection UnstableApiUsage
             return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         });

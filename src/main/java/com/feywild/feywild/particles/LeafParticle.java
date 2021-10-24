@@ -7,7 +7,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class LeafParticle extends TextureSheetParticle {
     
@@ -15,7 +14,7 @@ public class LeafParticle extends TextureSheetParticle {
     private final double initX;
     private final double velY;
     private final double initZ;
-    private int remover;
+    private final int remover;
 
     public LeafParticle(ClientLevel level, double x, double y, double z, double velX, double velY, double velZ) {
         super(level, x, y, z);
@@ -48,18 +47,12 @@ public class LeafParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Factory implements ParticleProvider<SimpleParticleType>{
+    public record Factory(SpriteSet sprite) implements ParticleProvider<SimpleParticleType> {
 
-        private final SpriteSet sprite;
-        public Factory(SpriteSet sprite){
-            this.sprite = sprite;
-        }
-
-        @Nullable
         @Override
         public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel level, double p_199234_3_, double p_199234_5_, double p_199234_7_, double p_199234_9_, double p_199234_11_, double p_199234_13_) {
-            LeafParticle particle = new LeafParticle(level,p_199234_3_,p_199234_5_,p_199234_7_,p_199234_9_,p_199234_11_,p_199234_13_);
-            particle.setColor(1,1,1);
+            LeafParticle particle = new LeafParticle(level, p_199234_3_, p_199234_5_, p_199234_7_, p_199234_9_, p_199234_11_, p_199234_13_);
+            particle.setColor(1, 1, 1);
             particle.pickSprite(this.sprite);
             return particle;
         }

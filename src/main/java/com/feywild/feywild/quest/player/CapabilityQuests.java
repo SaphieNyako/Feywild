@@ -21,7 +21,7 @@ public class CapabilityQuests {
     
     public static final ResourceLocation KEY = new ResourceLocation(FeywildMod.getInstance().modid, "player_quests");
     
-    public static Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
 
     public static void register(RegisterCapabilitiesEvent event) {
         event.register(QuestData.class);

@@ -9,6 +9,6 @@ public class StreamUtil {
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static <T, U> Stream<Pair<T, U>> zipOption(Optional<T> option, U value) {
-        return option.map(o -> Stream.of(Pair.of(o, value))).orElseGet(Stream::empty);
+        return option.stream().map(o -> Pair.of(o, value));
     }
 }

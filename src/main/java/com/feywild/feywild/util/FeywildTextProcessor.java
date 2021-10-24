@@ -6,7 +6,7 @@ import net.minecraft.network.chat.TextColor;
 
 public class FeywildTextProcessor extends TextProcessor {
     
-    public static FeywildTextProcessor INSTANCE = new FeywildTextProcessor();
+    public static final FeywildTextProcessor INSTANCE = new FeywildTextProcessor();
 
     private FeywildTextProcessor() {
         

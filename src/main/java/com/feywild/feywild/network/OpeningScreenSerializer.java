@@ -23,7 +23,7 @@ public class OpeningScreenSerializer implements PacketSerializer<OpeningScreenSe
 
     public static class Message {
 
-        public int size;
+        public final int size;
         public Message(int size) {
             this.size = size;
         }

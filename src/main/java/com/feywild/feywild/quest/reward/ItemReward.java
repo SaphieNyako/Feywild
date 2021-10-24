@@ -8,7 +8,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 
 public class ItemReward implements RewardType<ItemStack> {
 
-    public static ItemReward INSTANCE = new ItemReward();
+    public static final ItemReward INSTANCE = new ItemReward();
     
     private ItemReward() {
         
