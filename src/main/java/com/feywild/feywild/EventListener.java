@@ -2,7 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
-import com.feywild.feywild.config.ScrollConfig;
+import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
@@ -12,7 +12,7 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.util.MenuScreen;
+import com.feywild.feywild.util.FeywildTitleScreen;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
@@ -37,8 +37,8 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,8 +54,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerKill(LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) event.getSource().getEntity();
+        if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
         }
@@ -64,10 +63,9 @@ public class EventListener {
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         // Only check one / second
-        if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) event.player;
+        if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            player.inventory.items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
+            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
             //Quest Check for Biome
             player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
@@ -80,7 +78,7 @@ public class EventListener {
         if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
             if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
                 event.getPlayer().sendMessage(new TranslatableComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpenLibraryScreenSerializer.Message(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpenLibraryScreenSerializer.Message(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
                 event.getPlayer().swing(event.getHand(), true);
                 event.setCanceled(true);
             }
@@ -91,14 +89,14 @@ public class EventListener {
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getPlayer().level.isClientSide) {
             if (event.getPlayer() instanceof ServerPlayer) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new TradesSerializer.Message(TradeManager.buildRecipes()));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new TradesSerializer.Message(TradeManager.buildRecipes()));
             }
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
-                event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
+                event.getPlayer().getInventory().add(new ItemStack(ModItems.feywildLexicon));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
             }
-            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.LOGIN) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.LOGIN) {
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
         }
@@ -112,8 +110,8 @@ public class EventListener {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void openGui(GuiOpenEvent event) {
-        if (ClientConfig.replace_menu && event.getGui() instanceof TitleScreen && !(event.getGui() instanceof MenuScreen)) {
-            event.setGui(new MenuScreen());
+        if (ClientConfig.replace_menu && event.getGui() instanceof TitleScreen && !(event.getGui() instanceof FeywildTitleScreen)) {
+            event.setGui(new FeywildTitleScreen());
         }
     }
 
@@ -143,7 +141,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void afterReload(DataPacksReloadedEvent event) {
-        FeywildMod.getNetwork().instance.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
+        FeywildMod.getNetwork().channel.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
     }
 
     /* LOOTTABLES */

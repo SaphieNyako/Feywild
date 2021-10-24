@@ -8,22 +8,23 @@ import com.feywild.feywild.recipes.IDwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.tag.ModItemTags;
 import com.feywild.feywild.util.StreamUtil;
+import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
+import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
 import io.github.noeppi_noeppi.libx.crafting.recipe.RecipeHelper;
 import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
+import io.github.noeppi_noeppi.libx.util.LazyValue;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -33,25 +34,31 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity {
+public class DwarvenAnvil extends BlockEntityBase implements TickableBlock {
 
     public static final int MAX_MANA = 1000;
     public static final int FEY_DUST_MANA_COST = 50;
 
-    private final BaseItemStackHandler inventory = new BaseItemStackHandler(8, slot -> {
-        this.setChanged();
-        this.updabeRecipe();
-    }, this::isItemValid);
+    private final BaseItemStackHandler inventory = BaseItemStackHandler.builder(8)
+            .contentsChanged(() -> {
+                this.setChanged();
+                this.updateRecipe();
+            })
+            .validator(stack -> stack.getItem() == ModItems.feyDust, 0)
+            .validator(stack -> ModItemTags.SCHEMATICS.contains(stack.getItem()), 1)
+            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL, stack), 2, 3, 4, 5, 6)
+            .validator(stack -> false, 7)
+            .build();
     private final ManaStorage manaStorage = new ManaStorage(MAX_MANA, () -> {
         this.setChanged();
-        this.updabeRecipe();
+        this.updateRecipe();
     });
 
     // Top for main inputs, side for fey dust and bottom to extract result.
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.createLazy(() -> this.inventory);
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerTop = ItemCapabilities.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerSide = ItemCapabilities.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.createLazy(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.create(() -> this.inventory);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerTop = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerSide = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.create(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> this.manaStorage);
 
     // As `load` is often called without a level, we need to store that a recipe update
@@ -61,19 +68,10 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity
     // the current result item. It's lazy, so the result item is not computed on every
     // inventory or mana change but also not computed multiple times without a change.
     // Hold a pair of the recipe that is used and the result value.
-    private LazyLoadedValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipe = new LazyLoadedValue<>(Optional::empty);
+    private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipe = new LazyValue<>(Optional::empty);
 
-    public DwarvenAnvil(BlockEntityType<?> blockEntityType) {
-        super(blockEntityType);
-    }
-    
-    private boolean isItemValid(int slot, ItemStack stack) {
-        switch (slot) {
-            case 0: return stack.getItem() == ModItems.feyDust;
-            case 1: return ModItemTags.SCHEMATICS.contains(stack.getItem());
-            case 7: return false;
-            default: return this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL, stack);
-        }
+    public DwarvenAnvil(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     @Override
@@ -89,7 +87,7 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity
     public void tick() {
         if (this.level != null && this.level instanceof ServerLevel) {
             if (this.needsUpdate) {
-                this.updabeRecipe();
+                this.updateRecipe();
                 this.needsUpdate = false;
             }
             if (((ServerLevel) this.level).getServer().getTickCount() % 20 == 0 && this.manaStorage.getMana() + FEY_DUST_MANA_COST <= this.manaStorage.getMaxMana()) {
@@ -113,8 +111,8 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
-        super.load(state, nbt);
+    public void load(@Nonnull CompoundTag nbt) {
+        super.load(nbt);
         this.inventory.deserializeNBT(nbt.getCompound("inventory"));
         this.manaStorage.deserializeNBT(nbt.getCompound("mana"));
         this.needsUpdate = true;
@@ -125,11 +123,11 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             if (side == null) return this.itemHandlerGeneric.cast();
-            switch (side) {
-                case UP: return this.itemHandlerTop.cast();
-                case DOWN: return this.itemHandlerBottom.cast();
-                default: return this.itemHandlerSide.cast();
-            }
+            return switch (side) {
+                case UP -> this.itemHandlerTop.cast();
+                case DOWN -> this.itemHandlerBottom.cast();
+                default -> this.itemHandlerSide.cast();
+            };
         } else if (capability == CapabilityMana.MANA) {
             return this.manaHandler.cast();
         } else {
@@ -150,11 +148,11 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity
         });
     }
 
-    private void updabeRecipe() {
+    private void updateRecipe() {
         if (this.level == null || this.level.isClientSide) {
-            this.recipe = new LazyLoadedValue<>(Optional::empty);
+            this.recipe = new LazyValue<>(Optional::empty);
         } else {
-            this.recipe = new LazyLoadedValue<>(() -> {
+            this.recipe = new LazyValue<>(() -> {
                 ItemStack schematics = this.inventory.getStackInSlot(1);
                 List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream()

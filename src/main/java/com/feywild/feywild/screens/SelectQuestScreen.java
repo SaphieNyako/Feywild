@@ -25,9 +25,8 @@ public class SelectQuestScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.buttons.clear();
         for (int i = 0; i < this.quests.size(); i++) {
-            this.addButton(new QuestWidget(20, 40 + ((QuestWidget.HEIGHT + 4) * i), this.alignment, this.quests.get(i)));
+            this.addRenderableWidget(new QuestWidget(20, 40 + ((QuestWidget.HEIGHT + 4) * i), this.alignment, this.quests.get(i)));
         }
     }
 

@@ -9,6 +9,7 @@ import com.feywild.feywild.block.flower.SunflowerBlock;
 import com.feywild.feywild.block.trees.BaseSaplingBlock;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.block.trees.FeyWoodBlock;
+import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockStateProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.world.level.block.Block;
@@ -22,9 +23,12 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class BlockStates extends BlockStateProviderBase {
+import java.util.function.Supplier;
 
-    public BlockStates(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
+@Datagen
+public class BlockStateProvider extends BlockStateProviderBase {
+
+    public BlockStateProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
         super(mod, generator, fileHelper);
     }
 
@@ -44,7 +48,7 @@ public class BlockStates extends BlockStateProviderBase {
     }
 
     @Override
-    protected void defaultState(ResourceLocation id, Block block, ModelFile model) {
+    protected void defaultState(ResourceLocation id, Block block, Supplier<ModelFile> model) {
         if (block instanceof FeyLeavesBlock) {
             this.simpleBlock(block,
                     new ConfiguredModel(this.cubeAll(block)),

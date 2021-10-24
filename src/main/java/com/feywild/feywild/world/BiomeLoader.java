@@ -2,10 +2,12 @@ package com.feywild.feywild.world;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTreeGrower;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.config.data.CommonSpawns;
+import com.feywild.feywild.config.data.PixieSpawns;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.gen.OreType;
@@ -26,7 +28,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -55,9 +56,7 @@ public class BiomeLoader {
     public static final Set<ResourceLocation> ALFHEIM_BIOMES = ImmutableSet.of(
             SPRING_ALFHEIM, SUMMER_ALFHEIM, AUTUMN_ALFHEIM, WINTER_ALFHEIM
     );
-
-    public static final Set<ResourceLocation> BLACKLIST_BIOMES = MobConfig.dimensions.black_list_biomes;
-
+    
     public static void loadBiome(BiomeLoadingEvent event) {
         Random random = new Random();
         @Nullable
@@ -113,7 +112,7 @@ public class BiomeLoader {
         }
     }
 
-    private static void addLooseTrees(BiomeLoadingEvent event, BaseTreeGrower tree, Random random, boolean isForest) {
+    private static void addLooseTrees(BiomeLoadingEvent event, BaseTree tree, Random random, boolean isForest) {
         event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true)
                 .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
                 .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, (isForest ? 2 : 1) * WorldGenConfig.tree_patches.chance, WorldGenConfig.tree_patches.size))));
@@ -150,44 +149,50 @@ public class BiomeLoader {
         if (CompatConfig.mythic_alfheim.locked) {
             // No dwarves, they can only be summoned using an ancient rune stone
             if (SPRING_ALFHEIM.equals(biomeId))
-                addSpawn(event, ModEntityTypes.springPixie, MobCategory.CREATURE, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
+                addSpawn(event, ModEntityTypes.springPixie, MobCategory.CREATURE, MobConfig.spawns.spring_pixie);
             if (SUMMER_ALFHEIM.equals(biomeId)) {
-                addSpawn(event, ModEntityTypes.summerPixie, MobCategory.CREATURE, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
-                addSpawn(event, ModEntityTypes.beeKnight, MobCategory.CREATURE, MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max);
+                addSpawn(event, ModEntityTypes.summerPixie, MobCategory.CREATURE, MobConfig.spawns.summer_pixie);
+                addSpawn(event, ModEntityTypes.beeKnight, MobCategory.CREATURE, MobConfig.spawns.summer_bee_knight);
             }
             if (AUTUMN_ALFHEIM.equals(biomeId))
-                addSpawn(event, ModEntityTypes.autumnPixie, MobCategory.CREATURE, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
+                addSpawn(event, ModEntityTypes.autumnPixie, MobCategory.CREATURE, MobConfig.spawns.autumn_pixie);
             if (WINTER_ALFHEIM.equals(biomeId))
-                addSpawn(event, ModEntityTypes.winterPixie, MobCategory.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
+                addSpawn(event, ModEntityTypes.winterPixie, MobCategory.CREATURE, MobConfig.spawns.winter_pixie);
         } else {
-            if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
+            if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && MobConfig.dimensions.black_list_biomes.test(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
                 if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
-                    addSpawn(event, ModEntityTypes.dwarfBlacksmith, MobCategory.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
+                    addSpawn(event, ModEntityTypes.dwarfBlacksmith, MobCategory.MONSTER, MobConfig.spawns.dwarf_blacksmith);
                 }
-                addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, SPRING_ALFHEIM, types, MobConfig.spring_pixie.biomes, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
-                addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.summer_pixie.biomes, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
-                addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.autumn_pixie.biomes, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
-                addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, WINTER_ALFHEIM, types, MobConfig.winter_pixie.biomes, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
+                addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, SPRING_ALFHEIM, types, MobConfig.spawns.spring_pixie);
+                addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.spawns.summer_pixie);
+                addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.autumn_pixie);
+                addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, WINTER_ALFHEIM, types, MobConfig.spawns.winter_pixie);
             }
         }
     }
 
-    private static void addPixieSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, ResourceLocation targetAlfheim, Set<BiomeDictionary.Type> types, List<BiomeDictionary.Type> targetBiomes, int weight, int min, int max) {
+    private static void addPixieSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, ResourceLocation targetAlfheim, Set<BiomeDictionary.Type> types, PixieSpawns data) {
         boolean targeted = targetBiome.equals(biomeId) || targetAlfheim.equals(biomeId);
         boolean seasonalOverworld = SEASONAL_BIOMES.contains(biomeId);
         boolean seasonalAlfheim = ALFHEIM_BIOMES.contains(biomeId);
         boolean seasonal = seasonalOverworld || seasonalAlfheim;
         boolean regularAlfheim = !seasonalAlfheim && AlfheimCompat.isAlfheim(types);
-        for (BiomeDictionary.Type biomeTag : targetBiomes) {
+        for (BiomeDictionary.Type biomeTag : data.biomes()) {
             boolean tagged = types.contains(biomeTag);
             if ((types.contains(biomeTag) && (targeted || !seasonal)) || regularAlfheim) {
-                addSpawn(event, type, MobCategory.CREATURE, targeted ? 2 * weight : weight, min, max);
+                CommonSpawns common = new CommonSpawns(targeted ? 2 * data.weight() : data.weight(), data.min(), data.max());
+                addSpawn(event, type, MobCategory.CREATURE, common);
             }
         }
     }
-
-    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, int weight, int min, int max) {
-        event.getSpawns().getSpawner(classification).add(new MobSpawnSettings.SpawnerData(type, weight, min, max));
+    
+    @SuppressWarnings("SameParameterValue")
+    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, PixieSpawns data) {
+        addSpawn(event, type, classification, new CommonSpawns(data.weight(), data.min(), data.max()));
+    }
+    
+    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, CommonSpawns data) {
+        event.getSpawns().getSpawner(classification).add(new MobSpawnSettings.SpawnerData(type, data.weight(), data.min(), data.max()));
     }
 
     private static void commonStructures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {

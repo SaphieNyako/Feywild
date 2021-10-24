@@ -7,11 +7,9 @@ import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -19,7 +17,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.DifficultyInstance;
@@ -197,9 +194,9 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     public boolean requiresCustomPersistence() {
         return true;
     }
-
+    
     @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
         return false;
     }
 
@@ -227,7 +224,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     }
 
     @Override
-    protected float getVoicePitch() {
+    public float getVoicePitch() {
         return 0.6f;
     }
 
@@ -278,7 +275,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
                 noActionTime = 0;
                 entity = null;
             } else if (result == net.minecraftforge.eventbus.api.Event.Result.ALLOW) {
-                this.remove();
+                this.remove(RemovalReason.DISCARDED);
                 entity = null;
             }
             if (entity != null) {
@@ -288,7 +285,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
                 int l = k * k;
 
                 if (this.noActionTime > 2400 && this.random.nextInt(800) == 0 && distance > (double) l && this.removeWhenFarAway(distance * 2)) {
-                    this.remove();
+                    this.remove(RemovalReason.DISCARDED);
                 } else if (distance < (double) l) {
                     this.noActionTime = 0;
                 }

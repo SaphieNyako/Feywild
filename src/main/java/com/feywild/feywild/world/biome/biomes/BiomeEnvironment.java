@@ -1,6 +1,5 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import net.minecraft.world.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;

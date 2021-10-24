@@ -7,6 +7,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -14,8 +16,8 @@ import javax.annotation.Nullable;
 
 public class MarketDwarfRenderer extends GeoEntityRenderer<DwarfBlacksmith> {
 
-    public MarketDwarfRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new DwarfBlacksmithModel());
+    public MarketDwarfRenderer(EntityRendererProvider.Context manager) {
+        super(manager, new DwarfBlacksmithModel());
         this.shadowRadius = 0.8F;
     }
 

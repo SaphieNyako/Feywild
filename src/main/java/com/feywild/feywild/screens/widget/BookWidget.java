@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.RequestItemSerializer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.noeppi_noeppi.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
@@ -35,7 +36,7 @@ public class BookWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        FeywildMod.getNetwork().instance.sendToServer(new RequestItemSerializer.Message(this.idx, RequestItemSerializer.State.books));
+        FeywildMod.getNetwork().channel.sendToServer(new RequestItemSerializer.Message(this.idx, RequestItemSerializer.State.books));
         this.screen.onClose();
     }
 
@@ -45,9 +46,8 @@ public class BookWidget extends Button {
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        //noinspection deprecation
-        RenderSystem.color4f(1, 1, 1, 1);
-        Minecraft.getInstance().getTextureManager().bind(getTexture());
+        RenderHelper.resetColor();
+        RenderSystem.setShaderTexture(0, getTexture());
         this.blit(poseStack, this.x, this.y, 0, 0, 25, 25);
         if (this.isHovered(mouseX, mouseY)) {
             this.setBlitOffset(this.getBlitOffset() + 10);
@@ -58,6 +58,6 @@ public class BookWidget extends Button {
     }
 
     public boolean isHovered(int x, int y) {
-        return this.x <= x && this.x + this.WIDTH >= x && this.y <= y && this.y + this.HEIGHT >= y;
+        return this.x <= x && this.x + WIDTH >= x && this.y <= y && this.y + HEIGHT >= y;
     }
 }

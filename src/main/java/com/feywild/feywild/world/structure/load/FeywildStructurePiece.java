@@ -21,7 +21,6 @@ import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElemen
 import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.feature.structures.SinglePoolElement;
 import net.minecraft.world.level.StructureFeatureManager;
-import net.minecraft.world.gen.feature.template.*;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -94,7 +93,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
     
     private void placePiece(StructureManager templates, WorldGenLevel level, String name, BlockPos pos, Random random) {
         StructureTemplate template = templates.getOrCreate(new ResourceLocation(FeywildMod.getInstance().modid, "parts/" + name));
-        template.placeInWorld(level, pos, new StructurePlaceSettings(), random);
+        template.placeInWorld(level, pos, pos, new StructurePlaceSettings(), random, 4);
     }
     
     private void placeDwarf(WorldGenLevel level, BlockPos pos) {
@@ -113,7 +112,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
         if (level instanceof WorldGenRegion) {
             int x = ((int) Math.floor(entity.getX())) >> 4;
             int z = ((int) Math.floor(entity.getZ())) >> 4;
-            if (((WorldGenRegion) level).getCenterX() == x && ((WorldGenRegion) level).getCenterZ() == z) {
+            if (((WorldGenRegion) level).getCenter().x == x && ((WorldGenRegion) level).getCenter().z == z) {
                 level.addFreshEntity(entity);
             }
         } else {

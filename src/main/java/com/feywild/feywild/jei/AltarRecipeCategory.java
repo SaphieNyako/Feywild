@@ -9,6 +9,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 
@@ -41,8 +42,8 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     @Nonnull
     @Override
-    public String getTitle() {
-        return ModBlocks.feyAltar.getName().getString();
+    public Component getTitle() {
+        return ModBlocks.feyAltar.getName();
     }
 
     @Nonnull

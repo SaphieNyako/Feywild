@@ -4,6 +4,7 @@ import com.feywild.feywild.block.entity.DisplayGlass;
 import com.feywild.feywild.block.render.DisplayGlassRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -41,7 +41,7 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> {
-            ClientRegistry.bindTileEntityRenderer(this.getBlockEntityType(), DisplayGlassRenderer::new);
+            BlockEntityRenderers.register(this.getBlockEntityType(), ctx -> new DisplayGlassRenderer());
             ItemBlockRenderTypes.setRenderLayer(this, RenderType.translucent());
         });
     }

@@ -54,21 +54,19 @@ public class MarketGenerator {
     }
 
     private static void generateBase(ServerLevel level) {
-        StructureTemplate template = level.getStructureManager().get(new ResourceLocation(FeywildMod.getInstance().modid, "market"));
+        StructureTemplate template = level.getStructureManager().get(FeywildMod.getInstance().resource("market")).orElse(null);
         if (template != null) {
+            template.placeInWorld(level, BASE_POS, BASE_POS, new StructurePlaceSettings(), level.random, 0);
+            // Remove all entities from the world
+            // Must use version with bounding box to load the chunks
+            AABB aabb = BoundingBoxUtil.get(template.getBoundingBox(new StructurePlaceSettings(), BASE_POS)).inflate(10);
+            level.getEntities(null, aabb).stream()
+                    .filter(e -> !(e instanceof Player))
+                    .forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
 
-            template.placeInWorld(level, BASE_POS, new StructurePlaceSettings(), level.random);
-        }
-
-        // Remove all entities from the world
-        // Must use version with bounding box to load the chunks
-        AABB aabb = BoundingBoxUtil.get(template.getBoundingBox(new StructurePlaceSettings(), BASE_POS)).inflate(10);
-        level.getEntities(null, aabb).stream()
-                .filter(e -> !(e instanceof Player))
-                .forEach(Entity::remove);
-
-        for (int i = 0; i < 4; i++) {
-            addLivestock(level, -3.5, 63, 1.5);
+            for (int i = 0; i < 4; i++) {
+                addLivestock(level, -3.5, 63, 1.5);
+            }
         }
     }
 

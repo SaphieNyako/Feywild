@@ -14,9 +14,9 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class SummerTreeGrower extends BaseTreeGrower {
+public class SummerTree extends BaseTree {
 
-    public SummerTreeGrower(ModX mod) {
+    public SummerTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 20, ModParticles.summerLeafParticle));
     }
 

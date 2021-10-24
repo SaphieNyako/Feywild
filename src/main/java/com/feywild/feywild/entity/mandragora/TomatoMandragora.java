@@ -5,8 +5,6 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
-import com.feywild.feywild.entity.base.MandragoraEntity.MandragoraVariant;
-
 public class TomatoMandragora extends Mandragora {
 
     public TomatoMandragora(EntityType<? extends PathfinderMob> type, Level level) {

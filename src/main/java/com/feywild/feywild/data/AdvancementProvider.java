@@ -5,6 +5,7 @@ import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.world.dimension.ModDimensions;
+import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.AdvancementProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.advancements.Advancement;
@@ -22,6 +23,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@Datagen
 public class AdvancementProvider extends AdvancementProviderBase {
 
     public AdvancementProvider(ModX mod, DataGenerator generator) {

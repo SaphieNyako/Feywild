@@ -10,9 +10,9 @@ import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
-public class SpringTreeGrower extends BaseTreeGrower {
+public class SpringTree extends BaseTree {
 
-    public SpringTreeGrower(ModX mod) {
+    public SpringTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 14, ModParticles.springLeafParticle));
     }
 

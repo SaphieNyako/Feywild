@@ -9,6 +9,7 @@ import com.feywild.feywild.quest.util.FeyGift;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.DatapackHelper;
+import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.crafting.IngredientStack;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.world.level.block.Blocks;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 
 import static com.feywild.feywild.quest.Alignment.*;
 
+@Datagen
 public class QuestProvider implements DataProvider {
 
     private final ModX mod;

@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.common.Tags;
 
@@ -22,15 +23,15 @@ public class GiantFlowerFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     @Override
-    public boolean place(@Nonnull WorldGenLevel level, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull NoneFeatureConfiguration config) {
+    public boolean place(@Nonnull FeaturePlaceContext<NoneFeatureConfiguration> context) {
         boolean success = false;
         for (int i = 0; i < 8; ++i) {
-            BlockPos target = pos.offset(
-                    random.nextInt(6) - random.nextInt(6),
-                    random.nextInt(4) - random.nextInt(4),
-                    random.nextInt(6) - random.nextInt(6)
+            BlockPos target = context.origin().offset(
+                    context.random().nextInt(6) - context.random().nextInt(6),
+                    context.random().nextInt(4) - context.random().nextInt(4),
+                    context.random().nextInt(6) - context.random().nextInt(6)
             );
-            if (this.trySpawnFlower(level, target, random)) {
+            if (this.trySpawnFlower(context.level(), target, context.random())) {
                 success = true;
             }
         }

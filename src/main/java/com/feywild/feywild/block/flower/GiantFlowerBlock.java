@@ -4,7 +4,6 @@ import com.feywild.feywild.config.ClientConfig;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.client.renderer.RenderType;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -36,7 +34,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class GiantFlowerBlock extends Block implements Registerable {
@@ -50,14 +47,14 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     private final GiantFlowerSeedItem item;
 
     public GiantFlowerBlock(ModX mod, int height) {
-        super(Properties.of(Material.PLANT).noOcclusion().harvestTool(ToolType.AXE).sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8));
+        super(Properties.of(Material.PLANT).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8));
         this.height = height;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
         this.item = new GiantFlowerSeedItem(mod, this);
     }
 
     @Override
-    public Map<String, Object> getNamedAdditionalRegisters() {
+    public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
         return ImmutableMap.of("seed", this.item);
     }
 

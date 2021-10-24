@@ -1,11 +1,7 @@
 package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.trade.TradeManager;
-import net.minecraft.world.entity.AgableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.ReputationEventHandler;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.village.ReputationEventType;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.VillagerData;
@@ -124,7 +120,7 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
 
     @Nullable
     @Override
-    public AgableMob getBreedOffspring(@Nonnull ServerLevel p_241840_1_, @Nonnull AgableMob p_241840_2_) {
+    public AgeableMob getBreedOffspring(@Nonnull ServerLevel level, @Nonnull AgeableMob other) {
         return null;
     }
 

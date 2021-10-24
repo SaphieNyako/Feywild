@@ -10,7 +10,6 @@ import net.minecraft.sounds.Music;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
@@ -44,7 +43,7 @@ public class SummerBiome implements BiomeType {
 
     @Override
     public float scale() {
-        return WorldGenConfig.biomes.summer.size;
+        return WorldGenConfig.biomes.summer.size();
     }
 
     @Override
@@ -76,7 +75,7 @@ public class SummerBiome implements BiomeType {
     public void spawns(MobSpawnSettings.Builder builder) {
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.BEE, 20, 2, 3));
         builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.beeKnight,
-                MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max));
+                MobConfig.spawns.summer_bee_knight.weight(), MobConfig.spawns.summer_bee_knight.min(), MobConfig.spawns.summer_bee_knight.max()));
     }
 
     @Override

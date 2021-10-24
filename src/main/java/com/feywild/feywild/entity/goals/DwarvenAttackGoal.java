@@ -99,14 +99,14 @@ public class DwarvenAttackGoal extends Goal {
         entityList.forEach(block -> {
             this.entity.playSound(ModSoundEvents.dwarfAttack, 1, 1);
             block.setDeltaMovement(0, 0.3d, 0);
-            block.setHurtsEntities(true);
+            block.setHurtsEntities(2, 40);
             this.entity.level.addFreshEntity(block);
         });
     }
 
     private void waveBlock(List<FallingBlockEntity> entityList, BlockPos pos) {
         BlockState state = this.entity.level.getBlockState(pos);
-        if (!state.hasTileEntity() && state.getDestroySpeed(this.entity.level, pos) >= 0) {
+        if (!state.hasBlockEntity() && state.getDestroySpeed(this.entity.level, pos) >= 0) {
             // No blocks with tile entities and no unbreakable blocks.
             entityList.add(new FallingBlockEntity(this.entity.level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, state));
         }
@@ -126,6 +126,6 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.getLastHurtByMob() instanceof Mob && !this.entity.getLastHurtByMob().isInvulnerable() && this.entity.canSee(this.entity.getLastHurtByMob());
+        return this.entity.getLastHurtByMob() instanceof Mob && !this.entity.getLastHurtByMob().isInvulnerable() && this.entity.hasLineOfSight(this.entity.getLastHurtByMob());
     }
 }

@@ -10,14 +10,12 @@ import com.feywild.feywild.sound.ModSoundEvents;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -65,7 +63,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     }
 
     @Override
-    public Map<String, Object> getNamedAdditionalRegisters() {
+    public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
         return ImmutableMap.of(
                 "seed", this.seed
         );
@@ -120,18 +118,12 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     }
 
     private Mandragora getModEntityType(Level level) {
-        switch (level.random.nextInt(5)) {
-            case 1:
-                return ModEntityTypes.onionMandragora.create(level);
-            case 2:
-                return ModEntityTypes.potatoMandragora.create(level);
-            case 3:
-                return ModEntityTypes.pumpkinMandragora.create(level);
-            case 4:
-                return ModEntityTypes.tomatoMandragora.create(level);
-            case 0:
-            default:
-                return ModEntityTypes.melonMandragora.create(level);
-        }
+        return switch (level.random.nextInt(5)) {
+            case 1 -> ModEntityTypes.onionMandragora.create(level);
+            case 2 -> ModEntityTypes.potatoMandragora.create(level);
+            case 3 -> ModEntityTypes.pumpkinMandragora.create(level);
+            case 4 -> ModEntityTypes.tomatoMandragora.create(level);
+            default -> ModEntityTypes.melonMandragora.create(level);
+        };
     }
 }

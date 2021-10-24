@@ -6,15 +6,20 @@ import io.github.noeppi_noeppi.libx.network.NetworkX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 public class FeywildNetwork extends NetworkX {
     
     public FeywildNetwork(ModX mod) {
         super(mod);
     }
-    
+
+    @Override
+    protected Protocol getProtocol() {
+        return Protocol.of("4");
+    }
+
     @Override
     protected void registerPackets() {
         this.register(new OpenLibraryScreenSerializer(), () -> OpenLibraryScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
@@ -27,11 +32,6 @@ public class FeywildNetwork extends NetworkX {
         this.register(new OpenQuestDisplaySerializer(), () -> OpenQuestDisplayHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
         this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ConfirmQuestSerializer(), () -> ConfirmQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
-    }
-
-    @Override
-    protected String getProtocolVersion() {
-        return "3";
     }
     
     public void sendParticles(Level level, ParticleSerializer.Type type, BlockPos pos) {
@@ -49,7 +49,7 @@ public class FeywildNetwork extends NetworkX {
     
     private void sendParticles(Level level, ParticleSerializer.Type type, BlockPos chunk, double x, double y, double z, double vx, double vy, double vz) {
         if (level instanceof ServerLevel) {
-            this.instance.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z, vx, vy, vz));
+            this.channel.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z, vx, vy, vz));
         }
     }
 }

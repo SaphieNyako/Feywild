@@ -26,7 +26,7 @@ public class SimpleTeleporter implements ITeleporter {
     @Nullable
     @Override
     public PortalInfo getPortalInfo(Entity entity, ServerLevel destLevel, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
-        return new PortalInfo(new Vec3(this.targetPos.getX() + 0.5, this.targetPos.getY(), this.targetPos.getZ() + 0.5), Vec3.ZERO, entity.yRot, entity.xRot);
+        return new PortalInfo(new Vec3(this.targetPos.getX() + 0.5, this.targetPos.getY(), this.targetPos.getZ() + 0.5), Vec3.ZERO, entity.getYRot(), entity.getXRot());
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.feywild.feywild.screens;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.quest.ConfirmQuestSerializer;
 import com.feywild.feywild.quest.QuestDisplay;
-import com.feywild.feywild.util.TextProcessor;
+import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
@@ -33,18 +33,17 @@ public class DisplayQuestScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        this.title = TextProcessor.processLine(this.display.title);
-        this.description = TextProcessor.process(this.display.description).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
+        this.title = FeywildTextProcessor.INSTANCE.processLine(this.display.title);
+        this.description = FeywildTextProcessor.INSTANCE.process(this.display.description).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
 
-        this.buttons.clear();
         if (this.hasConfirmationButtons) {
             int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
-            this.addButton(new Button(30, buttonY, 20, 20, new TextComponent(Character.toString((char) 0x2714)), button -> {
-                FeywildMod.getNetwork().instance.sendToServer(new ConfirmQuestSerializer.Message(true));
+            this.addRenderableWidget(new Button(30, buttonY, 20, 20, new TextComponent(Character.toString((char) 0x2714)), button -> {
+                FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true));
                 this.onClose();
             }));
-            this.addButton(new Button(70, buttonY, 20, 20, new TextComponent("x"), button -> {
-                FeywildMod.getNetwork().instance.sendToServer(new ConfirmQuestSerializer.Message(false));
+            this.addRenderableWidget(new Button(70, buttonY, 20, 20, new TextComponent("x"), button -> {
+                FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false));
                 this.onClose();
             }));
         }

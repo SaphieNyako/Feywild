@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.RequestItemSerializer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.noeppi_noeppi.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +22,7 @@ public class ScrollWidget extends BookWidget {
 
     @Override
     public void onPress() {
-        FeywildMod.getNetwork().instance.sendToServer(new RequestItemSerializer.Message(this.idx, RequestItemSerializer.State.scrolls));
+        FeywildMod.getNetwork().channel.sendToServer(new RequestItemSerializer.Message(this.idx, RequestItemSerializer.State.scrolls));
         this.screen.onClose();
     }
 
@@ -33,8 +34,8 @@ public class ScrollWidget extends BookWidget {
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        Minecraft.getInstance().getTextureManager().bind(getTexture());
-        RenderSystem.color4f(1, 1, 1, 1);
+        RenderSystem.setShaderTexture(0, getTexture());
+        RenderHelper.resetColor();
         this.blit(poseStack, this.x - 20, this.y - 16, idx * WIDTH, 0, 64, 64);
         if (this.isHovered(mouseX, mouseY)) {
             this.setBlitOffset(this.getBlitOffset() + 10);

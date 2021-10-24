@@ -2,8 +2,9 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTreeGrower;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
+import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
@@ -12,9 +13,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 
-import static net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties;
-import staticnet.minecraft.advancements.critereon.StatePropertiesPredicate.Builderties;
+import static net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties;
+import static net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.hasBlockStateProperties;
 
+@Datagen
 public class BlockLootProvider extends BlockLootProviderBase {
 
     public BlockLootProvider(ModX mod, DataGenerator generator) {
@@ -75,7 +77,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus.getSeed()).with(this.count(1, 2)));
     }
 
-    private void treeDrops(BaseTreeGrower tree, ItemLike baseLog, ItemLike baseWood) {
+    private void treeDrops(BaseTree tree, ItemLike baseLog, ItemLike baseWood) {
         this.drops(tree.getLeafBlock(), this.first(
                 this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(

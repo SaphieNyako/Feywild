@@ -8,7 +8,6 @@ import net.minecraft.sounds.Music;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
@@ -42,7 +41,7 @@ public class WinterBiome implements BiomeType {
 
     @Override
     public float scale() {
-        return WorldGenConfig.biomes.winter.size;
+        return WorldGenConfig.biomes.winter.size();
     }
 
     @Override

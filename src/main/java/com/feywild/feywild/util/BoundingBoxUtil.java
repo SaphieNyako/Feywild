@@ -6,6 +6,6 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 public class BoundingBoxUtil {
     
     public static AABB get(BoundingBox box) {
-        return new AABB(box.x0, box.y0, box.z0, box.x1, box.y1, box.z1);
+        return new AABB(box.minX(), box.minY(), box.minZ(), box.maxX(), box.maxY(), box.maxZ());
     }
 }

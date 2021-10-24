@@ -11,7 +11,7 @@ import net.minecraft.world.entity.monster.Monster;
 
 public class TargetFireGoal extends Goal {
 
-    private static final TargetingConditions TARGETING = (new TargetingConditions()).range(8.0D).allowInvulnerable().allowSameTeam().allowUnseeable();
+    private static final TargetingConditions TARGETING = TargetingConditions.forCombat().range(8.0D).ignoreLineOfSight();
 
     private final Fey entity;
     private Monster targetMonster;

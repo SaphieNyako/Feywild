@@ -1,4 +1,4 @@
-package com.feywild.feywild.config;
+package com.feywild.feywild.config.data;
 
 public enum MythicCompat {
     

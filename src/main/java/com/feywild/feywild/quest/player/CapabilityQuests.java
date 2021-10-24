@@ -1,6 +1,7 @@
 package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
+import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
@@ -8,10 +9,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.core.Direction;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -24,32 +22,15 @@ public class CapabilityQuests {
     
     public static final ResourceLocation KEY = new ResourceLocation(FeywildMod.getInstance().modid, "player_quests");
     
-    @CapabilityInject(QuestData.class)
-    public static Capability<QuestData> QUESTS = null;
+    public static Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
 
-    public static void register() {
-
-        CapabilityManager.INSTANCE.register(QuestData.class, new Capability.IStorage<QuestData>() {
-            
-            @Nullable
-            @Override
-            public Tag writeNBT(Capability<QuestData> capability, QuestData instance, Direction side) {
-                return instance.write();
-            }
-
-            @Override
-            public void readNBT(Capability<QuestData> capability, QuestData instance, Direction side, Tag nbt) {
-                if (nbt instanceof CompoundTag) {
-                    instance.read((CompoundTag) nbt);
-                }
-            }
-        }, QuestData::new);
+    public static void register(RegisterCapabilitiesEvent event) {
+        event.register(QuestData.class);
     }
 
     public static void attachPlayerCaps(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof ServerPlayer) {
-            ServerPlayer player = (ServerPlayer) event.getObject();
-            event.addCapability(KEY, new Provider(QUESTS, new LazyLoadedValue<>(() -> {
+        if (event.getObject() instanceof ServerPlayer player) {
+            event.addCapability(KEY, new Provider(QUESTS, new LazyValue<>(() -> {
                 QuestData data = new QuestData();
                 data.attach(player);
                 return data;
@@ -71,10 +52,10 @@ public class CapabilityQuests {
     
     private static class Provider implements ICapabilityProvider, INBTSerializable<Tag> {
         
-        public final Capability<?> capability;
-        public final LazyLoadedValue<?> value;
+        public final Capability<QuestData> capability;
+        public final LazyValue<QuestData> value;
 
-        public <T> Provider(Capability<T> capability, LazyLoadedValue<? extends T> value) {
+        public Provider(Capability<QuestData> capability, LazyValue<QuestData> value) {
             this.capability = capability;
             this.value = value;
         }
@@ -82,19 +63,20 @@ public class CapabilityQuests {
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+            //noinspection NullableProblems
             return cap == this.capability ? LazyOptional.of(this.value::get).cast() : LazyOptional.empty();
         }
 
         @Override
         public Tag serializeNBT() {
-            //noinspection unchecked
-            return ((Capability<Object>) this.capability).writeNBT(this.value.get(), null);
+            return this.value.get().write();
         }
 
         @Override
         public void deserializeNBT(Tag nbt) {
-            //noinspection unchecked
-            ((Capability<Object>) this.capability).readNBT(this.value.get(), null, nbt);
+            if (nbt instanceof CompoundTag tag) {
+                this.value.get().read(tag);
+            }
         }
     }
 }

@@ -26,8 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
 
     // Custom name is on the list as the custom name is handles by the stacks display name
@@ -117,10 +115,10 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     oldStack.shrink(1);
                 }
                 
-                if (Inventory.isHotbarSlot(player.inventory.selected) && player.inventory.getItem(player.inventory.selected).isEmpty()) {
+                if (Inventory.isHotbarSlot(player.getInventory().selected) && player.getInventory().getItem(player.getInventory().selected).isEmpty()) {
                     // First try to place the new stack at the same position in the hotbar where the old one was.
-                    player.inventory.setItem(player.inventory.selected, stack);
-                } else if (!player.inventory.add(stack)) {
+                    player.getInventory().setItem(player.getInventory().selected, stack);
+                } else if (!player.getInventory().add(stack)) {
                     // inventory is full. Drop the item
                     ItemEntity ie = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), stack.copy());
                     ie.setOwner(player.getUUID()); // Only the player can pick this up
@@ -129,7 +127,7 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                 
                 player.swing(InteractionHand.MAIN_HAND);
                 
-                entity.remove();
+                entity.remove(Entity.RemovalReason.DISCARDED);
             }
             return true;
         }

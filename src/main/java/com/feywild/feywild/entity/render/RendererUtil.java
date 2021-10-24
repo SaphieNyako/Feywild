@@ -2,6 +2,7 @@ package com.feywild.feywild.entity.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -14,7 +15,7 @@ public class RendererUtil {
         RenderStateShard.TextureStateShard textureState = new RenderStateShard.TextureStateShard(texture, false, false);
         return RenderType.create("feywild_glow",
                 DefaultVertexFormat.NEW_ENTITY,
-                7,
+                VertexFormat.Mode.QUADS,
                 256,
                 false,
                 true,

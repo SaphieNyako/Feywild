@@ -2,23 +2,23 @@ package com.feywild.feywild.world.feature;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.world.level.levelgen.feature.blockplacers.SimpleBlockPlacer;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
-import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
-
-import java.util.Random;
-
 import net.minecraft.data.worldgen.Features;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.blockplacers.SimpleBlockPlacer;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
+
+import java.util.Random;
 
 public class ModConfiguredFeatures {
 
@@ -34,20 +34,22 @@ public class ModConfiguredFeatures {
     );
 
     //Spring Flowers
-    public static final RandomPatchConfiguration SPRING_FLOWER_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder((new WeightedStateProvider())
-            .add(Blocks.DANDELION.defaultBlockState(), 3)
-            .add(Blocks.POPPY.defaultBlockState(), 1)
-            .add(Blocks.ALLIUM.defaultBlockState(), 1)
-            .add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
-            .add(Blocks.RED_TULIP.defaultBlockState(), 1)
-            .add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
-            .add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
-            .add(Blocks.PINK_TULIP.defaultBlockState(), 1)
-            .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
-            .add(Blocks.CORNFLOWER.defaultBlockState(), 1)
-            .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 1),
+    public static final RandomPatchConfiguration SPRING_FLOWER_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                    .add(Blocks.DANDELION.defaultBlockState(), 3)
+                    .add(Blocks.POPPY.defaultBlockState(), 1)
+                    .add(Blocks.ALLIUM.defaultBlockState(), 1)
+                    .add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
+                    .add(Blocks.RED_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.PINK_TULIP.defaultBlockState(), 1)
+                    .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
+                    .add(Blocks.CORNFLOWER.defaultBlockState(), 1)
+                    .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 1)
+                    .build()),
             SimpleBlockPlacer.INSTANCE
-    )).tries(64).build();
+    ).tries(64).build();
 
     public static final ConfiguredFeature<?, ?> SPRING_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(SPRING_FLOWER_CONFIG)
@@ -67,11 +69,13 @@ public class ModConfiguredFeatures {
     );
 
     //WARM FLOWERS
-    public static final RandomPatchConfiguration SUMMER_WARM_FLOWERS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder((new WeightedStateProvider())
-            .add(Blocks.POPPY.defaultBlockState(), 2)
-            .add(Blocks.DANDELION.defaultBlockState(), 1),
+    public static final RandomPatchConfiguration SUMMER_WARM_FLOWERS_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                    .add(Blocks.POPPY.defaultBlockState(), 2)
+                    .add(Blocks.DANDELION.defaultBlockState(), 1)
+                    .build()),
             SimpleBlockPlacer.INSTANCE
-    )).tries(64).build();
+    ).tries(64).build();
 
     public static final ConfiguredFeature<?, ?> SUMMER_WARM_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(SUMMER_WARM_FLOWERS_CONFIG)
@@ -92,10 +96,12 @@ public class ModConfiguredFeatures {
 
     //SWAMP FLOWERS
 
-    public static final RandomPatchConfiguration AUTUMN_SWAMP_FLOWERS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder((new WeightedStateProvider())
-            .add(Blocks.BLUE_ORCHID.defaultBlockState(), 2),
+    public static final RandomPatchConfiguration AUTUMN_SWAMP_FLOWERS_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                    .add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
+                    .build()),
             SimpleBlockPlacer.INSTANCE
-    )).tries(64).build();
+    ).tries(64).build();
 
     public static final ConfiguredFeature<?, ?> AUTUMN_SWAMP_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(AUTUMN_SWAMP_FLOWERS_CONFIG)
@@ -104,11 +110,13 @@ public class ModConfiguredFeatures {
 
     //SMALL MUSHROOMS
 
-    public static final RandomPatchConfiguration AUTUMN_SMALL_MUSHROOMS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder((new WeightedStateProvider())
-            .add(Blocks.BROWN_MUSHROOM.defaultBlockState(), 2)
-            .add(Blocks.RED_MUSHROOM.defaultBlockState(), 1),
+    public static final RandomPatchConfiguration AUTUMN_SMALL_MUSHROOMS_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                    .add(Blocks.BROWN_MUSHROOM.defaultBlockState(), 2)
+                    .add(Blocks.RED_MUSHROOM.defaultBlockState(), 1)
+                    .build()),
             SimpleBlockPlacer.INSTANCE
-    )).tries(32).build();
+    ).tries(32).build();
 
     public static final ConfiguredFeature<?, ?> AUTUMN_SMALL_MUSHROOMS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(AUTUMN_SMALL_MUSHROOMS_CONFIG)
@@ -124,9 +132,13 @@ public class ModConfiguredFeatures {
     );
 
     //Winter Flowers
-    public static final RandomPatchConfiguration WINTER_FLOWER_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder((new WeightedStateProvider())
-            .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 2)
-            .add(Blocks.POPPY.defaultBlockState(), 1), SimpleBlockPlacer.INSTANCE)).tries(64).build();
+    public static final RandomPatchConfiguration WINTER_FLOWER_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
+            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+                    .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 2)
+                    .add(Blocks.POPPY.defaultBlockState(), 1)
+                    .build()),
+            SimpleBlockPlacer.INSTANCE
+    ).tries(64).build();
 
     public static final ConfiguredFeature<?, ?> WINTER_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(WINTER_FLOWER_CONFIG)

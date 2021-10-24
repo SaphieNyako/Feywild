@@ -2,9 +2,8 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.config.*;
-import com.feywild.feywild.config.mapper.BiomeTypesMapper;
-import com.feywild.feywild.config.mapper.ResourceLocationMapper;
-import com.feywild.feywild.data.DataGenerators;
+import com.feywild.feywild.config.mapper.BiomeTypeMapper;
+import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.MarketDwarf;
@@ -36,6 +35,8 @@ import com.feywild.feywild.world.structure.ModStructures;
 import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
+import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.resources.ResourceLocation;
@@ -51,7 +52,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -60,6 +60,8 @@ import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
 
+// TODO structure files need updating for 1.17
+
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -67,27 +69,29 @@ public final class FeywildMod extends ModXRegistration {
     private static FeywildNetwork network;
 
     public FeywildMod() {
-        super("feywild", new FeywildTab("feywild"));
+        super(new FeywildTab("feywild"));
 
         instance = this;
         network = new FeywildNetwork(this);
 
-        ConfigManager.registerValueMapper(new ResourceLocation(this.modid, "biome_types"), new BiomeTypesMapper());
-        ConfigManager.registerValueMapper(new ResourceLocation(this.modid, "resource_location"), new ResourceLocationMapper());
+        ConfigManager.registerValueMapper(this.modid, new BiomeTypeMapper());
+        ConfigManager.registerConfigValidator(this.modid, new StructureDataValidator());
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "misc"), MiscConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "world_gen"), WorldGenConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
-
+        
         GeckoLib.initialize();
+        
+        // TODO mythicbotany
+//        if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
+//            this.addRegistrationHandler(ModAlfheimBiomes::register);
+//            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
+//        }
 
-        if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
-            this.addRegistrationHandler(ModAlfheimBiomes::register);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
-        }
-
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(DataGenerators::gatherData);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityMana::register);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
 
@@ -125,9 +129,12 @@ public final class FeywildMod extends ModXRegistration {
     }
 
     @Override
+    protected void initRegistration(RegistrationBuilder builder) {
+        builder.setVersion(1);
+    }
+
+    @Override
     protected void setup(FMLCommonSetupEvent event) {
-        CapabilityMana.register();
-        CapabilityQuests.register();
         event.enqueueWork(() -> {
             Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);
             ModBiomeGeneration.setupBiomes();
@@ -153,23 +160,23 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfToolsmith, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBaker, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfMiner, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.melonMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.onionMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.potatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.pumpkinMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.tomatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntityTypes.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
+        EntityRenderers.register(ModEntityTypes.dwarfToolsmith, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfBaker, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfMiner, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntityTypes.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
+        EntityRenderers.register(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
+        EntityRenderers.register(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
+        EntityRenderers.register(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
+        EntityRenderers.register(ModEntityTypes.melonMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntityTypes.onionMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntityTypes.potatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntityTypes.pumpkinMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntityTypes.tomatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {

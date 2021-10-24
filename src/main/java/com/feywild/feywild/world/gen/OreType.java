@@ -2,52 +2,49 @@ package com.feywild.feywild.world.gen;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.config.data.OreData;
+import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.ConfiguredDecorator;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public enum OreType {
     FEY_GEM_ORE(ModBlocks.feyGemBlock,
             ModBlocks.feyGemBlockLivingrock,
-            WorldGenConfig.ores.fey_gem.size,
-            WorldGenConfig.ores.fey_gem.min_height,
-            WorldGenConfig.ores.fey_gem.max_height,
-            WorldGenConfig.ores.fey_gem.weight
+            () -> WorldGenConfig.ores.fey_gem
     );
 
     private final Block block;
     private final Block alfheimBlock;
-    private final int maxVeinSize;
-    private final int minHeight;
-    private final int maxHeight;
-    private final int spawnWeight;
-    private final LazyLoadedValue<ConfiguredFeature<?, ?>> feature;
-    private final LazyLoadedValue<ConfiguredFeature<?, ?>> alfheimFeature;
+    private final Supplier<OreData> data; 
+    private final LazyValue<ConfiguredFeature<?, ?>> feature;
+    private final LazyValue<ConfiguredFeature<?, ?>> alfheimFeature;
 
-    OreType(Block block, Block alfheimBlock, int maxVeinSize, int minHeight, int maxHeight, int spawnWeight) {
+    OreType(Block block, Block alfheimBlock, Supplier<OreData> data) {
         this.block = block;
         this.alfheimBlock = alfheimBlock;
-        this.maxVeinSize = maxVeinSize;
-        this.minHeight = minHeight;
-        this.maxHeight = maxHeight;
-        this.spawnWeight = spawnWeight;
-        this.feature = new LazyLoadedValue<>(() -> {
-            OreConfiguration oreFeatureConfig = new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, block.defaultBlockState(), maxVeinSize);
-            ConfiguredDecorator<?> configuredPlacement = FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(minHeight, 0, maxHeight)).squared().count(spawnWeight);
+        this.data = data;
+        this.feature = new LazyValue<>(() -> {
+            OreConfiguration oreFeatureConfig = new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, block.defaultBlockState(), getMaxVeinSize());
+            ConfiguredDecorator<?> configuredPlacement = FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(getHeight())).squared().count(getSpawnWeight());
             return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
         });
-        this.alfheimFeature = new LazyLoadedValue<>(() -> {
-            OreConfiguration oreFeatureConfig = new OreConfiguration(FeywildOreGen.ALFHEIM_STONE, alfheimBlock.defaultBlockState(), maxVeinSize);
-            ConfiguredDecorator<?> configuredPlacement = FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(minHeight, 0, maxHeight)).squared().count(spawnWeight);
+        this.alfheimFeature = new LazyValue<>(() -> {
+            OreConfiguration oreFeatureConfig = new OreConfiguration(FeywildOreGen.ALFHEIM_STONE, alfheimBlock.defaultBlockState(), getMaxVeinSize());
+            ConfiguredDecorator<?> configuredPlacement = FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(getHeight())).squared().count(getSpawnWeight());
             return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
         });
     }
@@ -70,19 +67,19 @@ public enum OreType {
     }
 
     public int getMaxVeinSize() {
-        return this.maxVeinSize;
+        return this.data.get().size();
     }
 
     public int getMinHeight() {
-        return this.minHeight;
+        return this.data.get().min_height();
     }
 
     public int getMaxHeight() {
-        return this.maxHeight;
+        return this.data.get().max_height();
     }
 
     public int getSpawnWeight() {
-        return this.spawnWeight;
+        return this.data.get().weight();
     }
 
     public ConfiguredFeature<?, ?> getFeature() {
@@ -93,6 +90,10 @@ public enum OreType {
         return this.alfheimFeature.get();
     }
 
+    public HeightProvider getHeight() {
+        return UniformHeight.of(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight()));
+    }
+    
     public static void setupOres() {
         for (OreType ore : values()) {
             // Will trigger registration

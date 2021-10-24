@@ -3,21 +3,22 @@ package com.feywild.feywild.block.entity;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.ModEntityTypes;
 import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import javax.annotation.Nonnull;
 
-public class AncientRunestone extends BlockEntityBase implements TickableBlockEntity {
+public class AncientRunestone extends BlockEntityBase implements TickableBlock {
 
     private int time;
-    
-    public AncientRunestone(BlockEntityType<?> blockEntityTypeIn) {
-        super(blockEntityTypeIn);
+
+    public AncientRunestone(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     @Override
@@ -60,8 +61,8 @@ public class AncientRunestone extends BlockEntityBase implements TickableBlockEn
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
-        super.load(state, nbt);
+    public void load(@Nonnull CompoundTag nbt) {
+        super.load(nbt);
         this.time = nbt.getInt("Time");
     }
 
@@ -83,8 +84,8 @@ public class AncientRunestone extends BlockEntityBase implements TickableBlockEn
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundTag nbt) {
-        super.handleUpdateTag(state, nbt);
+    public void handleUpdateTag(CompoundTag nbt) {
+        super.handleUpdateTag(nbt);
         if (this.level != null && this.level.isClientSide) {
             this.time = nbt.getInt("Time");
         }

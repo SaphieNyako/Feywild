@@ -8,7 +8,6 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -80,10 +79,10 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     public static void anger(Level level, Player player, BlockPos pos) {
         if (!level.isClientSide && player instanceof ServerPlayer) {
                 QuestData quests = QuestData.get((ServerPlayer) player);
-                if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
-                    AABB aabb = new AABB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
+                if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.bee_knight.required_reputation) {
+                    AABB aabb = new AABB(pos).inflate(2 * MobConfig.bee_knight.aggrevation_range);
                     level.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> {
-                        if(entity.treasurePos != null && pos.closerThan(entity.treasurePos, MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
+                        if(entity.treasurePos != null && pos.closerThan(entity.treasurePos, MobConfig.bee_knight.aggrevation_range) && player != entity.getOwner())
                             entity.setAggravated(true);
                     });
                 }
@@ -106,14 +105,14 @@ public class BeeKnight extends FeyBase implements IAnimatable {
 
     @Override
     protected int getMovementRange() {
-        return 2 * MobConfig.summer_bee_knight.aggrevation_range;
+        return 2 * MobConfig.bee_knight.aggrevation_range;
     }
 
     @Override
     public void tick() {
         super.tick();
         if (!this.level.isClientSide && hurtTime > 0 && getLastHurtByMob() != getOwner()) {  //&& getTarget() != null
-            if (treasurePos != null && treasurePos.closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
+            if (treasurePos != null && treasurePos.closerThan(blockPosition(), 2 * MobConfig.bee_knight.aggrevation_range)) {
                 setTarget(getLastHurtByMob());
                 setAggravated(true);
             } else {
@@ -132,7 +131,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         if (!player.level.isClientSide && player instanceof ServerPlayer) {
             QuestData quests = QuestData.get((ServerPlayer) player);
-            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.summer_bee_knight.required_reputation && getOwner() == null ) || player.getUUID() == owner) {
+            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.bee_knight.required_reputation && getOwner() == null ) || player.getUUID() == owner) {
                 player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_pass"), player.getUUID());
             } else {
                 player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_fail"), player.getUUID());

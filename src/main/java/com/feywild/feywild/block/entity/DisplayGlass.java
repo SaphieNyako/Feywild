@@ -1,15 +1,18 @@
 package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.block.DisplayGlassBlock;
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.item.ModItems;
+import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
 import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
 import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
 import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -17,27 +20,30 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class DisplayGlass extends BlockEntityBase implements TickableBlockEntity {
+// TODO state is final now in a block entity
+//  Data will probably be lost when breakage changes
+//  Needs testing
+public class DisplayGlass extends BlockEntityBase implements TickableBlock {
 
     private final BaseItemStackHandler inventory;
-    private final LazyOptional<IItemHandlerModifiable> itemHandler;
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;
 
     private int generationCoolDown = 0;
     private int hitCounter = 0;
 
-    public DisplayGlass(BlockEntityType<?> blockEntityTypeIn) {
-        super(blockEntityTypeIn);
-        this.inventory = new BaseItemStackHandler(1, slot -> {
-            this.setChanged();
-            this.setDispatchable();
-        });
-        this.inventory.setDefaultSlotLimit(1);
-        this.itemHandler = ItemCapabilities.createLazy(() -> this.inventory);
+    public DisplayGlass(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+        this.inventory = BaseItemStackHandler.builder(1)
+                .contentsChanged(() -> {
+                    this.setChanged();
+                    this.setDispatchable();
+                })
+                .build();
+        this.itemHandler = ItemCapabilities.create(() -> this.inventory);
     }
 
     @Nonnull
@@ -55,7 +61,6 @@ public class DisplayGlass extends BlockEntityBase implements TickableBlockEntity
         if (level != null && !level.isClientSide) {
             if (generationCoolDown == 0 && getInventory().getStackInSlot(0).isEmpty() && getBlockState().getValue(DisplayGlassBlock.CAN_GENERATE)) {
                 level.setBlock(worldPosition, getBlockState().setValue(DisplayGlassBlock.BREAKAGE, 0), 3);
-                this.clearCache();
                 this.inventory.getUnrestricted().insertItem(0, new ItemStack(ModItems.honeycomb), false);
                 generationCoolDown = -1;
             } else if (generationCoolDown > 0) {
@@ -71,13 +76,12 @@ public class DisplayGlass extends BlockEntityBase implements TickableBlockEntity
             level.playSound(null, worldPosition, SoundEvents.GLASS_HIT, SoundSource.BLOCKS, 1, 1);
             if (hitCounter > 3) {
                 if (getBlockState().getValue(DisplayGlassBlock.BREAKAGE) == 3) {
-                    generationCoolDown = WorldGenConfig.structures.bee_keep.honey_timer;
+                    generationCoolDown = MiscConfig.magical_honey_timer;
                 }
                 if (getBlockState().getValue(DisplayGlassBlock.BREAKAGE) < 4) {
                     level.setBlock(worldPosition, getBlockState().setValue(DisplayGlassBlock.BREAKAGE, getBlockState().getValue(DisplayGlassBlock.BREAKAGE) + 1), 3);
                     level.playSound(null, worldPosition, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1, 1);
                     hitCounter = 0;
-                    this.clearCache();
                 }
             }
             this.setChanged();
@@ -94,8 +98,8 @@ public class DisplayGlass extends BlockEntityBase implements TickableBlockEntity
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
-        super.load(state, nbt);
+    public void load(@Nonnull CompoundTag nbt) {
+        super.load(nbt);
         this.inventory.deserializeNBT(nbt.getCompound("Inventory"));
         this.generationCoolDown = nbt.getInt("GenerationCoolDown");
         this.hitCounter = nbt.getInt("Hits");
@@ -112,8 +116,8 @@ public class DisplayGlass extends BlockEntityBase implements TickableBlockEntity
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundTag nbt) {
-        super.handleUpdateTag(state, nbt);
+    public void handleUpdateTag(CompoundTag nbt) {
+        super.handleUpdateTag(nbt);
         if (this.level != null && this.level.isClientSide) {
             this.inventory.deserializeNBT(nbt.getCompound("Inventory"));
         }

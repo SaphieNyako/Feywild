@@ -4,7 +4,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.util.LibraryBooks;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -21,24 +21,19 @@ public class RequestItemHandler {
 
 
             if (!item.isEmpty() && sender != null) {
-                sender.inventory.add(item);
+                sender.getInventory().add(item);
             }
         });
         context.get().setPacketHandled(true);
     }
 
     private static ItemStack getScroll(int id){
-        switch (id){
-            case 0:
-                return new ItemStack(ModItems.summoningScrollWinterPixie);
-            case 1:
-                return new ItemStack(ModItems.summoningScrollAutumnPixie);
-            case 2:
-                return new ItemStack(ModItems.summoningScrollSpringPixie);
-            case 3:
-                return new ItemStack(ModItems.summoningScrollSummerPixie);
-            default:
-                return ItemStack.EMPTY;
-        }
+        return switch (id) {
+            case 0 -> new ItemStack(ModItems.summoningScrollWinterPixie);
+            case 1 -> new ItemStack(ModItems.summoningScrollAutumnPixie);
+            case 2 -> new ItemStack(ModItems.summoningScrollSpringPixie);
+            case 3 -> new ItemStack(ModItems.summoningScrollSummerPixie);
+            default -> ItemStack.EMPTY;
+        };
     }
 }

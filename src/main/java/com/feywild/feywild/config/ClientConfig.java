@@ -10,6 +10,6 @@ public class ClientConfig {
     @Config("Whether tree particles should spawn.")
     public static boolean tree_particles = true;
 
-    @Config("Wether Fey Flowers particles should spawn.")
+    @Config("Whether Fey Flowers particles should spawn.")
     public static boolean flower_particles = true;
 }

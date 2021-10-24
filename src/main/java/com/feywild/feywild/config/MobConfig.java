@@ -1,61 +1,43 @@
 package com.feywild.feywild.config;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
+import com.feywild.feywild.config.data.CommonSpawns;
+import com.feywild.feywild.config.data.PixieSpawns;
+import io.github.noeppi_noeppi.libx.annotation.config.RegisterConfig;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
-import net.minecraft.resources.ResourceLocation;
+import io.github.noeppi_noeppi.libx.util.ResourceList;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;
-import java.util.Set;
 
 public class MobConfig {
 
-    public static class spring_pixie {
+    public static class spawns {
 
-        @Config("Spring pixie spawn chance")
-        @IntRange(min = 0)
-        public static int weight = 20;
-
-        @Config("Minimum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int min = 1;
-
-        @Config("Maximum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int max = 1;
-
-        @Config(value = "Biome types where the entity should spawn", mapper = "feywild:biome_types")
-        @SuppressWarnings("config")
-        public static List<BiomeDictionary.Type> biomes = ImmutableList.of(
+        public static PixieSpawns spring_pixie = new PixieSpawns(20, 1, 1, List.of(
                 BiomeDictionary.Type.RIVER, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.PLAINS,
                 BiomeDictionary.Type.MAGICAL
-        );
-    }
+        ));
 
-    public static class summer_pixie {
-
-        @Config("Summer pixie spawn chance")
-        @IntRange(min = 0)
-        public static int weight = 20;
-
-        @Config("Minimum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int min = 1;
-
-        @Config("Maximum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int max = 1;
-
-        @Config(value = "Biome types where the entity should spawn", mapper = "feywild:biome_types")
-        @SuppressWarnings("config")
-        public static List<BiomeDictionary.Type> biomes = ImmutableList.of(
+        public static PixieSpawns summer_pixie = new PixieSpawns(20, 1, 1, List.of(
                 BiomeDictionary.Type.LUSH, BiomeDictionary.Type.HOT, BiomeDictionary.Type.MAGICAL
-        );
+        ));
+
+        public static PixieSpawns autumn_pixie = new PixieSpawns(20, 1, 1, List.of(
+                BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.SPOOKY,
+                BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MAGICAL
+        ));
+
+        public static PixieSpawns winter_pixie = new PixieSpawns(20, 1, 1, List.of(
+                BiomeDictionary.Type.DEAD, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD,
+                BiomeDictionary.Type.MAGICAL
+        ));
+
+        public static CommonSpawns summer_bee_knight = new CommonSpawns(25, 1, 2);
+        public static CommonSpawns dwarf_blacksmith = new CommonSpawns(20, 1, 1);
     }
 
-    public static class summer_bee_knight {
+    public static class bee_knight {
 
         @Config("How much reputation the player needs to have for the guards to not attack him.")
         @IntRange(min = 0)
@@ -64,94 +46,13 @@ public class MobConfig {
         @Config("What should be the aggrevation range of the Bee Knights, when someone tries to steal their honey!")
         @IntRange(min = 3)
         public static int aggrevation_range = 20;
-
-        @Config("Bee knight spawn chance")
-        @IntRange(min = 0)
-        public static int weight = 25;
-
-        @Config("Minimum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int min = 1;
-
-        @Config("Maximum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int max = 2;
-
-    }
-
-    public static class autumn_pixie {
-
-        @Config("Autumn pixie spawn chance")
-        @IntRange(min = 0)
-        public static int weight = 20;
-
-        @Config("Minimum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int min = 1;
-
-        @Config("Maximum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int max = 1;
-
-        @Config(value = "Biome types where the entity should spawn", mapper = "feywild:biome_types")
-        @SuppressWarnings("config")
-        public static List<BiomeDictionary.Type> biomes = ImmutableList.of(
-                BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.SPOOKY,
-                BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MAGICAL
-        );
-    }
-
-    public static class winter_pixie {
-
-        @Config("Winter pixie spawn chance")
-        @IntRange(min = 0)
-        public static int weight = 20;
-
-        @Config("Minimum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int min = 1;
-
-        @Config("Maximum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int max = 1;
-
-        @Config(value = "Biome types where the entity should spawn", mapper = "feywild:biome_types")
-        @SuppressWarnings("config")
-        public static List<BiomeDictionary.Type> biomes = ImmutableList.of(
-                BiomeDictionary.Type.DEAD, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD,
-                BiomeDictionary.Type.MAGICAL
-        );
-    }
-
-    public static class dwarf_blacksmith {
-
-        @Config("Dwarf blacksmith spawn chance")
-        @IntRange(min = 0)
-        public static int weight = 20;
-
-        @Config("Minimum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int min = 1;
-
-        @Config("Maximum entities to spawn in a group group")
-        @IntRange(min = 1)
-        public static int max = 1;
     }
 
     public static class dimensions {
 
-        @Config(value = "What dimension biomes should be blacklisted for Feywild mobs", mapper = "feywild:resource_location")
-        @SuppressWarnings("config")
-        public static Set<ResourceLocation> black_list_biomes = ImmutableSet.of(
-                new ResourceLocation("undergarden", "barren_abyss"),
-                new ResourceLocation("undergarden", "dense_forest"),
-                new ResourceLocation("undergarden", "forgotten_field"),
-                new ResourceLocation("undergarden", "frostfields"),
-                new ResourceLocation("undergarden", "gronglegrowth"),
-                new ResourceLocation("undergarden", "mushroom_bog"),
-                new ResourceLocation("undergarden", "smog_spires"),
-                new ResourceLocation("undergarden", "smogstem_forest"),
-                new ResourceLocation("undergarden", "wigglewood_forest")
-        );
+        @Config(value = "What dimension biomes should be allowed for Feywild mobs")
+        public static ResourceList black_list_biomes = new ResourceList(false, builder -> {
+            builder.parse("undergarden:*");
+        });
     }
 }

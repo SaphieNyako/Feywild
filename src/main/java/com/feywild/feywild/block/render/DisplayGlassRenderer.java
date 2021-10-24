@@ -14,11 +14,7 @@ import com.mojang.math.Vector3f;
 
 import javax.annotation.Nonnull;
 
-public class DisplayGlassRenderer extends BlockEntityRenderer<DisplayGlass> {
-
-    public DisplayGlassRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
-    }
+public class DisplayGlassRenderer implements BlockEntityRenderer<DisplayGlass> {
 
     @Override
     public void render(DisplayGlass tile, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int light, int overlay) {
@@ -28,7 +24,7 @@ public class DisplayGlassRenderer extends BlockEntityRenderer<DisplayGlass> {
             poseStack.translate(0.5, 0.5, 0.5);
             poseStack.mulPose(Vector3f.YP.rotation((ClientTickHandler.ticksInGame + partialTicks) / 20f));
             poseStack.scale(0.85f, 0.85f, 0.85f);
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, 0);
             poseStack.popPose();
         }
     }

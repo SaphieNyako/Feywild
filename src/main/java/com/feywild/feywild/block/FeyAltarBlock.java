@@ -4,6 +4,7 @@ import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +19,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -32,7 +32,7 @@ public class FeyAltarBlock extends BlockBE<FeyAltar> {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ClientRegistry.bindTileEntityRenderer(this.getBlockEntityType(), FeyAltarRenderer::new));
+        defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), FeyAltarRenderer::new));
     }
 
     @Nonnull

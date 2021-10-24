@@ -4,6 +4,7 @@ import com.feywild.feywild.block.entity.AncientRunestone;
 import com.feywild.feywild.block.render.AncientRunestoneRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -15,7 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -30,7 +30,7 @@ public class AncientRunestoneBlock extends BlockBE<AncientRunestone> {
 
     @Override
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ClientRegistry.bindTileEntityRenderer(this.getBlockEntityType(), AncientRunestoneRenderer::new));
+        defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), ctx -> new AncientRunestoneRenderer()));
     }
 
     @Nonnull

@@ -3,7 +3,6 @@ package com.feywild.feywild.entity.base;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -122,13 +121,13 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
             BlockPos ground = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
             float slipperiness = 0.91f;
             if (this.onGround) {
-                slipperiness = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
+                slipperiness = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
             }
 
             float groundMovementModifier = 0.16277137f / (slipperiness * slipperiness * slipperiness);
             slipperiness = 0.91f;
             if (this.onGround) {
-                slipperiness = this.level.getBlockState(ground).getSlipperiness(this.level, ground, this) * 0.91F;
+                slipperiness = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
             }
 
             this.moveRelative(this.onGround ? 0.1f * groundMovementModifier : 0.02f, position);
@@ -139,7 +138,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
         this.animationSpeedOld = this.animationSpeed;
         double dx = this.getX() - this.xo;
         double dz = this.getZ() - this.zo;
-        float scaledLastHorizontalMotion = Mth.sqrt(dx * dx + dz * dz) * 4;
+        float scaledLastHorizontalMotion = (float) Math.sqrt(dx * dx + dz * dz) * 4;
         if (scaledLastHorizontalMotion > 1) {
             scaledLastHorizontalMotion = 1;
         }
@@ -158,7 +157,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     }
 
     @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
         return false;
     }
 
@@ -178,7 +177,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     }
 
     @Override
-    protected float getVoicePitch() {
+    public float getVoicePitch() {
         return 1;
     }
 

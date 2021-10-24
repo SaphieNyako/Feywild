@@ -4,24 +4,23 @@ import com.feywild.feywild.block.AncientRunestoneBlock;
 import com.feywild.feywild.block.entity.AncientRunestone;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.noeppi_noeppi.libx.render.ClientTickHandler;
+import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.util.LazyLoadedValue;
 import com.mojang.math.Vector3f;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-public class AncientRunestoneRenderer extends BlockEntityRenderer<AncientRunestone> {
+public class AncientRunestoneRenderer implements BlockEntityRenderer<AncientRunestone> {
 
-    private final LazyLoadedValue<ItemStack> stack = new LazyLoadedValue<>(() -> {
+    private final LazyValue<ItemStack> stack = new LazyValue<>(() -> {
         Item item = ForgeRegistries.ITEMS.getValue(AncientRunestoneBlock.NIDAVELLIR_RUNE);
         if (item == null) {
             return ItemStack.EMPTY;
@@ -30,10 +29,6 @@ public class AncientRunestoneRenderer extends BlockEntityRenderer<AncientRunesto
         }
     });
     
-    public AncientRunestoneRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
-    }
-
     @Override
     public void render(@Nonnull AncientRunestone tile, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int light, int overlay) {
         if (tile.time() > 0) {
@@ -44,7 +39,7 @@ public class AncientRunestoneRenderer extends BlockEntityRenderer<AncientRunesto
             poseStack.mulPose(Vector3f.ZP.rotationDegrees((float) (10 * Math.cos(rot))));
             poseStack.mulPose(Vector3f.XP.rotationDegrees(90));
             poseStack.scale(0.7f, 0.7f, 0.7f);
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack.get(), ItemTransforms.TransformType.FIXED, LightTexture.pack(15, 15), OverlayTexture.NO_OVERLAY, poseStack, buffer);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack.get(), ItemTransforms.TransformType.FIXED, LightTexture.pack(15, 15), OverlayTexture.NO_OVERLAY, poseStack, buffer, 0);
             poseStack.popPose();
         }
     }

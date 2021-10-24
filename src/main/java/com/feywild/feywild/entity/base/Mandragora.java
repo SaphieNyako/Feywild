@@ -13,7 +13,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -53,8 +52,6 @@ public class Mandragora extends PathfinderMob implements IAnimatable {
     private final AnimationFactory factory = new AnimationFactory(this);
 
     private BlockPos summonPos;
-    // private MandragoraVariant variant;
-    // private int variant;
 
     protected Mandragora(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
@@ -140,7 +137,7 @@ public class Mandragora extends PathfinderMob implements IAnimatable {
     }
 
     @Override
-    public boolean causeFallDamage(float distance, float damageMultiplier) {
+    public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
         return false;
     }
 
@@ -160,7 +157,7 @@ public class Mandragora extends PathfinderMob implements IAnimatable {
     }
 
     @Override
-    protected float getVoicePitch() {
+    public float getVoicePitch() {
         return 1;
     }
 
@@ -179,14 +176,11 @@ public class Mandragora extends PathfinderMob implements IAnimatable {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        switch (random.nextInt(5)) {
-            case 0:
-                return ModSoundEvents.mandragoraAmbience01;
-            case 1:
-                return ModSoundEvents.mandragoraAmbience02;
-            default:
-                return null;
-        }
+        return switch (random.nextInt(5)) {
+            case 0 -> ModSoundEvents.mandragoraAmbience01;
+            case 1 -> ModSoundEvents.mandragoraAmbience02;
+            default -> null;
+        };
     }
 
     @Nonnull

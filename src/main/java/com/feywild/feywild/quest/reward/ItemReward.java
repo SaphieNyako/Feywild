@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest.reward;
 
+import com.feywild.feywild.data.DataUtils;
 import com.google.gson.JsonObject;
-import io.github.noeppi_noeppi.libx.crafting.CraftingHelper2;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -21,7 +21,7 @@ public class ItemReward implements RewardType<ItemStack> {
 
     @Override
     public void grantReward(ServerPlayer player, ItemStack element) {
-        player.inventory.add(element.copy());
+        player.getInventory().add(element.copy());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ItemReward implements RewardType<ItemStack> {
     @Override
     public JsonObject toJson(ItemStack element) {
         JsonObject json = new JsonObject();
-        json.add("item", CraftingHelper2.serializeItemStack(element, true));
+        json.add("item", DataUtils.serializeWithNbt(element));
         return json;
     }
 }

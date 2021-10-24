@@ -43,7 +43,6 @@ public class DwarvenAnvilBlock extends BlockMenu<DwarvenAnvil, DwarvenAnvilConta
                 mod, DwarvenAnvil.class, BlockEntityMenu.createMenuType(DwarvenAnvilContainerMenu::new),
                 BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                         .strength(3f, 10f)
-                        .harvestLevel(2)
                         .sound(SoundType.ANVIL)
                         .lightLevel(value -> 14)
         );

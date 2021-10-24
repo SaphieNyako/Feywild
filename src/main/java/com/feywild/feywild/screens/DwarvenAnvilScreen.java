@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.container.DwarvenAnvilContainerMenu;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.noeppi_noeppi.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,17 +34,14 @@ public class DwarvenAnvilScreen extends AbstractContainerScreen<DwarvenAnvilCont
 
     @Override
     protected void renderLabels(@Nonnull PoseStack poseStack, int x, int y) {
-        drawString(poseStack, Minecraft.getInstance().font, new TranslatableComponent("screen.feywild.mana_amount", this.menu.blockEntity.getMana()), 118, 8, 0xffffff);
+        drawString(poseStack, Minecraft.getInstance().font, new TranslatableComponent("screen.feywild.mana_amount", this.menu.getBlockEntity().getMana()), 118, 8, 0xffffff);
     }
 
     @Override
     protected void renderBg(@Nonnull PoseStack poseStack, float partialTicks, int x, int y) {
-        //noinspection deprecation
-        RenderSystem.color4f(1, 1, 1, 1);
-        //noinspection ConstantConditions
-        this.minecraft.getTextureManager().bind(this.TEXTURE);
-        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight); //might be wrong
-        //position to place x, y position to get x, y width height and height is determined by the manalevel
-        this.blit(poseStack, this.leftPos + 13, this.topPos + 9, 176, 0, 11, 64 - (int) (this.menu.blockEntity.getMana() / 15.6f));
+        RenderHelper.resetColor();
+        RenderSystem.setShaderTexture(0, this.TEXTURE);
+        this.blit(poseStack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        this.blit(poseStack, this.leftPos + 13, this.topPos + 9, 176, 0, 11, 64 - (int) (this.menu.getBlockEntity().getMana() / 15.6f));
     }
 }

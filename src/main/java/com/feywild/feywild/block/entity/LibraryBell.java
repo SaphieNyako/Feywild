@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.entity;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,8 +24,8 @@ public class LibraryBell extends BlockEntity {
     @Nullable
     private UUID security = null;
 
-    public LibraryBell(BlockEntityType<?> type) {
-        super(type);
+    public LibraryBell(BlockEntityType<?> type, BlockPos worldPosition, BlockState blockState) {
+        super(type, worldPosition, blockState);
     }
 
     public int getAnnoyance() {
@@ -71,8 +72,8 @@ public class LibraryBell extends BlockEntity {
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
-        super.load(state, nbt);
+    public void load(@Nonnull CompoundTag nbt) {
+        super.load(nbt);
         this.annoyance = nbt.getInt("annoyance");
         this.player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
         this.librarian = nbt.hasUUID("librarianId") ? nbt.getUUID("librarianId") : null;

@@ -1,6 +1,12 @@
 package com.feywild.feywild.config;
 
+import com.feywild.feywild.config.data.BiomeData;
+import com.feywild.feywild.config.data.OreData;
+import com.feywild.feywild.config.data.StructureData;
+import com.feywild.feywild.config.validator.StructureCfg;
+import io.github.noeppi_noeppi.libx.annotation.config.RegisterConfig;
 import io.github.noeppi_noeppi.libx.config.Config;
+import io.github.noeppi_noeppi.libx.config.Group;
 import io.github.noeppi_noeppi.libx.config.validator.FloatRange;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 
@@ -8,155 +14,41 @@ public class WorldGenConfig {
 
     public static class biomes {
 
-        public static class spring {
-
-            @Config("Weight for the spring biome to be generated")
-            @IntRange(min = 0)
-            public static int weight = 15;
-
-            @Config("Size of a spring biome")
-            @FloatRange(min = 0, max = 1)
-            public static float size = 0.005f;
-        }
-
-        public static class summer {
-
-            @Config("Weight for the summer biome to be generated")
-            @IntRange(min = 0)
-            public static int weight = 15;
-
-            @Config("Size of a summer biome")
-            @FloatRange(min = 0, max = 1)
-            public static float size = 0.005f;
-        }
-
-        public static class autumn {
-
-            @Config("Weight for the autumn biome to be generated")
-            @IntRange(min = 0)
-            public static int weight = 15;
-
-            @Config("Size of a autumn biome")
-            @FloatRange(min = 0, max = 1)
-            public static float size = 0.005f;
-        }
-
-        public static class winter {
-
-            @Config("Weight for the winter biome to be generated")
-            @IntRange(min = 0)
-            public static int weight = 15;
-
-            @Config("Size of a winter biome")
-            @FloatRange(min = 0, max = 1)
-            public static float size = 0.005f;
-        }
+        public static BiomeData spring = new BiomeData(15, 0.005f);
+        public static BiomeData summer = new BiomeData(15, 0.005f);
+        public static BiomeData autumn = new BiomeData(15, 0.005f);
+        public static BiomeData winter = new BiomeData(15, 0.005f);
     }
 
+    @Group("Structure setting. Avergae distance must be greater that minimum distance.")
     public static class structures {
 
-        public static class spring_world_tree {
-
-            @Config("The minimum distance between two spring world trees")
-            @IntRange(min = 1)
-            public static int minimum_distance = 50;
-
-            @Config("The average distance between two spring world trees. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 100;
-        }
-
-        public static class bee_keep {
-
-            @Config("The minimum distance between two  bee keeps")
-            @IntRange(min = 1)
-            public static int minimum_distance = 20;
-
-            @Config("The average distance between two bee keeps. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 30;
-
-            @Config("The amount of time in seconds that the magical honey needs to respawn")
-            @IntRange(min = 1)
-            public static int honey_timer = 1200;
-        }
-
-        public static class summer_world_tree {
-
-            @Config("The minimum distance between two summer world trees")
-            @IntRange(min = 1)
-            public static int minimum_distance = 50;
-
-            @Config("The average distance between two summer world trees. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 100;
-        }
-
-        public static class autumn_world_tree {
-
-            @Config("The minimum distance between two autumn world trees")
-            @IntRange(min = 1)
-            public static int minimum_distance = 50;
-
-            @Config("The average distance between two autumn world trees. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 100;
-        }
-
-        public static class winter_world_tree {
-
-            @Config("The minimum distance between two winter world trees")
-            @IntRange(min = 1)
-            public static int minimum_distance = 50;
-
-            @Config("The average distance between two winter world trees. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 100;
-        }
-
-        public static class library {
-
-            @Config("The minimum distance between two libraries")
-            @IntRange(min = 1)
-            public static int minimum_distance = 25;
-
-            @Config("The average distance between two libraries. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 35;
-        }
-
-        public static class blacksmith {
-
-            @Config("The minimum distance between two blacksmiths")
-            @IntRange(min = 1)
-            public static int minimum_distance = 25;
-
-            @Config("The average distance between two blacksmiths. Must be higher than minimum.")
-            @IntRange(min = 1)
-            public static int average_distance = 35;
-        }
+        @StructureCfg
+        public static StructureData spring_world_tree = new StructureData(50, 100);
+        
+        @StructureCfg
+        public static StructureData summer_world_tree = new StructureData(50, 100);
+        
+        @StructureCfg
+        public static StructureData autumn_world_tree = new StructureData(50, 100);
+        
+        @StructureCfg
+        public static StructureData winter_world_tree = new StructureData(50, 100);
+        
+        @StructureCfg
+        public static StructureData bee_keep = new StructureData(20, 30);
+        
+        @StructureCfg
+        public static StructureData library = new StructureData(25, 35);
+        
+        @StructureCfg
+        public static StructureData blacksmith = new StructureData(25, 35);
     }
 
     public static class ores {
 
-        public static class fey_gem {
-
-            @Config("Weight for fey gems to spawn")
-            @IntRange(min = 0)
-            public static int weight = 10;
-
-            @Config("Size for fey gems veins")
-            @IntRange(min = 0)
-            public static int size = 5;
-
-            @Config("Minimum height for fey gems veins")
-            @IntRange(min = 0, max = 255)
-            public static int min_height = 11;
-
-            @Config("Maximum height for fey gems veins")
-            @IntRange(min = 0, max = 255)
-            public static int max_height = 45;
-        }
+        @Config("Spawn settings for fey gem ore.")
+        public static OreData fey_gem = new OreData(10, 5, 11, 45);
     }
 
     public static class tree_patches {

@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class SummonSnowManGoal extends Goal {
 
-    private static final TargetingConditions TARGETING = (new TargetingConditions()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable().selector(living -> !(living instanceof Fey));
+    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight().selector(living -> !(living instanceof Fey));
 
     private final Fey entity;
     private int ticksLeft = 0;

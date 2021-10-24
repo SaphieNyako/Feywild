@@ -3,7 +3,7 @@ package com.feywild.feywild.screens;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.screens.widget.BookWidget;
 import com.feywild.feywild.screens.widget.ScrollWidget;
-import com.feywild.feywild.util.TextProcessor;
+import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
@@ -42,11 +42,11 @@ public class OpeningScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        text = TextProcessor.process(new TranslatableComponent("screen.feywild.opening_screen")).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
+        text = FeywildTextProcessor.INSTANCE.process(new TranslatableComponent("screen.feywild.opening_screen")).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
         int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (BookWidget.WIDTH + 4), this.itemStacks.size()));
         int paddingStart = (this.width - (buttonsPerRow * 29)) / 2 - 54;
         for (int i = 0; i < this.itemStacks.size(); i++) {
-            this.addButton(new ScrollWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 200 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)) - 50, i , this.itemStacks.get(i)));
+            this.addRenderableWidget(new ScrollWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 200 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)) - 50, i , this.itemStacks.get(i)));
         }
     }
 

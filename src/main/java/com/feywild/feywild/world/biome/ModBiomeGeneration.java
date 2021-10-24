@@ -16,10 +16,10 @@ public class ModBiomeGeneration {
     
     public static void setupBiomes() {
         if (CompatConfig.mythic_alfheim.overworld) {
-            addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.spring.weight, MAGICAL, FOREST);
-            addBiome(ModBiomes.goldenSeelieFields, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.summer.weight, MAGICAL, HOT);
-            addBiome(ModBiomes.eternalFall, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.autumn.weight, MAGICAL, MUSHROOM);
-            addBiome(ModBiomes.frozenRetreat, BiomeManager.BiomeType.ICY, WorldGenConfig.biomes.winter.weight, MAGICAL, COLD);
+            addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.spring.weight(), MAGICAL, FOREST);
+            addBiome(ModBiomes.goldenSeelieFields, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.summer.weight(), MAGICAL, HOT);
+            addBiome(ModBiomes.eternalFall, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.autumn.weight(), MAGICAL, MUSHROOM);
+            addBiome(ModBiomes.frozenRetreat, BiomeManager.BiomeType.ICY, WorldGenConfig.biomes.winter.weight(), MAGICAL, COLD);
         }
     }
 

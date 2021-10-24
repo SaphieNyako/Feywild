@@ -4,7 +4,6 @@ import com.feywild.feywild.config.ClientConfig;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.base.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.*;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -28,7 +27,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IForgeShearable;
-import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -52,8 +50,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     
     public FeyLeavesBlock(ModX mod, int chance, SimpleParticleType particle) {
         super(mod, BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS)
-                .harvestTool(ToolType.HOE).noOcclusion().isValidSpawn((s, r, p, t) -> false).isSuffocating((s, r, p) -> false)
-                .isViewBlocking((s, r, p) -> false));
+                .noOcclusion().isValidSpawn((s, r, p, t) -> false).isSuffocating((s, r, p) -> false).isViewBlocking((s, r, p) -> false));
         this.chance = chance;
         this.particle = particle;
 

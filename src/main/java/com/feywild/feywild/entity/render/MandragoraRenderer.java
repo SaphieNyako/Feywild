@@ -6,11 +6,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
@@ -20,12 +19,12 @@ import java.util.function.Supplier;
 
 public class MandragoraRenderer<T extends Mandragora> extends GeoEntityRenderer<T> {
 
-    public MandragoraRenderer(EntityRenderDispatcher renderManager, AnimatedGeoModel<T> model) {
-        super(renderManager, model);
+    public MandragoraRenderer(EntityRendererProvider.Context manager, AnimatedGeoModel<T> model) {
+        super(manager, model);
         this.shadowRadius = 0.2F;
     }
 
-    public static <T extends Mandragora> IRenderFactory<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
+    public static <T extends Mandragora> EntityRendererProvider<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
         return manager -> new MandragoraRenderer<>(manager, modelProvider.get());
     }
 

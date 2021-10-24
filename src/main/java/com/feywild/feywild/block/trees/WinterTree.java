@@ -2,6 +2,7 @@ package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowyDirtBlock;
@@ -9,16 +10,15 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.util.UniformInt;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
-public class WinterTreeGrower extends BaseTreeGrower {
+public class WinterTree extends BaseTree {
 
-    public WinterTreeGrower(ModX mod) {
+    public WinterTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 15, ModParticles.winterLeafParticle));
     }
 
@@ -32,8 +32,8 @@ public class WinterTreeGrower extends BaseTreeGrower {
     @Override
     protected FoliagePlacer getFoliagePlacer() {
         return new LeavesPlacer(
-                UniformInt.fixed(this.getLeavesRadius()),
-                UniformInt.fixed(this.getLeavesOffset()),
+                UniformInt.of(this.getLeavesRadius(), this.getLeavesRadius()),
+                UniformInt.of(this.getLeavesOffset(), this.getLeavesOffset()),
                 this.getLeavesHeight()
         );
     }
@@ -48,7 +48,6 @@ public class WinterTreeGrower extends BaseTreeGrower {
         protected void decorateLeaves(BlockState state, WorldGenLevel level, BlockPos pos, Random random) {
             BlockPos.MutableBlockPos mpos = pos.mutable();
             for (int i = 0; i < 30; i++) {
-                //noinspection deprecation
                 if (level.getBlockState(mpos).isAir() && Tags.Blocks.DIRT.contains(level.getBlockState(mpos.below()).getBlock())) {
                     level.setBlock(mpos, Blocks.SNOW.defaultBlockState(), 19);
                     if (level.getBlockState(mpos.below()).hasProperty(SnowyDirtBlock.SNOWY))

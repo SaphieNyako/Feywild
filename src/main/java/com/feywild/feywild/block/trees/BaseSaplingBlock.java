@@ -3,7 +3,6 @@ package com.feywild.feywild.block.trees;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.item.BlockItem;
@@ -38,10 +37,10 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
 
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
-    private final BaseTreeGrower tree;
+    private final BaseTree tree;
     private final BlockItem item;
 
-    public BaseSaplingBlock(ModX mod, BaseTreeGrower tree) {
+    public BaseSaplingBlock(ModX mod, BaseTree tree) {
         super(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
         this.tree = tree;
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
@@ -49,7 +48,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     }
 
     @Override
-    public Set<Object> getAdditionalRegisters() {
+    public Set<Object> getAdditionalRegisters(ResourceLocation id) {
         return ImmutableSet.of(this.item);
     }
 
@@ -103,7 +102,6 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
                             // to prevent floating pumpkins
                             for (int yd = 2; yd >= -2; yd--) {
                                 BlockPos target = pos.offset(xd, yd, zd);
-                                //noinspection deprecation
                                 if (level.getBlockState(target).isAir() || level.getBlockState(target).getMaterial().isReplaceable()) {
                                     if (level.getBlockState(target.below()).isFaceSturdy(level, pos.below(), Direction.UP)) {
                                         this.tree.decorateSaplingGrowth(level, target, random);

@@ -3,7 +3,7 @@ package com.feywild.feywild.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -31,17 +31,17 @@ public class ParticleHandler {
                         break;
                     case ANIMAL_BREED:
                         for (int i = 0; i < 10; i++) {
-                            double x = msg.x - 0.5 + world.random.nextDouble();
-                            double y = msg.y + world.random.nextDouble();
-                            double z = msg.z - 0.5 + world.random.nextDouble();
+                            double x = msg.x - 0.5 + level.random.nextDouble();
+                            double y = msg.y + level.random.nextDouble();
+                            double z = msg.z - 0.5 + level.random.nextDouble();
                             level.addParticle(ParticleTypes.TOTEM_OF_UNDYING, true, x, y, z, (msg.vx - x) * 0.11, (msg.vy - y) * 0.11, (msg.vz - z) * 0.11);
                         }
                         break;
                     case MONSTER_FIRE:
                         for (int i = 0; i < 20; i++) {
-                            double x = msg.x - 0.5 + world.random.nextDouble();
-                            double y = msg.y + world.random.nextDouble();
-                            double z = msg.z - 0.5 + world.random.nextDouble();
+                            double x = msg.x - 0.5 + level.random.nextDouble();
+                            double y = msg.y + level.random.nextDouble();
+                            double z = msg.z - 0.5 + level.random.nextDouble();
                             level.addParticle(ParticleTypes.FLAME, true, x, y, z, (msg.vx - x) * 0.15, (msg.vy - y) * 0.15, (msg.vz - z) * 0.15);
                         }
                         break;

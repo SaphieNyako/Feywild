@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 public class TargetBreedGoal extends Goal {
 
-    private static final TargetingConditions TARGETING = (new TargetingConditions()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable();
+    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
 
     private final Fey entity;
     private Animal targetAnimal;

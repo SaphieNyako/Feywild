@@ -4,9 +4,10 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.quest.SelectQuestSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import com.feywild.feywild.util.TextProcessor;
+import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.noeppi_noeppi.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
@@ -31,7 +32,7 @@ public class QuestWidget extends Button {
     private final ItemStack iconStack;
 
     public QuestWidget(int x, int y, Alignment alignment, SelectableQuest quest) {
-        super(x, y, WIDTH, HEIGHT, TextProcessor.processLine(quest.display.title), b -> {});
+        super(x, y, WIDTH, HEIGHT, FeywildTextProcessor.INSTANCE.processLine(quest.display.title), b -> {});
         this.alignment = alignment;
         this.quest = quest;
         this.iconStack = new ItemStack(quest.icon);
@@ -40,20 +41,19 @@ public class QuestWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        FeywildMod.getNetwork().instance.sendToServer(new SelectQuestSerializer.Message(this.quest.id));
+        FeywildMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id));
     }
 
     @Override
     public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        //noinspection deprecation
-        RenderSystem.color4f(1, 1, 1, 1);
-        Minecraft.getInstance().getTextureManager().bind(SELECTION_TEXTURE);
+        RenderHelper.resetColor();
+        RenderSystem.setShaderTexture(0, SELECTION_TEXTURE);
         if (this.isHovered(mouseX, mouseY)) {
             this.blit(poseStack, this.x, this.y + 5, 12, 0, 14, 14);
         } else {
             this.blit(poseStack, this.x, this.y + 5, 0, 0, 12, 12);
         }
-        Minecraft.getInstance().getTextureManager().bind(SLOT_TEXTURE);
+        RenderSystem.setShaderTexture(0, SLOT_TEXTURE);
         this.blit(poseStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24);
         Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack,this.x + 19,this.y + 4);
         Font font = Minecraft.getInstance().font;

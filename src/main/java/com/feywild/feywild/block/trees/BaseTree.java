@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
@@ -28,13 +29,12 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import net.minecraft.util.UniformInt;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 
-public abstract class BaseTreeGrower extends AbstractTreeGrower implements Registerable {
+public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
 
     private static final int BASE_HEIGHT = 6;
     private static final int FIRST_RANDOM_HEIGHT = 7;
@@ -54,7 +54,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
     private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
 
-    public BaseTreeGrower(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
+    public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.logBlock = new FeyLogBlock(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
         this.woodBlock = new FeyWoodBlock(this.logBlock, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
@@ -63,14 +63,14 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
 
         this.logRegister = new Registerable() {
             @Override
-            public Set<Object> getAdditionalRegisters() {
-                return ImmutableSet.of(BaseTreeGrower.this.logBlock, BaseTreeGrower.this.logItem);
+            public Set<Object> getAdditionalRegisters(ResourceLocation id) {
+                return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem);
             }
         };
         this.woodRegister = new Registerable() {
             @Override
-            public Set<Object> getAdditionalRegisters() {
-                return ImmutableSet.of(BaseTreeGrower.this.woodBlock, BaseTreeGrower.this.woodItem);
+            public Set<Object> getAdditionalRegisters(ResourceLocation id) {
+                return ImmutableSet.of(BaseTree.this.woodBlock, BaseTree.this.woodItem);
             }
         };
 
@@ -79,7 +79,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
     }
 
     @Override
-    public Map<String, Object> getNamedAdditionalRegisters() {
+    public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
         return ImmutableMap.of(
                 "log", this.logRegister,
                 "wood", this.woodRegister,
@@ -98,17 +98,18 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
     protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 new SimpleStateProvider(this.getLogBlock().defaultBlockState()),
-                new SimpleStateProvider(this.getLeafBlock().defaultBlockState()),
-                this.getFoliagePlacer(),
                 this.getGiantTrunkPlacer(),
+                new SimpleStateProvider(this.getLeafBlock().defaultBlockState()),
+                new SimpleStateProvider(this.getSapling().defaultBlockState()),
+                this.getFoliagePlacer(),
                 this.getTwoLayerFeature()
         );
     }
 
     protected FoliagePlacer getFoliagePlacer() {
         return new BlobFoliagePlacer(
-                UniformInt.fixed(this.getLeavesRadius()),
-                UniformInt.fixed(this.getLeavesOffset()),
+                UniformInt.of(this.getLeavesRadius(), this.getLeavesRadius()),
+                UniformInt.of(this.getLeavesOffset(), this.getLeavesOffset()),
                 this.getLeavesHeight()
         );
     }
@@ -169,7 +170,6 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (!(i == 0 && j == 0)) {
-                    //noinspection deprecation
                     if (!level.isStateAtPosition(pos.offset(i, 0, j), BlockBehaviour.BlockStateBase::isAir) &&
                             !level.isStateAtPosition(pos.offset(i, 0, j), blockState -> blockState.getMaterial().equals(Material.REPLACEABLE_PLANT))) {
                         return false;

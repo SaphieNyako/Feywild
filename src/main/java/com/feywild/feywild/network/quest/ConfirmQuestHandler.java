@@ -2,7 +2,7 @@ package com.feywild.feywild.network.quest;
 
 import com.feywild.feywild.quest.player.QuestData;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 

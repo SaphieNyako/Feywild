@@ -3,6 +3,7 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseSaplingBlock;
 import com.feywild.feywild.item.Schematics;
+import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.ItemModelProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
+@Datagen
 public class ItemModelProvider extends ItemModelProviderBase {
 
     public ItemModelProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {

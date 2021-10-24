@@ -28,7 +28,7 @@ public class BeeRestrictAttackGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return beeKnight.isAggravated() && beeKnight.getTreasurePos() != null && beeKnight.getTreasurePos().closerThan(beeKnight.blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range) && beeKnight.getTarget() != null && !beeKnight.getTarget().isDeadOrDying();
+        return beeKnight.isAggravated() && beeKnight.getTreasurePos() != null && beeKnight.getTreasurePos().closerThan(beeKnight.blockPosition(), 2 * MobConfig.bee_knight.aggrevation_range) && beeKnight.getTarget() != null && !beeKnight.getTarget().isDeadOrDying();
     }
 
     @Override

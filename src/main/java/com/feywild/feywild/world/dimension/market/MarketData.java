@@ -18,19 +18,18 @@ public class MarketData extends SavedData  {
     public static MarketData get(ServerLevel level) {
         if (level.dimension() != ModDimensions.MARKET_PLACE_DIMENSION) return null;
         DimensionDataStorage storage = level.getDataStorage();
-        return storage.computeIfAbsent(MarketData::new, FeywildMod.getInstance().modid);
+        return storage.computeIfAbsent(MarketData::new, MarketData::new, FeywildMod.getInstance().modid + "_market");
     }
 
     private boolean open;
     private boolean generated;
     
     public MarketData() {
-        super(FeywildMod.getInstance().modid);
-        this.generated = false;
+        open = false;
+        generated = false;
     }
     
-    @Override
-    public void load(@Nonnull CompoundTag nbt) {
+    public MarketData(@Nonnull CompoundTag nbt) {
         open = nbt.getBoolean("Open");
         generated = nbt.getBoolean("Generated");
     }
@@ -55,7 +54,7 @@ public class MarketData extends SavedData  {
 
     public void update(MinecraftServer server, Runnable onClose) {
         ServerLevel level = server.overworld();
-        boolean shouldBeOpen = world.getDayTime() < 13000;
+        boolean shouldBeOpen = level.getDayTime() < 13000;
         if (shouldBeOpen != open) {
             if (!shouldBeOpen) {
                 onClose.run();

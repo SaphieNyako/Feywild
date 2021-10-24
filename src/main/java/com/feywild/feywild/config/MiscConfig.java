@@ -1,5 +1,7 @@
 package com.feywild.feywild.config;
 
+import com.feywild.feywild.config.data.ScrollSelectType;
+import io.github.noeppi_noeppi.libx.annotation.config.RegisterConfig;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 
@@ -9,7 +11,7 @@ public class MiscConfig {
     public static boolean initial_lexicon = true;
 
     @Config("Whether the players should be able to select one of the court's scrolls on first login, on first time opening the guide book or none.")
-    public static ScrollConfig initial_scroll = ScrollConfig.NONE;
+    public static ScrollSelectType initial_scroll = ScrollSelectType.NONE;
 
     @Config("The duration in ticks for the levitation effect applied by fey dust.")
     @IntRange(min = 1)
@@ -19,4 +21,7 @@ public class MiscConfig {
     @IntRange(min = 1, max = 100)
     public static int rune_stone_weight = 20;
 
+    @Config("The amount of time in seconds that the magical honey needs to respawn")
+    @IntRange(min = 1)
+    public static int magical_honey_timer = 1200;
 }

@@ -52,8 +52,8 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
 
     @Nonnull
     @Override
-    public String getTitle() {
-        return I18n.get("jei.trades.title");
+    public Component getTitle() {
+        return new TranslatableComponent("jei.trades.title");
     }
 
     @Nonnull

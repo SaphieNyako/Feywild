@@ -13,15 +13,14 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AutumnTreeGrower extends BaseTreeGrower {
+public class AutumnTree extends BaseTree {
 
-    public AutumnTreeGrower(ModX mod) {
+    public AutumnTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
     }
 

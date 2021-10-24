@@ -56,11 +56,11 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
             if (tile.getLibrarian() != null) {
                 Entity librarian = ((ServerLevel) level).getEntity(tile.getLibrarian());
                 if (librarian instanceof Villager) ((Villager) librarian).releaseAllPois();
-                if (librarian != null) librarian.remove();
+                if (librarian != null) librarian.remove(Entity.RemovalReason.DISCARDED);
             }
             if (tile.getSecurity() != null) {
                 Entity security = ((ServerLevel) level).getEntity(tile.getSecurity());
-                if (security != null) security.remove();
+                if (security != null) security.remove(Entity.RemovalReason.DISCARDED);
             }
         }
         super.onRemove(state, level, pos, newState, moving);
@@ -114,7 +114,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
                 if (librarian != null && librarian.isAlive()) {
                     if (librarian instanceof Villager) ((Villager) librarian).releaseAllPois();
-                    librarian.remove();
+                    librarian.remove(Entity.RemovalReason.DISCARDED);
                 }
 
                 Villager entity = new Villager(EntityType.VILLAGER, level);
@@ -138,19 +138,23 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState state) {
+    public boolean isRandomlyTicking(@Nonnull BlockState state) {
         return true;
     }
-
+    
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    @SuppressWarnings("deprecation")
+    public void randomTick(@Nonnull BlockState state, ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
         LibraryBell entity = (LibraryBell) level.getBlockEntity(pos);
 
-        if (level.getEntity(entity.getSecurity()) != null) {
-            entity.setDespawnTimer(entity.getDespawnTimer() + 1);
-            if (entity.getDespawnTimer() >= 2) {
-                entity.setDespawnTimer(0);
-                level.getEntity(entity.getSecurity()).remove();
+        if (entity != null && entity.getSecurity() != null) {
+            Entity security = level.getEntity(entity.getSecurity());
+            if (security != null) {
+                entity.setDespawnTimer(entity.getDespawnTimer() + 1);
+                if (entity.getDespawnTimer() >= 2) {
+                    entity.setDespawnTimer(0);
+                    security.remove(Entity.RemovalReason.DISCARDED);
+                }
             }
         }
     }
