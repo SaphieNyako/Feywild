@@ -5,6 +5,7 @@ import io.github.noeppi_noeppi.libx.base.decoration.DecorationContext;
 import io.github.noeppi_noeppi.libx.base.decoration.DecorationType;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,8 +18,8 @@ public class FeyWoodBlock extends DecoratedBlock {
 
     private static final DecorationContext DECORATION = new DecorationContext("fey_tree", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB, DecorationType.STAIR);
     
-    public FeyWoodBlock(ModX mod, Properties properties) {
-        super(mod, DECORATION, properties);
+    public FeyWoodBlock(ModX mod, Properties properties, Item.Properties itemProperties) {
+        super(mod, DECORATION, properties, itemProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
     }
     

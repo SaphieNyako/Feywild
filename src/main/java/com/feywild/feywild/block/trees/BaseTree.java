@@ -52,7 +52,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final BaseSaplingBlock sapling;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
-        this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD));
+        this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.logBlock = new FeyLogBlock(this.woodBlock, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
