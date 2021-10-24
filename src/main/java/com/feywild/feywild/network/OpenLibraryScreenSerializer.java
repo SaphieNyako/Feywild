@@ -2,9 +2,9 @@ package com.feywild.feywild.network;
 
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 

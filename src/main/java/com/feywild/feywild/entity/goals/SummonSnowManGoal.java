@@ -4,9 +4,9 @@ import com.feywild.feywild.entity.WinterPixie;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.phys.Vec3;
 

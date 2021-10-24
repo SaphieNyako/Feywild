@@ -10,13 +10,13 @@
       "item": "feywild:fey_dust"
     },
     "p": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "d": {
       "item": "feywild:brilliant_fey_gem"
     },
     "g": {
-      "item": "minecraft:gold_nugget"
+      "tag": "forge:nuggets/gold"
     }
   },
   "result": {

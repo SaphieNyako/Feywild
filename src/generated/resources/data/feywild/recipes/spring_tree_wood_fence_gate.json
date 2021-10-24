@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "s#s",
+    "s#s"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:spring_tree_wood"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "feywild:spring_tree_wood_fence_gate"
+  }
+}

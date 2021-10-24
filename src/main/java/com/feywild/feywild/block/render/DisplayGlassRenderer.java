@@ -2,15 +2,14 @@ package com.feywild.feywild.block.render;
 
 import com.feywild.feywild.block.entity.DisplayGlass;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 import io.github.noeppi_noeppi.libx.render.ClientTickHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemStack;
-import com.mojang.math.Vector3f;
 
 import javax.annotation.Nonnull;
 

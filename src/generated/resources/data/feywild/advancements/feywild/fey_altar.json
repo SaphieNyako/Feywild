@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:fey_altar"
+            "items": [
+              "feywild:fey_altar"
+            ]
           }
         ]
       }

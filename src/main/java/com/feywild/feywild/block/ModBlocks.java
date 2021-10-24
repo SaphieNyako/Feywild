@@ -1,10 +1,6 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.decorative.FenceBlockBase;
-import com.feywild.feywild.block.decorative.FenceGateBlockBase;
-import com.feywild.feywild.block.decorative.SlabBlockBase;
-import com.feywild.feywild.block.decorative.StairsBlockBase;
 import com.feywild.feywild.block.entity.LibraryBell;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
@@ -13,9 +9,9 @@ import com.feywild.feywild.block.flower.SunflowerBlock;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import io.github.noeppi_noeppi.libx.base.BlockBase;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 
 @RegisterClass
@@ -41,8 +37,4 @@ public class ModBlocks {
     public static final AncientRunestoneBlock ancientRunestone = new AncientRunestoneBlock(FeywildMod.getInstance());
 
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
-
-    /* DECORATIVE BLOCKS - comment out when running runData */
-
-    // TODO readd decorative blocks but use LibX. Then also integrate it into datagen
 }

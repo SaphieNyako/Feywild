@@ -2,9 +2,9 @@ package com.feywild.feywild.quest;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;

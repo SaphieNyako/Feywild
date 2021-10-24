@@ -6,9 +6,6 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
-// Only use for vanilla goals
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
-
 public class TameCheckingGoal extends Goal {
     
     private final ITameable entity;

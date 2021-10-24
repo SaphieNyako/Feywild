@@ -3,7 +3,8 @@
   "pools": [
     {
       "name": "main",
-      "rolls": 1,
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "libx:all",
@@ -43,7 +44,8 @@
         {
           "condition": "minecraft:survives_explosion"
         }
-      ]
+      ],
+      "functions": []
     }
   ]
 }

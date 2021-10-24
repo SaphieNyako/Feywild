@@ -3,8 +3,8 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.mandragora.*;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 
 @RegisterClass
 public class ModEntityTypes {

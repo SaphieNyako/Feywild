@@ -1,7 +1,7 @@
 package com.feywild.feywild.util;
 
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.AABB;
 
 public class BoundingBoxUtil {
     

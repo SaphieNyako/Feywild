@@ -6,12 +6,26 @@
     ]
   },
   "criteria": {
-    "has_item": {
+    "criterion0": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:fey_dust"
+            "items": [
+              "minecraft:book"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:fey_dust"
+            ]
           }
         ]
       }
@@ -25,7 +39,8 @@
   },
   "requirements": [
     [
-      "has_item",
+      "criterion0",
+      "criterion1",
       "has_the_recipe"
     ]
   ]

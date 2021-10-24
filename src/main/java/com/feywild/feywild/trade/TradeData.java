@@ -2,10 +2,10 @@ package com.feywild.feywild.trade;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.item.trading.MerchantOffers;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Random;

@@ -1,6 +1,0 @@
-{
-  "parent": "block/fence_post",
-  "textures": {
-    "texture": "feywild:block/summer_tree_log"
-  }
-}

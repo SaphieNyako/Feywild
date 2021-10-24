@@ -3,8 +3,8 @@ package com.feywild.feywild.recipes;
 import io.github.noeppi_noeppi.libx.annotation.registration.NoReg;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegName;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.core.Registry;
+import net.minecraft.world.item.crafting.RecipeType;
 
 @RegisterClass
 public class ModRecipeTypes {

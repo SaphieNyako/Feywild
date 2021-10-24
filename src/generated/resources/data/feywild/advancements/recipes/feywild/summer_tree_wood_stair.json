@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "feywild:summer_tree_wood_stair"
+    ]
+  },
+  "criteria": {
+    "criterion0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:summer_tree_wood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "feywild:summer_tree_wood_stair"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "criterion0",
+      "has_the_recipe"
+    ]
+  ]
+}

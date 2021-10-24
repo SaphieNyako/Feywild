@@ -1,8 +1,8 @@
 package com.feywild.feywild.quest.task;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {

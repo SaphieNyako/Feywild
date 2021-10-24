@@ -1,7 +1,6 @@
 package com.feywild.feywild.config.mapper;
 
 import com.google.gson.JsonPrimitive;
-import io.github.noeppi_noeppi.libx.annotation.config.RegisterMapper;
 import io.github.noeppi_noeppi.libx.config.ValidatorInfo;
 import io.github.noeppi_noeppi.libx.config.ValueMapper;
 import io.github.noeppi_noeppi.libx.config.gui.ConfigEditor;

@@ -4,35 +4,34 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
+import net.minecraft.world.level.material.Material;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
-
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 
 public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
 
@@ -47,30 +46,20 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyLogBlock logBlock;
     private final FeyWoodBlock woodBlock;
     private final BlockItem logItem;
-    private final BlockItem woodItem;
 
     private final Registerable logRegister;
-    private final Registerable woodRegister;
     private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
-        this.logBlock = new FeyLogBlock(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
-        this.woodBlock = new FeyWoodBlock(this.logBlock, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD));
-        Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
-        this.logItem = new BlockItem(this.logBlock, properties);
-        this.woodItem = new BlockItem(this.woodBlock, properties);
+        this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD));
+        this.logBlock = new FeyLogBlock(this.woodBlock, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
+        this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
                 return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem);
-            }
-        };
-        this.woodRegister = new Registerable() {
-            @Override
-            public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTree.this.woodBlock, BaseTree.this.woodItem);
             }
         };
 
@@ -82,7 +71,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
         return ImmutableMap.of(
                 "log", this.logRegister,
-                "wood", this.woodRegister,
+                "wood", this.woodBlock,
                 "leaves", this.leaves,
                 "sapling", this.sapling
         );
@@ -125,15 +114,15 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     public abstract void decorateSaplingGrowth(ServerLevel world, BlockPos pos, Random random);
 
-    public Block getLogBlock() {
+    public FeyLogBlock getLogBlock() {
         return this.logBlock;
     }
 
-    public Block getWoodBlock() {
+    public FeyWoodBlock getWoodBlock() {
         return this.woodBlock;
     }
 
-    public Block getLeafBlock() {
+    public FeyLeavesBlock getLeafBlock() {
         return this.leaves;
     }
 

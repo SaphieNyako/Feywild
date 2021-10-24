@@ -5,11 +5,11 @@ import com.feywild.feywild.entity.ModEntityTypes;
 import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
 import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 

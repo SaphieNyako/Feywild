@@ -1,7 +1,6 @@
 package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.ScrollSelectType;
-import io.github.noeppi_noeppi.libx.annotation.config.RegisterConfig;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 

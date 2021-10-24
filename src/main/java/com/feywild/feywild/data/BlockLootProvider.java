@@ -9,8 +9,8 @@ import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.Tags;
 
 import static net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder.properties;

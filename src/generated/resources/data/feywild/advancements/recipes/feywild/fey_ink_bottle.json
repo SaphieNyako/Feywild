@@ -6,22 +6,50 @@
     ]
   },
   "criteria": {
-    "has_item0": {
+    "criterion0": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:fey_dust"
+            "items": [
+              "feywild:fey_dust"
+            ]
           }
         ]
       }
     },
-    "has_item1": {
+    "criterion1": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:mandrake"
+            "items": [
+              "minecraft:ink_sac"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:glass_bottle"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:mandrake"
+            ]
           }
         ]
       }
@@ -35,8 +63,10 @@
   },
   "requirements": [
     [
-      "has_item0",
-      "has_item1",
+      "criterion0",
+      "criterion1",
+      "criterion2",
+      "criterion3",
       "has_the_recipe"
     ]
   ]

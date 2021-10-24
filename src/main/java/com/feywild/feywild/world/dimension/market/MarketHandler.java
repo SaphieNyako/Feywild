@@ -4,14 +4,14 @@ import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.SimpleTeleporter;
 import io.github.noeppi_noeppi.libx.util.NBTX;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 
 public class MarketHandler {
 

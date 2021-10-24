@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[35,)"
+loaderVersion="[37,)"
 license="MIT License
 
          Copyright (c) 2021 SaphieNyako
@@ -45,62 +45,65 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.5,)"
+    versionRange="[1.17.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.feywild]]
     modId="forge"
     mandatory=true
-    versionRange="[35,)"
+    versionRange="[37,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.feywild]]
-    modId="patchouli"
-    mandatory=true
-    versionRange="[1.16.4-50,)"
-    ordering="AFTER"
-    side="BOTH"
+# TODO patchouli
+#[[dependencies.feywild]]
+#    modId="patchouli"
+#    mandatory=true
+#    versionRange="[1.16.4-50,)"
+#    ordering="AFTER"
+#    side="BOTH"
 
 [[dependencies.feywild]]
     modId="geckolib3"
     mandatory=true
-    versionRange="[geckolib-forge-1.16.5:3.0.33,)"
+    versionRange="[3.0.4,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.feywild]]
     modId="libx"
     mandatory=true
-    versionRange="[1.16.3-1.0.76,)"
+    versionRange="[1.17.1-2.1.14,)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.feywild]]
-    modId="mythicbotany"
-    mandatory=false
-    versionRange="[1.16.5-1.4.8,)"
-    ordering="NONE"
-    side="BOTH"
+# TODO mythicbotany
+#[[dependencies.feywild]]
+#    modId="mythicbotany"
+#    mandatory=false
+#    versionRange="[1.16.5-1.4.8,)"
+#    ordering="NONE"
+#    side="BOTH"
 
-[[dependencies.feywild]]
-    modId="ars_nouveau"
-    mandatory=false
-    versionRange="[1.16.5-1.21.3,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.feywild]]
-    modId="supplementaries"
-    mandatory=false
-    versionRange="[1.16.5-0.15.2b,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.feywild]]
-     modId="botania"
-     mandatory=false
-     versionRange="[1.16.5-419,)"
-     ordering="NONE"
-     side="BOTH"
+# TODO dependencies
+#[[dependencies.feywild]]
+#    modId="ars_nouveau"
+#    mandatory=false
+#    versionRange="[1.16.5-1.21.3,)"
+#    ordering="NONE"
+#    side="BOTH"
+#
+#[[dependencies.feywild]]
+#    modId="supplementaries"
+#    mandatory=false
+#    versionRange="[1.16.5-0.15.2b,)"
+#    ordering="NONE"
+#    side="BOTH"
+#
+#[[dependencies.feywild]]
+#     modId="botania"
+#     mandatory=false
+#     versionRange="[1.16.5-419,)"
+#     ordering="NONE"
+#     side="BOTH"

@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:magical_honey_cookie"
+            "items": [
+              "feywild:magical_honey_cookie"
+            ]
           }
         ]
       }

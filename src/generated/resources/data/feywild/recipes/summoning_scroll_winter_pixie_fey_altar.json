@@ -1,7 +1,8 @@
 {
   "type": "feywild:fey_altar",
   "output": {
-    "item": "feywild:summoning_scroll_winter_pixie"
+    "item": "feywild:summoning_scroll_winter_pixie",
+    "count": 1
   },
   "ingredients": [
     {

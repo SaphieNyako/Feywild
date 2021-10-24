@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "feywild:block/autumn_tree_log",
-    "end": "feywild:block/autumn_tree_log"
+    "side": "feywild:block/autumn_tree_wood",
+    "end": "feywild:block/autumn_tree_wood"
   }
 }

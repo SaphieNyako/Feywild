@@ -2,13 +2,12 @@ package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
 import io.github.noeppi_noeppi.libx.util.LazyValue;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.core.Direction;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;

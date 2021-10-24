@@ -1,6 +1,0 @@
-{
-  "parent": "block/fence_inventory",
-  "textures": {
-    "texture": "feywild:block/winter_tree_log"
-  }
-}

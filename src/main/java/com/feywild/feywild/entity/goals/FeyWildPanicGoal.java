@@ -2,8 +2,8 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.base.Fey;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
 public class FeyWildPanicGoal extends Goal {

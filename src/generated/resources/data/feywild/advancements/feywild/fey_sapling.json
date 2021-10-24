@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:autumn_tree_sapling"
+            "items": [
+              "feywild:autumn_tree_sapling"
+            ]
           }
         ]
       }
@@ -31,7 +33,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:winter_tree_sapling"
+            "items": [
+              "feywild:winter_tree_sapling"
+            ]
           }
         ]
       }
@@ -41,7 +45,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:summer_tree_sapling"
+            "items": [
+              "feywild:summer_tree_sapling"
+            ]
           }
         ]
       }
@@ -51,7 +57,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:spring_tree_sapling"
+            "items": [
+              "feywild:spring_tree_sapling"
+            ]
           }
         ]
       }

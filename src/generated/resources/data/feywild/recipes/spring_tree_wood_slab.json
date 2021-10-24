@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:spring_tree_wood"
+    }
+  },
+  "result": {
+    "item": "feywild:spring_tree_wood_slab",
+    "count": 6
+  }
+}

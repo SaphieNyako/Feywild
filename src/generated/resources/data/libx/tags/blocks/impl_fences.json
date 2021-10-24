@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "feywild:spring_tree_wood_fence",
+    "feywild:summer_tree_wood_fence",
+    "feywild:autumn_tree_wood_fence",
+    "feywild:winter_tree_wood_fence"
+  ]
+}

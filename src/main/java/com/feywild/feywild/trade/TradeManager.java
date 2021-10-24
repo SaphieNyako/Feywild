@@ -5,12 +5,12 @@ import com.feywild.feywild.trade.recipe.TradeRecipeManager;
 import com.feywild.feywild.util.DatapackHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.entity.EntityType;
 
 import javax.annotation.Nonnull;
 import java.util.List;

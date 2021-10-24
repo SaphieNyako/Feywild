@@ -6,11 +6,11 @@ import com.feywild.feywild.entity.*;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import io.github.noeppi_noeppi.libx.base.ItemBase;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 
 @RegisterClass
 public class ModItems {

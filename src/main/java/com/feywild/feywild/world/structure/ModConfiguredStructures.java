@@ -1,11 +1,11 @@
 package com.feywild.feywild.world.structure;
 
 import com.feywild.feywild.FeywildMod;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class ModConfiguredStructures {
 

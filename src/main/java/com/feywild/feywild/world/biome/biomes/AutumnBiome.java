@@ -4,22 +4,17 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import net.minecraft.sounds.Music;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
-
-import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.VanillaBiomes;
-import net.minecraft.world.level.biome.AmbientParticleSettings;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.sounds.Music;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public class AutumnBiome implements BiomeType {
 

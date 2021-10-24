@@ -3,15 +3,15 @@ package com.feywild.feywild.world;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 

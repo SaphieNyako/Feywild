@@ -3,10 +3,10 @@ package com.feywild.feywild.container;
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.util.Util;
 import io.github.noeppi_noeppi.libx.menu.BlockEntityMenu;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 

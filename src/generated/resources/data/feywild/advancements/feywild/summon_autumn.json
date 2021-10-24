@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:summoning_scroll_autumn_pixie"
+            "items": [
+              "feywild:summoning_scroll_autumn_pixie"
+            ]
           }
         ]
       }

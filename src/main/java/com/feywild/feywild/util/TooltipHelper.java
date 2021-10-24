@@ -1,8 +1,8 @@
 package com.feywild.feywild.util;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.KeybindComponent;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.Arrays;

@@ -3,9 +3,9 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;

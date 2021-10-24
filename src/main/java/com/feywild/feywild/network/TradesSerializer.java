@@ -3,9 +3,9 @@ package com.feywild.feywild.network;
 import com.feywild.feywild.trade.recipe.TradeRecipe;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.feywild.feywild.util;
 
-import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

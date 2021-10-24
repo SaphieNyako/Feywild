@@ -5,8 +5,8 @@ import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 
 public class TargetFireGoal extends Goal {

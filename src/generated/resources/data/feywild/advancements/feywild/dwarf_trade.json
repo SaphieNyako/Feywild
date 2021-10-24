@@ -20,7 +20,9 @@
       "trigger": "minecraft:villager_trade",
       "conditions": {
         "item": {
-          "item": "feywild:lesser_fey_gem"
+          "items": [
+            "feywild:lesser_fey_gem"
+          ]
         },
         "villager": [
           {

@@ -2,7 +2,6 @@ package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.CommonSpawns;
 import com.feywild.feywild.config.data.PixieSpawns;
-import io.github.noeppi_noeppi.libx.annotation.config.RegisterConfig;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 import io.github.noeppi_noeppi.libx.util.ResourceList;

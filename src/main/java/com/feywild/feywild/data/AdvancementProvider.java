@@ -15,8 +15,8 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.TradeTrigger;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
 import java.lang.reflect.Field;
@@ -34,34 +34,8 @@ public class AdvancementProvider extends AdvancementProviderBase {
     public void setup() {
         this.root()
                 .display(ModItems.feywildLexicon)
+                .background(new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"))
                 .task(this.items(ModItems.feywildLexicon));
-
-        // Don't ask about this
-        try {
-            ResourceLocation rl = new ResourceLocation(this.mod.modid, this.mod.modid + "/root");
-            Field mapField = AdvancementProviderBase.class.getDeclaredField("advancements");
-            mapField.setAccessible(true);
-            //noinspection unchecked
-            Map<ResourceLocation, Supplier<Advancement>> map = (Map<ResourceLocation, Supplier<Advancement>>) mapField.get(this);
-            Supplier<Advancement> oldRoot = map.get(rl);
-            Supplier<Advancement> newRoot = () -> {
-                Advancement adv = oldRoot.get();
-                if (adv.getDisplay() == null) throw new RuntimeException("Nul display on root");
-                DisplayInfo display = new DisplayInfo(
-                        adv.getDisplay().getIcon(), adv.getDisplay().getTitle(), adv.getDisplay().getDescription(),
-                        new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"),
-                        adv.getDisplay().getFrame(), adv.getDisplay().shouldShowToast(),
-                        adv.getDisplay().shouldAnnounceChat(), adv.getDisplay().isHidden()
-                );
-                return new Advancement(adv.getId(), adv.getParent(), display, adv.getRewards(), adv.getCriteria(), adv.getRequirements());
-            };
-            map.put(rl, newRoot);
-            Field rootSupplierField = AdvancementProviderBase.class.getDeclaredField("rootSupplier");
-            rootSupplierField.setAccessible(true);
-            rootSupplierField.set(this, newRoot);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        }
 
         this.advancement("fey_dust")
                 .display(ModItems.feyDust)

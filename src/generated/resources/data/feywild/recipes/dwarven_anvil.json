@@ -10,7 +10,7 @@
       "item": "feywild:lesser_fey_gem"
     },
     "i": {
-      "item": "minecraft:iron_block"
+      "tag": "forge:storage_blocks/iron"
     }
   },
   "result": {

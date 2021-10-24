@@ -1,17 +1,5 @@
 package com.feywild.feywild.world.biome;
 
-import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.world.biome.biomes.*;
-import com.feywild.feywild.world.structure.ModStructures;
-//import mythicbotany.alfheim.AlfheimBiomeManager;
-//import mythicbotany.alfheim.AlfheimBiomes;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraft.world.level.biome.BiomeGenerationSettings;
-import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-
 // TODO mythicbotany
 // No @RegisterClass as this may not be loaded if MythicBotany is
 // not installed

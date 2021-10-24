@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:market_rune_stone"
+            "items": [
+              "feywild:market_rune_stone"
+            ]
           }
         ]
       }
@@ -31,7 +33,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:inactive_market_rune_stone"
+            "items": [
+              "feywild:inactive_market_rune_stone"
+            ]
           }
         ]
       }

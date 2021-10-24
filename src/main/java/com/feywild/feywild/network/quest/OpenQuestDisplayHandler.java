@@ -3,8 +3,8 @@ package com.feywild.feywild.network.quest;
 import com.feywild.feywild.screens.DisplayQuestScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;

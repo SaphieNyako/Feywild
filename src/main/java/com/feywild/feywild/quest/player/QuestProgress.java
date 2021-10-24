@@ -3,9 +3,9 @@ package com.feywild.feywild.quest.player;
 import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestLine;
 import com.feywild.feywild.quest.task.TaskType;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

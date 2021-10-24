@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:lesser_fey_gem"
+            "items": [
+              "feywild:lesser_fey_gem"
+            ]
           }
         ]
       }
@@ -31,7 +33,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:fey_dust"
+            "items": [
+              "feywild:fey_dust"
+            ]
           }
         ]
       }

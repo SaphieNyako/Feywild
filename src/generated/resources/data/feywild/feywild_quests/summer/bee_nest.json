@@ -30,7 +30,8 @@
   "rewards": [
     {
       "item": {
-        "item": "minecraft:honeycomb"
+        "item": "minecraft:honeycomb",
+        "count": 1
       },
       "id": "feywild:item"
     }

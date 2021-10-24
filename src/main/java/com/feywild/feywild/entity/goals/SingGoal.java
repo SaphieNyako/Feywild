@@ -4,11 +4,11 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.Mandragora;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.FarmBlock;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 
 public class SingGoal extends Goal {
 

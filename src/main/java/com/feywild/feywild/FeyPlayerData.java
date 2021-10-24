@@ -1,7 +1,7 @@
 package com.feywild.feywild;
 
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.Constants;
 
 public class FeyPlayerData {

@@ -4,7 +4,6 @@ import com.feywild.feywild.config.data.BiomeData;
 import com.feywild.feywild.config.data.OreData;
 import com.feywild.feywild.config.data.StructureData;
 import com.feywild.feywild.config.validator.StructureCfg;
-import io.github.noeppi_noeppi.libx.annotation.config.RegisterConfig;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.Group;
 import io.github.noeppi_noeppi.libx.config.validator.FloatRange;

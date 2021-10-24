@@ -3,13 +3,11 @@ package com.feywild.feywild.block.decorative;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.SlabBlock;
 
 import java.util.Set;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class SlabBlockBase extends SlabBlock implements Registerable {
 

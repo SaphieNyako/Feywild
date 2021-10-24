@@ -1,7 +1,8 @@
 {
   "type": "feywild:fey_altar",
   "output": {
-    "item": "feywild:summoning_scroll_bee_knight"
+    "item": "feywild:summoning_scroll_bee_knight",
+    "count": 1
   },
   "ingredients": [
     {

@@ -3,9 +3,9 @@ package com.feywild.feywild.quest;
 import com.feywild.feywild.quest.task.TaskType;
 import com.feywild.feywild.quest.task.TaskTypes;
 import com.google.gson.JsonObject;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
-import net.minecraft.resources.ResourceLocation;
 
 public class QuestTask {
     

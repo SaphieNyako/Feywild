@@ -6,12 +6,14 @@
     ]
   },
   "criteria": {
-    "has_item": {
+    "criterion0": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "feywild:winter_tree_log"
+            "items": [
+              "feywild:winter_tree_log"
+            ]
           }
         ]
       }
@@ -25,7 +27,7 @@
   },
   "requirements": [
     [
-      "has_item",
+      "criterion0",
       "has_the_recipe"
     ]
   ]

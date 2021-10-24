@@ -1,7 +1,8 @@
 {
   "type": "feywild:fey_altar",
   "output": {
-    "item": "feywild:feywild_music_disc"
+    "item": "feywild:feywild_music_disc",
+    "count": 1
   },
   "ingredients": [
     {

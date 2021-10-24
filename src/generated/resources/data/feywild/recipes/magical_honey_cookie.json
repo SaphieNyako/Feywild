@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " a ",
-    "#b#",
+    "wbw",
     " a "
   ],
   "key": {
@@ -12,12 +12,11 @@
     "b": {
       "item": "minecraft:cocoa_beans"
     },
-    "#": {
+    "w": {
       "item": "minecraft:wheat"
     }
   },
   "result": {
-    "item": "feywild:magical_honey_cookie",
-    "count": 4
+    "item": "feywild:magical_honey_cookie"
   }
 }

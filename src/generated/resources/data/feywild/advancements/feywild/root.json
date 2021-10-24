@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "feywild:feywild_lexicon"
+            "items": [
+              "feywild:feywild_lexicon"
+            ]
           }
         ]
       }

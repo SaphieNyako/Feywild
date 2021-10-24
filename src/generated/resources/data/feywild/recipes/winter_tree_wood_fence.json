@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#s#",
+    "#s#"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:winter_tree_wood"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "feywild:winter_tree_wood_fence",
+    "count": 3
+  }
+}

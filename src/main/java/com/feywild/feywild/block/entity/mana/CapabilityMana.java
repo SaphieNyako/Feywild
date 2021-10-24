@@ -1,9 +1,9 @@
 package com.feywild.feywild.block.entity.mana;
 
-import net.minecraft.nbt.Tag;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.core.Direction;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 
 public class CapabilityMana {
 

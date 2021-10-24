@@ -1,9 +1,9 @@
 package com.feywild.feywild.quest.util;
 
 import com.feywild.feywild.quest.QuestDisplay;
-import net.minecraft.world.item.Item;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 public class SelectableQuest {
 

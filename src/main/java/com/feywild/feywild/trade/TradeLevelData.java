@@ -3,11 +3,11 @@ package com.feywild.feywild.trade;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
-import net.minecraft.util.LazyLoadedValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
