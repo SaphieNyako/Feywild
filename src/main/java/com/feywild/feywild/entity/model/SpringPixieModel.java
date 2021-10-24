@@ -1,8 +1,8 @@
 package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.SpringPixieEntity;
-import net.minecraft.util.ResourceLocation;
+import com.feywild.feywild.entity.SpringPixie;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -10,10 +10,10 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import javax.annotation.Nullable;
 
-public class SpringPixieModel extends AnimatedGeoModel<SpringPixieEntity> {
+public class SpringPixieModel extends AnimatedGeoModel<SpringPixie> {
 
     @Override
-    public void setLivingAnimations(SpringPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
+    public void setLivingAnimations(SpringPixie entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
         if (customPredicate != null) {
@@ -24,17 +24,17 @@ public class SpringPixieModel extends AnimatedGeoModel<SpringPixieEntity> {
     }
     
     @Override
-    public ResourceLocation getModelLocation(SpringPixieEntity springPixieEntity) {
+    public ResourceLocation getModelLocation(SpringPixie springPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "geo/spring_pixie.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SpringPixieEntity springPixieEntity) {
+    public ResourceLocation getTextureLocation(SpringPixie springPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/spring_pixie.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(SpringPixieEntity springPixieEntity) {
+    public ResourceLocation getAnimationFileLocation(SpringPixie springPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "animations/spring_pixie.animation.json");
     }
 }

@@ -1,10 +1,10 @@
 package com.feywild.feywild.quest.task;
 
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 
@@ -27,7 +27,7 @@ public class CraftTask implements TaskType<Ingredient, ItemStack> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayerEntity player, Ingredient element, ItemStack match) {
+    public boolean checkCompleted(ServerPlayer player, Ingredient element, ItemStack match) {
         return element.test(match);
     }
 

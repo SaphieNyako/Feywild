@@ -1,19 +1,19 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class BiomeFactory {
     
     public static Biome create(BiomeEnvironment env, BiomeType type) {
 
-        BiomeAmbience.Builder ambience = env.defaultAmbience();
+        BiomeSpecialEffects.Builder ambience = env.defaultAmbience();
         type.ambience(ambience);
         env.postProcess(ambience, type);
         
-        MobSpawnInfo.Builder spawns = env.defaultSpawns();
+        MobSpawnSettings.Builder spawns = env.defaultSpawns();
         type.spawns(spawns);
         env.postProcess(spawns, type);
 
@@ -21,7 +21,7 @@ public class BiomeFactory {
         type.generation(generation);
         env.postProcess(generation, type);
         
-        Biome.Builder biome = env.init();
+        Biome.BiomeBuilder biome = env.init();
         biome.biomeCategory(type.category());
         biome.precipitation(type.rain());
         biome.depth(type.depth());

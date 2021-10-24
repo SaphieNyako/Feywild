@@ -1,7 +1,7 @@
 package com.feywild.feywild.network;
 
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 
 public class OpeningScreenSerializer implements PacketSerializer<OpeningScreenSerializer.Message> {
@@ -12,12 +12,12 @@ public class OpeningScreenSerializer implements PacketSerializer<OpeningScreenSe
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeInt(msg.size);
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
        return new Message(buffer.readInt());
     }
 

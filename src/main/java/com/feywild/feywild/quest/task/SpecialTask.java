@@ -2,7 +2,7 @@ package com.feywild.feywild.quest.task;
 
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Locale;
 
@@ -25,7 +25,7 @@ public class SpecialTask implements TaskType<SpecialTaskAction, SpecialTaskActio
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayerEntity player, SpecialTaskAction element, SpecialTaskAction match) {
+    public boolean checkCompleted(ServerPlayer player, SpecialTaskAction element, SpecialTaskAction match) {
         return element == match;
     }
 

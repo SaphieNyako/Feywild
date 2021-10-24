@@ -1,8 +1,8 @@
 package com.feywild.feywild.util;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IntReferenceHolder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.inventory.DataSlot;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,8 +12,8 @@ import java.util.function.Supplier;
 
 public class Util {
 
-    public static IntReferenceHolder trackHigherOrderBits(Supplier<Integer> getter, Consumer<Integer> setter) {
-        return new IntReferenceHolder() {
+    public static DataSlot trackHigherOrderBits(Supplier<Integer> getter, Consumer<Integer> setter) {
+        return new DataSlot() {
 
             @Override
             public int get() {
@@ -27,8 +27,8 @@ public class Util {
         };
     }
     
-    public static IntReferenceHolder trackLowerOrderBits(Supplier<Integer> getter, Consumer<Integer> setter) {
-        return new IntReferenceHolder() {
+    public static DataSlot trackLowerOrderBits(Supplier<Integer> getter, Consumer<Integer> setter) {
+        return new DataSlot() {
             
             @Override
             public int get() {

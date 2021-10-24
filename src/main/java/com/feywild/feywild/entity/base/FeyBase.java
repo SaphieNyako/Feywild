@@ -4,24 +4,24 @@ import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.FlyingMovementController;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.pathfinding.FlyingPathNavigator;
-import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
@@ -29,7 +29,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class FeyBase extends CreatureEntity implements IAnimatable {
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.PathfinderMob;
+
+public abstract class FeyBase extends PathfinderMob implements IAnimatable {
 
     public final Alignment alignment;
 
@@ -38,26 +44,26 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     @Nullable
     protected UUID owner;
 
-    protected FeyBase(EntityType<? extends CreatureEntity> entityType, Alignment alignment, World world) {
-        super(entityType, world);
+    protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
+        super(entityType, level);
         this.alignment = alignment;
         this.noCulling = true;
-        this.moveControl = new FlyingMovementController(this, 4, true);
+        this.moveControl = new FlyingMoveControl(this, 4, true);
     }
 
-    public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
-        return MobEntity.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
+    public static AttributeSupplier.Builder getDefaultAttributes() {
+        return Mob.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2);
     }
 
     @Nullable
-    public PlayerEntity getOwner() {
+    public Player getOwner() {
         return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
     }
 
-    public void setOwner(@Nullable PlayerEntity owner) {
+    public void setOwner(@Nullable Player owner) {
         this.setOwner(owner == null ? null : owner.getUUID());
     }
 
@@ -71,16 +77,16 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     }
 
     @Nullable
-    public abstract Vector3d getCurrentPointOfInterest();
+    public abstract Vec3 getCurrentPointOfInterest();
 
-    public abstract BasicParticleType getParticle();
+    public abstract SimpleParticleType getParticle();
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, getMovementRange(), 1.5f));
-        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
     }
 
@@ -103,7 +109,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     }
 
     @Override
-    public void travel(@Nonnull Vector3d position) {
+    public void travel(@Nonnull Vec3 position) {
         if (this.isInWater()) {
             this.moveRelative(0.02f, position);
             this.move(MoverType.SELF, this.getDeltaMovement());
@@ -133,7 +139,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
         this.animationSpeedOld = this.animationSpeed;
         double dx = this.getX() - this.xo;
         double dz = this.getZ() - this.zo;
-        float scaledLastHorizontalMotion = MathHelper.sqrt(dx * dx + dz * dz) * 4;
+        float scaledLastHorizontalMotion = Mth.sqrt(dx * dx + dz * dz) * 4;
         if (scaledLastHorizontalMotion > 1) {
             scaledLastHorizontalMotion = 1;
         }
@@ -157,12 +163,12 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     }
 
     @Override
-    protected int getExperienceReward(@Nonnull PlayerEntity player) {
+    protected int getExperienceReward(@Nonnull Player player) {
         return 0;
     }
 
     @Override
-    public boolean canBeLeashed(@Nonnull PlayerEntity player) {
+    public boolean canBeLeashed(@Nonnull Player player) {
         return false;
     }
 
@@ -178,8 +184,8 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
 
     @Nonnull
     @Override
-    protected PathNavigator createNavigation(@Nonnull World world) {
-        FlyingPathNavigator flyingpathnavigator = new FlyingPathNavigator(this, world);
+    protected PathNavigation createNavigation(@Nonnull Level level) {
+        FlyingPathNavigation flyingpathnavigator = new FlyingPathNavigation(this, level);
         flyingpathnavigator.setCanOpenDoors(false);
         flyingpathnavigator.setCanFloat(true);
         flyingpathnavigator.setCanPassDoors(true);
@@ -225,7 +231,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     }
 
     @Override
-    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         if (this.owner != null) {
             nbt.putUUID("Owner", this.owner);
@@ -233,7 +239,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
     }

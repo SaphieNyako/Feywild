@@ -5,31 +5,38 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class LibraryBellBlock extends BlockTE<LibraryBell> {
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
+public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
     public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);
 
@@ -43,37 +50,37 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
     }
 
     @Override
-    public void onRemove(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
-        if (!world.isClientSide && world instanceof ServerWorld) {
-            LibraryBell tile = this.getTile(world, pos);
+    public void onRemove(@Nonnull BlockState state, Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
+        if (!level.isClientSide && level instanceof ServerLevel) {
+            LibraryBell tile = this.getBlockEntity(level, pos);
             if (tile.getLibrarian() != null) {
-                Entity librarian = ((ServerWorld) world).getEntity(tile.getLibrarian());
-                if (librarian instanceof VillagerEntity) ((VillagerEntity) librarian).releaseAllPois();
+                Entity librarian = ((ServerLevel) level).getEntity(tile.getLibrarian());
+                if (librarian instanceof Villager) ((Villager) librarian).releaseAllPois();
                 if (librarian != null) librarian.remove();
             }
             if (tile.getSecurity() != null) {
-                Entity security = ((ServerWorld) world).getEntity(tile.getSecurity());
+                Entity security = ((ServerLevel) level).getEntity(tile.getSecurity());
                 if (security != null) security.remove();
             }
         }
-        super.onRemove(state, world, pos, newState, moving);
+        super.onRemove(state, level, pos, newState, moving);
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter levelIn, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         return SHAPE;
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType use(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult trace) {
-        if (world.isClientSide) {
-            world.playSound(player, pos, SoundEvents.NOTE_BLOCK_BELL, SoundCategory.BLOCKS, 1f, 1.2f);
+    public InteractionResult use(@Nonnull BlockState state, Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult trace) {
+        if (level.isClientSide) {
+            level.playSound(player, pos, SoundEvents.NOTE_BLOCK_BELL, SoundSource.BLOCKS, 1f, 1.2f);
         } else {
-            LibraryBell blockEntity = this.getTile(world, pos);
+            LibraryBell blockEntity = this.getBlockEntity(level, pos);
             if (player.getGameProfile().getId().equals(blockEntity.getPlayer())) {
                 blockEntity.setAnnoyance(blockEntity.getAnnoyance() + 1);
             } else {
@@ -81,53 +88,53 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
                 blockEntity.setAnnoyance(0);
             }
 
-            if (world instanceof ServerWorld) {
-                Entity librarian = blockEntity.getLibrarian() != null ? ((ServerWorld) world).getEntity(blockEntity.getLibrarian()) : null;
-                Entity security = blockEntity.getSecurity() != null ? ((ServerWorld) world).getEntity(blockEntity.getSecurity()) : null;
+            if (level instanceof ServerLevel) {
+                Entity librarian = blockEntity.getLibrarian() != null ? ((ServerLevel) level).getEntity(blockEntity.getLibrarian()) : null;
+                Entity security = blockEntity.getSecurity() != null ? ((ServerLevel) level).getEntity(blockEntity.getSecurity()) : null;
                 if (blockEntity.getAnnoyance() >= 10 && librarian != null && librarian.isAlive()) {
                     blockEntity.setAnnoyance(0);
                     if (security == null) {
-                        IronGolemEntity golem = new IronGolemEntity(EntityType.IRON_GOLEM, world);
+                        IronGolem golem = new IronGolem(EntityType.IRON_GOLEM, level);
                         golem.setPlayerCreated(false);
                         golem.setTarget(player);
-                        player.sendMessage(new TranslationTextComponent("message.feywild.bell.angry"), player.getUUID());
+                        player.sendMessage(new TranslatableComponent("message.feywild.bell.angry"), player.getUUID());
                         golem.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
-                        world.addFreshEntity(golem);
+                        level.addFreshEntity(golem);
                         blockEntity.setSecurity(golem.getUUID());
-                        QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ANNOY_LIBRARIAN);
+                        QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.ANNOY_LIBRARIAN);
                     } else {
                         security.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
-                        if (security instanceof MobEntity) {
-                            ((MobEntity) security).setTarget(player);
+                        if (security instanceof Mob) {
+                            ((Mob) security).setTarget(player);
                         }
                     }
                 } else if (blockEntity.getAnnoyance() > 6) {
-                    player.sendMessage(new TranslationTextComponent("message.feywild.bell.annoyed"), player.getUUID());
+                    player.sendMessage(new TranslatableComponent("message.feywild.bell.annoyed"), player.getUUID());
                 }
 
                 if (librarian != null && librarian.isAlive()) {
-                    if (librarian instanceof VillagerEntity) ((VillagerEntity) librarian).releaseAllPois();
+                    if (librarian instanceof Villager) ((Villager) librarian).releaseAllPois();
                     librarian.remove();
                 }
 
-                VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, world);
+                Villager entity = new Villager(EntityType.VILLAGER, level);
                 entity.addTag("feywild_librarian");
                 entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                 for (Direction dir : Direction.values()) {
                     if (dir.getAxis() != Direction.Axis.Y) {
                         BlockPos target = pos.below().relative(dir);
-                        if (world.getBlockState(target).isAir()) {
+                        if (level.getBlockState(target).isAir()) {
                             entity.setPos(target.getX() + 0.5, target.getY(), target.getZ() + 0.5);
                             break;
                         }
                     }
                 }
-                world.addFreshEntity(entity);
+                level.addFreshEntity(entity);
                 blockEntity.setLibrarian(entity.getUUID());
-                QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_LIBRARIAN);
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_LIBRARIAN);
             }
         }
-        return ActionResultType.sidedSuccess(world.isClientSide);
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Override
@@ -136,14 +143,14 @@ public class LibraryBellBlock extends BlockTE<LibraryBell> {
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        LibraryBell entity = (LibraryBell) world.getBlockEntity(pos);
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+        LibraryBell entity = (LibraryBell) level.getBlockEntity(pos);
 
-        if (world.getEntity(entity.getSecurity()) != null) {
+        if (level.getEntity(entity.getSecurity()) != null) {
             entity.setDespawnTimer(entity.getDespawnTimer() + 1);
             if (entity.getDespawnTimer() >= 2) {
                 entity.setDespawnTimer(0);
-                world.getEntity(entity.getSecurity()).remove();
+                level.getEntity(entity.getSecurity()).remove();
             }
         }
     }

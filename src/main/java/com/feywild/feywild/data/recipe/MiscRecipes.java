@@ -1,16 +1,15 @@
 package com.feywild.feywild.data.recipe;
 
 import com.feywild.feywild.item.ModItems;
-import io.github.noeppi_noeppi.libx.data.provider.recipe.AnyRecipeProvider;
+import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-import static net.minecraft.data.SingleItemRecipeBuilder.stonecutting;
 
 public class MiscRecipes extends AnyRecipeProvider {
 
@@ -25,7 +24,7 @@ public class MiscRecipes extends AnyRecipeProvider {
     }
 
     @Override
-    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         stonecutting(Ingredient.of(ModItems.greaterFeyGem), ModItems.lesserFeyGem, 2)
                 .unlocks("has_item", has((ModItems.greaterFeyGem)))
                 .save(consumer, this.loc(ModItems.lesserFeyGem, "cutting"));

@@ -4,7 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.trade.recipe.TradeRecipe;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -12,12 +12,12 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -94,19 +94,19 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
     }
 
     @Override
-    public void draw(@Nonnull TradeRecipe recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY) {
-        FontRenderer font = Minecraft.getInstance().font;
+    public void draw(@Nonnull TradeRecipe recipe, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
         int textX = 89 - (font.width(recipe.id.getPath()) / 2);
-        font.drawShadow(matrixStack, recipe.id.getPath(), textX, 3, 0xFFFFFF);
-        ITextComponent levelText = new TranslationTextComponent("jei.trades.level", recipe.level);
-        font.drawShadow(matrixStack, levelText, textX, 14, 0xFFFFFF);
+        font.drawShadow(poseStack, recipe.id.getPath(), textX, 3, 0xFFFFFF);
+        Component levelText = new TranslatableComponent("jei.trades.level", recipe.level);
+        font.drawShadow(poseStack, levelText, textX, 14, 0xFFFFFF);
         for (int i = 0; i < recipe.trades.size(); i++) {
             int xOff = recipe.trades.size() <= 8 ? 42 : (i / 8) * 93;
             int yOff = 26 + (20 * (i % 8));
-            slot.draw(matrixStack, xOff + 1, yOff);
-            slot.draw(matrixStack, xOff + 21, yOff);
-            slot.draw(matrixStack, xOff + 67, yOff);
-            rightArrow.draw(matrixStack, xOff + 41, yOff + 1);
+            slot.draw(poseStack, xOff + 1, yOff);
+            slot.draw(poseStack, xOff + 21, yOff);
+            slot.draw(poseStack, xOff + 67, yOff);
+            rightArrow.draw(poseStack, xOff + 41, yOff + 1);
         }
     }
 }

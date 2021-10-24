@@ -4,7 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,11 +13,11 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -90,9 +90,9 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
     }
 
     @Override
-    public void draw(@Nonnull DwarvenAnvilRecipe recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY) {
-        int maskBottom = (int) Math.round((MathHelper.clamp(recipe.getMana(), 0, DwarvenAnvil.MAX_MANA) / (double) DwarvenAnvil.MAX_MANA) * this.manaOverlay.getHeight());
-        this.manaOverlay.draw(matrixStack, 1, 2, 0, maskBottom, 0, 0);
-        Minecraft.getInstance().font.draw(matrixStack, new TranslationTextComponent("screen.feywild.mana_amount", recipe.getMana()), 100, 0, 0xFFFFFF);
+    public void draw(@Nonnull DwarvenAnvilRecipe recipe, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
+        int maskBottom = (int) Math.round((Mth.clamp(recipe.getMana(), 0, DwarvenAnvil.MAX_MANA) / (double) DwarvenAnvil.MAX_MANA) * this.manaOverlay.getHeight());
+        this.manaOverlay.draw(poseStack, 1, 2, 0, maskBottom, 0, 0);
+        Minecraft.getInstance().font.draw(poseStack, new TranslatableComponent("screen.feywild.mana_amount", recipe.getMana()), 100, 0, 0xFFFFFF);
     }
 }

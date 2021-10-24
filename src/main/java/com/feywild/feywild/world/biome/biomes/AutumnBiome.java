@@ -4,15 +4,23 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import net.minecraft.client.audio.BackgroundMusicSelector;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.sounds.Music;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.VanillaBiomes;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class AutumnBiome implements BiomeType {
 
@@ -23,8 +31,8 @@ public class AutumnBiome implements BiomeType {
     }
 
     @Override
-    public Biome.Category category() {
-        return Biome.Category.MUSHROOM;
+    public Biome.BiomeCategory category() {
+        return Biome.BiomeCategory.MUSHROOM;
     }
 
     @Override
@@ -48,39 +56,39 @@ public class AutumnBiome implements BiomeType {
     }
 
     @Override
-    public void ambience(BiomeAmbience.Builder builder) {
+    public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x617b64);
         builder.waterFogColor(0x232317);
         builder.fogColor(0xc0d8ff);
-        builder.skyColor(BiomeMaker.calculateSkyColor(0.8f));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false));
+        builder.skyColor(VanillaBiomes.calculateSkyColor(0.8f));
+        builder.backgroundMusic(new Music(ModSoundEvents.autumnSoundtrack, 6000, 12000, false));
         builder.foliageColorOverride(0x6a7039);
-        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001f));
-        builder.grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP);
+        builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.WITCH, 0.001f));
+        builder.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.SWAMP);
     }
 
     @Override
-    public void spawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
+    public void spawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 20, 2, 3));
     }
 
     @Override
     public void generation(BiomeGenerationSettings.Builder builder) {
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_WATERLILLY);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_LARGE_FERN);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SEAGRASS_SWAMP);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_RED_MUSHROOM);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.HUGE_BROWN_MUSHROOM);
-        DefaultBiomeFeatures.addMushroomFieldVegetation(builder);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_DEAD_BUSH);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_WATERLILLY);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_LARGE_FERN);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SEAGRASS_SWAMP);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.HUGE_RED_MUSHROOM);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.HUGE_BROWN_MUSHROOM);
+        BiomeDefaultFeatures.addMushroomFieldVegetation(builder);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
     }
 
     @Override
-    public void overworldSpawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.RABBIT, 20, 4, 4));
-        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH, 50, 1, 3));
+    public void overworldSpawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 20, 4, 4));
+        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.WITCH, 50, 1, 3));
     }
 
     @Override

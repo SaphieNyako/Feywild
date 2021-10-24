@@ -1,23 +1,29 @@
 package com.feywild.feywild.world.biome.biomes;
 
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public interface BiomeEnvironment {
 
     BiomeEnvironment OVERWORLD = new BiomeEnvironment() {
 
         @Override
-        public BiomeAmbience.Builder defaultAmbience() {
-            return new BiomeAmbience.Builder();
+        public BiomeSpecialEffects.Builder defaultAmbience() {
+            return new BiomeSpecialEffects.Builder();
         }
 
         @Override
-        public MobSpawnInfo.Builder defaultSpawns() {
-            MobSpawnInfo.Builder builder = new MobSpawnInfo.Builder();
-            DefaultBiomeFeatures.commonSpawns(builder);
+        public MobSpawnSettings.Builder defaultSpawns() {
+            MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+            BiomeDefaultFeatures.commonSpawns(builder);
             return builder;
         }
 
@@ -25,16 +31,16 @@ public interface BiomeEnvironment {
         public BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface) {
             BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
             builder.surfaceBuilder(surface);
-            DefaultBiomeFeatures.addDefaultUndergroundVariety(builder);
-            DefaultBiomeFeatures.addDefaultOres(builder);
-            DefaultBiomeFeatures.addDefaultOverworldLandStructures(builder);
-            DefaultBiomeFeatures.addDefaultCarvers(builder);
-            builder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_WATER);
+            BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
+            BiomeDefaultFeatures.addDefaultOres(builder);
+            BiomeDefaultFeatures.addDefaultOverworldLandStructures(builder);
+            BiomeDefaultFeatures.addDefaultCarvers(builder);
+            builder.addFeature(GenerationStep.Decoration.LAKES, Features.LAKE_WATER);
             return builder;
         }
 
         @Override
-        public void postProcess(MobSpawnInfo.Builder builder, BiomeType biome) {
+        public void postProcess(MobSpawnSettings.Builder builder, BiomeType biome) {
             biome.overworldSpawns(builder);
         }
 
@@ -44,19 +50,19 @@ public interface BiomeEnvironment {
         }
     };
 
-    BiomeAmbience.Builder defaultAmbience();
+    BiomeSpecialEffects.Builder defaultAmbience();
 
-    MobSpawnInfo.Builder defaultSpawns();
+    MobSpawnSettings.Builder defaultSpawns();
 
     BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface);
 
-    default Biome.Builder init() {return new Biome.Builder();}
+    default Biome.BiomeBuilder init() {return new Biome.BiomeBuilder();}
 
-    default void postProcess(BiomeAmbience.Builder builder, BiomeType biome) {}
+    default void postProcess(BiomeSpecialEffects.Builder builder, BiomeType biome) {}
 
-    default void postProcess(MobSpawnInfo.Builder builder, BiomeType biome) {}
+    default void postProcess(MobSpawnSettings.Builder builder, BiomeType biome) {}
 
     default void postProcess(BiomeGenerationSettings.Builder builder, BiomeType biome) {}
 
-    default void postProcess(Biome.Builder builder, BiomeType biome) {}
+    default void postProcess(Biome.BiomeBuilder builder, BiomeType biome) {}
 }

@@ -5,12 +5,12 @@ import com.feywild.feywild.trade.recipe.TradeRecipeManager;
 import com.feywild.feywild.util.DatapackHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.client.resources.ReloadListener;
-import net.minecraft.entity.EntityType;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IFutureReloadListener;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -42,16 +42,16 @@ public class TradeManager {
         return cachedRecipes;
     }
     
-    public static IFutureReloadListener createReloadListener() {
-        return new ReloadListener<Void>() {
+    public static PreparableReloadListener createReloadListener() {
+        return new SimplePreparableReloadListener<Void>() {
             @Nonnull
             @Override
-            protected Void prepare(@Nonnull IResourceManager rm, @Nonnull IProfiler profiler) {
+            protected Void prepare(@Nonnull ResourceManager rm, @Nonnull ProfilerFiller profiler) {
                 return null;
             }
 
             @Override
-            protected void apply(@Nonnull Void value, @Nonnull IResourceManager rm, @Nonnull IProfiler profiler) {
+            protected void apply(@Nonnull Void value, @Nonnull ResourceManager rm, @Nonnull ProfilerFiller profiler) {
                 trades = DatapackHelper.loadData(rm, "feywild_trades", TradeData::fromJson);
                 cachedRecipes = null;
             }

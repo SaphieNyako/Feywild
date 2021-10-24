@@ -1,8 +1,8 @@
 package com.feywild.feywild.network.quest;
 
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 
 public class SelectQuestSerializer implements PacketSerializer<SelectQuestSerializer.Message> {
 
@@ -12,12 +12,12 @@ public class SelectQuestSerializer implements PacketSerializer<SelectQuestSerial
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(msg.quest);
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
         return new Message(buffer.readResourceLocation());
     }
 

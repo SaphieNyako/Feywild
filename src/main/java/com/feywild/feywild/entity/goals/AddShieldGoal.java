@@ -2,25 +2,25 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.effects.ModEffects;
-import com.feywild.feywild.entity.AutumnPixieEntity;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.AutumnPixie;
+import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.phys.AABB;
 
 public class AddShieldGoal extends Goal {
 
-    private final FeyEntity entity;
-    private PlayerEntity target;
+    private final Fey entity;
+    private Player target;
     private int ticksLeft = 0;
 
-    public AddShieldGoal(AutumnPixieEntity entity) {
+    public AddShieldGoal(AutumnPixie entity) {
         this.entity = entity;
     }
 
@@ -38,7 +38,7 @@ public class AddShieldGoal extends Goal {
             } else if (this.ticksLeft == 110) {
                 this.spellCasting();
             } else if (this.ticksLeft <= 100) {
-                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.target.position());
+                this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
             }
         }
     }
@@ -48,8 +48,8 @@ public class AddShieldGoal extends Goal {
         this.ticksLeft = 120;
         this.entity.setCasting(false);
         this.target = null;
-        AxisAlignedBB box = new AxisAlignedBB(this.entity.blockPosition()).inflate(4);
-        for (PlayerEntity match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+        AABB box = new AABB(this.entity.blockPosition()).inflate(4);
+        for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
             this.target = match;
             break;
         }
@@ -62,8 +62,8 @@ public class AddShieldGoal extends Goal {
     }
 
     private void addShieldEffect() {
-        this.target.addEffect(new EffectInstance(ModEffects.windWalk, 20 * 60, 2));
-        this.target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20 * 60, 0));
+        this.target.addEffect(new MobEffectInstance(ModEffects.windWalk, 20 * 60, 2));
+        this.target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
         FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
     }
 

@@ -2,28 +2,30 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class Mandrake extends TooltipItem {
 
     public Mandrake(ModX mod, Properties properties) {
-        super(mod, properties, new TranslationTextComponent("message.feywild.mandrake"));
+        super(mod, properties, new TranslatableComponent("message.feywild.mandrake"));
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> use(@Nonnull World world, @Nonnull PlayerEntity player, @Nonnull Hand hand) {
-        if (world.isClientSide) {
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
+        if (level.isClientSide) {
             player.playSound(ModSoundEvents.mandrakeScream, 1.0f, 0.8f);
         }
 
-        return super.use(world, player, hand);
+        return super.use(level, player, hand);
     }
 }

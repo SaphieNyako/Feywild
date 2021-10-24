@@ -4,15 +4,23 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import net.minecraft.client.audio.BackgroundMusicSelector;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.sounds.Music;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.VanillaBiomes;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class SpringBiome implements BiomeType {
 
@@ -23,8 +31,8 @@ public class SpringBiome implements BiomeType {
     }
 
     @Override
-    public Biome.Category category() {
-        return Biome.Category.FOREST;
+    public Biome.BiomeCategory category() {
+        return Biome.BiomeCategory.FOREST;
     }
 
     @Override
@@ -48,28 +56,28 @@ public class SpringBiome implements BiomeType {
     }
 
     @Override
-    public void ambience(BiomeAmbience.Builder builder) {
+    public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
-        builder.skyColor(BiomeMaker.calculateSkyColor(0.7f));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false));
-        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001f));
+        builder.skyColor(VanillaBiomes.calculateSkyColor(0.7f));
+        builder.backgroundMusic(new Music(ModSoundEvents.springSoundtrack, 6000, 12000, false));
+        builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.HAPPY_VILLAGER, 0.001f));
     }
 
     @Override
     public void generation(BiomeGenerationSettings.Builder builder) {
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
-        DefaultBiomeFeatures.addExtraEmeralds(builder);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
+        BiomeDefaultFeatures.addExtraEmeralds(builder);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
     }
 
     @Override
-    public void overworldSpawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 50, 1, 3));
-        DefaultBiomeFeatures.farmAnimals(builder);
+    public void overworldSpawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ILLUSIONER, 50, 1, 3));
+        BiomeDefaultFeatures.farmAnimals(builder);
     }
 
     @Override

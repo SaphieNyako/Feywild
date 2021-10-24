@@ -2,78 +2,78 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.mandragora.*;
-import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
 
 @RegisterClass
 public class ModEntityTypes {
 
-    public static final EntityType<BeeKnight> beeKnight = EntityType.Builder.of(BeeKnight::new, EntityClassification.CREATURE)
+    public static final EntityType<BeeKnight> beeKnight = EntityType.Builder.of(BeeKnight::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_bee_knight");
 
-    public static final EntityType<MelonMandragoraEntity> melonMandragora = EntityType.Builder.of(MelonMandragoraEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MelonMandragora> melonMandragora = EntityType.Builder.of(MelonMandragora::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "melon_mandragora");
 
-    public static final EntityType<OnionMandragoraEntity> onionMandragora = EntityType.Builder.of(OnionMandragoraEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<OnionMandragora> onionMandragora = EntityType.Builder.of(OnionMandragora::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "onion_mandragora");
 
-    public static final EntityType<PotatoMandragoraEntity> potatoMandragora = EntityType.Builder.of(PotatoMandragoraEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<PotatoMandragora> potatoMandragora = EntityType.Builder.of(PotatoMandragora::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "potato_mandragora");
 
-    public static final EntityType<PumpkinMandragoraEntity> pumpkinMandragora = EntityType.Builder.of(PumpkinMandragoraEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<PumpkinMandragora> pumpkinMandragora = EntityType.Builder.of(PumpkinMandragora::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "pumpkin_mandragora");
 
-    public static final EntityType<TomatoMandragoraEntity> tomatoMandragora = EntityType.Builder.of(TomatoMandragoraEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<TomatoMandragora> tomatoMandragora = EntityType.Builder.of(TomatoMandragora::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "potato_mandragora");
 
-    public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.MONSTER)
+    public static final EntityType<DwarfBlacksmith> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmith::new, MobCategory.MONSTER)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 
-    public static final EntityType<MarketDwarfEntity> dwarfToolsmith = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.MONSTER)
+    public static final EntityType<MarketDwarf> dwarfToolsmith = EntityType.Builder.of(MarketDwarf::new, MobCategory.MONSTER)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_toolsmith");
 
-    public static final EntityType<MarketDwarfEntity> dwarfArtificer = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MarketDwarf> dwarfArtificer = EntityType.Builder.of(MarketDwarf::new, MobCategory.CREATURE)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_artificer");
 
-    public static final EntityType<MarketDwarfEntity> dwarfBaker = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MarketDwarf> dwarfBaker = EntityType.Builder.of(MarketDwarf::new, MobCategory.CREATURE)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_baker");
 
-    public static final EntityType<MarketDwarfEntity> dwarfShepherd = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MarketDwarf> dwarfShepherd = EntityType.Builder.of(MarketDwarf::new, MobCategory.CREATURE)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_shepherd");
 
-    public static final EntityType<MarketDwarfEntity> dwarfDragonHunter = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MarketDwarf> dwarfDragonHunter = EntityType.Builder.of(MarketDwarf::new, MobCategory.CREATURE)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_dragon_hunter");
 
-    public static final EntityType<MarketDwarfEntity> dwarfMiner = EntityType.Builder.of(MarketDwarfEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MarketDwarf> dwarfMiner = EntityType.Builder.of(MarketDwarf::new, MobCategory.CREATURE)
             .sized(1, 1)
             .build(FeywildMod.getInstance().modid + "_dwarf_miner");
 
-    public static final EntityType<SpringPixieEntity> springPixie = EntityType.Builder.of(SpringPixieEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<SpringPixie> springPixie = EntityType.Builder.of(SpringPixie::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_spring_pixie");
 
-    public static final EntityType<SummerPixieEntity> summerPixie = EntityType.Builder.of(SummerPixieEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<SummerPixie> summerPixie = EntityType.Builder.of(SummerPixie::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_summer_pixie");
 
-    public static final EntityType<AutumnPixieEntity> autumnPixie = EntityType.Builder.of(AutumnPixieEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<AutumnPixie> autumnPixie = EntityType.Builder.of(AutumnPixie::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_autumn_pixie");
 
-    public static final EntityType<WinterPixieEntity> winterPixie = EntityType.Builder.of(WinterPixieEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<WinterPixie> winterPixie = EntityType.Builder.of(WinterPixie::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_winter_pixie");
 }

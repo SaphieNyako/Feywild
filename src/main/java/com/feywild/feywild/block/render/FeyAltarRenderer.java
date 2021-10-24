@@ -2,15 +2,15 @@ package com.feywild.feywild.block.render;
 
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.model.FeyAltarModel;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.noeppi_noeppi.libx.render.ClientTickHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.world.item.ItemStack;
+import com.mojang.math.Vector3f;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import java.util.List;
 
 public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
     
-    public FeyAltarRenderer(TileEntityRendererDispatcher dispatcher) {
+    public FeyAltarRenderer(BlockEntityRenderDispatcher dispatcher) {
         super(dispatcher, new FeyAltarModel());
     }
 
     @Override
-    public void render(FeyAltar tile, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int light) {
-        super.render(tile, partialTicks, matrixStack, buffer, light);
+    public void render(FeyAltar tile, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int light) {
+        super.render(tile, partialTicks, poseStack, buffer, light);
         
         double progressScaled = tile.getProgress() / (double) FeyAltar.MAX_PROGRESS;
         
@@ -40,12 +40,12 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
                 //noinspection ConstantConditions
                 double shiftX = Math.cos((((double) tile.getLevel().getGameTime() + partialTicks) / 8) + (idx * anglePerStack)) * (1 - progressScaled);
                 double shiftZ = Math.sin((((double) tile.getLevel().getGameTime() + partialTicks) / 8) + (idx * anglePerStack)) * (1 - progressScaled);
-                matrixStack.pushPose();
-                matrixStack.translate(0.5 + shiftX, 1 + progressScaled, 0.5 + shiftZ);
-                matrixStack.mulPose(Vector3f.YP.rotation((ClientTickHandler.ticksInGame + partialTicks) / 20));
-                matrixStack.scale(0.85f, 0.85f, 0.85f);
-                Minecraft.getInstance().getItemRenderer().renderStatic(stacks.get(idx), ItemCameraTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, matrixStack, buffer);
-                matrixStack.popPose();
+                poseStack.pushPose();
+                poseStack.translate(0.5 + shiftX, 1 + progressScaled, 0.5 + shiftZ);
+                poseStack.mulPose(Vector3f.YP.rotation((ClientTickHandler.ticksInGame + partialTicks) / 20));
+                poseStack.scale(0.85f, 0.85f, 0.85f);
+                Minecraft.getInstance().getItemRenderer().renderStatic(stacks.get(idx), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer);
+                poseStack.popPose();
             }
         }
     }

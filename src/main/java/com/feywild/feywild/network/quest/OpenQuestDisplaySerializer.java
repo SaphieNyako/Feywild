@@ -2,7 +2,7 @@ package com.feywild.feywild.network.quest;
 
 import com.feywild.feywild.quest.QuestDisplay;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDisplaySerializer.Message> {
 
@@ -12,13 +12,13 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         msg.display.toNetwork(buffer);
         buffer.writeBoolean(msg.confirmationButtons);
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
         QuestDisplay display = QuestDisplay.fromNetwork(buffer);
         boolean confirmationButtons = buffer.readBoolean();
         return new Message(display, confirmationButtons);

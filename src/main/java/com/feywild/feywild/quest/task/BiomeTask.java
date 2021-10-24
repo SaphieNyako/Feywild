@@ -1,8 +1,8 @@
 package com.feywild.feywild.quest.task;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.registries.ForgeRegistries;
 
 // Test type must be a resource locations as biomes are handled in a weird way
@@ -20,7 +20,7 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayerEntity player, Biome element, ResourceLocation match) {
+    public boolean checkCompleted(ServerPlayer player, Biome element, ResourceLocation match) {
         return element.getRegistryName() != null && element.getRegistryName().equals(match);
     }
 

@@ -2,12 +2,12 @@ package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.RequestItemSerializer;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
@@ -32,13 +32,13 @@ public class ScrollWidget extends BookWidget {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft.getInstance().getTextureManager().bind(getTexture());
         RenderSystem.color4f(1, 1, 1, 1);
-        this.blit(matrixStack, this.x - 20, this.y - 16, idx * WIDTH, 0, 64, 64);
+        this.blit(poseStack, this.x - 20, this.y - 16, idx * WIDTH, 0, 64, 64);
         if (this.isHovered(mouseX, mouseY)) {
             this.setBlitOffset(this.getBlitOffset() + 10);
-            this.blit(matrixStack, this.x - 20, this.y - 16, idx * WIDTH, 64, 32, 32);
+            this.blit(poseStack, this.x - 20, this.y - 16, idx * WIDTH, 64, 32, 32);
             this.setBlitOffset(this.getBlitOffset() - 10);
         }else
             Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack,this.x + 4,this.y + 4);

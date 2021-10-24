@@ -1,27 +1,27 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nullable;
 
 public class TargetBreedGoal extends Goal {
 
-    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable();
+    private static final TargetingConditions TARGETING = (new TargetingConditions()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable();
 
-    private final FeyEntity entity;
-    private AnimalEntity targetAnimal;
-    private AnimalEntity partner;
+    private final Fey entity;
+    private Animal targetAnimal;
+    private Animal partner;
     private int ticksLeft = 0;
 
-    public TargetBreedGoal(FeyEntity entity) {
+    public TargetBreedGoal(Fey entity) {
         this.entity = entity;
     }
 
@@ -42,15 +42,15 @@ public class TargetBreedGoal extends Goal {
                 return;
             }
             if (this.ticksLeft <= 0) {
-                if (this.entity.level instanceof ServerWorld) {
-                    this.targetAnimal.spawnChildFromBreeding((ServerWorld) this.entity.level, this.partner);
+                if (this.entity.level instanceof ServerLevel) {
+                    this.targetAnimal.spawnChildFromBreeding((ServerLevel) this.entity.level, this.partner);
                     FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
                 }
                 this.reset();
             } else if (this.ticksLeft == 110) {
                 this.spellCasting();
             } else if (this.ticksLeft <= 100) {
-                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetAnimal.position());
+                this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetAnimal.position());
                 this.entity.getNavigation().moveTo(this.targetAnimal, 0.5);
             }
         }
@@ -86,10 +86,10 @@ public class TargetBreedGoal extends Goal {
     }
 
     @Nullable
-    private AnimalEntity findTarget() {
+    private Animal findTarget() {
         double distance = Double.MAX_VALUE;
-        AnimalEntity current = null;
-        for (AnimalEntity animal : this.entity.level.getNearbyEntities(AnimalEntity.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        Animal current = null;
+        for (Animal animal : this.entity.level.getNearbyEntities(Animal.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
             if (animal.getAge() == 0 && this.entity.distanceToSqr(animal) < distance) {
                 current = animal;
                 distance = this.entity.distanceToSqr(animal);
@@ -99,11 +99,11 @@ public class TargetBreedGoal extends Goal {
     }
 
     @Nullable
-    private AnimalEntity findPartner() {
+    private Animal findPartner() {
         if (this.targetAnimal != null) {
             double distance = Double.MAX_VALUE;
-            AnimalEntity current = null;
-            for (AnimalEntity animal : this.targetAnimal.level.getNearbyEntities(AnimalEntity.class, TARGETING, this.targetAnimal, this.targetAnimal.getBoundingBox().inflate(8))) {
+            Animal current = null;
+            for (Animal animal : this.targetAnimal.level.getNearbyEntities(Animal.class, TARGETING, this.targetAnimal, this.targetAnimal.getBoundingBox().inflate(8))) {
                 if (animal.getAge() == 0) {
                     // We need to set both entities in love to get correct results
                     // from canMate. So we store the old love time to set it back later

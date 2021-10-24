@@ -8,7 +8,7 @@ import io.github.noeppi_noeppi.libx.data.provider.BlockTagProviderBase;
 import io.github.noeppi_noeppi.libx.data.provider.ItemTagProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.data.ExistingFileHelper;

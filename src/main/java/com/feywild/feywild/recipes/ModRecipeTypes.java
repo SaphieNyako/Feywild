@@ -1,17 +1,17 @@
 package com.feywild.feywild.recipes;
 
-import io.github.noeppi_noeppi.libx.annotation.NoReg;
-import io.github.noeppi_noeppi.libx.annotation.RegName;
-import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.registry.Registry;
+import io.github.noeppi_noeppi.libx.annotation.registration.NoReg;
+import io.github.noeppi_noeppi.libx.annotation.registration.RegName;
+import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.Registry;
 
 @RegisterClass
 public class ModRecipeTypes {
 
 
-    @NoReg public static final IRecipeType<IAltarRecipe> ALTAR = IRecipeType.register(IAltarRecipe.TYPE_ID.toString());
-    @NoReg public static final IRecipeType<IDwarvenAnvilRecipe> DWARVEN_ANVIL = IRecipeType.register(IDwarvenAnvilRecipe.TYPE_ID.toString());
+    @NoReg public static final RecipeType<IAltarRecipe> ALTAR = RecipeType.register(IAltarRecipe.TYPE_ID.toString());
+    @NoReg public static final RecipeType<IDwarvenAnvilRecipe> DWARVEN_ANVIL = RecipeType.register(IDwarvenAnvilRecipe.TYPE_ID.toString());
 
     @RegName("fey_altar") public static final AltarRecipe.Serializer ALTAR_SERIALIZER = new AltarRecipe.Serializer();
     @RegName("dwarven_anvil") public static final DwarvenAnvilRecipe.Serializer DWARVEN_ANVIL_SERIALIZER = new DwarvenAnvilRecipe.Serializer();

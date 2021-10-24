@@ -4,11 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.TagParser;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
@@ -45,12 +45,12 @@ public interface StackFactory {
             if (item == null) {
                 throw new IllegalStateException("Can't create stack factory without item");
             }
-            CompoundNBT nbt;
+            CompoundTag nbt;
             try {
                 if (obj.has("nbt") && obj.get("nbt").isJsonPrimitive()) {
-                    nbt = JsonToNBT.parseTag(obj.get("nbt").getAsString());
+                    nbt = TagParser.parseTag(obj.get("nbt").getAsString());
                 } else if (obj.has("nbt")) {
-                    nbt = JsonToNBT.parseTag(obj.get("nbt").toString());
+                    nbt = TagParser.parseTag(obj.get("nbt").toString());
                 } else {
                     nbt = null;
                 }

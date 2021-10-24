@@ -1,8 +1,8 @@
 package com.feywild.feywild.quest.task;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
@@ -19,7 +19,7 @@ public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayerEntity player, EntityType<?> element, Entity match) {
+    public boolean checkCompleted(ServerPlayer player, EntityType<?> element, Entity match) {
         return match.getType() == element;
     }
 }

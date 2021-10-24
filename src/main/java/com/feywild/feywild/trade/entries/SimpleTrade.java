@@ -5,18 +5,18 @@ import com.feywild.feywild.trade.item.SimpleStackFactory;
 import com.feywild.feywild.trade.item.StackFactory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.MerchantOffer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.trading.MerchantOffer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
 // A simple trade
-public class SimpleTrade implements VillagerTrades.ITrade {
+public class SimpleTrade implements VillagerTrades.ItemListing {
     
     public final StackFactory input;
     public final StackFactory additional;

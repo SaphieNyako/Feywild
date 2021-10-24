@@ -1,7 +1,7 @@
 package com.feywild.feywild.network.quest;
 
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class ConfirmQuestSerializer implements PacketSerializer<ConfirmQuestSerializer.Message> {
 
@@ -11,12 +11,12 @@ public class ConfirmQuestSerializer implements PacketSerializer<ConfirmQuestSeri
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeBoolean(msg.accept);
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
         return new Message(buffer.readBoolean());
     }
 

@@ -3,20 +3,20 @@ package com.feywild.feywild.block.trees;
 import com.feywild.feywild.particles.ModParticles;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class SummerTree extends BaseTree {
+public class SummerTreeGrower extends BaseTreeGrower {
 
-    public SummerTree(ModX mod) {
+    public SummerTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 20, ModParticles.summerLeafParticle));
     }
 
@@ -38,16 +38,16 @@ public class SummerTree extends BaseTree {
     }
 
     @Override
-    protected BaseTreeFeatureConfig.Builder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
+    protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
-                Features.Placements.BEEHIVE_005
+                Features.Decorators.BEEHIVE_005
         ));
     }
 
     @Override
-    public void decorateSaplingGrowth(ServerWorld world, BlockPos pos, Random random) {
-        if (Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock())) {
-            world.setBlockAndUpdate(pos, getDecorationBlock(random));
+    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, Random random) {
+        if (Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
+            level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
     }
 }

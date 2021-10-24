@@ -1,13 +1,13 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import com.feywild.feywild.entity.DwarfBlacksmith;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class RefreshStockGoal extends Goal {
 
-    protected final DwarfBlacksmithEntity entity;
+    protected final DwarfBlacksmith entity;
 
-    public RefreshStockGoal(DwarfBlacksmithEntity entity) {
+    public RefreshStockGoal(DwarfBlacksmith entity) {
         this.entity = entity;
     }
 

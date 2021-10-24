@@ -4,18 +4,18 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.github.noeppi_noeppi.libx.data.CraftingHelper2;
-import io.github.noeppi_noeppi.libx.data.provider.recipe.AnyRecipeProvider;
+import io.github.noeppi_noeppi.libx.crafting.CraftingHelper2;
+import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class AnvilRecipes extends AnyRecipeProvider {
+public class AnvilRecipes extends RecipeProviderBase {
 
     public AnvilRecipes(ModX mod, DataGenerator generator) {
         super(mod, generator);
@@ -36,7 +36,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
     }
 
     @Override
-    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         this.gemTransmutation(consumer, ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(consumer, ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(consumer, ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);
@@ -53,7 +53,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
                 .build(consumer); */
     }
 
-    private void gemTransmutation(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider result, int mana) {
+    private void gemTransmutation(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike result, int mana) {
         this.anvil(result, 2)
                 .requires(input)
                 .requires(input)
@@ -65,11 +65,11 @@ public class AnvilRecipes extends AnyRecipeProvider {
                 .build(consumer);
     }
 
-    private AnvilRecipeBuilder anvil(IItemProvider result) {
+    private AnvilRecipeBuilder anvil(ItemLike result) {
         return this.anvil(new ItemStack(result));
     }
 
-    private AnvilRecipeBuilder anvil(IItemProvider result, int amount) {
+    private AnvilRecipeBuilder anvil(ItemLike result, int amount) {
         return this.anvil(new ItemStack(result, amount));
     }
 
@@ -90,11 +90,11 @@ public class AnvilRecipes extends AnyRecipeProvider {
             this.inputs = new ArrayList<>();
         }
 
-        public AnvilRecipeBuilder requires(IItemProvider item) {
+        public AnvilRecipeBuilder requires(ItemLike item) {
             return this.requires(Ingredient.of(item));
         }
 
-        public AnvilRecipeBuilder requires(ITag<Item> item) {
+        public AnvilRecipeBuilder requires(Tag<Item> item) {
             return this.requires(Ingredient.of(item));
         }
 
@@ -103,11 +103,11 @@ public class AnvilRecipes extends AnyRecipeProvider {
             return this;
         }
 
-        public AnvilRecipeBuilder schematics(IItemProvider item) {
+        public AnvilRecipeBuilder schematics(ItemLike item) {
             return this.schematics(Ingredient.of(item));
         }
 
-        public AnvilRecipeBuilder schematics(ITag<Item> item) {
+        public AnvilRecipeBuilder schematics(Tag<Item> item) {
             return this.schematics(Ingredient.of(item));
         }
 
@@ -124,17 +124,17 @@ public class AnvilRecipes extends AnyRecipeProvider {
             return this;
         }
 
-        public void build(Consumer<IFinishedRecipe> consumer) {
+        public void build(Consumer<FinishedRecipe> consumer) {
             this.build(consumer, AnvilRecipes.this.loc(this.result.getItem(), "dwarven_anvil"));
         }
 
-        public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+        public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
             if (this.inputs.isEmpty())
                 throw new IllegalStateException("Can't build dwarven anvil recipe without inputs: " + id);
             if (this.inputs.size() > 5)
                 throw new IllegalStateException("Can't build dwarven anvil recipe with more than 5 inputs: " + id);
             if (this.mana < 0) throw new IllegalStateException("mana not set for dwarven anvil recipe: " + id);
-            consumer.accept(new IFinishedRecipe() {
+            consumer.accept(new FinishedRecipe() {
 
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
@@ -156,7 +156,7 @@ public class AnvilRecipes extends AnyRecipeProvider {
 
                 @Nonnull
                 @Override
-                public IRecipeSerializer<?> getType() {
+                public RecipeSerializer<?> getType() {
                     return ModRecipeTypes.DWARVEN_ANVIL_SERIALIZER;
                 }
 

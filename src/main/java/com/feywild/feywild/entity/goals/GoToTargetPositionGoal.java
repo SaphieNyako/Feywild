@@ -1,19 +1,19 @@
 package com.feywild.feywild.entity.goals;
 
-import net.minecraft.entity.MobEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;
 
 public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
-    private final MobEntity entity;
+    private final Mob entity;
     private final Supplier<Boolean> shouldReturn;
     private final int triggerRangeSquared;
     private final float speed;
 
-    public GoToTargetPositionGoal(MobEntity entity, Supplier<Vector3d> pos, int maxMovementRange, float speed) {
+    public GoToTargetPositionGoal(Mob entity, Supplier<Vec3> pos, int maxMovementRange, float speed) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.speed = speed;
@@ -21,7 +21,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
         this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
 
-    public GoToTargetPositionGoal(MobEntity entity, Supplier<Vector3d> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
+    public GoToTargetPositionGoal(Mob entity, Supplier<Vec3> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.speed = speed;
@@ -31,7 +31,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public void tick() {
-        Vector3d target = this.targetPosition.get();
+        Vec3 target = this.targetPosition.get();
         if (target != null && distanceFromSquared(this.entity.position(), target) > this.triggerRangeSquared) {
             this.entity.setPos(target.x, target.y, target.z);
         } else if (target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared) {
@@ -41,21 +41,21 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public boolean canContinueToUse() {
-        Vector3d target = this.targetPosition.get();
+        Vec3 target = this.targetPosition.get();
         return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared / 2.0 && this.shouldReturn.get();
     }
 
     @Override
     public boolean canUse() {
-        Vector3d target = this.targetPosition.get();
+        Vec3 target = this.targetPosition.get();
         return this.entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position()) && this.shouldReturn.get();
     }
     
-    public static GoToTargetPositionGoal byBlockPos(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {
+    public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {
         return new GoToTargetPositionGoal(entity, asVector(pos), maxMovementRange, speed);
     }
     
-    public static GoToTargetPositionGoal byBlockPos(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
+    public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
         return new GoToTargetPositionGoal(entity, asVector(pos), maxMovementRange, speed, shouldReturn);
     }
 }

@@ -6,11 +6,11 @@ import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.config.mapper.ResourceLocationMapper;
 import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.BeeKnight;
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.MarketDwarfEntity;
+import com.feywild.feywild.entity.DwarfBlacksmith;
+import com.feywild.feywild.entity.MarketDwarf;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.base.FeyEntity;
-import com.feywild.feywild.entity.base.MandragoraEntity;
+import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Mandragora;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.BasePixieRenderer;
 import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
@@ -36,12 +36,12 @@ import com.feywild.feywild.world.structure.ModStructures;
 import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -134,12 +134,12 @@ public final class FeywildMod extends ModXRegistration {
             OreType.setupOres();
             ModStructures.setupStructures();
 
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.beeKnight, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -173,22 +173,22 @@ public final class FeywildMod extends ModXRegistration {
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntityTypes.springPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.winterPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.summerPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.autumnPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfArtificer, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfBaker, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfMiner, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.melonMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.onionMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.potatoMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.pumpkinMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.tomatoMandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.springPixie, Fey.getDefaultAttributes().build());
+        event.put(ModEntityTypes.winterPixie, Fey.getDefaultAttributes().build());
+        event.put(ModEntityTypes.summerPixie, Fey.getDefaultAttributes().build());
+        event.put(ModEntityTypes.autumnPixie, Fey.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmith.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfArtificer, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfBaker, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfMiner, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfShepherd, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntityTypes.dwarfToolsmith, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntityTypes.melonMandragora, Mandragora.getDefaultAttributes().build());
+        event.put(ModEntityTypes.onionMandragora, Mandragora.getDefaultAttributes().build());
+        event.put(ModEntityTypes.potatoMandragora, Mandragora.getDefaultAttributes().build());
+        event.put(ModEntityTypes.pumpkinMandragora, Mandragora.getDefaultAttributes().build());
+        event.put(ModEntityTypes.tomatoMandragora, Mandragora.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }
 

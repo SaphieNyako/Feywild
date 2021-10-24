@@ -3,16 +3,16 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.TooltipHelper;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MusicDiscItem;
-import net.minecraft.item.Rarity;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -20,7 +20,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FeywildMusicDisc extends MusicDiscItem {
+import net.minecraft.world.item.Item.Properties;
+
+public class FeywildMusicDisc extends RecordItem {
 
     public FeywildMusicDisc() {
         this(1, ModSoundEvents.feywildSoundtrack, new Item.Properties().tab(FeywildMod.getInstance().tab).rarity(Rarity.RARE));
@@ -33,13 +35,13 @@ public class FeywildMusicDisc extends MusicDiscItem {
     @Nonnull
     @Override
     @OnlyIn(Dist.CLIENT)
-    public IFormattableTextComponent getDisplayName() {
-        return new TranslationTextComponent("message.feywild.music_disc_feywild_2");
+    public MutableComponent getDisplayName() {
+        return new TranslatableComponent("message.feywild.music_disc_feywild_2");
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.music_disc_feywild"));
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.music_disc_feywild"));
+        super.appendHoverText(stack, level, tooltip, flag);
     }
 }

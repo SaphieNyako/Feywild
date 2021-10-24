@@ -3,9 +3,9 @@ package com.feywild.feywild.quest.player;
 import com.feywild.feywild.quest.Quest;
 import com.feywild.feywild.quest.QuestLine;
 import com.feywild.feywild.quest.task.TaskType;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class QuestProgress {
     }
 
     @Nullable
-    public <T> String checkComplete(ServerPlayerEntity player, QuestLine quests, TaskType<?, T> type, T element) {
+    public <T> String checkComplete(ServerPlayer player, QuestLine quests, TaskType<?, T> type, T element) {
         String progressMsg = null;
         Quest quest = quests.getQuest(this.quest);
         if (quest != null) {
@@ -59,15 +59,15 @@ public class QuestProgress {
         }
     }
     
-    public CompoundNBT write() {
-        CompoundNBT nbt = new CompoundNBT();
+    public CompoundTag write() {
+        CompoundTag nbt = new CompoundTag();
         for (Map.Entry<Integer, Integer> entry : this.taskProgress.entrySet()) {
             nbt.putInt(Integer.toString(entry.getKey()), entry.getValue());
         }
         return nbt;
     }
 
-    public void read(CompoundNBT nbt) {
+    public void read(CompoundTag nbt) {
         this.taskProgress.clear();
         for (String key : nbt.getAllKeys()) {
             try {

@@ -1,31 +1,31 @@
 package com.feywild.feywild.block;
 
-import io.github.noeppi_noeppi.libx.block.DirectionShape;
+import io.github.noeppi_noeppi.libx.block.RotationShape;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import io.github.noeppi_noeppi.libx.base.BlockBase;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.level.BlockGetter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TreeMushroomBlock extends BlockBase {
 
-    public static final DirectionShape SHAPE = new DirectionShape(VoxelShapes.or(
+    public static final RotationShape SHAPE = new RotationShape(Shapes.or(
             box(10, 10.4375, 14, 13, 11.1875, 16),
             box(0, 8.25, 10, 7, 9.9375, 16),
             box(1.25, 7.875, 11.125, 5.75, 8.25, 16),
@@ -37,7 +37,7 @@ public class TreeMushroomBlock extends BlockBase {
     ));
 
     public TreeMushroomBlock(ModX mod) {
-        super(mod, AbstractBlock.Properties.of(Material.GRASS)
+        super(mod, BlockBehaviour.Properties.of(Material.GRASS)
                 .sound(SoundType.FUNGUS)
                 .noOcclusion().noCollission()
                 .lightLevel(value -> 10)
@@ -47,20 +47,20 @@ public class TreeMushroomBlock extends BlockBase {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         return SHAPE.getShape(state.getValue(BlockStateProperties.HORIZONTAL_FACING));
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
     }
     

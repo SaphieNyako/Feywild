@@ -1,9 +1,9 @@
 package com.feywild.feywild.sound;
 
 import com.feywild.feywild.FeywildMod;
-import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 
 @RegisterClass
 public class ModSoundEvents {

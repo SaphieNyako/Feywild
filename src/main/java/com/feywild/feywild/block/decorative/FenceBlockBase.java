@@ -3,11 +3,13 @@ package com.feywild.feywild.block.decorative;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 
 import java.util.Set;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class FenceBlockBase extends FenceBlock implements Registerable {
 
@@ -15,10 +17,10 @@ public class FenceBlockBase extends FenceBlock implements Registerable {
     private final Item item;
 
     public FenceBlockBase(ModX mod, Properties properties) {
-        this(mod, properties, new net.minecraft.item.Item.Properties());
+        this(mod, properties, new net.minecraft.world.item.Item.Properties());
     }
 
-    public FenceBlockBase(ModX mod, Properties properties, net.minecraft.item.Item.Properties itemProperties) {
+    public FenceBlockBase(ModX mod, Properties properties, net.minecraft.world.item.Item.Properties itemProperties) {
         super(properties);
         this.mod = mod;
         if (mod.tab != null) {

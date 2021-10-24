@@ -4,14 +4,14 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.screens.widget.BookWidget;
 import com.feywild.feywild.screens.widget.ScrollWidget;
 import com.feywild.feywild.util.TextProcessor;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.RenderComponentsUtil;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.components.ComponentRenderUtils;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 
 public class OpeningScreen extends Screen {
 
-    List<IReorderingProcessor> text;
+    List<FormattedCharSequence> text;
     List<ItemStack> itemStacks;
     int size;
     public OpeningScreen(int size) {
-        super(new StringTextComponent(""));
+        super(new TextComponent(""));
         itemStacks = new LinkedList<>();
         this.size = size;
         // pinnacle of laziness
@@ -42,7 +42,7 @@ public class OpeningScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        text = TextProcessor.process(new TranslationTextComponent("screen.feywild.opening_screen")).stream().flatMap(line -> RenderComponentsUtil.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
+        text = TextProcessor.process(new TranslatableComponent("screen.feywild.opening_screen")).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
         int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (BookWidget.WIDTH + 4), this.itemStacks.size()));
         int paddingStart = (this.width - (buttonsPerRow * 29)) / 2 - 54;
         for (int i = 0; i < this.itemStacks.size(); i++) {
@@ -56,20 +56,20 @@ public class OpeningScreen extends Screen {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        drawTextLines(matrixStack,mouseX,mouseY);
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
+        drawTextLines(poseStack,mouseX,mouseY);
     }
 
 
-    private void drawTextLines(MatrixStack matrixStack, int x, int y) {
+    private void drawTextLines(PoseStack poseStack, int x, int y) {
         if (this.minecraft != null) {
 
-            this.minecraft.font.drawShadow(matrixStack, this.text.get(0),  this.width / 2f - ( this.minecraft.font.width(this.text.get(0)) /2f ), 10, 0xFFFFFF);
+            this.minecraft.font.drawShadow(poseStack, this.text.get(0),  this.width / 2f - ( this.minecraft.font.width(this.text.get(0)) /2f ), 10, 0xFFFFFF);
 
             for (int i = 1; i < this.text.size(); i++) {
-                this.minecraft.font.drawShadow(matrixStack, this.text.get(i), 20, 55 + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+                this.minecraft.font.drawShadow(poseStack, this.text.get(i), 20, 55 + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
             }
         }
     }

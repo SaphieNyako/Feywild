@@ -6,13 +6,13 @@ import com.feywild.feywild.quest.*;
 import com.feywild.feywild.quest.task.TaskType;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class QuestData {
     
-    public static QuestData get(ServerPlayerEntity player) {
+    public static QuestData get(ServerPlayer player) {
         // Capability should always be there.
         // If not print a warning and get default instance
         return player.getCapability(CapabilityQuests.QUESTS).orElseGet(() -> {
@@ -32,7 +32,7 @@ public class QuestData {
     }
     
     @Nullable
-    private ServerPlayerEntity player;
+    private ServerPlayer player;
     
     @Nullable
     private Alignment alignment;
@@ -45,7 +45,7 @@ public class QuestData {
     private final Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
     
     // Called when the capability is attached to the player
-    public void attach(ServerPlayerEntity player) {
+    public void attach(ServerPlayer player) {
         this.player = player;
         // If the datapacks changed since last login, start the new quests that are available now.
         this.startNextQuests();
@@ -166,7 +166,7 @@ public class QuestData {
     }
     
     @Nullable
-    private QuestDisplay tryComplete(ServerPlayerEntity player, QuestLine quests, ResourceLocation id) {
+    private QuestDisplay tryComplete(ServerPlayer player, QuestLine quests, ResourceLocation id) {
         Quest quest = quests.getQuest(id);
         if (quest != null) {
             QuestDisplay display = quest.tasks.isEmpty() ? quest.start : quest.complete;
@@ -221,9 +221,9 @@ public class QuestData {
                     }
                 }
                 if (shouldNotify) {
-                    this.player.displayClientMessage(new TranslationTextComponent("message.feywild.quest_completion"), true);
+                    this.player.displayClientMessage(new TranslatableComponent("message.feywild.quest_completion"), true);
                 } else {
-                    this.player.displayClientMessage(new StringTextComponent(msgToDisplay), true);
+                    this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
                 }
                 this.startNextQuests();
             }
@@ -258,21 +258,21 @@ public class QuestData {
         }
     }
     
-    public CompoundNBT write() {
-        CompoundNBT nbt = new CompoundNBT();
+    public CompoundTag write() {
+        CompoundTag nbt = new CompoundTag();
         nbt.putString("Alignment", Alignment.optionId(this.alignment));
         nbt.putInt("Reputation", 0);
-        ListNBT pending = new ListNBT();
+        ListTag pending = new ListTag();
         for (ResourceLocation quest : this.pendingCompletion) {
-            pending.add(StringNBT.valueOf(quest.toString()));
+            pending.add(StringTag.valueOf(quest.toString()));
         }
         nbt.put("Pending", pending);
-        ListNBT completed = new ListNBT();
+        ListTag completed = new ListTag();
         for (ResourceLocation quest : this.completedQuests) {
-            completed.add(StringNBT.valueOf(quest.toString()));
+            completed.add(StringTag.valueOf(quest.toString()));
         }
         nbt.put("Completed", completed);
-        CompoundNBT active = new CompoundNBT();
+        CompoundTag active = new CompoundTag();
         for (Map.Entry<ResourceLocation, QuestProgress> entry : this.activeQuests.entrySet()) {
             active.put(entry.getKey().toString(), entry.getValue().write());
         }
@@ -280,22 +280,22 @@ public class QuestData {
         return nbt;
     }
 
-    public void read(CompoundNBT nbt) {
+    public void read(CompoundTag nbt) {
         this.alignment = Alignment.byOptionId(nbt.getString("Alignment"));
         this.reputation = nbt.getInt("Reputation");
-        ListNBT pending = nbt.getList("Pending", Constants.NBT.TAG_STRING);
+        ListTag pending = nbt.getList("Pending", Constants.NBT.TAG_STRING);
         this.pendingCompletion.clear();
         for (int i = 0; i < pending.size(); i++) {
             ResourceLocation id = ResourceLocation.tryParse(pending.getString(i));
             if (id != null) this.pendingCompletion.add(id);
         }
-        ListNBT completed = nbt.getList("Completed", Constants.NBT.TAG_STRING);
+        ListTag completed = nbt.getList("Completed", Constants.NBT.TAG_STRING);
         this.completedQuests.clear();
         for (int i = 0; i < completed.size(); i++) {
             ResourceLocation id = ResourceLocation.tryParse(completed.getString(i));
             if (id != null) this.completedQuests.add(id);
         }
-        CompoundNBT active = nbt.getCompound("Active");
+        CompoundTag active = nbt.getCompound("Active");
         this.activeQuests.clear();
         for (String key : active.getAllKeys()) {
             ResourceLocation id = ResourceLocation.tryParse(key);

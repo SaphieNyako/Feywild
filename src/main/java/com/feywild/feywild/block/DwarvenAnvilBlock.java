@@ -1,30 +1,30 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.DwarvenAnvil;
-import com.feywild.feywild.container.DwarvenAnvilContainer;
+import com.feywild.feywild.container.DwarvenAnvilContainerMenu;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
-import io.github.noeppi_noeppi.libx.block.DirectionShape;
-import io.github.noeppi_noeppi.libx.inventory.container.ContainerBase;
+import io.github.noeppi_noeppi.libx.block.RotationShape;
+import io.github.noeppi_noeppi.libx.menu.BlockEntityMenu;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.BlockGUI;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import io.github.noeppi_noeppi.libx.base.tile.BlockMenu;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -32,16 +32,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class DwarvenAnvilBlock extends BlockGUI<DwarvenAnvil, DwarvenAnvilContainer> {
+public class DwarvenAnvilBlock extends BlockMenu<DwarvenAnvil, DwarvenAnvilContainerMenu> {
 
-    public static final DirectionShape SHAPE = new DirectionShape(
+    public static final RotationShape SHAPE = new RotationShape(
             box(-0.375, 0.0625, 3.875, 16.625, 10.25, 12.6875)
     );
     
     public DwarvenAnvilBlock(ModX mod) {
         super(
-                mod, DwarvenAnvil.class, ContainerBase.createContainerType(DwarvenAnvilContainer::new),
-                AbstractBlock.Properties.of(Material.HEAVY_METAL)
+                mod, DwarvenAnvil.class, BlockEntityMenu.createMenuType(DwarvenAnvilContainerMenu::new),
+                BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                         .strength(3f, 10f)
                         .harvestLevel(2)
                         .sound(SoundType.ANVIL)
@@ -53,24 +53,24 @@ public class DwarvenAnvilBlock extends BlockGUI<DwarvenAnvil, DwarvenAnvilContai
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        ScreenManager.register(this.container, DwarvenAnvilScreen::new);
+        MenuScreens.register(this.menu, DwarvenAnvilScreen::new);
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
     
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         return SHAPE.getShape(state.getValue(BlockStateProperties.HORIZONTAL_FACING));
     }
 
@@ -89,7 +89,7 @@ public class DwarvenAnvilBlock extends BlockGUI<DwarvenAnvil, DwarvenAnvilContai
     }
 
     @Override
-    protected boolean shouldDropInventory(World world, BlockPos pos, BlockState state) {
+    protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
         return true;
     }
 }

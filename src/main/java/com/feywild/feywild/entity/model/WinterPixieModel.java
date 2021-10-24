@@ -1,8 +1,8 @@
 package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.WinterPixieEntity;
-import net.minecraft.util.ResourceLocation;
+import com.feywild.feywild.entity.WinterPixie;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -10,11 +10,11 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 import javax.annotation.Nullable;
 
-public class WinterPixieModel extends AnimatedGeoModel<WinterPixieEntity> {
+public class WinterPixieModel extends AnimatedGeoModel<WinterPixie> {
 
 
     @Override
-    public void setLivingAnimations(WinterPixieEntity entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
+    public void setLivingAnimations(WinterPixie entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
         if (customPredicate != null) {
@@ -26,17 +26,17 @@ public class WinterPixieModel extends AnimatedGeoModel<WinterPixieEntity> {
 
 
     @Override
-    public ResourceLocation getModelLocation(WinterPixieEntity winterPixieEntity) {
+    public ResourceLocation getModelLocation(WinterPixie winterPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "geo/winter_pixie.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(WinterPixieEntity winterPixieEntity) {
+    public ResourceLocation getTextureLocation(WinterPixie winterPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/winter_pixie.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(WinterPixieEntity winterPixieEntity) {
+    public ResourceLocation getAnimationFileLocation(WinterPixie winterPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "animations/winter_pixie.animation.json");
     }
 }

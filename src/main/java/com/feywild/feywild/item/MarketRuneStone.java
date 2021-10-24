@@ -3,49 +3,51 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class MarketRuneStone extends TooltipItem {
 
     public MarketRuneStone(ModX mod, Properties prop) {
-        super(mod, prop, new TranslationTextComponent("message.feywild.market_scroll"));
+        super(mod, prop, new TranslatableComponent("message.feywild.market_scroll"));
     }
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> use(@Nonnull World world, @Nonnull PlayerEntity player, @Nonnull Hand hand) {
-        if (world.isClientSide) {
-            if (world.dimension() == World.OVERWORLD || world.dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
-                return ActionResult.sidedSuccess(player.getItemInHand(hand), true);
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
+        if (level.isClientSide) {
+            if (level.dimension() == Level.OVERWORLD || level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
+                return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), true);
             } else {
-                return ActionResult.fail(player.getItemInHand(hand));
+                return InteractionResultHolder.fail(player.getItemInHand(hand));
             }
-        } else if (player instanceof ServerPlayerEntity) {
-            if (world.dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
-                if (MarketHandler.teleportToOverworld((ServerPlayerEntity) player)) {
+        } else if (player instanceof ServerPlayer) {
+            if (level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
+                if (MarketHandler.teleportToOverworld((ServerPlayer) player)) {
                     player.getCooldowns().addCooldown(this, 60);
-                    return ActionResult.sidedSuccess(player.getItemInHand(hand), false);
+                    return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), false);
                 } else {
-                    return ActionResult.fail(player.getItemInHand(hand));
+                    return InteractionResultHolder.fail(player.getItemInHand(hand));
                 }
             } else {
-                if (MarketHandler.teleportToMarket((ServerPlayerEntity) player)) {
+                if (MarketHandler.teleportToMarket((ServerPlayer) player)) {
                     player.getCooldowns().addCooldown(this, 60);
-                    return ActionResult.sidedSuccess(player.getItemInHand(hand), false);
+                    return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), false);
                 } else {
-                    return ActionResult.fail(player.getItemInHand(hand));
+                    return InteractionResultHolder.fail(player.getItemInHand(hand));
                 }
             }
         } else {
-            return ActionResult.pass(player.getItemInHand(hand));
+            return InteractionResultHolder.pass(player.getItemInHand(hand));
         }
     }
 }

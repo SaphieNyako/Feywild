@@ -1,29 +1,29 @@
 package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.trade.TradeManager;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ExperienceOrbEntity;
-import net.minecraft.entity.merchant.IReputationTracking;
-import net.minecraft.entity.merchant.IReputationType;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
-import net.minecraft.entity.merchant.villager.VillagerData;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.entity.villager.VillagerType;
-import net.minecraft.item.MerchantOffer;
-import net.minecraft.item.MerchantOffers;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.ReputationEventHandler;
+import net.minecraft.world.entity.ai.village.ReputationEventType;
+import net.minecraft.world.entity.npc.AbstractVillager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class TraderEntity extends AbstractVillagerEntity implements IReputationTracking {
+public abstract class Trader extends AbstractVillager implements ReputationEventHandler {
 
     private int villagerXp;
     private int updateMerchantTimer;
@@ -35,8 +35,8 @@ public abstract class TraderEntity extends AbstractVillagerEntity implements IRe
     
     private VillagerData villagerData;
 
-    public TraderEntity(EntityType<? extends AbstractVillagerEntity> entity, World world) {
-        super(entity, world);
+    public Trader(EntityType<? extends AbstractVillager> entity, Level level) {
+        super(entity, level);
         this.villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.TOOLSMITH, 1);
     }
     
@@ -53,7 +53,7 @@ public abstract class TraderEntity extends AbstractVillagerEntity implements IRe
         }
 
         if (offer.shouldRewardExp()) {
-            this.level.addFreshEntity(new ExperienceOrbEntity(this.level, this.getX(), this.getY() + 0.5D, this.getZ(), i));
+            this.level.addFreshEntity(new ExperienceOrb(this.level, this.getX(), this.getY() + 0.5D, this.getZ(), i));
         }
     }
 
@@ -68,7 +68,7 @@ public abstract class TraderEntity extends AbstractVillagerEntity implements IRe
     }
 
     @Override
-    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("VillagerLevel", this.villagerData.getLevel());
         nbt.putInt("VillagerXp", this.villagerXp);
@@ -78,7 +78,7 @@ public abstract class TraderEntity extends AbstractVillagerEntity implements IRe
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.TOOLSMITH, nbt.contains("VillagerLevel") ? nbt.getInt("VillagerLevel") : 1);
         if (nbt.contains("VillagerXp", Constants.NBT.TAG_ANY_NUMERIC)) {
@@ -102,7 +102,7 @@ public abstract class TraderEntity extends AbstractVillagerEntity implements IRe
                     this.levelUp();
                     this.increaseProfessionLevelOnUpdate = false;
                 }
-                this.addEffect(new EffectInstance(Effects.REGENERATION, 200, 0));
+                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0));
             }
         }
         super.customServerAiStep();
@@ -118,13 +118,13 @@ public abstract class TraderEntity extends AbstractVillagerEntity implements IRe
     }
     
     @Override
-    public void onReputationEventFrom(@Nonnull IReputationType p_213739_1_, @Nonnull Entity p_213739_2_) {
+    public void onReputationEventFrom(@Nonnull ReputationEventType p_213739_1_, @Nonnull Entity p_213739_2_) {
         //
     }
 
     @Nullable
     @Override
-    public AgeableEntity getBreedOffspring(@Nonnull ServerWorld p_241840_1_, @Nonnull AgeableEntity p_241840_2_) {
+    public AgableMob getBreedOffspring(@Nonnull ServerLevel p_241840_1_, @Nonnull AgableMob p_241840_2_) {
         return null;
     }
 

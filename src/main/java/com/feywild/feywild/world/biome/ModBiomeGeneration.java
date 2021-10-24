@@ -2,8 +2,8 @@ package com.feywild.feywild.world.biome;
 
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.config.WorldGenConfig;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,7 +24,7 @@ public class ModBiomeGeneration {
     }
 
     private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
-        RegistryKey<Biome> key = RegistryKey.create(ForgeRegistries.Keys.BIOMES, Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
+        ResourceKey<Biome> key = ResourceKey.create(ForgeRegistries.Keys.BIOMES, Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
         BiomeDictionary.addTypes(key, BiomeDictionary.Type.OVERWORLD);
         BiomeDictionary.addTypes(key, types);
         BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));

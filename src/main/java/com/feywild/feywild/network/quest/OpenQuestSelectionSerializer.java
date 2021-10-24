@@ -4,8 +4,8 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeComponent(msg.title);
         buffer.writeEnum(msg.alignment);
         buffer.writeVarInt(msg.quests.size());
@@ -27,8 +27,8 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
-        ITextComponent title = buffer.readComponent();
+    public Message decode(FriendlyByteBuf buffer) {
+        Component title = buffer.readComponent();
         Alignment alignment = buffer.readEnum(Alignment.class);
         int questSize = buffer.readVarInt();
         ImmutableList.Builder<SelectableQuest> quests = ImmutableList.builder();
@@ -40,11 +40,11 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
 
     public static class Message {
         
-        public final ITextComponent title;
+        public final Component title;
         public final Alignment alignment;
         public final List<SelectableQuest> quests;
 
-        public Message(ITextComponent title, Alignment alignment, List<SelectableQuest> quests) {
+        public Message(Component title, Alignment alignment, List<SelectableQuest> quests) {
             this.title = title;
             this.alignment = alignment;
             this.quests = ImmutableList.copyOf(quests);

@@ -1,7 +1,7 @@
 package com.feywild.feywild.network;
 
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class RequestItemSerializer implements PacketSerializer<RequestItemSerializer.Message> {
 
@@ -11,13 +11,13 @@ public class RequestItemSerializer implements PacketSerializer<RequestItemSerial
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeVarInt(msg.idx);
         buffer.writeEnum(msg.state);
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
         return new Message(buffer.readVarInt(), buffer.readEnum(State.class));
     }
 

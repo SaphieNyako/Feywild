@@ -13,27 +13,27 @@ import com.feywild.feywild.quest.task.FeyGiftTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.PacketDistributor;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -48,20 +48,20 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public abstract class FeyEntity extends FeyBase implements ITameable {
+public abstract class Fey extends FeyBase implements ITameable {
 
-    public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(FeyEntity.class, DataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.BOOLEAN);
 
     @Nullable
     private BlockPos currentTargetPos;
     private boolean isTamed;
 
-    protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
-        super(type, alignment, world);
+    protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
+        super(type, alignment, level);
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
+    public static boolean canSpawn(EntityType<? extends Fey> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
+        return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
     }
 
     @Nullable
@@ -84,13 +84,13 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     @Nullable
     @Override
-    public Vector3d getCurrentPointOfInterest() {
+    public Vec3 getCurrentPointOfInterest() {
         if (!this.isTamed()) {
             return null;
         } else if (this.currentTargetPos != null) {
-            return new Vector3d(this.currentTargetPos.getX() + 0.5, this.currentTargetPos.getY() + 0.5, this.currentTargetPos.getZ() + 0.5);
+            return new Vec3(this.currentTargetPos.getX() + 0.5, this.currentTargetPos.getY() + 0.5, this.currentTargetPos.getZ() + 0.5);
         } else {
-            PlayerEntity player = this.getOwner();
+            Player player = this.getOwner();
             if (player != null) {
                 return player.position();
             }
@@ -120,7 +120,7 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
     }
 
     @Override
-    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Tamed", this.isTamed);
         if (this.currentTargetPos != null) {
@@ -129,7 +129,7 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
+    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
         this.currentTargetPos = NBTX.getPos(nbt, "CurrentTarget", null);
@@ -137,19 +137,19 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     @Nonnull
     @Override
-    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
+    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
                     if (this.getCurrentTargetPos() == null) {
                         this.setCurrentTargetPos(this.blockPosition());
-                        player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                     } else {
                         this.setCurrentTargetPos(null);
-                        player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                     }
                 }
-            } else if (player instanceof ServerPlayerEntity && this.tryAcceptGift((ServerPlayerEntity) player, hand)) {
+            } else if (player instanceof ServerPlayer && this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(4);
@@ -157,21 +157,21 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
-                setCustomName(new StringTextComponent(player.getItemInHand(hand).getDisplayName().getString()
+                setCustomName(new TextComponent(player.getItemInHand(hand).getDisplayName().getString()
                         .substring(1, player.getItemInHand(hand).getDisplayName().getString().length() - 1)));
                 setCustomNameVisible(true);
-                player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_name"), player.getUUID());
-            } else if (this.isTamed() && player instanceof ServerPlayerEntity && this.owner != null && this.owner.equals(player.getUUID())) {
+                player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_name"), player.getUUID());
+            } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
-                    this.interactQuest((ServerPlayerEntity) player, hand);
+                    this.interactQuest((ServerPlayer) player, hand);
                 }
             }
         }
-        return ActionResultType.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
-    private void interactQuest(ServerPlayerEntity player, Hand hand) {
+    private void interactQuest(ServerPlayer player, InteractionHand hand) {
         QuestData quests = QuestData.get(player);
         if (quests.canComplete(this.alignment)) {
             QuestDisplay completionDisplay = quests.completePendingQuest();
@@ -197,13 +197,13 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
         }
     }
 
-    private boolean tryAcceptGift(ServerPlayerEntity player, Hand hand) {
+    private boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!stack.isEmpty()) {
             AlignmentStack input = new AlignmentStack(this.alignment, stack);
             if (QuestData.get(player).checkComplete(FeyGiftTask.INSTANCE, input)) {
                 if (!player.isCreative()) stack.shrink(1);
-                player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_thanks"), player.getUUID());
+                player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_thanks"), player.getUUID());
                 return true;
             }
         }
@@ -225,8 +225,8 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<FeyEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
-        AnimationController<FeyEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
+        AnimationController<Fey> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<Fey> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
     }

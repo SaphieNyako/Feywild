@@ -1,12 +1,14 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.base.ITameable;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
 // Only use for vanilla goals
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
+
 public class TameCheckingGoal extends Goal {
     
     private final ITameable entity;

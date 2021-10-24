@@ -2,7 +2,7 @@ package com.feywild.feywild.world;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTree;
+import com.feywild.feywild.block.trees.BaseTreeGrower;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
@@ -11,17 +11,17 @@ import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
@@ -64,7 +64,7 @@ public class BiomeLoader {
         ResourceLocation biomeId = event.getName();
         if (biomeId == null || IGNORED_BIOMES.contains(biomeId)) return;
 
-        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, biomeId);
+        ResourceKey<Biome> key = ResourceKey.create(Registry.BIOME_REGISTRY, biomeId);
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         ores(event, biomeId, types, random);
@@ -77,13 +77,13 @@ public class BiomeLoader {
     private static void ores(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         for (OreType ore : OreType.values()) {
             if (!CompatConfig.mythic_alfheim.locked) {
-                if (!event.getCategory().equals(Biome.Category.NETHER) && !event.getCategory().equals(Biome.Category.THEEND)) {
-                    event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore.getFeature());
+                if (!event.getCategory().equals(Biome.BiomeCategory.NETHER) && !event.getCategory().equals(Biome.BiomeCategory.THEEND)) {
+                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getFeature());
                 }
             }
             if (CompatConfig.mythic_alfheim.alfheim) {
                 if (AlfheimCompat.isAlfheim(types)) {
-                    event.getGeneration().addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
+                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
                 }
             }
         }
@@ -113,36 +113,36 @@ public class BiomeLoader {
         }
     }
 
-    private static void addLooseTrees(BiomeLoadingEvent event, BaseTree tree, Random random, boolean isForest) {
-        event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true)
-                .decorated(Features.Placements.HEIGHTMAP_SQUARE)
-                .decorated(Placement.COUNT_EXTRA.configured(new AtSurfaceWithExtraConfig(0, (isForest ? 2 : 1) * WorldGenConfig.tree_patches.chance, WorldGenConfig.tree_patches.size))));
+    private static void addLooseTrees(BiomeLoadingEvent event, BaseTreeGrower tree, Random random, boolean isForest) {
+        event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true)
+                .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
+                .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, (isForest ? 2 : 1) * WorldGenConfig.tree_patches.chance, WorldGenConfig.tree_patches.size))));
     }
 
     private static void feywildBiomes(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (SPRING_BIOME.equals(biomeId) || (SPRING_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_DANDELION);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_FLOWERS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_TREES);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_DANDELION);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SPRING_FLOWERS);
         }
 
         if (SUMMER_BIOME.equals(biomeId) || (SUMMER_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_SUNFLOWER);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_TREES);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_SUNFLOWER);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.SUMMER_WARM_FLOWERS);
         }
 
         if (AUTUMN_BIOME.equals(biomeId) || (AUTUMN_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_TREES);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_PUMPKINS);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SWAMP_FLOWERS);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SMALL_MUSHROOMS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_TREES);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_PUMPKINS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SWAMP_FLOWERS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.AUTUMN_SMALL_MUSHROOMS);
         }
 
         if (WINTER_BIOME.equals(biomeId) || (WINTER_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_CROCUS);
-            event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_TREES);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_CROCUS);
+            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.WINTER_FLOWERS);
         }
     }
 
@@ -150,19 +150,19 @@ public class BiomeLoader {
         if (CompatConfig.mythic_alfheim.locked) {
             // No dwarves, they can only be summoned using an ancient rune stone
             if (SPRING_ALFHEIM.equals(biomeId))
-                addSpawn(event, ModEntityTypes.springPixie, EntityClassification.CREATURE, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
+                addSpawn(event, ModEntityTypes.springPixie, MobCategory.CREATURE, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
             if (SUMMER_ALFHEIM.equals(biomeId)) {
-                addSpawn(event, ModEntityTypes.summerPixie, EntityClassification.CREATURE, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
-                addSpawn(event, ModEntityTypes.beeKnight, EntityClassification.CREATURE, MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max);
+                addSpawn(event, ModEntityTypes.summerPixie, MobCategory.CREATURE, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
+                addSpawn(event, ModEntityTypes.beeKnight, MobCategory.CREATURE, MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max);
             }
             if (AUTUMN_ALFHEIM.equals(biomeId))
-                addSpawn(event, ModEntityTypes.autumnPixie, EntityClassification.CREATURE, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
+                addSpawn(event, ModEntityTypes.autumnPixie, MobCategory.CREATURE, MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max);
             if (WINTER_ALFHEIM.equals(biomeId))
-                addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
+                addSpawn(event, ModEntityTypes.winterPixie, MobCategory.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
         } else {
             if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
                 if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
-                    addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
+                    addSpawn(event, ModEntityTypes.dwarfBlacksmith, MobCategory.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
                 }
                 addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, SPRING_ALFHEIM, types, MobConfig.spring_pixie.biomes, MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max);
                 addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.summer_pixie.biomes, MobConfig.summer_pixie.weight, MobConfig.summer_pixie.min, MobConfig.summer_pixie.max);
@@ -181,13 +181,13 @@ public class BiomeLoader {
         for (BiomeDictionary.Type biomeTag : targetBiomes) {
             boolean tagged = types.contains(biomeTag);
             if ((types.contains(biomeTag) && (targeted || !seasonal)) || regularAlfheim) {
-                addSpawn(event, type, EntityClassification.CREATURE, targeted ? 2 * weight : weight, min, max);
+                addSpawn(event, type, MobCategory.CREATURE, targeted ? 2 * weight : weight, min, max);
             }
         }
     }
 
-    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, EntityClassification classification, int weight, int min, int max) {
-        event.getSpawns().getSpawner(classification).add(new MobSpawnInfo.Spawners(type, weight, min, max));
+    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, int weight, int min, int max) {
+        event.getSpawns().getSpawner(classification).add(new MobSpawnSettings.SpawnerData(type, weight, min, max));
     }
 
     private static void commonStructures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {

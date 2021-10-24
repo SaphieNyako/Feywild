@@ -3,20 +3,20 @@ package com.feywild.feywild.block;
 import com.feywild.feywild.block.entity.DisplayGlass;
 import com.feywild.feywild.block.render.DisplayGlassRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
+import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -24,13 +24,13 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class DisplayGlassBlock extends BlockTE<DisplayGlass> {
+public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
 
     public static final BooleanProperty CAN_GENERATE = BooleanProperty.create("can_generate");
     public static final IntegerProperty BREAKAGE = IntegerProperty.create("breakage", 0, 4);
 
     public DisplayGlassBlock(ModX mod) {
-        super(mod, DisplayGlass.class, AbstractBlock.Properties.of(Material.GLASS).strength(9999999f).noOcclusion());
+        super(mod, DisplayGlass.class, BlockBehaviour.Properties.of(Material.GLASS).strength(9999999f).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(CAN_GENERATE, false)
                 .setValue(BREAKAGE, 0)
@@ -41,27 +41,27 @@ public class DisplayGlassBlock extends BlockTE<DisplayGlass> {
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> {
-            ClientRegistry.bindTileEntityRenderer(this.getTileType(), DisplayGlassRenderer::new);
-            RenderTypeLookup.setRenderLayer(this, RenderType.translucent());
+            ClientRegistry.bindTileEntityRenderer(this.getBlockEntityType(), DisplayGlassRenderer::new);
+            ItemBlockRenderTypes.setRenderLayer(this, RenderType.translucent());
         });
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(CAN_GENERATE).add(BREAKAGE);
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void attack(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player) {
-        super.attack(state, world, pos, player);
-        if (!world.isClientSide) {
-            getTile(world, pos).hitGlass();
+    public void attack(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player) {
+        super.attack(state, level, pos, player);
+        if (!level.isClientSide) {
+            getBlockEntity(level, pos).hitGlass();
         }
     }
 
     @Override
-    protected boolean shouldDropInventory(World world, BlockPos pos, BlockState state) {
+    protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
         return state.getValue(BREAKAGE) == 3;
     }
 }

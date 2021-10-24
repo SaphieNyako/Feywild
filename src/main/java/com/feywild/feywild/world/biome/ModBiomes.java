@@ -1,8 +1,8 @@
 package com.feywild.feywild.world.biome;
 
 import com.feywild.feywild.world.biome.biomes.*;
-import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
-import net.minecraft.world.biome.Biome;
+import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import net.minecraft.world.level.biome.Biome;
 
 @RegisterClass
 public class ModBiomes {

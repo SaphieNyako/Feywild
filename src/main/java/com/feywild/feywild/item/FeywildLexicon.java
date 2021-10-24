@@ -8,17 +8,17 @@ import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import io.github.noeppi_noeppi.libx.base.ItemBase;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.network.PacketDistributor;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -26,6 +26,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class FeywildLexicon extends ItemBase {
 
@@ -35,21 +37,21 @@ public class FeywildLexicon extends ItemBase {
 
     @Nonnull
     @Override
-    public ActionResult<ItemStack> use(@Nonnull World worldIn, @Nonnull PlayerEntity player, @Nonnull Hand hand) {
+    public InteractionResultHolder<ItemStack> use(@Nonnull Level levelIn, @Nonnull Player player, @Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (player instanceof ServerPlayerEntity) {
+        if (player instanceof ServerPlayer) {
             if (!FeyPlayerData.get(player).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.BOOK) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayerEntity) player), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with( () -> (ServerPlayer) player), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(player).putBoolean("feywild_got_scroll", true);
             }else
-                PatchouliAPI.get().openBookGUI((ServerPlayerEntity) player, Objects.requireNonNull(this.getRegistryName()));
+                PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(this.getRegistryName()));
         }
-        return new ActionResult<>(ActionResultType.FAIL, stack);
+        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.feywild_lexicon"));
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.feywild_lexicon"));
+        super.appendHoverText(stack, level, tooltip, flag);
     }
 }

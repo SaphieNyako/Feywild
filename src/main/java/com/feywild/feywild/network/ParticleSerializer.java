@@ -1,7 +1,7 @@
 package com.feywild.feywild.network;
 
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class ParticleSerializer implements PacketSerializer<ParticleSerializer.Message> {
 
@@ -11,7 +11,7 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeEnum(msg.type);
         buffer.writeDouble(msg.x);
         buffer.writeDouble(msg.y);
@@ -22,7 +22,7 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
         Type type = buffer.readEnum(Type.class);
         double x = buffer.readDouble();
         double y = buffer.readDouble();

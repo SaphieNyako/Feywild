@@ -1,13 +1,13 @@
 package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.core.Direction;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -33,23 +33,23 @@ public class CapabilityQuests {
             
             @Nullable
             @Override
-            public INBT writeNBT(Capability<QuestData> capability, QuestData instance, Direction side) {
+            public Tag writeNBT(Capability<QuestData> capability, QuestData instance, Direction side) {
                 return instance.write();
             }
 
             @Override
-            public void readNBT(Capability<QuestData> capability, QuestData instance, Direction side, INBT nbt) {
-                if (nbt instanceof CompoundNBT) {
-                    instance.read((CompoundNBT) nbt);
+            public void readNBT(Capability<QuestData> capability, QuestData instance, Direction side, Tag nbt) {
+                if (nbt instanceof CompoundTag) {
+                    instance.read((CompoundTag) nbt);
                 }
             }
         }, QuestData::new);
     }
 
     public static void attachPlayerCaps(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.getObject();
-            event.addCapability(KEY, new Provider(QUESTS, new LazyValue<>(() -> {
+        if (event.getObject() instanceof ServerPlayer) {
+            ServerPlayer player = (ServerPlayer) event.getObject();
+            event.addCapability(KEY, new Provider(QUESTS, new LazyLoadedValue<>(() -> {
                 QuestData data = new QuestData();
                 data.attach(player);
                 return data;
@@ -69,12 +69,12 @@ public class CapabilityQuests {
         }
     }
     
-    private static class Provider implements ICapabilityProvider, INBTSerializable<INBT> {
+    private static class Provider implements ICapabilityProvider, INBTSerializable<Tag> {
         
         public final Capability<?> capability;
-        public final LazyValue<?> value;
+        public final LazyLoadedValue<?> value;
 
-        public <T> Provider(Capability<T> capability, LazyValue<? extends T> value) {
+        public <T> Provider(Capability<T> capability, LazyLoadedValue<? extends T> value) {
             this.capability = capability;
             this.value = value;
         }
@@ -86,13 +86,13 @@ public class CapabilityQuests {
         }
 
         @Override
-        public INBT serializeNBT() {
+        public Tag serializeNBT() {
             //noinspection unchecked
             return ((Capability<Object>) this.capability).writeNBT(this.value.get(), null);
         }
 
         @Override
-        public void deserializeNBT(INBT nbt) {
+        public void deserializeNBT(Tag nbt) {
             //noinspection unchecked
             ((Capability<Object>) this.capability).readNBT(this.value.get(), null, nbt);
         }

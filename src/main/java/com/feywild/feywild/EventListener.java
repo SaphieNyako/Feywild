@@ -16,18 +16,18 @@ import com.feywild.feywild.util.MenuScreen;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
-import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
-import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootEntry;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTables;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import io.github.noeppi_noeppi.libx.event.DataPacksReloadedEvent;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.GuiOpenEvent;
@@ -47,15 +47,15 @@ public class EventListener {
 
     @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
-        if (event.getPlayer() instanceof ServerPlayerEntity) {
-            QuestData.get((ServerPlayerEntity) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
+        if (event.getPlayer() instanceof ServerPlayer) {
+            QuestData.get((ServerPlayer) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
         }
     }
 
     @SubscribeEvent
     public void playerKill(LivingDeathEvent event) {
-        if (event.getSource().getEntity() instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.getSource().getEntity();
+        if (event.getSource().getEntity() instanceof ServerPlayer) {
+            ServerPlayer player = (ServerPlayer) event.getSource().getEntity();
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
         }
@@ -64,8 +64,8 @@ public class EventListener {
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         // Only check one / second
-        if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
+        if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer) {
+            ServerPlayer player = (ServerPlayer) event.player;
             QuestData quests = QuestData.get(player);
             player.inventory.items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
             //Quest Check for Biome
@@ -77,10 +77,10 @@ public class EventListener {
 
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayerEntity) {
-            if (event.getTarget() instanceof VillagerEntity && event.getTarget().getTags().contains("feywild_librarian")) {
-                event.getPlayer().sendMessage(new TranslationTextComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new OpenLibraryScreenSerializer.Message(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
+        if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
+            if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
+                event.getPlayer().sendMessage(new TranslatableComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpenLibraryScreenSerializer.Message(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
                 event.getPlayer().swing(event.getHand(), true);
                 event.setCanceled(true);
             }
@@ -90,15 +90,15 @@ public class EventListener {
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!event.getPlayer().level.isClientSide) {
-            if (event.getPlayer() instanceof ServerPlayerEntity) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new TradesSerializer.Message(TradeManager.buildRecipes()));
+            if (event.getPlayer() instanceof ServerPlayer) {
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new TradesSerializer.Message(TradeManager.buildRecipes()));
             }
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
                 event.getPlayer().inventory.add(new ItemStack(ModItems.feywildLexicon));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
             }
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollConfig.LOGIN) {
-                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
+                FeywildMod.getNetwork().instance.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
             }
         }
@@ -112,7 +112,7 @@ public class EventListener {
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void openGui(GuiOpenEvent event) {
-        if (ClientConfig.replace_menu && event.getGui() instanceof MainMenuScreen && !(event.getGui() instanceof MenuScreen)) {
+        if (ClientConfig.replace_menu && event.getGui() instanceof TitleScreen && !(event.getGui() instanceof MenuScreen)) {
             event.setGui(new MenuScreen());
         }
     }
@@ -136,13 +136,13 @@ public class EventListener {
 
     @SubscribeEvent
     public void tickWorld(TickEvent.WorldTickEvent event) {
-        if (event.world instanceof ServerWorld && event.world.dimension() == World.OVERWORLD) {
-            MarketHandler.update(((ServerWorld) event.world).getServer());
+        if (event.world instanceof ServerLevel && event.world.dimension() == Level.OVERWORLD) {
+            MarketHandler.update(((ServerLevel) event.world).getServer());
         }
     }
 
     @SubscribeEvent
-    public void afterReload(DatapacksReloadedEvent event) {
+    public void afterReload(DataPacksReloadedEvent event) {
         FeywildMod.getNetwork().instance.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
     }
 
@@ -150,26 +150,26 @@ public class EventListener {
 
     @SubscribeEvent
     public void lootTableLoad(LootTableLoadEvent event) {
-        if (event.getName().equals(LootTables.ABANDONED_MINESHAFT)) {
+        if (event.getName().equals(BuiltInLootTables.ABANDONED_MINESHAFT)) {
             @Nullable
             LootPool pool = event.getTable().getPool("main");
             //noinspection ConstantConditions
             if (pool != null) {
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(8).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(MiscConfig.rune_stone_weight).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.greaterFeyGem).setWeight(15).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.shinyFeyGem).setWeight(8).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.brilliantFeyGem).setWeight(4).build());
-                addEntry(pool, ItemLootEntry.lootTableItem(ModItems.feywildMusicDisc).setWeight(2).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(8).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(MiscConfig.rune_stone_weight).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.greaterFeyGem).setWeight(15).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.shinyFeyGem).setWeight(8).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.brilliantFeyGem).setWeight(4).build());
+                addEntry(pool, LootItem.lootTableItem(ModItems.feywildMusicDisc).setWeight(2).build());
             }
         }
     }
 
-    private void addEntry(LootPool pool, LootEntry entry) {
+    private void addEntry(LootPool pool, LootPoolEntryContainer entry) {
         try {
             //noinspection unchecked
-            List<LootEntry> lootEntries = (List<LootEntry>) ObfuscationReflectionHelper.findField(LootPool.class, "field_186453_a").get(pool);
+            List<LootPoolEntryContainer> lootEntries = (List<LootPoolEntryContainer>) ObfuscationReflectionHelper.findField(LootPool.class, "f_79023_").get(pool);
             if (lootEntries.stream().noneMatch(e -> e == entry)) {
                 lootEntries.add(entry);
             }

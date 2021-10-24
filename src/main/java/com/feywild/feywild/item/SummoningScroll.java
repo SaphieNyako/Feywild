@@ -3,28 +3,30 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.util.TooltipHelper;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
 
@@ -47,22 +49,22 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
         this.soundEvent = soundEvent;
     }
 
-    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag) {
+    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag) {
         return true;
     }
     
-    protected boolean canCapture(World world, PlayerEntity player, T entity) {
+    protected boolean canCapture(Level level, Player player, T entity) {
         return true;
     }
 
-    protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
+    protected void prepareEntity(Level level, Player player, BlockPos pos, T entity) {
 
     }
 
     @Nonnull
     @Override
-    public ActionResultType useOn(@Nonnull ItemUseContext context) {
-        CompoundNBT storedTag = null;
+    public InteractionResult useOn(@Nonnull UseOnContext context) {
+        CompoundTag storedTag = null;
         if (context.getItemInHand().hasTag() && context.getItemInHand().getOrCreateTag().contains("StoredEntityData", Constants.NBT.TAG_COMPOUND)) {
             storedTag = context.getItemInHand().getOrCreateTag().getCompound("StoredEntityData");
         }
@@ -85,13 +87,13 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     }
                 }
             }
-            return ActionResultType.sidedSuccess(context.getLevel().isClientSide);
+            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
         }
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
     @Override
-    public boolean onLeftClickEntity(ItemStack oldStack, PlayerEntity player, Entity entity) {
+    public boolean onLeftClickEntity(ItemStack oldStack, Player player, Entity entity) {
         EntityType<?> type = entity.getType();
         if (entity instanceof LivingEntity && CAPTURE_MAP.containsKey(type)) {
             SummoningScroll<?> scroll = CAPTURE_MAP.get(type);
@@ -102,7 +104,7 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                 entity.getPassengers().forEach(Entity::stopRiding);
                 
                 ItemStack stack = new ItemStack(scroll);
-                CompoundNBT storedData = entity.saveWithoutId(new CompoundNBT());
+                CompoundTag storedData = entity.saveWithoutId(new CompoundTag());
                 // Remove some data that should not be kept
                 STORE_TAG_BLACKLIST.forEach(storedData::remove);
                 
@@ -115,7 +117,7 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     oldStack.shrink(1);
                 }
                 
-                if (PlayerInventory.isHotbarSlot(player.inventory.selected) && player.inventory.getItem(player.inventory.selected).isEmpty()) {
+                if (Inventory.isHotbarSlot(player.inventory.selected) && player.inventory.getItem(player.inventory.selected).isEmpty()) {
                     // First try to place the new stack at the same position in the hotbar where the old one was.
                     player.inventory.setItem(player.inventory.selected, stack);
                 } else if (!player.inventory.add(stack)) {
@@ -125,7 +127,7 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     entity.level.addFreshEntity(ie);
                 }
                 
-                player.swing(Hand.MAIN_HAND);
+                player.swing(InteractionHand.MAIN_HAND);
                 
                 entity.remove();
             }
@@ -135,8 +137,8 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.summoning_scroll"));
+    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.summoning_scroll"));
     }
     
     public static <T extends LivingEntity> void registerCapture(EntityType<? extends T> type, SummoningScroll<T> scroll) {

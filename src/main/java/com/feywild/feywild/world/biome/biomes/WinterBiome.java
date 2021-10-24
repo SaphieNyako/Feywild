@@ -4,15 +4,23 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import net.minecraft.client.audio.BackgroundMusicSelector;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.sounds.Music;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.VanillaBiomes;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class WinterBiome implements BiomeType {
 
@@ -23,13 +31,13 @@ public class WinterBiome implements BiomeType {
     }
 
     @Override
-    public Biome.Category category() {
-        return Biome.Category.ICY;
+    public Biome.BiomeCategory category() {
+        return Biome.BiomeCategory.ICY;
     }
 
     @Override
-    public Biome.RainType rain() {
-        return Biome.RainType.SNOW;
+    public Biome.Precipitation rain() {
+        return Biome.Precipitation.SNOW;
     }
 
     @Override
@@ -53,42 +61,42 @@ public class WinterBiome implements BiomeType {
     }
 
     @Override
-    public void ambience(BiomeAmbience.Builder builder) {
+    public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
-        builder.skyColor(BiomeMaker.calculateSkyColor(0));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, false));
-        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001f));
+        builder.skyColor(VanillaBiomes.calculateSkyColor(0));
+        builder.backgroundMusic(new Music(ModSoundEvents.winterSoundtrack, 6000, 12000, false));
+        builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.ENCHANTED_HIT, 0.001f));
     }
 
     @Override
-    public void spawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
+    public void spawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 10, 1, 2));
     }
 
     @Override
     public void generation(BiomeGenerationSettings.Builder builder) {
-        DefaultBiomeFeatures.addBerryBushes(builder);
-        DefaultBiomeFeatures.addSparseBerryBushes(builder);
+        BiomeDefaultFeatures.addBerryBushes(builder);
+        BiomeDefaultFeatures.addSparseBerryBushes(builder);
 
-        builder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
-        builder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
-        builder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
-        builder.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Features.FOSSIL);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.FOSSIL);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
 
-        DefaultBiomeFeatures.addDefaultGrass(builder);
-        DefaultBiomeFeatures.addSurfaceFreezing(builder);
-        DefaultBiomeFeatures.addIcebergs(builder);
+        BiomeDefaultFeatures.addDefaultGrass(builder);
+        BiomeDefaultFeatures.addSurfaceFreezing(builder);
+        BiomeDefaultFeatures.addIcebergs(builder);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
     }
 
     @Override
-    public void overworldSpawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.OCELOT, 5, 1, 1));
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.WOLF, 10, 3, 4));
-        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ZOMBIE_VILLAGER, 50, 3, 5));
+    public void overworldSpawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 5, 1, 1));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 10, 3, 4));
+        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE_VILLAGER, 50, 3, 5));
     }
 
     @Override

@@ -5,13 +5,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -49,7 +49,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     
     @Nonnull
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipeTypes.DWARVEN_ANVIL_SERIALIZER;
     }
 
@@ -90,15 +90,15 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
         }
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DwarvenAnvilRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<DwarvenAnvilRecipe> {
 
         @Nonnull
         @Override
         public DwarvenAnvilRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-            int mana = JSONUtils.getAsInt(json, "mana");
-            ItemStack output = CraftingHelper.getItemStack(JSONUtils.getAsJsonObject(json, "output"), true);
+            int mana = GsonHelper.getAsInt(json, "mana");
+            ItemStack output = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "output"), true);
             Ingredient schematics = json.has("schematics") ? Ingredient.fromJson(json.get("schematics")) : null;
-            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
+            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             List<Ingredient> inputs = new ArrayList<>();
             for (JsonElement jsonElement : ingredients) {
                 inputs.add(Ingredient.fromJson(jsonElement));
@@ -108,7 +108,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
 
         @Nullable
         @Override
-        public DwarvenAnvilRecipe fromNetwork(@Nonnull ResourceLocation recipeId, PacketBuffer buffer) {
+        public DwarvenAnvilRecipe fromNetwork(@Nonnull ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int mana = buffer.readVarInt();
             Ingredient schematics = buffer.readBoolean() ? Ingredient.fromNetwork(buffer) : null;
             int inputSize = buffer.readVarInt();
@@ -121,7 +121,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, DwarvenAnvilRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, DwarvenAnvilRecipe recipe) {
             buffer.writeVarInt(recipe.mana);
             buffer.writeBoolean(recipe.schematics != null);
             if (recipe.schematics != null) recipe.schematics.toNetwork(buffer);

@@ -1,27 +1,27 @@
 package com.feywild.feywild.world.feature;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
+public class AutumnPumpkinsFeature extends Feature<NoneFeatureConfiguration> {
 
     public AutumnPumpkinsFeature() {
-        super(NoFeatureConfig.CODEC);
+        super(NoneFeatureConfiguration.CODEC);
     }
 
     @Override
-    public boolean place(@Nonnull ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
+    public boolean place(@Nonnull WorldGenLevel level, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull NoneFeatureConfiguration config) {
         boolean success = false;
 
         for (int i = 0; i < 32; ++i) {
@@ -31,9 +31,9 @@ public class AutumnPumpkinsFeature extends Feature<NoFeatureConfig> {
                     random.nextInt(8) - random.nextInt(8)
             );
             //noinspection deprecation
-            if (world.getBlockState(target).isAir(world, target) && Tags.Blocks.DIRT.contains(world.getBlockState(target.below()).getBlock())) {
+            if (level.getBlockState(target).isAir(level, target) && Tags.Blocks.DIRT.contains(level.getBlockState(target.below()).getBlock())) {
                 if (random.nextInt(3) == 0) {
-                    world.setBlock(target, this.getPumpkinState(random), 3);
+                    level.setBlock(target, this.getPumpkinState(random), 3);
                     success = true;
                 }
             }

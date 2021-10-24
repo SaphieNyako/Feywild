@@ -5,18 +5,18 @@ import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -26,15 +26,23 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerable {
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Registerable {
 
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
-    private final BaseTree tree;
+    private final BaseTreeGrower tree;
     private final BlockItem item;
 
-    public BaseSaplingBlock(ModX mod, BaseTree tree) {
-        super(AbstractBlock.Properties.copy(Blocks.OAK_SAPLING));
+    public BaseSaplingBlock(ModX mod, BaseTreeGrower tree) {
+        super(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
         this.tree = tree;
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.item = new BlockItem(this, properties);
@@ -53,17 +61,17 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
+        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Override
-    public boolean isValidBonemealTarget(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
         return true;
     }
 
     @Override
-    public boolean isBonemealSuccess(World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-        return (double) world.random.nextFloat() < 0.5;
+    public boolean isBonemealSuccess(Level level, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+        return (double) level.random.nextFloat() < 0.5;
     }
 
     @Override
@@ -73,22 +81,22 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random rand) {
-        super.randomTick(state, world, pos, rand);
-        if (world.isAreaLoaded(pos, 1)) {
-            if (world.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
-                this.performBonemeal(world, rand, pos, state);
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+        super.randomTick(state, level, pos, rand);
+        if (level.isAreaLoaded(pos, 1)) {
+            if (level.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
+                this.performBonemeal(level, rand, pos, state);
             }
         }
     }
 
     @Override
-    public void performBonemeal(@Nonnull ServerWorld world, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
+    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
         if (state.getValue(STAGE) == 0) {
-            world.setBlock(pos, state.setValue(STAGE, 1), 4);
+            level.setBlock(pos, state.setValue(STAGE, 1), 4);
         } else {
-            if (ForgeEventFactory.saplingGrowTree(world, random, pos)) {
-                if (this.tree.growTree(world, world.getChunkSource().getGenerator(), pos, state, random)) {
+            if (ForgeEventFactory.saplingGrowTree(level, random, pos)) {
+                if (this.tree.growTree(level, level.getChunkSource().getGenerator(), pos, state, random)) {
                     for (int xd = -4; xd <= 4; xd++) {
                         for (int zd = -4; zd <= 4; zd++) {
                             // Try to find the block pos directly above ground
@@ -96,9 +104,9 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
                             for (int yd = 2; yd >= -2; yd--) {
                                 BlockPos target = pos.offset(xd, yd, zd);
                                 //noinspection deprecation
-                                if (world.getBlockState(target).isAir() || world.getBlockState(target).getMaterial().isReplaceable()) {
-                                    if (world.getBlockState(target.below()).isFaceSturdy(world, pos.below(), Direction.UP)) {
-                                        this.tree.decorateSaplingGrowth(world, target, random);
+                                if (level.getBlockState(target).isAir() || level.getBlockState(target).getMaterial().isReplaceable()) {
+                                    if (level.getBlockState(target.below()).isFaceSturdy(level, pos.below(), Direction.UP)) {
+                                        this.tree.decorateSaplingGrowth(level, target, random);
                                         break;
                                     }
                                 }
@@ -111,7 +119,7 @@ public class BaseSaplingBlock extends BushBlock implements IGrowable, Registerab
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE);
     }
 

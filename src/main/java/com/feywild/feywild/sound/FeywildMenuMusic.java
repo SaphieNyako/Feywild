@@ -3,15 +3,15 @@ package com.feywild.feywild.sound;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.util.SoundUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
 public class FeywildMenuMusic {
 
-    private static ISound currentFeywildMenuMusic = null;
+    private static SoundInstance currentFeywildMenuMusic = null;
     
     public static void playSound(PlaySoundEvent event) {
         if (ClientConfig.replace_menu && event.getSound().canPlaySound()) {
@@ -28,7 +28,7 @@ public class FeywildMenuMusic {
                 && Minecraft.getInstance().getSoundManager().isActive(currentFeywildMenuMusic)) {
             event.setResultSound(null);
         } else {
-            currentFeywildMenuMusic = SoundUtil.copySound(sound, event.getSound(), SimpleSound::forMusic);
+            currentFeywildMenuMusic = SoundUtil.copySound(sound, event.getSound(), SimpleSoundInstance::forMusic);
             event.setResultSound(currentFeywildMenuMusic);
         }
     }

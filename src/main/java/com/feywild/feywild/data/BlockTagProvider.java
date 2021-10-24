@@ -8,7 +8,7 @@ import com.feywild.feywild.block.trees.FeyWoodBlock;
 import com.feywild.feywild.tag.ModBlockTags;
 import io.github.noeppi_noeppi.libx.data.provider.BlockTagProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;

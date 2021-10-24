@@ -1,15 +1,15 @@
 package com.feywild.feywild.block.flower;
 
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import io.github.noeppi_noeppi.libx.base.ItemBase;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
@@ -26,33 +26,33 @@ public class GiantFlowerSeedItem extends ItemBase {
 
     @Nonnull
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
-        World world = context.getLevel();
-        BlockItemUseContext blockContext = new BlockItemUseContext(context);
+    public InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPlaceContext blockContext = new BlockPlaceContext(context);
         BlockPos pos = context.getClickedPos();
-        if (!world.getBlockState(pos).canBeReplaced(blockContext)) pos = pos.above();
+        if (!level.getBlockState(pos).canBeReplaced(blockContext)) pos = pos.above();
         
-        if (!Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock())) {
-            return ActionResultType.PASS;
+        if (!Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
+            return InteractionResult.PASS;
         }
         
         for (int i = 0; i < this.block.height; i++) {
-            if (!world.getBlockState(pos.above(i)).canBeReplaced(blockContext)) {
-                return ActionResultType.PASS;
+            if (!level.getBlockState(pos.above(i)).canBeReplaced(blockContext)) {
+                return InteractionResult.PASS;
             }
         }
 
-        if (!world.isClientSide) {
-            placeFlower(this.block, world, pos, world.random, 3);
+        if (!level.isClientSide) {
+            placeFlower(this.block, level, pos, level.random, 3);
             if (context.getPlayer() != null && !context.getPlayer().isCreative()) context.getItemInHand().shrink(1);
         }
-        return ActionResultType.sidedSuccess(world.isClientSide);
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
     
-    public static void placeFlower(GiantFlowerBlock block, IWorld world, BlockPos pos, Random random, int placeFlags) {
+    public static void placeFlower(GiantFlowerBlock block, LevelAccessor level, BlockPos pos, Random random, int placeFlags) {
         for (int i = 0; i < block.height; i++) {
-            BlockState baseState = (i == block.height - 1) ? block.flowerState(world, pos.above(i), random) : block.defaultBlockState();
-            world.setBlock(pos.above(i), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);
+            BlockState baseState = (i == block.height - 1) ? block.flowerState(level, pos.above(i), random) : block.defaultBlockState();
+            level.setBlock(pos.above(i), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);
         }
     }
 }

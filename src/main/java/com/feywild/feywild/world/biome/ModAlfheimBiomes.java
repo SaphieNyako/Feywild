@@ -5,11 +5,11 @@ import com.feywild.feywild.world.biome.biomes.*;
 import com.feywild.feywild.world.structure.ModStructures;
 import mythicbotany.alfheim.AlfheimBiomeManager;
 import mythicbotany.alfheim.AlfheimBiomes;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 // No @RegisterClass as this may not be loaded if MythicBotany is
@@ -19,17 +19,17 @@ public class ModAlfheimBiomes {
     public static final BiomeEnvironment ALFHEIM = new BiomeEnvironment() {
 
         @Override
-        public Biome.Builder init() {
+        public Biome.BiomeBuilder init() {
             return AlfheimBiomes.alfheimBiome();
         }
 
         @Override
-        public BiomeAmbience.Builder defaultAmbience() {
+        public BiomeSpecialEffects.Builder defaultAmbience() {
             return AlfheimBiomes.alfheimAmbience();
         }
 
         @Override
-        public MobSpawnInfo.Builder defaultSpawns() {
+        public MobSpawnSettings.Builder defaultSpawns() {
             return AlfheimBiomes.alfheimMobs();
         }
 
@@ -39,7 +39,7 @@ public class ModAlfheimBiomes {
         }
         
         @Override
-        public void postProcess(BiomeAmbience.Builder builder, BiomeType biome) {
+        public void postProcess(BiomeSpecialEffects.Builder builder, BiomeType biome) {
             builder.waterColor(0x43d5ee);
             builder.waterFogColor(0x41f33);
             builder.fogColor(0xc0d8ff);

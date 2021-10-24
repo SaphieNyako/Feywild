@@ -3,19 +3,19 @@ package com.feywild.feywild.block;
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -23,32 +23,32 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class FeyAltarBlock extends BlockTE<FeyAltar> {
+public class FeyAltarBlock extends BlockBE<FeyAltar> {
 
     public FeyAltarBlock(ModX mod) {
-        super(mod, FeyAltar.class, AbstractBlock.Properties.of(Material.STONE).strength(0f).noOcclusion());
+        super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ClientRegistry.bindTileEntityRenderer(this.getTileType(), FeyAltarRenderer::new));
+        defer.accept(() -> ClientRegistry.bindTileEntityRenderer(this.getBlockEntityType(), FeyAltarRenderer::new));
     }
 
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
-        FeyAltar tile = this.getTile(world, pos);
-        if (!world.isClientSide) {
+    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+        FeyAltar tile = this.getBlockEntity(level, pos);
+        if (!level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 for (int slot = tile.getInventory().getSlots() - 1; slot >= 0; slot--) {
                     if (!tile.getInventory().getStackInSlot(slot).isEmpty()) {
                         player.addItem(tile.getInventory().extractItem(slot, 64, false));
-                        return ActionResultType.CONSUME;
+                        return InteractionResult.CONSUME;
                     }
                 }
-                return ActionResultType.FAIL;
+                return InteractionResult.FAIL;
             } else if (!player.getItemInHand(hand).isEmpty()) {
                 for (int slot = 0; slot < tile.getInventory().getSlots(); slot++) {
                     if (tile.getInventory().getStackInSlot(slot).isEmpty()) {
@@ -57,13 +57,13 @@ public class FeyAltarBlock extends BlockTE<FeyAltar> {
                         if (tile.getInventory().insertItem(slot, insertStack, true).isEmpty()) {
                             tile.getInventory().insertItem(slot, insertStack, false);
                             player.getItemInHand(hand).shrink(1);
-                            return ActionResultType.CONSUME;
+                            return InteractionResult.CONSUME;
                         }
                     }
                 }
-                return ActionResultType.FAIL;
+                return InteractionResult.FAIL;
             } else {
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         } else {
             if (player.isShiftKeyDown()) {
@@ -71,20 +71,20 @@ public class FeyAltarBlock extends BlockTE<FeyAltar> {
                 // We need to return SUCCESS in that case to swing the arm
                 for (int slots = 0; slots < tile.getInventory().getSlots(); slots++) {
                     if (!tile.getInventory().getStackInSlot(slots).isEmpty()) {
-                        return ActionResultType.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     }
                 }
-                return ActionResultType.FAIL;
+                return InteractionResult.FAIL;
             } else if (!player.getItemInHand(hand).isEmpty()) {
                 // We succeed when there's at least one free slot
                 for (int slots = 0; slots < tile.getInventory().getSlots(); slots++) {
                     if (tile.getInventory().getStackInSlot(slots).isEmpty()) {
-                        return ActionResultType.SUCCESS;
+                        return InteractionResult.SUCCESS;
                     }
                 }
-                return ActionResultType.FAIL;
+                return InteractionResult.FAIL;
             } else {
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         }
     }
@@ -92,12 +92,12 @@ public class FeyAltarBlock extends BlockTE<FeyAltar> {
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public BlockRenderType getRenderShape(@Nonnull BlockState state) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
+    public RenderShape getRenderShape(@Nonnull BlockState state) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    protected boolean shouldDropInventory(World world, BlockPos pos, BlockState state) {
+    protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
         return true;
     }
 }

@@ -3,9 +3,9 @@ package com.feywild.feywild.quest;
 import com.feywild.feywild.quest.task.TaskType;
 import com.feywild.feywild.quest.task.TaskTypes;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.resources.ResourceLocation;
 
 public class QuestTask {
     
@@ -34,7 +34,7 @@ public class QuestTask {
         return new QuestTask((TaskType<Object, Object>) type, element, times);
     }
 
-    public boolean checkCompleted(ServerPlayerEntity player, TaskType<?, ?> type, Object match) {
+    public boolean checkCompleted(ServerPlayer player, TaskType<?, ?> type, Object match) {
         if (this.task == type && this.task.testType().isAssignableFrom(match.getClass())) {
             return this.task.checkCompleted(player, this.element, match);
         } else {

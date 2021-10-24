@@ -4,16 +4,16 @@ import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.ItemStackHandlerWrapper;
-import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
+import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -22,7 +22,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class DisplayGlass extends TileEntityBase implements ITickableTileEntity {
+public class DisplayGlass extends BlockEntityBase implements TickableBlockEntity {
 
     private final BaseItemStackHandler inventory;
     private final LazyOptional<IItemHandlerModifiable> itemHandler;
@@ -30,14 +30,14 @@ public class DisplayGlass extends TileEntityBase implements ITickableTileEntity 
     private int generationCoolDown = 0;
     private int hitCounter = 0;
 
-    public DisplayGlass(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public DisplayGlass(BlockEntityType<?> blockEntityTypeIn) {
+        super(blockEntityTypeIn);
         this.inventory = new BaseItemStackHandler(1, slot -> {
             this.setChanged();
-            this.markDispatchable();
+            this.setDispatchable();
         });
         this.inventory.setDefaultSlotLimit(1);
-        this.itemHandler = ItemStackHandlerWrapper.createLazy(() -> this.inventory);
+        this.itemHandler = ItemCapabilities.createLazy(() -> this.inventory);
     }
 
     @Nonnull
@@ -68,14 +68,14 @@ public class DisplayGlass extends TileEntityBase implements ITickableTileEntity 
     public void hitGlass() {
         if (level != null) {
             hitCounter += 1;
-            level.playSound(null, worldPosition, SoundEvents.GLASS_HIT, SoundCategory.BLOCKS, 1, 1);
+            level.playSound(null, worldPosition, SoundEvents.GLASS_HIT, SoundSource.BLOCKS, 1, 1);
             if (hitCounter > 3) {
                 if (getBlockState().getValue(DisplayGlassBlock.BREAKAGE) == 3) {
                     generationCoolDown = WorldGenConfig.structures.bee_keep.honey_timer;
                 }
                 if (getBlockState().getValue(DisplayGlassBlock.BREAKAGE) < 4) {
                     level.setBlock(worldPosition, getBlockState().setValue(DisplayGlassBlock.BREAKAGE, getBlockState().getValue(DisplayGlassBlock.BREAKAGE) + 1), 3);
-                    level.playSound(null, worldPosition, SoundEvents.GLASS_BREAK, SoundCategory.BLOCKS, 1, 1);
+                    level.playSound(null, worldPosition, SoundEvents.GLASS_BREAK, SoundSource.BLOCKS, 1, 1);
                     hitCounter = 0;
                     this.clearCache();
                 }
@@ -86,7 +86,7 @@ public class DisplayGlass extends TileEntityBase implements ITickableTileEntity 
 
     @Nonnull
     @Override
-    public CompoundNBT save(@Nonnull CompoundNBT nbt) {
+    public CompoundTag save(@Nonnull CompoundTag nbt) {
         nbt.put("Inventory", this.inventory.serializeNBT());
         nbt.putInt("GenerationCoolDown", this.generationCoolDown);
         nbt.putInt("Hits", this.hitCounter);
@@ -94,7 +94,7 @@ public class DisplayGlass extends TileEntityBase implements ITickableTileEntity 
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
         super.load(state, nbt);
         this.inventory.deserializeNBT(nbt.getCompound("Inventory"));
         this.generationCoolDown = nbt.getInt("GenerationCoolDown");
@@ -103,8 +103,8 @@ public class DisplayGlass extends TileEntityBase implements ITickableTileEntity 
 
     @Nonnull
     @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT nbt = super.getUpdateTag();
+    public CompoundTag getUpdateTag() {
+        CompoundTag nbt = super.getUpdateTag();
         if (this.level != null && !this.level.isClientSide) {
             nbt.put("Inventory", this.inventory.serializeNBT());
         }
@@ -112,7 +112,7 @@ public class DisplayGlass extends TileEntityBase implements ITickableTileEntity 
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
+    public void handleUpdateTag(BlockState state, CompoundTag nbt) {
         super.handleUpdateTag(state, nbt);
         if (this.level != null && this.level.isClientSide) {
             this.inventory.deserializeNBT(nbt.getCompound("Inventory"));

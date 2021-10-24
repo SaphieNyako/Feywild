@@ -3,15 +3,15 @@ package com.feywild.feywild.world;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.mojang.serialization.Codec;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.FlatChunkGenerator;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
@@ -22,32 +22,32 @@ import java.util.Map;
 public class StructureLoader {
 
     public static void addStructureSettings(final WorldEvent.Load event) {
-        if (event.getWorld() instanceof ServerWorld) {
-            ServerWorld world = (ServerWorld) event.getWorld();
+        if (event.getWorld() instanceof ServerLevel) {
+            ServerLevel level = (ServerLevel) event.getWorld();
 
-            if (world.getChunkSource().generator instanceof FlatChunkGenerator && world.dimension().equals(World.OVERWORLD)) {
+            if (level.getChunkSource().generator instanceof FlatLevelSource && level.dimension().equals(Level.OVERWORLD)) {
                 return;
             }
 
             try {
-                Method method = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
+                Method method = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "m_6909_");
                 method.setAccessible(true);
                 //noinspection unchecked
                 ResourceLocation generatorId = Registry.CHUNK_GENERATOR.getKey((Codec<? extends ChunkGenerator>) method.invoke(world.getChunkSource().generator));
                 if (generatorId != null && generatorId.getNamespace().equals("terraforged")) return;
             } catch (Exception e) {
-                FeywildMod.getInstance().logger.error("Was unable to check if " + world.dimension().location() + " is using a Terraforged ChunkGenerator.");
+                FeywildMod.getInstance().logger.error("Was unable to check if " + level.dimension().location() + " is using a Terraforged ChunkGenerator.");
             }
 
-            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(world.getChunkSource().generator.getSettings().structureConfig());
-            tempMap.putIfAbsent(ModStructures.springWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.springWorldTree));
-            tempMap.putIfAbsent(ModStructures.summerWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.summerWorldTree));
-            tempMap.putIfAbsent(ModStructures.autumnWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
-            tempMap.putIfAbsent(ModStructures.winterWorldTree, DimensionStructuresSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
-            tempMap.putIfAbsent(ModStructures.blacksmith, DimensionStructuresSettings.DEFAULTS.get(ModStructures.blacksmith));
-            tempMap.putIfAbsent(ModStructures.library, DimensionStructuresSettings.DEFAULTS.get(ModStructures.library));
-            tempMap.putIfAbsent(ModStructures.beekeep, DimensionStructuresSettings.DEFAULTS.get(ModStructures.beekeep));
-            world.getChunkSource().generator.getSettings().structureConfig = tempMap;
+            Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(world.getChunkSource().generator.getSettings().structureConfig());
+            tempMap.putIfAbsent(ModStructures.springWorldTree, StructureSettings.DEFAULTS.get(ModStructures.springWorldTree));
+            tempMap.putIfAbsent(ModStructures.summerWorldTree, StructureSettings.DEFAULTS.get(ModStructures.summerWorldTree));
+            tempMap.putIfAbsent(ModStructures.autumnWorldTree, StructureSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
+            tempMap.putIfAbsent(ModStructures.winterWorldTree, StructureSettings.DEFAULTS.get(ModStructures.autumnWorldTree));
+            tempMap.putIfAbsent(ModStructures.blacksmith, StructureSettings.DEFAULTS.get(ModStructures.blacksmith));
+            tempMap.putIfAbsent(ModStructures.library, StructureSettings.DEFAULTS.get(ModStructures.library));
+            tempMap.putIfAbsent(ModStructures.beekeep, StructureSettings.DEFAULTS.get(ModStructures.beekeep));
+            level.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
 
     }

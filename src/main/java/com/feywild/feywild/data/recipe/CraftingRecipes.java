@@ -3,27 +3,27 @@ package com.feywild.feywild.data.recipe;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.FeyWoodBlock;
 import com.feywild.feywild.item.ModItems;
-import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeProviderBase;
+import io.github.noeppi_noeppi.libx.data.provider.recipe.crafting.CraftingExtension;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.data.ShapelessRecipeBuilder;
-import net.minecraft.item.Items;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class CraftingRecipes extends RecipeProviderBase {
+public class CraftingRecipes extends CraftingExtension {
 
     public CraftingRecipes(ModX mod, DataGenerator generator) {
         super(mod, generator);
     }
 
     @Override
-    protected void buildShapelessRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
+    protected void buildShapelessRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
         //noinspection ConstantConditions
         ForgeRegistries.BLOCKS.getValues().stream()
                 .filter(b -> this.mod.modid.equals(b.getRegistryName().getNamespace()))
@@ -92,7 +92,7 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .save(consumer);
     }
 
-    private void makeWoodRecipe(FeyWoodBlock block, Consumer<IFinishedRecipe> consumer) {
+    private void makeWoodRecipe(FeyWoodBlock block, Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(block, 3)
                 .pattern("aa")
                 .pattern("aa")

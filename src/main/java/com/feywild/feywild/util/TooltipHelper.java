@@ -1,20 +1,20 @@
 package com.feywild.feywild.util;
 
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.KeybindTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.KeybindComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class TooltipHelper {
     
-    public static void addTooltip(List<ITextComponent> tooltip, ITextComponent... lines) {
+    public static void addTooltip(List<Component> tooltip, Component... lines) {
         if (KeyboardHelper.isHoldingShift()) {
             tooltip.addAll(Arrays.asList(lines));
         } else {
-            TranslationTextComponent textComponent = (TranslationTextComponent) new TranslationTextComponent("message.feywild.itemmessage", new KeybindTextComponent("key.sneak")).withStyle(TextFormatting.GRAY);
+            TranslatableComponent textComponent = (TranslatableComponent) new TranslatableComponent("message.feywild.itemmessage", new KeybindComponent("key.sneak")).withStyle(ChatFormatting.GRAY);
             if(!tooltip.contains(textComponent))
                 tooltip.add(textComponent);
         }

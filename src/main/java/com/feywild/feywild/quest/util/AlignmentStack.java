@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest.util;
 
 import com.feywild.feywild.quest.Alignment;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class AlignmentStack {
     

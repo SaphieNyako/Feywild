@@ -3,8 +3,8 @@ package com.feywild.feywild.quest;
 import com.feywild.feywild.quest.reward.RewardType;
 import com.feywild.feywild.quest.reward.RewardTypes;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 
 public class QuestReward {
 
@@ -24,7 +24,7 @@ public class QuestReward {
         return new QuestReward((RewardType<Object>) type, element);
     }
 
-    public void grantReward(ServerPlayerEntity player) {
+    public void grantReward(ServerPlayer player) {
         this.reward.grantReward(player, this.element);
     }
 

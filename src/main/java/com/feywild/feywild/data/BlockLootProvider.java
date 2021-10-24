@@ -2,18 +2,18 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTree;
+import com.feywild.feywild.block.trees.BaseTreeGrower;
 import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Items;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 
 import static net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties;
-import static net.minecraft.loot.conditions.BlockStateProperty.hasBlockStateProperties;
+import staticnet.minecraft.advancements.critereon.StatePropertiesPredicate.Builderties;
 
 public class BlockLootProvider extends BlockLootProviderBase {
 
@@ -75,7 +75,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus.getSeed()).with(this.count(1, 2)));
     }
 
-    private void treeDrops(BaseTree tree, IItemProvider baseLog, IItemProvider baseWood) {
+    private void treeDrops(BaseTreeGrower tree, ItemLike baseLog, ItemLike baseWood) {
         this.drops(tree.getLeafBlock(), this.first(
                 this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(

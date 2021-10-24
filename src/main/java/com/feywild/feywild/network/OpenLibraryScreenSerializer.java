@@ -2,9 +2,9 @@ package com.feywild.feywild.network;
 
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class OpenLibraryScreenSerializer implements PacketSerializer<OpenLibrary
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeComponent(msg.title);
         buffer.writeVarInt(msg.books.size());
         for (ItemStack book : msg.books) {
@@ -25,8 +25,8 @@ public class OpenLibraryScreenSerializer implements PacketSerializer<OpenLibrary
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
-        ITextComponent title = buffer.readComponent();
+    public Message decode(FriendlyByteBuf buffer) {
+        Component title = buffer.readComponent();
         int bookSize = buffer.readVarInt();
         ImmutableList.Builder<ItemStack> books = ImmutableList.builder();
         for (int i = 0; i < bookSize; i++) {
@@ -37,10 +37,10 @@ public class OpenLibraryScreenSerializer implements PacketSerializer<OpenLibrary
 
     public static class Message {
         
-        public final ITextComponent title;
+        public final Component title;
         public final List<ItemStack> books;
 
-        public Message(ITextComponent title, List<ItemStack> books) {
+        public Message(Component title, List<ItemStack> books) {
             this.title = title;
             this.books = books;
         }

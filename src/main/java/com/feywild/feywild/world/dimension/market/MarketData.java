@@ -2,22 +2,22 @@ package com.feywild.feywild.world.dimension.market;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.world.dimension.ModDimensions;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.DimensionSavedDataManager;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.minecraft.world.level.saveddata.SavedData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 // Holds data about the current state of the dwarf market
-public class MarketData extends WorldSavedData  {
+public class MarketData extends SavedData  {
 
     @Nullable
-    public static MarketData get(ServerWorld world) {
-        if (world.dimension() != ModDimensions.MARKET_PLACE_DIMENSION) return null;
-        DimensionSavedDataManager storage = world.getDataStorage();
+    public static MarketData get(ServerLevel level) {
+        if (level.dimension() != ModDimensions.MARKET_PLACE_DIMENSION) return null;
+        DimensionDataStorage storage = level.getDataStorage();
         return storage.computeIfAbsent(MarketData::new, FeywildMod.getInstance().modid);
     }
 
@@ -30,14 +30,14 @@ public class MarketData extends WorldSavedData  {
     }
     
     @Override
-    public void load(@Nonnull CompoundNBT nbt) {
+    public void load(@Nonnull CompoundTag nbt) {
         open = nbt.getBoolean("Open");
         generated = nbt.getBoolean("Generated");
     }
 
     @Nonnull
     @Override
-    public CompoundNBT save(@Nonnull CompoundNBT nbt) {
+    public CompoundTag save(@Nonnull CompoundTag nbt) {
         nbt.putBoolean("Open", open);
         nbt.putBoolean("Generated", generated);
         return nbt;
@@ -54,7 +54,7 @@ public class MarketData extends WorldSavedData  {
     }
 
     public void update(MinecraftServer server, Runnable onClose) {
-        ServerWorld world = server.overworld();
+        ServerLevel level = server.overworld();
         boolean shouldBeOpen = world.getDayTime() < 13000;
         if (shouldBeOpen != open) {
             if (!shouldBeOpen) {

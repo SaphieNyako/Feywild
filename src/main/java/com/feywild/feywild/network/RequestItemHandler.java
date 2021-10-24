@@ -2,8 +2,8 @@ package com.feywild.feywild.network;
 
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.util.LibraryBooks;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -12,7 +12,7 @@ public class RequestItemHandler {
     
     public static void handle(RequestItemSerializer.Message msg, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
-            ServerPlayerEntity sender = context.get().getSender();
+            ServerPlayer sender = context.get().getSender();
             ItemStack item = ItemStack.EMPTY;
             if(msg.state == RequestItemSerializer.State.books)
                 item = LibraryBooks.getBook(msg.idx);

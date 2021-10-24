@@ -1,23 +1,23 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.Monster;
 
 public class TargetFireGoal extends Goal {
 
-    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8.0D).allowInvulnerable().allowSameTeam().allowUnseeable();
+    private static final TargetingConditions TARGETING = (new TargetingConditions()).range(8.0D).allowInvulnerable().allowSameTeam().allowUnseeable();
 
-    private final FeyEntity entity;
-    private MonsterEntity targetMonster;
+    private final Fey entity;
+    private Monster targetMonster;
     private int ticksLeft = 0;
 
-    public TargetFireGoal(FeyEntity entity) {
+    public TargetFireGoal(Fey entity) {
         this.entity = entity;
     }
 
@@ -43,7 +43,7 @@ public class TargetFireGoal extends Goal {
     }
 
     private void spellCasting() {
-        this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.targetMonster.position());
+        this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetMonster.position());
         this.entity.setCasting(true);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
     }
@@ -70,10 +70,10 @@ public class TargetFireGoal extends Goal {
         return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f;
     }
 
-    private MonsterEntity findTarget() {
+    private Monster findTarget() {
         double distance = Double.MAX_VALUE;
-        MonsterEntity current = null;
-        for (MonsterEntity monster : this.entity.level.getNearbyEntities(MonsterEntity.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        Monster current = null;
+        for (Monster monster : this.entity.level.getNearbyEntities(Monster.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
             if (this.entity.distanceToSqr(monster) < distance && !monster.isOnFire()) {
                 current = monster;
                 distance = this.entity.distanceToSqr(monster);

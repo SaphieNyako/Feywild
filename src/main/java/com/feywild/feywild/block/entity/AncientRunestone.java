@@ -1,23 +1,23 @@
 package com.feywild.feywild.block.entity;
 
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.ModEntityTypes;
-import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import javax.annotation.Nonnull;
 
-public class AncientRunestone extends TileEntityBase implements ITickableTileEntity {
+public class AncientRunestone extends BlockEntityBase implements TickableBlockEntity {
 
     private int time;
     
-    public AncientRunestone(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public AncientRunestone(BlockEntityType<?> blockEntityTypeIn) {
+        super(blockEntityTypeIn);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class AncientRunestone extends TileEntityBase implements ITickableTileEnt
                 if (!this.level.isClientSide) {
                     this.level.setBlock(this.worldPosition, Blocks.AIR.defaultBlockState(), 3);
                     // Spawn a persistent dwarf
-                    DwarfBlacksmithEntity entity = new DwarfBlacksmithEntity(ModEntityTypes.dwarfBlacksmith, this.level);
+                    DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, this.level);
                     entity.setPos(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5);
                     entity.setSummonPos(this.worldPosition);
                     entity.setTamed(false);
@@ -48,7 +48,7 @@ public class AncientRunestone extends TileEntityBase implements ITickableTileEnt
     public boolean start() {
         if (this.level != null && !this.level.isClientSide && this.time <= 0) {
             this.time = 1;
-            this.markDispatchable();
+            this.setDispatchable();
             return true;
         } else {
             return false;
@@ -60,22 +60,22 @@ public class AncientRunestone extends TileEntityBase implements ITickableTileEnt
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
         super.load(state, nbt);
         this.time = nbt.getInt("Time");
     }
 
     @Nonnull
     @Override
-    public CompoundNBT save(@Nonnull CompoundNBT nbt) {
+    public CompoundTag save(@Nonnull CompoundTag nbt) {
         nbt.putInt("Time", this.time);
         return super.save(nbt);
     }
 
     @Nonnull
     @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT nbt = super.getUpdateTag();
+    public CompoundTag getUpdateTag() {
+        CompoundTag nbt = super.getUpdateTag();
         if (this.level != null && !this.level.isClientSide) {
             nbt.putInt("Time", this.time);
         }
@@ -83,7 +83,7 @@ public class AncientRunestone extends TileEntityBase implements ITickableTileEnt
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
+    public void handleUpdateTag(BlockState state, CompoundTag nbt) {
         super.handleUpdateTag(state, nbt);
         if (this.level != null && this.level.isClientSide) {
             this.time = nbt.getInt("Time");

@@ -3,9 +3,9 @@ package com.feywild.feywild.network;
 import com.feywild.feywild.trade.recipe.TradeRecipe;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.network.PacketSerializer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class TradesSerializer implements PacketSerializer<TradesSerializer.Messa
     }
 
     @Override
-    public void encode(Message msg, PacketBuffer buffer) {
+    public void encode(Message msg, FriendlyByteBuf buffer) {
         buffer.writeVarInt(msg.recipes.size());
         msg.recipes.forEach(recipe -> {
             buffer.writeResourceLocation(recipe.id);
@@ -35,7 +35,7 @@ public class TradesSerializer implements PacketSerializer<TradesSerializer.Messa
     }
 
     @Override
-    public Message decode(PacketBuffer buffer) {
+    public Message decode(FriendlyByteBuf buffer) {
         ImmutableList.Builder<TradeRecipe> recipes = ImmutableList.builder();
         int size = buffer.readVarInt();
         for (int i = 0; i < size; i++) {
@@ -55,7 +55,7 @@ public class TradesSerializer implements PacketSerializer<TradesSerializer.Messa
         return new Message(recipes.build());
     }
     
-    private List<ItemStack> readStackList(PacketBuffer buffer) {
+    private List<ItemStack> readStackList(FriendlyByteBuf buffer) {
         ImmutableList.Builder<ItemStack> stacks = ImmutableList.builder();
         int size = buffer.readVarInt();
         for (int i = 0; i < size; i++) {

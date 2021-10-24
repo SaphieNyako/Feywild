@@ -1,24 +1,24 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.MandragoraEntity;
+import com.feywild.feywild.entity.base.Mandragora;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.block.FarmlandBlock;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class SingGoal extends Goal {
 
-    protected final World world;
-    protected MandragoraEntity entity;
+    protected final Level level;
+    protected Mandragora entity;
     private int ticksLeft = 0;
 
-    public SingGoal(MandragoraEntity mandragoraEntity) {
+    public SingGoal(Mandragora mandragoraEntity) {
         this.entity = mandragoraEntity;
-        this.world = mandragoraEntity.level;
+        this.level = mandragoraEntity.level;
 
     }
 
@@ -59,10 +59,10 @@ public class SingGoal extends Goal {
                 for (int yd = 2; yd >= -2; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
 
-                    if (world.getBlockState(target).getBlock() instanceof CropsBlock && world.random.nextFloat() < 0.08f) {
+                    if (level.getBlockState(target).getBlock() instanceof CropBlock && level.random.nextFloat() < 0.08f) {
 
-                        ((CropsBlock) world.getBlockState(target).getBlock()).growCrops(world, target, world.getBlockState(target));
-                        FeywildMod.getNetwork().sendParticles(world, ParticleSerializer.Type.CROPS_GROW, target);
+                        ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
+                        FeywildMod.getNetwork().sendParticles(level, ParticleSerializer.Type.CROPS_GROW, target);
 
                     }
                 }
@@ -72,7 +72,7 @@ public class SingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return world.random.nextFloat() < 0.003f && world.getBlockState(entity.blockPosition()).getBlock() instanceof FarmlandBlock; //if on farmblock
+        return level.random.nextFloat() < 0.003f && level.getBlockState(entity.blockPosition()).getBlock() instanceof FarmBlock; //if on farmblock
     }
 
     private void reset() {

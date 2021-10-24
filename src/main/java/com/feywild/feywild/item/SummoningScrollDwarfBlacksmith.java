@@ -1,43 +1,45 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksmithEntity> {
+import net.minecraft.world.item.Item.Properties;
+
+public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksmith> {
     
-    public SummoningScrollDwarfBlacksmith(ModX mod, EntityType<DwarfBlacksmithEntity> type, Properties properties) {
+    public SummoningScrollDwarfBlacksmith(ModX mod, EntityType<DwarfBlacksmith> type, Properties properties) {
         super(mod, type, null, properties);
     }
     
     @Override
-    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag) {
-        return world.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
+    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag) {
+        return level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
     }
 
     @Override
-    protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, DwarfBlacksmithEntity entity) {
+    protected void prepareEntity(Level level, Player player, BlockPos pos, DwarfBlacksmith entity) {
         entity.setTamed(true);
         entity.setSummonPos(pos);
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.dwarf_blacksmith"));
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.dwarf_blacksmith"));
+        super.appendHoverText(stack, level, tooltip, flag);
     }
 }

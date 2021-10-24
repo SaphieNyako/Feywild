@@ -3,11 +3,11 @@ package com.feywild.feywild.trade;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.merchant.villager.VillagerTrades;
-import net.minecraft.item.MerchantOffer;
-import net.minecraft.item.MerchantOffers;
-import net.minecraft.util.LazyValue;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.util.LazyLoadedValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashSet;
@@ -22,15 +22,15 @@ public class TradeLevelData {
     private final int maxTrades;
     private final int maxWeight;
     private final boolean allowDuplicates;
-    private final List<Pair<Integer, VillagerTrades.ITrade>> trades;
-    private final LazyValue<List<VillagerTrades.ITrade>> tradeView;
+    private final List<Pair<Integer, VillagerTrades.ItemListing>> trades;
+    private final LazyLoadedValue<List<VillagerTrades.ItemListing>> tradeView;
 
     public TradeLevelData(int minTrades, int maxTrades, List<TradeEntry> trades, boolean allowDuplicates) {
         this.minTrades = Math.min(minTrades, maxTrades);
         this.maxTrades = Math.max(minTrades, maxTrades);
         
         int maxWeight = 0;
-        ImmutableList.Builder<Pair<Integer, VillagerTrades.ITrade>> weightedTrades = ImmutableList.builder();
+        ImmutableList.Builder<Pair<Integer, VillagerTrades.ItemListing>> weightedTrades = ImmutableList.builder();
         for (TradeEntry entry : trades) {
             if (entry.weight > 0) {
                 maxWeight += entry.weight;
@@ -48,7 +48,7 @@ public class TradeLevelData {
             throw new IllegalStateException("Trader level data without duplicates must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
         
-        this.tradeView = new LazyValue<>(() -> {
+        this.tradeView = new LazyLoadedValue<>(() -> {
             //noinspection UnstableApiUsage
             return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         });
@@ -56,8 +56,8 @@ public class TradeLevelData {
 
     public void applyTo(Entity merchant, MerchantOffers offers, Random random) {
         int tradesToSelect = this.minTrades + random.nextInt(1 + (this.maxTrades - this.minTrades));
-        List<VillagerTrades.ITrade> selected = this.selectTrades(tradesToSelect, random);
-        for (VillagerTrades.ITrade trade : selected) {
+        List<VillagerTrades.ItemListing> selected = this.selectTrades(tradesToSelect, random);
+        for (VillagerTrades.ItemListing trade : selected) {
             MerchantOffer offer = trade.getOffer(merchant, random);
             if (offer != null) {
                 offers.add(offer);
@@ -65,7 +65,7 @@ public class TradeLevelData {
         }
     }
     
-    public List<VillagerTrades.ITrade> selectTrades(int trades, Random random) {
+    public List<VillagerTrades.ItemListing> selectTrades(int trades, Random random) {
         int tradesToSelect = this.allowDuplicates ? trades : Math.min(trades, this.trades.size());
         if (tradesToSelect == 0) {
             return ImmutableList.of();
@@ -77,7 +77,7 @@ public class TradeLevelData {
         } else {
             // Stores which indices have been used, so no trade is selected twice.
             Set<Integer> usedIndices = new HashSet<>();
-            ImmutableList.Builder<VillagerTrades.ITrade> builtTrades = ImmutableList.builder();
+            ImmutableList.Builder<VillagerTrades.ItemListing> builtTrades = ImmutableList.builder();
             for (int i = 0; i < tradesToSelect; i++) {
                 int tradeIdx;
                 do {
@@ -102,7 +102,7 @@ public class TradeLevelData {
         return this.trades.size() - 1;
     }
     
-    public List<VillagerTrades.ITrade> getAllTrades() {
+    public List<VillagerTrades.ItemListing> getAllTrades() {
         return this.tradeView.get();
     }
     

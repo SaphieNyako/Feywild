@@ -2,26 +2,26 @@ package com.feywild.feywild.recipes;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public interface IDwarvenAnvilRecipe extends IRecipe<IInventory> {
+public interface IDwarvenAnvilRecipe extends Recipe<Container> {
 
     ResourceLocation TYPE_ID = new ResourceLocation(FeywildMod.getInstance().modid, "dwarven_anvil");
 
     @Nonnull
     @Override
-    default IRecipeType<?> getType() {
+    default RecipeType<?> getType() {
         return Objects.requireNonNull(Registry.RECIPE_TYPE.get(TYPE_ID));
     }
 
@@ -45,7 +45,7 @@ public interface IDwarvenAnvilRecipe extends IRecipe<IInventory> {
     // Modded inventories normally are IItemHandlers.
     @Override
     @Deprecated
-    default boolean matches(@Nonnull IInventory inventory, @Nonnull World world) {
+    default boolean matches(@Nonnull Container container, @Nonnull Level level) {
         return false;
     }
 
@@ -53,7 +53,7 @@ public interface IDwarvenAnvilRecipe extends IRecipe<IInventory> {
     @Nonnull
     @Override
     @Deprecated
-    default ItemStack assemble(@Nonnull IInventory inventory) {
+    default ItemStack assemble(@Nonnull Container container) {
         return this.getResultItem();
     }
 

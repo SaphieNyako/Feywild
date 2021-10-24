@@ -1,9 +1,9 @@
 package com.feywild.feywild.quest.util;
 
 import com.feywild.feywild.quest.QuestDisplay;
-import net.minecraft.item.Item;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 
 public class SelectableQuest {
 
@@ -17,13 +17,13 @@ public class SelectableQuest {
         this.display = display;
     }
     
-    public void toNetwork(PacketBuffer buffer) {
+    public void toNetwork(FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(this.id);
         buffer.writeRegistryId(this.icon);
         this.display.toNetwork(buffer);
     }
     
-    public static SelectableQuest fromNetwork(PacketBuffer buffer) {
+    public static SelectableQuest fromNetwork(FriendlyByteBuf buffer) {
         ResourceLocation id = buffer.readResourceLocation();
         Item icon = buffer.readRegistryId();
         QuestDisplay display = QuestDisplay.fromNetwork(buffer);

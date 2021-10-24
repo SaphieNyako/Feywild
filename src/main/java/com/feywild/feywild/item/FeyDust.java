@@ -6,31 +6,33 @@ import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
+import io.github.noeppi_noeppi.libx.base.ItemBase;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Food;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class FeyDust extends ItemBase {
 
-    private Food food;
+    private FoodProperties food;
     
     public FeyDust(ModX mod, Properties properties) {
         super(mod, properties);
@@ -38,39 +40,39 @@ public class FeyDust extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.fey_dust"));
-        super.appendHoverText(stack, world, tooltip, flag);
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.fey_dust"));
+        super.appendHoverText(stack, level, tooltip, flag);
     }
 
     @Nonnull
     @Override
-    public ActionResultType interactLivingEntity(@Nonnull ItemStack stack, @Nonnull PlayerEntity player, @Nonnull LivingEntity target, @Nonnull Hand hand) {
+    public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
         if (!player.level.isClientSide) {
-            if (target instanceof SheepEntity) {
-                target.addEffect(new EffectInstance(Effects.LEVITATION, Math.max(60, MiscConfig.fey_dust_ticks), 2));
-                if (player instanceof ServerPlayerEntity) {
-                    QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
+            if (target instanceof Sheep) {
+                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, Math.max(60, MiscConfig.fey_dust_ticks), 2));
+                if (player instanceof ServerPlayer) {
+                    QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
                 }
             } else {
-                target.addEffect(new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 2));
+                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, MiscConfig.fey_dust_ticks, 2));
             }
-            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
+            CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayer) player, stack);
             player.awardStat(Stats.ITEM_USED.get(this));
             if (!player.isCreative()) stack.shrink(1);
         }
-        return ActionResultType.sidedSuccess(player.level.isClientSide);
+        return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
 
     @Nullable
     @Override
-    public Food getFoodProperties() {
+    public FoodProperties getFoodProperties() {
         // Overridden instead of item properties, so it will
         // instantly change on config reload
         return this.food;
     }
     
     public void updateFood() {
-        this.food = new Food.Builder().effect(() -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build();
+        this.food = new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build();
     }
 }

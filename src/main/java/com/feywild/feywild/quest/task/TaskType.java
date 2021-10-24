@@ -1,8 +1,8 @@
 package com.feywild.feywild.quest.task;
 
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 
 import javax.annotation.Nullable;
 
@@ -11,7 +11,7 @@ public interface TaskType<T, X> {
     Class<T> element();
     Class<X> testType();
     
-    boolean checkCompleted(ServerPlayerEntity player, T element, X match);
+    boolean checkCompleted(ServerPlayer player, T element, X match);
     
     T fromJson(JsonObject json);
     JsonObject toJson(T element);

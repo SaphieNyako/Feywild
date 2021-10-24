@@ -4,17 +4,17 @@ import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.util.StreamUtil;
 import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.ItemStackHandlerWrapper;
-import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.LazyValue;
+import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
+import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.Direction;
+import net.minecraft.util.LazyLoadedValue;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -36,7 +36,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAnimatable {
+public class FeyAltar extends BlockEntityBase implements TickableBlockEntity, IAnimatable {
 
     public static final int MAX_PROGRESS = 40;
     
@@ -45,20 +45,20 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     private int particleTimer = 0;
     
     private boolean needsUpdate = false;
-    private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
+    private LazyLoadedValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyLoadedValue<>(Optional::empty);
     private final LazyOptional<IItemHandlerModifiable> itemHandler;
 
     private final AnimationFactory animationFactory = new AnimationFactory(this);
     
-    public FeyAltar(TileEntityType<?> type) {
+    public FeyAltar(BlockEntityType<?> type) {
         super(type);
         this.inventory = new BaseItemStackHandler(5, slot -> {
             this.setChanged();
-            this.updateRecipe();
-            this.markDispatchable(); // The tile entity is sent to the clients at the end of the tick.
+            this.updabeRecipe();
+            this.setDispatchable(); // The tile entity is sent to the clients at the end of the tick.
         });
         this.inventory.setDefaultSlotLimit(1);
-        this.itemHandler = ItemStackHandlerWrapper.createLazy(() -> this.inventory);
+        this.itemHandler = ItemCapabilities.createLazy(() -> this.inventory);
     }
 
     @Nonnull
@@ -76,7 +76,7 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
         if (this.level == null) return;
         if (!this.level.isClientSide) {
             if (this.needsUpdate) {
-                this.updateRecipe();
+                this.updabeRecipe();
                 this.needsUpdate = false;
             }
             if (this.recipe.get().isPresent()) {
@@ -94,7 +94,7 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
                     this.progress = 0;
                 }
                 this.setChanged();
-                this.markDispatchable();
+                this.setDispatchable();
             } else {
                 this.progress = 0;
             }
@@ -132,16 +132,16 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
         }
     }
     
-    private void updateRecipe() {
+    private void updabeRecipe() {
         if (this.level != null && !this.level.isClientSide) {
-            this.recipe = new LazyValue<>(() -> {
+            this.recipe = new LazyLoadedValue<>(() -> {
                 List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
                         .findFirst();
             });
         } else {
-            this.recipe = new LazyValue<>(Optional::empty);
+            this.recipe = new LazyLoadedValue<>(Optional::empty);
         }
     }
 
@@ -155,14 +155,14 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
 
     @Nonnull
     @Override
-    public CompoundNBT save(@Nonnull CompoundNBT nbt) {
+    public CompoundTag save(@Nonnull CompoundTag nbt) {
         nbt.put("inventory", this.inventory.serializeNBT());
         nbt.putInt("progress", this.progress);
         return super.save(nbt);
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
         super.load(state, nbt);
         this.inventory.deserializeNBT(nbt.getCompound("inventory"));
         this.progress = nbt.getInt("progress");
@@ -171,8 +171,8 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
 
     @Nonnull
     @Override
-    public CompoundNBT getUpdateTag() {
-        CompoundNBT nbt = super.getUpdateTag();
+    public CompoundTag getUpdateTag() {
+        CompoundTag nbt = super.getUpdateTag();
         if (this.level != null && !this.level.isClientSide) {
             nbt.put("inventory", this.inventory.serializeNBT());
             nbt.putInt("progress", this.progress);
@@ -181,7 +181,7 @@ public class FeyAltar extends TileEntityBase implements ITickableTileEntity, IAn
     }
 
     @Override
-    public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
+    public void handleUpdateTag(BlockState state, CompoundTag nbt) {
         super.handleUpdateTag(state, nbt);
         if (this.level != null && this.level.isClientSide) {
             this.inventory.deserializeNBT(nbt.getCompound("inventory"));

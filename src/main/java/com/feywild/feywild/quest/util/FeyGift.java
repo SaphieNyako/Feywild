@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest.util;
 
 import com.feywild.feywild.quest.Alignment;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class FeyGift {
 

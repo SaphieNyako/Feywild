@@ -11,12 +11,12 @@ import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.block.trees.FeyWoodBlock;
 import io.github.noeppi_noeppi.libx.data.provider.BlockStateProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Block;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
@@ -65,7 +65,7 @@ public class BlockStates extends BlockStateProviderBase {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(((FeyWoodBlock) block).getLogBlock()), this.blockTexture(((FeyWoodBlock) block).getLogBlock()));
         } else if (block instanceof RotatedPillarBlock) {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(block), new ResourceLocation(id.getNamespace(), "block/tree_log_top"));
-        } else if (block instanceof CropsBlock) {
+        } else if (block instanceof CropBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             //noinspection CodeBlock2Expr
             BlockStateProperties.AGE_7.getPossibleValues().forEach(i -> {
@@ -125,7 +125,7 @@ public class BlockStates extends BlockStateProviderBase {
 
     @Override
     protected ModelFile defaultModel(ResourceLocation id, Block block) {
-        if (block instanceof GiantFlowerBlock || block instanceof RotatedPillarBlock || block instanceof CropsBlock
+        if (block instanceof GiantFlowerBlock || block instanceof RotatedPillarBlock || block instanceof CropBlock
                 || block instanceof FeyLeavesBlock) {
             // Models are created in `defaultState`
             return null;

@@ -1,21 +1,21 @@
 package com.feywild.feywild.util;
 
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.LocatableSound;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.resources.sounds.AbstractSoundInstance;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Function;
 
 public class SoundUtil {
     
-    public static ISound copySound(SoundEvent event, ISound sound, Function<? super SoundEvent, ? extends ISound> defaultFactory) {
+    public static SoundInstance copySound(SoundEvent event, SoundInstance sound, Function<? super SoundEvent, ? extends SoundInstance> defaultFactory) {
         try {
-            if (sound instanceof LocatableSound) {
+            if (sound instanceof AbstractSoundInstance) {
                 // Needs special handling as getter methods don't just return the plain values.
-                return new SimpleLocatableSound(event, (LocatableSound) sound);
+                return new SimpleLocatableSound(event, (AbstractSoundInstance) sound);
             } else {
-                return new SimpleSound(event.getLocation(), sound.getSource(), sound.getVolume(), sound.getPitch(), sound.isLooping(), sound.getDelay(), sound.getAttenuation(), sound.getX(), sound.getY(), sound.getZ(), sound.isRelative());
+                return new SimpleSoundInstance(event.getLocation(), sound.getSource(), sound.getVolume(), sound.getPitch(), sound.isLooping(), sound.getDelay(), sound.getAttenuation(), sound.getX(), sound.getY(), sound.getZ(), sound.isRelative());
             }
         } catch (Exception e) {
             // Might fail depending on the sound
@@ -23,9 +23,9 @@ public class SoundUtil {
         }
     }
 
-    private static class SimpleLocatableSound extends LocatableSound {
+    private static class SimpleLocatableSound extends AbstractSoundInstance {
 
-        protected SimpleLocatableSound(SoundEvent event, LocatableSound parent) {
+        protected SimpleLocatableSound(SoundEvent event, AbstractSoundInstance parent) {
             super(event, parent.getSource());
             // Fields instead of methods as the methods need a resolved sound
             // which we might not have here.

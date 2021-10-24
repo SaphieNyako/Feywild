@@ -11,19 +11,19 @@ import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.util.DatapackHelper;
 import io.github.noeppi_noeppi.libx.crafting.IngredientStack;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.DataProvider;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 
 import static com.feywild.feywild.quest.Alignment.*;
 
-public class QuestProvider implements IDataProvider {
+public class QuestProvider implements DataProvider {
 
     private final ModX mod;
     private final DataGenerator generator;
@@ -184,7 +184,7 @@ public class QuestProvider implements IDataProvider {
     }
 
     @Override
-    public void run(@Nonnull DirectoryCache cache) throws IOException {
+    public void run(@Nonnull HashCache cache) throws IOException {
         this.setup();
         for (Alignment alignment : this.quests.keySet()) {
             Set<ResourceLocation> ids = new HashSet<>();
@@ -201,7 +201,7 @@ public class QuestProvider implements IDataProvider {
                         throw new IllegalStateException("Reference to unknown quest: " + parent + " (in " + quest.id + ")");
                     }
                 }
-                IDataProvider.save(DatapackHelper.GSON, cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
+                DataProvider.save(DatapackHelper.GSON, cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
             }
         }
     }
@@ -241,13 +241,13 @@ public class QuestProvider implements IDataProvider {
             this.reputation = 5;
             this.icon = null;
             this.start = new QuestDisplay(
-                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.title"),
-                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.description"),
+                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.title"),
+                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.description"),
                     null
             );
             this.complete = new QuestDisplay(
-                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.title"),
-                    new TranslationTextComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.description"),
+                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.title"),
+                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.description"),
                     null
             );
             this.tasks = new ArrayList<>();
@@ -269,7 +269,7 @@ public class QuestProvider implements IDataProvider {
             return this;
         }
 
-        public QuestBuilder icon(IItemProvider icon) {
+        public QuestBuilder icon(ItemLike icon) {
             this.icon = icon.asItem();
             return this;
         }

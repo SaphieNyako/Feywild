@@ -1,7 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.base.MandragoraEntity;
+import com.feywild.feywild.entity.base.Mandragora;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
@@ -12,18 +12,18 @@ import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.block.*;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -31,7 +31,19 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class MandrakeCrop extends CropsBlock implements Registerable {
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class MandrakeCrop extends CropBlock implements Registerable {
 
     private static final VoxelShape[] SHAPES = new VoxelShape[]{
             Block.box(0, 0, 0, 16, 2, 16),
@@ -47,7 +59,7 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     private final BlockItem seed;
 
     public MandrakeCrop(ModX mod) {
-        super(AbstractBlock.Properties.copy(Blocks.WHEAT));
+        super(BlockBehaviour.Properties.copy(Blocks.WHEAT));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.seed = new BlockItem(this, properties);
     }
@@ -62,18 +74,18 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> RenderTypeLookup.setRenderLayer(this, RenderType.cutout()));
+        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Nonnull
     @Override
-    protected IItemProvider getBaseSeedId() {
+    protected ItemLike getBaseSeedId() {
         return this.seed;
     }
 
     @Nonnull
     @Override
-    public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
         return SHAPES[state.getValue(this.getAgeProperty())];
     }
 
@@ -84,42 +96,42 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
-    public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
+    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!world.isClientSide) {
+            if (!level.isClientSide) {
 
-                MandragoraEntity entity = getModEntityType(world);
+                Mandragora entity = getModEntityType(level);
 
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
                     entity.setSummonPos(pos);
-                    world.addFreshEntity(entity);
+                    level.addFreshEntity(entity);
                     entity.playSound(SoundEvents.FOX_EAT, 1, 1);
-                    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                     if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
-                    QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
                 }
             }
-            return ActionResultType.sidedSuccess(world.isClientSide);
+            return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
-            return super.use(state, world, pos, player, hand, hit);
+            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 1.0f, 0.8f);
+            return super.use(state, level, pos, player, hand, hit);
         }
     }
 
-    private MandragoraEntity getModEntityType(World world) {
-        switch (world.random.nextInt(5)) {
+    private Mandragora getModEntityType(Level level) {
+        switch (level.random.nextInt(5)) {
             case 1:
-                return ModEntityTypes.onionMandragora.create(world);
+                return ModEntityTypes.onionMandragora.create(level);
             case 2:
-                return ModEntityTypes.potatoMandragora.create(world);
+                return ModEntityTypes.potatoMandragora.create(level);
             case 3:
-                return ModEntityTypes.pumpkinMandragora.create(world);
+                return ModEntityTypes.pumpkinMandragora.create(level);
             case 4:
-                return ModEntityTypes.tomatoMandragora.create(world);
+                return ModEntityTypes.tomatoMandragora.create(level);
             case 0:
             default:
-                return ModEntityTypes.melonMandragora.create(world);
+                return ModEntityTypes.melonMandragora.create(level);
         }
     }
 }

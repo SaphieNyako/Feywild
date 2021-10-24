@@ -4,9 +4,9 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.screens.widget.QuestWidget;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -16,7 +16,7 @@ public class SelectQuestScreen extends Screen {
     private final Alignment alignment;
     private final List<SelectableQuest> quests;
 
-    public SelectQuestScreen(ITextComponent name, Alignment alignment, List<SelectableQuest> quests) {
+    public SelectQuestScreen(Component name, Alignment alignment, List<SelectableQuest> quests) {
         super(name);
         this.alignment = alignment;
         this.quests = ImmutableList.copyOf(quests);
@@ -32,15 +32,15 @@ public class SelectQuestScreen extends Screen {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.drawTextLines(matrixStack, mouseX, mouseY);
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTicks);
+        this.drawTextLines(poseStack, mouseX, mouseY);
     }
 
-    private void drawTextLines(MatrixStack matrixStack, int mouseX, int mouseY) {
+    private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
         if (this.minecraft != null) {
-            drawString(matrixStack, this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 10, 0xFFFFFF);
+            drawString(poseStack, this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 10, 0xFFFFFF);
         }
     }
 

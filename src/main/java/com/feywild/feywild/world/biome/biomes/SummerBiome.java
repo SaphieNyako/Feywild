@@ -6,15 +6,23 @@ import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import net.minecraft.client.audio.BackgroundMusicSelector;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.sounds.Music;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.data.worldgen.Features;
+import net.minecraft.data.worldgen.StructureFeatures;
+import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
+
+import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.biome.VanillaBiomes;
+import net.minecraft.world.level.biome.AmbientParticleSettings;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class SummerBiome implements BiomeType {
 
@@ -25,13 +33,13 @@ public class SummerBiome implements BiomeType {
     }
 
     @Override
-    public Biome.Category category() {
-        return Biome.Category.SAVANNA;
+    public Biome.BiomeCategory category() {
+        return Biome.BiomeCategory.SAVANNA;
     }
 
     @Override
-    public Biome.RainType rain() {
-        return Biome.RainType.NONE;
+    public Biome.Precipitation rain() {
+        return Biome.Precipitation.NONE;
     }
 
     @Override
@@ -55,38 +63,38 @@ public class SummerBiome implements BiomeType {
     }
 
     @Override
-    public void ambience(BiomeAmbience.Builder builder) {
+    public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
-        builder.skyColor(BiomeMaker.calculateSkyColor(0.9f));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
-        builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001f));
+        builder.skyColor(VanillaBiomes.calculateSkyColor(0.9f));
+        builder.backgroundMusic(new Music(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
+        builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIT, 0.001f));
     }
 
     @Override
-    public void spawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.BEE, 20, 2, 3));
-        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.beeKnight,
+    public void spawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.BEE, 20, 2, 3));
+        builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.beeKnight,
                 MobConfig.summer_bee_knight.weight, MobConfig.summer_bee_knight.min, MobConfig.summer_bee_knight.max));
     }
 
     @Override
     public void generation(BiomeGenerationSettings.Builder builder) {
-        DefaultBiomeFeatures.addSavannaGrass(builder);
-        DefaultBiomeFeatures.addForestFlowers(builder);
-        DefaultBiomeFeatures.addSavannaExtraGrass(builder);
-        DefaultBiomeFeatures.addJungleExtraVegetation(builder);
-        builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
-        DefaultBiomeFeatures.addExtraGold(builder);
+        BiomeDefaultFeatures.addSavannaGrass(builder);
+        BiomeDefaultFeatures.addForestFlowers(builder);
+        BiomeDefaultFeatures.addSavannaExtraGrass(builder);
+        BiomeDefaultFeatures.addJungleExtraVegetation(builder);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_SUNFLOWER);
+        BiomeDefaultFeatures.addExtraGold(builder);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
     }
 
     @Override
-    public void overworldSpawns(MobSpawnInfo.Builder builder) {
-        builder.addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.PILLAGER, 3, 2, 5));
-        DefaultBiomeFeatures.farmAnimals(builder);
+    public void overworldSpawns(MobSpawnSettings.Builder builder) {
+        builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.PILLAGER, 3, 2, 5));
+        BiomeDefaultFeatures.farmAnimals(builder);
     }
 
     @Override

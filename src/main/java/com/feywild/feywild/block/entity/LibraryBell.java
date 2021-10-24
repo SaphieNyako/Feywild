@@ -1,15 +1,15 @@
 package com.feywild.feywild.block.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class LibraryBell extends TileEntity {
+public class LibraryBell extends BlockEntity {
 
     private int annoyance = 0;
     private int despawnTimer = 0;
@@ -23,7 +23,7 @@ public class LibraryBell extends TileEntity {
     @Nullable
     private UUID security = null;
 
-    public LibraryBell(TileEntityType<?> type) {
+    public LibraryBell(BlockEntityType<?> type) {
         super(type);
     }
 
@@ -71,7 +71,7 @@ public class LibraryBell extends TileEntity {
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
         super.load(state, nbt);
         this.annoyance = nbt.getInt("annoyance");
         this.player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
@@ -82,7 +82,7 @@ public class LibraryBell extends TileEntity {
 
     @Nonnull
     @Override
-    public CompoundNBT save(CompoundNBT nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.putInt("annoyance", this.annoyance);
         nbt.putInt("despawner", this.despawnTimer);
         if (this.player == null) {

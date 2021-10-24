@@ -2,7 +2,7 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.BeeKnight;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
 public class BeeRestrictAttackGoal extends MeleeAttackGoal {
 

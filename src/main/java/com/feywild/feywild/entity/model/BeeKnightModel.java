@@ -2,7 +2,7 @@ package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.BeeKnight;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

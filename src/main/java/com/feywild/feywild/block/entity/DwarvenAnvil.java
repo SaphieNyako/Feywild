@@ -10,16 +10,16 @@ import com.feywild.feywild.tag.ModItemTags;
 import com.feywild.feywild.util.StreamUtil;
 import io.github.noeppi_noeppi.libx.crafting.recipe.RecipeHelper;
 import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.ItemStackHandlerWrapper;
-import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.LazyValue;
-import net.minecraft.world.server.ServerWorld;
+import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
+import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.Direction;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -33,25 +33,25 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity {
+public class DwarvenAnvil extends BlockEntityBase implements TickableBlockEntity {
 
     public static final int MAX_MANA = 1000;
     public static final int FEY_DUST_MANA_COST = 50;
 
     private final BaseItemStackHandler inventory = new BaseItemStackHandler(8, slot -> {
         this.setChanged();
-        this.updateRecipe();
+        this.updabeRecipe();
     }, this::isItemValid);
     private final ManaStorage manaStorage = new ManaStorage(MAX_MANA, () -> {
         this.setChanged();
-        this.updateRecipe();
+        this.updabeRecipe();
     });
 
     // Top for main inputs, side for fey dust and bottom to extract result.
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerGeneric = ItemStackHandlerWrapper.createLazy(() -> this.inventory);
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerTop = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerSide = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
-    private final LazyOptional<IItemHandlerModifiable> itemHandlerBottom = ItemStackHandlerWrapper.createLazy(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
+    private final LazyOptional<IItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.createLazy(() -> this.inventory);
+    private final LazyOptional<IItemHandlerModifiable> itemHandlerTop = ItemCapabilities.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
+    private final LazyOptional<IItemHandlerModifiable> itemHandlerSide = ItemCapabilities.createLazy(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
+    private final LazyOptional<IItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.createLazy(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
     private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> this.manaStorage);
 
     // As `load` is often called without a level, we need to store that a recipe update
@@ -61,10 +61,10 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
     // the current result item. It's lazy, so the result item is not computed on every
     // inventory or mana change but also not computed multiple times without a change.
     // Hold a pair of the recipe that is used and the result value.
-    private LazyValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipe = new LazyValue<>(Optional::empty);
+    private LazyLoadedValue<Optional<Pair<ItemStack, IDwarvenAnvilRecipe>>> recipe = new LazyLoadedValue<>(Optional::empty);
 
-    public DwarvenAnvil(TileEntityType<?> tileEntityType) {
-        super(tileEntityType);
+    public DwarvenAnvil(BlockEntityType<?> blockEntityType) {
+        super(blockEntityType);
     }
     
     private boolean isItemValid(int slot, ItemStack stack) {
@@ -87,12 +87,12 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
 
     @Override
     public void tick() {
-        if (this.level != null && this.level instanceof ServerWorld) {
+        if (this.level != null && this.level instanceof ServerLevel) {
             if (this.needsUpdate) {
-                this.updateRecipe();
+                this.updabeRecipe();
                 this.needsUpdate = false;
             }
-            if (((ServerWorld) this.level).getServer().getTickCount() % 20 == 0 && this.manaStorage.getMana() + FEY_DUST_MANA_COST <= this.manaStorage.getMaxMana()) {
+            if (((ServerLevel) this.level).getServer().getTickCount() % 20 == 0 && this.manaStorage.getMana() + FEY_DUST_MANA_COST <= this.manaStorage.getMaxMana()) {
                 // Simulate extraction first
                 ItemStack extracted = this.inventory.extractItem(0, 1, true);
                 if (!extracted.isEmpty() && extracted.getItem() == ModItems.feyDust) {
@@ -106,14 +106,14 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
 
     @Nonnull
     @Override
-    public CompoundNBT save(CompoundNBT nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         nbt.put("inventory", this.inventory.serializeNBT());
         nbt.put("mana", this.manaStorage.serializeNBT());
         return super.save(nbt);
     }
 
     @Override
-    public void load(@Nonnull BlockState state, @Nonnull CompoundNBT nbt) {
+    public void load(@Nonnull BlockState state, @Nonnull CompoundTag nbt) {
         super.load(state, nbt);
         this.inventory.deserializeNBT(nbt.getCompound("inventory"));
         this.manaStorage.deserializeNBT(nbt.getCompound("mana"));
@@ -150,11 +150,11 @@ public class DwarvenAnvil extends TileEntityBase implements ITickableTileEntity 
         });
     }
 
-    private void updateRecipe() {
+    private void updabeRecipe() {
         if (this.level == null || this.level.isClientSide) {
-            this.recipe = new LazyValue<>(Optional::empty);
+            this.recipe = new LazyLoadedValue<>(Optional::empty);
         } else {
-            this.recipe = new LazyValue<>(() -> {
+            this.recipe = new LazyLoadedValue<>(() -> {
                 ItemStack schematics = this.inventory.getStackInSlot(1);
                 List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.DWARVEN_ANVIL).stream()

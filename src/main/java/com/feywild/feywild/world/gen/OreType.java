@@ -2,16 +2,16 @@ package com.feywild.feywild.world.gen;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.WorldGenConfig;
-import net.minecraft.block.Block;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.ConfiguredPlacement;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.placement.ConfiguredDecorator;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.feature.configurations.RangeDecoratorConfiguration;
 
 import java.util.Objects;
 
@@ -30,8 +30,8 @@ public enum OreType {
     private final int minHeight;
     private final int maxHeight;
     private final int spawnWeight;
-    private final LazyValue<ConfiguredFeature<?, ?>> feature;
-    private final LazyValue<ConfiguredFeature<?, ?>> alfheimFeature;
+    private final LazyLoadedValue<ConfiguredFeature<?, ?>> feature;
+    private final LazyLoadedValue<ConfiguredFeature<?, ?>> alfheimFeature;
 
     OreType(Block block, Block alfheimBlock, int maxVeinSize, int minHeight, int maxHeight, int spawnWeight) {
         this.block = block;
@@ -40,15 +40,15 @@ public enum OreType {
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
         this.spawnWeight = spawnWeight;
-        this.feature = new LazyValue<>(() -> {
-            OreFeatureConfig oreFeatureConfig = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, block.defaultBlockState(), maxVeinSize);
-            ConfiguredPlacement<?> configuredPlacement = Placement.RANGE.configured(new TopSolidRangeConfig(minHeight, 0, maxHeight)).squared().count(spawnWeight);
-            return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
+        this.feature = new LazyLoadedValue<>(() -> {
+            OreConfiguration oreFeatureConfig = new OreConfiguration(OreConfiguration.Predicates.NATURAL_STONE, block.defaultBlockState(), maxVeinSize);
+            ConfiguredDecorator<?> configuredPlacement = FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(minHeight, 0, maxHeight)).squared().count(spawnWeight);
+            return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
         });
-        this.alfheimFeature = new LazyValue<>(() -> {
-            OreFeatureConfig oreFeatureConfig = new OreFeatureConfig(FeywildOreGen.ALFHEIM_STONE, alfheimBlock.defaultBlockState(), maxVeinSize);
-            ConfiguredPlacement<?> configuredPlacement = Placement.RANGE.configured(new TopSolidRangeConfig(minHeight, 0, maxHeight)).squared().count(spawnWeight);
-            return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
+        this.alfheimFeature = new LazyLoadedValue<>(() -> {
+            OreConfiguration oreFeatureConfig = new OreConfiguration(FeywildOreGen.ALFHEIM_STONE, alfheimBlock.defaultBlockState(), maxVeinSize);
+            ConfiguredDecorator<?> configuredPlacement = FeatureDecorator.RANGE.configured(new RangeDecoratorConfiguration(minHeight, 0, maxHeight)).squared().count(spawnWeight);
+            return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).decorated(configuredPlacement));
         });
     }
 

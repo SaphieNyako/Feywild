@@ -2,7 +2,7 @@ package com.feywild.feywild.quest.reward;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class RewardTypes {
 

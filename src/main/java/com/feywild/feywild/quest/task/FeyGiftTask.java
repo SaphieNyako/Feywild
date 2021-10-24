@@ -4,10 +4,10 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.FeyGift;
 import com.google.gson.JsonObject;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 
@@ -30,7 +30,7 @@ public class FeyGiftTask implements TaskType<FeyGift, AlignmentStack> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayerEntity player, FeyGift element, AlignmentStack match) {
+    public boolean checkCompleted(ServerPlayer player, FeyGift element, AlignmentStack match) {
         return element.alignment == match.alignment && element.ingredient.test(match.getStack());
     }
 

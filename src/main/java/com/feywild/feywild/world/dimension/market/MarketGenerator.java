@@ -3,15 +3,15 @@ package com.feywild.feywild.world.dimension.market;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.BoundingBoxUtil;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.template.PlacementSettings;
-import net.minecraft.world.gen.feature.template.Template;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.server.level.ServerLevel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,52 +33,52 @@ public class MarketGenerator {
         }
     }
 
-    public static void generate(ServerWorld world) {
-        MarketData data = MarketData.get(world);
+    public static void generate(ServerLevel level) {
+        MarketData data = MarketData.get(level);
         if (data != null) {
             if (data.tryGenerate()) {
-                generateBase(world);
+                generateBase(level);
                 for (DwarfEntry entry : DWARVES.values()) {
-                    Entity entity = entry.type.create(world);
+                    Entity entity = entry.type.create(level);
                     if (entity != null) {
                         entity.setPos(
                                 entry.position.getX() + 0.5,
                                 entry.position.getY(),
                                 entry.position.getZ() + 0.5
                         );
-                        world.addFreshEntity(entity);
+                        level.addFreshEntity(entity);
                     }
                 }
             }
         }
     }
 
-    private static void generateBase(ServerWorld world) {
-        Template template = world.getStructureManager().get(new ResourceLocation(FeywildMod.getInstance().modid, "market"));
+    private static void generateBase(ServerLevel level) {
+        StructureTemplate template = level.getStructureManager().get(new ResourceLocation(FeywildMod.getInstance().modid, "market"));
         if (template != null) {
 
-            template.placeInWorld(world, BASE_POS, new PlacementSettings(), world.random);
+            template.placeInWorld(level, BASE_POS, new StructurePlaceSettings(), level.random);
         }
 
         // Remove all entities from the world
         // Must use version with bounding box to load the chunks
-        AxisAlignedBB aabb = BoundingBoxUtil.get(template.getBoundingBox(new PlacementSettings(), BASE_POS)).inflate(10);
-        world.getEntities(null, aabb).stream()
-                .filter(e -> !(e instanceof PlayerEntity))
+        AABB aabb = BoundingBoxUtil.get(template.getBoundingBox(new StructurePlaceSettings(), BASE_POS)).inflate(10);
+        level.getEntities(null, aabb).stream()
+                .filter(e -> !(e instanceof Player))
                 .forEach(Entity::remove);
 
         for (int i = 0; i < 4; i++) {
-            addLivestock(world, -3.5, 63, 1.5);
+            addLivestock(level, -3.5, 63, 1.5);
         }
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void addLivestock(ServerWorld world, double x, double y, double z) {
-        EntityType<?> type = LIVESTOCK.get(world.random.nextInt(LIVESTOCK.size()));
-        Entity entity = type.create(world);
+    private static void addLivestock(ServerLevel level, double x, double y, double z) {
+        EntityType<?> type = LIVESTOCK.get(level.random.nextInt(LIVESTOCK.size()));
+        Entity entity = type.create(level);
         if (entity != null) {
             entity.setPos(x, y, z);
-            world.addFreshEntity(entity);
+            level.addFreshEntity(entity);
         }
     }
 

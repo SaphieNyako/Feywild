@@ -1,34 +1,34 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
+import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.block.BlockState;
-import net.minecraft.command.arguments.EntityAnchorArgument;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DwarvenAttackGoal extends Goal {
 
-    protected final DwarfBlacksmithEntity entity;
+    protected final DwarfBlacksmith entity;
     protected LivingEntity target;
     protected boolean sendShock = false;
     protected int ticksLeft = 0;
 
-    public DwarvenAttackGoal(DwarfBlacksmithEntity entity) {
+    public DwarvenAttackGoal(DwarfBlacksmith entity) {
         this.entity = entity;
     }
 
     @Override
     public void tick() {
-        if (this.entity.getLastHurtByMob() instanceof MonsterEntity) {
+        if (this.entity.getLastHurtByMob() instanceof Monster) {
             this.target = this.entity.getLastHurtByMob();
             this.ticksLeft--;
             if (this.ticksLeft == 0) {
@@ -36,12 +36,12 @@ public class DwarvenAttackGoal extends Goal {
             } else if (this.ticksLeft == 10) {
                 this.sendShock = this.attackTarget();
                 this.entity.playSound(ModSoundEvents.dwarfAttack, 1, 1.2f);
-                this.entity.setState(DwarfBlacksmithEntity.State.IDLE);
+                this.entity.setState(DwarfBlacksmith.State.IDLE);
             } else if (this.ticksLeft == 30) {
-                this.entity.setState(DwarfBlacksmithEntity.State.ATTACKING);
+                this.entity.setState(DwarfBlacksmith.State.ATTACKING);
                 this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
             } else if (this.ticksLeft <= 30) {
-                this.entity.lookAt(EntityAnchorArgument.Type.EYES, this.target.position());
+                this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
                 if (this.sendShock) {
                     switch (this.ticksLeft) {
                         case 4:
@@ -113,7 +113,7 @@ public class DwarvenAttackGoal extends Goal {
     }
 
     protected void reset() {
-        this.entity.setState(DwarfBlacksmithEntity.State.IDLE);
+        this.entity.setState(DwarfBlacksmith.State.IDLE);
         this.target = null;
         this.sendShock = false;
         this.ticksLeft = -1;
@@ -121,11 +121,11 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.ticksLeft > 0 && this.entity.getLastHurtByMob() instanceof MobEntity && !this.entity.getLastHurtByMob().isInvulnerable();
+        return this.ticksLeft > 0 && this.entity.getLastHurtByMob() instanceof Mob && !this.entity.getLastHurtByMob().isInvulnerable();
     }
 
     @Override
     public boolean canUse() {
-        return this.entity.getLastHurtByMob() instanceof MobEntity && !this.entity.getLastHurtByMob().isInvulnerable() && this.entity.canSee(this.entity.getLastHurtByMob());
+        return this.entity.getLastHurtByMob() instanceof Mob && !this.entity.getLastHurtByMob().isInvulnerable() && this.entity.canSee(this.entity.getLastHurtByMob());
     }
 }

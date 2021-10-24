@@ -5,13 +5,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -43,7 +43,7 @@ public class AltarRecipe implements IAltarRecipe {
 
     @Nonnull
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipeTypes.ALTAR_SERIALIZER;
     }
 
@@ -64,23 +64,23 @@ public class AltarRecipe implements IAltarRecipe {
         return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem()) : Optional.empty();
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AltarRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AltarRecipe> {
 
         @Nonnull
         @Override
         public AltarRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
+            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
             ImmutableList.Builder<Ingredient> inputs = ImmutableList.builder();
             for (JsonElement jsonElement : ingredients) {
                 inputs.add(Ingredient.fromJson(jsonElement));
             }
-            ItemStack output = CraftingHelper.getItemStack(JSONUtils.getAsJsonObject(json, "output"), true);
+            ItemStack output = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "output"), true);
             return new AltarRecipe(recipeId, output, inputs.build());
         }
 
         @Nullable
         @Override
-        public AltarRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
+        public AltarRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
             int inputSize = buffer.readVarInt();
             ImmutableList.Builder<Ingredient> inputs = ImmutableList.builder();
             for (int i = 0; i < inputSize; i++) {
@@ -91,7 +91,7 @@ public class AltarRecipe implements IAltarRecipe {
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, AltarRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, AltarRecipe recipe) {
             buffer.writeVarInt(recipe.getIngredients().size());
             recipe.inputs.forEach(i -> i.toNetwork(buffer));
             buffer.writeItemStack(recipe.getResultItem(), false);

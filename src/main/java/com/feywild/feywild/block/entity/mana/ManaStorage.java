@@ -1,12 +1,12 @@
 package com.feywild.feywild.block.entity.mana;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nullable;
 
-public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> {
+public class ManaStorage implements IManaStorage, INBTSerializable<CompoundTag> {
 
     protected final int capacity;
     protected final int maxReceive;
@@ -64,7 +64,7 @@ public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> 
 
     @Override
     public int getMana() {
-        return MathHelper.clamp(this.mana, 0, this.capacity);
+        return Mth.clamp(this.mana, 0, this.capacity);
     }
 
     public void setMana(int mana) {
@@ -88,14 +88,14 @@ public class ManaStorage implements IManaStorage, INBTSerializable<CompoundNBT> 
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT tag = new CompoundNBT();
+    public CompoundTag serializeNBT() {
+        CompoundTag tag = new CompoundTag();
         tag.putInt("mana", this.getMana());
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.setMana(nbt.getInt("mana"));
     }
 }

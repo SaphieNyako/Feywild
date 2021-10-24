@@ -1,15 +1,15 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.item.ModItems;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 
-public class FeywildTab extends ItemGroup {
+public class FeywildTab extends CreativeModeTab {
     
     private final ResourceLocation texture;
     

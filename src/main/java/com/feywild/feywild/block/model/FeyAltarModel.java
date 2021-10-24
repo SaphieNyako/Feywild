@@ -2,7 +2,7 @@ package com.feywild.feywild.block.model;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.entity.FeyAltar;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class FeyAltarModel extends AnimatedGeoModel<FeyAltar> {

@@ -5,13 +5,13 @@ import com.feywild.feywild.network.quest.SelectQuestSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.util.TextProcessor;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -44,20 +44,20 @@ public class QuestWidget extends Button {
     }
 
     @Override
-    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         //noinspection deprecation
         RenderSystem.color4f(1, 1, 1, 1);
         Minecraft.getInstance().getTextureManager().bind(SELECTION_TEXTURE);
         if (this.isHovered(mouseX, mouseY)) {
-            this.blit(matrixStack, this.x, this.y + 5, 12, 0, 14, 14);
+            this.blit(poseStack, this.x, this.y + 5, 12, 0, 14, 14);
         } else {
-            this.blit(matrixStack, this.x, this.y + 5, 0, 0, 12, 12);
+            this.blit(poseStack, this.x, this.y + 5, 0, 0, 12, 12);
         }
         Minecraft.getInstance().getTextureManager().bind(SLOT_TEXTURE);
-        this.blit(matrixStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24);
+        this.blit(poseStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24);
         Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack,this.x + 19,this.y + 4);
-        FontRenderer font = Minecraft.getInstance().font;
-        drawString(matrixStack, font, this.getMessage(), this.x + 44, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
+        Font font = Minecraft.getInstance().font;
+        drawString(poseStack, font, this.getMessage(), this.x + 44, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
     }
     
     public boolean isHovered(int x, int y) {
