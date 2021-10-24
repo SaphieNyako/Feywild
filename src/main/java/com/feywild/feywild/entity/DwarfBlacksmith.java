@@ -44,6 +44,8 @@ import java.util.Random;
 
 public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
 
+    //TODO change dwarven trade to match the new ore
+
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     //GeckoLib variable
     private final AnimationFactory animationFactory = new AnimationFactory(this);
@@ -96,7 +98,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
         return InteractionResult.sidedSuccess(this.level.isClientSide);
     }
 
-    protected void trade(Player player){
+    protected void trade(Player player) {
         this.setTradingPlayer(player); //added
         this.openTradingScreen(player, new TranslatableComponent("Dwarven Trader"), 1);
         player.displayClientMessage(new TranslatableComponent("dwarf.feywild.dialogue"), false);
@@ -185,7 +187,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     public boolean requiresCustomPersistence() {
         return true;
     }
-    
+
     @Override
     public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
         return false;

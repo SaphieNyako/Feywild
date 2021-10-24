@@ -9,12 +9,14 @@ import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
 import com.feywild.feywild.quest.player.QuestData;
-import com.feywild.feywild.quest.task.*;
+import com.feywild.feywild.quest.task.BiomeTask;
+import com.feywild.feywild.quest.task.CraftTask;
+import com.feywild.feywild.quest.task.ItemTask;
+import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.FeywildTitleScreen;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
-import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import io.github.noeppi_noeppi.libx.event.DataPacksReloadedEvent;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -69,7 +71,7 @@ public class EventListener {
             //Quest Check for Biome
             player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            quests.checkComplete(StructureTask.INSTANCE, player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), true, ModStructures.library).getFeature().getRegistryName());
+            //    quests.checkComplete(StructureTask.INSTANCE, player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), true, ModStructures.library).getFeature().getRegistryName());
         }
     }
 

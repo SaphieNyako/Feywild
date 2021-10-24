@@ -25,6 +25,8 @@ import java.util.function.Consumer;
 
 public class FeyAltarBlock extends BlockBE<FeyAltar> {
 
+    //TODO Altar doesnt take in items
+
     public FeyAltarBlock(ModX mod) {
         super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(0f).noOcclusion());
     }

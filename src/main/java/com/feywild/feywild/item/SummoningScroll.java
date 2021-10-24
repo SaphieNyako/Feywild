@@ -33,9 +33,9 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
             "id", "Pos", "Motion", "Rotation", "FallDistance", "Fire", "Air", "OnGround", "UUID", "CustomName",
             "CustomNameVisible", "Passengers"
     );
-    
+
     private static final Map<EntityType<?>, SummoningScroll<?>> CAPTURE_MAP = Collections.synchronizedMap(new HashMap<>());
-    
+
     protected final EntityType<T> type;
 
     @Nullable
@@ -47,10 +47,14 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
         this.soundEvent = soundEvent;
     }
 
+    public static <T extends LivingEntity> void registerCapture(EntityType<? extends T> type, SummoningScroll<T> scroll) {
+        CAPTURE_MAP.put(type, scroll);
+    }
+
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag) {
         return true;
     }
-    
+
     protected boolean canCapture(Level level, Player player, T entity) {
         return true;
     }
@@ -77,11 +81,14 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
                     entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
                     this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
-                    context.getLevel().addFreshEntity(entity);
-                    if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
-                    if (!context.getPlayer().isCreative()) {
-                        context.getItemInHand().shrink(1);
-                        context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                    if (this instanceof SummoningScrollFey) {
+                        context.getLevel().addFreshEntity(entity);
+
+                        if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
+                        if (!context.getPlayer().isCreative()) {
+                            context.getItemInHand().shrink(1);
+                            context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                        }
                     }
                 }
             }
@@ -100,21 +107,21 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                 // Saving the dat of riding entities breaks stuff.
                 if (entity.isPassenger()) entity.stopRiding();
                 entity.getPassengers().forEach(Entity::stopRiding);
-                
+
                 ItemStack stack = new ItemStack(scroll);
                 CompoundTag storedData = entity.saveWithoutId(new CompoundTag());
                 // Remove some data that should not be kept
                 STORE_TAG_BLACKLIST.forEach(storedData::remove);
-                
+
                 stack.getOrCreateTag().put("StoredEntityData", storedData);
                 if (entity.hasCustomName()) {
                     stack.setHoverName(entity.getCustomName());
                 }
-                
+
                 if (!player.isCreative()) {
                     oldStack.shrink(1);
                 }
-                
+
                 if (Inventory.isHotbarSlot(player.getInventory().selected) && player.getInventory().getItem(player.getInventory().selected).isEmpty()) {
                     // First try to place the new stack at the same position in the hotbar where the old one was.
                     player.getInventory().setItem(player.getInventory().selected, stack);
@@ -124,9 +131,9 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     ie.setOwner(player.getUUID()); // Only the player can pick this up
                     entity.level.addFreshEntity(ie);
                 }
-                
+
                 player.swing(InteractionHand.MAIN_HAND);
-                
+
                 entity.remove(Entity.RemovalReason.DISCARDED);
             }
             return true;
@@ -137,10 +144,6 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.summoning_scroll"));
-    }
-    
-    public static <T extends LivingEntity> void registerCapture(EntityType<? extends T> type, SummoningScroll<T> scroll) {
-        CAPTURE_MAP.put(type, scroll);
     }
 }
 
