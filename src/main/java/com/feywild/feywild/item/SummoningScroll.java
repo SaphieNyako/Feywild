@@ -83,12 +83,11 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                     this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
                     if (this instanceof SummoningScrollFey) {
                         context.getLevel().addFreshEntity(entity);
-
                         if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
-                        if (!context.getPlayer().isCreative()) {
-                            context.getItemInHand().shrink(1);
-                            context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
-                        }
+                    }
+                    if (!context.getPlayer().isCreative()) {
+                        context.getItemInHand().shrink(1);
+                        context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
                     }
                 }
             }
