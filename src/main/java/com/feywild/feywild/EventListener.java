@@ -71,7 +71,7 @@ public class EventListener {
             //Quest Check for Biome
             player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            //TODO Quest Check crashes the game, null pointer - commented out - 
+            //TODO Quest Check crashes the game, null pointer - commented out -
 
             //    quests.checkComplete(StructureTask.INSTANCE, player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), true, ModStructures.library).getFeature().getRegistryName());
         }
