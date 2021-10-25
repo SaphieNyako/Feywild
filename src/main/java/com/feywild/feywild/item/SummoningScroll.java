@@ -66,76 +66,79 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
     @Nonnull
     @Override
     public ActionResultType useOn(@Nonnull ItemUseContext context) {
-        CompoundNBT storedTag = null;
-        if (context.getItemInHand().hasTag() && context.getItemInHand().getOrCreateTag().contains("StoredEntityData", Constants.NBT.TAG_COMPOUND)) {
-            storedTag = context.getItemInHand().getOrCreateTag().getCompound("StoredEntityData");
-        }
-        if (context.getPlayer() != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag)) {
-            if (!context.getLevel().isClientSide) {
-                T entity = this.type.create(context.getLevel());
-                if (entity != null) {
-                    if (storedTag != null) entity.load(storedTag);
-                    if (context.getItemInHand().hasCustomHoverName()) {
-                        entity.setCustomName(context.getItemInHand().getHoverName());
-                    }
-                    BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
-                    entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
-                    this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
-                    if (this instanceof SummoningScrollFey || this instanceof SummoningScrollDwarfBlacksmith) {
+        if (this.type != null) {
+            CompoundNBT storedTag = null;
+            if (context.getItemInHand().hasTag() && context.getItemInHand().getOrCreateTag().contains("StoredEntityData", Constants.NBT.TAG_COMPOUND)) {
+                storedTag = context.getItemInHand().getOrCreateTag().getCompound("StoredEntityData");
+            }
+            if (context.getPlayer() != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag)) {
+                if (!context.getLevel().isClientSide) {
+                    T entity = this.type.create(context.getLevel());
+                    if (entity != null) {
+                        if (storedTag != null) entity.load(storedTag);
+                        if (context.getItemInHand().hasCustomHoverName()) {
+                            entity.setCustomName(context.getItemInHand().getHoverName());
+                        }
+                        BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
+                        entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
+                        this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
                         context.getLevel().addFreshEntity(entity);
                         if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
-                    }
-                    if (!context.getPlayer().isCreative()) {
-                        context.getItemInHand().shrink(1);
-                        context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                        if (!context.getPlayer().isCreative()) {
+                            context.getItemInHand().shrink(1);
+                            context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                        }
                     }
                 }
+                return ActionResultType.sidedSuccess(context.getLevel().isClientSide);
             }
-            return ActionResultType.sidedSuccess(context.getLevel().isClientSide);
         }
         return ActionResultType.PASS;
+
     }
 
     @Override
     public boolean onLeftClickEntity(ItemStack oldStack, PlayerEntity player, Entity entity) {
-        EntityType<?> type = entity.getType();
-        if (entity instanceof LivingEntity && CAPTURE_MAP.containsKey(type)) {
-            SummoningScroll<?> scroll = CAPTURE_MAP.get(type);
-            //noinspection unchecked
-            if (!entity.level.isClientSide && ((SummoningScroll<LivingEntity>) scroll).canCapture(entity.level, player, (LivingEntity) entity)) {
-                // Saving the dat of riding entities breaks stuff.
-                if (entity.isPassenger()) entity.stopRiding();
-                entity.getPassengers().forEach(Entity::stopRiding);
+        if (this.type == null) {
+            EntityType<?> type = entity.getType();
+            if (entity instanceof LivingEntity && CAPTURE_MAP.containsKey(type)) {
+                SummoningScroll<?> scroll = CAPTURE_MAP.get(type);
+                //noinspection unchecked
+                if (!entity.level.isClientSide && ((SummoningScroll<LivingEntity>) scroll).canCapture(entity.level, player, (LivingEntity) entity)) {
+                    // Saving the dat of riding entities breaks stuff.
+                    if (entity.isPassenger()) entity.stopRiding();
+                    entity.getPassengers().forEach(Entity::stopRiding);
 
-                ItemStack stack = new ItemStack(scroll);
-                CompoundNBT storedData = entity.saveWithoutId(new CompoundNBT());
-                // Remove some data that should not be kept
-                STORE_TAG_BLACKLIST.forEach(storedData::remove);
+                    ItemStack stack = new ItemStack(scroll);
+                    CompoundNBT storedData = entity.saveWithoutId(new CompoundNBT());
+                    // Remove some data that should not be kept
+                    STORE_TAG_BLACKLIST.forEach(storedData::remove);
 
-                stack.getOrCreateTag().put("StoredEntityData", storedData);
-                if (entity.hasCustomName()) {
-                    stack.setHoverName(entity.getCustomName());
+                    stack.getOrCreateTag().put("StoredEntityData", storedData);
+                    if (entity.hasCustomName()) {
+                        stack.setHoverName(entity.getCustomName());
+                    }
+
+                    if (!player.isCreative()) {
+                        oldStack.shrink(1);
+                    }
+
+                    if (PlayerInventory.isHotbarSlot(player.inventory.selected) && player.inventory.getItem(player.inventory.selected).isEmpty()) {
+                        // First try to place the new stack at the same position in the hotbar where the old one was.
+                        player.inventory.setItem(player.inventory.selected, stack);
+                    } else if (!player.inventory.add(stack)) {
+                        // inventory is full. Drop the item
+                        ItemEntity ie = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), stack.copy());
+                        ie.setOwner(player.getUUID()); // Only the player can pick this up
+                        entity.level.addFreshEntity(ie);
+                    }
+
+                    player.swing(Hand.MAIN_HAND);
+
+                    entity.remove();
                 }
-
-                if (!player.isCreative()) {
-                    oldStack.shrink(1);
-                }
-
-                if (PlayerInventory.isHotbarSlot(player.inventory.selected) && player.inventory.getItem(player.inventory.selected).isEmpty()) {
-                    // First try to place the new stack at the same position in the hotbar where the old one was.
-                    player.inventory.setItem(player.inventory.selected, stack);
-                } else if (!player.inventory.add(stack)) {
-                    // inventory is full. Drop the item
-                    ItemEntity ie = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), stack.copy());
-                    ie.setOwner(player.getUUID()); // Only the player can pick this up
-                    entity.level.addFreshEntity(ie);
-                }
-
-                player.swing(Hand.MAIN_HAND);
-
-                entity.remove();
+                return true;
             }
-            return true;
         }
         return false;
     }
