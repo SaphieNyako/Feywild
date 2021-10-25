@@ -37,7 +37,9 @@ public class ItemModelProvider extends ItemModelProviderBase {
             this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation(id.getNamespace(), "block/" + id.getPath()));
         } else if (item == ModBlocks.mandrakeCrop.getSeed()) {
             this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation(id.getNamespace(), "item/" + id.getPath()));
-        } else {
+        } else if (item == ModBlocks.floatingFireBlock.asItem()) {
+            this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation("minecraft", "block/campfire_fire"));
+        }  else {
             super.defaultBlock(id, item);
         }
     }

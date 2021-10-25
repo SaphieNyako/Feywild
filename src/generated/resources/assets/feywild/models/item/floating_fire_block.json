@@ -1,3 +1,6 @@
 {
-  "parent": "feywild:block/floating_fire_block"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:block/campfire_fire"
+  }
 }
