@@ -15,7 +15,7 @@ public class LeafParticle extends SpriteTexturedParticle {
     private final double initX;
     private final double velY;
     private final double initZ;
-    private int remover;
+    private final int remover;
 
     public LeafParticle(ClientWorld world, double x, double y, double z, double velX, double velY, double velZ) {
         super(world, x, y, z);

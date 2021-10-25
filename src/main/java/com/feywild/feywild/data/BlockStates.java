@@ -2,6 +2,7 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.decorative.FloatingFireBlock;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
@@ -50,7 +51,11 @@ public class BlockStates extends BlockStateProviderBase {
                     new ConfiguredModel(this.cubeAll(block)),
                     new ConfiguredModel(this.models().cubeAll(id.getPath() + "_02", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_02")))
             );
-        } else if (block instanceof DisplayGlassBlock) {
+        }else if (block instanceof FloatingFireBlock) {
+                this.simpleBlock(block,
+                        new ConfiguredModel(this.models().withExistingParent(id.getPath(), "block/cross").texture("cross",new ResourceLocation("minecraft", "block/campfire_fire")))
+                );
+        }  else if (block instanceof DisplayGlassBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             DisplayGlassBlock.BREAKAGE.getPossibleValues().forEach(i ->
                     builder.partialState().with(DisplayGlassBlock.BREAKAGE, i)
@@ -125,7 +130,7 @@ public class BlockStates extends BlockStateProviderBase {
 
     @Override
     protected ModelFile defaultModel(ResourceLocation id, Block block) {
-        if (block instanceof GiantFlowerBlock || block instanceof RotatedPillarBlock || block instanceof CropsBlock
+        if (block instanceof GiantFlowerBlock || block instanceof RotatedPillarBlock || block instanceof CropsBlock || block instanceof FloatingFireBlock
                 || block instanceof FeyLeavesBlock) {
             // Models are created in `defaultState`
             return null;

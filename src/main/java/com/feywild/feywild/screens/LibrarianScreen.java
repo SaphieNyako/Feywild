@@ -26,7 +26,7 @@ public class LibrarianScreen extends Screen {
         super.init();
         this.buttons.clear();
         int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (BookWidget.WIDTH + 4), this.stacks.size()));
-        int paddingStart = (this.width - (buttonsPerRow * 29)) / 2;
+        int paddingStart = (this.width - (buttonsPerRow * 29)) / 4;
         for (int i = 0; i < this.stacks.size(); i++) {
             this.addButton(new BookWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 40 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)), i, this.stacks.get(i)));
         }

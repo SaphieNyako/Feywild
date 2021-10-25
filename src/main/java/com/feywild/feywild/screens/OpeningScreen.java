@@ -43,10 +43,10 @@ public class OpeningScreen extends Screen {
     protected void init() {
         super.init();
         text = TextProcessor.process(new TranslationTextComponent("screen.feywild.opening_screen")).stream().flatMap(line -> RenderComponentsUtil.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
-        int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (BookWidget.WIDTH + 4), this.itemStacks.size()));
+        int buttonsPerRow = Math.max(1, Math.min((this.width - 40) / (ScrollWidget.WIDTH + 4), this.itemStacks.size()));
         int paddingStart = (this.width - (buttonsPerRow * 29)) / 2 - 54;
         for (int i = 0; i < this.itemStacks.size(); i++) {
-            this.addButton(new ScrollWidget(this, paddingStart + ((i % buttonsPerRow) * (BookWidget.WIDTH + 4)) + 2, 200 + ((BookWidget.HEIGHT + 4) * (i / buttonsPerRow)) - 50, i , this.itemStacks.get(i)));
+            this.addButton(new ScrollWidget(this, paddingStart + ((i % buttonsPerRow) * (ScrollWidget.WIDTH + 4)) + 2, 200 + ((ScrollWidget.HEIGHT + 4) * (i / buttonsPerRow)) - 50, i , this.itemStacks.get(i)));
         }
     }
 

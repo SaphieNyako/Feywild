@@ -1,10 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.decorative.FenceBlockBase;
-import com.feywild.feywild.block.decorative.FenceGateBlockBase;
-import com.feywild.feywild.block.decorative.SlabBlockBase;
-import com.feywild.feywild.block.decorative.StairsBlockBase;
+import com.feywild.feywild.block.decorative.*;
 import com.feywild.feywild.block.entity.LibraryBell;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
@@ -27,6 +24,8 @@ public class ModBlocks {
 
     public static final Block feyGemBlockLivingrock = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.of(Material.STONE).strength(3f, 10f)
             .harvestLevel(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.STONE));
+
+    public static final Block floatingFireBlock = new FloatingFireBlock(FeywildMod.getInstance(), AbstractBlock.Properties.of(Material.FIRE).noCollission().lightLevel(blockState -> 8));
 
     public static final BlockTE<LibraryBell> libraryBell = new LibraryBellBlock(FeywildMod.getInstance());
     public static final GiantFlowerBlock sunflower = new SunflowerBlock(FeywildMod.getInstance());
@@ -92,5 +91,6 @@ public class ModBlocks {
 
     public static final Block winterTreeFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
             AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
 
 }

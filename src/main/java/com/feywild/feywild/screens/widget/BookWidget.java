@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 
 public class BookWidget extends Button {
     
-  public static int WIDTH = 25;
+    public static int WIDTH = 25;
     public static int HEIGHT = 25;
     
     protected final Screen screen;
