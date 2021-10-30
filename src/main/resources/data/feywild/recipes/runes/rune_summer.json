@@ -17,5 +17,11 @@
     {
       "item": "minecraft:melon_slice"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

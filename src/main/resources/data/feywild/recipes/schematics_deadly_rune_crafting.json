@@ -30,5 +30,11 @@
     {
       "item": "feywild:schematics_deadly_rune_crafting"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

@@ -22,5 +22,11 @@
       "item": "botania:rune_winter"
     }
   },
-  "result": {"item": "feywild:schematics_seasonal_rune_crafting"}
+  "result": {"item": "feywild:schematics_seasonal_rune_crafting"},
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
+  ]
 }

@@ -14,5 +14,11 @@
     {
       "item": "botania:manasteel_ingot"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mythicbotany"
+    }
   ]
 }

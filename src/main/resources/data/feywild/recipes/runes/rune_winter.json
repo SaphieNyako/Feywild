@@ -17,5 +17,11 @@
     {
       "item": "minecraft:cake"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

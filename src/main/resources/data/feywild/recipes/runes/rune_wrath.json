@@ -20,5 +20,11 @@
     {
       "item": "feywild:winter_tree_sapling"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

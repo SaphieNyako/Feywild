@@ -22,5 +22,11 @@
       "item": "botania:rune_air"
     }
   },
-  "result": {"item": "feywild:schematics_elemental_rune_crafting"}
+  "result": {"item": "feywild:schematics_elemental_rune_crafting"},
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
+  ]
 }

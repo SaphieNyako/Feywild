@@ -24,5 +24,11 @@
     {
       "item": "minecraft:nether_wart"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

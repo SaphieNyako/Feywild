@@ -81,5 +81,11 @@
     {
       "item": "feywild:schematics_yggdrasil_rune_crafting"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mythicbotany"
+    }
   ]
 }
