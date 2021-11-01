@@ -4,7 +4,7 @@
     "trades": [
       {
         "input": {
-          "item": "minecraft:iron_ore",
+          "item": "minecraft:raw_iron",
           "count": [
             3,
             4
@@ -20,10 +20,26 @@
       },
       {
         "input": {
-          "item": "minecraft:gold_ore",
+          "item": "minecraft:raw_gold",
           "count": [
             2,
             3
+          ]
+        },
+        "output": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 1
+        },
+        "uses": 5,
+        "exp": 1,
+        "mul": 0.05
+      },
+      {
+        "input": {
+          "item": "minecraft:raw_copper",
+          "count": [
+            3,
+            4
           ]
         },
         "output": {

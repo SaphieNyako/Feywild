@@ -43,9 +43,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
-
-    //TODO change dwarven trade to match the new ore
-
+    
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     //GeckoLib variable
     private final AnimationFactory animationFactory = new AnimationFactory(this);

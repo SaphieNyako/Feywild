@@ -35,11 +35,15 @@
             "count": 6
           },
           {
-            "item": "minecraft:iron_ore",
+            "item": "minecraft:raw_iron",
             "count": 3
           },
           {
-            "item": "minecraft:gold_ore",
+            "item": "minecraft:raw_gold",
+            "count": 3
+          },
+          {
+            "item": "minecraft:raw_copper",
             "count": 3
           },
           {
