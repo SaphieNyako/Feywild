@@ -31,7 +31,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
-        SummoningScroll.registerCapture(type, this);
+        EmptyScroll.registerCapture(type, this);
     }
 
     @Override

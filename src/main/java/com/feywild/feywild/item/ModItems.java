@@ -20,7 +20,7 @@ public class ModItems {
     public static final Item shinyFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item brilliantFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
-    public static final Item summoningScroll = new SummoningScroll<>(FeywildMod.getInstance(), null, ModSoundEvents.summoningSpringPixie, new Item.Properties());
+    public static final Item summoningScroll = new EmptyScroll(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item inactiveMarketRuneStone = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().stacksTo(1), new TranslatableComponent("message.feywild.inactive_market_rune_stone"));
