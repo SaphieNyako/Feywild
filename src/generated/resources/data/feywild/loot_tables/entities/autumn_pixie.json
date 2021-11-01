@@ -1,11 +1,13 @@
 {
+  "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1,
+      "name": "main",
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 1,
           "name": "feywild:fey_dust"
         }
       ]
