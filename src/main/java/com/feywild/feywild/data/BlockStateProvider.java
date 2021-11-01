@@ -62,7 +62,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
                     builder.partialState().with(DisplayGlassBlock.BREAKAGE, i)
                             .addModels(
                                     new ConfiguredModel(this.models().cubeAll(
-                                            id.getPath() + i,
+                                            id.getPath() + (i == 0 ? "" : i),
                                             new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + i)
                                     ))
                             )

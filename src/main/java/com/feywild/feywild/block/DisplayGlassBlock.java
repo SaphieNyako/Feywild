@@ -26,8 +26,6 @@ import java.util.function.Consumer;
 
 public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
 
-    //TODO Display Glass not displayed as item, behaviour is broken
-
     public static final BooleanProperty CAN_GENERATE = BooleanProperty.create("can_generate");
     public static final IntegerProperty BREAKAGE = IntegerProperty.create("breakage", 0, 4);
 
@@ -64,6 +62,6 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
 
     @Override
     protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
-        return state.getValue(BREAKAGE) == 3;
+        return false;
     }
 }

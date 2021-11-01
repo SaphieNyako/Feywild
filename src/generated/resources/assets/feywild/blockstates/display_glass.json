@@ -1,7 +1,7 @@
 {
   "variants": {
     "breakage=0": {
-      "model": "feywild:block/display_glass0"
+      "model": "feywild:block/display_glass"
     },
     "breakage=1": {
       "model": "feywild:block/display_glass1"

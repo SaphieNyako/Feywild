@@ -16,8 +16,8 @@ repositories {
 dependencies {
     implementation fg.deobf("software.bernie.geckolib:geckolib-1.17.1:3.0.4")
 
-    annotationProcessor fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.17.1-2.1.14")
-    implementation fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.17.1-2.1.14")
+    annotationProcessor fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.17.1-2.1.17")
+    implementation fg.deobf("io.github.noeppi_noeppi.mods:LibX:1.17.1-2.1.17")
 
 //    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.16.5-1.4.14")
 //    runtimeOnly fg.deobf('vazkii.botania:Botania:1.16.5-419')
