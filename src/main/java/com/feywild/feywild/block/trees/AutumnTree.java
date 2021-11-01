@@ -44,13 +44,13 @@ public class AutumnTree extends BaseTree {
     }
 
     private static BlockState getDecorationBlock(Random random) {
-        switch (random.nextInt(20)) {
-            case 0: return Blocks.PUMPKIN.defaultBlockState();
-            case 1: return Blocks.CARVED_PUMPKIN.defaultBlockState();
-            case 2: return Blocks.RED_MUSHROOM.defaultBlockState();
-            case 3: return Blocks.BROWN_MUSHROOM.defaultBlockState();
-            default: return Blocks.FERN.defaultBlockState();
-        }
+        return switch (random.nextInt(20)) {
+            case 0 -> Blocks.PUMPKIN.defaultBlockState();
+            case 1 -> Blocks.CARVED_PUMPKIN.defaultBlockState();
+            case 2 -> Blocks.RED_MUSHROOM.defaultBlockState();
+            case 3 -> Blocks.BROWN_MUSHROOM.defaultBlockState();
+            default -> Blocks.FERN.defaultBlockState();
+        };
     }
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
@@ -61,7 +61,7 @@ public class AutumnTree extends BaseTree {
 
         @Override
         protected void decorateLog(BlockState state, WorldGenLevel level, BlockPos pos, Random random) {
-            if (random.nextDouble() < 0.02) {
+            if (random.nextDouble() < 0.03) {
                 if (level.isEmptyBlock(pos.north())) {
                     level.setBlock(pos.north(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH), 19);
                 }

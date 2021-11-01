@@ -9,6 +9,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
@@ -22,15 +23,19 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
     @Nonnull
     @Override
     public List<FoliagePlacer.FoliageAttachment> placeTrunk(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, int height, @Nonnull BlockPos pos, @Nonnull TreeConfiguration cfg) {
+        List<BlockPos> positionsToDecorate = new ArrayList<>();
         BiConsumer<BlockPos, BlockState> setter = (BlockPos target, BlockState state) -> {
             blockSetter.accept(target, state);
-            if (level instanceof WorldGenLevel) {
-                this.decorateLog(((WorldGenLevel) level).getBlockState(target), (WorldGenLevel) level, target, random);
-            }
+            positionsToDecorate.add(target.immutable());
         };
-        return super.placeTrunk(level, setter, random, height, pos, cfg);
+        List<FoliagePlacer.FoliageAttachment> result = super.placeTrunk(level, setter, random, height, pos, cfg);
+        if (level instanceof WorldGenLevel wg) {
+            for (BlockPos decoratePos : positionsToDecorate) {
+                this.decorateLog(wg.getBlockState(decoratePos), (WorldGenLevel) level, decoratePos, random);
+            }
+        }
+        return result;
     }
 
     protected abstract void decorateLog(BlockState state, WorldGenLevel world, BlockPos pos, Random random);
-
 }

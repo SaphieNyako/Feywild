@@ -9,6 +9,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.function.BiConsumer;
 
@@ -20,13 +22,17 @@ public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
 
     @Override
     protected void placeLeavesRow(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, @Nonnull TreeConfiguration config, @Nonnull BlockPos pos, int range, int height, boolean large) {
+        List<BlockPos> positionsToDecorate = new ArrayList<>();
         BiConsumer<BlockPos, BlockState> setter = (BlockPos target, BlockState state) -> {
             blockSetter.accept(target, state);
-            if (level instanceof WorldGenLevel) {
-                this.decorateLeaves(((WorldGenLevel) level).getBlockState(target), (WorldGenLevel) level, target, random);
-            }
+            positionsToDecorate.add(target.immutable());
         };
         super.placeLeavesRow(level, setter, random, config, pos, range, height, large);
+        if (level instanceof WorldGenLevel wg) {
+            for (BlockPos decoratePos : positionsToDecorate) {
+                this.decorateLeaves(wg.getBlockState(decoratePos), (WorldGenLevel) level, decoratePos, random);
+            }
+        }
     }
     
     protected abstract void decorateLeaves(BlockState state, WorldGenLevel world, BlockPos pos, Random random);

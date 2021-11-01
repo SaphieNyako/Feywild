@@ -25,8 +25,6 @@ import javax.annotation.Nullable;
 
 public class TreeMushroomBlock extends BlockBase {
 
-    //TODO TreeMushrooms spawn inside the tree trunk, destroying the tree
-
     public static final RotationShape SHAPE = new RotationShape(Shapes.or(
             box(10, 10.4375, 14, 13, 11.1875, 16),
             box(0, 8.25, 10, 7, 9.9375, 16),
