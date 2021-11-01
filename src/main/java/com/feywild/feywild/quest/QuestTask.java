@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 
+import java.util.Optional;
+
 public class QuestTask {
     
     private final TaskType<Object, Object> task;
@@ -39,6 +41,15 @@ public class QuestTask {
             return this.task.checkCompleted(player, this.element, match);
         } else {
             return false;
+        }
+    }
+    
+    public <T> Optional<T> getQuestValueFor(TaskType<T, ?> type) {
+        if (this.task == type) {
+            //noinspection unchecked
+            return Optional.of((T) this.element);
+        } else {
+            return Optional.empty();
         }
     }
     

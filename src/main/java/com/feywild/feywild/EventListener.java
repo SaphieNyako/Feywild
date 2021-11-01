@@ -8,11 +8,9 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
+import com.feywild.feywild.quest.player.CompletableTaskInfo;
 import com.feywild.feywild.quest.player.QuestData;
-import com.feywild.feywild.quest.task.BiomeTask;
-import com.feywild.feywild.quest.task.CraftTask;
-import com.feywild.feywild.quest.task.ItemTask;
-import com.feywild.feywild.quest.task.KillTask;
+import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.FeywildTitleScreen;
 import com.feywild.feywild.util.LibraryBooks;
@@ -26,6 +24,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -71,9 +70,11 @@ public class EventListener {
             //Quest Check for Biome
             player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            //TODO Quest Check crashes the game, null pointer - commented out -
-
-            //    quests.checkComplete(StructureTask.INSTANCE, player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), true, ModStructures.library).getFeature().getRegistryName());
+            for (CompletableTaskInfo<StructureFeature<?>, StructureFeature<?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
+                if (player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), true, task.getValue()).isValid()) {
+                    task.checkComplete(task.getValue());
+                }
+            }
         }
     }
 

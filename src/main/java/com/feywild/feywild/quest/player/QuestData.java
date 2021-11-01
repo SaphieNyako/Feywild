@@ -206,29 +206,53 @@ public class QuestData {
                 }
             }
             if (success) {
-                // Something was completed. Move all completed quests into the
-                // completed quests set and unlock new quests
-                boolean shouldNotify = false;
-                Iterator<QuestProgress> itr = this.activeQuests.values().iterator();
-                while (itr.hasNext()) {
-                    QuestProgress progress = itr.next();
-                    if (progress.shouldBeComplete(quests)) {
-                        // grant rewards and remove quest from active quests
-                        this.pendingCompletion.add(progress.quest);
-                        this.completedQuests.add(progress.quest);
-                        shouldNotify = true;
-                        itr.remove();
-                    }
-                }
-                if (shouldNotify) {
-                    this.player.displayClientMessage(new TranslatableComponent("message.feywild.quest_completion"), true);
-                } else {
-                    this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
-                }
-                this.startNextQuests();
+                triggerAfterComplete(quests, msgToDisplay);
             }
         }
         return success;
+    }
+    
+    public <T, X> List<CompletableTaskInfo<T, X>> getAllCurrentTasks(TaskType<T, X> type) {
+        ImmutableList.Builder<CompletableTaskInfo<T, X>> list = ImmutableList.builder();
+        QuestLine quests = this.getQuestLine();
+        if (quests != null && this.player != null) {
+            for (QuestProgress progress : this.activeQuests.values()) {
+                return progress.getQuestElements(player, quests, type)
+                        .map(elem -> new CompletableTaskInfo<>(type, elem, element -> {
+                            String progressMsg = progress.checkComplete(this.player, quests, type, element);
+                            if (progressMsg != null) {
+                                // Something was completed.
+                                triggerAfterComplete(quests, progressMsg);
+                            }
+                        })).toList();
+            }
+        }
+        return list.build();
+    }
+    
+    private void triggerAfterComplete(QuestLine quests, String msgToDisplay) {
+        // Something was completed. Move all completed quests into the
+        // completed quests set and unlock new quests
+        boolean shouldNotify = false;
+        Iterator<QuestProgress> itr = this.activeQuests.values().iterator();
+        while (itr.hasNext()) {
+            QuestProgress progress = itr.next();
+            if (progress.shouldBeComplete(quests)) {
+                // grant rewards and remove quest from active quests
+                this.pendingCompletion.add(progress.quest);
+                this.completedQuests.add(progress.quest);
+                shouldNotify = true;
+                itr.remove();
+            }
+        }
+        if (this.player != null) {
+            if (shouldNotify) {
+                this.player.displayClientMessage(new TranslatableComponent("message.feywild.quest_completion"), true);
+            } else {
+                this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
+            }
+        }
+        this.startNextQuests();
     }
     
     public void startNextQuests() {

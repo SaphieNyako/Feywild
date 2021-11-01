@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class QuestProgress {
     
@@ -36,6 +37,14 @@ public class QuestProgress {
             }
         }
         return progressMsg;
+    }
+    
+    public <T> Stream<T> getQuestElements(ServerPlayer player, QuestLine quests, TaskType<T, ?> type) {
+        Quest quest = quests.getQuest(this.quest);
+        if (quest != null) {
+            return quest.tasks.stream().flatMap(task -> task.getQuestValueFor(type).stream());
+        }
+        return Stream.empty();
     }
     
     public boolean valid(QuestLine quests) {
