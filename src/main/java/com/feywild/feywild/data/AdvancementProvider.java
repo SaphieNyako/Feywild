@@ -26,6 +26,7 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
     @Override
     public void setup() {
+       /*
         this.root()
                 .display(ModItems.feywildLexicon)
                 .background(new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"))
@@ -33,6 +34,11 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
         this.advancement("fey_dust")
                 .display(ModItems.feyDust)
+                .task(this.items(ModItems.feyDust), this.items(ModItems.lesserFeyGem));  */
+        //Placeholder till patchouli updates:
+        this.root()
+                .display(ModItems.feyDust)
+                .background(new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"))
                 .task(this.items(ModItems.feyDust), this.items(ModItems.lesserFeyGem));
 
         this.advancement("dwarf_trade").parent("fey_dust")
