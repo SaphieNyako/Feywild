@@ -166,7 +166,7 @@
   "message.feywild.autumn_fey_name": "Thank you very much, Darling! I bet you would like to know my real name, don't you?",
   "message.feywild.winter_fey_name": "A nickname? Such inconvenience....I can't even remember my real name.",
   "screen.feywild.mana_amount": "Mana: %s",
-  "screen.feywild.opening_screen": "$(b;spring)Welcome to the Feywild!$()$(n)A dream or a nightmare, you are uncertain. As you wake up you find yourself in a world of the mystical. Crossing from another world or reality, you have forgotten where you are from.\nBut you where drawn to the seasonal allure of this plain. The colours, the smell it reminds you of your favourite season:",
+  "screen.feywild.opening_screen": "$(b;spring)Welcome to the Feywild!$()$(n)A dream or a nightmare, you are uncertain. As you wake up you find yourself in the world of the mystical, the Feywild. Whilst crossing from another world or reality, you have forgotten where you are from.\nBut you where drawn to the seasonal allure of this plane. The colours, the smell it reminds you of your favourite season:",
   "screen.feywild.welcome": "$(b;spring)Welcome to the Feywild!$()",
   "effect.feywild.wind_walk": "Wind Walk",
   "quest.feywild.spring.root.start.title": "Welcome to the Spring court",
