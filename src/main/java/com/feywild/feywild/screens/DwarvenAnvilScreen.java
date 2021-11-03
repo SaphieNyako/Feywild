@@ -1,7 +1,7 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.container.DwarvenAnvilContainerMenu;
+import com.feywild.feywild.menu.DwarvenAnvilMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.noeppi_noeppi.libx.render.RenderHelper;
@@ -14,13 +14,13 @@ import net.minecraft.world.entity.player.Inventory;
 
 import javax.annotation.Nonnull;
 
-public class DwarvenAnvilScreen extends AbstractContainerScreen<DwarvenAnvilContainerMenu> {
+public class DwarvenAnvilScreen extends AbstractContainerScreen<DwarvenAnvilMenu> {
 
     private final ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_gui.png");
     
-    private final DwarvenAnvilContainerMenu menu;
+    private final DwarvenAnvilMenu menu;
 
-    public DwarvenAnvilScreen(DwarvenAnvilContainerMenu menu, Inventory container, Component name) {
+    public DwarvenAnvilScreen(DwarvenAnvilMenu menu, Inventory container, Component name) {
         super(menu, container, name);
         this.menu = menu;
     }
