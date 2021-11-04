@@ -1,5 +1,6 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
@@ -53,7 +54,9 @@ public class AutumnBiome implements BiomeType {
         builder.waterFogColor(0x232317);
         builder.fogColor(0xc0d8ff);
         builder.skyColor(BiomeMaker.calculateSkyColor(0.8f));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false));
+        if (ClientConfig.biome_music) {
+            builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.autumnSoundtrack, 6000, 12000, false));
+        }
         builder.foliageColorOverride(0x6a7039);
         builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.WITCH, 0.001f));
         builder.grassColorModifier(BiomeAmbience.GrassColorModifier.SWAMP);
