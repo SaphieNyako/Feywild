@@ -1,5 +1,6 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -60,7 +61,9 @@ public class SummerBiome implements BiomeType {
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
         builder.skyColor(BiomeMaker.calculateSkyColor(0.9f));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
+        if (ClientConfig.biome_music) {
+            builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
+        }
         builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.CRIT, 0.001f));
     }
 

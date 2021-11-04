@@ -61,5 +61,26 @@
     "mod": "mana-and-artifice",
     "item": "mana-and-artifice:guide_book",
     "count": 1
+  },
+  {
+    "mod": "mysticalagriculture",
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "mysticalagriculture:guide"
+    },
+    "count": 1
+  },
+  {
+    "mod": "mysticalworld",
+    "item": "mysticalworld:encyclopedia",
+    "count": 1
+  },
+  {
+    "mod": "productivebees",
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "productivebees:guide"
+    },
+    "count": 1
   }
 ]

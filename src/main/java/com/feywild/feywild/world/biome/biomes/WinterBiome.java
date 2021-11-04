@@ -1,5 +1,6 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
@@ -58,7 +59,9 @@ public class WinterBiome implements BiomeType {
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
         builder.skyColor(BiomeMaker.calculateSkyColor(0));
-        builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, false));
+        if (ClientConfig.biome_music) {
+            builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.winterSoundtrack, 6000, 12000, false));
+        }
         builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.ENCHANTED_HIT, 0.001f));
     }
 
