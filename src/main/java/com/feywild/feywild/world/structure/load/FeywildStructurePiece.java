@@ -1,7 +1,6 @@
 package com.feywild.feywild.world.structure.load;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -29,21 +28,21 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class FeywildStructurePiece extends SinglePoolElement {
-    
+
     public static final ResourceLocation ID = new ResourceLocation(FeywildMod.getInstance().modid, "structure_piece");
-    
+
     public static final Codec<FeywildStructurePiece> CODEC = RecordCodecBuilder.create((builder) -> builder.group(
             templateCodec(),
             processorsCodec(),
             projectionCodec()
     ).apply(builder, FeywildStructurePiece::new));
-    
+
     public static final StructurePoolElementType<FeywildStructurePiece> TYPE = () -> CODEC;
 
     protected FeywildStructurePiece(Either<ResourceLocation, StructureTemplate> template, Supplier<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
         super(template, processors, projection);
     }
-    
+
     @Override
     public boolean place(@Nonnull StructureManager templates, @Nonnull WorldGenLevel level, @Nonnull StructureFeatureManager structures, @Nonnull ChunkGenerator generator, @Nonnull BlockPos fromPos, @Nonnull BlockPos toPos, @Nonnull Rotation rot, @Nonnull BoundingBox box, @Nonnull Random random, boolean jigsaw) {
         StructureTemplate template = this.template.map(templates::getOrCreate, Function.identity());
@@ -51,7 +50,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
         if (!template.placeInWorld(level, fromPos, toPos, settings, random, 18)) {
             return false;
         } else {
-            for(StructureTemplate.StructureBlockInfo info : StructureTemplate.processBlockInfos(level, fromPos, toPos, settings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
+            for (StructureTemplate.StructureBlockInfo info : StructureTemplate.processBlockInfos(level, fromPos, toPos, settings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
                 this.handleCustomDataMarker(templates, structures, level, info, info.pos, rot, random, box);
             }
             return true;
@@ -79,22 +78,22 @@ public class FeywildStructurePiece extends SinglePoolElement {
         }
         super.handleDataMarker(level, block, pos, rot, random, box);
     }
-    
+
     @Nonnull
     @Override
     public StructurePoolElementType<?> getType() {
         return TYPE;
     }
-    
+
     @SuppressWarnings("SameParameterValue")
     private void placePiece(StructureManager templates, WorldGenLevel level, String name, BlockPos pos, Random random) {
         StructureTemplate template = templates.getOrCreate(new ResourceLocation(FeywildMod.getInstance().modid, "parts/" + name));
         template.placeInWorld(level, pos, pos, new StructurePlaceSettings(), random, 4);
     }
-    
+
     private void placeDwarf(WorldGenLevel level, BlockPos pos) {
         if (CompatConfig.mythic_alfheim.locked) {
-            level.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
+            //  level.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
         } else {
             DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, level.getLevel());
             entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
@@ -103,7 +102,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
             addEntity(level, entity);
         }
     }
-    
+
     private void addEntity(WorldGenLevel level, Entity entity) {
         if (level instanceof WorldGenRegion) {
             int x = ((int) Math.floor(entity.getX())) >> 4;
