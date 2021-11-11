@@ -42,11 +42,11 @@ public class BlockStateProvider extends BlockStateProviderBase {
         this.manualModel(ModBlocks.treeMushroom);
 
         //noinspection ConstantConditions
-      /*  this.manualModel(ModBlocks.ancientRunestone, this.models().cubeTop(
+        this.manualModel(ModBlocks.ancientRunestone, this.models().cubeTop(
                 ModBlocks.ancientRunestone.getRegistryName().getPath(),
                 this.modLoc("block/" + ModBlocks.ancientRunestone.getRegistryName().getPath() + "_side"),
                 this.modLoc("block/" + ModBlocks.ancientRunestone.getRegistryName().getPath() + "_top")
-        )); */
+        ));
     }
 
     @Override

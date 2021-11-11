@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -23,12 +25,13 @@ import java.util.function.Consumer;
 public class AncientRunestoneBlock extends BlockBE<AncientRunestone> {
 
     public static final ResourceLocation NIDAVELLIR_RUNE = new ResourceLocation("mythicbotany", "nidavellir_rune");
-    
+
     public AncientRunestoneBlock(ModX mod) {
         super(mod, AncientRunestone.class, BlockBehaviour.Properties.of(Material.STONE).strength(-1.0F, 3600000).noDrops());
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), ctx -> new AncientRunestoneRenderer()));
     }

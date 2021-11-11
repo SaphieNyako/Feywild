@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.structure.load;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -93,7 +94,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
 
     private void placeDwarf(WorldGenLevel level, BlockPos pos) {
         if (CompatConfig.mythic_alfheim.locked) {
-            //  level.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
+            level.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
         } else {
             DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, level.getLevel());
             entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
