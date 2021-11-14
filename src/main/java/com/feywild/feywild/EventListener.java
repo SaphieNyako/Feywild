@@ -22,6 +22,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -95,13 +96,13 @@ public class EventListener {
             if (event.getPlayer() instanceof ServerPlayer) {
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new TradesSerializer.Message(TradeManager.buildRecipes()));
             }
-        /*    if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
+            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
                 event.getPlayer().getInventory().add(new ItemStack(ModItems.feywildLexicon));
                 FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
-        } */
+            }
             if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.LOGIN) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpeningScreenSerializer.Message(LibraryBooks.getLibraryBooks().size()));
-                FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_scroll", true);
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpeningScreenSerializer.Message());
+                // feywild_got_scroll is set when the player actually retrieves a scroll
             }
         }
 

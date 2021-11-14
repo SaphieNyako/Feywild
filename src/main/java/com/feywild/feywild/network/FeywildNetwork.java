@@ -17,7 +17,7 @@ public class FeywildNetwork extends NetworkX {
 
     @Override
     protected Protocol getProtocol() {
-        return Protocol.of("4");
+        return Protocol.of("5");
     }
 
     @Override
