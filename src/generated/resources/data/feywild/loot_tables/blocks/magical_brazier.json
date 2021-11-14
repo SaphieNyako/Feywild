@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "feywild:floating_fire_block"
+          "name": "feywild:magical_brazier"
         }
       ],
       "conditions": [

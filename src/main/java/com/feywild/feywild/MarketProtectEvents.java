@@ -13,7 +13,9 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class MarketProtectEvents {
-    
+
+    //TODO: Prevent players from going to far out of the area
+
     @SubscribeEvent
     public void blockBreak(BlockEvent.BreakEvent event) {
         if (event.getPlayer().level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION && !event.getPlayer().hasPermissions(2)) {

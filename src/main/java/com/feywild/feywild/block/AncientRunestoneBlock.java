@@ -15,6 +15,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import javax.annotation.Nonnull;
@@ -23,12 +25,13 @@ import java.util.function.Consumer;
 public class AncientRunestoneBlock extends BlockTE<AncientRunestone> {
 
     public static final ResourceLocation NIDAVELLIR_RUNE = new ResourceLocation("mythicbotany", "nidavellir_rune");
-    
+
     public AncientRunestoneBlock(ModX mod) {
         super(mod, AncientRunestone.class, AbstractBlock.Properties.of(Material.STONE).strength(-1.0F, 3600000).noDrops());
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> ClientRegistry.bindTileEntityRenderer(this.getTileType(), AncientRunestoneRenderer::new));
     }
