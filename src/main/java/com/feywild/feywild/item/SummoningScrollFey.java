@@ -3,13 +3,17 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -24,7 +28,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
-
     public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
         super(mod, type, soundEvent, properties);
     }
@@ -32,6 +35,15 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     @Override
     public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
         SummoningScroll.registerCapture(type, this);
+    }
+
+    @Override
+    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, T entity) {
+        if(player instanceof ServerPlayerEntity){
+            return QuestData.get((ServerPlayerEntity) player).getAlignment() ==entity.alignment ||  QuestData.get((ServerPlayerEntity) player).getAlignment() == null;
+        }
+
+        return false;
     }
 
     @Override

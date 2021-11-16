@@ -3,11 +3,15 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+
+import java.util.Objects;
 
 public class TargetFireGoal extends Goal {
 
@@ -67,7 +71,7 @@ public class TargetFireGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f  && QuestData.get((ServerPlayerEntity) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
 
     private MonsterEntity findTarget() {

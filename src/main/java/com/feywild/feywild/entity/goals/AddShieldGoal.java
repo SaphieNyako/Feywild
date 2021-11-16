@@ -5,14 +5,18 @@ import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.AutumnPixieEntity;
 import com.feywild.feywild.entity.base.FeyEntity;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.AxisAlignedBB;
+
+import java.util.Objects;
 
 public class AddShieldGoal extends Goal {
 
@@ -80,6 +84,6 @@ public class AddShieldGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f  && QuestData.get((ServerPlayerEntity) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
 }

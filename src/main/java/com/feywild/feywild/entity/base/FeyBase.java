@@ -2,6 +2,8 @@ package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
+import com.feywild.feywild.quest.player.CapabilityQuests;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -12,6 +14,7 @@ import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.pathfinding.FlyingPathNavigator;
@@ -21,6 +24,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
@@ -33,6 +37,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
 
     public final Alignment alignment;
 
+    private int counter = 0;
     private final AnimationFactory factory = new AnimationFactory(this);
 
     @Nullable
@@ -91,6 +96,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
+        counter++;
         if (level.isClientSide && random.nextInt(11) == 0) {
             level.addParticle(
                     this.getParticle(),
@@ -99,6 +105,13 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
+        }else if(counter > 160 && !level.isClientSide && getOwner()!=null){
+            if(QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayerEntity) getOwner()).getAlignment()  != null){
+                counter = 0;
+                getOwner().sendMessage(new TranslationTextComponent("message.feywild."+alignment.id+".dissapear"),getOwnerId());
+                remove();
+            }
+
         }
     }
 

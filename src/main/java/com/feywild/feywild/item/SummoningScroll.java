@@ -51,7 +51,7 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
         CAPTURE_MAP.put(type, scroll);
     }
 
-    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag) {
+    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, T entity) {
         return true;
     }
 
@@ -71,10 +71,10 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
             if (context.getItemInHand().hasTag() && context.getItemInHand().getOrCreateTag().contains("StoredEntityData", Constants.NBT.TAG_COMPOUND)) {
                 storedTag = context.getItemInHand().getOrCreateTag().getCompound("StoredEntityData");
             }
-            if (context.getPlayer() != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag)) {
+            if (context.getPlayer() != null) {
                 if (!context.getLevel().isClientSide) {
                     T entity = this.type.create(context.getLevel());
-                    if (entity != null) {
+                    if (entity != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag, entity)) {
                         if (storedTag != null) entity.load(storedTag);
                         if (context.getItemInHand().hasCustomHoverName()) {
                             entity.setCustomName(context.getItemInHand().getHoverName());

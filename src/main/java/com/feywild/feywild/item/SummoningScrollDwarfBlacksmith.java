@@ -25,7 +25,7 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     }
     
     @Override
-    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag) {
+    protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, DwarfBlacksmithEntity entity) {
         return world.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
     }
 
