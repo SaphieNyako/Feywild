@@ -1,6 +1,7 @@
 package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.events.QuestCompletionEvent;
 import com.feywild.feywild.quest.*;
 import com.feywild.feywild.quest.task.TaskType;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.ModList;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -89,6 +91,9 @@ public class QuestData {
                 this.completedQuests.add(rootQuest.id);
             }
             this.startNextQuests();
+            if (ModList.get().isLoaded("minemention")) {
+                MineMentionCompat.availabilityChange(this.player);
+            }
         }
     }
     
@@ -103,6 +108,9 @@ public class QuestData {
         this.pendingCompletion.clear();
         this.completedQuests.clear();
         this.activeQuests.clear();
+        if (ModList.get().isLoaded("minemention")) {
+            MineMentionCompat.availabilityChange(this.player);
+        }
         return oldAlignment != null;
     }
     
@@ -114,7 +122,9 @@ public class QuestData {
     public int getReputation(){ return this.alignment == null ? 0 : this.reputation;}
 
     @Nullable
-    public Alignment getAlignment(){return this.alignment;}
+    public Alignment getAlignment(){
+        return this.alignment;
+    }
 
     @Nullable
     public QuestDisplay getActiveQuestDisplay(ResourceLocation id) {
