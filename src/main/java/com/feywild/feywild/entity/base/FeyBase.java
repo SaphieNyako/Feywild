@@ -78,6 +78,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     @Nullable
     public abstract Vector3d getCurrentPointOfInterest();
 
+    @Nullable
     public abstract BasicParticleType getParticle();
 
     @Override
@@ -97,7 +98,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     public void tick() {
         super.tick();
         counter++;
-        if (level.isClientSide && random.nextInt(11) == 0) {
+        if (level.isClientSide && random.nextInt(11) == 0 && getParticle()!= null) {
             level.addParticle(
                     this.getParticle(),
                     this.getX() + (Math.random() - 0.5),
@@ -107,11 +108,10 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
             );
         }else if(counter > 160 && !level.isClientSide && getOwner()!=null){
             if(QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayerEntity) getOwner()).getAlignment()  != null){
-                counter = 0;
                 getOwner().sendMessage(new TranslationTextComponent("message.feywild."+alignment.id+".dissapear"),getOwnerId());
                 remove();
             }
-
+            counter = 0;
         }
     }
 
