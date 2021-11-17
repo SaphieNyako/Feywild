@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.SingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -39,21 +41,21 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MandragoraEntity extends CreatureEntity implements IAnimatable {
+public class MandragoraEntity extends FeyBase implements IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    private BlockPos summonPos;
-    // private MandragoraVariant variant;
-    // private int variant;
+    private Vector3d summonPos;
 
-    protected MandragoraEntity(EntityType<? extends CreatureEntity> type, World world) {
-        super(type, world);
+    protected MandragoraEntity(EntityType<? extends CreatureEntity> entityType, World world) {
+        super(entityType, Alignment.SPRING, world);
         this.noCulling = true;
         this.moveControl = new MovementController(this);
+
     }
+
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
@@ -62,16 +64,23 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
                 .add(Attributes.LUCK, 0.2);
     }
 
+    @Nullable
+    @Override
+    public Vector3d getCurrentPointOfInterest() {
+        return summonPos;
+    }
+
+    @Override
+    public BasicParticleType getParticle() {
+        return null;
+    }
+
     public MandragoraVariant getVariation() {
         return MandragoraVariant.values()[this.entityData.get(VARIANT)];
     }
 
-    public BlockPos getSummonPos() {
-        return this.summonPos;
-    }
-
-    public void setSummonPos(BlockPos summonPos) {
-        this.summonPos = summonPos.immutable();
+    public void setSummonPos(@Nonnull BlockPos summonPos) {
+            this.summonPos = new Vector3d(summonPos.getX(), summonPos.getY(), summonPos.getZ());
     }
 
     @Override
@@ -80,7 +89,7 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
         this.goalSelector.addGoal(10, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomWalkingGoal(this, 1));
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 4));
-        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.2f));
+        this.goalSelector.addGoal(2, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 5, 0.2f));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(20, new SingGoal(this));
     }
@@ -88,15 +97,15 @@ public class MandragoraEntity extends CreatureEntity implements IAnimatable {
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
-        if (this.summonPos != null) {
-            NBTX.putPos(nbt, "SummonPos", this.summonPos);
+        if (getCurrentPointOfInterest() != null) {
+            NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
         }
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
-        this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
+        setSummonPos(NBTX.getPos(nbt, "SummonPos", new BlockPos(0,0,0)));
     }
 
     @Override

@@ -40,9 +40,8 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     @Override
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, T entity) {
         if(player instanceof ServerPlayerEntity){
-            return QuestData.get((ServerPlayerEntity) player).getAlignment() ==entity.alignment ||  QuestData.get((ServerPlayerEntity) player).getAlignment() == null;
+            return QuestData.get((ServerPlayerEntity) player).getAlignment() ==entity.alignment ||  (QuestData.get((ServerPlayerEntity) player).getAlignment() == null && entity instanceof FeyEntity);
         }
-
         return false;
     }
 
