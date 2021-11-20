@@ -1,16 +1,13 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.MandrakeCrop;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.SingGoal;
-import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.Util;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -51,7 +48,6 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
-    private Vector3d summonPos;
 
     public MandragoraEntity(EntityType<? extends CreatureEntity> entityType, World world) {
         super(entityType, Alignment.SPRING, world);
@@ -67,12 +63,6 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
                 .add(Attributes.LUCK, 0.2);
     }
 
-    @Nullable
-    @Override
-    public Vector3d getCurrentPointOfInterest() {
-        return summonPos;
-    }
-
     @Override
     public BasicParticleType getParticle() {
         return null;
@@ -81,15 +71,6 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
     public MandragoraVariant getVariation() {
         return MandragoraVariant.values()[this.entityData.get(VARIANT)];
     }
-
-    public void setSummonPos(@Nonnull BlockPos summonPos) {
-            this.summonPos = new Vector3d(summonPos.getX(), summonPos.getY(), summonPos.getZ());
-    }
-
-    public void setSummonPos(@Nonnull Vector3d summonPos) {
-        this.summonPos = summonPos;
-    }
-
 
     @Override
     protected void registerGoals() {
@@ -108,14 +89,14 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
         if (getCurrentPointOfInterest() != null) {
             NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
         }
-        nbt.putInt("variant",this.entityData.get(VARIANT));
+        nbt.putInt("variant", this.entityData.get(VARIANT));
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
-        setSummonPos(NBTX.getPos(nbt, "SummonPos", new BlockPos(0,0,0)));
-        if(nbt.contains("variant")) {
+        setCurrentTargetPos(NBTX.getPos(nbt, "SummonPos", new BlockPos(0, 0, 0)));
+        if (nbt.contains("variant")) {
             this.entityData.set(VARIANT, nbt.getInt("variant"));
         }
     }
@@ -216,10 +197,10 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
                 player.swing(hand, true);
             }
             return ActionResultType.sidedSuccess(level.isClientSide);
-        }else if(player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed() && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-            MandragoraEntity entity = ModEntityTypes.mandragoraEntity.create(level);
-            if(entity != null) {
-                entity.setSummonPos(summonPos);
+        } else if (player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed() && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            MandragoraEntity entity = ModEntityTypes.mandragora.create(level);
+            if (entity != null) {
+                entity.setCurrentTargetPos(this.getCurrentPointOfInterest());
                 entity.setPos(position().x, position().y, position().z);
                 entity.setOwner(getOwner());
                 level.addFreshEntity(entity);

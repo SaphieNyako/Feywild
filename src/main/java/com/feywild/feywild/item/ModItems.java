@@ -3,7 +3,6 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import io.github.noeppi_noeppi.libx.mod.registration.ItemBase;
@@ -37,8 +36,8 @@ public class ModItems {
     public static final SummoningScrollFey<SummerPixieEntity> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixieShort, new Item.Properties());
     public static final SummoningScrollFey<AutumnPixieEntity> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixieShort, new Item.Properties());
     public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixieShort, new Item.Properties());
-    public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
-    public static final SummoningScrollFey<MandragoraEntity> summoningScrollMandragoraEntity = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.mandragoraEntity, null, new Item.Properties());
+    public static final SummoningScrollFey<BeeKnightEntity> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
+    public static final SummoningScrollFey<MandragoraEntity> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.mandragora, null, new Item.Properties());
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder().effect(() -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));

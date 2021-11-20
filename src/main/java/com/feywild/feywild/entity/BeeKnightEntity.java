@@ -7,7 +7,6 @@ import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -42,18 +41,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BeeKnight extends FlyingFeyBase implements IAnimatable {
+public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable {
 
-    public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(BeeKnight.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(BeeKnightEntity.class, DataSerializers.BOOLEAN);
 
-    @Nullable
-    private BlockPos treasurePos = null;
-
-    public BeeKnight(EntityType<? extends BeeKnight> type, World world) {
+    public BeeKnightEntity(EntityType<? extends BeeKnightEntity> type, World world) {
         super(type, Alignment.SUMMER, world);
     }
 
-    public static boolean canSpawn(EntityType<? extends BeeKnight> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<? extends BeeKnightEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
     }
 
@@ -67,21 +63,21 @@ public class BeeKnight extends FlyingFeyBase implements IAnimatable {
 
     public static void anger(World world, PlayerEntity player, BlockPos pos) {
         if (!world.isClientSide && player instanceof ServerPlayerEntity) {
-                QuestData quests = QuestData.get((ServerPlayerEntity) player);
-                if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
-                    AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
-                    world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> {
-                        if(entity.treasurePos != null && pos.closerThan(entity.treasurePos, MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
-                            entity.setAggravated(true);
-                    });
-                }
+            QuestData quests = QuestData.get((ServerPlayerEntity) player);
+            if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
+                AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
+                world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> {
+                    if (entity.getCurrentPointOfInterest() != null && pos.closerThan(entity.getCurrentPointOfInterest(), MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
+                        entity.setAggravated(true);
+                });
+            }
         }
     }
 
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(@Nonnull IServerWorld world, @Nonnull DifficultyInstance difficulty, @Nonnull SpawnReason reason, @Nullable ILivingEntityData data, @Nullable CompoundNBT nbt) {
-        setTreasurePos(this.blockPosition());
+        setCurrentTargetPos(this.blockPosition());
         return super.finalizeSpawn(world, difficulty, reason, data, nbt);
     }
 
@@ -101,7 +97,7 @@ public class BeeKnight extends FlyingFeyBase implements IAnimatable {
     public void tick() {
         super.tick();
         if (!this.level.isClientSide && hurtTime > 0 && getLastHurtByMob() != getOwner()) {  //&& getTarget() != null
-            if (treasurePos != null && treasurePos.closerThan(blockPosition(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
+            if (getCurrentPointOfInterest() != null && getCurrentPointOfInterest().closerThan(position(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
                 setTarget(getLastHurtByMob());
                 setAggravated(true);
             } else {
@@ -120,26 +116,13 @@ public class BeeKnight extends FlyingFeyBase implements IAnimatable {
     public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
         if (!player.level.isClientSide && player instanceof ServerPlayerEntity) {
             QuestData quests = QuestData.get((ServerPlayerEntity) player);
-            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.summer_bee_knight.required_reputation && getOwner() == null ) || player.getUUID() == owner) {
+            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.summer_bee_knight.required_reputation && getOwner() == null) || player.getUUID() == owner) {
                 player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_pass"), player.getUUID());
             } else {
                 player.sendMessage(new TranslationTextComponent("message.feywild.bee_knight_fail"), player.getUUID());
             }
         }
         return ActionResultType.SUCCESS;
-    }
-
-    @Override
-    public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-        setTreasurePos(NBTX.getPos(nbt, "TreasurePos", null));
-        super.readAdditionalSaveData(nbt);
-    }
-
-    @Override
-    public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
-            if (treasurePos != null)
-            NBTX.putPos(nbt, "TreasurePos", treasurePos);
-        super.addAdditionalSaveData(nbt);
     }
 
     private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
@@ -149,7 +132,7 @@ public class BeeKnight extends FlyingFeyBase implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<BeeKnight> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<BeeKnightEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
         animationData.addAnimationController(flyingController);
     }
 
@@ -167,29 +150,10 @@ public class BeeKnight extends FlyingFeyBase implements IAnimatable {
         this.entityData.set(AGGRAVATED, aggravated);
     }
 
-    @Nullable
-    public BlockPos getTreasurePos() {
-        return treasurePos;
-    }
-
-    public void setTreasurePos(@Nullable BlockPos treasurePos) {
-        this.treasurePos = treasurePos;
-    }
-
-    @Nullable
-    @Override
-    public Vector3d getCurrentPointOfInterest() {
-        if (treasurePos == null) {
-            return null;
-        } else {
-            return new Vector3d(treasurePos.getX(), treasurePos.getY(), treasurePos.getZ());
-        }
-    }
-
     @Override
     public boolean doHurtTarget(@Nonnull Entity pEntity) {
-        if(pEntity instanceof LivingEntity)
-            ((LivingEntity) pEntity).addEffect(new EffectInstance(Effects.POISON,20 * 5,1));
+        if (pEntity instanceof LivingEntity)
+            ((LivingEntity) pEntity).addEffect(new EffectInstance(Effects.POISON, 20 * 5, 1));
         return super.doHurtTarget(pEntity);
     }
 

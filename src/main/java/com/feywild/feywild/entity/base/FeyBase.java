@@ -1,29 +1,23 @@
 package com.feywild.feywild.entity.base;
 
-
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.controller.FlyingMovementController;
+import io.github.noeppi_noeppi.libx.util.NBTX;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.BasicParticleType;
-import net.minecraft.pathfinding.FlyingPathNavigator;
-import net.minecraft.pathfinding.GroundPathNavigator;
-import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -37,12 +31,11 @@ import java.util.UUID;
 public abstract class FeyBase extends CreatureEntity implements IAnimatable {
 
     public final Alignment alignment;
-
-    private int counter = 0;
     private final AnimationFactory factory = new AnimationFactory(this);
-
+    public Vector3d summonPos = null;
     @Nullable
     protected UUID owner;
+    private int counter = 0;
 
     protected FeyBase(EntityType<? extends CreatureEntity> entityType, Alignment alignment, World world) {
         super(entityType, world);
@@ -69,7 +62,17 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     }
 
     @Nullable
-    public abstract Vector3d getCurrentPointOfInterest();
+    public Vector3d getCurrentPointOfInterest() {
+        return summonPos;
+    }
+
+    public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
+        this.summonPos = currentTargetPos == null ? null : new Vector3d(currentTargetPos.getX(), currentTargetPos.getY(), currentTargetPos.getZ());
+    }
+
+    public void setCurrentTargetPos(@Nullable Vector3d currentTargetPos) {
+        this.summonPos = currentTargetPos;
+    }
 
     @Nullable
     public abstract BasicParticleType getParticle();
@@ -90,7 +93,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     public void tick() {
         super.tick();
         counter++;
-        if (level.isClientSide && random.nextInt(11) == 0 && getParticle()!= null) {
+        if (level.isClientSide && random.nextInt(11) == 0 && getParticle() != null) {
             level.addParticle(
                     this.getParticle(),
                     this.getX() + (Math.random() - 0.5),
@@ -98,15 +101,14 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        }else if(counter > 160 && !level.isClientSide && getOwner()!=null){
-            if(QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayerEntity) getOwner()).getAlignment()  != null){
-                getOwner().sendMessage(new TranslationTextComponent("message.feywild."+alignment.id+".dissapear"),getOwnerId());
+        } else if (counter > 160 && !level.isClientSide && getOwner() != null) {
+            if (QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != null) {
+                getOwner().sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
                 remove();
             }
             counter = 0;
         }
     }
-
 
     @Override
     public boolean onClimbable() {
@@ -142,7 +144,6 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     protected float getVoicePitch() {
         return 1;
     }
-
 
     @Override
     public boolean requiresCustomPersistence() {
@@ -188,11 +189,18 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
         if (this.owner != null) {
             nbt.putUUID("Owner", this.owner);
         }
+        if (getCurrentPointOfInterest() != null) {
+            NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
+        }
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
         this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
+        BlockPos pos = NBTX.getPos(nbt, "SummonPos", null);
+        if (pos != null) {
+            this.summonPos = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
+        }
     }
 }

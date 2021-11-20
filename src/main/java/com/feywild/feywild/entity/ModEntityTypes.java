@@ -8,11 +8,11 @@ import net.minecraft.entity.EntityType;
 @RegisterClass
 public class ModEntityTypes {
 
-    public static final EntityType<BeeKnight> beeKnight = EntityType.Builder.of(BeeKnight::new, EntityClassification.CREATURE)
+    public static final EntityType<BeeKnightEntity> beeKnight = EntityType.Builder.of(BeeKnightEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_bee_knight");
 
-    public static final EntityType<MandragoraEntity> mandragoraEntity =  EntityType.Builder.of(MandragoraEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<MandragoraEntity> mandragora = EntityType.Builder.of(MandragoraEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "mandragora");
 

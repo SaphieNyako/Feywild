@@ -1,9 +1,7 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.PixieEntity;
-import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -28,6 +26,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
+
     public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
         super(mod, type, soundEvent, properties);
     }
@@ -39,8 +38,8 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, T entity) {
-        if(player instanceof ServerPlayerEntity){
-            return QuestData.get((ServerPlayerEntity) player).getAlignment() ==entity.alignment ||  (QuestData.get((ServerPlayerEntity) player).getAlignment() == null && entity instanceof PixieEntity);
+        if (player instanceof ServerPlayerEntity) {
+            return QuestData.get((ServerPlayerEntity) player).getAlignment() == entity.alignment || (QuestData.get((ServerPlayerEntity) player).getAlignment() == null && entity instanceof PixieEntity);
         }
         return false;
     }
@@ -51,10 +50,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
             ((PixieEntity) entity).setTamed(true);
         }
         entity.setOwner(player);
-        if (entity instanceof BeeKnight)
-            ((BeeKnight) entity).setTreasurePos(pos);
-        if(entity instanceof MandragoraEntity)
-            ((MandragoraEntity) entity).setSummonPos(pos);
+        (entity).setCurrentTargetPos(pos);
     }
 
     @Override

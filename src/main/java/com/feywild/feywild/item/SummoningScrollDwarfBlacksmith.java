@@ -19,11 +19,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksmithEntity> {
-    
+
     public SummoningScrollDwarfBlacksmith(ModX mod, EntityType<DwarfBlacksmithEntity> type, Properties properties) {
         super(mod, type, null, properties);
     }
-    
+
     @Override
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, DwarfBlacksmithEntity entity) {
         return world.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
@@ -38,6 +38,5 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, new TranslationTextComponent("message.feywild.dwarf_blacksmith"));
-        super.appendHoverText(stack, world, tooltip, flag);
     }
 }

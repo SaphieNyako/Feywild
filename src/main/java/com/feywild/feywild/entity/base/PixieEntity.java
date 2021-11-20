@@ -12,7 +12,6 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.TemptGoal;
@@ -52,8 +51,6 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(PixieEntity.class, DataSerializers.BOOLEAN);
 
-    @Nullable
-    private BlockPos currentTargetPos;
     private boolean isTamed;
 
     protected PixieEntity(EntityType<? extends PixieEntity> type, Alignment alignment, World world) {
@@ -62,15 +59,6 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
 
     public static boolean canSpawn(EntityType<? extends PixieEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
-    }
-
-    @Nullable
-    public BlockPos getCurrentTargetPos() {
-        return this.currentTargetPos;
-    }
-
-    public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
-        this.currentTargetPos = currentTargetPos == null ? null : currentTargetPos.immutable();
     }
 
     @Override
@@ -87,12 +75,13 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
     public Vector3d getCurrentPointOfInterest() {
         if (!this.isTamed()) {
             return null;
-        } else if (this.currentTargetPos != null) {
-            return new Vector3d(this.currentTargetPos.getX() + 0.5, this.currentTargetPos.getY() + 0.5, this.currentTargetPos.getZ() + 0.5);
+        } else if (summonPos != null) {
+            return summonPos.add(0.5D, 0.5D, 0.5D);
         } else {
             PlayerEntity player = this.getOwner();
             if (player != null) {
-                return player.position();
+                summonPos = player.position();
+                return summonPos;
             }
         }
         return null;
@@ -123,16 +112,12 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Tamed", this.isTamed);
-        if (this.currentTargetPos != null) {
-            NBTX.putPos(nbt, "CurrentTarget", this.currentTargetPos);
-        }
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
-        this.currentTargetPos = NBTX.getPos(nbt, "CurrentTarget", null);
     }
 
     @Nonnull
@@ -141,11 +126,11 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
-                    if (this.getCurrentTargetPos() == null) {
+                    if (getCurrentPointOfInterest() == null) {
                         this.setCurrentTargetPos(this.blockPosition());
                         player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     } else {
-                        this.setCurrentTargetPos(null);
+                        this.setCurrentTargetPos((Vector3d) null);
                         player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     }
                 }

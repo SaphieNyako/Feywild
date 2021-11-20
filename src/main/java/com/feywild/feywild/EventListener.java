@@ -3,7 +3,7 @@ package com.feywild.feywild;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.ScrollConfig;
-import com.feywild.feywild.entity.BeeKnight;
+import com.feywild.feywild.entity.BeeKnightEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
@@ -126,12 +126,12 @@ public class EventListener {
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
-        BeeKnight.anger(event.getWorld(), event.getPlayer(), event.getPos());
+        BeeKnightEntity.anger(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.LeftClickBlock event) {
-        BeeKnight.anger(event.getWorld(), event.getPlayer(), event.getPos());
+        BeeKnightEntity.anger(event.getWorld(), event.getPlayer(), event.getPos());
     }
 
     @SubscribeEvent

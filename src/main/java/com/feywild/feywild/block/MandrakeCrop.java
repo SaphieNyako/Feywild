@@ -8,7 +8,6 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.Util;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -88,12 +87,12 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!world.isClientSide&& QuestData.get((ServerPlayerEntity) player).getAlignment()== Alignment.SPRING) {
-                MandragoraEntity entity = ModEntityTypes.mandragoraEntity.create(world);
+            if (!world.isClientSide && QuestData.get((ServerPlayerEntity) player).getAlignment() == Alignment.SPRING) {
+                MandragoraEntity entity = ModEntityTypes.mandragora.create(world);
 
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                    entity.setSummonPos(pos);
+                    entity.setCurrentTargetPos(pos);
                     world.addFreshEntity(entity);
                     entity.playSound(SoundEvents.FOX_EAT, 1, 1);
                     world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);

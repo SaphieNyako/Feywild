@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.util.TooltipHelper;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -31,7 +32,7 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
     // Custom name is on the list as the custom name is handles by the stacks display name
     private static final Set<String> STORE_TAG_BLACKLIST = ImmutableSet.of(
             "id", "Pos", "Motion", "Rotation", "FallDistance", "Fire", "Air", "OnGround", "UUID", "CustomName",
-            "CustomNameVisible", "Passengers"
+            "CustomNameVisible", "Passengers", "SummonPos"
     );
 
     private static final Map<EntityType<?>, SummoningScroll<?>> CAPTURE_MAP = Collections.synchronizedMap(new HashMap<>());
@@ -86,9 +87,12 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                         if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
                         if (!context.getPlayer().isCreative()) {
                             context.getItemInHand().shrink(1);
-                            context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                            if (!(entity instanceof DwarfBlacksmithEntity)) {
+                                context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                            }
                         }
-                    }
+                    } else
+                        context.getPlayer().sendMessage(new TranslationTextComponent("message.feywild.summon_fail"), context.getPlayer().getUUID());
                 }
                 return ActionResultType.sidedSuccess(context.getLevel().isClientSide);
             }

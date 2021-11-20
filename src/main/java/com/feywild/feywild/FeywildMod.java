@@ -136,7 +136,7 @@ public final class FeywildMod extends ModXRegistration {
             EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.beeKnight, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.beeKnight, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BeeKnightEntity::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -166,7 +166,7 @@ public final class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragoraEntity, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragora, MandragoraRenderer.create(MandragoraModel::new));
 
     }
 
@@ -182,8 +182,8 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
-        event.put(ModEntityTypes.mandragoraEntity, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.beeKnight, BeeKnightEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.mandragora, MandragoraEntity.getDefaultAttributes().build());
     }
 
     @SubscribeEvent
