@@ -90,6 +90,18 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .define('g', Items.GOLD_NUGGET)
                 .unlockedBy("has_item", has(ModItems.feyDust))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(ModBlocks.magicalBrazier)
+                .pattern("lbl")
+                .pattern("xsx")
+                .pattern("gxg")
+                .define('l', ModItems.lesserFeyGem)
+                .define('b', Items.BOOK)
+                .define('x', Items.IRON_INGOT)
+                .define('s', ModItems.shinyFeyGem)
+                .define('g', Items.GOLD_NUGGET)
+                .unlockedBy("has_item", has(ModItems.lesserFeyGem))
+                .save(consumer);
     }
 
     private void makeWoodRecipe(FeyWoodBlock block, Consumer<IFinishedRecipe> consumer) {

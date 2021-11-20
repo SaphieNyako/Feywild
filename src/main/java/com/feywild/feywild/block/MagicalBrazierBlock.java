@@ -40,7 +40,7 @@ public class MagicalBrazierBlock extends BlockTE<MagicalBrazier> implements IWat
 
     public MagicalBrazierBlock(ModX mod) {
         super(mod, MagicalBrazier.class, AbstractBlock.Properties.of(Material.METAL)
-                .strength(2f)
+                .strength(0f)
                 .lightLevel(litBlockEmission())
                 .noOcclusion());
 
@@ -80,7 +80,7 @@ public class MagicalBrazierBlock extends BlockTE<MagicalBrazier> implements IWat
                 this.spawnParticles = true;
                 return ActionResultType.SUCCESS;
 
-            } else if (player.getItemInHand(hand).isEmpty()) {
+            } else if (player.getItemInHand(hand).isEmpty() && state.getValue(BRAZIER_LIT)) {
                 state = state.setValue(BRAZIER_LIT, false);
                 world.setBlock(pos, state, 2);
                 this.spawnParticles = false;
@@ -113,7 +113,7 @@ public class MagicalBrazierBlock extends BlockTE<MagicalBrazier> implements IWat
             if (this.spawnParticles && random.nextInt(5) == 0) {
                 for (int i = 0; i < random.nextInt(1) + 1; ++i) {
                     world.addParticle(ParticleTypes.LAVA, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (double) (random.nextFloat() / 2.0F), 5.0E-5D, (double) (random.nextFloat() / 2.0F));
-                    world.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble(), (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
+                    world.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble() + 0.5D, (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
                 }
             }
 
