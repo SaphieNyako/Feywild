@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
@@ -17,11 +17,11 @@ public class TargetFireGoal extends Goal {
 
     private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8.0D).allowInvulnerable().allowSameTeam().allowUnseeable();
 
-    private final FeyEntity entity;
+    private final PixieEntity entity;
     private MonsterEntity targetMonster;
     private int ticksLeft = 0;
 
-    public TargetFireGoal(FeyEntity entity) {
+    public TargetFireGoal(PixieEntity entity) {
         this.entity = entity;
     }
 

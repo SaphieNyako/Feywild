@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.render;
 
-import com.feywild.feywild.entity.base.MandragoraEntity;
+import com.feywild.feywild.entity.MandragoraEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;

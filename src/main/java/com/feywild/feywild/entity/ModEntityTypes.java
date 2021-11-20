@@ -13,6 +13,10 @@ public class ModEntityTypes {
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_bee_knight");
 
+    public static final EntityType<MandragoraEntity> mandragoraEntity =  EntityType.Builder.of(MandragoraEntity::new, EntityClassification.CREATURE)
+            .sized(0.7f, 1)
+            .build(FeywildMod.getInstance().modid + "mandragora");
+
     public static final EntityType<MelonMandragoraEntity> melonMandragora = EntityType.Builder.of(MelonMandragoraEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "melon_mandragora");

@@ -1,8 +1,11 @@
 package com.feywild.feywild.util;
 
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.MandragoraEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.IntReferenceHolder;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,5 +59,21 @@ public class Util {
             return false;
         }
         return true;
+    }
+
+    public static MandragoraEntity getModEntityType(World world) {
+        switch (world.random.nextInt(5)) {
+            case 1:
+                return ModEntityTypes.onionMandragora.create(world);
+            case 2:
+                return ModEntityTypes.potatoMandragora.create(world);
+            case 3:
+                return ModEntityTypes.pumpkinMandragora.create(world);
+            case 4:
+                return ModEntityTypes.tomatoMandragora.create(world);
+            case 0:
+            default:
+                return ModEntityTypes.melonMandragora.create(world);
+        }
     }
 }

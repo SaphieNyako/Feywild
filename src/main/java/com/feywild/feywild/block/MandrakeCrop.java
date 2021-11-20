@@ -1,12 +1,13 @@
 package com.feywild.feywild.block;
 
-import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.base.MandragoraEntity;
+import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.util.Util;
 import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -22,7 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -87,9 +87,8 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!world.isClientSide) {
-
-                MandragoraEntity entity = getModEntityType(world);
+            if (!world.isClientSide&& QuestData.get((ServerPlayerEntity) player).getAlignment()== Alignment.SPRING) {
+                MandragoraEntity entity = Util.getModEntityType(world);
 
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
@@ -105,22 +104,6 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
         } else {
             world.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundCategory.BLOCKS, 1.0f, 0.8f);
             return super.use(state, world, pos, player, hand, hit);
-        }
-    }
-
-    private MandragoraEntity getModEntityType(World world) {
-        switch (world.random.nextInt(5)) {
-            case 1:
-                return ModEntityTypes.onionMandragora.create(world);
-            case 2:
-                return ModEntityTypes.potatoMandragora.create(world);
-            case 3:
-                return ModEntityTypes.pumpkinMandragora.create(world);
-            case 4:
-                return ModEntityTypes.tomatoMandragora.create(world);
-            case 0:
-            default:
-                return ModEntityTypes.melonMandragora.create(world);
         }
     }
 }

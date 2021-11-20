@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest;
 
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.PixieEntity;
 import net.minecraft.entity.EntityType;
 
 import javax.annotation.Nullable;
@@ -15,9 +15,9 @@ public enum Alignment {
     WINTER("winter", ModEntityTypes.winterPixie);
     
     public final String id;
-    public final EntityType<? extends FeyEntity> fey;
+    public final EntityType<? extends PixieEntity> fey;
 
-    Alignment(String id, EntityType<? extends FeyEntity> fey) {
+    Alignment(String id, EntityType<? extends PixieEntity> fey) {
         this.id = id;
         this.fey = fey;
     }
