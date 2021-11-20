@@ -48,19 +48,19 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public abstract class FeyEntity extends FeyBase implements ITameable {
+public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
 
-    public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(FeyEntity.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(PixieEntity.class, DataSerializers.BOOLEAN);
 
     @Nullable
     private BlockPos currentTargetPos;
     private boolean isTamed;
 
-    protected FeyEntity(EntityType<? extends FeyEntity> type, Alignment alignment, World world) {
+    protected PixieEntity(EntityType<? extends PixieEntity> type, Alignment alignment, World world) {
         super(type, alignment, world);
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<? extends PixieEntity> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(world.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(world.getBlockState(pos.below()).getBlock());
     }
 
@@ -225,8 +225,8 @@ public abstract class FeyEntity extends FeyBase implements ITameable {
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<FeyEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
-        AnimationController<FeyEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
+        AnimationController<PixieEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<PixieEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
     }

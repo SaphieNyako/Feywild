@@ -55,13 +55,12 @@ public class MarketData extends WorldSavedData  {
 
     public void update(MinecraftServer server, Runnable onClose) {
         ServerWorld world = server.overworld();
-        boolean shouldBeOpen = world.getDayTime() < 13000;
-        if (shouldBeOpen != open) {
-            if (!shouldBeOpen) {
+        if (world.isDay() != open) {
+            if (!world.isDay()) {
                 onClose.run();
                 generated = false;
             }
-            open = shouldBeOpen;
+            open = world.isDay();
             setDirty();
         }
     }

@@ -1,11 +1,16 @@
-package com.feywild.feywild.entity.base;
+package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.MandrakeCrop;
+import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.SingGoal;
+import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.util.Util;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
@@ -41,21 +46,36 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MandragoraEntity extends FeyBase implements IAnimatable {
+public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
-
     private Vector3d summonPos;
 
-    protected MandragoraEntity(EntityType<? extends CreatureEntity> entityType, World world) {
+    public MandragoraEntity(EntityType<? extends CreatureEntity> entityType, World world) {
         super(entityType, Alignment.SPRING, world);
         this.noCulling = true;
         this.moveControl = new MovementController(this);
-
+        this.entityData.set(VARIANT, getRandom().nextInt(MandragoraVariant.values().length));
     }
 
+    @Nonnull
+    @Override
+    protected ActionResultType mobInteract(@Nonnull PlayerEntity pPlayer, @Nonnull Hand pHand) {
+        if(pPlayer.getItemInHand(pHand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
+            MandragoraEntity entity = Util.getModEntityType(level);
+            entity.setSummonPos(summonPos);
+            entity.setPos(position().x, position().y, position().z);
+            entity.setOwner(getOwner());
+            level.addFreshEntity(entity);
+            if(!pPlayer.isCreative())
+            pPlayer.getItemInHand(pHand).shrink(1);
+            remove();
+            return ActionResultType.SUCCESS;
+        }
+        return ActionResultType.FAIL;
+    }
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
@@ -83,6 +103,11 @@ public class MandragoraEntity extends FeyBase implements IAnimatable {
             this.summonPos = new Vector3d(summonPos.getX(), summonPos.getY(), summonPos.getZ());
     }
 
+    public void setSummonPos(@Nonnull Vector3d summonPos) {
+        this.summonPos = summonPos;
+    }
+
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
@@ -100,12 +125,16 @@ public class MandragoraEntity extends FeyBase implements IAnimatable {
         if (getCurrentPointOfInterest() != null) {
             NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
         }
+        nbt.putInt("variant",this.entityData.get(VARIANT));
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
         setSummonPos(NBTX.getPos(nbt, "SummonPos", new BlockPos(0,0,0)));
+        if(nbt.contains("variant")) {
+            this.entityData.set(VARIANT, nbt.getInt("variant"));
+        }
     }
 
     @Override

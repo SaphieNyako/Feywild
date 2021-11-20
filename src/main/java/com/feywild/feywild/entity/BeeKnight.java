@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.config.MobConfig;
-import com.feywild.feywild.entity.base.FeyBase;
+import com.feywild.feywild.entity.base.FlyingFeyBase;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
 import com.feywild.feywild.quest.Alignment;
@@ -40,10 +40,9 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.Random;
 
-public class BeeKnight extends FeyBase implements IAnimatable {
+public class BeeKnight extends FlyingFeyBase implements IAnimatable {
 
     public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(BeeKnight.class, DataSerializers.BOOLEAN);
 
@@ -59,7 +58,7 @@ public class BeeKnight extends FeyBase implements IAnimatable {
     }
 
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
-        return FeyBase.getDefaultAttributes()
+        return FlyingFeyBase.getDefaultAttributes()
                 .add(Attributes.MAX_HEALTH, 24)
                 .add(Attributes.FOLLOW_RANGE, 80)
                 .add(Attributes.ATTACK_DAMAGE, 4)

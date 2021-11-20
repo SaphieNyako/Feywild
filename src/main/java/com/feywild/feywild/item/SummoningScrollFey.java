@@ -2,13 +2,13 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.FeyBase;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.PixieEntity;
+import com.feywild.feywild.entity.MandragoraEntity;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -40,25 +40,26 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     @Override
     protected boolean canSummon(World world, PlayerEntity player, BlockPos pos, @Nullable CompoundNBT storedTag, T entity) {
         if(player instanceof ServerPlayerEntity){
-            return QuestData.get((ServerPlayerEntity) player).getAlignment() ==entity.alignment ||  (QuestData.get((ServerPlayerEntity) player).getAlignment() == null && entity instanceof FeyEntity);
+            return QuestData.get((ServerPlayerEntity) player).getAlignment() ==entity.alignment ||  (QuestData.get((ServerPlayerEntity) player).getAlignment() == null && entity instanceof PixieEntity);
         }
         return false;
     }
 
     @Override
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
-        if (entity instanceof FeyEntity) {
-            ((FeyEntity) entity).setTamed(true);
+        if (entity instanceof PixieEntity) {
+            ((PixieEntity) entity).setTamed(true);
         }
         entity.setOwner(player);
-        if (entity instanceof BeeKnight) {
+        if (entity instanceof BeeKnight)
             ((BeeKnight) entity).setTreasurePos(pos);
-        }
+        if(entity instanceof MandragoraEntity)
+            ((MandragoraEntity) entity).setSummonPos(pos);
     }
 
     @Override
     protected boolean canCapture(World world, PlayerEntity player, T entity) {
-        return (!(entity instanceof FeyEntity) || ((FeyEntity) entity).isTamed()) && player.getUUID().equals(entity.getOwnerId());
+        return (!(entity instanceof PixieEntity) || ((PixieEntity) entity).isTamed()) && player.getUUID().equals(entity.getOwnerId());
     }
 
     @Override

@@ -10,8 +10,7 @@ import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.MarketDwarfEntity;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.base.FeyEntity;
-import com.feywild.feywild.entity.base.MandragoraEntity;
+import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.BasePixieRenderer;
 import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
@@ -135,10 +134,10 @@ public final class FeywildMod extends ModXRegistration {
             OreType.setupOres();
             ModStructures.setupStructures();
 
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
-            EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FeyEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.springPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.autumnPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.summerPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.beeKnight, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
 
@@ -170,18 +169,15 @@ public final class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.melonMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.onionMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.potatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.pumpkinMandragora, MandragoraRenderer.create(MandragoraModel::new));
-        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.tomatoMandragora, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragoraEntity, MandragoraRenderer.create(MandragoraModel::new));
+
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntityTypes.springPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.winterPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.summerPixie, FeyEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.autumnPixie, FeyEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.springPixie, PixieEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.winterPixie, PixieEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.summerPixie, PixieEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.autumnPixie, PixieEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfArtificer, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBaker, MarketDwarfEntity.getDefaultAttributes().build());
@@ -189,11 +185,6 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.melonMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.onionMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.potatoMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.pumpkinMandragora, MandragoraEntity.getDefaultAttributes().build());
-        event.put(ModEntityTypes.tomatoMandragora, MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }
 

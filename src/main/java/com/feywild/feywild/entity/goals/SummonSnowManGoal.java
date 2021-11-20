@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.WinterPixieEntity;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.command.arguments.EntityAnchorArgument;
@@ -16,9 +16,9 @@ import java.util.Objects;
 
 public class SummonSnowManGoal extends Goal {
 
-    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable().selector(living -> !(living instanceof FeyEntity));
+    private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable().selector(living -> !(living instanceof PixieEntity));
 
-    private final FeyEntity entity;
+    private final PixieEntity entity;
     private int ticksLeft = 0;
     private Vector3d targetPos;
 

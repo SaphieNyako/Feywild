@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.FeyEntity;
+import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
@@ -19,12 +19,12 @@ public class TargetBreedGoal extends Goal {
 
     private static final EntityPredicate TARGETING = (new EntityPredicate()).range(8).allowInvulnerable().allowSameTeam().allowUnseeable();
 
-    private final FeyEntity entity;
+    private final PixieEntity entity;
     private AnimalEntity targetAnimal;
     private AnimalEntity partner;
     private int ticksLeft = 0;
 
-    public TargetBreedGoal(FeyEntity entity) {
+    public TargetBreedGoal(PixieEntity entity) {
         this.entity = entity;
     }
 

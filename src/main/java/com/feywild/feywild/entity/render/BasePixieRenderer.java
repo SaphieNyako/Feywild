@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.render;
 
-import com.feywild.feywild.entity.base.FeyBase;
+import com.feywild.feywild.entity.base.FlyingFeyBase;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -14,7 +14,7 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class BasePixieRenderer<T extends FeyBase> extends GeoEntityRenderer<T> {
+public class BasePixieRenderer<T extends FlyingFeyBase> extends GeoEntityRenderer<T> {
 
     protected BasePixieRenderer(EntityRendererManager manager, AnimatedGeoModel<T> model) {
         super(manager, model);
@@ -26,7 +26,7 @@ public class BasePixieRenderer<T extends FeyBase> extends GeoEntityRenderer<T> {
         return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
     
-    public static <T extends FeyBase> IRenderFactory<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
+    public static <T extends FlyingFeyBase> IRenderFactory<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
         return manager -> new BasePixieRenderer<>(manager, modelProvider.get());
     }
 }
