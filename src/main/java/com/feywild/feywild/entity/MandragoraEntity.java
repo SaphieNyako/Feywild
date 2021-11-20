@@ -60,23 +60,6 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
         this.entityData.set(VARIANT, getRandom().nextInt(MandragoraVariant.values().length));
     }
 
-    @Nonnull
-    @Override
-    protected ActionResultType mobInteract(@Nonnull PlayerEntity pPlayer, @Nonnull Hand pHand) {
-        if(pPlayer.getItemInHand(pHand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
-            MandragoraEntity entity = Util.getModEntityType(level);
-            entity.setSummonPos(summonPos);
-            entity.setPos(position().x, position().y, position().z);
-            entity.setOwner(getOwner());
-            level.addFreshEntity(entity);
-            if(!pPlayer.isCreative())
-            pPlayer.getItemInHand(pHand).shrink(1);
-            remove();
-            return ActionResultType.SUCCESS;
-        }
-        return ActionResultType.FAIL;
-    }
-
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12)
@@ -231,6 +214,18 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
                 }
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
+            }
+            return ActionResultType.sidedSuccess(level.isClientSide);
+        }else if(player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed() && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            MandragoraEntity entity = ModEntityTypes.mandragoraEntity.create(level);
+            if(entity != null) {
+                entity.setSummonPos(summonPos);
+                entity.setPos(position().x, position().y, position().z);
+                entity.setOwner(getOwner());
+                level.addFreshEntity(entity);
+                if (!player.isCreative())
+                    player.getItemInHand(hand).shrink(1);
+                remove();
             }
             return ActionResultType.sidedSuccess(level.isClientSide);
         }

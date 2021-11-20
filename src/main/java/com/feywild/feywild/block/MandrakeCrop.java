@@ -1,6 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.entity.MandragoraEntity;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
@@ -88,7 +89,7 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
             if (!world.isClientSide&& QuestData.get((ServerPlayerEntity) player).getAlignment()== Alignment.SPRING) {
-                MandragoraEntity entity = Util.getModEntityType(world);
+                MandragoraEntity entity = ModEntityTypes.mandragoraEntity.create(world);
 
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);

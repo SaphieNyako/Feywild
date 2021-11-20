@@ -6,10 +6,7 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypesMapper;
 import com.feywild.feywild.config.mapper.ResourceLocationMapper;
 import com.feywild.feywild.data.DataGenerators;
-import com.feywild.feywild.entity.BeeKnight;
-import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.MarketDwarfEntity;
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.BasePixieRenderer;
@@ -186,6 +183,7 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
+        event.put(ModEntityTypes.mandragoraEntity, MandragoraEntity.getDefaultAttributes().build());
     }
 
     @SubscribeEvent

@@ -1,7 +1,6 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.mandragora.*;
 import io.github.noeppi_noeppi.libx.annotation.RegisterClass;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -16,26 +15,6 @@ public class ModEntityTypes {
     public static final EntityType<MandragoraEntity> mandragoraEntity =  EntityType.Builder.of(MandragoraEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "mandragora");
-
-    public static final EntityType<MelonMandragoraEntity> melonMandragora = EntityType.Builder.of(MelonMandragoraEntity::new, EntityClassification.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "melon_mandragora");
-
-    public static final EntityType<OnionMandragoraEntity> onionMandragora = EntityType.Builder.of(OnionMandragoraEntity::new, EntityClassification.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "onion_mandragora");
-
-    public static final EntityType<PotatoMandragoraEntity> potatoMandragora = EntityType.Builder.of(PotatoMandragoraEntity::new, EntityClassification.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "potato_mandragora");
-
-    public static final EntityType<PumpkinMandragoraEntity> pumpkinMandragora = EntityType.Builder.of(PumpkinMandragoraEntity::new, EntityClassification.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "pumpkin_mandragora");
-
-    public static final EntityType<TomatoMandragoraEntity> tomatoMandragora = EntityType.Builder.of(TomatoMandragoraEntity::new, EntityClassification.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "potato_mandragora");
 
     public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.MONSTER)
             .sized(1, 1)

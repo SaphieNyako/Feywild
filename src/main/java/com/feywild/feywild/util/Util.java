@@ -60,20 +60,4 @@ public class Util {
         }
         return true;
     }
-
-    public static MandragoraEntity getModEntityType(World world) {
-        switch (world.random.nextInt(5)) {
-            case 1:
-                return ModEntityTypes.onionMandragora.create(world);
-            case 2:
-                return ModEntityTypes.potatoMandragora.create(world);
-            case 3:
-                return ModEntityTypes.pumpkinMandragora.create(world);
-            case 4:
-                return ModEntityTypes.tomatoMandragora.create(world);
-            case 0:
-            default:
-                return ModEntityTypes.melonMandragora.create(world);
-        }
-    }
 }
