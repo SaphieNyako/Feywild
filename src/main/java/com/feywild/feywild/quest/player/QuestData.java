@@ -261,7 +261,7 @@ public class QuestData {
     public CompoundNBT write() {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("Alignment", Alignment.optionId(this.alignment));
-        nbt.putInt("Reputation", 0);
+        nbt.putInt("Reputation", reputation);
         ListNBT pending = new ListNBT();
         for (ResourceLocation quest : this.pendingCompletion) {
             pending.add(StringNBT.valueOf(quest.toString()));
