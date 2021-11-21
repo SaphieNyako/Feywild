@@ -15,7 +15,7 @@ public class BeeRestrictAttackGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canUse() {
-        return beeKnightEntity.isAggravated() && beeKnightEntity.getTarget() != null && !beeKnightEntity.getTarget().isDeadOrDying();
+        return beeKnightEntity.isAngry() && beeKnightEntity.getTarget() != null && !beeKnightEntity.getTarget().isDeadOrDying();
     }
 
     @Override
@@ -28,12 +28,12 @@ public class BeeRestrictAttackGoal extends MeleeAttackGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return beeKnightEntity.isAggravated() && beeKnightEntity.getCurrentPointOfInterest() != null && beeKnightEntity.getCurrentPointOfInterest().closerThan(beeKnightEntity.position(), 2 * MobConfig.summer_bee_knight.aggrevation_range) && beeKnightEntity.getTarget() != null && !beeKnightEntity.getTarget().isDeadOrDying();
+        return beeKnightEntity.isAngry() && beeKnightEntity.getCurrentPointOfInterest() != null && beeKnightEntity.getCurrentPointOfInterest().closerThan(beeKnightEntity.position(), 2 * MobConfig.summer_bee_knight.aggrevation_range) && beeKnightEntity.getTarget() != null && !beeKnightEntity.getTarget().isDeadOrDying();
     }
 
     @Override
     public void stop() {
         super.stop();
-        beeKnightEntity.setAggravated(false);
+        beeKnightEntity.setAngry(false);
     }
 }

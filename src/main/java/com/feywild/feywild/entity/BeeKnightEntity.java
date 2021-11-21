@@ -2,14 +2,21 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FlyingFeyBase;
+import com.feywild.feywild.entity.base.IAnger;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
+import com.feywild.feywild.entity.goals.ReturnToPositionKnightGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -41,7 +48,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable {
+public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable , IAnger {
 
     public static final DataParameter<Boolean> AGGRAVATED = EntityDataManager.defineId(BeeKnightEntity.class, DataSerializers.BOOLEAN);
 
@@ -68,7 +75,8 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable {
                 AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
                 world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> {
                     if (entity.getCurrentPointOfInterest() != null && pos.closerThan(entity.getCurrentPointOfInterest(), MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
-                        entity.setAggravated(true);
+                        entity.setTarget(player);
+                        entity.setAngry(true);
                 });
             }
         }
@@ -83,26 +91,26 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
+        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
         this.targetSelector.addGoal(2, new FeyAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.addGoal(1, new BeeRestrictAttackGoal(this, 1.2f, true));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
+        this.goalSelector.addGoal(11, new ReturnToPositionKnightGoal(this, this::getCurrentPointOfInterest, getMovementRange(), 1.5f));
+        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
     }
 
     @Override
     protected int getMovementRange() {
-        return 2 * MobConfig.summer_bee_knight.aggrevation_range;
+        return MobConfig.summer_bee_knight.aggrevation_range;
     }
 
     @Override
     public void tick() {
         super.tick();
         if (!this.level.isClientSide && hurtTime > 0 && getLastHurtByMob() != getOwner()) {  //&& getTarget() != null
-            if (getCurrentPointOfInterest() != null && getCurrentPointOfInterest().closerThan(position(), 2 * MobConfig.summer_bee_knight.aggrevation_range)) {
                 setTarget(getLastHurtByMob());
-                setAggravated(true);
-            } else {
-                heal(20);
-            }
+                setAngry(true);
         }
     }
 
@@ -142,14 +150,6 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable {
         this.entityData.define(AGGRAVATED, false);
     }
 
-    public boolean isAggravated() {
-        return this.entityData.get(AGGRAVATED);
-    }
-
-    public void setAggravated(boolean aggravated) {
-        this.entityData.set(AGGRAVATED, aggravated);
-    }
-
     @Override
     public boolean doHurtTarget(@Nonnull Entity pEntity) {
         if (pEntity instanceof LivingEntity)
@@ -173,5 +173,15 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable {
     @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.BEE_LOOP;
+    }
+
+    @Override
+    public boolean isAngry() {
+        return this.entityData.get(AGGRAVATED);
+    }
+
+    @Override
+    public void setAngry(boolean value) {
+        this.entityData.set(AGGRAVATED,value);
     }
 }
