@@ -80,8 +80,7 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
         } else {
             PlayerEntity player = this.getOwner();
             if (player != null) {
-                summonPos = player.position();
-                return summonPos;
+                return player.position();
             }
         }
         return null;
@@ -126,11 +125,11 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
-                    if (getCurrentPointOfInterest() == null) {
+                    if (getCurrentPointOfInterest() == player.position()) {
                         this.setCurrentTargetPos(this.blockPosition());
                         player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     } else {
-                        this.setCurrentTargetPos((Vector3d) null);
+                        this.setCurrentTargetPos((BlockPos) null);
                         player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     }
                 }

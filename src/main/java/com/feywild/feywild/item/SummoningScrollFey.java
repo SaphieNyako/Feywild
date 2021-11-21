@@ -46,11 +46,12 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     protected void prepareEntity(World world, PlayerEntity player, BlockPos pos, T entity) {
-        if (entity instanceof PixieEntity) {
-            ((PixieEntity) entity).setTamed(true);
-        }
         entity.setOwner(player);
         (entity).setCurrentTargetPos(pos);
+        if (entity instanceof PixieEntity) {
+            ((PixieEntity) entity).setTamed(true);
+            entity.setCurrentTargetPos((BlockPos) null);
+        }
     }
 
     @Override
