@@ -12,7 +12,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 // Holds data about the current state of the dwarf market
-public class MarketData extends WorldSavedData  {
+public class MarketData extends WorldSavedData {
+
+    private boolean open;
+    private boolean generated;
+    public MarketData() {
+        super(FeywildMod.getInstance().modid);
+        this.generated = false;
+    }
 
     @Nullable
     public static MarketData get(ServerWorld world) {
@@ -21,14 +28,6 @@ public class MarketData extends WorldSavedData  {
         return storage.computeIfAbsent(MarketData::new, FeywildMod.getInstance().modid);
     }
 
-    private boolean open;
-    private boolean generated;
-    
-    public MarketData() {
-        super(FeywildMod.getInstance().modid);
-        this.generated = false;
-    }
-    
     @Override
     public void load(@Nonnull CompoundNBT nbt) {
         open = nbt.getBoolean("Open");
@@ -42,7 +41,7 @@ public class MarketData extends WorldSavedData  {
         nbt.putBoolean("Generated", generated);
         return nbt;
     }
-    
+
     public boolean tryGenerate() {
         if (!generated) {
             generated = true;
@@ -55,17 +54,16 @@ public class MarketData extends WorldSavedData  {
 
     public void update(MinecraftServer server, Runnable onClose) {
         ServerWorld world = server.overworld();
-        boolean shouldBeOpen = world.getDayTime() < 13000;
-        if (shouldBeOpen != open) {
-            if (!shouldBeOpen) {
+        if (world.isDay() != open) {
+            if (!world.isDay()) {
                 onClose.run();
                 generated = false;
             }
-            open = shouldBeOpen;
+            open = world.isDay();
             setDirty();
         }
     }
-    
+
     public boolean isOpen() {
         return open;
     }
