@@ -127,7 +127,7 @@ public class MobConfig {
 
         @Config("Dwarf blacksmith spawn chance")
         @IntRange(min = 0)
-        public static int weight = 20;
+        public static int weight = 5;
 
         @Config("Minimum entities to spawn in a group group")
         @IntRange(min = 1)

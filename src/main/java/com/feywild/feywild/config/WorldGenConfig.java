@@ -143,7 +143,7 @@ public class WorldGenConfig {
 
             @Config("Weight for fey gems to spawn")
             @IntRange(min = 0)
-            public static int weight = 10;
+            public static int weight = 5;
 
             @Config("Size for fey gems veins")
             @IntRange(min = 0)

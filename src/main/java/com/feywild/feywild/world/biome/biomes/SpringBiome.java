@@ -1,11 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.WorldGenConfig;
-import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
-import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.particles.ParticleTypes;
@@ -54,9 +51,7 @@ public class SpringBiome implements BiomeType {
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
         builder.skyColor(BiomeMaker.calculateSkyColor(0.7f));
-        if (ClientConfig.biome_music) {
-            builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false));
-        }
+        //builder.backgroundMusic(new BackgroundMusicSelector(ModSoundEvents.springSoundtrack, 6000, 12000, false));
         builder.ambientParticle(new ParticleEffectAmbience(ParticleTypes.HAPPY_VILLAGER, 0.001f));
     }
 
