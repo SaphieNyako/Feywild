@@ -13,16 +13,17 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 
 public class BookWidget extends Button {
-    
-  public static int WIDTH = 25;
+
+    public static int WIDTH = 25;
     public static int HEIGHT = 25;
-    
+
     protected final Screen screen;
     protected final int idx;
     protected final ItemStack stack;
-    
+
     public BookWidget(Screen screen, int x, int y, int idx, ItemStack stack) {
-        super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {});
+        super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {
+        });
         this.screen = screen;
         this.idx = idx;
         this.stack = stack;
@@ -39,7 +40,7 @@ public class BookWidget extends Button {
         this.screen.onClose();
     }
 
-    public ResourceLocation getTexture(){
+    public ResourceLocation getTexture() {
         return new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/librarian_gui.png");
     }
 
@@ -54,7 +55,7 @@ public class BookWidget extends Button {
             this.blit(matrixStack, this.x, this.y, 25, 0, 25, 25);
             this.setBlitOffset(this.getBlitOffset() - 10);
         }
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack,this.x + 4,this.y + 4);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack, this.x + 4, this.y + 4);
     }
 
     public boolean isHovered(int x, int y) {

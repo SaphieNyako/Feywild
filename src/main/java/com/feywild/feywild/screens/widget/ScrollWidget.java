@@ -6,17 +6,31 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-public class ScrollWidget extends BookWidget {
+public class ScrollWidget extends Button {
+
+    public static int WIDTH = 64;
+    public static int HEIGHT = 64;
+
+    protected final Screen screen;
+    protected final int idx;
+    protected final ItemStack stack;
 
     public ScrollWidget(Screen screen, int x, int y, int idx, ItemStack stack) {
-        super(screen, x, y, idx, stack);
-        WIDTH = 64;
-        HEIGHT = 64;
+        super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {
+        });
+        this.screen = screen;
+        this.idx = idx;
+        this.stack = stack;
+    }
+
+    public ItemStack getStack() {
+        return this.stack;
     }
 
     @Override
@@ -25,8 +39,6 @@ public class ScrollWidget extends BookWidget {
         this.screen.onClose();
     }
 
-
-    @Override
     public ResourceLocation getTexture() {
         return new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/begin_atlas.png");
     }
@@ -40,7 +52,11 @@ public class ScrollWidget extends BookWidget {
             this.setBlitOffset(this.getBlitOffset() + 10);
             this.blit(matrixStack, this.x - 20, this.y - 16, idx * WIDTH, 64, 32, 32);
             this.setBlitOffset(this.getBlitOffset() - 10);
-        }else
-            Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack,this.x + 4,this.y + 4);
-        }
+        } else
+            Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack, this.x + 4, this.y + 4);
+    }
+
+    public boolean isHovered(int x, int y) {
+        return this.x <= x && this.x + this.WIDTH >= x && this.y <= y && this.y + this.HEIGHT >= y;
+    }
 }
