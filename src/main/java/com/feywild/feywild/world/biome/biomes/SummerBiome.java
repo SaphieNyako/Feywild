@@ -1,10 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,7 +10,6 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.data.worldgen.biome.VanillaBiomes;
-import net.minecraft.sounds.Music;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -63,9 +60,7 @@ public class SummerBiome implements BiomeType {
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
         builder.skyColor(VanillaBiomes.calculateSkyColor(0.9f));
-        if (ClientConfig.biome_music) {
-            builder.backgroundMusic(new Music(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
-        }
+        //builder.backgroundMusic(new Music(ModSoundEvents.summerSoundtrack, 6000, 12000, false));
         builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIT, 0.001f));
     }
 
