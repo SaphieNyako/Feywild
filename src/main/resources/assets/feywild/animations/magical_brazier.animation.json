@@ -1,0 +1,64 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.magical_brazier.hover": {
+      "loop": true,
+      "animation_length": 4.16,
+      "bones": {
+        "magical_brazier": {
+          "position": {
+            "0.0": {
+              "vector": [0, 0, 0]
+            },
+            "1.04": {
+              "vector": [0, 1, 0]
+            },
+            "2.08": {
+              "vector": [0, 0, 0]
+            },
+            "3.12": {
+              "vector": [0, 1, 0]
+            },
+            "4.16": {
+              "vector": [0, 0, 0]
+            }
+          }
+        },
+        "runes": {
+          "rotation": {
+            "0.0": {
+              "vector": [0, 0, 0]
+            },
+            "0.52": {
+              "vector": [0, -45, 0]
+            },
+            "1.04": {
+              "vector": [0, -90, 0]
+            },
+            "1.56": {
+              "vector": [0, -135, 0]
+            },
+            "2.08": {
+              "vector": [0, -180, 0]
+            },
+            "2.6": {
+              "vector": [0, -225, 0]
+            },
+            "3.12": {
+              "vector": [0, -270, 0]
+            },
+            "3.64": {
+              "vector": [0, -315, 0]
+            },
+            "4.16": {
+              "vector": [0, -360, 0]
+            }
+          },
+          "position": {
+            "vector": [0, -3.0625, 0]
+          }
+        }
+      }
+    }
+  }
+}

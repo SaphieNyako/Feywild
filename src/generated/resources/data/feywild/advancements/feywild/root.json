@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "feywild:feywild_lexicon"
+      "item": "feywild:fey_dust"
     },
     "title": {
       "translate": "advancements.feywild.feywild.root.title"
@@ -16,13 +16,25 @@
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png"
   },
   "criteria": {
+    "inventory_changed2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:lesser_fey_gem"
+            ]
+          }
+        ]
+      }
+    },
     "inventory_changed": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "feywild:feywild_lexicon"
+              "feywild:fey_dust"
             ]
           }
         ]
@@ -31,7 +43,8 @@
   },
   "requirements": [
     [
-      "inventory_changed"
+      "inventory_changed",
+      "inventory_changed2"
     ]
   ]
 }

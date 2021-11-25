@@ -30,6 +30,7 @@ public class ModBlocks {
 
     public static final DwarvenAnvilBlock dwarvenAnvil = new DwarvenAnvilBlock(FeywildMod.getInstance());
     public static final FeyAltarBlock feyAltar = new FeyAltarBlock(FeywildMod.getInstance());
+    public static final MagicalBrazierBlock magicalBrazier = new MagicalBrazierBlock(FeywildMod.getInstance());
 
     public static final TreeMushroomBlock treeMushroom = new TreeMushroomBlock(FeywildMod.getInstance());
     public static final MandrakeCrop mandrakeCrop = new MandrakeCrop(FeywildMod.getInstance());
