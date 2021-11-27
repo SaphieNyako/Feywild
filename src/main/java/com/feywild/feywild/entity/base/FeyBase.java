@@ -35,7 +35,6 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
 
     @Nullable
     protected UUID owner;
-    private int patienceTimer = 0;
     public Vec3 summonPos = null;
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
@@ -94,7 +93,6 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-        patienceTimer++;
         if (level.isClientSide && getParticle()!= null && random.nextInt(11) == 0) {
             level.addParticle(
                     this.getParticle(),
@@ -103,12 +101,11 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        }else if(patienceTimer > 160 && !level.isClientSide && getOwner()!=null) {
+        }else if(this.tickCount % (8*20) == 0 && !level.isClientSide && getOwner()!=null) {
             if (QuestData.get((ServerPlayer) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayer) getOwner()).getAlignment() != null) {
                 getOwner().sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
                 remove(RemovalReason.DISCARDED);
             }
-            patienceTimer = 0;
         }
     }
 
