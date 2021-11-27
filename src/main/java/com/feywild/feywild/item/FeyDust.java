@@ -67,15 +67,16 @@ public class FeyDust extends ItemBase {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-
-        if (!context.getLevel().getBlockState(context.getClickedPos()).getValue(MagicalBrazierBlock.BRAZIER_LIT)) {
-            if (!context.getLevel().isClientSide) {
-                if (!Objects.requireNonNull(context.getPlayer()).isCreative()) {
-                    context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+        if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof MagicalBrazierBlock) {
+            if (!context.getLevel().getBlockState(context.getClickedPos()).getValue(MagicalBrazierBlock.BRAZIER_LIT)) {
+                if (!context.getLevel().isClientSide) {
+                    if (!Objects.requireNonNull(context.getPlayer()).isCreative()) {
+                        context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+                    }
+                    context.getLevel().setBlock(context.getClickedPos(), context.getLevel().getBlockState(context.getClickedPos()).setValue(MagicalBrazierBlock.BRAZIER_LIT, true), 2);
                 }
-                context.getLevel().setBlock(context.getClickedPos(), context.getLevel().getBlockState(context.getClickedPos()).setValue(MagicalBrazierBlock.BRAZIER_LIT, true), 2);
+                return InteractionResult.sidedSuccess(Objects.requireNonNull(context.getPlayer()).level.isClientSide);
             }
-            return InteractionResult.sidedSuccess(Objects.requireNonNull(context.getPlayer()).level.isClientSide);
         }
         return super.useOn(context);
     }
