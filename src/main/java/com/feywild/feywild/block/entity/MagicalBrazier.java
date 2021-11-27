@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.entity;
 
 import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
+import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,7 +13,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class MagicalBrazier extends BlockEntityBase implements IAnimatable {
+public class MagicalBrazier extends BlockEntityBase implements IAnimatable, TickableBlock {
 
     private final AnimationFactory animationFactory = new AnimationFactory(this);
 
@@ -20,24 +21,30 @@ public class MagicalBrazier extends BlockEntityBase implements IAnimatable {
     private int animationCount = 0;
 
     public MagicalBrazier(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state); //1.16 only has type
+        super(type, pos, state);
     }
 
     public int getTextureNumber() {
-        if (!(animationCount == 10)) {
-            animationCount++;
-        } else {
-            animationCount = 0;
 
-            if (!(textureNumber == 8)) {
-                textureNumber++;
+        return this.textureNumber;
+    }
+
+    @Override
+    public void tick() {
+        if (level != null && level.isClientSide) {
+            if (!(this.animationCount == 2)) {
+                this.animationCount++;
             } else {
-                textureNumber = 1;
+                this.animationCount = 0;
 
+                if (!(this.textureNumber == 8)) {
+                    this.textureNumber++;
+                } else {
+                    this.textureNumber = 1;
+
+                }
             }
         }
-
-        return textureNumber;
     }
 
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
@@ -54,4 +61,5 @@ public class MagicalBrazier extends BlockEntityBase implements IAnimatable {
     public AnimationFactory getFactory() {
         return this.animationFactory;
     }
+
 }

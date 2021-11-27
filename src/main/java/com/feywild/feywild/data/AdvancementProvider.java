@@ -42,7 +42,7 @@ public class AdvancementProvider extends AdvancementProviderBase {
                 .background(new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"))
                 .task(this.items(ModItems.feyDust), this.items(ModItems.lesserFeyGem));
 
-        this.advancement("dwarf_trade").parent("root")
+        this.advancement("dwarf_trade")
                 .display(ModItems.lesserFeyGem)
                 .task(new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
 

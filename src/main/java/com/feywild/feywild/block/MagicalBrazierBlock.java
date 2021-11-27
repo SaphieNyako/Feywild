@@ -16,7 +16,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -35,23 +34,21 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Consumer;
-import java.util.function.ToIntFunction;
 
 public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
 
     public static final BooleanProperty BRAZIER_LIT = BooleanProperty.create("brazier_lit");
+    public static final int FIRE_DAMAGE = 3;
     protected static final VoxelShape SHAPE = Block.box(0.0D, 7.0D, 0.0D, 16.0D, 14.0D, 16.0D);
-    private final int FIRE_DAMAGE = 3;
-    private boolean spawnParticles;
 
     public MagicalBrazierBlock(ModX mod) {
         super(mod, MagicalBrazier.class, Properties.of(Material.METAL)
                 .strength(0f)
-                .lightLevel(litBlockEmission())
+                .lightLevel((brazier) -> brazier.getValue(BRAZIER_LIT) ? 10 : 0)
                 .noOcclusion());
 
-        this.spawnParticles = false;
-        this.registerDefaultState(getStateDefinition().any().setValue(BRAZIER_LIT, false));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(BRAZIER_LIT, false));
     }
 
     public static boolean isLit(BlockState state) {
@@ -62,15 +59,17 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
         level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
-    private static ToIntFunction<BlockState> litBlockEmission() {
-        return (brazier) -> brazier.getValue(BRAZIER_LIT) ? 10 : 0;
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), MagicalBrazierRenderer::new));
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void entityInside(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, Entity entity) {
         if (!entity.fireImmune() && state.getValue(BRAZIER_LIT) && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
-            entity.hurt(DamageSource.IN_FIRE, (float) this.FIRE_DAMAGE);
+            entity.hurt(DamageSource.IN_FIRE, (float) FIRE_DAMAGE);
         }
         super.entityInside(state, level, pos, entity);
     }
@@ -79,20 +78,14 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        if (!level.isClientSide) {
-            if (player.getItemInHand(hand).getItem() == Items.FLINT_AND_STEEL || player.getItemInHand(hand).getItem() == Items.FIRE_CHARGE) {
-                state = state.setValue(BRAZIER_LIT, true);
-                level.setBlock(pos, state, 2);
-                this.spawnParticles = true;
-                return InteractionResult.SUCCESS;
 
-            } else if (player.getItemInHand(hand).isEmpty() && state.getValue(BRAZIER_LIT)) {
+        if (player.getItemInHand(hand).isEmpty() && state.getValue(BRAZIER_LIT)) {
+            if (!level.isClientSide) {
                 state = state.setValue(BRAZIER_LIT, false);
                 level.setBlock(pos, state, 2);
-                this.spawnParticles = false;
                 dowse(level, pos, state);
-                return InteractionResult.SUCCESS;
             }
+            return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return super.use(state, level, pos, player, hand, hit);
     }
@@ -116,7 +109,7 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
                 level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
             }
 
-            if (this.spawnParticles && random.nextInt(5) == 0) {
+            if (state.getValue(BRAZIER_LIT) && random.nextInt(5) == 0) {
                 for (int i = 0; i < random.nextInt(1) + 1; ++i) {
                     level.addParticle(ParticleTypes.LAVA, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (double) (random.nextFloat() / 2.0F), 5.0E-5D, (double) (random.nextFloat() / 2.0F));
                     level.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble() + 0.5D, (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
@@ -124,12 +117,6 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
             }
 
         }
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), MagicalBrazierRenderer::new));
     }
 
     @Nonnull
