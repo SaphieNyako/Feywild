@@ -1,8 +1,11 @@
 package com.feywild.feywild.util;
 
+import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.Mandragora;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.Iterator;

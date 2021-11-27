@@ -2,22 +2,21 @@ package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
+import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -36,19 +35,13 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
 
     @Nullable
     protected UUID owner;
+    public Vec3 summonPos = null;
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
         super(entityType, level);
         this.alignment = alignment;
         this.noCulling = true;
         this.moveControl = new FlyingMoveControl(this, 4, true);
-    }
-
-    public static AttributeSupplier.Builder getDefaultAttributes() {
-        return Mob.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
-                .add(Attributes.LUCK, 0.2);
     }
 
     @Nullable
@@ -70,8 +63,19 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     }
 
     @Nullable
-    public abstract Vec3 getCurrentPointOfInterest();
+    public Vec3 getCurrentPointOfInterest() {
+        return summonPos;
+    }
 
+    public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
+        this.summonPos = currentTargetPos == null ? null : new Vec3(currentTargetPos.getX(), currentTargetPos.getY(), currentTargetPos.getZ());
+    }
+
+    public void setCurrentTargetPos(@Nullable Vec3 currentTargetPos) {
+        this.summonPos = currentTargetPos;
+    }
+
+    @Nullable
     public abstract SimpleParticleType getParticle();
 
     @Override
@@ -80,7 +84,6 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, getMovementRange(), 1.5f));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
     }
 
     protected int getMovementRange() {
@@ -90,7 +93,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-        if (level.isClientSide && random.nextInt(11) == 0) {
+        if (level.isClientSide && getParticle()!= null && random.nextInt(11) == 0) {
             level.addParticle(
                     this.getParticle(),
                     this.getX() + (Math.random() - 0.5),
@@ -98,46 +101,12 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        }
-    }
-
-    @Override
-    public void travel(@Nonnull Vec3 position) {
-        if (this.isInWater()) {
-            this.moveRelative(0.02f, position);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.8));
-        } else if (this.isInLava()) {
-            this.moveRelative(0.02f, position);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
-        } else {
-            BlockPos ground = new BlockPos(this.getX(), this.getY() - 1, this.getZ());
-            float slipperiness = 0.91f;
-            if (this.onGround) {
-                slipperiness = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
+        }else if(this.tickCount % (8*20) == 0 && !level.isClientSide && getOwner()!=null) {
+            if (QuestData.get((ServerPlayer) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayer) getOwner()).getAlignment() != null) {
+                getOwner().sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
+                remove(RemovalReason.DISCARDED);
             }
-
-            float groundMovementModifier = 0.16277137f / (slipperiness * slipperiness * slipperiness);
-            slipperiness = 0.91f;
-            if (this.onGround) {
-                slipperiness = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
-            }
-
-            this.moveRelative(this.onGround ? 0.1f * groundMovementModifier : 0.02f, position);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(slipperiness));
         }
-
-        this.animationSpeedOld = this.animationSpeed;
-        double dx = this.getX() - this.xo;
-        double dz = this.getZ() - this.zo;
-        float scaledLastHorizontalMotion = (float) Math.sqrt(dx * dx + dz * dz) * 4;
-        if (scaledLastHorizontalMotion > 1) {
-            scaledLastHorizontalMotion = 1;
-        }
-        this.animationSpeed += (scaledLastHorizontalMotion - this.animationSpeed) * 0.4;
-        this.animationPosition += this.animationSpeed;
     }
 
     @Override
@@ -173,16 +142,6 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     @Override
     public float getVoicePitch() {
         return 1;
-    }
-
-    @Nonnull
-    @Override
-    protected PathNavigation createNavigation(@Nonnull Level level) {
-        FlyingPathNavigation flyingpathnavigator = new FlyingPathNavigation(this, level);
-        flyingpathnavigator.setCanOpenDoors(false);
-        flyingpathnavigator.setCanFloat(true);
-        flyingpathnavigator.setCanPassDoors(true);
-        return flyingpathnavigator;
     }
 
     @Override
@@ -229,11 +188,18 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
         if (this.owner != null) {
             nbt.putUUID("Owner", this.owner);
         }
+        if (getCurrentPointOfInterest() != null) {
+            NBTX.putPos(nbt, "SummonPos", new BlockPos(getCurrentPointOfInterest().x, getCurrentPointOfInterest().y, getCurrentPointOfInterest().z));
+        }
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
+        BlockPos pos = NBTX.getPos(nbt, "SummonPos", null);
+        if (pos != null) {
+            this.summonPos = new Vec3(pos.getX(), pos.getY(), pos.getZ());
+        }
     }
 }

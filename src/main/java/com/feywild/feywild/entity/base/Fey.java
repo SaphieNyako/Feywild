@@ -46,14 +46,13 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
-public abstract class Fey extends FeyBase implements ITameable {
+public abstract class Fey extends FlyingFeyBase implements ITameable {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.BOOLEAN);
 
-    @Nullable
-    private BlockPos currentTargetPos;
     private boolean isTamed;
 
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
@@ -62,15 +61,6 @@ public abstract class Fey extends FeyBase implements ITameable {
 
     public static boolean canSpawn(EntityType<? extends Fey> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
-    }
-
-    @Nullable
-    public BlockPos getCurrentTargetPos() {
-        return this.currentTargetPos;
-    }
-
-    public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
-        this.currentTargetPos = currentTargetPos == null ? null : currentTargetPos.immutable();
     }
 
     @Override
@@ -87,8 +77,8 @@ public abstract class Fey extends FeyBase implements ITameable {
     public Vec3 getCurrentPointOfInterest() {
         if (!this.isTamed()) {
             return null;
-        } else if (this.currentTargetPos != null) {
-            return new Vec3(this.currentTargetPos.getX() + 0.5, this.currentTargetPos.getY() + 0.5, this.currentTargetPos.getZ() + 0.5);
+        } else if (summonPos != null) {
+            return summonPos.add(0.5D, 0.5D, 0.5D);
         } else {
             Player player = this.getOwner();
             if (player != null) {
@@ -123,16 +113,12 @@ public abstract class Fey extends FeyBase implements ITameable {
     public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Tamed", this.isTamed);
-        if (this.currentTargetPos != null) {
-            NBTX.putPos(nbt, "CurrentTarget", this.currentTargetPos);
-        }
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
-        this.currentTargetPos = NBTX.getPos(nbt, "CurrentTarget", null);
     }
 
     @Nonnull
@@ -141,11 +127,11 @@ public abstract class Fey extends FeyBase implements ITameable {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
-                    if (this.getCurrentTargetPos() == null) {
+                    if (Objects.equals(this.getCurrentPointOfInterest(), player.position())) {
                         this.setCurrentTargetPos(this.blockPosition());
                         player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                     } else {
-                        this.setCurrentTargetPos(null);
+                        this.setCurrentTargetPos((BlockPos) null);
                         player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                     }
                 }

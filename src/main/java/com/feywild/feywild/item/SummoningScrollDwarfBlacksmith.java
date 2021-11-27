@@ -25,7 +25,7 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     }
     
     @Override
-    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag) {
+    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, DwarfBlacksmith entity) {
         return level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
     }
 
@@ -38,6 +38,5 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.dwarf_blacksmith"));
-        super.appendHoverText(stack, level, tooltip, flag);
     }
 }

@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.Mandragora;
+import com.feywild.feywild.entity.Mandragora;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

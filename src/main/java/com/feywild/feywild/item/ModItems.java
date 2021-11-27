@@ -3,6 +3,7 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.Mandragora;
 import com.feywild.feywild.sound.ModSoundEvents;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import io.github.noeppi_noeppi.libx.base.ItemBase;
@@ -37,6 +38,7 @@ public class ModItems {
     public static final SummoningScrollFey<AutumnPixie> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixieShort, new Item.Properties());
     public static final SummoningScrollFey<WinterPixie> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixieShort, new Item.Properties());
     public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
+    public static final SummoningScrollFey<Mandragora> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.mandragora, null, new Item.Properties());
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
             new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));

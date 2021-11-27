@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.base.ItemBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -35,7 +36,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
         this.soundEvent = soundEvent;
     }
 
-    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag) {
+    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         return true;
     }
 
@@ -54,10 +55,10 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
         if (context.getItemInHand().hasTag() && context.getItemInHand().getOrCreateTag().contains("StoredEntityData", Constants.NBT.TAG_COMPOUND)) {
             storedTag = context.getItemInHand().getOrCreateTag().getCompound("StoredEntityData");
         }
-        if (context.getPlayer() != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag)) {
+        if (context.getPlayer() != null) {
             if (!context.getLevel().isClientSide) {
                 T entity = this.type.create(context.getLevel());
-                if (entity != null) {
+                if (entity != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag, entity)) {
                     if (storedTag != null) entity.load(storedTag);
                     if (context.getItemInHand().hasCustomHoverName()) {
                         entity.setCustomName(context.getItemInHand().getHoverName());
@@ -71,9 +72,11 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                     }
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
+                        if (!(entity instanceof DwarfBlacksmith))
                         context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
                     }
-                }
+                }else
+                    context.getPlayer().sendMessage(new TranslatableComponent("message.feywild.summon_fail"), context.getPlayer().getUUID());
             }
             return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
         }

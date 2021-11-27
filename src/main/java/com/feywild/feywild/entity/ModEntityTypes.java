@@ -1,7 +1,6 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.mandragora.*;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -13,25 +12,9 @@ public class ModEntityTypes {
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_bee_knight");
 
-    public static final EntityType<MelonMandragora> melonMandragora = EntityType.Builder.of(MelonMandragora::new, MobCategory.CREATURE)
+    public static final EntityType<Mandragora> mandragora =  EntityType.Builder.of(Mandragora::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "melon_mandragora");
-
-    public static final EntityType<OnionMandragora> onionMandragora = EntityType.Builder.of(OnionMandragora::new, MobCategory.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "onion_mandragora");
-
-    public static final EntityType<PotatoMandragora> potatoMandragora = EntityType.Builder.of(PotatoMandragora::new, MobCategory.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "potato_mandragora");
-
-    public static final EntityType<PumpkinMandragora> pumpkinMandragora = EntityType.Builder.of(PumpkinMandragora::new, MobCategory.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "pumpkin_mandragora");
-
-    public static final EntityType<TomatoMandragora> tomatoMandragora = EntityType.Builder.of(TomatoMandragora::new, MobCategory.CREATURE)
-            .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "potato_mandragora");
+            .build(FeywildMod.getInstance().modid + "_mandragora");
 
     public static final EntityType<DwarfBlacksmith> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmith::new, MobCategory.MONSTER)
             .sized(1, 1)

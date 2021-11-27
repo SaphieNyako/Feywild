@@ -1,15 +1,17 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.base.FeyBase;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -35,13 +37,24 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     }
 
     @Override
+    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
+        if(player instanceof ServerPlayer){
+            return QuestData.get((ServerPlayer) player).getAlignment() ==entity.alignment ||  (QuestData.get((ServerPlayer) player).getAlignment() == null && entity instanceof Fey);
+        }
+
+        return false;
+    }
+
+    @Override
     protected void prepareEntity(Level level, Player player, BlockPos pos, T entity) {
+        // General setters
+        entity.setCurrentTargetPos(pos);
+        entity.setOwner(player);
+
+        // Specific setters
         if (entity instanceof Fey) {
             ((Fey) entity).setTamed(true);
-        }
-        entity.setOwner(player);
-        if (entity instanceof BeeKnight) {
-            ((BeeKnight) entity).setTreasurePos(pos);
+            entity.setCurrentTargetPos((BlockPos) null);
         }
     }
 
