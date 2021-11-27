@@ -26,7 +26,7 @@ public class EmptyScroll extends ItemBase {
     // Custom name is on the list as the custom name is handles by the stacks display name
     private static final Set<String> STORE_TAG_BLACKLIST = ImmutableSet.of(
             "id", "Pos", "Motion", "Rotation", "FallDistance", "Fire", "Air", "OnGround", "UUID", "CustomName",
-            "CustomNameVisible", "Passengers"
+            "CustomNameVisible", "Passengers", "SummonPos"
     );
 
     private static final Map<EntityType<?>, SummoningScroll<?>> CAPTURE_MAP = Collections.synchronizedMap(new HashMap<>());

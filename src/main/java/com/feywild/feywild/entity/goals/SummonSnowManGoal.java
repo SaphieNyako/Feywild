@@ -2,13 +2,17 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.WinterPixie;
 import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Objects;
 
 public class SummonSnowManGoal extends Goal {
 
@@ -74,7 +78,7 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f && this.noSnowManNearby();
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f && this.noSnowManNearby() && QuestData.get((ServerPlayer) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
     
     private boolean noSnowManNearby() {

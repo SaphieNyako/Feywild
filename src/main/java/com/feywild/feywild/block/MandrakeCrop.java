@@ -1,8 +1,9 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.entity.base.Mandragora;
+import com.feywild.feywild.entity.Mandragora;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
@@ -95,13 +96,13 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment()== Alignment.SPRING) {
 
-                Mandragora entity = getModEntityType(level);
+                Mandragora entity = ModEntityTypes.mandragora.create(level);
 
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                    entity.setSummonPos(pos);
+                    entity.setCurrentTargetPos(pos);
                     level.addFreshEntity(entity);
                     entity.playSound(SoundEvents.FOX_EAT, 1, 1);
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
@@ -114,15 +115,5 @@ public class MandrakeCrop extends CropBlock implements Registerable {
             level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 1.0f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);
         }
-    }
-
-    private Mandragora getModEntityType(Level level) {
-        return switch (level.random.nextInt(5)) {
-            case 1 -> ModEntityTypes.onionMandragora.create(level);
-            case 2 -> ModEntityTypes.potatoMandragora.create(level);
-            case 3 -> ModEntityTypes.pumpkinMandragora.create(level);
-            case 4 -> ModEntityTypes.tomatoMandragora.create(level);
-            default -> ModEntityTypes.melonMandragora.create(level);
-        };
     }
 }

@@ -3,14 +3,17 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class TargetBreedGoal extends Goal {
 
@@ -82,7 +85,7 @@ public class TargetBreedGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.01f;
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.01f && QuestData.get((ServerPlayer) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
 
     @Nullable
