@@ -36,12 +36,13 @@ public class AdvancementProvider extends AdvancementProviderBase {
                 .display(ModItems.feyDust)
                 .task(this.items(ModItems.feyDust), this.items(ModItems.lesserFeyGem));  */
         //Placeholder till patchouli updates:
+
         this.root()
                 .display(ModItems.feyDust)
                 .background(new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"))
                 .task(this.items(ModItems.feyDust), this.items(ModItems.lesserFeyGem));
 
-        this.advancement("dwarf_trade").parent("fey_dust")
+        this.advancement("dwarf_trade")
                 .display(ModItems.lesserFeyGem)
                 .task(new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
 

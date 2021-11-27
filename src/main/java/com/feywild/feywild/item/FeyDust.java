@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.block.MagicalBrazierBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
@@ -22,16 +23,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class FeyDust extends ItemBase {
 
     private FoodProperties food;
-    
+
     public FeyDust(ModX mod, Properties properties) {
         super(mod, properties);
         this.updateFood();
@@ -62,6 +65,22 @@ public class FeyDust extends ItemBase {
         return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
 
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof MagicalBrazierBlock) {
+            if (!context.getLevel().getBlockState(context.getClickedPos()).getValue(MagicalBrazierBlock.BRAZIER_LIT)) {
+                if (!context.getLevel().isClientSide) {
+                    if (!Objects.requireNonNull(context.getPlayer()).isCreative()) {
+                        context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+                    }
+                    context.getLevel().setBlock(context.getClickedPos(), context.getLevel().getBlockState(context.getClickedPos()).setValue(MagicalBrazierBlock.BRAZIER_LIT, true), 2);
+                }
+                return InteractionResult.sidedSuccess(Objects.requireNonNull(context.getPlayer()).level.isClientSide);
+            }
+        }
+        return super.useOn(context);
+    }
+
     @Nullable
     @Override
     public FoodProperties getFoodProperties() {
@@ -69,7 +88,7 @@ public class FeyDust extends ItemBase {
         // instantly change on config reload
         return this.food;
     }
-    
+
     public void updateFood() {
         this.food = new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build();
     }
