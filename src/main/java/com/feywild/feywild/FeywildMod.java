@@ -6,7 +6,7 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypeMapper;
 import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.BeeKnightEntity;
+import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.BasePixieRenderer;
@@ -141,11 +141,7 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
             SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
             SpawnPlacements.register(ModEntityTypes.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnightEntity::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
 
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
@@ -192,7 +188,7 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfShepherd, MarketDwarf.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarf.getDefaultAttributes().build());
         event.put(ModEntityTypes.mandragora, Mandragora.getDefaultAttributes().build());
-        event.put(ModEntityTypes.beeKnight, BeeKnightEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
     }
 
     @SubscribeEvent

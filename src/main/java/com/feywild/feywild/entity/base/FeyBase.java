@@ -4,7 +4,6 @@ import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.mojang.math.Vector3d;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -14,15 +13,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -41,7 +35,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
 
     @Nullable
     protected UUID owner;
-    private int counter = 0;
+    private int patienceTimer = 0;
     public Vec3 summonPos = null;
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
@@ -100,6 +94,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
+        patienceTimer++;
         if (level.isClientSide && getParticle()!= null && random.nextInt(11) == 0) {
             level.addParticle(
                     this.getParticle(),
@@ -108,12 +103,12 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        }else if(counter > 160 && !level.isClientSide && getOwner()!=null) {
+        }else if(patienceTimer > 160 && !level.isClientSide && getOwner()!=null) {
             if (QuestData.get((ServerPlayer) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayer) getOwner()).getAlignment() != null) {
                 getOwner().sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
                 remove(RemovalReason.DISCARDED);
             }
-            counter = 0;
+            patienceTimer = 0;
         }
     }
 

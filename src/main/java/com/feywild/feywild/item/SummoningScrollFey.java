@@ -1,9 +1,7 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.entity.BeeKnightEntity;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.base.FeyBase;
-import com.feywild.feywild.entity.Mandragora;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;

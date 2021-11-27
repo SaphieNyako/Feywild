@@ -37,7 +37,7 @@ public class ModItems {
     public static final SummoningScrollFey<SummerPixie> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixieShort, new Item.Properties());
     public static final SummoningScrollFey<AutumnPixie> summoningScrollAutumnPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.autumnPixie, ModSoundEvents.summoningAutumnPixieShort, new Item.Properties());
     public static final SummoningScrollFey<WinterPixie> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixieShort, new Item.Properties());
-    public static final SummoningScrollFey<BeeKnightEntity> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
+    public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
     public static final SummoningScrollFey<Mandragora> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.mandragora, null, new Item.Properties());
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(

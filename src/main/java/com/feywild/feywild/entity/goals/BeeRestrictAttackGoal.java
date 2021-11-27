@@ -1,39 +1,39 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.config.MobConfig;
-import com.feywild.feywild.entity.BeeKnightEntity;
+import com.feywild.feywild.entity.BeeKnight;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
 public class BeeRestrictAttackGoal extends MeleeAttackGoal {
 
-    private final BeeKnightEntity beeKnightEntity;
+    private final BeeKnight beeKnight;
 
-    public BeeRestrictAttackGoal(BeeKnightEntity creature, double speed, boolean visualContact) {
+    public BeeRestrictAttackGoal(BeeKnight creature, double speed, boolean visualContact) {
         super(creature, speed, visualContact);
-        this.beeKnightEntity = creature;
+        this.beeKnight = creature;
     }
 
     @Override
     public boolean canUse() {
-        return beeKnightEntity.isAngry() && beeKnightEntity.getTarget() != null && !beeKnightEntity.getTarget().isDeadOrDying();
+        return beeKnight.isAngry() && beeKnight.getTarget() != null && !beeKnight.getTarget().isDeadOrDying();
     }
 
     @Override
     public void start() {
         super.start();
-        if (beeKnightEntity.getCurrentPointOfInterest() == null) {
-            beeKnightEntity.setCurrentTargetPos(beeKnightEntity.blockPosition());
+        if (beeKnight.getCurrentPointOfInterest() == null) {
+            beeKnight.setCurrentTargetPos(beeKnight.blockPosition());
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        return beeKnightEntity.isAngry() && beeKnightEntity.getCurrentPointOfInterest() != null && beeKnightEntity.getCurrentPointOfInterest().closerThan(beeKnightEntity.position(), 2 * MobConfig.bee_knight.aggrevation_range) && beeKnightEntity.getTarget() != null && !beeKnightEntity.getTarget().isDeadOrDying();
+        return beeKnight.isAngry() && beeKnight.getCurrentPointOfInterest() != null && beeKnight.getCurrentPointOfInterest().closerThan(beeKnight.position(), 2 * MobConfig.bee_knight.aggrevation_range) && beeKnight.getTarget() != null && !beeKnight.getTarget().isDeadOrDying();
     }
 
     @Override
     public void stop() {
         super.stop();
-        beeKnightEntity.setAngry(false);
+        beeKnight.setAngry(false);
     }
 }

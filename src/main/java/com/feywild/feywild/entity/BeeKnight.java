@@ -2,14 +2,12 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FlyingFeyBase;
-import com.feywild.feywild.entity.base.IAngry;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
 import com.feywild.feywild.entity.goals.ReturnToPositionKnightGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -52,15 +50,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable, IAngry {
+public class BeeKnight extends FlyingFeyBase implements IAnimatable {
 
-    public static final EntityDataAccessor<Boolean> AGGRAVATED = SynchedEntityData.defineId(BeeKnightEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> AGGRAVATED = SynchedEntityData.defineId(BeeKnight.class, EntityDataSerializers.BOOLEAN);
 
-    public BeeKnightEntity(EntityType<? extends BeeKnightEntity> type, Level level) {
+    public BeeKnight(EntityType<? extends BeeKnight> type, Level level) {
         super(type, Alignment.SUMMER, level);
     }
 
-    public static boolean canSpawn(EntityType<? extends BeeKnightEntity> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<? extends BeeKnight> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
     }
 
@@ -128,9 +126,9 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable, IAngr
     @Nonnull
     @Override
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        if (!player.level.isClientSide && player instanceof ServerPlayer) {
-            QuestData quests = QuestData.get((ServerPlayer) player);
-            if ((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.bee_knight.required_reputation && getOwner() == null) || player.getUUID() == owner) {
+        if (!player.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            QuestData quests = QuestData.get(serverPlayer);
+            if (((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.bee_knight.required_reputation) && getOwner() == null) || player.getUUID() == owner) {
                 player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_pass"), player.getUUID());
             } else {
                 player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_fail"), player.getUUID());
@@ -146,7 +144,7 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable, IAngr
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<BeeKnightEntity> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<BeeKnight> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
         animationData.addAnimationController(flyingController);
     }
 
@@ -156,12 +154,10 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable, IAngr
         this.entityData.define(AGGRAVATED, false);
     }
 
-    @Override
     public boolean isAngry() {
         return this.entityData.get(AGGRAVATED);
     }
 
-    @Override
     public void setAngry(boolean value) {
         this.entityData.set(AGGRAVATED,value);
     }
