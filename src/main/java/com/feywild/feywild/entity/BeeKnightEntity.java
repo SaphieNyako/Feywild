@@ -74,9 +74,10 @@ public class BeeKnightEntity extends FlyingFeyBase implements IAnimatable , IAng
             if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.summer_bee_knight.required_reputation) {
                 AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(2 * MobConfig.summer_bee_knight.aggrevation_range);
                 world.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(entity -> {
-                    if (entity.getCurrentPointOfInterest() != null && pos.closerThan(entity.getCurrentPointOfInterest(), MobConfig.summer_bee_knight.aggrevation_range) && player != entity.getOwner())
+                    if (entity.getCurrentPointOfInterest() != null && pos.closerThan(entity.getCurrentPointOfInterest(), MobConfig.summer_bee_knight.aggrevation_range) && player.getUUID() != entity.getOwnerId()) {
                         entity.setTarget(player);
                         entity.setAngry(true);
+                    }
                 });
             }
         }
