@@ -197,7 +197,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
             nbt.putUUID("Owner", this.owner);
         }
         if (getCurrentPointOfInterest() != null) {
-            NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
+            NBTX.putPos(nbt, "SummonPos", new BlockPos(getCurrentPointOfInterest().x, getCurrentPointOfInterest().y, getCurrentPointOfInterest().z));
         }
     }
 
