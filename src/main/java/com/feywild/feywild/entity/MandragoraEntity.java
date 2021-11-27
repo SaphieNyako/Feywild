@@ -86,16 +86,12 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
-        if (getCurrentPointOfInterest() != null) {
-            NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
-        }
         nbt.putInt("variant", this.entityData.get(VARIANT));
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
-        setCurrentTargetPos(NBTX.getPos(nbt, "SummonPos", new BlockPos(0, 0, 0)));
         if (nbt.contains("variant")) {
             this.entityData.set(VARIANT, nbt.getInt("variant"));
         }

@@ -45,6 +45,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
@@ -125,7 +126,7 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
-                    if (getCurrentPointOfInterest() == player.position()) {
+                    if (Objects.equals(this.getCurrentPointOfInterest(), player.position())) {
                         this.setCurrentTargetPos(this.blockPosition());
                         player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
                     } else {

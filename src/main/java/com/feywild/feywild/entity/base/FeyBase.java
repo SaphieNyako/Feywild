@@ -35,7 +35,6 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     public Vector3d summonPos = null;
     @Nullable
     protected UUID owner;
-    private int counter = 0;
 
     protected FeyBase(EntityType<? extends CreatureEntity> entityType, Alignment alignment, World world) {
         super(entityType, world);
@@ -92,7 +91,6 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-        counter++;
         if (level.isClientSide && random.nextInt(11) == 0 && getParticle() != null) {
             level.addParticle(
                     this.getParticle(),
@@ -101,12 +99,11 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        } else if (counter > 160 && !level.isClientSide && getOwner() != null) {
+        } else if (this.tickCount % (8*20) == 0 && !level.isClientSide && getOwner() != null) {
             if (QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != null) {
                 getOwner().sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
                 remove();
             }
-            counter = 0;
         }
     }
 
