@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.block.MagicalBrazierBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
@@ -27,11 +29,12 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class FeyDust extends ItemBase {
 
     private Food food;
-    
+
     public FeyDust(ModX mod, Properties properties) {
         super(mod, properties);
         this.updateFood();
@@ -62,6 +65,22 @@ public class FeyDust extends ItemBase {
         return ActionResultType.sidedSuccess(player.level.isClientSide);
     }
 
+    @Override
+    public ActionResultType useOn(ItemUseContext context) {
+        if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof MagicalBrazierBlock) {
+            if (!context.getLevel().getBlockState(context.getClickedPos()).getValue(MagicalBrazierBlock.BRAZIER_LIT)) {
+                if (!context.getLevel().isClientSide) {
+                    if (!Objects.requireNonNull(context.getPlayer()).isCreative()) {
+                        context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+                    }
+                    context.getLevel().setBlock(context.getClickedPos(), context.getLevel().getBlockState(context.getClickedPos()).setValue(MagicalBrazierBlock.BRAZIER_LIT, true), 2);
+                }
+                return ActionResultType.sidedSuccess(Objects.requireNonNull(context.getPlayer()).level.isClientSide);
+            }
+        }
+        return super.useOn(context);
+    }
+
     @Nullable
     @Override
     public Food getFoodProperties() {
@@ -69,7 +88,7 @@ public class FeyDust extends ItemBase {
         // instantly change on config reload
         return this.food;
     }
-    
+
     public void updateFood() {
         this.food = new Food.Builder().effect(() -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build();
     }

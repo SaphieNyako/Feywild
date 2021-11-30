@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.entity;
 
 import io.github.noeppi_noeppi.libx.mod.registration.TileEntityBase;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -10,7 +11,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class MagicalBrazier extends TileEntityBase implements IAnimatable {
+public class MagicalBrazier extends TileEntityBase implements IAnimatable, ITickableTileEntity {
 
     private final AnimationFactory animationFactory = new AnimationFactory(this);
 
@@ -21,23 +22,26 @@ public class MagicalBrazier extends TileEntityBase implements IAnimatable {
         super(type);
     }
 
-    /* SAVE & LOAD */
-
     public int getTextureNumber() {
-        if (!(animationCount == 10)) {
-            animationCount++;
-        } else {
-            animationCount = 0;
+        return textureNumber;
+    }
 
-            if (!(textureNumber == 8)) {
-                textureNumber++;
+    @Override
+    public void tick() {
+        if (level != null && level.isClientSide) {
+            if (!(this.animationCount == 2)) {
+                this.animationCount++;
             } else {
-                textureNumber = 1;
+                this.animationCount = 0;
 
+                if (!(this.textureNumber == 8)) {
+                    this.textureNumber++;
+                } else {
+                    this.textureNumber = 1;
+
+                }
             }
         }
-
-        return textureNumber;
     }
 
     /* ANIMATION */
@@ -55,4 +59,5 @@ public class MagicalBrazier extends TileEntityBase implements IAnimatable {
     public AnimationFactory getFactory() {
         return this.animationFactory;
     }
+
 }
