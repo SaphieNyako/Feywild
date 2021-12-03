@@ -16,7 +16,7 @@ public class ShroomlingRenderer<T extends Shroomling> extends GeoEntityRenderer<
     protected ShroomlingRenderer(EntityRendererProvider.Context manager, AnimatedGeoModel<T> model) {
         super(manager, model);
         this.shadowRadius = 0.3F;
-        this.addLayer(new ShroomlingLayer(this));
+        this.addLayer(new ShroomlingLayer<>(this));
     }
 
     public static <T extends Shroomling> EntityRendererProvider<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
