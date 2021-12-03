@@ -7,8 +7,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
-import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
-import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -18,7 +16,7 @@ public class ShroomlingRenderer<T extends Shroomling> extends GeoEntityRenderer<
     protected ShroomlingRenderer(EntityRendererProvider.Context manager, AnimatedGeoModel<T> model) {
         super(manager, model);
         this.shadowRadius = 0.3F;
-        this.addLayer((GeoLayerRenderer<T>) new ShroomlingLayer((IGeoRenderer<Shroomling>) this));
+        this.addLayer(new ShroomlingLayer(this));
     }
 
     public static <T extends Shroomling> EntityRendererProvider<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
