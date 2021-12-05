@@ -92,13 +92,6 @@ description="Feywild Mod"
     side="BOTH"
 
 [[dependencies.feywild]]
-    modId="supplementaries"
-    mandatory=false
-    versionRange="[1.16.5-0.16.0,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.feywild]]
      modId="botania"
      mandatory=false
      versionRange="[1.16.5-419,)"
