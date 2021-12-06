@@ -1,15 +1,20 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.Shroomling;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 public class WaveGoal extends Goal {
 
     protected final Level level;
     protected Shroomling entity;
     private int ticksLeft = 0;
+    private Player target;
 
     public WaveGoal(Shroomling shroomling) {
         this.entity = shroomling;
@@ -26,12 +31,16 @@ public class WaveGoal extends Goal {
             } else if (this.ticksLeft == 80) {
                 this.waving();
                 this.entity.playSound(SoundEvents.VILLAGER_CELEBRATE, 1, 1);
+
+            } else if (this.ticksLeft <= 80 && target != null) {
+                this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
             }
         }
     }
 
     private void reset() {
         this.entity.setState(Shroomling.State.IDLE);
+        this.target = null;
         this.ticksLeft = -1;
     }
 
@@ -40,15 +49,23 @@ public class WaveGoal extends Goal {
     @Override
     public void start() {
         this.ticksLeft = 90;
+        this.target = null;
+        AABB box = new AABB(this.entity.blockPosition()).inflate(4);
+        for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+            this.target = match;
+            break;
+        }
     }
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.003f;
+        return level.random.nextFloat() < 0.003f
+                && !(this.entity.getState() == Shroomling.State.SNEEZING);
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.ticksLeft > 0;
+        return this.ticksLeft > 0
+                && !(this.entity.getState() == Shroomling.State.SNEEZING);
     }
 }

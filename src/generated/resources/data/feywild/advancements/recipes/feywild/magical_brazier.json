@@ -1,0 +1,86 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "feywild:magical_brazier"
+    ]
+  },
+  "criteria": {
+    "criterion0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:lesser_fey_gem"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:book"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:shiny_fey_gem"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:gold_nugget"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "feywild:magical_brazier"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "criterion0",
+      "criterion1",
+      "criterion2",
+      "criterion3",
+      "criterion4",
+      "has_the_recipe"
+    ]
+  ]
+}

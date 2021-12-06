@@ -33,7 +33,11 @@ public class MobConfig {
         ));
 
         public static CommonSpawns summer_bee_knight = new CommonSpawns(25, 1, 2);
-        public static CommonSpawns dwarf_blacksmith = new CommonSpawns(20, 1, 1);
+        public static CommonSpawns dwarf_blacksmith = new CommonSpawns(5, 1, 1);
+
+        public static PixieSpawns shroomling = new PixieSpawns(15, 1, 1, List.of(
+                BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.MAGICAL));
+
     }
 
     public static class bee_knight {

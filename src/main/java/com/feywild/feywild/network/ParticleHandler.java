@@ -50,6 +50,13 @@ public class ParticleHandler {
                             level.addParticle(ParticleTypes.HAPPY_VILLAGER, true, msg.x - 0.3 + (0.6 * level.random.nextDouble()), msg.y + (0.3 * level.random.nextDouble()), msg.z - 0.3 + (0.6 * level.random.nextDouble()), 0, 0, 0);
                         }
                         break;
+                    case SHROOMLING_SNEEZE:
+                        for (int i = 0; i < 40; i++) {
+                            level.addParticle(ParticleTypes.SNEEZE, true, msg.x, msg.y, msg.z, 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
+                            level.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, true, msg.x, msg.y, msg.z, 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
+
+                        }
+                        break;
                 }
             }
         });

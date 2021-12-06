@@ -56,7 +56,7 @@ public class BiomeLoader {
     public static final Set<ResourceLocation> ALFHEIM_BIOMES = ImmutableSet.of(
             SPRING_ALFHEIM, SUMMER_ALFHEIM, AUTUMN_ALFHEIM, WINTER_ALFHEIM
     );
-    
+
     public static void loadBiome(BiomeLoadingEvent event) {
         Random random = new Random();
         @Nullable
@@ -167,6 +167,7 @@ public class BiomeLoader {
                 addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.spawns.summer_pixie);
                 addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.autumn_pixie);
                 addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, WINTER_ALFHEIM, types, MobConfig.spawns.winter_pixie);
+                addPixieSpawns(event, biomeId, ModEntityTypes.shroomling, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.shroomling);
             }
         }
     }
@@ -185,12 +186,12 @@ public class BiomeLoader {
             }
         }
     }
-    
+
     @SuppressWarnings("SameParameterValue")
     private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, PixieSpawns data) {
         addSpawn(event, type, classification, new CommonSpawns(data.weight(), data.min(), data.max()));
     }
-    
+
     private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, CommonSpawns data) {
         event.getSpawns().getSpawner(classification).add(new MobSpawnSettings.SpawnerData(type, data.weight(), data.min(), data.max()));
     }

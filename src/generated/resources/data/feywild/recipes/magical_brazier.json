@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "lbl",
+    "xsx",
+    "gxg"
+  ],
+  "key": {
+    "l": {
+      "item": "feywild:lesser_fey_gem"
+    },
+    "b": {
+      "item": "minecraft:book"
+    },
+    "x": {
+      "item": "minecraft:iron_ingot"
+    },
+    "s": {
+      "item": "feywild:shiny_fey_gem"
+    },
+    "g": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "feywild:magical_brazier"
+  }
+}
