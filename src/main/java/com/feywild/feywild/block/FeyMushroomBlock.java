@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,21 +28,15 @@ import java.util.function.Consumer;
 public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);
-    protected static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level_mushroom", 0, 15);
+    //protected static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level_mushroom", 0, 15);
 
     public FeyMushroomBlock(ModX mod) {
         super(mod, BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM)
-                .lightLevel((mushroom) -> mushroom.getValue(LIGHT_LEVEL)));
+                .lightLevel((mushroom) -> mushroom.getValue(BlockStateProperties.LEVEL)));
 
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(LIGHT_LEVEL, 7));
+                .setValue(BlockStateProperties.LEVEL, 7));
     }
-
-    /*
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.INVISIBLE;
-    }*/
 
     @Override
     @OnlyIn(Dist.CLIENT)
@@ -59,7 +53,7 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(LIGHT_LEVEL);
+        stateBuilder.add(BlockStateProperties.LEVEL);
     }
 
     @Override
@@ -74,14 +68,13 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
     @Override
     public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
-        if (state.getValue(LIGHT_LEVEL) >= 0 && state.getValue(LIGHT_LEVEL) < 15) {
-
-            int light_level = state.getValue(LIGHT_LEVEL);
-            state = state.setValue(LIGHT_LEVEL, light_level + 1);
+        if (state.getValue(BlockStateProperties.LEVEL) >= 0 && state.getValue(BlockStateProperties.LEVEL) < 15) {
+            
+            state = state.cycle(BlockStateProperties.LEVEL);
             level.setBlock(pos, state, 2);
 
-        } else if (state.getValue(LIGHT_LEVEL) == 15) {
-            state = state.setValue(LIGHT_LEVEL, 0);
+        } else if (state.getValue(BlockStateProperties.LEVEL) == 15) {
+            state = state.setValue(BlockStateProperties.LEVEL, 0);
             level.setBlock(pos, state, 2);
         }
     }

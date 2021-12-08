@@ -6,8 +6,8 @@ import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.config.data.AdvancedSpawns;
 import com.feywild.feywild.config.data.CommonSpawns;
-import com.feywild.feywild.config.data.PixieSpawns;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModConfiguredFeatures;
 import com.feywild.feywild.world.gen.OreType;
@@ -163,16 +163,16 @@ public class BiomeLoader {
                 if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
                     addSpawn(event, ModEntityTypes.dwarfBlacksmith, MobCategory.MONSTER, MobConfig.spawns.dwarf_blacksmith);
                 }
-                addPixieSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, SPRING_ALFHEIM, types, MobConfig.spawns.spring_pixie);
-                addPixieSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.spawns.summer_pixie);
-                addPixieSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.autumn_pixie);
-                addPixieSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, WINTER_ALFHEIM, types, MobConfig.spawns.winter_pixie);
-                addPixieSpawns(event, biomeId, ModEntityTypes.shroomling, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.shroomling);
+                addAdvancedSpawns(event, biomeId, ModEntityTypes.springPixie, SPRING_BIOME, SPRING_ALFHEIM, types, MobConfig.spawns.spring_pixie);
+                addAdvancedSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.spawns.summer_pixie);
+                addAdvancedSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.autumn_pixie);
+                addAdvancedSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, WINTER_ALFHEIM, types, MobConfig.spawns.winter_pixie);
+                addAdvancedSpawns(event, biomeId, ModEntityTypes.shroomling, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.shroomling);
             }
         }
     }
 
-    private static void addPixieSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, ResourceLocation targetAlfheim, Set<BiomeDictionary.Type> types, PixieSpawns data) {
+    private static void addAdvancedSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, EntityType<?> type, ResourceLocation targetBiome, ResourceLocation targetAlfheim, Set<BiomeDictionary.Type> types, AdvancedSpawns data) {
         boolean targeted = targetBiome.equals(biomeId) || targetAlfheim.equals(biomeId);
         boolean seasonalOverworld = SEASONAL_BIOMES.contains(biomeId);
         boolean seasonalAlfheim = ALFHEIM_BIOMES.contains(biomeId);
@@ -188,7 +188,7 @@ public class BiomeLoader {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, PixieSpawns data) {
+    private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, AdvancedSpawns data) {
         addSpawn(event, type, classification, new CommonSpawns(data.weight(), data.min(), data.max()));
     }
 

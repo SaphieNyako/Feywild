@@ -39,8 +39,8 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
-        if (player instanceof ServerPlayer) {
-            return QuestData.get((ServerPlayer) player).getAlignment() == entity.alignment || (QuestData.get((ServerPlayer) player).getAlignment() == null && entity instanceof Fey);
+        if (player instanceof ServerPlayer serverPlayer) {
+            return QuestData.get(serverPlayer).getAlignment() == entity.alignment || (QuestData.get(serverPlayer).getAlignment() == null && entity instanceof Fey);
         }
 
         return false;
@@ -60,7 +60,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
         if (entity instanceof Shroomling) {
             ((Shroomling) entity).setTamed(true);
             entity.setCurrentTargetPos((BlockPos) null);
-
+            //TODO needs rework in 1.18
         }
     }
 
