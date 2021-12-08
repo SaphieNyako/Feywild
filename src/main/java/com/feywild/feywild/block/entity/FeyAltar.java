@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,16 +39,14 @@ import java.util.stream.IntStream;
 public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimatable {
 
     public static final int MAX_PROGRESS = 40;
-    
+
     private final BaseItemStackHandler inventory;
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;
+    private final AnimationFactory animationFactory = new AnimationFactory(this);
     private int progress = 0;
     private int particleTimer = 0;
-    
     private boolean needsUpdate = false;
     private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;
-
-    private final AnimationFactory animationFactory = new AnimationFactory(this);
 
     public FeyAltar(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -92,8 +89,7 @@ public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimata
                     for (int slot = 0; slot < this.inventory.getSlots(); slot++) {
                         this.inventory.setStackInSlot(slot, ItemStack.EMPTY);
                     }
-                    ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2, this.worldPosition.getZ() + 0.5, currentRecipe.getLeft().copy());
-                    this.level.addFreshEntity(entity);
+
                     this.progress = 0;
                 }
                 this.setChanged();
@@ -134,7 +130,7 @@ public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimata
             }
         }
     }
-    
+
     private void updabeRecipe() {
         if (this.level != null && !this.level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {

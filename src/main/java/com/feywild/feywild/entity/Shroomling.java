@@ -19,6 +19,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,6 +32,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -228,7 +230,9 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
                 }
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
-                player.addItem(new ItemStack(Items.BONE_MEAL));
+                ItemEntity item = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Items.BONE_MEAL));
+                this.level.addFreshEntity(item);
+                this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
