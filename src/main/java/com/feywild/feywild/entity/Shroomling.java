@@ -9,6 +9,7 @@ import com.feywild.feywild.entity.goals.SneezeGoal;
 import com.feywild.feywild.entity.goals.WaveGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -18,7 +19,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -187,23 +187,20 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
-        return SoundEvents.VILLAGER_HURT;
+        return ModSoundEvents.shroomlingHurt;
     }
-    //replace with custom sound
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.VILLAGER_DEATH;
+        return ModSoundEvents.shroomlingDeath;
     }
-    //replace with custom sound
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.VILLAGER_AMBIENT;
+        return this.random.nextBoolean() ? ModSoundEvents.shroomlingAmbience01 : ModSoundEvents.shroomlingAmbience02;
     }
-    //replace with custom sound
 
     @Nonnull
     @Override

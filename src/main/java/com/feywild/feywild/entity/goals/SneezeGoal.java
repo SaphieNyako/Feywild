@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.Shroomling;
 import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -46,6 +47,7 @@ public class SneezeGoal extends Goal {
                         cow.setPos(this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
                         this.targetAnimal.remove(Entity.RemovalReason.DISCARDED);
                         level.addFreshEntity(cow);
+                        cow.playSound(SoundEvents.PANDA_SNEEZE, 1, 0.6f);
                         FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.SHROOMLING_SNEEZE, cow.getX(), cow.getY(), cow.getZ());
                     }
                 }
@@ -63,7 +65,7 @@ public class SneezeGoal extends Goal {
                 FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.SHROOMLING_SNEEZE, this.entity.getX(), this.entity.getY(), this.entity.getZ());
             } else if (this.ticksLeft == 90) {
                 this.sneezing();
-                this.entity.playSound(SoundEvents.VILLAGER_CELEBRATE, 1, 1); //replace with custom sound
+                this.entity.playSound(ModSoundEvents.shroomlingSneeze, 1, 1);
             }
         }
     }

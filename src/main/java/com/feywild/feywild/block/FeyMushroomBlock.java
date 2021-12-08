@@ -1,5 +1,6 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.base.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -7,6 +8,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,7 +33,6 @@ import java.util.function.Consumer;
 public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);
-    //protected static final IntegerProperty LIGHT_LEVEL = IntegerProperty.create("light_level_mushroom", 0, 15);
 
     public FeyMushroomBlock(ModX mod) {
         super(mod, BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM)
@@ -56,6 +60,21 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
         stateBuilder.add(BlockStateProperties.LEVEL);
     }
 
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+        if (player.getItemInHand(hand).getItem() == ModItems.feyDust) {
+            if (!level.isClientSide) {
+                state = state.cycle(BlockStateProperties.LEVEL);
+                level.setBlock(pos, state, 2);
+                if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+        return super.use(state, level, pos, player, hand, hit);
+    }
+
     @Override
     public boolean isValidBonemealTarget(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
         return true;
@@ -68,14 +87,9 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
     @Override
     public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
-        if (state.getValue(BlockStateProperties.LEVEL) >= 0 && state.getValue(BlockStateProperties.LEVEL) < 15) {
-            
-            state = state.cycle(BlockStateProperties.LEVEL);
-            level.setBlock(pos, state, 2);
 
-        } else if (state.getValue(BlockStateProperties.LEVEL) == 15) {
-            state = state.setValue(BlockStateProperties.LEVEL, 0);
-            level.setBlock(pos, state, 2);
-        }
+        state = state.cycle(BlockStateProperties.LEVEL);
+        level.setBlock(pos, state, 2);
+
     }
 }

@@ -1,8 +1,9 @@
 package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.entity.Shroomling;
+import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +31,7 @@ public class WaveGoal extends Goal {
                 this.reset();
             } else if (this.ticksLeft == 80) {
                 this.waving();
-                this.entity.playSound(SoundEvents.VILLAGER_CELEBRATE, 1, 1);
+                this.entity.playSound(getWaveSound(), 1, 1);
 
             } else if (this.ticksLeft <= 80 && target != null) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
@@ -42,6 +43,10 @@ public class WaveGoal extends Goal {
         this.entity.setState(Shroomling.State.IDLE);
         this.target = null;
         this.ticksLeft = -1;
+    }
+
+    protected SoundEvent getWaveSound() {
+        return this.level.random.nextBoolean() ? ModSoundEvents.shroomlingWave01 : ModSoundEvents.shroomlingWave02;
     }
 
     private void waving() {this.entity.setState(Shroomling.State.WAVING);}

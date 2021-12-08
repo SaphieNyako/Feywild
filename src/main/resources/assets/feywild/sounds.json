@@ -241,5 +241,68 @@
         "stream": true
       }
     ]
+  },
+  "shroomling_ambience_01": {
+    "subtitle": "shroomling_sniffling",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_ambience_01",
+        "stream": true
+      }
+    ]
+  },
+  "shroomling_ambience_02": {
+    "subtitle": "shroomling_sniffling",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_ambience_02",
+        "stream": true
+      }
+    ]
+  },
+  "shroomling_death": {
+    "subtitle": "shroomling_death",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_death",
+        "stream": true
+      }
+    ]
+  },
+  "shroomling_hurt": {
+    "subtitle": "shroomling_hurt",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_hurt",
+        "stream": true
+      }
+    ]
+  },
+  "shroomling_sneeze": {
+    "subtitle": "shroomling_sneezing",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_sneeze",
+        "stream": true
+      }
+    ]
+  },
+  "shroomling_wave_01": {
+    "subtitle": "shroomling_waving",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_wave_01",
+        "stream": true
+      }
+    ]
+  },
+  "shroomling_wave_02": {
+    "subtitle": "shroomling_waving",
+    "sounds": [
+      {
+        "name": "feywild:shroomling_wave_02",
+        "stream": true
+      }
+    ]
   }
 }
