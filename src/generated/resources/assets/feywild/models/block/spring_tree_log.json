@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "side": "feywild:block/spring_tree_wood",
-    "end": "feywild:block/tree_log_top"
+    "end": "feywild:block/spring_tree_log_top"
   }
 }

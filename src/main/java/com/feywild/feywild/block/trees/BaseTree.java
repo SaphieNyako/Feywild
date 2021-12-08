@@ -12,7 +12,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,18 +51,28 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
 
-    private final RotatedPillarBlock strippedLog;
+    private final FeyStrippedLogBlock strippedLog;
+    private final BlockItem strippedLogItem;
+    private final Registerable strippedLogRegister;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
-        this.strippedLog = new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG));
+        this.strippedLog = new FeyStrippedLogBlock();
         this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
+        this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
                 return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem);
+            }
+        };
+
+        this.strippedLogRegister = new Registerable() {
+            @Override
+            public Set<Object> getAdditionalRegisters(ResourceLocation id) {
+                return ImmutableSet.of(BaseTree.this.strippedLog, BaseTree.this.strippedLogItem);
             }
         };
 
@@ -132,7 +141,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return this.leaves;
     }
 
-    public RotatedPillarBlock getStrippedLogBlock() {return this.strippedLog;}
+    public FeyStrippedLogBlock getStrippedLogBlock() {return this.strippedLog;}
 
     public Block getSapling() {
         return this.sapling;

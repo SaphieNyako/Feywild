@@ -6,10 +6,7 @@ import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
-import com.feywild.feywild.block.trees.BaseSaplingBlock;
-import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.block.trees.FeyLogBlock;
-import com.feywild.feywild.block.trees.FeyWoodBlock;
+import com.feywild.feywild.block.trees.*;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockStateProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -79,7 +76,9 @@ public class BlockStateProvider extends BlockStateProviderBase {
                     .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)
                     .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel();
         } else if (block instanceof FeyLogBlock feyLog) {
-            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyLog.getWoodBlock()), new ResourceLocation(id.getNamespace(), "block/tree_log_top"));
+            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyLog.getWoodBlock()), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
+        } else if (block instanceof FeyStrippedLogBlock feyStrippedLog) {
+            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyStrippedLog), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
         } else if (block instanceof CropBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             //noinspection CodeBlock2Expr
