@@ -42,6 +42,16 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModTrees.summerTree.getLogBlock(), false, this.stack(ModTrees.summerTree.getLogBlock()));
         this.drops(ModTrees.summerTree.getWoodBlock(), false, this.stack(ModTrees.summerTree.getWoodBlock()));
 
+        this.drops(ModTrees.springTree.getStrippedLogBlock(), false, this.stack(ModTrees.springTree.getStrippedLogBlock()));
+        this.drops(ModTrees.autumnTree.getStrippedLogBlock(), false, this.stack(ModTrees.autumnTree.getStrippedLogBlock()));
+        this.drops(ModTrees.summerTree.getStrippedLogBlock(), false, this.stack(ModTrees.summerTree.getStrippedLogBlock()));
+        this.drops(ModTrees.winterTree.getStrippedLogBlock(), false, this.stack(ModTrees.winterTree.getStrippedLogBlock()));
+
+        this.drops(ModTrees.springTree.getPlankBlock(), false, this.stack(ModTrees.springTree.getPlankBlock()));
+        this.drops(ModTrees.autumnTree.getPlankBlock(), false, this.stack(ModTrees.autumnTree.getPlankBlock()));
+        this.drops(ModTrees.summerTree.getPlankBlock(), false, this.stack(ModTrees.summerTree.getPlankBlock()));
+        this.drops(ModTrees.winterTree.getPlankBlock(), false, this.stack(ModTrees.winterTree.getPlankBlock()));
+
         this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower).with(this.count(1, 2)));
         this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion).with(this.count(1, 2)));
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus).with(this.count(1, 2)));

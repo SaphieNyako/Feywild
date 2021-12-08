@@ -55,8 +55,11 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final BlockItem strippedLogItem;
     private final Registerable strippedLogRegister;
 
+    private final FeyPlankBlock plankBlock;
+
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
+        this.plankBlock = new FeyPlankBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.strippedLog = new FeyStrippedLogBlock();
         this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
@@ -65,7 +68,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem);
+                return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem
+                );
             }
         };
 
@@ -83,13 +87,14 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     @Override
     public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
-        return ImmutableMap.of(
-                "log", this.logRegister,
-                "wood", this.woodBlock,
-                "leaves", this.leaves,
-                "sapling", this.sapling,
-                "stripped_log", this.strippedLog
-        );
+        return ImmutableMap.<String, Object>builder()
+                .put("log", this.logRegister)
+                .put("wood", this.woodBlock)
+                .put("leaves", this.leaves)
+                .put("sapling", this.sapling)
+                .put("stripped_log", this.strippedLogRegister)
+                .put("planks", this.plankBlock)
+                .build();
     }
 
     @Nonnull
@@ -142,6 +147,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     }
 
     public FeyStrippedLogBlock getStrippedLogBlock() {return this.strippedLog;}
+
+    public FeyPlankBlock getPlankBlock() {return this.plankBlock;}
 
     public Block getSapling() {
         return this.sapling;

@@ -79,6 +79,16 @@ public class BlockStateProvider extends BlockStateProviderBase {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyLog.getWoodBlock()), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
         } else if (block instanceof FeyStrippedLogBlock feyStrippedLog) {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyStrippedLog), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
+        } else if (block instanceof FeyPlankBlock feyPlank) {
+            ModelFile vertical = models().cubeColumn(id.getPath(), blockTexture(feyPlank), blockTexture(feyPlank));
+            ModelFile horizontal = models().cubeColumnHorizontal(id.getPath() + "_horizontal", blockTexture(feyPlank), blockTexture(feyPlank));
+            getVariantBuilder(block)
+                    .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)
+                    .modelForState().modelFile(vertical).addModel()
+                    .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)
+                    .modelForState().modelFile(horizontal).rotationX(90).addModel()
+                    .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)
+                    .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel();
         } else if (block instanceof CropBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             //noinspection CodeBlock2Expr

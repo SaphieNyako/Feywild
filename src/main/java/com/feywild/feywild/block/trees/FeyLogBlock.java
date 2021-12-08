@@ -14,9 +14,9 @@ import javax.annotation.Nullable;
 public class FeyLogBlock extends RotatedPillarBlock {
 
     private final FeyWoodBlock feyWood;
-    private final RotatedPillarBlock strippedLog;
+    private final FeyStrippedLogBlock strippedLog;
 
-    public FeyLogBlock(FeyWoodBlock feyWood, RotatedPillarBlock strippedLog, Properties properties) {
+    public FeyLogBlock(FeyWoodBlock feyWood, FeyStrippedLogBlock strippedLog, Properties properties) {
         super(properties);
         this.feyWood = feyWood;
         this.strippedLog = strippedLog;
