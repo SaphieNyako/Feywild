@@ -12,6 +12,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -51,9 +52,12 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
 
+    private final RotatedPillarBlock strippedLog;
+
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
-        this.logBlock = new FeyLogBlock(this.woodBlock, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
+        this.strippedLog = new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG));
+        this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
         this.logRegister = new Registerable() {
@@ -65,6 +69,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
         this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
+
     }
 
     @Override
@@ -73,7 +78,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 "log", this.logRegister,
                 "wood", this.woodBlock,
                 "leaves", this.leaves,
-                "sapling", this.sapling
+                "sapling", this.sapling,
+                "stripped_log", this.strippedLog
         );
     }
 
@@ -125,6 +131,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     public FeyLeavesBlock getLeafBlock() {
         return this.leaves;
     }
+
+    public RotatedPillarBlock getStrippedLogBlock() {return this.strippedLog;}
 
     public Block getSapling() {
         return this.sapling;

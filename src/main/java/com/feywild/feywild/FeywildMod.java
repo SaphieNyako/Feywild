@@ -1,12 +1,12 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypeMapper;
 import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.BasePixieRenderer;
@@ -30,6 +30,7 @@ import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
+import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
@@ -39,6 +40,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -76,9 +79,9 @@ public final class FeywildMod extends ModXRegistration {
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
-        
+
         GeckoLib.initialize();
-        
+
         // TODO mythicbotany
 //        if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
 //            this.addRegistrationHandler(ModAlfheimBiomes::register);
@@ -131,6 +134,14 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+
+            AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
+                    .put(ModTrees.autumnTree.getLogBlock(), ModTrees.autumnTree.getStrippedLogBlock())
+                    .put(ModTrees.springTree.getLogBlock(), ModTrees.springTree.getStrippedLogBlock())
+                    .put(ModTrees.summerTree.getLogBlock(), ModTrees.summerTree.getStrippedLogBlock())
+                    .put(ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getStrippedLogBlock())
+                    .build();
+
             Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);
             ModBiomeGeneration.setupBiomes();
             OreType.setupOres();
@@ -142,7 +153,6 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
             SpawnPlacements.register(ModEntityTypes.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
             SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
-
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
