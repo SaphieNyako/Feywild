@@ -66,8 +66,8 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.feyDust) {
             if (!level.isClientSide) {
-                state = state.cycle(BlockStateProperties.LEVEL);
-                level.setBlock(pos, state, 2);
+
+                level.setBlock(pos, state.cycle(BlockStateProperties.LEVEL), 3);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
@@ -88,8 +88,7 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
     @Override
     public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
 
-        state = state.cycle(BlockStateProperties.LEVEL);
-        level.setBlock(pos, state, 2);
+        level.setBlock(pos, state.cycle(BlockStateProperties.LEVEL), 3);
 
     }
 }

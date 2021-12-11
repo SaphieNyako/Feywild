@@ -165,18 +165,13 @@
       }
     ]
   },
-  "mandragora_ambience_01": {
+  "mandragora_ambience": {
     "subtitle": "mandragora_humming",
     "sounds": [
       {
         "name": "feywild:mandragora_ambience_01",
         "stream": true
-      }
-    ]
-  },
-  "mandragora_ambience_02": {
-    "subtitle": "mandragora_humming",
-    "sounds": [
+      },
       {
         "name": "feywild:mandragora_ambience_02",
         "stream": true
@@ -242,18 +237,13 @@
       }
     ]
   },
-  "shroomling_ambience_01": {
+  "shroomling_ambience": {
     "subtitle": "shroomling_sniffling",
     "sounds": [
       {
         "name": "feywild:shroomling_ambience_01",
         "stream": true
-      }
-    ]
-  },
-  "shroomling_ambience_02": {
-    "subtitle": "shroomling_sniffling",
-    "sounds": [
+      },
       {
         "name": "feywild:shroomling_ambience_02",
         "stream": true
@@ -287,18 +277,13 @@
       }
     ]
   },
-  "shroomling_wave_01": {
+  "shroomling_wave": {
     "subtitle": "shroomling_waving",
     "sounds": [
       {
         "name": "feywild:shroomling_wave_01",
         "stream": true
-      }
-    ]
-  },
-  "shroomling_wave_02": {
-    "subtitle": "shroomling_waving",
-    "sounds": [
+      },
       {
         "name": "feywild:shroomling_wave_02",
         "stream": true

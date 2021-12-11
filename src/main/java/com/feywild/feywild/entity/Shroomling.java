@@ -30,9 +30,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -64,7 +62,6 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     public Shroomling(EntityType<? extends FeyBase> type, Level level) {
         super(type, Alignment.AUTUMN, level);
         this.noCulling = true;
-        this.moveControl = new MoveControl(this);
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -201,7 +198,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.random.nextBoolean() ? ModSoundEvents.shroomlingAmbience01 : ModSoundEvents.shroomlingAmbience02;
+        return this.random.nextBoolean() ? ModSoundEvents.shroomlingAmbience : null;
     }
 
     @Nonnull
@@ -230,8 +227,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
                 }
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
-                ItemEntity item = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Items.BONE_MEAL));
-                this.level.addFreshEntity(item);
+                this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
                 this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);

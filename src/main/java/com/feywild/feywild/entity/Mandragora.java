@@ -9,8 +9,6 @@ import com.feywild.feywild.entity.goals.SingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
-import io.github.noeppi_noeppi.libx.util.NBTX;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -63,7 +61,6 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
                 .add(Attributes.LUCK, 0.2);
     }
 
-
     @Nullable
     @Override
     public SimpleParticleType getParticle() {
@@ -94,7 +91,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        if(nbt.contains("variant")) {
+        if (nbt.contains("variant")) {
             this.entityData.set(VARIANT, nbt.getInt("variant"));
         }
     }
@@ -172,11 +169,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return switch (random.nextInt(5)) {
-            case 0 -> ModSoundEvents.mandragoraAmbience01;
-            case 1 -> ModSoundEvents.mandragoraAmbience02;
-            default -> null;
-        };
+        return this.random.nextBoolean() ? ModSoundEvents.mandragoraAmbience : null;
     }
 
     @Nonnull
@@ -192,10 +185,10 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
                 player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
-        }else if(player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
+        } else if (player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
             if (!level.isClientSide) {
-                Mandragora entity =  ModEntityTypes.mandragora.create(level);
-                if(entity != null) {
+                Mandragora entity = ModEntityTypes.mandragora.create(level);
+                if (entity != null) {
                     entity.setCurrentTargetPos(this.getCurrentPointOfInterest());
                     entity.setPos(position().x, position().y, position().z);
                     entity.setOwner(getOwner());

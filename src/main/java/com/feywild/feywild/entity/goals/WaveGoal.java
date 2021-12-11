@@ -46,7 +46,7 @@ public class WaveGoal extends Goal {
     }
 
     protected SoundEvent getWaveSound() {
-        return this.level.random.nextBoolean() ? ModSoundEvents.shroomlingWave01 : ModSoundEvents.shroomlingWave02;
+        return ModSoundEvents.shroomlingWave;
     }
 
     private void waving() {this.entity.setState(Shroomling.State.WAVING);}

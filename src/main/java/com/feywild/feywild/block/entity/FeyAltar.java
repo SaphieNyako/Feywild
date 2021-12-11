@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -89,7 +90,8 @@ public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimata
                     for (int slot = 0; slot < this.inventory.getSlots(); slot++) {
                         this.inventory.setStackInSlot(slot, ItemStack.EMPTY);
                     }
-
+                    ItemEntity entity = new ItemEntity(this.level, this.worldPosition.getX() + 0.5, this.worldPosition.getY() + 2, this.worldPosition.getZ() + 0.5, currentRecipe.getLeft().copy());
+                    this.level.addFreshEntity(entity);
                     this.progress = 0;
                 }
                 this.setChanged();
