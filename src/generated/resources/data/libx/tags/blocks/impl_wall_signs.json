@@ -1,9 +1,4 @@
 {
   "replace": false,
-  "values": [
-    "feywild:spring_tree_planks_sign_wall",
-    "feywild:summer_tree_planks_sign_wall",
-    "feywild:autumn_tree_planks_sign_wall",
-    "feywild:winter_tree_planks_sign_wall"
-  ]
+  "values": []
 }

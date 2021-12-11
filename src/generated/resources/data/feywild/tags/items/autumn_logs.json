@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "feywild:autumn_tree_log",
+    "feywild:autumn_tree_stripped_log",
+    "feywild:autumn_tree_wood",
+    "feywild:autumn_tree_stripped_wood"
+  ]
+}

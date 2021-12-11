@@ -140,6 +140,10 @@ public final class FeywildMod extends ModXRegistration {
                     .put(ModTrees.springTree.getLogBlock(), ModTrees.springTree.getStrippedLogBlock())
                     .put(ModTrees.summerTree.getLogBlock(), ModTrees.summerTree.getStrippedLogBlock())
                     .put(ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getStrippedLogBlock())
+                    .put(ModTrees.autumnTree.getWoodBlock(), ModTrees.autumnTree.getStrippedWoodBlock())
+                    .put(ModTrees.springTree.getWoodBlock(), ModTrees.springTree.getStrippedWoodBlock())
+                    .put(ModTrees.summerTree.getWoodBlock(), ModTrees.summerTree.getStrippedWoodBlock())
+                    .put(ModTrees.winterTree.getWoodBlock(), ModTrees.winterTree.getStrippedWoodBlock())
                     .build();
 
             Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);

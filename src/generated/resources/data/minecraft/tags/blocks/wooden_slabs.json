@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "feywild:autumn_tree_planks_slab",
+    "feywild:spring_tree_planks_slab",
+    "feywild:summer_tree_planks_slab",
+    "feywild:winter_tree_planks_slab"
+  ]
+}

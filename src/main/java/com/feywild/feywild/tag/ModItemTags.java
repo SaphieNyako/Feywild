@@ -14,4 +14,8 @@ public class ModItemTags {
     public static final Tag.Named<Item> ELEMENTAL_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "elemental_books").toString());
     public static final Tag.Named<Item> SEASONAL_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "seasonal_books").toString());
     public static final Tag.Named<Item> YGGDRASIL_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "yggdrasil_books").toString());
+    public static final Tag.Named<Item> AUTUMN_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "autumn_logs").toString());
+    public static final Tag.Named<Item> SPRING_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "spring_logs").toString());
+    public static final Tag.Named<Item> SUMMER_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "summer_logs").toString());
+    public static final Tag.Named<Item> WINTER_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "winter_logs").toString());
 }

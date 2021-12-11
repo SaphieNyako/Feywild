@@ -3,6 +3,7 @@ package com.feywild.feywild.data.recipe;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.tag.ModBlockTags;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.DefaultExtension;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeProviderBase;
@@ -29,6 +30,11 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         shaped(ModTrees.summerTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.summerTree.getLogBlock());
         shaped(ModTrees.autumnTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.autumnTree.getLogBlock());
         shaped(ModTrees.winterTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.winterTree.getLogBlock());
+
+        shapeless(ModTrees.autumnTree.getPlankBlock(), 4, ModBlockTags.AUTUMN_LOGS);
+        shapeless(ModTrees.springTree.getPlankBlock(), 4, ModBlockTags.SPRING_LOGS);
+        shapeless(ModTrees.summerTree.getPlankBlock(), 4, ModBlockTags.SUMMER_LOGS);
+        shapeless(ModTrees.winterTree.getPlankBlock(), 4, ModBlockTags.WINTER_LOGS);
 
         shaped(ModBlocks.dwarvenAnvil, "fff", " i ", "iii", 'f', ModItems.lesserFeyGem, 'i', Tags.Blocks.STORAGE_BLOCKS_IRON);
         shapeless(ModItems.feyInkBottle, ModItems.feyDust, Items.INK_SAC, Items.GLASS_BOTTLE, ModItems.mandrake);
