@@ -6,13 +6,9 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypeMapper;
 import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.model.*;
-import com.feywild.feywild.entity.render.BasePixieRenderer;
-import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
-import com.feywild.feywild.entity.render.MandragoraRenderer;
-import com.feywild.feywild.entity.render.MarketDwarfRenderer;
+import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.ModParticleFactories;
 import com.feywild.feywild.quest.QuestManager;
@@ -76,9 +72,9 @@ public final class FeywildMod extends ModXRegistration {
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
         ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
-        
+
         GeckoLib.initialize();
-        
+
         // TODO mythicbotany
 //        if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
 //            this.addRegistrationHandler(ModAlfheimBiomes::register);
@@ -142,7 +138,7 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
             SpawnPlacements.register(ModEntityTypes.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
             SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
-
+            SpawnPlacements.register(ModEntityTypes.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -173,6 +169,7 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
         EntityRenderers.register(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntityTypes.mandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntityTypes.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -189,6 +186,7 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarf.getDefaultAttributes().build());
         event.put(ModEntityTypes.mandragora, Mandragora.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
+        event.put(ModEntityTypes.shroomling, Shroomling.getDefaultAttributes().build());
     }
 
     @SubscribeEvent

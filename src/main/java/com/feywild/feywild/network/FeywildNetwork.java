@@ -10,14 +10,14 @@ import net.minecraftforge.fmllegacy.network.NetworkDirection;
 import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 public class FeywildNetwork extends NetworkX {
-    
+
     public FeywildNetwork(ModX mod) {
         super(mod);
     }
 
     @Override
     protected Protocol getProtocol() {
-        return Protocol.of("5");
+        return Protocol.of("6");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class FeywildNetwork extends NetworkX {
         this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
         this.register(new ConfirmQuestSerializer(), () -> ConfirmQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
     }
-    
+
     public void sendParticles(Level level, ParticleSerializer.Type type, BlockPos pos) {
         this.sendParticles(level, type, pos, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
     }
@@ -41,12 +41,12 @@ public class FeywildNetwork extends NetworkX {
     public void sendParticles(Level level, ParticleSerializer.Type type, double x, double y, double z) {
         this.sendParticles(level, type, x, y, z, 0, 0, 0);
     }
-    
+
     public void sendParticles(Level level, ParticleSerializer.Type type, double x, double y, double z, double vx, double vy, double vz) {
         BlockPos chunk = new BlockPos((int) x, (int) y, (int) z);
         this.sendParticles(level, type, chunk, x, y, z, vx, vy, vz);
     }
-    
+
     private void sendParticles(Level level, ParticleSerializer.Type type, BlockPos chunk, double x, double y, double z, double vx, double vy, double vz) {
         if (level instanceof ServerLevel) {
             this.channel.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z, vx, vy, vz));

@@ -10,8 +10,7 @@ public class ModSoundEvents {
 
     public static final SoundEvent musicMenu = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "music_menu"));
     public static final SoundEvent musicCreative = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "music_creative"));
-    public static final SoundEvent mandragoraAmbience01 = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_ambience_01"));
-    public static final SoundEvent mandragoraAmbience02 = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_ambience_02"));
+    public static final SoundEvent mandragoraAmbience = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_ambience"));
     public static final SoundEvent mandragoraDeath = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_death"));
     public static final SoundEvent mandragoraHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_hurt"));
     public static final SoundEvent mandragoraSinging = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mandragora_singing"));
@@ -35,4 +34,10 @@ public class ModSoundEvents {
     public static final SoundEvent summoningSummerPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_summer_pixie_short"));
     public static final SoundEvent summoningAutumnPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_autumn_pixie_short"));
     public static final SoundEvent summoningWinterPixieShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_winter_pixie_short"));
+    public static final SoundEvent shroomlingAmbience = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_ambience"));
+    public static final SoundEvent shroomlingDeath = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_death"));
+    public static final SoundEvent shroomlingHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_hurt"));
+    public static final SoundEvent shroomlingSneeze = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_sneeze"));
+    public static final SoundEvent shroomlingWave = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_wave"));
+
 }

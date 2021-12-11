@@ -12,7 +12,6 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -53,7 +52,7 @@ public abstract class Fey extends FlyingFeyBase implements ITameable {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.BOOLEAN);
 
-    private boolean isTamed;
+    private boolean isTamed = false;
 
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
         super(type, alignment, level);
