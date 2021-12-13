@@ -54,7 +54,7 @@ import java.util.Random;
 
 public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Shroomling.class, EntityDataSerializers.INT);
     private static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
     private final AnimationFactory factory = new AnimationFactory(this);
     private boolean isTamed = false;
