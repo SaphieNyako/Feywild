@@ -22,10 +22,6 @@ public class SingGoal extends Goal {
 
     }
 
-    //Random moment Sing
-    // Animation Sing
-    // Grow crops around Mandragora
-
     @Override
     public void tick() {
         if (this.ticksLeft > 0) {

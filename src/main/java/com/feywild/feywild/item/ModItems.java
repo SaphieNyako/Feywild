@@ -38,6 +38,8 @@ public class ModItems {
     public static final SummoningScrollFey<WinterPixieEntity> summoningScrollWinterPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.winterPixie, ModSoundEvents.summoningWinterPixieShort, new Item.Properties());
     public static final SummoningScrollFey<BeeKnightEntity> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.beeKnight, null, new Item.Properties());
     public static final SummoningScrollFey<MandragoraEntity> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.mandragora, null, new Item.Properties());
+    public static final SummoningScrollFey<ShroomlingEntity> summoningScrollShroomling = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.shroomling, null, new Item.Properties());
+
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
             new Food.Builder().effect(() -> new EffectInstance(Effects.LEVITATION, MiscConfig.fey_dust_ticks, 1), 1).build()));

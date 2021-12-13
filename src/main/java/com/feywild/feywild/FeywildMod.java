@@ -9,10 +9,7 @@ import com.feywild.feywild.data.DataGenerators;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.entity.model.*;
-import com.feywild.feywild.entity.render.BasePixieRenderer;
-import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
-import com.feywild.feywild.entity.render.MandragoraRenderer;
-import com.feywild.feywild.entity.render.MarketDwarfRenderer;
+import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.ModParticleFactories;
 import com.feywild.feywild.quest.QuestManager;
@@ -137,6 +134,7 @@ public final class FeywildMod extends ModXRegistration {
             EntitySpawnPlacementRegistry.register(ModEntityTypes.winterPixie, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PixieEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.dwarfBlacksmith, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmithEntity::canSpawn);
             EntitySpawnPlacementRegistry.register(ModEntityTypes.beeKnight, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BeeKnightEntity::canSpawn);
+            EntitySpawnPlacementRegistry.register(ModEntityTypes.shroomling, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -167,6 +165,7 @@ public final class FeywildMod extends ModXRegistration {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.mandragora, MandragoraRenderer.create(MandragoraModel::new));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
 
     }
 
@@ -184,6 +183,7 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.dwarfToolsmith, MarketDwarfEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.beeKnight, BeeKnightEntity.getDefaultAttributes().build());
         event.put(ModEntityTypes.mandragora, MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntityTypes.shroomling, ShroomlingEntity.getDefaultAttributes().build());
     }
 
     @SubscribeEvent

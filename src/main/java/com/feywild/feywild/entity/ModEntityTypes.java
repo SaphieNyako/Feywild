@@ -14,7 +14,11 @@ public class ModEntityTypes {
 
     public static final EntityType<MandragoraEntity> mandragora = EntityType.Builder.of(MandragoraEntity::new, EntityClassification.CREATURE)
             .sized(0.7f, 1)
-            .build(FeywildMod.getInstance().modid + "mandragora");
+            .build(FeywildMod.getInstance().modid + "_mandragora");
+
+    public static final EntityType<ShroomlingEntity> shroomling = EntityType.Builder.of(ShroomlingEntity::new, EntityClassification.CREATURE)
+            .sized(0.7f, 0.8f)
+            .build(FeywildMod.getInstance().modid + "_shroomling");
 
     public static final EntityType<DwarfBlacksmithEntity> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmithEntity::new, EntityClassification.MONSTER)
             .sized(1, 1)

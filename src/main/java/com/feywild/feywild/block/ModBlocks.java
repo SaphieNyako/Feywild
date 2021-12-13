@@ -44,6 +44,8 @@ public class ModBlocks {
 
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
 
+    public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
+
     /* DECORATIVE BLOCKS - comment out when running runData */
 
     public static final Block autumnTreeStairs = new StairsBlockBase(FeywildMod.getInstance(),

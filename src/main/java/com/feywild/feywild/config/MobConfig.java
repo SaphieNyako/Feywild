@@ -12,6 +12,28 @@ import java.util.Set;
 
 public class MobConfig {
 
+    public static class shroomling {
+
+        @Config("Shroomling spawn chance")
+        @IntRange(min = 0)
+        public static int weight = 15;
+
+        @Config("Minimum entities to spawn in a group group")
+        @IntRange(min = 1)
+        public static int min = 1;
+
+        @Config("Maximum entities to spawn in a group group")
+        @IntRange(min = 1)
+        public static int max = 1;
+
+        @Config(value = "Biome types where the entity should spawn", mapper = "feywild:biome_types")
+        @SuppressWarnings("config")
+        public static List<BiomeDictionary.Type> biomes = ImmutableList.of(
+                BiomeDictionary.Type.MUSHROOM,
+                BiomeDictionary.Type.MAGICAL
+        );
+    }
+
     public static class spring_pixie {
 
         @Config("Spring pixie spawn chance")
