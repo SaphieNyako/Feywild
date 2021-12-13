@@ -83,8 +83,10 @@ public class SummoningScroll<T extends LivingEntity> extends TooltipItem {
                         BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
                         entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
                         this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
-                        context.getLevel().addFreshEntity(entity);
-                        if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
+                        if (this instanceof SummoningScrollFey || this instanceof SummoningScrollDwarfBlacksmith) {
+                            context.getLevel().addFreshEntity(entity);
+                            if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
+                        }
                         if (!context.getPlayer().isCreative()) {
                             context.getItemInHand().shrink(1);
                             if (!(entity instanceof DwarfBlacksmithEntity)) {
