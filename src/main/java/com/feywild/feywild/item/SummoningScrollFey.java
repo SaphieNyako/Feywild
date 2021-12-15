@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.ShroomlingEntity;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.PixieEntity;
 import com.feywild.feywild.quest.player.QuestData;
@@ -50,6 +51,10 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
         (entity).setCurrentTargetPos(pos);
         if (entity instanceof PixieEntity) {
             ((PixieEntity) entity).setTamed(true);
+            entity.setCurrentTargetPos((BlockPos) null);
+        }
+        if (entity instanceof ShroomlingEntity) {
+            ((ShroomlingEntity) entity).setTamed(true);
             entity.setCurrentTargetPos((BlockPos) null);
         }
     }

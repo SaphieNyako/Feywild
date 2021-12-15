@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:summoning_scroll_shroomling"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:red_mushroom_block"
+    },
+    {
+      "item": "minecraft:mushroom_stem"
+    },
+    {
+      "item": "feywild:greater_fey_gem"
+    },
+    {
+      "item": "minecraft:composter"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    }
+  ]
+}

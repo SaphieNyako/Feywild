@@ -89,6 +89,23 @@ public class AltarRecipes extends AnyRecipeProvider {
                 .requires(Items.LEAD)
                 .requires(ModItems.summoningScroll)
                 .build(consumer);
+
+        this.altar(ModItems.summoningScrollMandragora)
+                .requires(ModItems.magicalHoneyCookie)
+                .requires(ModItems.mandrake)
+                .requires(ModTrees.autumnTree.getSapling())
+                .requires(Blocks.NOTE_BLOCK)
+                .requires(ModItems.summoningScroll)
+                .build(consumer);
+
+        this.altar(ModItems.summoningScrollShroomling)
+                .requires(Blocks.RED_MUSHROOM_BLOCK)
+                .requires(Blocks.MUSHROOM_STEM)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Blocks.COMPOSTER)
+                .requires(ModItems.summoningScroll)
+                .build(consumer);
+
     }
 
     private AltarRecipeBuilder altar(IItemProvider result) {

@@ -8,7 +8,6 @@ import com.feywild.feywild.entity.goals.SingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -29,7 +28,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -170,14 +168,7 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        switch (random.nextInt(5)) {
-            case 0:
-                return ModSoundEvents.mandragoraAmbience01;
-            case 1:
-                return ModSoundEvents.mandragoraAmbience02;
-            default:
-                return null;
-        }
+        return this.random.nextBoolean() ? ModSoundEvents.mandragoraAmbience : null;
     }
 
     @Nonnull

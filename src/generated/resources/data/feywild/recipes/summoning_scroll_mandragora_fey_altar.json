@@ -1,0 +1,23 @@
+{
+  "type": "feywild:fey_altar",
+  "output": {
+    "item": "feywild:summoning_scroll_mandragora"
+  },
+  "ingredients": [
+    {
+      "item": "feywild:magical_honey_cookie"
+    },
+    {
+      "item": "feywild:mandrake"
+    },
+    {
+      "item": "feywild:autumn_tree_sapling"
+    },
+    {
+      "item": "minecraft:note_block"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    }
+  ]
+}

@@ -52,7 +52,7 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(PixieEntity.class, DataSerializers.BOOLEAN);
 
-    private boolean isTamed;
+    private boolean isTamed = false;
 
     protected PixieEntity(EntityType<? extends PixieEntity> type, Alignment alignment, World world) {
         super(type, alignment, world);

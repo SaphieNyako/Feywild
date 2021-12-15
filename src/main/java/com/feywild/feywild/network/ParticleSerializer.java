@@ -34,7 +34,7 @@ public class ParticleSerializer implements PacketSerializer<ParticleSerializer.M
     }
 
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW
+        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW, SHROOMLING_SNEEZE
     }
 
     public static class Message {
