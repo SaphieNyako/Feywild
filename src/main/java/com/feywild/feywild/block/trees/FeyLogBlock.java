@@ -29,14 +29,8 @@ public class FeyLogBlock extends RotatedPillarBlock {
     @Nullable
     @Override
     public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolAction toolAction) {
-        BlockState toReturn = null;
 
-        if (toolAction == ToolActions.AXE_STRIP) {
-
-            toReturn = strippedLog.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-        }
-
-        return toReturn;
+        return toolAction == ToolActions.AXE_STRIP ? strippedLog.defaultBlockState().setValue(AXIS, state.getValue(AXIS)) : null;
     }
 }
 

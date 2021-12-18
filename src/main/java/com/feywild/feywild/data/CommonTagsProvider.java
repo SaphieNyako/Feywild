@@ -44,8 +44,14 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.block(BlockTags.LOGS).addTag(ModBlockTags.FEY_LOGS);
         this.block(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.FEY_LOGS);
 
-        this.block(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.feyGemBlock, ModBlocks.feyGemBlockLivingrock, ModBlocks.dwarvenAnvil);
-        this.block(BlockTags.NEEDS_IRON_TOOL).add(ModBlocks.feyGemBlock, ModBlocks.feyGemBlockLivingrock, ModBlocks.dwarvenAnvil);
+        this.block(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                ModBlocks.feyGemBlock,
+                ModBlocks.feyGemBlockLivingrock,
+                ModBlocks.dwarvenAnvil);
+        this.block(BlockTags.NEEDS_IRON_TOOL).add(
+                ModBlocks.feyGemBlock,
+                ModBlocks.feyGemBlockLivingrock,
+                ModBlocks.dwarvenAnvil);
 
         this.copyBlock(BlockTags.LOGS, ItemTags.LOGS);
         this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
@@ -53,22 +59,60 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
 
-        this.block(ModBlockTags.AUTUMN_LOGS).add(ModTrees.autumnTree.getLogBlock(), ModTrees.autumnTree.getStrippedLogBlock(), ModTrees.autumnTree.getWoodBlock(), ModTrees.autumnTree.getStrippedWoodBlock());
+        this.block(ModBlockTags.AUTUMN_LOGS).add(
+                ModTrees.autumnTree.getLogBlock(),
+                ModTrees.autumnTree.getStrippedLogBlock(),
+                ModTrees.autumnTree.getWoodBlock(),
+                ModTrees.autumnTree.getStrippedWoodBlock());
         this.copyBlock(ModBlockTags.AUTUMN_LOGS, ModItemTags.AUTUMN_LOGS);
-        this.block(ModBlockTags.SPRING_LOGS).add(ModTrees.springTree.getLogBlock(), ModTrees.springTree.getStrippedLogBlock(), ModTrees.springTree.getWoodBlock(), ModTrees.springTree.getStrippedWoodBlock());
+
+        this.block(ModBlockTags.SPRING_LOGS).add(
+                ModTrees.springTree.getLogBlock(),
+                ModTrees.springTree.getStrippedLogBlock(),
+                ModTrees.springTree.getWoodBlock(),
+                ModTrees.springTree.getStrippedWoodBlock());
         this.copyBlock(ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
-        this.block(ModBlockTags.SUMMER_LOGS).add(ModTrees.summerTree.getLogBlock(), ModTrees.summerTree.getStrippedLogBlock(), ModTrees.summerTree.getWoodBlock(), ModTrees.summerTree.getStrippedWoodBlock());
+
+        this.block(ModBlockTags.SUMMER_LOGS).add(
+                ModTrees.summerTree.getLogBlock(),
+                ModTrees.summerTree.getStrippedLogBlock(),
+                ModTrees.summerTree.getWoodBlock(),
+                ModTrees.summerTree.getStrippedWoodBlock());
         this.copyBlock(ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
-        this.block(ModBlockTags.WINTER_LOGS).add(ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getStrippedLogBlock(), ModTrees.winterTree.getWoodBlock(), ModTrees.winterTree.getStrippedWoodBlock());
+
+        this.block(ModBlockTags.WINTER_LOGS).add(
+                ModTrees.winterTree.getLogBlock(),
+                ModTrees.winterTree.getStrippedLogBlock(),
+                ModTrees.winterTree.getWoodBlock(),
+                ModTrees.winterTree.getStrippedWoodBlock());
         this.copyBlock(ModBlockTags.WINTER_LOGS, ModItemTags.WINTER_LOGS);
 
-        this.block(BlockTags.PLANKS).add(ModTrees.autumnTree.getPlankBlock(), ModTrees.springTree.getPlankBlock(), ModTrees.summerTree.getPlankBlock(), ModTrees.winterTree.getPlankBlock());
+        this.block(BlockTags.PLANKS).add(
+                ModTrees.autumnTree.getPlankBlock(),
+                ModTrees.springTree.getPlankBlock(),
+                ModTrees.summerTree.getPlankBlock(),
+                ModTrees.winterTree.getPlankBlock());
         this.copyBlock(BlockTags.PLANKS, ItemTags.PLANKS);
-        this.block(BlockTags.WOODEN_FENCES).add(ModTrees.autumnTree.getPlankBlock().getStairBlock(), ModTrees.springTree.getPlankBlock().getStairBlock(), ModTrees.summerTree.getPlankBlock().getStairBlock(), ModTrees.winterTree.getPlankBlock().getStairBlock());
+
+        this.block(BlockTags.WOODEN_FENCES).add(
+                ModTrees.autumnTree.getPlankBlock().getStairBlock(),
+                ModTrees.springTree.getPlankBlock().getStairBlock(),
+                ModTrees.summerTree.getPlankBlock().getStairBlock(),
+                ModTrees.winterTree.getPlankBlock().getStairBlock());
         this.copyBlock(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES);
-        this.block(BlockTags.WOODEN_SLABS).add(ModTrees.autumnTree.getPlankBlock().getSlabBlock(), ModTrees.springTree.getPlankBlock().getSlabBlock(), ModTrees.summerTree.getPlankBlock().getSlabBlock(), ModTrees.winterTree.getPlankBlock().getSlabBlock());
+
+        this.block(BlockTags.WOODEN_SLABS).add(
+                ModTrees.autumnTree.getPlankBlock().getSlabBlock(),
+                ModTrees.springTree.getPlankBlock().getSlabBlock(),
+                ModTrees.summerTree.getPlankBlock().getSlabBlock(),
+                ModTrees.winterTree.getPlankBlock().getSlabBlock());
         this.copyBlock(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS);
-        this.block(BlockTags.WOODEN_STAIRS).add(ModTrees.autumnTree.getPlankBlock().getStairBlock(), ModTrees.springTree.getPlankBlock().getStairBlock(), ModTrees.summerTree.getPlankBlock().getStairBlock(), ModTrees.winterTree.getPlankBlock().getStairBlock());
+
+        this.block(BlockTags.WOODEN_STAIRS).add(
+                ModTrees.autumnTree.getPlankBlock().getStairBlock(),
+                ModTrees.springTree.getPlankBlock().getStairBlock(),
+                ModTrees.summerTree.getPlankBlock().getStairBlock(),
+                ModTrees.winterTree.getPlankBlock().getStairBlock());
         this.copyBlock(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS);
     }
 

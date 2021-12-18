@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 
 public class FeyPlankBlock extends DecoratedBlock {
 
-    private static final DecorationContext DECORATION = new DecorationContext("fey_plank", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB, DecorationType.STAIR);
+    public static final DecorationContext DECORATION = new DecorationContext("fey_plank", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB, DecorationType.STAIR);
 
     public FeyPlankBlock(ModX mod, Properties properties, Item.Properties itemProperties) {
         super(mod, DECORATION, properties, itemProperties);

@@ -39,5 +39,4 @@ public class ModBlocks {
 
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
 
-    //   public static final RotatedPillarBlock strippedAutumnTreeLog = new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG));
 }
