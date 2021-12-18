@@ -1,7 +1,8 @@
 {
+  "advancement": "feywild:feywild/summon_spring",
   "name": "Mandragora",
-  "icon": "feywild:mandrake_crop_seed",
-  "category": "spring_court",
+  "icon": "feywild:summoning_scroll_mandragora",
+  "category": "feywild:spring_court",
   "sortnum": 2,
   "pages": [
     {
@@ -12,7 +13,7 @@
     },
     {
       "type": "entity",
-      "entity": "feywild:melon_mandragora"
+      "entity": "feywild:mandragora"
     },
     {
       "type": "crafting",

@@ -19,10 +19,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 // TODO patchouli
 public class FeywildLexicon extends ItemBase {
@@ -37,11 +39,11 @@ public class FeywildLexicon extends ItemBase {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer) {
             if (!FeyPlayerData.get(player).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.BOOK) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with( () -> (ServerPlayer) player), new OpeningScreenSerializer.Message());
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new OpeningScreenSerializer.Message());
                 // feywild_got_scroll is set when the player actually retrieves a scroll
-            }/* else {
+            } else {
                 PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(this.getRegistryName()));
-            }*/
+            }
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }

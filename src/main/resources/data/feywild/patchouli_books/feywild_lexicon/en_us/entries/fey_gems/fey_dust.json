@@ -1,7 +1,7 @@
 {
   "name": "Fey Dust",
   "icon": "feywild:fey_dust",
-  "category": "fey_gems",
+  "category": "feywild:fey_gems",
   "pages": [
     {
       "type": "text",

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:mushrooms"
+    },
+    {
+      "item": "feywild:fey_dust"
+    }
+  ],
+  "result": {
+    "item": "feywild:fey_mushroom"
+  }
+}

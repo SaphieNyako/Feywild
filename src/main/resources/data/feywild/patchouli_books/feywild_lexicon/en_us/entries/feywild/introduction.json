@@ -1,8 +1,7 @@
 {
   "name": "Introduction",
   "icon": "minecraft:writable_book",
-  "category": "feywild",
-  "sortnum": 0,
+  "category": "feywild:feywild",
   "pages": [
     {
       "type": "text",

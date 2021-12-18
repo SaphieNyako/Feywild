@@ -1,7 +1,7 @@
 {
   "name": "Autumn Pixie",
   "icon": "feywild:summoning_scroll_autumn_pixie",
-  "category": "autumn_court",
+  "category": "feywild:autumn_court",
   "sortnum": 1,
   "pages": [
     {

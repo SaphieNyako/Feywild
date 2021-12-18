@@ -1,7 +1,7 @@
 {
   "name": "Winter Pixie",
   "icon": "feywild:summoning_scroll_winter_pixie",
-  "category": "winter_court",
+  "category": "feywild:winter_court",
   "sortnum": 1,
   "pages": [
     {

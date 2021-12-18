@@ -2,7 +2,7 @@
   "advancement": "feywild:feywild/fey_dust",
   "name": "Dwarven Knowledge",
   "icon": "feywild:schematics_fey_altar",
-  "category": "dwarves",
+  "category": "feywild:dwarves",
   "pages": [
     {
       "type": "spotlight",

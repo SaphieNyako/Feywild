@@ -1,8 +1,7 @@
 {
   "name": "Seasonal Trees",
   "icon": "feywild:autumn_tree_sapling",
-  "category": "feywild",
-  "sortnum": 1,
+  "category": "feywild:feywild",
   "pages": [
     {
       "type": "text",
@@ -13,6 +12,12 @@
       "title": "Fey Trees",
       "images": ["feywild:textures/patchouli_images/trees_book.png"],
       "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "Fey Dust",
+      "text": "The fey trees will also drop fey dust when you cut down their leaves."
     },
     {
       "type": "spotlight",
@@ -45,10 +50,10 @@
       "text": "Feywood can be obtained by cutting down one of the Fey trees. Each season has its own Fey Wood."
     },
     {
-      "type": "spotlight",
-      "item": "feywild:fey_dust",
-      "title": "Fey Dust",
-      "text": "The fey trees will also drop fey dust when you cut down their leaves."
+      "type": "crafting",
+      "title": "Fey Wood",
+      "recipe": "feywild:spring_tree_wood",
+      "text": "Feywood can be obtained by cutting down one of the Fey trees. Each season has its own Fey Wood."
     }
   ]
 }

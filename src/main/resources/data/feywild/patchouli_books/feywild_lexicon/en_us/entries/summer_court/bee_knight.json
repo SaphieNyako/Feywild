@@ -1,7 +1,8 @@
 {
+  "advancement": "feywild:feywild/summon_summer",
   "name": "Bee Knight",
   "icon": "feywild:honeycomb",
-  "category": "summer_court",
+  "category": "feywild:summer_court",
   "sortnum": 2,
   "pages": [
     {
@@ -31,7 +32,7 @@
     {
       "type": "spotlight",
       "item": "feywild:summoning_scroll_bee_knight",
-      "title": "Summoning Winter Pixie",
+      "title": "Summoning Scroll Bee Knight",
       "text": "With this scroll you can summon a Bee Knight. The Bee Knight will protect the area from other creatures interacting with it."
     },
     {

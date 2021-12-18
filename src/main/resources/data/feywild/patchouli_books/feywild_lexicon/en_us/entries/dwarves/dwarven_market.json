@@ -2,7 +2,7 @@
   "advancement": "feywild:feywild/traveling_stone",
   "name": "Dwarven Market",
   "icon": "feywild:inactive_market_rune_stone",
-  "category": "dwarves",
+  "category": "feywild:dwarves",
   "pages": [
     {
       "type": "spotlight",
