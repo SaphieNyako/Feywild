@@ -1,0 +1,39 @@
+{
+  "name": "秋之森林",
+  "icon": "feywild:autumn_tree_sapling",
+  "category": "autumn_court",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "秋之精灵是四个精灵中最成熟的一个，她的年龄和智慧使她能够欣赏艺术、音乐和诗歌。她宁愿花一个晚上听歌、跳舞、调情，然后去战斗或无意识地纵容自己。她知道即将到来的时期将是一个艰难的时期，并感到有责任为一个周期的结束做准备。"
+    },
+    {
+      "type": "image",
+      "title": "永恒的堕落",
+      "images": ["feywild:textures/patchouli_images/autumn_book.png"],
+      "border": true
+    },
+    {
+      "type": "text",
+      "text": "也许她们是最典型的精灵, 但是他们仍然会弄虚作假, 但他们对此更为低调.秋之精灵将保护人们不受任何邪灵的伤害，并将收获误入歧途的灵魂。 他们往往把自己伪装成过去的岁月。为了向他们致敬，也为了在进入下一个阶段之前给失去的灵魂一个美好的时光。"
+    }, {
+      "type": "image",
+      "title": "秋世界树",
+      "images": ["feywild:textures/patchouli_images/autumn_worldtree_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "秋世界树",
+      "text": "秋天的世界树很难找到, 因为这是这位灰白女士的家. 笔记:世界之树也有一个供你使用的祭坛。."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:tree_mushroom",
+      "title": "大蘑菇",
+      "text": "在永恒瀑布，你可以找到巨大的蘑菇。你可以把一个红色或棕色的蘑菇放在灰土上，然后和骨粉一起种植，这样你就可以种植自己的巨型蘑菇了. 这些蘑菇可以用剪刀剪掉. "
+    }
+  ]
+}

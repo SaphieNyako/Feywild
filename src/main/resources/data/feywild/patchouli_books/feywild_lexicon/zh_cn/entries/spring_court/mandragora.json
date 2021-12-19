@@ -1,0 +1,29 @@
+{
+  "name": "曼德拉草",
+  "icon": "feywild:mandrake_crop_seed",
+  "category": "spring_court",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:mandrake_crop_seed",
+      "title": "曼德拉",
+      "text": "曼德拉草似乎被一种狂热的精神所感动，他们通常是开朗开朗的乐观主义者，乐于大笑、嬉戏、享受生活和大自然。它们是从它们不那么迷人的亲戚——风茄上长出来的。"
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:melon_mandragora"
+    },
+    {
+      "type": "crafting",
+      "title": "蜂蜜饼干",
+      "recipe": "feywild:magical_honey_cookie"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:magical_honey_cookie",
+      "title": "曼德拉草",
+      "text": "通过喂它们最喜欢的食物，一种神奇的蜂蜜曲奇，它们会发芽成曼陀罗。曼陀罗会照顾好你的花园，她可爱的歌声甚至可以种庄稼。"
+    }
+  ]
+}

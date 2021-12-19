@@ -1,0 +1,48 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "矮人砧",
+  "icon": "feywild:dwarven_anvil",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "crafting",
+      "recipe": "feywild:dwarven_anvil",
+      "title": "矮人砧",
+      "text": "矮人不容易与外人交朋友，但如果你是少数几个赢得矮人感激的人之一，你就有了一个终生的朋友。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_dwarf_blacksmith",
+      "title": "传唤卷轴",
+      "text": "召唤契约可以通过与矮人交易获得（高达3级）。通过按住shift键并使用召唤卷轴右键单击矮人铁砧，可以将矮人绑定到该铁砧上。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:dwarven_anvil",
+      "title": "合成",
+      "text": "当你在铁砧中放置正确的配方时，召唤的矮人将为你制作工艺品。所以要确保铁砧上有一个侏儒。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "魔法",
+      "text": "你可以通过在铁砧的按钮左槽中放置铁尘作为燃料来补充铁砧的法力。大多数特殊配方都需要法力."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cake",
+      "title": "培养一个矮人",
+      "text": "被召唤的矮人将有不同的行业，然后在洞穴或铁匠发现。他们需要每天吃一顿饭来交换矿石。如果你给矮人提供足够的食物，他会以图表的形式向你提供他的知识"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "图纸",
+      "text": "大多数铁砧配方都需要图纸。您可以将图纸放置在砧座的左上角插槽中."
+    },
+    {
+      "type": "text",
+      "text": "因此，要使用矮人铁砧进行制造，请确保您有足够的法力，矮人应该绑定到铁砧上，并且您需要正确的示意图。放置所有物品后，矮人将开始为您制作！"
+    }
+  ]
+}

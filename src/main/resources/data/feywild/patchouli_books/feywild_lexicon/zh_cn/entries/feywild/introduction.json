@@ -1,0 +1,32 @@
+{
+  "name": "介绍",
+  "icon": "minecraft:writable_book",
+  "category": "feywild",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "晚上睡个好觉后，你有没有发现你的鞋子系在一起？你茶里的糖突然变成盐了？你有没有穿过森林，发誓你在眼角看到了什么，或者听到了孩子们的笑声？"
+    },
+    {
+      "type": "text",
+      "text": "别担心，你不会发疯的！这只是当地人向你展示他们以自己独特的方式关心你。精灵是恶作剧者，喜欢戏弄我们这些大人物s。大多数时候，它们是无害的，但就像我们一样，它们中间可能有一两个坏批。很难获得精灵的信任，因为他们看待世界的方式与我们不同。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:feywild_lexicon",
+      "text": "如果你想了解更多关于精灵的信息，你可能想参观一家图书馆，并与那里的一位图书管理员交谈。他们也有关于魔法的指导书，这取决于你给她带来了什么魔法。如果他不在场，就按门铃。"
+    },
+    {
+      "type": "image",
+      "title": "图书馆",
+      "images": ["feywild:textures/patchouli_images/library_book.png"],
+      "border": true
+    },
+    {
+      "type": "crafting",
+      "title": "四季精灵指南",
+      "recipe": "feywild:feywild_lexicon"
+    }
+  ]
+}

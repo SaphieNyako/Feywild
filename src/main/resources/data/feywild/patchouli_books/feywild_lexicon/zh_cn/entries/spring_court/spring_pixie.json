@@ -1,0 +1,51 @@
+{
+  "name": "春之精灵",
+  "icon": "feywild:summoning_scroll_spring_pixie",
+  "category": "spring_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "弹力十足，充满泡泡，完全没有个人空间的概念，春之精灵对待一切，就像他们以前从未见过一样。他们就像过度活跃的孩子，总是想知道一切有趣的东西，把任何看起来稍微可以吃的东西塞进嘴里，他们唯一关心的是一天没有足够的乐趣或食物。"
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:spring_pixie",
+      "offset": 0.4
+    },
+    {
+      "type": "text",
+      "text": "他们代表着新的一年的诞生和新生命的到来。然而，他们在恶作剧时是出了名的令人讨厌的，因为他们不知道自己行为的危险或后果。他们也不在乎."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "召唤",
+      "text": "当心，当你召唤一个小精灵时，你一定要去他们的阵营！这意味着其他阵营的精灵可能不愿意在事后与你互动。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "召唤",
+      "text": "还要注意的是，并不是所有的小精灵都是心地善良的人，他们可能会欺骗你！试着在你召唤了一个小精灵后与他们互动，如果可能的话，试着获得他们的信任."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
+      "title": "召唤春天精灵",
+      "text": "有了这个卷轴，你可以召唤一个春天的精灵。春天精灵的出现会让动物们彼此相爱。"
+    },
+    {
+      "type": "image",
+      "title": "Summoning Ingredients",
+      "images": ["feywild:textures/patchouli_images/spring_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "Companion",
+      "text": "The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again."
+    }
+  ]
+}

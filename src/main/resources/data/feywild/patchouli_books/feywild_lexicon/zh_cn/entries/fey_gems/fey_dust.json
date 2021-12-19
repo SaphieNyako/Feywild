@@ -1,0 +1,17 @@
+{
+  "name": "精灵尘",
+  "icon": "feywild:fey_dust",
+  "category": "fey_gems",
+  "pages": [
+    {
+      "type": "text",
+      "text": "当一只精灵进入下一个世界时，它们会留下少量精灵尘。打破精灵树也会给你带来精灵尘。精灵粉尘也可通过加热精灵矿石获得."
+    },
+    {
+      "type": "smelting",
+      "title": "精灵尘",
+      "recipe": "feywild:smelting/fey_dust",
+      "text": "有些人相信这种神奇的粉末会给洒在身上的人带来飞翔的力量。有一次，一个男孩吃了整整一堆，从此再也没有人看见他了。"
+    }
+  ]
+}

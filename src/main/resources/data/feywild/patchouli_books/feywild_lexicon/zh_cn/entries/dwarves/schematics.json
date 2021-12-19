@@ -1,0 +1,39 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "矮人知识",
+  "icon": "feywild:schematics_fey_altar",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "图纸",
+      "text": "如果你获得了召唤矮人并取得了他们的信任，他们可能会透露只有矮人知道的秘密。有些矮人把他们的秘密和最值钱的东西藏在矿井里."
+    },
+    {
+      "advancement": "feywild:feywild/schematics_gem_transmutation",
+      "type": "spotlight",
+      "item": "feywild:greater_fey_gem",
+      "title": "宝石转化",
+      "text": "有了宝石转化的知识，你可以轻松制作出高质量的精灵宝石."
+    },
+    {
+      "advancement": "feywild:feywild/schematics_gem_transmutation",
+      "type": "image",
+      "title": "宝石转化",
+      "images": ["feywild:textures/patchouli_images/schematics_gem_transmutation_book.png"],
+      "border": true,
+      "text": "矮人铁砧需要储存50-150法力."
+    },
+    {
+      "advancement": "feywild:feywild/schematics_gem_transmutation",
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "配方",
+      "text": "任何一种都需要5颗较小、5颗较大或5颗闪亮的精灵宝石才能转化为它们的高级版本。确保宝石转化图纸已经存在，矮人铁匠可以收到指示并开始制作。"
+    }, {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}

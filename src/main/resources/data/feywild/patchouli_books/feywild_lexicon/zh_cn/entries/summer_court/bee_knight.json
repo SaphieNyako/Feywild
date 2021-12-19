@@ -1,0 +1,44 @@
+{
+  "name": "蜜蜂骑士",
+  "icon": "feywild:honeycomb",
+  "category": "summer_court",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:honeycomb",
+      "title": "神圣的蜂蜜",
+      "text": "蜜蜂骑士在金色的田野巡逻，寻找任何试图偷走他们神圣蜂蜜的人。."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:bee_knight",
+      "scale": 0.8
+    },
+    {
+      "type": "image",
+      "title": "养蜂场",
+      "images": ["feywild:textures/patchouli_images/bee_keep_book.png"],
+      "border": true,
+      "text": "灵感来源于Kelpie的视频: https://www.youtube.com/watch?v=Cs-nHCvrOpg"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:display_glass",
+      "title": "养蜂场",
+      "text": "夏之森林里最好的蜂蜜是在养蜂场里酿制的。蜂巢由几个蜂骑士保护。神圣的蜂巢放在一个玻璃陈列柜里。通过快速左键点击屏幕，可以将其打破，这样它就会被打破，黄金宝藏就是你的了。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_bee_knight",
+      "title": "召唤蜜蜂骑士",
+      "text": "有了这个卷轴，你可以召唤一个蜜蜂骑士。蜜蜂骑士将保护该区域不受其他生物的影响."
+    },
+    {
+      "type": "image",
+      "title": "召唤配方",
+      "images": ["feywild:textures/patchouli_images/bee_knight_summon_book.png"],
+      "border": true
+    }
+  ]
+}
