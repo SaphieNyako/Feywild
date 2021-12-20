@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "side": "feywild:block/winter_tree_planks",
-    "end": "feywild:block/winter_tree_planks"
-  }
-}

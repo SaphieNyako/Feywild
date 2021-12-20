@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "side": "feywild:block/summer_tree_wood",
-    "end": "feywild:block/summer_tree_wood"
+    "all": "feywild:block/summer_tree_wood"
   }
 }

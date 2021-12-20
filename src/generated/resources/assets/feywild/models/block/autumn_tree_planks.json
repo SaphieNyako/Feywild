@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "side": "feywild:block/autumn_tree_planks",
-    "end": "feywild:block/autumn_tree_planks"
+    "all": "feywild:block/autumn_tree_planks"
   }
 }
