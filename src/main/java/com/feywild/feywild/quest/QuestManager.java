@@ -2,12 +2,14 @@ package com.feywild.feywild.quest;
 
 import com.feywild.feywild.util.DatapackHelper;
 import com.google.common.collect.ImmutableMap;
+import io.github.noeppi_noeppi.libx.datapack.DataLoader;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
@@ -32,7 +34,11 @@ public class QuestManager {
             protected void apply(@Nonnull Void value, @Nonnull ResourceManager rm, @Nonnull ProfilerFiller profiler) {
                 EnumMap<Alignment, QuestLine> lines = new EnumMap<>(Alignment.class);
                 for (Alignment alignment : Alignment.values()) {
-                    lines.put(alignment, new QuestLine(DatapackHelper.loadData(rm, "feywild_quests/" + alignment.id, Quest::fromJson)));
+                    try {
+                        lines.put(alignment, new QuestLine(DataLoader.loadJson(rm, "feywild_quests/" + alignment.id, Quest::fromJson)));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 questLines = Collections.unmodifiableMap(lines);
             }
