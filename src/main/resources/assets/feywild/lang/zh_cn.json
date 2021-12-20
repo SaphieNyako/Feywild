@@ -270,12 +270,12 @@
   "advancements.feywild.feywild.honeycomb.description": "获得了一个神奇的蜂巢。",
   "advancements.feywild.feywild.magical_honey_cookie.title": "亲爱的，我做了一块饼干！",
   "advancements.feywild.feywild.magical_honey_cookie.description": "得到一块神奇的蜂蜜饼干.",
-  "biome.feywild.blossoming_wealds": "花开织物",
-  "biome.feywild.eternal_fall": "永恒的堕落",
-  "biome.feywild.golden_seelie_fields": "金色西利田野",
-  "biome.feywild.frozen_retreat": "冻结撤退",
-  "biome.feywild.alfheim_spring": "亚尔夫海姆 开花织物",
-  "biome.feywild.alfheim_summer": "亚尔夫海姆 永恒的堕落",
-  "biome.feywild.alfheim_autumn": "亚尔夫海姆 金色西利田野",
-  "biome.feywild.alfheim_winter": "亚尔夫海姆 冻结撤退"
+  "biome.feywild.blossoming_wealds": "春之森林",
+  "biome.feywild.eternal_fall": "夏之森林",
+  "biome.feywild.golden_seelie_fields": "秋之森林",
+  "biome.feywild.frozen_retreat": "冬之森林",
+  "biome.feywild.alfheim_spring": "亚尔夫海姆 春之森林",
+  "biome.feywild.alfheim_summer": "亚尔夫海姆 夏之森林",
+  "biome.feywild.alfheim_autumn": "亚尔夫海姆 秋之森林",
+  "biome.feywild.alfheim_winter": "亚尔夫海姆 冬之森林"
 }
