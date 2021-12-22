@@ -23,8 +23,18 @@
     {
       "type": "spotlight",
       "item": "feywild:magical_honey_cookie",
-      "title": "Mandragora",
+      "title": "Summoning",
       "text": "By feeding a mandrake their favorite food, a magical honey cookie, they will sprout into a Mandragora. A Mandragora will take care of your garden, and her lovely singing voice might even grow crops."
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_mandragora_fey_altar"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_mandragora",
+      "title": "Summoning",
+      "text": "Sometimes harvest magic may prevent you from sumnmoning a Mandragora with a Honey Cookie, then try creating a Summoning Scroll."
     }
   ]
 }

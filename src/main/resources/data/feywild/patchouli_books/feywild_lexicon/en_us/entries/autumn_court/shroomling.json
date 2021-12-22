@@ -8,8 +8,12 @@
     {
       "type": "spotlight",
       "item": "feywild:summoning_scroll_shroomling",
-      "title": "Summoning Scroll Shroomling",
+      "title": "Summoning Scroll",
       "text": "With this scroll you can summon a Shroomling. The Shroomling has some allergies for spores and will sneeze at random times."
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_shroomling_fey_altar"
     },
     {
       "type": "entity",

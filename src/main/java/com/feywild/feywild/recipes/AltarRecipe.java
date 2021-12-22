@@ -53,6 +53,10 @@ public class AltarRecipe implements IAltarRecipe {
         return this.output.copy();
     }
 
+    public String getDescription() {
+        return this.output.getDescriptionId();
+    }
+
     @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {
