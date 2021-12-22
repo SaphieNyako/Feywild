@@ -1,0 +1,101 @@
+{
+  "processor": "com.feywild.feywild.patchouli.processor.DwarvenAnvilProcessor",
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "Ingredients",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "patchouli:image",
+      "image": "feywild:textures/gui/dwarven_anvil_patchouli.png",
+      "x": 21,
+      "y": 17,
+      "width": 92,
+      "height": 99,
+      "u": 0,
+      "v": 0
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Outcome:",
+      "x": 82,
+      "y": 108
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "framed": true,
+      "x": 92,
+      "y": 121
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#item1",
+      "framed": false,
+      "x": 37,
+      "y": 44
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#item2",
+      "framed": false,
+      "x": 58,
+      "y": 30
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#item3",
+      "framed": false,
+      "x": 83,
+      "y": 44
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#item4",
+      "framed": false,
+      "x": 73,
+      "y": 75
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#item5",
+      "framed": false,
+      "x": 47,
+      "y": 75
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Schematics:",
+      "x": 3,
+      "y": 20
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#schematic",
+      "framed": true,
+      "x": 5,
+      "y": 34
+    },
+    {
+      "type": "patchouli:item",
+      "item": "feywild:fey_dust",
+      "framed": true,
+      "x": 5,
+      "y": 103
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#mana",
+      "x": 5,
+      "y": 123
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Mana Required",
+      "x": 5,
+      "y": 131
+    }
+  ]
+}

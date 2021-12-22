@@ -1,6 +1,6 @@
 package com.feywild.feywild.patchouli.processor;
 
-import com.feywild.feywild.recipes.AltarRecipe;
+import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -11,30 +11,30 @@ import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
-import javax.annotation.Nonnull;
+public class DwarvenAnvilProcessor implements IComponentProcessor {
 
-public class FeyAltarProcessor implements IComponentProcessor {
-
-    AltarRecipe recipe;
+    DwarvenAnvilRecipe recipe;
 
     @Override
     public void setup(IVariableProvider iVariableProvider) {
-
         RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
         ResourceLocation id = new ResourceLocation(iVariableProvider.get("recipe").asString());
-        this.recipe = (AltarRecipe) manager.byKey(id).orElse(null);
+        this.recipe = (DwarvenAnvilRecipe) manager.byKey(id).orElse(null);
     }
 
     @Override
-    public IVariable process(@Nonnull String key) {
-
+    public IVariable process(String key) {
         if (recipe == null) {
             return null;
         }
         if (key.equals("description")) {
-
             return IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
-
+        }
+        if (key.equals("schematic")) {
+            return IVariable.from(this.recipe.getSchematics());
+        }
+        if (key.equals("mana")) {
+            return IVariable.wrap(this.recipe.getMana());
         }
         if (key.equals("output")) {
             return IVariable.from(this.recipe.getResultItem());
