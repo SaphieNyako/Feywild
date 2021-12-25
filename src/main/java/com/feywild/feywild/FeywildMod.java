@@ -1,6 +1,5 @@
 package com.feywild.feywild;
 
-import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.config.*;
@@ -30,7 +29,6 @@ import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
-import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
@@ -40,8 +38,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -134,17 +130,6 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-
-            AxeItem.STRIPPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPPABLES)
-                    .put(ModTrees.autumnTree.getLogBlock(), ModTrees.autumnTree.getStrippedLogBlock())
-                    .put(ModTrees.springTree.getLogBlock(), ModTrees.springTree.getStrippedLogBlock())
-                    .put(ModTrees.summerTree.getLogBlock(), ModTrees.summerTree.getStrippedLogBlock())
-                    .put(ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getStrippedLogBlock())
-                    .put(ModTrees.autumnTree.getWoodBlock(), ModTrees.autumnTree.getStrippedWoodBlock())
-                    .put(ModTrees.springTree.getWoodBlock(), ModTrees.springTree.getStrippedWoodBlock())
-                    .put(ModTrees.summerTree.getWoodBlock(), ModTrees.summerTree.getStrippedWoodBlock())
-                    .put(ModTrees.winterTree.getWoodBlock(), ModTrees.winterTree.getStrippedWoodBlock())
-                    .build();
 
             Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);
             ModBiomeGeneration.setupBiomes();

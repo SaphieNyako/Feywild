@@ -62,12 +62,12 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyPlankBlock plankBlock;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
-        this.woodBlock = new FeyWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.strippedWood = new FeyStrippedWoodBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
+        this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
         this.plankBlock = new FeyPlankBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
-        this.strippedLog = new FeyStrippedLogBlock(this.strippedWood, BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
+        this.strippedLog = new FeyStrippedLogBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
         this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
 
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
@@ -163,15 +163,21 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return this.leaves;
     }
 
-    public FeyStrippedLogBlock getStrippedLogBlock() {return this.strippedLog;}
+    public FeyStrippedLogBlock getStrippedLogBlock() {
+        return this.strippedLog;
+    }
 
-    public FeyPlankBlock getPlankBlock() {return this.plankBlock;}
+    public FeyPlankBlock getPlankBlock() {
+        return this.plankBlock;
+    }
 
     public Block getSapling() {
         return this.sapling;
     }
 
-    public FeyStrippedWoodBlock getStrippedWoodBlock() {return this.strippedWood;}
+    public FeyStrippedWoodBlock getStrippedWoodBlock() {
+        return this.strippedWood;
+    }
 
     protected int getLeavesRadius() {
         return LEAVES_RADIUS;
