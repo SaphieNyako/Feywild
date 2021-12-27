@@ -2,9 +2,9 @@ package com.feywild.feywild.trade;
 
 import com.feywild.feywild.trade.recipe.TradeRecipe;
 import com.feywild.feywild.trade.recipe.TradeRecipeManager;
+import com.feywild.feywild.util.DatapackHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import io.github.noeppi_noeppi.libx.datapack.DataLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -13,7 +13,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 
 import javax.annotation.Nonnull;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -53,11 +52,7 @@ public class TradeManager {
 
             @Override
             protected void apply(@Nonnull Void value, @Nonnull ResourceManager rm, @Nonnull ProfilerFiller profiler) {
-                try {
-                    trades = DataLoader.loadJson(rm, "feywild_trades", TradeData::fromJson);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                trades = DatapackHelper.loadData(rm, "feywild_trades", TradeData::fromJson);
                 cachedRecipes = null;
             }
         };
