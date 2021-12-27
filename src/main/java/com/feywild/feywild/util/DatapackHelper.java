@@ -1,7 +1,6 @@
 package com.feywild.feywild.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Streams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -19,8 +18,6 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
 public class DatapackHelper {
@@ -32,31 +29,6 @@ public class DatapackHelper {
         builder.setPrettyPrinting();
         return builder.create();
     }).get();
-    
-    public static <T> Map<ResourceLocation, T> loadData(ResourceManager rm, String path, BiFunction<ResourceLocation, JsonElement, T> factory) {
-        try {
-            ImmutableMap.Builder<ResourceLocation, T> map = ImmutableMap.builder();
-            Collection<ResourceLocation> ids = rm.listResources(path, file -> file.endsWith(".json"));
-            for (ResourceLocation id : ids) {
-                String realPath = id.getPath();
-                if (realPath.startsWith(path)) {
-                    realPath = realPath.substring(path.length());
-                    if (realPath.startsWith("/")) realPath = realPath.substring(1);
-                }
-                if (realPath.endsWith(".json")) {
-                    realPath = realPath.substring(0, realPath.length() - 5);
-                }
-                ResourceLocation realId = new ResourceLocation(id.getNamespace(), realPath);
-                Resource resource = rm.getResource(id);
-                Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
-                JsonElement json = GSON.fromJson(reader, JsonElement.class);
-                map.put(realId, factory.apply(realId, json));
-            }
-            return map.build();
-        } catch (IOException e) {
-            throw new JsonSyntaxException(e);
-        }
-    }
     
     public static List<ItemStack> loadStackList(ResourceManager rm, String path, String name) {
         try {
