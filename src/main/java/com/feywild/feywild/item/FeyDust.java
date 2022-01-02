@@ -31,8 +31,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class FeyDust extends ItemBase {
 
     private FoodProperties food;
@@ -67,6 +65,7 @@ public class FeyDust extends ItemBase {
         return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
 
+    @Nonnull
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof MagicalBrazierBlock) {

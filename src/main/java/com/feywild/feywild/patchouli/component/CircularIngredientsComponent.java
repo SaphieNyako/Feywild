@@ -7,7 +7,6 @@ import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 

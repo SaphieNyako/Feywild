@@ -23,13 +23,13 @@ public enum Alignment {
     }
     
     public static Alignment byId(String id) {
-        switch (id.toLowerCase(Locale.ROOT).trim()) {
-            case "spring": return SPRING;
-            case "summer": return SUMMER;
-            case "autumn": return AUTUMN;
-            case "winter": return WINTER;
-            default: throw new IllegalArgumentException("Invalid fey alignment: " + id);
-        }
+        return switch (id.toLowerCase(Locale.ROOT).trim()) {
+            case "spring" -> SPRING;
+            case "summer" -> SUMMER;
+            case "autumn" -> AUTUMN;
+            case "winter" -> WINTER;
+            default -> throw new IllegalArgumentException("Invalid fey alignment: " + id);
+        };
     }
     
     public static String optionId(@Nullable Alignment alignment) {

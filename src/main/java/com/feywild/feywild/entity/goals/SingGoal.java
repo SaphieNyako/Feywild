@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.FarmBlock;
 public class SingGoal extends Goal {
 
     protected final Level level;
-    protected Mandragora entity;
+    protected final Mandragora entity;
     private int ticksLeft = 0;
 
     public SingGoal(Mandragora mandragoraEntity) {

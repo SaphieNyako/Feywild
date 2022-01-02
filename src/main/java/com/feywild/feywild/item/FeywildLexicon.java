@@ -26,9 +26,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-// TODO patchouli
-import net.minecraft.world.item.Item.Properties;
-
 public class FeywildLexicon extends ItemBase {
 
     public FeywildLexicon(ModX mod, Properties properties) {

@@ -3,7 +3,7 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
-import com.feywild.feywild.block.trees.*;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.tag.ModBlockTags;

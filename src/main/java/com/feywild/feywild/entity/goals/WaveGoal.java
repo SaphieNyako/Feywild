@@ -13,7 +13,7 @@ import net.minecraft.world.phys.AABB;
 public class WaveGoal extends Goal {
 
     protected final Level level;
-    protected Shroomling entity;
+    protected final Shroomling entity;
     private int ticksLeft = 0;
     private Player target;
 

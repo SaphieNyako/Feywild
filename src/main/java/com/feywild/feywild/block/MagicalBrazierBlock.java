@@ -35,8 +35,6 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Consumer;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
 
     public static final BooleanProperty BRAZIER_LIT = BooleanProperty.create("brazier_lit");
@@ -105,7 +103,7 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {
+    public void animateTick(BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random random) {
         if (state.getValue(BRAZIER_LIT)) {
             if (random.nextInt(10) == 0) {
                 level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
@@ -113,7 +111,7 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
 
             if (state.getValue(BRAZIER_LIT) && random.nextInt(5) == 0) {
                 for (int i = 0; i < random.nextInt(1) + 1; ++i) {
-                    level.addParticle(ParticleTypes.LAVA, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, (double) (random.nextFloat() / 2.0F), 5.0E-5D, (double) (random.nextFloat() / 2.0F));
+                    level.addParticle(ParticleTypes.LAVA, (double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, random.nextFloat() / 2.0F, 5.0E-5D, random.nextFloat() / 2.0F);
                     level.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, true, (double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), (double) pos.getY() + random.nextDouble() + random.nextDouble() + 0.5D, (double) pos.getZ() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1), 0.0D, 0.07D, 0.0D);
                 }
             }

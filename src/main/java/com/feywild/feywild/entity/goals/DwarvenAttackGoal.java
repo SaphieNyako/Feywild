@@ -44,13 +44,8 @@ public class DwarvenAttackGoal extends Goal {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
                 if (this.sendShock) {
                     switch (this.ticksLeft) {
-                        case 4:
-                        case 8:
-                            this.summonShockWave(true);
-                            break;
-                        case 6:
-                            this.summonShockWave(false);
-                            break;
+                        case 4, 8 -> this.summonShockWave(true);
+                        case 6 -> this.summonShockWave(false);
                     }
                 }
             }

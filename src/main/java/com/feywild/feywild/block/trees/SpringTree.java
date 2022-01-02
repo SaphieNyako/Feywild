@@ -17,26 +17,17 @@ public class SpringTree extends BaseTree {
     }
 
     private static BlockState getDecorationBlock(Random random) {
-        switch (random.nextInt(10)) {
-            case 0:
-                return Blocks.RED_TULIP.defaultBlockState();
-            case 1:
-                return Blocks.DANDELION.defaultBlockState();
-            case 2:
-                return Blocks.ORANGE_TULIP.defaultBlockState();
-            case 3:
-                return Blocks.BLUE_ORCHID.defaultBlockState();
-            case 4:
-                return Blocks.ALLIUM.defaultBlockState();
-            case 5:
-                return Blocks.AZURE_BLUET.defaultBlockState();
-            case 6:
-                return Blocks.WHITE_TULIP.defaultBlockState();
-            case 7:
-                return Blocks.LILY_OF_THE_VALLEY.defaultBlockState();
-            default:
-                return Blocks.GRASS.defaultBlockState();
-        }
+        return switch (random.nextInt(10)) {
+            case 0 -> Blocks.RED_TULIP.defaultBlockState();
+            case 1 -> Blocks.DANDELION.defaultBlockState();
+            case 2 -> Blocks.ORANGE_TULIP.defaultBlockState();
+            case 3 -> Blocks.BLUE_ORCHID.defaultBlockState();
+            case 4 -> Blocks.ALLIUM.defaultBlockState();
+            case 5 -> Blocks.AZURE_BLUET.defaultBlockState();
+            case 6 -> Blocks.WHITE_TULIP.defaultBlockState();
+            case 7 -> Blocks.LILY_OF_THE_VALLEY.defaultBlockState();
+            default -> Blocks.GRASS.defaultBlockState();
+        };
     }
 
     @Override

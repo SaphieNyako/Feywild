@@ -25,7 +25,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public AltarRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 85, 85);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.feyAltar));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.feyAltar));
     }
 
     @Nonnull

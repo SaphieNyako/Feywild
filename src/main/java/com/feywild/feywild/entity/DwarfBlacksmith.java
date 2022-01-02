@@ -6,7 +6,6 @@ import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
 import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.RefreshStockGoal;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -43,8 +42,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
-
-import net.minecraft.world.entity.Entity.RemovalReason;
 
 public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     

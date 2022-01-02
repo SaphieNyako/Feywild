@@ -20,7 +20,6 @@ import net.minecraftforge.fml.ModList;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class QuestData {
 

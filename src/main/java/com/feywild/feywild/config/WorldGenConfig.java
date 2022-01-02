@@ -6,8 +6,6 @@ import com.feywild.feywild.config.data.StructureData;
 import com.feywild.feywild.config.validator.StructureCfg;
 import io.github.noeppi_noeppi.libx.config.Config;
 import io.github.noeppi_noeppi.libx.config.Group;
-import io.github.noeppi_noeppi.libx.config.validator.FloatRange;
-import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 
 public class WorldGenConfig {
 

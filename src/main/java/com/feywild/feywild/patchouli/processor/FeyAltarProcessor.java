@@ -4,8 +4,6 @@ import com.feywild.feywild.patchouli.PatchouliUtils;
 import com.feywild.feywild.recipes.AltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;

@@ -2,10 +2,8 @@ package com.feywild.feywild.world.biome.biomes;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.StructureFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.entity.EntityType;

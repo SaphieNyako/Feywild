@@ -3,7 +3,6 @@ package com.feywild.feywild.world.dimension.market;
 import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.SimpleTeleporter;
-import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;

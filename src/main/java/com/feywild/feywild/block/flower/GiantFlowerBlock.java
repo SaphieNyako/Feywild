@@ -35,8 +35,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public abstract class GiantFlowerBlock extends Block implements Registerable {
 
     public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);

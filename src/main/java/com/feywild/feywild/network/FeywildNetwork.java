@@ -9,8 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 
-import io.github.noeppi_noeppi.libx.network.NetworkX.Protocol;
-
 public class FeywildNetwork extends NetworkX {
 
     public FeywildNetwork(ModX mod) {

@@ -35,7 +35,7 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
 
     public DwarvenAnvilRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 156, 69);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.dwarvenAnvil));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.dwarvenAnvil));
         this.manaOverlay = helper.createDrawable(TEXTURE, 156, 0, 13, 66);
     }
 

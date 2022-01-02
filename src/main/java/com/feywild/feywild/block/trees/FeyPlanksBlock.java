@@ -7,8 +7,6 @@ import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class FeyPlanksBlock extends DecoratedBlock {
 
     public static final DecorationContext DECORATION = new DecorationContext("fey_planks", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB, DecorationType.STAIR, DecorationType.WOOD_BUTTON, DecorationType.WOOD_PRESSURE_PLATE);

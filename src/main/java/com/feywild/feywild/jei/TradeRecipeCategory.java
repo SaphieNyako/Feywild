@@ -32,7 +32,7 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
 
     public TradeRecipeCategory(IGuiHelper helper) {
         this.background = helper.createBlankDrawable(178, 192);
-        this.icon = helper.createDrawableIngredient(new ItemStack(ModItems.marketRuneStone));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModItems.marketRuneStone));
         this.slot = helper.getSlotDrawable();
         this.rightArrow = helper.createDrawable(new ResourceLocation("minecraft", "textures/gui/container/furnace.png"), 176, 14, 24, 16);
     }

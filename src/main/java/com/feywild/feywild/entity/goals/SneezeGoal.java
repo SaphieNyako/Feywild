@@ -24,7 +24,7 @@ public class SneezeGoal extends Goal {
     private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(4).ignoreLineOfSight();
 
     protected final Level level;
-    protected Shroomling entity;
+    protected final Shroomling entity;
     private int ticksLeft = 0;
     private Animal targetAnimal;
 
