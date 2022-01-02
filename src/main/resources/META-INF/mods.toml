@@ -58,7 +58,6 @@ description="Feywild Mod"
     ordering="NONE"
     side="BOTH"
 
-# TODO patchouli
 [[dependencies.feywild]]
     modId="patchouli"
     mandatory=true
