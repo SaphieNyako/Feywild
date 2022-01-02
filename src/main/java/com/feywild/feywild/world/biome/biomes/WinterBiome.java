@@ -64,8 +64,6 @@ public class WinterBiome implements BiomeType {
         builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH);
         builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VillagePlacements.PILE_SNOW_VILLAGE);
         
-        // TODO is this a structure now?
-        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FOSSIL);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
 
         BiomeDefaultFeatures.addDefaultGrass(builder);
@@ -73,7 +71,7 @@ public class WinterBiome implements BiomeType {
         BiomeDefaultFeatures.addIcebergs(builder);
         
         // TODO structures
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
+//        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
     }
 
     @Override
@@ -86,6 +84,6 @@ public class WinterBiome implements BiomeType {
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         // TODO structures
-        builder.addStructureStart(StructureFeatures.IGLOO);
+//        builder.addStructureStart(StructureFeatures.IGLOO);
     }
 }

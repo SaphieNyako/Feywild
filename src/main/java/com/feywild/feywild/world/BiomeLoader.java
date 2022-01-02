@@ -11,7 +11,6 @@ import com.feywild.feywild.config.data.CommonSpawns;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.feature.ModPlacements;
 import com.feywild.feywild.world.gen.OreType;
-import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -195,8 +194,8 @@ public class BiomeLoader {
         if (!types.contains(BiomeDictionary.Type.OCEAN) && types.contains(BiomeDictionary.Type.OVERWORLD)) {
             if (types.contains(BiomeDictionary.Type.PLAINS)) {
                 // TODO structures
-                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
-                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_LIBRARY);
+//                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
+//                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_LIBRARY);
             }
         }
     }

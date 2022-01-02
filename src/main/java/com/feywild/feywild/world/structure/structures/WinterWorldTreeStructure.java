@@ -4,24 +4,25 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.config.data.StructureData;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
+import java.util.Collections;
 import java.util.List;
 
 public class WinterWorldTreeStructure extends BaseStructure {
-    
+
     private static final List<MobSpawnSettings.SpawnerData> STRUCTURE_CREATURES = ImmutableList.of(
             new MobSpawnSettings.SpawnerData(ModEntityTypes.winterPixie, 100, 4, 4)
     );
 
+    public WinterWorldTreeStructure() {
+        super("winter_world_tree/start_pool");
+    }
+    
     @Override
     public StructureData getStructureData() {
         return WorldGenConfig.structures.winter_world_tree;
-    }
-
-    @Override
-    public String getStructureId() {
-        return "winter_world_tree/start_pool";
     }
 
     @Override
@@ -30,7 +31,7 @@ public class WinterWorldTreeStructure extends BaseStructure {
     }
 
     @Override
-    public List<MobSpawnSettings.SpawnerData> getDefaultCreatureSpawnList() {
-        return STRUCTURE_CREATURES;
+    public List<MobSpawnSettings.SpawnerData> getDefaultSpawnList(MobCategory category) {
+        return category == MobCategory.CREATURE ? STRUCTURE_CREATURES : Collections.emptyList();
     }
 }

@@ -69,6 +69,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
 
     // Same as handleDataMarker but will get the template manager
     public void handleCustomDataMarker(StructureManager templates, StructureFeatureManager structures, WorldGenLevel level, StructureTemplate.StructureBlockInfo block, BlockPos pos, Rotation rot, Random random, BoundingBox box) {
+        //noinspection ConstantConditions
         String data = block.nbt == null ? "" : block.nbt.getString("metadata");
         // Replace structure block in all cases
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);

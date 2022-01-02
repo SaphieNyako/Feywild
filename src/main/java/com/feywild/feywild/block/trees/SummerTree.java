@@ -31,13 +31,6 @@ public class SummerTree extends BaseTree {
     }
 
     @Override
-    protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
-        return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
-                Features.Decorators.BEEHIVE_005
-        ));
-    }
-
-    @Override
     public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, Random random) {
         if (Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));

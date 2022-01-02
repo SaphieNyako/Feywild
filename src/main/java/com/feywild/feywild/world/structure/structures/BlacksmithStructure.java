@@ -5,14 +5,13 @@ import com.feywild.feywild.config.data.StructureData;
 
 public class BlacksmithStructure extends BaseStructure {
 
+    public BlacksmithStructure() {
+        super("blacksmith/start_pool");
+    }
+    
     @Override
     public StructureData getStructureData() {
         return WorldGenConfig.structures.blacksmith;
-    }
-
-    @Override
-    public String getStructureId() {
-        return "blacksmith/start_pool";
     }
 
     @Override

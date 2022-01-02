@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @RegisterClass
 public class ModStructures {
-    
+
     public static final BaseStructure springWorldTree = new SpringWorldTreeStructure();
     public static final BaseStructure summerWorldTree = new SummerWorldTreeStructure();
     public static final BaseStructure autumnWorldTree = new AutumnWorldTreeStructure();
@@ -37,7 +37,7 @@ public class ModStructures {
     //Checks rarity of structure and determines if land conforms to it
     public static void setupMapSpacingAndLand(BaseStructure structure, boolean transformSurroundingLand) {
         StructureFeatureConfiguration separationSettings = structure.getSettings();
-        
+
         //add our structures into the map in Structure class
         StructureFeature.STRUCTURES_REGISTRY.put(Objects.requireNonNull(structure.getRegistryName()).toString(), structure);  //Might return Null
 

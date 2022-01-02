@@ -4,8 +4,10 @@ import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.config.data.StructureData;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
+import java.util.Collections;
 import java.util.List;
 
 public class BeekeepStructure extends BaseStructure {
@@ -14,14 +16,13 @@ public class BeekeepStructure extends BaseStructure {
             new MobSpawnSettings.SpawnerData(ModEntityTypes.beeKnight, 1, 1, 1)
     );
 
-    @Override
-    public StructureData getStructureData() {
-        return WorldGenConfig.structures.bee_keep;
+    public BeekeepStructure() {
+        super("beekeep/start_pool");
     }
 
     @Override
-    public String getStructureId() {
-        return "beekeep/start_pool";
+    public StructureData getStructureData() {
+        return WorldGenConfig.structures.bee_keep;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class BeekeepStructure extends BaseStructure {
     }
 
     @Override
-    public List<MobSpawnSettings.SpawnerData> getDefaultCreatureSpawnList() {
-        return STRUCTURE_CREATURES;
+    public List<MobSpawnSettings.SpawnerData> getDefaultSpawnList(MobCategory category) {
+        return category == MobCategory.CREATURE ? STRUCTURE_CREATURES : Collections.emptyList();
     }
 }

@@ -67,8 +67,8 @@ public class SummerBiome implements BiomeType {
         BiomeDefaultFeatures.addExtraGold(builder);
         
         // TODO structures
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
-        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
+//        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
+//        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);
     }
 
     @Override
@@ -80,6 +80,6 @@ public class SummerBiome implements BiomeType {
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
         // TODO structures
-        builder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
+//        builder.addStructureStart(StructureFeatures.PILLAGER_OUTPOST);
     }
 }

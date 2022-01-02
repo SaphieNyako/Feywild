@@ -1,6 +1,5 @@
 package com.feywild.feywild.data.recipe;
 
-import com.feywild.feywild.data.DataUtils;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.google.gson.JsonArray;

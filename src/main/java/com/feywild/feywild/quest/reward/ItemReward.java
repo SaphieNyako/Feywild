@@ -1,6 +1,5 @@
 package com.feywild.feywild.quest.reward;
 
-import com.feywild.feywild.data.DataUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
