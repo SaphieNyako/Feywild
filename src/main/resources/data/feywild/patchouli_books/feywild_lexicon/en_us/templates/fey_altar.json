@@ -25,39 +25,11 @@
       "y": 54
     },
     {
-      "type": "patchouli:item",
-      "item": "#item1",
-      "framed": false,
+      "type": "patchouli:custom",
+      "class": "com.feywild.feywild.patchouli.component.CircularIngredientsComponent",
       "x": 20,
-      "y": 44
-    },
-    {
-      "type": "patchouli:item",
-      "item": "#item2",
-      "framed": false,
-      "x": 53,
-      "y": 20
-    },
-    {
-      "type": "patchouli:item",
-      "item": "#item3",
-      "framed": false,
-      "x": 83,
-      "y": 44
-    },
-    {
-      "type": "patchouli:item",
-      "item": "#item4",
-      "framed": false,
-      "x": 72,
-      "y": 83
-    },
-    {
-      "type": "patchouli:item",
-      "item": "#item5",
-      "framed": false,
-      "x": 33,
-      "y": 83
+      "y": 20,
+      "items": "#inputs"
     }
   ]
 }

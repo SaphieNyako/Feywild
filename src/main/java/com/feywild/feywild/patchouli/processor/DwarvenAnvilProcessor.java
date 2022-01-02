@@ -1,54 +1,49 @@
 package com.feywild.feywild.patchouli.processor;
 
+import com.feywild.feywild.patchouli.PatchouliUtils;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
-import net.minecraft.client.Minecraft;
+import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class DwarvenAnvilProcessor implements IComponentProcessor {
 
-    DwarvenAnvilRecipe recipe;
+    @Nullable
+    private DwarvenAnvilRecipe recipe;
 
     @Override
-    public void setup(IVariableProvider iVariableProvider) {
-        RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-        ResourceLocation id = new ResourceLocation(iVariableProvider.get("recipe").asString());
-        this.recipe = (DwarvenAnvilRecipe) manager.byKey(id).orElse(null);
+    public void setup(IVariableProvider vars) {
+        this.recipe = PatchouliUtils.getRecipe(DwarvenAnvilRecipe.class, ModRecipeTypes.DWARVEN_ANVIL, vars.get("recipe").asString());
     }
 
     @Override
-    public IVariable process(String key) {
-        if (recipe == null) {
-            return null;
-        }
-        if (key.equals("description")) {
-            return IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
-        }
-        if (key.equals("schematic")) {
-            return IVariable.from(this.recipe.getSchematics());
-        }
-        if (key.equals("mana")) {
-            return IVariable.wrap(this.recipe.getMana());
-        }
-        if (key.equals("output")) {
-            return IVariable.from(this.recipe.getResultItem());
-        }
-        if (key.startsWith("item")) {
-
-            int indexNumber = Integer.parseInt(key.substring(4)) - 1;
-
-            Ingredient ingredient = this.recipe.getIngredients().get(indexNumber);
-            ItemStack[] stacks = ingredient.getItems();
-            ItemStack stack = stacks.length == 0 ? ItemStack.EMPTY : stacks[0];
-            return IVariable.from(stack);
-        }
-
-        return null;
+    public IVariable process(@Nonnull String key) {
+        if (recipe == null) return null;
+        return switch (key) {
+            case "description" -> IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
+            case "schematic" -> IVariable.from(this.recipe.getSchematics());
+            case "mana" -> IVariable.wrap(this.recipe.getMana());
+            case "output" -> IVariable.from(this.recipe.getResultItem());
+            case "item0" -> IVariable.from(this.getInput(0).getItems());
+            case "item1" -> IVariable.from(this.getInput(1).getItems());
+            case "item2" -> IVariable.from(this.getInput(2).getItems());
+            case "item3" -> IVariable.from(this.getInput(3).getItems());
+            case "item4" -> IVariable.from(this.getInput(4).getItems());
+            default -> null;
+        };
+    }
+    
+    private Ingredient getInput(int idx) {
+        if (this.recipe == null) return Ingredient.EMPTY;
+        List<Ingredient> list = this.recipe.getInputs();
+        if (idx < 0 || idx >= list.size()) return Ingredient.EMPTY;
+        return list.get(idx);
     }
 }

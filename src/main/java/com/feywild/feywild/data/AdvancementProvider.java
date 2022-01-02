@@ -26,7 +26,6 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
     @Override
     public void setup() {
-
         this.root()
                 .display(ModItems.feywildLexicon)
                 .background(new ResourceLocation("minecraft", "textures/gui/advancements/backgrounds/adventure.png"))

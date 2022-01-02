@@ -1,54 +1,36 @@
 package com.feywild.feywild.patchouli.processor;
 
+import com.feywild.feywild.patchouli.PatchouliUtils;
 import com.feywild.feywild.recipes.AltarRecipe;
-import net.minecraft.client.Minecraft;
+import com.feywild.feywild.recipes.ModRecipeTypes;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeManager;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class FeyAltarProcessor implements IComponentProcessor {
 
-    AltarRecipe recipe;
+    @Nullable
+    private AltarRecipe recipe;
 
     @Override
-    public void setup(IVariableProvider iVariableProvider) {
-
-        RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-        ResourceLocation id = new ResourceLocation(iVariableProvider.get("recipe").asString());
-        this.recipe = (AltarRecipe) manager.byKey(id).orElse(null);
+    public void setup(@Nonnull IVariableProvider vars) {
+        this.recipe = PatchouliUtils.getRecipe(AltarRecipe.class, ModRecipeTypes.ALTAR, vars.get("recipe").asString());
     }
 
     @Override
     public IVariable process(@Nonnull String key) {
-
-        if (recipe == null) {
-            return null;
-        }
-        if (key.equals("description")) {
-
-            return IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
-
-        }
-        if (key.equals("output")) {
-            return IVariable.from(this.recipe.getResultItem());
-        }
-        if (key.startsWith("item")) {
-
-            int indexNumber = Integer.parseInt(key.substring(4)) - 1;
-
-            Ingredient ingredient = this.recipe.getIngredients().get(indexNumber);
-            ItemStack[] stacks = ingredient.getItems();
-            ItemStack stack = stacks.length == 0 ? ItemStack.EMPTY : stacks[0];
-            return IVariable.from(stack);
-        }
-
-        return null;
+        if (recipe == null) return null;
+        return switch (key) {
+            case "description" -> IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
+            case "output" -> IVariable.from(this.recipe.getResultItem());
+            case "inputs" -> IVariable.wrapList(this.recipe.getIngredients().stream().map(IVariable::from).toList());
+            default -> null;
+        };
     }
 }
