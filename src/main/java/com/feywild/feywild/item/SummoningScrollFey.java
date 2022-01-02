@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.Shroomling;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.quest.player.QuestData;
@@ -38,8 +39,8 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
-        if(player instanceof ServerPlayer){
-            return QuestData.get((ServerPlayer) player).getAlignment() ==entity.alignment ||  (QuestData.get((ServerPlayer) player).getAlignment() == null && entity instanceof Fey);
+        if (player instanceof ServerPlayer serverPlayer) {
+            return QuestData.get(serverPlayer).getAlignment() == entity.alignment || (QuestData.get(serverPlayer).getAlignment() == null && entity instanceof Fey);
         }
 
         return false;
@@ -55,6 +56,11 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
         if (entity instanceof Fey) {
             ((Fey) entity).setTamed(true);
             entity.setCurrentTargetPos((BlockPos) null);
+        }
+        if (entity instanceof Shroomling) {
+            ((Shroomling) entity).setTamed(true);
+            entity.setCurrentTargetPos((BlockPos) null);
+            //TODO needs rework in 1.18
         }
     }
 

@@ -12,8 +12,9 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -32,16 +33,15 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     public final Alignment alignment;
 
     private final AnimationFactory factory = new AnimationFactory(this);
-
+    public Vec3 summonPos = null;
     @Nullable
     protected UUID owner;
-    public Vec3 summonPos = null;
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
         super(entityType, level);
         this.alignment = alignment;
         this.noCulling = true;
-        this.moveControl = new FlyingMoveControl(this, 4, true);
+
     }
 
     @Nullable
@@ -93,7 +93,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-        if (level.isClientSide && getParticle()!= null && random.nextInt(11) == 0) {
+        if (level.isClientSide && getParticle() != null && random.nextInt(11) == 0) {
             level.addParticle(
                     this.getParticle(),
                     this.getX() + (Math.random() - 0.5),
@@ -101,7 +101,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        }else if(this.tickCount % (8*20) == 0 && !level.isClientSide && getOwner()!=null) {
+        } else if (this.tickCount % (8 * 20) == 0 && !level.isClientSide && getOwner() != null) {
             if (QuestData.get((ServerPlayer) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayer) getOwner()).getAlignment() != null) {
                 getOwner().sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
                 remove(RemovalReason.DISCARDED);

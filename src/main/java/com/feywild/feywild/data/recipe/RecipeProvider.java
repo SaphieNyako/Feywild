@@ -43,6 +43,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         shaped(ModItems.magicalHoneyCookie, " a ", "wbw", " a ", 'a', ModItems.honeycomb, 'b', Items.COCOA_BEANS, 'w', Items.WHEAT);
         //  shapeless(ModItems.feywildLexicon, Items.BOOK, ModItems.feyDust);
         shaped(ModBlocks.feyAltar, "fpf", "pdp", "ggg", 'f', ModItems.feyDust, 'p', Tags.Items.INGOTS_IRON, 'd', ModItems.brilliantFeyGem, 'g', Tags.Items.NUGGETS_GOLD);
+        shaped(ModBlocks.magicalBrazier, "lbl", "xsx", "gxg", 'l', ModItems.lesserFeyGem, 'b', Items.BOOK, 'x', Items.IRON_INGOT, 's', ModItems.shinyFeyGem, 'g', Items.GOLD_NUGGET);
 
         smelting(ModItems.lesserFeyGem, ModItems.feyDust, 0.1f, 100);
 
@@ -95,6 +96,22 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.honeycomb)
                 .requires(Blocks.BEE_NEST)
                 .requires(Items.LEAD)
+                .requires(ModItems.summoningScroll)
+                .build();
+
+        this.altar(ModItems.summoningScrollMandragora)
+                .requires(ModItems.magicalHoneyCookie)
+                .requires(ModItems.mandrake)
+                .requires(Blocks.BIG_DRIPLEAF)
+                .requires(Blocks.NOTE_BLOCK)
+                .requires(ModItems.summoningScroll)
+                .build();
+
+        this.altar(ModItems.summoningScrollShroomling)
+                .requires(Blocks.RED_MUSHROOM_BLOCK)
+                .requires(Blocks.MUSHROOM_STEM)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Blocks.COMPOSTER)
                 .requires(ModItems.summoningScroll)
                 .build();
 

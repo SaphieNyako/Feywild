@@ -39,4 +39,5 @@ public class ModBlocks {
 
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
 
+    public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
 }

@@ -40,16 +40,14 @@ import java.util.stream.IntStream;
 public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimatable {
 
     public static final int MAX_PROGRESS = 40;
-    
+
     private final BaseItemStackHandler inventory;
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;
+    private final AnimationFactory animationFactory = new AnimationFactory(this);
     private int progress = 0;
     private int particleTimer = 0;
-    
     private boolean needsUpdate = false;
     private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;
-
-    private final AnimationFactory animationFactory = new AnimationFactory(this);
 
     public FeyAltar(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -134,7 +132,7 @@ public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimata
             }
         }
     }
-    
+
     private void updabeRecipe() {
         if (this.level != null && !this.level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {
