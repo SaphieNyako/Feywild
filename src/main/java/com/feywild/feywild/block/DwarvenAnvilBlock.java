@@ -3,7 +3,7 @@ package com.feywild.feywild.block;
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.menu.DwarvenAnvilMenu;
 import com.feywild.feywild.screens.DwarvenAnvilScreen;
-import io.github.noeppi_noeppi.libx.base.tile.BlockMenu;
+import io.github.noeppi_noeppi.libx.base.tile.MenuBlockBE;
 import io.github.noeppi_noeppi.libx.block.RotationShape;
 import io.github.noeppi_noeppi.libx.menu.BlockEntityMenu;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class DwarvenAnvilBlock extends BlockMenu<DwarvenAnvil, DwarvenAnvilMenu> {
+public class DwarvenAnvilBlock extends MenuBlockBE<DwarvenAnvil, DwarvenAnvilMenu> {
 
     public static final RotationShape SHAPE = new RotationShape(
             box(-0.375, 0.0625, 3.875, 16.625, 10.25, 12.6875)

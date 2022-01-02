@@ -18,6 +18,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatur
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.level.levelgen.feature.StructureFeature.StructureStartFactory;
+
 public abstract class BaseStructure extends StructureFeature<NoneFeatureConfiguration> {
 
     public BaseStructure() {

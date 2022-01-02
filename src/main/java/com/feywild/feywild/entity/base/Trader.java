@@ -2,6 +2,7 @@ package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.trade.TradeManager;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,7 +15,6 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -77,7 +77,7 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.TOOLSMITH, nbt.contains("VillagerLevel") ? nbt.getInt("VillagerLevel") : 1);
-        if (nbt.contains("VillagerXp", Constants.NBT.TAG_ANY_NUMERIC)) {
+        if (nbt.contains("VillagerXp", Tag.TAG_ANY_NUMERIC)) {
             this.villagerXp = nbt.getInt("VillagerXp");
         }
         this.lastRestockGameTime = nbt.getLong("LastRestock");

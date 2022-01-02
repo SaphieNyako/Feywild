@@ -4,8 +4,8 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.player.QuestData;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Supplier;
 

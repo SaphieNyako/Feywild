@@ -11,6 +11,8 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class Mandrake extends TooltipItem {
 
     public Mandrake(ModX mod, Properties properties) {

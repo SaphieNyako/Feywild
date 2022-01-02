@@ -26,10 +26,10 @@ public class FeywildMenuMusic {
     private static void handleSoundReplace(SoundEvent sound, PlaySoundEvent event) {
         if (currentFeywildMenuMusic != null && sound.getLocation().equals(currentFeywildMenuMusic.getLocation())
                 && Minecraft.getInstance().getSoundManager().isActive(currentFeywildMenuMusic)) {
-            event.setResultSound(null);
+            event.setSound(null);
         } else {
             currentFeywildMenuMusic = SoundUtil.copySound(sound, event.getSound(), SimpleSoundInstance::forMusic);
-            event.setResultSound(currentFeywildMenuMusic);
+            event.setSound(currentFeywildMenuMusic);
         }
     }
 }

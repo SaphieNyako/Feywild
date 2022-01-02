@@ -2,7 +2,7 @@ package com.feywild.feywild.network;
 
 import com.feywild.feywild.screens.OpeningScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 

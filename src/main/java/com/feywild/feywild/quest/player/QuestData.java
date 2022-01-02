@@ -10,12 +10,12 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.ModList;
 
 import javax.annotation.Nullable;
@@ -144,7 +144,7 @@ public class QuestData {
         QuestLine quests = this.getQuestLine();
         if (quests != null && this.player != null) {
             ImmutableList.Builder<SelectableQuest> list = ImmutableList.builder();
-            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).collect(Collectors.toList())) {
+            for (QuestProgress progress : this.activeQuests.values().stream().sorted(Comparator.comparing(q -> q.quest)).toList()) {
                 Quest quest = quests.getQuest(progress.quest);
                 if (quest != null) {
                     list.add(new SelectableQuest(quest.id, quest.icon, quest.start));
@@ -316,13 +316,13 @@ public class QuestData {
     public void read(CompoundTag nbt) {
         this.alignment = Alignment.byOptionId(nbt.getString("Alignment"));
         this.reputation = nbt.getInt("Reputation");
-        ListTag pending = nbt.getList("Pending", Constants.NBT.TAG_STRING);
+        ListTag pending = nbt.getList("Pending", Tag.TAG_STRING);
         this.pendingCompletion.clear();
         for (int i = 0; i < pending.size(); i++) {
             ResourceLocation id = ResourceLocation.tryParse(pending.getString(i));
             if (id != null) this.pendingCompletion.add(id);
         }
-        ListTag completed = nbt.getList("Completed", Constants.NBT.TAG_STRING);
+        ListTag completed = nbt.getList("Completed", Tag.TAG_STRING);
         this.completedQuests.clear();
         for (int i = 0; i < completed.size(); i++) {
             ResourceLocation id = ResourceLocation.tryParse(completed.getString(i));

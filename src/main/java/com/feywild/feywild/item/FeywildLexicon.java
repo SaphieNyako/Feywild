@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Objects;
 
 // TODO patchouli
+import net.minecraft.world.item.Item.Properties;
+
 public class FeywildLexicon extends ItemBase {
 
     public FeywildLexicon(ModX mod, Properties properties) {

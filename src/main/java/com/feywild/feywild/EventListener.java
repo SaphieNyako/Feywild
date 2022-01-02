@@ -16,7 +16,6 @@ import com.feywild.feywild.util.FeywildTitleScreen;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.dimension.market.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
-import io.github.noeppi_noeppi.libx.event.DataPacksReloadedEvent;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
@@ -31,15 +30,16 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.ScreenOpenEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -71,7 +71,7 @@ public class EventListener {
             player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
             for (CompletableTaskInfo<StructureFeature<?>, StructureFeature<?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
-                if (player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), true, task.getValue()).isValid()) {
+                if (player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), task.getValue()).isValid()) {
                     task.checkComplete(task.getValue());
                 }
             }
@@ -115,9 +115,9 @@ public class EventListener {
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public void openGui(GuiOpenEvent event) {
-        if (ClientConfig.replace_menu && event.getGui() instanceof TitleScreen && !(event.getGui() instanceof FeywildTitleScreen)) {
-            event.setGui(new FeywildTitleScreen());
+    public void openGui(ScreenOpenEvent event) {
+        if (ClientConfig.replace_menu && event.getScreen() instanceof TitleScreen && !(event.getScreen() instanceof FeywildTitleScreen)) {
+            event.setScreen(new FeywildTitleScreen());
         }
     }
 
@@ -146,8 +146,12 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void afterReload(DataPacksReloadedEvent event) {
-        FeywildMod.getNetwork().channel.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
+    public void afterReload(OnDatapackSyncEvent event) {
+        if (event.getPlayer() == null) {
+            FeywildMod.getNetwork().channel.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
+        } else {
+            FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(event::getPlayer), new TradesSerializer.Message(TradeManager.buildRecipes()));
+        }
     }
 
     /* LOOTTABLES */

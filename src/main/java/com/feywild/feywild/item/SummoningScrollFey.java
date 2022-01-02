@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
 
     public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {

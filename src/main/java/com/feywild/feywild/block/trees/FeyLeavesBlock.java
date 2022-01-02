@@ -134,7 +134,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
         int distance = getDistance(facingState) + 1;
         if (distance != 1 || state.getValue(DISTANCE) != distance) {
-            level.getBlockTicks().scheduleTick(pos, this, 1);
+            level.scheduleTick(pos, this, 1);
         }
         return state;
     }

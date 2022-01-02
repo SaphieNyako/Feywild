@@ -13,6 +13,8 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class MarketRuneStone extends TooltipItem {
 
     public MarketRuneStone(ModX mod, Properties prop) {

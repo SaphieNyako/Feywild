@@ -2,7 +2,7 @@ package com.feywild.feywild.network;
 
 import com.feywild.feywild.jei.util.FeywildJeiReloader;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 

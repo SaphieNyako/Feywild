@@ -28,6 +28,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public abstract class FeyBase extends PathfinderMob implements IAnimatable {
 
     public final Alignment alignment;

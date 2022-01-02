@@ -42,6 +42,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
