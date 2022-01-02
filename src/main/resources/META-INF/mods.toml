@@ -1,37 +1,39 @@
 modLoader="javafml"
 loaderVersion="[39,)"
-license="MIT License
+license="""
+MIT License
 
-         Copyright (c) 2021 SaphieNyako
+Copyright (c) 2021 SaphieNyako
 
-         Permission is hereby granted, free of charge, to any person obtaining a copy
-         of this software and associated documentation files (the \"Software\"), to deal
-         in the Software without restriction, including without limitation the rights
-         to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-         copies of the Software, and to permit persons to whom the Software is
-         furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-         The above copyright notice and this permission notice shall be included in all
-         copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-         THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-         IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-         FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-         AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-         SOFTWARE.
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-         Feywild is eligible to use the ‘Four Seasons theme’ (as well as all alterations of this piece of music) on the ‘Feywild mod’ the Feywild Minecraft server and all promotional media related to this.
+Feywild is eligible to use the ‘Four Seasons theme’ (as well as all alterations of this piece of music) on the ‘Feywild mod’ the Feywild Minecraft server and all promotional media related to this.
 
-         The registered name of this piece on the official Buma/Stemra copyrights website is: ‘Soundtrack’,
+The registered name of this piece on the official Buma/Stemra copyrights website is: ‘Soundtrack’,
 
-         Buma-Stemra code: W-024625744
-         ISRC code: NL-3UH-21-00001
-         Composer IPI code: 397561413
-         Composer: Davy Habets (IKIGA)
-         Mix/Master: Davy Habets (IKIGA)
-         Owner: Davy Habets (IKIGA)"
+Buma-Stemra code: W-024625744
+ISRC code: NL-3UH-21-00001
+Composer IPI code: 397561413
+Composer: Davy Habets (IKIGA)
+Mix/Master: Davy Habets (IKIGA)
+Owner: Davy Habets (IKIGA)
+"""
 
 [[mods]]
 modId="feywild"
@@ -56,7 +58,7 @@ description="Feywild Mod"
     ordering="NONE"
     side="BOTH"
 
- TODO patchouli
+# TODO patchouli
 [[dependencies.feywild]]
     modId="patchouli"
     mandatory=true
@@ -67,7 +69,7 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="geckolib3"
     mandatory=true
-    versionRange="[3.0.3,)"
+    versionRange="[3.0.1,)"
     ordering="AFTER"
     side="BOTH"
 

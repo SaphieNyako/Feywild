@@ -11,7 +11,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
-// TODO snowy surface without surfacebuilder?
 public class WinterBiome implements BiomeType {
 
     public static final WinterBiome INSTANCE = new WinterBiome();

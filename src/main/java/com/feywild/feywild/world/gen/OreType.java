@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
-import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
@@ -33,6 +33,7 @@ public enum OreType {
     private final LazyValue<PlacedFeature> feature;
     private final LazyValue<PlacedFeature> alfheimFeature;
 
+    @SuppressWarnings("deprecation")
     OreType(Block block, Block alfheimBlock, Supplier<OreData> data) {
         this.block = block;
         this.alfheimBlock = alfheimBlock;
@@ -41,14 +42,14 @@ public enum OreType {
             OreConfiguration oreFeatureConfig = new OreConfiguration(OreFeatures.NATURAL_STONE, block.defaultBlockState(), getMaxVeinSize());
             return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).placed(
                     HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())),
-                    CountPlacement.of(ConstantInt.of(getSpawnWeight()))
+                    CountOnEveryLayerPlacement.of(ConstantInt.of(getSpawnWeight()))
             ));
         });
         this.alfheimFeature = new LazyValue<>(() -> {
             OreConfiguration oreFeatureConfig = new OreConfiguration(FeywildOreGen.ALFHEIM_STONE, alfheimBlock.defaultBlockState(), getMaxVeinSize());
             return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(block.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).placed(
                     HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())),
-                    CountPlacement.of(ConstantInt.of(getSpawnWeight()))
+                    CountOnEveryLayerPlacement.of(ConstantInt.of(getSpawnWeight()))
             ));
         });
     }

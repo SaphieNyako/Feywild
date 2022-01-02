@@ -44,7 +44,6 @@ public class GiantFlowerFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         for (int i = 0; i < this.block.height; i++) {
-            //noinspection deprecation
             if (!level.getBlockState(pos.above(i)).isAir()) {
                 return false;
             }
