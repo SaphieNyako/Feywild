@@ -2,12 +2,16 @@
   "replace": false,
   "values": [
     "feywild:spring_tree_wood_stair",
+    "feywild:spring_tree_stripped_wood_stair",
     "feywild:spring_tree_planks_stair",
     "feywild:summer_tree_wood_stair",
+    "feywild:summer_tree_stripped_wood_stair",
     "feywild:summer_tree_planks_stair",
     "feywild:autumn_tree_wood_stair",
+    "feywild:autumn_tree_stripped_wood_stair",
     "feywild:autumn_tree_planks_stair",
     "feywild:winter_tree_wood_stair",
+    "feywild:winter_tree_stripped_wood_stair",
     "feywild:winter_tree_planks_stair"
   ]
 }

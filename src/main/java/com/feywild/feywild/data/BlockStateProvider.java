@@ -10,7 +10,6 @@ import com.feywild.feywild.block.trees.*;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockStateProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -66,20 +65,8 @@ public class BlockStateProvider extends BlockStateProviderBase {
                                     ))
                             )
             );
-        } else if (block instanceof FeyStrippedWoodBlock feyStrippedWood) {
-            ModelFile vertical = models().cubeColumn(id.getPath(), blockTexture(feyStrippedWood), blockTexture(feyStrippedWood));
-            ModelFile horizontal = models().cubeColumnHorizontal(id.getPath() + "_horizontal", blockTexture(feyStrippedWood), blockTexture(feyStrippedWood));
-            getVariantBuilder(block)
-                    .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)
-                    .modelForState().modelFile(vertical).addModel()
-                    .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)
-                    .modelForState().modelFile(horizontal).rotationX(90).addModel()
-                    .partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)
-                    .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel();
-        } else if (block instanceof FeyLogBlock feyLog) {
-            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyLog.getWoodBlock()), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
-        } else if (block instanceof FeyStrippedLogBlock feyStrippedLog) {
-            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(feyStrippedLog), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
+        } else if (block instanceof RotatedPillarBlock rotatedBlock && block instanceof ILogBlock logBlock) {
+            this.logAxis(rotatedBlock, id, logBlock.getWoodBlock());
         } else if (block instanceof CropBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             //noinspection CodeBlock2Expr
@@ -140,14 +127,15 @@ public class BlockStateProvider extends BlockStateProviderBase {
 
     @Override
     protected ModelFile defaultModel(ResourceLocation id, Block block) {
-        if (block instanceof GiantFlowerBlock || block instanceof RotatedPillarBlock || block instanceof CropBlock
-                || block instanceof FeyLeavesBlock) {
-            // Models are created in `defaultState`
-            return null;
-        } else if (block instanceof BaseSaplingBlock) {
+        if (block instanceof BaseSaplingBlock) {
             return this.models().cross(id.getPath(), this.blockTexture(block));
         } else {
             return super.defaultModel(id, block);
         }
+    }
+    
+    private <T extends RotatedPillarBlock & ILogBlock> void logAxis(RotatedPillarBlock logBlock, ResourceLocation id, Block woodBlock) {
+        this.axisBlock(logBlock, this.blockTexture(woodBlock), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
+
     }
 }

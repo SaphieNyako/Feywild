@@ -27,10 +27,10 @@ public class ModItems {
     public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_gem_transmutation"));
-    public static final Item schematicsElementalRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_elemental_rune_crafting"));
-    public static final Item schematicsSeasonalRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_seasonal_rune_crafting"));
-    public static final Item schematicsDeadlyRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_deadly_rune_crafting"));
-    public static final Item schematicsYggdrasilRuneCrafting = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_yggdrasil_rune_crafting"));
+    public static final Item schematicsElementalRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_elemental_rune_crafting"));
+    public static final Item schematicsSeasonalRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_seasonal_rune_crafting"));
+    public static final Item schematicsDeadlyRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_deadly_rune_crafting"));
+    public static final Item schematicsYggdrasilRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), new TranslatableComponent("message.feywild.schematics_yggdrasil_rune_crafting"));
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntityTypes.dwarfBlacksmith, new Item.Properties());
     public static final SummoningScrollFey<SpringPixie> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.springPixie, ModSoundEvents.summoningSpringPixieShort, new Item.Properties());
     public static final SummoningScrollFey<SummerPixie> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntityTypes.summerPixie, ModSoundEvents.summoningSummerPixieShort, new Item.Properties());

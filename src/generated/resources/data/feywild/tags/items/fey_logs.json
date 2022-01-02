@@ -1,21 +1,21 @@
 {
   "replace": false,
   "values": [
-    "feywild:spring_tree_log",
-    "feywild:spring_tree_wood",
-    "feywild:spring_tree_stripped_log",
-    "feywild:spring_tree_stripped_wood",
-    "feywild:summer_tree_log",
-    "feywild:summer_tree_wood",
-    "feywild:summer_tree_stripped_log",
-    "feywild:summer_tree_stripped_wood",
-    "feywild:autumn_tree_log",
-    "feywild:autumn_tree_wood",
-    "feywild:autumn_tree_stripped_log",
-    "feywild:autumn_tree_stripped_wood",
-    "feywild:winter_tree_log",
-    "feywild:winter_tree_wood",
-    "feywild:winter_tree_stripped_log",
-    "feywild:winter_tree_stripped_wood"
+    "#feywild:spring_logs",
+    "#feywild:summer_logs",
+    "#feywild:autumn_logs",
+    "#feywild:winter_logs",
+    "#feywild:spring_logs",
+    "#feywild:summer_logs",
+    "#feywild:autumn_logs",
+    "#feywild:winter_logs",
+    "#feywild:spring_logs",
+    "#feywild:summer_logs",
+    "#feywild:autumn_logs",
+    "#feywild:winter_logs",
+    "#feywild:spring_logs",
+    "#feywild:summer_logs",
+    "#feywild:autumn_logs",
+    "#feywild:winter_logs"
   ]
 }

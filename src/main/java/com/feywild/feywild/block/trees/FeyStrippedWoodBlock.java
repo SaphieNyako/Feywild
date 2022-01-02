@@ -1,10 +1,11 @@
 package com.feywild.feywild.block.trees;
 
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import io.github.noeppi_noeppi.libx.base.decoration.DecoratedBlock;
+import io.github.noeppi_noeppi.libx.mod.ModX;
 
-public class FeyStrippedWoodBlock extends RotatedPillarBlock {
+public class FeyStrippedWoodBlock extends DecoratedBlock {
 
-    public FeyStrippedWoodBlock(Properties properties) {
-        super(properties);
+    public FeyStrippedWoodBlock(ModX mod, Properties properties) {
+        super(mod, FeyWoodBlock.DECORATION, properties);
     }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:summer_tree_wood"
+    }
+  },
+  "result": {
+    "item": "feywild:summer_tree_wood_wall",
+    "count": 6
+  }
+}

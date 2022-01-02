@@ -56,23 +56,20 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final Registerable strippedLogRegister;
 
     private final FeyStrippedWoodBlock strippedWood;
-    private final BlockItem strippedWoodItem;
-    private final Registerable strippedWoodRegister;
 
-    private final FeyPlankBlock plankBlock;
+    private final FeyPlanksBlock plankBlock;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
-        this.strippedWood = new FeyStrippedWoodBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
+        this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
         this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
-        this.plankBlock = new FeyPlankBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
+        this.plankBlock = new FeyPlanksBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
-        this.strippedLog = new FeyStrippedLogBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
+        this.strippedLog = new FeyStrippedLogBlock(this.strippedWood, BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
         this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG));
 
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
-        this.strippedWoodItem = new BlockItem(this.strippedWood, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
         this.logRegister = new Registerable() {
             @Override
@@ -89,13 +86,6 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
             }
         };
 
-        this.strippedWoodRegister = new Registerable() {
-            @Override
-            public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTree.this.strippedWood, BaseTree.this.strippedWoodItem);
-            }
-        };
-
         this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
 
@@ -109,8 +99,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 .put("leaves", this.leaves)
                 .put("sapling", this.sapling)
                 .put("stripped_log", this.strippedLogRegister)
+                .put("stripped_wood", this.strippedWood)
                 .put("planks", this.plankBlock)
-                .put("stripped_wood", this.strippedWoodRegister)
                 .build();
     }
 
@@ -167,7 +157,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return this.strippedLog;
     }
 
-    public FeyPlankBlock getPlankBlock() {
+    public FeyPlanksBlock getPlankBlock() {
         return this.plankBlock;
     }
 

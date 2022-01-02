@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:summer_tree_stripped_wood"
+    }
+  },
+  "result": {
+    "item": "feywild:summer_tree_stripped_wood_stair",
+    "count": 4
+  }
+}

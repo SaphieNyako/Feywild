@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:winter_tree_planks"
+    }
+  },
+  "result": {
+    "item": "feywild:winter_tree_planks_pressure_plate"
+  }
+}

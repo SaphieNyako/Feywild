@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 
+// TODO split it up
 @Datagen
 public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
         DefaultExtension, AltarExtension, AnvilExtension, StonecuttingExtension {

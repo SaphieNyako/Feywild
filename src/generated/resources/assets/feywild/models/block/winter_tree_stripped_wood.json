@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "side": "feywild:block/winter_tree_stripped_wood",
-    "end": "feywild:block/winter_tree_stripped_wood"
+    "all": "feywild:block/winter_tree_stripped_wood"
   }
 }

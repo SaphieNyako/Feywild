@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "feywild:summer_tree_planks"
+    }
+  ],
+  "result": {
+    "item": "feywild:summer_tree_planks_button"
+  }
+}

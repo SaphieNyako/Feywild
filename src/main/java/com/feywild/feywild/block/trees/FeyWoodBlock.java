@@ -9,10 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
@@ -21,7 +18,8 @@ import javax.annotation.Nullable;
 
 public class FeyWoodBlock extends DecoratedBlock {
 
-    private static final DecorationContext DECORATION = new DecorationContext("fey_tree", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB, DecorationType.STAIR);
+    public static final DecorationContext DECORATION = new DecorationContext("fey_wood", DecorationType.BASE, DecorationType.WALL, DecorationType.SLAB, DecorationType.STAIR);
+    
     private final FeyStrippedWoodBlock feyStrippedWood;
 
     public FeyWoodBlock(ModX mod, FeyStrippedWoodBlock feyStrippedWood, Properties properties, Item.Properties itemProperties) {
@@ -37,18 +35,13 @@ public class FeyWoodBlock extends DecoratedBlock {
         return get(DecorationType.STAIR);
     }
 
-    public FenceBlock getFenceBlock() {
-        return get(DecorationType.FENCE);
-    }
-
-    public FenceGateBlock getFenceGateBlock() {
-        return get(DecorationType.FENCE_GATE);
+    public WallBlock getWallBlock() {
+        return get(DecorationType.WALL);
     }
 
     @Nullable
     @Override
     public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolAction toolAction) {
-
         return toolAction == ToolActions.AXE_STRIP ? feyStrippedWood.defaultBlockState() : null;
     }
 }

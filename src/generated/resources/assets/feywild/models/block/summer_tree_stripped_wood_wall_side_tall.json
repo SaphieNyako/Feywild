@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "feywild:block/summer_tree_stripped_wood"
+  }
+}
