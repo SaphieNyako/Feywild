@@ -4,7 +4,6 @@ import com.feywild.feywild.particles.ModParticles;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,20 +20,14 @@ public class SummerTree extends BaseTree {
     }
 
     private static BlockState getDecorationBlock(Random random) {
-        switch (random.nextInt(30)) {
-            case 0:
-                return Blocks.OXEYE_DAISY.defaultBlockState();
-            case 1:
-                return Blocks.DANDELION.defaultBlockState();
-            case 2:
-                return Blocks.POPPY.defaultBlockState();
-            case 4:
-                return Blocks.ALLIUM.defaultBlockState();
-            case 5:
-                return Blocks.CORNFLOWER.defaultBlockState();
-            default:
-                return Blocks.GRASS.defaultBlockState();
-        }
+        return switch (random.nextInt(30)) {
+            case 0 -> Blocks.OXEYE_DAISY.defaultBlockState();
+            case 1 -> Blocks.DANDELION.defaultBlockState();
+            case 2 -> Blocks.POPPY.defaultBlockState();
+            case 4 -> Blocks.ALLIUM.defaultBlockState();
+            case 5 -> Blocks.CORNFLOWER.defaultBlockState();
+            default -> Blocks.GRASS.defaultBlockState();
+        };
     }
 
     @Override

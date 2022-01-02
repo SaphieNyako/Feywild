@@ -1,13 +1,10 @@
 package com.feywild.feywild.world.biome.biomes;
 
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public interface BiomeEnvironment {
 
@@ -26,14 +23,11 @@ public interface BiomeEnvironment {
         }
 
         @Override
-        public BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface) {
+        public BiomeGenerationSettings.Builder defaultGeneration() {
             BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
-            builder.surfaceBuilder(surface);
             BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
             BiomeDefaultFeatures.addDefaultOres(builder);
-            BiomeDefaultFeatures.addDefaultOverworldLandStructures(builder);
-            BiomeDefaultFeatures.addDefaultCarvers(builder);
-            builder.addFeature(GenerationStep.Decoration.LAKES, Features.LAKE_WATER);
+            BiomeDefaultFeatures.addDefaultCarversAndLakes(builder);
             return builder;
         }
 
@@ -52,7 +46,7 @@ public interface BiomeEnvironment {
 
     MobSpawnSettings.Builder defaultSpawns();
 
-    BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface);
+    BiomeGenerationSettings.Builder defaultGeneration();
 
     default Biome.BiomeBuilder init() {return new Biome.BiomeBuilder();}
 

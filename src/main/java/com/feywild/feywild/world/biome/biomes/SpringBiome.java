@@ -5,14 +5,17 @@ import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
-import net.minecraft.data.worldgen.biome.VanillaBiomes;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
+import net.minecraft.data.worldgen.placement.AquaticPlacements;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
+import net.minecraft.data.worldgen.placement.TreePlacements;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public class SpringBiome implements BiomeType {
 
@@ -28,11 +31,6 @@ public class SpringBiome implements BiomeType {
     }
 
     @Override
-    public float scale() {
-        return WorldGenConfig.biomes.spring.size();
-    }
-
-    @Override
     public float temperature() {
         return 0.7f;
     }
@@ -41,28 +39,24 @@ public class SpringBiome implements BiomeType {
     public float downfall() {
         return 0.8f;
     }
-
-    @Override
-    public ConfiguredSurfaceBuilder<?> surface() {
-        return ModConfiguredSurfaceBuilders.SPRING_SURFACE;
-    }
-
+    
     @Override
     public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
-        builder.skyColor(VanillaBiomes.calculateSkyColor(0.7f));
-        //builder.backgroundMusic(new Music(ModSoundEvents.springSoundtrack, 6000, 12000, false));
+        builder.skyColor(OverworldBiomes.calculateSkyColor(0.7f));
         builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.HAPPY_VILLAGER, 0.001f));
     }
 
     @Override
     public void generation(BiomeGenerationSettings.Builder builder) {
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.PATCH_GRASS_NORMAL);
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER);
         BiomeDefaultFeatures.addExtraEmeralds(builder);
+        
+        // TODO structures
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
     }
 
@@ -74,6 +68,7 @@ public class SpringBiome implements BiomeType {
 
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
+        // TODO structures
         builder.addStructureStart(StructureFeatures.JUNGLE_TEMPLE);
     }
 }

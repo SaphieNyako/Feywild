@@ -1,19 +1,19 @@
 package com.feywild.feywild.world.biome.biomes;
 
-import com.feywild.feywild.config.WorldGenConfig;
-import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.data.worldgen.StructureFeatures;
-import net.minecraft.data.worldgen.biome.VanillaBiomes;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
+import net.minecraft.data.worldgen.placement.TreePlacements;
+import net.minecraft.data.worldgen.placement.VillagePlacements;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
+// TODO snowy surface without surfacebuilder?
 public class WinterBiome implements BiomeType {
 
     public static final WinterBiome INSTANCE = new WinterBiome();
@@ -33,11 +33,6 @@ public class WinterBiome implements BiomeType {
     }
 
     @Override
-    public float scale() {
-        return WorldGenConfig.biomes.winter.size();
-    }
-
-    @Override
     public float temperature() {
         return 0;
     }
@@ -48,17 +43,11 @@ public class WinterBiome implements BiomeType {
     }
 
     @Override
-    public ConfiguredSurfaceBuilder<?> surface() {
-        return ModConfiguredSurfaceBuilders.WINTER_SURFACE;
-    }
-
-    @Override
     public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
         builder.waterFogColor(0x50533);
         builder.fogColor(0xc0d8ff);
-        builder.skyColor(VanillaBiomes.calculateSkyColor(0));
-        //builder.backgroundMusic(new Music(ModSoundEvents.winterSoundtrack, 6000, 12000, false));
+        builder.skyColor(OverworldBiomes.calculateSkyColor(0));
         builder.ambientParticle(new AmbientParticleSettings(ParticleTypes.ENCHANTED_HIT, 0.001f));
     }
 
@@ -69,18 +58,21 @@ public class WinterBiome implements BiomeType {
 
     @Override
     public void generation(BiomeGenerationSettings.Builder builder) {
-        BiomeDefaultFeatures.addBerryBushes(builder);
-        BiomeDefaultFeatures.addSparseBerryBushes(builder);
+        BiomeDefaultFeatures.addCommonBerryBushes(builder);
 
-        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.ICE_SPIKE);
-        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.ICE_PATCH);
-        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.PILE_SNOW);
-        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, Features.FOSSIL);
-        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, Features.JUNGLE_BUSH);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_SPIKE);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH);
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VillagePlacements.PILE_SNOW_VILLAGE);
+        
+        // TODO is this a structure now?
+        builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FOSSIL);
+        builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
 
         BiomeDefaultFeatures.addDefaultGrass(builder);
         BiomeDefaultFeatures.addSurfaceFreezing(builder);
         BiomeDefaultFeatures.addIcebergs(builder);
+        
+        // TODO structures
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
     }
 
@@ -93,6 +85,7 @@ public class WinterBiome implements BiomeType {
 
     @Override
     public void overworldGen(BiomeGenerationSettings.Builder builder) {
+        // TODO structures
         builder.addStructureStart(StructureFeatures.IGLOO);
     }
 }

@@ -14,16 +14,16 @@ public class WorldGenConfig {
     public static class biomes {
 
         @Config("Weight and size for Spring Biome: Blossoming Waelds")
-        public static BiomeData spring = new BiomeData(15, 0.005f);
+        public static BiomeData spring = new BiomeData(15);
 
         @Config("Weight and size for Summer Biome: Golden Seelie Fields")
-        public static BiomeData summer = new BiomeData(15, 0.005f);
+        public static BiomeData summer = new BiomeData(15);
 
         @Config("Weight and size for Autumn Biome: Eternal Fall")
-        public static BiomeData autumn = new BiomeData(15, 0.005f);
+        public static BiomeData autumn = new BiomeData(15);
 
         @Config("Weight and size for Winter Biome: Frozen Retreat")
-        public static BiomeData winter = new BiomeData(15, 0.005f);
+        public static BiomeData winter = new BiomeData(15);
 
     }
 
@@ -78,13 +78,5 @@ public class WorldGenConfig {
 
         @Config("Whether winter tree patches should be enabled")
         public static boolean winter = true;
-
-        @Config("Tree patch spawn chance.")
-        @FloatRange(min = 0, max = 1)
-        public static float chance = 0.01f;
-
-        @Config("Tree patch spawn size.")
-        @IntRange(min = 1)
-        public static int size = 3;
     }
 }

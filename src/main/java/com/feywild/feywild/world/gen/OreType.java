@@ -16,6 +16,7 @@ import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.ConfiguredDecorator;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -29,8 +30,8 @@ public enum OreType {
     private final Block block;
     private final Block alfheimBlock;
     private final Supplier<OreData> data; 
-    private final LazyValue<ConfiguredFeature<?, ?>> feature;
-    private final LazyValue<ConfiguredFeature<?, ?>> alfheimFeature;
+    private final LazyValue<PlacedFeature> feature;
+    private final LazyValue<PlacedFeature> alfheimFeature;
 
     OreType(Block block, Block alfheimBlock, Supplier<OreData> data) {
         this.block = block;
@@ -81,11 +82,11 @@ public enum OreType {
         return this.data.get().weight();
     }
 
-    public ConfiguredFeature<?, ?> getFeature() {
+    public PlacedFeature getFeature() {
         return this.feature.get();
     }
     
-    public ConfiguredFeature<?, ?> getAlfheimFeature() {
+    public PlacedFeature getAlfheimFeature() {
         return this.alfheimFeature.get();
     }
 

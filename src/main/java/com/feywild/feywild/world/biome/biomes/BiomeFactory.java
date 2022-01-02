@@ -17,15 +17,13 @@ public class BiomeFactory {
         type.spawns(spawns);
         env.postProcess(spawns, type);
 
-        BiomeGenerationSettings.Builder generation = env.defaultGeneration(type.surface());
+        BiomeGenerationSettings.Builder generation = env.defaultGeneration();
         type.generation(generation);
         env.postProcess(generation, type);
         
         Biome.BiomeBuilder biome = env.init();
         biome.biomeCategory(type.category());
         biome.precipitation(type.rain());
-        biome.depth(type.depth());
-        biome.scale(type.scale());
         biome.temperature(type.temperature());
         biome.downfall(type.downfall());
         biome.specialEffects(ambience.build());

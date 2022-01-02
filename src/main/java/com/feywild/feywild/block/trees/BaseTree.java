@@ -113,10 +113,9 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return new TreeConfiguration.TreeConfigurationBuilder(
-                new SimpleStateProvider(this.getLogBlock().defaultBlockState()),
+                SimpleStateProvider.simple(this.getLogBlock().defaultBlockState()),
                 this.getGiantTrunkPlacer(),
-                new SimpleStateProvider(this.getLeafBlock().defaultBlockState()),
-                new SimpleStateProvider(this.getSapling().defaultBlockState()),
+                SimpleStateProvider.simple(this.getLeafBlock().defaultBlockState()),
                 this.getFoliagePlacer(),
                 this.getTwoLayerFeature()
         );
@@ -134,7 +133,6 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return new MegaJungleTrunkPlacer(this.getBaseHeight(), this.getFirstRandomHeight(), this.getSecondRandomHeight());
     }
 
-    //Branch placer
     protected TwoLayersFeatureSize getTwoLayerFeature() {
         return new TwoLayersFeatureSize(1, 0, 1);
     }
@@ -205,10 +203,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 }
             }
         }
-
         super.growTree(level, generator, pos, state, random);
-
         return true;
     }
-
 }

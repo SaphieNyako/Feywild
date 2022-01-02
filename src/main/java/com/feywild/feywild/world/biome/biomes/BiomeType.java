@@ -4,7 +4,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.surfacebuilders.ConfiguredSurfaceBuilder;
 
 public interface BiomeType {
 
@@ -12,15 +11,9 @@ public interface BiomeType {
 
     default Biome.Precipitation rain() {return Biome.Precipitation.RAIN;}
 
-    default float depth() {return 0.125f;}
-
-    float scale();
-
     float temperature();
 
     float downfall();
-
-    ConfiguredSurfaceBuilder<?> surface();
 
     default void ambience(BiomeSpecialEffects.Builder builder) {}
 

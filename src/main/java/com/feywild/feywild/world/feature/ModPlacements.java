@@ -17,18 +17,19 @@ import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConf
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.Random;
 
-public class ModConfiguredFeatures {
+public class ModPlacements {
 
     /* SPRING */
-    public static final ConfiguredFeature<?, ?> SPRING_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "spring_trees",
+    public static final PlacedFeature SPRING_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "spring_trees",
             ModTrees.springTree.getConfiguredFeature(new Random(), true).decorated(Features.Decorators.HEIGHTMAP_SQUARE)
                     .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.5f, 3)))
     );
 
-    public static final ConfiguredFeature<?, ?> SPRING_DANDELION = registerFeature("dandelion_feature",
+    public static final PlacedFeature SPRING_DANDELION = registerFeature("dandelion_feature",
             ModFeatures.dandelions.configured(FeatureConfiguration.NONE)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
     );
@@ -51,19 +52,19 @@ public class ModConfiguredFeatures {
             SimpleBlockPlacer.INSTANCE
     ).tries(64).build();
 
-    public static final ConfiguredFeature<?, ?> SPRING_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
+    public static final PlacedFeature SPRING_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(SPRING_FLOWER_CONFIG)
                     .decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(100)
     );
 
     /* SUMMER */
-    public static final ConfiguredFeature<?, ?> SUMMER_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "summer_trees",
+    public static final PlacedFeature SUMMER_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "summer_trees",
             ModTrees.summerTree.getConfiguredFeature(new Random(), true)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
                     .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.5f, 2)))
     );
 
-    public static final ConfiguredFeature<?, ?> SUMMER_SUNFLOWER = registerFeature("sunflower_feature",
+    public static final PlacedFeature SUMMER_SUNFLOWER = registerFeature("sunflower_feature",
             ModFeatures.sunflowers.configured(FeatureConfiguration.NONE)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
     );
@@ -77,19 +78,19 @@ public class ModConfiguredFeatures {
             SimpleBlockPlacer.INSTANCE
     ).tries(64).build();
 
-    public static final ConfiguredFeature<?, ?> SUMMER_WARM_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
+    public static final PlacedFeature SUMMER_WARM_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(SUMMER_WARM_FLOWERS_CONFIG)
                     .decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(4)
     );
 
     /* AUTUMN */
-    public static final ConfiguredFeature<?, ?> AUTUMN_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "autumn_trees",
+    public static final PlacedFeature AUTUMN_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "autumn_trees",
             ModTrees.autumnTree.getConfiguredFeature(new Random(), true)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
                     .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.5f, 5)))
     );
 
-    public static final ConfiguredFeature<?, ?> AUTUMN_PUMPKINS = registerFeature("autumn_pumpkins",
+    public static final PlacedFeature AUTUMN_PUMPKINS = registerFeature("autumn_pumpkins",
             ModFeatures.autumnPumpkins.configured(FeatureConfiguration.NONE)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
     );
@@ -103,7 +104,7 @@ public class ModConfiguredFeatures {
             SimpleBlockPlacer.INSTANCE
     ).tries(64).build();
 
-    public static final ConfiguredFeature<?, ?> AUTUMN_SWAMP_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
+    public static final PlacedFeature AUTUMN_SWAMP_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(AUTUMN_SWAMP_FLOWERS_CONFIG)
                     .decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE)
     );
@@ -118,14 +119,14 @@ public class ModConfiguredFeatures {
             SimpleBlockPlacer.INSTANCE
     ).tries(32).build();
 
-    public static final ConfiguredFeature<?, ?> AUTUMN_SMALL_MUSHROOMS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
+    public static final PlacedFeature AUTUMN_SMALL_MUSHROOMS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(AUTUMN_SMALL_MUSHROOMS_CONFIG)
                     //.decorated(Features.Placements.ADD_32).decorated(Features.Placements.HEIGHTMAP_SQUARE));
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(2)
     );
 
     /* WINTER */
-    public static final ConfiguredFeature<?, ?> WINTER_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "winter_trees",
+    public static final PlacedFeature WINTER_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "winter_trees",
             ModTrees.winterTree.getConfiguredFeature(new Random(), true)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
                     .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.3f, 2)))
@@ -140,13 +141,13 @@ public class ModConfiguredFeatures {
             SimpleBlockPlacer.INSTANCE
     ).tries(64).build();
 
-    public static final ConfiguredFeature<?, ?> WINTER_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
+    public static final PlacedFeature WINTER_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
             Feature.FLOWER.configured(WINTER_FLOWER_CONFIG)
                     .decorated(Features.Decorators.ADD_32)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(2)
     );
 
-    public static final ConfiguredFeature<?, ?> WINTER_CROCUS = registerFeature("crocus_feature",
+    public static final PlacedFeature WINTER_CROCUS = registerFeature("crocus_feature",
             ModFeatures.crocus.configured(FeatureConfiguration.NONE)
                     .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
     );
