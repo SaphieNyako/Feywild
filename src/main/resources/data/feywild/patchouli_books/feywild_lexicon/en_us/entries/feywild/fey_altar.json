@@ -1,9 +1,7 @@
 {
-  "advancement": "feywild:feywild/fey_dust",
   "name": "Summoning Fey",
   "icon": "feywild:fey_altar",
-  "category": "feywild",
-  "sortnum": 2,
+  "category": "feywild:feywild",
   "pages": [
     {
       "type": "spotlight",
@@ -13,11 +11,8 @@
     }, {
       "type": "crafting",
       "title": "Summoning Scroll",
-      "recipe": "feywild:summoning_scroll"
-    }, {
-      "type": "crafting",
-      "title": "Fey Ink",
-      "recipe": "feywild:fey_ink_bottle"
+      "recipe": "feywild:summoning_scroll",
+      "recipe2": "feywild:fey_ink_bottle"
     },
     {
       "type": "spotlight",
@@ -28,7 +23,8 @@
     {
       "type": "crafting",
       "item": "feywild:fey_altar",
-      "recipe": "feywild:fey_altar"
+      "recipe": "feywild:fey_altar",
+      "text": "Each Fey has it's own summoning scroll and the recipes for each fey can be found on their pages or with JEI."
     }
   ]
 }

@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "feywild:feywild_lexicon"
+    ]
+  },
+  "criteria": {
+    "criterion0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:book"
+            ]
+          }
+        ]
+      }
+    },
+    "criterion1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:fey_dust"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "feywild:feywild_lexicon"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "criterion0",
+      "criterion1",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -9,13 +9,11 @@ import net.minecraft.world.item.crafting.RecipeType;
 @RegisterClass
 public class ModRecipeTypes {
 
-
     @NoReg public static final RecipeType<IAltarRecipe> ALTAR = RecipeType.register(IAltarRecipe.TYPE_ID.toString());
     @NoReg public static final RecipeType<IDwarvenAnvilRecipe> DWARVEN_ANVIL = RecipeType.register(IDwarvenAnvilRecipe.TYPE_ID.toString());
 
     @RegName("fey_altar") public static final AltarRecipe.Serializer ALTAR_SERIALIZER = new AltarRecipe.Serializer();
     @RegName("dwarven_anvil") public static final DwarvenAnvilRecipe.Serializer DWARVEN_ANVIL_SERIALIZER = new DwarvenAnvilRecipe.Serializer();
-
 
     public static void registerRecipes() {
         Registry.register(Registry.RECIPE_TYPE, AltarRecipe.TYPE_ID, ALTAR);

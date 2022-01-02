@@ -2,7 +2,7 @@
   "advancement": "feywild:feywild/fey_dust",
   "name": "Dwarven Anvil",
   "icon": "feywild:dwarven_anvil",
-  "category": "dwarves",
+  "category": "feywild:dwarves",
   "pages": [
     {
       "type": "crafting",

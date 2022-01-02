@@ -1,7 +1,7 @@
 {
   "name": "Autumn Court",
   "icon": "feywild:autumn_tree_sapling",
-  "category": "autumn_court",
+  "category": "feywild:autumn_court",
   "sortnum": 0,
   "pages": [
     {

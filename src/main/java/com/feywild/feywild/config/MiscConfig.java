@@ -7,7 +7,7 @@ import io.github.noeppi_noeppi.libx.config.validator.IntRange;
 public class MiscConfig {
 
     @Config("Whether players should spawn with a Feywild Lexicon")
-    public static boolean initial_lexicon = false;
+    public static boolean initial_lexicon = true;
 
     @Config("Whether the players should be able to select one of the court's scrolls on first login, on first time opening the guide book or none.")
     public static ScrollSelectType initial_scroll = ScrollSelectType.NONE;

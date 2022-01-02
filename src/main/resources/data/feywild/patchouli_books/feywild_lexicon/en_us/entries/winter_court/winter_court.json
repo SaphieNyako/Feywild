@@ -1,7 +1,7 @@
 {
   "name": "Winter Court",
   "icon": "feywild:winter_tree_sapling",
-  "category": "winter_court",
+  "category": "feywild:winter_court",
   "sortnum": 0,
   "pages": [
     {

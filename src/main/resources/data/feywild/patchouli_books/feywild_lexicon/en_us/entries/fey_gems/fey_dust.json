@@ -1,7 +1,7 @@
 {
   "name": "Fey Dust",
   "icon": "feywild:fey_dust",
-  "category": "fey_gems",
+  "category": "feywild:fey_gems",
   "pages": [
     {
       "type": "text",
@@ -12,6 +12,12 @@
       "title": "Fey Dust",
       "recipe": "feywild:smelting/fey_dust",
       "text": "Some believe the magical powder gives the power of flight to whoever it is sprinkled on. A boy once ate a whole stack and he was 'never' seen again."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "Fey Dust",
+      "text": "The fey trees will also drop fey dust when you cut down their leaves."
     }
   ]
 }

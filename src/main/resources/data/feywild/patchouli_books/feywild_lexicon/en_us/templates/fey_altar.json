@@ -1,0 +1,35 @@
+{
+  "processor": "com.feywild.feywild.patchouli.processor.FeyAltarProcessor",
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "Ingredients",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "patchouli:image",
+      "image": "feywild:textures/gui/fey_altar_patchouli.png",
+      "x": 17,
+      "y": 17,
+      "width": 92,
+      "height": 92,
+      "u": 0,
+      "v": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "framed": false,
+      "x": 53,
+      "y": 54
+    },
+    {
+      "type": "patchouli:custom",
+      "class": "com.feywild.feywild.patchouli.component.CircularIngredientsComponent",
+      "x": 20,
+      "y": 20,
+      "items": "#inputs"
+    }
+  ]
+}

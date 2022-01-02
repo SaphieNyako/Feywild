@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:feywild/root",
+  "parent": "feywild:feywild/fey_dust",
   "display": {
     "icon": {
       "item": "feywild:lesser_fey_gem"

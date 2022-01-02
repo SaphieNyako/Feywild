@@ -2,7 +2,7 @@
   "advancement": "feywild:feywild/fey_dust",
   "name": "Fey Ore",
   "icon": "feywild:lesser_fey_gem",
-  "category": "fey_gems",
+  "category": "feywild:fey_gems",
   "pages": [
     {
       "type": "text",
@@ -17,14 +17,20 @@
     {
       "type": "smelting",
       "title": "Fey Dust",
-      "recipe": "feywild:fey_dust",
-      "text": "When a Fey passes into the next world, they leave behind a small amount of Fey Dust. Some believe the magical powder gives the power of flight to whoever it is sprinkled on."
+      "recipe": "feywild:smelting/fey_dust",
+      "text": "Some believe the magical powder gives the power of flight to whoever it is sprinkled on. A boy once ate a whole stack and he was 'never' seen again."
     },
     {
-      "type": "spotlight",
-      "item": "feywild:lesser_fey_gem",
-      "title": "Fey Gems",
-      "text": "The fey gems can vary in quality. Higher quality gems can but cut into lower quality gems. The knowledge on how to increase the quality of a fey gem is only known by the dwarves."
+      "type": "stonecutting",
+      "title": "Fey Ore",
+      "recipe": "feywild:lesser_fey_gem_stonecutting",
+      "text": "Fey gems can be cut to smaller pieces by using a stone cutter. The knowledge on how to increase the quality of a fey gem is only known by the dwarves."
+    },
+    {
+      "type": "stonecutting",
+      "title": "Fey Ore",
+      "recipe": "feywild:greater_fey_gem_stonecutting",
+      "recipe2": "feywild:shiny_fey_gem_stonecutting"
     }
   ]
 }

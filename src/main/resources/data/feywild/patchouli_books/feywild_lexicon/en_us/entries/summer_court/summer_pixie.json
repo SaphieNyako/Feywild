@@ -1,7 +1,7 @@
 {
   "name": "Summer Pixie",
   "icon": "feywild:summoning_scroll_summer_pixie",
-  "category": "summer_court",
+  "category": "feywild:summer_court",
   "sortnum": 1,
   "pages": [
     {
@@ -31,14 +31,12 @@
       "text": "With this scroll you can summon a Summer Pixie. As a proud member of the Summer Court the Summer Pixie will smite down her foes."
     },
     {
-      "type": "image",
-      "title": "Summoning Ingredients",
-      "images": ["feywild:textures/patchouli_images/summer_summon_book.png"],
-      "border": true
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_summer_pixie_fey_altar"
     },
     {
       "type": "spotlight",
-      "item": "minecraft:cookie",
+      "item": "feywild:summoning_scroll_summer_pixie",
       "title": "Companion",
       "text": "The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again."
     }
