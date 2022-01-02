@@ -9,6 +9,8 @@ import com.feywild.feywild.entity.goals.RefreshStockGoal;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -154,7 +156,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Tamed", this.isTamed);
         if (this.summonPos != null) {
-            NBTX.putPos(nbt, "SummonPos", this.summonPos);
+            nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
         }
     }
 
@@ -162,7 +164,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
-        this.summonPos = NBTX.getPos(nbt, "SummonPos", null);
+        this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")) : null;
     }
 
     @Override

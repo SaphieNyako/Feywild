@@ -46,7 +46,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    public boolean removedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (this.replaceFlower(level, pos.above(3 - state.getValue(PART)))) {
             if (!level.isClientSide && player instanceof ServerPlayer) {
                 // Forge notifies the client of the block break before calling this
@@ -56,7 +56,7 @@ public class DandelionBlock extends GiantFlowerBlock {
             }
             return false;
         }
-        return super.removedByPlayer(state, level, pos, player, willHarvest, fluid);
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
     private boolean replaceFlower(@Nonnull Level level, @Nonnull BlockPos pos) {

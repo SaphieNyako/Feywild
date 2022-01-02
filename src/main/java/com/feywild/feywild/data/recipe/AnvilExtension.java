@@ -4,6 +4,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.github.noeppi_noeppi.libx.crafting.CraftingHelper2;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeExtension;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -109,7 +110,7 @@ public interface AnvilExtension extends RecipeExtension {
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
                     json.addProperty("mana", AnvilRecipeBuilder.this.mana);
-                    json.add("output", DataUtils.serializeWithNbt(AnvilRecipeBuilder.this.result));
+                    json.add("output", CraftingHelper2.serializeItemStack(AnvilRecipeBuilder.this.result, true));
                     if (AnvilRecipeBuilder.this.schematics != null) {
                         json.add("schematics", AnvilRecipeBuilder.this.schematics.toJson());
                     }

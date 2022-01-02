@@ -8,6 +8,8 @@ import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -191,7 +193,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
             nbt.putUUID("Owner", this.owner);
         }
         if (getCurrentPointOfInterest() != null) {
-            NBTX.putPos(nbt, "SummonPos", new BlockPos(getCurrentPointOfInterest().x, getCurrentPointOfInterest().y, getCurrentPointOfInterest().z));
+            nbt.put("SummonPos", NbtUtils.writeBlockPos(new BlockPos(getCurrentPointOfInterest().x, getCurrentPointOfInterest().y, getCurrentPointOfInterest().z)));
         }
     }
 
@@ -199,7 +201,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
-        BlockPos pos = NBTX.getPos(nbt, "SummonPos", null);
+        BlockPos pos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")) : null;
         if (pos != null) {
             this.summonPos = new Vec3(pos.getX(), pos.getY(), pos.getZ());
         }

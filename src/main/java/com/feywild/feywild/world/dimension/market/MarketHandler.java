@@ -5,6 +5,8 @@ import com.feywild.feywild.world.dimension.ModDimensions;
 import com.feywild.feywild.world.dimension.SimpleTeleporter;
 import io.github.noeppi_noeppi.libx.util.NBTX;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -35,7 +37,7 @@ public class MarketHandler {
                 MarketData data = MarketData.get(targetLevel);
                 if (data != null) {
                     if (data.isOpen()) {
-                        NBTX.putPos(FeyPlayerData.get(player), "DwarfMarketPos", player.blockPosition().immutable());
+                        FeyPlayerData.get(player).put("DwarfMarketPos", NbtUtils.writeBlockPos(player.blockPosition().immutable()));
                         MarketGenerator.generate(targetLevel);
                         player.changeDimension(targetLevel, new SimpleTeleporter(new BlockPos(2, 61, 10)));
                         player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
@@ -55,7 +57,7 @@ public class MarketHandler {
     public static boolean teleportToOverworld(ServerPlayer player) {
         if (player.getLevel().dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
             ServerLevel targetLevel = player.getLevel().getServer().overworld();
-            BlockPos targetPos = NBTX.getPos(FeyPlayerData.get(player), "DwarfMarketPos", null);
+            BlockPos targetPos = FeyPlayerData.get(player).contains("DwarfMarketPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(FeyPlayerData.get(player).getCompound("DwarfMarketPos")) : null;
             if (targetPos == null) {
                 if (player.getRespawnDimension() == Level.OVERWORLD & player.getRespawnPosition() != null) {
                     targetPos = player.getRespawnPosition();

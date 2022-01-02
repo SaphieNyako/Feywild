@@ -3,6 +3,7 @@ package com.feywild.feywild.data.recipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.github.noeppi_noeppi.libx.crafting.CraftingHelper2;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeExtension;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.CraftingHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -70,7 +72,7 @@ public interface AltarExtension extends RecipeExtension {
 
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
-                    json.add("output", DataUtils.serializeWithNbt(AltarRecipeBuilder.this.result));
+                    json.add("output", CraftingHelper2.serializeItemStack(AltarRecipeBuilder.this.result, true));
                     JsonArray inputList = new JsonArray();
                     AltarRecipeBuilder.this.inputs.forEach(i -> inputList.add(i.toJson()));
                     json.add("ingredients", inputList);

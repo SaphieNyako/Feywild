@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 public class DwarvenAnvilMenu extends BlockEntityMenu<DwarvenAnvil> {
 
-    public DwarvenAnvilMenu(@Nullable MenuType<?> type, int windowId, Level level, BlockPos pos, Inventory playerContainer, Player player) {
+    public DwarvenAnvilMenu(@Nullable MenuType<? extends BlockEntityMenu<?>> type, int windowId, Level level, BlockPos pos, Inventory playerContainer, Player player) {
         super(type, windowId, level, pos, playerContainer, player, 7, 8);
         this.addSlot(new BaseSlot(this.blockEntity.getInventory(), 0, 30, 56)); //this will hold the feydust
         this.addSlot(new BaseSlot(this.blockEntity.getInventory(), 1, 30, 8)); // this will hold the scheme

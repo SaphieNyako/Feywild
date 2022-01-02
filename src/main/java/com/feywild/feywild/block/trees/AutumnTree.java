@@ -27,7 +27,7 @@ public class AutumnTree extends BaseTree {
     @Override
     protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
-                new AlterGroundDecorator(new SimpleStateProvider(Blocks.PODZOL.defaultBlockState()))
+                new AlterGroundDecorator(SimpleStateProvider.simple(Blocks.PODZOL.defaultBlockState()))
         ));
     }
 
