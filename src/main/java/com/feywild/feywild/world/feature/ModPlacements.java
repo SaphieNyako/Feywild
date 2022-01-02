@@ -4,156 +4,97 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.random.SimpleWeightedRandomList;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.util.valueproviders.ClampedNormalInt;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.blockplacers.SimpleBlockPlacer;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
-import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
-import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 import java.util.Random;
 
 public class ModPlacements {
+    
+    public static final PlacedFeature SPRING_TREES = registerPlacement("spring_trees", ModTrees.springTree.getConfiguredFeature(new Random(), true).placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+            CountPlacement.of(ClampedNormalInt.of(1, 0.5f, 1, 4))
+    ));
 
-    /* SPRING */
-    public static final PlacedFeature SPRING_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "spring_trees",
-            ModTrees.springTree.getConfiguredFeature(new Random(), true).decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.5f, 3)))
+    public static final PlacedFeature SPRING_DANDELION = registerPlacement("spring_dandelions", ModFeatures.Configured.dandelions.placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG)
+    ));
+    
+
+    public static final PlacedFeature SPRING_FLOWERS = registerPlacement("sping_flowers", Feature.FLOWER
+            .configured(ModFeatureProperties.PLAIN_FLOWERS)
+            .placed(
+                    HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+                    CountPlacement.of(ConstantInt.of(100))
+            )
     );
 
-    public static final PlacedFeature SPRING_DANDELION = registerFeature("dandelion_feature",
-            ModFeatures.dandelions.configured(FeatureConfiguration.NONE)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
+    public static final PlacedFeature SUMMER_TREES = registerPlacement("summer_trees", ModTrees.summerTree.getConfiguredFeature(new Random(), true).placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+            CountPlacement.of(ClampedNormalInt.of(1, 0.5f, 1, 4))
+    ));
+
+    public static final PlacedFeature SUMMER_SUNFLOWER = registerPlacement("summer_sunflower", ModFeatures.Configured.sunflowers.placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG)
+    ));
+    
+    public static final PlacedFeature SUMMER_FLOWERS = registerPlacement("summer_flowers", Feature.FLOWER
+            .configured(ModFeatureProperties.WARM_FLOWERS)
+            .placed(
+                    HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+                    CountPlacement.of(ConstantInt.of(4))
+            )
     );
 
-    //Spring Flowers
-    public static final RandomPatchConfiguration SPRING_FLOWER_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
-            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.DANDELION.defaultBlockState(), 3)
-                    .add(Blocks.POPPY.defaultBlockState(), 1)
-                    .add(Blocks.ALLIUM.defaultBlockState(), 1)
-                    .add(Blocks.AZURE_BLUET.defaultBlockState(), 1)
-                    .add(Blocks.RED_TULIP.defaultBlockState(), 1)
-                    .add(Blocks.ORANGE_TULIP.defaultBlockState(), 1)
-                    .add(Blocks.WHITE_TULIP.defaultBlockState(), 1)
-                    .add(Blocks.PINK_TULIP.defaultBlockState(), 1)
-                    .add(Blocks.OXEYE_DAISY.defaultBlockState(), 1)
-                    .add(Blocks.CORNFLOWER.defaultBlockState(), 1)
-                    .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 1)
-                    .build()),
-            SimpleBlockPlacer.INSTANCE
-    ).tries(64).build();
+    public static final PlacedFeature AUTUMN_TREES = registerPlacement("autumn_trees", ModTrees.autumnTree.getConfiguredFeature(new Random(), true).placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+            CountPlacement.of(ClampedNormalInt.of(1, 0.5f, 1, 4))
+    ));
 
-    public static final PlacedFeature SPRING_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
-            Feature.FLOWER.configured(SPRING_FLOWER_CONFIG)
-                    .decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(100)
+    public static final PlacedFeature AUTUMN_PUMPKINS = registerPlacement("autumn_pumpkins", ModFeatures.Configured.autumnPumpkins.placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG)
+    ));
+
+    public static final PlacedFeature AUTUMN_FLOWERS = registerPlacement("autumn_flowers", Feature.FLOWER
+            .configured(ModFeatureProperties.SWAMP_FLOWERS)
+            .placed(
+                    HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+                    CountPlacement.of(ConstantInt.of(4))
+            )
     );
 
-    /* SUMMER */
-    public static final PlacedFeature SUMMER_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "summer_trees",
-            ModTrees.summerTree.getConfiguredFeature(new Random(), true)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.5f, 2)))
+    public static final PlacedFeature AUTUMN_MUSHROOMS = registerPlacement("autumn_mushrooms", Feature.FLOWER
+            .configured(ModFeatureProperties.SMALL_MUSHROOMS)
+            .placed(
+                    HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+                    CountPlacement.of(ConstantInt.of(2))
+            )
     );
 
-    public static final PlacedFeature SUMMER_SUNFLOWER = registerFeature("sunflower_feature",
-            ModFeatures.sunflowers.configured(FeatureConfiguration.NONE)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
+    public static final PlacedFeature WINTER_TREES = registerPlacement("winter_trees", ModTrees.winterTree.getConfiguredFeature(new Random(), true).placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+            CountPlacement.of(ClampedNormalInt.of(1, 0.5f, 1, 4))
+    ));
+
+    public static final PlacedFeature WINTER_CROCUS = registerPlacement("winter_crocus", ModFeatures.Configured.crocus.placed(
+            HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG)
+    ));
+
+    public static final PlacedFeature WINTER_FLOWERS = registerPlacement("winter_flowers", Feature.FLOWER
+            .configured(ModFeatureProperties.COLD_FLOWERS)
+            .placed(
+                    HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
+                    CountPlacement.of(ConstantInt.of(2))
+            )
     );
-
-    //WARM FLOWERS
-    public static final RandomPatchConfiguration SUMMER_WARM_FLOWERS_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
-            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.POPPY.defaultBlockState(), 2)
-                    .add(Blocks.DANDELION.defaultBlockState(), 1)
-                    .build()),
-            SimpleBlockPlacer.INSTANCE
-    ).tries(64).build();
-
-    public static final PlacedFeature SUMMER_WARM_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
-            Feature.FLOWER.configured(SUMMER_WARM_FLOWERS_CONFIG)
-                    .decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(4)
-    );
-
-    /* AUTUMN */
-    public static final PlacedFeature AUTUMN_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "autumn_trees",
-            ModTrees.autumnTree.getConfiguredFeature(new Random(), true)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.5f, 5)))
-    );
-
-    public static final PlacedFeature AUTUMN_PUMPKINS = registerFeature("autumn_pumpkins",
-            ModFeatures.autumnPumpkins.configured(FeatureConfiguration.NONE)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-    );
-
-    //SWAMP FLOWERS
-
-    public static final RandomPatchConfiguration AUTUMN_SWAMP_FLOWERS_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
-            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.BLUE_ORCHID.defaultBlockState(), 2)
-                    .build()),
-            SimpleBlockPlacer.INSTANCE
-    ).tries(64).build();
-
-    public static final PlacedFeature AUTUMN_SWAMP_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
-            Feature.FLOWER.configured(AUTUMN_SWAMP_FLOWERS_CONFIG)
-                    .decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-    );
-
-    //SMALL MUSHROOMS
-
-    public static final RandomPatchConfiguration AUTUMN_SMALL_MUSHROOMS_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
-            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.BROWN_MUSHROOM.defaultBlockState(), 2)
-                    .add(Blocks.RED_MUSHROOM.defaultBlockState(), 1)
-                    .build()),
-            SimpleBlockPlacer.INSTANCE
-    ).tries(32).build();
-
-    public static final PlacedFeature AUTUMN_SMALL_MUSHROOMS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
-            Feature.FLOWER.configured(AUTUMN_SMALL_MUSHROOMS_CONFIG)
-                    //.decorated(Features.Placements.ADD_32).decorated(Features.Placements.HEIGHTMAP_SQUARE));
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(2)
-    );
-
-    /* WINTER */
-    public static final PlacedFeature WINTER_TREES = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "winter_trees",
-            ModTrees.winterTree.getConfiguredFeature(new Random(), true)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-                    .decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(1, 0.3f, 2)))
-    );
-
-    //Winter Flowers
-    public static final RandomPatchConfiguration WINTER_FLOWER_CONFIG = new RandomPatchConfiguration.GrassConfigurationBuilder(
-            new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                    .add(Blocks.LILY_OF_THE_VALLEY.defaultBlockState(), 2)
-                    .add(Blocks.POPPY.defaultBlockState(), 1)
-                    .build()),
-            SimpleBlockPlacer.INSTANCE
-    ).tries(64).build();
-
-    public static final PlacedFeature WINTER_FLOWERS = Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, "flower_default",
-            Feature.FLOWER.configured(WINTER_FLOWER_CONFIG)
-                    .decorated(Features.Decorators.ADD_32)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(2)
-    );
-
-    public static final PlacedFeature WINTER_CROCUS = registerFeature("crocus_feature",
-            ModFeatures.crocus.configured(FeatureConfiguration.NONE)
-                    .decorated(Features.Decorators.HEIGHTMAP_SQUARE)
-    );
-
-    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> registerFeature(String key, ConfiguredFeature<FC, ?> feature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, key), feature);
+    
+    private static PlacedFeature registerPlacement(String key, PlacedFeature placement) {
+        return Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, key), placement);
     }
-
 }
