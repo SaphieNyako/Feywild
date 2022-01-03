@@ -66,11 +66,10 @@ public class AncientRunestone extends BlockEntityBase implements TickableBlock {
         this.time = nbt.getInt("Time");
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag nbt) {
+    public void saveAdditional(@Nonnull CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.putInt("Time", this.time);
-        return super.save(nbt);
     }
 
     @Nonnull

@@ -154,12 +154,11 @@ public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimata
         return this.progress;
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag nbt) {
+    public void saveAdditional(@Nonnull CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.put("inventory", this.inventory.serializeNBT());
         nbt.putInt("progress", this.progress);
-        return super.save(nbt);
     }
 
     @Override

@@ -102,12 +102,11 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlock {
         }
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(CompoundTag nbt) {
+    public void saveAdditional(@Nonnull CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.put("inventory", this.inventory.serializeNBT());
         nbt.put("mana", this.manaStorage.serializeNBT());
-        return super.save(nbt);
     }
 
     @Override

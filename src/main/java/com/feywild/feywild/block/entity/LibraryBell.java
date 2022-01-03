@@ -81,9 +81,9 @@ public class LibraryBell extends BlockEntity {
         this.despawnTimer = nbt.getInt("despawner");
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(CompoundTag nbt) {
+    public void saveAdditional(@Nonnull CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.putInt("annoyance", this.annoyance);
         nbt.putInt("despawner", this.despawnTimer);
         if (this.player == null) {
@@ -101,7 +101,5 @@ public class LibraryBell extends BlockEntity {
         } else {
             nbt.putUUID("securityId", this.security);
         }
-
-        return super.save(nbt);
     }
 }
