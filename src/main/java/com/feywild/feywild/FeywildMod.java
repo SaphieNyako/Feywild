@@ -132,10 +132,10 @@ public final class FeywildMod extends ModXRegistration {
             OreType.setupOres();
             ModStructures.setupStructures();
 
-            SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fey::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
+            SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn);
             SpawnPlacements.register(ModEntityTypes.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
             SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
             SpawnPlacements.register(ModEntityTypes.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
@@ -173,10 +173,10 @@ public final class FeywildMod extends ModXRegistration {
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntityTypes.springPixie, Fey.getDefaultAttributes().build());
-        event.put(ModEntityTypes.winterPixie, Fey.getDefaultAttributes().build());
-        event.put(ModEntityTypes.summerPixie, Fey.getDefaultAttributes().build());
-        event.put(ModEntityTypes.autumnPixie, Fey.getDefaultAttributes().build());
+        event.put(ModEntityTypes.springPixie, SpringPixie.getDefaultAttributes().build());
+        event.put(ModEntityTypes.summerPixie, SummerPixie.getDefaultAttributes().build());
+        event.put(ModEntityTypes.autumnPixie, AutumnPixie.getDefaultAttributes().build());
+        event.put(ModEntityTypes.winterPixie, WinterPixie.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmith.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfArtificer, MarketDwarf.getDefaultAttributes().build());
         event.put(ModEntityTypes.dwarfBaker, MarketDwarf.getDefaultAttributes().build());

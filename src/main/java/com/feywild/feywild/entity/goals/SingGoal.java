@@ -48,18 +48,13 @@ public class SingGoal extends Goal {
     }
 
     private void growCropsBySinging(BlockPos pos) {
-        // some weird math
-
         for (int xd = -4; xd <= 4; xd++) {
             for (int zd = -4; zd <= 4; zd++) {
                 for (int yd = 2; yd >= -2; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
-
                     if (level.getBlockState(target).getBlock() instanceof CropBlock && level.random.nextFloat() < 0.08f) {
-
                         ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
                         FeywildMod.getNetwork().sendParticles(level, ParticleSerializer.Type.CROPS_GROW, target);
-
                     }
                 }
             }

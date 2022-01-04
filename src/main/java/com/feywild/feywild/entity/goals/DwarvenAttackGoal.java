@@ -78,7 +78,6 @@ public class DwarvenAttackGoal extends Goal {
         for (int xd = 0; xd <= size; xd++) {
             for (int zd = 0; zd <= size; zd++) {
                 int dist = Math.abs(xd) + Math.abs(zd);
-                //noinspection deprecation
                 if (dist <= size && !this.entity.level.getBlockState(centerPos.offset(xd, -1, zd)).isAir() && this.entity.level.getBlockState(new BlockPos(centerPos.offset(xd, 0, zd))).isAir() && (xd != 0 || zd != 0)) {
                     if (stage) {
                         this.waveBlock(entityList, centerPos.offset(xd, 0, zd));

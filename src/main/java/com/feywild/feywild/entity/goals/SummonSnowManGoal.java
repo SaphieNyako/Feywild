@@ -10,9 +10,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Objects;
 
 public class SummonSnowManGoal extends Goal {
 
@@ -78,7 +77,12 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f && this.noSnowManNearby() && QuestData.get((ServerPlayer) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
+        Player owning = this.entity.getOwningPlayer();
+        if (owning instanceof ServerPlayer serverPlayer) {
+            return this.entity.level.random.nextFloat() < 0.0005f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+        } else {
+            return false;
+        }
     }
     
     private boolean noSnowManNearby() {

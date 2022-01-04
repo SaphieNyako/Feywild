@@ -53,7 +53,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     protected boolean canCapture(Level level, Player player, T entity) {
-        return (!(entity instanceof Fey) || ((Fey) entity).isTamed()) && player.getUUID().equals(entity.getOwnerId());
+        return player.getUUID().equals(entity.getOwner());
     }
 
     @Override

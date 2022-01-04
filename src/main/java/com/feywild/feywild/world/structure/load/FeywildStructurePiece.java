@@ -99,7 +99,7 @@ public class FeywildStructurePiece extends SinglePoolElement {
         } else {
             DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, level.getLevel());
             entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-            entity.setTamed(false);
+            entity.trySetTamed(false);
             entity.setPersistenceRequired();
             addEntity(level, entity);
         }

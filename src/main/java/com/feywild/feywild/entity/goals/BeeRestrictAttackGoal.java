@@ -19,14 +19,6 @@ public class BeeRestrictAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    public void start() {
-        super.start();
-        if (beeKnight.getCurrentPointOfInterest() == null) {
-            beeKnight.setCurrentTargetPos(beeKnight.blockPosition());
-        }
-    }
-
-    @Override
     public boolean canContinueToUse() {
         return beeKnight.isAngry() && beeKnight.getCurrentPointOfInterest() != null && beeKnight.getCurrentPointOfInterest().closerThan(beeKnight.position(), 2 * MobConfig.bee_knight.aggrevation_range) && beeKnight.getTarget() != null && !beeKnight.getTarget().isDeadOrDying();
     }

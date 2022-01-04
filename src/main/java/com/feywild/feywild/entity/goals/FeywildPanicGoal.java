@@ -25,7 +25,6 @@ public class FeywildPanicGoal extends Goal {
         if (targetPos.distanceTo(this.entity.position()) < 1.4) {
             for (int i = 0; i < 30; i++) {
                 targetPos = new Vec3(this.entity.getX() - this.range + this.entity.getRandom().nextInt(this.range * 2), this.entity.getY() - this.range + this.entity.getRandom().nextInt(this.range * 2), this.entity.getZ() - this.range + this.entity.getRandom().nextInt(this.range * 2));
-                //noinspection deprecation
                 if (this.entity.level.getBlockState(new BlockPos(targetPos.x(), targetPos.y(), targetPos.z())).isAir()) {
                     break;
                 }

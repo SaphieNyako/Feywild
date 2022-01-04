@@ -84,6 +84,11 @@ public class AddShieldGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f && QuestData.get((ServerPlayer) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
+        Player owning = this.entity.getOwningPlayer();
+        if (owning instanceof ServerPlayer serverPlayer) {
+            return this.entity.level.random.nextFloat() < 0.002f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+        } else {
+            return false;
+        }
     }
 }

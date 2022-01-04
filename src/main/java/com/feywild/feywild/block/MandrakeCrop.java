@@ -102,7 +102,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
 
                 if (entity != null) {
                     entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                    entity.setCurrentTargetPos(pos);
+                    entity.setSummonPos(pos);
                     level.addFreshEntity(entity);
                     entity.playSound(SoundEvents.FOX_EAT, 1, 1);
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);

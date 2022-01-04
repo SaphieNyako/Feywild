@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
 
@@ -71,7 +72,12 @@ public class TargetFireGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f  && QuestData.get((ServerPlayer) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
+        Player owning = this.entity.getOwningPlayer();
+        if (owning instanceof ServerPlayer serverPlayer) {
+            return this.entity.level.random.nextFloat() < 0.005f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+        } else {
+            return false;
+        }
     }
 
     private Monster findTarget() {

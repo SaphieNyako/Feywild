@@ -32,7 +32,7 @@ public class AncientRunestone extends BlockEntityBase implements TickableBlock {
                     DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, this.level);
                     entity.setPos(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5);
                     entity.setSummonPos(this.worldPosition);
-                    entity.setTamed(false);
+                    entity.trySetTamed(false);
                     entity.setPersistenceRequired();
                     this.level.addFreshEntity(entity);
                 } else {
