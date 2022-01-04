@@ -6,7 +6,6 @@ import com.feywild.feywild.config.*;
 import com.feywild.feywild.config.mapper.BiomeTypeMapper;
 import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;

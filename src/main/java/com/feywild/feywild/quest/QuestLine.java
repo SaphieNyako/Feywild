@@ -21,7 +21,6 @@ public class QuestLine {
         this.quests = ImmutableMap.copyOf(quests);
         ImmutableMap.Builder<Quest, List<Quest>> questOrder = ImmutableMap.builder();
         for (Quest quest : this.quests.values()) {
-            //noinspection UnstableApiUsage
             questOrder.put(quest, quest.parents.stream().map(rl -> {
                 if (this.quests.containsKey(rl)) {
                     return this.quests.get(rl);

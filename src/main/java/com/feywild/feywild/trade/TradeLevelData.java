@@ -49,7 +49,6 @@ public class TradeLevelData {
         }
         
         this.tradeView = new LazyValue<>(() -> {
-            //noinspection UnstableApiUsage
             return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         });
     }
@@ -72,7 +71,6 @@ public class TradeLevelData {
         } else if (tradesToSelect == 1) {
             return ImmutableList.of(this.trades.get(this.selectRandomTrade(random)).getRight());
         } else if (!this.allowDuplicates && tradesToSelect == this.trades.size()) {
-            //noinspection UnstableApiUsage
             return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         } else {
             // Stores which indices have been used, so no trade is selected twice.

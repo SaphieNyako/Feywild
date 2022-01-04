@@ -26,7 +26,6 @@ public class DatapackHelper {
     
     public static List<ItemStack> loadStackList(ResourceManager rm, String path, String name) {
         try {
-            //noinspection UnstableApiUsage
             return DataLoader.joinJson(DataLoader.locate(rm, path + "/" + name + ".json", name), (id, data) -> data.getAsJsonArray())
                     .flatMap(Streams::stream).filter(JsonElement::isJsonObject).map(JsonElement::getAsJsonObject)
                     .filter(json -> !json.has("mod") || ModList.get().isLoaded(json.get("mod").getAsString()))

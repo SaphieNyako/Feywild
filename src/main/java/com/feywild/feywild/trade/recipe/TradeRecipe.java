@@ -32,7 +32,6 @@ public class TradeRecipe {
         }
 
         private static List<ItemStack> copyList(List<ItemStack> stacks) {
-            //noinspection UnstableApiUsage
             return stacks.stream()
                     .filter(s -> !s.isEmpty())
                     .map(ItemStack::copy)
