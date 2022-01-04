@@ -93,13 +93,12 @@ public class DisplayGlass extends BlockEntityBase implements TickableBlock {
         }
     }
 
-    @Nonnull
     @Override
-    public CompoundTag save(@Nonnull CompoundTag nbt) {
+    public void saveAdditional(@Nonnull CompoundTag nbt) {
+        super.saveAdditional(nbt);
         nbt.put("Inventory", this.inventory.serializeNBT());
         nbt.putInt("GenerationCoolDown", this.generationCoolDown);
         nbt.putInt("Hits", this.hitCounter);
-        return super.save(nbt);
     }
 
     @Override

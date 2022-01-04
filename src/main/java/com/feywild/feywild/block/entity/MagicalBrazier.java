@@ -25,7 +25,6 @@ public class MagicalBrazier extends BlockEntityBase implements IAnimatable, Tick
     }
 
     public int getTextureNumber() {
-
         return this.textureNumber;
     }
 
@@ -61,5 +60,4 @@ public class MagicalBrazier extends BlockEntityBase implements IAnimatable, Tick
     public AnimationFactory getFactory() {
         return this.animationFactory;
     }
-
 }
