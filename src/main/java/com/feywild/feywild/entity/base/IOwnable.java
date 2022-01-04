@@ -10,7 +10,7 @@ public interface IOwnable extends ITameable {
     
     @Nullable
     UUID getOwner();
-    void setOwner(UUID uid);
+    void setOwner(@Nullable UUID uid);
     
     default void setOwner(Player player) {
         setOwner(player.getGameProfile().getId());
@@ -27,5 +27,15 @@ public interface IOwnable extends ITameable {
     @Override
     default boolean isTamed() {
         return this.getOwner() != null;
+    }
+
+    @Override
+    default boolean trySetTamed(boolean tamed) {
+        if (!tamed) {
+            this.setOwner((UUID) null);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

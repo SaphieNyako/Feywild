@@ -48,7 +48,6 @@ public class MarketDwarf extends DwarfBlacksmith {
 
     @Override
     protected void registerGoals() {
-        // No super call as the marked dwarves should not inherit goals
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new LookAtTradingPlayerGoal(this));

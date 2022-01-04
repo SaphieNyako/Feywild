@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity;
 
-import com.feywild.feywild.entity.base.IOwnable;
+import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.base.Trader;
 import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
@@ -43,30 +43,20 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
-import java.util.UUID;
 
-public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
-
-    @Nullable
-    @Override
-    public UUID getOwner() {
-        return null;
-    }
-
-    @Override
-    public void setOwner(UUID uid) {
-        this
-    }
+public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
-    //GeckoLib variable
-    private final AnimationFactory animationFactory = new AnimationFactory(this);
-    private BlockPos summonPos;
+
     private boolean isTamed;
+    
+    @Nullable
+    private BlockPos summonPos;
+
+    private final AnimationFactory factory = new AnimationFactory(this);
 
     public DwarfBlacksmith(EntityType<? extends Trader> type, Level level) {
         super(type, level);
-        //GeckoLib check
         this.noCulling = true;
         this.moveControl = new MoveControl(this);
     }
@@ -96,6 +86,18 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     }
 
     @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.5D));
+        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
+        this.goalSelector.addGoal(2, new GoToAnvilPositionGoal(this, this::getSummonPos, 5));
+        this.goalSelector.addGoal(6, new RefreshStockGoal(this));
+        this.targetSelector.addGoal(1, new DwarvenAttackGoal(this));
+    }
+    
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
@@ -111,7 +113,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     }
 
     protected void trade(Player player) {
-        this.setTradingPlayer(player); //added
+        this.setTradingPlayer(player);
         this.openTradingScreen(player, new TranslatableComponent("Dwarven Trader"), 1);
         player.displayClientMessage(new TranslatableComponent("dwarf.feywild.dialogue"), false);
     }
@@ -123,21 +125,44 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataNbt);
     }
 
-    public BlockPos getSummonPos() {
-        return this.summonPos;
-    }
-
-    public void setSummonPos(BlockPos summonPos) {
-        this.summonPos = summonPos.immutable();
-    }
-
     @Override
     public boolean isTamed() {
         return this.isTamed;
     }
 
-    public void setTamed(boolean tamed) {
+    @Override
+    public boolean trySetTamed(boolean tamed) {
         this.isTamed = tamed;
+        return true;
+    }
+    
+    @Nullable
+    @Override
+    public BlockPos getSummonPos() {
+        return this.summonPos;
+    }
+
+    @Override
+    public void setSummonPos(@Nullable BlockPos pos) {
+        this.summonPos = pos == null ? null : pos.immutable();
+    }
+
+    @Override
+    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putBoolean("Tamed", this.isTamed);
+        if (this.summonPos != null) {
+            nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
+        } else {
+            nbt.remove("SummonPos");
+        }
+    }
+
+    @Override
+    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.isTamed = nbt.getBoolean("Tamed");
+        this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")).immutable() : null;
     }
 
     public State getState() {
@@ -147,34 +172,6 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
 
     public void setState(State state) {
         this.entityData.set(STATE, state.ordinal());
-    }
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.5D));
-        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
-        this.goalSelector.addGoal(2, new GoToAnvilPositionGoal(this, this::getSummonPos, 5));
-        this.goalSelector.addGoal(6, new RefreshStockGoal(this));
-        this.targetSelector.addGoal(1, new DwarvenAttackGoal(this));
-    }
-
-    @Override
-    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putBoolean("Tamed", this.isTamed);
-        if (this.summonPos != null) {
-            nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
-        }
-    }
-
-    @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        this.isTamed = nbt.getBoolean("Tamed");
-        this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")) : null;
     }
 
     @Override
@@ -198,16 +195,6 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
     @Override
     public boolean requiresCustomPersistence() {
         return true;
-    }
-
-    @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
-        return false;
-    }
-
-    @Override
-    protected int getExperienceReward(@Nonnull Player player) {
-        return 0;
     }
 
     @Nullable
@@ -258,18 +245,13 @@ public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return this.animationFactory;
+        return this.factory;
     }
 
     @Override
-    public boolean isPersistenceRequired() { //is required when tamed is true, and xp is higher then 0
+    public boolean isPersistenceRequired() {
         return this.isTamed || this.getVillagerXp() > 0 || super.isPersistenceRequired();
     }
-/*
-    @Override
-    public boolean removeWhenFarAway(double p_213397_1_) {
-        return !this.isTamed && this.getVillagerXp() == 0;
-    } */
 
     @Override
     public void checkDespawn() {

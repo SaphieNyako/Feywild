@@ -14,7 +14,7 @@ public class MandragoraModel extends AnimatedGeoModel<Mandragora> {
 
     @Override
     public ResourceLocation getTextureLocation(Mandragora object) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/mandragora_" + object.getVariation().name().toLowerCase() + ".png");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/mandragora_" + object.getVariant().name().toLowerCase() + ".png");
     }
 
     @Override

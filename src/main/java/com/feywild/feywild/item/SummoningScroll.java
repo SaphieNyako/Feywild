@@ -3,6 +3,7 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ISummonable;
+import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.base.ItemBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -49,6 +50,9 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
     protected void prepareEntity(Level level, Player player, BlockPos pos, T entity) {
         if (entity instanceof ISummonable summonable) {
             summonable.setSummonPos(pos.immutable());
+        }
+        if (entity instanceof ITameable tameable) {
+            tameable.trySetTamed(true);
         }
         if (entity instanceof IOwnable ownable) {
             ownable.setOwner(player);
