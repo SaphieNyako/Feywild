@@ -3,10 +3,7 @@ package com.feywild.feywild.entity.base;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -16,18 +13,11 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
 
-public abstract class FlyingFeyBase extends FeyBase{
+public abstract class FlyingFeyBase extends FeyBase {
 
     protected FlyingFeyBase(EntityType<? extends FeyBase> entityType, Alignment alignment, Level level) {
-        super(entityType,alignment, level);
+        super(entityType, alignment, level);
         this.moveControl = new FlyingMoveControl(this, 4, true);
-    }
-
-    public static AttributeSupplier.Builder getDefaultAttributes() {
-        return Mob.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
-                .add(Attributes.LUCK, 0.2);
     }
 
     @Override
@@ -84,6 +74,5 @@ public abstract class FlyingFeyBase extends FeyBase{
         flyingPathNavigator.setCanFloat(true);
         flyingPathNavigator.setCanPassDoors(true);
         return flyingPathNavigator;
-
     }
 }

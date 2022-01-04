@@ -1,6 +1,8 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.entity.DwarfBlacksmith;
+import com.feywild.feywild.entity.base.IOwnable;
+import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.base.ItemBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -45,7 +47,12 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
     }
 
     protected void prepareEntity(Level level, Player player, BlockPos pos, T entity) {
-
+        if (entity instanceof ISummonable summonable) {
+            summonable.setSummonPos(pos.immutable());
+        }
+        if (entity instanceof IOwnable ownable) {
+            ownable.setOwner(player);
+        }
     }
 
     @Nonnull
@@ -75,8 +82,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                         if (!(entity instanceof DwarfBlacksmith))
                         context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
                     }
-                }else
-                    context.getPlayer().sendMessage(new TranslatableComponent("message.feywild.summon_fail"), context.getPlayer().getUUID());
+                }
             }
             return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
         }

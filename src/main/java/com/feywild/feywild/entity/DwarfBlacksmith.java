@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.base.Trader;
 import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
@@ -42,9 +43,21 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.UUID;
 
 public class DwarfBlacksmith extends Trader implements ITameable, IAnimatable {
-    
+
+    @Nullable
+    @Override
+    public UUID getOwner() {
+        return null;
+    }
+
+    @Override
+    public void setOwner(UUID uid) {
+        this
+    }
+
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     //GeckoLib variable
     private final AnimationFactory animationFactory = new AnimationFactory(this);

@@ -29,66 +29,44 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public abstract class FeyBase extends PathfinderMob implements IAnimatable {
+public abstract class FeyBase extends PathfinderMob implements IAnimatable, IOwnable, ISummonable {
 
     public final Alignment alignment;
 
-    private final AnimationFactory factory = new AnimationFactory(this);
-    public Vec3 summonPos = null;
+    @Nullable
+    private BlockPos summonPos = null;
+    
     @Nullable
     protected UUID owner;
 
+    private int unalignedTicks = 0;
+
+    private final AnimationFactory factory = new AnimationFactory(this);
+    
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
         super(entityType, level);
         this.alignment = alignment;
         this.noCulling = true;
-
-    }
-
-    @Nullable
-    public Player getOwner() {
-        return this.owner == null ? null : this.level.getPlayerByUUID(this.owner);
-    }
-
-    public void setOwner(@Nullable Player owner) {
-        this.setOwner(owner == null ? null : owner.getUUID());
-    }
-
-    public void setOwner(@Nullable UUID owner) {
-        this.owner = owner;
-    }
-
-    @Nullable
-    public UUID getOwnerId() {
-        return this.owner;
-    }
-
-    @Nullable
-    public Vec3 getCurrentPointOfInterest() {
-        return summonPos;
-    }
-
-    public void setCurrentTargetPos(@Nullable BlockPos currentTargetPos) {
-        this.summonPos = currentTargetPos == null ? null : new Vec3(currentTargetPos.getX(), currentTargetPos.getY(), currentTargetPos.getZ());
-    }
-
-    public void setCurrentTargetPos(@Nullable Vec3 currentTargetPos) {
-        this.summonPos = currentTargetPos;
     }
 
     @Nullable
     public abstract SimpleParticleType getParticle();
+    
+    @Nullable
+    public Vec3 getCurrentPointOfInterest() {
+        if (this.summonPos != null) {
+            return new Vec3(this.summonPos.getX() + 0.5, this.summonPos.getY(), this.getSummonPos().getZ() + 0.5);
+        } else {
+            return null;
+        }
+    }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
-        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, getMovementRange(), 1.5f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, 1.5f));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
-    }
-
-    protected int getMovementRange() {
-        return 6;
     }
 
     @Override
@@ -102,12 +80,73 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        } else if (this.tickCount % (8 * 20) == 0 && !level.isClientSide && getOwner() != null) {
-            if (QuestData.get((ServerPlayer) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayer) getOwner()).getAlignment() != null) {
-                getOwner().sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
-                remove(RemovalReason.DISCARDED);
-            }
         }
+        
+        Player owner = this.getOwningPlayer();
+        if (owner instanceof ServerPlayer serverPlayer) {
+            Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
+            if (ownerAlignment != null && ownerAlignment != this.alignment) {
+                unalignedTicks += 1;
+                if (unalignedTicks >= 300) {
+                    owner.sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), owner.getUUID());
+                    this.remove(RemovalReason.DISCARDED);
+                }
+            } else {
+                unalignedTicks = 0;
+            }
+        } else {
+            unalignedTicks = 0;
+        }
+    }
+    
+    @Override
+    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        if (this.owner != null) {
+            nbt.putUUID("Owner", this.owner);
+        } else {
+            nbt.remove("Owner");
+        }
+        if (this.summonPos != null) {
+            nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
+        } else {
+            nbt.remove("SummonPos");
+        }
+        nbt.putInt("UnalignedTicks", this.unalignedTicks);
+    }
+
+    @Override
+    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
+        this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")).immutable() : null;
+        this.unalignedTicks = nbt.getInt("UnalignedTicks");
+    }
+
+    @Nullable
+    @Override
+    public UUID getOwner() {
+        return this.owner;
+    }
+
+    @Override
+    public void setOwner(UUID uid) {
+        this.owner = uid;
+    }
+
+    @Override
+    public BlockPos getSummonPos() {
+        return this.summonPos;
+    }
+
+    @Override
+    public void setSummonPos(BlockPos pos) {
+        this.summonPos = pos.immutable();
+    }
+
+    @Override
+    public Level getEntityLevel() {
+        return this.level;
     }
 
     @Override
@@ -127,7 +166,7 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
 
     @Override
     protected int getExperienceReward(@Nonnull Player player) {
-        return 0;
+        return this.isTamed() ? 0 : super.getExperienceReward(player);
     }
 
     @Override
@@ -181,26 +220,5 @@ public abstract class FeyBase extends PathfinderMob implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
-    }
-
-    @Override
-    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        if (this.owner != null) {
-            nbt.putUUID("Owner", this.owner);
-        }
-        if (getCurrentPointOfInterest() != null) {
-            nbt.put("SummonPos", NbtUtils.writeBlockPos(new BlockPos(getCurrentPointOfInterest().x, getCurrentPointOfInterest().y, getCurrentPointOfInterest().z)));
-        }
-    }
-
-    @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
-        BlockPos pos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")) : null;
-        if (pos != null) {
-            this.summonPos = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-        }
     }
 }

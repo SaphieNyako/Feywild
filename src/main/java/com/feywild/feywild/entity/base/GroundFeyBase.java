@@ -5,7 +5,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.level.Level;
 
-public abstract class GroundFeyBase extends FeyBase{
+public abstract class GroundFeyBase extends FeyBase {
+
     protected GroundFeyBase(EntityType<? extends FeyBase> entityType, Alignment alignment, Level level) {
         super(entityType, alignment, level);
     }

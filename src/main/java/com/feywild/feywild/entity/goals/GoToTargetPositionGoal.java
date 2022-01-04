@@ -9,7 +9,6 @@ import java.util.function.Supplier;
 public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
     private final Mob entity;
-    private final Supplier<Boolean> shouldReturn;
     private final int triggerRangeSquared;
     private final float speed;
 
@@ -17,7 +16,6 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.speed = speed;
-        this.shouldReturn = () -> true;
         this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
 
@@ -25,7 +23,6 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.speed = speed;
-        this.shouldReturn = shouldReturn;
         this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
 
@@ -42,13 +39,13 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
     @Override
     public boolean canContinueToUse() {
         Vec3 target = this.targetPosition.get();
-        return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared / 2.0 && this.shouldReturn.get();
+        return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared / 2.0;
     }
 
     @Override
     public boolean canUse() {
         Vec3 target = this.targetPosition.get();
-        return this.entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position()) && this.shouldReturn.get();
+        return this.entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
     }
     
     public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {

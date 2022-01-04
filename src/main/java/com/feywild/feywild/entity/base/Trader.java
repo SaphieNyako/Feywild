@@ -70,7 +70,6 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
         nbt.putInt("VillagerXp", this.villagerXp);
         nbt.putLong("LastRestock", this.lastRestockGameTime);
         nbt.putInt("RestocksToday", this.numberOfRestocksToday);
-
     }
 
     @Override

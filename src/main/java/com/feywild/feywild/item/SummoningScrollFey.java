@@ -1,8 +1,8 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.entity.Shroomling;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.base.FeyBase;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -40,28 +40,15 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
-            return QuestData.get(serverPlayer).getAlignment() == entity.alignment || (QuestData.get(serverPlayer).getAlignment() == null && entity instanceof Fey);
+            Alignment alignment = QuestData.get(serverPlayer).getAlignment();
+            if (alignment != entity.alignment && !(entity instanceof Fey && alignment == null)) {
+                player.sendMessage(new TranslatableComponent("message.feywild.summon_fail"), player.getUUID());
+                return false;
+            } else {
+                return true;
+            }
         }
-
         return false;
-    }
-
-    @Override
-    protected void prepareEntity(Level level, Player player, BlockPos pos, T entity) {
-        // General setters
-        entity.setCurrentTargetPos(pos);
-        entity.setOwner(player);
-
-        // Specific setters
-        if (entity instanceof Fey) {
-            ((Fey) entity).setTamed(true);
-            entity.setCurrentTargetPos((BlockPos) null);
-        }
-        if (entity instanceof Shroomling) {
-            ((Shroomling) entity).setTamed(true);
-            entity.setCurrentTargetPos((BlockPos) null);
-            //TODO needs rework in 1.18
-        }
     }
 
     @Override

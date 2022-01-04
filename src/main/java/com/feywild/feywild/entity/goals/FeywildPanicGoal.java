@@ -6,13 +6,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
-public class FeyWildPanicGoal extends Goal {
+public class FeywildPanicGoal extends Goal {
 
     private final Fey entity;
     private final int range;
     private final double speed;
 
-    public FeyWildPanicGoal(Fey entity, double speed, int range) {
+    public FeywildPanicGoal(Fey entity, double speed, int range) {
         this.entity = entity;
         this.speed = speed;
         this.range = range;

@@ -30,12 +30,6 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     }
 
     @Override
-    protected void prepareEntity(Level level, Player player, BlockPos pos, DwarfBlacksmith entity) {
-        entity.setTamed(true);
-        entity.setSummonPos(pos);
-    }
-
-    @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.dwarf_blacksmith"));
     }

@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.goals.FeyWildPanicGoal;
+import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
 import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.network.quest.OpenQuestDisplaySerializer;
@@ -15,7 +15,6 @@ import com.feywild.feywild.quest.util.SelectableQuest;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -24,7 +23,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -45,48 +47,53 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
-public abstract class Fey extends FlyingFeyBase implements ITameable {
+public abstract class Fey extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.BOOLEAN);
-
-    private boolean isTamed = false;
-
+    
+    private boolean followingPlayer;
+    
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
         super(type, alignment, level);
+    }
+
+    public static AttributeSupplier.Builder getDefaultAttributes() {
+        return Mob.createMobAttributes().add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
+                .add(Attributes.MAX_HEALTH, 12)
+                .add(Attributes.MOVEMENT_SPEED, 0.35)
+                .add(Attributes.LUCK, 0.2);
     }
 
     public static boolean canSpawn(EntityType<? extends Fey> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
     }
 
-    @Override
-    public boolean isTamed() {
-        return this.isTamed;
-    }
-
-    public void setTamed(boolean tamed) {
-        this.isTamed = tamed;
-    }
-
     @Nullable
     @Override
     public Vec3 getCurrentPointOfInterest() {
-        if (!this.isTamed()) {
-            return null;
-        } else if (summonPos != null) {
-            return summonPos.add(0.5D, 0.5D, 0.5D);
+        if (this.followingPlayer) {
+            Player player = this.getOwningPlayer();
+            return player == null ? null : player.position();
         } else {
-            Player player = this.getOwner();
-            if (player != null) {
-                return player.position();
-            }
+            return super.getCurrentPointOfInterest();
         }
-        return null;
     }
 
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 13));
+        this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
+    }
+    
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(CASTING, false);
+    }
+    
     public boolean isCasting() {
         return this.entityData.get(CASTING);
     }
@@ -96,28 +103,15 @@ public abstract class Fey extends FlyingFeyBase implements ITameable {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(CASTING, false);
-    }
-
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(50, new FeyWildPanicGoal(this, 0.003, 13));
-        this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
-    }
-
-    @Override
     public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putBoolean("Tamed", this.isTamed);
+        nbt.putBoolean("FollowingPlayer", this.followingPlayer);
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        this.isTamed = nbt.getBoolean("Tamed");
+        this.followingPlayer = nbt.getBoolean("FollowingPlayer");
     }
 
     @Nonnull
@@ -126,11 +120,12 @@ public abstract class Fey extends FlyingFeyBase implements ITameable {
         if (!this.level.isClientSide) {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
-                    if (Objects.equals(this.getCurrentPointOfInterest(), player.position())) {
-                        this.setCurrentTargetPos(this.blockPosition());
+                    if (this.followingPlayer) {
+                        this.followingPlayer = false;
+                        this.setSummonPos(this.blockPosition());
                         player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                     } else {
-                        this.setCurrentTargetPos((BlockPos) null);
+                        this.followingPlayer = true;
                         player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                     }
                 }
@@ -142,8 +137,7 @@ public abstract class Fey extends FlyingFeyBase implements ITameable {
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
-                setCustomName(new TextComponent(player.getItemInHand(hand).getDisplayName().getString()
-                        .substring(1, player.getItemInHand(hand).getDisplayName().getString().length() - 1)));
+                setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
                 player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_name"), player.getUUID());
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
