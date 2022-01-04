@@ -49,7 +49,9 @@ public class WaveGoal extends Goal {
         return ModSoundEvents.shroomlingWave;
     }
 
-    private void waving() {this.entity.setState(Shroomling.State.WAVING);}
+    private void waving() {
+        this.entity.setState(Shroomling.State.WAVING);
+    }
 
     @Override
     public void start() {

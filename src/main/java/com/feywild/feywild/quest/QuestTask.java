@@ -10,7 +10,7 @@ import net.minecraft.world.item.Item;
 import java.util.Optional;
 
 public class QuestTask {
-    
+
     private final TaskType<Object, Object> task;
     private final Object element;
     public final int times;
@@ -26,11 +26,11 @@ public class QuestTask {
             throw new IllegalStateException("Can't create quest task: can't repeat non-repeatable task type.");
         }
     }
-    
+
     public static <T> QuestTask of(TaskType<T, ?> type, T element) {
         return of(type, element, 1);
     }
-    
+
     public static <T> QuestTask of(TaskType<T, ?> type, T element, int times) {
         //noinspection unchecked
         return new QuestTask((TaskType<Object, Object>) type, element, times);
@@ -43,7 +43,7 @@ public class QuestTask {
             return false;
         }
     }
-    
+
     public <T> Optional<T> getQuestValueFor(TaskType<T, ?> type) {
         if (this.task == type) {
             //noinspection unchecked
@@ -52,11 +52,11 @@ public class QuestTask {
             return Optional.empty();
         }
     }
-    
+
     public Item icon() {
         return this.task.icon(this.element);
     }
-    
+
     public JsonObject toJson() {
         JsonObject json = this.task.toJson(this.element);
         json.addProperty("id", TaskTypes.getId(this.task).toString());

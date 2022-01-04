@@ -36,7 +36,7 @@ public class OpenLibraryScreenSerializer implements PacketSerializer<OpenLibrary
     }
 
     public static class Message {
-        
+
         public final Component title;
         public final List<ItemStack> books;
 

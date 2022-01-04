@@ -23,7 +23,7 @@ public class DatapackHelper {
         builder.setPrettyPrinting();
         return builder.create();
     }).get();
-    
+
     public static List<ItemStack> loadStackList(ResourceManager rm, String path, String name) {
         try {
             return DataLoader.joinJson(DataLoader.locate(rm, path + "/" + name + ".json", name), (id, data) -> data.getAsJsonArray())

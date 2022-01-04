@@ -21,7 +21,7 @@ public class QuestDisplay {
         this.description = description;
         this.sound = sound;
     }
-    
+
     public static QuestDisplay fromJson(JsonObject json) {
         Component title = Component.Serializer.fromJson(json.get("title"));
         Component description = Component.Serializer.fromJson(json.get("description"));
@@ -38,14 +38,14 @@ public class QuestDisplay {
         }
         return json;
     }
-    
+
     public static QuestDisplay fromNetwork(FriendlyByteBuf buffer) {
         Component title = buffer.readComponent();
         Component description = buffer.readComponent();
         SoundEvent sound = buffer.readBoolean() ? buffer.readRegistryId() : null;
         return new QuestDisplay(title, description, sound);
     }
-    
+
     public void toNetwork(FriendlyByteBuf buffer) {
         buffer.writeComponent(this.title);
         buffer.writeComponent(this.description);

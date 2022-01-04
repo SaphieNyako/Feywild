@@ -26,7 +26,7 @@ public class FeywildTitleScreen extends TitleScreen {
 
         ForgeHooksClient.renderMainMenu(this, poseStack, this.getMinecraft().font, width, height, -1);
         drawString(poseStack, this.getMinecraft().font, "Copyright Mojang AB. Do not distribute!", width - this.font.width("Copyright Mojang AB. Do not distribute!") - 2, height - 10, 0xFFFFFFFF);
-        for(Widget widget : this.renderables) {
+        for (Widget widget : this.renderables) {
             widget.render(poseStack, mouseX, mouseY, partialTicks);
         }
     }

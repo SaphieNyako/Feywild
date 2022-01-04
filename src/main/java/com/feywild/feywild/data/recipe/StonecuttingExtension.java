@@ -17,10 +17,11 @@ public interface StonecuttingExtension extends RecipeExtension {
     default void stonecutting(ItemLike input, ItemLike output, int amount) {
         stonecutting(Ingredient.of(input), output, amount);
     }
+
     default void stonecutting(Ingredient input, ItemLike output) {
         stonecutting(input, output, 1);
     }
-    
+
     default void stonecutting(Ingredient input, ItemLike output, int amount) {
         SingleItemRecipeBuilder builder = SingleItemRecipeBuilder.stonecutting(input, output, amount);
         List<CriterionTriggerInstance> criteria = this.criteria(input);

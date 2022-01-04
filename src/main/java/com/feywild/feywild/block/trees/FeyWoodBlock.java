@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 public class FeyWoodBlock extends DecoratedBlock {
 
     public static final DecorationContext DECORATION = new DecorationContext("fey_wood", DecorationType.BASE, DecorationType.WALL, DecorationType.SLAB, DecorationType.STAIR);
-    
+
     private final FeyStrippedWoodBlock feyStrippedWood;
 
     public FeyWoodBlock(ModX mod, FeyStrippedWoodBlock feyStrippedWood, Properties properties, Item.Properties itemProperties) {

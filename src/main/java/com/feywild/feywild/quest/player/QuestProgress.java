@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class QuestProgress {
-    
+
     public final ResourceLocation quest;
     private final Map<Integer, Integer> taskProgress = new HashMap<>();
 
@@ -38,7 +38,7 @@ public class QuestProgress {
         }
         return progressMsg;
     }
-    
+
     public <T> Stream<T> getQuestElements(ServerPlayer player, QuestLine quests, TaskType<T, ?> type) {
         Quest quest = quests.getQuest(this.quest);
         if (quest != null) {
@@ -46,13 +46,13 @@ public class QuestProgress {
         }
         return Stream.empty();
     }
-    
+
     public boolean valid(QuestLine quests) {
         // If a quest got removed we still store the progress in case the
         // datapack is added later. However, we don't display it.
         return quests.getQuest(this.quest) != null;
     }
-    
+
     public boolean shouldBeComplete(QuestLine quests) {
         Quest quest = quests.getQuest(this.quest);
         if (quest != null) {
@@ -67,7 +67,7 @@ public class QuestProgress {
             return false;
         }
     }
-    
+
     public CompoundTag write() {
         CompoundTag nbt = new CompoundTag();
         for (Map.Entry<Integer, Integer> entry : this.taskProgress.entrySet()) {

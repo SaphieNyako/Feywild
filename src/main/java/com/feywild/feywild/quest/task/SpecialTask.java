@@ -7,11 +7,11 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.Locale;
 
 public class SpecialTask implements TaskType<SpecialTaskAction, SpecialTaskAction> {
-    
+
     public static final SpecialTask INSTANCE = new SpecialTask();
-    
+
     private SpecialTask() {
-        
+
     }
 
     @Override

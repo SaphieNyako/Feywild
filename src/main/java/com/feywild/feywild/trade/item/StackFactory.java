@@ -15,9 +15,9 @@ import java.util.Random;
 
 // Interface that can create an ItemStack based on a Random
 public interface StackFactory {
-    
+
     ItemStack createStack(Random random);
-    
+
     static StackFactory fromJson(JsonElement json) {
         if (json.isJsonArray()) {
             ImmutableList.Builder<StackFactory> factories = ImmutableList.builder();

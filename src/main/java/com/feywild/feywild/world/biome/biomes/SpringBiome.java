@@ -33,7 +33,7 @@ public class SpringBiome implements BiomeType {
     public float downfall() {
         return 0.8f;
     }
-    
+
     @Override
     public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
@@ -49,7 +49,7 @@ public class SpringBiome implements BiomeType {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER);
         BiomeDefaultFeatures.addExtraEmeralds(builder);
-        
+
         // TODO structures
 //        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
     }

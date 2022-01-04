@@ -117,7 +117,9 @@ public class QuestData {
         return this.alignment == null ? null : QuestManager.getQuests(this.alignment);
     }
 
-    public int getReputation() {return this.alignment == null ? 0 : this.reputation;}
+    public int getReputation() {
+        return this.alignment == null ? 0 : this.reputation;
+    }
 
     @Nullable
     public Alignment getAlignment() {

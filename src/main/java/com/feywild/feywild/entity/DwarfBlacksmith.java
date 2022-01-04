@@ -49,7 +49,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
 
     private boolean isTamed;
-    
+
     @Nullable
     private BlockPos summonPos;
 
@@ -96,7 +96,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         this.goalSelector.addGoal(6, new RefreshStockGoal(this));
         this.targetSelector.addGoal(1, new DwarvenAttackGoal(this));
     }
-    
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -135,7 +135,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         this.isTamed = tamed;
         return true;
     }
-    
+
     @Nullable
     @Override
     public BlockPos getSummonPos() {

@@ -19,7 +19,7 @@ public class WinterWorldTreeStructure extends BaseStructure {
     public WinterWorldTreeStructure() {
         super("winter_world_tree/start_pool");
     }
-    
+
     @Override
     public StructureData getStructureData() {
         return WorldGenConfig.structures.winter_world_tree;

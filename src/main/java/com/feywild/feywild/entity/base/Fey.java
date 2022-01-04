@@ -42,7 +42,7 @@ import java.util.List;
 public abstract class Fey extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.BOOLEAN);
-    
+
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
         super(type, alignment, level);
     }
@@ -51,7 +51,7 @@ public abstract class Fey extends FlyingFeyBase {
     public boolean canFollowPlayer() {
         return true;
     }
-    
+
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
@@ -59,13 +59,13 @@ public abstract class Fey extends FlyingFeyBase {
         this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 13));
         this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
     }
-    
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(CASTING, false);
     }
-    
+
     public boolean isCasting() {
         return this.entityData.get(CASTING);
     }

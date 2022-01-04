@@ -19,7 +19,7 @@ public class LibraryStructure extends BaseStructure {
     public LibraryStructure() {
         super("library/start_pool");
     }
-    
+
     @Override
     public StructureData getStructureData() {
         return WorldGenConfig.structures.library;

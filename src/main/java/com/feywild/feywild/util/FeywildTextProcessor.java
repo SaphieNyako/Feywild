@@ -5,11 +5,11 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 
 public class FeywildTextProcessor extends TextProcessor {
-    
+
     public static final FeywildTextProcessor INSTANCE = new FeywildTextProcessor();
 
     private FeywildTextProcessor() {
-        
+
     }
 
     @Override

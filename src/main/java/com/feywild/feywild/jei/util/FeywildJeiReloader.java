@@ -10,9 +10,9 @@ import net.minecraftforge.common.MinecraftForge;
 import java.util.List;
 
 public class FeywildJeiReloader {
-    
+
     public static List<TradeRecipe> clientTrades = ImmutableList.of();
-    
+
     public static void reload() {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         //noinspection ConstantConditions

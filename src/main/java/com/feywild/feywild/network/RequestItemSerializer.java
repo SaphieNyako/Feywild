@@ -21,17 +21,17 @@ public class RequestItemSerializer implements PacketSerializer<RequestItemSerial
         return new Message(buffer.readVarInt(), buffer.readEnum(State.class));
     }
 
-    public enum State{
+    public enum State {
         books,
         scrolls
     }
 
     public static class Message {
-        
+
         public final int idx;
         public final State state;
 
-        public Message(int idx, State state ) {
+        public Message(int idx, State state) {
             this.idx = idx;
             this.state = state;
         }

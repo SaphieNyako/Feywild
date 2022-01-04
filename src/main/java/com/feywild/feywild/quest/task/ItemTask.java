@@ -10,11 +10,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import javax.annotation.Nullable;
 
 public class ItemTask implements TaskType<IngredientStack, ItemStack> {
-    
+
     public static final ItemTask INSTANCE = new ItemTask();
-    
+
     private ItemTask() {
-        
+
     }
 
     @Override

@@ -15,7 +15,7 @@ import java.util.Random;
 
 // A trade that picks randomly from a list of other trades
 public class CompoundTrade implements VillagerTrades.ItemListing {
-    
+
     public final List<VillagerTrades.ItemListing> trades;
 
     public CompoundTrade(List<VillagerTrades.ItemListing> trades) {
@@ -31,7 +31,7 @@ public class CompoundTrade implements VillagerTrades.ItemListing {
             return this.trades.get(random.nextInt(this.trades.size())).getOffer(merchant, random);
         }
     }
-    
+
     public static CompoundTrade fromJson(JsonObject json) {
         ImmutableList.Builder<VillagerTrades.ItemListing> trades = ImmutableList.builder();
         for (JsonElement elem : json.get("trades").getAsJsonArray()) {

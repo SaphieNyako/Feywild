@@ -135,7 +135,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
             return super.defaultModel(id, block);
         }
     }
-    
+
     private <T extends RotatedPillarBlock & ILogBlock> void logAxis(RotatedPillarBlock logBlock, ResourceLocation id, Block woodBlock) {
         this.axisBlock(logBlock, this.blockTexture(woodBlock), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
 

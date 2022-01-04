@@ -4,7 +4,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfigur
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 
 public class StructureUtils {
-    
+
     public static <T extends FeatureConfiguration> PieceGeneratorSupplier.Context<T> withConfig(PieceGeneratorSupplier.Context<?> context, T config) {
         return new PieceGeneratorSupplier.Context<>(
                 context.chunkGenerator(), context.biomeSource(), context.seed(), context.chunkPos(), config,

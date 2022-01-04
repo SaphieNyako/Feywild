@@ -9,11 +9,11 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 public class ItemReward implements RewardType<ItemStack> {
 
     public static final ItemReward INSTANCE = new ItemReward();
-    
+
     private ItemReward() {
-        
+
     }
-    
+
     @Override
     public Class<ItemStack> element() {
         return ItemStack.class;

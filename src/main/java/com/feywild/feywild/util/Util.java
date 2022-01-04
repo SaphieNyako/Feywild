@@ -26,10 +26,10 @@ public class Util {
             }
         };
     }
-    
+
     public static DataSlot trackLowerOrderBits(Supplier<Integer> getter, Consumer<Integer> setter) {
         return new DataSlot() {
-            
+
             @Override
             public int get() {
                 return getter.get() & 0xFFFF;
@@ -41,11 +41,12 @@ public class Util {
             }
         };
     }
-    
+
     public static boolean simpleMatch(List<Ingredient> ingredients, List<ItemStack> stacks) {
         if (ingredients.size() != stacks.size()) return false;
         List<ItemStack> left = new ArrayList<>(stacks);
-        ingredients: for (Ingredient ingredient : ingredients) {
+        ingredients:
+        for (Ingredient ingredient : ingredients) {
             Iterator<ItemStack> itr = left.iterator();
             while (itr.hasNext()) {
                 if (ingredient.test(itr.next())) {

@@ -22,7 +22,7 @@ public class SpringPixieModel extends AnimatedGeoModel<SpringPixie> {
             head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
         }
     }
-    
+
     @Override
     public ResourceLocation getModelLocation(SpringPixie springPixieEntity) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "geo/spring_pixie.geo.json");

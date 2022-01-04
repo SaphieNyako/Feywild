@@ -18,7 +18,7 @@ public class DisplayGlassRenderer implements BlockEntityRenderer<DisplayGlass> {
     @Override
     public void render(DisplayGlass tile, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int light, int overlay) {
         ItemStack stack = tile.getInventory().getStackInSlot(0);
-        if(!stack.isEmpty()) {
+        if (!stack.isEmpty()) {
             poseStack.pushPose();
             poseStack.translate(0.5, 0.5, 0.5);
             poseStack.mulPose(Vector3f.YP.rotation((ClientTickHandler.ticksInGame + partialTicks) / 20f));

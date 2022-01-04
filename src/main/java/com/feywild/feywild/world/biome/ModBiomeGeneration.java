@@ -13,7 +13,7 @@ import java.util.Objects;
 import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 public class ModBiomeGeneration {
-    
+
     public static void setupBiomes() {
         if (CompatConfig.mythic_alfheim.overworld) {
             addBiome(ModBiomes.blossomingWealds, BiomeManager.BiomeType.WARM, WorldGenConfig.biomes.spring.weight(), MAGICAL, FOREST);

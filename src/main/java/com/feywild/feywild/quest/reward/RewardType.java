@@ -10,5 +10,6 @@ public interface RewardType<T> {
     void grantReward(ServerPlayer player, T element);
 
     T fromJson(JsonObject json);
+
     JsonObject toJson(T element);
 }

@@ -25,19 +25,19 @@ public class MandrakePotion extends ItemBase {
     public MandrakePotion(ModX mod, Item.Properties properties) {
         super(mod, properties);
     }
-    
+
     @Nonnull
     @Override
     public UseAnim getUseAnimation(@Nonnull ItemStack stack) {
         return UseAnim.DRINK;
     }
-    
+
     @Nonnull
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
         return ItemUtils.startUsingInstantly(level, player, hand);
     }
-    
+
     @Nonnull
     @Override
     public ItemStack finishUsingItem(@Nonnull ItemStack stack, @Nonnull Level level, @Nonnull LivingEntity living) {

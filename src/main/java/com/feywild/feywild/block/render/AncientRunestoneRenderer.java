@@ -28,7 +28,7 @@ public class AncientRunestoneRenderer implements BlockEntityRenderer<AncientRune
             return new ItemStack(item);
         }
     });
-    
+
     @Override
     public void render(@Nonnull AncientRunestone tile, float partialTicks, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int light, int overlay) {
         if (tile.time() > 0) {

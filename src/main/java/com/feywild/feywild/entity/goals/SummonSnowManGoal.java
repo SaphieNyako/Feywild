@@ -84,7 +84,7 @@ public class SummonSnowManGoal extends Goal {
             return false;
         }
     }
-    
+
     private boolean noSnowManNearby() {
         return this.entity.level.getNearbyEntities(SnowGolem.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8)).isEmpty();
     }

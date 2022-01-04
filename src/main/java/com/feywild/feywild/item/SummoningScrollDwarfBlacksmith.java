@@ -19,11 +19,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksmith> {
-    
+
     public SummoningScrollDwarfBlacksmith(ModX mod, EntityType<DwarfBlacksmith> type, Properties properties) {
         super(mod, type, null, properties);
     }
-    
+
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, DwarfBlacksmith entity) {
         return level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;

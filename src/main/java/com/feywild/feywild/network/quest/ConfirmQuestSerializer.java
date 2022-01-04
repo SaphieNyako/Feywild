@@ -21,9 +21,9 @@ public class ConfirmQuestSerializer implements PacketSerializer<ConfirmQuestSeri
     }
 
     public static class Message {
-        
+
         public final boolean accept;
-        
+
         public Message(boolean accept) {
             this.accept = accept;
         }

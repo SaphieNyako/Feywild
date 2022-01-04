@@ -37,7 +37,7 @@ public class DwarvenAnvilBlock extends MenuBlockBE<DwarvenAnvil, DwarvenAnvilMen
     public static final RotationShape SHAPE = new RotationShape(
             box(-0.375, 0.0625, 3.875, 16.625, 10.25, 12.6875)
     );
-    
+
     public DwarvenAnvilBlock(ModX mod) {
         super(
                 mod, DwarvenAnvil.class, BlockEntityMenu.createMenuType(DwarvenAnvilMenu::new),
@@ -59,7 +59,7 @@ public class DwarvenAnvilBlock extends MenuBlockBE<DwarvenAnvil, DwarvenAnvilMen
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
-    
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {

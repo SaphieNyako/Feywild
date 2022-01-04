@@ -6,7 +6,7 @@ import net.minecraft.world.level.biome.Biome;
 
 @RegisterClass
 public class ModBiomes {
-    
+
     public static final Biome blossomingWealds = BiomeFactory.create(BiomeEnvironment.OVERWORLD, SpringBiome.INSTANCE);
     public static final Biome goldenSeelieFields = BiomeFactory.create(BiomeEnvironment.OVERWORLD, SummerBiome.INSTANCE);
     public static final Biome eternalFall = BiomeFactory.create(BiomeEnvironment.OVERWORLD, AutumnBiome.INSTANCE);

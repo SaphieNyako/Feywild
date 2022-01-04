@@ -52,9 +52,9 @@ public class ModStructures {
 
         //DEFAULT
         StructureSettings.DEFAULTS = ImmutableMap.<StructureFeature<?>, StructureFeatureConfiguration>builder()
-                        .putAll(StructureSettings.DEFAULTS)
-                        .put(structure, separationSettings)
-                        .build();
+                .putAll(StructureSettings.DEFAULTS)
+                .put(structure, separationSettings)
+                .build();
 
         //NOISE_GENERATOR_SETTINGS
         BuiltinRegistries.NOISE_GENERATOR_SETTINGS.entrySet().forEach(settings -> {

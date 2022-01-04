@@ -11,13 +11,13 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class LibraryBooks {
-    
+
     private static List<ItemStack> books = ImmutableList.of();
 
     public static List<ItemStack> getLibraryBooks() {
         return books;
     }
-    
+
     public static ItemStack getBook(int idx) {
         if (idx < 0 || idx >= books.size()) {
             return ItemStack.EMPTY;
@@ -25,7 +25,7 @@ public class LibraryBooks {
             return books.get(idx).copy();
         }
     }
-    
+
     public static PreparableReloadListener createReloadListener() {
         return new SimplePreparableReloadListener<Void>() {
             @Nonnull

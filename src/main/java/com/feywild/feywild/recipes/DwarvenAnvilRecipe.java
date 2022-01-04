@@ -46,7 +46,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     public ResourceLocation getId() {
         return this.id;
     }
-    
+
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {

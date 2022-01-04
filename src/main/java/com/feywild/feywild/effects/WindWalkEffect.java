@@ -12,7 +12,7 @@ import net.minecraft.world.phys.AABB;
 import javax.annotation.Nonnull;
 
 public class WindWalkEffect extends MobEffect {
-    
+
     protected WindWalkEffect() {
         super(MobEffectCategory.BENEFICIAL, 0x994C00);
     }
@@ -34,7 +34,7 @@ public class WindWalkEffect extends MobEffect {
                 }
             });
         } else {
-            level.addParticle(ModParticles.leafParticle,living.getRandom().nextDouble() * 1.5 + living.getX() -1,living.getRandom().nextDouble() * 2 + living.getY() + 2,living.getRandom().nextDouble() * 1.5 + living.getZ() - 1,0,-0.05,0);
+            level.addParticle(ModParticles.leafParticle, living.getRandom().nextDouble() * 1.5 + living.getX() - 1, living.getRandom().nextDouble() * 2 + living.getY() + 2, living.getRandom().nextDouble() * 1.5 + living.getZ() - 1, 0, -0.05, 0);
         }
     }
 }

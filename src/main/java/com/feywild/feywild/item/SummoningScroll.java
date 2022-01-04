@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
-    
+
     protected final EntityType<T> type;
 
     @Nullable
@@ -84,7 +84,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
                         if (!(entity instanceof DwarfBlacksmith))
-                        context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                            context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
                     }
                 }
             }

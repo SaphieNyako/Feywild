@@ -20,7 +20,7 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class ModPlacements {
-    
+
     public static final PlacedFeature SPRING_TREES = registerPlacement("spring_trees", ModTrees.springTree.getConfiguredFeature(new Random(), true).placed(
             HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE),
             CountOnEveryLayerPlacement.of(ClampedNormalInt.of(1, 0.5f, 1, 4)),
@@ -30,7 +30,7 @@ public class ModPlacements {
     public static final PlacedFeature SPRING_DANDELION = registerPlacement("spring_dandelions", ModFeatures.Configured.dandelions.placed(
             HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE)
     ));
-    
+
 
     public static final PlacedFeature SPRING_FLOWERS = registerPlacement("sping_flowers", Feature.FLOWER
             .configured(ModFeatureProperties.PLAIN_FLOWERS)
@@ -49,7 +49,7 @@ public class ModPlacements {
     public static final PlacedFeature SUMMER_SUNFLOWER = registerPlacement("summer_sunflower", ModFeatures.Configured.sunflowers.placed(
             HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE)
     ));
-    
+
     public static final PlacedFeature SUMMER_FLOWERS = registerPlacement("summer_flowers", Feature.FLOWER
             .configured(ModFeatureProperties.WARM_FLOWERS)
             .placed(
@@ -101,23 +101,23 @@ public class ModPlacements {
                     CountOnEveryLayerPlacement.of(ConstantInt.of(2))
             )
     );
-    
+
     public static PlacementModifier onGroundFor(Block block) {
         return onGroundFor(block.defaultBlockState());
     }
-    
+
     public static PlacementModifier onGroundFor(BlockState state) {
         return BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                 BlockPredicate.wouldSurvive(state, BlockPos.ZERO),
                 BlockPredicate.matchesFluid(Fluids.EMPTY, BlockPos.ZERO)
         ));
-        
+
     }
-    
+
     public static PlacementModifier onGround(BlockState state) {
         return BlockPredicateFilter.forPredicate(BlockPredicate.allOf());
     }
-    
+
     private static PlacedFeature registerPlacement(String key, PlacedFeature placement) {
         return Registry.register(BuiltinRegistries.PLACED_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, key), placement);
     }

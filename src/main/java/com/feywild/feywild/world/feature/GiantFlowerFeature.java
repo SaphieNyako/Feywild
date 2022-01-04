@@ -15,7 +15,7 @@ import java.util.Random;
 public class GiantFlowerFeature extends Feature<NoneFeatureConfiguration> {
 
     private final GiantFlowerBlock block;
-    
+
     public GiantFlowerFeature(GiantFlowerBlock block) {
         super(NoneFeatureConfiguration.CODEC);
         this.block = block;
@@ -48,7 +48,7 @@ public class GiantFlowerFeature extends Feature<NoneFeatureConfiguration> {
                 return false;
             }
         }
-        
+
         GiantFlowerSeedItem.placeFlower(this.block, level, pos, random, 3);
         return true;
     }

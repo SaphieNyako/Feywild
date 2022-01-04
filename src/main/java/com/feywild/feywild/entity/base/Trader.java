@@ -28,14 +28,14 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
     private long lastRestockGameTime;
     private int numberOfRestocksToday;
     private long lastRestockCheckDayTime;
-    
+
     private VillagerData villagerData;
 
     public Trader(EntityType<? extends AbstractVillager> entity, Level level) {
         super(entity, level);
         this.villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.TOOLSMITH, 1);
     }
-    
+
     public abstract String getTradeCategory();
 
     @Override
@@ -111,7 +111,7 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
     public int getVillagerXp() {
         return this.villagerXp;
     }
-    
+
     @Override
     public void onReputationEventFrom(@Nonnull ReputationEventType p_213739_1_, @Nonnull Entity p_213739_2_) {
         //
@@ -181,7 +181,7 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
                 merchantoffer.resetUses();
             }
         }
-        
+
         for (int j = 0; j < restocksLeft; ++j) {
             this.updateDemand();
         }

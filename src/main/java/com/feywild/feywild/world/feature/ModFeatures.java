@@ -18,9 +18,9 @@ public class ModFeatures {
     public static final Feature<NoneFeatureConfiguration> sunflowers = new GiantFlowerFeature(ModBlocks.sunflower);
     public static final Feature<NoneFeatureConfiguration> dandelions = new GiantFlowerFeature(ModBlocks.dandelion);
     public static final Feature<NoneFeatureConfiguration> crocus = new GiantFlowerFeature(ModBlocks.crocus);
-    
+
     public static class Configured {
-        
+
         public static final ConfiguredFeature<?, ?> autumnPumpkins = ModFeatures.autumnPumpkins.configured(NoneFeatureConfiguration.INSTANCE);
         public static final ConfiguredFeature<?, ?> sunflowers = ModFeatures.sunflowers.configured(NoneFeatureConfiguration.INSTANCE);
         public static final ConfiguredFeature<?, ?> dandelions = ModFeatures.dandelions.configured(NoneFeatureConfiguration.INSTANCE);

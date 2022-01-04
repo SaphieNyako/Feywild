@@ -48,13 +48,19 @@ public interface BiomeEnvironment {
 
     BiomeGenerationSettings.Builder defaultGeneration();
 
-    default Biome.BiomeBuilder init() {return new Biome.BiomeBuilder();}
+    default Biome.BiomeBuilder init() {
+        return new Biome.BiomeBuilder();
+    }
 
-    default void postProcess(BiomeSpecialEffects.Builder builder, BiomeType biome) {}
+    default void postProcess(BiomeSpecialEffects.Builder builder, BiomeType biome) {
+    }
 
-    default void postProcess(MobSpawnSettings.Builder builder, BiomeType biome) {}
+    default void postProcess(MobSpawnSettings.Builder builder, BiomeType biome) {
+    }
 
-    default void postProcess(BiomeGenerationSettings.Builder builder, BiomeType biome) {}
+    default void postProcess(BiomeGenerationSettings.Builder builder, BiomeType biome) {
+    }
 
-    default void postProcess(Biome.BiomeBuilder builder, BiomeType biome) {}
+    default void postProcess(Biome.BiomeBuilder builder, BiomeType biome) {
+    }
 }

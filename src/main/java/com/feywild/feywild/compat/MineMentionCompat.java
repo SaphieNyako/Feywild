@@ -11,15 +11,15 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.function.Predicate;
 
 public class MineMentionCompat {
-    
+
     public static void setup() {
         SpecialMentions.registerMention(FeywildMod.getInstance().resource("faction"), "faction", new FactionMention());
     }
-    
+
     public static void availabilityChange(ServerPlayer player) {
         SpecialMentions.notifyAvailabilityChange(player);
     }
-    
+
     public static class FactionMention implements SpecialMention {
 
         @Override

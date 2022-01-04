@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
 public class TameCheckingGoal extends Goal {
-    
+
     private final ITameable entity;
     private final boolean tamed;
     private final Goal parent;

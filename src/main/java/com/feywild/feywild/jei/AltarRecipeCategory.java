@@ -19,7 +19,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "fey_altar");
     public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
-            
+
     private final IDrawable background;
     private final IDrawable icon;
 

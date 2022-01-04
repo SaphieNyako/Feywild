@@ -19,7 +19,7 @@ public class Quest {
     public final ResourceLocation id;
     // One of them is required
     public final Set<ResourceLocation> parents;
-    
+
     public final boolean repeatable;
     public final int reputation;
 
@@ -54,7 +54,7 @@ public class Quest {
             throw new IllegalStateException("A quest that has no tasks can't be repeatable: " + this.id);
         }
     }
-    
+
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         if (this.parents.size() == 1) {
@@ -89,7 +89,7 @@ public class Quest {
         }
         return json;
     }
-    
+
     public static Quest fromJson(ResourceLocation id, JsonElement data) {
         JsonObject json = data.getAsJsonObject();
         ImmutableSet.Builder<ResourceLocation> parents = ImmutableSet.builder();

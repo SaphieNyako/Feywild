@@ -13,7 +13,7 @@ import java.util.function.UnaryOperator;
 public class CircularIngredientsComponent implements ICustomComponent {
 
     public IVariable items;
-    
+
     private transient int x;
     private transient int y;
     private transient List<Ingredient> ingredients;

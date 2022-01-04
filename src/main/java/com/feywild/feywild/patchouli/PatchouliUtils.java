@@ -15,12 +15,12 @@ public class PatchouliUtils {
     public static <C extends Container, T extends Recipe<C>> T getRecipe(RecipeType<T> type, @Nullable String id) {
         return getRecipe(type, id == null ? null : ResourceLocation.tryParse(id));
     }
-    
+
     @Nullable
     public static <C extends Container, T extends Recipe<C>, X extends T> X getRecipe(Class<X> cls, RecipeType<T> type, @Nullable String id) {
         return getRecipe(cls, type, id == null ? null : ResourceLocation.tryParse(id));
     }
-    
+
     @Nullable
     public static <C extends Container, T extends Recipe<C>> T getRecipe(RecipeType<T> type, @Nullable ResourceLocation id) {
         if (id == null) return null;

@@ -28,7 +28,7 @@ public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDis
 
         public final QuestDisplay display;
         public final boolean confirmationButtons;
-        
+
         public Message(QuestDisplay display, boolean confirmationButtons) {
             this.display = display;
             this.confirmationButtons = confirmationButtons;

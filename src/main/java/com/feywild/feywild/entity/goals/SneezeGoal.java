@@ -76,7 +76,9 @@ public class SneezeGoal extends Goal {
         this.ticksLeft = -1;
     }
 
-    private void sneezing() {this.entity.setState(Shroomling.State.SNEEZING);}
+    private void sneezing() {
+        this.entity.setState(Shroomling.State.SNEEZING);
+    }
 
     @Override
     public void start() {

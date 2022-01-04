@@ -29,7 +29,7 @@ public enum OreType {
 
     private final Block block;
     private final Block alfheimBlock;
-    private final Supplier<OreData> data; 
+    private final Supplier<OreData> data;
     private final LazyValue<PlacedFeature> feature;
     private final LazyValue<PlacedFeature> alfheimFeature;
 
@@ -90,7 +90,7 @@ public enum OreType {
     public PlacedFeature getFeature() {
         return this.feature.get();
     }
-    
+
     public PlacedFeature getAlfheimFeature() {
         return this.alfheimFeature.get();
     }
@@ -98,7 +98,7 @@ public enum OreType {
     public HeightProvider getHeight() {
         return UniformHeight.of(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight()));
     }
-    
+
     public static void setupOres() {
         for (OreType ore : values()) {
             // Will trigger registration

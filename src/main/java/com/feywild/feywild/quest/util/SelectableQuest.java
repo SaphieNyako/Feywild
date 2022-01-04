@@ -16,13 +16,13 @@ public class SelectableQuest {
         this.icon = icon;
         this.display = display;
     }
-    
+
     public void toNetwork(FriendlyByteBuf buffer) {
         buffer.writeResourceLocation(this.id);
         buffer.writeRegistryId(this.icon);
         this.display.toNetwork(buffer);
     }
-    
+
     public static SelectableQuest fromNetwork(FriendlyByteBuf buffer) {
         ResourceLocation id = buffer.readResourceLocation();
         Item icon = buffer.readRegistryId();

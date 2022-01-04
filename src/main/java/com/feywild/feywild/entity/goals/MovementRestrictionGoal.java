@@ -10,7 +10,7 @@ public class MovementRestrictionGoal extends Goal {
 
     public final Supplier<Vec3> targetPosition;
     public final int maxMovementRangeSquared;
-    
+
     public MovementRestrictionGoal(Supplier<Vec3> pos, int maxMovementRange) {
         this.targetPosition = pos;
         this.maxMovementRangeSquared = maxMovementRange * maxMovementRange;
@@ -29,7 +29,7 @@ public class MovementRestrictionGoal extends Goal {
     public boolean canUse() {
         return false;
     }
-    
+
     protected static Supplier<Vec3> asVector(Supplier<BlockPos> pos) {
         return () -> {
             BlockPos block = pos.get();

@@ -19,12 +19,12 @@ public class BasePixieRenderer<T extends FeyBase> extends GeoEntityRenderer<T> {
         super(manager, model);
         this.shadowRadius = 0.2F;
     }
-    
+
     @Override
     public RenderType getRenderType(T animatable, float partialTicks, PoseStack stack, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexConsumer, int packedLightIn, ResourceLocation textureLocation) {
         return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
-    
+
     public static <T extends FeyBase> EntityRendererProvider<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
         return manager -> new BasePixieRenderer<>(manager, modelProvider.get());
     }

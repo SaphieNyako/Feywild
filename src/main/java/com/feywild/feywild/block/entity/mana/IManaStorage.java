@@ -35,7 +35,7 @@ public interface IManaStorage {
      * If this is false, then any calls to receiveMana will return 0.
      */
     boolean canReceive();
-    
+
     /**
      * Returns if this storage can have mana extracted.
      * If this is false, then any calls to extractMana will return 0.

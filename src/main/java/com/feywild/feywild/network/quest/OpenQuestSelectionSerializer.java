@@ -39,7 +39,7 @@ public class OpenQuestSelectionSerializer implements PacketSerializer<OpenQuestS
     }
 
     public static class Message {
-        
+
         public final Component title;
         public final Alignment alignment;
         public final List<SelectableQuest> quests;

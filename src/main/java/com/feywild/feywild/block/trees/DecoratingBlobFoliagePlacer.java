@@ -34,6 +34,6 @@ public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
             }
         }
     }
-    
+
     protected abstract void decorateLeaves(BlockState state, WorldGenLevel world, BlockPos pos, Random random);
 }

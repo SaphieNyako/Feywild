@@ -17,7 +17,7 @@ public class FeywildPanicGoal extends Goal {
         this.speed = speed;
         this.range = range;
     }
-    
+
     @Override
     public void start() {
         super.start();

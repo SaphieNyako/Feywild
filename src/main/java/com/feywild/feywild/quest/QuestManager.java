@@ -20,7 +20,7 @@ public class QuestManager {
     public static QuestLine getQuests(Alignment alignment) {
         return questLines.getOrDefault(alignment, QuestLine.EMPTY);
     }
-    
+
     public static PreparableReloadListener createReloadListener() {
         return new SimplePreparableReloadListener<Void>() {
             @Nonnull

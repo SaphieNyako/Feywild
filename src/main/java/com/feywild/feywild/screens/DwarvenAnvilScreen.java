@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 public class DwarvenAnvilScreen extends AbstractContainerScreen<DwarvenAnvilMenu> {
 
     private final ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_gui.png");
-    
+
     private final DwarvenAnvilMenu menu;
 
     public DwarvenAnvilScreen(DwarvenAnvilMenu menu, Inventory container, Component name) {

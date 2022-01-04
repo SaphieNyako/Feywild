@@ -16,9 +16,9 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class GiantFlowerSeedItem extends ItemBase {
-    
+
     private final GiantFlowerBlock block;
-    
+
     public GiantFlowerSeedItem(ModX mod, GiantFlowerBlock block) {
         super(mod, new Item.Properties());
         this.block = block;
@@ -31,11 +31,11 @@ public class GiantFlowerSeedItem extends ItemBase {
         BlockPlaceContext blockContext = new BlockPlaceContext(context);
         BlockPos pos = context.getClickedPos();
         if (!level.getBlockState(pos).canBeReplaced(blockContext)) pos = pos.above();
-        
+
         if (!Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
             return InteractionResult.PASS;
         }
-        
+
         for (int i = 0; i < this.block.height; i++) {
             if (!level.getBlockState(pos.above(i)).canBeReplaced(blockContext)) {
                 return InteractionResult.PASS;
@@ -48,7 +48,7 @@ public class GiantFlowerSeedItem extends ItemBase {
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
-    
+
     public static void placeFlower(GiantFlowerBlock block, LevelAccessor level, BlockPos pos, Random random, int placeFlags) {
         for (int i = 0; i < block.height; i++) {
             BlockState baseState = (i == block.height - 1) ? block.flowerState(level, pos.above(i), random) : block.defaultBlockState();

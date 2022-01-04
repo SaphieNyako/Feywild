@@ -170,11 +170,11 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlock {
     public BaseItemStackHandler getInventory() {
         return this.inventory;
     }
-    
+
     public int getMana() {
         return this.manaStorage.getMana();
     }
-    
+
     public void setMana(int mana) {
         this.manaStorage.setMana(mana);
     }

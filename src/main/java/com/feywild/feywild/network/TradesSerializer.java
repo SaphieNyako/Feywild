@@ -54,7 +54,7 @@ public class TradesSerializer implements PacketSerializer<TradesSerializer.Messa
         }
         return new Message(recipes.build());
     }
-    
+
     private List<ItemStack> readStackList(FriendlyByteBuf buffer) {
         ImmutableList.Builder<ItemStack> stacks = ImmutableList.builder();
         int size = buffer.readVarInt();

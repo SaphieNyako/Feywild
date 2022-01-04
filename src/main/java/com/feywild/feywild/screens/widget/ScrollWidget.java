@@ -61,7 +61,7 @@ public class ScrollWidget extends Button {
         RenderSystem.getModelViewStack().popPose();
         RenderSystem.applyModelViewMatrix();
         poseStack.popPose();
-        
+
         if (this.isHovered(mouseX, mouseY)) {
             this.screen.renderTooltip(poseStack, List.of(this.stack.getHoverName()), Optional.empty(), mouseX, mouseY);
         }

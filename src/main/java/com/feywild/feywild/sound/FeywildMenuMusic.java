@@ -12,7 +12,7 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 public class FeywildMenuMusic {
 
     private static SoundInstance currentFeywildMenuMusic = null;
-    
+
     public static void playSound(PlaySoundEvent event) {
         if (ClientConfig.replace_menu && event.getSound().canPlaySound()) {
             if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
@@ -22,7 +22,7 @@ public class FeywildMenuMusic {
             }
         }
     }
-    
+
     private static void handleSoundReplace(SoundEvent sound, PlaySoundEvent event) {
         if (currentFeywildMenuMusic != null && sound.getLocation().equals(currentFeywildMenuMusic.getLocation())
                 && Minecraft.getInstance().getSoundManager().isActive(currentFeywildMenuMusic)) {

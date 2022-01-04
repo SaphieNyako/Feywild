@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 public class TradeManager {
-    
+
     private static Map<ResourceLocation, TradeData> trades = ImmutableMap.of();
     private static List<TradeRecipe> cachedRecipes = null;
-    
+
     public static TradeData getTrades(EntityType<?> type, String category) {
         if (type.getRegistryName() == null) {
             return TradeData.EMPTY;
@@ -31,7 +31,7 @@ public class TradeManager {
             return trades.getOrDefault(id, TradeData.EMPTY);
         }
     }
-    
+
     public static List<TradeRecipe> buildRecipes() {
         if (cachedRecipes == null) {
             ImmutableList.Builder<TradeRecipe> recipes = ImmutableList.builder();
@@ -42,7 +42,7 @@ public class TradeManager {
         }
         return cachedRecipes;
     }
-    
+
     public static PreparableReloadListener createReloadListener() {
         return new SimplePreparableReloadListener<Void>() {
             @Nonnull

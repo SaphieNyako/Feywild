@@ -39,7 +39,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.item(ModItemTags.SEASONAL_BOOKS).addTag(ModItemTags.DEADLY_BOOKS);
         this.item(ModItemTags.ELEMENTAL_BOOKS).add(ModItems.schematicsElementalRuneCrafting);
         this.item(ModItemTags.ELEMENTAL_BOOKS).addTag(ModItemTags.SEASONAL_BOOKS);
-        
+
         tool(ModBlocks.feyGemBlock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.feyGemBlockLivingrock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.dwarvenAnvil, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
@@ -48,11 +48,11 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
         treeTags(ModTrees.autumnTree, ModBlockTags.AUTUMN_LOGS, ModItemTags.AUTUMN_LOGS);
         treeTags(ModTrees.winterTree, ModBlockTags.WINTER_LOGS, ModItemTags.WINTER_LOGS);
-        
+
         this.block(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.FEY_LOGS);
         this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
     }
-    
+
     private void tool(Block block, Tag.Named<Block> tool, @Nullable Tag.Named<Block> level) {
         this.block(tool).add(block);
         if (level != null) this.block(level).add(block);
@@ -70,14 +70,14 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.block(BlockTags.LEAVES).add(tree.getLeafBlock());
         this.block(BlockTags.SAPLINGS).add(tree.getSapling());
         tool(tree.getLeafBlock(), BlockTags.MINEABLE_WITH_HOE, null);
-        
+
         this.copyBlock(logs, logItems);
         this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
         this.copyBlock(BlockTags.PLANKS, ItemTags.PLANKS);
         this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copyBlock(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
     }
-    
+
     @Override
     public void defaultItemTags(Item item) {
         if (item instanceof Schematics) {

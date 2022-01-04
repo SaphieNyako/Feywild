@@ -18,9 +18,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class CapabilityQuests {
-    
+
     public static final ResourceLocation KEY = new ResourceLocation(FeywildMod.getInstance().modid, "player_quests");
-    
+
     public static final Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
 
     public static void register(RegisterCapabilitiesEvent event) {
@@ -36,7 +36,7 @@ public class CapabilityQuests {
             })));
         }
     }
-    
+
     @SuppressWarnings("CodeBlock2Expr")
     public static void playerCopy(PlayerEvent.Clone event) {
         // Keep the data on death
@@ -48,9 +48,9 @@ public class CapabilityQuests {
             });
         }
     }
-    
+
     private static class Provider implements ICapabilityProvider, INBTSerializable<Tag> {
-        
+
         public final Capability<QuestData> capability;
         public final LazyValue<QuestData> value;
 

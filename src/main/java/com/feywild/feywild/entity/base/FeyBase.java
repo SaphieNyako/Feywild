@@ -74,7 +74,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public SimpleParticleType getParticle() {
         return null;
     }
-    
+
     @Nullable
     public Vec3 getCurrentPointOfInterest() {
         if (this.canFollowPlayer() && this.followingPlayer) {

@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 // required to iterate through all possibly completable elements
 // Provides an element and a method to call check complete for this quest.
 public class CompletableTaskInfo<T, X> {
-    
+
     private final TaskType<T, X> taskTpe;
     private final T value;
     private final Consumer<X> checkComplete;

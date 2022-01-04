@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import java.util.function.Function;
 
 public class SimpleTeleporter implements ITeleporter {
-    
+
     private final BlockPos targetPos;
 
     public SimpleTeleporter(BlockPos targetPos) {

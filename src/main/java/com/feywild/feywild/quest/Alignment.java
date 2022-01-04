@@ -8,12 +8,12 @@ import javax.annotation.Nullable;
 import java.util.Locale;
 
 public enum Alignment {
-    
+
     SPRING("spring", ModEntityTypes.springPixie),
     SUMMER("summer", ModEntityTypes.summerPixie),
     AUTUMN("autumn", ModEntityTypes.autumnPixie),
     WINTER("winter", ModEntityTypes.winterPixie);
-    
+
     public final String id;
     public final EntityType<? extends Fey> fey;
 
@@ -21,7 +21,7 @@ public enum Alignment {
         this.id = id;
         this.fey = fey;
     }
-    
+
     public static Alignment byId(String id) {
         return switch (id.toLowerCase(Locale.ROOT).trim()) {
             case "spring" -> SPRING;
@@ -31,11 +31,11 @@ public enum Alignment {
             default -> throw new IllegalArgumentException("Invalid fey alignment: " + id);
         };
     }
-    
+
     public static String optionId(@Nullable Alignment alignment) {
         return alignment == null ? "unaligned" : alignment.id;
     }
-    
+
     @Nullable
     public static Alignment byOptionId(String id) {
         try {

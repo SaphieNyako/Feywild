@@ -10,14 +10,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 
 public class FeywildTab extends CreativeModeTab {
-    
+
     private final ResourceLocation texture;
-    
+
     public FeywildTab(String modid) {
         super(modid);
         this.texture = new ResourceLocation(modid, "textures/gui/tab_icon.png");
     }
-    
+
     @Nonnull
     @Override
     public ItemStack makeIcon() {

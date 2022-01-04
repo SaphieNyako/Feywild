@@ -24,7 +24,8 @@ public abstract class RegistryTaskType<T extends IForgeRegistryEntry<T>, X> impl
     public T fromJson(JsonObject json) {
         ResourceLocation rl = ResourceLocation.tryParse(json.get(this.key).getAsString());
         T value = rl == null ? null : this.registry.getValue(rl);
-        if (value == null) throw new IllegalStateException("Can't load feywild quest task: " + this.element().getSimpleName() + " not found: " + rl);
+        if (value == null)
+            throw new IllegalStateException("Can't load feywild quest task: " + this.element().getSimpleName() + " not found: " + rl);
         return value;
     }
 

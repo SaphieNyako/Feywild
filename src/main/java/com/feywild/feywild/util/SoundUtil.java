@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import java.util.function.Function;
 
 public class SoundUtil {
-    
+
     public static SoundInstance copySound(SoundEvent event, SoundInstance sound, Function<? super SoundEvent, ? extends SoundInstance> defaultFactory) {
         try {
             if (sound instanceof AbstractSoundInstance) {

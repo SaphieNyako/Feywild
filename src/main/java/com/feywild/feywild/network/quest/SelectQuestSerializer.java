@@ -22,9 +22,9 @@ public class SelectQuestSerializer implements PacketSerializer<SelectQuestSerial
     }
 
     public static class Message {
-        
+
         public final ResourceLocation quest;
-        
+
         public Message(ResourceLocation quest) {
             this.quest = quest;
         }

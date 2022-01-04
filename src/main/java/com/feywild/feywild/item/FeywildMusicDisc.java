@@ -26,7 +26,7 @@ public class FeywildMusicDisc extends RecordItem {
     public FeywildMusicDisc(int comparatorValue, SoundEvent sound, Properties builder) {
         super(comparatorValue, () -> sound, builder);
     }
-    
+
     @Nonnull
     @Override
     @OnlyIn(Dist.CLIENT)

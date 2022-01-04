@@ -14,12 +14,12 @@ import java.util.List;
 public class TooltipItem extends ItemBase {
 
     private final Component[] itemTooltip;
-    
+
     public TooltipItem(ModX mod, Properties properties, Component... itemTooltip) {
         super(mod, properties);
         this.itemTooltip = itemTooltip;
     }
-    
+
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         TooltipHelper.addTooltip(tooltip, this.itemTooltip);

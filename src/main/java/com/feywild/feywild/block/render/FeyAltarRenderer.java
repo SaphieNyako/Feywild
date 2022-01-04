@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
-    
+
     public FeyAltarRenderer(BlockEntityRendererProvider.Context manager) {
         super(manager, new FeyAltarModel());
     }
@@ -25,15 +25,15 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
     @Override
     public void render(FeyAltar tile, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int light) {
         super.render(tile, partialTicks, poseStack, buffer, light);
-        
+
         double progressScaled = tile.getProgress() / (double) FeyAltar.MAX_PROGRESS;
-        
+
         List<ItemStack> stacks = new ArrayList<>();
         for (int slot = 0; slot < tile.getInventory().getSlots(); slot++) {
             ItemStack stack = tile.getInventory().getStackInSlot(slot);
             if (!stack.isEmpty()) stacks.add(stack);
         }
-        
+
         if (!stacks.isEmpty()) {
             double anglePerStack = (2 * Math.PI) / stacks.size();
             for (int idx = 0; idx < stacks.size(); idx++) {

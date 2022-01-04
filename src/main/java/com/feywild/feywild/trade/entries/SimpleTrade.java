@@ -17,7 +17,7 @@ import java.util.Random;
 
 // A simple trade
 public class SimpleTrade implements VillagerTrades.ItemListing {
-    
+
     public final StackFactory input;
     public final StackFactory additional;
     public final StackFactory output;
@@ -62,7 +62,7 @@ public class SimpleTrade implements VillagerTrades.ItemListing {
     }
 
     public static class Range {
-        
+
         public final int min;
         public final int max;
 
@@ -70,15 +70,15 @@ public class SimpleTrade implements VillagerTrades.ItemListing {
             this.min = Math.min(min, max);
             this.max = Math.max(min, max);
         }
-        
+
         public int select(Random random) {
             return this.min + random.nextInt(1 + (this.max - this.min));
         }
-        
+
         public static Range of(int value) {
             return new Range(value, value);
         }
-        
+
         public static Range fromJson(JsonElement json) {
             if (json.isJsonArray() && json.getAsJsonArray().size() == 2) {
                 return new Range(json.getAsJsonArray().get(0).getAsInt(), json.getAsJsonArray().get(1).getAsInt());

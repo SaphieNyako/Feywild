@@ -60,5 +60,5 @@ public class FeyGiftTask implements TaskType<FeyGift, AlignmentStack> {
         }
     }
 
-    
+
 }

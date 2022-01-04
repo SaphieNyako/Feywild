@@ -39,7 +39,7 @@ public class DwarvenAnvilProcessor implements IComponentProcessor {
             default -> null;
         };
     }
-    
+
     private Ingredient getInput(int idx) {
         if (this.recipe == null) return Ingredient.EMPTY;
         List<Ingredient> list = this.recipe.getInputs();

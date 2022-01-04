@@ -42,7 +42,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.INT);
-    
+
     public Mandragora(EntityType<? extends FeyBase> type, Level level) {
         super(type, Alignment.SPRING, level);
         this.noCulling = true;

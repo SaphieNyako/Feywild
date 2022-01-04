@@ -45,7 +45,7 @@ public class AncientRunestone extends BlockEntityBase implements TickableBlock {
             }
         }
     }
-    
+
     public boolean start() {
         if (this.level != null && !this.level.isClientSide && this.time <= 0) {
             this.time = 1;

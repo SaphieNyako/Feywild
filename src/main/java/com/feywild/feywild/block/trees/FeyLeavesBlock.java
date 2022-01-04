@@ -41,12 +41,12 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
 
     public static final int MAX_DISTANCE = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
-    
+
     public static final int MAX_PARTICLE_DISTANCE = 48;
 
     private final int chance;
     private final SimpleParticleType particle;
-    
+
     public FeyLeavesBlock(ModX mod, int chance, SimpleParticleType particle) {
         super(mod, BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS)
                 .noOcclusion().isValidSpawn((s, r, p, t) -> false).isSuffocating((s, r, p) -> false).isViewBlocking((s, r, p) -> false));
@@ -55,7 +55,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
 
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
     }
-    
+
     @Override
     public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
         defer.accept(() -> ComposterBlock.add(0.4f, this));
@@ -99,7 +99,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return updateDistance(this.defaultBlockState().setValue(BlockStateProperties.PERSISTENT, true), context.getLevel(), context.getClickedPos());
     }
-    
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -111,7 +111,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     public boolean isRandomlyTicking(BlockState state) {
         return state.getValue(DISTANCE) == MAX_DISTANCE && !state.getValue(BlockStateProperties.PERSISTENT);
     }
-    
+
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
@@ -121,13 +121,13 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
             level.removeBlock(pos, false);
         }
     }
-    
+
     @Override
     @SuppressWarnings("deprecation")
     public void tick(@Nonnull BlockState state, ServerLevel levelIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         levelIn.setBlock(pos, updateDistance(state, levelIn, pos), 3);
     }
-    
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -150,7 +150,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
             }
         }
     }
-    
+
     @OnlyIn(Dist.CLIENT)
     protected void animateLeaves(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
         if (rand.nextInt(15) == 0 && level.isRainingAt(pos.above())) {
@@ -164,7 +164,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
             }
         }
         if (rand.nextInt(chance) == 1 && level.isEmptyBlock(pos.below())) {
-            level.addParticle(particle, pos.getX() + rand.nextDouble(), pos.getY(),pos.getZ()+ rand.nextDouble(), 1, -0.1, 0 );
+            level.addParticle(particle, pos.getX() + rand.nextDouble(), pos.getY(), pos.getZ() + rand.nextDouble(), 1, -0.1, 0);
         }
     }
 }

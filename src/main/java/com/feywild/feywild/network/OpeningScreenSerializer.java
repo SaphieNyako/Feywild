@@ -17,13 +17,13 @@ public class OpeningScreenSerializer implements PacketSerializer<OpeningScreenSe
 
     @Override
     public Message decode(FriendlyByteBuf buffer) {
-       return new Message();
+        return new Message();
     }
 
     public static class Message {
 
         public Message() {
-            
+
         }
     }
 }

@@ -33,7 +33,7 @@ public interface AnvilExtension extends RecipeExtension {
                 .mana(mana)
                 .build();
     }
-    
+
     default AnvilRecipeBuilder anvil(ItemLike result) {
         return this.anvil(new ItemStack(result));
     }

@@ -11,12 +11,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class QuestLine {
-    
+
     public static final QuestLine EMPTY = new QuestLine(ImmutableMap.of());
-    
+
     private final Map<ResourceLocation, Quest> quests;
     private final Map<Quest, List<Quest>> questOrder;
-    
+
     public QuestLine(Map<ResourceLocation, Quest> quests) {
         this.quests = ImmutableMap.copyOf(quests);
         ImmutableMap.Builder<Quest, List<Quest>> questOrder = ImmutableMap.builder();
@@ -45,7 +45,7 @@ public class QuestLine {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
     }
-    
+
     public int getQuestCount() {
         return quests.size();
     }

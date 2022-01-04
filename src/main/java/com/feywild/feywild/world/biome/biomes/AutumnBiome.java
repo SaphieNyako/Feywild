@@ -22,7 +22,7 @@ public class AutumnBiome implements BiomeType {
     public Biome.BiomeCategory category() {
         return Biome.BiomeCategory.MUSHROOM;
     }
-    
+
     @Override
     public float temperature() {
         return 0.8f;
@@ -59,7 +59,7 @@ public class AutumnBiome implements BiomeType {
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.RED_MUSHROOM_OLD_GROWTH);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.BROWN_MUSHROOM_OLD_GROWTH);
         BiomeDefaultFeatures.addMushroomFieldVegetation(builder);
-        
+
         // TODO structures
 //        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_AUTUMN_WORLD_TREE);
     }

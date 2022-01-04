@@ -8,7 +8,7 @@ import java.util.List;
 
 // For use in JEI. Contains all trades for one level
 public class TradeRecipe {
-    
+
     public final ResourceLocation id;
     public final int level;
     public final List<Entry> trades;
@@ -18,7 +18,7 @@ public class TradeRecipe {
         this.level = level;
         this.trades = ImmutableList.copyOf(trades);
     }
-    
+
     public static class Entry {
 
         public final List<ItemStack> input;

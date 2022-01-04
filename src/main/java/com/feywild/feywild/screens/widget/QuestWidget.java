@@ -23,10 +23,10 @@ public class QuestWidget extends Button {
 
     public static final int WIDTH = 40;
     public static final int HEIGHT = 24;
-    
+
     public static final ResourceLocation SELECTION_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/looking_glass.png");
     public static final ResourceLocation SLOT_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/quest_atlas.png");
-    
+
     private final Alignment alignment;
     private final SelectableQuest quest;
     private final ItemStack iconStack;
@@ -55,11 +55,11 @@ public class QuestWidget extends Button {
         }
         RenderSystem.setShaderTexture(0, SLOT_TEXTURE);
         this.blit(poseStack, this.x + 15, this.y, this.alignment.ordinal() * 25, 0, 24, 24);
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack,this.x + 19,this.y + 4);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack, this.x + 19, this.y + 4);
         Font font = Minecraft.getInstance().font;
         drawString(poseStack, font, this.getMessage(), this.x + 44, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
     }
-    
+
     public boolean isHovered(int x, int y) {
         return this.x <= x && this.x + WIDTH >= x && this.y <= y && this.y + HEIGHT >= y;
     }

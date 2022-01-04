@@ -25,8 +25,9 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
     public BaseStructure(String structureId) {
         super(JigsawConfiguration.CODEC, new PlacementFactory(structureId));
     }
-    
+
     public abstract StructureData getStructureData();
+
     public abstract int getSeedModifier();
 
     public final StructureFeatureConfiguration getSettings() {
@@ -36,7 +37,7 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
                 getSeedModifier()
         );
     }
-    
+
     @Nonnull
     @Override
     public GenerationStep.Decoration step() {
@@ -44,7 +45,7 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
     }
 
     private static class PlacementFactory implements PieceGeneratorSupplier<JigsawConfiguration> {
-        
+
         private final String structureId;
 
         private PlacementFactory(String structureId) {
@@ -65,7 +66,7 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
                             .get(FeywildMod.getInstance().resource(structureId)),
                     10
             );
-            
+
             return JigsawPlacement.addPieces(
                     StructureUtils.withConfig(context, config), PoolElementStructurePiece::new,
                     context.chunkPos().getMiddleBlockPosition(0), false, true

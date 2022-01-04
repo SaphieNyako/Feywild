@@ -39,7 +39,7 @@ public class WinterTree extends BaseTree {
     }
 
     private static class LeavesPlacer extends DecoratingBlobFoliagePlacer {
-        
+
         public LeavesPlacer(UniformInt radiusSpread, UniformInt heightSpread, int height) {
             super(radiusSpread, heightSpread, height);
         }

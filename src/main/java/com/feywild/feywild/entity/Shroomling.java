@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Shroomling.class, EntityDataSerializers.INT);
-    
+
     public static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
 
     public Shroomling(EntityType<? extends FeyBase> type, Level level) {
@@ -72,7 +72,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
         this.goalSelector.addGoal(60, new WaveGoal(this));
         this.goalSelector.addGoal(30, new SneezeGoal(this));
     }
-    
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -161,7 +161,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
 
         return PlayState.CONTINUE;
     }
-    
+
     @Override
     public boolean isPersistenceRequired() {
         return true;

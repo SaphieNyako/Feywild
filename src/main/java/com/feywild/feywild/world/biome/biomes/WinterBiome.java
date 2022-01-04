@@ -60,13 +60,13 @@ public class WinterBiome implements BiomeType {
         builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_SPIKE);
         builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH);
         builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VillagePlacements.PILE_SNOW_VILLAGE);
-        
+
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
 
         BiomeDefaultFeatures.addDefaultGrass(builder);
         BiomeDefaultFeatures.addSurfaceFreezing(builder);
         BiomeDefaultFeatures.addIcebergs(builder);
-        
+
         // TODO structures
 //        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_WINTER_WORLD_TREE);
     }

@@ -10,7 +10,7 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class RequestItemHandler {
-    
+
     public static void handle(RequestItemSerializer.Message msg, Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> {
             ServerPlayer sender = context.get().getSender();
@@ -26,7 +26,7 @@ public class RequestItemHandler {
         context.get().setPacketHandled(true);
     }
 
-    private static ItemStack getScroll(int id){
+    private static ItemStack getScroll(int id) {
         return switch (id) {
             case 0 -> new ItemStack(ModItems.summoningScrollSpringPixie);
             case 1 -> new ItemStack(ModItems.summoningScrollSummerPixie);

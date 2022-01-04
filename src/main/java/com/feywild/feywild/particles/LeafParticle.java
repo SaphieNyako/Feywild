@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nonnull;
 
 public class LeafParticle extends TextureSheetParticle {
-    
+
     private float move = 0;
     private final double initX;
     private final double velY;
@@ -18,13 +18,13 @@ public class LeafParticle extends TextureSheetParticle {
 
     public LeafParticle(ClientLevel level, double x, double y, double z, double velX, double velY, double velZ) {
         super(level, x, y, z);
-        this.setSize(0.5f,0.5f);
+        this.setSize(0.5f, 0.5f);
         this.alpha = 0;
-        this.lifetime = (int)(10 / (Math.random() * 0.8D)) + 20;
+        this.lifetime = (int) (10 / (Math.random() * 0.8D)) + 20;
         this.initX = x;
         this.initZ = z;
         this.velY = velY;
-       this.remover = velX == velZ ? 1 : 0;
+        this.remover = velX == velZ ? 1 : 0;
     }
 
     @Nonnull
@@ -38,11 +38,11 @@ public class LeafParticle extends TextureSheetParticle {
         super.tick();
         this.setPos(this.initX + Math.sin(this.move) * 2, this.y + velY, this.initZ + Math.cos(this.move) * 2 * remover);
         this.move += 0.1;
-        if(this.lifetime == 0){
+        if (this.lifetime == 0) {
             this.remove();
         }
         this.lifetime--;
-        if(this.move > 0.3)
+        if (this.move > 0.3)
             this.alpha = 1;
     }
 

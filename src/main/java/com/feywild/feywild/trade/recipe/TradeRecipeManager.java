@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TradeRecipeManager {
-    
+
     public static List<TradeRecipe> getRecipes(ResourceLocation id, TradeData data) {
         ImmutableList.Builder<TradeRecipe> recipe = ImmutableList.builder();
         for (int i = 1; i <= data.getMaxLevel(); i++) {
@@ -25,12 +25,12 @@ public class TradeRecipeManager {
         }
         return recipe.build();
     }
-    
+
     private static TradeRecipe getRecipe(ResourceLocation id, int level, TradeLevelData data) {
         List<TradeRecipe.Entry> trades = data.getAllTrades().stream().flatMap(TradeRecipeManager::expandTrades).collect(Collectors.toList());
         return new TradeRecipe(id, level, trades);
     }
-    
+
     private static Stream<TradeRecipe.Entry> expandTrades(VillagerTrades.ItemListing trade) {
         if (trade instanceof SimpleTrade) {
             return Stream.of(expandSimpleTrade((SimpleTrade) trade));
@@ -40,14 +40,14 @@ public class TradeRecipeManager {
             return Stream.empty();
         }
     }
-    
+
     private static TradeRecipe.Entry expandSimpleTrade(SimpleTrade trade) {
         List<ItemStack> input = expandFactory(trade.input).collect(Collectors.toList());
         List<ItemStack> additional = expandFactory(trade.additional).collect(Collectors.toList());
         List<ItemStack> output = expandFactory(trade.output).collect(Collectors.toList());
         return new TradeRecipe.Entry(input, additional, output);
     }
-    
+
     private static Stream<ItemStack> expandFactory(StackFactory factory) {
         if (factory instanceof SimpleStackFactory) {
             return Stream.of(((SimpleStackFactory) factory).getStack());

@@ -4,7 +4,7 @@ import com.feywild.feywild.quest.Alignment;
 import net.minecraft.world.item.ItemStack;
 
 public class AlignmentStack {
-    
+
     public final Alignment alignment;
     private final ItemStack stack;
 

@@ -17,7 +17,7 @@ import java.util.Set;
 
 // Holds aĺl trades possible for one trader level
 public class TradeLevelData {
-    
+
     private final int minTrades;
     private final int maxTrades;
     private final int maxWeight;
@@ -28,7 +28,7 @@ public class TradeLevelData {
     public TradeLevelData(int minTrades, int maxTrades, List<TradeEntry> trades, boolean allowDuplicates) {
         this.minTrades = Math.min(minTrades, maxTrades);
         this.maxTrades = Math.max(minTrades, maxTrades);
-        
+
         int maxWeight = 0;
         ImmutableList.Builder<Pair<Integer, VillagerTrades.ItemListing>> weightedTrades = ImmutableList.builder();
         for (TradeEntry entry : trades) {
@@ -40,14 +40,14 @@ public class TradeLevelData {
         this.maxWeight = maxWeight;
         this.trades = weightedTrades.build();
         this.allowDuplicates = allowDuplicates;
-        
+
         if (this.minTrades < 0 || this.maxTrades <= 0) {
             throw new IllegalStateException("Trader level data must be able to select at least one trade. Current range: [" + this.minTrades + ";" + this.maxTrades + "]");
         }
         if (!this.allowDuplicates && this.trades.size() < this.maxTrades) {
             throw new IllegalStateException("Trader level data without duplicates must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
-        
+
         this.tradeView = new LazyValue<>(() -> {
             return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
         });
@@ -63,7 +63,7 @@ public class TradeLevelData {
             }
         }
     }
-    
+
     public List<VillagerTrades.ItemListing> selectTrades(int trades, Random random) {
         int tradesToSelect = this.allowDuplicates ? trades : Math.min(trades, this.trades.size());
         if (tradesToSelect == 0) {
@@ -89,7 +89,7 @@ public class TradeLevelData {
             return builtTrades.build();
         }
     }
-    
+
     private int selectRandomTrade(Random random) {
         int id = random.nextInt(this.maxWeight);
         for (int i = 0; i < this.trades.size(); i++) {
@@ -99,11 +99,11 @@ public class TradeLevelData {
         }
         return this.trades.size() - 1;
     }
-    
+
     public List<VillagerTrades.ItemListing> getAllTrades() {
         return this.tradeView.get();
     }
-    
+
     public static TradeLevelData fromJson(JsonObject json) {
         int min;
         int max;

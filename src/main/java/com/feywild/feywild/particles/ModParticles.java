@@ -6,7 +6,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 
 @RegisterClass
 public class ModParticles {
-    
+
     public static final SimpleParticleType leafParticle = new SimpleParticleType(true);
     public static final SimpleParticleType springLeafParticle = new SimpleParticleType(true);
     public static final SimpleParticleType summerLeafParticle = new SimpleParticleType(true);

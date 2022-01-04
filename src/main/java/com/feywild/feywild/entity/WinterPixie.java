@@ -9,7 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
 public class WinterPixie extends Fey {
-    
+
     protected WinterPixie(EntityType<? extends Fey> type, Level level) {
         super(type, Alignment.WINTER, level);
     }

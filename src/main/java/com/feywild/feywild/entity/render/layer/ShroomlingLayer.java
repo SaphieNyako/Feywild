@@ -24,6 +24,7 @@ public class ShroomlingLayer<T extends Shroomling> extends GeoLayerRenderer<T> {
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         RenderType glow = RenderType.eyes(SHROOMLING_GLOW);
         this.getRenderer().render(this.getEntityModel().getModel(SHROOMLING), entityLivingBaseIn, partialTicks, glow,
-                matrixStackIn, bufferIn, bufferIn.getBuffer(glow), packedLightIn, OverlayTexture.NO_OVERLAY, 0f, 0.3f, 0.9f, 1f);
+                matrixStackIn, bufferIn, bufferIn.getBuffer(glow), packedLightIn, OverlayTexture.NO_OVERLAY, 0f, 0.3f, 0.9f, 1f
+        );
     }
 }

@@ -96,7 +96,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment()== Alignment.SPRING) {
+            if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment() == Alignment.SPRING) {
 
                 Mandragora entity = ModEntityTypes.mandragora.create(level);
 

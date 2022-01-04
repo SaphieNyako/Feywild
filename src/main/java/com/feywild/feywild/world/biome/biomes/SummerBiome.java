@@ -38,7 +38,7 @@ public class SummerBiome implements BiomeType {
     public float downfall() {
         return 0;
     }
-    
+
     @Override
     public void ambience(BiomeSpecialEffects.Builder builder) {
         builder.waterColor(0x3f76e4);
@@ -63,7 +63,7 @@ public class SummerBiome implements BiomeType {
         BiomeDefaultFeatures.addJungleGrass(builder);
         builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUNFLOWER);
         BiomeDefaultFeatures.addExtraGold(builder);
-        
+
         // TODO structures
 //        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_BEEKEEP);
 //        builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SUMMER_WORLD_TREE);

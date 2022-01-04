@@ -17,7 +17,7 @@ public class SelectQuestHandler {
             if (player != null) {
                 QuestDisplay display = QuestData.get(player).getActiveQuestDisplay(msg.quest);
                 if (display != null) {
-                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(display, false)); 
+                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(display, false));
                 }
             }
         });

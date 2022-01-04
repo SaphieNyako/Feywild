@@ -24,7 +24,7 @@ import java.util.List;
 public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "trades");
-    
+
     private final IDrawable background;
     private final IDrawable icon;
     private final IDrawable slot;

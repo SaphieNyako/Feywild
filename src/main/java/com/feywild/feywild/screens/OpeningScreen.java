@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 public class OpeningScreen extends Screen {
 
     private final List<ItemStack> stacks;
-    
+
     private List<FormattedCharSequence> text;
-    
+
     public OpeningScreen() {
         super(new TextComponent(""));
         this.stacks = List.of(
@@ -43,7 +43,7 @@ public class OpeningScreen extends Screen {
         text = FeywildTextProcessor.INSTANCE.process(new TranslatableComponent("screen.feywild.opening_screen")).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
         int paddingStart = Math.max(4, (this.width - (4 * (ScrollWidget.WIDTH + 4))) / 2);
         for (int i = 0; i < this.stacks.size(); i++) {
-            this.addRenderableWidget(new ScrollWidget(this, paddingStart + (i * (ScrollWidget.WIDTH + 4)) + 2, 150, i , this.stacks.get(i)));
+            this.addRenderableWidget(new ScrollWidget(this, paddingStart + (i * (ScrollWidget.WIDTH + 4)) + 2, 150, i, this.stacks.get(i)));
         }
     }
 
@@ -58,7 +58,7 @@ public class OpeningScreen extends Screen {
         super.render(poseStack, mouseX, mouseY, partialTicks);
         drawTextLines(poseStack, mouseX, mouseY);
     }
-    
+
     private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
         if (this.minecraft != null && this.text != null && !this.text.isEmpty()) {
             this.minecraft.font.drawShadow(poseStack, this.text.get(0), this.width / 2f - (this.minecraft.font.width(this.text.get(0)) / 2f), 10, 0xFFFFFF);

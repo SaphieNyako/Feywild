@@ -22,7 +22,7 @@ public class BeeKnightModel extends AnimatedGeoModel<BeeKnight> {
             head.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
         }
     }
-    
+
     @Override
     public ResourceLocation getModelLocation(BeeKnight beeKnight) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "geo/bee_knight.geo.json");
@@ -30,7 +30,7 @@ public class BeeKnightModel extends AnimatedGeoModel<BeeKnight> {
 
     @Override
     public ResourceLocation getTextureLocation(BeeKnight beeKnight) {
-        return beeKnight.getEntityData().get(BeeKnight.AGGRAVATED) ? new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/angry_bee_knight.png")  : new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/bee_knight.png");
+        return beeKnight.getEntityData().get(BeeKnight.AGGRAVATED) ? new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/angry_bee_knight.png") : new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/bee_knight.png");
     }
 
     @Override

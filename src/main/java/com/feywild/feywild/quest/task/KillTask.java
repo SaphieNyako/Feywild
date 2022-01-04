@@ -6,9 +6,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
-    
+
     public static final KillTask INSTANCE = new KillTask();
-    
+
     private KillTask() {
         super("entity", ForgeRegistries.ENTITIES);
     }

@@ -138,7 +138,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
     public boolean isRandomlyTicking(@Nonnull BlockState state) {
         return true;
     }
-    
+
     @Override
     @SuppressWarnings("deprecation")
     public void randomTick(@Nonnull BlockState state, ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
