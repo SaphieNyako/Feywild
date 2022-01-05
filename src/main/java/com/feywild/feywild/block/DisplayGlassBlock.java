@@ -30,7 +30,7 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
     public static final IntegerProperty BREAKAGE = IntegerProperty.create("breakage", 0, 4);
 
     public DisplayGlassBlock(ModX mod) {
-        super(mod, DisplayGlass.class, BlockBehaviour.Properties.of(Material.GLASS).strength(9999999f).noOcclusion());
+        super(mod, DisplayGlass.class, BlockBehaviour.Properties.of(Material.GLASS).strength(9999999f).noOcclusion().noDrops());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(CAN_GENERATE, false)
                 .setValue(BREAKAGE, 0)
