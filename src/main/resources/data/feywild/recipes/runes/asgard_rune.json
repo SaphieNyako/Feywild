@@ -14,5 +14,11 @@
     {
       "item": "botania:rainbow_rod"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mythicbotany"
+    }
   ]
 }
