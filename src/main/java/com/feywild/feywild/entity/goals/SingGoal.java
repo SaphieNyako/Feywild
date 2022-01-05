@@ -31,7 +31,7 @@ public class SingGoal extends Goal {
                 this.reset();
             } else if (this.ticksLeft == 20) {
                 this.growCropsBySinging(entity.blockPosition());
-            } else if (this.ticksLeft == 160) {
+            } else if (this.ticksLeft == 100) {
                 this.singing();
                 this.entity.playSound(ModSoundEvents.mandragoraSinging, 1, 1);
             }
@@ -40,7 +40,7 @@ public class SingGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 180;
+        this.ticksLeft = 120;
     }
 
     private void singing() {
@@ -63,7 +63,7 @@ public class SingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.003f && level.getBlockState(entity.blockPosition()).getBlock() instanceof FarmBlock; //if on farmblock
+        return level.random.nextFloat() < 0.01f && level.getBlockState(entity.blockPosition()).getBlock() instanceof FarmBlock;
     }
 
     private void reset() {

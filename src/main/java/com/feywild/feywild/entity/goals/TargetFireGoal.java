@@ -39,7 +39,7 @@ public class TargetFireGoal extends Goal {
                 this.targetMonster.setSecondsOnFire(120);
                 FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetMonster.getX(), this.targetMonster.getY(), this.targetMonster.getZ());
                 this.reset();
-            } else if (this.ticksLeft == 110) {
+            } else if (this.ticksLeft == 65) {
                 this.spellCasting();
             }
         }
@@ -53,7 +53,7 @@ public class TargetFireGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 120;
+        this.ticksLeft = 75;
         this.targetMonster = null;
     }
 
@@ -72,7 +72,7 @@ public class TargetFireGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer serverPlayer) {
-            return this.entity.level.random.nextFloat() < 0.005f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+            return this.entity.level.random.nextFloat() < 0.01f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
         } else {
             return false;
         }

@@ -37,9 +37,9 @@ public class AddShieldGoal extends Goal {
             if (this.ticksLeft <= 0) {
                 this.addShieldEffect();
                 this.reset();
-            } else if (this.ticksLeft == 110) {
+            } else if (this.ticksLeft == 65) {
                 this.spellCasting();
-            } else if (this.ticksLeft <= 100) {
+            } else if (this.ticksLeft <= 55) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
             }
         }
@@ -47,7 +47,7 @@ public class AddShieldGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 120;
+        this.ticksLeft = 75;
         this.entity.setCasting(false);
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(4);
@@ -84,7 +84,7 @@ public class AddShieldGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer serverPlayer) {
-            return this.entity.level.random.nextFloat() < 0.002f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+            return this.entity.level.random.nextFloat() < 0.01f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
         } else {
             return false;
         }

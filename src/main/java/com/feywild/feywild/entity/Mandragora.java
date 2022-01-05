@@ -148,9 +148,9 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
             return PlayState.CONTINUE;
         }
         if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
-        } else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.idle", true));
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
         }
         return PlayState.CONTINUE;
     }

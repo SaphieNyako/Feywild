@@ -14,6 +14,7 @@ import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -109,8 +110,12 @@ public class MandrakeCrop extends CropBlock implements Registerable {
                     if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                     QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
                 }
+            } else if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment() != Alignment.SPRING) {
+                player.sendMessage(new TranslatableComponent("message.feywild.summon_cookie_fail"), player.getUUID());
             }
+
             return InteractionResult.sidedSuccess(level.isClientSide);
+
         } else {
             level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 1.0f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);
