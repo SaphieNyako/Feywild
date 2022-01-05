@@ -43,6 +43,8 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.INT);
 
+    public static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
+
     public Mandragora(EntityType<? extends FeyBase> type, Level level) {
         super(type, Alignment.SPRING, level);
         this.noCulling = true;
@@ -51,7 +53,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return FeyBase.getDefaultAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.2);
+                .add(Attributes.MOVEMENT_SPEED, 0.1);
     }
 
     public MandragoraVariant getVariant() {
@@ -145,7 +147,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.sing", false));
             return PlayState.CONTINUE;
         }
-        if (event.isMoving()) {
+        if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
         } else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.idle", true));
@@ -180,7 +182,6 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     protected SoundEvent getAmbientSound() {
         return this.random.nextBoolean() ? ModSoundEvents.mandragoraAmbience : null;
     }
-
 
     public enum MandragoraVariant {
         MELON, ONION, POTATO, PUMPKIN, TOMATO
