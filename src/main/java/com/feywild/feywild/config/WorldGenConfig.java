@@ -60,7 +60,7 @@ public class WorldGenConfig {
     public static class ores {
 
         @Config("Spawn settings for fey gem ore.")
-        public static OreData fey_gem = new OreData(5, 5, -24, 56);
+        public static OreData fey_gem = new OreData(20, 5, -32, 32);
     }
 
     public static class tree_patches {

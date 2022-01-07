@@ -53,6 +53,13 @@ public class BlockLootProvider extends BlockLootProviderBase {
                 this.stack(ModItems.brilliantFeyGem)
         ));
 
+        this.drops(ModBlocks.feyGemBlockDeepSlate, true, this.first(
+                this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),
+                this.stack(ModItems.greaterFeyGem).with(this.random(0.6f)),
+                this.stack(ModItems.shinyFeyGem).with(this.random(0.6f)),
+                this.stack(ModItems.brilliantFeyGem)
+        ));
+
         this.drops(ModBlocks.feyGemBlockLivingrock, true, this.first(
                 this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.greaterFeyGem).with(this.random(0.6f)),

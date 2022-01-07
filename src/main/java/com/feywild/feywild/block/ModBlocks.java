@@ -20,6 +20,9 @@ public class ModBlocks {
     public static final Block feyGemBlock = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
             .requiresCorrectToolForDrops().sound(SoundType.STONE));
 
+    public static final Block feyGemBlockDeepSlate = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
+            .sound(SoundType.DEEPSLATE));
+
     public static final Block feyGemBlockLivingrock = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
             .requiresCorrectToolForDrops().sound(SoundType.STONE));
 

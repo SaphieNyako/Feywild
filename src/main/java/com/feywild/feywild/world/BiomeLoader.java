@@ -73,7 +73,8 @@ public class BiomeLoader {
         for (OreType ore : OreType.values()) {
             if (!CompatConfig.mythic_alfheim.locked) {
                 if (!event.getCategory().equals(Biome.BiomeCategory.NETHER) && !event.getCategory().equals(Biome.BiomeCategory.THEEND)) {
-                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getFeature());
+                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getStoneFeature());
+                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getDeepSlateFeature());
                 }
             }
             if (CompatConfig.mythic_alfheim.alfheim) {
