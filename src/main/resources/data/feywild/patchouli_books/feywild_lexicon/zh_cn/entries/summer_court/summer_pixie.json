@@ -1,0 +1,46 @@
+{
+  "name": "夏之精灵",
+  "icon": "feywild:summoning_scroll_summer_pixie",
+  "category": "summer_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "夏之森林是夏之精灵的主要统治的地区，他们知道这一点。他们傲慢而苛求，希望任何向他们讲话的人都能像对待皇室成员一样对待他们。尽管他们很有礼貌，但他们要求承认自己声称的王室地位。"
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:summer_pixie",
+      "offset": 0.4
+    }, {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "召唤",
+      "text": "当心，当你召唤一个小精灵时，你一定要去他们的阵营！这意味着其他阵营的精灵可能不愿意在事后与你互动."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "召唤",
+      "text": "还要注意的是，并不是所有的小精灵都是心地善良的人，他们可能会欺骗你！试着在你召唤了一个小精灵后与他们互动，如果可能的话，试着获得他们的信任"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_summer_pixie",
+      "title": "召唤夏之精灵",
+      "text": "有了这个卷轴，你可以召唤一个夏之精灵。作为夏之森林的骄傲成员，夏季精灵将击倒她的敌人。"
+    },
+    {
+      "type": "image",
+      "title": "召唤配方",
+      "images": ["feywild:textures/patchouli_images/summer_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "同伴",
+      "text": "被召唤的小精灵将通过按住shift键并右键单击她来跟随您，如果您希望她停留在某个位置，请按住shift键并再次右键单击她。"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "name": "冬之精灵",
+  "icon": "feywild:summoning_scroll_winter_pixie",
+  "category": "winter_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "乍一看，他们可能显得冷酷阴郁，他们会帮助任何人度过最艰难时期。冬之精灵说话温和，有点病态，从不在不考虑的情况下选择自己的语言。在社会交往方面，他们似乎有点尴尬，有些人更喜欢与死人作伴。"
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:winter_pixie",
+      "offset": 0.4
+    }, {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "召唤",
+      "text": "当心，当你召唤一个小精灵时，你一定要去他们的阵营！这意味着其他阵营的精灵可能不愿意在事后与你互动."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "召唤",
+      "text": "还要注意的是，并不是所有的小精灵都是心地善良的人，他们可能会欺骗你！试着在你召唤了一个小精灵后与他们互动，如果可能的话，试着获得他们的信任."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_winter_pixie",
+      "title": "召唤冬季精灵",
+      "text": "有了这个卷轴，你可以召唤一个冬季精灵。冬天的精灵偶尔会召唤一个雪傀儡"
+    },
+    {
+      "type": "image",
+      "title": "召唤配方",
+      "images": ["feywild:textures/patchouli_images/winter_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "同伴",
+      "text": "被召唤的小精灵将通过按住shift键并右键单击她来跟随您，如果您希望她停留在某个位置，请按住shift键并再次右键单击她。"
+    }
+  ]
+}

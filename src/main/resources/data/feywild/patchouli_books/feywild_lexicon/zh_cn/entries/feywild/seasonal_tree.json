@@ -1,0 +1,54 @@
+{
+  "name": "四季树",
+  "icon": "feywild:autumn_tree_sapling",
+  "category": "feywild",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "不同季节争夺地盘十分常见，从小块地区到充满季节魔力的地区。普通的树木会被季节的魔力吸引，并用这种魔力影响周围的区域。种植季节性树苗将增加该地区特定季节的影响。"
+    },
+    {
+      "type": "image",
+      "title": "精灵树",
+      "images": ["feywild:textures/patchouli_images/trees_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:spring_tree_sapling",
+      "title": "春之树苗",
+      "text": "春天的花朵会在树的周围生长."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summer_tree_sapling",
+      "title": "夏之树苗",
+      "text": "夏季的花朵会在树的周围生长，有时树可能是夏季庭院蜜蜂的家."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:autumn_tree_sapling",
+      "title": "秋之树苗",
+      "text": "树周围的地方很快就会被落叶填满。为了驱邪，有时会出现雕刻的南瓜"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:winter_tree_sapling",
+      "title": "冬之树苗",
+      "text": "冬天的树将被雪覆盖."
+    },
+    {
+      "type": "crafting",
+      "title": "精灵木",
+      "recipe": "feywild:spring_tree_wood",
+      "text": "砍倒其中一棵精灵树就可以得到精灵木。每一季的精灵都有自己的森林。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "精灵尘",
+      "text": "当你砍掉它们的叶子时，它们也会落下精灵尘."
+    }
+  ]
+}

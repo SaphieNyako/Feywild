@@ -1,0 +1,71 @@
+{
+  "advancement": "feywild:feywild/traveling_stone",
+  "name": "矮人市场",
+  "icon": "feywild:inactive_market_rune_stone",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:inactive_market_rune_stone",
+      "title": "图纸",
+      "text": "水晶石是一种具有神奇特性的小石板。他们可以持有不同种类的魔法咒语。最常见的是移动的石头，用来移动到其他地方。"
+    },
+    {
+      "advancement": "",
+      "type": "spotlight",
+      "item": "feywild:market_rune_stone",
+      "title": "市场传送石",
+      "text": "你可以让你的朋友侏儒激活一个不活动的符文石。激活后，它可以传送到一个只有矮人和他们信任的人知道的秘密地点。"
+    },
+    {
+      "advancement": "",
+      "type": "image",
+      "title": "矮人市场",
+      "images": ["feywild:textures/patchouli_images/market_book.png"],
+      "border": true,
+      "text": "在矮人市场，你可以交易各种物品。"
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_baker",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "这个矮人会来交换各种各样的厨具."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_shepherd",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "这个矮人会用它来交换各种农场动物的物品."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_toolsmith",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "这个矮人将用它来交换各种盔甲、武器和工具."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_artificer",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "这个矮人会用它来交换各种各样的手工艺品和小饰品."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_miner",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "这个矮人会用各种各样的石头和矿石来交换."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_dragon_hunter",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "这个矮人会用各种怪物掉落物来交换."
+    }
+  ]
+}

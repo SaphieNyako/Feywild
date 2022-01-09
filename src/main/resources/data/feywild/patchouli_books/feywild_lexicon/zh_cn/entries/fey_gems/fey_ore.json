@@ -1,0 +1,30 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "精灵矿石",
+  "icon": "feywild:lesser_fey_gem",
+  "category": "fey_gems",
+  "pages": [
+    {
+      "type": "text",
+      "text": "一些生物和巫师非常需要精灵宝石，因为它仍然包含一些精灵的原始魔法."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_gem_block",
+      "title": "精灵矿石",
+      "text": "在开采精灵矿石时要小心。因为精灵矿石易碎，对矿石施加太大压力会降低挖掘出的精灵宝石的质量。."
+    },
+    {
+      "type": "smelting",
+      "title": "精灵尘",
+      "recipe": "feywild:fey_dust",
+      "text": "当一只精灵进入下一个世界时，它们会留下少量精灵尘。有些人相信这种神奇的粉末会给洒在身上的人带来飞翔的力量。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:lesser_fey_gem",
+      "title": "精灵宝石",
+      "text": "精灵宝石的质量各不相同。高质量的宝石只能切割成低质量的宝石。关于如何提高精灵宝石质量的知识只有矮人知道."
+    }
+  ]
+}

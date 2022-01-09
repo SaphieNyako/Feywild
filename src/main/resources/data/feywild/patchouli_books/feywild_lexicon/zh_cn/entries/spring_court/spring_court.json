@@ -1,0 +1,39 @@
+{
+  "name": "春之森林",
+  "icon": "feywild:spring_tree_sapling",
+  "category": "spring_court",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "弹力十足，充满泡泡，完全没有个人空间的概念，春之精灵对待一切，就像他们以前从未见过一样。他们就像过度活跃的孩子，总是想知道一切有趣的东西，把任何看起来稍微可以吃的东西塞进嘴里，他们唯一关心的是一天没有足够的乐趣或食物。"
+    },
+    {
+      "type": "image",
+      "title": "春之森林",
+      "images": ["feywild:textures/patchouli_images/spring_book.png"],
+      "border": true
+    },
+    {
+      "type": "text",
+      "text": "他们代表着新的一年的诞生和新生命的到来。然而，他们在恶作剧时是出了名的令人讨厌的，因为他们不知道自己行为的危险或后果。他们也不在乎。"
+    }, {
+      "type": "image",
+      "title": "春世界树",
+      "images": ["feywild:textures/patchouli_images/spring_worldtree_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "春世界树",
+      "text": "春天世界树很难找到，因为它是春之精灵的家。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:dandelion_seed",
+      "title": "巨大蒲公英",
+      "text": "在盛开的花丛中，你可以找到巨大的蒲公英。巨大的蒲公英有三个变种；一朵花蕾，一朵花和这朵花众所周知的绒毛。这种花也会掉落蒲公英种子，可以用来种植你自己的巨大蒲公英。 "
+    }
+  ]
+}

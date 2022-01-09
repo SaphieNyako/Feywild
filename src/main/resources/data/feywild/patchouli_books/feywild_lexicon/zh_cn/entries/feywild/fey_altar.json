@@ -1,0 +1,34 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "召唤精灵",
+  "icon": "feywild:fey_altar",
+  "category": "feywild",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "精灵祭坛",
+      "text": "用魔法墨水在召唤卷轴上写上正确的成分和咒语，你可以召唤回一个精灵。召唤仪式需要一个精灵祭坛，可以制作，也可以在世界树上找到。"
+    }, {
+      "type": "crafting",
+      "title": "召唤卷轴",
+      "recipe": "feywild:summoning_scroll"
+    }, {
+      "type": "crafting",
+      "title": "精灵墨水",
+      "recipe": "feywild:fey_ink_bottle"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:mandrake_crop_seed",
+      "title": "曼德拉种子",
+      "text": "曼陀罗种子可以在世界树上找到。当一棵普通的树被精灵的魔法腐蚀时，一些种子会变成曼德拉种子。"
+    },
+    {
+      "type": "crafting",
+      "item": "feywild:fey_altar",
+      "recipe": "feywild:fey_altar"
+    }
+  ]
+}

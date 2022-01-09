@@ -1,0 +1,46 @@
+{
+  "name": "秋精灵",
+  "icon": "feywild:summoning_scroll_autumn_pixie",
+  "category": "autumn_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "秋之精灵是四个精灵中最成熟的一个，她的年龄和智慧使她能够欣赏艺术、音乐和诗歌。她宁愿花一个晚上听歌、跳舞、调情，然后去战斗或无意识地纵容自己。她知道即将到来的时期将是一个艰难的时期，并感到有责任为一个周期的结束做准备。"
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:autumn_pixie",
+      "offset": 0.4
+    }, {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "召唤",
+      "text": "当心，当你召唤一个小精灵时，代表你承认了她们！这意味着其他精灵可能不愿意在事后与你互动。"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "召唤",
+      "text": "还要注意的是，并不是所有的小精灵都是心甘情愿的熟人，他们可能会欺骗你！试着在你召唤了一个小精灵后与它互动, 如果可能的话，试着获得他们的信任."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_autumn_pixie",
+      "title": "召唤秋精灵",
+      "text": "有了这个卷轴，你可以召唤一个秋天的精灵。秋天的精灵们会用一个风行咒语来保护你，以抵挡任何怪物."
+    },
+    {
+      "type": "image",
+      "title": "召唤配方",
+      "images": ["feywild:textures/patchouli_images/autumn_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "伙伴",
+      "text": "被召唤的小精灵将通过按住shift键并右键单击她来跟随您，如果您希望她停留在某个位置，请按住shift键并再次右键单击她。"
+    }
+  ]
+}
