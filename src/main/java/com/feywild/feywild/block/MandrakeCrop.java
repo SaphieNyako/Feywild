@@ -97,23 +97,24 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment() == Alignment.SPRING) {
+            if (!level.isClientSide) {
+                if (QuestData.get((ServerPlayer) player).getAlignment() == Alignment.SPRING) {
 
-                Mandragora entity = ModEntityTypes.mandragora.create(level);
+                    Mandragora entity = ModEntityTypes.mandragora.create(level);
 
-                if (entity != null) {
-                    entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                    entity.setSummonPos(pos);
-                    level.addFreshEntity(entity);
-                    entity.playSound(SoundEvents.FOX_EAT, 1, 1);
-                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                    if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
-                    QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    if (entity != null) {
+                        entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+                        entity.setSummonPos(pos);
+                        level.addFreshEntity(entity);
+                        entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                        QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    }
+                } else {
+                    player.sendMessage(new TranslatableComponent("message.feywild.summon_cookie_fail"), player.getUUID());
                 }
-            } else if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment() != Alignment.SPRING) {
-                player.sendMessage(new TranslatableComponent("message.feywild.summon_cookie_fail"), player.getUUID());
             }
-
             return InteractionResult.sidedSuccess(level.isClientSide);
 
         } else {

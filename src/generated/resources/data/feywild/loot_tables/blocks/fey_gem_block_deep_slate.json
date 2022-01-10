@@ -36,7 +36,7 @@
                   "conditions": [
                     {
                       "condition": "minecraft:random_chance",
-                      "chance": 0.6
+                      "chance": 0.5
                     }
                   ],
                   "name": "feywild:lesser_fey_gem"
@@ -46,7 +46,7 @@
                   "conditions": [
                     {
                       "condition": "minecraft:random_chance",
-                      "chance": 0.6
+                      "chance": 0.5
                     }
                   ],
                   "name": "feywild:greater_fey_gem"
@@ -56,7 +56,7 @@
                   "conditions": [
                     {
                       "condition": "minecraft:random_chance",
-                      "chance": 0.6
+                      "chance": 0.5
                     }
                   ],
                   "name": "feywild:shiny_fey_gem"

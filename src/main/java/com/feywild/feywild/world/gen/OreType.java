@@ -8,6 +8,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
@@ -15,7 +16,10 @@ import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -41,36 +45,14 @@ public enum OreType {
         this.alfheimBlock = alfheimBlock;
         this.data = data;
 
-        this.stoneFeature = new LazyValue<>(() -> {
-            OreConfiguration oreFeatureConfig = new OreConfiguration(OreFeatures.STONE_ORE_REPLACEABLES, stoneBlock.defaultBlockState(), getMaxVeinSize());
-
-            return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(stoneBlock.getRegistryName()),
-                    Feature.ORE.configured(oreFeatureConfig).placed(OrePlacement.commonOrePlacement(getSpawnWeight(),
-                            HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())))
-                    ));
-        });
-
-        this.deepSlateFeature = new LazyValue<>(() -> {
-            OreConfiguration oreFeatureConfig = new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, deepSlateBlock.defaultBlockState(), getMaxVeinSize());
-
-            return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(deepSlateBlock.getRegistryName()),
-                    Feature.ORE.configured(oreFeatureConfig).placed(OrePlacement.commonOrePlacement(getSpawnWeight(),
-                            HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())))
-                    ));
-        });
-
-        this.alfheimFeature = new LazyValue<>(() -> {
-            OreConfiguration oreFeatureConfig = new OreConfiguration(FeywildOreGen.ALFHEIM_STONE, alfheimBlock.defaultBlockState(), getMaxVeinSize());
-            return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(stoneBlock.getRegistryName()),
-                    Feature.ORE.configured(oreFeatureConfig).placed(OrePlacement.commonOrePlacement(getSpawnWeight(),
-                            HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())))
-                    ));
-        });
+        this.stoneFeature = setFeature(stoneBlock, OreFeatures.STONE_ORE_REPLACEABLES, false);
+        this.deepSlateFeature = setFeature(deepSlateBlock, OreFeatures.DEEPSLATE_ORE_REPLACEABLES, false);
+        this.alfheimFeature = setFeature(alfheimBlock, OreFeatures.DEEPSLATE_ORE_REPLACEABLES, false); //Should be FeywildOreGen.ALFHEIM_STONE
     }
 
     public static OreType get(Block block) {
         for (OreType ore : values()) {
-            if (block == ore.stoneBlock) {
+            if (block == ore.stoneBlock || block == ore.deepSlateBlock || block == ore.alfheimBlock) {
                 return ore;
             }
         }
@@ -81,6 +63,8 @@ public enum OreType {
         for (OreType ore : values()) {
             // Will trigger registration
             ore.getStoneFeature();
+            ore.getDeepSlateFeature();
+            //ore.getAlfheimFeature();
         }
     }
 
@@ -122,5 +106,24 @@ public enum OreType {
 
     public HeightProvider getHeight() {
         return UniformHeight.of(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight()));
+    }
+
+    public LazyValue<PlacedFeature> setFeature(Block block, RuleTest oreRule, Boolean isRare) {
+
+        BlockState defaultBlock = block.defaultBlockState();
+
+        List<PlacementModifier> modifier = isRare ?
+                OrePlacement.rareOrePlacement(getSpawnWeight(),
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight()))) :
+                OrePlacement.commonOrePlacement(getSpawnWeight(),
+                        HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())));
+
+        return new LazyValue<>(() -> {
+            OreConfiguration oreFeatureConfig = new OreConfiguration(oreRule, defaultBlock, getMaxVeinSize());
+
+            return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(deepSlateBlock.getRegistryName()),
+                    Feature.ORE.configured(oreFeatureConfig).placed(modifier
+                    ));
+        });
     }
 }

@@ -31,6 +31,12 @@
       "title": "Fey Ore",
       "recipe": "feywild:greater_fey_gem_stonecutting",
       "recipe2": "feywild:shiny_fey_gem_stonecutting"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_gem_block_deep_slate",
+      "title": "Fey Ore Deepslate",
+      "text": "Fey ore can also be found in Deepslate veins. The Fey ore are better preserved in Deepslate, and will have a slightly higher chance of dropping higher quality gems."
     }
   ]
 }
