@@ -17,5 +17,4 @@ public class OrePlacement {
     public static List<PlacementModifier> rareOrePlacement(int weight, PlacementModifier modifier) {
         return orePlacement(RarityFilter.onAverageOnceEvery(weight), modifier);
     }
-
 }
