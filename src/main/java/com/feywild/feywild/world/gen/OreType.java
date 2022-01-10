@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import net.minecraftforge.fml.ModList;
 
 import java.util.List;
 import java.util.Objects;
@@ -44,9 +45,11 @@ public enum OreType {
         this.alfheimBlock = alfheimBlock;
         this.data = data;
 
-        this.stoneFeature = setFeature(stoneBlock, OreFeatures.STONE_ORE_REPLACEABLES, modifier);
-        this.deepSlateFeature = setFeature(deepSlateBlock, OreFeatures.DEEPSLATE_ORE_REPLACEABLES, modifier);
-        this.alfheimFeature = setFeature(alfheimBlock, FeywildOreGen.ALFHEIM_STONE, modifier);
+        this.stoneFeature = createPlacement(stoneBlock, OreFeatures.STONE_ORE_REPLACEABLES, modifier);
+        this.deepSlateFeature = createPlacement(deepSlateBlock, OreFeatures.DEEPSLATE_ORE_REPLACEABLES, modifier);
+        // The below Orefeatures should be: FeywildOreGen.ALFHEIM_STONE
+        // Right now it doesnt allow the mod to run. So re-add when Mythic is implemented.
+        this.alfheimFeature = createPlacement(alfheimBlock, OreFeatures.DEEPSLATE_ORE_REPLACEABLES, modifier);
     }
 
     public static OreType get(Block block) {
@@ -63,8 +66,19 @@ public enum OreType {
             // Will trigger registration
             ore.getStoneFeature();
             ore.getDeepSlateFeature();
-            //ore.getAlfheimFeature();
+            if (ModList.get().isLoaded("mythicbotany")) {
+                ore.getAlfheimFeature();
+            }
         }
+    }
+
+    private LazyValue<PlacedFeature> createPlacement(Block block, RuleTest oreRule, BiFunction<Integer, PlacementModifier, List<PlacementModifier>> modifier) {
+        return new LazyValue<>(() -> {
+            BlockState state = block.defaultBlockState();
+            List<PlacementModifier> modifiers = modifier.apply(getSpawnWeight(), HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())));
+            OreConfiguration oreFeatureConfig = new OreConfiguration(oreRule, state, getMaxVeinSize());
+            return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(deepSlateBlock.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).placed(modifiers));
+        });
     }
 
     public Block getStoneBlock() {
@@ -105,14 +119,5 @@ public enum OreType {
 
     public HeightProvider getHeight() {
         return UniformHeight.of(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight()));
-    }
-
-    public LazyValue<PlacedFeature> setFeature(Block block, RuleTest oreRule, BiFunction<Integer, PlacementModifier, List<PlacementModifier>> modifier) {
-        return new LazyValue<>(() -> {
-            BlockState state = block.defaultBlockState();
-            List<PlacementModifier> modifiers = modifier.apply(getSpawnWeight(), HeightRangePlacement.triangle(VerticalAnchor.absolute(getMinHeight()), VerticalAnchor.absolute(getMaxHeight())));
-            OreConfiguration oreFeatureConfig = new OreConfiguration(oreRule, state, getMaxVeinSize());
-            return Registry.register(BuiltinRegistries.PLACED_FEATURE, Objects.requireNonNull(deepSlateBlock.getRegistryName()), Feature.ORE.configured(oreFeatureConfig).placed(modifiers));
-        });
     }
 }
