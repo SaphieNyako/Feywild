@@ -9,16 +9,14 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MineshaftChestLootModifier extends LootModifier {
 
-    protected MineshaftChestLootModifier(LootItemCondition[] conditionsIn) {
-        super(conditionsIn);
+    protected MineshaftChestLootModifier(LootItemCondition[] conditions) {
+        super(conditions);
 
     }
 
@@ -52,18 +50,16 @@ public class MineshaftChestLootModifier extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<MineshaftChestLootModifier> {
 
         @Override
-        public MineshaftChestLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
+        public MineshaftChestLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] condition) {
 
-            return new MineshaftChestLootModifier(ailootcondition);
+            return new MineshaftChestLootModifier(condition);
 
         }
 
         @Override
         public JsonObject write(MineshaftChestLootModifier instance) {
 
-            JsonObject json = makeConditions(instance.conditions);
-            json.addProperty("addition", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(ItemStack.EMPTY.getItem())).toString());
-            return json;
+            return makeConditions(instance.conditions);
         }
     }
 }
