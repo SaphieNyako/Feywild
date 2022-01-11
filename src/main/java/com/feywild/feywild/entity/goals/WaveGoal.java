@@ -29,11 +29,11 @@ public class WaveGoal extends Goal {
 
             if (this.ticksLeft <= 0) {
                 this.reset();
-            } else if (this.ticksLeft == 80) {
+            } else if (this.ticksLeft == 40) {
                 this.waving();
                 this.entity.playSound(getWaveSound(), 1, 1);
 
-            } else if (this.ticksLeft <= 80 && target != null) {
+            } else if (this.ticksLeft <= 40 && target != null) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
             }
         }
@@ -55,7 +55,7 @@ public class WaveGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 90;
+        this.ticksLeft = 50;
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(4);
         for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
@@ -66,7 +66,7 @@ public class WaveGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.003f
+        return level.random.nextFloat() < 0.01f
                 && !(this.entity.getState() == Shroomling.State.SNEEZING);
     }
 

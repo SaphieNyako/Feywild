@@ -24,25 +24,16 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ScreenOpenEvent;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.network.PacketDistributor;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class EventListener {
 
@@ -154,35 +145,4 @@ public class EventListener {
         }
     }
 
-    /* LOOTTABLES */
-
-    @SubscribeEvent
-    public void lootTableLoad(LootTableLoadEvent event) {
-        if (event.getName().equals(BuiltInLootTables.ABANDONED_MINESHAFT)) {
-            @Nullable
-            LootPool pool = event.getTable().getPool("main");
-            //noinspection ConstantConditions
-            if (pool != null) {
-                addEntry(pool, LootItem.lootTableItem(ModItems.schematicsGemTransmutation).setWeight(8).build());
-                addEntry(pool, LootItem.lootTableItem(ModItems.inactiveMarketRuneStone).setWeight(MiscConfig.rune_stone_weight).build());
-                addEntry(pool, LootItem.lootTableItem(ModItems.lesserFeyGem).setWeight(30).build());
-                addEntry(pool, LootItem.lootTableItem(ModItems.greaterFeyGem).setWeight(15).build());
-                addEntry(pool, LootItem.lootTableItem(ModItems.shinyFeyGem).setWeight(8).build());
-                addEntry(pool, LootItem.lootTableItem(ModItems.brilliantFeyGem).setWeight(4).build());
-                addEntry(pool, LootItem.lootTableItem(ModItems.feywildMusicDisc).setWeight(2).build());
-            }
-        }
-    }
-
-    private void addEntry(LootPool pool, LootPoolEntryContainer entry) {
-        try {
-            //noinspection unchecked
-            List<LootPoolEntryContainer> lootEntries = (List<LootPoolEntryContainer>) ObfuscationReflectionHelper.findField(LootPool.class, "f_79023_").get(pool);
-            if (lootEntries.stream().noneMatch(e -> e == entry)) {
-                lootEntries.add(entry);
-            }
-        } catch (ReflectiveOperationException e) {
-            //
-        }
-    }
 }

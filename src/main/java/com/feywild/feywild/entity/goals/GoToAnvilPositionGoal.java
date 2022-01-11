@@ -38,11 +38,11 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
             } else {
                 Vec3 target = this.targetPosition.get();
                 if (target != null && this.tile.canCraft()) {
-                    if (this.ticksLeft == 20) {
+                    if (this.ticksLeft == 10) {
                         this.entity.playSound(SoundEvents.ANVIL_USE, 1, 1);
-                    } else if (this.ticksLeft == 50) {
+                    } else if (this.ticksLeft == 25) {
                         this.entity.setState(DwarfBlacksmith.State.WORKING);
-                    } else if (this.ticksLeft <= 110) {
+                    } else if (this.ticksLeft <= 65) {
                         this.entity.getNavigation().moveTo(target.x, target.y, target.z, 0.5);
                         this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, target);
                     }
@@ -55,7 +55,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public void start() {
-        this.ticksLeft = 120;
+        this.ticksLeft = 75;
     }
 
     protected void reset() {

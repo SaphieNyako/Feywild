@@ -34,7 +34,7 @@ public class ParticleHandler {
                             double x = msg.x - 0.5 + level.random.nextDouble();
                             double y = msg.y + level.random.nextDouble();
                             double z = msg.z - 0.5 + level.random.nextDouble();
-                            level.addParticle(ParticleTypes.TOTEM_OF_UNDYING, true, x, y, z, (msg.vx - x) * 0.11, (msg.vy - y) * 0.11, (msg.vz - z) * 0.11);
+                            level.addParticle(ParticleTypes.HEART, true, x, y, z, (msg.vx - x) * 0.11, (msg.vy - y) * 0.11, (msg.vz - z) * 0.11);
                         }
                         break;
                     case MONSTER_FIRE:

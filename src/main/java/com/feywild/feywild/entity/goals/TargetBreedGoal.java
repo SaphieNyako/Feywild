@@ -50,9 +50,9 @@ public class TargetBreedGoal extends Goal {
                     FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
                 }
                 this.reset();
-            } else if (this.ticksLeft == 110) {
+            } else if (this.ticksLeft == 65) {
                 this.spellCasting();
-            } else if (this.ticksLeft <= 100) {
+            } else if (this.ticksLeft <= 55) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetAnimal.position());
                 this.entity.getNavigation().moveTo(this.targetAnimal, 0.5);
             }
@@ -61,7 +61,7 @@ public class TargetBreedGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 120;
+        this.ticksLeft = 75;
         this.targetAnimal = null;
         this.partner = null;
     }

@@ -24,5 +24,11 @@
     {
       "item": "botania:mana_pearl"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

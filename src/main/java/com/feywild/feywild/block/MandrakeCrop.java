@@ -14,6 +14,7 @@ import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -96,21 +97,26 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!level.isClientSide && QuestData.get((ServerPlayer) player).getAlignment() == Alignment.SPRING) {
+            if (!level.isClientSide) {
+                if (QuestData.get((ServerPlayer) player).checkReputation(Alignment.SPRING, 0)) {
 
-                Mandragora entity = ModEntityTypes.mandragora.create(level);
+                    Mandragora entity = ModEntityTypes.mandragora.create(level);
 
-                if (entity != null) {
-                    entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                    entity.setSummonPos(pos);
-                    level.addFreshEntity(entity);
-                    entity.playSound(SoundEvents.FOX_EAT, 1, 1);
-                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                    if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
-                    QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    if (entity != null) {
+                        entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+                        entity.setSummonPos(pos);
+                        level.addFreshEntity(entity);
+                        entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                        QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    }
+                } else {
+                    player.sendMessage(new TranslatableComponent("message.feywild.summon_cookie_fail"), player.getUUID());
                 }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
+
         } else {
             level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 1.0f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);

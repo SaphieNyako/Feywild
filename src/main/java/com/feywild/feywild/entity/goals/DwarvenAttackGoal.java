@@ -37,10 +37,10 @@ public class DwarvenAttackGoal extends Goal {
                 this.sendShock = this.attackTarget();
                 this.entity.playSound(ModSoundEvents.dwarfAttack, 1, 1.2f);
                 this.entity.setState(DwarfBlacksmith.State.IDLE);
-            } else if (this.ticksLeft == 30) {
+            } else if (this.ticksLeft == 25) {
                 this.entity.setState(DwarfBlacksmith.State.ATTACKING);
                 this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
-            } else if (this.ticksLeft <= 30) {
+            } else if (this.ticksLeft <= 25) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
                 if (this.sendShock) {
                     switch (this.ticksLeft) {
@@ -56,7 +56,7 @@ public class DwarvenAttackGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 70;
+        this.ticksLeft = 50;
     }
 
     protected boolean attackTarget() {

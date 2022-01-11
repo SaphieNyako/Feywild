@@ -47,7 +47,7 @@ public class SneezeGoal extends Goal {
                         cow.setPos(this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
                         this.targetAnimal.remove(Entity.RemovalReason.DISCARDED);
                         level.addFreshEntity(cow);
-                        cow.playSound(SoundEvents.PANDA_SNEEZE, 1, 0.6f);
+                        cow.playSound(SoundEvents.PANDA_SNEEZE, 1, 0.3f);
                         FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.SHROOMLING_SNEEZE, cow.getX(), cow.getY(), cow.getZ());
                     }
                 }
@@ -56,14 +56,15 @@ public class SneezeGoal extends Goal {
                             && this.entity.level.getBlockState(this.entity.blockPosition()).canBeReplaced(Fluids.WATER)) {
 
                         this.level.setBlock(this.entity.blockPosition(), ModBlocks.feyMushroom.defaultBlockState(), 2);
+                        this.entity.playSound(SoundEvents.COMPOSTER_READY, 1, 1);
                     }
                 }
 
                 this.reset();
 
-            } else if (this.ticksLeft == 45) {
+            } else if (this.ticksLeft == 20) {
                 FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.SHROOMLING_SNEEZE, this.entity.getX(), this.entity.getY(), this.entity.getZ());
-            } else if (this.ticksLeft == 90) {
+            } else if (this.ticksLeft == 40) {
                 this.sneezing();
                 this.entity.playSound(ModSoundEvents.shroomlingSneeze, 1, 1);
             }
@@ -82,13 +83,13 @@ public class SneezeGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 100;
+        this.ticksLeft = 50;
         this.targetAnimal = null;
     }
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.003f
+        return level.random.nextFloat() < 0.01f
                 && !(this.entity.getState() == Shroomling.State.WAVING);
     }
 

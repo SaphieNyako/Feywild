@@ -14,5 +14,11 @@
     {
       "item": "botania:alfheim_portal"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mythicbotany"
+    }
   ]
 }

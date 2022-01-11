@@ -126,6 +126,10 @@ public class QuestData {
         return this.alignment;
     }
 
+    public boolean checkReputation(Alignment alignment, int min_reputation) {
+        return this.alignment == alignment && this.reputation > min_reputation;
+    }
+
     @Nullable
     public QuestDisplay getActiveQuestDisplay(ResourceLocation id) {
         QuestLine quests = this.getQuestLine();

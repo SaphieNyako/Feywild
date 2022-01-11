@@ -14,5 +14,11 @@
     {
       "item": "minecraft:nether_brick"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "mythicbotany"
+    }
   ]
 }

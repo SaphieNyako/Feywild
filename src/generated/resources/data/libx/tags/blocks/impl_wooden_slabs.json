@@ -1,4 +1,17 @@
 {
   "replace": false,
-  "values": []
+  "values": [
+    "feywild:spring_tree_wood_slab",
+    "feywild:spring_tree_stripped_wood_slab",
+    "feywild:spring_tree_planks_slab",
+    "feywild:summer_tree_wood_slab",
+    "feywild:summer_tree_stripped_wood_slab",
+    "feywild:summer_tree_planks_slab",
+    "feywild:autumn_tree_wood_slab",
+    "feywild:autumn_tree_stripped_wood_slab",
+    "feywild:autumn_tree_planks_slab",
+    "feywild:winter_tree_wood_slab",
+    "feywild:winter_tree_stripped_wood_slab",
+    "feywild:winter_tree_planks_slab"
+  ]
 }

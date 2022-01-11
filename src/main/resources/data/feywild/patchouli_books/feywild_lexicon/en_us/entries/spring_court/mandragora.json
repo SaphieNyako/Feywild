@@ -35,6 +35,12 @@
       "item": "feywild:summoning_scroll_mandragora",
       "title": "Summoning",
       "text": "Sometimes harvest magic may prevent you from sumnmoning a Mandragora with a Honey Cookie, then try creating a Summoning Scroll."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:mandrake_crop_seed",
+      "title": "Changing Type",
+      "text": "You can use a Mandrake Seed to change the Type of the Mandragora."
     }
   ]
 }

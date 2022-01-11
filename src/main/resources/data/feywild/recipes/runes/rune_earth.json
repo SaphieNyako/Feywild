@@ -24,5 +24,11 @@
     {
       "tag": "forge:mushrooms"
     }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "botania"
+    }
   ]
 }

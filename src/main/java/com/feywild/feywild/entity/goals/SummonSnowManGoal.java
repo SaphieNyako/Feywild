@@ -21,7 +21,6 @@ public class SummonSnowManGoal extends Goal {
     private int ticksLeft = 0;
     private Vec3 targetPos;
 
-
     public SummonSnowManGoal(WinterPixie entity) {
         this.entity = entity;
     }
@@ -37,9 +36,9 @@ public class SummonSnowManGoal extends Goal {
             if (this.ticksLeft <= 0) {
                 this.summonSnowMan();
                 this.reset();
-            } else if (this.ticksLeft == 110) {
+            } else if (this.ticksLeft == 65) {
                 this.spellCasting();
-            } else if (this.ticksLeft <= 100) {
+            } else if (this.ticksLeft <= 55) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetPos);
             }
         }
@@ -47,7 +46,7 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public void start() {
-        this.ticksLeft = 120;
+        this.ticksLeft = 75;
         this.entity.setCasting(false);
     }
 
@@ -79,7 +78,7 @@ public class SummonSnowManGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer serverPlayer) {
-            return this.entity.level.random.nextFloat() < 0.0005f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+            return this.entity.level.random.nextFloat() < 0.005f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
         } else {
             return false;
         }
