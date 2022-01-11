@@ -5,6 +5,5 @@
       "loot_table_id": "minecraft:chests/abandoned_mineshaft"
     }
   ],
-  "addition": "feywild:mineshaft_loot",
   "type": "feywild:mineshaft_chest_additions"
 }
