@@ -66,7 +66,7 @@ public class BlockStates extends BlockStateProviderBase {
         } else if (block instanceof FeyWoodBlock) {
             this.axisBlock((RotatedPillarBlock) block, this.blockTexture(((FeyWoodBlock) block).getLogBlock()), this.blockTexture(((FeyWoodBlock) block).getLogBlock()));
         } else if (block instanceof RotatedPillarBlock) {
-            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(block), new ResourceLocation(id.getNamespace(), "block/tree_log_top"));
+            this.axisBlock((RotatedPillarBlock) block, this.blockTexture(block), new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_top"));
         } else if (block instanceof CropsBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             //noinspection CodeBlock2Expr

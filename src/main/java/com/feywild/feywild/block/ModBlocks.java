@@ -1,10 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.decorative.FenceBlockBase;
-import com.feywild.feywild.block.decorative.FenceGateBlockBase;
-import com.feywild.feywild.block.decorative.SlabBlockBase;
-import com.feywild.feywild.block.decorative.StairsBlockBase;
+import com.feywild.feywild.block.decorative.*;
 import com.feywild.feywild.block.entity.LibraryBell;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
@@ -15,6 +12,7 @@ import io.github.noeppi_noeppi.libx.mod.registration.BlockBase;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
@@ -47,6 +45,32 @@ public class ModBlocks {
     public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
 
     /* DECORATIVE BLOCKS - comment out when running runData */
+
+    public static final Block autumnStrippedLog = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
+
+    public static final Block springStrippedLog = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
+
+    public static final Block summerStrippedLog = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
+
+    public static final Block winterStrippedLog = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG));
+
+    public static final Block autumnStrippedWood = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
+
+    public static final Block springStrippedWood = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
+
+    public static final Block summerStrippedWood = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
+
+    public static final Block winterStrippedWood = new RotatedPillarBlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
+
+    public static final Block autumnPlanks = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS));
+
+    public static final Block springPlanks = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS));
+
+    public static final Block summerPlanks = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS));
+
+    public static final Block winterPlanks = new BlockBase(FeywildMod.getInstance(), AbstractBlock.Properties.copy(Blocks.JUNGLE_PLANKS));
+
+    // TREE WOOD DECORATIONS
 
     public static final Block autumnTreeStairs = new StairsBlockBase(FeywildMod.getInstance(),
             () -> ModTrees.autumnTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
@@ -96,4 +120,103 @@ public class ModBlocks {
     public static final Block winterTreeFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
             AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
 
+    // PLANKS DECORATION
+
+    public static final Block autumnPlanksStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.autumnTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springPlanksStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.springTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerPlanksStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.summerTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterPlanksStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.winterTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block autumnPlanksSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springPlanksSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerPlanksSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterPlanksSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block autumnPlanksFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springPlanksFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerPlanksFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterPlanksFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block autumnPlanksFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springPlanksFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerPlanksFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterPlanksFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    // STRIPPED WOOD DECORATION
+
+    public static final Block autumnStrippedWoodStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.autumnTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springStrippedWoodStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.springTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerStrippedWoodStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.summerTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterStrippedWoodStairs = new StairsBlockBase(FeywildMod.getInstance(),
+            () -> ModTrees.winterTree.getWoodBlock().defaultBlockState(), AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block autumnStrippedWoodSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springStrippedWoodSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerStrippedWoodSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterStrippedWoodSlab = new SlabBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block autumnStrippedWoodFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springStrippedWoodFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerStrippedWoodFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterStrippedWoodFence = new FenceBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block autumnStrippedWoodFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block springStrippedWoodFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block summerStrippedWoodFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+
+    public static final Block winterStrippedWoodFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
 }

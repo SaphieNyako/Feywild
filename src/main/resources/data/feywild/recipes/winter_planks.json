@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "feywild:winter_tree_log"
+    }
+  ],
+  "result": {
+    "item": "feywild:winter_planks",
+    "count": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "feywild:block/winter_planks",
+    "top": "feywild:block/winter_planks",
+    "side": "feywild:block/winter_planks"
+  }
+}

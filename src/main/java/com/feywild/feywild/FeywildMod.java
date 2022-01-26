@@ -1,5 +1,7 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.config.*;
@@ -28,10 +30,13 @@ import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.gen.OreType;
 import com.feywild.feywild.world.structure.ModStructures;
 import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
+import com.google.common.collect.ImmutableMap;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.item.AxeItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -123,6 +128,18 @@ public final class FeywildMod extends ModXRegistration {
         CapabilityMana.register();
         CapabilityQuests.register();
         event.enqueueWork(() -> {
+
+            AxeItem.STRIPABLES = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.STRIPABLES)
+                    .put(ModTrees.autumnTree.getLogBlock(), ModBlocks.autumnStrippedLog)
+                    .put(ModTrees.summerTree.getLogBlock(), ModBlocks.summerStrippedLog)
+                    .put(ModTrees.springTree.getLogBlock(), ModBlocks.springStrippedLog)
+                    .put(ModTrees.winterTree.getLogBlock(), ModBlocks.winterStrippedLog)
+                    .put(ModTrees.autumnTree.getWoodBlock(), ModBlocks.autumnStrippedWood)
+                    .put(ModTrees.summerTree.getWoodBlock(), ModBlocks.summerStrippedWood)
+                    .put(ModTrees.springTree.getWoodBlock(), ModBlocks.springStrippedWood)
+                    .put(ModTrees.winterTree.getWoodBlock(), ModBlocks.winterStrippedWood)
+                    .build();
+
             Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);
             ModBiomeGeneration.setupBiomes();
             OreType.setupOres();

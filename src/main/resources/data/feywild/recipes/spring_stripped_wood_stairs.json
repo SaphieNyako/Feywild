@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:spring_stripped_wood"
+    }
+  },
+  "result": {
+    "item": "feywild:spring_stripped_wood_stairs",
+    "count": 4
+  }
+}

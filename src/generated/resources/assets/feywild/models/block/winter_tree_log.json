@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "side": "feywild:block/winter_tree_log",
-    "end": "feywild:block/tree_log_top"
+    "end": "feywild:block/winter_tree_log_top"
   }
 }

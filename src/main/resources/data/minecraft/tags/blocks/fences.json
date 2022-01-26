@@ -4,6 +4,14 @@
     "feywild:autumn_tree_fence",
     "feywild:spring_tree_fence",
     "feywild:summer_tree_fence",
-    "feywild:winter_tree_fence"
+    "feywild:winter_tree_fence",
+    "feywild:autumn_planks_fence",
+    "feywild:spring_planks_fence",
+    "feywild:summer_planks_fence",
+    "feywild:winter_planks_fence",
+    "feywild:autumn_stripped_wood_fence",
+    "feywild:spring_stripped_wood_fence",
+    "feywild:summer_stripped_wood_fence",
+    "feywild:winter_stripped_wood_fence"
   ]
 }
