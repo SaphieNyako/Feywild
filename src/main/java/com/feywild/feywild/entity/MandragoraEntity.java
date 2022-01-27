@@ -45,6 +45,7 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
 
     public static final DataParameter<Boolean> CASTING = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
+    public static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
     private final AnimationFactory factory = new AnimationFactory(this);
 
     public MandragoraEntity(EntityType<? extends CreatureEntity> entityType, World world) {
@@ -57,7 +58,7 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
     public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
         return MobEntity.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.2)
+                .add(Attributes.MOVEMENT_SPEED, 0.1)
                 .add(Attributes.LUCK, 0.2);
     }
 
@@ -205,10 +206,10 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.sing", false));
             return PlayState.CONTINUE;
         }
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
-        } else {
+        if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.idle", true));
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
         }
         return PlayState.CONTINUE;
     }

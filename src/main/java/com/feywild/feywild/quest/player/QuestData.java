@@ -23,7 +23,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class QuestData {
-    
+
+    // Quests are completed but the player did not interact with the fey since then
+    private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
+    private final Set<ResourceLocation> completedQuests = new HashSet<>();
+    private final Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
+    @Nullable
+    private ServerPlayerEntity player;
+    @Nullable
+    private Alignment alignment;
+    @Nullable // Before the player accepted the first quest, this will hold the alignment it would have
+    private Alignment pendingAlignment;
+    private int reputation;
+
     public static QuestData get(ServerPlayerEntity player) {
         // Capability should always be there.
         // If not print a warning and get default instance
@@ -32,31 +44,18 @@ public class QuestData {
             return new QuestData();
         });
     }
-    
-    @Nullable
-    private ServerPlayerEntity player;
-    
-    @Nullable
-    private Alignment alignment;
-    @Nullable // Before the player accepted the first quest, this will hold the alignment it would have
-    private Alignment pendingAlignment;
-    private int reputation;
-    // Quests are completed but the player did not interact with the fey since then
-    private final List<ResourceLocation> pendingCompletion = new ArrayList<>();
-    private final Set<ResourceLocation> completedQuests = new HashSet<>();
-    private final Map<ResourceLocation, QuestProgress> activeQuests = new HashMap<>();
-    
+
     // Called when the capability is attached to the player
     public void attach(ServerPlayerEntity player) {
         this.player = player;
         // If the datapacks changed since last login, start the new quests that are available now.
         this.startNextQuests();
     }
-    
+
     public boolean canComplete(Alignment alignment) {
         return this.alignment == alignment;
     }
-    
+
     @Nullable
     public QuestDisplay initialize(Alignment alignment) {
         if (this.alignment == null) {
@@ -96,11 +95,11 @@ public class QuestData {
             }
         }
     }
-    
+
     public void denyAlignment() {
         this.pendingAlignment = null;
     }
-    
+
     public boolean reset() {
         Alignment oldAlignment = this.alignment;
         this.alignment = null;
@@ -113,17 +112,21 @@ public class QuestData {
         }
         return oldAlignment != null;
     }
-    
+
     @Nullable
     public QuestLine getQuestLine() {
         return this.alignment == null ? null : QuestManager.getQuests(this.alignment);
     }
 
-    public int getReputation(){ return this.alignment == null ? 0 : this.reputation;}
+    public int getReputation() {return this.alignment == null ? 0 : this.reputation;}
 
     @Nullable
-    public Alignment getAlignment(){
+    public Alignment getAlignment() {
         return this.alignment;
+    }
+
+    public boolean checkReputation(Alignment alignment, int min_reputation) {
+        return this.alignment == alignment && this.reputation > min_reputation;
     }
 
     @Nullable
@@ -156,7 +159,7 @@ public class QuestData {
             return ImmutableList.of();
         }
     }
-    
+
     // if there are quests pending for completion, picks the first one, grants
     // rewards and returns a quest display for the user
     // If there's non, returns null.
@@ -174,7 +177,7 @@ public class QuestData {
         }
         return null;
     }
-    
+
     @Nullable
     private QuestDisplay tryComplete(ServerPlayerEntity player, QuestLine quests, ResourceLocation id) {
         Quest quest = quests.getQuest(id);
@@ -194,11 +197,11 @@ public class QuestData {
             return null;
         }
     }
-    
+
     public boolean hasCompleted(Quest quest) {
         return this.completedQuests.contains(quest.id);
     }
-    
+
     // True if the task was completed
     // Can be used so fey entities only accept gifts for quests
     public <T> boolean checkComplete(TaskType<?, T> type, T element) {
@@ -240,7 +243,7 @@ public class QuestData {
         }
         return success;
     }
-    
+
     public void startNextQuests() {
         QuestLine quests = this.getQuestLine();
         boolean hasEmptyQuests = false;
@@ -267,7 +270,7 @@ public class QuestData {
             startNextQuests();
         }
     }
-    
+
     public CompoundNBT write() {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("Alignment", Alignment.optionId(this.alignment));

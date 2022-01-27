@@ -222,6 +222,7 @@
   "message.feywild.autumn_fey_name": "Thank you very much, Darling! I bet you would like to know my real name, don't you?",
   "message.feywild.winter_fey_name": "A nickname? Such inconvenience....I can't even remember my real name.",
   "message.feywild.summon_fail": "The scroll shimmers shortly...but then it fades away. You are lacking the correct conditions.",
+  "message.feywild.summon_cookie_fail": "The Mandrake looks at you with disgust....It's not going to accept anything from you. You are lacking the correct conditions",
   "message.feywild.shroomling": "A summoning scroll for a Shroomling, requires an allegiance with the Autumn Court.",
   "screen.feywild.mana_amount": "Mana: %s",
   "screen.feywild.opening_screen": "$(b;spring)Welcome to the Feywild!$()$(n)A dream or a nightmare, you are uncertain. As you wake up you find yourself in the world of the mystical, the Feywild. Whilst crossing from another world or reality, you have forgotten where you are from.\nBut you where drawn to the seasonal allure of this plane. The colours, the smell it reminds you of your favourite season:",
