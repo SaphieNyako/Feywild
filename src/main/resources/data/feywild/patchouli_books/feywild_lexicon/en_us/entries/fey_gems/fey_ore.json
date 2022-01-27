@@ -17,7 +17,7 @@
     {
       "type": "smelting",
       "title": "Fey Dust",
-      "recipe": "feywild:fey_dust",
+      "recipe": "feywild:smelting/fey_dust",
       "text": "When a Fey passes into the next world, they leave behind a small amount of Fey Dust. Some believe the magical powder gives the power of flight to whoever it is sprinkled on."
     },
     {
