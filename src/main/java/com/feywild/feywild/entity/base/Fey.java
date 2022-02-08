@@ -110,7 +110,7 @@ public abstract class Fey extends FlyingFeyBase {
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false));
                 player.swing(hand, true);
             } else {
-                List<SelectableQuest> active = quests.getActiveQuests();
+                List<SelectableQuest> active = quests.getQuests();
                 if (active.size() == 1) {
                     FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false));
                     player.swing(hand, true);
