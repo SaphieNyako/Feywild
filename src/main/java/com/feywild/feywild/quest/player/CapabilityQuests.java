@@ -41,40 +41,37 @@ public class CapabilityQuests {
     public static void playerCopy(PlayerEvent.Clone event) {
         // Keep the data on death
         if (event.isWasDeath()) {
+            event.getOriginal().reviveCaps();
             event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
                 event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
                     newData.read(oldData.write());
                 });
             });
+            event.getOriginal().invalidateCaps();
         }
     }
 
-    private static class Provider implements ICapabilityProvider, INBTSerializable<Tag> {
-
-        public final Capability<QuestData> capability;
-        public final LazyValue<QuestData> value;
-
-        public Provider(Capability<QuestData> capability, LazyValue<QuestData> value) {
-            this.capability = capability;
-            this.value = value;
-        }
+    private record Provider(
+            Capability<QuestData> capability,
+            LazyValue<QuestData> value
+    ) implements ICapabilityProvider, INBTSerializable<Tag> {
 
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
             //noinspection NullableProblems
-            return cap == this.capability ? LazyOptional.of(this.value::get).cast() : LazyOptional.empty();
+            return cap == this.capability() ? LazyOptional.of(this.value()::get).cast() : LazyOptional.empty();
         }
 
         @Override
         public Tag serializeNBT() {
-            return this.value.get().write();
+            return this.value().get().write();
         }
 
         @Override
         public void deserializeNBT(Tag nbt) {
             if (nbt instanceof CompoundTag tag) {
-                this.value.get().read(tag);
+                this.value().get().read(tag);
             }
         }
     }
