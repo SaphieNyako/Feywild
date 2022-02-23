@@ -1,0 +1,71 @@
+{
+  "advancement": "feywild:feywild/traveling_stone",
+  "name": "Mercado dos Anões",
+  "icon": "feywild:inactive_market_rune_stone",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:inactive_market_rune_stone",
+      "title": "Esquemas",
+      "text": "As pedras rúnicas são pequenas placas de pedra com propriedades mágicas. Eles podem conter diferentes tipos de feitiços mágicos. As mais comuns são as Pedras Viajantes, usadas para viajar para outros locais."
+    },
+    {
+      "advancement": "",
+      "type": "spotlight",
+      "item": "feywild:market_rune_stone",
+      "title": "Pedra Viajante do Mercado",
+      "text": "Você pode pedir a um anão que você é amigo para ativar uma pedra rúnica inativa. Quando ativado, pode ser usado para se teletransportar para um local secreto conhecido apenas pelos anões e aqueles em quem confiam."
+    },
+    {
+      "advancement": "",
+      "type": "image",
+      "title": "Mercado dos Anões",
+      "images": ["feywild:textures/patchouli_images/market_book.png"],
+      "border": true,
+      "text": "No mercado dos anões você pode trocar por todos os tipos de itens."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_baker",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "Este anão trocará por todos os tipos de itens culinários."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_shepherd",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "Este anão trocará por todos os tipos de itens de animais de fazenda."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_toolsmith",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "Este anão trocará por todos os tipos de armaduras, armas e ferramentas."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_artificer",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "Este anão trocará por todos os tipos de artefatos e bugigangas."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_miner",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "Este anão trocará por todos os tipos de pedras e minérios."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:dwarf_dragon_hunter",
+      "scale": 0.6,
+      "offset": 0.15,
+      "text": "Este anão vai trocar por todos os tipos de loot de monstros."
+    }
+  ]
+}

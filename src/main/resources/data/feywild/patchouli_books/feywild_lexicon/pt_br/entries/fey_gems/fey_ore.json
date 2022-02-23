@@ -1,0 +1,30 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "Minério Fey",
+  "icon": "feywild:lesser_fey_gem",
+  "category": "fey_gems",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Gemas Fey são muito procuradas por algumas criaturas e magos porque ainda contém um pouco da magia original dos Fey."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_gem_block",
+      "title": "Minério Fey",
+      "text": "Tenha cuidado ao minerar o minério Fey. Como é frágil e colocar muita pressão no minério pode diminuir a qualidade das Gemas Fey escavadas."
+    },
+    {
+      "type": "smelting",
+      "title": "Pó de Fey",
+      "recipe": "feywild:fey_dust",
+      "text": "Quando um Fey passa para o próximo mundo, eles deixam para trás uma pequena quantidade de Pó de Fey. Alguns acreditam que o pó mágico dá o poder de voar para quem é coberto por ele."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:lesser_fey_gem",
+      "title": "Gemas Fey",
+      "text": "As gemas fey podem variar em qualidade. Gemas de maior qualidade podem ser cortadas em gemas de menor qualidade. O conhecimento de como aumentar a qualidade de uma gema fey é conhecido apenas pelos anões."
+    }
+  ]
+}

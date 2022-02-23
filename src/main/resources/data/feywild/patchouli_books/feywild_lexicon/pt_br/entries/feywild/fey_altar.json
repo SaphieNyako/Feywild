@@ -1,0 +1,34 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "Invocando Fadas",
+  "icon": "feywild:fey_altar",
+  "category": "feywild",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Altar Fey",
+      "text": "Com os ingredientes certos e o encantamento escrito em um pergaminho de invocação com tinta mágica, você pode invocar de volta um Fey. O ritual de invocação requer um Altar Fey, que pode ser criado ou encontrado em uma Árvore do Mundo."
+    }, {
+      "type": "crafting",
+      "title": "Pergaminho de Invocação",
+      "recipe": "feywild:summoning_scroll"
+    }, {
+      "type": "crafting",
+      "title": "Tinta de Fey",
+      "recipe": "feywild:fey_ink_bottle"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:mandrake_crop_seed",
+      "title": "Semente de Mandrake",
+      "text": "Uma Semente de Mandrake podem ser encontrados nas árvores Fey. Como uma árvore normal é corrompida pela magia das fadas, algumas sementes se transformarão em uma semente de Mandrake."
+    },
+    {
+      "type": "crafting",
+      "item": "feywild:fey_altar",
+      "recipe": "feywild:fey_altar"
+    }
+  ]
+}

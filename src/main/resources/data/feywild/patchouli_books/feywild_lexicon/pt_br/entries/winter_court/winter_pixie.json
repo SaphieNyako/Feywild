@@ -1,0 +1,46 @@
+{
+  "name": "Fada do Inverno",
+  "icon": "feywild:summoning_scroll_winter_pixie",
+  "category": "winter_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Eles podem parecer frios e mal-humorados à primeira vista, mas eles vão gostar de qualquer um que esteja disposto a ajudar a Feywild em seu período mais difícil e mortal. As fadas do inverno tendem a ser de fala mansa, ligeiramente mórbidas e nunca escolhem suas palavras sem pensar nelas. Eles parecem ser um pouco estranhos quando se trata de relações sociais, e alguns deles preferem a companhia dos mortos."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:winter_pixie",
+      "offset": 0.4
+    }, {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "Invocação",
+      "text": "Cuidado quando você convoca uma fada, você está vinculado à sua Corte! Isso significa que outras cortes podem não estar dispostos a interagir com você depois."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Invocação",
+      "text": "Observe também que nem todas as fadas são familiares dispostas, e elas podem enganá-lo! Tente interagir com sua fada depois de invocar uma, se possível, tente ganhar a confiança dela."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_winter_pixie",
+      "title": "Invocando uma Fada do Inverno",
+      "text": "Com este pergaminho você pode invocar um Fada do Inverno. A Fada do Inverno ocasionalmente invocará de volta uma alma no corpo de um boneco de neve."
+    },
+    {
+      "type": "image",
+      "title": "Ingredientes de Invocação",
+      "images": ["feywild:textures/patchouli_images/winter_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "Companheiro",
+      "text": "A fada invocada irá segui-lo clicando com o botão direito do mouse enquanto se esgueira nela, se você quiser que ela fique em um determinado local, clique com o botão direito do mouse enquanto se esgueira nela novamente."
+    }
+  ]
+}

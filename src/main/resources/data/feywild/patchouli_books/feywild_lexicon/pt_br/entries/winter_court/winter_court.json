@@ -1,0 +1,38 @@
+{
+  "name": "Corte do Inverno",
+  "icon": "feywild:winter_tree_sapling",
+  "category": "winter_court",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Quando as folhas caem e o céu se torna cinza e a noite se fecha sobre o dia. É quando a Corte do Inverno reina suprema em Feywild. Essas fadas não estão preocupadas com os vivos e suas lutas pelo poder. Eventualmente, a morte virá para todos nós e seu objetivo é garantir que Feywild veja outra virada do ano."
+    },
+    {
+      "type": "image",
+      "title": "Retiro Congelado",
+      "images": ["feywild:textures/patchouli_images/winter_book.png"],
+      "border": true
+    },
+    {
+      "type": "text",
+      "text": "Eles podem parecer frios e mal-humorados à primeira vista, mas eles vão gostar de qualquer um que esteja disposto a ajudar Feywild em seu período mais difícil e mortal. As fadas do inverno tendem a ser de fala mansa, ligeiramente mórbidas e nunca escolhem suas palavras sem pensar nelas. Eles parecem ser um pouco estranhos quando se trata de relações sociais, e alguns preferem a companhia dos mortos. "
+    }, {
+      "type": "image",
+      "title": "Árvore.M do Inverno",
+      "images": ["feywild:textures/patchouli_images/winter_worldtree_book.png"],
+      "border": true
+    }, {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Árvore.M do Inverno",
+      "text": "A árvore do Mundo do Inverno é difícil de encontrar, mas é o lar da Rainha Mab. Nota: Apenas as fadas são implementadas, outros membros da corte serão adicionados em atualizações posteriores. A Árvore do Mundo também tem um altar Fey para você usar."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:crocus_seed",
+      "title": "Açafrão Gigante",
+      "text": "No Retiro Congelado você pode encontrar açafrões gigantes. O açafrão gigante abrirá sua flor durante o dia e fechará à noite. A flor também soltará sementes de açafrão, que podem ser usadas para cultivar seu próprio açafrão gigante. "
+    }
+  ]
+}

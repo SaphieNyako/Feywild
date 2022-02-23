@@ -1,0 +1,39 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "Conhecimento dos Anões",
+  "icon": "feywild:schematics_fey_altar",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "Esquemas",
+      "text": "Se você ganhar a confiança de um anão invocado, com o tempo eles podem revelar segredos conhecidos apenas pelos anões. Alguns anões escondem seus segredos e itens mais valiosos em minas."
+    },
+    {
+      "advancement": "feywild:feywild/schematics_gem_transmutation",
+      "type": "spotlight",
+      "item": "feywild:greater_fey_gem",
+      "title": "Transmutação de Gemas",
+      "text": "Com o conhecimento da transmutação de gemas, você pode facilmente fazer gemas fey de alta qualidade."
+    },
+    {
+      "advancement": "feywild:feywild/schematics_gem_transmutation",
+      "type": "image",
+      "title": "Transmutação de Gemas",
+      "images": ["feywild:textures/patchouli_images/schematics_gem_transmutation_book.png"],
+      "border": true,
+      "text": "Requer 50 - 150 de mana armazenados na bigorna do anão."
+    },
+    {
+      "advancement": "feywild:feywild/schematics_gem_transmutation",
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "Receita",
+      "text": "Ou requer 5 Menor, 5 Maior ou 5 Brilhante Gemas Fey para transmutar em suas versões superiores. Certifique-se de que os esquemas de transmutação de gemas estejam presentes para que o Ferreiro Anão receba instruções e comece a criar."
+    }, {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}

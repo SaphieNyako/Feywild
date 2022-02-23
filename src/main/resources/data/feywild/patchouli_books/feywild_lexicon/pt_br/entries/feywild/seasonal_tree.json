@@ -1,0 +1,54 @@
+{
+  "name": "Árvores das Estações",
+  "icon": "feywild:autumn_tree_sapling",
+  "category": "feywild",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Guerra entre as Estações pode ser encontrada em todos os lugares de Feywild, desde pequenas manchas até áreas transbordando com a magia da estação. As árvores normais ficarão encantadas com a magia das estações e afetarão suas áreas circundantes com essa magia. Plantar uma muda sazonal aumentará o domínio da estação específica na área."
+    },
+    {
+      "type": "image",
+      "title": "Árvores Fey",
+      "images": ["feywild:textures/patchouli_images/trees_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:spring_tree_sapling",
+      "title": "Muda da Primavera",
+      "text": "As flores da primavera crescerão ao redor da árvore."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summer_tree_sapling",
+      "title": "Muda do Verão",
+      "text": "As flores da temporada de verão crescerão ao redor da árvore e às vezes a árvore pode ser um lar para as abelhas da Corte do Verão."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:autumn_tree_sapling",
+      "title": "Muda do Outono",
+      "text": "A área ao redor da árvore logo estará cheia de folhas caídas. Para afastar os maus espíritos às vezes uma abóbora esculpida pode aparecer"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:winter_tree_sapling",
+      "title": "Muda do Inverno",
+      "text": "A árvore do inverno estará coberta de neve."
+    },
+    {
+      "type": "crafting",
+      "title": "Madeira Fey",
+      "recipe": "feywild:spring_tree_wood",
+      "text": "Madeira Fey pode ser obtido cortando uma das árvores Fey. Cada temporada tem seu próprio Madeira Fey."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "Pó de Fey",
+      "text": "As árvores fey também soltarão pó de fey quando você cortar suas folhas."
+    }
+  ]
+}

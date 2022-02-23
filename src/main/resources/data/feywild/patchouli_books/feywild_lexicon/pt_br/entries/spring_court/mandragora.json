@@ -1,0 +1,29 @@
+{
+  "name": "Mandrágora",
+  "icon": "feywild:mandrake_crop_seed",
+  "category": "spring_court",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:mandrake_crop_seed",
+      "title": "Mandrake",
+      "text": "Como se fossem tocadas por um espírito fey, as mandrágoras são tipicamente otimistas brilhantes e alegres, prontas para rir, brincar e aproveitar a vida e a natureza. Eles brotam de seus parentes menos charmosos, as mandrake."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:melon_mandragora"
+    },
+    {
+      "type": "crafting",
+      "title": "Biscoito de Mel",
+      "recipe": "feywild:magical_honey_cookie"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:magical_honey_cookie",
+      "title": "Mandrágora",
+      "text": "Ao alimentar uma mandrake com sua comida favorita, um biscoito de mel mágico, elas irão brotar em uma Mandrágora. Uma Mandrágora cuidará do seu jardim, e sua linda voz cantando pode até crescer plantações."
+    }
+  ]
+}

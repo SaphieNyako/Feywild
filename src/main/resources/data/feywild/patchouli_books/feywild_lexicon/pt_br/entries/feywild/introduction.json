@@ -1,0 +1,32 @@
+{
+  "name": "Introdução",
+  "icon": "minecraft:writable_book",
+  "category": "feywild",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Você já encontrou seus sapatos amarrados juntos depois de uma boa noite de sono? O açúcar do seu chá de repente se transformou em sal? Você já viajou pela floresta jurando que viu algo no canto do olho ou ouviu o riso de vozes de crianças?"
+    },
+    {
+      "type": "text",
+      "text": "Não se preocupe, você não está ficando louco! É apenas um fey local mostrando a você que eles se importam com você de uma maneira muito especial. Fey são brincalhões, trapaceiros que gostam de nos provocar, gente grande. Na maioria das vezes eles são inofensivos, mas assim como conosco, pode haver uma ou duas sementes ruins entre eles. É difícil ganhar a confiança de uma fada, pois ela vê o mundo de uma maneira diferente da nossa."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:feywild_lexicon",
+      "text": "Se você quiser saber mais sobre os Fey, você pode visitar uma Biblioteca e falar com um dos bibliotecários de lá. Eles também têm guias de magia, dependendo da magia que você trouxe para o Feywild. Se ele não estiver presente basta tocar a campainha."
+    },
+    {
+      "type": "image",
+      "title": "Biblioteca",
+      "images": ["feywild:textures/patchouli_images/library_book.png"],
+      "border": true
+    },
+    {
+      "type": "crafting",
+      "title": "Léxico Feywild",
+      "recipe": "feywild:feywild_lexicon"
+    }
+  ]
+}
