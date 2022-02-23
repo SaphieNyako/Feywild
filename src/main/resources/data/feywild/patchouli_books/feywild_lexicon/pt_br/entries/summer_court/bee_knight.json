@@ -1,0 +1,44 @@
+{
+  "name": "Cavaleiro Abelha",
+  "icon": "feywild:honeycomb",
+  "category": "summer_court",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:honeycomb",
+      "title": "Mel Sagrado",
+      "text": "Os Cavaleiros Abelha patrulham os Campos Seelie Dourados, procurando por quem tenta roubar seu mel sagrado."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:bee_knight",
+      "scale": 0.8
+    },
+    {
+      "type": "image",
+      "title": "Guarda Abelha",
+      "images": ["feywild:textures/patchouli_images/bee_keep_book.png"],
+      "border": true,
+      "text": "Inspirado em uma construção de Kelpie The Fox: https://www.youtube.com/watch?v=Cs-nHCvrOpg"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:display_glass",
+      "title": "Guarda Abelha",
+      "text": "O melhor mel da Corte do Verão é guardado no Guarda Abelha. O Guarda Abelha é protegido por vários Cavaleiros Abelha. O Favo de Mel Sagrado é mantido em uma vitrine de vidro. A tela pode ser quebrada clicando com o botão esquerdo rapidamente para que ela se quebre, e o tesouro dourado é seu."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_bee_knight",
+      "title": "Invocando um Cavaleiro Abelha",
+      "text": "Com este pergaminho você pode invocar um Cavaleiro Abelha. O Cavaleiro Abelha protegerá a área de outras criaturas que interagem com ele."
+    },
+    {
+      "type": "image",
+      "title": "Ingredientes de Invocação",
+      "images": ["feywild:textures/patchouli_images/bee_knight_summon_book.png"],
+      "border": true
+    }
+  ]
+}

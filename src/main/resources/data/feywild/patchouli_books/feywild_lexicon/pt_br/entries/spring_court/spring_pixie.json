@@ -1,0 +1,51 @@
+{
+  "name": "Fada da Primavera",
+  "icon": "feywild:summoning_scroll_spring_pixie",
+  "category": "spring_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Saltitantes, borbulhantes e completamente desprovidos da ideia de espaço pessoal, os fey da Corte da Primavera tratam tudo como se nunca tivessem visto antes. Eles são como crianças hiperativas, sempre se perguntando o que é tudo, enfiando qualquer coisa na boca que pareça um pouco comestível e sua única preocupação é não se divertir ou comer o suficiente para o dia."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:spring_pixie",
+      "offset": 0.4
+    },
+    {
+      "type": "text",
+      "text": "Eles representam o nascimento de um novo ano e a chegada de uma nova vida e são os mais inocentes da Corte da Primavera. Eles são, no entanto, notoriamente desagradáveis ​​quando pregam peças, pois não conhecem os perigos ou as consequências de suas ações. Nem eles se importam com isso."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "Invocação",
+      "text": "Cuidado que quando você convoca uma fada, você está vinculado à sua Corte! Isso significa que outras cortes podem não estar dispostos a interagir com você depois."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Invocação",
+      "text": "Observe também que nem todas as fadas são familiares dispostos, e eles podem enganá-lo! Tente interagir com sua fada depois de invocar uma, se possível, tente ganhar a confiança dela."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
+      "title": "Invocando uma Fada da Primavera",
+      "text": "Com este pergaminho você pode invocar uma Fada da Primavera. A presença de uma Fada da Primavera fará com que os animais se apaixonem."
+    },
+    {
+      "type": "image",
+      "title": "Ingredientes de Invocação",
+      "images": ["feywild:textures/patchouli_images/spring_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "Companheiro",
+      "text": "A fada invocada irá segui-lo clicando com o botão direito do mouse enquanto se esgueira nela, se você quiser que ela fique em um determinado local, clique com o botão direito do mouse enquanto se esgueira nela novamente."
+    }
+  ]
+}

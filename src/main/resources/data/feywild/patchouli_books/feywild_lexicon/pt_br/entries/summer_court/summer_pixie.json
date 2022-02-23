@@ -1,0 +1,46 @@
+{
+  "name": "Fada do Verão",
+  "icon": "feywild:summoning_scroll_summer_pixie",
+  "category": "summer_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Corte do Verão é a principal Corte reinante dentro da Fada Selvagem e eles sabem disso. Altivos e exigentes, eles esperam que qualquer um que se dirija a eles os trate como a realeza que são. As outras Cortes e habitantes de Feywild estão lá para servi-los e, embora educados, exigem reconhecimento de seu status real auto-proclamado."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:summer_pixie",
+      "offset": 0.4
+    }, {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "Invocação",
+      "text": "Cuidado quando você convoca uma fada, você está vinculado à sua Corte! Isso significa que outras cortes podem não estar dispostos a interagir com você depois."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Invocação",
+      "text": "Observe também que nem todos as fadas são familiares dispostos, e eles podem enganá-lo! Tente interagir com sua fada depois de invocar uma, se possível, tente ganhar a confiança dela."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_summer_pixie",
+      "title": "Invocando a Fada do Verão",
+      "text": "Com este pergaminho você pode invocar um Fada do Verão. Como um membro orgulhoso da Corte do Verão, a Fada do Verão vai derrotar seus inimigos."
+    },
+    {
+      "type": "image",
+      "title": "Ingredientes de Invocação",
+      "images": ["feywild:textures/patchouli_images/summer_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "Companheiro",
+      "text": "A fada invocada irá segui-lo clicando com o botão direito do mouse enquanto se esgueira nela, se você quiser que ela fique em um determinado local, clique com o botão direito do mouse enquanto se esgueira nela novamente."
+    }
+  ]
+}

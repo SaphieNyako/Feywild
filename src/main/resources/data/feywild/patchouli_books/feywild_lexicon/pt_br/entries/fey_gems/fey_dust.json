@@ -1,0 +1,17 @@
+{
+  "name": "Pó de Fey",
+  "icon": "feywild:fey_dust",
+  "category": "fey_gems",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Quando um Fey passa para o próximo mundo, eles deixam para trás uma pequena quantidade de Pó de Fey. Quebrar as árvores fey também fornecerá pó de fey. Pó de Fey também é obtido aquecendo minério feérico."
+    },
+    {
+      "type": "smelting",
+      "title": "Pó de Fey",
+      "recipe": "feywild:smelting/fey_dust",
+      "text": "Alguns acreditam que o pó mágico dá o poder de voar para quem é coberto por ele. Um menino uma vez comeu uma pilha inteira e ele 'nunca' foi visto novamente."
+    }
+  ]
+}

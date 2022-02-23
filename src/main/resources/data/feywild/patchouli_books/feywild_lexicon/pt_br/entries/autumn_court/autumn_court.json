@@ -1,0 +1,39 @@
+{
+  "name": "Corte do Outono",
+  "icon": "feywild:autumn_tree_sapling",
+  "category": "autumn_court",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Corte do Outono é a mais madura das quatro Cortes Fey, sua idade e sabedoria lhes deram uma apreciação das belas artes, música e poesia. Eles preferem passar a noite ouvindo música, dançando e flertando do que indo para o combate ou se entregando sem pensar. Eles sabem que o próximo período será difícil e sentem a responsabilidade de se preparar para o final de um ciclo."
+    },
+    {
+      "type": "image",
+      "title": "A Queda Eterna",
+      "images": ["feywild:textures/patchouli_images/autumn_book.png"],
+      "border": true
+    },
+    {
+      "type": "text",
+      "text": "Talvez o mais gentil das Corte, eles ainda são capazes de trapaças e travessuras, mas são mais discretos sobre isso. A Corte Outono protegerá o Feywild de quaisquer espíritos malignos e colherá as almas que se desviaram. Eles tendem a se disfarçar como anos passados caídos. Para honrá-los, mas também para dar à alma perdida mais um bom momento antes de passar para a próxima etapa."
+    }, {
+      "type": "image",
+      "title": "Árvore.M do Outono",
+      "images": ["feywild:textures/patchouli_images/autumn_worldtree_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Árvore.M do Outono",
+      "text": "A Árvore do Mundo do Outono é difícil de encontrar, mas é o lar da Dama Cinzenta. Nota: Apenas as fadas são implementadas, outros membros da corte serão adicionados em atualizações posteriores. A Árvore do Mundo também tem um altar Fey para você usar."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:tree_mushroom",
+      "title": "Cogumelo Gigante",
+      "text": "Nas Quedas Eternas você pode encontrar Cogumelos gigantes. Você pode cultivar seus próprios cogumelos gigantes colocando um cogumelo vermelho ou marrom no podzol e cultivá-lo com farinha de osso. Os cogumelos das árvores podem ser cuidadosamente colhidos com uma tesoura. "
+    }
+  ]
+}

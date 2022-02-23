@@ -1,0 +1,48 @@
+{
+  "advancement": "feywild:feywild/fey_dust",
+  "name": "Bigorna do Anão",
+  "icon": "feywild:dwarven_anvil",
+  "category": "dwarves",
+  "pages": [
+    {
+      "type": "crafting",
+      "recipe": "feywild:dwarven_anvil",
+      "title": "Bigorna do Anão",
+      "text": "Anões não fazem amizade com estranhos facilmente, mas se você é um dos poucos que ganhou a gratidão de um anão, você tem um amigo para a vida toda."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_dwarf_blacksmith",
+      "title": "Contrato de invocação",
+      "text": "Um contrato de invocação pode ser obtido negociando com anões (até o nível 3). Ao clicar com o botão direito na bigorna do anão com o pergaminho de convocação, você vinculará um anão a essa bigorna."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:dwarven_anvil",
+      "title": "Construindo",
+      "text": "O anão invocado criará para você quando você colocar a receita correta na bigorna. Então certifique-se de que há um anão ligado à bigorna."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "Mana",
+      "text": "Você pode reabastecer a mana da bigorna, colocando pó de fey como combustível no slot inferior esquerdo da bigorna. A maioria das receitas especiais requerem mana."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cake",
+      "title": "Providenciando para um anão",
+      "text": "O anão invocado terá ofícios diferentes daqueles encontrados em cavernas ou no ferreiro. Eles exigirão uma refeição diária em troca de minério. Se você fornecer refeições suficientes ao anão, ele oferecerá seu conhecimento na forma de esquemas"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "title": "Esquemas",
+      "text": "A maioria das receitas para a bigorna exigirá esquemas. Você pode colocar os esquemas no slot superior esquerdo da bigorna."
+    },
+    {
+      "type": "text",
+      "text": "Então, para criar com a bigorna anã, certifique-se de ter mana suficiente, um anão deve estar vinculado à bigorna e você precisa dos esquemas corretos. Todos os itens são colocados, o anão começará a criar para você!"
+    }
+  ]
+}

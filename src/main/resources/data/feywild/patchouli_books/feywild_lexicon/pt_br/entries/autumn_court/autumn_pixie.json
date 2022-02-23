@@ -1,0 +1,46 @@
+{
+  "name": "Fada do Outono",
+  "icon": "feywild:summoning_scroll_autumn_pixie",
+  "category": "autumn_court",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "A Corte Outono é a mais madura das quatro Cortes Fey, sua idade e sabedoria lhes deram uma apreciação das belas artes, música e poesia. Eles preferem passar a noite ouvindo música, dançando e flertando do que indo para o combate ou se entregando sem pensar."
+    },
+    {
+      "type": "entity",
+      "entity": "feywild:autumn_pixie",
+      "offset": 0.4
+    }, {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll",
+      "title": "Invocação",
+      "text": "Cuidado quando você convoca uma fada, você está vinculado à sua Corte! Isso significa que outras cortes podem não estar dispostos a interagir com você depois."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:fey_altar",
+      "title": "Invocação",
+      "text": "Observe também que nem todos as fadas são familiares dispostos, e eles podem enganá-lo! Tente interagir com sua fada depois de invocar um, se possível, tente ganhar a confiança dele."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_autumn_pixie",
+      "title": "Invocando uma Fada do Outono",
+      "text": "Com este pergaminho você pode invocar uma Fada do Outono. Fadas do Outono tentará afastar quaisquer espíritos malignos protegendo você com um feitiço de caminhada no vento."
+    },
+    {
+      "type": "image",
+      "title": "Ingredientes de Invocação",
+      "images": ["feywild:textures/patchouli_images/autumn_summon_book.png"],
+      "border": true
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:cookie",
+      "title": "Companheiro",
+      "text": "A fada convocada irá segui-lo ao clicar com botão direito ao se esgueira nela, se você quer que ela fique em um determinado local, clicar com botão direito ao se esgueira nela denovo."
+    }
+  ]
+}
