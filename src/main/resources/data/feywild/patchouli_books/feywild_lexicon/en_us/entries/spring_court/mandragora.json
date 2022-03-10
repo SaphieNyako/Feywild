@@ -27,15 +27,34 @@
     },
     {
       "type": "spotlight",
-      "item": "feywild:magical_honey_cookie",
+      "item": "feywild:honeycomb",
       "title": "Magical Honey Comb",
-      "text": "A Magical Honey Cookie can be made from magical honey combs wich can be obtained at a Summer Court's Bee Keep."
+      "text": "A Magical Honey Cookie can be made from magical honey combs which can be obtained at a Summer Court's Bee Keep."
+    },
+    {
+      "type": "image",
+      "title": "Bee Keep",
+      "images": ["feywild:textures/patchouli_images/bee_keep_book.png"],
+      "border": true,
+      "text": "Inspired by a building of Kelpie The Fox: https://www.youtube.com/watch?v=Cs-nHCvrOpg"
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:display_glass",
+      "title": "Bee Keep",
+      "text": "The best honey of the Summer Court is kept at the Bee Keep. The Bee Keep is protected by several Bee Knights. The Sacred Honey Comb is kept in a glass display. The display can be broken by left clicking it rapidly so it will break, and the golden treasure is yours."
     },
     {
       "type": "spotlight",
       "item": "feywild:summoning_scroll_mandragora",
       "title": "Summoning",
       "text": "Sometimes harvest magic may prevent you from sumnmoning a Mandragora with a Honey Cookie, then try creating a Summoning Scroll."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_mandragora",
+      "title": "Summoning Ingredients",
+      "text": "$(br) - Summoning Scroll$(br) - Magical Honey Cookie$(br) - Mandrake$(br) - Autumn Tree Sapling$(br) - Note Block"
     },
     {
       "type": "spotlight",

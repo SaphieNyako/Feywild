@@ -11,10 +11,10 @@
       "text": "With this scroll you can summon a Shroomling. The Shroomling has some allergies for spores and will sneeze at random times."
     },
     {
-      "type": "image",
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_shroomling",
       "title": "Summoning Ingredients",
-      "images": ["feywild:textures/patchouli_images/autumn_summon_book.png"],
-      "border": true
+      "text": "$(br) - Summoning Scroll$(br) - Red Mushroom Block$(br) - Mushroom Stem$(br) - Greater Fey Gem$(br) - Composter"
     },
     {
       "type": "entity",

@@ -162,18 +162,13 @@ public class MobConfig {
 
     public static class dimensions {
 
-        @Config(value = "What dimension biomes should be blacklisted for Feywild mobs", mapper = "feywild:resource_location")
+        @Config(value = "What dimension biomes should be whitelisted for Feywild mobs", mapper = "feywild:resource_location")
         @SuppressWarnings("config")
-        public static Set<ResourceLocation> black_list_biomes = ImmutableSet.of(
-                new ResourceLocation("undergarden", "barren_abyss"),
-                new ResourceLocation("undergarden", "dense_forest"),
-                new ResourceLocation("undergarden", "forgotten_field"),
-                new ResourceLocation("undergarden", "frostfields"),
-                new ResourceLocation("undergarden", "gronglegrowth"),
-                new ResourceLocation("undergarden", "mushroom_bog"),
-                new ResourceLocation("undergarden", "smog_spires"),
-                new ResourceLocation("undergarden", "smogstem_forest"),
-                new ResourceLocation("undergarden", "wigglewood_forest")
+        public static Set<ResourceLocation> white_list_biomes = ImmutableSet.of(
+                new ResourceLocation("twilightforest", "forest"),
+                new ResourceLocation("twilightforest", "dense_forest"),
+                new ResourceLocation("twilightforest", "dense_mushroom_forest")
         );
+        
     }
 }

@@ -9,20 +9,25 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
+import java.util.Random;
+
 public class FeywildMenuMusic {
 
     private static ISound currentFeywildMenuMusic = null;
-    
+
     public static void playSound(PlaySoundEvent event) {
         if (ClientConfig.replace_menu && event.getSound().canPlaySound()) {
+            Random random = new Random();
             if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
                 handleSoundReplace(ModSoundEvents.musicMenu, event);
             } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.getLocation())) {
-                handleSoundReplace(ModSoundEvents.musicCreative, event);
+                if (random.nextFloat() < 0.2f) {
+                    handleSoundReplace(ModSoundEvents.musicCreative, event);
+                }
             }
         }
     }
-    
+
     private static void handleSoundReplace(SoundEvent sound, PlaySoundEvent event) {
         if (currentFeywildMenuMusic != null && sound.getLocation().equals(currentFeywildMenuMusic.getLocation())
                 && Minecraft.getInstance().getSoundManager().isActive(currentFeywildMenuMusic)) {

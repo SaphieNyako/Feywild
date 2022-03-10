@@ -31,10 +31,10 @@
       "text": "With this scroll you can summon a Autumn Pixie. Autumn Pixies will try to ward off any evil spirits by protecting you with a wind walk spell."
     },
     {
-      "type": "image",
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_autumn_pixie",
       "title": "Summoning Ingredients",
-      "images": ["feywild:textures/patchouli_images/autumn_summon_book.png"],
-      "border": true
+      "text": "$(br) - Summoning Scroll$(br) - Autumn Tree Sapling$(br) - Carved Pumpkin$(br) - Mushroom$(br) - Iron Hoe"
     },
     {
       "type": "spotlight",

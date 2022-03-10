@@ -21,16 +21,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class CapabilityQuests {
-    
+
     public static final ResourceLocation KEY = new ResourceLocation(FeywildMod.getInstance().modid, "player_quests");
-    
+
     @CapabilityInject(QuestData.class)
     public static Capability<QuestData> QUESTS = null;
 
     public static void register() {
 
         CapabilityManager.INSTANCE.register(QuestData.class, new Capability.IStorage<QuestData>() {
-            
+
             @Nullable
             @Override
             public INBT writeNBT(Capability<QuestData> capability, QuestData instance, Direction side) {
@@ -56,21 +56,20 @@ public class CapabilityQuests {
             })));
         }
     }
-    
+
     @SuppressWarnings("CodeBlock2Expr")
     public static void playerCopy(PlayerEvent.Clone event) {
-        // Keep the data on death
-        if (event.isWasDeath()) {
-            event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
-                event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
-                    newData.read(oldData.write());
-                });
+        // Keep the data on death and when a copy is made
+        event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
+            event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
+                newData.read(oldData.write());
             });
-        }
+        });
+
     }
-    
+
     private static class Provider implements ICapabilityProvider, INBTSerializable<INBT> {
-        
+
         public final Capability<?> capability;
         public final LazyValue<?> value;
 
