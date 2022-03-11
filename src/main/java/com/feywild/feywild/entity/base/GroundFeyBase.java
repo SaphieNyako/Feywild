@@ -3,9 +3,8 @@ package com.feywild.feywild.entity.base;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.world.World;
-
 
 public abstract class GroundFeyBase extends FeyBase {
 

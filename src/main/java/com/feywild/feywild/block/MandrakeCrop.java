@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -87,17 +88,22 @@ public class MandrakeCrop extends CropsBlock implements Registerable {
     @SuppressWarnings("deprecation")
     public ActionResultType use(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
-            if (!world.isClientSide && QuestData.get((ServerPlayerEntity) player).getAlignment() == Alignment.SPRING) {
-                MandragoraEntity entity = ModEntityTypes.mandragora.create(world);
+            if (!world.isClientSide) {
+                if (QuestData.get((ServerPlayerEntity) player).checkReputation(Alignment.SPRING, 0)) {
 
-                if (entity != null) {
-                    entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                    entity.setCurrentTargetPos(pos);
-                    world.addFreshEntity(entity);
-                    entity.playSound(SoundEvents.FOX_EAT, 1, 1);
-                    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                    if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
-                    QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    MandragoraEntity entity = ModEntityTypes.mandragora.create(world);
+
+                    if (entity != null) {
+                        entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+                        entity.setCurrentTargetPos(pos);
+                        world.addFreshEntity(entity);
+                        entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+                        world.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                        QuestData.get((ServerPlayerEntity) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+                    }
+                } else {
+                    player.sendMessage(new TranslationTextComponent("message.feywild.summon_cookie_fail"), player.getUUID());
                 }
             }
             return ActionResultType.sidedSuccess(world.isClientSide);

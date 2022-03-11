@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:spring_planks"
+    }
+  },
+  "result": {
+    "item": "feywild:spring_planks_stairs",
+    "count": 4
+  }
+}

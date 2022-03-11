@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "feywild:block/summer_stripped_log",
+    "top": "feywild:block/summer_stripped_log",
+    "side": "feywild:block/summer_stripped_log"
+  }
+}

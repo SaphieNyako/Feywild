@@ -31,10 +31,10 @@
       "text": "With this scroll you can summon a Summer Pixie. As a proud member of the Summer Court the Summer Pixie will smite down her foes."
     },
     {
-      "type": "image",
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_summer_pixie",
       "title": "Summoning Ingredients",
-      "images": ["feywild:textures/patchouli_images/summer_summon_book.png"],
-      "border": true
+      "text": "$(br) - Summoning Scroll$(br) - Summer Tree Sapling$(br) - Sunflower$(br) - Honey Comb$(br) - Golden Sword"
     },
     {
       "type": "spotlight",

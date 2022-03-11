@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "## ",
+    "## "
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:winter_stripped_log"
+    }
+  },
+  "result": {
+    "item": "feywild:winter_stripped_wood",
+    "count": 3
+  }
+}

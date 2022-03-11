@@ -1,0 +1,30 @@
+{
+  "name": "Alfheim Locked",
+  "icon": "feywild:ancient_runestone",
+  "category": "feywild",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "text",
+      "text": "By locking Feywild behind the Mythic Botany progression, Pixies and Biomes will only spawn in the Alfheim Dimension. Lock Feywild behind Alfheim progress by selecting 'alfheim_locked' in the config file."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:spring_tree_sapling",
+      "title": "Tree Patches",
+      "text": "Some magic of the Feywild still leaks into the Overworld, and random Tree patches of Feywild trees will still spawn."
+    },
+    {
+      "type": "spotlight",
+      "item": "feywild:ancient_runestone",
+      "title": "Ancient Runestone",
+      "text": "The Blacksmith and Library still spawn in the Overworld when using Alfheim Locked. However, you can still summon the Blacksmith by using a Rune of Nidavellir on a Anicent Runestone."
+    },
+    {
+      "type": "link",
+      "text": "Check out the video for more information:",
+      "url": "https://www.youtube.com/watch?v=f4sWjb4jpD8",
+      "link_text": "Alfheim Config"
+    }
+  ]
+}

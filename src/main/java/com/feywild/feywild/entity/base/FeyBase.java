@@ -99,9 +99,10 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                     this.getZ() + (Math.random() - 0.5),
                     0, -0.1, 0
             );
-        } else if (this.tickCount % (8*20) == 0 && !level.isClientSide && getOwner() != null) {
-            if (QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != this.alignment && QuestData.get((ServerPlayerEntity) getOwner()).getAlignment() != null) {
-                getOwner().sendMessage(new TranslationTextComponent("message.feywild." + alignment.id + ".dissapear"), getOwnerId());
+        } else if (!level.isClientSide && this.tickCount % 160 == 0 && getOwner() instanceof ServerPlayerEntity && this.isAlive()) {
+            ServerPlayerEntity owner = (ServerPlayerEntity) getOwner();
+            if (!this.alignment.equals(QuestData.get(owner).getAlignment()) && QuestData.get(owner).getAlignment() != null) {
+                owner.sendMessage(new TranslationTextComponent("message.feywild." + this.getEntity().getEncodeId().replace("feywild:", "") + ".disappear"), getOwnerId());
                 remove();
             }
         }

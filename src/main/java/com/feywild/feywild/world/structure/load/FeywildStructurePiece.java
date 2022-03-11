@@ -29,21 +29,21 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class FeywildStructurePiece extends SingleJigsawPiece {
-    
+
     public static final ResourceLocation ID = new ResourceLocation(FeywildMod.getInstance().modid, "structure_piece");
-    
+
     public static final Codec<FeywildStructurePiece> CODEC = RecordCodecBuilder.create((builder) -> builder.group(
             templateCodec(),
             processorsCodec(),
             projectionCodec()
     ).apply(builder, FeywildStructurePiece::new));
-    
+
     public static final IJigsawDeserializer<FeywildStructurePiece> TYPE = () -> CODEC;
 
     protected FeywildStructurePiece(Either<ResourceLocation, Template> template, Supplier<StructureProcessorList> processors, JigsawPattern.PlacementBehaviour projection) {
         super(template, processors, projection);
     }
-    
+
     @Override
     public boolean place(@Nonnull TemplateManager templates, @Nonnull ISeedReader world, @Nonnull StructureManager structures, @Nonnull ChunkGenerator generator, @Nonnull BlockPos fromPos, @Nonnull BlockPos toPos, @Nonnull Rotation rot, @Nonnull MutableBoundingBox box, @Nonnull Random random, boolean jigsaw) {
         Template template = this.template.map(templates::getOrCreate, Function.identity());
@@ -51,7 +51,7 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
         if (!template.placeInWorld(world, fromPos, toPos, settings, random, 18)) {
             return false;
         } else {
-            for(Template.BlockInfo info : Template.processBlockInfos(world, fromPos, toPos, settings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
+            for (Template.BlockInfo info : Template.processBlockInfos(world, fromPos, toPos, settings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
                 this.handleCustomDataMarker(templates, structures, world, info, info.pos, rot, random, box);
             }
             return true;
@@ -76,21 +76,23 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
             placePiece(templates, world, "waystone", pos, random);
         } else if (data.equals("Dwarf")) {
             placeDwarf(world, pos);
+        } else if (data.equals("Brazier")) {
+            placePiece(templates, world, "brazier", pos, random);
         }
         super.handleDataMarker(world, block, pos, rot, random, box);
     }
-    
+
     @Nonnull
     @Override
     public IJigsawDeserializer<?> getType() {
         return TYPE;
     }
-    
+
     private void placePiece(TemplateManager templates, ISeedReader world, String name, BlockPos pos, Random random) {
         Template template = templates.getOrCreate(new ResourceLocation(FeywildMod.getInstance().modid, "parts/" + name));
         template.placeInWorld(world, pos, new PlacementSettings(), random);
     }
-    
+
     private void placeDwarf(ISeedReader world, BlockPos pos) {
         if (CompatConfig.mythic_alfheim.locked) {
             world.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
@@ -102,7 +104,7 @@ public class FeywildStructurePiece extends SingleJigsawPiece {
             addEntity(world, entity);
         }
     }
-    
+
     private void addEntity(ISeedReader world, Entity entity) {
         if (world instanceof WorldGenRegion) {
             int x = ((int) Math.floor(entity.getX())) >> 4;

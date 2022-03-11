@@ -4,7 +4,10 @@ import com.feywild.feywild.block.entity.MagicalBrazier;
 import com.feywild.feywild.block.render.MagicalBrazierRenderer;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.BlockTE;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -29,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class MagicalBrazierBlock extends BlockTE<MagicalBrazier> implements IWaterLoggable {
+public class MagicalBrazierBlock extends BlockTE<MagicalBrazier> {
 
     public static final BooleanProperty BRAZIER_LIT = BooleanProperty.create("brazier_lit");
     protected static final VoxelShape SHAPE = Block.box(0.0D, 7.0D, 0.0D, 16.0D, 14.0D, 16.0D);
@@ -61,7 +64,7 @@ public class MagicalBrazierBlock extends BlockTE<MagicalBrazier> implements IWat
 
     @Override
     @SuppressWarnings("deprecation")
-    public void entityInside(BlockState state, World world, BlockPos pos, Entity entity) {
+    public void entityInside(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, Entity entity) {
         if (!entity.fireImmune() && state.getValue(BRAZIER_LIT) && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
             entity.hurt(DamageSource.IN_FIRE, (float) FIRE_DAMAGE);
         }

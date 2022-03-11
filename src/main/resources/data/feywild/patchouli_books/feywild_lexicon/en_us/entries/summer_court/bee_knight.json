@@ -35,10 +35,10 @@
       "text": "With this scroll you can summon a Bee Knight. The Bee Knight will protect the area from other creatures interacting with it."
     },
     {
-      "type": "image",
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_bee_knight",
       "title": "Summoning Ingredients",
-      "images": ["feywild:textures/patchouli_images/bee_knight_summon_book.png"],
-      "border": true
+      "text": "$(br) - Summoning Scroll$(br) - Magical Honeycomb$(br) - Bee Nest$(br) - Lead$(br) - Summoning Scroll Summer Pixie"
     }
   ]
 }

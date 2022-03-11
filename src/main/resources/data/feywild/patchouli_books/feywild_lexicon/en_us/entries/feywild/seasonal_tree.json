@@ -16,6 +16,12 @@
     },
     {
       "type": "spotlight",
+      "item": "feywild:fey_dust",
+      "title": "Fey Dust",
+      "text": "The fey trees will also drop fey dust when you cut down their leaves."
+    },
+    {
+      "type": "spotlight",
       "item": "feywild:spring_tree_sapling",
       "title": "Spring Sapling",
       "text": "Flowers from the spring season will grow around the tree."
@@ -45,10 +51,31 @@
       "text": "Feywood can be obtained by cutting down one of the Fey trees. Each season has its own Fey Wood."
     },
     {
+      "type": "crafting",
+      "title": "Fey Wood",
+      "recipe": "feywild:spring_tree_stairs"
+    },
+    {
       "type": "spotlight",
-      "item": "feywild:fey_dust",
-      "title": "Fey Dust",
-      "text": "The fey trees will also drop fey dust when you cut down their leaves."
+      "title": "Stripped Fey Wood",
+      "item": "feywild:autumn_stripped_log",
+      "text": "You can strip the Fey Wood. The Stripped Fey wood has their own variety of decoration blocks."
+    },
+    {
+      "type": "crafting",
+      "title": "Stripped Fey Wood",
+      "recipe": "feywild:winter_stripped_wood_stairs"
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Planks",
+      "recipe": "feywild:summer_planks",
+      "text": "Fey Wood can be crafted into Fey Planks. Each season has its own colour."
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Planks",
+      "recipe": "feywild:summer_planks_stair"
     }
   ]
 }

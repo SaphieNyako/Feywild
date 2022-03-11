@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:autumn_planks"
+    }
+  },
+  "result": {
+    "item": "feywild:autumn_planks_stairs",
+    "count": 4
+  }
+}

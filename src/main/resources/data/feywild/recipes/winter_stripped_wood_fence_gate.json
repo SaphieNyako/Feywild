@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "/#/",
+    "/#/"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:winter_stripped_wood"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "feywild:winter_stripped_wood_fence_gate",
+    "count": 3
+  }
+}

@@ -36,10 +36,10 @@
       "text": "With this scroll you can summon a Spring Pixie. The presence of a Spring Pixie will make the animals fall in love with each other."
     },
     {
-      "type": "image",
+      "type": "spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
       "title": "Summoning Ingredients",
-      "images": ["feywild:textures/patchouli_images/spring_summon_book.png"],
-      "border": true
+      "text": "$(br) - Summoning Scroll$(br) - Spring Tree Sapling$(br) - Oxeye Daisy$(br) - Wheat Seeds$(br) - Egg"
     },
     {
       "type": "spotlight",

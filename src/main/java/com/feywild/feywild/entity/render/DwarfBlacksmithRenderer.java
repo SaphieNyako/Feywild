@@ -1,26 +1,34 @@
 package com.feywild.feywild.entity.render;
 
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
-import com.feywild.feywild.entity.model.DwarfBlacksmithModel;
+import com.feywild.feywild.entity.render.layer.DwarfBlacksmithLayer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
-public class DwarfBlacksmithRenderer extends GeoEntityRenderer<DwarfBlacksmithEntity> {
+public class DwarfBlacksmithRenderer<T extends DwarfBlacksmithEntity> extends GeoEntityRenderer<T> {
 
-    public DwarfBlacksmithRenderer(EntityRendererManager renderManager) {
-        super(renderManager, new DwarfBlacksmithModel());
+    public DwarfBlacksmithRenderer(EntityRendererManager renderManager, AnimatedGeoModel<T> model) {
+        super(renderManager, model);
         this.shadowRadius = 0.8F;
+        this.addLayer(new DwarfBlacksmithLayer<>(this));
+    }
+
+    public static <T extends DwarfBlacksmithEntity> IRenderFactory<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {
+        return manager -> new DwarfBlacksmithRenderer<>(manager, modelProvider.get());
     }
 
     @Override
-    public RenderType getRenderType(DwarfBlacksmithEntity animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
+    public RenderType getRenderType(T animatable, float partialTicks, MatrixStack stack, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, ResourceLocation textureLocation) {
         return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
 }

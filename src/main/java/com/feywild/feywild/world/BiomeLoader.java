@@ -56,7 +56,7 @@ public class BiomeLoader {
             SPRING_ALFHEIM, SUMMER_ALFHEIM, AUTUMN_ALFHEIM, WINTER_ALFHEIM
     );
 
-    public static final Set<ResourceLocation> BLACKLIST_BIOMES = MobConfig.dimensions.black_list_biomes;
+    public static final Set<ResourceLocation> WHITELIST_BIOMES = MobConfig.dimensions.white_list_biomes;
 
     public static void loadBiome(BiomeLoadingEvent event) {
         Random random = new Random();
@@ -160,7 +160,7 @@ public class BiomeLoader {
             if (WINTER_ALFHEIM.equals(biomeId))
                 addSpawn(event, ModEntityTypes.winterPixie, EntityClassification.CREATURE, MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max);
         } else {
-            if (!types.contains(BiomeDictionary.Type.NETHER) && !types.contains(BiomeDictionary.Type.END) && !BLACKLIST_BIOMES.contains(biomeId) && !types.contains(BiomeDictionary.Type.OCEAN)) {
+            if ((types.contains(BiomeDictionary.Type.OVERWORLD) && !types.contains(BiomeDictionary.Type.OCEAN)) || WHITELIST_BIOMES.contains(biomeId)) {
                 if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
                     addSpawn(event, ModEntityTypes.dwarfBlacksmith, EntityClassification.MONSTER, MobConfig.dwarf_blacksmith.weight, MobConfig.dwarf_blacksmith.min, MobConfig.dwarf_blacksmith.max);
                 }

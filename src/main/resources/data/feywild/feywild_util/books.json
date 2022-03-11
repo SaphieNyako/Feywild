@@ -82,5 +82,15 @@
       "patchouli:book": "productivebees:guide"
     },
     "count": 1
+  },
+  {
+    "mod": "akashictome",
+    "item": "akashictome:tome",
+    "count": 1
+  },
+  {
+    "mod": "morphtool",
+    "item": "morphtool:tool",
+    "count": 1
   }
 ]
