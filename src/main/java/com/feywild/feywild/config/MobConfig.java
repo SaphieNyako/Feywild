@@ -165,10 +165,18 @@ public class MobConfig {
         @Config(value = "What dimension biomes should be whitelisted for Feywild mobs", mapper = "feywild:resource_location")
         @SuppressWarnings("config")
         public static Set<ResourceLocation> white_list_biomes = ImmutableSet.of(
+                new ResourceLocation("feywild:alfheim_spring"),
+                new ResourceLocation("feywild:alfheim_summer"),
+                new ResourceLocation("feywild:alfheim_autumn"),
+                new ResourceLocation("feywild:alfheim_winter"),
+                new ResourceLocation("mythicbotany:alfheim_hills"),
+                new ResourceLocation("mythicbotany:alfheim_plains"),
+                new ResourceLocation("mythicbotany:alfheim_dreamwood_forest"),
+                new ResourceLocation("mythicbotany:alfheim_golden_fields"),
                 new ResourceLocation("twilightforest", "forest"),
                 new ResourceLocation("twilightforest", "dense_forest"),
                 new ResourceLocation("twilightforest", "dense_mushroom_forest")
         );
-        
+
     }
 }

@@ -48,6 +48,11 @@ public class CraftingRecipes extends RecipeProviderBase {
                 .unlockedBy("has_item1", has(ModItems.mandrake))
                 .save(consumer);
 
+        ShapelessRecipeBuilder.shapeless(ModBlocks.feyMushroom)
+                .requires(ModItems.feyDust)
+                .requires(Items.RED_MUSHROOM)
+                .save(consumer);
+
         ShapelessRecipeBuilder.shapeless(ModItems.mandrakePotion)
                 .requires(Items.GLASS_BOTTLE)
                 .requires(ModItems.mandrake)

@@ -37,7 +37,7 @@ public class ModAlfheimBiomes {
         public BiomeGenerationSettings.Builder defaultGeneration(ConfiguredSurfaceBuilder<?> surface) {
             return AlfheimBiomes.alfheimGen(surface);
         }
-        
+
         @Override
         public void postProcess(BiomeAmbience.Builder builder, BiomeType biome) {
             builder.waterColor(0x43d5ee);
@@ -45,7 +45,7 @@ public class ModAlfheimBiomes {
             builder.fogColor(0xc0d8ff);
         }
     };
-    
+
     // Add 4 blank alfheim biomes that are then customised by BiomeLoader
     public static final Biome alfheimSpring = BiomeFactory.create(ALFHEIM, SpringBiome.INSTANCE);
     public static final Biome alfheimSummer = BiomeFactory.create(ALFHEIM, SummerBiome.INSTANCE);
@@ -65,7 +65,7 @@ public class ModAlfheimBiomes {
             AlfheimBiomeManager.addUncommonBiome(alfheimSummer.getRegistryName());
             AlfheimBiomeManager.addUncommonBiome(alfheimAutumn.getRegistryName());
             AlfheimBiomeManager.addUncommonBiome(alfheimWinter.getRegistryName());
-            
+
             AlfheimBiomeManager.addStructure(ModStructures.springWorldTree, ModStructures.springWorldTree.getSettings());
             AlfheimBiomeManager.addStructure(ModStructures.summerWorldTree, ModStructures.summerWorldTree.getSettings());
             AlfheimBiomeManager.addStructure(ModStructures.autumnWorldTree, ModStructures.autumnWorldTree.getSettings());
