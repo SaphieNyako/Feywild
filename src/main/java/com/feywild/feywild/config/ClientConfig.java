@@ -12,4 +12,7 @@ public class ClientConfig {
 
     @Config("Wether Fey Flowers particles should spawn.")
     public static boolean flower_particles = true;
+
+    @Config("Whether Glow Layers for the Shroomling and Blacksmith should be used: Optifine Users should always disable this!")
+    public static boolean mob_glow = true;
 }

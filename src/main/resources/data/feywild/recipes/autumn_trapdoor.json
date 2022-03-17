@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#/#",
+    "#/#"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:autumn_planks"
+    },
+    "/": {
+      "item": "feywild:tree_mushroom"
+    }
+  },
+  "result": {
+    "item": "feywild:autumn_trapdoor",
+    "count": 3
+  }
+}

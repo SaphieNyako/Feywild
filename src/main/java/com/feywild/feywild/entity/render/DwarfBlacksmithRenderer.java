@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.render;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.entity.DwarfBlacksmithEntity;
 import com.feywild.feywild.entity.render.layer.DwarfBlacksmithLayer;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -20,7 +21,9 @@ public class DwarfBlacksmithRenderer<T extends DwarfBlacksmithEntity> extends Ge
     public DwarfBlacksmithRenderer(EntityRendererManager renderManager, AnimatedGeoModel<T> model) {
         super(renderManager, model);
         this.shadowRadius = 0.8F;
-        this.addLayer(new DwarfBlacksmithLayer<>(this));
+        if (ClientConfig.mob_glow) {
+            this.addLayer(new DwarfBlacksmithLayer<>(this));
+        }
     }
 
     public static <T extends DwarfBlacksmithEntity> IRenderFactory<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {

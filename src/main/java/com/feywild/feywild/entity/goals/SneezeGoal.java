@@ -57,6 +57,7 @@ public class SneezeGoal extends Goal {
                             && this.entity.level.getBlockState(this.entity.blockPosition()).canBeReplaced(Fluids.WATER)) {
 
                         this.level.setBlock(this.entity.blockPosition(), ModBlocks.feyMushroom.defaultBlockState(), 2);
+                        this.entity.playSound(SoundEvents.BEEHIVE_EXIT, 1, 1);
                     }
                 }
 

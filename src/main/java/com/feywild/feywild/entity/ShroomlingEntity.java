@@ -17,6 +17,7 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -30,8 +31,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
@@ -57,6 +56,7 @@ public class ShroomlingEntity extends GroundFeyBase implements IAnimatable, ITam
 
     protected ShroomlingEntity(EntityType<? extends FeyBase> entityType, World world) {
         super(entityType, Alignment.AUTUMN, world);
+        this.moveControl = new MovementController(this);
         this.noCulling = true;
     }
 
@@ -204,11 +204,9 @@ public class ShroomlingEntity extends GroundFeyBase implements IAnimatable, ITam
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
                     if (Objects.equals(this.getCurrentPointOfInterest(), player.position())) {
-                        this.setCurrentTargetPos(this.blockPosition());
-                        player.sendMessage(new TranslationTextComponent("message.feywild.shroomling_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        this.setOrderedToStay();
                     } else {
-                        this.setCurrentTargetPos((BlockPos) null);
-                        player.sendMessage(new TranslationTextComponent("message.feywild.shroomling_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        this.setOrderedToFollow();
                     }
                 }
             }
@@ -263,8 +261,7 @@ public class ShroomlingEntity extends GroundFeyBase implements IAnimatable, ITam
 
     @Override
     public boolean isPersistenceRequired() {
-        return true;
-        //TODO Might require different options for tamed and untamed.
+        return this.isTamed;
     }
 
     public enum State {

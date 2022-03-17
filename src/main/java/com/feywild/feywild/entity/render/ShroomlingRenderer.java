@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.render;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.entity.ShroomlingEntity;
 import com.feywild.feywild.entity.render.layer.ShroomlingLayer;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -20,7 +21,9 @@ public class ShroomlingRenderer<T extends ShroomlingEntity> extends GeoEntityRen
     protected ShroomlingRenderer(EntityRendererManager manager, AnimatedGeoModel<T> model) {
         super(manager, model);
         this.shadowRadius = 0.3F;
-        this.addLayer(new ShroomlingLayer<>(this));
+        if (ClientConfig.mob_glow) {
+            this.addLayer(new ShroomlingLayer<>(this));
+        }
     }
 
     public static <T extends ShroomlingEntity> IRenderFactory<T> create(Supplier<AnimatedGeoModel<T>> modelProvider) {

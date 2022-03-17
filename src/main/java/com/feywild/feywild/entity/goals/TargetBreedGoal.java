@@ -85,6 +85,10 @@ public class TargetBreedGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (this.entity.isTamed() && this.entity.getOwner() == null) {
+            this.entity.unableToFollow();
+            return false;
+        }
         return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.01f && QuestData.get((ServerPlayerEntity) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
 

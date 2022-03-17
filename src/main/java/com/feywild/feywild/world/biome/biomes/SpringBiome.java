@@ -1,6 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.entity.EntityClassification;
@@ -62,6 +64,12 @@ public class SpringBiome implements BiomeType {
         builder.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Features.SPRING_WATER);
         DefaultBiomeFeatures.addExtraEmeralds(builder);
         builder.addStructureStart(ModConfiguredStructures.CONFIGURED_SPRING_WORLD_TREE);
+    }
+
+    @Override
+    public void spawns(MobSpawnInfo.Builder builder) {
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.springPixie,
+                2 * MobConfig.spring_pixie.weight, MobConfig.spring_pixie.min, MobConfig.spring_pixie.max));
     }
 
     @Override

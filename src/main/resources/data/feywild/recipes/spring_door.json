@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "## ",
+    "// ",
+    "## "
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:spring_planks"
+    },
+    "/": {
+      "item": "feywild:dandelion_seed"
+    }
+  },
+  "result": {
+    "item": "feywild:spring_door",
+    "count": 3
+  }
+}

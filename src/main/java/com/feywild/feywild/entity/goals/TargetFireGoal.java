@@ -71,7 +71,11 @@ public class TargetFireGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f  && QuestData.get((ServerPlayerEntity) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
+        if (this.entity.isTamed() && this.entity.getOwner() == null) {
+            this.entity.unableToFollow();
+            return false;
+        }
+        return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.005f && QuestData.get((ServerPlayerEntity) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
 
     private MonsterEntity findTarget() {

@@ -3,13 +3,17 @@ package com.feywild.feywild.world.biome;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.world.biome.biomes.*;
 import com.feywild.feywild.world.structure.ModStructures;
+import mythicbotany.ModEntities;
 import mythicbotany.alfheim.AlfheimBiomeManager;
 import mythicbotany.alfheim.AlfheimBiomes;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeAmbience;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.common.world.MobSpawnInfoBuilder;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 // No @RegisterClass as this may not be loaded if MythicBotany is
@@ -30,7 +34,9 @@ public class ModAlfheimBiomes {
 
         @Override
         public MobSpawnInfo.Builder defaultSpawns() {
-            return AlfheimBiomes.alfheimMobs();
+            net.minecraft.world.biome.MobSpawnInfo.Builder builder = (new MobSpawnInfoBuilder(MobSpawnInfo.EMPTY)).creatureGenerationProbability(0.4F);
+            //   DefaultBiomeFeatures.farmAnimals(builder);
+            return builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.alfPixie, 50, 4, 10)).addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.WITCH, 2, 1, 2)).addSpawn(EntityClassification.MONSTER, new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 1, 1, 1));
         }
 
         @Override

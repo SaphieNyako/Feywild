@@ -19,6 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -26,6 +27,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class FeyBase extends CreatureEntity implements IAnimatable {
@@ -35,6 +37,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
     public Vector3d summonPos = null;
     @Nullable
     protected UUID owner;
+    private boolean orderedToStay;
 
     protected FeyBase(EntityType<? extends CreatureEntity> entityType, Alignment alignment, World world) {
         super(entityType, world);
@@ -90,6 +93,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
 
     @Override
     public void tick() {
+
         super.tick();
         if (level.isClientSide && random.nextInt(11) == 0 && getParticle() != null) {
             level.addParticle(
@@ -106,6 +110,11 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
                 remove();
             }
         }
+    }
+
+    @Override
+    public boolean isVehicle() {
+        return false;
     }
 
     @Override
@@ -188,7 +197,7 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
             nbt.putUUID("Owner", this.owner);
         }
         if (getCurrentPointOfInterest() != null) {
-            NBTX.putPos(nbt, "SummonPos", new BlockPos(this.summonPos.x, this.summonPos.y, this.summonPos.z));
+            NBTX.putPos(nbt, "SummonPos", new BlockPos(this.getCurrentPointOfInterest().x, this.getCurrentPointOfInterest().y, this.getCurrentPointOfInterest().z));
         }
     }
 
@@ -200,5 +209,26 @@ public abstract class FeyBase extends CreatureEntity implements IAnimatable {
         if (pos != null) {
             this.summonPos = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
         }
+    }
+
+    public boolean isOrderedToStay() {
+        return this.orderedToStay;
+    }
+
+    public void setOrderedToStay() {
+        this.orderedToStay = true;
+        this.setCurrentTargetPos(this.blockPosition());
+        Objects.requireNonNull(this.getOwner()).sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), this.getOwner().getUUID());
+    }
+
+    public void setOrderedToFollow() {
+        this.orderedToStay = false;
+        this.setCurrentTargetPos((BlockPos) null);
+        Objects.requireNonNull(this.getOwner()).sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), this.getOwner().getUUID());
+    }
+
+    public void unableToFollow() {
+        this.orderedToStay = true;
+        this.setCurrentTargetPos(this.blockPosition());
     }
 }

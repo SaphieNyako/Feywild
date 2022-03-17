@@ -1,6 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.entity.EntityClassification;
@@ -60,6 +62,10 @@ public class AutumnBiome implements BiomeType {
     @Override
     public void spawns(MobSpawnInfo.Builder builder) {
         builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.FOX, 20, 2, 3));
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.autumnPixie,
+                2 * MobConfig.autumn_pixie.weight, MobConfig.autumn_pixie.min, MobConfig.autumn_pixie.max));
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.shroomling,
+                2 * MobConfig.shroomling.weight, MobConfig.shroomling.min, MobConfig.shroomling.max));
     }
 
     @Override

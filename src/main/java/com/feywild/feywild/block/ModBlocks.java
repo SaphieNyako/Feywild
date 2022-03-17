@@ -218,5 +218,32 @@ public class ModBlocks {
             AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
 
     public static final Block winterStrippedWoodFenceGate = new FenceGateBlockBase(FeywildMod.getInstance(),
-            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3));
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noCollission());
+
+    // DOORS
+
+    public static final Block autumnDoor = new DoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block autumnTrapdoor = new TrapDoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block springDoor = new DoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block springTrapdoor = new TrapDoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block summerDoor = new DoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block summerTrapdoor = new TrapDoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block winterDoor = new DoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
+    public static final Block winterTrapdoor = new TrapDoorBlockBase(FeywildMod.getInstance(),
+            AbstractBlock.Properties.of(Material.WOOD).harvestLevel(3).harvestTool(ToolType.AXE).strength(3).noOcclusion());
+
 }

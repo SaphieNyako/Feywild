@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "top": "feywild:block/summer_door_top",
+    "bottom": "feywild:block/summer_door_bottom"
+  }
+}

@@ -47,6 +47,7 @@ public class MandragoraEntity extends GroundFeyBase implements IAnimatable {
     public static final DataParameter<Integer> VARIANT = EntityDataManager.defineId(MandragoraEntity.class, DataSerializers.INT);
     public static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
     private final AnimationFactory factory = new AnimationFactory(this);
+    private boolean isTamed = false;
 
     public MandragoraEntity(EntityType<? extends CreatureEntity> entityType, World world) {
         super(entityType, Alignment.SPRING, world);

@@ -4,6 +4,7 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.ScrollConfig;
 import com.feywild.feywild.entity.BeeKnightEntity;
+import com.feywild.feywild.entity.ShroomlingEntity;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
@@ -18,6 +19,7 @@ import com.feywild.feywild.world.structure.ModStructures;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import io.github.noeppi_noeppi.libx.event.DatapacksReloadedEvent;
 import net.minecraft.client.gui.screen.MainMenuScreen;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -58,6 +60,16 @@ public class EventListener {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getSource().getEntity();
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
+        }
+    }
+
+    public void playerMoveDimensions(PlayerEvent.PlayerChangedDimensionEvent event) {
+
+        ShroomlingEntity shroomling = null;
+        for (Entity passenger : event.getPlayer().getPassengers()) {
+            if (passenger instanceof ShroomlingEntity)
+                shroomling = (ShroomlingEntity) passenger;
+            shroomling.setOrderedToStay();
         }
     }
 

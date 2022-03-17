@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#/#",
+    "#/#"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:winter_planks"
+    },
+    "/": {
+      "item": "feywild:crocus_seed"
+    }
+  },
+  "result": {
+    "item": "feywild:winter_trapdoor",
+    "count": 3
+  }
+}

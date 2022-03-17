@@ -1,0 +1,57 @@
+{
+  "name": "Spring Wood",
+  "icon": "feywild:spring_stripped_log",
+  "category": "spring_court",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "feywild:spring_tree_sapling",
+      "title": "Spring Sapling",
+      "text": "Flowers from the spring season will grow around the tree."
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Wood",
+      "recipe": "feywild:spring_tree_wood",
+      "text": "Feywood can be obtained by cutting down one of the Fey trees. Each season has its own Fey Wood."
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Wood",
+      "recipe": "feywild:spring_tree_stairs"
+    },
+    {
+      "type": "spotlight",
+      "title": "Stripped Fey Wood",
+      "item": "feywild:spring_stripped_log",
+      "text": "You can strip the Fey Wood. The Stripped Fey wood has their own variety of decoration blocks."
+    },
+    {
+      "type": "crafting",
+      "title": "Stripped Fey Wood",
+      "recipe": "feywild:spring_stripped_wood_stairs"
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Planks",
+      "recipe": "feywild:spring_planks",
+      "text": "Fey Wood can be crafted into Fey Planks. Each season has its own colour."
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Planks",
+      "recipe": "feywild:spring_planks_stairs"
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Door",
+      "recipe": "feywild:spring_door"
+    },
+    {
+      "type": "crafting",
+      "title": "Fey Trapdoor",
+      "recipe": "feywild:spring_trapdoor"
+    }
+  ]
+}

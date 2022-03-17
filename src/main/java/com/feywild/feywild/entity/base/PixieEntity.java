@@ -29,7 +29,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -127,11 +126,9 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
             if (player.isShiftKeyDown()) {
                 if (this.owner != null && this.owner.equals(player.getUUID())) {
                     if (Objects.equals(this.getCurrentPointOfInterest(), player.position())) {
-                        this.setCurrentTargetPos(this.blockPosition());
-                        player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslationTextComponent("message.feywild.fey_stay").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        this.setOrderedToStay();
                     } else {
-                        this.setCurrentTargetPos((BlockPos) null);
-                        player.sendMessage(new TranslationTextComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslationTextComponent("message.feywild.fey_follow").withStyle(TextFormatting.ITALIC)), player.getUUID());
+                        this.setOrderedToFollow();
                     }
                 }
             } else if (player instanceof ServerPlayerEntity && this.tryAcceptGift((ServerPlayerEntity) player, hand)) {
@@ -214,6 +211,11 @@ public abstract class PixieEntity extends FlyingFeyBase implements ITameable {
         AnimationController<PixieEntity> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
+    }
+
+    @Override
+    public boolean isPersistenceRequired() {
+        return this.isTamed;
     }
 }
 

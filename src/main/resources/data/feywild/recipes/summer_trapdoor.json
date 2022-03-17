@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "#/#",
+    "#/#"
+  ],
+  "key": {
+    "#": {
+      "item": "feywild:summer_planks"
+    },
+    "/": {
+      "item": "feywild:sunflower_seed"
+    }
+  },
+  "result": {
+    "item": "feywild:summer_trapdoor",
+    "count": 3
+  }
+}

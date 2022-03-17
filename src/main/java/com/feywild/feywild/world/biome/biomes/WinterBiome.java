@@ -1,6 +1,8 @@
 package com.feywild.feywild.world.biome.biomes;
 
+import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.config.WorldGenConfig;
+import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.world.biome.ModConfiguredSurfaceBuilders;
 import com.feywild.feywild.world.structure.ModConfiguredStructures;
 import net.minecraft.entity.EntityClassification;
@@ -63,6 +65,8 @@ public class WinterBiome implements BiomeType {
     @Override
     public void spawns(MobSpawnInfo.Builder builder) {
         builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(EntityType.POLAR_BEAR, 10, 1, 2));
+        builder.addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntityTypes.winterPixie,
+                2 * MobConfig.winter_pixie.weight, MobConfig.winter_pixie.min, MobConfig.winter_pixie.max));
     }
 
     @Override

@@ -22,7 +22,6 @@ public class SummonSnowManGoal extends Goal {
     private int ticksLeft = 0;
     private Vector3d targetPos;
 
-
     public SummonSnowManGoal(WinterPixieEntity entity) {
         this.entity = entity;
     }
@@ -78,9 +77,13 @@ public class SummonSnowManGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (this.entity.isTamed() && this.entity.getOwner() == null) {
+            this.entity.unableToFollow();
+            return false;
+        }
         return this.entity.isTamed() && this.entity.level.random.nextFloat() < 0.002f && this.noSnowManNearby() && QuestData.get((ServerPlayerEntity) Objects.requireNonNull(entity.getOwner())).getAlignment() == entity.alignment;
     }
-    
+
     private boolean noSnowManNearby() {
         return this.entity.level.getNearbyEntities(SnowGolemEntity.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8)).isEmpty();
     }
