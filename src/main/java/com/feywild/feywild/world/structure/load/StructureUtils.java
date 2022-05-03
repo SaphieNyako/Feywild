@@ -1,4 +1,4 @@
-package com.feywild.feywild.world.structure;
+package com.feywild.feywild.world.structure.load;
 
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;

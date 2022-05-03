@@ -1,21 +1,20 @@
 package com.feywild.feywild.tag;
 
 import com.feywild.feywild.FeywildMod;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class ModItemTags {
 
-    public static final Tag.Named<Item> SCHEMATICS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "schematics").toString());
-    public static final Tag.Named<Item> FEY_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "fey_logs").toString());
-    public static final Tag.Named<Item> DEADLY_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "deadly_books").toString());
-    public static final Tag.Named<Item> ELEMENTAL_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "elemental_books").toString());
-    public static final Tag.Named<Item> SEASONAL_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "seasonal_books").toString());
-    public static final Tag.Named<Item> YGGDRASIL_BOOKS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "yggdrasil_books").toString());
-    public static final Tag.Named<Item> AUTUMN_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "autumn_logs").toString());
-    public static final Tag.Named<Item> SPRING_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "spring_logs").toString());
-    public static final Tag.Named<Item> SUMMER_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "summer_logs").toString());
-    public static final Tag.Named<Item> WINTER_LOGS = ItemTags.bind(new ResourceLocation(FeywildMod.getInstance().modid, "winter_logs").toString());
+    public static final TagKey<Item> SCHEMATICS = ItemTags.create(FeywildMod.getInstance().resource("schematics"));
+    public static final TagKey<Item> FEY_LOGS = ItemTags.create(FeywildMod.getInstance().resource("fey_logs"));
+    public static final TagKey<Item> DEADLY_BOOKS = ItemTags.create(FeywildMod.getInstance().resource("deadly_books"));
+    public static final TagKey<Item> ELEMENTAL_BOOKS = ItemTags.create(FeywildMod.getInstance().resource("elemental_books"));
+    public static final TagKey<Item> SEASONAL_BOOKS = ItemTags.create(FeywildMod.getInstance().resource("seasonal_books"));
+    public static final TagKey<Item> YGGDRASIL_BOOKS = ItemTags.create(FeywildMod.getInstance().resource("yggdrasil_books"));
+    public static final TagKey<Item> AUTUMN_LOGS = ItemTags.create(FeywildMod.getInstance().resource("autumn_logs"));
+    public static final TagKey<Item> SPRING_LOGS = ItemTags.create(FeywildMod.getInstance().resource("spring_logs"));
+    public static final TagKey<Item> SUMMER_LOGS = ItemTags.create(FeywildMod.getInstance().resource("summer_logs"));
+    public static final TagKey<Item> WINTER_LOGS = ItemTags.create(FeywildMod.getInstance().resource("winter_logs"));
 }

@@ -18,19 +18,15 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.BiomeLoader;
-import com.feywild.feywild.world.StructureLoader;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.gen.OreType;
-import com.feywild.feywild.world.structure.ModStructures;
-import com.feywild.feywild.world.structure.load.FeywildStructurePiece;
+import com.feywild.feywild.world.structure.load.ModStructurePieces;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -87,8 +83,8 @@ public final class FeywildMod extends ModXRegistration {
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
 
-        MinecraftForge.EVENT_BUS.addListener(BiomeLoader::loadBiome);
-        MinecraftForge.EVENT_BUS.addListener(StructureLoader::addStructureSettings);
+//        MinecraftForge.EVENT_BUS.addListener(BiomeLoader::loadBiome);
+//        MinecraftForge.EVENT_BUS.addListener(StructureLoader::addStructureSettings);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
@@ -126,10 +122,10 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            Registry.register(Registry.STRUCTURE_POOL_ELEMENT, FeywildStructurePiece.ID, FeywildStructurePiece.TYPE);
+            ModStructurePieces.setup();
             ModBiomeGeneration.setupBiomes();
             OreType.setupOres();
-            ModStructures.setupStructures();
+            // ModStructures.setupStructures();
 
             SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);

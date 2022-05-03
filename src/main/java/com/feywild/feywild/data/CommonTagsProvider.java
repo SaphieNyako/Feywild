@@ -14,7 +14,7 @@ import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -54,12 +54,12 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
     }
 
-    private void tool(Block block, Tag.Named<Block> tool, @Nullable Tag.Named<Block> level) {
+    private void tool(Block block, TagKey<Block> tool, @Nullable TagKey<Block> level) {
         this.block(tool).add(block);
         if (level != null) this.block(level).add(block);
     }
 
-    private void treeTags(BaseTree tree, Tag.Named<Block> logs, Tag.Named<Item> logItems) {
+    private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
         this.block(logs).add(
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),

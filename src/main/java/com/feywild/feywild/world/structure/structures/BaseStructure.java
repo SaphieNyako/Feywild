@@ -1,23 +1,23 @@
 package com.feywild.feywild.world.structure.structures;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.config.data.StructureData;
-import com.feywild.feywild.world.structure.StructureUtils;
+import com.feywild.feywild.world.structure.load.StructureUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.structures.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
+import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 
 import javax.annotation.Nonnull;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public abstract class BaseStructure extends StructureFeature<JigsawConfiguration> {
@@ -25,7 +25,7 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
     public BaseStructure(String structureId) {
         super(JigsawConfiguration.CODEC, new PlacementFactory(structureId));
     }
-
+/*
     public abstract StructureData getStructureData();
 
     public abstract int getSeedModifier();
@@ -36,7 +36,7 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
                 getStructureData().minimum_distance(),
                 getSeedModifier()
         );
-    }
+    } */
 
     @Nonnull
     @Override
@@ -62,9 +62,9 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
             if (!topBlock.getFluidState().isEmpty()) return Optional.empty();
 
             JigsawConfiguration config = new JigsawConfiguration(
-                    () -> context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(FeywildMod.getInstance().resource(structureId)),
-                    10
+                    context.registryAccess().ownedRegistryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
+                            .getHolder(ResourceKey.create(Registry.TEMPLATE_POOL_REGISTRY, FeywildMod.getInstance().resource(this.structureId)))
+                            .orElseThrow(() -> new NoSuchElementException("Template not found: " + this.structureId)), 10
             );
 
             return JigsawPlacement.addPieces(

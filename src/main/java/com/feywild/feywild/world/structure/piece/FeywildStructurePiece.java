@@ -1,4 +1,4 @@
-package com.feywild.feywild.world.structure.load;
+package com.feywild.feywild.world.structure.piece;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
@@ -8,7 +8,10 @@ import com.feywild.feywild.entity.ModEntityTypes;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.noeppi_noeppi.libx.fi.Function3;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.WorldGenRegion;
 import net.minecraft.world.entity.Entity;
@@ -17,41 +20,46 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.feature.structures.SinglePoolElement;
-import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElementType;
-import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
-public class FeywildStructurePiece extends SinglePoolElement {
+public abstract class FeywildStructurePiece extends SinglePoolElement {
 
     public static final ResourceLocation ID = new ResourceLocation(FeywildMod.getInstance().modid, "structure_piece");
 
-    public static final Codec<FeywildStructurePiece> CODEC = RecordCodecBuilder.create((builder) -> builder.group(
-            templateCodec(),
-            processorsCodec(),
-            projectionCodec()
-    ).apply(builder, FeywildStructurePiece::new));
-
-    public static final StructurePoolElementType<FeywildStructurePiece> TYPE = () -> CODEC;
-
-    protected FeywildStructurePiece(Either<ResourceLocation, StructureTemplate> template, Supplier<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
+    protected FeywildStructurePiece(Either<ResourceLocation, StructureTemplate> template, Holder<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
         super(template, processors, projection);
     }
 
+    public static <T extends FeywildStructurePiece> Codec<T> codec(Function3<Either<ResourceLocation, StructureTemplate>, Holder<StructureProcessorList>, StructureTemplatePool.Projection, T> ctor) {
+        return RecordCodecBuilder.create((builder) -> builder.group(
+                templateCodec(),
+                processorsCodec(),
+                projectionCodec()
+        ).apply(builder, ctor::apply));
+    }
+
+    public static <T extends FeywildStructurePiece> StructurePoolElementType<T> type(Function3<Either<ResourceLocation, StructureTemplate>, Holder<StructureProcessorList>, StructureTemplatePool.Projection, T> ctor) {
+        Codec<T> codec = codec(ctor);
+        return () -> codec;
+    }
+
     @Override
-    public boolean place(@Nonnull StructureManager templates, @Nonnull WorldGenLevel level, @Nonnull StructureFeatureManager structures, @Nonnull ChunkGenerator generator, @Nonnull BlockPos fromPos, @Nonnull BlockPos toPos, @Nonnull Rotation rot, @Nonnull BoundingBox box, @Nonnull Random random, boolean jigsaw) {
+    public boolean place(@Nonnull StructureManager templates, @Nonnull WorldGenLevel level, @Nonnull StructureFeatureManager structures, @Nonnull ChunkGenerator generator, @Nonnull BlockPos pos, @Nonnull BlockPos processorPos, @Nonnull Rotation rot, @Nonnull BoundingBox box, @Nonnull Random random, boolean jigsaw) {
+        Vec3i offset = this.placementOffset(level, generator);
         StructureTemplate template = this.template.map(templates::getOrCreate, Function.identity());
         StructurePlaceSettings settings = this.getSettings(rot, box, jigsaw);
-        if (!template.placeInWorld(level, fromPos, toPos, settings, random, 18)) {
+        if (!template.placeInWorld(level, pos.offset(offset), processorPos.offset(offset), settings, random, 18)) {
             return false;
         } else {
-            for (StructureTemplate.StructureBlockInfo info : StructureTemplate.processBlockInfos(level, fromPos, toPos, settings, this.getDataMarkers(templates, fromPos, rot, false), template)) {
+            for (StructureTemplate.StructureBlockInfo info : StructureTemplate.processBlockInfos(level, pos.offset(offset), processorPos.offset(offset), settings, this.getDataMarkers(templates, pos.offset(offset), rot, false), template)) {
                 this.handleCustomDataMarker(templates, structures, level, info, info.pos, rot, random, box);
             }
             return true;
@@ -83,8 +91,10 @@ public class FeywildStructurePiece extends SinglePoolElement {
 
     @Nonnull
     @Override
-    public StructurePoolElementType<?> getType() {
-        return TYPE;
+    public abstract StructurePoolElementType<?> getType();
+
+    protected Vec3i placementOffset(WorldGenLevel level, ChunkGenerator generator) {
+        return Vec3i.ZERO;
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -116,4 +126,5 @@ public class FeywildStructurePiece extends SinglePoolElement {
             level.addFreshEntity(entity);
         }
     }
+
 }

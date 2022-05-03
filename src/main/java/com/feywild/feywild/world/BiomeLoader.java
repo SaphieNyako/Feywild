@@ -1,15 +1,11 @@
 package com.feywild.feywild.world;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.config.MobConfig;
-import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.config.data.AdvancedSpawns;
 import com.feywild.feywild.config.data.CommonSpawns;
 import com.feywild.feywild.entity.ModEntityTypes;
-import com.feywild.feywild.world.feature.ModPlacements;
 import com.feywild.feywild.world.gen.OreType;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.Registry;
@@ -19,7 +15,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
@@ -63,27 +58,33 @@ public class BiomeLoader {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         ores(event, biomeId, types, random);
-        treePatches(event, biomeId, types, random);
-        feywildBiomes(event, biomeId, types, random);
+        //     treePatches(event, biomeId, types, random);
+        //   feywildBiomes(event, biomeId, types, random);
         mobSpawns(event, biomeId, types, random);
         commonStructures(event, biomeId, types, random);
     }
+
+    //TODO Add Ore generation
 
     private static void ores(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         for (OreType ore : OreType.values()) {
             if (!CompatConfig.mythic_alfheim.locked) {
                 if (!event.getCategory().equals(Biome.BiomeCategory.NETHER) && !event.getCategory().equals(Biome.BiomeCategory.THEEND)) {
-                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getStoneFeature());
-                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getDeepSlateFeature());
+                    //             event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getStoneFeature());
+                    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getDeepSlateFeature());
                 }
             }
             if (CompatConfig.mythic_alfheim.alfheim) {
                 if (AlfheimCompat.isAlfheim(types)) {
-                    event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
+                    //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
                 }
             }
         }
     }
+
+    //TODO Add TreePatches
+
+    /*
 
     private static void treePatches(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (types.contains(BiomeDictionary.Type.OVERWORLD)) {
@@ -113,6 +114,10 @@ public class BiomeLoader {
         event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true).filteredByBlockSurvival(tree.getSapling()));
     }
 
+     */
+
+    /*
+
     private static void feywildBiomes(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (SPRING_BIOME.equals(biomeId) || (SPRING_ALFHEIM.equals(biomeId) && CompatConfig.mythic_alfheim.alfheim)) {
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacements.SPRING_TREES);
@@ -138,7 +143,7 @@ public class BiomeLoader {
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacements.WINTER_CROCUS);
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacements.WINTER_FLOWERS);
         }
-    }
+    } */
 
     private static void mobSpawns(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (CompatConfig.mythic_alfheim.locked) {
@@ -194,8 +199,8 @@ public class BiomeLoader {
     private static void commonStructures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (!types.contains(BiomeDictionary.Type.OCEAN) && types.contains(BiomeDictionary.Type.OVERWORLD)) {
             if (types.contains(BiomeDictionary.Type.PLAINS)) {
-                // TODO structures
-//                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
+                // TODO spawn structures
+//               event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
 //                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_LIBRARY);
             }
         }

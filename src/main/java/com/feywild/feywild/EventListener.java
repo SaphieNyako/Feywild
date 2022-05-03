@@ -8,7 +8,6 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.OpenLibraryScreenSerializer;
 import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.network.TradesSerializer;
-import com.feywild.feywild.quest.player.CompletableTaskInfo;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
@@ -23,7 +22,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ScreenOpenEvent;
@@ -59,12 +57,10 @@ public class EventListener {
             QuestData quests = QuestData.get(player);
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
             //Quest Check for Biome
-            player.getLevel().getBiomeName(player.blockPosition()).ifPresent(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
+            player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            for (CompletableTaskInfo<StructureFeature<?>, StructureFeature<?>> task : quests.getAllCurrentTasks(StructureTask.INSTANCE)) {
-                if (player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), task.getValue()).isValid()) {
-                    task.checkComplete(task.getValue());
-                }
+            if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
+                player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
             }
         }
     }
