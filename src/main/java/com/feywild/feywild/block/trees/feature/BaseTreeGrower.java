@@ -1,10 +1,13 @@
-package com.feywild.feywild.block.trees;
+package com.feywild.feywild.block.trees.feature;
 
+import com.feywild.feywild.block.trees.*;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -26,6 +29,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProv
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.material.Material;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -33,7 +37,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
+public abstract class BaseTreeGrower extends AbstractTreeGrower implements Registerable {
 
     private static final int BASE_HEIGHT = 6;
     private static final int FIRST_RANDOM_HEIGHT = 7;
@@ -59,7 +63,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     private final FeyPlanksBlock plankBlock;
 
-    public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
+    public BaseTreeGrower(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD));
         this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
@@ -74,7 +78,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem
+                return ImmutableSet.of(BaseTreeGrower.this.logBlock, BaseTreeGrower.this.logItem
                 );
             }
         };
@@ -82,7 +86,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.strippedLogRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTree.this.strippedLog, BaseTree.this.strippedLogItem);
+                return ImmutableSet.of(BaseTreeGrower.this.strippedLog, BaseTreeGrower.this.strippedLogItem);
             }
         };
 
@@ -104,11 +108,11 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 .build();
     }
 
-    @Nonnull
+    @Nullable
     @Override
-    public ConfiguredFeature<TreeConfiguration, ?> getConfiguredFeature(@Nonnull Random random, boolean largeHive) {
+    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean largeHive) {
         TreeConfiguration featureConfig = this.getFeatureBuilder(random, largeHive).build();
-        return Feature.TREE.configured(featureConfig);
+        return FeatureUtils.register(this.getName(), Feature.TREE, featureConfig);
     }
 
     protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
@@ -119,6 +123,10 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 this.getFoliagePlacer(),
                 this.getTwoLayerFeature()
         );
+    }
+
+    protected String getName() {
+        return null;
     }
 
     protected FoliagePlacer getFoliagePlacer() {

@@ -2,7 +2,7 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTree;
+import com.feywild.feywild.block.trees.feature.BaseTreeGrower;
 import com.feywild.feywild.item.ModItems;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
@@ -84,7 +84,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus.getSeed()).with(this.count(1, 2)));
     }
 
-    private void treeDrops(BaseTree tree, ItemLike baseLog, ItemLike baseWood) {
+    private void treeDrops(BaseTreeGrower tree, ItemLike baseLog, ItemLike baseWood) {
         this.drops(tree.getLeafBlock(), this.first(
                 this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(

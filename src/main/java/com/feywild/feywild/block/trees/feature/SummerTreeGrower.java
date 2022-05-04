@@ -1,18 +1,20 @@
-package com.feywild.feywild.block.trees;
+package com.feywild.feywild.block.trees.feature;
 
+import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
-public class SummerTree extends BaseTree {
+public class SummerTreeGrower extends BaseTreeGrower {
 
-    public SummerTree(ModX mod) {
+    public SummerTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 20, ModParticles.summerLeafParticle));
     }
 
@@ -29,8 +31,13 @@ public class SummerTree extends BaseTree {
 
     @Override
     public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, Random random) {
-        if (Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
+        if (Registry.BLOCK.getHolderOrThrow(Registry.BLOCK.getResourceKey(level.getBlockState(pos.below()).getBlock()).get()).is(BlockTags.DIRT)) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
+    }
+
+    @Override
+    protected String getName() {
+        return "summer_tree";
     }
 }

@@ -1,6 +1,8 @@
-package com.feywild.feywild.block.trees;
+package com.feywild.feywild.block.trees.feature;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
+import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
 import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -18,10 +20,20 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDeco
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AutumnTree extends BaseTree {
+public class AutumnTreeGrower extends BaseTreeGrower {
 
-    public AutumnTree(ModX mod) {
+    public AutumnTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
+    }
+
+    private static BlockState getDecorationBlock(Random random) {
+        return switch (random.nextInt(20)) {
+            case 0 -> Blocks.PUMPKIN.defaultBlockState();
+            case 1 -> Blocks.CARVED_PUMPKIN.defaultBlockState();
+            case 2 -> Blocks.RED_MUSHROOM.defaultBlockState();
+            case 3 -> Blocks.BROWN_MUSHROOM.defaultBlockState();
+            default -> Blocks.FERN.defaultBlockState();
+        };
     }
 
     @Override
@@ -29,6 +41,11 @@ public class AutumnTree extends BaseTree {
         return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
                 new AlterGroundDecorator(SimpleStateProvider.simple(Blocks.PODZOL.defaultBlockState()))
         ));
+    }
+
+    @Override
+    protected String getName() {
+        return "autumn_tree";
     }
 
     @Override
@@ -41,16 +58,6 @@ public class AutumnTree extends BaseTree {
         if (random.nextDouble() < 0.2) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
-    }
-
-    private static BlockState getDecorationBlock(Random random) {
-        return switch (random.nextInt(20)) {
-            case 0 -> Blocks.PUMPKIN.defaultBlockState();
-            case 1 -> Blocks.CARVED_PUMPKIN.defaultBlockState();
-            case 2 -> Blocks.RED_MUSHROOM.defaultBlockState();
-            case 3 -> Blocks.BROWN_MUSHROOM.defaultBlockState();
-            default -> Blocks.FERN.defaultBlockState();
-        };
     }
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {

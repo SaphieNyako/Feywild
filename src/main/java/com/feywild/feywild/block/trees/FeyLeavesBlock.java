@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
@@ -56,18 +57,6 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
     }
 
-    @Override
-    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ComposterBlock.add(0.4f, this));
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
-    }
-
-
     protected static BlockState updateDistance(BlockState state, LevelAccessor levelIn, BlockPos pos) {
         int distance = MAX_DISTANCE;
         BlockPos.MutableBlockPos current = new BlockPos.MutableBlockPos();
@@ -81,13 +70,24 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     }
 
     private static int getDistance(BlockState neighbor) {
-        if (BlockTags.LOGS.contains(neighbor.getBlock())) {
+        if (Registry.BLOCK.getHolderOrThrow(Registry.BLOCK.getResourceKey(neighbor.getBlock()).get()).is(BlockTags.LOGS)) {
             return 0;
         } else if (neighbor.getBlock() instanceof FeyLeavesBlock) {
             return neighbor.getValue(DISTANCE);
         } else {
             return MAX_DISTANCE;
         }
+    }
+
+    @Override
+    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> ComposterBlock.add(0.4f, this));
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
+        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Override

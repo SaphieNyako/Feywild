@@ -1,8 +1,10 @@
 package com.feywild.feywild.world;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.trees.feature.TreePlacedFeatures;
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.config.MobConfig;
+import com.feywild.feywild.config.WorldGenConfig;
 import com.feywild.feywild.config.data.AdvancedSpawns;
 import com.feywild.feywild.config.data.CommonSpawns;
 import com.feywild.feywild.entity.ModEntityTypes;
@@ -15,6 +17,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
@@ -58,7 +61,7 @@ public class BiomeLoader {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         ores(event, biomeId, types, random);
-        //     treePatches(event, biomeId, types, random);
+        treePatches(event, biomeId, types, random);
         //   feywildBiomes(event, biomeId, types, random);
         mobSpawns(event, biomeId, types, random);
         commonStructures(event, biomeId, types, random);
@@ -82,39 +85,33 @@ public class BiomeLoader {
         }
     }
 
-    //TODO Add TreePatches
-
-    /*
-
     private static void treePatches(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (types.contains(BiomeDictionary.Type.OVERWORLD)) {
             if (((types.contains(BiomeDictionary.Type.PLAINS) || types.contains(BiomeDictionary.Type.RIVER) || types.contains(BiomeDictionary.Type.FOREST))
                     && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.spring) {
-                addLooseTrees(event, ModTrees.springTree, random, types.contains(BiomeDictionary.Type.FOREST));
+
+                event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(TreePlacedFeatures.SPRING_PLACED);
             }
 
             if (((types.contains(BiomeDictionary.Type.HOT) || types.contains(BiomeDictionary.Type.LUSH))
                     && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.summer) {
-                addLooseTrees(event, ModTrees.summerTree, random, false);
+
+                event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(TreePlacedFeatures.SUMMER_PLACED);
             }
 
             if (((types.contains(BiomeDictionary.Type.SWAMP) || types.contains(BiomeDictionary.Type.MUSHROOM) || types.contains(BiomeDictionary.Type.SPOOKY))
                     && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.autumn) {
-                addLooseTrees(event, ModTrees.autumnTree, random, false);
+
+                event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(TreePlacedFeatures.AUTUMN_PLACED);
             }
 
             if (((types.contains(BiomeDictionary.Type.DEAD) || types.contains(BiomeDictionary.Type.SNOWY) || types.contains(BiomeDictionary.Type.COLD))
                     && !types.contains(BiomeDictionary.Type.MAGICAL)) && WorldGenConfig.tree_patches.winter) {
-                addLooseTrees(event, ModTrees.winterTree, random, false);
+
+                event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION).add(TreePlacedFeatures.WINTER_PLACED);
             }
         }
     }
-
-    private static void addLooseTrees(BiomeLoadingEvent event, BaseTree tree, Random random, boolean isForest) {
-        event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, tree.getConfiguredFeature(random, true).filteredByBlockSurvival(tree.getSapling()));
-    }
-
-     */
 
     /*
 

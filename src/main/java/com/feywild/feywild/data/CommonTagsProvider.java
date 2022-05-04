@@ -3,7 +3,7 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
-import com.feywild.feywild.block.trees.BaseTree;
+import com.feywild.feywild.block.trees.feature.BaseTreeGrower;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.tag.ModBlockTags;
@@ -59,7 +59,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         if (level != null) this.block(level).add(block);
     }
 
-    private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
+    private void treeTags(BaseTreeGrower tree, TagKey<Block> logs, TagKey<Item> logItems) {
         this.block(logs).add(
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),

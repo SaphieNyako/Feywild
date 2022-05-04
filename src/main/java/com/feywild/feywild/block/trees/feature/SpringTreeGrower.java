@@ -1,18 +1,20 @@
-package com.feywild.feywild.block.trees;
+package com.feywild.feywild.block.trees.feature;
 
+import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
 
 import java.util.Random;
 
-public class SpringTree extends BaseTree {
+public class SpringTreeGrower extends BaseTreeGrower {
 
-    public SpringTree(ModX mod) {
+    public SpringTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 14, ModParticles.springLeafParticle));
     }
 
@@ -31,9 +33,14 @@ public class SpringTree extends BaseTree {
     }
 
     @Override
+    protected String getName() {
+        return "spring_tree";
+    }
+
+    @Override
     public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, Random random) {
         if (random.nextDouble() < 0.3) {
-            if (Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock())) {
+            if (Registry.BLOCK.getHolderOrThrow(Registry.BLOCK.getResourceKey(level.getBlockState(pos.below()).getBlock()).get()).is(BlockTags.DIRT)) {
                 level.setBlockAndUpdate(pos, getDecorationBlock(random));
             }
         }
