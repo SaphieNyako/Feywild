@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.block.trees.feature.BaseTreeGrower;
+import com.feywild.feywild.world.feature.trees.BaseTreeGrower;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;

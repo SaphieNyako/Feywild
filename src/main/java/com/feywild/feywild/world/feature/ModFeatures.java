@@ -1,23 +1,23 @@
 package com.feywild.feywild.world.feature;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.world.feature.specialfeatures.AutumnPumpkinsFeature;
+import com.feywild.feywild.world.feature.specialfeatures.GiantFlowerFeature;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 @RegisterClass
 public class ModFeatures {
 
+    //TODO SPECIAL FEATURES
+
     public static final Feature<NoneFeatureConfiguration> autumnPumpkins = new AutumnPumpkinsFeature();
     public static final Feature<NoneFeatureConfiguration> sunflowers = new GiantFlowerFeature(ModBlocks.sunflower);
     public static final Feature<NoneFeatureConfiguration> dandelions = new GiantFlowerFeature(ModBlocks.dandelion);
     public static final Feature<NoneFeatureConfiguration> crocus = new GiantFlowerFeature(ModBlocks.crocus);
+
+    /*
 
     public static class Configured {
 
@@ -30,5 +30,8 @@ public class ModFeatures {
             return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation(FeywildMod.getInstance().modid, key), feature);
         }
     }
+
+     */
+
 }
 

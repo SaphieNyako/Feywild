@@ -2,8 +2,8 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.feature.BaseTreeGrower;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.world.feature.trees.BaseTreeGrower;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;

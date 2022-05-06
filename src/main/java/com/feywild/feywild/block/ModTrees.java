@@ -1,7 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.trees.feature.*;
+import com.feywild.feywild.world.feature.trees.*;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 
 @RegisterClass

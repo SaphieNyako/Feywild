@@ -20,8 +20,7 @@ import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.dimension.market.MarketGenerator;
-import com.feywild.feywild.world.gen.OreType;
-import com.feywild.feywild.world.structure.load.ModStructurePieces;
+import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
@@ -124,7 +123,6 @@ public final class FeywildMod extends ModXRegistration {
         event.enqueueWork(() -> {
             ModStructurePieces.setup();
             ModBiomeGeneration.setupBiomes();
-            OreType.setupOres();
             // ModStructures.setupStructures();
 
             SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
