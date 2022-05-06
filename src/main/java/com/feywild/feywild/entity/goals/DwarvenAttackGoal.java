@@ -17,6 +17,8 @@ import java.util.List;
 
 public class DwarvenAttackGoal extends Goal {
 
+    //TODO make attack faster and more frequent
+
     protected final DwarfBlacksmith entity;
     protected LivingEntity target;
     protected boolean sendShock = false;

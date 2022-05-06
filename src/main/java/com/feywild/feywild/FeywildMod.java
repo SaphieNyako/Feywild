@@ -18,6 +18,7 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
+import com.feywild.feywild.world.ModWorldGeneration;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.dimension.market.MarketGenerator;
 import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
@@ -82,7 +83,7 @@ public final class FeywildMod extends ModXRegistration {
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
 
-//        MinecraftForge.EVENT_BUS.addListener(BiomeLoader::loadBiome);
+        MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadBiome);
 //        MinecraftForge.EVENT_BUS.addListener(StructureLoader::addStructureSettings);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);

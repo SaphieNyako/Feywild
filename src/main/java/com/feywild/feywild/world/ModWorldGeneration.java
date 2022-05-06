@@ -77,7 +77,7 @@ public class ModWorldGeneration {
         }
         if (CompatConfig.mythic_alfheim.alfheim) {
             if (AlfheimCompat.isAlfheim(types)) {
-                //            event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
+                //event.getGeneration().addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, ore.getAlfheimFeature());
             }
         }
     }
@@ -161,6 +161,7 @@ public class ModWorldGeneration {
                 addAdvancedSpawns(event, biomeId, ModEntityTypes.summerPixie, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.spawns.summer_pixie);
                 addAdvancedSpawns(event, biomeId, ModEntityTypes.autumnPixie, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.autumn_pixie);
                 addAdvancedSpawns(event, biomeId, ModEntityTypes.winterPixie, WINTER_BIOME, WINTER_ALFHEIM, types, MobConfig.spawns.winter_pixie);
+                addAdvancedSpawns(event, biomeId, ModEntityTypes.beeKnight, SUMMER_BIOME, SUMMER_ALFHEIM, types, MobConfig.spawns.summer_bee_knight);
                 addAdvancedSpawns(event, biomeId, ModEntityTypes.shroomling, AUTUMN_BIOME, AUTUMN_ALFHEIM, types, MobConfig.spawns.shroomling);
             }
         }

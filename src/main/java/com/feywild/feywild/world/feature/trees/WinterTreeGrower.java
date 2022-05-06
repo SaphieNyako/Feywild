@@ -56,7 +56,7 @@ public class WinterTreeGrower extends BaseTreeGrower {
         protected void decorateLeaves(BlockState state, WorldGenLevel level, BlockPos pos, Random random) {
             BlockPos.MutableBlockPos mpos = pos.mutable();
             for (int i = 0; i < 30; i++) {
-                if (level.getBlockState(mpos).isAir() && Registry.BLOCK.getHolderOrThrow(Registry.BLOCK.getResourceKey(level.getBlockState(pos.below()).getBlock()).get()).is(BlockTags.DIRT)) {
+                if (level.getBlockState(mpos).isAir() && level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
                     level.setBlock(mpos, Blocks.SNOW.defaultBlockState(), 19);
                     if (level.getBlockState(mpos.below()).hasProperty(SnowyDirtBlock.SNOWY))
                         level.setBlock(mpos.below(), level.getBlockState(mpos.below()).setValue(SnowyDirtBlock.SNOWY, true), 19);
