@@ -21,6 +21,7 @@ import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.ModWorldGeneration;
 import com.feywild.feywild.world.biome.ModBiomeGeneration;
 import com.feywild.feywild.world.dimension.market.MarketGenerator;
+import com.feywild.feywild.world.feature.structure.ModStructures;
 import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -37,6 +38,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -76,15 +78,17 @@ public final class FeywildMod extends ModXRegistration {
 //            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
 //        }
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityMana::register);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        eventBus.addListener(CapabilityMana::register);
+        eventBus.addListener(CapabilityQuests::register);
+        eventBus.addListener(this::entityAttributes);
+        eventBus.addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
+
+        ModStructures.register(eventBus);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
-
         MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadBiome);
-//        MinecraftForge.EVENT_BUS.addListener(StructureLoader::addStructureSettings);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
@@ -93,7 +97,6 @@ public final class FeywildMod extends ModXRegistration {
         MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
-        // Quest task & reward types. Not in setup as they are required for datagen.
         TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "fey_gift"), FeyGiftTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "item"), ItemTask.INSTANCE);
@@ -124,7 +127,6 @@ public final class FeywildMod extends ModXRegistration {
         event.enqueueWork(() -> {
             ModStructurePieces.setup();
             ModBiomeGeneration.setupBiomes();
-            // ModStructures.setupStructures();
 
             SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);

@@ -55,10 +55,16 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
         @Nonnull
         @Override
         public Optional<PieceGenerator<JigsawConfiguration>> createGenerator(@Nonnull Context<JigsawConfiguration> context) {
+
             BlockPos centerOfChunk = context.chunkPos().getMiddleBlockPosition(0);
-            int landHeight = context.chunkGenerator().getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(), Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
+
+            int landHeight = context.chunkGenerator().getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(),
+                    Heightmap.Types.WORLD_SURFACE_WG, context.heightAccessor());
+
             NoiseColumn columnOfBlocks = context.chunkGenerator().getBaseColumn(centerOfChunk.getX(), centerOfChunk.getZ(), context.heightAccessor());
+
             BlockState topBlock = columnOfBlocks.getBlock(landHeight);
+
             if (!topBlock.getFluidState().isEmpty()) return Optional.empty();
 
             JigsawConfiguration config = new JigsawConfiguration(

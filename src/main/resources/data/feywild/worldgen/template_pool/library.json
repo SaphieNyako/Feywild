@@ -1,0 +1,15 @@
+{
+  "name": "feywild:library/side_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "feywild:library",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "feywild:library"
+      }
+    }
+  ]
+}

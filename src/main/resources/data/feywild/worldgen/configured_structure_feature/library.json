@@ -1,0 +1,16 @@
+{
+  "type": "feywild:library",
+  "config": {
+    "start_pool": "feywild:library",
+    "size": 1
+  },
+  "biomes": "#feywild:has_structure/library_biomes",
+  "adapt_noise": true,
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+      ]
+    }
+  }
+}

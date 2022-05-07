@@ -8,7 +8,7 @@ public class LibraryStructure extends BaseStructure {
     ); */
 
     public LibraryStructure() {
-        super("library/start_pool");
+        super("library");
     }
 
     /*

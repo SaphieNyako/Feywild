@@ -1,0 +1,16 @@
+{
+  "type": "feywild:blacksmith",
+  "config": {
+    "start_pool": "feywild:blacksmith",
+    "size": 1
+  },
+  "biomes": "#feywild:has_structure/blacksmith_biomes",
+  "adapt_noise": true,
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "piece",
+      "spawns": [
+      ]
+    }
+  }
+}
