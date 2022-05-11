@@ -47,6 +47,12 @@ public class MarketDwarf extends DwarfBlacksmith {
     }
 
     @Override
+    protected void trade(Player player) {
+        this.setTradingPlayer(player);
+        this.openTradingScreen(player, new TranslatableComponent("Dwarven Trader"), 1);
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));

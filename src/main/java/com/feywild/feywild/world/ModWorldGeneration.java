@@ -64,7 +64,6 @@ public class ModWorldGeneration {
         treePatches(event, biomeId, types, random);
         //   feywildBiomes(event, biomeId, types, random);
         mobSpawns(event, biomeId, types, random);
-        commonStructures(event, biomeId, types, random);
     }
 
     //TODO Add Ore generation
@@ -189,15 +188,5 @@ public class ModWorldGeneration {
 
     private static void addSpawn(BiomeLoadingEvent event, EntityType<?> type, MobCategory classification, CommonSpawns data) {
         event.getSpawns().getSpawner(classification).add(new MobSpawnSettings.SpawnerData(type, data.weight(), data.min(), data.max()));
-    }
-
-    private static void commonStructures(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
-        if (!types.contains(BiomeDictionary.Type.OCEAN) && types.contains(BiomeDictionary.Type.OVERWORLD)) {
-            if (types.contains(BiomeDictionary.Type.PLAINS)) {
-                // TODO spawn structures
-//               event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_BLACKSMITH);
-//                event.getGeneration().addStructureStart(ModConfiguredStructures.CONFIGURED_LIBRARY);
-            }
-        }
     }
 }

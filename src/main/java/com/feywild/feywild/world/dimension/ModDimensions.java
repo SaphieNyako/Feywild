@@ -8,5 +8,6 @@ import net.minecraft.world.level.Level;
 
 public class ModDimensions {
 
-    public static final ResourceKey<Level> MARKET_PLACE_DIMENSION = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(FeywildMod.getInstance().modid, "market_place_dimension"));
+    public static final ResourceKey<Level> MARKET_PLACE_DIMENSION =
+            ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(FeywildMod.getInstance().modid, "market_place_dimension"));
 }
