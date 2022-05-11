@@ -51,7 +51,7 @@ public class ModWorldGeneration {
             SPRING_ALFHEIM, SUMMER_ALFHEIM, AUTUMN_ALFHEIM, WINTER_ALFHEIM
     );
 
-    public static void loadBiome(BiomeLoadingEvent event) {
+    public static void loadWorldGeneration(BiomeLoadingEvent event) {
         Random random = new Random();
         @Nullable
         ResourceLocation biomeId = event.getName();

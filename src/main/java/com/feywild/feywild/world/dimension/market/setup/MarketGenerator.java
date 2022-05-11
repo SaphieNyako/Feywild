@@ -1,4 +1,4 @@
-package com.feywild.feywild.world.dimension.market;
+package com.feywild.feywild.world.dimension.market.setup;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.util.BoundingBoxUtil;

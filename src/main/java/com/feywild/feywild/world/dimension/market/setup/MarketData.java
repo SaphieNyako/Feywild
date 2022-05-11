@@ -1,7 +1,7 @@
-package com.feywild.feywild.world.dimension.market;
+package com.feywild.feywild.world.dimension.market.setup;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.world.dimension.ModDimensions;
+import com.feywild.feywild.world.dimension.market.MarketPlaceDimensions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +29,7 @@ public class MarketData extends SavedData {
 
     @Nullable
     public static MarketData get(ServerLevel level) {
-        if (level.dimension() != ModDimensions.MARKET_PLACE_DIMENSION) return null;
+        if (level.dimension() != MarketPlaceDimensions.MARKET_PLACE_DIMENSION) return null;
         DimensionDataStorage storage = level.getDataStorage();
         return storage.computeIfAbsent(MarketData::new, MarketData::new, FeywildMod.getInstance().modid + "_market");
     }

@@ -1,4 +1,4 @@
-package com.feywild.feywild.world.biome;
+package com.feywild.feywild.world.dimension.feywild.biome;
 
 // TODO mythicbotany
 // No @RegisterClass as this may not be loaded if MythicBotany is

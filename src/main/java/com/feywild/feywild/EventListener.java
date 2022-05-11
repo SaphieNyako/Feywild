@@ -13,7 +13,7 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.FeywildTitleScreen;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.dimension.market.MarketHandler;
+import com.feywild.feywild.world.dimension.market.setup.MarketHandler;
 import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.TranslatableComponent;

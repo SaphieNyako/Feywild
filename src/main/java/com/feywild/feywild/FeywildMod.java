@@ -19,8 +19,9 @@ import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.ModWorldGeneration;
-import com.feywild.feywild.world.biome.ModBiomeGeneration;
-import com.feywild.feywild.world.dimension.market.MarketGenerator;
+import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
+import com.feywild.feywild.world.dimension.feywild.FeywildGeneration;
+import com.feywild.feywild.world.dimension.market.setup.MarketGenerator;
 import com.feywild.feywild.world.feature.structure.ModStructures;
 import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
@@ -88,10 +89,12 @@ public final class FeywildMod extends ModXRegistration {
         ModStructures.register(eventBus);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
-        MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadBiome);
+        MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadWorldGeneration);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
+
+        this.addRegistrationHandler(FeywildDimension::register);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
         MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
@@ -126,7 +129,6 @@ public final class FeywildMod extends ModXRegistration {
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModStructurePieces.setup();
-            ModBiomeGeneration.setupBiomes();
 
             SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
@@ -142,6 +144,8 @@ public final class FeywildMod extends ModXRegistration {
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntityTypes.dwarfArtificer, new BlockPos(7, 63, -2));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntityTypes.dwarfDragonHunter, new BlockPos(21, 63, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntityTypes.dwarfToolsmith, new BlockPos(21, 63, 11));
+
+            FeywildGeneration.setupBiomes();
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();

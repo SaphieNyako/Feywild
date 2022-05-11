@@ -1,4 +1,4 @@
-package com.feywild.feywild.world.dimension;
+package com.feywild.feywild.world.dimension.market.teleporter;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
