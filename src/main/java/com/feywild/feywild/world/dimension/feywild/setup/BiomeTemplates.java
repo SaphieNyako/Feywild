@@ -40,7 +40,7 @@ public class BiomeTemplates {
     }
 
     public static void mountains(BiomeConfiguration gen) {
-        gen.depth(0.2f, 0.5f);
+        gen.depth(0.3f, 0.7f);
         gen.continentalness(0.6f, 1f);
         gen.erosion(0.1f, 0.25f);
         gen.weirdness(0.1f, 0.25f);

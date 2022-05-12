@@ -19,7 +19,7 @@ public class FlowersConfiguredFeatures {
     //TODO SET SPAWN RATE
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SPRING_FLOWERS =
             FeatureUtils.register("spring_flowers", Feature.FLOWER,
-                    new RandomPatchConfiguration(96, 6, 2,
+                    new RandomPatchConfiguration(32, 6, 2,
                             PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                                     new SimpleBlockConfiguration(new NoiseProvider(2345L,
                                             new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F,
@@ -37,13 +37,13 @@ public class FlowersConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> AUTUMN_FLOWERS =
             FeatureUtils.register("autumn_flowers", Feature.FLOWER,
-                    new RandomPatchConfiguration(64, 6, 2,
+                    new RandomPatchConfiguration(32, 6, 2,
                             PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                                     new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.BLUE_ORCHID)))));
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SUMMER_FLOWERS =
             FeatureUtils.register("summer_flowers", Feature.FLOWER,
-                    new RandomPatchConfiguration(96, 6, 2,
+                    new RandomPatchConfiguration(32, 6, 2,
                             PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                                     new SimpleBlockConfiguration(new NoiseProvider(2345L,
                                             new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F,
@@ -55,7 +55,7 @@ public class FlowersConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> WINTER_FLOWERS =
             FeatureUtils.register("winter_flowers", Feature.FLOWER,
-                    new RandomPatchConfiguration(96, 6, 2,
+                    new RandomPatchConfiguration(32, 6, 2,
                             PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK,
                                     new SimpleBlockConfiguration(new NoiseProvider(2345L,
                                             new NormalNoise.NoiseParameters(0, 1.0D), 0.020833334F,

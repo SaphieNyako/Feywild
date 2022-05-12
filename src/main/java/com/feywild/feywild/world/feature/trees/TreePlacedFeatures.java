@@ -7,12 +7,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class TreePlacedFeatures {
 
-    //TODO Test TreePatches old settings: ClampedNormalInt.of(1, 0.5f, 1, 4)
-/*
-    public static final Holder<PlacedFeature> SPRING_PLACED = PlacementUtils.register("spring_placed",
-            TreeConfiguredFeatures.SPRING_SPAWN, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), BiomeFilter.biome());
-
-*/
     public static final Holder<PlacedFeature> SPRING_PLACED = PlacementUtils.register("spring_placed",
             TreeConfiguredFeatures.SPRING_SPAWN, VegetationPlacements.treePlacement(
                     PlacementUtils.countExtra(-3, 0.01f, 6)));

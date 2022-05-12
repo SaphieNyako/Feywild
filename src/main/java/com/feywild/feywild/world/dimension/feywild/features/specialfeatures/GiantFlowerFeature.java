@@ -1,16 +1,16 @@
-package com.feywild.feywild.world.feature.specialfeatures;
+package com.feywild.feywild.world.dimension.feywild.features.specialfeatures;
 
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.GiantFlowerSeedItem;
+import com.feywild.feywild.world.dimension.feywild.util.FeywildWorldGenUtil;
+import com.feywild.feywild.world.dimension.feywild.util.HorizontalPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class GiantFlowerFeature extends Feature<NoneFeatureConfiguration> {
 
@@ -23,33 +23,26 @@ public class GiantFlowerFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(@Nonnull FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        boolean success = false;
-        for (int i = 0; i < 8; ++i) {
-            BlockPos target = context.origin().offset(
-                    context.random().nextInt(6) - context.random().nextInt(6),
-                    context.random().nextInt(4) - context.random().nextInt(4),
-                    context.random().nextInt(6) - context.random().nextInt(6)
-            );
-            if (this.trySpawnFlower(context.level(), target, context.random())) {
-                success = true;
-            }
+        if (context.random().nextInt(3) == 0) {
+            return FeywildWorldGenUtil.generateTries(context, 3, this::trySpawnFlower);
+        } else {
+            return false;
         }
-
-        return success;
     }
 
-    public boolean trySpawnFlower(WorldGenLevel level, BlockPos pos, Random random) {
-        if (level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
+    public boolean trySpawnFlower(FeaturePlaceContext<NoneFeatureConfiguration> context, HorizontalPos horizontalPos) {
+        BlockPos target = FeywildWorldGenUtil.highestFreeBlock(context.level(), horizontalPos, FeywildWorldGenUtil::passReplaceableAndLeaves);
+        if (!context.level().getBlockState(target.below()).is(BlockTags.DIRT)) {
             return false;
         }
 
         for (int i = 0; i < this.block.height; i++) {
-            if (!level.getBlockState(pos.above(i)).isAir()) {
+            if (!context.level().getBlockState(target.above(i)).isAir()) {
                 return false;
             }
         }
 
-        GiantFlowerSeedItem.placeFlower(this.block, level, pos, random, 3);
+        GiantFlowerSeedItem.placeFlower(this.block, context.level(), target, context.random(), 3);
         return true;
     }
 }

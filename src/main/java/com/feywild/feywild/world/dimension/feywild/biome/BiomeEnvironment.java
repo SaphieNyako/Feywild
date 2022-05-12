@@ -2,12 +2,14 @@ package com.feywild.feywild.world.dimension.feywild.biome;
 
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.world.dimension.feywild.features.FeywildDimensionPlacements;
+import com.feywild.feywild.world.feature.flowers.FlowersPlacedFeatures;
+import com.feywild.feywild.world.feature.ores.OrePlacedFeatures;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
-import net.minecraft.data.worldgen.placement.TreePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -28,9 +30,10 @@ public class BiomeEnvironment {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder()
                 .creatureGenerationProbability(0.2f);
         BiomeDefaultFeatures.farmAnimals(builder);
+        BiomeDefaultFeatures.commonSpawns(builder);
         return builder
-                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.springPixie, MobConfig.spawns.spring_pixie.weight(), MobConfig.spawns.spring_pixie.min(), MobConfig.spawns.spring_pixie.max()))
-                .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ILLUSIONER, 1, 1, 1));
+                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.springPixie, MobConfig.spawns.spring_pixie.weight() * 2, MobConfig.spawns.spring_pixie.min(), MobConfig.spawns.spring_pixie.max()))
+                .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ILLUSIONER, 10, 1, 1));
     }
 
     public static BiomeSpecialEffects.Builder springAmbience() {
@@ -44,23 +47,31 @@ public class BiomeEnvironment {
     }
 
     public static BiomeGenerationSettings.Builder springFeatures() {
+
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
         BiomeDefaultFeatures.addExtraEmeralds(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder);
         return builder
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FeywildDimensionPlacements.springDandelions)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeywildDimensionPlacements.springTrees)
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.SPRING_FLOWERS_PLACED)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER)
-                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_CLAY)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_SAND);
     }
 
     public static MobSpawnSettings.Builder summerMobs() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder()
-                .creatureGenerationProbability(0.1f);
+                .creatureGenerationProbability(0.2f);
         BiomeDefaultFeatures.farmAnimals(builder);
+        BiomeDefaultFeatures.commonSpawns(builder);
         return builder
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.summerPixie, MobConfig.spawns.summer_pixie.weight(), MobConfig.spawns.summer_pixie.min(), MobConfig.spawns.summer_pixie.max()))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.beeKnight, MobConfig.spawns.summer_bee_knight.weight(), MobConfig.spawns.summer_bee_knight.min(), MobConfig.spawns.summer_bee_knight.max()))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.BEE, 20, 2, 3))
-                .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.PILLAGER, 1, 2, 5));
+                .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.PILLAGER, 1, 1, 3));
     }
 
     public static BiomeSpecialEffects.Builder summerAmbience() {
@@ -81,17 +92,25 @@ public class BiomeEnvironment {
         BiomeDefaultFeatures.addJungleMelons(builder);
         BiomeDefaultFeatures.addJungleGrass(builder);
         BiomeDefaultFeatures.addExtraGold(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder);
         return builder
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FeywildDimensionPlacements.summerSunflowers)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeywildDimensionPlacements.summerTrees)
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.SUMMER_FLOWERS_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.SUMMER_SUNFLOWERS_PLACED)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUNFLOWER);
     }
 
     public static MobSpawnSettings.Builder autumnMobs() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.commonSpawns(builder);
         return builder
-                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.autumnPixie, MobConfig.spawns.autumn_pixie.weight(), MobConfig.spawns.autumn_pixie.min(), MobConfig.spawns.autumn_pixie.max()))
-                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.shroomling, MobConfig.spawns.shroomling.weight(), MobConfig.spawns.shroomling.min(), MobConfig.spawns.shroomling.max()))
+                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.autumnPixie, MobConfig.spawns.autumn_pixie.weight() * 2, MobConfig.spawns.autumn_pixie.min(), MobConfig.spawns.autumn_pixie.max()))
+                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.shroomling, MobConfig.spawns.shroomling.weight() * 2, MobConfig.spawns.shroomling.min(), MobConfig.spawns.shroomling.max()))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 20, 2, 3))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 10, 2, 3))
+                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.MOOSHROOM, 10, 2, 3))
                 .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.WITCH, 3, 2, 5));
     }
 
@@ -104,16 +123,24 @@ public class BiomeEnvironment {
                 .waterFogColor(0x232317)
                 .fogColor(0xc0d8ff)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.8f));
-
     }
 
     public static BiomeGenerationSettings.Builder autumnFeatures() {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
         BiomeDefaultFeatures.addMushroomFieldVegetation(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder);
+
         return builder
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FeywildDimensionPlacements.autumnPumpkins)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeywildDimensionPlacements.autumnTrees)
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.AUTUMN_FLOWERS_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.AUTUMN_BROWN_MUSHROOM_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.AUTUMN_RED_MUSHROOM_PLACED)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_WATERLILY)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_PUMPKIN)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_LARGE_FERN)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_SWAMP)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.RED_MUSHROOM_OLD_GROWTH)
@@ -122,6 +149,7 @@ public class BiomeEnvironment {
 
     public static MobSpawnSettings.Builder winterMobs() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.commonSpawns(builder);
         return builder
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.winterPixie, MobConfig.spawns.winter_pixie.weight(), MobConfig.spawns.winter_pixie.min(), MobConfig.spawns.winter_pixie.max()))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 10, 1, 2))
@@ -146,22 +174,27 @@ public class BiomeEnvironment {
         BiomeDefaultFeatures.addDefaultGrass(builder);
         BiomeDefaultFeatures.addSurfaceFreezing(builder);
         BiomeDefaultFeatures.addIcebergs(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder);
         return builder
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FeywildDimensionPlacements.winterCrocus)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeywildDimensionPlacements.winterTrees)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.WINTER_FLOWERS_PLACED)
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
                 .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_SPIKE)
-                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH)
-                //   .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VillagePlacements.PILE_SNOW_VILLAGE)
-                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, TreePlacements.JUNGLE_BUSH);
+                .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH);
     }
 
     public static MobSpawnSettings.Builder oceanMobs() {
-        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder()
+                .creatureGenerationProbability(0.2f);
+        BiomeDefaultFeatures.plainsSpawns(builder);
+        BiomeDefaultFeatures.commonSpawns(builder);
         return builder
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.DOLPHIN, 10, 1, 2))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 20, 3, 4))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PUFFERFISH, 20, 3, 4))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 20, 3, 4))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.GLOW_SQUID, 20, 3, 4));
-
     }
 
     public static BiomeSpecialEffects.Builder oceanAmbience() {
@@ -171,23 +204,29 @@ public class BiomeEnvironment {
                 .waterFogColor(0x41633)
                 .fogColor(0x45adf2)
                 .skyColor(OverworldBiomes.calculateSkyColor(0.8f));
-
     }
 
     public static BiomeGenerationSettings.Builder oceanFeatures() {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
+        BiomeDefaultFeatures.addPlainGrass(builder);
         return builder
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
                 .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, AquaticPlacements.WARM_OCEAN_VEGETATION)
                 .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, AquaticPlacements.SEA_PICKLE)
-                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_DEEP_WARM);
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_DEEP_WARM)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.FLOWER_PLAINS)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUGAR_CANE)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_PLAIN);
     }
 
     public static MobSpawnSettings.Builder goldenMountainMobs() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.commonSpawns(builder);
         return builder
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.beeKnight, MobConfig.spawns.summer_bee_knight.weight(), MobConfig.spawns.summer_bee_knight.min(), MobConfig.spawns.summer_bee_knight.max()))
                 .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.GOAT, 20, 2, 4));
-
     }
 
     public static BiomeSpecialEffects.Builder goldenMountainAmbience() {
@@ -204,7 +243,7 @@ public class BiomeEnvironment {
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
         BiomeDefaultFeatures.addSavannaGrass(builder);
         return builder
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
                 .addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VegetationPlacements.PATCH_SUNFLOWER);
     }
-
 }

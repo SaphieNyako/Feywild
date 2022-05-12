@@ -115,7 +115,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
         return FeatureUtils.register(this.getName(), Feature.TREE, featureConfig);
     }
 
-    protected TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
+    public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 SimpleStateProvider.simple(this.getLogBlock().defaultBlockState()),
                 this.getGiantTrunkPlacer(),

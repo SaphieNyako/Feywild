@@ -51,7 +51,7 @@ public class FeywildChunkGenerator {
     }
 
     private static NoiseSettings withSampling(NoiseSettings noiseSettings) {
-        NoiseSamplingSettings noiseSamplingSettings = new NoiseSamplingSettings(1.2, 18, 80, 120);
+        NoiseSamplingSettings noiseSamplingSettings = new NoiseSamplingSettings(0.6, 9, 80, 120);
         return new NoiseSettings(noiseSettings.minY(), noiseSettings.height(), noiseSamplingSettings, noiseSettings.topSlideSettings(), noiseSettings.bottomSlideSettings(),
                 noiseSettings.noiseSizeHorizontal(), noiseSettings.noiseSizeVertical(), noiseSettings.terrainShaper());
     }

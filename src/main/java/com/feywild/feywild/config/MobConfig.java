@@ -64,9 +64,10 @@ public class MobConfig {
 
     public static class dimensions {
 
-        @Config(value = "What dimension biomes should be allowed for Feywild mobs")
-        public static ResourceList black_list_biomes = new ResourceList(false, builder -> {
-            builder.parse("undergarden:*");
+        @Config(value = "What dimension biomes should be whitelisted for Feywild mobs")
+        public static ResourceList white_list_biomes = new ResourceList(true, builder -> {
+            builder.parse("twilightforest:forest");
+            builder.parse("twilightforest:dense_forest");
         });
     }
 }

@@ -7,8 +7,8 @@ import net.minecraft.world.level.biome.Biome;
 public class FeywildBiomes {
 
     public static final Biome blossomingWealds = BiomeEnvironment.feywildBiome()
-            .temperature(0.7f)
-            .downfall(0.8f)
+            .temperature(0.5f)
+            .downfall(0.7f)
             .biomeCategory(Biome.BiomeCategory.FOREST)
             .mobSpawnSettings(BiomeEnvironment.springMobs().build())
             .specialEffects(BiomeEnvironment.springAmbience().build())
@@ -25,7 +25,7 @@ public class FeywildBiomes {
             .build();
 
     public static final Biome eternalFall = BiomeEnvironment.feywildBiome()
-            .temperature(0.8f)
+            .temperature(0.5f)
             .downfall(0.9f)
             .biomeCategory(Biome.BiomeCategory.MUSHROOM)
             .precipitation(Biome.Precipitation.RAIN)
@@ -44,7 +44,7 @@ public class FeywildBiomes {
             .generationSettings(BiomeEnvironment.winterFeatures().build())
             .build();
 
-    public static final Biome eliasianSea = BiomeEnvironment.feywildBiome()
+    public static final Biome elesianRivers = BiomeEnvironment.feywildBiome()
             .temperature(0.8f)
             .downfall(0.7f)
             .biomeCategory(Biome.BiomeCategory.OCEAN)
