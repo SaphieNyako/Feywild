@@ -13,7 +13,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,17 +23,16 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -65,7 +63,11 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
-        return Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock());
+        return isBrightEnoughToSpawn(level, pos);
+    }
+
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
+        return getter.getRawBrightness(pos, 0) > 8;
     }
 
     @Nullable

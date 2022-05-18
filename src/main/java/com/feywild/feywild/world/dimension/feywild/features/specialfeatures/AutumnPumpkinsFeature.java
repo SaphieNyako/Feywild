@@ -23,7 +23,7 @@ public class AutumnPumpkinsFeature extends Feature<NoneFeatureConfiguration> {
     @Override
     public boolean place(@Nonnull FeaturePlaceContext<NoneFeatureConfiguration> context) {
         if (context.random().nextInt(3) == 0) {
-            return FeywildWorldGenUtil.generateTries(context, 9, this::tryGenerate);
+            return FeywildWorldGenUtil.generateTries(context, 6, this::tryGenerate);
         } else {
             return false;
         }

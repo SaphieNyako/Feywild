@@ -39,7 +39,7 @@ public class QuestData {
         // Capability should always be there.
         // If not print a warning and get default instance
         return player.getCapability(CapabilityQuests.QUESTS).orElseGet(() -> {
-            FeywildMod.getInstance().logger.warn("Quest Data capability not present on player: " + player);
+            FeywildMod.getInstance().logger.warn("Quest Data capability not present on player: " + player);  //TODO should this be removed?
             return new QuestData();
         });
     }

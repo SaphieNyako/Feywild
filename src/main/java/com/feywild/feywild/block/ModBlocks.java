@@ -10,6 +10,7 @@ import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import io.github.noeppi_noeppi.libx.base.BlockBase;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -43,4 +44,6 @@ public class ModBlocks {
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
 
     public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
+
+    public static final GrassBlock snowyGrassBlock = new GrassBlock(BlockBehaviour.Properties.of(Material.GRASS));
 }

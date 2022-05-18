@@ -73,7 +73,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         if (pos.getY() >= level.getSeaLevel() || level.canSeeSky(pos)) { //|| random.nextDouble() < 0.15
             return false;
         } else {
-            return true; //checkMobSpawnRules(type, level, reason, pos, random);
+            return checkMobSpawnRules(type, level, reason, pos, random);
         }
     }
 

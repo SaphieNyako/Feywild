@@ -37,7 +37,7 @@ public class FeywildDimensionConfiguredFeatures {
             new ConfiguredFeature<>(Feature.TREE, (ModTrees.summerTree.getFeatureBuilder(new Random(), true)).build()));
 
     public static final Holder<ConfiguredFeature<?, ?>> winterTrees = new NoneFeatureHolder<>(Registry.CONFIGURED_FEATURE_REGISTRY,
-            new ConfiguredFeature<>(Feature.TREE, (ModTrees.springTree.getFeatureBuilder(new Random(), true)).build()));
+            new ConfiguredFeature<>(Feature.TREE, (ModTrees.winterTree.getFeatureBuilder(new Random(), true)).build()));
 
 }
 

@@ -1,8 +1,10 @@
 package com.feywild.feywild.world.feature.trees;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.DecoratingBlobFoliagePlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
+import com.google.common.collect.ImmutableList;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,10 +14,14 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SnowyDirtBlock;
+import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -46,6 +52,13 @@ public class WinterTreeGrower extends BaseTreeGrower {
         );
     }
 
+    @Override
+    public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@NotNull Random random, boolean largeHive) {
+        return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
+                new AlterGroundDecorator(SimpleStateProvider.simple(ModBlocks.snowyGrassBlock)
+                )));
+    }
+
     private static class LeavesPlacer extends DecoratingBlobFoliagePlacer {
 
         public LeavesPlacer(UniformInt radiusSpread, UniformInt heightSpread, int height) {
@@ -56,14 +69,15 @@ public class WinterTreeGrower extends BaseTreeGrower {
 
         @Override
         protected void decorateLeaves(BlockState state, WorldGenLevel level, BlockPos pos, Random random) {
-            BlockPos.MutableBlockPos mpos = pos.mutable();
+            BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
             for (int i = 0; i < 30; i++) {
-                if (level.getBlockState(mpos).isAir() && level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
-                    level.setBlock(mpos, Blocks.SNOW.defaultBlockState(), 19);
-                    if (level.getBlockState(mpos.below()).hasProperty(SnowyDirtBlock.SNOWY))
-                        level.setBlock(mpos.below(), level.getBlockState(mpos.below()).setValue(SnowyDirtBlock.SNOWY, true), 19);
+                if (level.getBlockState(mutableBlockPos).isAir() && level.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) {
+                    level.setBlock(mutableBlockPos, Blocks.SNOW.defaultBlockState(), 19);
+                    if (level.getBlockState(mutableBlockPos.below()).hasProperty(GrassBlock.SNOWY))
+
+                        level.setBlock(mutableBlockPos.below(), level.getBlockState(mutableBlockPos.below()).setValue(GrassBlock.SNOWY, true), 19);
                 }
-                mpos.move(Direction.DOWN);
+                mutableBlockPos.move(Direction.DOWN);
             }
         }
     }

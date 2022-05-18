@@ -110,7 +110,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
 
     @Nullable
     @Override
-    protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean largeHive) {
+    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(Random random, boolean largeHive) {
         TreeConfiguration featureConfig = this.getFeatureBuilder(random, largeHive).build();
         return FeatureUtils.register(this.getName(), Feature.TREE, featureConfig);
     }

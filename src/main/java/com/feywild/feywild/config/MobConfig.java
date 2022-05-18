@@ -11,43 +11,63 @@ import java.util.List;
 
 public class MobConfig {
 
+    //TODO add Overworld and Feywild spawn
+
     public static class spawns {
 
-        @Config("Spring pixie spawn weight, minimum entities to spawn in a group and biomes types where entity should spawn.")
-        public static AdvancedSpawns spring_pixie = new AdvancedSpawns(7, 1, 1, List.of(
+        @Config("Spring pixie spawn weight in OVERWORLD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static AdvancedSpawns spring_pixie = new AdvancedSpawns(3, 1, 1, List.of(
                 BiomeDictionary.Type.RIVER, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.PLAINS,
                 BiomeDictionary.Type.MAGICAL
         ));
 
-        @Config("Summer pixie spawn weight, minimum entities to spawn in a group and biomes types where entity should spawn.")
-        public static AdvancedSpawns summer_pixie = new AdvancedSpawns(7, 1, 1, List.of(
+        @Config("Spring pixie spawn weight in FEYWILD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static CommonSpawns spring_pixie_feywild = new CommonSpawns(50, 1, 2);
+
+        @Config("Summer pixie spawn weight in OVERWORLD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static AdvancedSpawns summer_pixie = new AdvancedSpawns(3, 1, 1, List.of(
                 BiomeDictionary.Type.LUSH, BiomeDictionary.Type.HOT, BiomeDictionary.Type.MAGICAL
         ));
 
-        @Config("Autumn pixie spawn weight, minimum entities to spawn in a group and biomes types where entity should spawn.")
-        public static AdvancedSpawns autumn_pixie = new AdvancedSpawns(7, 1, 1, List.of(
+        @Config("Summer pixie spawn weight in FEYWILD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static CommonSpawns summer_pixie_feywild = new CommonSpawns(50, 1, 2);
+
+        @Config("Autumn pixie spawn weight in OVERWORLD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static AdvancedSpawns autumn_pixie = new AdvancedSpawns(3, 1, 1, List.of(
                 BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.SPOOKY,
                 BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MAGICAL
         ));
 
-        @Config("Winter pixie spawn weight, minimum entities to spawn in a group and biomes types where entity should spawn.")
-        public static AdvancedSpawns winter_pixie = new AdvancedSpawns(7, 1, 1, List.of(
+        @Config("Autumn pixie spawn weight in FEYWILD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static CommonSpawns autumn_pixie_feywild = new CommonSpawns(50, 1, 2);
+
+        @Config("Winter pixie spawn weight in OVERWORLD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static AdvancedSpawns winter_pixie = new AdvancedSpawns(3, 1, 1, List.of(
                 BiomeDictionary.Type.DEAD, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.COLD,
                 BiomeDictionary.Type.MAGICAL
         ));
 
-        @Config("Summer Bee Knight spawn weight, minimum entities to spawn in a group.")
-        public static AdvancedSpawns summer_bee_knight = new AdvancedSpawns(3, 1, 1, List.of(
+        @Config("Winter pixie spawn weight in FEYWILD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static CommonSpawns winter_pixie_feywild = new CommonSpawns(50, 1, 2);
+
+        @Config("Summer Bee Knight spawn weight in OVERWORLD, minimum entities to spawn in a group.")
+        public static AdvancedSpawns summer_bee_knight = new AdvancedSpawns(1, 1, 1, List.of(
                 BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.SPOOKY,
                 BiomeDictionary.Type.FOREST, BiomeDictionary.Type.MAGICAL
         ));
 
-        @Config("Dwarf Blacksmith spawn weight, minimum entities to spawn in a group.")
-        public static CommonSpawns dwarf_blacksmith = new CommonSpawns(10, 1, 1);
+        @Config("Summer Bee Knight spawn weight in FEYWILD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static CommonSpawns summer_bee_knight_feywild = new CommonSpawns(30, 1, 2);
 
-        @Config("Shroomling spawn weight, minimum entities to spawn in a group and biomes types where entity should spawn.")
-        public static AdvancedSpawns shroomling = new AdvancedSpawns(5, 1, 1, List.of(
+        @Config("Shroomling spawn weight in OVERWORLD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static AdvancedSpawns shroomling = new AdvancedSpawns(1, 1, 1, List.of(
                 BiomeDictionary.Type.MUSHROOM, BiomeDictionary.Type.MAGICAL));
+
+        @Config("Shroomling Knight spawn weight in FEYWILD, minimum entities to spawn in a group and biomes types where entity should spawn.")
+        public static CommonSpawns shroomling_feywild = new CommonSpawns(30, 1, 1);
+
+        @Config("Dwarf Blacksmith spawn weight in OVERWORLD, minimum entities to spawn in a group.")
+        public static CommonSpawns dwarf_blacksmith = new CommonSpawns(10, 1, 1);
 
     }
 
@@ -64,7 +84,7 @@ public class MobConfig {
 
     public static class dimensions {
 
-        @Config(value = "What dimension biomes should be whitelisted for Feywild mobs")
+        @Config(value = "What dimension biomes should be whitelisted for Feywild mobs, note: Fey will always spawn in Feywild Dimension")
         public static ResourceList white_list_biomes = new ResourceList(true, builder -> {
             builder.parse("twilightforest:forest");
             builder.parse("twilightforest:dense_forest");

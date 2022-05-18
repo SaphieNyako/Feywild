@@ -14,8 +14,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-/* Written by Noeppi-Noeppi */
-
 public class NoneFeatureHolder<T> implements Holder<T> {
 
     private final ResourceKey<? extends Registry<T>> registry;

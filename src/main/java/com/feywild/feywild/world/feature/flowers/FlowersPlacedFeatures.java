@@ -15,7 +15,7 @@ public class FlowersPlacedFeatures {
 
     public static final Holder<PlacedFeature> SPRING_FLOWERS_PLACED =
             PlacementUtils.register("spring_flowers_placed",
-                    FlowersConfiguredFeatures.SPRING_FLOWERS, CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+                    FlowersConfiguredFeatures.SPRING_FLOWERS, CountPlacement.of(2), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
                     PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> AUTUMN_FLOWERS_PLACED =
@@ -25,27 +25,27 @@ public class FlowersPlacedFeatures {
 
     public static final Holder<PlacedFeature> AUTUMN_BROWN_MUSHROOM_PLACED =
             PlacementUtils.register("autumn_brown_mushroom_placed",
-                    VegetationFeatures.PATCH_BROWN_MUSHROOM, getMushroomPlacement(0, CountPlacement.of(2)));
+                    VegetationFeatures.PATCH_BROWN_MUSHROOM, getMushroomPlacement(32, CountPlacement.of(1)));
 
     public static final Holder<PlacedFeature> AUTUMN_RED_MUSHROOM_PLACED =
             PlacementUtils.register("autumn_red_mushroom_placed",
-                    VegetationFeatures.PATCH_RED_MUSHROOM, getMushroomPlacement(64, (PlacementModifier) null));
+                    VegetationFeatures.PATCH_RED_MUSHROOM, getMushroomPlacement(16, CountPlacement.of(1)));
     //TODO PUMPKIN PATCHES
 
     public static final Holder<PlacedFeature> SUMMER_FLOWERS_PLACED =
             PlacementUtils.register("summer_flowers_placed",
-                    FlowersConfiguredFeatures.SUMMER_FLOWERS, CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+                    FlowersConfiguredFeatures.SUMMER_FLOWERS, CountPlacement.of(3), RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(),
                     PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     public static final Holder<PlacedFeature> SUMMER_SUNFLOWERS_PLACED =
             PlacementUtils.register("summer_sunflowers_placed",
-                    VegetationFeatures.PATCH_SUNFLOWER, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(),
+                    VegetationFeatures.PATCH_SUNFLOWER, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
                     PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
     //TODO MELON PATCHES
 
     public static final Holder<PlacedFeature> WINTER_FLOWERS_PLACED =
             PlacementUtils.register("winter_flowers_placed",
-                    FlowersConfiguredFeatures.WINTER_FLOWERS, CountPlacement.of(3), RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(),
+                    FlowersConfiguredFeatures.WINTER_FLOWERS, CountPlacement.of(2), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(),
                     PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
     private static List<PlacementModifier> getMushroomPlacement(int rarity, @Nullable PlacementModifier modifier) {

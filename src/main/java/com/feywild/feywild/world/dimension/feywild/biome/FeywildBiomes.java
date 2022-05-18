@@ -44,13 +44,14 @@ public class FeywildBiomes {
             .generationSettings(BiomeEnvironment.winterFeatures().build())
             .build();
 
-    public static final Biome elesianRivers = BiomeEnvironment.feywildBiome()
-            .temperature(0.8f)
-            .downfall(0.7f)
-            .biomeCategory(Biome.BiomeCategory.OCEAN)
-            .mobSpawnSettings(BiomeEnvironment.oceanMobs().build())
-            .specialEffects(BiomeEnvironment.oceanAmbience().build())
-            .generationSettings(BiomeEnvironment.oceanFeatures().build())
+    public static final Biome frozenSpikes = BiomeEnvironment.feywildBiome()
+            .temperature(0)
+            .downfall(0.5f)
+            .biomeCategory(Biome.BiomeCategory.ICY)
+            .precipitation(Biome.Precipitation.SNOW)
+            .mobSpawnSettings(BiomeEnvironment.winterMobs().build())
+            .specialEffects(BiomeEnvironment.winterAmbience().build())
+            .generationSettings(BiomeEnvironment.winterFeatures().build())
             .build();
 
     public static final Biome goldenMountains = BiomeEnvironment.feywildBiome()
