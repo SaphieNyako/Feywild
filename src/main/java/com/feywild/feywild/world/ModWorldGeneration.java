@@ -66,8 +66,6 @@ public class ModWorldGeneration {
         mobSpawns(event, biomeId, types, random);
     }
 
-    //TODO Add Ore generation
-
     private static void ores(BiomeLoadingEvent event, ResourceLocation biomeId, Set<BiomeDictionary.Type> types, Random random) {
         if (!CompatConfig.mythic_alfheim.locked) {
             if (types.contains(BiomeDictionary.Type.OVERWORLD)) {

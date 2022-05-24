@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/fey_dust_block"
+      },
+      {
+        "model": "feywild:block/fey_dust_block",
+        "y": 90
+      },
+      {
+        "model": "feywild:block/fey_dust_block",
+        "y": 180
+      },
+      {
+        "model": "feywild:block/fey_dust_block",
+        "y": 270
+      }
+    ]
+  }
+}

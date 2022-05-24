@@ -16,7 +16,6 @@ import java.util.List;
 
 public class FlowersConfiguredFeatures {
 
-    //TODO SET SPAWN RATE
     public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> SPRING_FLOWERS =
             FeatureUtils.register("spring_flowers", Feature.FLOWER,
                     new RandomPatchConfiguration(32, 6, 2,

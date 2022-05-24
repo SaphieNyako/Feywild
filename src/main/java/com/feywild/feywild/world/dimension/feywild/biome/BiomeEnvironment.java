@@ -223,7 +223,7 @@ public class BiomeEnvironment {
                 .waterColor(0x3f76e4)
                 .waterFogColor(0x50533)
                 .fogColor(0xc0d8ff)
-                .skyColor(OverworldBiomes.calculateSkyColor(0.9f)); //TODO change sky colors
+                .skyColor(OverworldBiomes.calculateSkyColor(0.9f));
 
     }
 

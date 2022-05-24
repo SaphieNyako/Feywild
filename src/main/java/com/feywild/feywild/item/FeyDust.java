@@ -1,17 +1,24 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.block.MagicalBrazierBlock;
+import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.portal.FeyPortalBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
+import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
 import io.github.noeppi_noeppi.libx.base.ItemBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -68,16 +75,39 @@ public class FeyDust extends ItemBase {
     @Nonnull
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof MagicalBrazierBlock) {
-            if (!context.getLevel().getBlockState(context.getClickedPos()).getValue(MagicalBrazierBlock.BRAZIER_LIT)) {
-                if (!context.getLevel().isClientSide) {
-                    if (!Objects.requireNonNull(context.getPlayer()).isCreative()) {
-                        context.getPlayer().getItemInHand(context.getHand()).shrink(1);
+        Level level = context.getLevel();
+        Player player = context.getPlayer();
+        InteractionHand hand = context.getHand();
+        BlockPos clickedPos = context.getClickedPos();
+
+        //USE ON BRAZIER
+        if (level.getBlockState(clickedPos).getBlock() instanceof MagicalBrazierBlock) {
+            if (!level.getBlockState(clickedPos).getValue(MagicalBrazierBlock.BRAZIER_LIT)) {
+                if (!level.isClientSide) {
+                    if (!Objects.requireNonNull(player).isCreative()) {
+                        player.getItemInHand(hand).shrink(1);
                     }
-                    context.getLevel().setBlock(context.getClickedPos(), context.getLevel().getBlockState(context.getClickedPos()).setValue(MagicalBrazierBlock.BRAZIER_LIT, true), 2);
+                    level.setBlock(clickedPos, level.getBlockState(clickedPos).setValue(MagicalBrazierBlock.BRAZIER_LIT, true), 2);
                 }
-                return InteractionResult.sidedSuccess(Objects.requireNonNull(context.getPlayer()).level.isClientSide);
+                return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
             }
+        }
+        //USE ON PORTAL
+        if (player != null) {
+            if (player.level.dimension() == FeywildDimension.FEYWILD_DIMENSION || player.level.dimension() == Level.OVERWORLD) {
+                for (Direction direction : Direction.Plane.VERTICAL) {
+                    BlockPos framePos = clickedPos.relative(direction);
+
+                    if (((FeyPortalBlock) ModBlocks.feyPortalBlock).tryCreatePortal(level, framePos)) {
+
+                        level.playSound(player, framePos, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 1.0F, 1.0F);
+                        return InteractionResult.CONSUME;
+                    } else {
+                        return InteractionResult.FAIL;
+                    }
+                }
+            }
+            return InteractionResult.FAIL;
         }
         return super.useOn(context);
     }

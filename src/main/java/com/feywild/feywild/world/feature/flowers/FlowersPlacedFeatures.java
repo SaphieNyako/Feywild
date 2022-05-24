@@ -11,8 +11,6 @@ import java.util.List;
 
 public class FlowersPlacedFeatures {
 
-    //TODO generation numbers see VegetationPlacements and VegetationFeatures
-
     public static final Holder<PlacedFeature> SPRING_FLOWERS_PLACED =
             PlacementUtils.register("spring_flowers_placed",
                     FlowersConfiguredFeatures.SPRING_FLOWERS, CountPlacement.of(2), RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
@@ -30,7 +28,6 @@ public class FlowersPlacedFeatures {
     public static final Holder<PlacedFeature> AUTUMN_RED_MUSHROOM_PLACED =
             PlacementUtils.register("autumn_red_mushroom_placed",
                     VegetationFeatures.PATCH_RED_MUSHROOM, getMushroomPlacement(16, CountPlacement.of(1)));
-    //TODO PUMPKIN PATCHES
 
     public static final Holder<PlacedFeature> SUMMER_FLOWERS_PLACED =
             PlacementUtils.register("summer_flowers_placed",
@@ -41,7 +38,6 @@ public class FlowersPlacedFeatures {
             PlacementUtils.register("summer_sunflowers_placed",
                     VegetationFeatures.PATCH_SUNFLOWER, RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(),
                     PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-    //TODO MELON PATCHES
 
     public static final Holder<PlacedFeature> WINTER_FLOWERS_PLACED =
             PlacementUtils.register("winter_flowers_placed",

@@ -65,8 +65,6 @@ public class WinterTreeGrower extends BaseTreeGrower {
             super(radiusSpread, heightSpread, height);
         }
 
-        //TODO Add Snow beneath the spawning WinterTrees, might be due to biome settings
-
         @Override
         protected void decorateLeaves(BlockState state, WorldGenLevel level, BlockPos pos, Random random) {
             BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();

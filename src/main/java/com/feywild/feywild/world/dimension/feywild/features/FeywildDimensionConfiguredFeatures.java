@@ -13,8 +13,6 @@ import java.util.Random;
 @RegisterClass(prefix = "wg", priority = -2)
 public class FeywildDimensionConfiguredFeatures {
 
-    //TODO TREES
-
     public static final Holder<ConfiguredFeature<?, ?>> autumnPumpkins = new NoneFeatureHolder<>(Registry.CONFIGURED_FEATURE_REGISTRY,
             new ConfiguredFeature<>(FeywildDimensionWorldGeneration.autumnPumpkins, NoneFeatureConfiguration.INSTANCE));
 

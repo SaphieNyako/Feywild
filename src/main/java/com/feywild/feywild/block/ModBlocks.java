@@ -6,6 +6,7 @@ import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
+import com.feywild.feywild.block.portal.FeyPortalBlock;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import io.github.noeppi_noeppi.libx.base.BlockBase;
 import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
@@ -44,6 +45,9 @@ public class ModBlocks {
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
 
     public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
+
+    public static final Block feyDustBlock = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).sound(SoundType.SAND));
+    public static final Block feyPortalBlock = new FeyPortalBlock();
 
     public static final GrassBlock snowyGrassBlock = new GrassBlock(BlockBehaviour.Properties.of(Material.GRASS));
 }

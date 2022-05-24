@@ -11,8 +11,6 @@ import java.util.List;
 
 public class MobConfig {
 
-    //TODO add Overworld and Feywild spawn
-
     public static class spawns {
 
         @Config("Spring pixie spawn weight in OVERWORLD, minimum entities to spawn in a group and biomes types where entity should spawn.")
