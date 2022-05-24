@@ -1,10 +1,12 @@
 package com.feywild.feywild.world.dimension.feywild.features;
 
 import com.feywild.feywild.block.ModTrees;
+import com.feywild.feywild.tag.ModBiomeTags;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
@@ -36,6 +38,9 @@ public class FeywildDimensionConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<?, ?>> winterTrees = new NoneFeatureHolder<>(Registry.CONFIGURED_FEATURE_REGISTRY,
             new ConfiguredFeature<>(Feature.TREE, (ModTrees.winterTree.getFeatureBuilder(new Random(), true)).build()));
+
+    public static final Holder<ConfiguredStructureFeature<?, ?>> beekeep = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
+            FeywildDimensionWorldGeneration.beekeep.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.BEEKEEP));
 
 }
 

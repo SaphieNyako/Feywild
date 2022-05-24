@@ -4,10 +4,13 @@ import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
+import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 
 import java.util.List;
 
-@RegisterClass(prefix = "wg", priority = -3)
+@RegisterClass(priority = -3)
 public class FeywildDimensionPlacements {
 
     public static final Holder<PlacedFeature> autumnPumpkins = new NoneFeatureHolder<>(Registry.PLACED_FEATURE_REGISTRY,
@@ -33,4 +36,8 @@ public class FeywildDimensionPlacements {
 
     public static final Holder<PlacedFeature> winterTrees = new NoneFeatureHolder<>(Registry.PLACED_FEATURE_REGISTRY,
             new PlacedFeature(FeywildDimensionConfiguredFeatures.winterTrees, FeywildPlacementUtils.winterTrees));
+
+    public static final Holder<StructureSet> beekeep = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
+            new StructureSet(FeywildDimensionConfiguredFeatures.beekeep,
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("beekeep".hashCode()))));
 }

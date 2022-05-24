@@ -2,6 +2,7 @@ package com.feywild.feywild.world.dimension.feywild;
 
 import com.feywild.feywild.config.CompatConfig;
 import com.feywild.feywild.world.dimension.feywild.biome.FeywildBiomes;
+import com.feywild.feywild.world.dimension.feywild.features.FeywildDimensionPlacements;
 import net.minecraft.world.level.block.Blocks;
 
 public class FeywildGeneration {
@@ -14,6 +15,8 @@ public class FeywildGeneration {
             FeywildDimension.addBiome(FeywildBiomes.frozenRetreat, new BiomeConfiguration(BiomeConfiguration.BiomeTemplate.MODERATE));
             FeywildDimension.addBiome(FeywildBiomes.frozenSpikes, new BiomeConfiguration(BiomeConfiguration.BiomeTemplate.FLAT).surface(Blocks.SNOW, Blocks.DIRT));
             FeywildDimension.addBiome(FeywildBiomes.goldenMountains, new BiomeConfiguration(BiomeConfiguration.BiomeTemplate.MOUNTAINS));
+
+            FeywildDimension.addStructure(FeywildDimensionPlacements.beekeep);
         }
     }
 }
