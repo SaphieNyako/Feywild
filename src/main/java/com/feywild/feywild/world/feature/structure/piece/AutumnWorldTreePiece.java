@@ -9,11 +9,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.jetbrains.annotations.NotNull;
 
-public class BeeKeepStructurePiece extends FeywildStructurePiece {
+public class AutumnWorldTreePiece extends FeywildStructurePiece {
 
-    public static final StructurePoolElementType<BeeKeepStructurePiece> TYPE = type(BeeKeepStructurePiece::new);
+    public static final StructurePoolElementType<AutumnWorldTreePiece> TYPE = type(AutumnWorldTreePiece::new);
 
-    protected BeeKeepStructurePiece(Either<ResourceLocation, StructureTemplate> template, Holder<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
+    protected AutumnWorldTreePiece(Either<ResourceLocation, StructureTemplate> template, Holder<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
         super(template, processors, projection);
     }
 

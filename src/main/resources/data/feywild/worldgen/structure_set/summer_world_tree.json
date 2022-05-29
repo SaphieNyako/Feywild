@@ -1,12 +1,12 @@
 {
   "structures": [
     {
-      "structure": "feywild:beekeep",
-      "weight": 50
+      "structure": "feywild:summer_world_tree",
+      "weight": 1
     }
   ],
   "placement": {
-    "salt": 567897123,
+    "salt": 424820103,
     "spacing": 35,
     "separation": 25,
     "type": "minecraft:random_spread"

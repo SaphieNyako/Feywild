@@ -64,6 +64,20 @@ public class BiomeEnvironment {
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_SAND);
     }
 
+    public static BiomeGenerationSettings.Builder springRiverFeatures() {
+        BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder();
+        BiomeDefaultFeatures.addExtraEmeralds(builder);
+        BiomeDefaultFeatures.addDefaultOres(builder);
+        addRiverFeatures(builder);
+        return builder
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, OrePlacedFeatures.FEY_GEM_ORE_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FlowersPlacedFeatures.SPRING_FLOWERS_PLACED)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_CLAY)
+                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_SAND);
+    }
+
     public static MobSpawnSettings.Builder summerMobs() {
         MobSpawnSettings.Builder builder = new MobSpawnSettings.Builder()
                 .creatureGenerationProbability(0.1f);

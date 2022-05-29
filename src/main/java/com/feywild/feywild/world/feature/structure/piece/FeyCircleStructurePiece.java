@@ -9,11 +9,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.jetbrains.annotations.NotNull;
 
-public class BeeKeepStructurePiece extends FeywildStructurePiece {
+public class FeyCircleStructurePiece extends FeywildStructurePiece {
 
-    public static final StructurePoolElementType<BeeKeepStructurePiece> TYPE = type(BeeKeepStructurePiece::new);
+    public static final StructurePoolElementType<FeyCircleStructurePiece> TYPE = type(FeyCircleStructurePiece::new);
 
-    protected BeeKeepStructurePiece(Either<ResourceLocation, StructureTemplate> template, Holder<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
+    protected FeyCircleStructurePiece(Either<ResourceLocation, StructureTemplate> template, Holder<StructureProcessorList> processors, StructureTemplatePool.Projection projection) {
         super(template, processors, projection);
     }
 
@@ -22,4 +22,5 @@ public class BeeKeepStructurePiece extends FeywildStructurePiece {
     public StructurePoolElementType<?> getType() {
         return TYPE;
     }
+
 }

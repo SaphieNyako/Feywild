@@ -61,6 +61,17 @@ public class EventListener {
             //Quest Check for Structure
             if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
                 player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
+
+                //PORTAL
+                //   if (player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).containsKey(FeywildDimensionConfiguredFeatures.feyCircle.value())) {
+                //      FeywildDimensionHandler.teleportToFeywild(player);
+                //   }
+
+                //  player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), FeywildDimensionConfiguredFeatures.feyCircle.value()) != null);
+
+                //   if (player.getLevel().findNearestMapFeature(ModStructureTags.ConfiguredStructureFeatures.PORTAL_STRUCTURE, player.blockPosition(), 0, true) != null) {
+                //       FeywildDimensionHandler.teleportToFeywild(player);
+                //   }
             }
         }
     }

@@ -44,16 +44,6 @@ public class FeywildBiomes {
             .generationSettings(BiomeEnvironment.winterFeatures().build())
             .build();
 
-    public static final Biome frozenSpikes = BiomeEnvironment.feywildBiome()
-            .temperature(0)
-            .downfall(0.5f)
-            .biomeCategory(Biome.BiomeCategory.ICY)
-            .precipitation(Biome.Precipitation.SNOW)
-            .mobSpawnSettings(BiomeEnvironment.winterMobs().build())
-            .specialEffects(BiomeEnvironment.winterAmbience().build())
-            .generationSettings(BiomeEnvironment.winterFeatures().build())
-            .build();
-
     public static final Biome goldenMountains = BiomeEnvironment.feywildBiome()
             .temperature(0.9f)
             .downfall(0)
@@ -61,6 +51,15 @@ public class FeywildBiomes {
             .mobSpawnSettings(BiomeEnvironment.goldenMountainMobs().build())
             .specialEffects(BiomeEnvironment.goldenMountainAmbience().build())
             .generationSettings(BiomeEnvironment.goldenMountainFeatures().build())
+            .build();
+
+    public static final Biome blossomingRivers = BiomeEnvironment.feywildBiome()
+            .temperature(0.5f)
+            .downfall(0.7f)
+            .biomeCategory(Biome.BiomeCategory.FOREST)
+            .mobSpawnSettings(BiomeEnvironment.springMobs().build())
+            .specialEffects(BiomeEnvironment.springAmbience().build())
+            .generationSettings(BiomeEnvironment.springRiverFeatures().build())
             .build();
 
 }

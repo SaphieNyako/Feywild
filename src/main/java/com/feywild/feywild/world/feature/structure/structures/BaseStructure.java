@@ -25,18 +25,6 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
     public BaseStructure(String structureId) {
         super(JigsawConfiguration.CODEC, new PlacementFactory(structureId));
     }
-/*
-    public abstract StructureData getStructureData();
-
-    public abstract int getSeedModifier();
-
-    public final StructureFeatureConfiguration getSettings() {
-        return new StructureFeatureConfiguration(
-                getStructureData().average_distance(),
-                getStructureData().minimum_distance(),
-                getSeedModifier()
-        );
-    } */
 
     @Nonnull
     @Override

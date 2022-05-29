@@ -42,5 +42,20 @@ public class FeywildDimensionConfiguredFeatures {
     public static final Holder<ConfiguredStructureFeature<?, ?>> beekeep = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
             FeywildDimensionWorldGeneration.beekeep.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.BEEKEEP));
 
+    public static final Holder<ConfiguredStructureFeature<?, ?>> springWorldTree = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
+            FeywildDimensionWorldGeneration.springWorldTree.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.SPRING_WORLD_TREE));
+
+    public static final Holder<ConfiguredStructureFeature<?, ?>> summerWorldTree = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
+            FeywildDimensionWorldGeneration.summerWorldTree.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.SUMMER_WORLD_TREE));
+
+    public static final Holder<ConfiguredStructureFeature<?, ?>> autumnWorldTree = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
+            FeywildDimensionWorldGeneration.autumnWorldTree.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.AUTUMN_WORLD_TREE));
+
+    public static final Holder<ConfiguredStructureFeature<?, ?>> winterWorldTree = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
+            FeywildDimensionWorldGeneration.winterWorldTree.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.WINTER_WORLD_TREE));
+
+    public static final Holder<ConfiguredStructureFeature<?, ?>> feyCircle = new NoneFeatureHolder<>(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY,
+            FeywildDimensionWorldGeneration.feyCircle.configured(FeywildDimensionWorldGeneration.dummyJigsaw, ModBiomeTags.FEY_CIRCLE));
+
 }
 

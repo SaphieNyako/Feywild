@@ -39,5 +39,25 @@ public class FeywildDimensionPlacements {
 
     public static final Holder<StructureSet> beekeep = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
             new StructureSet(FeywildDimensionConfiguredFeatures.beekeep,
-                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("beekeep".hashCode()))));
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("beekeep".hashCode())))); //distance, spread, seednumber DOES THIS MATTER?
+
+    public static final Holder<StructureSet> springWorldTree = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
+            new StructureSet(FeywildDimensionConfiguredFeatures.springWorldTree,
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("spring_world_tree".hashCode()))));
+
+    public static final Holder<StructureSet> summerWorldTree = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
+            new StructureSet(FeywildDimensionConfiguredFeatures.summerWorldTree,
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("summer_world_tree".hashCode()))));
+
+    public static final Holder<StructureSet> autumnWorldTree = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
+            new StructureSet(FeywildDimensionConfiguredFeatures.autumnWorldTree,
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("autumn_world_tree".hashCode()))));
+
+    public static final Holder<StructureSet> winterWorldTree = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
+            new StructureSet(FeywildDimensionConfiguredFeatures.winterWorldTree,
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("winter_world_tree".hashCode()))));
+
+    public static final Holder<StructureSet> fey_circle = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
+            new StructureSet(FeywildDimensionConfiguredFeatures.feyCircle,
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("fey_circle".hashCode()))));
 }

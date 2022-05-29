@@ -23,7 +23,6 @@ import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
 import com.feywild.feywild.world.dimension.feywild.FeywildGeneration;
 import com.feywild.feywild.world.dimension.feywild.features.FeatureTransformer;
 import com.feywild.feywild.world.dimension.market.setup.MarketGenerator;
-import com.feywild.feywild.world.feature.structure.ModStructures;
 import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
@@ -86,8 +85,6 @@ public final class FeywildMod extends ModXRegistration {
         eventBus.addListener(CapabilityQuests::register);
         eventBus.addListener(this::entityAttributes);
         eventBus.addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
-
-        ModStructures.register(eventBus);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
         MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadWorldGeneration);

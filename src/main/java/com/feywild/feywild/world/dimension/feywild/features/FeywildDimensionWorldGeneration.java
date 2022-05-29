@@ -3,7 +3,7 @@ package com.feywild.feywild.world.dimension.feywild.features;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.world.dimension.feywild.features.specialfeatures.AutumnPumpkinsFeature;
 import com.feywild.feywild.world.dimension.feywild.features.specialfeatures.GiantFlowerFeature;
-import com.feywild.feywild.world.feature.structure.structures.BeekeepStructure;
+import com.feywild.feywild.world.feature.structure.structures.*;
 import io.github.noeppi_noeppi.libx.annotation.registration.NoReg;
 import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import net.minecraft.data.worldgen.PlainVillagePools;
@@ -21,6 +21,12 @@ public class FeywildDimensionWorldGeneration {
     public static final Feature<NoneFeatureConfiguration> crocus = new GiantFlowerFeature(ModBlocks.crocus);
 
     public static final StructureFeature<JigsawConfiguration> beekeep = new BeekeepStructure();
+    public static final StructureFeature<JigsawConfiguration> springWorldTree = new SpringWorldTreeStructure();
+    public static final StructureFeature<JigsawConfiguration> summerWorldTree = new SummerWorldTreeStructure();
+    public static final StructureFeature<JigsawConfiguration> autumnWorldTree = new AutumnWorldTreeStructure();
+    public static final StructureFeature<JigsawConfiguration> winterWorldTree = new WinterWorldTreeStructure();
+
+    public static final StructureFeature<JigsawConfiguration> feyCircle = new FeyCircleStructure();
 
     @NoReg
     public static final JigsawConfiguration dummyJigsaw = new JigsawConfiguration(PlainVillagePools.START, 0);

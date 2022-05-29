@@ -116,7 +116,7 @@ public class FeyPortalBlock extends Block {
                     if (minecraftserver != null) {
                         ServerLevel destinationWorld = minecraftserver.getLevel(destination);
                         if (destinationWorld != null && minecraftserver.isNetherEnabled() && !entity.isPassenger()) {
-                            entity.level.getProfiler().push("kaupen_portal");
+                            entity.level.getProfiler().push("feywild_portal");
                             entity.setPortalCooldown();
                             entity.changeDimension(destinationWorld, new PortalTeleporter(destinationWorld));
                             entity.level.getProfiler().pop();
