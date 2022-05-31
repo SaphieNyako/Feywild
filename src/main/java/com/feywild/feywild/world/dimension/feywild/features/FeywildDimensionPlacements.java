@@ -43,7 +43,7 @@ public class FeywildDimensionPlacements {
 
     public static final Holder<StructureSet> springWorldTree = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
             new StructureSet(FeywildDimensionConfiguredFeatures.springWorldTree,
-                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.LINEAR, Math.abs("spring_world_tree".hashCode()))));
+                    new RandomSpreadStructurePlacement(10, 5, RandomSpreadType.TRIANGULAR, Math.abs("spring_world_tree".hashCode()))));
 
     public static final Holder<StructureSet> summerWorldTree = new NoneFeatureHolder<>(Registry.STRUCTURE_SET_REGISTRY,
             new StructureSet(FeywildDimensionConfiguredFeatures.summerWorldTree,

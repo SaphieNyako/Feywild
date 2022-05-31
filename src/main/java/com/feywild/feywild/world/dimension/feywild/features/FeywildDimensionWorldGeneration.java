@@ -21,10 +21,10 @@ public class FeywildDimensionWorldGeneration {
     public static final Feature<NoneFeatureConfiguration> crocus = new GiantFlowerFeature(ModBlocks.crocus);
 
     public static final StructureFeature<JigsawConfiguration> beekeep = new BeekeepStructure();
-    public static final StructureFeature<JigsawConfiguration> springWorldTree = new SpringWorldTreeStructure();
-    public static final StructureFeature<JigsawConfiguration> summerWorldTree = new SummerWorldTreeStructure();
-    public static final StructureFeature<JigsawConfiguration> autumnWorldTree = new AutumnWorldTreeStructure();
-    public static final StructureFeature<JigsawConfiguration> winterWorldTree = new WinterWorldTreeStructure();
+    public static final StructureFeature<JigsawConfiguration> springWorldTree = new SpringWorldTreeStructure("spring_world_tree");
+    public static final StructureFeature<JigsawConfiguration> summerWorldTree = new SummerWorldTreeStructure("summer_world_tree");
+    public static final StructureFeature<JigsawConfiguration> autumnWorldTree = new AutumnWorldTreeStructure("autumn_world_tree");
+    public static final StructureFeature<JigsawConfiguration> winterWorldTree = new WinterWorldTreeStructure("winter_world_tree");
 
     public static final StructureFeature<JigsawConfiguration> feyCircle = new FeyCircleStructure();
 

@@ -5,12 +5,14 @@ import com.feywild.feywild.world.feature.structure.load.StructureUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructureSets;
 import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
@@ -24,6 +26,12 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
 
     public BaseStructure(String structureId) {
         super(JigsawConfiguration.CODEC, new PlacementFactory(structureId));
+    }
+
+    public static boolean isFeatureChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
+        ChunkPos chunkpos = context.chunkPos();
+        return !context.chunkGenerator().hasFeatureChunkInRange(BuiltinStructureSets.VILLAGES, context.seed(),
+                chunkpos.x, chunkpos.z, 1);
     }
 
     @Nonnull
@@ -43,6 +51,10 @@ public abstract class BaseStructure extends StructureFeature<JigsawConfiguration
         @Nonnull
         @Override
         public Optional<PieceGenerator<JigsawConfiguration>> createGenerator(@Nonnull Context<JigsawConfiguration> context) {
+
+            if (!isFeatureChunk(context)) {
+                return Optional.empty();
+            }
 
             BlockPos centerOfChunk = context.chunkPos().getMiddleBlockPosition(0);
 
