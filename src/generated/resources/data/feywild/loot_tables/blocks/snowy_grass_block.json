@@ -2,6 +2,7 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "name": "main",
       "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
@@ -25,18 +26,18 @@
                   }
                 }
               ],
-              "name": "minecraft:grass_block"
+              "name": "minecraft:air"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                }
-              ],
               "name": "minecraft:dirt"
             }
           ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

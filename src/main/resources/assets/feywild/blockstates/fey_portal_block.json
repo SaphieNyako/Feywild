@@ -1,6 +1,6 @@
 {
   "variants": {
-    "axis=z": {"model": "feywild:block/feywild_portal_block_ew"},
+    "axis=z": {"model": "feywild:block/feywild_portal_block"},
     "axis=x": {"model": "feywild:block/feywild_portal_block_ns"}
   }
 }

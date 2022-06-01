@@ -8,8 +8,10 @@ import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.BlockLootProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.Tags;
 
@@ -96,5 +98,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         ));
         this.drops(tree.getLogBlock(), false, this.stack(baseLog));
         this.drops(tree.getWoodBlock(), false, this.stack(baseWood));
+        this.drops(ModBlocks.snowyGrassBlock, true, this.stack(Blocks.DIRT));
+        this.drops(ModBlocks.feyPortalBlock, false, this.stack(ItemStack.EMPTY.getItem()));
     }
 }
