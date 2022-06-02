@@ -115,7 +115,7 @@ public class PortalTeleporter implements ITeleporter {
             for (int l1 = -1; l1 < 2; ++l1) {
                 for (int k2 = 0; k2 < 2; ++k2) {
                     for (int i3 = -1; i3 < 3; ++i3) {
-                        BlockState blockstate1 = i3 < 0 ? ModBlocks.feyDustBlock.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                        BlockState blockstate1 = i3 < 0 ? ModBlocks.feyStarBlockBlue.defaultBlockState() : Blocks.AIR.defaultBlockState();
                         mutablePos.setWithOffset(blockpos, k2 * direction.getStepX() + l1 * direction1.getStepX(), i3, k2 * direction.getStepZ() + l1 * direction1.getStepZ());
                         this.level.setBlockAndUpdate(mutablePos, blockstate1);
                     }
@@ -127,7 +127,7 @@ public class PortalTeleporter implements ITeleporter {
             for (int i2 = -1; i2 < 4; ++i2) {
                 if (k1 == -1 || k1 == 2 || i2 == -1 || i2 == 3) {
                     mutablePos.setWithOffset(blockpos, k1 * direction.getStepX(), i2, k1 * direction.getStepZ());
-                    this.level.setBlock(mutablePos, ModBlocks.feyDustBlock.defaultBlockState(), 3);
+                    this.level.setBlock(mutablePos, ModBlocks.feyStarBlockBlue.defaultBlockState(), 3);
                 }
             }
         }

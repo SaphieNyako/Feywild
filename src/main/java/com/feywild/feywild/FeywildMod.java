@@ -1,5 +1,6 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.config.*;
@@ -28,6 +29,8 @@ import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
 import io.github.noeppi_noeppi.libx.config.ConfigManager;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -172,6 +175,12 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntityTypes.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntityTypes.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
+
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenQuartzMossyBrick, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenAutumnQuartzMossyBrick, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenSpringQuartzMossyBrick, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenSummerQuartzMossyBrick, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenWinterQuartzMossyBrick, RenderType.cutout());
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
