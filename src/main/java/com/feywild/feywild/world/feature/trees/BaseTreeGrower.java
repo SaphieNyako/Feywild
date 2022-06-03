@@ -14,7 +14,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -65,13 +64,13 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
     private final FeyPlanksBlock plankBlock;
 
     public BaseTreeGrower(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
-        this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_WOOD).sound(SoundType.WOOD));
-        this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.copy(Blocks.JUNGLE_WOOD).sound(SoundType.WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
+        this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
+        this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
-        this.plankBlock = new FeyPlanksBlock(mod, BlockBehaviour.Properties.copy(Blocks.JUNGLE_PLANKS).sound(SoundType.WOOD), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
+        this.plankBlock = new FeyPlanksBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
-        this.strippedLog = new FeyStrippedLogBlock(this.strippedWood, BlockBehaviour.Properties.copy(Blocks.STRIPPED_JUNGLE_LOG).sound(SoundType.WOOD));
-        this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.copy(Blocks.JUNGLE_LOG).sound(SoundType.WOOD));
+        this.strippedLog = new FeyStrippedLogBlock(this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
+        this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
 
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));

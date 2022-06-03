@@ -181,6 +181,7 @@ public final class FeywildMod extends ModXRegistration {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenSpringQuartzMossyBrick, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenSummerQuartzMossyBrick, RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenWinterQuartzMossyBrick, RenderType.cutout());
+
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
