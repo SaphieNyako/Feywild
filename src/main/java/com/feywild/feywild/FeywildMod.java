@@ -167,7 +167,7 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
         EntityRenderers.register(ModEntityTypes.dwarfBaker, MarketDwarfRenderer::new);
         EntityRenderers.register(ModEntityTypes.dwarfMiner, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer::new);
+        EntityRenderers.register(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfBlacksmithModel::new));
         EntityRenderers.register(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
         EntityRenderers.register(ModEntityTypes.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
         EntityRenderers.register(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));

@@ -123,7 +123,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             if (ownerAlignment != null && ownerAlignment != this.alignment) {
                 unalignedTicks += 1;
                 if (unalignedTicks >= 300) {
-                    owner.sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), owner.getUUID());
+                    owner.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".disappear"), owner.getUUID());
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else {
@@ -143,15 +143,19 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 if (this.followingPlayer) {
                     this.followingPlayer = false;
                     this.setSummonPos(this.blockPosition());
-                    player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                 } else {
                     this.followingPlayer = true;
-                    player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return InteractionResult.PASS;
+    }
+
+    public String getEntityNameMessage() {
+        return this.getDisplayName().getString().toLowerCase().replace(" ", "_");
     }
 
     @Override

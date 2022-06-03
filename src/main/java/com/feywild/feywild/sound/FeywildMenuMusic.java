@@ -9,16 +9,21 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 
+import java.util.Random;
+
 public class FeywildMenuMusic {
 
     private static SoundInstance currentFeywildMenuMusic = null;
 
     public static void playSound(PlaySoundEvent event) {
         if (ClientConfig.replace_menu && event.getSound().canPlaySound()) {
+            Random random = new Random();
             if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
                 handleSoundReplace(ModSoundEvents.musicMenu, event);
             } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.getLocation())) {
-                handleSoundReplace(ModSoundEvents.musicCreative, event);
+                if (random.nextFloat() < 0.2f) {
+                    handleSoundReplace(ModSoundEvents.musicCreative, event);
+                }
             }
         }
     }
