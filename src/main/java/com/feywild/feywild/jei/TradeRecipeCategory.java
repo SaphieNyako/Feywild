@@ -25,7 +25,7 @@ import java.util.List;
 public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
 
     public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "trades");
-    
+
     private final IDrawable background;
     private final IDrawable icon;
     private final IDrawable slot;
@@ -97,7 +97,7 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
     public void draw(@Nonnull TradeRecipe recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY) {
         FontRenderer font = Minecraft.getInstance().font;
         int textX = 89 - (font.width(recipe.id.getPath()) / 2);
-        font.drawShadow(matrixStack, recipe.id.getPath(), textX, 3, 0xFFFFFF);
+        font.drawShadow(matrixStack, getText(recipe.id.getPath()), textX, 3, 0xFFFFFF);
         ITextComponent levelText = new TranslationTextComponent("jei.trades.level", recipe.level);
         font.drawShadow(matrixStack, levelText, textX, 14, 0xFFFFFF);
         for (int i = 0; i < recipe.trades.size(); i++) {
@@ -108,5 +108,9 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
             slot.draw(matrixStack, xOff + 67, yOff);
             rightArrow.draw(matrixStack, xOff + 41, yOff + 1);
         }
+    }
+
+    public String getText(String text) {
+        return text.replace("_", " ").replace("/trades", " ");
     }
 }

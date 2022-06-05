@@ -26,7 +26,13 @@ import java.util.stream.Collectors;
 public class FeywildJei implements IModPlugin {
 
     private static IJeiRuntime runtime;
-    
+
+    public static void runtime(Consumer<IJeiRuntime> action) {
+        if (runtime != null) {
+            action.accept(runtime);
+        }
+    }
+
     @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
@@ -59,11 +65,5 @@ public class FeywildJei implements IModPlugin {
     @Override
     public void onRuntimeAvailable(@Nonnull IJeiRuntime runtime) {
         FeywildJei.runtime = runtime;
-    }
-    
-    public static void runtime(Consumer<IJeiRuntime> action) {
-        if (runtime != null) {
-            action.accept(runtime);
-        }
     }
 }

@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.item.BlockItem;
@@ -49,8 +46,8 @@ public abstract class BaseTree extends Tree implements Registerable {
     private final BaseSaplingBlock sapling;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
-        this.logBlock = new FeyLogBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_LOG));
-        this.woodBlock = new FeyWoodBlock(this.logBlock, AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD));
+        this.logBlock = new FeyLogBlock(AbstractBlock.Properties.copy(Blocks.JUNGLE_LOG).sound(SoundType.WOOD));
+        this.woodBlock = new FeyWoodBlock(this.logBlock, AbstractBlock.Properties.copy(Blocks.JUNGLE_WOOD).sound(SoundType.WOOD));
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
         this.logItem = new BlockItem(this.logBlock, properties);
         this.woodItem = new BlockItem(this.woodBlock, properties);
