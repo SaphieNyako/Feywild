@@ -48,7 +48,7 @@ public class FeywildPlacementUtils {
     );
 
     public static final List<PlacementModifier> springTrees = ImmutableList.<PlacementModifier>builder()
-            .add(PlacementUtils.countExtra(2, 0.1f, 1)).addAll(getSpringTrees).build();
+            .add(PlacementUtils.countExtra(1, 0.2f, 1)).addAll(getSpringTrees).build();
 
     public static final List<PlacementModifier> summerTrees = ImmutableList.<PlacementModifier>builder()
             .add(PlacementUtils.countExtra(1, 0.1f, 1)).addAll(getSummerTrees).build();
