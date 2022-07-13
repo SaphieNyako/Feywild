@@ -41,8 +41,6 @@ public class ModBlocks {
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
     public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
 
-    /* NEW BLOCKS */
-
     public static final Block elvenQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f)
             .requiresCorrectToolForDrops().sound(SoundType.STONE));
     public static final Block elvenQuartzBrick = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f)
@@ -116,7 +114,7 @@ public class ModBlocks {
     public static final Block feyStarBlockOrange = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
     public static final Block feyStarBlockYellow = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
 
-    /* TEMPORARY BLOCKS */
+    /* TEMPORARY BLOCKS PLACEHOLDERS */
     public static final Block feyPortalBlock = new FeyPortalBlock();
     public static final GrassBlock snowyGrassBlock = new GrassBlock(BlockBehaviour.Properties.of(Material.GRASS));
 }
