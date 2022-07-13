@@ -14,17 +14,16 @@ public class ModBlockColors {
 
     public static BlockColor setDynamicBlockColorProviderGrass(double temp, double humidity) {
         return (unknown, lightReader, pos, unknown2) -> {
-            assert lightReader != null;
             return BiomeColors.getAverageGrassColor(lightReader, pos);
         };
     }
 
     @SubscribeEvent
     public static void onBlockColorsInit(ColorHandlerEvent.Item event) {
-        final BlockColors blockColors = event.getBlockColors();
+        BlockColors blockColors = event.getBlockColors();
 
         blockColors.register((state, reader, pos, color) -> {
-            return reader != null && pos != null ? BiomeColors.getAverageGrassColor(reader, pos) : GrassColor.get(0.5D, 0.5D);
+            return reader != null && pos != null ? BiomeColors.getAverageGrassColor(reader, pos) : GrassColor.get(0.5, 0.5);
         }, ModBlocks.elvenQuartzMossyBrick, ModBlocks.elvenAutumnQuartzMossyBrick, ModBlocks.elvenSpringQuartzMossyBrick, ModBlocks.elvenSummerQuartzMossyBrick, ModBlocks.elvenWinterQuartzMossyBrick);
     }
 

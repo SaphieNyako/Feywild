@@ -14,7 +14,7 @@ public class ModItemColors {
     public static void initItemColors(ColorHandlerEvent.Item event) {
 
         event.getItemColors().register((stack, color) -> {
-            return GrassColor.get(0.0D, 0.5D);
+            return GrassColor.get(0, 0);
         }, ModBlocks.elvenQuartzMossyBrick, ModBlocks.elvenAutumnQuartzMossyBrick, ModBlocks.elvenSpringQuartzMossyBrick, ModBlocks.elvenSummerQuartzMossyBrick, ModBlocks.elvenWinterQuartzMossyBrick);
 
     }
