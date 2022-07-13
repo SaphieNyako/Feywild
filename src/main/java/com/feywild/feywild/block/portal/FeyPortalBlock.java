@@ -63,11 +63,10 @@ public class FeyPortalBlock extends Block {
         }
     }
 
-    //trySpawnPortal Method
     public boolean tryCreatePortal(LevelAccessor worldIn, BlockPos pos) {
-        FeyPortalBlock.Size FeyPortalBlock$size = this.isPortal(worldIn, pos);
-        if (FeyPortalBlock$size != null && !onTryCreatePortal(worldIn, pos, FeyPortalBlock$size)) {
-            FeyPortalBlock$size.placePortalBlocks();
+        FeyPortalBlock.Size size = this.isPortal(worldIn, pos);
+        if (size != null && !onTryCreatePortal(worldIn, pos, size)) {
+            size.placePortalBlocks();
             return true;
         } else {
             return false;
@@ -80,22 +79,22 @@ public class FeyPortalBlock extends Block {
 
     @Nullable
     public FeyPortalBlock.Size isPortal(LevelAccessor worldIn, BlockPos pos) {
-        FeyPortalBlock.Size FeyPortBlock$sizeX = new Size(worldIn, pos, Direction.Axis.X);
-        if (FeyPortBlock$sizeX.isValid() && FeyPortBlock$sizeX.portalBlockCount == 0) {
-            return FeyPortBlock$sizeX;
+        FeyPortalBlock.Size sizeX = new Size(worldIn, pos, Direction.Axis.X);
+        if (sizeX.isValid() && sizeX.portalBlockCount == 0) {
+            return sizeX;
         } else {
-            FeyPortalBlock.Size FeyPortBlock$sizeZ = new Size(worldIn, pos, Direction.Axis.Z);
-            return FeyPortBlock$sizeZ.isValid() && FeyPortBlock$sizeZ.portalBlockCount == 0 ? FeyPortBlock$sizeZ : null;
+            FeyPortalBlock.Size sizeZ = new Size(worldIn, pos, Direction.Axis.Z);
+            return sizeZ.isValid() && sizeZ.portalBlockCount == 0 ? sizeZ : null;
         }
 
     }
 
     @Override
     public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-        Direction.Axis direction$axis = facing.getAxis();
-        Direction.Axis direction$axis1 = stateIn.getValue(AXIS);
-        boolean flag = direction$axis1 != direction$axis && direction$axis.isHorizontal();
-        return !flag && facingState.getBlock() != this && !(new Size(worldIn, currentPos, direction$axis1)).validatePortal() ?
+        Direction.Axis axis = facing.getAxis();
+        Direction.Axis axis1 = stateIn.getValue(AXIS);
+        boolean flag = axis1 != axis && axis.isHorizontal();
+        return !flag && facingState.getBlock() != this && !(new Size(worldIn, currentPos, axis1)).validatePortal() ?
                 Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
@@ -224,7 +223,6 @@ public class FeyPortalBlock extends Block {
             }
 
             for (BlockPos blockpos = pos; pos.getY() > blockpos.getY() - 21 && pos.getY() > 0 && this.canConnect(level.getBlockState(pos.below())); pos = pos.below()) {
-                //WHY IS THIS EMPTY?
             }
 
             int i = this.getDistanceUntilEdge(pos, this.leftDir) - 1;
