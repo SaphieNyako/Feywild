@@ -6,7 +6,3 @@ public class LibraryStructure extends BaseStructure {
         super("library");
     }
 }
-
-
-
-

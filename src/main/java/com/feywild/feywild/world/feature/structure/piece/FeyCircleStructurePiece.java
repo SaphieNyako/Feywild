@@ -22,5 +22,4 @@ public class FeyCircleStructurePiece extends FeywildStructurePiece {
     public StructurePoolElementType<?> getType() {
         return TYPE;
     }
-
 }

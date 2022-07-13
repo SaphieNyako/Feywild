@@ -25,10 +25,10 @@ import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class SummerWorldTreeStructure extends StructureFeature<JigsawConfiguration> {
+public class WorldTreeStructure extends StructureFeature<JigsawConfiguration> {
 
-    public SummerWorldTreeStructure(String structureId) {
-        super(JigsawConfiguration.CODEC, new PlacementFactory(structureId));
+    public WorldTreeStructure(String structureId) {
+        super(JigsawConfiguration.CODEC, new WorldTreeStructure.PlacementFactory(structureId));
     }
 
     public static boolean isFeatureChunk(PieceGeneratorSupplier.Context<JigsawConfiguration> context) {
@@ -93,5 +93,4 @@ public class SummerWorldTreeStructure extends StructureFeature<JigsawConfigurati
             );
         }
     }
-
 }

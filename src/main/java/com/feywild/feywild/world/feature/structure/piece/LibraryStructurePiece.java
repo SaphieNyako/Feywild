@@ -22,6 +22,4 @@ public class LibraryStructurePiece extends FeywildStructurePiece {
     public StructurePoolElementType<?> getType() {
         return TYPE;
     }
-
-    // placementOffset
 }

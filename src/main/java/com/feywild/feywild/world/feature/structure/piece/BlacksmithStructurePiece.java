@@ -22,6 +22,4 @@ public class BlacksmithStructurePiece extends FeywildStructurePiece {
     public StructurePoolElementType<?> getType() {
         return TYPE;
     }
-
-    //placementOffset
 }
