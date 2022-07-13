@@ -45,7 +45,7 @@ public class MarketDwarf extends DwarfBlacksmith {
         }
         return InteractionResult.SUCCESS;
     }
-    
+
     protected void trade(Player player) {
         this.setTradingPlayer(player);
         this.openTradingScreen(player, new TranslatableComponent("Dwarven Trader"), 1);

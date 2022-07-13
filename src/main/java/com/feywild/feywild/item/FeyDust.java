@@ -101,13 +101,13 @@ public class FeyDust extends ItemBase {
                     if (((FeyPortalBlock) ModBlocks.feyPortalBlock).tryCreatePortal(level, framePos)) {
 
                         level.playSound(player, framePos, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        return InteractionResult.CONSUME;
+                        return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
                     } else {
                         return InteractionResult.FAIL;
                     }
                 }
             }
-            return InteractionResult.FAIL;
+            return InteractionResult.PASS;
         }
         return super.useOn(context);
     }
