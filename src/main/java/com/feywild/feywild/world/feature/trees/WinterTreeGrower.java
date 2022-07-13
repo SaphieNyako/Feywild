@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class WinterTreeGrower extends BaseTreeGrower {
+public class WinterTreeGrower extends BaseTree {
 
     public WinterTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 15, ModParticles.winterLeafParticle));

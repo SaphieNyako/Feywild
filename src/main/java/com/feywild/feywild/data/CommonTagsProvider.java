@@ -7,7 +7,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.tag.ModBlockTags;
 import com.feywild.feywild.tag.ModItemTags;
-import com.feywild.feywild.world.feature.trees.BaseTreeGrower;
+import com.feywild.feywild.world.feature.trees.BaseTree;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.CommonTagsProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
@@ -60,7 +60,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         if (level != null) this.block(level).add(block);
     }
 
-    private void treeTags(BaseTreeGrower tree, TagKey<Block> logs, TagKey<Item> logItems) {
+    private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
         this.block(logs).add(
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),

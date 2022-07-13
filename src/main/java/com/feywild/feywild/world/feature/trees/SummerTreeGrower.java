@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
-public class SummerTreeGrower extends BaseTreeGrower {
+public class SummerTreeGrower extends BaseTree {
 
     public SummerTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 20, ModParticles.summerLeafParticle));

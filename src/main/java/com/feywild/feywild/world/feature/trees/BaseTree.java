@@ -37,7 +37,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public abstract class BaseTreeGrower extends AbstractTreeGrower implements Registerable {
+public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
 
     private static final int BASE_HEIGHT = 6;
     private static final int FIRST_RANDOM_HEIGHT = 7;
@@ -63,7 +63,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
 
     private final FeyPlanksBlock plankBlock;
 
-    public BaseTreeGrower(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
+    public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
 
@@ -78,7 +78,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
         this.logRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTreeGrower.this.logBlock, BaseTreeGrower.this.logItem
+                return ImmutableSet.of(BaseTree.this.logBlock, BaseTree.this.logItem
                 );
             }
         };
@@ -86,7 +86,7 @@ public abstract class BaseTreeGrower extends AbstractTreeGrower implements Regis
         this.strippedLogRegister = new Registerable() {
             @Override
             public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-                return ImmutableSet.of(BaseTreeGrower.this.strippedLog, BaseTreeGrower.this.strippedLogItem);
+                return ImmutableSet.of(BaseTree.this.strippedLog, BaseTree.this.strippedLogItem);
             }
         };
 

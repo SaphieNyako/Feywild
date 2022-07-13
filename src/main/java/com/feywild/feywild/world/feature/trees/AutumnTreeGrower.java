@@ -20,7 +20,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDeco
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class AutumnTreeGrower extends BaseTreeGrower {
+public class AutumnTreeGrower extends BaseTree {
 
     public AutumnTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));

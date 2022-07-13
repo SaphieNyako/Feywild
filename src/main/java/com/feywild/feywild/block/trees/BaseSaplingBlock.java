@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.world.feature.trees.BaseTreeGrower;
+import com.feywild.feywild.world.feature.trees.BaseTree;
 import com.google.common.collect.ImmutableSet;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
@@ -33,10 +33,10 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
 
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
 
-    private final BaseTreeGrower tree;
+    private final BaseTree tree;
     private final BlockItem item;
 
-    public BaseSaplingBlock(ModX mod, BaseTreeGrower tree) {
+    public BaseSaplingBlock(ModX mod, BaseTree tree) {
         super(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
         this.tree = tree;
         Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);

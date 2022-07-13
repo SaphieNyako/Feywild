@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Random;
 
-public class SpringTreeGrower extends BaseTreeGrower {
+public class SpringTreeGrower extends BaseTree {
 
     public SpringTreeGrower(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 14, ModParticles.springLeafParticle));
