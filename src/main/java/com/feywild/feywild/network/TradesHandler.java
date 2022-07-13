@@ -12,7 +12,7 @@ public class TradesHandler {
         context.get().enqueueWork(() -> {
             if (ModList.get().isLoaded("jei")) {
                 FeywildJeiReloader.clientTrades = msg.recipes;
-                if (!(ModList.get().isLoaded("jeresources"))) {
+                if (!(ModList.get().isLoaded("jeresources"))) { //TODO 1.19, see JEA
                     FeywildJeiReloader.reload();
                 }
             }
