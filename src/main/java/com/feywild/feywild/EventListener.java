@@ -62,7 +62,8 @@ public class EventListener {
             if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
                 player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
 
-                //PORTAL
+                //TODO TELEPORTING PLAYER TO OTHER DIMENSION WHEN NEAR A STRUCTURE
+
                 //   if (player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).containsKey(FeywildDimensionConfiguredFeatures.feyCircle.value())) {
                 //      FeywildDimensionHandler.teleportToFeywild(player);
                 //   }
