@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.dimension.market.setup;
 
 import com.feywild.feywild.FeyPlayerData;
-import com.feywild.feywild.world.dimension.market.MarketPlaceDimensions;
+import com.feywild.feywild.world.dimension.market.MarketPlaceDimension;
 import com.feywild.feywild.world.dimension.market.teleporter.SimpleTeleporter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.NbtUtils;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 public class MarketHandler {
 
     public static void update(MinecraftServer server) {
-        ServerLevel market = server.getLevel(MarketPlaceDimensions.MARKET_PLACE_DIMENSION);
+        ServerLevel market = server.getLevel(MarketPlaceDimension.MARKET_PLACE_DIMENSION);
         if (market != null) {
             MarketData data = MarketData.get(market);
             if (data != null) {
@@ -31,7 +31,7 @@ public class MarketHandler {
 
     public static boolean teleportToMarket(ServerPlayer player) {
         if (player.getLevel().dimension() == Level.OVERWORLD) {
-            ServerLevel targetLevel = player.getLevel().getServer().getLevel(MarketPlaceDimensions.MARKET_PLACE_DIMENSION);
+            ServerLevel targetLevel = player.getLevel().getServer().getLevel(MarketPlaceDimension.MARKET_PLACE_DIMENSION);
             if (targetLevel != null) {
                 MarketData data = MarketData.get(targetLevel);
                 if (data != null) {
@@ -54,7 +54,7 @@ public class MarketHandler {
     }
 
     public static boolean teleportToOverworld(ServerPlayer player) {
-        if (player.getLevel().dimension() == MarketPlaceDimensions.MARKET_PLACE_DIMENSION) {
+        if (player.getLevel().dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
             ServerLevel targetLevel = player.getLevel().getServer().overworld();
             BlockPos targetPos = FeyPlayerData.get(player).contains("DwarfMarketPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(FeyPlayerData.get(player).getCompound("DwarfMarketPos")) : null;
             if (targetPos == null) {
