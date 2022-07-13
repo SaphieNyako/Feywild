@@ -16,6 +16,8 @@ import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
+import com.feywild.feywild.renderer.ModBlockColors;
+import com.feywild.feywild.renderer.ModItemColors;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
@@ -89,6 +91,8 @@ public final class FeywildMod extends ModXRegistration {
         eventBus.addListener(CapabilityQuests::register);
         eventBus.addListener(this::entityAttributes);
         eventBus.addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
+        eventBus.register(ModBlockColors.class);
+        eventBus.register(ModItemColors.class);
 
         ModStructures.register(eventBus);
 
