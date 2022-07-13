@@ -40,7 +40,7 @@ public class FeywildDimension {
         Registry.register(Registry.CHUNK_GENERATOR, FEYWILD_DIMENSION.location(), FeywildChunkGenerator.CODEC);
         Registry.register(Registry.BIOME_SOURCE, FEYWILD_DIMENSION.location(), FeywildBiomeSource.CODEC);
     }
-    
+
     public static void addBiome(Biome biome, BiomeConfiguration settings) {
         addBiome(biomeKey(biome), settings);
     }

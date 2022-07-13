@@ -8,13 +8,9 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 
 public class ModStructureTags {
 
-    public static class ConfiguredStructureFeatures {
+    public static final TagKey<ConfiguredStructureFeature<?, ?>> PORTAL_STRUCTURE = tag();
 
-        public static final TagKey<ConfiguredStructureFeature<?, ?>> PORTAL_STRUCTURE = tag();
-
-        private static TagKey<ConfiguredStructureFeature<?, ?>> tag() {
-            return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(FeywildMod.getInstance().modid, "portal_structures"));
-        }
+    private static TagKey<ConfiguredStructureFeature<?, ?>> tag() {
+        return TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, new ResourceLocation(FeywildMod.getInstance().modid, "portal_structures"));
     }
-
 }
