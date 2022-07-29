@@ -18,7 +18,9 @@ public class FeywildMenuMusic {
             if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
                 handleSoundReplace(ModSoundEvents.musicMenu, event);
             } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.getLocation())) {
-                handleSoundReplace(ModSoundEvents.musicCreative, event);
+                if (Math.random() < 0.2f) {
+                    handleSoundReplace(ModSoundEvents.musicCreative, event);
+                }
             }
         }
     }

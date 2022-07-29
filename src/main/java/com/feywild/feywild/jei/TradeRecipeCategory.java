@@ -96,7 +96,7 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
     public void draw(@Nonnull TradeRecipe recipe, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
         int textX = 89 - (font.width(recipe.id.getPath()) / 2);
-        font.drawShadow(poseStack, recipe.id.getPath(), textX, 3, 0xFFFFFF);
+        font.drawShadow(poseStack, getText(recipe.id.getPath()), textX, 3, 0xFFFFFF);
         Component levelText = new TranslatableComponent("jei.trades.level", recipe.level);
         font.drawShadow(poseStack, levelText, textX, 14, 0xFFFFFF);
         for (int i = 0; i < recipe.trades.size(); i++) {
@@ -107,5 +107,9 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
             slot.draw(poseStack, xOff + 67, yOff);
             rightArrow.draw(poseStack, xOff + 41, yOff + 1);
         }
+    }
+
+    public String getText(String text) {
+        return text.replace("_", " ").replace("/trades", " ");
     }
 }

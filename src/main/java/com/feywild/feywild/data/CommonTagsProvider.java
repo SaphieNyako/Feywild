@@ -3,18 +3,18 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
-import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.tag.ModBlockTags;
 import com.feywild.feywild.tag.ModItemTags;
+import com.feywild.feywild.world.feature.trees.BaseTree;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.CommonTagsProviderBase;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -44,6 +44,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         tool(ModBlocks.feyGemBlockDeepSlate, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.feyGemBlockLivingrock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.dwarvenAnvil, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.snowyGrassBlock, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_SHOVEL);
 
         treeTags(ModTrees.springTree, ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
@@ -54,12 +55,12 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
     }
 
-    private void tool(Block block, Tag.Named<Block> tool, @Nullable Tag.Named<Block> level) {
+    private void tool(Block block, TagKey<Block> tool, @Nullable TagKey<Block> level) {
         this.block(tool).add(block);
         if (level != null) this.block(level).add(block);
     }
 
-    private void treeTags(BaseTree tree, Tag.Named<Block> logs, Tag.Named<Item> logItems) {
+    private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
         this.block(logs).add(
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),

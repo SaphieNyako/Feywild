@@ -1,0 +1,10 @@
+{
+  "type": "feywild:feywild",
+  "forge:use_server_seed": true,
+  "generator": {
+    "type": "feywild:feywild",
+    "biome_source": {
+      "type": "feywild:feywild"
+    }
+  }
+}

@@ -9,7 +9,8 @@ import net.minecraft.world.level.block.*;
 
 public class FeyPlanksBlock extends DecoratedBlock {
 
-    public static final DecorationContext DECORATION = new DecorationContext("fey_planks", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB, DecorationType.STAIR, DecorationType.WOOD_BUTTON, DecorationType.WOOD_PRESSURE_PLATE);
+    public static final DecorationContext DECORATION = new DecorationContext("fey_planks", DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE,
+            DecorationType.SLAB, DecorationType.STAIR, DecorationType.WOOD_BUTTON, DecorationType.WOOD_PRESSURE_PLATE, DecorationType.DOOR, DecorationType.TRAPDOOR);
 
     public FeyPlanksBlock(ModX mod, Properties properties, Item.Properties itemProperties) {
         super(mod, DECORATION, properties, itemProperties);
@@ -38,4 +39,8 @@ public class FeyPlanksBlock extends DecoratedBlock {
     public PressurePlateBlock getPressurePlateBlock() {
         return get(DecorationType.WOOD_PRESSURE_PLATE);
     }
+
+    public DoorBlock getDoorBlock() {return get(DecorationType.DOOR);}
+
+    public TrapDoorBlock getTrapDoorBlock() {return get(DecorationType.TRAPDOOR);}
 }

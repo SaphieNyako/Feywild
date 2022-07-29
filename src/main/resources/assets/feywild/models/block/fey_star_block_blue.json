@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "feywild:block/fey_star_block_blue",
+    "bottom": "feywild:block/fey_star_block_blue_bottom",
+    "top": "feywild:block/fey_star_block_blue_top",
+    "particle": "feywild:block/fey_star_block_blue"
+  }
+}

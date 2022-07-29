@@ -7,7 +7,7 @@ import io.github.noeppi_noeppi.libx.crafting.CraftingHelper2;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeExtension;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -49,7 +49,7 @@ public interface AltarExtension extends RecipeExtension {
             return this.requires(Ingredient.of(item));
         }
 
-        public AltarRecipeBuilder requires(Tag<Item> item) {
+        public AltarRecipeBuilder requires(TagKey<Item> item) {
             return this.requires(Ingredient.of(item));
         }
 

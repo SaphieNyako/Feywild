@@ -23,10 +23,10 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
@@ -39,17 +39,13 @@ import java.util.UUID;
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
 
     public final Alignment alignment;
-
-    @Nullable
-    private BlockPos summonPos = null;
-
+    private final AnimationFactory factory = new AnimationFactory(this);
     @Nullable
     protected UUID owner;
-
+    @Nullable
+    private BlockPos summonPos = null;
     private int unalignedTicks = 0;
     private boolean followingPlayer = false;
-
-    private final AnimationFactory factory = new AnimationFactory(this);
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
         super(entityType, level);
@@ -67,7 +63,11 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
-        return Tags.Blocks.DIRT.contains(level.getBlockState(pos.below()).getBlock()) || Tags.Blocks.SAND.contains(level.getBlockState(pos.below()).getBlock());
+        return isBrightEnoughToSpawn(level, pos);
+    }
+
+    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
+        return getter.getRawBrightness(pos, 0) > 8;
     }
 
     @Nullable
@@ -123,7 +123,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             if (ownerAlignment != null && ownerAlignment != this.alignment) {
                 unalignedTicks += 1;
                 if (unalignedTicks >= 300) {
-                    owner.sendMessage(new TranslatableComponent("message.feywild." + alignment.id + ".dissapear"), owner.getUUID());
+                    owner.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".disappear"), owner.getUUID());
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else {
@@ -143,15 +143,19 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 if (this.followingPlayer) {
                     this.followingPlayer = false;
                     this.setSummonPos(this.blockPosition());
-                    player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                 } else {
                     this.followingPlayer = true;
-                    player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return InteractionResult.PASS;
+    }
+
+    public String getEntityNameMessage() {
+        return this.getDisplayName().getString().toLowerCase().replace(" ", "_");
     }
 
     @Override

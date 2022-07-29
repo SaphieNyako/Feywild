@@ -47,13 +47,10 @@ import java.util.Random;
 public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
-
+    private final AnimationFactory factory = new AnimationFactory(this);
     private boolean isTamed;
-
     @Nullable
     private BlockPos summonPos;
-
-    private final AnimationFactory factory = new AnimationFactory(this);
 
     public DwarfBlacksmith(EntityType<? extends Trader> type, Level level) {
         super(type, level);
@@ -73,7 +70,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     public static boolean canSpawn(EntityType<DwarfBlacksmith> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         //noinspection deprecation
-        if (pos.getY() >= level.getSeaLevel() - 10 || level.canSeeSky(pos) || random.nextDouble() < 0.15) {
+        if (pos.getY() >= level.getSeaLevel() || level.canSeeSky(pos)) { //|| random.nextDouble() < 0.15
             return false;
         } else {
             return checkMobSpawnRules(type, level, reason, pos, random);

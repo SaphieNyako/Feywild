@@ -3,7 +3,7 @@ package com.feywild.feywild.data.recipe;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.tag.ModBlockTags;
+import com.feywild.feywild.tag.ModItemTags;
 import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.DefaultExtension;
 import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeProviderBase;
@@ -16,7 +16,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 
-// TODO split it up
 @Datagen
 public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
         DefaultExtension, AltarExtension, AnvilExtension, StonecuttingExtension {
@@ -32,12 +31,12 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         shaped(ModTrees.autumnTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.autumnTree.getLogBlock());
         shaped(ModTrees.winterTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.winterTree.getLogBlock());
 
-        shapeless(ModTrees.autumnTree.getPlankBlock(), 4, ModBlockTags.AUTUMN_LOGS);
-        shapeless(ModTrees.springTree.getPlankBlock(), 4, ModBlockTags.SPRING_LOGS);
-        shapeless(ModTrees.summerTree.getPlankBlock(), 4, ModBlockTags.SUMMER_LOGS);
-        shapeless(ModTrees.winterTree.getPlankBlock(), 4, ModBlockTags.WINTER_LOGS);
+        shapeless(ModTrees.autumnTree.getPlankBlock(), 4, ModItemTags.AUTUMN_LOGS);
+        shapeless(ModTrees.springTree.getPlankBlock(), 4, ModItemTags.SPRING_LOGS);
+        shapeless(ModTrees.summerTree.getPlankBlock(), 4, ModItemTags.SUMMER_LOGS);
+        shapeless(ModTrees.winterTree.getPlankBlock(), 4, ModItemTags.WINTER_LOGS);
 
-        shaped(ModBlocks.dwarvenAnvil, "fff", " i ", "iii", 'f', ModItems.lesserFeyGem, 'i', Tags.Blocks.STORAGE_BLOCKS_IRON);
+        shaped(ModBlocks.dwarvenAnvil, "fff", " i ", "iii", 'f', ModItems.lesserFeyGem, 'i', Tags.Items.STORAGE_BLOCKS_IRON);
         shapeless(ModItems.feyInkBottle, ModItems.feyDust, Items.INK_SAC, Items.GLASS_BOTTLE, ModItems.mandrake);
         shapeless(ModItems.mandrakePotion, Items.GLASS_BOTTLE, ModItems.mandrake, Items.GHAST_TEAR, ModItems.brilliantFeyGem);
         shapeless(ModItems.summoningScroll, Items.PAPER, ModItems.feyInkBottle, Items.FEATHER);

@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "feywild:beekeep",
+      "weight": 50
+    }
+  ],
+  "placement": {
+    "salt": 567897123,
+    "spacing": 25,
+    "separation": 10,
+    "type": "minecraft:random_spread"
+  }
+}

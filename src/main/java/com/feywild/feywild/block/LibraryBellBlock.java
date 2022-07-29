@@ -20,6 +20,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerData;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -116,6 +119,9 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
                 Villager entity = new Villager(EntityType.VILLAGER, level);
                 entity.addTag("feywild_librarian");
+                VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(pos)), VillagerProfession.LIBRARIAN, 1);
+                entity.setVillagerData(villagerData);
+                entity.setVillagerXp(1);
                 entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
                 for (Direction dir : Direction.values()) {
                     if (dir.getAxis() != Direction.Axis.Y) {

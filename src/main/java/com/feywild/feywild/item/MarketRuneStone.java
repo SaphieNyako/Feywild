@@ -1,7 +1,7 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.world.dimension.ModDimensions;
-import com.feywild.feywild.world.dimension.market.MarketHandler;
+import com.feywild.feywild.world.dimension.market.MarketPlaceDimension;
+import com.feywild.feywild.world.dimension.market.setup.MarketHandler;
 import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,13 +23,13 @@ public class MarketRuneStone extends TooltipItem {
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
         if (level.isClientSide) {
-            if (level.dimension() == Level.OVERWORLD || level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
+            if (level.dimension() == Level.OVERWORLD || level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
                 return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), true);
             } else {
                 return InteractionResultHolder.fail(player.getItemInHand(hand));
             }
         } else if (player instanceof ServerPlayer) {
-            if (level.dimension() == ModDimensions.MARKET_PLACE_DIMENSION) {
+            if (level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
                 if (MarketHandler.teleportToOverworld((ServerPlayer) player)) {
                     player.getCooldowns().addCooldown(this, 60);
                     return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), false);

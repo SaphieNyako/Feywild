@@ -17,6 +17,7 @@ import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
 import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -38,29 +39,6 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlock {
 
     public static final int MAX_MANA = 1000;
     public static final int FEY_DUST_MANA_COST = 50;
-
-    private final BaseItemStackHandler inventory = BaseItemStackHandler.builder(8)
-            .contentsChanged(() -> {
-                this.setChanged();
-                this.updateRecipe();
-            })
-            .validator(stack -> stack.getItem() == ModItems.feyDust, 0)
-            .validator(stack -> ModItemTags.SCHEMATICS.contains(stack.getItem()), 1)
-            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL, stack), 2, 3, 4, 5, 6)
-            .validator(stack -> false, 7)
-            .build();
-    private final ManaStorage manaStorage = new ManaStorage(MAX_MANA, () -> {
-        this.setChanged();
-        this.updateRecipe();
-    });
-
-    // Top for main inputs, side for fey dust and bottom to extract result.
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.create(() -> this.inventory);
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerTop = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerSide = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.create(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
-    private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> this.manaStorage);
-
     // As `load` is often called without a level, we need to store that a recipe update
     // is required, so it can be updated next tick.
     private boolean needsUpdate = false;
@@ -178,4 +156,32 @@ public class DwarvenAnvil extends BlockEntityBase implements TickableBlock {
     public void setMana(int mana) {
         this.manaStorage.setMana(mana);
     }
+
+    private final BaseItemStackHandler inventory = BaseItemStackHandler.builder(8)
+            .contentsChanged(() -> {
+                this.setChanged();
+                this.updateRecipe();
+            })
+            .validator(stack -> stack.getItem() == ModItems.feyDust, 0)
+            .validator(stack -> Registry.ITEM.getHolderOrThrow(Registry.ITEM.getResourceKey(stack.getItem()).get()).is(ModItemTags.SCHEMATICS), 1)
+            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL, stack), 2, 3, 4, 5, 6)
+            .validator(stack -> false, 7)
+            .build();
+
+
+    private final ManaStorage manaStorage = new ManaStorage(MAX_MANA, () -> {
+        this.setChanged();
+        this.updateRecipe();
+    });
+
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.create(() -> this.inventory);
+
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerTop = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
+
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerSide = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
+
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.create(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
+
+    private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> this.manaStorage);
+
 }

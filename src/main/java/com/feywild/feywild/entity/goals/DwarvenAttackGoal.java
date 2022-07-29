@@ -17,6 +17,8 @@ import java.util.List;
 
 public class DwarvenAttackGoal extends Goal {
 
+    //TODO make attack faster and more frequent
+
     protected final DwarfBlacksmith entity;
     protected LivingEntity target;
     protected boolean sendShock = false;
@@ -102,7 +104,8 @@ public class DwarvenAttackGoal extends Goal {
         BlockState state = this.entity.level.getBlockState(pos);
         if (!state.hasBlockEntity() && state.getDestroySpeed(this.entity.level, pos) >= 0) {
             // No blocks with tile entities and no unbreakable blocks.
-            entityList.add(new FallingBlockEntity(this.entity.level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, state));
+            entityList.add(FallingBlockEntity.fall(this.entity.level, pos, state));
+
         }
     }
 
