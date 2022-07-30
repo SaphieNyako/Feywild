@@ -1,8 +1,10 @@
 package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.MythicCompat;
+import org.moddingx.libx.annotation.config.RegisterConfig;
 import org.moddingx.libx.config.Config;
 
+@RegisterConfig("compat")
 public class CompatConfig {
 
     @Config({

@@ -1,7 +1,9 @@
 package com.feywild.feywild.config;
 
+import org.moddingx.libx.annotation.config.RegisterConfig;
 import org.moddingx.libx.config.Config;
 
+@RegisterConfig(value = "client", client = true)
 public class ClientConfig {
 
     @Config("Whether Feywild should replace the main menu and the creative music in game.")

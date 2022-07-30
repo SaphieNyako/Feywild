@@ -4,7 +4,7 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.config.*;
-import com.feywild.feywild.config.mapper.BiomeTypeMapper;
+import com.feywild.feywild.config.mapper.TagMapperFactory;
 import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
@@ -24,7 +24,6 @@ import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.ModWorldGeneration;
 import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
 import com.feywild.feywild.world.dimension.feywild.FeywildGeneration;
-import com.feywild.feywild.world.dimension.feywild.features.FeatureTransformer;
 import com.feywild.feywild.world.dimension.market.setup.MarketGenerator;
 import com.feywild.feywild.world.feature.structure.ModStructures;
 import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
@@ -68,14 +67,6 @@ public final class FeywildMod extends ModXRegistration {
 
         instance = this;
         network = new FeywildNetwork(this);
-
-        ConfigManager.registerValueMapper(this.modid, new BiomeTypeMapper());
-        ConfigManager.registerConfigValidator(this.modid, new StructureDataValidator());
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "misc"), MiscConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "world_gen"), WorldGenConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
 
         GeckoLib.initialize();
 
@@ -131,8 +122,7 @@ public final class FeywildMod extends ModXRegistration {
 
     @Override
     protected void initRegistration(RegistrationBuilder builder) {
-        builder.setVersion(1);
-        builder.addTransformer(FeatureTransformer.INSTANCE);
+        builder.enableRegistryTracking();
     }
 
     @Override

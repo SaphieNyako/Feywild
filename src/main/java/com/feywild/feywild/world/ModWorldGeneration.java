@@ -150,7 +150,7 @@ public class ModWorldGeneration {
             if (WINTER_ALFHEIM.equals(biomeId))
                 addSpawn(event, ModEntityTypes.winterPixie, MobCategory.CREATURE, MobConfig.spawns.winter_pixie);
         } else {
-            if ((types.contains(BiomeDictionary.Type.OVERWORLD) && !types.contains(BiomeDictionary.Type.OCEAN)) || MobConfig.dimensions.white_list_biomes.test(biomeId)) {
+            if ((types.contains(BiomeDictionary.Type.OVERWORLD) && !types.contains(BiomeDictionary.Type.OCEAN)) || MobConfig.dimensions.feywild_entity_biomes.test(biomeId)) {
                 if (!MUSHROOM_FIELDS.equals(biomeId) && !MUSHROOM_SHORE.equals(biomeId)) {
                     addSpawn(event, ModEntityTypes.dwarfBlacksmith, MobCategory.MONSTER, MobConfig.spawns.dwarf_blacksmith);
                 }

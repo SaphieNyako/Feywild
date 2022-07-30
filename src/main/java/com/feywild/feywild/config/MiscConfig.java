@@ -1,10 +1,12 @@
 package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.ScrollSelectType;
+import org.moddingx.libx.annotation.config.RegisterConfig;
 import org.moddingx.libx.config.Config;
 import org.moddingx.libx.config.validate.FloatRange;
 import org.moddingx.libx.config.validate.IntRange;
 
+@RegisterConfig("misc")
 public class MiscConfig {
 
     @Config("Whether players should spawn with a Feywild Lexicon")
