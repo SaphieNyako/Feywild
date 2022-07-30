@@ -1,7 +1,7 @@
 package com.feywild.feywild.config.validator;
 
 import com.feywild.feywild.config.data.StructureData;
-import io.github.noeppi_noeppi.libx.config.ConfigValidator;
+import org.moddingx.libx.config.validator.ConfigValidator;
 
 import java.util.Optional;
 

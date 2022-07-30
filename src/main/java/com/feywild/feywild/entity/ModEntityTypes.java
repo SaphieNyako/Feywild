@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 

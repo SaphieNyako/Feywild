@@ -1,7 +1,7 @@
 package com.feywild.feywild.particles;
 
 
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.particles.SimpleParticleType;
 
 @RegisterClass

@@ -5,7 +5,7 @@ import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;

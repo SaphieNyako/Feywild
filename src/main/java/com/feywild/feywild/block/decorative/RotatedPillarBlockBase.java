@@ -1,13 +1,13 @@
 package com.feywild.feywild.block.decorative;
 
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
@@ -31,13 +31,13 @@ public class RotatedPillarBlockBase extends RotatedPillarBlock implements Regist
 
         this.item = new BlockItem(this, itemProperties) {
             @Override
-            public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
+            public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
                 RotatedPillarBlockBase.this.initializeItemClient(consumer);
             }
         };
     }
 
-    private void initializeItemClient(Consumer<IItemRenderProperties> consumer) {
+    private void initializeItemClient(Consumer<IClientItemExtensions> consumer) {
     }
 
     @Override

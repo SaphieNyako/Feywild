@@ -5,7 +5,7 @@ import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.level.GrassColor;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ModBlockColors {
@@ -19,7 +19,7 @@ public class ModBlockColors {
     }
 
     @SubscribeEvent
-    public static void onBlockColorsInit(ColorHandlerEvent.Item event) {
+    public static void onBlockColorsInit(RegisterColorHandlersEvent.Item event) {
         BlockColors blockColors = event.getBlockColors();
 
         blockColors.register((state, reader, pos, color) -> {

@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -23,7 +23,7 @@ public class MarketProtectEvents {
 
     @SubscribeEvent
     public void blockPlace(BlockEvent.EntityPlaceEvent event) {
-        if (event.getWorld() instanceof Level && ((Level) event.getWorld()).dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
+        if (event.getLevel() instanceof Level && ((Level) event.getLevel()).dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
             if (!(event.getEntity() instanceof Player) || !event.getEntity().hasPermissions(2)) {
                 event.setCanceled(true);
             }
@@ -32,7 +32,7 @@ public class MarketProtectEvents {
 
     @SubscribeEvent
     public void blockMultiPlace(BlockEvent.EntityMultiPlaceEvent event) {
-        if (event.getWorld() instanceof Level && ((Level) event.getWorld()).dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
+        if (event.getLevel() instanceof Level && ((Level) event.getLevel()).dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
             if (!(event.getEntity() instanceof Player) || !event.getEntity().hasPermissions(2)) {
                 event.setCanceled(true);
             }
@@ -49,7 +49,7 @@ public class MarketProtectEvents {
     @SubscribeEvent
     public void mobSpawnAttempt(LivingSpawnEvent.CheckSpawn event) {
         Level level;
-        if (event.getWorld() instanceof Level) level = (Level) event.getWorld();
+        if (event.getLevel() instanceof Level) level = (Level) event.getLevel();
         else level = event.getEntity().level;
         if (level != null && level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION && !(event.getEntity() instanceof Player)) {
             event.setResult(Event.Result.DENY);
@@ -59,7 +59,7 @@ public class MarketProtectEvents {
     @SubscribeEvent
     public void mobSpawn(LivingSpawnEvent.SpecialSpawn event) {
         Level level;
-        if (event.getWorld() instanceof Level) level = (Level) event.getWorld();
+        if (event.getLevel() instanceof Level) level = (Level) event.getLevel();
         else level = event.getEntity().level;
         if (level != null && level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION && !(event.getEntity() instanceof Player)) {
             if (event.getSpawnReason() != MobSpawnType.SPAWN_EGG && event.getSpawnReason() != MobSpawnType.BUCKET

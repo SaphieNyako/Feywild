@@ -9,8 +9,8 @@ import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,6 +37,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class FeyDust extends ItemBase {
 

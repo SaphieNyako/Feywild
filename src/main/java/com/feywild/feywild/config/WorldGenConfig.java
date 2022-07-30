@@ -1,7 +1,7 @@
 package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.OreData;
-import io.github.noeppi_noeppi.libx.config.Config;
+import org.moddingx.libx.config.Config;
 
 public class WorldGenConfig {
 

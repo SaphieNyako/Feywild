@@ -1,7 +1,7 @@
 package com.feywild.feywild.network.quest;
 
 import com.feywild.feywild.quest.QuestDisplay;
-import io.github.noeppi_noeppi.libx.network.PacketSerializer;
+import org.moddingx.libx.network.PacketSerializer;
 import net.minecraft.network.FriendlyByteBuf;
 
 public class OpenQuestDisplaySerializer implements PacketSerializer<OpenQuestDisplaySerializer.Message> {

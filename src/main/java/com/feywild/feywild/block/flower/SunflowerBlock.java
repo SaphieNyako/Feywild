@@ -1,6 +1,6 @@
 package com.feywild.feywild.block.flower;
 
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;

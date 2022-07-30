@@ -3,7 +3,7 @@ package com.feywild.feywild.network.quest;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.google.common.collect.ImmutableList;
-import io.github.noeppi_noeppi.libx.network.PacketSerializer;
+import org.moddingx.libx.network.PacketSerializer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 

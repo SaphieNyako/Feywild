@@ -3,12 +3,12 @@ package com.feywild.feywild.block.entity;
 import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.util.StreamUtil;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
-import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
-import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
-import io.github.noeppi_noeppi.libx.util.LazyValue;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
+import org.moddingx.libx.capability.ItemCapabilities;
+import org.moddingx.libx.inventory.BaseItemStackHandler;
+import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
+import org.moddingx.libx.util.lazy.LazyValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimatable {
+public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatable {
 
     public static final int MAX_PROGRESS = 40;
 

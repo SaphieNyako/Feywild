@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier.Context;
+
 public abstract class BaseStructure extends StructureFeature<JigsawConfiguration> {
 
     public BaseStructure(String structureId) {

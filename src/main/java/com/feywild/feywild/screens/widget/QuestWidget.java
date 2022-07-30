@@ -7,7 +7,7 @@ import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.noeppi_noeppi.libx.render.RenderHelper;
+import org.moddingx.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;

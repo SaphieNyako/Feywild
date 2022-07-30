@@ -1,6 +1,6 @@
 package com.feywild.feywild.network;
 
-import io.github.noeppi_noeppi.libx.network.PacketSerializer;
+import org.moddingx.libx.network.PacketSerializer;
 import net.minecraft.network.FriendlyByteBuf;
 
 public class OpeningScreenSerializer implements PacketSerializer<OpeningScreenSerializer.Message> {

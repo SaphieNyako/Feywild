@@ -1,8 +1,8 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.item.ModItems;
-import io.github.noeppi_noeppi.libx.base.BlockBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.BlockBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;

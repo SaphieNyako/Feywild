@@ -2,7 +2,7 @@ package com.feywild.feywild.world.dimension.feywild.features;
 
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.tag.ModBiomeTags;
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;

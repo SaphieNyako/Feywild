@@ -1,9 +1,9 @@
 package com.feywild.feywild.config.mapper;
 
 import com.google.gson.JsonPrimitive;
-import io.github.noeppi_noeppi.libx.config.ValidatorInfo;
-import io.github.noeppi_noeppi.libx.config.ValueMapper;
-import io.github.noeppi_noeppi.libx.config.gui.ConfigEditor;
+import org.moddingx.libx.config.validator.ValidatorInfo;
+import org.moddingx.libx.config.mapper.ValueMapper;
+import org.moddingx.libx.config.gui.ConfigEditor;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.common.BiomeDictionary;
 

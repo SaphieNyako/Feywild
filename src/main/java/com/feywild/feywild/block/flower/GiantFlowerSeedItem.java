@@ -1,7 +1,7 @@
 package com.feywild.feywild.block.flower;
 
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;

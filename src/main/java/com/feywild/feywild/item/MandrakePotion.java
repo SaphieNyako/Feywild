@@ -2,8 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;

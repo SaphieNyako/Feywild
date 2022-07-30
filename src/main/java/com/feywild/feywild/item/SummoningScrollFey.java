@@ -5,8 +5,8 @@ import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
 

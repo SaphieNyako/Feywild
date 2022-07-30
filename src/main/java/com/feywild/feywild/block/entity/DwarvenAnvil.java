@@ -8,13 +8,13 @@ import com.feywild.feywild.recipes.IDwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.tag.ModItemTags;
 import com.feywild.feywild.util.StreamUtil;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
-import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
-import io.github.noeppi_noeppi.libx.crafting.recipe.RecipeHelper;
-import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
-import io.github.noeppi_noeppi.libx.util.LazyValue;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
+import org.moddingx.libx.capability.ItemCapabilities;
+import org.moddingx.libx.crafting.recipe.RecipeHelper;
+import org.moddingx.libx.inventory.BaseItemStackHandler;
+import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
+import org.moddingx.libx.util.lazy.LazyValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -35,7 +35,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class DwarvenAnvil extends BlockEntityBase implements TickableBlock {
+public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
 
     public static final int MAX_MANA = 1000;
     public static final int FEY_DUST_MANA_COST = 50;

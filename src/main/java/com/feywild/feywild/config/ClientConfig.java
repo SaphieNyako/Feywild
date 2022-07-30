@@ -1,6 +1,6 @@
 package com.feywild.feywild.config;
 
-import io.github.noeppi_noeppi.libx.config.Config;
+import org.moddingx.libx.config.Config;
 
 public class ClientConfig {
 

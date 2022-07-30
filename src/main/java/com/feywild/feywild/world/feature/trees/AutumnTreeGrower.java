@@ -5,7 +5,7 @@ import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
 import com.google.common.collect.ImmutableList;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

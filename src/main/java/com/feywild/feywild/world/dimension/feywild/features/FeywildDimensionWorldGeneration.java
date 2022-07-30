@@ -6,8 +6,8 @@ import com.feywild.feywild.world.dimension.feywild.features.specialfeatures.Gian
 import com.feywild.feywild.world.feature.structure.structures.BeekeepStructure;
 import com.feywild.feywild.world.feature.structure.structures.FeyCircleStructure;
 import com.feywild.feywild.world.feature.structure.structures.WorldTreeStructure;
-import io.github.noeppi_noeppi.libx.annotation.registration.NoReg;
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.Reg.Exclude;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.data.worldgen.PlainVillagePools;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
@@ -30,7 +30,7 @@ public class FeywildDimensionWorldGeneration {
 
     public static final StructureFeature<JigsawConfiguration> feyCircle = new FeyCircleStructure();
 
-    @NoReg
+    @Exclude
     public static final JigsawConfiguration dummyJigsaw = new JigsawConfiguration(PlainVillagePools.START, 0);
 
 }

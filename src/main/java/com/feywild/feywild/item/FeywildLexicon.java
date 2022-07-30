@@ -6,8 +6,8 @@ import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.util.TooltipHelper;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -25,6 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class FeywildLexicon extends ItemBase {
 

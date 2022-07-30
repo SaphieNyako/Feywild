@@ -2,8 +2,8 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
-import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.tile.BlockBE;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;

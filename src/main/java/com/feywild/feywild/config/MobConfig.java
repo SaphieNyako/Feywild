@@ -2,9 +2,9 @@ package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.AdvancedSpawns;
 import com.feywild.feywild.config.data.CommonSpawns;
-import io.github.noeppi_noeppi.libx.config.Config;
-import io.github.noeppi_noeppi.libx.config.validator.IntRange;
-import io.github.noeppi_noeppi.libx.util.ResourceList;
+import org.moddingx.libx.config.Config;
+import org.moddingx.libx.config.validate.IntRange;
+import org.moddingx.libx.util.data.ResourceList;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.List;

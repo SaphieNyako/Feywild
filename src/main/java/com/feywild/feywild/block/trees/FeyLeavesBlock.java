@@ -1,9 +1,9 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.config.ClientConfig;
-import io.github.noeppi_noeppi.libx.base.BlockBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import org.moddingx.libx.base.BlockBase;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;

@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest.task;
 
 import com.google.gson.JsonObject;
-import io.github.noeppi_noeppi.libx.crafting.IngredientStack;
+import org.moddingx.libx.crafting.IngredientStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

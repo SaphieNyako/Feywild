@@ -2,8 +2,8 @@ package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.world.feature.trees.BaseTree;
 import com.google.common.collect.ImmutableSet;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;

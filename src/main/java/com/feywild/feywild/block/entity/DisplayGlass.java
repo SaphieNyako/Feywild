@@ -3,11 +3,11 @@ package com.feywild.feywild.block.entity;
 import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.item.ModItems;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
-import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
-import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
+import org.moddingx.libx.capability.ItemCapabilities;
+import org.moddingx.libx.inventory.BaseItemStackHandler;
+import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +24,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class DisplayGlass extends BlockEntityBase implements TickableBlock {
+public class DisplayGlass extends BlockEntityBase implements TickingBlock {
 
     private final BaseItemStackHandler inventory;
     private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;

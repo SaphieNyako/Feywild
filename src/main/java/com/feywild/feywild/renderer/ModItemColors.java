@@ -2,7 +2,7 @@ package com.feywild.feywild.renderer;
 
 import com.feywild.feywild.block.ModBlocks;
 import net.minecraft.world.level.GrassColor;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ModItemColors {
@@ -11,7 +11,7 @@ public class ModItemColors {
     }
 
     @SubscribeEvent
-    public static void initItemColors(ColorHandlerEvent.Item event) {
+    public static void initItemColors(RegisterColorHandlersEvent.Item event) {
 
         event.getItemColors().register((stack, color) -> {
             return GrassColor.get(0, 0);

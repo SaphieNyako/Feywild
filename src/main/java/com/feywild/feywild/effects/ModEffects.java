@@ -1,6 +1,6 @@
 package com.feywild.feywild.effects;
 
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 
 @RegisterClass
 public class ModEffects {

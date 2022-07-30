@@ -2,8 +2,8 @@ package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.config.ClientConfig;
 import com.google.common.collect.ImmutableMap;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -34,6 +34,8 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public abstract class GiantFlowerBlock extends Block implements Registerable {
 

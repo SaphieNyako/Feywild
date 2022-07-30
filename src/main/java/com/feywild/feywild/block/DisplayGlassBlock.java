@@ -2,8 +2,8 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.DisplayGlass;
 import com.feywild.feywild.block.render.DisplayGlassRenderer;
-import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.tile.BlockBE;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
