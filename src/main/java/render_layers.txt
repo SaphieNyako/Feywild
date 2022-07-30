@@ -1,0 +1,8 @@
+UPDATE_TODO for later: set all render layers:
+
+giant flower block: cutout
+display glass: translucent
+fey mushroom: cutout
+mandrake crop: cutout
+fey tree saplings: cutout
+fey leaves: cutout

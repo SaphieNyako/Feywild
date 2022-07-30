@@ -1,24 +1,24 @@
 package com.feywild.feywild.world.feature.trees;
 
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.util.data.TagAccess;
 
-import java.util.Random;
+public class SpringTree extends BaseTree {
 
-public class SpringTreeGrower extends BaseTree {
-
-    public SpringTreeGrower(ModX mod) {
+    public SpringTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 14, ModParticles.springLeafParticle));
     }
 
-    private static BlockState getDecorationBlock(Random random) {
+    private static BlockState getDecorationBlock(RandomSource random) {
         return switch (random.nextInt(10)) {
             case 0 -> Blocks.RED_TULIP.defaultBlockState();
             case 1 -> Blocks.DANDELION.defaultBlockState();
@@ -33,14 +33,9 @@ public class SpringTreeGrower extends BaseTree {
     }
 
     @Override
-    protected String getName() {
-        return "spring_tree";
-    }
-
-    @Override
-    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, Random random) {
+    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, RandomSource random) {
         if (random.nextDouble() < 0.3) {
-            if (Registry.BLOCK.getHolderOrThrow(Registry.BLOCK.getResourceKey(level.getBlockState(pos.below()).getBlock()).get()).is(BlockTags.DIRT)) {
+            if (TagAccess.ROOT.has(BlockTags.DIRT, level.getBlockState(pos.below()).getBlock())) {
                 level.setBlockAndUpdate(pos, getDecorationBlock(random));
             }
         }

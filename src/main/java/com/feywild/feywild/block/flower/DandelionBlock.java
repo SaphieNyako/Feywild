@@ -5,6 +5,7 @@ import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
+import net.minecraft.util.RandomSource;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -39,7 +40,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(VARIANT) == 3 && level.random.nextInt(3) == 0) {
             level.setBlock(pos, state.setValue(VARIANT, 2), 3);
         }
@@ -86,7 +87,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
             double windStrength = Math.cos((double) level.getGameTime() / 2000) / 8;
             double windX = Math.cos((double) level.getGameTime() / 1200) * windStrength;
@@ -96,7 +97,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
+    public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
         return this.defaultBlockState().setValue(VARIANT, random.nextInt(3));
     }
 }

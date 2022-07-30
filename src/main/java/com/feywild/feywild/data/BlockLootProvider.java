@@ -3,7 +3,7 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.world.feature.trees.BaseTree;
+import com.feywild.feywild.block.trees.BaseTree;
 import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.datagen.provider.loot.BlockLootProviderBase;
 import org.moddingx.libx.mod.ModX;

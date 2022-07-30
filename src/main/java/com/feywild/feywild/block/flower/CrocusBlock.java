@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.flower;
 
+import net.minecraft.util.RandomSource;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,7 +30,7 @@ public class CrocusBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (level.isNight()) {
             level.setBlock(pos, state.setValue(OPENING_STATE, 0), 2);
         } else if (random.nextDouble() <= 0.4) {
@@ -38,7 +39,7 @@ public class CrocusBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (level.isNight()) {
             level.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
         } else {
@@ -47,7 +48,7 @@ public class CrocusBlock extends GiantFlowerBlock {
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
+    public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
         if (level instanceof Level) {
             if (((Level) level).isNight()) {
                 return this.defaultBlockState().setValue(OPENING_STATE, 0);

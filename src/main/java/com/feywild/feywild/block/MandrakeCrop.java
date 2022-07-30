@@ -8,14 +8,9 @@ import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.google.common.collect.ImmutableMap;
-import org.moddingx.libx.mod.ModX;
-import org.moddingx.libx.registration.Registerable;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -35,12 +30,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
+import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
-import java.util.function.Consumer;
 
 public class MandrakeCrop extends CropBlock implements Registerable {
 
@@ -64,16 +58,8 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     }
 
     @Override
-    public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
-        return ImmutableMap.of(
-                "seed", this.seed
-        );
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.seed);
     }
 
     @Nonnull
@@ -112,7 +98,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
                         QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
                     }
                 } else {
-                    player.sendMessage(new TranslatableComponent("message.feywild.summon_cookie_fail"), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild.summon_cookie_fail"));
                 }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);

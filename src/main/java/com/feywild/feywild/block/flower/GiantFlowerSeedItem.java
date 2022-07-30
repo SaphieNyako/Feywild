@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.flower;
 
+import net.minecraft.util.RandomSource;
 import org.moddingx.libx.base.ItemBase;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
@@ -15,7 +16,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
-import java.util.Random;
 
 public class GiantFlowerSeedItem extends ItemBase {
 
@@ -26,7 +26,7 @@ public class GiantFlowerSeedItem extends ItemBase {
         this.block = block;
     }
 
-    public static void placeFlower(GiantFlowerBlock block, LevelAccessor level, BlockPos pos, Random random, int placeFlags) {
+    public static void placeFlower(GiantFlowerBlock block, LevelAccessor level, BlockPos pos, RandomSource random, int placeFlags) {
         for (int i = 0; i < block.height; i++) {
             BlockState baseState = (i == block.height - 1) ? block.flowerState(level, pos.above(i), random) : block.defaultBlockState();
             level.setBlock(pos.above(i), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);

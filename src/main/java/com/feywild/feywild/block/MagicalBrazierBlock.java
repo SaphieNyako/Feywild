@@ -2,14 +2,12 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.MagicalBrazier;
 import com.feywild.feywild.block.render.MagicalBrazierRenderer;
-import org.moddingx.libx.base.tile.BlockBE;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,14 +26,11 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.base.tile.BlockBE;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
-import java.util.function.Consumer;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
 
@@ -62,9 +57,8 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), MagicalBrazierRenderer::new));
+    public void registerClient(SetupContext ctx) {
+        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), MagicalBrazierRenderer::new));
     }
 
     @Override
@@ -77,8 +71,8 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     }
 
     @Nonnull
-    @SuppressWarnings("deprecation")
     @Override
+    @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
 
         if (player.getItemInHand(hand).isEmpty() && state.getValue(BRAZIER_LIT)) {
@@ -105,7 +99,7 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     }
 
     @Override
-    public void animateTick(BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void animateTick(BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         if (state.getValue(BRAZIER_LIT)) {
             if (random.nextInt(10) == 0) {
                 level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);

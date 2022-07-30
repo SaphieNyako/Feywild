@@ -56,6 +56,14 @@ import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
 
+// UPDATE_TODO Remove all uses of:
+//  FeatureUtils.register
+//  PlacementUtils.register
+//  Registry.register
+//  BuiltinRegistries.register
+
+// UPDATE_TODO use TagAccess where possible
+
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -122,7 +130,7 @@ public final class FeywildMod extends ModXRegistration {
 
     @Override
     protected void initRegistration(RegistrationBuilder builder) {
-        builder.enableRegistryTracking();
+        //
     }
 
     @Override

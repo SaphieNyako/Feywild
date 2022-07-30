@@ -1,13 +1,9 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.item.ModItems;
-import org.moddingx.libx.base.BlockBase;
-import org.moddingx.libx.mod.ModX;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,29 +19,19 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.base.BlockBase;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
-import java.util.function.Consumer;
 
 public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);
 
     public FeyMushroomBlock(ModX mod) {
-        super(mod, BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM)
-                .lightLevel((mushroom) -> mushroom.getValue(BlockStateProperties.LEVEL)));
+        super(mod, BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM).lightLevel((mushroom) -> mushroom.getValue(BlockStateProperties.LEVEL)));
 
-        this.registerDefaultState(this.stateDefinition.any()
-                .setValue(BlockStateProperties.LEVEL, 7));
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.LEVEL, 7));
     }
 
     @Nonnull
@@ -81,12 +67,12 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
     }
 
     @Override
-    public boolean isBonemealSuccess(@Nonnull Level level, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(@Nonnull Level level, @Nonnull RandomSource random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return true;
     }
 
     @Override
-    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
+    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull RandomSource random, @Nonnull BlockPos pos, BlockState state) {
 
         level.setBlock(pos, state.cycle(BlockStateProperties.LEVEL), 3);
 

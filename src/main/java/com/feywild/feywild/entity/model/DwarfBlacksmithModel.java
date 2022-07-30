@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
@@ -26,20 +27,19 @@ public class DwarfBlacksmithModel extends AnimatedGeoModel<DwarfBlacksmith> {
     }
 
     @Override
-    public ResourceLocation getModelLocation(DwarfBlacksmith dwarfBlacksmithEntity) {
-        String string = Objects.requireNonNull(dwarfBlacksmithEntity.getType().getRegistryName()).getPath();
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/" + string + ".geo.json");
+    public ResourceLocation getModelResource(DwarfBlacksmith dwarfBlacksmithEntity) {
+        String typeStr = Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(dwarfBlacksmithEntity.getType())).getPath();
+        return FeywildMod.getInstance().resource("geo/" + typeStr + ".geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DwarfBlacksmith dwarfBlacksmithEntity) {
-        String string = Objects.requireNonNull(dwarfBlacksmithEntity.getType().getRegistryName()).getPath();
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/" + string + ".png");
+    public ResourceLocation getTextureResource(DwarfBlacksmith dwarfBlacksmithEntity) {
+        String typeStr = Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(dwarfBlacksmithEntity.getType())).getPath();
+        return FeywildMod.getInstance().resource("textures/entity/" + typeStr + ".png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(DwarfBlacksmith dwarfBlacksmithEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/dwarf_blacksmith.animation.json");
+    public ResourceLocation getAnimationResource(DwarfBlacksmith dwarfBlacksmithEntity) {
+        return FeywildMod.getInstance().resource("animations/dwarf_blacksmith.animation.json");
     }
-
 }

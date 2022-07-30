@@ -4,15 +4,14 @@ import com.feywild.feywild.block.entity.LibraryBell;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
-import org.moddingx.libx.base.tile.BlockBE;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -32,11 +31,10 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.moddingx.libx.base.tile.BlockBE;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
@@ -44,7 +42,8 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
     public LibraryBellBlock(ModX mod) {
         super(mod, LibraryBell.class, Properties.of(Material.METAL)
-                .strength(-1, 3600000).noDrops()
+                .strength(-1, 3600000)
+                .noLootTable()
                 .noOcclusion()
                 .randomTicks()
                 .noCollission()
@@ -99,7 +98,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
                         IronGolem golem = new IronGolem(EntityType.IRON_GOLEM, level);
                         golem.setPlayerCreated(false);
                         golem.setTarget(player);
-                        player.sendMessage(new TranslatableComponent("message.feywild.bell.angry"), player.getUUID());
+                        player.sendSystemMessage(Component.translatable("message.feywild.bell.angry"));
                         golem.setPos(librarian.getX(), librarian.getY(), librarian.getZ());
                         level.addFreshEntity(golem);
                         blockEntity.setSecurity(golem.getUUID());
@@ -111,7 +110,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
                         }
                     }
                 } else if (blockEntity.getAnnoyance() > 6) {
-                    player.sendMessage(new TranslatableComponent("message.feywild.bell.annoyed"), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild.bell.annoyed"));
                 }
 
                 if (librarian != null && librarian.isAlive()) {
@@ -149,7 +148,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         LibraryBell entity = (LibraryBell) level.getBlockEntity(pos);
 
         if (entity != null && entity.getSecurity() != null) {

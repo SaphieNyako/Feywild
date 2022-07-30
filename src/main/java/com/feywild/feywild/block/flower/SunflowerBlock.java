@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.flower;
 
+import net.minecraft.util.RandomSource;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +29,7 @@ public class SunflowerBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (level.getDayTime() < 2800) {
             level.setBlock(pos, state.setValue(TIME_VARIANT, 0), 3);
         } else if (level.getDayTime() < 8400) {
@@ -39,12 +40,12 @@ public class SunflowerBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         //
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
+    public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
         return this.defaultBlockState();
     }
 }

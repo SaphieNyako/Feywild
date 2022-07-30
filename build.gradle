@@ -33,3 +33,9 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-1.19-forge-api:11.0.0.211")
     runtimeOnly fg.deobf("mezz.jei:jei-1.19-forge:11.0.0.211")
 }
+
+compileJava.options.compilerArgs += [
+        '-Amod.properties.strict_onlyin=true',
+        '-Amod.properties.strict_super=true',
+        '-Amod.properties.force_findbugs=true'
+]

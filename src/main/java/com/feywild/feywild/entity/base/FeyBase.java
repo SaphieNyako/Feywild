@@ -33,6 +33,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
@@ -157,7 +158,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     public String getEntityNameMessage() {
-        return this.getDisplayName().getString().toLowerCase().replace(" ", "_");
+        return this.getDisplayName().getString().toLowerCase(Locale.ROOT).replace(" ", "_");
     }
 
     @Override

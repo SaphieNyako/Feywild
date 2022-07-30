@@ -1,14 +1,14 @@
 package com.feywild.feywild.world.feature.trees;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
-import com.google.common.collect.ImmutableList;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,17 +16,17 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
+import org.moddingx.libx.mod.ModX;
 
-import javax.annotation.Nonnull;
-import java.util.Random;
+import java.util.List;
 
-public class AutumnTreeGrower extends BaseTree {
+public class AutumnTree extends BaseTree {
 
-    public AutumnTreeGrower(ModX mod) {
+    public AutumnTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
     }
 
-    private static BlockState getDecorationBlock(Random random) {
+    private static BlockState getDecorationBlock(RandomSource random) {
         return switch (random.nextInt(20)) {
             case 0 -> Blocks.PUMPKIN.defaultBlockState();
             case 1 -> Blocks.CARVED_PUMPKIN.defaultBlockState();
@@ -37,15 +37,10 @@ public class AutumnTreeGrower extends BaseTree {
     }
 
     @Override
-    public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(@Nonnull Random random, boolean largeHive) {
-        return super.getFeatureBuilder(random, largeHive).decorators(ImmutableList.of(
+    public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder() {
+        return super.getFeatureBuilder().decorators(List.of(
                 new AlterGroundDecorator(SimpleStateProvider.simple(Blocks.PODZOL.defaultBlockState()))
         ));
-    }
-
-    @Override
-    protected String getName() {
-        return "autumn_tree";
     }
 
     @Override
@@ -54,7 +49,7 @@ public class AutumnTreeGrower extends BaseTree {
     }
 
     @Override
-    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, Random random) {
+    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, RandomSource random) {
         if (random.nextDouble() < 0.2) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
@@ -62,12 +57,12 @@ public class AutumnTreeGrower extends BaseTree {
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
 
-        public TrunkPlacer(int p_i232058_1_, int p_i232058_2_, int p_i232058_3_) {
-            super(p_i232058_1_, p_i232058_2_, p_i232058_3_);
+        public TrunkPlacer(int baseHeight, int heightA, int heightB) {
+            super(baseHeight, heightA, heightB);
         }
 
         @Override
-        protected void decorateLog(BlockState state, WorldGenLevel level, BlockPos pos, Random random) {
+        protected void decorateLog(BlockState state, WorldGenLevel level, BlockPos pos, RandomSource random) {
             if (random.nextDouble() < 0.03) {
                 if (level.isEmptyBlock(pos.north())) {
                     level.setBlock(pos.north(), ModBlocks.treeMushroom.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH), 19);

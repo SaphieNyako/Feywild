@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.trees;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
@@ -21,7 +21,7 @@ public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
     }
 
     @Override
-    protected void placeLeavesRow(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, @Nonnull TreeConfiguration config, @Nonnull BlockPos pos, int range, int height, boolean large) {
+    protected void placeLeavesRow(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, @Nonnull BlockPos pos, int range, int height, boolean large) {
         List<BlockPos> positionsToDecorate = new ArrayList<>();
         BiConsumer<BlockPos, BlockState> setter = (BlockPos target, BlockState state) -> {
             blockSetter.accept(target, state);
@@ -35,5 +35,5 @@ public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
         }
     }
 
-    protected abstract void decorateLeaves(BlockState state, WorldGenLevel world, BlockPos pos, Random random);
+    protected abstract void decorateLeaves(BlockState state, WorldGenLevel world, BlockPos pos, RandomSource random);
 }

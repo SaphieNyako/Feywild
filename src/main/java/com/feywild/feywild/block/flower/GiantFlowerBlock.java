@@ -1,14 +1,10 @@
 package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.config.ClientConfig;
-import com.google.common.collect.ImmutableMap;
-import org.moddingx.libx.mod.ModX;
-import org.moddingx.libx.registration.Registerable;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -29,13 +25,12 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
+import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
-import java.util.Random;
-import java.util.function.Consumer;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public abstract class GiantFlowerBlock extends Block implements Registerable {
 
@@ -45,6 +40,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     // 0 - 2 = stem, 3 = flower
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 3);
     public final int height;
+    
     private final GiantFlowerSeedItem item;
 
     public GiantFlowerBlock(ModX mod, int height) {
@@ -55,14 +51,8 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     }
 
     @Override
-    public Map<String, Object> getNamedAdditionalRegisters(ResourceLocation id) {
-        return ImmutableMap.of("seed", this.item);
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.item);
     }
 
     @Override
@@ -125,24 +115,24 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         super.randomTick(state, level, pos, random);
         if (state.getValue(PART) == 3) this.tickFlower(state, level, pos, random);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         super.animateTick(state, level, pos, random);
         if (state.getValue(PART) == 3 && ClientConfig.flower_particles) this.animateFlower(state, level, pos, random);
     }
 
-    protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, Random random);
+    protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
 
     @OnlyIn(Dist.CLIENT)
-    protected abstract void animateFlower(BlockState state, Level world, BlockPos pos, Random random);
+    protected abstract void animateFlower(BlockState state, Level world, BlockPos pos, RandomSource random);
 
-    public abstract BlockState flowerState(LevelAccessor world, BlockPos pos, Random random);
+    public abstract BlockState flowerState(LevelAccessor world, BlockPos pos, RandomSource random);
 
     protected void removeOthers(Level level, BlockState state, BlockPos pos) {
         int blocksBelow = state.getValue(PART) - (4 - this.height);

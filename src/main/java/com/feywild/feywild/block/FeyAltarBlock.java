@@ -6,7 +6,6 @@ import org.moddingx.libx.base.tile.BlockBE;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,9 +18,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
-import java.util.function.Consumer;
 
 public class FeyAltarBlock extends BlockBE<FeyAltar> {
 
@@ -31,8 +30,8 @@ public class FeyAltarBlock extends BlockBE<FeyAltar> {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> BlockEntityRenderers.register(this.getBlockEntityType(), FeyAltarRenderer::new));
+    public void registerClient(SetupContext ctx) {
+        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), FeyAltarRenderer::new));
     }
 
     @Nonnull

@@ -1,6 +1,7 @@
 package com.feywild.feywild.block.trees;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,13 +17,13 @@ import java.util.function.BiConsumer;
 
 public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
 
-    public DecoratingGiantTrunkPlacer(int p_i232058_1_, int p_i232058_2_, int p_i232058_3_) {
-        super(p_i232058_1_, p_i232058_2_, p_i232058_3_);
+    public DecoratingGiantTrunkPlacer(int baseHeight, int heightA, int heightB) {
+        super(baseHeight, heightA, heightB);
     }
 
     @Nonnull
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull Random random, int height, @Nonnull BlockPos pos, @Nonnull TreeConfiguration cfg) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, int height, @Nonnull BlockPos pos, @Nonnull TreeConfiguration cfg) {
         List<BlockPos> positionsToDecorate = new ArrayList<>();
         BiConsumer<BlockPos, BlockState> setter = (BlockPos target, BlockState state) -> {
             blockSetter.accept(target, state);
@@ -37,5 +38,5 @@ public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
         return result;
     }
 
-    protected abstract void decorateLog(BlockState state, WorldGenLevel world, BlockPos pos, Random random);
+    protected abstract void decorateLog(BlockState state, WorldGenLevel world, BlockPos pos, RandomSource random);
 }
