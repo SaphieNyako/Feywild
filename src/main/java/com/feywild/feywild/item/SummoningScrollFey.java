@@ -5,12 +5,12 @@ import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.Registerable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -19,14 +19,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
 
@@ -35,7 +34,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     }
 
     @Override
-    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
+    public void registerCommon(SetupContext ctx) {
         EmptyScroll.registerCapture(type, this);
     }
 
@@ -44,7 +43,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
         if (player instanceof ServerPlayer serverPlayer) {
             Alignment alignment = QuestData.get(serverPlayer).getAlignment();
             if (alignment != entity.alignment && !(entity instanceof Fey && alignment == null)) {
-                player.sendMessage(new TranslatableComponent("message.feywild.summon_fail"), player.getUUID());
+                player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
                 return false;
             } else {
                 return true;
@@ -60,7 +59,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild." + Objects.requireNonNull(this.type.getRegistryName()).getPath()));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.type)).getPath()));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

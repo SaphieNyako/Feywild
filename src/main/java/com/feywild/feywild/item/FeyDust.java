@@ -15,7 +15,6 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -38,8 +37,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class FeyDust extends ItemBase {
 
     private FoodProperties food;
@@ -51,7 +48,7 @@ public class FeyDust extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.fey_dust"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.fey_dust"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
@@ -116,7 +113,7 @@ public class FeyDust extends ItemBase {
 
     @Nullable
     @Override
-    public FoodProperties getFoodProperties() {
+    public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
         // Overridden instead of item properties, so it will
         // instantly change on config reload
         return this.food;

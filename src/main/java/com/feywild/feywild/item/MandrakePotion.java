@@ -6,7 +6,6 @@ import org.moddingx.libx.base.ItemBase;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -56,7 +55,7 @@ public class MandrakePotion extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.mandrake_potion"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.mandrake_potion"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

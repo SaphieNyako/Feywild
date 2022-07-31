@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -97,7 +96,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.summoning_scroll"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.summoning_scroll"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

@@ -2,8 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.world.dimension.market.MarketPlaceDimension;
 import com.feywild.feywild.world.dimension.market.setup.MarketHandler;
+import net.minecraft.network.chat.Component;
 import org.moddingx.libx.mod.ModX;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.Item.Properties;
 public class MarketRuneStone extends TooltipItem {
 
     public MarketRuneStone(ModX mod, Properties prop) {
-        super(mod, prop, new TranslatableComponent("message.feywild.market_scroll"));
+        super(mod, prop, Component.translatable("message.feywild.market_scroll"));
     }
 
     @Nonnull

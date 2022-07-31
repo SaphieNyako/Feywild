@@ -1,29 +1,30 @@
-package com.feywild.feywild.events.loot_modifiers;
+package com.feywild.feywild.loot.loot_modifiers;
 
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.item.ModItems;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.NotImplementedException;
 
-import java.util.List;
+import javax.annotation.Nonnull;
 
+// UPDATE_TODO datagen for this (remove config for weight, can use datapack)
 public class MineshaftChestLootModifier extends LootModifier {
-
+    
     protected MineshaftChestLootModifier(LootItemCondition[] conditions) {
         super(conditions);
-
     }
-
-    @NotNull
+    
+    @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (context.getRandom().nextFloat() < MiscConfig.rune_stone_weight) {
             generatedLoot.add(new ItemStack(ModItems.inactiveMarketRuneStone, 1));
         }
@@ -43,23 +44,11 @@ public class MineshaftChestLootModifier extends LootModifier {
         if (context.getRandom().nextFloat() < 0.04) {
             generatedLoot.add(new ItemStack(ModItems.feywildMusicDisc, 1));
         }
-
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<MineshaftChestLootModifier> {
-
-        @Override
-        public MineshaftChestLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] condition) {
-
-            return new MineshaftChestLootModifier(condition);
-
-        }
-
-        @Override
-        public JsonObject write(MineshaftChestLootModifier instance) {
-
-            return makeConditions(instance.conditions);
-        }
+    @Override
+    public Codec<? extends IGlobalLootModifier> codec() {
+        throw new NotImplementedException();
     }
 }

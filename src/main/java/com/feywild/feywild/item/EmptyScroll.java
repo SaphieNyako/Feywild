@@ -6,7 +6,6 @@ import org.moddingx.libx.base.ItemBase;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,8 +19,6 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class EmptyScroll extends ItemBase {
 
@@ -81,7 +78,7 @@ public class EmptyScroll extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.summoning_scroll"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.summoning_scroll"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

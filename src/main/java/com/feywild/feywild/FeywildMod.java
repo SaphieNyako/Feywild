@@ -3,9 +3,6 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
-import com.feywild.feywild.config.*;
-import com.feywild.feywild.config.mapper.TagMapperFactory;
-import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
@@ -63,7 +60,8 @@ import javax.annotation.Nonnull;
 //  BuiltinRegistries.register
 
 // UPDATE_TODO use TagAccess where possible
-
+// UPDATE_TODO tags
+// UPDATE_TODO JEI
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
