@@ -40,11 +40,11 @@ public class ModBlocks {
     public static final DisplayGlassBlock displayGlass = new DisplayGlassBlock(FeywildMod.getInstance());
     public static final FeyMushroomBlock feyMushroom = new FeyMushroomBlock(FeywildMod.getInstance());
 
-    public static final Block elvenQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
-    public static final Block elvenSpringQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
-    public static final Block elvenSummerQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
-    public static final Block elvenAutumnQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
-    public static final Block elvenWinterQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+    public static final ElvenQuartzBlock elvenQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+    public static final ElvenQuartzBlock elvenSpringQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+    public static final ElvenQuartzBlock elvenSummerQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+    public static final ElvenQuartzBlock elvenAutumnQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+    public static final ElvenQuartzBlock elvenWinterQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
     
     public static final Block feyStarBlockGreen = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
     public static final Block feyStarBlockLightBlue = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));

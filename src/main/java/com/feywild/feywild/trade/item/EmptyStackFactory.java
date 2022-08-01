@@ -1,11 +1,10 @@
 package com.feywild.feywild.trade.item;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Random;
-
 // Factory for the empty stack
-public class EmptyStackFactory implements StackFactory {
+public final class EmptyStackFactory implements StackFactory {
 
     public static final EmptyStackFactory INSTANCE = new EmptyStackFactory();
 
@@ -14,7 +13,7 @@ public class EmptyStackFactory implements StackFactory {
     }
 
     @Override
-    public ItemStack createStack(Random random) {
+    public ItemStack createStack(RandomSource random) {
         return ItemStack.EMPTY;
     }
 }

@@ -8,7 +8,6 @@ import org.moddingx.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -34,7 +33,7 @@ public class DwarvenAnvilScreen extends AbstractContainerScreen<DwarvenAnvilMenu
 
     @Override
     protected void renderLabels(@Nonnull PoseStack poseStack, int x, int y) {
-        drawString(poseStack, Minecraft.getInstance().font, new TranslatableComponent("screen.feywild.mana_amount", this.menu.getBlockEntity().getMana()), 118, 8, 0xffffff);
+        drawString(poseStack, Minecraft.getInstance().font, Component.translatable("screen.feywild.mana_amount", this.menu.getBlockEntity().getMana()), 118, 8, 0xffffff);
     }
 
     @Override

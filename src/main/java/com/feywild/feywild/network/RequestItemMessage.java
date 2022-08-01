@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 
 public record RequestItemMessage(ScreenType type, int idx) {
     
-    enum ScreenType {
+    public enum ScreenType {
         SCROLLS, BOOKS
     }
     

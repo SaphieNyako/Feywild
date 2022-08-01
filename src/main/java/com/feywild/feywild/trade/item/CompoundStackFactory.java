@@ -1,13 +1,13 @@
 package com.feywild.feywild.trade.item;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
-import java.util.Random;
 
 // Stack factory that picks randomly from a list of stack factories
-public class CompoundStackFactory implements StackFactory {
+public final class CompoundStackFactory implements StackFactory {
 
     public final List<StackFactory> factories;
 
@@ -17,7 +17,7 @@ public class CompoundStackFactory implements StackFactory {
     }
 
     @Override
-    public ItemStack createStack(Random random) {
+    public ItemStack createStack(RandomSource random) {
         return this.factories.get(random.nextInt(this.factories.size())).createStack(random);
     }
 }

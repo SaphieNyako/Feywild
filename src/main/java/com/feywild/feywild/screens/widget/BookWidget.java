@@ -1,6 +1,7 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.network.RequestItemMessage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.moddingx.libx.render.RenderHelper;
@@ -35,7 +36,7 @@ public class BookWidget extends Button {
     @Override
     public void onPress() {
         super.onPress();
-        FeywildMod.getNetwork().channel.sendToServer(new RequestItemSerializer.Message(this.idx, RequestItemSerializer.State.books));
+        FeywildMod.getNetwork().channel.sendToServer(new RequestItemMessage(RequestItemMessage.ScreenType.BOOKS, this.idx));
         this.screen.onClose();
     }
 

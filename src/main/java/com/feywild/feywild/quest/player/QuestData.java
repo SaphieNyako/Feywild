@@ -11,8 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +38,7 @@ public class QuestData {
         // Capability should always be there.
         // If not print a warning and get default instance
         return player.getCapability(CapabilityQuests.QUESTS).orElseGet(() -> {
-            FeywildMod.getInstance().logger.trace("Quest Data capability not present on player: " + player);
+            FeywildMod.logger.debug("Quest Data capability not present on player: " + player);
             return new QuestData();
         });
     }
@@ -261,9 +260,9 @@ public class QuestData {
         }
         if (this.player != null) {
             if (shouldNotify) {
-                this.player.displayClientMessage(new TranslatableComponent("message.feywild.quest_completion"), true);
+                this.player.displayClientMessage(Component.translatable("message.feywild.quest_completion"), true);
             } else {
-                this.player.displayClientMessage(new TextComponent(msgToDisplay), true);
+                this.player.displayClientMessage(Component.literal(msgToDisplay), true);
             }
         }
         this.startNextQuests();

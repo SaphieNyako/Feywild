@@ -137,7 +137,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
         if (this.level != null && !this.level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {
                 List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-                return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR).stream()
+                return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.altar).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
                         .findFirst();
             });

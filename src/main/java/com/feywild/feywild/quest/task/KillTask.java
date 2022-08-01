@@ -10,7 +10,8 @@ public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
     public static final KillTask INSTANCE = new KillTask();
 
     private KillTask() {
-        super("entity", ForgeRegistries.ENTITY_TYPES);
+        //noinspection unchecked
+        super("entity", (Class<EntityType<?>>) (Class<?>) EntityType.class, ForgeRegistries.ENTITY_TYPES);
     }
 
     @Override

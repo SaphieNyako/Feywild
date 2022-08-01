@@ -3,6 +3,7 @@ package com.feywild.feywild.util;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.moddingx.libx.crafting.recipe.RecipeHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;

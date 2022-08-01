@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,7 +49,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.DWARVEN_ANVIL_SERIALIZER;
+        return ModRecipeTypes.dwarvenAnvil.serializer();
     }
 
     @Nonnull
@@ -90,7 +89,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
         }
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<DwarvenAnvilRecipe> {
+    public static class Serializer implements RecipeSerializer<DwarvenAnvilRecipe> {
 
         @Nonnull
         @Override

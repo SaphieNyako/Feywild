@@ -1,6 +1,8 @@
 package com.feywild.feywild.block;
 
 import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.Block;
+import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.base.decoration.DecoratedBlock;
 import org.moddingx.libx.base.decoration.DecorationContext;
 import org.moddingx.libx.mod.ModX;
@@ -9,7 +11,7 @@ import org.moddingx.libx.registration.RegistrationContext;
 public class ElvenQuartzBlock extends DecoratedBlock {
 
     private final DecoratedBlock brick;
-    private final DecoratedBlock mossyBrick;
+    private final Block mossyBrick;
     private final DecoratedBlock crackedBrick;
     private final ElvenQuartzPillar pillar;
     private final DecoratedBlock polished;
@@ -17,7 +19,7 @@ public class ElvenQuartzBlock extends DecoratedBlock {
     public ElvenQuartzBlock(ModX mod, Properties properties) {
         super(mod, DecorationContext.GENERIC, properties);
         this.brick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
-        this.mossyBrick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
+        this.mossyBrick = new BlockBase(mod, properties);
         this.crackedBrick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
         this.pillar = new ElvenQuartzPillar(mod, properties);
         this.polished = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
@@ -37,7 +39,7 @@ public class ElvenQuartzBlock extends DecoratedBlock {
         return brick;
     }
 
-    public DecoratedBlock getMossyBrickBlock() {
+    public Block getMossyBrickBlock() {
         return mossyBrick;
     }
 

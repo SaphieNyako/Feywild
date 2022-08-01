@@ -5,7 +5,7 @@ import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
-@RegisterClass
+@RegisterClass(registry = "SOUND_EVENT_REGISTRY")
 public class ModSoundEvents {
 
     public static final SoundEvent musicMenu = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "music_menu"));
@@ -39,5 +39,4 @@ public class ModSoundEvents {
     public static final SoundEvent shroomlingHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_hurt"));
     public static final SoundEvent shroomlingSneeze = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_sneeze"));
     public static final SoundEvent shroomlingWave = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_wave"));
-
 }

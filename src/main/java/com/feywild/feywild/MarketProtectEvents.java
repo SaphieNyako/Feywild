@@ -51,7 +51,7 @@ public class MarketProtectEvents {
         Level level;
         if (event.getLevel() instanceof Level) level = (Level) event.getLevel();
         else level = event.getEntity().level;
-        if (level != null && level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION && !(event.getEntity() instanceof Player)) {
+        if (level != null && level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
             event.setResult(Event.Result.DENY);
         }
     }
@@ -61,7 +61,7 @@ public class MarketProtectEvents {
         Level level;
         if (event.getLevel() instanceof Level) level = (Level) event.getLevel();
         else level = event.getEntity().level;
-        if (level != null && level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION && !(event.getEntity() instanceof Player)) {
+        if (level != null && level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
             if (event.getSpawnReason() != MobSpawnType.SPAWN_EGG && event.getSpawnReason() != MobSpawnType.BUCKET
                     && event.getSpawnReason() != MobSpawnType.MOB_SUMMONED && event.getSpawnReason() != MobSpawnType.COMMAND) {
                 if (event.isCancelable()) {

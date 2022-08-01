@@ -11,7 +11,7 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
     public static final BiomeTask INSTANCE = new BiomeTask();
 
     private BiomeTask() {
-        super("biome", ForgeRegistries.BIOMES);
+        super("biome", Biome.class, ForgeRegistries.BIOMES);
     }
 
     @Override
@@ -21,7 +21,8 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
 
     @Override
     public boolean checkCompleted(ServerPlayer player, Biome element, ResourceLocation match) {
-        return element.getRegistryName() != null && element.getRegistryName().equals(match);
+        ResourceLocation key = ForgeRegistries.BIOMES.getKey(element);
+        return key != null && key.equals(match);
     }
 
     @Override
@@ -29,4 +30,3 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
         return false;
     }
 }
-

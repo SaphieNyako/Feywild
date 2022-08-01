@@ -8,7 +8,7 @@ import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.trade.TradeManager;
-import com.feywild.feywild.util.FeywildTitleScreen;
+import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.dimension.market.setup.MarketHandler;
 import org.moddingx.libx.event.ConfigLoadedEvent;
@@ -54,6 +54,7 @@ public class EventListener {
             QuestData quests = QuestData.get(player);
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
             //Quest Check for Biome
+            // UPDATE_TODO
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
             if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
