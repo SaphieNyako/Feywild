@@ -1,7 +1,6 @@
 package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
@@ -23,7 +22,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class DandelionBlock extends GiantFlowerBlock {
 

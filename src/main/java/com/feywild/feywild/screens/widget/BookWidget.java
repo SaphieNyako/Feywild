@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.RequestItemSerializer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import org.moddingx.libx.render.RenderHelper;

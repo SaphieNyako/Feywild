@@ -5,7 +5,6 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.goals.SingGoal;
-import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.nbt.CompoundTag;

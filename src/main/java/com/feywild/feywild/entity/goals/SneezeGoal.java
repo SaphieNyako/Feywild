@@ -3,7 +3,6 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.Shroomling;
-import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;

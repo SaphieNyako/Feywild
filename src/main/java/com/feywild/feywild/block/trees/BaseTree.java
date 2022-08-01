@@ -1,6 +1,5 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.FeywildMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -80,7 +79,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registry.BLOCK_REGISTRY, "planks", this.plankBlock);
         
         TreeConfiguration featureConfig = this.getFeatureBuilder().build();
-        this.feature = FeywildMod.getInstance().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
+        this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
 
     @Nullable

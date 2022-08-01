@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.quest.ConfirmQuestSerializer;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;

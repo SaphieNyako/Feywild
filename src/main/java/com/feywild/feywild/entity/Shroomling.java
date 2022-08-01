@@ -6,7 +6,6 @@ import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.goals.SneezeGoal;
 import com.feywild.feywild.entity.goals.WaveGoal;
-import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.syncher.EntityDataAccessor;

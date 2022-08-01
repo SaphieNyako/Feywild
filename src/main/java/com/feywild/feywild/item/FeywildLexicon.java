@@ -4,7 +4,6 @@ import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
-import com.feywild.feywild.network.OpeningScreenSerializer;
 import com.feywild.feywild.util.TooltipHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.base.ItemBase;

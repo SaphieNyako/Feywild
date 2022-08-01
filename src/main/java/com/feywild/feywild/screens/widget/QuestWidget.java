@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.quest.SelectQuestSerializer;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.util.FeywildTextProcessor;

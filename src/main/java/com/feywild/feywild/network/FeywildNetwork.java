@@ -9,8 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 
-import org.moddingx.libx.network.NetworkX.Protocol;
-
 public class FeywildNetwork extends NetworkX {
 
     public FeywildNetwork(ModX mod) {
@@ -19,39 +17,39 @@ public class FeywildNetwork extends NetworkX {
 
     @Override
     protected Protocol getProtocol() {
-        return Protocol.of("6");
+        return Protocol.of("7");
     }
 
     @Override
     protected void registerPackets() {
-        this.register(new OpenLibraryScreenSerializer(), () -> OpenLibraryScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        this.register(new RequestItemSerializer(), () -> RequestItemHandler::handle, NetworkDirection.PLAY_TO_SERVER);
-        this.register(new ParticleSerializer(), () -> ParticleHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        this.register(new TradesSerializer(), () -> TradesHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        this.register(new OpeningScreenSerializer(), () -> OpeningScreenHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-
-        this.register(new OpenQuestSelectionSerializer(), () -> OpenQuestSelectionHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        this.register(new OpenQuestDisplaySerializer(), () -> OpenQuestDisplayHandler::handle, NetworkDirection.PLAY_TO_CLIENT);
-        this.register(new SelectQuestSerializer(), () -> SelectQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
-        this.register(new ConfirmQuestSerializer(), () -> ConfirmQuestHandler::handle, NetworkDirection.PLAY_TO_SERVER);
+        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new OpeningScreenMessage.Serializer(), () -> OpeningScreenMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new LibraryScreenMessage.Serializer(), () -> LibraryScreenMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_SERVER, new RequestItemMessage.Serializer(), () -> RequestItemMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new ParticleMessage.Serializer(), () -> ParticleMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new TradesMessage.Serializer(), () -> TradesMessage.Handler::new);
+        
+        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new OpenQuestSelectionMessage.Serializer(), () -> OpenQuestSelectionMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new OpenQuestDisplayMessage.Serializer(), () -> OpenQuestDisplayMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_SERVER, new SelectQuestMessage.Serializer(), () -> SelectQuestMessage.Handler::new);
+        this.registerGame(NetworkDirection.PLAY_TO_SERVER, new ConfirmQuestMessage.Serializer(), () -> ConfirmQuestMessage.Handler::new);
     }
 
-    public void sendParticles(Level level, ParticleSerializer.Type type, BlockPos pos) {
+    public void sendParticles(Level level, ParticleMessage.Type type, BlockPos pos) {
         this.sendParticles(level, type, pos, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
     }
 
-    public void sendParticles(Level level, ParticleSerializer.Type type, double x, double y, double z) {
+    public void sendParticles(Level level, ParticleMessage.Type type, double x, double y, double z) {
         this.sendParticles(level, type, x, y, z, 0, 0, 0);
     }
 
-    public void sendParticles(Level level, ParticleSerializer.Type type, double x, double y, double z, double vx, double vy, double vz) {
+    public void sendParticles(Level level, ParticleMessage.Type type, double x, double y, double z, double vx, double vy, double vz) {
         BlockPos chunk = new BlockPos((int) x, (int) y, (int) z);
         this.sendParticles(level, type, chunk, x, y, z, vx, vy, vz);
     }
 
-    private void sendParticles(Level level, ParticleSerializer.Type type, BlockPos chunk, double x, double y, double z, double vx, double vy, double vz) {
+    private void sendParticles(Level level, ParticleMessage.Type type, BlockPos chunk, double x, double y, double z, double vx, double vy, double vz) {
         if (level instanceof ServerLevel) {
-            this.channel.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new ParticleSerializer.Message(type, x, y, z, vx, vy, vz));
+            this.channel.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new ParticleMessage(type, x, y, z, vx, vy, vz));
         }
     }
 }

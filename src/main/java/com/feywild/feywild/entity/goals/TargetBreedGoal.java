@@ -2,7 +2,6 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.Fey;
-import com.feywild.feywild.network.ParticleSerializer;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
