@@ -52,6 +52,5 @@ public class MandragoraRenderer<T extends Mandragora> extends GeoEntityRenderer<
                 );
             }
         }
-
     }
 }

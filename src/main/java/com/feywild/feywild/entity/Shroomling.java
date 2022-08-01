@@ -6,6 +6,7 @@ import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.goals.SneezeGoal;
 import com.feywild.feywild.entity.goals.WaveGoal;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -106,7 +107,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
                     if (!player.isCreative()) {
                         player.getItemInHand(hand).shrink(1);
                     }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
+                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
                     player.swing(hand, true);
                     this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
                     this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);

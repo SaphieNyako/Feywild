@@ -2,6 +2,7 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.Mandragora;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -53,7 +54,7 @@ public class SingGoal extends Goal {
                     BlockPos target = pos.offset(xd, yd, zd);
                     if (level.getBlockState(target).getBlock() instanceof CropBlock && level.random.nextFloat() < 0.08f) {
                         ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
-                        FeywildMod.getNetwork().sendParticles(level, ParticleSerializer.Type.CROPS_GROW, target);
+                        FeywildMod.getNetwork().sendParticles(level, ParticleMessage.Type.CROPS_GROW, target);
                     }
                 }
             }

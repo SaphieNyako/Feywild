@@ -10,7 +10,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -36,8 +36,6 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
-
-import net.minecraft.world.entity.Entity.RemovalReason;
 
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
 
@@ -126,7 +124,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             if (ownerAlignment != null && ownerAlignment != this.alignment) {
                 unalignedTicks += 1;
                 if (unalignedTicks >= 300) {
-                    owner.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".disappear"), owner.getUUID());
+                    owner.sendSystemMessage(Component.translatable("message.feywild." + getEntityNameMessage() + ".disappear"));
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else {
@@ -146,10 +144,10 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 if (this.followingPlayer) {
                     this.followingPlayer = false;
                     this.setSummonPos(this.blockPosition());
-                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild." + getEntityNameMessage() + ".stay").append(Component.translatable("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)));
                 } else {
                     this.followingPlayer = true;
-                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild." + getEntityNameMessage() + ".follow").append(Component.translatable("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)));
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
@@ -230,8 +228,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     @Override
-    protected int getExperienceReward(@Nonnull Player player) {
-        return this.isTamed() ? 0 : super.getExperienceReward(player);
+    public int getExperienceReward() {
+         return this.isTamed() ? 0 : super.getExperienceReward();
     }
 
     @Override

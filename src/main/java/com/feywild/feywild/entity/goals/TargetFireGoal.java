@@ -2,6 +2,7 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -36,7 +37,7 @@ public class TargetFireGoal extends Goal {
             }
             if (this.ticksLeft <= 0) {
                 this.targetMonster.setSecondsOnFire(120);
-                FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetMonster.getX(), this.targetMonster.getY(), this.targetMonster.getZ());
+                FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetMonster.getX(), this.targetMonster.getY(), this.targetMonster.getZ());
                 this.reset();
             } else if (this.ticksLeft == 65) {
                 this.spellCasting();

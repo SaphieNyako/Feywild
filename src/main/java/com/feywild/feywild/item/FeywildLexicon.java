@@ -4,6 +4,7 @@ import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
+import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.util.TooltipHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.base.ItemBase;
@@ -37,7 +38,7 @@ public class FeywildLexicon extends ItemBase {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer) {
             if (!FeyPlayerData.get(player).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.BOOK) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new OpeningScreenSerializer.Message());
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new OpeningScreenMessage());
                 // feywild_got_scroll is set when the player actually retrieves a scroll
             } else {
                 PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));

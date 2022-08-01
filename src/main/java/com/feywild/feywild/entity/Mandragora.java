@@ -5,6 +5,7 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.goals.SingGoal;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.nbt.CompoundTag;
@@ -115,7 +116,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
                     if (!player.isCreative()) {
                         player.getItemInHand(hand).shrink(1);
                     }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
+                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                     player.swing(hand, true);
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);

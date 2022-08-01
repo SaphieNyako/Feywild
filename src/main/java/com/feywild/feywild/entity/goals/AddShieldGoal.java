@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.AutumnPixie;
 import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -65,7 +66,7 @@ public class AddShieldGoal extends Goal {
     private void addShieldEffect() {
         this.target.addEffect(new MobEffectInstance(ModEffects.windWalk, 20 * 60, 2));
         this.target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
-        FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
+        FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
     }
 
     private void reset() {
