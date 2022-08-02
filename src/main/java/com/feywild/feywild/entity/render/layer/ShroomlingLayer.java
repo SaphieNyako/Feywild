@@ -12,9 +12,9 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class ShroomlingLayer<T extends Shroomling> extends GeoLayerRenderer<T> {
 
-    private static final ResourceLocation SHROOMLING_GLOW = new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/shroomling_glow.png");
+    private static final ResourceLocation SHROOMLING_GLOW = FeywildMod.getInstance().resource("textures/entity/shroomling_glow.png");
 
-    private static final ResourceLocation SHROOMLING = new ResourceLocation(FeywildMod.getInstance().modid, "geo/shroomling.geo.json");
+    private static final ResourceLocation SHROOMLING = FeywildMod.getInstance().resource("geo/shroomling.geo.json");
 
     public ShroomlingLayer(IGeoRenderer<T> entityRendererIn) {
         super(entityRendererIn);

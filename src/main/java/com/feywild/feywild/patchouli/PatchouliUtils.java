@@ -25,8 +25,7 @@ public class PatchouliUtils {
     public static <C extends Container, T extends Recipe<C>> T getRecipe(RecipeType<T> type, @Nullable ResourceLocation id) {
         if (id == null) return null;
         RecipeManager rm = Minecraft.getInstance().getConnection() == null ? null : Minecraft.getInstance().getConnection().getRecipeManager();
-        //noinspection unchecked
-        return rm == null ? null : (T) rm.byType(type).getOrDefault(id, null);
+        return rm == null ? null : rm.byType(type).getOrDefault(id, null);
     }
 
     @Nullable
@@ -40,4 +39,3 @@ public class PatchouliUtils {
         }
     }
 }
-

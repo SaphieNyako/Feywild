@@ -4,6 +4,7 @@ import com.feywild.feywild.trade.TradeEntry;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -24,7 +25,7 @@ public class CompoundTrade implements VillagerTrades.ItemListing {
 
     @Nullable
     @Override
-    public MerchantOffer getOffer(@Nonnull Entity merchant, @Nonnull Random random) {
+    public MerchantOffer getOffer(@Nonnull Entity merchant, @Nonnull RandomSource random) {
         if (this.trades.isEmpty()) {
             return null;
         } else {

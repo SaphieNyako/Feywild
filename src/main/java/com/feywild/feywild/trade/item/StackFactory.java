@@ -7,16 +7,15 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Random;
-
 // Interface that can create an ItemStack based on a Random
-public interface StackFactory {
+public sealed interface StackFactory permits EmptyStackFactory, SimpleStackFactory, CompoundStackFactory {
 
-    ItemStack createStack(Random random);
+    ItemStack createStack(RandomSource random);
 
     static StackFactory fromJson(JsonElement json) {
         if (json.isJsonArray()) {

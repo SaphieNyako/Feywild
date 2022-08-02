@@ -5,13 +5,12 @@ import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.util.TooltipHelper;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +24,8 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+
+import net.minecraft.world.item.Item.Properties;
 
 public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
 
@@ -95,7 +96,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.summoning_scroll"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.summoning_scroll"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

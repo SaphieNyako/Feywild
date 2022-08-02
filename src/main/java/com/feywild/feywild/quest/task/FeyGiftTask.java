@@ -31,7 +31,7 @@ public class FeyGiftTask implements TaskType<FeyGift, AlignmentStack> {
 
     @Override
     public boolean checkCompleted(ServerPlayer player, FeyGift element, AlignmentStack match) {
-        return element.alignment == match.alignment && element.ingredient.test(match.getStack());
+        return element.alignment == match.alignment && element.ingredient.test(match.stack());
     }
 
     @Override
@@ -59,6 +59,4 @@ public class FeyGiftTask implements TaskType<FeyGift, AlignmentStack> {
             return null;
         }
     }
-
-
 }

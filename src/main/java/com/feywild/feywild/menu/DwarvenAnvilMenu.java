@@ -2,8 +2,8 @@ package com.feywild.feywild.menu;
 
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.util.Util;
-import io.github.noeppi_noeppi.libx.menu.BlockEntityMenu;
-import io.github.noeppi_noeppi.libx.menu.slot.BaseSlot;
+import org.moddingx.libx.menu.BlockEntityMenu;
+import org.moddingx.libx.menu.slot.BaseSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

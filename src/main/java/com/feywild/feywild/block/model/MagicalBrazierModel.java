@@ -15,22 +15,22 @@ public class MagicalBrazierModel extends AnimatedGeoModel<MagicalBrazier> {
     public static final List<ResourceLocation> TEXTURE_IDS = IntStream.range(1, 9).mapToObj(i -> FeywildMod.getInstance().resource("textures/block/magical_brazier" + i + ".png")).toList();
 
     @Override
-    public ResourceLocation getModelLocation(MagicalBrazier magicalBrazier) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/magical_brazier.geo.json");
+    public ResourceLocation getModelResource(MagicalBrazier brazier) {
+        return FeywildMod.getInstance().resource("geo/magical_brazier.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MagicalBrazier magicalBrazier) {
-        BlockState state = magicalBrazier.getBlockState();
+    public ResourceLocation getTextureResource(MagicalBrazier brazier) {
+        BlockState state = brazier.getBlockState();
         if (MagicalBrazierBlock.isLit(state)) {
-            return TEXTURE_IDS.get(magicalBrazier.getTextureNumber() - 1);
+            return TEXTURE_IDS.get(brazier.getTextureNumber() - 1);
         } else {
-            return new ResourceLocation(FeywildMod.getInstance().modid, "textures/block/magical_brazier.png");
+            return FeywildMod.getInstance().resource("textures/block/magical_brazier.png");
         }
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(MagicalBrazier animatable) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/magical_brazier.animation.json");
+    public ResourceLocation getAnimationResource(MagicalBrazier brazier) {
+        return FeywildMod.getInstance().resource("animations/magical_brazier.animation.json");
     }
 }

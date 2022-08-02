@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.noeppi_noeppi.libx.datapack.DataLoader;
+import org.moddingx.libx.datapack.DataLoader;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;

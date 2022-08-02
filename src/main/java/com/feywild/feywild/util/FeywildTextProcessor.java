@@ -1,6 +1,6 @@
 package com.feywild.feywild.util;
 
-import io.github.noeppi_noeppi.libx.util.TextProcessor;
+import org.moddingx.libx.util.game.TextProcessor;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 

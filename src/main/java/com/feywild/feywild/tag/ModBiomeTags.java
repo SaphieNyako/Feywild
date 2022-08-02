@@ -13,5 +13,4 @@ public class ModBiomeTags {
     public static final TagKey<Biome> AUTUMN_WORLD_TREE = BiomeTags.create(FeywildMod.getInstance().resource("autumn_world_tree_biomes").toString());
     public static final TagKey<Biome> WINTER_WORLD_TREE = BiomeTags.create(FeywildMod.getInstance().resource("winter_world_tree_biomes").toString());
     public static final TagKey<Biome> FEY_CIRCLE = BiomeTags.create(FeywildMod.getInstance().resource("fey_circle_biomes").toString());
-
 }

@@ -1,7 +1,7 @@
 package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
-import io.github.noeppi_noeppi.libx.util.LazyValue;
+import org.moddingx.libx.util.lazy.LazyValue;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -43,7 +43,7 @@ public class CapabilityQuests {
         if (event.isWasDeath()) {
             event.getOriginal().reviveCaps();
             event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
-                event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
+                event.getEntity().getCapability(QUESTS).ifPresent(newData -> {
                     newData.read(oldData.write());
                 });
             });

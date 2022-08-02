@@ -8,17 +8,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class ShroomlingModel extends AnimatedGeoModel<Shroomling> {
 
     @Override
-    public ResourceLocation getModelLocation(Shroomling object) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/shroomling.geo.json");
+    public ResourceLocation getModelResource(Shroomling shroomling) {
+        return FeywildMod.getInstance().resource("geo/shroomling.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Shroomling object) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/shroomling.png");
+    public ResourceLocation getTextureResource(Shroomling shroomling) {
+        return FeywildMod.getInstance().resource("textures/entity/shroomling.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(Shroomling animatable) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/shroomling.animation.json");
+    public ResourceLocation getAnimationResource(Shroomling shroomling) {
+        return FeywildMod.getInstance().resource("animations/shroomling.animation.json");
     }
 }

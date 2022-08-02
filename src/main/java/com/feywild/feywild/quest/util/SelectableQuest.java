@@ -4,28 +4,21 @@ import com.feywild.feywild.quest.QuestDisplay;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class SelectableQuest {
+import java.util.Objects;
 
-    public final ResourceLocation id;
-    public final Item icon;
-    public final QuestDisplay display;
-
-    public SelectableQuest(ResourceLocation id, Item icon, QuestDisplay display) {
-        this.id = id;
-        this.icon = icon;
-        this.display = display;
-    }
+public record SelectableQuest(ResourceLocation id, Item icon, QuestDisplay display) {
 
     public void toNetwork(FriendlyByteBuf buffer) {
-        buffer.writeResourceLocation(this.id);
-        buffer.writeRegistryId(this.icon);
+        buffer.writeResourceLocation(this.id());
+        buffer.writeResourceLocation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.icon()), "Item not registered"));
         this.display.toNetwork(buffer);
     }
 
     public static SelectableQuest fromNetwork(FriendlyByteBuf buffer) {
         ResourceLocation id = buffer.readResourceLocation();
-        Item icon = buffer.readRegistryId();
+        Item icon = ForgeRegistries.ITEMS.getValue(buffer.readResourceLocation());
         QuestDisplay display = QuestDisplay.fromNetwork(buffer);
         return new SelectableQuest(id, icon, display);
     }

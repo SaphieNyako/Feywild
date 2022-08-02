@@ -1,8 +1,8 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.TooltipHelper;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -10,6 +10,8 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class TooltipItem extends ItemBase {
 

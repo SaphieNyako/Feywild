@@ -3,21 +3,22 @@ package com.feywild.feywild.quest.task;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public abstract class RegistryTaskType<T extends IForgeRegistryEntry<T>, X> implements TaskType<T, X> {
+public abstract class RegistryTaskType<T, X> implements TaskType<T, X> {
 
     private final String key;
+    private final Class<T> cls;
     private final IForgeRegistry<T> registry;
 
-    protected RegistryTaskType(String key, IForgeRegistry<T> registry) {
+    protected RegistryTaskType(String key, Class<T> cls, IForgeRegistry<T> registry) {
         this.key = key;
+        this.cls = cls;
         this.registry = registry;
     }
 
     @Override
     public Class<T> element() {
-        return this.registry.getRegistrySuperType();
+        return this.cls;
     }
 
     @Override

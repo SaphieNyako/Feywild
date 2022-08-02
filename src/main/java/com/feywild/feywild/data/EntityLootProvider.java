@@ -2,9 +2,9 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
-import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
-import io.github.noeppi_noeppi.libx.data.provider.EntityLootProviderBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.provider.loot.EntityLootProviderBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

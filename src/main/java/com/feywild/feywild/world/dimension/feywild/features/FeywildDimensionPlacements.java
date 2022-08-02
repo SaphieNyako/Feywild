@@ -1,6 +1,6 @@
 package com.feywild.feywild.world.dimension.feywild.features;
 
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;

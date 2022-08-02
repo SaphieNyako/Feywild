@@ -1,7 +1,7 @@
 package com.feywild.feywild.world.dimension.feywild.teleporter;
 
 import com.feywild.feywild.block.ModBlocks;
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 
 @RegisterClass

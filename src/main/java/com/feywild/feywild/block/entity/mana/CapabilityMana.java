@@ -5,6 +5,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 
+// UPDATE_TODO do we actually need this?
 public class CapabilityMana {
 
     public static final Capability<IManaStorage> MANA = CapabilityManager.get(new CapabilityToken<>() {});

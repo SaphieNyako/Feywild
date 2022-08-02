@@ -9,13 +9,12 @@ import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -49,7 +48,7 @@ public class FeyDust extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.fey_dust"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.fey_dust"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
@@ -114,7 +113,7 @@ public class FeyDust extends ItemBase {
 
     @Nullable
     @Override
-    public FoodProperties getFoodProperties() {
+    public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
         // Overridden instead of item properties, so it will
         // instantly change on config reload
         return this.food;

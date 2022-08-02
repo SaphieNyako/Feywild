@@ -68,7 +68,7 @@ public class Quest {
             json.addProperty("repeatable", true);
         }
         json.addProperty("reputation", this.reputation);
-        json.addProperty("icon", Objects.requireNonNull(this.icon.getRegistryName()).toString());
+        json.addProperty("icon", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.icon)).toString());
         json.add("start", this.start.toJson());
         if (this.complete != null) {
             json.add("complete", this.complete.toJson());

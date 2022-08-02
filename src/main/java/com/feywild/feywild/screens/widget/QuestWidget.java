@@ -1,13 +1,13 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.quest.SelectQuestSerializer;
+import com.feywild.feywild.network.quest.SelectQuestMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import io.github.noeppi_noeppi.libx.render.RenderHelper;
+import org.moddingx.libx.render.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
@@ -32,16 +32,16 @@ public class QuestWidget extends Button {
     private final ItemStack iconStack;
 
     public QuestWidget(int x, int y, Alignment alignment, SelectableQuest quest) {
-        super(x, y, WIDTH, HEIGHT, FeywildTextProcessor.INSTANCE.processLine(quest.display.title), b -> {});
+        super(x, y, WIDTH, HEIGHT, FeywildTextProcessor.INSTANCE.processLine(quest.display().title), b -> {});
         this.alignment = alignment;
         this.quest = quest;
-        this.iconStack = new ItemStack(quest.icon);
+        this.iconStack = new ItemStack(quest.icon());
     }
 
     @Override
     public void onPress() {
         super.onPress();
-        FeywildMod.getNetwork().channel.sendToServer(new SelectQuestSerializer.Message(this.quest.id));
+        FeywildMod.getNetwork().channel.sendToServer(new SelectQuestMessage(this.quest.id()));
     }
 
     @Override

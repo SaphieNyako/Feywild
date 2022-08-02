@@ -23,5 +23,4 @@ public class MarketDwarfRenderer extends GeoEntityRenderer<DwarfBlacksmith> {
     public RenderType getRenderType(DwarfBlacksmith animatable, float partialTicks, PoseStack stack, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexConsumer, int packedLightIn, ResourceLocation textureLocation) {
         return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
-
 }

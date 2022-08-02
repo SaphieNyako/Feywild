@@ -5,6 +5,7 @@ import com.feywild.feywild.trade.item.SimpleStackFactory;
 import com.feywild.feywild.trade.item.StackFactory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.trading.MerchantOffer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 // A simple trade
 public class SimpleTrade implements VillagerTrades.ItemListing {
@@ -54,7 +54,7 @@ public class SimpleTrade implements VillagerTrades.ItemListing {
 
     @Nullable
     @Override
-    public MerchantOffer getOffer(@Nonnull Entity merchant, @Nonnull Random random) {
+    public MerchantOffer getOffer(@Nonnull Entity merchant, @Nonnull RandomSource random) {
         return new MerchantOffer(
                 this.input.createStack(random), this.additional.createStack(random), this.output.createStack(random),
                 0, this.uses.select(random), this.exp.select(random), this.mul, 0
@@ -71,7 +71,7 @@ public class SimpleTrade implements VillagerTrades.ItemListing {
             this.max = Math.max(min, max);
         }
 
-        public int select(Random random) {
+        public int select(RandomSource random) {
             return this.min + random.nextInt(1 + (this.max - this.min));
         }
 

@@ -11,11 +11,10 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import javax.annotation.Nullable;
 
 public class SummerPixieModel extends AnimatedGeoModel<SummerPixie> {
-
-
+    
     @Override
-    public void setLivingAnimations(SummerPixie entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setLivingAnimations(SummerPixie pixie, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setLivingAnimations(pixie, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
         if (customPredicate != null) {
             //noinspection unchecked
@@ -25,17 +24,17 @@ public class SummerPixieModel extends AnimatedGeoModel<SummerPixie> {
     }
 
     @Override
-    public ResourceLocation getModelLocation(SummerPixie summerPixieEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/summer_pixie.geo.json");
+    public ResourceLocation getModelResource(SummerPixie pixie) {
+        return FeywildMod.getInstance().resource("geo/summer_pixie.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SummerPixie summerPixieEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/summer_pixie.png");
+    public ResourceLocation getTextureResource(SummerPixie pixie) {
+        return FeywildMod.getInstance().resource("textures/entity/summer_pixie.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(SummerPixie summerPixieEntity) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/summer_pixie.animation.json");
+    public ResourceLocation getAnimationResource(SummerPixie pixie) {
+        return FeywildMod.getInstance().resource("animations/summer_pixie.animation.json");
     }
 }

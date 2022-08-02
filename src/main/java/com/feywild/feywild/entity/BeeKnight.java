@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -125,9 +125,9 @@ public class BeeKnight extends FlyingFeyBase {
             if (!player.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
                 QuestData quests = QuestData.get(serverPlayer);
                 if (((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.bee_knight.required_reputation) && getOwner() == null) || player.getUUID() == owner) {
-                    player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_pass"), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild.bee_knight_pass"));
                 } else {
-                    player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_fail"), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild.bee_knight_fail"));
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);

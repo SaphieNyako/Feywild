@@ -2,8 +2,8 @@ package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.ModEntityTypes;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
-public class AncientRunestone extends BlockEntityBase implements TickableBlock {
+public class AncientRunestone extends BlockEntityBase implements TickingBlock {
 
     private int time;
 

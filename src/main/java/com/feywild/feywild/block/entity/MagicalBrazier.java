@@ -1,7 +1,7 @@
 package com.feywild.feywild.block.entity;
 
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,7 +13,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class MagicalBrazier extends BlockEntityBase implements IAnimatable, TickableBlock {
+public class MagicalBrazier extends BlockEntityBase implements IAnimatable, TickingBlock {
 
     private final AnimationFactory animationFactory = new AnimationFactory(this);
 

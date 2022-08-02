@@ -24,17 +24,17 @@ public class BeeKnightModel extends AnimatedGeoModel<BeeKnight> {
     }
 
     @Override
-    public ResourceLocation getModelLocation(BeeKnight beeKnight) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/bee_knight.geo.json");
+    public ResourceLocation getModelResource(BeeKnight beeKnight) {
+        return FeywildMod.getInstance().resource("geo/bee_knight.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BeeKnight beeKnight) {
-        return beeKnight.getEntityData().get(BeeKnight.AGGRAVATED) ? new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/angry_bee_knight.png") : new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/bee_knight.png");
+    public ResourceLocation getTextureResource(BeeKnight beeKnight) {
+        return beeKnight.getEntityData().get(BeeKnight.AGGRAVATED) ? FeywildMod.getInstance().resource("textures/entity/angry_bee_knight.png") : FeywildMod.getInstance().resource("textures/entity/bee_knight.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(BeeKnight beeKnight) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/bee_knight.animation.json");
+    public ResourceLocation getAnimationResource(BeeKnight beeKnight) {
+        return FeywildMod.getInstance().resource("animations/bee_knight.animation.json");
     }
 }

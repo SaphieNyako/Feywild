@@ -7,8 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,7 +22,7 @@ public class OpeningScreen extends Screen {
     private List<FormattedCharSequence> text;
 
     public OpeningScreen() {
-        super(new TextComponent(""));
+        super(Component.empty());
         this.stacks = List.of(
                 new ItemStack(ModItems.summoningScrollSpringPixie),
                 new ItemStack(ModItems.summoningScrollSummerPixie),
@@ -40,7 +39,7 @@ public class OpeningScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        text = FeywildTextProcessor.INSTANCE.process(new TranslatableComponent("screen.feywild.opening_screen")).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
+        text = FeywildTextProcessor.INSTANCE.process(Component.translatable("screen.feywild.opening_screen")).stream().flatMap(line -> ComponentRenderUtils.wrapComponents(line, this.width - 40, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
         int paddingStart = Math.max(4, (this.width - (4 * (ScrollWidget.WIDTH + 4))) / 2);
         for (int i = 0; i < this.stacks.size(); i++) {
             this.addRenderableWidget(new ScrollWidget(this, paddingStart + (i * (ScrollWidget.WIDTH + 4)) + 2, 150, i, this.stacks.get(i)));

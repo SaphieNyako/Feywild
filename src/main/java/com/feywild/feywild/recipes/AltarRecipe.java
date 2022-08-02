@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,7 +43,7 @@ public class AltarRecipe implements IAltarRecipe {
     @Nonnull
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipeTypes.ALTAR_SERIALIZER;
+        return ModRecipeTypes.altar.serializer();
     }
 
     @Nonnull
@@ -64,7 +63,7 @@ public class AltarRecipe implements IAltarRecipe {
         return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem()) : Optional.empty();
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AltarRecipe> {
+    public static class Serializer implements RecipeSerializer<AltarRecipe> {
 
         @Nonnull
         @Override

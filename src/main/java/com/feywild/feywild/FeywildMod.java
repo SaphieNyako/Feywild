@@ -3,34 +3,34 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
-import com.feywild.feywild.config.*;
-import com.feywild.feywild.config.mapper.BiomeTypeMapper;
-import com.feywild.feywild.config.validator.StructureDataValidator;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.particles.ModParticleFactories;
+import com.feywild.feywild.particles.LeafParticle;
+import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
-import com.feywild.feywild.renderer.ModBlockColors;
-import com.feywild.feywild.renderer.ModItemColors;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.ModWorldGeneration;
 import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
 import com.feywild.feywild.world.dimension.feywild.FeywildGeneration;
-import com.feywild.feywild.world.dimension.feywild.features.FeatureTransformer;
 import com.feywild.feywild.world.dimension.market.setup.MarketGenerator;
 import com.feywild.feywild.world.feature.structure.ModStructures;
 import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
-import io.github.noeppi_noeppi.libx.config.ConfigManager;
-import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
-import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.level.GrassColor;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import org.moddingx.libx.mod.ModXRegistration;
+import org.moddingx.libx.registration.RegistrationBuilder;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -44,22 +44,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
 
+// UPDATE_TODO Remove all uses of:
+//  FeatureUtils.register
+//  PlacementUtils.register
+//  Registry.register
+//  BuiltinRegistries.register
+
+// UPDATE_TODO use TagAccess where possible
+// UPDATE_TODO tags
+// UPDATE_TODO JEI
+// UPDATE_TODO datagen
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
+    public static final Logger logger = LoggerFactory.getLogger("feywild");
+    
     private static FeywildMod instance;
     private static FeywildNetwork network;
 
@@ -69,14 +80,6 @@ public final class FeywildMod extends ModXRegistration {
         instance = this;
         network = new FeywildNetwork(this);
 
-        ConfigManager.registerValueMapper(this.modid, new BiomeTypeMapper());
-        ConfigManager.registerConfigValidator(this.modid, new StructureDataValidator());
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "misc"), MiscConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "world_gen"), WorldGenConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "mob_spawns"), MobConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "compat"), CompatConfig.class, false);
-        ConfigManager.registerConfig(new ResourceLocation(this.modid, "client"), ClientConfig.class, true);
-
         GeckoLib.initialize();
 
         // TODO mythicbotany
@@ -84,15 +87,13 @@ public final class FeywildMod extends ModXRegistration {
 //            this.addRegistrationHandler(ModAlfheimBiomes::register);
 //            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
 //        }
-
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        eventBus.addListener(CapabilityMana::register);
-        eventBus.addListener(CapabilityQuests::register);
-        eventBus.addListener(this::entityAttributes);
-        eventBus.addListener(EventPriority.LOW, ModParticleFactories::registerParticles);
-        eventBus.register(ModBlockColors.class);
-        eventBus.register(ModItemColors.class);
+        
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityMana::register);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
 
         ModStructures.register(eventBus);
 
@@ -131,8 +132,7 @@ public final class FeywildMod extends ModXRegistration {
 
     @Override
     protected void initRegistration(RegistrationBuilder builder) {
-        builder.setVersion(1);
-        builder.addTransformer(FeatureTransformer.INSTANCE);
+        //
     }
 
     @Override
@@ -206,7 +206,40 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntityTypes.shroomling, Shroomling.getDefaultAttributes().build());
     }
 
-    @SubscribeEvent
+    public void registerParticles(RegisterParticleProvidersEvent event) {
+        event.register(ModParticles.leafParticle, LeafParticle.Factory::new);
+        event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
+        event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
+        event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
+    }
+    
+    private void blockColors(RegisterColorHandlersEvent.Block event) {
+        // UPDATE_TODO generate models with tint index
+        //noinspection SwitchStatementWithTooFewBranches
+        BlockColor mossyColor = (state, level, pos, tintIndex) -> switch(tintIndex) {
+            case 1 -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5, 0.5);
+            default -> 0xFFFFFF;
+        };
+        event.register(mossyColor,
+                ModBlocks.elvenQuartz.getMossyBrickBlock(), ModBlocks.elvenSpringQuartz.getMossyBrickBlock(),
+                ModBlocks.elvenSummerQuartz.getMossyBrickBlock(), ModBlocks.elvenAutumnQuartz.getMossyBrickBlock(),
+                ModBlocks.elvenWinterQuartz.getMossyBrickBlock()
+        );
+    }
+
+    public void itemColors(RegisterColorHandlersEvent.Item event) {
+        //noinspection SwitchStatementWithTooFewBranches
+        ItemColor mossyColor = (stack, tintIndex) -> switch(tintIndex) {
+            case 1 -> GrassColor.get(0.5, 0.5);
+            default -> 0xFFFFFF;
+        };
+        event.register(mossyColor,
+                ModBlocks.elvenQuartz.getMossyBrickBlock(), ModBlocks.elvenSpringQuartz.getMossyBrickBlock(),
+                ModBlocks.elvenSummerQuartz.getMossyBrickBlock(), ModBlocks.elvenAutumnQuartz.getMossyBrickBlock(),
+                ModBlocks.elvenWinterQuartz.getMossyBrickBlock()
+        );
+    }
+    
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(LibraryBooks.createReloadListener());
         event.addListener(TradeManager.createReloadListener());

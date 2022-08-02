@@ -1,4 +1,10 @@
 package com.feywild.feywild.config.data;
 
-public record OreData(int weight, int size, int min_height, int max_height) {
-}
+import org.moddingx.libx.config.validate.IntRange;
+
+public record OreData(
+        int weight,
+        int size,
+        @IntRange(min = -64, max = 320) int min_height,
+        @IntRange(min = -64, max = 320) int max_height
+) {}

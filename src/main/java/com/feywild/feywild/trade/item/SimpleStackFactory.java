@@ -1,11 +1,10 @@
 package com.feywild.feywild.trade.item;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Random;
-
 // Factory for an ItemStack with optional random count
-public class SimpleStackFactory implements StackFactory {
+public final class SimpleStackFactory implements StackFactory {
 
     private final ItemStack stack;
     public final int minAmount;
@@ -19,7 +18,7 @@ public class SimpleStackFactory implements StackFactory {
     }
 
     @Override
-    public ItemStack createStack(Random random) {
+    public ItemStack createStack(RandomSource random) {
         ItemStack stack = this.stack.copy();
         stack.setCount(this.minAmount + random.nextInt(1 + (this.maxAmount - this.minAmount)));
         return stack;

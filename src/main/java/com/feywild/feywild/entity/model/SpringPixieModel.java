@@ -13,8 +13,8 @@ import javax.annotation.Nullable;
 public class SpringPixieModel extends AnimatedGeoModel<SpringPixie> {
 
     @Override
-    public void setLivingAnimations(SpringPixie entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setLivingAnimations(SpringPixie pixie, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setLivingAnimations(pixie, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("head");
         if (customPredicate != null) {
             //noinspection unchecked
@@ -24,17 +24,17 @@ public class SpringPixieModel extends AnimatedGeoModel<SpringPixie> {
     }
 
     @Override
-    public ResourceLocation getModelLocation(SpringPixie springPixieEntity) {
+    public ResourceLocation getModelResource(SpringPixie pixie) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "geo/spring_pixie.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SpringPixie springPixieEntity) {
+    public ResourceLocation getTextureResource(SpringPixie pixie) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/spring_pixie.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(SpringPixie springPixieEntity) {
+    public ResourceLocation getAnimationResource(SpringPixie pixie) {
         return new ResourceLocation(FeywildMod.getInstance().modid, "animations/spring_pixie.animation.json");
     }
 }

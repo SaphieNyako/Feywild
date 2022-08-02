@@ -1,8 +1,8 @@
 package com.feywild.feywild.block;
 
-import io.github.noeppi_noeppi.libx.base.BlockBase;
-import io.github.noeppi_noeppi.libx.block.RotationShape;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import org.moddingx.libx.base.BlockBase;
+import org.moddingx.libx.block.RotationShape;
+import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class LibrarianScreen extends Screen {
 
-    private final TextComponent title = new TextComponent("-Available Books-");
+    private final Component title = Component.literal("- Available Books -");
     private final List<ItemStack> stacks;
     private final List<AbstractWidget> widgets;
 

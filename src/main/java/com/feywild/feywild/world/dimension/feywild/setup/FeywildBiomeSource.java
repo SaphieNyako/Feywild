@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource.PresetInstance;
+
 public class FeywildBiomeSource {
 
     public static final Codec<Source> CODEC = RecordCodecBuilder.create(instance -> instance.group(

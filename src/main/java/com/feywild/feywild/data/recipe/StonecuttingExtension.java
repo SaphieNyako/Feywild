@@ -1,6 +1,6 @@
 package com.feywild.feywild.data.recipe;
 
-import io.github.noeppi_noeppi.libx.data.provider.recipe.RecipeExtension;
+import org.moddingx.libx.datagen.provider.recipe.RecipeExtension;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;

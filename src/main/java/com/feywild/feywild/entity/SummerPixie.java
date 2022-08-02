@@ -25,4 +25,3 @@ public class SummerPixie extends Fey {
         return ParticleTypes.CRIT;
     }
 }
-

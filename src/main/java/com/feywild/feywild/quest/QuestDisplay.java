@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class QuestDisplay {
 
@@ -33,8 +34,11 @@ public class QuestDisplay {
         JsonObject json = new JsonObject();
         json.add("title", Component.Serializer.toJsonTree(this.title));
         json.add("description", Component.Serializer.toJsonTree(this.description));
-        if (this.sound != null && this.sound.getRegistryName() != null) {
-            json.addProperty("sound", this.sound.getRegistryName().toString());
+        if (this.sound != null) {
+            ResourceLocation soundId = ForgeRegistries.SOUND_EVENTS.getKey(this.sound);
+            if (soundId != null) {
+                json.addProperty("sound", soundId.toString());
+            }
         }
         return json;
     }
@@ -42,7 +46,7 @@ public class QuestDisplay {
     public static QuestDisplay fromNetwork(FriendlyByteBuf buffer) {
         Component title = buffer.readComponent();
         Component description = buffer.readComponent();
-        SoundEvent sound = buffer.readBoolean() ? buffer.readRegistryId() : null;
+        SoundEvent sound = buffer.readBoolean() ? ForgeRegistries.SOUND_EVENTS.getValue(buffer.readResourceLocation()) : null;
         return new QuestDisplay(title, description, sound);
     }
 
@@ -50,6 +54,6 @@ public class QuestDisplay {
         buffer.writeComponent(this.title);
         buffer.writeComponent(this.description);
         buffer.writeBoolean(this.sound != null);
-        if (this.sound != null) buffer.writeRegistryId(this.sound);
+        if (this.sound != null) buffer.writeResourceLocation(Objects.requireNonNull(ForgeRegistries.SOUND_EVENTS.getKey(this.sound), "Sound not registered"));
     }
 }
