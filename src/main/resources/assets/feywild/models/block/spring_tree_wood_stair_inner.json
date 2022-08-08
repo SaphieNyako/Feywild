@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "side": "feywild:block/spring_tree_wood",
-    "bottom": "feywild:block/spring_tree_wood",
-    "top": "feywild:block/spring_tree_wood"
-  }
-}

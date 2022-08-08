@@ -4,7 +4,7 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ModEntityTypes;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.world.dimension.market.MarketPlaceDimension;
+import com.feywild.feywild.world.FeywildDimensions;
 import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.datagen.provider.AdvancementProviderBase;
 import org.moddingx.libx.mod.ModX;
@@ -82,7 +82,7 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
         this.advancement("dwarven_market").parent("traveling_stone")
                 .display(ModItems.marketRuneStone)
-                .task(new ChangeDimensionTrigger.TriggerInstance(this.entity(EntityType.PLAYER), Level.OVERWORLD, MarketPlaceDimension.MARKET_PLACE_DIMENSION));
+                .task(new ChangeDimensionTrigger.TriggerInstance(this.entity(EntityType.PLAYER), Level.OVERWORLD, FeywildDimensions.MARKETPLACE));
 
         this.advancement("dwarf_trades").parent("dwarven_market")
                 .display(ModItems.marketRuneStone)

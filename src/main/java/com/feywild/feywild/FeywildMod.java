@@ -17,30 +17,19 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.ModWorldGeneration;
-import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
-import com.feywild.feywild.world.dimension.feywild.FeywildGeneration;
-import com.feywild.feywild.world.dimension.market.setup.MarketGenerator;
-import com.feywild.feywild.world.feature.structure.ModStructures;
-import com.feywild.feywild.world.feature.structure.load.ModStructurePieces;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.world.level.GrassColor;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import org.moddingx.libx.mod.ModXRegistration;
-import org.moddingx.libx.registration.RegistrationBuilder;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -50,6 +39,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.moddingx.libx.mod.ModXRegistration;
+import org.moddingx.libx.registration.RegistrationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
@@ -95,18 +86,18 @@ public final class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
 
-        ModStructures.register(eventBus);
+//        ModStructures.register(eventBus);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
-        MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadWorldGeneration);
+//        MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadWorldGeneration);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
 
-        this.addRegistrationHandler(FeywildDimension::register);
+//        this.addRegistrationHandler(FeywildDimension::register);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
-        MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
+//        MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
         // Quest task & reward types. Not in setup as they are required for datagen.
@@ -116,7 +107,7 @@ public final class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
+//        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
     }
 
@@ -138,7 +129,7 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ModStructurePieces.setup();
+//            ModStructurePieces.setup();
 
             SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
@@ -148,14 +139,14 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
             SpawnPlacements.register(ModEntityTypes.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
 
-            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
-            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
-            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "shepherd"), ModEntityTypes.dwarfShepherd, new BlockPos(0, 63, -3));
-            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntityTypes.dwarfArtificer, new BlockPos(7, 63, -2));
-            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntityTypes.dwarfDragonHunter, new BlockPos(21, 63, 20));
-            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntityTypes.dwarfToolsmith, new BlockPos(21, 63, 11));
-
-            FeywildGeneration.setupBiomes();
+//            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
+//            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
+//            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "shepherd"), ModEntityTypes.dwarfShepherd, new BlockPos(0, 63, -3));
+//            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntityTypes.dwarfArtificer, new BlockPos(7, 63, -2));
+//            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntityTypes.dwarfDragonHunter, new BlockPos(21, 63, 20));
+//            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntityTypes.dwarfToolsmith, new BlockPos(21, 63, 11));
+//
+//            FeywildGeneration.setupBiomes();
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();
@@ -180,13 +171,6 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntityTypes.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntityTypes.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
-
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenQuartzMossyBrick, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenAutumnQuartzMossyBrick, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenSpringQuartzMossyBrick, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenSummerQuartzMossyBrick, RenderType.cutout());
-        ItemBlockRenderTypes.setRenderLayer(ModBlocks.elvenWinterQuartzMossyBrick, RenderType.cutout());
-
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {

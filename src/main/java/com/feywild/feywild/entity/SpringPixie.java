@@ -8,6 +8,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
 public class SpringPixie extends Fey {
 
     protected SpringPixie(EntityType<? extends Fey> type, Level level) {
@@ -15,6 +17,7 @@ public class SpringPixie extends Fey {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(20, new TargetBreedGoal(this));

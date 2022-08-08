@@ -128,7 +128,7 @@ public interface AnvilExtension extends RecipeExtension {
                 @Nonnull
                 @Override
                 public RecipeSerializer<?> getType() {
-                    return ModRecipeTypes.DWARVEN_ANVIL_SERIALIZER;
+                    return ModRecipeTypes.dwarvenAnvil.serializer();
                 }
 
                 @Nullable

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "side": "feywild:block/summer_tree_stripped_wood",
-    "bottom": "feywild:block/summer_tree_stripped_wood",
-    "top": "feywild:block/summer_tree_stripped_wood"
-  }
-}

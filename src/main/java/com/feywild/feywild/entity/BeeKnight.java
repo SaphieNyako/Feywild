@@ -42,6 +42,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class BeeKnight extends FlyingFeyBase {
 
@@ -60,6 +61,7 @@ public class BeeKnight extends FlyingFeyBase {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(2, new FeyAttackableTargetGoal<>(this, Player.class, true));
@@ -119,6 +121,7 @@ public class BeeKnight extends FlyingFeyBase {
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {

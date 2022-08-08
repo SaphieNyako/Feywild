@@ -86,7 +86,7 @@ public interface AltarExtension extends RecipeExtension {
                 @Nonnull
                 @Override
                 public RecipeSerializer<?> getType() {
-                    return ModRecipeTypes.ALTAR_SERIALIZER;
+                    return ModRecipeTypes.altar.serializer();
                 }
 
                 @Nullable

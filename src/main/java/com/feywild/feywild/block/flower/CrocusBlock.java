@@ -1,6 +1,8 @@
 package com.feywild.feywild.block.flower;
 
 import net.minecraft.util.RandomSource;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -39,6 +41,7 @@ public class CrocusBlock extends GiantFlowerBlock {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (level.isNight()) {
             level.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);

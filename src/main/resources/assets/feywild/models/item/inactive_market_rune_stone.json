@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "feywild:item/inactive_market_rune_stone"
-  }
-}

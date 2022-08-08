@@ -24,12 +24,13 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProv
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.material.Material;
-import org.jetbrains.annotations.Nullable;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -68,6 +69,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         builder.registerNamed(Registry.BLOCK_REGISTRY, "log", this.logBlock);
         builder.registerNamed(Registry.ITEM_REGISTRY, "log", this.logItem);

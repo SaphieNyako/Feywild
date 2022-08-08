@@ -26,6 +26,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.base.tile.BlockBE;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.SetupContext;
@@ -57,6 +59,7 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void registerClient(SetupContext ctx) {
         ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), MagicalBrazierRenderer::new));
     }

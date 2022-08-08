@@ -19,6 +19,7 @@ import static net.minecraft.advancements.critereon.StatePropertiesPredicate.Buil
 import static net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition.hasBlockStateProperties;
 
 @Datagen
+@SuppressWarnings("unchecked")
 public class BlockLootProvider extends BlockLootProviderBase {
 
     public BlockLootProvider(ModX mod, DataGenerator generator) {
@@ -30,9 +31,9 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.treeDrops(ModTrees.springTree, ModTrees.springTree.getLogBlock(), ModTrees.springTree.getWoodBlock());
         this.treeDrops(ModTrees.autumnTree, ModTrees.autumnTree.getLogBlock(), ModTrees.autumnTree.getWoodBlock());
         this.treeDrops(ModTrees.winterTree, ModTrees.winterTree.getLogBlock(), ModTrees.winterTree.getWoodBlock());
-
+        
         this.drops(ModTrees.summerTree.getLeafBlock(), this.first(
-                this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
+                this.element().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(
                         this.stack(ModTrees.summerTree.getSapling()).with(this.randomFortune(0.02f)),
                         this.stack(Items.STICK).with(this.count(1, 2)).with(this.randomFortune(0.02f)),
@@ -77,7 +78,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         )));
 
         this.drops(ModBlocks.treeMushroom, this.first(
-                this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
+                this.element().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.stack(Items.RED_MUSHROOM).with(this.randomFortune(0.5f))
         ));
 
@@ -88,7 +89,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
 
     private void treeDrops(BaseTree tree, ItemLike baseLog, ItemLike baseWood) {
         this.drops(tree.getLeafBlock(), this.first(
-                this.item().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
+                this.element().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(
                         this.stack(tree.getSapling()).with(this.randomFortune(0.02f)),
                         this.stack(Items.STICK).with(this.count(1, 2)).with(this.randomFortune(0.02f)),
@@ -99,6 +100,5 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(tree.getLogBlock(), false, this.stack(baseLog));
         this.drops(tree.getWoodBlock(), false, this.stack(baseWood));
         this.drops(ModBlocks.snowyGrassBlock, true, this.stack(Blocks.DIRT));
-        this.drops(ModBlocks.feyPortalBlock, false, this.stack(ItemStack.EMPTY.getItem()));
     }
 }

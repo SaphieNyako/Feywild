@@ -8,6 +8,7 @@ import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.datagen.provider.recipe.DefaultExtension;
 import org.moddingx.libx.datagen.provider.recipe.RecipeProviderBase;
 import org.moddingx.libx.datagen.provider.recipe.SmeltingExtension;
+import org.moddingx.libx.datagen.provider.recipe.StoneCuttingExtension;
 import org.moddingx.libx.datagen.provider.recipe.crafting.CraftingExtension;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
@@ -18,7 +19,7 @@ import net.minecraftforge.common.Tags;
 
 @Datagen
 public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
-        DefaultExtension, AltarExtension, AnvilExtension, StonecuttingExtension {
+        DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension {
 
     public RecipeProvider(ModX mod, DataGenerator generator) {
         super(mod, generator);
@@ -49,9 +50,9 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
 
         smelting(ModItems.lesserFeyGem, ModItems.feyDust, 0.1f, 100);
 
-        stonecutting(ModItems.greaterFeyGem, ModItems.lesserFeyGem, 2);
-        stonecutting(ModItems.shinyFeyGem, ModItems.greaterFeyGem, 2);
-        stonecutting(ModItems.brilliantFeyGem, ModItems.shinyFeyGem, 2);
+        stoneCutting(ModItems.greaterFeyGem, ModItems.lesserFeyGem, 2);
+        stoneCutting(ModItems.shinyFeyGem, ModItems.greaterFeyGem, 2);
+        stoneCutting(ModItems.brilliantFeyGem, ModItems.shinyFeyGem, 2);
 
         this.altar(ModItems.feywildMusicDisc)
                 .requires(ItemTags.MUSIC_DISCS)

@@ -31,7 +31,7 @@ public class FeyGiftTask implements TaskType<FeyGift, AlignmentStack> {
 
     @Override
     public boolean checkCompleted(ServerPlayer player, FeyGift element, AlignmentStack match) {
-        return element.alignment == match.alignment && element.ingredient.test(match.stack());
+        return element.alignment() == match.alignment() && element.ingredient().test(match.stack());
     }
 
     @Override
@@ -44,15 +44,15 @@ public class FeyGiftTask implements TaskType<FeyGift, AlignmentStack> {
     @Override
     public JsonObject toJson(FeyGift element) {
         JsonObject json = new JsonObject();
-        json.addProperty("alignment", element.alignment.id);
-        json.add("item", element.ingredient.toJson());
+        json.addProperty("alignment", element.alignment().id);
+        json.add("item", element.ingredient().toJson());
         return json;
     }
 
     @Nullable
     @Override
     public Item icon(FeyGift element) {
-        ItemStack[] matching = element.ingredient.getItems();
+        ItemStack[] matching = element.ingredient().getItems();
         if (matching.length == 1 && !matching[0].isEmpty()) {
             return matching[0].getItem();
         } else {

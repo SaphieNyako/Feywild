@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.annotation.config.RegisterMapper;
 import org.moddingx.libx.config.gui.InputProperties;
 import org.moddingx.libx.config.mapper.MapperFactory;
@@ -82,6 +84,7 @@ public class TagMapperFactory implements MapperFactory<TagKey<?>> {
         }
 
         @Override
+        @OnlyIn(Dist.CLIENT)
         public ConfigEditor<TagKey<T>> createEditor(ValidatorInfo<?> validator) {
             return ConfigEditor.input(this.input, validator);
         }

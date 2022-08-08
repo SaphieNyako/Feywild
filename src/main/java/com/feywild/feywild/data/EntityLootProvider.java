@@ -40,6 +40,5 @@ public class EntityLootProvider extends EntityLootProviderBase {
         this.drops(ModEntityTypes.dwarfDragonHunter, new ItemStack(ItemStack.EMPTY.getItem()));
         this.drops(ModEntityTypes.dwarfShepherd, new ItemStack(ItemStack.EMPTY.getItem()));
         this.drops(ModEntityTypes.dwarfToolsmith, new ItemStack(ItemStack.EMPTY.getItem()));
-
     }
 }

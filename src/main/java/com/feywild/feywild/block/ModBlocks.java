@@ -6,7 +6,6 @@ import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
-import com.feywild.feywild.block.portal.FeyPortalBlock;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.base.tile.BlockBE;
@@ -55,6 +54,6 @@ public class ModBlocks {
     public static final Block feyStarBlockYellow = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
 
     // UPDATE_TODO
-    public static final Block feyPortalBlock = new FeyPortalBlock();
+//    public static final Block feyPortalBlock = new FeyPortalBlock();
     public static final GrassBlock snowyGrassBlock = new GrassBlock(BlockBehaviour.Properties.of(Material.GRASS));
 }

@@ -22,6 +22,7 @@ import org.moddingx.libx.registration.RegistrationContext;
 import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Registerable {
 
@@ -38,6 +39,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         builder.register(Registry.ITEM_REGISTRY, this.item);
     }

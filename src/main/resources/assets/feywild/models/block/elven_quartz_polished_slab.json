@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "feywild:block/elven_quartz_polished",
-    "top": "feywild:block/elven_quartz_polished",
-    "side": "feywild:block/elven_quartz_polished"
-  }
-}

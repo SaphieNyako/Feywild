@@ -20,7 +20,7 @@ public class DwarvenAnvilProcessor implements IComponentProcessor {
 
     @Override
     public void setup(IVariableProvider vars) {
-        this.recipe = PatchouliUtils.getRecipe(DwarvenAnvilRecipe.class, ModRecipeTypes.DWARVEN_ANVIL, vars.get("recipe").asString());
+        this.recipe = PatchouliUtils.getRecipe(DwarvenAnvilRecipe.class, ModRecipeTypes.dwarvenAnvil, vars.get("recipe").asString());
     }
 
     @Nonnull

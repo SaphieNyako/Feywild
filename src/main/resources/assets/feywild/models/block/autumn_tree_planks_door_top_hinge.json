@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_rh",
-  "textures": {
-    "top": "feywild:block/autumn_tree_planks_door_top",
-    "bottom": "feywild:block/autumn_tree_planks_door_bottom"
-  }
-}

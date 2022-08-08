@@ -35,6 +35,7 @@ import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class MandrakeCrop extends CropBlock implements Registerable {
 
@@ -58,6 +59,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.seed);
     }

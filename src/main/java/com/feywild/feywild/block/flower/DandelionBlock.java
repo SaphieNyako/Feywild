@@ -1,10 +1,13 @@
 package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import net.minecraft.util.RandomSource;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -74,7 +77,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     public void onRemove(@Nonnull BlockState oldState, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
         super.onRemove(oldState, level, pos, newState, moving);
         if (oldState.getValue(VARIANT) == 2) {
-            FeywildMod.getNetwork().sendParticles(level, ParticleSerializer.Type.DANDELION_FLUFF, pos);
+            FeywildMod.getNetwork().sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, pos);
         }
     }
 
@@ -85,6 +88,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
             double windStrength = Math.cos((double) level.getGameTime() / 2000) / 8;

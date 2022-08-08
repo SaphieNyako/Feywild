@@ -2,13 +2,11 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.block.MagicalBrazierBlock;
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.portal.FeyPortalBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
-import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
 import org.moddingx.libx.base.ItemBase;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -91,23 +89,23 @@ public class FeyDust extends ItemBase {
                 return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
             }
         }
-        //USE ON PORTAL
-        if (player != null) {
-            if (player.level.dimension() == FeywildDimension.FEYWILD_DIMENSION || player.level.dimension() == Level.OVERWORLD) {
-                for (Direction direction : Direction.Plane.VERTICAL) {
-                    BlockPos framePos = clickedPos.relative(direction);
-
-                    if (((FeyPortalBlock) ModBlocks.feyPortalBlock).tryCreatePortal(level, framePos)) {
-
-                        level.playSound(player, framePos, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
-                    } else {
-                        return InteractionResult.FAIL;
-                    }
-                }
-            }
-            return InteractionResult.PASS;
-        }
+        // UPDATE_TODO
+//        if (player != null) {
+//            if (player.level.dimension() == FeywildDimension.FEYWILD_DIMENSION || player.level.dimension() == Level.OVERWORLD) {
+//                for (Direction direction : Direction.Plane.VERTICAL) {
+//                    BlockPos framePos = clickedPos.relative(direction);
+//
+//                    if (((FeyPortalBlock) ModBlocks.feyPortalBlock).tryCreatePortal(level, framePos)) {
+//
+//                        level.playSound(player, framePos, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 1.0F, 1.0F);
+//                        return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
+//                    } else {
+//                        return InteractionResult.FAIL;
+//                    }
+//                }
+//            }
+//            return InteractionResult.PASS;
+//        }
         return super.useOn(context);
     }
 

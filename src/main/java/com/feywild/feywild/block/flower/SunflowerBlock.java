@@ -1,6 +1,8 @@
 package com.feywild.feywild.block.flower;
 
 import net.minecraft.util.RandomSource;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -40,6 +42,7 @@ public class SunflowerBlock extends GiantFlowerBlock {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         //
     }

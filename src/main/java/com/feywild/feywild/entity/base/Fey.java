@@ -76,6 +76,7 @@ public abstract class Fey extends FlyingFeyBase {
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {

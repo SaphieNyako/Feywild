@@ -164,7 +164,7 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
             })
             .validator(stack -> stack.getItem() == ModItems.feyDust, 0)
             .validator(stack -> Registry.ITEM.getHolderOrThrow(Registry.ITEM.getResourceKey(stack.getItem()).get()).is(ModItemTags.SCHEMATICS), 1)
-            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.DWARVEN_ANVIL, stack), 2, 3, 4, 5, 6)
+            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.dwarvenAnvil, stack), 2, 3, 4, 5, 6)
             .validator(stack -> false, 7)
             .build();
 

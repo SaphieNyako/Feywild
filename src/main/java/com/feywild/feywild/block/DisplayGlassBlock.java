@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.base.tile.BlockBE;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.SetupContext;
@@ -33,6 +35,7 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void registerClient(SetupContext ctx) {
         ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), c -> new DisplayGlassRenderer()));
     }

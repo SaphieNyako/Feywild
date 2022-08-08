@@ -6,3 +6,4 @@ fey mushroom: cutout
 mandrake crop: cutout
 fey tree saplings: cutout
 fey leaves: cutout
+mossy blocks: cutout (???)

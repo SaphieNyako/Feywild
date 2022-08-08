@@ -31,6 +31,7 @@ import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public abstract class GiantFlowerBlock extends Block implements Registerable {
 
@@ -51,6 +52,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.item);
     }

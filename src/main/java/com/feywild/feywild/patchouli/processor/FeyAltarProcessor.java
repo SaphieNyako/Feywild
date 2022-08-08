@@ -18,7 +18,7 @@ public class FeyAltarProcessor implements IComponentProcessor {
 
     @Override
     public void setup(@Nonnull IVariableProvider vars) {
-        this.recipe = PatchouliUtils.getRecipe(AltarRecipe.class, ModRecipeTypes.ALTAR, vars.get("recipe").asString());
+        this.recipe = PatchouliUtils.getRecipe(AltarRecipe.class, ModRecipeTypes.altar, vars.get("recipe").asString());
     }
 
     @Nonnull

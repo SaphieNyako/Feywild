@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[42,)"
+loaderVersion="[43,)"
 license="""
 MIT License
 
@@ -47,24 +47,30 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.1,)"
+    versionRange="[1.19.2,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.feywild]]
     modId="forge"
     mandatory=true
-    versionRange="[42.0.1,)"
+    versionRange="[43.0.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.feywild]]
     modId="libx"
     mandatory=true
-    versionRange="[1.19.1-4.1.4,)"
+    versionRange="[1.19.2-4.2.0,)"
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.feywild]]
+    modId="sandbox"
+    mandatory=true
+    versionRange="[1.19.2-1.0.0,)"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.feywild]]
     modId="patchouli"

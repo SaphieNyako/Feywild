@@ -8,6 +8,8 @@ import org.moddingx.libx.base.decoration.DecorationContext;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.RegistrationContext;
 
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
 public class ElvenQuartzBlock extends DecoratedBlock {
 
     private final DecoratedBlock brick;
@@ -26,6 +28,7 @@ public class ElvenQuartzBlock extends DecoratedBlock {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         super.registerAdditional(ctx, builder);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "brick", this.brick);
