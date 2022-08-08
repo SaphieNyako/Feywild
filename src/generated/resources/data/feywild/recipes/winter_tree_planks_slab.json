@@ -1,15 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###"
-  ],
   "key": {
     "#": {
       "item": "feywild:winter_tree_planks"
     }
   },
+  "pattern": [
+    "###"
+  ],
   "result": {
-    "item": "feywild:winter_tree_planks_slab",
-    "count": 6
+    "count": 6,
+    "item": "feywild:winter_tree_planks_slab"
   }
 }

@@ -1,38 +1,38 @@
 {
   "parent": "feywild:skull",
-  "reputation": 5,
-  "icon": "minecraft:soul_lantern",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.winter.lantern.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.winter.lantern.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.winter.lantern.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.winter.lantern.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.lantern.complete.title"
+    }
+  },
+  "icon": "minecraft:soul_lantern",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 5,
+        "item": "minecraft:bone"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.lantern.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.lantern.start.title"
     }
   },
   "tasks": [
     {
+      "id": "feywild:craft",
       "item": {
         "item": "minecraft:soul_lantern"
-      },
-      "id": "feywild:craft"
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:bone",
-        "count": 5
-      },
-      "id": "feywild:item"
+      }
     }
   ]
 }

@@ -2,7 +2,6 @@ package com.feywild.feywild.block;
 
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.Block;
-import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.base.decoration.DecoratedBlock;
 import org.moddingx.libx.base.decoration.DecorationContext;
 import org.moddingx.libx.mod.ModX;
@@ -21,7 +20,7 @@ public class ElvenQuartzBlock extends DecoratedBlock {
     public ElvenQuartzBlock(ModX mod, Properties properties) {
         super(mod, DecorationContext.GENERIC, properties);
         this.brick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
-        this.mossyBrick = new BlockBase(mod, properties);
+        this.mossyBrick = new MossyBlock(mod, this.brick, properties);
         this.crackedBrick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
         this.pillar = new ElvenQuartzPillar(mod, properties);
         this.polished = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);

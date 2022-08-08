@@ -78,6 +78,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registry.BLOCK_REGISTRY, "sapling", this.sapling);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_log", this.strippedLog);
         builder.registerNamed(Registry.ITEM_REGISTRY, "stripped_log", this.strippedLogItem);
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_wood", this.strippedWood);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "planks", this.plankBlock);
         
         TreeConfiguration featureConfig = this.getFeatureBuilder().build();

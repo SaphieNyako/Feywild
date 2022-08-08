@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "breakage=0": {
+      "model": "feywild:block/display_glass"
+    },
+    "breakage=1": {
+      "model": "feywild:block/display_glass1"
+    },
+    "breakage=2": {
+      "model": "feywild:block/display_glass2"
+    },
+    "breakage=3": {
+      "model": "feywild:block/display_glass3"
+    },
+    "breakage=4": {
+      "model": "feywild:block/display_glass4"
+    }
+  }
+}

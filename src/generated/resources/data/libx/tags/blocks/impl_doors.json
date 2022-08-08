@@ -1,4 +1,8 @@
 {
-  "replace": false,
-  "values": []
+  "values": [
+    "feywild:spring_tree_planks_door",
+    "feywild:summer_tree_planks_door",
+    "feywild:autumn_tree_planks_door",
+    "feywild:winter_tree_planks_door"
+  ]
 }

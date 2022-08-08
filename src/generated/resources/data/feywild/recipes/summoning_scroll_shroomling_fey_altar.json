@@ -1,9 +1,5 @@
 {
-  "type": "feywild:fey_altar",
-  "output": {
-    "item": "feywild:summoning_scroll_shroomling",
-    "count": 1
-  },
+  "type": "feywild:altar",
   "ingredients": [
     {
       "item": "minecraft:red_mushroom_block"
@@ -20,5 +16,9 @@
     {
       "item": "feywild:summoning_scroll"
     }
-  ]
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_shroomling"
+  }
 }

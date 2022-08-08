@@ -1,40 +1,40 @@
 {
   "parent": "feywild:levitate_sheep",
-  "reputation": 5,
-  "icon": "minecraft:cake",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.spring.cake.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.spring.cake.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.spring.cake.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.spring.cake.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.cake.complete.title"
+    }
+  },
+  "icon": "minecraft:cake",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 6,
+        "item": "minecraft:sweet_berries"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.cake.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.cake.start.title"
     }
   },
   "tasks": [
     {
       "alignment": "spring",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "minecraft:cake"
       },
-      "id": "feywild:fey_gift",
       "times": 2
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:sweet_berries",
-        "count": 6
-      },
-      "id": "feywild:item"
     }
   ]
 }

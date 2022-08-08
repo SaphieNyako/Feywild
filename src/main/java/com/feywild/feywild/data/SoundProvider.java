@@ -22,7 +22,7 @@ public class SoundProvider extends SoundDefinitionProviderBase {
                 .with("menu/menu2", sound -> sound.stream().weight(1));
         
         this.sound(ModSoundEvents.musicCreative)
-                .effect(ModSoundEvents.musicMenu)
+                .event(ModSoundEvents.musicMenu)
                 .with("menu/menu1", sound -> sound.stream().weight(1));
 
         this.sound(ModSoundEvents.feywildSoundtrack).with("feywild_soundtrack", sound -> sound.stream());

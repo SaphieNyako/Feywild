@@ -1,22 +1,22 @@
 {
   "parent": "feywild:honey",
-  "reputation": 5,
   "icon": "feywild:spring_tree_sapling",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.spring.sapling.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.spring.sapling.start.description"
-    }
-  },
+  "reputation": 5,
   "rewards": [
     {
+      "id": "feywild:item",
       "item": {
-        "item": "feywild:spring_tree_sapling",
-        "count": 3
-      },
-      "id": "feywild:item"
+        "count": 3,
+        "item": "feywild:spring_tree_sapling"
+      }
     }
-  ]
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.sapling.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.sapling.start.title"
+    }
+  }
 }

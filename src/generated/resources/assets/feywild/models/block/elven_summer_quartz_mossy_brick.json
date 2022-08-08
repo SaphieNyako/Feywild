@@ -1,0 +1,6 @@
+{
+  "parent": "feywild:block/moss_overlay",
+  "textures": {
+    "texture": "feywild:block/elven_summer_quartz_brick"
+  }
+}

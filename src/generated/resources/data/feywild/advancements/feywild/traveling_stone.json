@@ -1,35 +1,7 @@
 {
   "parent": "feywild:feywild/root",
-  "display": {
-    "icon": {
-      "item": "feywild:inactive_market_rune_stone"
-    },
-    "title": {
-      "translate": "advancements.feywild.feywild.traveling_stone.title"
-    },
-    "description": {
-      "translate": "advancements.feywild.feywild.traveling_stone.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
-    "inventory_changed2": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "feywild:market_rune_stone"
-            ]
-          }
-        ]
-      }
-    },
     "inventory_changed": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -38,7 +10,35 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "inventory_changed2": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:market_rune_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.feywild.feywild.traveling_stone.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "feywild:inactive_market_rune_stone"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.feywild.feywild.traveling_stone.title"
     }
   },
   "requirements": [

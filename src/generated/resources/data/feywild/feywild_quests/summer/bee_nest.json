@@ -1,39 +1,39 @@
 {
   "parent": "feywild:kill_golem",
-  "reputation": 20,
-  "icon": "minecraft:bee_nest",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.summer.bee_nest.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.summer.bee_nest.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.summer.bee_nest.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.summer.bee_nest.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.bee_nest.complete.title"
+    }
+  },
+  "icon": "minecraft:bee_nest",
+  "reputation": 20,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:honeycomb"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.bee_nest.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.bee_nest.start.title"
     }
   },
   "tasks": [
     {
       "alignment": "summer",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "minecraft:bee_nest"
-      },
-      "id": "feywild:fey_gift"
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:honeycomb",
-        "count": 1
-      },
-      "id": "feywild:item"
+      }
     }
   ]
 }

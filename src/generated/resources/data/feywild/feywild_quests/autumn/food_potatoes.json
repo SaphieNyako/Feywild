@@ -1,22 +1,22 @@
 {
   "parent": "feywild:root",
-  "reputation": 5,
   "icon": "minecraft:potato",
+  "reputation": 5,
   "start": {
-    "title": {
-      "translate": "quest.feywild.autumn.food_potatoes.start.title"
-    },
     "description": {
       "translate": "quest.feywild.autumn.food_potatoes.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.food_potatoes.start.title"
     }
   },
   "tasks": [
     {
       "alignment": "autumn",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "minecraft:potato"
       },
-      "id": "feywild:fey_gift",
       "times": 9
     }
   ]

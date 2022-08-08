@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#s#",
-    "#s#"
-  ],
   "key": {
     "#": {
       "item": "feywild:summer_tree_planks"
@@ -12,8 +8,12 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "#s#",
+    "#s#"
+  ],
   "result": {
-    "item": "feywild:summer_tree_planks_fence",
-    "count": 3
+    "count": 3,
+    "item": "feywild:summer_tree_planks_fence"
   }
 }

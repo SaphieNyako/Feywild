@@ -55,5 +55,5 @@ public class ModBlocks {
 
     // UPDATE_TODO
 //    public static final Block feyPortalBlock = new FeyPortalBlock();
-    public static final GrassBlock snowyGrassBlock = new GrassBlock(BlockBehaviour.Properties.of(Material.GRASS));
+//    public static final GrassBlock snowyGrassBlock = new GrassBlock(BlockBehaviour.Properties.of(Material.GRASS));
 }

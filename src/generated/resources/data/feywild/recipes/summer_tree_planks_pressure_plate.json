@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "##"
-  ],
   "key": {
     "#": {
       "item": "feywild:summer_tree_planks"
     }
   },
+  "pattern": [
+    "##"
+  ],
   "result": {
     "item": "feywild:summer_tree_planks_pressure_plate"
   }

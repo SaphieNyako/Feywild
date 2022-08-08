@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "feywild:block/spring_tree_planks_pressure_plate"
+    },
+    "powered=true": {
+      "model": "feywild:block/spring_tree_planks_pressure_plate_down"
+    }
+  }
+}

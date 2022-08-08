@@ -4,23 +4,23 @@
     "feywild:food_beetroots",
     "feywild:food_carrots"
   ],
-  "reputation": 5,
   "icon": "minecraft:beetroot_soup",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.autumn.food_complete.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.autumn.food_complete.start.description"
-    }
-  },
+  "reputation": 5,
   "rewards": [
     {
+      "id": "feywild:item",
       "item": {
-        "item": "minecraft:beetroot_soup",
-        "count": 1
-      },
-      "id": "feywild:item"
+        "count": 1,
+        "item": "minecraft:beetroot_soup"
+      }
     }
-  ]
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.food_complete.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.food_complete.start.title"
+    }
+  }
 }

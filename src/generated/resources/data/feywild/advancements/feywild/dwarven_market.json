@@ -1,36 +1,36 @@
 {
   "parent": "feywild:feywild/traveling_stone",
+  "criteria": {
+    "changed_dimension": {
+      "conditions": {
+        "from": "minecraft:overworld",
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:player"
+            }
+          }
+        ],
+        "to": "feywild:marketplace"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "feywild:market_rune_stone"
-    },
-    "title": {
-      "translate": "advancements.feywild.feywild.dwarven_market.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.feywild.feywild.dwarven_market.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "feywild:market_rune_stone"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "changed_dimension": {
-      "trigger": "minecraft:changed_dimension",
-      "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "minecraft:player"
-            },
-            "entity": "this"
-          }
-        ],
-        "from": "minecraft:overworld",
-        "to": "feywild:market_place_dimension"
-      }
+    "title": {
+      "translate": "advancements.feywild.feywild.dwarven_market.title"
     }
   },
   "requirements": [

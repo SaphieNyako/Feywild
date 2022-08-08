@@ -1,104 +1,104 @@
 {
   "parent": "feywild:feywild/dwarven_market",
+  "criteria": {
+    "villager_trade": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "feywild:dwarf_baker"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    },
+    "villager_trade2": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "feywild:dwarf_shepherd"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    },
+    "villager_trade3": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "feywild:dwarf_artificer"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    },
+    "villager_trade4": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "feywild:dwarf_toolsmith"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    },
+    "villager_trade5": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "feywild:dwarf_miner"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    },
+    "villager_trade6": {
+      "conditions": {
+        "villager": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "feywild:dwarf_dragon_hunter"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:villager_trade"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "feywild:market_rune_stone"
-    },
-    "title": {
-      "translate": "advancements.feywild.feywild.dwarf_trades.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.feywild.feywild.dwarf_trades.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "feywild:market_rune_stone"
+    },
     "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "villager_trade2": {
-      "trigger": "minecraft:villager_trade",
-      "conditions": {
-        "villager": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "feywild:dwarf_shepherd"
-            },
-            "entity": "this"
-          }
-        ]
-      }
-    },
-    "villager_trade": {
-      "trigger": "minecraft:villager_trade",
-      "conditions": {
-        "villager": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "feywild:dwarf_baker"
-            },
-            "entity": "this"
-          }
-        ]
-      }
-    },
-    "villager_trade6": {
-      "trigger": "minecraft:villager_trade",
-      "conditions": {
-        "villager": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "feywild:dwarf_dragon_hunter"
-            },
-            "entity": "this"
-          }
-        ]
-      }
-    },
-    "villager_trade5": {
-      "trigger": "minecraft:villager_trade",
-      "conditions": {
-        "villager": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "feywild:dwarf_miner"
-            },
-            "entity": "this"
-          }
-        ]
-      }
-    },
-    "villager_trade4": {
-      "trigger": "minecraft:villager_trade",
-      "conditions": {
-        "villager": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "feywild:dwarf_toolsmith"
-            },
-            "entity": "this"
-          }
-        ]
-      }
-    },
-    "villager_trade3": {
-      "trigger": "minecraft:villager_trade",
-      "conditions": {
-        "villager": [
-          {
-            "condition": "minecraft:entity_properties",
-            "predicate": {
-              "type": "feywild:dwarf_artificer"
-            },
-            "entity": "this"
-          }
-        ]
-      }
+    "title": {
+      "translate": "advancements.feywild.feywild.dwarf_trades.title"
     }
   },
   "requirements": [

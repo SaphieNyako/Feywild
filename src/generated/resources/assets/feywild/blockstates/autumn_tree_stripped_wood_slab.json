@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "feywild:block/autumn_tree_stripped_wood_slab"
+    },
+    "type=double": {
+      "model": "feywild:block/autumn_tree_stripped_wood"
+    },
+    "type=top": {
+      "model": "feywild:block/autumn_tree_stripped_wood_slab_top"
+    }
+  }
+}

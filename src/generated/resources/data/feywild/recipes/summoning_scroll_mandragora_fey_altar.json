@@ -1,9 +1,5 @@
 {
-  "type": "feywild:fey_altar",
-  "output": {
-    "item": "feywild:summoning_scroll_mandragora",
-    "count": 1
-  },
+  "type": "feywild:altar",
   "ingredients": [
     {
       "item": "feywild:magical_honey_cookie"
@@ -20,5 +16,9 @@
     {
       "item": "feywild:summoning_scroll"
     }
-  ]
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_mandragora"
+  }
 }

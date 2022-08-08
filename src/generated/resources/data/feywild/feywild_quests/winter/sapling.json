@@ -1,22 +1,22 @@
 {
   "parent": "feywild:lantern",
-  "reputation": 5,
   "icon": "feywild:winter_tree_sapling",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.winter.sapling.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.winter.sapling.start.description"
-    }
-  },
+  "reputation": 5,
   "rewards": [
     {
+      "id": "feywild:item",
       "item": {
-        "item": "feywild:winter_tree_sapling",
-        "count": 3
-      },
-      "id": "feywild:item"
+        "count": 3,
+        "item": "feywild:winter_tree_sapling"
+      }
     }
-  ]
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.sapling.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.sapling.start.title"
+    }
+  }
 }

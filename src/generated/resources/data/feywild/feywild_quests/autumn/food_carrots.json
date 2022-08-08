@@ -1,22 +1,22 @@
 {
   "parent": "feywild:root",
-  "reputation": 5,
   "icon": "minecraft:carrot",
+  "reputation": 5,
   "start": {
-    "title": {
-      "translate": "quest.feywild.autumn.food_carrots.start.title"
-    },
     "description": {
       "translate": "quest.feywild.autumn.food_carrots.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.food_carrots.start.title"
     }
   },
   "tasks": [
     {
       "alignment": "autumn",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "minecraft:carrot"
       },
-      "id": "feywild:fey_gift",
       "times": 9
     }
   ]

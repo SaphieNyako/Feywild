@@ -1,22 +1,22 @@
 {
   "parent": "feywild:root",
-  "reputation": 5,
   "icon": "minecraft:beetroot",
+  "reputation": 5,
   "start": {
-    "title": {
-      "translate": "quest.feywild.autumn.food_beetroots.start.title"
-    },
     "description": {
       "translate": "quest.feywild.autumn.food_beetroots.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.food_beetroots.start.title"
     }
   },
   "tasks": [
     {
       "alignment": "autumn",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "minecraft:beetroot"
       },
-      "id": "feywild:fey_gift",
       "times": 9
     }
   ]

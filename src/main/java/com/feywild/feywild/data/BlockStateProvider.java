@@ -1,15 +1,14 @@
 package com.feywild.feywild.data;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.MossyBlock;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
-import com.feywild.feywild.block.trees.BaseSaplingBlock;
-import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.block.trees.FeyLogBlock;
-import com.feywild.feywild.block.trees.FeyWoodBlock;
+import com.feywild.feywild.block.trees.*;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +30,8 @@ import java.util.function.Supplier;
 @Datagen
 public class BlockStateProvider extends BlockStateProviderBase {
 
+    public static final ResourceLocation MOSS_PARENT = FeywildMod.getInstance().resource("block/moss_overlay");
+
     public BlockStateProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
         super(mod, generator, fileHelper);
     }
@@ -47,7 +48,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
         this.manualModel(ModBlocks.ancientRunestone, this.models().cubeTop(
                 Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)).getPath(),
                 this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)).getPath() + "_side"),
-                this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)) + "_top")
+                this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)).getPath() + "_top")
         ));
         
         this.makeDisplayGlass();
@@ -78,18 +79,10 @@ public class BlockStateProvider extends BlockStateProviderBase {
                     new ConfiguredModel(this.cubeAll(block)),
                     new ConfiguredModel(this.models().cubeAll(id.getPath() + "_02", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_02")))
             );
-        } else if (block instanceof FeyWoodBlock feyWood) {
-            ModelFile vertical = models().cubeColumn(id.getPath(), blockTexture(feyWood), blockTexture(feyWood));
-            ModelFile horizontal = models().cubeColumnHorizontal(id.getPath() + "_horizontal", blockTexture(feyWood), blockTexture(feyWood));
-            getVariantBuilder(block)
-                    .partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y)
-                    .modelForState().modelFile(vertical).addModel()
-                    .partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z)
-                    .modelForState().modelFile(horizontal).rotationX(90).addModel()
-                    .partialState().with(BlockStateProperties.AXIS, Direction.Axis.X)
-                    .modelForState().modelFile(horizontal).rotationX(90).rotationY(90).addModel();
         } else if (block instanceof FeyLogBlock feyLog) {
-            this.axisBlock(feyLog, this.blockTexture(feyLog.getWoodBlock()), new ResourceLocation(id.getNamespace(), "block/tree_log_top"));
+            this.axisBlock(feyLog, this.blockTexture(feyLog.getWoodBlock()), this.blockTexture(feyLog));
+        } else if (block instanceof FeyStrippedLogBlock feyLog) {
+            this.axisBlock(feyLog, this.blockTexture(feyLog.getWoodBlock()), this.blockTexture(feyLog));
         } else if (block instanceof CropBlock) {
             VariantBlockStateBuilder builder = this.getVariantBuilder(block);
             //noinspection CodeBlock2Expr
@@ -152,6 +145,8 @@ public class BlockStateProvider extends BlockStateProviderBase {
     protected ModelFile defaultModel(ResourceLocation id, Block block) {
         if (block instanceof BaseSaplingBlock) {
             return this.models().cross(id.getPath(), this.blockTexture(block));
+        } else if (block instanceof MossyBlock mossy) {
+            return this.models().withExistingParent(id.getPath(), MOSS_PARENT).texture("texture", this.blockTexture(mossy.getBaseBlock()));
         } else {
             return super.defaultModel(id, block);
         }
