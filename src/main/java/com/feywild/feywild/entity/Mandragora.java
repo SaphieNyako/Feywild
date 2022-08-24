@@ -125,7 +125,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
                 return InteractionResult.sidedSuccess(level.isClientSide);
             } else if (player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
                 if (!level.isClientSide) {
-                    Mandragora entity = ModEntityTypes.mandragora.create(level);
+                    Mandragora entity = ModEntities.mandragora.create(level);
                     if (entity != null) {
                         entity.setSummonPos(this.getSummonPos());
                         entity.setPos(position().x, position().y, position().z);

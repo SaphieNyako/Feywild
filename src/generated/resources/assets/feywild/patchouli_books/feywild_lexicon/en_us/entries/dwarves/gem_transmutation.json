@@ -1,0 +1,25 @@
+{
+  "category": "feywild:dwarves",
+  "icon": "feywild:brilliant_fey_gem",
+  "name": "feywild_lexicon.entry.feywild.dwarves.gem_transmutation",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.dwarves.gem_transmutation.page0.text0"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:greater_fey_gem_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:shiny_fey_gem_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:brilliant_fey_gem_dwarven_anvil"
+    }
+  ]
+}

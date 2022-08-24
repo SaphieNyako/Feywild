@@ -10,7 +10,6 @@ import org.moddingx.libx.annotation.registration.RegisterClass;
 import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.base.tile.BlockBE;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -18,11 +17,11 @@ import net.minecraft.world.level.material.Material;
 @RegisterClass(registry = "BLOCK_REGISTRY")
 public class ModBlocks {
 
-    public static final Block feyGemBlock = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
+    public static final Block feyGemOre = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
             .requiresCorrectToolForDrops().sound(SoundType.STONE));
-    public static final Block feyGemBlockDeepSlate = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
+    public static final Block feyGemOreDeepSlate = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
             .sound(SoundType.DEEPSLATE));
-    public static final Block feyGemBlockLivingrock = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
+    public static final Block feyGemOreLivingrock = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f)
             .requiresCorrectToolForDrops().sound(SoundType.STONE));
 
     public static final BlockBE<LibraryBell> libraryBell = new LibraryBellBlock(FeywildMod.getInstance());

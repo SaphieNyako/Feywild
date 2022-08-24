@@ -1,0 +1,40 @@
+{
+  "category": "feywild:dwarves",
+  "icon": "feywild:dwarven_anvil",
+  "name": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:dwarven_anvil",
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_dwarf_blacksmith",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page2.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page3.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:schematics_gem_transmutation",
+      "link_recipe": false,
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page5.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page6.text0"
+    }
+  ]
+}

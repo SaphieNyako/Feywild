@@ -1,0 +1,22 @@
+{
+  "category": "feywild:feywild",
+  "icon": "feywild:fey_altar",
+  "name": "feywild_lexicon.entry.feywild.feywild.fey_altar",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:fey_altar",
+      "text": "feywild_lexicon.entry.feywild.feywild.fey_altar.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.fey_altar.page1.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:mandrake_crop_seed",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.feywild.fey_altar.page2.text0"
+    }
+  ]
+}

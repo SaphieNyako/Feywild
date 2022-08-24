@@ -1,7 +1,7 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.entity.Mandragora;
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
@@ -88,7 +88,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
             if (!level.isClientSide) {
                 if (QuestData.get((ServerPlayer) player).checkReputation(Alignment.SPRING, 0)) {
 
-                    Mandragora entity = ModEntityTypes.mandragora.create(level);
+                    Mandragora entity = ModEntities.mandragora.create(level);
 
                     if (entity != null) {
                         entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);

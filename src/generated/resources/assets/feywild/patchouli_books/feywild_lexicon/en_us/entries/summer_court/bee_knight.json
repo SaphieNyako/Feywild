@@ -1,0 +1,39 @@
+{
+  "category": "feywild:summer_court",
+  "icon": "feywild:honeycomb",
+  "name": "feywild_lexicon.entry.feywild.summer_court.bee_knight",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:bee_knight",
+      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page1.text0"
+    },
+    {
+      "type": "patchouli:image",
+      "border": true,
+      "images": [
+        "feywild:textures/patchouli_images/bee_keep_book.png"
+      ],
+      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page2.text1",
+      "title": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:honeycomb",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page3.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_bee_knight_fey_altar"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page5.text0"
+    }
+  ]
+}

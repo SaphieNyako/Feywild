@@ -95,7 +95,7 @@ public class BeeKnight extends FlyingFeyBase {
             QuestData quests = QuestData.get((ServerPlayer) player);
             if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.bee_knight.required_reputation) {
                 AABB aabb = new AABB(pos).inflate(2 * MobConfig.bee_knight.aggrevation_range);
-                level.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(bee -> {
+                level.getEntities(ModEntities.beeKnight, aabb, entity -> true).forEach(bee -> {
                     if (bee.getTarget() == null && player.position().closerThan(bee.position(), MobConfig.bee_knight.aggrevation_range)
                             && !player.getGameProfile().getId().equals(bee.getOwner())) {
                         bee.setTarget(player);

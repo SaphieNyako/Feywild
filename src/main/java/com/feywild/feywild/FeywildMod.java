@@ -57,6 +57,7 @@ import javax.annotation.Nonnull;
 // UPDATE_TODO tags
 // UPDATE_TODO JEI
 // UPDATE_TODO datagen
+// UPDATE_TODO remove unused assets
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -131,13 +132,13 @@ public final class FeywildMod extends ModXRegistration {
         event.enqueueWork(() -> {
 //            ModStructurePieces.setup();
 
-            SpawnPlacements.register(ModEntityTypes.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
-            SpawnPlacements.register(ModEntityTypes.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
+            SpawnPlacements.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
+            SpawnPlacements.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
+            SpawnPlacements.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
 
 //            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntityTypes.dwarfMiner, new BlockPos(11, 64, 20));
 //            MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntityTypes.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -157,37 +158,37 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(ModEntityTypes.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
-        EntityRenderers.register(ModEntityTypes.dwarfToolsmith, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.dwarfArtificer, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.dwarfDragonHunter, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.dwarfBaker, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.dwarfMiner, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfBlacksmithModel::new));
-        EntityRenderers.register(ModEntityTypes.dwarfShepherd, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntityTypes.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
-        EntityRenderers.register(ModEntityTypes.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
-        EntityRenderers.register(ModEntityTypes.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
-        EntityRenderers.register(ModEntityTypes.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        EntityRenderers.register(ModEntityTypes.mandragora, MandragoraRenderer.create(MandragoraModel::new));
-        EntityRenderers.register(ModEntityTypes.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
+        EntityRenderers.register(ModEntities.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
+        EntityRenderers.register(ModEntities.dwarfToolsmith, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntities.dwarfArtificer, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntities.dwarfDragonHunter, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntities.dwarfBaker, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntities.dwarfMiner, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfBlacksmithModel::new));
+        EntityRenderers.register(ModEntities.dwarfShepherd, MarketDwarfRenderer::new);
+        EntityRenderers.register(ModEntities.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
+        EntityRenderers.register(ModEntities.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
+        EntityRenderers.register(ModEntities.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
+        EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
+        EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
+        EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntityTypes.springPixie, SpringPixie.getDefaultAttributes().build());
-        event.put(ModEntityTypes.summerPixie, SummerPixie.getDefaultAttributes().build());
-        event.put(ModEntityTypes.autumnPixie, AutumnPixie.getDefaultAttributes().build());
-        event.put(ModEntityTypes.winterPixie, WinterPixie.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfBlacksmith, DwarfBlacksmith.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfArtificer, MarketDwarf.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfBaker, MarketDwarf.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfMiner, MarketDwarf.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfDragonHunter, MarketDwarf.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfShepherd, MarketDwarf.getDefaultAttributes().build());
-        event.put(ModEntityTypes.dwarfToolsmith, MarketDwarf.getDefaultAttributes().build());
-        event.put(ModEntityTypes.mandragora, Mandragora.getDefaultAttributes().build());
-        event.put(ModEntityTypes.beeKnight, BeeKnight.getDefaultAttributes().build());
-        event.put(ModEntityTypes.shroomling, Shroomling.getDefaultAttributes().build());
+        event.put(ModEntities.springPixie, SpringPixie.getDefaultAttributes().build());
+        event.put(ModEntities.summerPixie, SummerPixie.getDefaultAttributes().build());
+        event.put(ModEntities.autumnPixie, AutumnPixie.getDefaultAttributes().build());
+        event.put(ModEntities.winterPixie, WinterPixie.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfBlacksmith, DwarfBlacksmith.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfArtificer, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfBaker, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfMiner, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfDragonHunter, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfShepherd, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntities.dwarfToolsmith, MarketDwarf.getDefaultAttributes().build());
+        event.put(ModEntities.mandragora, Mandragora.getDefaultAttributes().build());
+        event.put(ModEntities.beeKnight, BeeKnight.getDefaultAttributes().build());
+        event.put(ModEntities.shroomling, Shroomling.getDefaultAttributes().build());
     }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {

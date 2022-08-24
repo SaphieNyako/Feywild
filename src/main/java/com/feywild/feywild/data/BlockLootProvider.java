@@ -8,10 +8,7 @@ import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.datagen.provider.loot.BlockLootProviderBase;
 import org.moddingx.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.Tags;
 
@@ -47,21 +44,21 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion).with(this.count(1, 2)));
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus).with(this.count(1, 2)));
 
-        this.drops(ModBlocks.feyGemBlock, true, this.first(
+        this.drops(ModBlocks.feyGemOre, true, this.first(
                 this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.greaterFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.shinyFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.brilliantFeyGem)
         ));
 
-        this.drops(ModBlocks.feyGemBlockDeepSlate, true, this.first(
+        this.drops(ModBlocks.feyGemOreDeepSlate, true, this.first(
                 this.stack(ModItems.lesserFeyGem).with(this.random(0.5f)),
                 this.stack(ModItems.greaterFeyGem).with(this.random(0.5f)),
                 this.stack(ModItems.shinyFeyGem).with(this.random(0.5f)),
                 this.stack(ModItems.brilliantFeyGem)
         ));
 
-        this.drops(ModBlocks.feyGemBlockLivingrock, true, this.first(
+        this.drops(ModBlocks.feyGemOreLivingrock, true, this.first(
                 this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.greaterFeyGem).with(this.random(0.6f)),
                 this.stack(ModItems.shinyFeyGem).with(this.random(0.6f)),

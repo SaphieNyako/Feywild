@@ -1,7 +1,7 @@
 package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.entity.DwarfBlacksmith;
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.ModEntities;
 import org.moddingx.libx.base.tile.BlockEntityBase;
 import org.moddingx.libx.base.tile.TickingBlock;
 import net.minecraft.core.BlockPos;
@@ -29,7 +29,7 @@ public class AncientRunestone extends BlockEntityBase implements TickingBlock {
                 if (!this.level.isClientSide) {
                     this.level.setBlock(this.worldPosition, Blocks.AIR.defaultBlockState(), 3);
                     // Spawn a persistent dwarf
-                    DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, this.level);
+                    DwarfBlacksmith entity = new DwarfBlacksmith(ModEntities.dwarfBlacksmith, this.level);
                     entity.setPos(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5);
                     entity.setSummonPos(this.worldPosition);
                     entity.trySetTamed(false);

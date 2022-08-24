@@ -1,0 +1,28 @@
+{
+  "category": "feywild:spring_court",
+  "icon": "feywild:summoning_scroll_spring_pixie",
+  "name": "feywild_lexicon.entry.feywild.spring_court.spring_pixie",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:spring_pixie",
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page2.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_spring_pixie_fey_altar"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page4.text0"
+    }
+  ]
+}

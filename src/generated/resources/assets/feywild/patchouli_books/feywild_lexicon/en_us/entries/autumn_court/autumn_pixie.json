@@ -1,0 +1,28 @@
+{
+  "category": "feywild:autumn_court",
+  "icon": "feywild:summoning_scroll_autumn_pixie",
+  "name": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:autumn_pixie",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page2.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_autumn_pixie"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page4.text0"
+    }
+  ]
+}
