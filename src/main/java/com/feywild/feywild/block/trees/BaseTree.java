@@ -54,7 +54,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyStrippedWoodBlock strippedWood;
     private final FeyPlanksBlock plankBlock;
     
-    private Holder<? extends ConfiguredFeature<?, ?>> feature;
+    private Holder<ConfiguredFeature<?, ?>> feature;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
@@ -85,10 +85,14 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
 
+    public Holder<ConfiguredFeature<?, ?>> getConfiguredFeature() {
+        return Objects.requireNonNull(this.feature, "Feywild tree feature not initialised");
+    }
+    
     @Nullable
     @Override
     public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
-        return Objects.requireNonNull(this.feature, "Feywild tree feature not initialised");
+        return this.getConfiguredFeature();
     }
 
     public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder() {

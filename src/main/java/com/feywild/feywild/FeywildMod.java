@@ -58,6 +58,7 @@ import javax.annotation.Nonnull;
 // UPDATE_TODO JEI
 // UPDATE_TODO datagen
 // UPDATE_TODO remove unused assets
+// UPDATE_TODO configs (some keys can be removed, sue datapacks now)
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
