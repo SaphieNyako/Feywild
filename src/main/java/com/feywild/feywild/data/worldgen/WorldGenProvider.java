@@ -28,5 +28,7 @@ public class WorldGenProvider extends WorldGenProviderBase {
         
         // Biome data
         this.addData(FeyOverworldBiomeModifiers::new);
+        this.addData(FeyBiomes::new);
+        this.addData(FeyBiomeLayers::new);
     }
 }

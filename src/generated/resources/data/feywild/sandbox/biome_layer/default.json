@@ -1,0 +1,80 @@
+{
+  "biomes": [
+    {
+      "biome": "feywild:blossoming_wealds",
+      "parameters": {
+        "continentalness": 0.0,
+        "depth": 0.0,
+        "erosion": 0.0,
+        "humidity": 0.0,
+        "offset": 0.0,
+        "temperature": 0.0,
+        "weirdness": 0.0
+      }
+    },
+    {
+      "biome": "feywild:golden_seelie_fields",
+      "parameters": {
+        "continentalness": 0.0,
+        "depth": 0.0,
+        "erosion": 0.0,
+        "humidity": 0.0,
+        "offset": 0.0,
+        "temperature": 0.0,
+        "weirdness": 0.0
+      }
+    },
+    {
+      "biome": "feywild:eternal_fall",
+      "parameters": {
+        "continentalness": 0.0,
+        "depth": 0.0,
+        "erosion": 0.0,
+        "humidity": 0.0,
+        "offset": 0.0,
+        "temperature": 0.0,
+        "weirdness": 0.0
+      }
+    },
+    {
+      "biome": "feywild:frozen_retreat",
+      "parameters": {
+        "continentalness": 0.0,
+        "depth": 0.0,
+        "erosion": 0.0,
+        "humidity": 0.0,
+        "offset": 0.0,
+        "temperature": 0.0,
+        "weirdness": 0.0
+      }
+    }
+  ],
+  "range": {
+    "continentalness": [
+      -1.0,
+      1.0
+    ],
+    "depth": [
+      -1.0,
+      1.0
+    ],
+    "erosion": [
+      -1.0,
+      1.0
+    ],
+    "humidity": [
+      -1.0,
+      1.0
+    ],
+    "offset": 0.0,
+    "temperature": [
+      -1.0,
+      1.0
+    ],
+    "weirdness": [
+      -1.0,
+      1.0
+    ]
+  },
+  "weight": 1.0
+}
