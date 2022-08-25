@@ -1,4 +1,4 @@
-package com.feywild.feywild.data.worldgen;
+package com.feywild.feywild.data.worldgen.data;
 
 import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.SurfaceData;
 import io.github.noeppi_noeppi.mods.sandbox.surface.SurfaceRuleSet;

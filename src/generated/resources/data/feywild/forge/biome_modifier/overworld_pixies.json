@@ -1,0 +1,30 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#minecraft:is_overworld",
+  "spawners": [
+    {
+      "type": "feywild:spring_pixie",
+      "maxCount": 1,
+      "minCount": 1,
+      "weight": 5
+    },
+    {
+      "type": "feywild:summer_pixie",
+      "maxCount": 1,
+      "minCount": 1,
+      "weight": 5
+    },
+    {
+      "type": "feywild:autumn_pixie",
+      "maxCount": 1,
+      "minCount": 1,
+      "weight": 5
+    },
+    {
+      "type": "feywild:winter_pixie",
+      "maxCount": 1,
+      "minCount": 1,
+      "weight": 5
+    }
+  ]
+}

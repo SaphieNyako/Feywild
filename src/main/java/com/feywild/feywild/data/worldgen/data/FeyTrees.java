@@ -1,4 +1,4 @@
-package com.feywild.feywild.data.worldgen;
+package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.BaseTree;

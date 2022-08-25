@@ -1,4 +1,4 @@
-package com.feywild.feywild.data.worldgen;
+package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.quest.Alignment;

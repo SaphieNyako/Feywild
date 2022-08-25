@@ -1,4 +1,4 @@
-package com.feywild.feywild.data.worldgen;
+package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.world.gen.structure.FeywildStructurePoolElement;
 import com.mojang.datafixers.util.Either;

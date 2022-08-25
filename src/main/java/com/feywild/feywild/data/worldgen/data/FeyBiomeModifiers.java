@@ -1,5 +1,6 @@
-package com.feywild.feywild.data.worldgen;
+package com.feywild.feywild.data.worldgen.data;
 
+import com.feywild.feywild.entity.ModEntities;
 import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.BiomeModifierData;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BiomeTags;
@@ -7,7 +8,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.world.BiomeModifier;
 
-public class FeyOverworldBiomeModifiers extends BiomeModifierData {
+public class FeyBiomeModifiers extends BiomeModifierData {
     
     private final FeyTrees trees = this.resolve(FeyTrees.class);
     
@@ -27,7 +28,14 @@ public class FeyOverworldBiomeModifiers extends BiomeModifierData {
             .feature(trees.winterTreePatches)
             .build();
     
-    public FeyOverworldBiomeModifiers(Properties properties) {
+    public final Holder<BiomeModifier> overworldPixies = this.addSpawns(BiomeTags.IS_OVERWORLD)
+            .spawn(ModEntities.springPixie, 5, 1, 1)
+            .spawn(ModEntities.summerPixie, 5, 1, 1)
+            .spawn(ModEntities.autumnPixie, 5, 1, 1)
+            .spawn(ModEntities.winterPixie, 5, 1, 1)
+            .build();
+    
+    public FeyBiomeModifiers(Properties properties) {
         super(properties);
     }
 }
