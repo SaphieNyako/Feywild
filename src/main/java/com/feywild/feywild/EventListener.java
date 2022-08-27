@@ -9,21 +9,22 @@ import com.feywild.feywild.network.LibraryScreenMessage;
 import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
-import com.feywild.feywild.quest.task.*;
-import com.feywild.feywild.trade.TradeManager;
+import com.feywild.feywild.quest.task.BiomeTask;
+import com.feywild.feywild.quest.task.CraftTask;
+import com.feywild.feywild.quest.task.ItemTask;
+import com.feywild.feywild.quest.task.KillTask;
 import com.feywild.feywild.screens.FeywildTitleScreen;
+import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.event.ScreenEvent;
-import org.moddingx.libx.event.ConfigLoadedEvent;
+import com.feywild.feywild.world.market.MarketHandler;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -31,6 +32,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
+import org.moddingx.libx.event.ConfigLoadedEvent;
 
 public class EventListener {
 
@@ -138,10 +140,9 @@ public class EventListener {
     }
 
     @SubscribeEvent
-    public void tickWorld(TickEvent.LevelTickEvent event) {
-        if (event.level instanceof ServerLevel && event.level.dimension() == Level.OVERWORLD) {
-            // UPDATE_TODO (can probably use ServerTickEvent + commented out code)
-//            MarketHandler.update(((ServerLevel) event.level).getServer());
+    public void tickServer(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            MarketHandler.update(event.getServer());
         }
     }
 

@@ -1,13 +1,13 @@
 {
-  "parent": "feywild:honey",
-  "icon": "feywild:spring_tree_sapling",
+  "parent": "feywild:dyes",
+  "icon": "feywild:autumn_tree_sapling",
   "reputation": 5,
   "rewards": [
     {
       "id": "feywild:item",
       "item": {
         "count": 3,
-        "item": "feywild:spring_tree_sapling"
+        "item": "feywild:autumn_tree_sapling"
       }
     },
     {
@@ -20,10 +20,10 @@
   ],
   "start": {
     "description": {
-      "translate": "quest.feywild.spring.sapling.start.description"
+      "translate": "quest.feywild.autumn.sapling.start.description"
     },
     "title": {
-      "translate": "quest.feywild.spring.sapling.start.title"
+      "translate": "quest.feywild.autumn.sapling.start.title"
     }
   }
 }

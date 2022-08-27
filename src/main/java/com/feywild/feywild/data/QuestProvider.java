@@ -75,6 +75,7 @@ public class QuestProvider implements DataProvider {
                 .parent("honey")
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
                 .build();
 
         this.root(SUMMER)
@@ -108,6 +109,7 @@ public class QuestProvider implements DataProvider {
                 .parent("kill_pillager")
                 .icon(ModTrees.summerTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
                 .build();
 
         this.root(AUTUMN)
@@ -145,12 +147,19 @@ public class QuestProvider implements DataProvider {
                 .parent("food_complete")
                 .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
                 .build();
-
+        
         this.quest(AUTUMN, "dyes")
                 .parent("pumpkin")
                 .icon(Items.RED_DYE)
                 .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.DYES), 9))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
+                .build();
+        
+        this.quest(AUTUMN, "sapling")
+                .parent("dyes")
+                .icon(ModTrees.autumnTree.getSapling())
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
                 .build();
 
         this.root(WINTER)
@@ -181,6 +190,7 @@ public class QuestProvider implements DataProvider {
                 .parent("lantern")
                 .icon(ModTrees.winterTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
                 .build();
     }
 
