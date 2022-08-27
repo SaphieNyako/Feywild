@@ -1,4 +1,4 @@
-package com.feywild.feywild.data;
+package com.feywild.feywild.data.loot;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;

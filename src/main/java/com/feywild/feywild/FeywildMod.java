@@ -1,7 +1,6 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.entity.mana.CapabilityMana;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
@@ -54,13 +53,14 @@ import javax.annotation.Nonnull;
 //  PlacementUtils.register
 //  Registry.register
 //  BuiltinRegistries.register
+//  Vanilla registries that have a forge registry
 
 // UPDATE_TODO use TagAccess where possible
 // UPDATE_TODO tags
 // UPDATE_TODO JEI
 // UPDATE_TODO datagen
 // UPDATE_TODO remove unused assets
-// UPDATE_TODO configs (some keys can be removed, sue datapacks now)
+// UPDATE_TODO configs (some keys can be removed, use datapacks now)
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -83,7 +83,6 @@ public final class FeywildMod extends ModXRegistration {
 //            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
 //        }
         
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityMana::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
@@ -101,7 +100,7 @@ public final class FeywildMod extends ModXRegistration {
 //        this.addRegistrationHandler(FeywildDimension::register);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
-//        MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
+        MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
         // Quest task & reward types. Not in setup as they are required for datagen.
@@ -202,7 +201,6 @@ public final class FeywildMod extends ModXRegistration {
     }
     
     private void blockColors(RegisterColorHandlersEvent.Block event) {
-        // UPDATE_TODO generate models with tint index
         //noinspection SwitchStatementWithTooFewBranches
         BlockColor mossyColor = (state, level, pos, tintIndex) -> switch(tintIndex) {
             case 1 -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5, 0.5);

@@ -19,7 +19,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.util.data.TagAccess;
 
-// UPDATE_TODO snow under the trees
+// UPDATE_TODO check that snow under the trees works
 public class WinterTree extends BaseTree {
 
     public WinterTree(ModX mod) {
@@ -52,10 +52,12 @@ public class WinterTree extends BaseTree {
         protected void decorateLeaves(BlockState state, WorldGenLevel level, BlockPos pos, RandomSource random) {
             BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
             for (int i = 0; i < 30; i++) {
-                if (level.getBlockState(mutableBlockPos).isAir() && level.getBlockState(pos.below()).is(Blocks.GRASS_BLOCK)) {
+                if (level.getBlockState(mutableBlockPos).isAir() && level.getBlockState(mutableBlockPos.below()).is(Blocks.GRASS_BLOCK)) {
                     level.setBlock(mutableBlockPos, Blocks.SNOW.defaultBlockState(), 19);
-                    if (level.getBlockState(mutableBlockPos.below()).hasProperty(GrassBlock.SNOWY))
+                    if (level.getBlockState(mutableBlockPos.below()).hasProperty(GrassBlock.SNOWY)) {
                         level.setBlock(mutableBlockPos.below(), level.getBlockState(mutableBlockPos.below()).setValue(GrassBlock.SNOWY, true), 19);
+                    }
+                    break;
                 }
                 mutableBlockPos.move(Direction.DOWN);
             }

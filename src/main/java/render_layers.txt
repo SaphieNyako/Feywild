@@ -1,4 +1,4 @@
-UPDATE_TODO for later: set all render layers:
+UPDATE_TODO check that render layers work
 
 giant flower block: cutout
 display glass: translucent

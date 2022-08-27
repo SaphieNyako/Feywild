@@ -9,19 +9,20 @@ import com.feywild.feywild.network.LibraryScreenMessage;
 import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
-import com.feywild.feywild.quest.task.BiomeTask;
-import com.feywild.feywild.quest.task.CraftTask;
-import com.feywild.feywild.quest.task.ItemTask;
-import com.feywild.feywild.quest.task.KillTask;
+import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.market.MarketHandler;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ScreenEvent;
@@ -58,24 +59,18 @@ public class EventListener {
             QuestData quests = QuestData.get(player);
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
             //Quest Check for Biome
-            // UPDATE_TODO
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-//            if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
-//                player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
-
-                //TODO TELEPORTING PLAYER TO OTHER DIMENSION WHEN NEAR A STRUCTURE
-
-                //   if (player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).containsKey(FeywildDimensionConfiguredFeatures.feyCircle.value())) {
-                //      FeywildDimensionHandler.teleportToFeywild(player);
-                //   }
-
-                //  player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), FeywildDimensionConfiguredFeatures.feyCircle.value()) != null);
-
-                //   if (player.getLevel().findNearestMapFeature(ModStructureTags.ConfiguredStructureFeatures.PORTAL_STRUCTURE, player.blockPosition(), 0, true) != null) {
-                //       FeywildDimensionHandler.teleportToFeywild(player);
-                //   }
-//            }
+            if (player.getLevel().structureManager().hasAnyStructureAt(player.blockPosition())) {
+                RegistryAccess access = player.getLevel().registryAccess();
+                Registry<Structure> structureRegistry = access.registryOrThrow(Registry.STRUCTURE_REGISTRY);
+                player.getLevel().structureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> {
+                    ResourceLocation structureId = structureRegistry.getKey(structure);
+                    if (structureId != null) {
+                        quests.checkComplete(StructureTask.INSTANCE, structureId);
+                    }
+                });
+            }
         }
     }
 

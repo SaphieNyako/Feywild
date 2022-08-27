@@ -25,8 +25,9 @@ public abstract class RegistryTaskType<T, X> implements TaskType<T, X> {
     public T fromJson(JsonObject json) {
         ResourceLocation rl = ResourceLocation.tryParse(json.get(this.key).getAsString());
         T value = rl == null ? null : this.registry.getValue(rl);
-        if (value == null)
+        if (value == null) {
             throw new IllegalStateException("Can't load feywild quest task: " + this.element().getSimpleName() + " not found: " + rl);
+        }
         return value;
     }
 

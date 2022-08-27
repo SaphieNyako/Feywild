@@ -1,23 +1,13 @@
 package com.feywild.feywild.block.entity;
 
-import com.feywild.feywild.block.entity.mana.CapabilityMana;
-import com.feywild.feywild.block.entity.mana.IManaStorage;
 import com.feywild.feywild.block.entity.mana.ManaStorage;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.recipes.IDwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.tag.ModItemTags;
 import com.feywild.feywild.util.StreamUtil;
-import org.moddingx.libx.base.tile.BlockEntityBase;
-import org.moddingx.libx.base.tile.TickingBlock;
-import org.moddingx.libx.capability.ItemCapabilities;
-import org.moddingx.libx.crafting.recipe.RecipeHelper;
-import org.moddingx.libx.inventory.BaseItemStackHandler;
-import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
-import org.moddingx.libx.util.lazy.LazyValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +17,13 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
+import org.moddingx.libx.capability.ItemCapabilities;
+import org.moddingx.libx.crafting.recipe.RecipeHelper;
+import org.moddingx.libx.inventory.BaseItemStackHandler;
+import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
+import org.moddingx.libx.util.lazy.LazyValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,6 +36,29 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
 
     public static final int MAX_MANA = 1000;
     public static final int FEY_DUST_MANA_COST = 50;
+
+    private final BaseItemStackHandler inventory = BaseItemStackHandler.builder(8)
+            .contentsChanged(() -> {
+                this.setChanged();
+                this.updateRecipe();
+            })
+            .validator(stack -> stack.getItem() == ModItems.feyDust, 0)
+            .validator(stack -> stack.is(ModItemTags.SCHEMATICS), 1)
+            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.dwarvenAnvil, stack), 2, 3, 4, 5, 6)
+            .validator(stack -> false, 7)
+            .build();
+
+
+    private final ManaStorage manaStorage = new ManaStorage(MAX_MANA, () -> {
+        this.setChanged();
+        this.updateRecipe();
+    });
+
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.create(() -> this.inventory);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerTop = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerSide = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
+    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.create(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
+    
     // As `load` is often called without a level, we need to store that a recipe update
     // is required, so it can be updated next tick.
     private boolean needsUpdate = false;
@@ -58,7 +78,6 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
         this.itemHandlerTop.invalidate();
         this.itemHandlerSide.invalidate();
         this.itemHandlerBottom.invalidate();
-        this.manaHandler.invalidate();
     }
 
     @Override
@@ -105,8 +124,6 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
                 case DOWN -> this.itemHandlerBottom.cast();
                 default -> this.itemHandlerSide.cast();
             };
-        } else if (capability == CapabilityMana.MANA) {
-            return this.manaHandler.cast();
         } else {
             return super.getCapability(capability, side);
         }
@@ -156,32 +173,4 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
     public void setMana(int mana) {
         this.manaStorage.setMana(mana);
     }
-
-    private final BaseItemStackHandler inventory = BaseItemStackHandler.builder(8)
-            .contentsChanged(() -> {
-                this.setChanged();
-                this.updateRecipe();
-            })
-            .validator(stack -> stack.getItem() == ModItems.feyDust, 0)
-            .validator(stack -> Registry.ITEM.getHolderOrThrow(Registry.ITEM.getResourceKey(stack.getItem()).get()).is(ModItemTags.SCHEMATICS), 1)
-            .validator(stack -> this.level == null || RecipeHelper.isItemValidInput(this.level.getRecipeManager(), ModRecipeTypes.dwarvenAnvil, stack), 2, 3, 4, 5, 6)
-            .validator(stack -> false, 7)
-            .build();
-
-
-    private final ManaStorage manaStorage = new ManaStorage(MAX_MANA, () -> {
-        this.setChanged();
-        this.updateRecipe();
-    });
-
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerGeneric = ItemCapabilities.create(() -> this.inventory);
-
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerTop = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot >= 2 && slot < 7);
-
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerSide = ItemCapabilities.create(() -> this.inventory, slot -> false, (slot, stack) -> slot < 2);
-
-    private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandlerBottom = ItemCapabilities.create(() -> this.inventory, slot -> slot == 7, (slot, stack) -> false);
-
-    private final LazyOptional<IManaStorage> manaHandler = LazyOptional.of(() -> this.manaStorage);
-
 }

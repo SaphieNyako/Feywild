@@ -22,7 +22,7 @@ public class AdditionLootModifier extends LootModifier {
     
     private final ResourceLocation table;
     
-    public AdditionLootModifier(ResourceLocation table, LootItemCondition[] conditions) {
+    public AdditionLootModifier(ResourceLocation table, LootItemCondition... conditions) {
         super(conditions);
         this.table = table;
     }

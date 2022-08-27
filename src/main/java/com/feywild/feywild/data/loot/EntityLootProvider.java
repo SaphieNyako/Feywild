@@ -1,4 +1,4 @@
-package com.feywild.feywild.data;
+package com.feywild.feywild.data.loot;
 
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;

@@ -19,7 +19,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.util.data.TagAccess;
 
-// UPDATE_TODO snow under the trees
 public class WinterTree extends BaseTree {
 
     public WinterTree(ModX mod) {
