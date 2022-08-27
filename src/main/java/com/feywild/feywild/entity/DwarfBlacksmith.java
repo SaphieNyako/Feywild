@@ -43,15 +43,13 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
-
-import net.minecraft.world.entity.Entity.RemovalReason;
 
 public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     private boolean isTamed;
+    
     @Nullable
     private BlockPos summonPos;
 

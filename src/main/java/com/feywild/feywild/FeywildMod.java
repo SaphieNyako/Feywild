@@ -48,19 +48,7 @@ import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
 
-// UPDATE_TODO Remove all uses of:
-//  FeatureUtils.register
-//  PlacementUtils.register
-//  Registry.register
-//  BuiltinRegistries.register
-//  Vanilla registries that have a forge registry
-
-// UPDATE_TODO use TagAccess where possible
-// UPDATE_TODO tags
-// UPDATE_TODO JEI
-// UPDATE_TODO datagen
 // UPDATE_TODO remove unused assets
-// UPDATE_TODO configs (some keys can be removed, use datapacks now)
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 

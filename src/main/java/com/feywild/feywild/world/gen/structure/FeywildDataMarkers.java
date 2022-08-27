@@ -35,7 +35,7 @@ public class FeywildDataMarkers {
     }
 
     private static void placeDwarf(WorldGenLevel level, BlockPos pos) {
-        if (CompatConfig.mythic_alfheim.locked) {
+        if (CompatConfig.replace_dwarves) {
             level.setBlock(pos, ModBlocks.ancientRunestone.defaultBlockState(), 2);
         } else {
             DwarfBlacksmith entity = new DwarfBlacksmith(ModEntities.dwarfBlacksmith, level.getLevel());
