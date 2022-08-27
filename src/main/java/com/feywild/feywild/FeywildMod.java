@@ -48,7 +48,6 @@ import software.bernie.geckolib3.GeckoLib;
 
 import javax.annotation.Nonnull;
 
-// UPDATE_TODO remove unused assets
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -64,28 +63,17 @@ public final class FeywildMod extends ModXRegistration {
         network = new FeywildNetwork(this);
 
         GeckoLib.initialize();
-
-        // TODO mythicbotany
-//        if (ModList.get().isLoaded("mythicbotany") && CompatConfig.mythic_alfheim.alfheim) {
-//            this.addRegistrationHandler(ModAlfheimBiomes::register);
-//            FMLJavaModLoadingContext.get().getModEventBus().addListener(ModAlfheimBiomes::setup);
-//        }
         
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
-
-//        ModStructures.register(eventBus);
-
+        
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
-//        MinecraftForge.EVENT_BUS.addListener(ModWorldGeneration::loadWorldGeneration);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
-
-//        this.addRegistrationHandler(FeywildDimension::register);
 
         MinecraftForge.EVENT_BUS.register(new EventListener());
         MinecraftForge.EVENT_BUS.register(new MarketProtectEvents());
@@ -98,7 +86,7 @@ public final class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
-//        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
     }
 
@@ -120,8 +108,6 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-//            ModStructurePieces.setup();
-
             SpawnPlacements.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
             SpawnPlacements.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
@@ -136,8 +122,6 @@ public final class FeywildMod extends ModXRegistration {
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntities.dwarfArtificer, new BlockPos(7, 63, -2));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntities.dwarfDragonHunter, new BlockPos(21, 63, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntities.dwarfToolsmith, new BlockPos(21, 63, 11));
-//
-//            FeywildGeneration.setupBiomes();
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();
