@@ -85,3 +85,10 @@ description="Feywild Mod"
     versionRange="[3.1.11,)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.feywild]]
+    modId="jei"
+    mandatory=false
+    versionRange="[11.2.0.256,)"
+    ordering="NONE"
+    side="BOTH"

@@ -1,5 +1,7 @@
 package com.feywild.feywild.network;
 
+import com.feywild.feywild.compat.JeiRestarter;
+import com.feywild.feywild.jei.FeywildJei;
 import com.feywild.feywild.trade.recipe.TradeRecipe;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -69,11 +71,8 @@ public record TradesMessage(List<TradeRecipe> recipes) {
         public boolean handle(TradesMessage msg, Supplier<NetworkEvent.Context> ctx) {
             if (ModList.get().isLoaded("jei")) {
                 ctx.get().enqueueWork(() -> {
-                    // UPDATE_TODO
-//                    FeywildJeiReloader.clientTrades = msg.recipes;
-//                    if (!(ModList.get().isLoaded("jeresources"))) { //TODO 1.19, see JEA
-//                        FeywildJeiReloader.reload();
-//                    }
+                    FeywildJei.clientDwarfTrades = msg.recipes;
+                    JeiRestarter.restart();
                 });
             }
             return true;
