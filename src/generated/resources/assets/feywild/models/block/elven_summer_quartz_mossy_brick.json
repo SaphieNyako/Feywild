@@ -1,6 +1,15 @@
 {
-  "parent": "feywild:block/moss_overlay",
-  "textures": {
-    "texture": "feywild:block/elven_summer_quartz_brick"
-  }
+  "children": {
+    "block": {
+      "parent": "feywild:block/elven_summer_quartz_brick"
+    },
+    "moss_layer": {
+      "parent": "feywild:block/moss_overlay"
+    }
+  },
+  "item_render_order": [
+    "block",
+    "moss_layer"
+  ],
+  "loader": "forge:composite"
 }

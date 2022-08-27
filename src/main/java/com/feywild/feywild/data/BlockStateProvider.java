@@ -8,8 +8,10 @@ import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
-import com.feywild.feywild.block.trees.*;
-import net.minecraft.core.Direction;
+import com.feywild.feywild.block.trees.BaseSaplingBlock;
+import com.feywild.feywild.block.trees.FeyLeavesBlock;
+import com.feywild.feywild.block.trees.FeyLogBlock;
+import com.feywild.feywild.block.trees.FeyStrippedLogBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
+import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.annotation.data.Datagen;
@@ -30,7 +33,7 @@ import java.util.function.Supplier;
 @Datagen
 public class BlockStateProvider extends BlockStateProviderBase {
 
-    public static final ResourceLocation MOSS_PARENT = FeywildMod.getInstance().resource("block/moss_overlay");
+    public static final ResourceLocation MOSS_OVERLAY = FeywildMod.getInstance().resource("block/moss_overlay");
 
     public BlockStateProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
         super(mod, generator, fileHelper);
@@ -43,7 +46,11 @@ public class BlockStateProvider extends BlockStateProviderBase {
         this.manualModel(ModBlocks.libraryBell);
         this.manualModel(ModBlocks.treeMushroom);
         this.manualModel(ModBlocks.magicalBrazier);
-        this.manualModel(ModBlocks.feyMushroom);
+        
+        this.manualModel(ModBlocks.feyMushroom, this.models().cross(
+                Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.feyMushroom)).getPath(),
+                this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.feyMushroom)).getPath())
+        ).renderType(RenderTypes.CUTOUT));
 
         this.manualModel(ModBlocks.ancientRunestone, this.models().cubeTop(
                 Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)).getPath(),
@@ -65,7 +72,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
                                 new ConfiguredModel(this.models().cubeAll(
                                         id.getPath() + (i == 0 ? "" : i),
                                         new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + i)
-                                ))
+                                ).renderType(RenderTypes.TRANSLUCENT))
                         )
         );
     }
@@ -90,6 +97,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
                 builder.partialState().with(BlockStateProperties.AGE_7, i).addModels(
                         new ConfiguredModel(this.models().withExistingParent(id.getPath() + i, new ResourceLocation("minecraft", "block/crop"))
                                 .texture("crop", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + i))
+                                .renderType(RenderTypes.CUTOUT)
                         )
                 );
             });
@@ -144,9 +152,17 @@ public class BlockStateProvider extends BlockStateProviderBase {
     @Override
     protected ModelFile defaultModel(ResourceLocation id, Block block) {
         if (block instanceof BaseSaplingBlock) {
-            return this.models().cross(id.getPath(), this.blockTexture(block));
+            return this.models().cross(id.getPath(), this.blockTexture(block)).renderType(RenderTypes.CUTOUT);
         } else if (block instanceof MossyBlock mossy) {
-            return this.models().withExistingParent(id.getPath(), MOSS_PARENT).texture("texture", this.blockTexture(mossy.getBaseBlock()));
+            ResourceLocation parentId = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(mossy.getBaseBlock()));
+            return this.models().getBuilder(id.getPath()).customLoader(CompositeModelBuilder::begin)
+                    .child("block", this.models().nested()
+                            .parent(new ModelFile.UncheckedModelFile(new ResourceLocation(parentId.getNamespace(), "block/" + parentId.getPath())))
+                    )
+                    .child("moss_layer", this.models().nested()
+                            .parent(this.models().getExistingFile(MOSS_OVERLAY))
+                    )
+                    .end();
         } else {
             return super.defaultModel(id, block);
         }
