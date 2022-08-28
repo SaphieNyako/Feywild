@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "feywild:shiny_fey_gem"
+              "feywild:elven_quartz_stairs"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:greater_fey_gem_stonecutting"
+        "recipe": "feywild:elven_quartz_cracked_brick_stairs_stonecutting_from_elven_quartz_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "feywild:greater_fey_gem_stonecutting"
+      "feywild:elven_quartz_cracked_brick_stairs_stonecutting_from_elven_quartz_stairs"
     ]
   }
 }

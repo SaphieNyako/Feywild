@@ -20,6 +20,7 @@ import com.feywild.feywild.world.market.MarketGenerator;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +30,9 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ForgeRenderTypes;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterNamedRenderTypesEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -67,6 +70,7 @@ public final class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderTypes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
         
@@ -170,6 +174,11 @@ public final class FeywildMod extends ModXRegistration {
         event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
+    }
+    
+    public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {
+        event.register("semi_solid", RenderType.solid(), ForgeRenderTypes.ITEM_LAYERED_TRANSLUCENT.get());
+        event.register("semi_cutout", RenderType.cutout(), ForgeRenderTypes.ITEM_LAYERED_TRANSLUCENT.get());
     }
     
     private void blockColors(RegisterColorHandlersEvent.Block event) {

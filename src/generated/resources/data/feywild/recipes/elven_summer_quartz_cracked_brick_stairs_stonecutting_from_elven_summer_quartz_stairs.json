@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "feywild:elven_summer_quartz_stairs"
+  },
+  "result": "feywild:elven_summer_quartz_cracked_brick_stairs"
+}

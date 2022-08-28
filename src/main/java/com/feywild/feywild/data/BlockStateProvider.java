@@ -155,11 +155,16 @@ public class BlockStateProvider extends BlockStateProviderBase {
             return this.models().cross(id.getPath(), this.blockTexture(block)).renderType(RenderTypes.CUTOUT);
         } else if (block instanceof MossyBlock mossy) {
             ResourceLocation parentId = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(mossy.getBaseBlock()));
-            return this.models().getBuilder(id.getPath()).customLoader(CompositeModelBuilder::begin)
+            return this.models().getBuilder(id.getPath())
+                    .parent(this.models().getExistingFile(this.mcLoc("block/block")))
+                    .texture("particle", new ResourceLocation(parentId.getNamespace(), "block/" + parentId.getPath()))
+                    .customLoader(CompositeModelBuilder::begin)
                     .child("block", this.models().nested()
+                            .renderType(FeywildMod.getInstance().resource("semi_solid"))
                             .parent(new ModelFile.UncheckedModelFile(new ResourceLocation(parentId.getNamespace(), "block/" + parentId.getPath())))
                     )
                     .child("moss_layer", this.models().nested()
+                            .renderType(FeywildMod.getInstance().resource("semi_cutout"))
                             .parent(this.models().getExistingFile(MOSS_OVERLAY))
                     )
                     .end();

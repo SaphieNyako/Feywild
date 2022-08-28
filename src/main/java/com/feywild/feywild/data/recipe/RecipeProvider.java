@@ -4,6 +4,11 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.tag.ModItemTags;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.datagen.provider.recipe.DefaultExtension;
 import org.moddingx.libx.datagen.provider.recipe.RecipeProviderBase;
@@ -11,15 +16,10 @@ import org.moddingx.libx.datagen.provider.recipe.SmeltingExtension;
 import org.moddingx.libx.datagen.provider.recipe.StoneCuttingExtension;
 import org.moddingx.libx.datagen.provider.recipe.crafting.CraftingExtension;
 import org.moddingx.libx.mod.ModX;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
 
 @Datagen
 public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
-        DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension {
+        DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension, VariantExtension {
 
     public RecipeProvider(ModX mod, DataGenerator generator) {
         super(mod, generator);
@@ -121,5 +121,11 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);
+        
+        this.quartzRecipes(ModBlocks.elvenQuartz);
+        this.quartzRecipes(ModBlocks.elvenSpringQuartz);
+        this.quartzRecipes(ModBlocks.elvenSummerQuartz);
+        this.quartzRecipes(ModBlocks.elvenAutumnQuartz);
+        this.quartzRecipes(ModBlocks.elvenWinterQuartz);
     }
 }

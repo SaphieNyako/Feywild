@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "feywild:greater_fey_gem"
+              "feywild:elven_quartz_slab"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:lesser_fey_gem_stonecutting"
+        "recipe": "feywild:elven_quartz_brick_slab_stonecutting_from_elven_quartz_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "feywild:lesser_fey_gem_stonecutting"
+      "feywild:elven_quartz_brick_slab_stonecutting_from_elven_quartz_slab"
     ]
   }
 }

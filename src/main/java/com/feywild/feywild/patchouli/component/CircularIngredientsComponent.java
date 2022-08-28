@@ -26,7 +26,12 @@ public class CircularIngredientsComponent implements ICustomComponent {
 
     @Override
     public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
-        this.ingredients = lookup.apply(items).asList().stream().map(var -> var.as(Ingredient.class)).toList();
+        IVariable ingredients = lookup.apply(items);
+        if (ingredients.unwrap().isJsonNull()) {
+            this.ingredients = List.of();
+        } else {
+            this.ingredients = ingredients.asStream().map(var -> var.as(Ingredient.class)).toList();
+        }
     }
 
     @Override

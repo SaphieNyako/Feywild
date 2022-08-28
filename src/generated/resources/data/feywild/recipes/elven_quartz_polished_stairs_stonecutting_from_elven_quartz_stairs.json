@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "feywild:elven_quartz_stairs"
+  },
+  "result": "feywild:elven_quartz_polished_stairs"
+}

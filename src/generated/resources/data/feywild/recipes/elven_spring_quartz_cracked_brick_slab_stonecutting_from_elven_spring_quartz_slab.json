@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "feywild:elven_spring_quartz_slab"
+  },
+  "result": "feywild:elven_spring_quartz_cracked_brick_slab"
+}

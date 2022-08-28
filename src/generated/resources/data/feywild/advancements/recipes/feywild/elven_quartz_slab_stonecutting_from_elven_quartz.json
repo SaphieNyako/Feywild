@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "feywild:brilliant_fey_gem"
+              "feywild:elven_quartz"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:shiny_fey_gem_stonecutting"
+        "recipe": "feywild:elven_quartz_slab_stonecutting_from_elven_quartz"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "feywild:shiny_fey_gem_stonecutting"
+      "feywild:elven_quartz_slab_stonecutting_from_elven_quartz"
     ]
   }
 }
