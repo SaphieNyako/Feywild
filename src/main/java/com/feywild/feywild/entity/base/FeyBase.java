@@ -28,14 +28,14 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.util.Locale;
-import java.util.Random;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
@@ -125,7 +125,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             if (ownerAlignment != null && ownerAlignment != this.alignment) {
                 unalignedTicks += 1;
                 if (unalignedTicks >= 300) {
-                    owner.sendSystemMessage(Component.translatable("message.feywild." + getEntityNameMessage() + ".disappear"));
+                    owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else {
@@ -145,19 +145,15 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 if (this.followingPlayer) {
                     this.followingPlayer = false;
                     this.setSummonPos(this.blockPosition());
-                    player.sendSystemMessage(Component.translatable("message.feywild." + getEntityNameMessage() + ".stay").append(Component.translatable("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)));
+                    player.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".stay").append(Component.translatable("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)));
                 } else {
                     this.followingPlayer = true;
-                    player.sendSystemMessage(Component.translatable("message.feywild." + getEntityNameMessage() + ".follow").append(Component.translatable("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)));
+                    player.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".follow").append(Component.translatable("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)));
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return InteractionResult.PASS;
-    }
-
-    public String getEntityNameMessage() {
-        return this.getDisplayName().getString().toLowerCase(Locale.ROOT).replace(" ", "_");
     }
 
     @Override

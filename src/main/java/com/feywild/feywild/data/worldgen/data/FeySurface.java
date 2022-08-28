@@ -18,6 +18,12 @@ public class FeySurface extends SurfaceData {
                             SurfaceRules.state(Blocks.BEDROCK.defaultBlockState())
                     )
             )
+            .afterBiomes(
+                    SurfaceRules.ifTrue(
+                            SurfaceRules.verticalGradient("deepslate", VerticalAnchor.absolute(0), VerticalAnchor.absolute(8)),
+                            SurfaceRules.state(Blocks.DEEPSLATE.defaultBlockState())
+                    )
+            )
             .defaultBiomeSurface(
                     SurfaceRules.ifTrue(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(60), 0),
                             SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), SurfaceRules.sequence(

@@ -1,9 +1,0 @@
-UPDATE_TODO check that render layers work
-
-giant flower block: cutout
-display glass: translucent
-fey mushroom: cutout
-mandrake crop: cutout
-fey tree saplings: cutout
-fey leaves: cutout
-mossy blocks: cutout (???)

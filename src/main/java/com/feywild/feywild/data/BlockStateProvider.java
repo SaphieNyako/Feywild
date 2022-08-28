@@ -83,8 +83,14 @@ public class BlockStateProvider extends BlockStateProviderBase {
     protected void defaultState(ResourceLocation id, Block block, Supplier<ModelFile> model) {
         if (block instanceof FeyLeavesBlock) {
             this.simpleBlock(block,
-                    new ConfiguredModel(this.cubeAll(block)),
-                    new ConfiguredModel(this.models().cubeAll(id.getPath() + "_02", new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_02")))
+                    new ConfiguredModel(this.models()
+                            .cubeAll(id.getPath(), this.modLoc("block/" + id.getPath()))
+                            .renderType(RenderTypes.CUTOUT_MIPPED)
+                    ),
+                    new ConfiguredModel(this.models()
+                            .cubeAll(id.getPath() + "_02", this.modLoc("block/" + id.getPath() + "_02"))
+                            .renderType(RenderTypes.CUTOUT_MIPPED)
+                    )
             );
         } else if (block instanceof FeyLogBlock feyLog) {
             this.axisBlock(feyLog, this.blockTexture(feyLog.getWoodBlock()), this.blockTexture(feyLog));

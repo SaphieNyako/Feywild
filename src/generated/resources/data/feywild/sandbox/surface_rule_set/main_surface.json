@@ -1,6 +1,25 @@
 {
   "after_biomes": {
-    "type": "sandbox:empty"
+    "type": "minecraft:condition",
+    "if_true": {
+      "type": "minecraft:vertical_gradient",
+      "false_at_and_above": {
+        "absolute": 8
+      },
+      "random_name": "minecraft:deepslate",
+      "true_at_and_below": {
+        "absolute": 0
+      }
+    },
+    "then_run": {
+      "type": "minecraft:block",
+      "result_state": {
+        "Name": "minecraft:deepslate",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
   },
   "before_biomes": {
     "type": "minecraft:condition",

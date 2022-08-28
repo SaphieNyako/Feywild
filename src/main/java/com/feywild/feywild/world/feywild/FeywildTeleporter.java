@@ -1,6 +1,7 @@
 package com.feywild.feywild.world.feywild;
 
 import com.feywild.feywild.world.FeywildDimensions;
+import com.feywild.feywild.world.teleport.DefaultTeleporter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,8 +15,8 @@ public class FeywildTeleporter {
         if (player.getLevel().dimension() == Level.OVERWORLD) {
             ServerLevel targetLevel = player.getLevel().getServer().getLevel(FeywildDimensions.FEYWILD);
             if (targetLevel != null) {
-                player.changeDimension(targetLevel);
-                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+                player.changeDimension(targetLevel, new DefaultTeleporter());
+                player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
                 return true;
             }
@@ -26,10 +27,10 @@ public class FeywildTeleporter {
     }
 
     public static boolean teleportToOverworld(ServerPlayer player) {
-        if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+        if (player.getLevel().dimension() == FeywildDimensions.FEYWILD) {
             ServerLevel targetLevel = player.getLevel().getServer().overworld();
-            player.changeDimension(targetLevel);
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+            player.changeDimension(targetLevel, new DefaultTeleporter());
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
             return true;
         }

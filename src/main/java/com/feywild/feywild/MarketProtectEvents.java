@@ -3,7 +3,6 @@ package com.feywild.feywild;
 import com.feywild.feywild.entity.MarketDwarf;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -16,7 +15,7 @@ public class MarketProtectEvents {
 
     @SubscribeEvent
     public void blockBreak(BlockEvent.BreakEvent event) {
-        if (event.getPlayer().level.dimension() == FeywildDimensions.MARKETPLACE && !event.getPlayer().hasPermissions(2)) {
+        if (event.getPlayer().level.dimension() == FeywildDimensions.MARKETPLACE) {
             event.setCanceled(true);
         }
     }
@@ -24,18 +23,14 @@ public class MarketProtectEvents {
     @SubscribeEvent
     public void blockPlace(BlockEvent.EntityPlaceEvent event) {
         if (event.getLevel() instanceof Level && ((Level) event.getLevel()).dimension() == FeywildDimensions.MARKETPLACE) {
-            if (!(event.getEntity() instanceof Player) || !event.getEntity().hasPermissions(2)) {
-                event.setCanceled(true);
-            }
+            event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
     public void blockMultiPlace(BlockEvent.EntityMultiPlaceEvent event) {
         if (event.getLevel() instanceof Level && ((Level) event.getLevel()).dimension() == FeywildDimensions.MARKETPLACE) {
-            if (!(event.getEntity() instanceof Player) || !event.getEntity().hasPermissions(2)) {
-                event.setCanceled(true);
-            }
+            event.setCanceled(true);
         }
     }
 

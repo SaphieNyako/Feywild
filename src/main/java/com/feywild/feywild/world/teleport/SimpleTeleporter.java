@@ -18,11 +18,6 @@ public class SimpleTeleporter implements ITeleporter {
         this.targetPos = targetPos;
     }
 
-    @Override
-    public boolean isVanilla() {
-        return false;
-    }
-
     @Nullable
     @Override
     public PortalInfo getPortalInfo(Entity entity, ServerLevel destLevel, Function<ServerLevel, PortalInfo> defaultPortalInfo) {

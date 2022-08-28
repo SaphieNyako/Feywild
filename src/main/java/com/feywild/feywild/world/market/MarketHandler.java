@@ -39,7 +39,7 @@ public class MarketHandler {
                         FeyPlayerData.get(player).put("OverworldPosWhenVisitingMarket", NbtUtils.writeBlockPos(player.blockPosition().immutable()));
                         MarketGenerator.generate(targetLevel);
                         player.changeDimension(targetLevel, new SimpleTeleporter(new BlockPos(2, 61, 10)));
-                        player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+                        player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
                         return true;
                     } else {
@@ -56,7 +56,7 @@ public class MarketHandler {
     public static boolean teleportToOverworld(ServerPlayer player) {
         if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
             ServerLevel targetLevel = player.getLevel().getServer().overworld();
-            BlockPos targetPos = FeyPlayerData.get(player).contains("OverworldPosWhenVisitingMarket", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(FeyPlayerData.get(player).getCompound("DwarfMarketPos")) : null;
+            BlockPos targetPos = FeyPlayerData.get(player).contains("OverworldPosWhenVisitingMarket", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(FeyPlayerData.get(player).getCompound("OverworldPosWhenVisitingMarket")) : null;
             if (targetPos == null) {
                 if (player.getRespawnDimension() == Level.OVERWORLD & player.getRespawnPosition() != null) {
                     targetPos = player.getRespawnPosition();
@@ -70,7 +70,7 @@ public class MarketHandler {
             }
 
             player.changeDimension(targetLevel, new SimpleTeleporter(targetPos));
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
             return true;
         }
