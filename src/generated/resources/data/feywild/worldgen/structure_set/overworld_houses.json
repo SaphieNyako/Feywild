@@ -1,11 +1,16 @@
 {
   "placement": {
     "type": "minecraft:random_spread",
+    "frequency": 0.9,
     "salt": 447514988,
     "separation": 5,
     "spacing": 10
   },
   "structures": [
+    {
+      "structure": "feywild:library",
+      "weight": 1
+    },
     {
       "structure": "feywild:blacksmith",
       "weight": 1

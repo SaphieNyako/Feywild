@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-// UPDATE_TODO check that JEI slots render at correct locations
 @JeiPlugin
 public class FeywildJei implements IModPlugin {
 
