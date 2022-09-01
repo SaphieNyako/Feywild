@@ -13,7 +13,7 @@ public class FeyStructureSets extends StructureSetData {
     public final Holder<StructureSet> overworldHouses = this.structureSet()
             .entry(this.structures.library)
             .entry(this.structures.blacksmith)
-            .placeRandom(10, 5)
+            .placeRandom(50, 20)
             .frequency(0.9f)
             .build();
     

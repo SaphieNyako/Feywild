@@ -7,7 +7,7 @@
         "type": "minecraft:not",
         "invert": {
           "type": "minecraft:y_above",
-          "add_stone_depth": false,
+          "add_stone_depth": true,
           "anchor": {
             "absolute": 64
           },
@@ -61,7 +61,7 @@
                     "then_run": {
                       "type": "minecraft:block",
                       "result_state": {
-                        "Name": "minecraft:dirt"
+                        "Name": "minecraft:gravel"
                       }
                     }
                   }
@@ -76,7 +76,7 @@
       "type": "minecraft:condition",
       "if_true": {
         "type": "minecraft:y_above",
-        "add_stone_depth": false,
+        "add_stone_depth": true,
         "anchor": {
           "absolute": 64
         },

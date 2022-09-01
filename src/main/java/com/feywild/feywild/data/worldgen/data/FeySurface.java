@@ -48,18 +48,18 @@ public class FeySurface extends SurfaceData {
     
     public final Holder<BiomeSurface> feywildOcean = this.biome(this.biomes.feywildOcean,
             SurfaceRules.ifTrue(
-                    SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                    SurfaceRules.not(SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0)),
                     SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
                             SurfaceRules.sequence(
                                     SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.state(Blocks.GRAVEL.defaultBlockState())),
                                     SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()), SurfaceRules.sequence(
-                                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.state(Blocks.DIRT.defaultBlockState()))
+                                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.state(Blocks.GRAVEL.defaultBlockState()))
                                     ))
                             )
                     )
             ),
             SurfaceRules.ifTrue(
-                    SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0),
+                    SurfaceRules.yStartCheck(VerticalAnchor.absolute(64), 0),
                     SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
                             SurfaceRules.sequence(
                                     SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.state(Blocks.SAND.defaultBlockState())),
