@@ -16,13 +16,13 @@
           1.0
         ],
         "humidity": [
-          -1.0,
-          0.0
+          0.0,
+          1.0
         ],
         "offset": 0.0,
         "temperature": [
-          -0.5,
-          0.5
+          0.0,
+          1.0
         ],
         "weirdness": [
           -1.0,
@@ -47,11 +47,11 @@
         ],
         "humidity": [
           -1.0,
-          1.0
+          0.0
         ],
         "offset": 0.0,
         "temperature": [
-          0.5,
+          0.0,
           1.0
         ],
         "weirdness": [
@@ -81,8 +81,8 @@
         ],
         "offset": 0.0,
         "temperature": [
-          -0.5,
-          0.5
+          -1.0,
+          0.0
         ],
         "weirdness": [
           -1.0,
@@ -107,12 +107,12 @@
         ],
         "humidity": [
           -1.0,
-          1.0
+          0.0
         ],
         "offset": 0.0,
         "temperature": [
           -1.0,
-          -0.5
+          0.0
         ],
         "weirdness": [
           -1.0,
