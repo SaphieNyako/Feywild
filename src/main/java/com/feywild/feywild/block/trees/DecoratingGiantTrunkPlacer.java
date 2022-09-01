@@ -1,5 +1,8 @@
 package com.feywild.feywild.block.trees;
 
+import com.mojang.datafixers.util.Function3;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
@@ -8,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -17,9 +21,17 @@ import java.util.function.BiConsumer;
 
 public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {
 
+    public static <T extends DecoratingGiantTrunkPlacer> TrunkPlacerType<T> makeType(Function3<Integer, Integer, Integer, T> factory) {
+        return new TrunkPlacerType<>(RecordCodecBuilder.create(instance -> trunkPlacerParts(instance).apply(instance, factory)));
+    }
+    
     public DecoratingGiantTrunkPlacer(int baseHeight, int heightA, int heightB) {
         super(baseHeight, heightA, heightB);
     }
+
+    @Nonnull
+    @Override
+    protected abstract TrunkPlacerType<?> type();
 
     @Nonnull
     @Override

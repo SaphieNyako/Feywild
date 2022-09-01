@@ -7,6 +7,7 @@ import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -16,14 +17,25 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.RegistrationContext;
 
+import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 
 public class AutumnTree extends BaseTree {
 
     public AutumnTree(ModX mod) {
         super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
     }
 
     private static BlockState getDecorationBlock(RandomSource random) {
@@ -57,8 +69,16 @@ public class AutumnTree extends BaseTree {
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
 
+        public static TrunkPlacerType<TrunkPlacer> TYPE = makeType(TrunkPlacer::new);
+        
         public TrunkPlacer(int baseHeight, int heightA, int heightB) {
             super(baseHeight, heightA, heightB);
+        }
+
+        @Nonnull
+        @Override
+        protected TrunkPlacerType<?> type() {
+            return TYPE;
         }
 
         @Override

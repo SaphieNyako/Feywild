@@ -1,13 +1,18 @@
 package com.feywild.feywild.block.trees;
 
+import com.mojang.datafixers.util.Function3;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.Lifecycle;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -16,9 +21,17 @@ import java.util.function.BiConsumer;
 
 public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
 
-    public DecoratingBlobFoliagePlacer(UniformInt radiusSpread, UniformInt heightSpread, int height) {
+    public static <T extends DecoratingBlobFoliagePlacer> FoliagePlacerType<T> makeType(Function3<IntProvider, IntProvider, Integer, T> factory) {
+        return new FoliagePlacerType<>(RecordCodecBuilder.create(instance -> blobParts(instance).apply(instance, factory)));
+    }
+
+    public DecoratingBlobFoliagePlacer(IntProvider radiusSpread, IntProvider heightSpread, int height) {
         super(radiusSpread, heightSpread, height);
     }
+
+    @Nonnull
+    @Override
+    protected abstract FoliagePlacerType<?> type();
 
     @Override
     protected void placeLeavesRow(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, @Nonnull BlockPos pos, int range, int height, boolean large) {
