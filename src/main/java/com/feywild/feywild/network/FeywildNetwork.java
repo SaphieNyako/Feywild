@@ -1,13 +1,16 @@
 package com.feywild.feywild.network;
 
-import com.feywild.feywild.network.quest.*;
-import org.moddingx.libx.mod.ModX;
-import org.moddingx.libx.network.NetworkX;
+import com.feywild.feywild.network.quest.ConfirmQuestMessage;
+import com.feywild.feywild.network.quest.OpenQuestDisplayMessage;
+import com.feywild.feywild.network.quest.OpenQuestSelectionMessage;
+import com.feywild.feywild.network.quest.SelectQuestMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.network.NetworkX;
 
 public class FeywildNetwork extends NetworkX {
 

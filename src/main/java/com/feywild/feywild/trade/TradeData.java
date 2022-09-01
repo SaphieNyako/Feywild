@@ -9,7 +9,6 @@ import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.item.trading.MerchantOffers;
 
 import java.util.List;
-import java.util.Random;
 
 // Holds all trades for one trade category (e.g. tamed and untamed) for all levels
 public class TradeData {

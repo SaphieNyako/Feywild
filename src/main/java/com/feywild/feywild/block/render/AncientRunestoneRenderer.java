@@ -4,8 +4,6 @@ import com.feywild.feywild.block.AncientRunestoneBlock;
 import com.feywild.feywild.block.entity.AncientRunestone;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import org.moddingx.libx.render.ClientTickHandler;
-import org.moddingx.libx.util.lazy.LazyValue;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,6 +13,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.moddingx.libx.render.ClientTickHandler;
+import org.moddingx.libx.util.lazy.LazyValue;
 
 import javax.annotation.Nonnull;
 

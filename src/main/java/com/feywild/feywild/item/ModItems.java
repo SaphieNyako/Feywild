@@ -5,12 +5,12 @@ import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.chat.Component;
-import org.moddingx.libx.annotation.registration.RegisterClass;
-import org.moddingx.libx.base.ItemBase;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import org.moddingx.libx.annotation.registration.RegisterClass;
+import org.moddingx.libx.base.ItemBase;
 
 @RegisterClass(registry = "ITEM_REGISTRY")
 public class ModItems {

@@ -69,7 +69,7 @@ public class AutumnTree extends BaseTree {
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
 
-        public static TrunkPlacerType<TrunkPlacer> TYPE = makeType(TrunkPlacer::new);
+        public static final TrunkPlacerType<TrunkPlacer> TYPE = makeType(TrunkPlacer::new);
         
         public TrunkPlacer(int baseHeight, int heightA, int heightB) {
             super(baseHeight, heightA, heightB);

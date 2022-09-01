@@ -1,6 +1,5 @@
 package com.feywild.feywild.trade.item;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
@@ -12,7 +11,7 @@ public final class CompoundStackFactory implements StackFactory {
     public final List<StackFactory> factories;
 
     public CompoundStackFactory(List<StackFactory> factories) {
-        this.factories = ImmutableList.copyOf(factories);
+        this.factories = List.copyOf(factories);
         if (this.factories.isEmpty()) throw new IllegalStateException("Can't create empty compound stack factory");
     }
 

@@ -1,7 +1,6 @@
 package com.feywild.feywild.block.trees;
 
 import com.mojang.datafixers.util.Function3;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -16,7 +15,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 public abstract class DecoratingGiantTrunkPlacer extends MegaJungleTrunkPlacer {

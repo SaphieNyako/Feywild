@@ -3,7 +3,6 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.util.TooltipHelper;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -1,8 +1,8 @@
 package com.feywild.feywild.particles;
 
 
-import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.particles.SimpleParticleType;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 
 @RegisterClass(registry = "PARTICLE_TYPE_REGISTRY")
 public class ModParticles {

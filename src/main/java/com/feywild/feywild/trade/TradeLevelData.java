@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.RandomSource;
-import org.moddingx.libx.util.lazy.LazyValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import org.apache.commons.lang3.tuple.Pair;
+import org.moddingx.libx.util.lazy.LazyValue;
 
 import java.util.HashSet;
 import java.util.List;

@@ -4,12 +4,12 @@ import com.feywild.feywild.world.FeywildDimensions;
 import com.feywild.feywild.world.market.MarketHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 

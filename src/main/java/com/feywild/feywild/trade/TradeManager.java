@@ -4,14 +4,14 @@ import com.feywild.feywild.trade.recipe.TradeRecipe;
 import com.feywild.feywild.trade.recipe.TradeRecipeManager;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.moddingx.libx.datapack.DataLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.moddingx.libx.datapack.DataLoader;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;

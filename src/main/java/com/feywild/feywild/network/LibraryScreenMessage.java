@@ -9,7 +9,6 @@ import net.minecraftforge.network.NetworkEvent;
 import org.moddingx.libx.network.PacketHandler;
 import org.moddingx.libx.network.PacketSerializer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 

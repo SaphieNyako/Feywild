@@ -1,9 +1,9 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
-import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 
 @RegisterClass(registry = "ENTITY_TYPE_REGISTRY")
 public class ModEntities {

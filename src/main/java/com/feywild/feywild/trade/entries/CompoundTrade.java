@@ -12,7 +12,6 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 // A trade that picks randomly from a list of other trades
 public class CompoundTrade implements VillagerTrades.ItemListing {
@@ -20,7 +19,7 @@ public class CompoundTrade implements VillagerTrades.ItemListing {
     public final List<VillagerTrades.ItemListing> trades;
 
     public CompoundTrade(List<VillagerTrades.ItemListing> trades) {
-        this.trades = ImmutableList.copyOf(trades);
+        this.trades = List.copyOf(trades);
     }
 
     @Nullable

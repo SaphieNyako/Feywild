@@ -2,8 +2,6 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.TooltipHelper;
 import com.google.common.collect.ImmutableSet;
-import org.moddingx.libx.base.ItemBase;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +14,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import java.util.*;

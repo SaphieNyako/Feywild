@@ -3,8 +3,6 @@ package com.feywild.feywild.data.recipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.moddingx.libx.crafting.CraftingHelper2;
-import org.moddingx.libx.datagen.provider.recipe.RecipeExtension;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -13,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import org.moddingx.libx.crafting.CraftingHelper2;
+import org.moddingx.libx.datagen.provider.recipe.RecipeExtension;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

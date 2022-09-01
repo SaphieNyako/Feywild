@@ -1,8 +1,8 @@
 package com.feywild.feywild.util;
 
-import org.moddingx.libx.util.game.TextProcessor;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import org.moddingx.libx.util.game.TextProcessor;
 
 public class FeywildTextProcessor extends TextProcessor {
 

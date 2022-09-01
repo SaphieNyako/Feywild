@@ -2,9 +2,6 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.AncientRunestone;
 import com.feywild.feywild.block.render.AncientRunestoneRenderer;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.moddingx.libx.base.tile.BlockBE;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +16,9 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.moddingx.libx.base.tile.BlockBE;
+import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;

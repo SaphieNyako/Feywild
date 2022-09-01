@@ -10,11 +10,11 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.annotation.config.RegisterMapper;
+import org.moddingx.libx.config.gui.ConfigEditor;
 import org.moddingx.libx.config.gui.InputProperties;
 import org.moddingx.libx.config.mapper.MapperFactory;
 import org.moddingx.libx.config.mapper.ValueMapper;
 import org.moddingx.libx.config.validator.ValidatorInfo;
-import org.moddingx.libx.config.gui.ConfigEditor;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.ParameterizedType;

@@ -2,12 +2,12 @@ package com.feywild.feywild.data.loot;
 
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
-import org.moddingx.libx.annotation.data.Datagen;
-import org.moddingx.libx.datagen.provider.loot.EntityLootProviderBase;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.provider.loot.EntityLootProviderBase;
+import org.moddingx.libx.mod.ModX;
 
 @Datagen
 public class EntityLootProvider extends EntityLootProviderBase {

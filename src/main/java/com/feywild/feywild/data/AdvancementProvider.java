@@ -5,9 +5,6 @@ import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.world.FeywildDimensions;
-import org.moddingx.libx.annotation.data.Datagen;
-import org.moddingx.libx.datagen.provider.AdvancementProviderBase;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -16,6 +13,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.provider.AdvancementProviderBase;
+import org.moddingx.libx.mod.ModX;
 
 @Datagen
 public class AdvancementProvider extends AdvancementProviderBase {

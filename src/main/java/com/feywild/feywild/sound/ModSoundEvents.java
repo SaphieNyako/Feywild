@@ -1,9 +1,9 @@
 package com.feywild.feywild.sound;
 
 import com.feywild.feywild.FeywildMod;
-import org.moddingx.libx.annotation.registration.RegisterClass;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 
 @RegisterClass(registry = "SOUND_EVENT_REGISTRY")
 public class ModSoundEvents {

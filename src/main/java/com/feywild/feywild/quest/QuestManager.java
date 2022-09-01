@@ -1,11 +1,11 @@
 package com.feywild.feywild.quest;
 
 import com.google.common.collect.ImmutableMap;
-import org.moddingx.libx.datapack.DataLoader;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.moddingx.libx.datapack.DataLoader;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;

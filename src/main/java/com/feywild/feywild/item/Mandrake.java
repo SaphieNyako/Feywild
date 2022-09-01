@@ -2,12 +2,12 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.chat.Component;
-import org.moddingx.libx.mod.ModX;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 
