@@ -103,7 +103,7 @@
         "type": "feywild:summer_pixie",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 50
+        "weight": 60
       },
       {
         "type": "feywild:bee_knight",

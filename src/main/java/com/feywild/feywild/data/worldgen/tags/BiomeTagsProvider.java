@@ -22,11 +22,20 @@ public class BiomeTagsProvider extends TagProviderBase<Biome> {
 
     @Override
     protected void setup() {
+        this.tag(ModBiomeTags.IS_FEYWILD_DIMENSION).add(
+                FeywildBiomes.SPRING_BIOME,
+                FeywildBiomes.SUMMER_BIOME,
+                FeywildBiomes.AUTUMN_BIOME,
+                FeywildBiomes.WINTER_BIOME,
+                FeywildBiomes.FEY_OCEAN
+        );
+        
         this.tag(BiomeTags.IS_FOREST).add(FeywildBiomes.SPRING_BIOME, FeywildBiomes.SUMMER_BIOME, FeywildBiomes.AUTUMN_BIOME, FeywildBiomes.WINTER_BIOME);
+        this.tag(BiomeTags.IS_OCEAN).add(FeywildBiomes.FEY_OCEAN);
         this.tag(Tags.Biomes.IS_HOT).add(FeywildBiomes.SUMMER_BIOME);
         this.tag(Tags.Biomes.IS_COLD).add(FeywildBiomes.WINTER_BIOME);
         this.tag(Tags.Biomes.IS_MAGICAL).add(FeywildBiomes.SPRING_BIOME, FeywildBiomes.SUMMER_BIOME, FeywildBiomes.AUTUMN_BIOME, FeywildBiomes.WINTER_BIOME);
-        this.tag(ModBiomeTags.IS_FEYWILD_DIMENSION).add(FeywildBiomes.SPRING_BIOME, FeywildBiomes.SUMMER_BIOME, FeywildBiomes.AUTUMN_BIOME, FeywildBiomes.WINTER_BIOME);
+        
         this.tag(ModBiomeTags.IS_SPRING).add(FeywildBiomes.SPRING_BIOME);
         this.tag(ModBiomeTags.IS_SUMMER).add(FeywildBiomes.SUMMER_BIOME);
         this.tag(ModBiomeTags.IS_AUTUMN).add(FeywildBiomes.AUTUMN_BIOME);

@@ -100,7 +100,7 @@
         "type": "feywild:spring_pixie",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 50
+        "weight": 60
       }
     ],
     "misc": [],

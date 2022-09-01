@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -109,6 +110,20 @@ public class FeyBiomes extends BiomeData {
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH);
             }))
             .build();
+    
+    public final Holder<Biome> feywildOcean = this.biome(FeywildBiomes.FEY_OCEAN, 0.5f, 0.5f)
+            .mobSpawns(this.feySpawns(false, true, null)
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COD, 10, 2, 4))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 10, 2, 4))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SQUID, 10, 2, 4))
+            )
+            .generation(this.feyGen(false, builder -> {
+                // No river as river uses warm ocean feature. Add features manually
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_NORMAL);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEA_PICKLE);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.KELP_COLD);
+            }))
+            .build();
             
     public FeyBiomes(Properties properties) {
         super(properties);
@@ -128,7 +143,7 @@ public class FeyBiomes extends BiomeData {
             builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 20, 3, 4));
         }
         if (alignment != null) {
-            builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(alignment.fey, 50, 1, 2));
+            builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(alignment.fey, 60, 1, 2));
         }
         for (EntityType<?> additional : additionalFey) {
             builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(additional, 30, 1, 2));

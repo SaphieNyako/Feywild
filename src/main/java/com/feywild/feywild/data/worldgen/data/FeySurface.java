@@ -1,6 +1,7 @@
 package com.feywild.feywild.data.worldgen.data;
 
 import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.SurfaceData;
+import io.github.noeppi_noeppi.mods.sandbox.surface.BiomeSurface;
 import io.github.noeppi_noeppi.mods.sandbox.surface.SurfaceRuleSet;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Blocks;
@@ -44,6 +45,31 @@ public class FeySurface extends SurfaceData {
                     )
             )
             .build();
+    
+    public final Holder<BiomeSurface> feywildOcean = this.biome(this.biomes.feywildOcean,
+            SurfaceRules.ifTrue(
+                    SurfaceRules.not(SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0)),
+                    SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
+                            SurfaceRules.sequence(
+                                    SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.state(Blocks.GRAVEL.defaultBlockState())),
+                                    SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()), SurfaceRules.sequence(
+                                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.state(Blocks.DIRT.defaultBlockState()))
+                                    ))
+                            )
+                    )
+            ),
+            SurfaceRules.ifTrue(
+                    SurfaceRules.yBlockCheck(VerticalAnchor.absolute(64), 0),
+                    SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
+                            SurfaceRules.sequence(
+                                    SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.state(Blocks.SAND.defaultBlockState())),
+                                    SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.steep()), SurfaceRules.sequence(
+                                            SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.state(Blocks.SANDSTONE.defaultBlockState()))
+                                    ))
+                            )
+                    )
+            )
+    );
     
     public FeySurface(Properties properties) {
         super(properties);

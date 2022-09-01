@@ -5,29 +5,16 @@
   "downfall": 0.5,
   "effects": {
     "fog_color": 12638463,
-    "particle": {
-      "options": {
-        "type": "minecraft:snowflake"
-      },
-      "probability": 0.002
-    },
-    "sky_color": 8364543,
+    "sky_color": 8103167,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
   "features": [
     [],
     [],
-    [
-      "minecraft:iceberg_packed",
-      "minecraft:iceberg_blue"
-    ],
     [],
-    [
-      "feywild:crocus",
-      "minecraft:ice_spike",
-      "minecraft:ice_patch"
-    ],
+    [],
+    [],
     [],
     [
       "minecraft:ore_emerald",
@@ -52,18 +39,12 @@
     [],
     [],
     [
-      "minecraft:patch_berry_common",
-      "minecraft:patch_grass_taiga_2",
-      "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga",
-      "feywild:winter_trees",
-      "feywild:winter_flowers"
-    ],
-    [
-      "minecraft:freeze_top_layer"
+      "minecraft:seagrass_normal",
+      "minecraft:sea_pickle",
+      "minecraft:kelp_cold"
     ]
   ],
-  "precipitation": "snow",
+  "precipitation": "rain",
   "spawn_costs": {},
   "spawners": {
     "ambient": [
@@ -77,27 +58,21 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "feywild:winter_pixie",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 60
-      },
-      {
-        "type": "minecraft:polar_bear",
-        "maxCount": 2,
-        "minCount": 1,
+        "type": "minecraft:cod",
+        "maxCount": 4,
+        "minCount": 2,
         "weight": 10
       },
       {
-        "type": "minecraft:ocelot",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 5
+        "type": "minecraft:salmon",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 10
       },
       {
-        "type": "minecraft:wolf",
+        "type": "minecraft:squid",
         "maxCount": 4,
-        "minCount": 3,
+        "minCount": 2,
         "weight": 10
       }
     ],
@@ -150,12 +125,6 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
-      },
-      {
-        "type": "minecraft:zombie_villager",
-        "maxCount": 5,
-        "minCount": 3,
-        "weight": 10
       }
     ],
     "underground_water_creature": [
@@ -167,8 +136,32 @@
       }
     ],
     "water_ambient": [],
-    "water_creature": []
+    "water_creature": [
+      {
+        "type": "minecraft:dolphin",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:tropical_fish",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 20
+      },
+      {
+        "type": "minecraft:pufferfish",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 20
+      },
+      {
+        "type": "minecraft:axolotl",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 20
+      }
+    ]
   },
-  "temperature": 0.0,
-  "temperature_modifier": "frozen"
+  "temperature": 0.5
 }

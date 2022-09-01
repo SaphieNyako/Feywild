@@ -16,6 +16,7 @@ public class FeyBiomeLayers extends BiomeLayerData {
             .biome(this.biomes.summerBiome).temperature(0).humidity(0).continentalness(0).erosion(0).depth(0).weirdness(0).add()
             .biome(this.biomes.autumnBiome).temperature(0).humidity(0).continentalness(0).erosion(0).depth(0).weirdness(0).add()
             .biome(this.biomes.winterBiome).temperature(0).humidity(0).continentalness(0).erosion(0).depth(0).weirdness(0).add()
+            .biome(this.biomes.feywildOcean).temperature(0).humidity(0).continentalness(0).erosion(0).depth(0).weirdness(0).add()
             .build();
 
     public FeyBiomeLayers(Properties properties) {
