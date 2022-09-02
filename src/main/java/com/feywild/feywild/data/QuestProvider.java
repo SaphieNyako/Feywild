@@ -75,7 +75,7 @@ public class QuestProvider implements DataProvider {
                 .parent("honey")
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.root(SUMMER)
@@ -109,7 +109,7 @@ public class QuestProvider implements DataProvider {
                 .parent("kill_pillager")
                 .icon(ModTrees.summerTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.root(AUTUMN)
@@ -159,7 +159,7 @@ public class QuestProvider implements DataProvider {
                 .parent("dyes")
                 .icon(ModTrees.autumnTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.root(WINTER)
@@ -190,7 +190,7 @@ public class QuestProvider implements DataProvider {
                 .parent("lantern")
                 .icon(ModTrees.winterTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feywildRuneStone)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
     }
 

@@ -13,10 +13,10 @@ import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 
-public class FeywildRuneStone extends TooltipItem {
+public class TeleportationOrb extends TooltipItem {
 
-    public FeywildRuneStone(ModX mod, Properties prop) {
-        super(mod, prop, Component.translatable("message.feywild.feywild_rune_stone"));
+    public TeleportationOrb(ModX mod, Properties prop) {
+        super(mod, prop, Component.translatable("message.feywild.teleportation_orb"));
     }
 
     @Nonnull
