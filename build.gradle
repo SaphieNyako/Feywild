@@ -12,7 +12,6 @@ repositories {
     maven { url = 'https://maven.theillusivec4.top/' }
     maven { url = 'https://maven.melanx.de/' }
     maven { url = 'https://maven.moddingx.org/' }
-    maven { url = 'file:../SandBox/maven' } // UPDATE_TODO
 }
 
 dependencies {
