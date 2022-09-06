@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.entity.EntityType;
@@ -23,7 +24,7 @@ public class FeyBiomes extends BiomeData {
 
     private final FeyTrees trees = this.resolve(FeyTrees.class);
     private final FeyPlacements placements = this.resolve(FeyPlacements.class);
-    
+
     public final Holder<Biome> springBiome = this.biome(FeywildBiomes.SPRING_BIOME, 0.5f, 0.7f)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.HAPPY_VILLAGER, 0.001f)))
             .mobSpawns(this.feySpawns(true, true, Alignment.SPRING)
@@ -37,9 +38,12 @@ public class FeyBiomes extends BiomeData {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_CLAY);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.DISK_SAND);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.LUSH_CAVES_CEILING_VEGETATION);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.ROOTED_AZALEA_TREE);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.SPORE_BLOSSOM);
             }))
             .build();
-    
+
     public final Holder<Biome> summerBiome = this.biome(FeywildBiomes.SUMMER_BIOME, 0.9f, 0)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIT, 0.001f)))
             .mobSpawns(this.feySpawns(true, true, Alignment.SUMMER, ModEntities.beeKnight)
@@ -57,9 +61,12 @@ public class FeyBiomes extends BiomeData {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.summerTrees);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.summerFlowers);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUNFLOWER);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.LUSH_CAVES_CEILING_VEGETATION);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, MiscOverworldPlacements.LAKE_LAVA_UNDERGROUND);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.SPORE_BLOSSOM);
             }))
             .build();
-    
+
     public final Holder<Biome> autumnBiome = this.biome(FeywildBiomes.AUTUMN_BIOME, 0.5f, 0.9f)
             .effects(this.effects()
                     .ambientParticle(new AmbientParticleSettings(ParticleTypes.WITCH, 0.001f))
@@ -85,16 +92,22 @@ public class FeyBiomes extends BiomeData {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.SEAGRASS_SWAMP);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.RED_MUSHROOM_OLD_GROWTH);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.BROWN_MUSHROOM_OLD_GROWTH);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.SPORE_BLOSSOM);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.GLOW_LICHEN);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.POINTED_DRIPSTONE);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.LARGE_DRIPSTONE);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.DRIPSTONE_CLUSTER);
             }))
             .build();
-    
+
     public final Holder<Biome> winterBiome = this.biome(FeywildBiomes.WINTER_BIOME, 0, 0.5f)
             .frozen()
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.002f)))
             .mobSpawns(this.feySpawns(false, false, Alignment.WINTER)
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 10, 1, 2))
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 5, 1, 1))
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 10, 3, 4))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 5, 1, 2))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 3, 1, 1))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 3, 4))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.ALLAY, 10, 1, 2))
                     .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE_VILLAGER, 10, 3, 5))
             )
             .generation(this.feyGen(false, builder -> {
@@ -107,9 +120,15 @@ public class FeyBiomes extends BiomeData {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.winterFlowers);
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_SPIKE);
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MiscOverworldPlacements.ICE_PATCH);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.DRIPSTONE_CLUSTER);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.SCULK_PATCH_ANCIENT_CITY);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.FOSSIL_LOWER);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.FOSSIL_UPPER);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.MONSTER_ROOM);
+                builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.MONSTER_ROOM_DEEP);
             }))
             .build();
-    
+
     public final Holder<Biome> feywildOcean = this.biome(FeywildBiomes.FEY_OCEAN, 0.5f, 0.5f)
             .mobSpawns(this.feySpawns(false, true, null)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COD, 10, 2, 4))
@@ -123,11 +142,11 @@ public class FeyBiomes extends BiomeData {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacements.KELP_COLD);
             }))
             .build();
-            
+
     public FeyBiomes(Properties properties) {
         super(properties);
     }
-    
+
     private MobSpawnSettings.Builder feySpawns(boolean animals, boolean river, @Nullable Alignment alignment, EntityType<?>... additionalFey) {
         MobSpawnSettings.Builder builder = this.spawns()
                 .creatureGenerationProbability(0.1f);
@@ -149,7 +168,7 @@ public class FeyBiomes extends BiomeData {
         }
         return builder;
     }
-    
+
     private BiomeGenerationSettings.Builder feyGen(boolean river, Consumer<BiomeGenerationSettings.Builder> extra) {
         BiomeGenerationSettings.Builder builder = this.generation();
         builder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE);

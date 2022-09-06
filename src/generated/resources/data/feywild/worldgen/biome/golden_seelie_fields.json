@@ -47,7 +47,11 @@
       "feywild:fey_gem_ore",
       "minecraft:ore_gold_extra"
     ],
-    [],
+    [
+      "minecraft:lush_caves_ceiling_vegetation",
+      "minecraft:lake_lava_underground",
+      "minecraft:spore_blossom"
+    ],
     [],
     [
       "minecraft:seagrass_deep_warm",

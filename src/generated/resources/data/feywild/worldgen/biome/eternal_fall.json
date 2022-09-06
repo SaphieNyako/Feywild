@@ -48,7 +48,13 @@
       "minecraft:underwater_magma",
       "feywild:fey_gem_ore"
     ],
-    [],
+    [
+      "minecraft:spore_blossom",
+      "minecraft:glow_lichen",
+      "minecraft:pointed_dripstone",
+      "minecraft:large_dripstone",
+      "minecraft:dripstone_cluster"
+    ],
     [],
     [
       "minecraft:seagrass_deep_warm",

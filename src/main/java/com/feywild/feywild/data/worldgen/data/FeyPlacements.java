@@ -10,32 +10,32 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 public class FeyPlacements extends FeatureData {
 
     private final FeyFeatures features = this.resolve(FeyFeatures.class);
-    
+
     public final Holder<PlacedFeature> autumnPumpkins = this.placement(this.features.autumnPumpkins)
             .countExtra(1, 0.5f, 3)
             .add(this.plant())
             .build();
-    
+
     public final Holder<PlacedFeature> sunflowers = this.placement(this.features.sunflowers)
             .rarity(2)
             .countExtra(2, 0.2f, 1)
             .add(this.plant())
             .build();
-    
+
     public final Holder<PlacedFeature> dandelions = this.placement(this.features.dandelions)
             .rarity(2)
             .countExtra(2, 0.2f, 1)
             .add(this.plant())
             .build();
-    
+
     public final Holder<PlacedFeature> crocus = this.placement(this.features.crocus)
             .rarity(2)
             .countExtra(2, 0.2f, 1)
             .add(this.plant())
             .build();
-    
+
     public final Holder<PlacedFeature> springFlowers = this.placement(this.features.springFlowers)
-            .rarity(32)
+            .rarity(1)
             .add(this.patchPlant())
             .build();
 
@@ -53,14 +53,14 @@ public class FeyPlacements extends FeatureData {
             .rarity(32)
             .add(this.patchPlant())
             .build();
-    
+
     public final Holder<PlacedFeature> feyGemOre = this.placement(this.features.feyGemOre)
             .count(20)
             .spread()
             .heightTriangle(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(60))
             .biomeFilter()
             .build();
-    
+
     public FeyPlacements(Properties properties) {
         super(properties);
     }

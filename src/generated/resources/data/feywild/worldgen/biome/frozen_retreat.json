@@ -49,7 +49,14 @@
       "minecraft:underwater_magma",
       "feywild:fey_gem_ore"
     ],
-    [],
+    [
+      "minecraft:dripstone_cluster",
+      "minecraft:sculk_patch_ancient_city",
+      "minecraft:fossil_lower",
+      "minecraft:fossil_upper",
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
     [],
     [
       "minecraft:patch_berry_common",
@@ -86,18 +93,24 @@
         "type": "minecraft:polar_bear",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 10
+        "weight": 5
       },
       {
         "type": "minecraft:ocelot",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 5
+        "weight": 3
       },
       {
         "type": "minecraft:wolf",
         "maxCount": 4,
         "minCount": 3,
+        "weight": 3
+      },
+      {
+        "type": "minecraft:allay",
+        "maxCount": 2,
+        "minCount": 1,
         "weight": 10
       }
     ],

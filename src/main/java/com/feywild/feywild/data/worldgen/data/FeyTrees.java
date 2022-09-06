@@ -13,30 +13,30 @@ public class FeyTrees extends FeatureData {
     public final Holder<PlacedFeature> summerTrees = denseTrees(ModTrees.summerTree);
     public final Holder<PlacedFeature> autumnTrees = denseTrees(ModTrees.autumnTree);
     public final Holder<PlacedFeature> winterTrees = denseTrees(ModTrees.winterTree);
-    
+
     public final Holder<PlacedFeature> springTreePatches = treePatches(ModTrees.springTree);
     public final Holder<PlacedFeature> summerTreePatches = treePatches(ModTrees.summerTree);
     public final Holder<PlacedFeature> autumnTreePatches = treePatches(ModTrees.autumnTree);
     public final Holder<PlacedFeature> winterTreePatches = treePatches(ModTrees.winterTree);
-    
+
     public FeyTrees(Properties properties) {
         super(properties);
     }
-    
+
     private Holder<PlacedFeature> denseTrees(BaseTree tree) {
         return this.placement(tree.getConfiguredFeature())
-                .countExtra(1, 0.2f, 1)
+                .countExtra(1, 0.2f, 2)
                 .add(trees(tree))
                 .build();
     }
 
     private Holder<PlacedFeature> treePatches(BaseTree tree) {
         return this.placement(tree.getConfiguredFeature())
-                .rarity(20)
+                .rarity(80)
                 .add(trees(tree))
                 .build();
     }
-    
+
     private PlacementModifiers trees(BaseTree tree) {
         return this.modifiers()
                 .spread()

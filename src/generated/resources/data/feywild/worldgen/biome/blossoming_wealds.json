@@ -46,7 +46,11 @@
       "minecraft:underwater_magma",
       "feywild:fey_gem_ore"
     ],
-    [],
+    [
+      "minecraft:lush_caves_ceiling_vegetation",
+      "minecraft:rooted_azalea_tree",
+      "minecraft:spore_blossom"
+    ],
     [],
     [
       "minecraft:seagrass_deep_warm",
