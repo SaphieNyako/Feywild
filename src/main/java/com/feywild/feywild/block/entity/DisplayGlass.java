@@ -13,8 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import org.moddingx.libx.base.tile.BlockEntityBase;
 import org.moddingx.libx.base.tile.TickingBlock;
 import org.moddingx.libx.capability.ItemCapabilities;
@@ -46,7 +46,7 @@ public class DisplayGlass extends BlockEntityBase implements TickingBlock {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
             return this.itemHandler.cast();
         } else {
             return super.getCapability(capability, side);

@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
 import org.moddingx.libx.base.tile.BlockEntityBase;
 import org.moddingx.libx.base.tile.TickingBlock;
@@ -65,7 +65,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER) {
             return this.itemHandler.cast();
         } else {
             return super.getCapability(capability, side);

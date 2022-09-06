@@ -1,5 +1,6 @@
 package com.feywild.feywild.loot;
 
+import com.feywild.feywild.util.LootContextHelper;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -31,7 +32,7 @@ public class AdditionLootModifier extends LootModifier {
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> loot, LootContext context) {
         LootTable table = context.getLootTable(this.table);
-        ObjectArrayList<ItemStack> stacks = table.getRandomItems(context);
+        ObjectArrayList<ItemStack> stacks = table.getRandomItems(LootContextHelper.copyWith(context, this.table));
         loot.addAll(stacks);
         return loot;
     }
