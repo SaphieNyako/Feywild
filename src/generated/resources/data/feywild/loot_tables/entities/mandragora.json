@@ -2,8 +2,6 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "name": "main",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -17,8 +15,8 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
                 }
               ],
               "name": "minecraft:melon_seeds"
@@ -27,8 +25,8 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
                 }
               ],
               "name": "minecraft:pumpkin_seeds"
@@ -37,8 +35,8 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
                 }
               ],
               "name": "minecraft:wheat_seeds"
@@ -47,15 +45,17 @@
               "type": "minecraft:item",
               "conditions": [
                 {
-                  "condition": "minecraft:random_chance",
-                  "chance": 0.25
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
                 }
               ],
               "name": "minecraft:beetroot_seeds"
             }
           ]
         }
-      ]
+      ],
+      "name": "main",
+      "rolls": 1.0
     }
   ]
 }

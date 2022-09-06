@@ -1,36 +1,36 @@
 {
   "parent": "feywild:root",
-  "reputation": 5,
-  "icon": "minecraft:iron_nugget",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.summer.kill_golem.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.summer.kill_golem.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.summer.kill_golem.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.summer.kill_golem.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.kill_golem.complete.title"
+    }
+  },
+  "icon": "minecraft:iron_nugget",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 7,
+        "item": "minecraft:iron_ingot"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.kill_golem.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.kill_golem.start.title"
     }
   },
   "tasks": [
     {
       "entity": "minecraft:iron_golem",
       "id": "feywild:kill"
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:iron_ingot",
-        "count": 7
-      },
-      "id": "feywild:item"
     }
   ]
 }

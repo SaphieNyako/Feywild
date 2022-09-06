@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "feywild:autumn_tree_stripped_wood"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "feywild:autumn_tree_stripped_wood_wall",
-    "count": 6
+    "count": 6,
+    "item": "feywild:autumn_tree_stripped_wood_wall"
   }
 }

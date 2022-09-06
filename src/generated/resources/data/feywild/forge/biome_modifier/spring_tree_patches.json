@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_plains",
+  "features": "feywild:spring_tree_patches",
+  "step": "vegetal_decoration"
+}

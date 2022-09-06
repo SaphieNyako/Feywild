@@ -1,19 +1,19 @@
 package com.feywild.feywild.block.entity;
 
 import com.feywild.feywild.entity.DwarfBlacksmith;
-import com.feywild.feywild.entity.ModEntityTypes;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
+import com.feywild.feywild.entity.ModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
 
 import javax.annotation.Nonnull;
 
-public class AncientRunestone extends BlockEntityBase implements TickableBlock {
+public class AncientRunestone extends BlockEntityBase implements TickingBlock {
 
     private int time;
 
@@ -29,7 +29,7 @@ public class AncientRunestone extends BlockEntityBase implements TickableBlock {
                 if (!this.level.isClientSide) {
                     this.level.setBlock(this.worldPosition, Blocks.AIR.defaultBlockState(), 3);
                     // Spawn a persistent dwarf
-                    DwarfBlacksmith entity = new DwarfBlacksmith(ModEntityTypes.dwarfBlacksmith, this.level);
+                    DwarfBlacksmith entity = new DwarfBlacksmith(ModEntities.dwarfBlacksmith, this.level);
                     entity.setPos(this.worldPosition.getX() + 0.5, this.worldPosition.getY(), this.worldPosition.getZ() + 0.5);
                     entity.setSummonPos(this.worldPosition);
                     entity.trySetTamed(false);

@@ -5,7 +5,7 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.goals.SingGoal;
-import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.nbt.CompoundTag;
@@ -37,6 +37,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class Mandragora extends GroundFeyBase implements IAnimatable {
 
@@ -61,6 +62,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 4));
@@ -107,6 +109,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
@@ -116,13 +119,13 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
                     if (!player.isCreative()) {
                         player.getItemInHand(hand).shrink(1);
                     }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
+                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                     player.swing(hand, true);
                 }
                 return InteractionResult.sidedSuccess(level.isClientSide);
             } else if (player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
                 if (!level.isClientSide) {
-                    Mandragora entity = ModEntityTypes.mandragora.create(level);
+                    Mandragora entity = ModEntities.mandragora.create(level);
                     if (entity != null) {
                         entity.setSummonPos(this.getSummonPos());
                         entity.setPos(position().x, position().y, position().z);

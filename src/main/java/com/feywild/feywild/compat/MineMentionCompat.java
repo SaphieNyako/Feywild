@@ -5,7 +5,6 @@ import com.feywild.feywild.quest.player.QuestData;
 import io.github.noeppi_noeppi.mods.minemention.api.SpecialMention;
 import io.github.noeppi_noeppi.mods.minemention.api.SpecialMentions;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.function.Predicate;
@@ -24,7 +23,7 @@ public class MineMentionCompat {
 
         @Override
         public Component description() {
-            return new TranslatableComponent("minemention.feywild.faction.description");
+            return Component.translatable("minemention.feywild.faction.description");
         }
 
         @Override

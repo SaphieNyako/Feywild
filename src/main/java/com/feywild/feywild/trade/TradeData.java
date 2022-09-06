@@ -3,12 +3,12 @@ package com.feywild.feywild.trade;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.item.trading.MerchantOffers;
 
 import java.util.List;
-import java.util.Random;
 
 // Holds all trades for one trade category (e.g. tamed and untamed) for all levels
 public class TradeData {
@@ -29,7 +29,7 @@ public class TradeData {
         return this.levels.get(level - 1);
     }
 
-    public VillagerData initialize(Entity merchant, VillagerData data, MerchantOffers offers, Random random) {
+    public VillagerData initialize(Entity merchant, VillagerData data, MerchantOffers offers, RandomSource random) {
         if (this.getMaxLevel() >= 1) {
             this.getLevel(1).applyTo(merchant, offers, random);
             return new VillagerData(data.getType(), data.getProfession(), 1);
@@ -38,7 +38,7 @@ public class TradeData {
         }
     }
 
-    public VillagerData levelUp(Entity merchant, VillagerData data, MerchantOffers offers, Random random) {
+    public VillagerData levelUp(Entity merchant, VillagerData data, MerchantOffers offers, RandomSource random) {
         if (data.getLevel() < this.getMaxLevel()) {
             this.getLevel(data.getLevel() + 1).applyTo(merchant, offers, random);
             return new VillagerData(data.getType(), data.getProfession(), data.getLevel() + 1);

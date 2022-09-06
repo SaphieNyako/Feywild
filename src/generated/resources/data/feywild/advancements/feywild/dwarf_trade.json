@@ -1,23 +1,7 @@
 {
   "parent": "feywild:feywild/fey_dust",
-  "display": {
-    "icon": {
-      "item": "feywild:lesser_fey_gem"
-    },
-    "title": {
-      "translate": "advancements.feywild.feywild.dwarf_trade.title"
-    },
-    "description": {
-      "translate": "advancements.feywild.feywild.dwarf_trade.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "villager_trade": {
-      "trigger": "minecraft:villager_trade",
       "conditions": {
         "item": {
           "items": [
@@ -27,13 +11,29 @@
         "villager": [
           {
             "condition": "minecraft:entity_properties",
+            "entity": "this",
             "predicate": {
               "type": "feywild:dwarf_blacksmith"
-            },
-            "entity": "this"
+            }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:villager_trade"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.feywild.feywild.dwarf_trade.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "feywild:lesser_fey_gem"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.feywild.feywild.dwarf_trade.title"
     }
   },
   "requirements": [

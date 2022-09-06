@@ -6,7 +6,7 @@ import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.goals.SneezeGoal;
 import com.feywild.feywild.entity.goals.WaveGoal;
-import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,6 +38,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable {
 
@@ -66,6 +67,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
@@ -98,6 +100,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
@@ -107,7 +110,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
                     if (!player.isCreative()) {
                         player.getItemInHand(hand).shrink(1);
                     }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
+                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
                     player.swing(hand, true);
                     this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
                     this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);

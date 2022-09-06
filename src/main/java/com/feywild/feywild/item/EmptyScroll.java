@@ -2,11 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.TooltipHelper;
 import com.google.common.collect.ImmutableSet;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -17,6 +14,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -79,7 +78,7 @@ public class EmptyScroll extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.summoning_scroll"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.summoning_scroll"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

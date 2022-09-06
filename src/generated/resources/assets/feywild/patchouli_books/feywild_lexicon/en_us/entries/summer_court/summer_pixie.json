@@ -1,0 +1,28 @@
+{
+  "category": "feywild:summer_court",
+  "icon": "feywild:summoning_scroll_summer_pixie",
+  "name": "feywild_lexicon.entry.feywild.summer_court.summer_pixie",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:summer_pixie",
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_pixie.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_pixie.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_pixie.page2.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_summer_pixie_fey_altar"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_pixie.page4.text0"
+    }
+  ]
+}

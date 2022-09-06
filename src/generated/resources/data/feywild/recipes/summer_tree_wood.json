@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "aa",
-    "aa"
-  ],
   "key": {
     "a": {
       "item": "feywild:summer_tree_log"
     }
   },
+  "pattern": [
+    "aa",
+    "aa"
+  ],
   "result": {
-    "item": "feywild:summer_tree_wood",
-    "count": 3
+    "count": 3,
+    "item": "feywild:summer_tree_wood"
   }
 }

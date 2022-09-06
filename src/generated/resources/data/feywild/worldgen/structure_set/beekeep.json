@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.9,
+    "salt": 450742885,
+    "separation": 8,
+    "spacing": 23
+  },
+  "structures": [
+    {
+      "structure": "feywild:beekeep",
+      "weight": 1
+    }
+  ]
+}

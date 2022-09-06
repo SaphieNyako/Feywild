@@ -1,20 +1,14 @@
 package com.feywild.feywild.block.trees;
 
 import com.feywild.feywild.config.ClientConfig;
-import io.github.noeppi_noeppi.libx.base.BlockBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -33,10 +27,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IForgeShearable;
+import org.moddingx.libx.base.BlockBase;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
+import org.moddingx.libx.registration.SetupContext;
+import org.moddingx.libx.util.data.TagAccess;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
-import java.util.function.Consumer;
 
 public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShearable {
 
@@ -57,6 +54,11 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
     }
 
+    @Override
+    public void registerCommon(SetupContext ctx) {
+        ctx.enqueue(() -> ComposterBlock.add(0.4f, this));
+    }
+
     protected static BlockState updateDistance(BlockState state, LevelAccessor levelIn, BlockPos pos) {
         int distance = MAX_DISTANCE;
         BlockPos.MutableBlockPos current = new BlockPos.MutableBlockPos();
@@ -70,24 +72,13 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     }
 
     private static int getDistance(BlockState neighbor) {
-        if (Registry.BLOCK.getHolderOrThrow(Registry.BLOCK.getResourceKey(neighbor.getBlock()).get()).is(BlockTags.LOGS)) {
+        if (TagAccess.ROOT.has(BlockTags.LOGS, neighbor.getBlock())) {
             return 0;
         } else if (neighbor.getBlock() instanceof FeyLeavesBlock) {
             return neighbor.getValue(DISTANCE);
         } else {
             return MAX_DISTANCE;
         }
-    }
-
-    @Override
-    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ComposterBlock.add(0.4f, this));
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
     }
 
     @Override
@@ -114,7 +105,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         updateDistance(state, level, pos);
         if (!state.getValue(BlockStateProperties.PERSISTENT) && state.getValue(DISTANCE) == MAX_DISTANCE) {
             dropResources(state, level, pos);
@@ -124,7 +115,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
 
     @Override
     @SuppressWarnings("deprecation")
-    public void tick(@Nonnull BlockState state, ServerLevel levelIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void tick(@Nonnull BlockState state, ServerLevel levelIn, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         levelIn.setBlock(pos, updateDistance(state, levelIn, pos), 3);
     }
 
@@ -141,7 +132,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         if (ClientConfig.tree_particles) {
             // Don't add particles if the blocks are far away
             Minecraft mc = Minecraft.getInstance();
@@ -152,7 +143,7 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected void animateLeaves(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    protected void animateLeaves(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         if (rand.nextInt(15) == 0 && level.isRainingAt(pos.above())) {
             BlockPos blockpos = pos.below();
             BlockState blockstate = level.getBlockState(blockpos);

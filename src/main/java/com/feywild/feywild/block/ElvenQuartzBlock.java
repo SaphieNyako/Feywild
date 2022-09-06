@@ -1,22 +1,59 @@
 package com.feywild.feywild.block;
 
-import io.github.noeppi_noeppi.libx.base.decoration.DecoratedBlock;
-import io.github.noeppi_noeppi.libx.base.decoration.DecorationContext;
-import io.github.noeppi_noeppi.libx.base.decoration.DecorationType;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.block.Block;
+import org.moddingx.libx.base.decoration.DecoratedBlock;
+import org.moddingx.libx.base.decoration.DecorationContext;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.RegistrationContext;
+
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class ElvenQuartzBlock extends DecoratedBlock {
 
-    public static final DecorationContext DECORATION = new DecorationContext("elven_quartz", DecorationType.BASE, DecorationType.SLAB, DecorationType.STAIR);
-
+    private final DecoratedBlock brick;
+    private final Block mossyBrick;
+    private final DecoratedBlock crackedBrick;
+    private final ElvenQuartzPillar pillar;
+    private final DecoratedBlock polished;
+    
     public ElvenQuartzBlock(ModX mod, Properties properties) {
-        super(mod, DECORATION, properties);
+        super(mod, DecorationContext.GENERIC, properties);
+        this.brick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
+        this.mossyBrick = new MossyBlock(mod, this.brick, properties);
+        this.crackedBrick = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
+        this.pillar = new ElvenQuartzPillar(mod, properties);
+        this.polished = new DecoratedBlock(mod, DecorationContext.GENERIC, properties);
     }
 
-    public SlabBlock getSlabBlock() {return get(DecorationType.SLAB);}
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "brick", this.brick);
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "mossy_brick", this.mossyBrick);
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "cracked_brick", this.crackedBrick);
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "pillar", this.pillar);
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "polished", this.polished);
+    }
 
-    public StairBlock getStairBlock() {return get(DecorationType.STAIR);}
+    public DecoratedBlock getBrickBlock() {
+        return brick;
+    }
 
+    public Block getMossyBrickBlock() {
+        return mossyBrick;
+    }
+
+    public DecoratedBlock getCrackedBrickBlock() {
+        return crackedBrick;
+    }
+
+    public ElvenQuartzPillar getPillarBlock() {
+        return pillar;
+    }
+
+    public DecoratedBlock getPolishedBlock() {
+        return polished;
+    }
 }

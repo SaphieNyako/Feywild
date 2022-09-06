@@ -1,0 +1,38 @@
+{
+  "category": "feywild:autumn_court",
+  "icon": "feywild:summoning_scroll_shroomling",
+  "name": "feywild_lexicon.entry.feywild.autumn_court.shroomling",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_shroomling",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.autumn_court.shroomling.page0.text0"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:shroomling"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_shroomling_fey_altar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:fey_mushroom"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.shroomling.page4.text0"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:mooshroom",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.shroomling.page5.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.shroomling.page6.text0"
+    }
+  ]
+}

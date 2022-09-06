@@ -1,20 +1,20 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.sound.ModSoundEvents;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 
 public class Mandrake extends TooltipItem {
 
     public Mandrake(ModX mod, Properties properties) {
-        super(mod, properties, new TranslatableComponent("message.feywild.mandrake"));
+        super(mod, properties, Component.translatable("message.feywild.mandrake"));
     }
 
     @Nonnull

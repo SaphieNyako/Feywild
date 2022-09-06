@@ -8,14 +8,10 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.quest.util.FeyGift;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.util.DatapackHelper;
-import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
-import io.github.noeppi_noeppi.libx.crafting.IngredientStack;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +22,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.crafting.IngredientStack;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,6 +75,7 @@ public class QuestProvider implements DataProvider {
                 .parent("honey")
                 .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.root(SUMMER)
@@ -109,6 +109,7 @@ public class QuestProvider implements DataProvider {
                 .parent("kill_pillager")
                 .icon(ModTrees.summerTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.root(AUTUMN)
@@ -146,12 +147,19 @@ public class QuestProvider implements DataProvider {
                 .parent("food_complete")
                 .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
                 .build();
-
+        
         this.quest(AUTUMN, "dyes")
                 .parent("pumpkin")
                 .icon(Items.RED_DYE)
                 .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.DYES), 9))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
+                .build();
+        
+        this.quest(AUTUMN, "sapling")
+                .parent("dyes")
+                .icon(ModTrees.autumnTree.getSapling())
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.root(WINTER)
@@ -182,11 +190,12 @@ public class QuestProvider implements DataProvider {
                 .parent("lantern")
                 .icon(ModTrees.winterTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
     }
 
     @Override
-    public void run(@Nonnull HashCache cache) throws IOException {
+    public void run(@Nonnull CachedOutput cache) throws IOException {
         this.setup();
         for (Alignment alignment : this.quests.keySet()) {
             Set<ResourceLocation> ids = new HashSet<>();
@@ -203,7 +212,7 @@ public class QuestProvider implements DataProvider {
                         throw new IllegalStateException("Reference to unknown quest: " + parent + " (in " + quest.id + ")");
                     }
                 }
-                DataProvider.save(DatapackHelper.GSON, cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
+                DataProvider.saveStable(cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
             }
         }
     }
@@ -243,13 +252,13 @@ public class QuestProvider implements DataProvider {
             this.reputation = 5;
             this.icon = null;
             this.start = new QuestDisplay(
-                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.title"),
-                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.description"),
+                    Component.translatable("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.title"),
+                    Component.translatable("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".start.description"),
                     null
             );
             this.complete = new QuestDisplay(
-                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.title"),
-                    new TranslatableComponent("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.description"),
+                    Component.translatable("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.title"),
+                    Component.translatable("quest." + QuestProvider.this.mod.modid + "." + alignment.id + "." + name + ".complete.description"),
                     null
             );
             this.tasks = new ArrayList<>();

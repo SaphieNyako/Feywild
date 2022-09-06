@@ -10,9 +10,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,13 +28,14 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.util.Random;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
@@ -62,7 +64,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 .add(Attributes.LUCK, 0.2);
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return isBrightEnoughToSpawn(level, pos);
     }
 
@@ -123,7 +125,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             if (ownerAlignment != null && ownerAlignment != this.alignment) {
                 unalignedTicks += 1;
                 if (unalignedTicks >= 300) {
-                    owner.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".disappear"), owner.getUUID());
+                    owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else {
@@ -143,19 +145,15 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 if (this.followingPlayer) {
                     this.followingPlayer = false;
                     this.setSummonPos(this.blockPosition());
-                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".stay").append(new TranslatableComponent("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".stay").append(Component.translatable("message.feywild.fey_stay").withStyle(ChatFormatting.ITALIC)));
                 } else {
                     this.followingPlayer = true;
-                    player.sendMessage(new TranslatableComponent("message.feywild." + getEntityNameMessage() + ".follow").append(new TranslatableComponent("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".follow").append(Component.translatable("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)));
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return InteractionResult.PASS;
-    }
-
-    public String getEntityNameMessage() {
-        return this.getDisplayName().getString().toLowerCase().replace(" ", "_");
     }
 
     @Override
@@ -227,8 +225,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     @Override
-    protected int getExperienceReward(@Nonnull Player player) {
-        return this.isTamed() ? 0 : super.getExperienceReward(player);
+    public int getExperienceReward() {
+         return this.isTamed() ? 0 : super.getExperienceReward();
     }
 
     @Override

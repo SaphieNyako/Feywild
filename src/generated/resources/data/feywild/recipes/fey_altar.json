@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "d": {
+      "item": "feywild:brilliant_fey_gem"
+    },
+    "f": {
+      "item": "feywild:fey_dust"
+    },
+    "g": {
+      "tag": "forge:nuggets/gold"
+    },
+    "p": {
+      "tag": "forge:ingots/iron"
+    }
+  },
   "pattern": [
     "fpf",
     "pdp",
     "ggg"
   ],
-  "key": {
-    "f": {
-      "item": "feywild:fey_dust"
-    },
-    "p": {
-      "tag": "forge:ingots/iron"
-    },
-    "d": {
-      "item": "feywild:brilliant_fey_gem"
-    },
-    "g": {
-      "tag": "forge:nuggets/gold"
-    }
-  },
   "result": {
     "item": "feywild:fey_altar"
   }

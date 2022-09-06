@@ -2,49 +2,73 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "main",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
-      "entries": [
-        {
-          "type": "libx:all",
-          "conditions": [
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "feywild:mandrake_crop",
-              "properties": {
-                "age": "7"
-              }
-            }
-          ],
-          "children": [
-            {
-              "type": "minecraft:item",
-              "name": "feywild:mandrake"
-            },
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "function": "minecraft:apply_bonus",
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:binomial_with_bonus_count",
-                  "parameters": {
-                    "extra": 1,
-                    "probability": 0.6
-                  }
-                }
-              ],
-              "name": "feywild:mandrake_crop_seed"
-            }
-          ]
-        }
-      ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ]
+      ],
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "name": "feywild:mandrake_crop_seed"
+            },
+            {
+              "type": "libx:all",
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "name": "feywild:mandrake"
+                },
+                {
+                  "type": "minecraft:item",
+                  "functions": [
+                    {
+                      "enchantment": "minecraft:fortune",
+                      "formula": "minecraft:binomial_with_bonus_count",
+                      "function": "minecraft:apply_bonus",
+                      "parameters": {
+                        "extra": 1,
+                        "probability": 0.6
+                      }
+                    }
+                  ],
+                  "name": "feywild:mandrake_crop_seed"
+                }
+              ],
+              "conditions": [
+                {
+                  "block": "feywild:mandrake_crop",
+                  "condition": "minecraft:block_state_property",
+                  "properties": {
+                    "age": "7"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "name": "main",
+      "rolls": 1.0
     }
   ]
 }

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "side": "feywild:block/summer_tree_planks",
-    "bottom": "feywild:block/summer_tree_planks",
-    "top": "feywild:block/summer_tree_planks"
-  }
-}

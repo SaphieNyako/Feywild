@@ -1,13 +1,13 @@
 {
-  "reputation": 25,
   "icon": "minecraft:diamond",
+  "reputation": 25,
   "start": {
-    "title": {
-      "translate": "quest.feywild.summer.root.start.title"
-    },
     "description": {
       "translate": "quest.feywild.summer.root.start.description"
     },
-    "sound": "feywild:summoning_summer_pixie"
+    "sound": "feywild:summoning_summer_pixie",
+    "title": {
+      "translate": "quest.feywild.summer.root.start.title"
+    }
   }
 }

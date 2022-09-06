@@ -1,7 +1,6 @@
 package com.feywild.feywild.quest.player;
 
 import com.feywild.feywild.FeywildMod;
-import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -13,6 +12,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import org.moddingx.libx.util.lazy.LazyValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -43,7 +43,7 @@ public class CapabilityQuests {
         if (event.isWasDeath()) {
             event.getOriginal().reviveCaps();
             event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
-                event.getPlayer().getCapability(QUESTS).ifPresent(newData -> {
+                event.getEntity().getCapability(QUESTS).ifPresent(newData -> {
                     newData.read(oldData.write());
                 });
             });
@@ -59,7 +59,6 @@ public class CapabilityQuests {
         @Nonnull
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-            //noinspection NullableProblems
             return cap == this.capability() ? LazyOptional.of(this.value()::get).cast() : LazyOptional.empty();
         }
 

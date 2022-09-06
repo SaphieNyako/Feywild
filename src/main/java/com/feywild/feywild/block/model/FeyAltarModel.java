@@ -6,19 +6,19 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class FeyAltarModel extends AnimatedGeoModel<FeyAltar> {
-
+    
     @Override
-    public ResourceLocation getModelLocation(FeyAltar feyAltar) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "geo/fey_altar.geo.json");
+    public ResourceLocation getModelResource(FeyAltar feyAltar) {
+        return FeywildMod.getInstance().resource("geo/fey_altar.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FeyAltar feyAltar) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/block/fey_altar.png");
+    public ResourceLocation getTextureResource(FeyAltar feyAltar) {
+        return FeywildMod.getInstance().resource("textures/block/fey_altar.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(FeyAltar feyAltar) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/fey_altar.animation.json");
+    public ResourceLocation getAnimationResource(FeyAltar animatable) {
+        return FeywildMod.getInstance().resource("animations/fey_altar.animation.json");
     }
 }

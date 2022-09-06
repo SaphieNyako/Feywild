@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "s#s",
-    "s#s"
-  ],
   "key": {
     "#": {
       "item": "feywild:autumn_tree_planks"
@@ -12,6 +8,10 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "s#s",
+    "s#s"
+  ],
   "result": {
     "item": "feywild:autumn_tree_planks_fence_gate"
   }

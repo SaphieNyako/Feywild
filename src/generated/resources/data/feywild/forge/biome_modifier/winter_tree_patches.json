@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#forge:is_cold/overworld",
+  "features": "feywild:winter_tree_patches",
+  "step": "vegetal_decoration"
+}

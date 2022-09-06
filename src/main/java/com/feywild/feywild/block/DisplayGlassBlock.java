@@ -2,13 +2,8 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.DisplayGlass;
 import com.feywild.feywild.block.render.DisplayGlassRenderer;
-import io.github.noeppi_noeppi.libx.base.tile.BlockBE;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -20,9 +15,11 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.base.tile.BlockBE;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
-import java.util.function.Consumer;
 
 public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
 
@@ -30,7 +27,7 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
     public static final IntegerProperty BREAKAGE = IntegerProperty.create("breakage", 0, 4);
 
     public DisplayGlassBlock(ModX mod) {
-        super(mod, DisplayGlass.class, BlockBehaviour.Properties.of(Material.GLASS).strength(9999999f).noOcclusion().noDrops());
+        super(mod, DisplayGlass.class, BlockBehaviour.Properties.of(Material.GLASS).strength(9999999f).noOcclusion().noLootTable());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(CAN_GENERATE, false)
                 .setValue(BREAKAGE, 0)
@@ -39,11 +36,8 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> {
-            BlockEntityRenderers.register(this.getBlockEntityType(), ctx -> new DisplayGlassRenderer());
-            ItemBlockRenderTypes.setRenderLayer(this, RenderType.translucent());
-        });
+    public void registerClient(SetupContext ctx) {
+        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), c -> new DisplayGlassRenderer()));
     }
 
     @Override

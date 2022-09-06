@@ -1,12 +1,12 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.util.TooltipHelper;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import java.util.List;

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "feywild:elven_autumn_quartz_brick_stairs"
+  },
+  "result": "feywild:elven_autumn_quartz_cracked_brick_stairs"
+}

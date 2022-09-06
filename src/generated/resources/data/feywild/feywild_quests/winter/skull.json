@@ -1,39 +1,39 @@
 {
   "parent": "feywild:snowballs",
-  "reputation": 5,
-  "icon": "minecraft:zombie_head",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.winter.skull.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.winter.skull.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.winter.skull.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.winter.skull.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.skull.complete.title"
+    }
+  },
+  "icon": "minecraft:zombie_head",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:wither_skeleton_skull"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.skull.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.skull.start.title"
     }
   },
   "tasks": [
     {
+      "amount": 1,
+      "id": "feywild:item",
       "item": {
         "item": "minecraft:zombie_head"
-      },
-      "amount": 1,
-      "id": "feywild:item"
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:wither_skeleton_skull",
-        "count": 1
-      },
-      "id": "feywild:item"
+      }
     }
   ]
 }

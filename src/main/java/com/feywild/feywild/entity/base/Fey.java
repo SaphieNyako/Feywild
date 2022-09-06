@@ -3,16 +3,16 @@ package com.feywild.feywild.entity.base;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
-import com.feywild.feywild.network.ParticleSerializer;
-import com.feywild.feywild.network.quest.OpenQuestDisplaySerializer;
-import com.feywild.feywild.network.quest.OpenQuestSelectionSerializer;
+import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.network.quest.OpenQuestDisplayMessage;
+import com.feywild.feywild.network.quest.OpenQuestSelectionMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -76,6 +76,7 @@ public abstract class Fey extends FlyingFeyBase {
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
@@ -84,12 +85,12 @@ public abstract class Fey extends FlyingFeyBase {
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(4);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
-                FeywildMod.getNetwork().sendParticles(this.level, ParticleSerializer.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
+                FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_name"), player.getUUID());
+                player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_fey_name"));
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {
@@ -107,22 +108,22 @@ public abstract class Fey extends FlyingFeyBase {
         if (quests.canComplete(this.alignment)) {
             QuestDisplay completionDisplay = quests.completePendingQuest();
             if (completionDisplay != null) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(completionDisplay, false));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(completionDisplay, false));
                 player.swing(hand, true);
             } else {
                 List<SelectableQuest> active = quests.getActiveQuests();
                 if (active.size() == 1) {
-                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(active.get(0).display, false));
+                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(active.get(0).display(), false));
                     player.swing(hand, true);
                 } else if (!active.isEmpty()) {
-                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestSelectionSerializer.Message(this.getDisplayName(), this.alignment, active));
+                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestSelectionMessage(this.getDisplayName(), this.alignment, active));
                     player.swing(hand, true);
                 }
             }
         } else {
             QuestDisplay initDisplay = quests.initialize(this.alignment);
             if (initDisplay != null) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplaySerializer.Message(initDisplay, true));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(initDisplay, true));
                 player.swing(hand, true);
             }
         }
@@ -134,7 +135,7 @@ public abstract class Fey extends FlyingFeyBase {
             AlignmentStack input = new AlignmentStack(this.alignment, stack);
             if (QuestData.get(player).checkComplete(FeyGiftTask.INSTANCE, input)) {
                 if (!player.isCreative()) stack.shrink(1);
-                player.sendMessage(new TranslatableComponent("message.feywild." + this.alignment.id + "_fey_thanks"), player.getUUID());
+                player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_fey_thanks"));
                 return true;
             }
         }
@@ -162,6 +163,3 @@ public abstract class Fey extends FlyingFeyBase {
         animationData.addAnimationController(castingController);
     }
 }
-
-
-

@@ -1,0 +1,32 @@
+{
+  "category": "feywild:spring_court",
+  "icon": "feywild:summoning_scroll_mandragora",
+  "name": "feywild_lexicon.entry.feywild.spring_court.mandragora",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page0.text0"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:mandragora"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:magical_honey_cookie",
+      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page2.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page3.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_mandragora_fey_altar"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page5.text0"
+    }
+  ]
+}

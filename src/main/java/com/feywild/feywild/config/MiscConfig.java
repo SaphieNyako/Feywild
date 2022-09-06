@@ -1,10 +1,11 @@
 package com.feywild.feywild.config;
 
 import com.feywild.feywild.config.data.ScrollSelectType;
-import io.github.noeppi_noeppi.libx.config.Config;
-import io.github.noeppi_noeppi.libx.config.validator.FloatRange;
-import io.github.noeppi_noeppi.libx.config.validator.IntRange;
+import org.moddingx.libx.annotation.config.RegisterConfig;
+import org.moddingx.libx.config.Config;
+import org.moddingx.libx.config.validate.IntRange;
 
+@RegisterConfig("misc")
 public class MiscConfig {
 
     @Config("Whether players should spawn with a Feywild Lexicon")
@@ -16,10 +17,6 @@ public class MiscConfig {
     @Config("The duration in ticks for the levitation effect applied by fey dust.")
     @IntRange(min = 1)
     public static int fey_dust_ticks = 30;
-
-    @Config("This determines the weight of the rune stone appearing in mineshaft treasure chests.")
-    @FloatRange(min = 0.01f, max = 1)
-    public static float rune_stone_weight = 0.20f;
 
     @Config("The amount of time in seconds that the magical honey needs to respawn")
     @IntRange(min = 1)

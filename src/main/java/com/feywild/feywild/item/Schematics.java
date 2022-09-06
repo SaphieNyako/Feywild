@@ -1,7 +1,7 @@
 package com.feywild.feywild.item;
 
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.network.chat.Component;
+import org.moddingx.libx.mod.ModX;
 
 public class Schematics extends TooltipItem {
 

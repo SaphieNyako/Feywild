@@ -1,39 +1,39 @@
 {
   "parent": "feywild:cake",
-  "reputation": 5,
-  "icon": "feywild:honeycomb",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.spring.honey.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.spring.honey.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.spring.honey.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.spring.honey.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.honey.complete.title"
+    }
+  },
+  "icon": "feywild:honeycomb",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:honeycomb"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.honey.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.honey.start.title"
     }
   },
   "tasks": [
     {
       "alignment": "spring",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "feywild:honeycomb"
-      },
-      "id": "feywild:fey_gift"
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "feywild:honeycomb",
-        "count": 1
-      },
-      "id": "feywild:item"
+      }
     }
   ]
 }

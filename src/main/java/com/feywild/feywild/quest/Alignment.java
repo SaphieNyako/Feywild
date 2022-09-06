@@ -1,6 +1,6 @@
 package com.feywild.feywild.quest;
 
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.entity.base.Fey;
 import net.minecraft.world.entity.EntityType;
 
@@ -9,10 +9,10 @@ import java.util.Locale;
 
 public enum Alignment {
 
-    SPRING("spring", ModEntityTypes.springPixie),
-    SUMMER("summer", ModEntityTypes.summerPixie),
-    AUTUMN("autumn", ModEntityTypes.autumnPixie),
-    WINTER("winter", ModEntityTypes.winterPixie);
+    SPRING("spring", ModEntities.springPixie),
+    SUMMER("summer", ModEntities.summerPixie),
+    AUTUMN("autumn", ModEntities.autumnPixie),
+    WINTER("winter", ModEntities.winterPixie);
 
     public final String id;
     public final EntityType<? extends Fey> fey;

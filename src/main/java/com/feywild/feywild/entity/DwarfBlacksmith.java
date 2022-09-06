@@ -11,13 +11,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,13 +43,13 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     private boolean isTamed;
+    
     @Nullable
     private BlockPos summonPos;
 
@@ -68,7 +69,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
                 .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
-    public static boolean canSpawn(EntityType<DwarfBlacksmith> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<DwarfBlacksmith> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         //noinspection deprecation
         if (pos.getY() >= level.getSeaLevel() || level.canSeeSky(pos)) { //|| random.nextDouble() < 0.15
             return false;
@@ -111,8 +112,8 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     protected void trade(Player player) {
         this.setTradingPlayer(player);
-        this.openTradingScreen(player, new TranslatableComponent("Dwarven Trader"), 1);
-        player.displayClientMessage(new TranslatableComponent("dwarf.feywild.dialogue"), false);
+        this.openTradingScreen(player, Component.literal("Dwarven Trader"), 1);
+        player.displayClientMessage(Component.translatable("dwarf.feywild.dialogue"), false);
     }
 
     @Nullable

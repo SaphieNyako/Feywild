@@ -1,14 +1,18 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.world.feature.trees.*;
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
+import com.feywild.feywild.block.trees.BaseTree;
+import com.feywild.feywild.block.trees.seasonal.AutumnTree;
+import com.feywild.feywild.block.trees.seasonal.SpringTree;
+import com.feywild.feywild.block.trees.seasonal.SummerTree;
+import com.feywild.feywild.block.trees.seasonal.WinterTree;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 
-@RegisterClass
+@RegisterClass(registry = "")
 public class ModTrees {
 
-    public static final BaseTree springTree = new SpringTreeGrower(FeywildMod.getInstance());
-    public static final BaseTree summerTree = new SummerTreeGrower(FeywildMod.getInstance());
-    public static final BaseTree autumnTree = new AutumnTreeGrower(FeywildMod.getInstance());
-    public static final BaseTree winterTree = new WinterTreeGrower(FeywildMod.getInstance());
+    public static final BaseTree springTree = new SpringTree(FeywildMod.getInstance());
+    public static final BaseTree summerTree = new SummerTree(FeywildMod.getInstance());
+    public static final BaseTree autumnTree = new AutumnTree(FeywildMod.getInstance());
+    public static final BaseTree winterTree = new WinterTree(FeywildMod.getInstance());
 }

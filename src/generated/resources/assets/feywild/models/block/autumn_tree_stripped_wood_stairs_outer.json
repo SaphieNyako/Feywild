@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "feywild:block/autumn_tree_stripped_wood",
+    "side": "feywild:block/autumn_tree_stripped_wood",
+    "top": "feywild:block/autumn_tree_stripped_wood"
+  }
+}

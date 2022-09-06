@@ -1,24 +1,15 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.block.MagicalBrazierBlock;
-import com.feywild.feywild.block.ModBlocks;
-import com.feywild.feywild.block.portal.FeyPortalBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.util.TooltipHelper;
-import com.feywild.feywild.world.dimension.feywild.FeywildDimension;
-import io.github.noeppi_noeppi.libx.base.ItemBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -32,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.base.ItemBase;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,7 +42,7 @@ public class FeyDust extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, new TranslatableComponent("message.feywild.fey_dust"));
+        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.fey_dust"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 
@@ -92,29 +85,12 @@ public class FeyDust extends ItemBase {
                 return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
             }
         }
-        //USE ON PORTAL
-        if (player != null) {
-            if (player.level.dimension() == FeywildDimension.FEYWILD_DIMENSION || player.level.dimension() == Level.OVERWORLD) {
-                for (Direction direction : Direction.Plane.VERTICAL) {
-                    BlockPos framePos = clickedPos.relative(direction);
-
-                    if (((FeyPortalBlock) ModBlocks.feyPortalBlock).tryCreatePortal(level, framePos)) {
-
-                        level.playSound(player, framePos, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 1.0F, 1.0F);
-                        return InteractionResult.sidedSuccess(Objects.requireNonNull(player).level.isClientSide);
-                    } else {
-                        return InteractionResult.FAIL;
-                    }
-                }
-            }
-            return InteractionResult.PASS;
-        }
         return super.useOn(context);
     }
 
     @Nullable
     @Override
-    public FoodProperties getFoodProperties() {
+    public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
         // Overridden instead of item properties, so it will
         // instantly change on config reload
         return this.food;

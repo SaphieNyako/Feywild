@@ -1,7 +1,7 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.quest.ConfirmQuestSerializer;
+import com.feywild.feywild.network.quest.ConfirmQuestMessage;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.util.FeywildTextProcessor;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,7 +10,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.FormattedCharSequence;
 
 import javax.annotation.Nonnull;
@@ -38,12 +37,12 @@ public class DisplayQuestScreen extends Screen {
 
         if (this.hasConfirmationButtons) {
             int buttonY = Math.max((int) (this.height * (2 / 3d)), 65 + ((1 + this.description.size()) * (Minecraft.getInstance().font.lineHeight + 2)));
-            this.addRenderableWidget(new Button(30, buttonY, 20, 20, new TextComponent(Character.toString((char) 0x2714)), button -> {
-                FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(true));
+            this.addRenderableWidget(new Button(30, buttonY, 20, 20, Component.literal("\u2714"), button -> {
+                FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestMessage(true));
                 this.onClose();
             }));
-            this.addRenderableWidget(new Button(70, buttonY, 20, 20, new TextComponent("x"), button -> {
-                FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestSerializer.Message(false));
+            this.addRenderableWidget(new Button(70, buttonY, 20, 20, Component.literal("x"), button -> {
+                FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestMessage(false));
                 this.onClose();
             }));
         }

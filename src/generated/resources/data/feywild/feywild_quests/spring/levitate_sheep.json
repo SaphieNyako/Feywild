@@ -1,21 +1,21 @@
 {
   "parent": "feywild:root",
-  "reputation": 5,
-  "icon": "minecraft:pink_wool",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.spring.levitate_sheep.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.spring.levitate_sheep.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.spring.levitate_sheep.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.spring.levitate_sheep.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.levitate_sheep.complete.title"
+    }
+  },
+  "icon": "minecraft:pink_wool",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.levitate_sheep.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.levitate_sheep.start.title"
     }
   },
   "tasks": [

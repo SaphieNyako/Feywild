@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "feywild:shiny_fey_gem"
-  },
-  "result": "feywild:greater_fey_gem",
-  "count": 2
-}

@@ -1,0 +1,10 @@
+{
+  "type": "feywild:addition",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+    }
+  ],
+  "loot_table": "feywild:chests/mineshaft_chest_additions"
+}

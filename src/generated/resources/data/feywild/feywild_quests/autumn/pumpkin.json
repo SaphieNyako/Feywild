@@ -1,30 +1,30 @@
 {
   "parent": "feywild:food_complete",
-  "reputation": 5,
-  "icon": "minecraft:carved_pumpkin",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.autumn.pumpkin.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.autumn.pumpkin.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.autumn.pumpkin.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.autumn.pumpkin.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.pumpkin.complete.title"
+    }
+  },
+  "icon": "minecraft:carved_pumpkin",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.pumpkin.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.pumpkin.start.title"
     }
   },
   "tasks": [
     {
+      "amount": 2,
+      "id": "feywild:item",
       "item": {
         "item": "minecraft:carved_pumpkin"
-      },
-      "amount": 2,
-      "id": "feywild:item"
+      }
     }
   ]
 }

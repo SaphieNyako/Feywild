@@ -3,14 +3,11 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.tag.ModBlockTags;
 import com.feywild.feywild.tag.ModItemTags;
-import com.feywild.feywild.world.feature.trees.BaseTree;
-import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
-import io.github.noeppi_noeppi.libx.data.provider.CommonTagsProviderBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -18,6 +15,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.provider.CommonTagsProviderBase;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nullable;
 
@@ -40,11 +40,10 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.item(ModItemTags.ELEMENTAL_BOOKS).add(ModItems.schematicsElementalRuneCrafting);
         this.item(ModItemTags.ELEMENTAL_BOOKS).addTag(ModItemTags.SEASONAL_BOOKS);
 
-        tool(ModBlocks.feyGemBlock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
-        tool(ModBlocks.feyGemBlockDeepSlate, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
-        tool(ModBlocks.feyGemBlockLivingrock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyGemOre, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyGemOreDeepSlate, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyGemOreLivingrock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.dwarvenAnvil, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
-        tool(ModBlocks.snowyGrassBlock, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_SHOVEL);
 
         treeTags(ModTrees.springTree, ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);

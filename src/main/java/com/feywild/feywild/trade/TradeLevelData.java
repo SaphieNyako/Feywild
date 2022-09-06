@@ -3,16 +3,16 @@ package com.feywild.feywild.trade;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import io.github.noeppi_noeppi.libx.util.LazyValue;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import org.apache.commons.lang3.tuple.Pair;
+import org.moddingx.libx.util.lazy.LazyValue;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 // Holds aĺl trades possible for one trader level
@@ -48,12 +48,10 @@ public class TradeLevelData {
             throw new IllegalStateException("Trader level data without duplicates must define at least as many trades as it can select. Current maximum selection: " + this.maxTrades + ". (Defines trades: " + this.trades.size() + ")");
         }
 
-        this.tradeView = new LazyValue<>(() -> {
-            return this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList());
-        });
+        this.tradeView = new LazyValue<>(() -> this.trades.stream().map(Pair::getRight).collect(ImmutableList.toImmutableList()));
     }
 
-    public void applyTo(Entity merchant, MerchantOffers offers, Random random) {
+    public void applyTo(Entity merchant, MerchantOffers offers, RandomSource random) {
         int tradesToSelect = this.minTrades + random.nextInt(1 + (this.maxTrades - this.minTrades));
         List<VillagerTrades.ItemListing> selected = this.selectTrades(tradesToSelect, random);
         for (VillagerTrades.ItemListing trade : selected) {
@@ -64,7 +62,7 @@ public class TradeLevelData {
         }
     }
 
-    public List<VillagerTrades.ItemListing> selectTrades(int trades, Random random) {
+    public List<VillagerTrades.ItemListing> selectTrades(int trades, RandomSource random) {
         int tradesToSelect = this.allowDuplicates ? trades : Math.min(trades, this.trades.size());
         if (tradesToSelect == 0) {
             return ImmutableList.of();
@@ -90,7 +88,7 @@ public class TradeLevelData {
         }
     }
 
-    private int selectRandomTrade(Random random) {
+    private int selectRandomTrade(RandomSource random) {
         int id = random.nextInt(this.maxWeight);
         for (int i = 0; i < this.trades.size(); i++) {
             if (id < this.trades.get(i).getLeft()) {

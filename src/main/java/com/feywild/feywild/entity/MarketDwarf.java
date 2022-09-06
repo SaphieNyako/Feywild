@@ -1,8 +1,8 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.Trader;
-import com.feywild.feywild.world.dimension.market.MarketPlaceDimension;
-import net.minecraft.network.chat.TranslatableComponent;
+import com.feywild.feywild.world.FeywildDimensions;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -37,19 +37,20 @@ public class MarketDwarf extends DwarfBlacksmith {
     @Override
     public InteractionResult interactAt(Player player, @Nonnull Vec3 vec, @Nonnull InteractionHand hand) {
         if (!player.getCommandSenderWorld().isClientSide) {
-            if (player.level.dimension() == MarketPlaceDimension.MARKET_PLACE_DIMENSION) {
+            if (player.level.dimension() == FeywildDimensions.MARKETPLACE) {
                 trade(player);
             } else {
-                player.displayClientMessage(new TranslatableComponent("dwarf.feywild.annoyed"), false);
+                player.displayClientMessage(Component.translatable("dwarf.feywild.annoyed"), false);
             }
         }
         return InteractionResult.SUCCESS;
     }
 
+    @Override
     protected void trade(Player player) {
         this.setTradingPlayer(player);
-        this.openTradingScreen(player, new TranslatableComponent("Dwarven Trader"), 1);
-        player.displayClientMessage(new TranslatableComponent("dwarf.feywild.dialogue"), false);
+        this.openTradingScreen(player, Component.translatable("Dwarven Trader"), 1);
+        player.displayClientMessage(Component.translatable("dwarf.feywild.dialogue"), false);
     }
 
     @Override

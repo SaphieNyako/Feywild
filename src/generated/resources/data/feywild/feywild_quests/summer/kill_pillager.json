@@ -1,21 +1,30 @@
 {
   "parent": "feywild:bee_nest",
-  "reputation": 5,
-  "icon": "minecraft:iron_axe",
-  "start": {
-    "title": {
-      "translate": "quest.feywild.summer.kill_pillager.start.title"
-    },
-    "description": {
-      "translate": "quest.feywild.summer.kill_pillager.start.description"
-    }
-  },
   "complete": {
-    "title": {
-      "translate": "quest.feywild.summer.kill_pillager.complete.title"
-    },
     "description": {
       "translate": "quest.feywild.summer.kill_pillager.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.kill_pillager.complete.title"
+    }
+  },
+  "icon": "minecraft:iron_axe",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 3,
+        "item": "minecraft:gold_ingot"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.kill_pillager.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.kill_pillager.start.title"
     }
   },
   "tasks": [
@@ -23,15 +32,6 @@
       "entity": "minecraft:pillager",
       "id": "feywild:kill",
       "times": 5
-    }
-  ],
-  "rewards": [
-    {
-      "item": {
-        "item": "minecraft:gold_ingot",
-        "count": 3
-      },
-      "id": "feywild:item"
     }
   ]
 }

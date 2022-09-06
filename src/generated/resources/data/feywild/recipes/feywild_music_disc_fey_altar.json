@@ -1,9 +1,5 @@
 {
-  "type": "feywild:fey_altar",
-  "output": {
-    "item": "feywild:feywild_music_disc",
-    "count": 1
-  },
+  "type": "feywild:altar",
   "ingredients": [
     {
       "tag": "minecraft:music_discs"
@@ -20,5 +16,9 @@
     {
       "item": "feywild:winter_tree_sapling"
     }
-  ]
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:feywild_music_disc"
+  }
 }

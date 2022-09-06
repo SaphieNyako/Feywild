@@ -1,0 +1,28 @@
+{
+  "category": "feywild:winter_court",
+  "icon": "feywild:summoning_scroll_winter_pixie",
+  "name": "feywild_lexicon.entry.feywild.winter_court.winter_pixie",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:winter_pixie",
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_pixie.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_pixie.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_pixie.page2.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_winter_pixie_fey_altar"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_pixie.page4.text0"
+    }
+  ]
+}

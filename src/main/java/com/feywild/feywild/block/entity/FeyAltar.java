@@ -3,12 +3,6 @@ package com.feywild.feywild.block.entity;
 import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.util.StreamUtil;
-import io.github.noeppi_noeppi.libx.base.tile.BlockEntityBase;
-import io.github.noeppi_noeppi.libx.base.tile.TickableBlock;
-import io.github.noeppi_noeppi.libx.capability.ItemCapabilities;
-import io.github.noeppi_noeppi.libx.inventory.BaseItemStackHandler;
-import io.github.noeppi_noeppi.libx.inventory.IAdvancedItemHandlerModifiable;
-import io.github.noeppi_noeppi.libx.util.LazyValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -21,6 +15,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
+import org.moddingx.libx.base.tile.BlockEntityBase;
+import org.moddingx.libx.base.tile.TickingBlock;
+import org.moddingx.libx.capability.ItemCapabilities;
+import org.moddingx.libx.inventory.BaseItemStackHandler;
+import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
+import org.moddingx.libx.util.lazy.LazyValue;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimatable {
+public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatable {
 
     public static final int MAX_PROGRESS = 40;
 
@@ -137,7 +137,7 @@ public class FeyAltar extends BlockEntityBase implements TickableBlock, IAnimata
         if (this.level != null && !this.level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {
                 List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
-                return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.ALTAR).stream()
+                return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.altar).stream()
                         .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
                         .findFirst();
             });

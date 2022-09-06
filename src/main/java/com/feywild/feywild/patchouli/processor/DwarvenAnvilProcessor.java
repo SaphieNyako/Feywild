@@ -3,7 +3,7 @@ package com.feywild.feywild.patchouli.processor;
 import com.feywild.feywild.patchouli.PatchouliUtils;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -20,14 +20,15 @@ public class DwarvenAnvilProcessor implements IComponentProcessor {
 
     @Override
     public void setup(IVariableProvider vars) {
-        this.recipe = PatchouliUtils.getRecipe(DwarvenAnvilRecipe.class, ModRecipeTypes.DWARVEN_ANVIL, vars.get("recipe").asString());
+        this.recipe = PatchouliUtils.getRecipe(DwarvenAnvilRecipe.class, ModRecipeTypes.dwarvenAnvil, vars.get("recipe").asString());
     }
 
+    @Nonnull
     @Override
     public IVariable process(@Nonnull String key) {
-        if (recipe == null) return null;
+        if (recipe == null) return IVariable.empty();
         return switch (key) {
-            case "description" -> IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
+            case "description" -> IVariable.from(Component.translatable(this.recipe.getResultItem().getDescriptionId()));
             case "schematic" -> IVariable.from(this.recipe.getSchematics());
             case "mana" -> IVariable.wrap(this.recipe.getMana());
             case "output" -> IVariable.from(this.recipe.getResultItem());
@@ -36,7 +37,7 @@ public class DwarvenAnvilProcessor implements IComponentProcessor {
             case "item2" -> IVariable.from(this.getInput(2).getItems());
             case "item3" -> IVariable.from(this.getInput(3).getItems());
             case "item4" -> IVariable.from(this.getInput(4).getItems());
-            default -> null;
+            default -> IVariable.empty();
         };
     }
 

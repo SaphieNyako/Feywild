@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -42,6 +42,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class BeeKnight extends FlyingFeyBase {
 
@@ -60,6 +61,7 @@ public class BeeKnight extends FlyingFeyBase {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(2, new FeyAttackableTargetGoal<>(this, Player.class, true));
@@ -93,7 +95,7 @@ public class BeeKnight extends FlyingFeyBase {
             QuestData quests = QuestData.get((ServerPlayer) player);
             if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.bee_knight.required_reputation) {
                 AABB aabb = new AABB(pos).inflate(2 * MobConfig.bee_knight.aggrevation_range);
-                level.getEntities(ModEntityTypes.beeKnight, aabb, entity -> true).forEach(bee -> {
+                level.getEntities(ModEntities.beeKnight, aabb, entity -> true).forEach(bee -> {
                     if (bee.getTarget() == null && player.position().closerThan(bee.position(), MobConfig.bee_knight.aggrevation_range)
                             && !player.getGameProfile().getId().equals(bee.getOwner())) {
                         bee.setTarget(player);
@@ -119,15 +121,16 @@ public class BeeKnight extends FlyingFeyBase {
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
             if (!player.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
                 QuestData quests = QuestData.get(serverPlayer);
                 if (((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.bee_knight.required_reputation) && getOwner() == null) || player.getUUID() == owner) {
-                    player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_pass"), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild.bee_knight_pass"));
                 } else {
-                    player.sendMessage(new TranslatableComponent("message.feywild.bee_knight_fail"), player.getUUID());
+                    player.sendSystemMessage(Component.translatable("message.feywild.bee_knight_fail"));
                 }
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);

@@ -4,11 +4,11 @@ import com.google.common.collect.Streams;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import io.github.noeppi_noeppi.libx.datapack.DataLoader;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.ModList;
+import org.moddingx.libx.datapack.DataLoader;
 
 import java.io.IOException;
 import java.util.List;

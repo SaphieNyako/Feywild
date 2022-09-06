@@ -4,13 +4,13 @@ import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import io.github.noeppi_noeppi.libx.render.ClientTickHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemStack;
+import org.moddingx.libx.render.ClientTickHandler;
 import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
 
 import java.util.ArrayList;

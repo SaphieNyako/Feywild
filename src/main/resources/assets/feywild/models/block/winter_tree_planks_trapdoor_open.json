@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_orientable_trapdoor_open",
-  "textures": {
-    "texture": "feywild:block/winter_tree_planks_trapdoor"
-  }
-}

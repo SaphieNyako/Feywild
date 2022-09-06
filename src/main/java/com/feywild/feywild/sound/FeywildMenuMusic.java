@@ -14,7 +14,7 @@ public class FeywildMenuMusic {
     private static SoundInstance currentFeywildMenuMusic = null;
 
     public static void playSound(PlaySoundEvent event) {
-        if (ClientConfig.replace_menu && event.getSound().canPlaySound()) {
+        if (ClientConfig.replace_menu && event.getSound() != null && event.getSound().canPlaySound()) {
             if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
                 handleSoundReplace(ModSoundEvents.musicMenu, event);
             } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.getLocation())) {

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "feywild:block/elven_winter_quartz_polished",
+    "side": "feywild:block/elven_winter_quartz_polished",
+    "top": "feywild:block/elven_winter_quartz_polished"
+  }
+}

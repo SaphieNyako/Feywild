@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "feywild:block/elven_summer_quartz",
+    "side": "feywild:block/elven_summer_quartz",
+    "top": "feywild:block/elven_summer_quartz"
+  }
+}

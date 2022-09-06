@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/block",
+  "children": {
+    "block": {
+      "parent": "feywild:block/elven_spring_quartz_brick",
+      "render_type": "feywild:semi_solid"
+    },
+    "moss_layer": {
+      "parent": "feywild:block/moss_overlay",
+      "render_type": "feywild:semi_cutout"
+    }
+  },
+  "item_render_order": [
+    "block",
+    "moss_layer"
+  ],
+  "loader": "forge:composite",
+  "textures": {
+    "particle": "feywild:block/elven_spring_quartz_brick"
+  }
+}

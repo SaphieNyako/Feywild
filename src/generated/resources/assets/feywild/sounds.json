@@ -1,0 +1,211 @@
+{
+  "autumn_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:autumn_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+  "dwarf_attack": {
+    "sounds": [
+      "feywild:dwarf_attack"
+    ],
+    "subtitle": "subtitle.feywild.dwarf_attack"
+  },
+  "dwarf_rubble": {
+    "sounds": [
+      "feywild:dwarf_rubble"
+    ],
+    "subtitle": "subtitle.feywild.dwarf_rubble"
+  },
+  "feywild_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:feywild_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+  "mandragora_ambience": {
+    "sounds": [
+      "feywild:mandragora_ambience0",
+      "feywild:mandragora_ambience1"
+    ]
+  },
+  "mandragora_death": {
+    "sounds": [
+      "feywild:mandragora_death"
+    ],
+    "subtitle": "subtitle.feywild.mandragora_death"
+  },
+  "mandragora_hurt": {
+    "sounds": [
+      "feywild:mandragora_hurt"
+    ],
+    "subtitle": "subtitle.feywild.mandragora_hurt"
+  },
+  "mandragora_singing": {
+    "sounds": [
+      "feywild:mandragora_singing"
+    ],
+    "subtitle": "subtitle.feywild.mandragora_singing"
+  },
+  "mandrake_scream": {
+    "sounds": [
+      "feywild:mandrake_scream"
+    ],
+    "subtitle": "subtitle.feywild.mandrake_scream"
+  },
+  "music_creative": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "feywild:music_menu"
+      },
+      {
+        "name": "feywild:menu/menu1",
+        "stream": true
+      }
+    ]
+  },
+  "music_menu": {
+    "sounds": [
+      {
+        "name": "feywild:menu/menu1",
+        "stream": true,
+        "weight": 3
+      },
+      {
+        "name": "feywild:menu/menu2",
+        "stream": true
+      }
+    ]
+  },
+  "pixie_ambient": {
+    "sounds": [
+      "feywild:pixie_ambient"
+    ],
+    "subtitle": "subtitle.feywild.pixie_ambient"
+  },
+  "pixie_death": {
+    "sounds": [
+      "feywild:pixie_death"
+    ],
+    "subtitle": "subtitle.feywild.pixie_death"
+  },
+  "pixie_hurt": {
+    "sounds": [
+      "feywild:pixie_hurt"
+    ],
+    "subtitle": "subtitle.feywild.pixie_hurt"
+  },
+  "pixie_spellcasting": {
+    "sounds": [
+      "feywild:pixie_spellcasting"
+    ],
+    "subtitle": "subtitle.feywild.pixie_spellcasting"
+  },
+  "shroomling_ambience": {
+    "sounds": [
+      "feywild:shroomling_ambience0",
+      "feywild:shroomling_ambience1"
+    ]
+  },
+  "shroomling_death": {
+    "sounds": [
+      "feywild:shroomling_death"
+    ],
+    "subtitle": "subtitle.feywild.shroomling_death"
+  },
+  "shroomling_hurt": {
+    "sounds": [
+      "feywild:shroomling_hurt"
+    ],
+    "subtitle": "subtitle.feywild.shroomling_hurt"
+  },
+  "shroomling_sneeze": {
+    "sounds": [
+      "feywild:shroomling_sneeze"
+    ],
+    "subtitle": "subtitle.feywild.shroomling_sneeze"
+  },
+  "shroomling_wave": {
+    "sounds": [
+      "feywild:shroomling_wave0",
+      "feywild:shroomling_wave1"
+    ]
+  },
+  "spring_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:spring_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+  "summer_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:summer_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+  "summoning_autumn_pixie": {
+    "sounds": [
+      "feywild:summoning_autumn_pixie"
+    ],
+    "subtitle": "subtitle.feywild.summoning_autumn_pixie"
+  },
+  "summoning_autumn_pixie_short": {
+    "sounds": [
+      "feywild:summoning_autumn_pixie_short"
+    ],
+    "subtitle": "subtitle.feywild.summoning_autumn_pixie_short"
+  },
+  "summoning_spring_pixie": {
+    "sounds": [
+      "feywild:summoning_spring_pixie"
+    ],
+    "subtitle": "subtitle.feywild.summoning_spring_pixie"
+  },
+  "summoning_spring_pixie_short": {
+    "sounds": [
+      "feywild:summoning_spring_pixie_short"
+    ],
+    "subtitle": "subtitle.feywild.summoning_spring_pixie_short"
+  },
+  "summoning_summer_pixie": {
+    "sounds": [
+      "feywild:summoning_summer_pixie"
+    ],
+    "subtitle": "subtitle.feywild.summoning_summer_pixie"
+  },
+  "summoning_summer_pixie_short": {
+    "sounds": [
+      "feywild:summoning_summer_pixie_short"
+    ],
+    "subtitle": "subtitle.feywild.summoning_summer_pixie_short"
+  },
+  "summoning_winter_pixie": {
+    "sounds": [
+      "feywild:summoning_winter_pixie"
+    ],
+    "subtitle": "subtitle.feywild.summoning_winter_pixie"
+  },
+  "summoning_winter_pixie_short": {
+    "sounds": [
+      "feywild:summoning_winter_pixie_short"
+    ],
+    "subtitle": "subtitle.feywild.summoning_winter_pixie_short"
+  },
+  "winter_soundtrack": {
+    "sounds": [
+      {
+        "name": "feywild:winter_soundtrack",
+        "stream": true
+      }
+    ]
+  }
+}

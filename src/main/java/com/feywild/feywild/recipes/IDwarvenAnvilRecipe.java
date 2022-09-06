@@ -1,9 +1,6 @@
 package com.feywild.feywild.recipes;
 
-import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -12,17 +9,14 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public interface IDwarvenAnvilRecipe extends Recipe<Container> {
 
-    ResourceLocation TYPE_ID = new ResourceLocation(FeywildMod.getInstance().modid, "dwarven_anvil");
-
     @Nonnull
     @Override
     default RecipeType<?> getType() {
-        return Objects.requireNonNull(Registry.RECIPE_TYPE.get(TYPE_ID));
+        return ModRecipeTypes.dwarvenAnvil;
     }
 
     @Override

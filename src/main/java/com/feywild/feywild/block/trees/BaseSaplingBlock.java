@@ -1,15 +1,10 @@
 package com.feywild.feywild.block.trees;
 
-import com.feywild.feywild.world.feature.trees.BaseTree;
-import com.google.common.collect.ImmutableSet;
-import io.github.noeppi_noeppi.libx.mod.ModX;
-import io.github.noeppi_noeppi.libx.mod.registration.Registerable;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -20,14 +15,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
+import org.moddingx.libx.registration.RegistrationContext;
+import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Consumer;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Registerable {
 
@@ -44,19 +39,14 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     }
 
     @Override
-    public Set<Object> getAdditionalRegisters(ResourceLocation id) {
-        return ImmutableSet.of(this.item);
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        builder.register(Registry.ITEM_REGISTRY, this.item);
     }
 
     @Override
-    public void registerCommon(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ComposterBlock.add(0.4f, this));
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void registerClient(ResourceLocation id, Consumer<Runnable> defer) {
-        defer.accept(() -> ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout()));
+    public void registerCommon(SetupContext ctx) {
+        ctx.enqueue(() -> ComposterBlock.add(0.4f, this));
     }
 
     @Override
@@ -65,7 +55,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+    public boolean isBonemealSuccess(Level level, @Nonnull RandomSource rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         return (double) level.random.nextFloat() < 0.5;
     }
 
@@ -76,7 +66,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random rand) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
         super.randomTick(state, level, pos, rand);
         if (level.isAreaLoaded(pos, 1)) {
             if (level.getMaxLocalRawBrightness(pos.above()) >= 9 && rand.nextInt(7) == 0) {
@@ -86,7 +76,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     }
 
     @Override
-    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull Random random, @Nonnull BlockPos pos, BlockState state) {
+    public void performBonemeal(@Nonnull ServerLevel level, @Nonnull RandomSource random, @Nonnull BlockPos pos, BlockState state) {
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.setValue(STAGE, 1), 4);
         } else {

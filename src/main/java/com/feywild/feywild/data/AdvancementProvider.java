@@ -2,12 +2,9 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.entity.ModEntityTypes;
+import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.world.dimension.market.MarketPlaceDimension;
-import io.github.noeppi_noeppi.libx.annotation.data.Datagen;
-import io.github.noeppi_noeppi.libx.data.provider.AdvancementProviderBase;
-import io.github.noeppi_noeppi.libx.mod.ModX;
+import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -16,6 +13,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.provider.AdvancementProviderBase;
+import org.moddingx.libx.mod.ModX;
 
 @Datagen
 public class AdvancementProvider extends AdvancementProviderBase {
@@ -37,7 +37,7 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
         this.advancement("dwarf_trade").parent("fey_dust")
                 .display(ModItems.lesserFeyGem)
-                .task(new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
+                .task(new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
 
         this.advancement("dwarf_contract").parent("dwarf_trade")
                 .display(ModItems.summoningScrollDwarfBlacksmith)
@@ -82,17 +82,17 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
         this.advancement("dwarven_market").parent("traveling_stone")
                 .display(ModItems.marketRuneStone)
-                .task(new ChangeDimensionTrigger.TriggerInstance(this.entity(EntityType.PLAYER), Level.OVERWORLD, MarketPlaceDimension.MARKET_PLACE_DIMENSION));
+                .task(new ChangeDimensionTrigger.TriggerInstance(this.entity(EntityType.PLAYER), Level.OVERWORLD, FeywildDimensions.MARKETPLACE));
 
         this.advancement("dwarf_trades").parent("dwarven_market")
                 .display(ModItems.marketRuneStone)
                 .task(
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfBaker), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfShepherd), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfArtificer), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfToolsmith), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfMiner), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntityTypes.dwarfDragonHunter), ItemPredicate.ANY)
+                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfBaker), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfShepherd), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfArtificer), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfToolsmith), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfMiner), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfDragonHunter), ItemPredicate.ANY)
                 );
 
         this.advancement("honeycomb")

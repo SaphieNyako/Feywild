@@ -12,9 +12,9 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class DwarfBlacksmithLayer<T extends DwarfBlacksmith> extends GeoLayerRenderer<T> {
 
-    private static final ResourceLocation BLACKSMITH_GLOW = new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/dwarf_blacksmith_glow.png");
-    private static final ResourceLocation BLACKSMITH_CANDLE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/entity/dwarf_blacksmith_candle.png");
-    private static final ResourceLocation BLACKSMITH = new ResourceLocation(FeywildMod.getInstance().modid, "geo/dwarf_blacksmith.geo.json");
+    private static final ResourceLocation BLACKSMITH_GLOW = FeywildMod.getInstance().resource("textures/entity/dwarf_blacksmith_glow.png");
+    private static final ResourceLocation BLACKSMITH_CANDLE = FeywildMod.getInstance().resource("textures/entity/dwarf_blacksmith_candle.png");
+    private static final ResourceLocation BLACKSMITH = FeywildMod.getInstance().resource("geo/dwarf_blacksmith.geo.json");
 
     public DwarfBlacksmithLayer(IGeoRenderer<T> entityRendererIn) {
         super(entityRendererIn);

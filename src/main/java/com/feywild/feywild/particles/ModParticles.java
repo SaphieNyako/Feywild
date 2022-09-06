@@ -1,10 +1,10 @@
 package com.feywild.feywild.particles;
 
 
-import io.github.noeppi_noeppi.libx.annotation.registration.RegisterClass;
 import net.minecraft.core.particles.SimpleParticleType;
+import org.moddingx.libx.annotation.registration.RegisterClass;
 
-@RegisterClass
+@RegisterClass(registry = "PARTICLE_TYPE_REGISTRY")
 public class ModParticles {
 
     public static final SimpleParticleType leafParticle = new SimpleParticleType(true);

@@ -1,0 +1,28 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.6,
+    "salt": 240659683,
+    "separation": 20,
+    "spacing": 50,
+    "spread_type": "triangular"
+  },
+  "structures": [
+    {
+      "structure": "feywild:spring_world_tree",
+      "weight": 1
+    },
+    {
+      "structure": "feywild:summer_world_tree",
+      "weight": 1
+    },
+    {
+      "structure": "feywild:autumn_world_tree",
+      "weight": 1
+    },
+    {
+      "structure": "feywild:winter_world_tree",
+      "weight": 1
+    }
+  ]
+}

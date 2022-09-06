@@ -12,6 +12,4 @@ public class ModBlockTags {
     public static final TagKey<Block> SPRING_LOGS = BlockTags.create(FeywildMod.getInstance().resource("spring_logs"));
     public static final TagKey<Block> SUMMER_LOGS = BlockTags.create(FeywildMod.getInstance().resource("summer_logs"));
     public static final TagKey<Block> WINTER_LOGS = BlockTags.create(FeywildMod.getInstance().resource("winter_logs"));
-
-    public static final TagKey<Block> PORTAL_FRAME_BLOCKS = BlockTags.create(FeywildMod.getInstance().resource("portal_frame_blocks"));
 }

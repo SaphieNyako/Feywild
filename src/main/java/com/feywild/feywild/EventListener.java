@@ -5,26 +5,27 @@ import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
-import com.feywild.feywild.network.OpenLibraryScreenSerializer;
-import com.feywild.feywild.network.OpeningScreenSerializer;
-import com.feywild.feywild.network.TradesSerializer;
+import com.feywild.feywild.network.LibraryScreenMessage;
+import com.feywild.feywild.network.OpeningScreenMessage;
+import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
+import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.trade.TradeManager;
-import com.feywild.feywild.util.FeywildTitleScreen;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.dimension.market.setup.MarketHandler;
-import io.github.noeppi_noeppi.libx.event.ConfigLoadedEvent;
+import com.feywild.feywild.world.market.MarketHandler;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ScreenOpenEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -32,13 +33,14 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
+import org.moddingx.libx.event.ConfigLoadedEvent;
 
 public class EventListener {
 
     @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
-        if (event.getPlayer() instanceof ServerPlayer) {
-            QuestData.get((ServerPlayer) event.getPlayer()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
+        if (event.getEntity() instanceof ServerPlayer) {
+            QuestData.get((ServerPlayer) event.getEntity()).checkComplete(CraftTask.INSTANCE, event.getCrafting());
         }
     }
 
@@ -46,7 +48,7 @@ public class EventListener {
     public void playerKill(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            quests.checkComplete(KillTask.INSTANCE, event.getEntityLiving());
+            quests.checkComplete(KillTask.INSTANCE, event.getEntity());
         }
     }
 
@@ -59,31 +61,26 @@ public class EventListener {
             //Quest Check for Biome
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            if (player.getLevel().structureFeatureManager().hasAnyStructureAt(player.blockPosition())) {
-                player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> quests.checkComplete(StructureTask.INSTANCE, structure));
-
-                //TODO TELEPORTING PLAYER TO OTHER DIMENSION WHEN NEAR A STRUCTURE
-
-                //   if (player.getLevel().structureFeatureManager().getAllStructuresAt(player.blockPosition()).containsKey(FeywildDimensionConfiguredFeatures.feyCircle.value())) {
-                //      FeywildDimensionHandler.teleportToFeywild(player);
-                //   }
-
-                //  player.getLevel().structureFeatureManager().getStructureAt(player.blockPosition(), FeywildDimensionConfiguredFeatures.feyCircle.value()) != null);
-
-                //   if (player.getLevel().findNearestMapFeature(ModStructureTags.ConfiguredStructureFeatures.PORTAL_STRUCTURE, player.blockPosition(), 0, true) != null) {
-                //       FeywildDimensionHandler.teleportToFeywild(player);
-                //   }
+            if (player.getLevel().structureManager().hasAnyStructureAt(player.blockPosition())) {
+                RegistryAccess access = player.getLevel().registryAccess();
+                Registry<Structure> structureRegistry = access.registryOrThrow(Registry.STRUCTURE_REGISTRY);
+                player.getLevel().structureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> {
+                    ResourceLocation structureId = structureRegistry.getKey(structure);
+                    if (structureId != null) {
+                        quests.checkComplete(StructureTask.INSTANCE, structureId);
+                    }
+                });
             }
         }
     }
 
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
-        if (!event.getWorld().isClientSide && event.getPlayer() instanceof ServerPlayer) {
+        if (!event.getLevel().isClientSide && event.getEntity() instanceof ServerPlayer player) {
             if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
-                event.getPlayer().sendMessage(new TranslatableComponent("librarian.feywild.initial"), event.getPlayer().getUUID());
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpenLibraryScreenSerializer.Message(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
-                event.getPlayer().swing(event.getHand(), true);
+                player.sendSystemMessage(Component.translatable("librarian.feywild.initial"));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new LibraryScreenMessage(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
+                player.swing(event.getHand(), true);
                 event.setCanceled(true);
             }
         }
@@ -91,16 +88,16 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getPlayer().level.isClientSide) {
-            if (event.getPlayer() instanceof ServerPlayer) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new TradesSerializer.Message(TradeManager.buildRecipes()));
+        if (!event.getEntity().level.isClientSide) {
+            if (event.getEntity() instanceof ServerPlayer) {
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new TradesMessage(TradeManager.buildRecipes()));
             }
-            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
-                event.getPlayer().getInventory().add(new ItemStack(ModItems.feywildLexicon));
-                FeyPlayerData.get(event.getPlayer()).putBoolean("feywild_got_lexicon", true);
+            if (!FeyPlayerData.get(event.getEntity()).getBoolean("feywild_got_lexicon") && MiscConfig.initial_lexicon) {
+                event.getEntity().getInventory().add(new ItemStack(ModItems.feywildLexicon));
+                FeyPlayerData.get(event.getEntity()).putBoolean("feywild_got_lexicon", true);
             }
-            if (!FeyPlayerData.get(event.getPlayer()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.LOGIN) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getPlayer()), new OpeningScreenSerializer.Message());
+            if (!FeyPlayerData.get(event.getEntity()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.LOGIN) {
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new OpeningScreenMessage());
                 // feywild_got_scroll is set when the player actually retrieves a scroll
             }
         }
@@ -109,14 +106,14 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerClone(PlayerEvent.Clone event) {
-        FeyPlayerData.copy(event.getOriginal(), event.getPlayer());
+        FeyPlayerData.copy(event.getOriginal(), event.getEntity());
     }
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
-    public void openGui(ScreenOpenEvent event) {
+    public void openGui(ScreenEvent.Opening event) {
         if (ClientConfig.replace_menu && event.getScreen() instanceof TitleScreen && !(event.getScreen() instanceof FeywildTitleScreen)) {
-            event.setScreen(new FeywildTitleScreen());
+            event.setNewScreen(new FeywildTitleScreen());
         }
     }
 
@@ -129,28 +126,27 @@ public class EventListener {
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
-        BeeKnight.anger(event.getWorld(), event.getPlayer(), event.getPos());
+        BeeKnight.anger(event.getLevel(), event.getEntity(), event.getPos());
     }
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.LeftClickBlock event) {
-        BeeKnight.anger(event.getWorld(), event.getPlayer(), event.getPos());
+        BeeKnight.anger(event.getLevel(), event.getEntity(), event.getPos());
     }
 
     @SubscribeEvent
-    public void tickWorld(TickEvent.WorldTickEvent event) {
-        if (event.world instanceof ServerLevel && event.world.dimension() == Level.OVERWORLD) {
-            MarketHandler.update(((ServerLevel) event.world).getServer());
+    public void tickServer(TickEvent.ServerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            MarketHandler.update(event.getServer());
         }
     }
 
     @SubscribeEvent
     public void afterReload(OnDatapackSyncEvent event) {
         if (event.getPlayer() == null) {
-            FeywildMod.getNetwork().channel.send(PacketDistributor.ALL.noArg(), new TradesSerializer.Message(TradeManager.buildRecipes()));
+            FeywildMod.getNetwork().channel.send(PacketDistributor.ALL.noArg(), new TradesMessage(TradeManager.buildRecipes()));
         } else {
-            FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(event::getPlayer), new TradesSerializer.Message(TradeManager.buildRecipes()));
+            FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(event::getPlayer), new TradesMessage(TradeManager.buildRecipes()));
         }
     }
-
 }

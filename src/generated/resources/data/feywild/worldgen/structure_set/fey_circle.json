@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.8,
+    "salt": 2138045150,
+    "separation": 6,
+    "spacing": 13
+  },
+  "structures": [
+    {
+      "structure": "feywild:fey_circle",
+      "weight": 1
+    }
+  ]
+}

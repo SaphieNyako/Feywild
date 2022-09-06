@@ -2,7 +2,7 @@ package com.feywild.feywild.entity.goals;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.Fey;
-import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -47,7 +47,7 @@ public class TargetBreedGoal extends Goal {
             if (this.ticksLeft <= 0) {
                 if (this.entity.level instanceof ServerLevel) {
                     this.targetAnimal.spawnChildFromBreeding((ServerLevel) this.entity.level, this.partner);
-                    FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleSerializer.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
+                    FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
                 }
                 this.reset();
             } else if (this.ticksLeft == 65) {

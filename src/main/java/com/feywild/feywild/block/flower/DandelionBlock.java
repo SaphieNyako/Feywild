@@ -1,16 +1,16 @@
 package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.network.ParticleSerializer;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
-import io.github.noeppi_noeppi.libx.mod.ModX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -20,9 +20,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class DandelionBlock extends GiantFlowerBlock {
 
@@ -39,7 +41,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(VARIANT) == 3 && level.random.nextInt(3) == 0) {
             level.setBlock(pos, state.setValue(VARIANT, 2), 3);
         }
@@ -75,7 +77,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     public void onRemove(@Nonnull BlockState oldState, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
         super.onRemove(oldState, level, pos, newState, moving);
         if (oldState.getValue(VARIANT) == 2) {
-            FeywildMod.getNetwork().sendParticles(level, ParticleSerializer.Type.DANDELION_FLUFF, pos);
+            FeywildMod.getNetwork().sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, pos);
         }
     }
 
@@ -86,7 +88,8 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    @OnlyIn(Dist.CLIENT)
+    protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
             double windStrength = Math.cos((double) level.getGameTime() / 2000) / 8;
             double windX = Math.cos((double) level.getGameTime() / 1200) * windStrength;
@@ -96,7 +99,7 @@ public class DandelionBlock extends GiantFlowerBlock {
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
+    public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
         return this.defaultBlockState().setValue(VARIANT, random.nextInt(3));
     }
 }

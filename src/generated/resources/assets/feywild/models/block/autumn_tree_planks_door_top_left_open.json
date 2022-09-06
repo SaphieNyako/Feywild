@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "feywild:block/autumn_tree_planks_door_bottom",
+    "top": "feywild:block/autumn_tree_planks_door_top"
+  }
+}

@@ -4,10 +4,12 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.recipes.AltarRecipe;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +19,7 @@ import javax.annotation.Nonnull;
 
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
-    public final static ResourceLocation UID = new ResourceLocation(FeywildMod.getInstance().modid, "fey_altar");
+    public final static RecipeType<AltarRecipe> TYPE = RecipeType.create(FeywildMod.getInstance().modid, "altar", AltarRecipe.class);
     public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
 
     private final IDrawable background;
@@ -25,21 +27,15 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public AltarRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 85, 85);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.feyAltar));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.feyAltar));
     }
 
     @Nonnull
     @Override
-    public ResourceLocation getUid() {
-        return UID;
+    public RecipeType<AltarRecipe> getRecipeType() {
+        return TYPE;
     }
-
-    @Nonnull
-    @Override
-    public Class<? extends AltarRecipe> getRecipeClass() {
-        return AltarRecipe.class;
-    }
-
+    
     @Nonnull
     @Override
     public Component getTitle() {
@@ -59,22 +55,15 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     }
 
     @Override
-    public void setIngredients(AltarRecipe recipe, IIngredients ii) {
-        ii.setInputIngredients(recipe.getIngredients());
-        ii.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
-    }
-
-    @Override
-    public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull AltarRecipe recipe, IIngredients ii) {
-        double anglePerItem = (2 * Math.PI) / ii.getInputs(VanillaTypes.ITEM).size();
-        for (int i = 0; i < ii.getInputs(VanillaTypes.ITEM).size(); i++) {
+    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull AltarRecipe recipe, @Nonnull IFocusGroup foci) {
+        double anglePerItem = (2 * Math.PI) / recipe.getIngredients().size();
+        for (int i = 0; i < recipe.getIngredients().size(); i++) {
             double xd = Math.round(29 * Math.sin(anglePerItem * i));
             double yd = -Math.round(29 * Math.cos(anglePerItem * i));
-            int x = (int) Math.round(43 + xd - 8);
-            int z = (int) Math.round(45 + yd - 8);
-            layout.getItemStacks().init(i, true, x, z);
+            int x = (int) Math.round(44 + xd - 8);
+            int z = (int) Math.round(46 + yd - 8);
+            builder.addSlot(RecipeIngredientRole.INPUT, x, z).addIngredients(recipe.getIngredients().get(i));
         }
-        layout.getItemStacks().init(ii.getInputs(VanillaTypes.ITEM).size(), false, 35, 37);
-        layout.getItemStacks().set(ii);
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 36, 38).addItemStack(recipe.getResultItem());
     }
 }
