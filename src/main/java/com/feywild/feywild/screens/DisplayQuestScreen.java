@@ -3,6 +3,7 @@ package com.feywild.feywild.screens;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.network.quest.ConfirmQuestMessage;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.screens.button.AcceptButton;
 import com.feywild.feywild.screens.button.NextPageButton;
@@ -30,34 +31,36 @@ public class DisplayQuestScreen extends Screen {
     private final boolean hasConfirmationButtons;
     public int textBlockNumber;
     protected List<List<FormattedCharSequence>> textBlocks;
-    int QUEST_WINDOW_POSITION_Y = 120;
-    int QUEST_WINDOW_POSITION_X = 50;
-    int ACCEPT_POSITION_Y = 190;
-    int ACCEPT_POSITION_X = 380;
-    int DECLINE_POSITION_Y = 218;
-    int DECLINE_POSITION_X = 380;
-    int NEXT_POSITION_Y = 120;
-    int NEXT_POSITION_X = 380;
+    int QUEST_WINDOW_POSITION_Y = 100;
+    int QUEST_WINDOW_POSITION_X = 70;
+    int ACCEPT_POSITION_Y = 223;
+    int ACCEPT_POSITION_X = 150;
+    int DECLINE_POSITION_Y = 223;
+    int DECLINE_POSITION_X = 250;
+    int NEXT_POSITION_Y = 158;
+    int NEXT_POSITION_X = 390;
     int CHARACTER_POSITION_Y = 240;
     int CHARACTER_POSITION_X = 37;
-    int DESCRIPTION_POSITION_Y = 148;
-    int DESCRIPTION_POSITION_X = 70;
-    int TITLE_POSITION_Y = 125;
+    int DESCRIPTION_POSITION_Y = 128;
+    int DESCRIPTION_POSITION_X = 100;
+    int TITLE_POSITION_Y = 95;
     int WIDTH_SCREEN = 323;
     int animationCount = 0;
     int lineCount = 0;
     int secondAnimationCount = 0;
     int id;
+    Alignment alignment;
     private Component title;
     private List<FormattedCharSequence> description;
     private List<FormattedCharSequence> currentTextBlock;
 
 
-    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, int id) {
+    public DisplayQuestScreen(QuestDisplay display, boolean hasConfirmationButtons, int id, Alignment alignment) {
         super(display.title);
         this.display = display;
         this.hasConfirmationButtons = hasConfirmationButtons;
         this.id = id;
+        this.alignment = alignment;
     }
 
     @Override
@@ -67,7 +70,7 @@ public class DisplayQuestScreen extends Screen {
         //background contains title (now on top of screen):
         this.title = FeywildTextProcessor.INSTANCE.processLine(this.display.title);
         //add background widget
-        this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y));
+        this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y, alignment));
         //add character widget
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y, (LivingEntity) Objects.requireNonNull(Objects.requireNonNull(minecraft).level).getEntity(id)));
 
@@ -131,7 +134,7 @@ public class DisplayQuestScreen extends Screen {
 
     private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
         if (this.minecraft != null) {
-            drawString(poseStack, this.minecraft.font, this.title, QUEST_WINDOW_POSITION_X + WIDTH_SCREEN / 2 - (this.minecraft.font.width(this.title) / 2), TITLE_POSITION_Y, 0xFFFFFF);
+            drawString(poseStack, this.minecraft.font, this.title, (QUEST_WINDOW_POSITION_X + WIDTH_SCREEN / 2 - (this.minecraft.font.width(this.title) / 2)) + 10, TITLE_POSITION_Y, 0xFFFFFF);
 
             if (lineCount < getCurrentTextBlock().size()) {
 
@@ -156,7 +159,7 @@ public class DisplayQuestScreen extends Screen {
                 if (this.animationCount != 2) {
                     this.animationCount++;
                 } else {
-                    if (secondAnimationCount < 60) {
+                    if (secondAnimationCount < 30) {
                         secondAnimationCount++;
                     } else {
                         if (lineCount < getCurrentTextBlock().size()) {

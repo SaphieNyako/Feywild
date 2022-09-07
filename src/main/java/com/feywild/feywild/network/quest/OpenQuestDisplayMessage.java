@@ -1,5 +1,6 @@
 package com.feywild.feywild.network.quest;
 
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.screens.DisplayQuestScreen;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,7 @@ import org.moddingx.libx.network.PacketSerializer;
 
 import java.util.function.Supplier;
 
-public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmationButtons, int id) {
+public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmationButtons, int id, Alignment alignment) {
 
     public static class Serializer implements PacketSerializer<OpenQuestDisplayMessage> {
 
@@ -27,6 +28,7 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
             msg.display().toNetwork(buffer);
             buffer.writeBoolean(msg.confirmationButtons());
             buffer.writeInt(msg.id);
+            buffer.writeEnum(msg.alignment);
         }
 
         @Override
@@ -34,7 +36,8 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
             QuestDisplay display = QuestDisplay.fromNetwork(buffer);
             boolean confirmationButtons = buffer.readBoolean();
             int id = buffer.readInt();
-            return new OpenQuestDisplayMessage(display, confirmationButtons, id);
+            Alignment alignment = buffer.readEnum(Alignment.class);
+            return new OpenQuestDisplayMessage(display, confirmationButtons, id, alignment);
         }
     }
 
@@ -53,7 +56,7 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
                     Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(msg.display.sound, SoundSource.MASTER, 1, 1, player.getRandom(), player.getX(), player.getY(), player.getZ()));
                 }
             }
-            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons, msg.id));
+            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons, msg.id, msg.alignment));
             return true;
         }
     }

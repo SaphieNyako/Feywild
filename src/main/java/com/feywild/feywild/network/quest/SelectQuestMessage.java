@@ -1,6 +1,7 @@
 package com.feywild.feywild.network.quest;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.player.QuestData;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,7 +14,7 @@ import org.moddingx.libx.network.PacketSerializer;
 
 import java.util.function.Supplier;
 
-public record SelectQuestMessage(ResourceLocation quest, Component title, int id) {
+public record SelectQuestMessage(ResourceLocation quest, Component title, int id, Alignment alignment) {
 
     public static class Serializer implements PacketSerializer<SelectQuestMessage> {
 
@@ -27,6 +28,7 @@ public record SelectQuestMessage(ResourceLocation quest, Component title, int id
             buffer.writeResourceLocation(msg.quest());
             buffer.writeComponent(msg.title);
             buffer.writeInt(msg.id);
+            buffer.writeEnum(msg.alignment);
         }
 
         @Override
@@ -34,7 +36,8 @@ public record SelectQuestMessage(ResourceLocation quest, Component title, int id
             ResourceLocation quest = buffer.readResourceLocation();
             Component title = buffer.readComponent();
             int id = buffer.readInt();
-            return new SelectQuestMessage(quest, title, id);
+            Alignment alignment = buffer.readEnum(Alignment.class);
+            return new SelectQuestMessage(quest, title, id, alignment);
         }
     }
 
@@ -51,7 +54,7 @@ public record SelectQuestMessage(ResourceLocation quest, Component title, int id
             if (player != null) {
                 QuestDisplay display = QuestData.get(player).getActiveQuestDisplay(msg.quest);
                 if (display != null) {
-                    FeywildMod.getNetwork().channel.reply(new OpenQuestDisplayMessage(display, false, msg.id), ctx.get());
+                    FeywildMod.getNetwork().channel.reply(new OpenQuestDisplayMessage(display, false, msg.id, msg.alignment), ctx.get());
                 }
             }
             return true;

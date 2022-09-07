@@ -26,7 +26,7 @@ public class CharacterWidget extends Panel {
         float xMouse = (float) mouseX;
         float yMouse = (float) mouseY;
 
-        InventoryScreen.renderEntityInInventory(this.x, this.y, 65,
+        InventoryScreen.renderEntityInInventory(this.x, this.y, 85,
                 (float) 0 - xMouse, (float) 100 - yMouse, this.entity);
     }
 }

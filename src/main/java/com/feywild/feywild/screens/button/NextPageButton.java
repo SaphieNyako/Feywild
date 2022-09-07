@@ -39,7 +39,7 @@ public class NextPageButton extends Button {
         Font font = minecraft.font;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, BUTTON_TEXTURE);
-        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 0.5F);
+        // RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 0.5F);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
