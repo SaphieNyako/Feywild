@@ -13,7 +13,7 @@ import org.moddingx.libx.network.PacketSerializer;
 
 import java.util.function.Supplier;
 
-public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmationButtons) {
+public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmationButtons, int id) {
 
     public static class Serializer implements PacketSerializer<OpenQuestDisplayMessage> {
 
@@ -26,13 +26,15 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
         public void encode(OpenQuestDisplayMessage msg, FriendlyByteBuf buffer) {
             msg.display().toNetwork(buffer);
             buffer.writeBoolean(msg.confirmationButtons());
+            buffer.writeInt(msg.id);
         }
 
         @Override
         public OpenQuestDisplayMessage decode(FriendlyByteBuf buffer) {
             QuestDisplay display = QuestDisplay.fromNetwork(buffer);
             boolean confirmationButtons = buffer.readBoolean();
-            return new OpenQuestDisplayMessage(display, confirmationButtons);
+            int id = buffer.readInt();
+            return new OpenQuestDisplayMessage(display, confirmationButtons, id);
         }
     }
 
@@ -51,7 +53,7 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
                     Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(msg.display.sound, SoundSource.MASTER, 1, 1, player.getRandom(), player.getX(), player.getY(), player.getZ()));
                 }
             }
-            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons));
+            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons, msg.id));
             return true;
         }
     }

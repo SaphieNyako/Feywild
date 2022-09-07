@@ -57,7 +57,7 @@ public class EventListener {
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
+            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
             //Quest Check for Biome
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure

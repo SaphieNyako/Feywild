@@ -5,11 +5,13 @@ import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.LeafParticle;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
+import com.feywild.feywild.quest.reward.CommandReward;
 import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
@@ -55,7 +57,7 @@ import javax.annotation.Nonnull;
 public final class FeywildMod extends ModXRegistration {
 
     public static final Logger logger = LoggerFactory.getLogger("feywild");
-    
+
     private static FeywildMod instance;
     private static FeywildNetwork network;
 
@@ -66,14 +68,14 @@ public final class FeywildMod extends ModXRegistration {
         network = new FeywildNetwork(this);
 
         GeckoLib.initialize();
-        
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderTypes);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
-        
+
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
@@ -86,11 +88,15 @@ public final class FeywildMod extends ModXRegistration {
         // Quest task & reward types. Not in setup as they are required for datagen.
         TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "fey_gift"), FeyGiftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "item"), ItemTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "item_stack"), ItemStackTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "item_pickup"), ItemPickupTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "pet"), AnimalPetTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+
+        RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
     }
 
@@ -150,6 +156,8 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
+
+        MinecraftForge.EVENT_BUS.register(ClientEvents.class);
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -175,15 +183,15 @@ public final class FeywildMod extends ModXRegistration {
         event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
     }
-    
+
     public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {
         event.register("semi_solid", RenderType.solid(), ForgeRenderTypes.ITEM_LAYERED_TRANSLUCENT.get());
         event.register("semi_cutout", RenderType.cutout(), ForgeRenderTypes.ITEM_LAYERED_TRANSLUCENT.get());
     }
-    
+
     private void blockColors(RegisterColorHandlersEvent.Block event) {
         //noinspection SwitchStatementWithTooFewBranches
-        BlockColor mossyColor = (state, level, pos, tintIndex) -> switch(tintIndex) {
+        BlockColor mossyColor = (state, level, pos, tintIndex) -> switch (tintIndex) {
             case 1 -> level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.get(0.5, 0.5);
             default -> 0xFFFFFF;
         };
@@ -196,7 +204,7 @@ public final class FeywildMod extends ModXRegistration {
 
     public void itemColors(RegisterColorHandlersEvent.Item event) {
         //noinspection SwitchStatementWithTooFewBranches
-        ItemColor mossyColor = (stack, tintIndex) -> switch(tintIndex) {
+        ItemColor mossyColor = (stack, tintIndex) -> switch (tintIndex) {
             case 1 -> GrassColor.get(0.5, 0.5);
             default -> 0xFFFFFF;
         };
@@ -206,7 +214,7 @@ public final class FeywildMod extends ModXRegistration {
                 ModBlocks.elvenWinterQuartz.getMossyBrickBlock()
         );
     }
-    
+
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(LibraryBooks.createReloadListener());
         event.addListener(TradeManager.createReloadListener());
