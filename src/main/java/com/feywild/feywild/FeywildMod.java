@@ -7,8 +7,7 @@ import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.particles.LeafParticle;
-import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.particles.*;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.CommandReward;
@@ -125,6 +124,10 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
             SpawnPlacements.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
             SpawnPlacements.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
+            SpawnPlacements.register(ModEntities.springBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringBotaniaPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.autumnBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnBotaniaPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.summerBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerBotaniaPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.winterBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterBotaniaPixie::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntities.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -156,6 +159,10 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
+        EntityRenderers.register(ModEntities.springBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
+        EntityRenderers.register(ModEntities.autumnBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
+        EntityRenderers.register(ModEntities.summerBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
+        EntityRenderers.register(ModEntities.winterBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
 
         MinecraftForge.EVENT_BUS.register(ClientEvents.class);
     }
@@ -175,6 +182,10 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.mandragora, Mandragora.getDefaultAttributes().build());
         event.put(ModEntities.beeKnight, BeeKnight.getDefaultAttributes().build());
         event.put(ModEntities.shroomling, Shroomling.getDefaultAttributes().build());
+        event.put(ModEntities.springBotaniaPixie, SpringBotaniaPixie.getDefaultAttributes().build());
+        event.put(ModEntities.autumnBotaniaPixie, AutumnBotaniaPixie.getDefaultAttributes().build());
+        event.put(ModEntities.summerBotaniaPixie, SummerBotaniaPixie.getDefaultAttributes().build());
+        event.put(ModEntities.winterBotaniaPixie, WinterBotaniaPixie.getDefaultAttributes().build());
     }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {
@@ -182,6 +193,10 @@ public final class FeywildMod extends ModXRegistration {
         event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
+        event.register(ModParticles.springSparkleParticle, SpringSparkleParticle.Factory::new);
+        event.register(ModParticles.autumnSparkleParticle, AutumnSparkleParticle.Factory::new);
+        event.register(ModParticles.summerSparkleParticle, SummerSparkleParticle.Factory::new);
+        event.register(ModParticles.winterSparkleParticle, WinterSparkleParticle.Factory::new);
     }
 
     public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {

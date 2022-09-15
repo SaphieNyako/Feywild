@@ -105,6 +105,12 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 60
+      },
+      {
+        "type": "feywild:spring_botania_pixie",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 60
       }
     ],
     "misc": [],

@@ -109,16 +109,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Override
     public void tick() {
         super.tick();
-        if (level.isClientSide && getParticle() != null && random.nextInt(11) == 0) {
-            level.addParticle(
-                    this.getParticle(),
-                    this.getX() + (Math.random() - 0.5),
-                    this.getY() + 1 + (Math.random() - 0.5),
-                    this.getZ() + (Math.random() - 0.5),
-                    0, -0.1, 0
-            );
-        }
-
+        //placed particles in Fey class
         Player owner = this.getOwningPlayer();
         if (owner instanceof ServerPlayer serverPlayer) {
             Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
@@ -226,7 +217,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     @Override
     public int getExperienceReward() {
-         return this.isTamed() ? 0 : super.getExperienceReward();
+        return this.isTamed() ? 0 : super.getExperienceReward();
     }
 
     @Override

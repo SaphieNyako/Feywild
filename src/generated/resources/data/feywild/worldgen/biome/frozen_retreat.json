@@ -90,6 +90,12 @@
         "weight": 60
       },
       {
+        "type": "feywild:winter_botania_pixie",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 60
+      },
+      {
         "type": "minecraft:polar_bear",
         "maxCount": 2,
         "minCount": 1,
