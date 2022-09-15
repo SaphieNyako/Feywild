@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 
 public class CharacterWidget extends Panel {
 
-    //Better to make this independent?
     public static final int WIDTH = 33;
     public static final int HEIGHT = 32;
 

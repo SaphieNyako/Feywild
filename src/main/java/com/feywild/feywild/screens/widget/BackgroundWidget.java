@@ -15,7 +15,6 @@ public class BackgroundWidget extends Panel {
 
     public static final int WIDTH = 390;
     public static final int HEIGHT = 145;
-    //TODO change textures
     public static final ResourceLocation AUTUMN_TEXTURE_01 = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/autumn_quest_background_01.png");
     public static final ResourceLocation AUTUMN_TEXTURE_02 = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/autumn_quest_background_02.png");
     public static final ResourceLocation SPRING_TEXTURE_01 = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/spring_quest_background_01.png");

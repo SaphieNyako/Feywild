@@ -18,7 +18,6 @@ public class NextPageButton extends Button {
 
     public static final int WIDTH = 22;
     public static final int HEIGHT = 22;
-    //TODO change texture small button
     public static final ResourceLocation BUTTON_TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/quest_button_small.png");
     public boolean accept;
     public BlockPos pos;
@@ -28,18 +27,11 @@ public class NextPageButton extends Button {
     }
 
     @Override
-    public void onPress() {
-        //TODO add sound effects?
-        super.onPress();
-    }
-
-    @Override
     public void renderButton(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, BUTTON_TEXTURE);
-        // RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 0.5F);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
