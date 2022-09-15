@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.network.quest.ConfirmQuestMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
@@ -40,7 +39,7 @@ public class DisplayQuestScreen extends Screen {
     int NEXT_POSITION_Y = 158;
     int NEXT_POSITION_X = 390;
     int CHARACTER_POSITION_Y = 240;
-    int CHARACTER_POSITION_X = 37;
+    int CHARACTER_POSITION_X = 40;
     int DESCRIPTION_POSITION_Y = 128;
     int DESCRIPTION_POSITION_X = 100;
     int TITLE_POSITION_Y = 95;
@@ -67,14 +66,11 @@ public class DisplayQuestScreen extends Screen {
     protected void init() {
         super.init();
 
-        //background contains title (now on top of screen):
         this.title = FeywildTextProcessor.INSTANCE.processLine(this.display.title);
-        //add background widget
+
         this.addRenderableWidget(new BackgroundWidget(this, QUEST_WINDOW_POSITION_X, QUEST_WINDOW_POSITION_Y, alignment));
-        //add character widget
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y, (LivingEntity) Objects.requireNonNull(Objects.requireNonNull(minecraft).level).getEntity(id)));
 
-        //add discription:
         this.description = FeywildTextProcessor.INSTANCE.process(this.display.description).stream().flatMap(
                 line -> ComponentRenderUtils.wrapComponents(line, 280, Minecraft.getInstance().font).stream()).collect(Collectors.toList());
 
@@ -82,10 +78,8 @@ public class DisplayQuestScreen extends Screen {
         this.textBlockNumber = 0;
         this.currentTextBlock = this.textBlocks.get(this.textBlockNumber);
 
-        //add button to go to next page of discription
         if (textBlocks.size() > 1) {
 
-            //add QuestButton to go to next page
             this.addRenderableWidget(new NextPageButton(NEXT_POSITION_X, NEXT_POSITION_Y, Component.literal(">>"), button -> {
                 this.textBlockNumber++;
                 reset();
@@ -100,7 +94,6 @@ public class DisplayQuestScreen extends Screen {
             }));
         }
 
-        //comformation buttons
         if (this.hasConfirmationButtons) {
             this.addRenderableWidget(new AcceptButton(ACCEPT_POSITION_X, ACCEPT_POSITION_Y, Component.literal("Accept!"), button -> {
                 FeywildMod.getNetwork().channel.sendToServer(new ConfirmQuestMessage(true));
@@ -111,15 +104,10 @@ public class DisplayQuestScreen extends Screen {
                 this.onClose();
             }));
         }
-
-        //on opening window close the GUI
-        ClientEvents.setShowGui(false);
     }
 
     @Override
     public void onClose() {
-        //on closing open the GUI, add client event:
-        ClientEvents.setShowGui(true);
         this.currentTextBlock = this.textBlocks.get(0);
         reset();
         super.onClose();

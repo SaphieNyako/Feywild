@@ -5,7 +5,6 @@ import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
-import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.*;
 import com.feywild.feywild.quest.QuestManager;
@@ -164,7 +163,6 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.summerBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
         EntityRenderers.register(ModEntities.winterBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
 
-        MinecraftForge.EVENT_BUS.register(ClientEvents.class);
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {

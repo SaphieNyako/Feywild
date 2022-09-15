@@ -1,6 +1,5 @@
 package com.feywild.feywild.screens;
 
-import com.feywild.feywild.events.ClientEvents;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.screens.widget.CharacterWidget;
@@ -33,15 +32,11 @@ public class SelectQuestScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-
-        //Change Quest Widget
         for (int i = 0; i < this.quests.size(); i++) {
             this.addRenderableWidget(new SelectQuestWidget(this.width / 2 - (160 / 2), 40 + ((SelectQuestWidget.HEIGHT + 4) * i), this.quests.get(i), this.title, id, alignment));
         }
-        //add Character Widget
+
         this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y, (LivingEntity) Objects.requireNonNull(Objects.requireNonNull(minecraft).level).getEntity(id)));
-        //ClientEvent
-        ClientEvents.setShowGui(false);
     }
 
     @Override
@@ -59,12 +54,5 @@ public class SelectQuestScreen extends Screen {
     @Override
     public boolean isPauseScreen() {
         return false;
-    }
-
-    //on close
-    @Override
-    public void onClose() {
-        ClientEvents.setShowGui(true);
-        super.onClose();
     }
 }
