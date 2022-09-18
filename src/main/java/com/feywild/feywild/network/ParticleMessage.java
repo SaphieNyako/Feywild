@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public record ParticleMessage(Type type, double x, double y, double z, double vx, double vy, double vz) {
 
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW, SHROOMLING_SNEEZE, PIXIE_PARTICLES
+        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW, SHROOMLING_SNEEZE
     }
 
     public static class Serializer implements PacketSerializer<ParticleMessage> {

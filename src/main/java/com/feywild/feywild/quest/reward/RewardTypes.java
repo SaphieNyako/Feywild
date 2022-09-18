@@ -26,7 +26,7 @@ public class RewardTypes {
 
     public static void register(ResourceLocation id, RewardType<?> type) {
         if (values.containsKey(id)) {
-            throw new IllegalStateException("Task type with the same id already registered: " + id);
+            throw new IllegalStateException("Task type with the same entityId already registered: " + id);
         } else if (values.containsValue(type)) {
             throw new IllegalStateException("Task type registered twice: " + type);
         } else {

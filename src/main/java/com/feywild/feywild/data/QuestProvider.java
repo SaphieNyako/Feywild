@@ -201,7 +201,7 @@ public class QuestProvider implements DataProvider {
             Set<ResourceLocation> ids = new HashSet<>();
             for (Quest quest : this.quests.get(alignment)) {
                 if (ids.contains(quest.id)) {
-                    throw new IllegalStateException("Duplicate quest id: " + quest.id);
+                    throw new IllegalStateException("Duplicate quest entityId: " + quest.id);
                 } else {
                     ids.add(quest.id);
                 }

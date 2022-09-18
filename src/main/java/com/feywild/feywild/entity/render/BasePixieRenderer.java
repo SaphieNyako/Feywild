@@ -29,4 +29,3 @@ public class BasePixieRenderer<T extends FeyBase> extends GeoEntityRenderer<T> {
         return manager -> new BasePixieRenderer<>(manager, modelProvider.get());
     }
 }
-

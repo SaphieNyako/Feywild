@@ -1,6 +1,8 @@
 package com.feywild.feywild.quest.reward;
 
 import com.google.gson.JsonObject;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
 
 public class CommandReward implements RewardType<String> {
@@ -18,10 +20,11 @@ public class CommandReward implements RewardType<String> {
 
     @Override
     public void grantReward(ServerPlayer player, String element) {
-
-        //TODO add command reward, changes to 1.19
-        //  player.server.getCommands().performCommand(player.server.createCommandSourceStack(), element);
-
+        if (player.getServer() == null) return;
+        Commands commands = player.getServer().getCommands();
+        // Find the player that completed the quest with @s
+        CommandSourceStack source = player.getServer().createCommandSourceStack().withEntity(player);
+        commands.performPrefixedCommand(source, element);
     }
 
     @Override

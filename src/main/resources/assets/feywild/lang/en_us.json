@@ -339,6 +339,8 @@
   "message.feywild.music_disc_feywild": "Music composed, mixed and mastered by: Davy Habets (IKIGA) - www.ikigamusic.com",
   "message.feywild.music_disc_feywild_2": "Song of the Seasons Composed, mixed and mastered by: Davy Habets (IKIGA)",
   "message.feywild.quest_completion": "The fey are satisfied.",
+  "message.feywild.quest_accept": "Accept!",
+  "message.feywild.quest_decline": "Decline!",
   "message.feywild.schematics_deadly_rune_crafting": "When Botania is installed this book can be used to craft Runes with the Dwarven anvil. This version also includes all the elemental and seasonal runes.",
   "message.feywild.schematics_elemental_rune_crafting": "When Botania is installed this book can be used to craft Runes with the Dwarven anvil more efficiently.",
   "message.feywild.schematics_fey_altar": "Schematics for a Fey Altar",

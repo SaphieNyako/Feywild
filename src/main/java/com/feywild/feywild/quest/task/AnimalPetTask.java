@@ -6,9 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class AnimalPetTask extends RegistryTaskType<EntityType<?>, Entity> {
-
-    //Added from FeyData
-
+    
     public static final AnimalPetTask INSTANCE = new AnimalPetTask();
 
     protected AnimalPetTask() {

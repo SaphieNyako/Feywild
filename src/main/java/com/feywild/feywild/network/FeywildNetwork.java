@@ -20,7 +20,7 @@ public class FeywildNetwork extends NetworkX {
 
     @Override
     protected Protocol getProtocol() {
-        return Protocol.of("7");
+        return Protocol.of("8");
     }
 
     @Override

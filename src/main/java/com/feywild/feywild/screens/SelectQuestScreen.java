@@ -2,30 +2,32 @@ package com.feywild.feywild.screens;
 
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import com.feywild.feywild.screens.widget.CharacterWidget;
+import com.feywild.feywild.screens.widget.EntityWidget;
 import com.feywild.feywild.screens.widget.SelectQuestWidget;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Objects;
 
 public class SelectQuestScreen extends Screen {
 
+    private static final int CHARACTER_POSITION_Y = 200;
+    private static final int CHARACTER_POSITION_X = 95;
+    
     private final List<SelectableQuest> quests;
     private final Alignment alignment;
-    int CHARACTER_POSITION_Y = 200;
-    int CHARACTER_POSITION_X = 95;
-    int id;
+    private final int entityId;
 
-    public SelectQuestScreen(Component name, List<SelectableQuest> quests, int id, Alignment alignment) {
+    public SelectQuestScreen(Component name, List<SelectableQuest> quests, int entityId, Alignment alignment) {
         super(name);
         this.quests = ImmutableList.copyOf(quests);
-        this.id = id;
+        this.entityId = entityId;
         this.alignment = alignment;
     }
 
@@ -33,10 +35,15 @@ public class SelectQuestScreen extends Screen {
     protected void init() {
         super.init();
         for (int i = 0; i < this.quests.size(); i++) {
-            this.addRenderableWidget(new SelectQuestWidget(this.width / 2 - (160 / 2), 40 + ((SelectQuestWidget.HEIGHT + 4) * i), this.quests.get(i), this.title, id, alignment));
+            this.addRenderableWidget(new SelectQuestWidget(this.width / 2 - (160 / 2), 40 + ((SelectQuestWidget.HEIGHT + 4) * i), this.quests.get(i), alignment));
         }
 
-        this.addRenderableWidget(new CharacterWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y, (LivingEntity) Objects.requireNonNull(Objects.requireNonNull(minecraft).level).getEntity(id)));
+        if (this.entityId != -1) {
+            Entity entity = Minecraft.getInstance().level == null ? null : Minecraft.getInstance().level.getEntity(this.entityId);
+            if (entity instanceof LivingEntity living) {
+                this.addRenderableWidget(new EntityWidget(this, CHARACTER_POSITION_X, CHARACTER_POSITION_Y, living));
+            }
+        }
     }
 
     @Override

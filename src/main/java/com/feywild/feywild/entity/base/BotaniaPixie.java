@@ -17,18 +17,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
-
 public abstract class BotaniaPixie extends FlyingFeyBase {
-
-    //has no owner
-
+    
     protected BotaniaPixie(EntityType<? extends FeyBase> entityType, Alignment alignment, Level level) {
         super(entityType, alignment, level);
-    }
-
-    //Alignment  determines the texture
-    public Alignment getAlignment() {
-        return alignment;
     }
 
     @Override
@@ -36,7 +28,6 @@ public abstract class BotaniaPixie extends FlyingFeyBase {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 13));
-        //TODO GoToKnownFlowerGoal, look at flowers
     }
 
     @Override
@@ -50,18 +41,6 @@ public abstract class BotaniaPixie extends FlyingFeyBase {
                         0, 0, 0);
             }
         }
-    }
-
-
-    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.botania_pixie.fly", true));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<BotaniaPixie> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
-        data.addAnimationController(flyingController);
     }
 
     @Nullable
@@ -82,5 +61,14 @@ public abstract class BotaniaPixie extends FlyingFeyBase {
         return null;
     }
 
+    @Override
+    public void registerControllers(AnimationData data) {
+        AnimationController<BotaniaPixie> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        data.addAnimationController(flyingController);
+    }
 
+    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.botania_pixie.fly", true));
+        return PlayState.CONTINUE;
+    }
 }

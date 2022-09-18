@@ -109,7 +109,18 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Override
     public void tick() {
         super.tick();
-        //placed particles in Fey class
+        
+        if (level.isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
+            for (int i = 0; i < 4; i++) {
+                level.addParticle(this.getParticle(),
+                        this.getX() + (Math.random() - 0.5),
+                        this.getY() + 1 + (Math.random() - 0.5),
+                        this.getZ() + (Math.random() - 0.5),
+                        0, 0, 0
+                );
+            }
+        }
+        
         Player owner = this.getOwningPlayer();
         if (owner instanceof ServerPlayer serverPlayer) {
             Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();

@@ -6,7 +6,9 @@ import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
-import com.feywild.feywild.particles.*;
+import com.feywild.feywild.particles.LeafParticle;
+import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.particles.SparkleParticle;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.CommandReward;
@@ -94,8 +96,8 @@ public final class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
 
-        RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
+        RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
     }
 
     @Nonnull
@@ -124,8 +126,8 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
             SpawnPlacements.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
             SpawnPlacements.register(ModEntities.springBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringBotaniaPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.autumnBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnBotaniaPixie::canSpawn);
             SpawnPlacements.register(ModEntities.summerBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerBotaniaPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.autumnBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnBotaniaPixie::canSpawn);
             SpawnPlacements.register(ModEntities.winterBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterBotaniaPixie::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
@@ -159,8 +161,8 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
         EntityRenderers.register(ModEntities.springBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
-        EntityRenderers.register(ModEntities.autumnBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
         EntityRenderers.register(ModEntities.summerBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
+        EntityRenderers.register(ModEntities.autumnBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
         EntityRenderers.register(ModEntities.winterBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
 
     }
@@ -181,8 +183,8 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.beeKnight, BeeKnight.getDefaultAttributes().build());
         event.put(ModEntities.shroomling, Shroomling.getDefaultAttributes().build());
         event.put(ModEntities.springBotaniaPixie, SpringBotaniaPixie.getDefaultAttributes().build());
-        event.put(ModEntities.autumnBotaniaPixie, AutumnBotaniaPixie.getDefaultAttributes().build());
         event.put(ModEntities.summerBotaniaPixie, SummerBotaniaPixie.getDefaultAttributes().build());
+        event.put(ModEntities.autumnBotaniaPixie, AutumnBotaniaPixie.getDefaultAttributes().build());
         event.put(ModEntities.winterBotaniaPixie, WinterBotaniaPixie.getDefaultAttributes().build());
     }
 
@@ -191,10 +193,10 @@ public final class FeywildMod extends ModXRegistration {
         event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.springSparkleParticle, SpringSparkleParticle.Factory::new);
-        event.register(ModParticles.autumnSparkleParticle, AutumnSparkleParticle.Factory::new);
-        event.register(ModParticles.summerSparkleParticle, SummerSparkleParticle.Factory::new);
-        event.register(ModParticles.winterSparkleParticle, WinterSparkleParticle.Factory::new);
+        event.register(ModParticles.springSparkleParticle, SparkleParticle.provider(0, 1, 0));
+        event.register(ModParticles.summerSparkleParticle, SparkleParticle.provider(1, 0.8f, 0));
+        event.register(ModParticles.autumnSparkleParticle, SparkleParticle.provider(1, 0.4f, 1));
+        event.register(ModParticles.winterSparkleParticle, SparkleParticle.provider(0.2f, 0.8f, 0.9f));
     }
 
     public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {
