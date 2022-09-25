@@ -23,9 +23,4 @@ public class AnimalPetTask extends RegistryTaskType<EntityType<?>, Entity> {
     public boolean checkCompleted(ServerPlayer player, EntityType<?> element, Entity match) {
         return match.getType() == element;
     }
-
-    @Override
-    public boolean repeatable() {
-        return false;
-    }
 }

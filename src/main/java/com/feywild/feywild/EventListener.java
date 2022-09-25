@@ -89,6 +89,7 @@ public class EventListener {
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!event.getLevel().isClientSide && event.getEntity() instanceof ServerPlayer player) {
+            QuestData.get(player).checkComplete(AnimalPetTask.INSTANCE, event.getTarget());
             if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
                 player.sendSystemMessage(Component.translatable("librarian.feywild.initial"));
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new LibraryScreenMessage(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
