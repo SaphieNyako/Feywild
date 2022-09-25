@@ -11,4 +11,8 @@ public class ModParticles {
     public static final SimpleParticleType springLeafParticle = new SimpleParticleType(true);
     public static final SimpleParticleType summerLeafParticle = new SimpleParticleType(true);
     public static final SimpleParticleType winterLeafParticle = new SimpleParticleType(true);
+    public static final SimpleParticleType springSparkleParticle = new SimpleParticleType(true);
+    public static final SimpleParticleType summerSparkleParticle = new SimpleParticleType(true);
+    public static final SimpleParticleType autumnSparkleParticle = new SimpleParticleType(true);
+    public static final SimpleParticleType winterSparkleParticle = new SimpleParticleType(true);
 }

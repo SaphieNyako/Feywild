@@ -10,10 +10,13 @@ import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
+import com.feywild.feywild.screens.DisplayQuestScreen;
 import com.feywild.feywild.screens.FeywildTitleScreen;
+import com.feywild.feywild.screens.SelectQuestScreen;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.market.MarketHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -25,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
@@ -36,6 +40,14 @@ import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.event.ConfigLoadedEvent;
 
 public class EventListener {
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void showGui(RenderGuiOverlayEvent.Pre event) {
+        if (Minecraft.getInstance().screen instanceof DisplayQuestScreen || Minecraft.getInstance().screen instanceof SelectQuestScreen) {
+            event.setCanceled(true);
+        }
+    }
 
     @SubscribeEvent
     public void craftItem(PlayerEvent.ItemCraftedEvent event) {
@@ -57,7 +69,7 @@ public class EventListener {
         // Only check one / second
         if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
-            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemTask.INSTANCE, stack));
+            player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
             //Quest Check for Biome
             player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
@@ -77,6 +89,7 @@ public class EventListener {
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!event.getLevel().isClientSide && event.getEntity() instanceof ServerPlayer player) {
+            QuestData.get(player).checkComplete(AnimalPetTask.INSTANCE, event.getTarget());
             if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
                 player.sendSystemMessage(Component.translatable("librarian.feywild.initial"));
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new LibraryScreenMessage(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));

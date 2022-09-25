@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.FeyBase;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -8,11 +8,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class FeywildPanicGoal extends Goal {
 
-    private final Fey entity;
+    private final FeyBase entity;
     private final int range;
     private final double speed;
 
-    public FeywildPanicGoal(Fey entity, double speed, int range) {
+    public FeywildPanicGoal(FeyBase entity, double speed, int range) {
         this.entity = entity;
         this.speed = speed;
         this.range = range;

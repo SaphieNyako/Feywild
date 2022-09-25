@@ -108,22 +108,22 @@ public abstract class Fey extends FlyingFeyBase {
         if (quests.canComplete(this.alignment)) {
             QuestDisplay completionDisplay = quests.completePendingQuest();
             if (completionDisplay != null) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(completionDisplay, false));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(completionDisplay, false, this.getId(), this.alignment));
                 player.swing(hand, true);
             } else {
                 List<SelectableQuest> active = quests.getActiveQuests();
                 if (active.size() == 1) {
-                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(active.get(0).display(), false));
+                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(active.get(0).display(), false, this.getId(), this.alignment));
                     player.swing(hand, true);
                 } else if (!active.isEmpty()) {
-                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestSelectionMessage(this.getDisplayName(), this.alignment, active));
+                    FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestSelectionMessage(this.getDisplayName(), active, this.getId(), this.alignment));
                     player.swing(hand, true);
                 }
             }
         } else {
             QuestDisplay initDisplay = quests.initialize(this.alignment);
             if (initDisplay != null) {
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(initDisplay, true));
+                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> player), new OpenQuestDisplayMessage(initDisplay, true, this.getId(), this.alignment));
                 player.swing(hand, true);
             }
         }

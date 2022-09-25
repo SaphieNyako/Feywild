@@ -5,11 +5,11 @@ import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FlyingFeyBase;
 import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
+import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -91,8 +91,8 @@ public class BeeKnight extends FlyingFeyBase {
     }
 
     public static void anger(Level level, Player player, BlockPos pos) {
-        if (!level.isClientSide && player instanceof ServerPlayer) {
-            QuestData quests = QuestData.get((ServerPlayer) player);
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            QuestData quests = QuestData.get(serverPlayer);
             if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.bee_knight.required_reputation) {
                 AABB aabb = new AABB(pos).inflate(2 * MobConfig.bee_knight.aggrevation_range);
                 level.getEntities(ModEntities.beeKnight, aabb, entity -> true).forEach(bee -> {
@@ -116,7 +116,7 @@ public class BeeKnight extends FlyingFeyBase {
 
     @Override
     public SimpleParticleType getParticle() {
-        return ParticleTypes.CRIT;
+        return ModParticles.summerSparkleParticle;
     }
 
     @Nonnull

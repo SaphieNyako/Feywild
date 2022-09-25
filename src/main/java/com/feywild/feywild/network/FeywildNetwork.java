@@ -20,7 +20,7 @@ public class FeywildNetwork extends NetworkX {
 
     @Override
     protected Protocol getProtocol() {
-        return Protocol.of("7");
+        return Protocol.of("8");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class FeywildNetwork extends NetworkX {
         this.registerGame(NetworkDirection.PLAY_TO_SERVER, new RequestItemMessage.Serializer(), () -> RequestItemMessage.Handler::new);
         this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new ParticleMessage.Serializer(), () -> ParticleMessage.Handler::new);
         this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new TradesMessage.Serializer(), () -> TradesMessage.Handler::new);
-        
+
         this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new OpenQuestSelectionMessage.Serializer(), () -> OpenQuestSelectionMessage.Handler::new);
         this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new OpenQuestDisplayMessage.Serializer(), () -> OpenQuestDisplayMessage.Handler::new);
         this.registerGame(NetworkDirection.PLAY_TO_SERVER, new SelectQuestMessage.Serializer(), () -> SelectQuestMessage.Handler::new);

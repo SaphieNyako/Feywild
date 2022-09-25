@@ -100,6 +100,12 @@
         "weight": 30
       },
       {
+        "type": "feywild:autumn_botania_pixie",
+        "maxCount": 4,
+        "minCount": 2,
+        "weight": 60
+      },
+      {
         "type": "minecraft:rabbit",
         "maxCount": 3,
         "minCount": 2,

@@ -21,7 +21,7 @@
   "tasks": [
     {
       "amount": 2,
-      "id": "feywild:item",
+      "id": "feywild:item_stack",
       "item": {
         "item": "minecraft:carved_pumpkin"
       }

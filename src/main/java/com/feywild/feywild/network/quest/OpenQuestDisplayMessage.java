@@ -1,6 +1,8 @@
 package com.feywild.feywild.network.quest;
 
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
+import com.feywild.feywild.quest.player.ClientQuests;
 import com.feywild.feywild.screens.DisplayQuestScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -13,7 +15,7 @@ import org.moddingx.libx.network.PacketSerializer;
 
 import java.util.function.Supplier;
 
-public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmationButtons) {
+public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmationButtons, int entityId, Alignment alignment) {
 
     public static class Serializer implements PacketSerializer<OpenQuestDisplayMessage> {
 
@@ -26,13 +28,17 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
         public void encode(OpenQuestDisplayMessage msg, FriendlyByteBuf buffer) {
             msg.display().toNetwork(buffer);
             buffer.writeBoolean(msg.confirmationButtons());
+            buffer.writeInt(msg.entityId());
+            buffer.writeEnum(msg.alignment());
         }
 
         @Override
         public OpenQuestDisplayMessage decode(FriendlyByteBuf buffer) {
             QuestDisplay display = QuestDisplay.fromNetwork(buffer);
             boolean confirmationButtons = buffer.readBoolean();
-            return new OpenQuestDisplayMessage(display, confirmationButtons);
+            int id = buffer.readInt();
+            Alignment alignment = buffer.readEnum(Alignment.class);
+            return new OpenQuestDisplayMessage(display, confirmationButtons, id, alignment);
         }
     }
 
@@ -47,11 +53,12 @@ public record OpenQuestDisplayMessage(QuestDisplay display, boolean confirmation
         public boolean handle(OpenQuestDisplayMessage msg, Supplier<NetworkEvent.Context> ctx) {
             if (msg.display.sound != null) {
                 Player player = Minecraft.getInstance().player;
-                if (player != null) {
-                    Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(msg.display.sound, SoundSource.MASTER, 1, 1, player.getRandom(), player.getX(), player.getY(), player.getZ()));
+                if (player != null && msg.display().sound != null) {
+                    Minecraft.getInstance().getSoundManager().play(new SimpleSoundInstance(msg.display().sound, SoundSource.MASTER, 1, 1, player.getRandom(), player.getX(), player.getY(), player.getZ()));
                 }
             }
-            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display, msg.confirmationButtons));
+            if (msg.entityId() != -1) ClientQuests.lastTalkedEntityId = msg.entityId();
+            Minecraft.getInstance().setScreen(new DisplayQuestScreen(msg.display(), msg.confirmationButtons(), ClientQuests.lastTalkedEntityId, msg.alignment()));
             return true;
         }
     }

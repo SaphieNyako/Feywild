@@ -2,8 +2,8 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.goals.SummonSnowManGoal;
+import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.Alignment;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -25,6 +25,6 @@ public class WinterPixie extends Fey {
 
     @Override
     public SimpleParticleType getParticle() {
-        return ParticleTypes.ENCHANTED_HIT;
+        return ModParticles.winterSparkleParticle;
     }
 }

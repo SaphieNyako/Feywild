@@ -30,7 +30,7 @@
   "tasks": [
     {
       "amount": 1,
-      "id": "feywild:item",
+      "id": "feywild:item_stack",
       "item": {
         "item": "minecraft:zombie_head"
       }

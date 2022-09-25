@@ -63,4 +63,21 @@ public class ModEntities {
     public static final EntityType<WinterPixie> winterPixie = EntityType.Builder.of(WinterPixie::new, MobCategory.CREATURE)
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_winter_pixie");
+
+    public static final EntityType<SpringBotaniaPixie> springBotaniaPixie = EntityType.Builder.of(SpringBotaniaPixie::new, MobCategory.CREATURE)
+            .sized(0.25f, 0.25f)
+            .build(FeywildMod.getInstance().modid + "_spring_botania_pixie");
+
+    public static final EntityType<WinterBotaniaPixie> winterBotaniaPixie = EntityType.Builder.of(WinterBotaniaPixie::new, MobCategory.CREATURE)
+            .sized(0.25f, 0.25f)
+            .build(FeywildMod.getInstance().modid + "_winter_botania_pixie");
+
+    public static final EntityType<SummerBotaniaPixie> summerBotaniaPixie = EntityType.Builder.of(SummerBotaniaPixie::new, MobCategory.CREATURE)
+            .sized(0.25f, 0.25f)
+            .build(FeywildMod.getInstance().modid + "_summer_botania_pixie");
+
+    public static final EntityType<AutumnBotaniaPixie> autumnBotaniaPixie = EntityType.Builder.of(AutumnBotaniaPixie::new, MobCategory.CREATURE)
+            .sized(0.25f, 0.25f)
+            .build(FeywildMod.getInstance().modid + "_autumn_botania_pixie");
+
 }

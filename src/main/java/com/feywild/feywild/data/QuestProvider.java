@@ -145,7 +145,7 @@ public class QuestProvider implements DataProvider {
 
         this.quest(AUTUMN, "pumpkin")
                 .parent("food_complete")
-                .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
                 .build();
         
         this.quest(AUTUMN, "dyes")
@@ -176,7 +176,7 @@ public class QuestProvider implements DataProvider {
 
         this.quest(WINTER, "skull")
                 .parent("snowballs")
-                .task(QuestTask.of(ItemTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ZOMBIE_HEAD), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ZOMBIE_HEAD), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.WITHER_SKELETON_SKULL)))
                 .build();
 
@@ -201,7 +201,7 @@ public class QuestProvider implements DataProvider {
             Set<ResourceLocation> ids = new HashSet<>();
             for (Quest quest : this.quests.get(alignment)) {
                 if (ids.contains(quest.id)) {
-                    throw new IllegalStateException("Duplicate quest id: " + quest.id);
+                    throw new IllegalStateException("Duplicate quest entityId: " + quest.id);
                 } else {
                     ids.add(quest.id);
                 }
