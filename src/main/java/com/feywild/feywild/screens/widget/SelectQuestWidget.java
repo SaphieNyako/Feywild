@@ -22,7 +22,7 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class SelectQuestWidget extends Button {
 
-    public static final int WIDTH = 185;
+    public static final int WIDTH = 210;
     public static final int HEIGHT = 65;
     
     private static final Map<Alignment, ResourceLocation> TEXTURES3 = Map.of(
@@ -65,14 +65,8 @@ public class SelectQuestWidget extends Button {
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
         
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack, this.x + WIDTH / 2, this.y - 10);
+        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack, this.x + 20, this.y + (this.height - 16) / 2);
 
-        if (quest.display().title.getString().length() < 20) {
-            String title_string = quest.display().title.getContents().toString();
-            drawString(poseStack, font, title_string, this.x + 35, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
-        } else {
-            String title_string = quest.display().title.getString().substring(0, 20) + "...";
-            drawString(poseStack, font, title_string, this.x + 35, this.y + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF);
-        }
+        font.drawShadow(poseStack, quest.display().title, this.x + 38, this.y + ((HEIGHT - font.lineHeight) / 2f), 0xFFFFFF);
     }
 }
