@@ -14,5 +14,5 @@ public class ClientConfig {
     public static boolean flower_particles = true;
 
     @Config("Whether Glow Layers for the Shroomling and Blacksmith should be used: Optifine Users should always disable this!")
-    public static boolean mob_glow = true;
+    public static boolean mob_glow = false;
 }
