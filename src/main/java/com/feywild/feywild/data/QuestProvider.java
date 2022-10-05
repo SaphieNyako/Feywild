@@ -1,5 +1,6 @@
 package com.feywild.feywild.data;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.*;
@@ -48,35 +49,64 @@ public class QuestProvider implements DataProvider {
 
     public void setup() {
         this.root(SPRING)
-                .icon(Items.DIAMOND)
+                .icon(Items.OXEYE_DAISY)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningSpringPixie)
                 .build();
 
-        this.quest(SPRING, "levitate_sheep")
+        this.quest(SPRING, "quest_01")
                 .parent("root")
+                .icon(Blocks.CHEST)
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.CHEST), 1))
+                .build();
+
+        this.quest(SPRING, "quest_02")
+                .parent("quest_01")
+                .icon(Blocks.WHITE_WOOL)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.WHITE_WOOL), 3)))
+                .build();
+        //TODO detect animal task, if a animal is near the pixie you complete the task.
+        // quest_02 show animals from the overworld
+
+        this.quest(SPRING, "quest_03")
+                .parent("quest_02")
                 .icon(Blocks.PINK_WOOL)
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP, 3))
                 .build();
+        //TODO reward: Raindbow Grass or Sheep  Plush
 
-        this.quest(SPRING, "cake")
-                .parent("levitate_sheep")
+        this.quest(SPRING, "quest_04")
+                .parent("quest_03")
+                .icon(Items.CAKE)
                 .gift(Ingredient.of(Items.CAKE), 2)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.SWEET_BERRIES, 6)))
-                .build();
-
-        this.quest(SPRING, "honey")
-                .parent("cake")
-                .gift(Ingredient.of(ModItems.honeycomb), 1)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.honeycomb, 1)))
-                .build();
-
-        this.quest(SPRING, "sapling")
-                .parent("honey")
-                .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
+                .build();
+
+        this.quest(SPRING, "quest_05")
+                .parent("quest_04")
+                .icon(ModTrees.springTree.getSapling())
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE, 3))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
+
+        this.quest(SPRING, "quest_06")
+                .parent("quest_05")
+                .icon(Items.BOOK)
+                .task(QuestTask.of(StructureTask.INSTANCE, ResourceLocation.of("feywild:library", ':')))
+                .build();
+
+        this.quest(SPRING, "quest_07")
+                .parent("quest_06")
+                .icon(ModBlocks.libraryBell)
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.ANNOY_LIBRARIAN))
+                .build();
+
+        this.quest(SPRING, "quest_08")
+                .parent("quest_06")
+                .icon(ModItems.feywildLexicon)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.feywildLexicon), 1)))
+                .build();
+        //TODO reward Mysthical world, patchouli book
 
         this.root(SUMMER)
                 .icon(Items.DIAMOND)
@@ -147,14 +177,14 @@ public class QuestProvider implements DataProvider {
                 .parent("food_complete")
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
                 .build();
-        
+
         this.quest(AUTUMN, "dyes")
                 .parent("pumpkin")
                 .icon(Items.RED_DYE)
                 .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.DYES), 9))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
                 .build();
-        
+
         this.quest(AUTUMN, "sapling")
                 .parent("dyes")
                 .icon(ModTrees.autumnTree.getSapling())

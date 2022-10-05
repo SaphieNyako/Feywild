@@ -1,11 +1,11 @@
 {
-  "parent": "feywild:levitate_sheep",
+  "parent": "feywild:quest_03",
   "complete": {
     "description": {
-      "translate": "quest.feywild.spring.cake.complete.description"
+      "translate": "quest.feywild.spring.quest_04.complete.description"
     },
     "title": {
-      "translate": "quest.feywild.spring.cake.complete.title"
+      "translate": "quest.feywild.spring.quest_04.complete.title"
     }
   },
   "icon": "minecraft:cake",
@@ -14,17 +14,17 @@
     {
       "id": "feywild:item",
       "item": {
-        "count": 6,
-        "item": "minecraft:sweet_berries"
+        "count": 3,
+        "item": "feywild:spring_tree_sapling"
       }
     }
   ],
   "start": {
     "description": {
-      "translate": "quest.feywild.spring.cake.start.description"
+      "translate": "quest.feywild.spring.quest_04.start.description"
     },
     "title": {
-      "translate": "quest.feywild.spring.cake.start.title"
+      "translate": "quest.feywild.spring.quest_04.start.title"
     }
   },
   "tasks": [

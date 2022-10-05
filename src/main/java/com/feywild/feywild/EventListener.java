@@ -1,5 +1,6 @@
 package com.feywild.feywild;
 
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
@@ -10,6 +11,7 @@ import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.screens.DisplayQuestScreen;
 import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.screens.SelectQuestScreen;
@@ -24,6 +26,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,6 +36,7 @@ import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -141,6 +145,26 @@ public class EventListener {
     public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
         BeeKnight.anger(event.getLevel(), event.getEntity(), event.getPos());
     }
+
+    @SubscribeEvent
+    public void BonemealEvent(BonemealEvent event) {
+        Player player = event.getEntity();
+        if (player instanceof ServerPlayer) {
+            if (event.getBlock() == ModTrees.springTree.getSapling().defaultBlockState()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE);
+            }
+            if (event.getBlock() == ModTrees.summerTree.getSapling().defaultBlockState()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE);
+            }
+            if (event.getBlock() == ModTrees.autumnTree.getSapling().defaultBlockState()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE);
+            }
+            if (event.getBlock() == ModTrees.winterTree.getSapling().defaultBlockState()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
+            }
+        }
+    }
+
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.LeftClickBlock event) {

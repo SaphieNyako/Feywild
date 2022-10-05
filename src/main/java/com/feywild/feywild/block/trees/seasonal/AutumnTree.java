@@ -31,13 +31,6 @@ public class AutumnTree extends BaseTree {
         super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
     }
 
-    @Override
-    @OverridingMethodsMustInvokeSuper
-    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        super.registerAdditional(ctx, builder);
-        builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
-    }
-
     private static BlockState getDecorationBlock(RandomSource random) {
         return switch (random.nextInt(20)) {
             case 0 -> Blocks.PUMPKIN.defaultBlockState();
@@ -46,6 +39,13 @@ public class AutumnTree extends BaseTree {
             case 3 -> Blocks.BROWN_MUSHROOM.defaultBlockState();
             default -> Blocks.FERN.defaultBlockState();
         };
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class AutumnTree extends BaseTree {
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
 
         public static final TrunkPlacerType<TrunkPlacer> TYPE = makeType(TrunkPlacer::new);
-        
+
         public TrunkPlacer(int baseHeight, int heightA, int heightB) {
             super(baseHeight, heightA, heightB);
         }
@@ -99,4 +99,6 @@ public class AutumnTree extends BaseTree {
             }
         }
     }
+
+
 }

@@ -1,0 +1,28 @@
+{
+  "parent": "feywild:quest_02",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_03.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_03.complete.title"
+    }
+  },
+  "icon": "minecraft:pink_wool",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_03.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_03.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "action": "levitate_sheep",
+      "id": "feywild:special",
+      "times": 3
+    }
+  ]
+}
