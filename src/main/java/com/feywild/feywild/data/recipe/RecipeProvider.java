@@ -54,6 +54,38 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         stoneCutting(ModItems.shinyFeyGem, ModItems.greaterFeyGem, 2);
         stoneCutting(ModItems.brilliantFeyGem, ModItems.shinyFeyGem, 2);
 
+        this.altar(ModTrees.springTree.getSapling().asItem())
+                .requires(Items.OAK_SAPLING)
+                .requires(Items.OAK_SAPLING)
+                .requires(Items.OAK_SAPLING)
+                .requires(Items.OAK_SAPLING)
+                .requires(ModItems.feyDust)
+                .build();
+
+        this.altar(ModTrees.summerTree.getSapling().asItem())
+                .requires(Items.BIRCH_SAPLING)
+                .requires(Items.BIRCH_SAPLING)
+                .requires(Items.BIRCH_SAPLING)
+                .requires(Items.BIRCH_SAPLING)
+                .requires(ModItems.feyDust)
+                .build();
+
+        this.altar(ModTrees.winterTree.getSapling().asItem())
+                .requires(Items.SPRUCE_SAPLING)
+                .requires(Items.SPRUCE_SAPLING)
+                .requires(Items.SPRUCE_SAPLING)
+                .requires(Items.SPRUCE_SAPLING)
+                .requires(ModItems.feyDust)
+                .build();
+
+        this.altar(ModTrees.autumnTree.getSapling().asItem())
+                .requires(Items.DARK_OAK_SAPLING)
+                .requires(Items.DARK_OAK_SAPLING)
+                .requires(Items.DARK_OAK_SAPLING)
+                .requires(Items.DARK_OAK_SAPLING)
+                .requires(ModItems.feyDust)
+                .build();
+
         this.altar(ModItems.feywildMusicDisc)
                 .requires(ItemTags.MUSIC_DISCS)
                 .requires(ModTrees.springTree.getSapling())
@@ -121,7 +153,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);
-        
+
         this.quartzRecipes(ModBlocks.elvenQuartz);
         this.quartzRecipes(ModBlocks.elvenSpringQuartz);
         this.quartzRecipes(ModBlocks.elvenSummerQuartz);

@@ -115,7 +115,7 @@ public class EventListener {
             }
             if (!FeyPlayerData.get(event.getEntity()).getBoolean("feywild_got_scroll") && MiscConfig.initial_scroll == ScrollSelectType.LOGIN) {
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new OpeningScreenMessage());
-                // feywild_got_scroll is set when the player actually retrieves a scroll
+                //TODO change OpeningScreen text and add story sound
             }
         }
 

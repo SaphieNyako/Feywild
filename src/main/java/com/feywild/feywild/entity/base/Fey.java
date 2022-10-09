@@ -3,6 +3,7 @@ package com.feywild.feywild.entity.base;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
+import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.network.quest.OpenQuestDisplayMessage;
 import com.feywild.feywild.network.quest.OpenQuestSelectionMessage;
@@ -17,6 +18,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -38,6 +40,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Fey extends FlyingFeyBase {
 
@@ -84,6 +87,19 @@ public abstract class Fey extends FlyingFeyBase {
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(4);
+
+                if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
+                    Random random = new Random();
+                    if (random.nextInt(3) <= 0) {
+                        this.spawnAtLocation(new ItemStack(ModItems.feyDust));
+                        this.playSound(SoundEvents.ENDERMAN_TELEPORT);
+                        this.discard();
+                        //TODO Change message for each court/add voice
+                        player.sendSystemMessage(Component.literal("Come find me!"));
+
+                    }
+                }
+
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                 player.swing(hand, true);
