@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "feywild:fey_altar"
+          "name": "feywild:fey_altar_item"
         }
       ],
       "name": "main",

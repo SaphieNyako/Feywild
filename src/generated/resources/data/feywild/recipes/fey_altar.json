@@ -8,10 +8,10 @@
       "item": "feywild:fey_dust"
     },
     "g": {
-      "tag": "forge:nuggets/gold"
+      "tag": "forge:ingots/iron"
     },
     "p": {
-      "tag": "forge:ingots/iron"
+      "tag": "forge:stone"
     }
   },
   "pattern": [

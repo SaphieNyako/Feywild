@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/iron"
+            "tag": "forge:stone"
           }
         ]
       },
@@ -39,7 +39,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/gold"
+            "tag": "forge:ingots/iron"
           }
         ]
       },

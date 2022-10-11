@@ -123,15 +123,17 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
                     }
                 }
             } else {
-                if (this.particleTimer <= 0) {
-                    this.particleTimer = this.level.random.nextInt(120);
-                    if (this.level.random.nextFloat() < 0.5) {
-                        this.level.addParticle(ParticleTypes.END_ROD, true, this.worldPosition.getX() + this.level.random.nextDouble(), this.worldPosition.getY() + this.level.random.nextDouble(), this.worldPosition.getZ() + this.level.random.nextDouble(), 0, 0, 0);
-                    }
+                if (this.level.random.nextFloat() < 0.02) {
+                    this.level.addParticle(ParticleTypes.END_ROD, true,
+                            this.worldPosition.getX() + (Math.random()),
+                            this.worldPosition.getY() + 1 + (Math.random()),
+                            this.worldPosition.getZ() + (Math.random()),
+                            0, 0, 0);
                 }
             }
         }
     }
+
 
     private void updabeRecipe() {
         if (this.level != null && !this.level.isClientSide) {
@@ -190,7 +192,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
     }
 
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.altar.motion", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.fey_altar.standard", true));
         return PlayState.CONTINUE;
     }
 

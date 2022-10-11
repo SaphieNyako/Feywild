@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.sound.ModSoundEvents;
@@ -41,7 +42,10 @@ public class ModItems {
     public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.beeKnight, null, new Item.Properties());
     public static final SummoningScrollFey<Mandragora> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.mandragora, null, new Item.Properties());
     public static final SummoningScrollFey<Shroomling> summoningScrollShroomling = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.shroomling, null, new Item.Properties());
-    
+
+    /* Geckolib registration requires Item registration */
+    public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));
+
     @SuppressWarnings("ConstantConditions")
     public static final Item spawnEggSpringBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.springBotaniaPixie, 0xCA73CA, 0x0EAC0A, new Item.Properties().tab(FeywildMod.getInstance().tab));
     public static final Item spawnEggSummerBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.summerBotaniaPixie, 0xCA73CA, 0xE3C53D, new Item.Properties().tab(FeywildMod.getInstance().tab));

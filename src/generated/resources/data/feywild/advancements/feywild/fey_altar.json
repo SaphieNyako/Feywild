@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "feywild:fey_altar"
+              "feywild:fey_altar_item"
             ]
           }
         ]
@@ -22,7 +22,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "feywild:fey_altar"
+      "item": "feywild:fey_altar_item"
     },
     "show_toast": true,
     "title": {
