@@ -41,7 +41,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -80,6 +79,7 @@ public final class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
+        MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
@@ -112,8 +112,7 @@ public final class FeywildMod extends ModXRegistration {
         return network;
     }
 
-    @SubscribeEvent
-    public void onServerAboutStartEvent(ServerAboutToStartEvent event) {
+    private void serverAboutToStart(final ServerAboutToStartEvent event) {
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
                 new ResourceLocation("feywild:village/plains/houses/fountain"), 20);
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),

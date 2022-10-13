@@ -1,7 +1,7 @@
 package com.feywild.feywild.util;
 
-import com.feywild.feywild.mixin.StructureTemplatePoolAccessor;
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -15,6 +15,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FeywildJigsawHelper {
 
@@ -25,15 +26,22 @@ public class FeywildJigsawHelper {
         RegistryAccess manager = server.registryAccess();
         Holder<StructureProcessorList> processorListHolder = manager.registry(Registry.PROCESSOR_LIST_REGISTRY).orElseThrow().getHolderOrThrow(PROCESSOR_LIST_KEY);
         SinglePoolElement element = SinglePoolElement.single(nbtLocation.toString(), processorListHolder).apply(StructureTemplatePool.Projection.RIGID);
-        StructureTemplatePool pool = manager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).getOptional(poolLocation).orElse(null);
+        StructureTemplatePool pool = manager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(poolLocation);
+
+        if (pool == null) return;
+
+        ObjectArrayList<StructurePoolElement> elements = Objects.requireNonNull(pool).templates;
 
         for (int i = 0; i < weight; i++) {
-            ((StructureTemplatePoolAccessor) pool).getTemplates().add(element);
+            elements.add(element);
         }
 
-        List<Pair<StructurePoolElement, Integer>> elementCounts = new ArrayList<>(((StructureTemplatePoolAccessor) pool).getRawTemplates());
-        elementCounts.add(new Pair<>(element, weight));
-        ((StructureTemplatePoolAccessor) pool).setRawTemplates(elementCounts);
+        List<Pair<StructurePoolElement, Integer>> elementCounts = new ArrayList(pool.rawTemplates);
+        elements.addAll(pool.templates);
+        elementCounts.addAll(pool.rawTemplates);
+
+        pool.templates = elements;
+        pool.rawTemplates = elementCounts;
     }
 
 }
