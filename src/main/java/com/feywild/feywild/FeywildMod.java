@@ -17,6 +17,7 @@ import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
+import com.feywild.feywild.util.FeywildJigsawHelper;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.market.MarketGenerator;
 import net.minecraft.client.color.block.BlockColor;
@@ -39,6 +40,8 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -107,6 +110,14 @@ public final class FeywildMod extends ModXRegistration {
     @Nonnull
     public static FeywildNetwork getNetwork() {
         return network;
+    }
+
+    @SubscribeEvent
+    public void onServerAboutStartEvent(ServerAboutToStartEvent event) {
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
+                new ResourceLocation("feywild:village/plains/houses/fountain"), 20);
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
+                new ResourceLocation("feywild:village/plains/houses/temple"), 20);
     }
 
     @Override
@@ -234,4 +245,6 @@ public final class FeywildMod extends ModXRegistration {
         event.addListener(TradeManager.createReloadListener());
         event.addListener(QuestManager.createReloadListener());
     }
+
+
 }
