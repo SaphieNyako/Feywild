@@ -1,5 +1,6 @@
 package com.feywild.feywild.quest.task;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.Biome;
@@ -11,7 +12,7 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
     public static final BiomeTask INSTANCE = new BiomeTask();
 
     private BiomeTask() {
-        super("biome", Biome.class, ForgeRegistries.BIOMES);
+        super("biome", ForgeRegistries.BIOMES);
     }
 
     @Override
@@ -20,9 +21,8 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayer player, Biome element, ResourceLocation match) {
-        ResourceLocation key = ForgeRegistries.BIOMES.getKey(element);
-        return key != null && key.equals(match);
+    public boolean checkCompleted(ServerPlayer player, ResourceKey<Biome> element, ResourceLocation match) {
+        return element.location().equals(match);
     }
 
     @Override

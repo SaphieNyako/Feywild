@@ -1,5 +1,6 @@
 package com.feywild.feywild.quest.task;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -10,8 +11,7 @@ public class AnimalPetTask extends RegistryTaskType<EntityType<?>, Entity> {
     public static final AnimalPetTask INSTANCE = new AnimalPetTask();
 
     protected AnimalPetTask() {
-        //noinspection unchecked
-        super("type", (Class<EntityType<?>>) (Class<?>) EntityType.class, ForgeRegistries.ENTITY_TYPES);
+        super("type", ForgeRegistries.ENTITY_TYPES);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class AnimalPetTask extends RegistryTaskType<EntityType<?>, Entity> {
     }
 
     @Override
-    public boolean checkCompleted(ServerPlayer player, EntityType<?> element, Entity match) {
-        return match.getType() == element;
+    public boolean checkCompleted(ServerPlayer player, ResourceKey<EntityType<?>> element, Entity match) {
+        return element.location().equals(ForgeRegistries.ENTITY_TYPES.getKey(match.getType()));
     }
 }
