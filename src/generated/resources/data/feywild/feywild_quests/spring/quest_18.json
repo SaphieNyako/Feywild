@@ -1,0 +1,41 @@
+{
+  "parent": "feywild:quest_17",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_18.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_18.complete.title"
+    }
+  },
+  "icon": "minecraft:carved_pumpkin",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_18.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_18.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:carved_pumpkin"
+      }
+    },
+    {
+      "amount": 2,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:snow_block"
+      }
+    },
+    {
+      "biome": "feywild:frozen_retreat",
+      "id": "feywild:biome"
+    }
+  ]
+}

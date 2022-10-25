@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_12",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_13.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_13.complete.title"
+    }
+  },
+  "icon": "minecraft:sweet_berries",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_13.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_13.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "type": "minecraft:fox",
+      "id": "feywild:pet"
+    }
+  ]
+}

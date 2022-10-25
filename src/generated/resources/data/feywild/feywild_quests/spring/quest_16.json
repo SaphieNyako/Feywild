@@ -1,0 +1,34 @@
+{
+  "parent": "feywild:quest_15",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_16.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_16.complete.title"
+    }
+  },
+  "icon": "feywild:honeycomb",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_16.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_16.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "spring",
+      "id": "feywild:fey_gift",
+      "item": {
+        "item": "feywild:honeycomb"
+      }
+    },
+    {
+      "biome": "feywild:golden_seelie_fields",
+      "id": "feywild:biome"
+    }
+  ]
+}

@@ -114,9 +114,26 @@ public final class FeywildMod extends ModXRegistration {
 
     private void serverAboutToStart(final ServerAboutToStartEvent event) {
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("feywild:village/plains/houses/fountain"), 20);
+                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
+                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
+
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
-                new ResourceLocation("feywild:village/plains/houses/temple"), 20);
+                new ResourceLocation("feywild:village/desert/houses/temple"), 10);
+
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
+                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
+                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
+
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
+                new ResourceLocation("feywild:village/desert/houses/temple"), 10);
+
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
+                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
+                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
+
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.quest.util.FeyGift;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.world.FeywildBiomes;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -107,6 +108,79 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.feywildLexicon), 1)))
                 .build();
         //TODO reward Mysthical world, patchouli book
+
+        /* SPRING PET ANIMAL QUESTS */
+
+        this.quest(SPRING, "quest_09")
+                .parent("quest_08")
+                .icon(Items.PINK_CARPET)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.LLAMA))
+                .build();
+
+        this.quest(SPRING, "quest_10")
+                .parent("quest_09")
+                .icon(Items.POTATO)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.VILLAGER))
+                .build();
+
+        this.quest(SPRING, "quest_11")
+                .parent("quest_10")
+                .icon(Items.SCUTE)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.TURTLE))
+                .build();
+
+        this.quest(SPRING, "quest_12")
+                .parent("quest_11")
+                .icon(Items.PEARLESCENT_FROGLIGHT)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FROG))
+                .build();
+
+        this.quest(SPRING, "quest_13")
+                .parent("quest_12")
+                .icon(Items.SWEET_BERRIES)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FOX))
+                .build();
+
+        //TODO quest 14, reward Friendship Bracelet
+
+        /* INTO THE FEYWILD SPRING QUEST */
+
+        this.quest(SPRING, "quest_14")
+                .parent("quest_08")
+                .icon(Items.DANDELION)
+                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
+                .build();
+
+        this.quest(SPRING, "quest_15")
+                .parent("quest_14")
+                .icon(Items.DANDELION)
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION))
+                .build();
+
+        this.quest(SPRING, "quest_16")
+                .parent("quest_15")
+                .icon(ModItems.honeycomb)
+                .gift(Ingredient.of(ModItems.honeycomb), 1)
+                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
+                .build();
+
+        this.quest(SPRING, "quest_17")
+                .parent("quest_16")
+                .icon(Items.RED_MUSHROOM)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKED_BEEF), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BREAD), 1)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
+                .build();
+
+        this.quest(SPRING, "quest_18")
+                .parent("quest_17")
+                .icon(Items.CARVED_PUMPKIN)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CARVED_PUMPKIN), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.SNOW_BLOCK), 2)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
+                .build();
+
+        /* SUMMER */
 
         this.root(SUMMER)
                 .icon(Items.DIAMOND)

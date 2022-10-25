@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_11",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_12.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_12.complete.title"
+    }
+  },
+  "icon": "minecraft:pearlescent_froglight",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_12.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_12.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "type": "minecraft:frog",
+      "id": "feywild:pet"
+    }
+  ]
+}
