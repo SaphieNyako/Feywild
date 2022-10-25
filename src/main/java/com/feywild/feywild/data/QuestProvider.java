@@ -117,7 +117,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SUMMER, "kill_golem")
                 .parent("root")
                 .icon(Items.IRON_NUGGET)
-                .task(QuestTask.of(KillTask.INSTANCE, EntityType.IRON_GOLEM))
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.IRON_GOLEM))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.IRON_INGOT, 7)))
                 .build();
 
@@ -131,7 +131,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SUMMER, "kill_pillager")
                 .parent("bee_nest")
                 .icon(Items.IRON_AXE)
-                .task(QuestTask.of(KillTask.INSTANCE, EntityType.PILLAGER, 5))
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.PILLAGER, 5))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.GOLD_INGOT, 3)))
                 .build();
 

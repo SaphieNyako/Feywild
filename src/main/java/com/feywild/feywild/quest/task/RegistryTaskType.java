@@ -1,42 +1,39 @@
 package com.feywild.feywild.quest.task;
 
 import com.google.gson.JsonObject;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 
-public abstract class RegistryTaskType<T, X> implements TaskType<T, X> {
+public abstract class RegistryTaskType<T, X> implements TaskType<ResourceKey<T>, X> {
 
     private final String key;
-    private final Class<T> cls;
-    private final IForgeRegistry<T> registry;
+    public final IForgeRegistry<T> registry;
 
-    protected RegistryTaskType(String key, Class<T> cls, IForgeRegistry<T> registry) {
+    protected RegistryTaskType(String key, IForgeRegistry<T> registry) {
         this.key = key;
-        this.cls = cls;
         this.registry = registry;
     }
 
     @Override
-    public Class<T> element() {
-        return this.cls;
+    public Class<ResourceKey<T>> element() {
+        //noinspection unchecked
+        return (Class<ResourceKey<T>>) (Class<?>) ResourceKey.class;
     }
 
     @Override
-    public T fromJson(JsonObject json) {
+    public ResourceKey<T> fromJson(JsonObject json) {
         ResourceLocation rl = ResourceLocation.tryParse(json.get(this.key).getAsString());
-        T value = rl == null ? null : this.registry.getValue(rl);
-        if (value == null) {
-            throw new IllegalStateException("Can't load feywild quest task: " + this.element().getSimpleName() + " not found: " + rl);
+        if (rl == null || this.registry.getValue(rl) == null) {
+            throw new IllegalStateException("Can't load feywild quest task: " + this.registry.getRegistryName() + " not found: " + rl);
         }
-        return value;
+        return ResourceKey.create(this.registry.getRegistryKey(), rl);
     }
 
     @Override
-    public JsonObject toJson(T element) {
+    public JsonObject toJson(ResourceKey<T> element) {
         JsonObject json = new JsonObject();
-        ResourceLocation rl = this.registry.getKey(element);
-        if (rl == null) throw new IllegalStateException(this.element().getSimpleName() + " not registered: " + element);
-        json.addProperty(this.key, rl.toString());
+        json.addProperty(this.key, element.location().toString());
         return json;
     }
 }
