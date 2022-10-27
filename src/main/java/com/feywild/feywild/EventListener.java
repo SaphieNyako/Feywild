@@ -35,6 +35,7 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.AnimalTameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -66,6 +67,14 @@ public class EventListener {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntity());
+        }
+    }
+
+    @SubscribeEvent
+    public void tameAnimal(AnimalTameEvent event) {
+        Player player = event.getTamer();
+        if (player instanceof ServerPlayer) {
+            QuestData.get((ServerPlayer) event.getEntity()).checkComplete(AnimalTameTask.INSTANCE, event.getAnimal());
         }
     }
 

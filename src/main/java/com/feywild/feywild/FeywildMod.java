@@ -94,6 +94,7 @@ public final class FeywildMod extends ModXRegistration {
         TaskTypes.register(new ResourceLocation(this.modid, "item_stack"), ItemStackTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "pet"), AnimalPetTask.INSTANCE);
+        TaskTypes.register(new ResourceLocation(this.modid, "tame"), AnimalTameTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
         TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);

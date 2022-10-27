@@ -1,0 +1,31 @@
+{
+  "parent": "feywild:root",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_01.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_01.complete.title"
+    }
+  },
+  "icon": "minecraft:arrow",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_01.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_01.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "autumn",
+      "id": "feywild:fey_gift",
+      "item": {
+        "item": "minecraft:iron_sword"
+      },
+      "times": 9
+    }
+  ]
+}

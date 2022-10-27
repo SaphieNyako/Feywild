@@ -1,0 +1,37 @@
+{
+  "parent": "feywild:quest_04",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_05.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_05.complete.title"
+    }
+  },
+  "icon": "feywild:autumn_tree_sapling",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:teleportation_orb"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_05.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_05.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "action": "grow_autumn_tree",
+      "id": "feywild:special",
+      "times": 3
+    }
+  ]
+}

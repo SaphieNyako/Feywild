@@ -1,0 +1,34 @@
+{
+  "parent": "feywild:quest_06",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_07.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_07.complete.title"
+    }
+  },
+  "icon": "minecraft:poppy",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_07.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_07.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 9,
+      "id": "feywild:item_stack",
+      "item": {
+        "tag": "minecraft:flowers"
+      }
+    },
+    {
+      "biome": "feywild:blossoming_wealds",
+      "id": "feywild:biome"
+    }
+  ]
+}
