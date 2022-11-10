@@ -5,12 +5,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import javax.annotation.Nonnull;
+
 public abstract class RegistryTaskType<T, X> implements TaskType<ResourceKey<T>, X> {
 
-    private final String key;
+    @Nonnull
     public final IForgeRegistry<T> registry;
+    private final String key;
 
-    protected RegistryTaskType(String key, IForgeRegistry<T> registry) {
+    protected RegistryTaskType(String key, @Nonnull IForgeRegistry<T> registry) {
         this.key = key;
         this.registry = registry;
     }

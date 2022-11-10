@@ -1,11 +1,11 @@
 {
-  "parent": "feywild:kill_golem",
+  "parent": "feywild:quest_02",
   "complete": {
     "description": {
-      "translate": "quest.feywild.summer.bee_nest.complete.description"
+      "translate": "quest.feywild.summer.quest_03.complete.description"
     },
     "title": {
-      "translate": "quest.feywild.summer.bee_nest.complete.title"
+      "translate": "quest.feywild.summer.quest_03.complete.title"
     }
   },
   "icon": "minecraft:bee_nest",
@@ -21,10 +21,10 @@
   ],
   "start": {
     "description": {
-      "translate": "quest.feywild.summer.bee_nest.start.description"
+      "translate": "quest.feywild.summer.quest_03.start.description"
     },
     "title": {
-      "translate": "quest.feywild.summer.bee_nest.start.title"
+      "translate": "quest.feywild.summer.quest_03.start.title"
     }
   },
   "tasks": [

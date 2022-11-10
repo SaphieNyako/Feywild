@@ -29,4 +29,5 @@ public class BiomeTask extends RegistryTaskType<Biome, ResourceLocation> {
     public boolean repeatable() {
         return false;
     }
+    
 }

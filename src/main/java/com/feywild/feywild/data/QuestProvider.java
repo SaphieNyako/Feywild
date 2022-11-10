@@ -9,7 +9,6 @@ import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.quest.util.FeyGift;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
-import com.feywild.feywild.world.FeywildBiomes;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -151,7 +150,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_14")
                 .parent("quest_08")
                 .icon(Items.DANDELION)
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
+                // .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
                 .build();
 
         this.quest(SPRING, "quest_15")
@@ -164,7 +163,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_15")
                 .icon(ModItems.honeycomb)
                 .gift(Ingredient.of(ModItems.honeycomb), 1)
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
+                //     .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
                 .build();
 
         this.quest(SPRING, "quest_17")
@@ -172,7 +171,7 @@ public class QuestProvider implements DataProvider {
                 .icon(Items.RED_MUSHROOM)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKED_BEEF), 1)))
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BREAD), 1)))
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
+                //     .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
                 .build();
 
         this.quest(SPRING, "quest_18")
@@ -180,7 +179,7 @@ public class QuestProvider implements DataProvider {
                 .icon(Items.CARVED_PUMPKIN)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CARVED_PUMPKIN), 1)))
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.SNOW_BLOCK), 2)))
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
+                //   .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
                 .build();
 
         this.quest(SPRING, "quest_19")
@@ -201,32 +200,73 @@ public class QuestProvider implements DataProvider {
                 .startSound(ModSoundEvents.summoningSummerPixie)
                 .build();
 
-        this.quest(SUMMER, "kill_golem")
+        this.quest(SUMMER, "quest_01")
                 .parent("root")
-                .icon(Items.IRON_NUGGET)
-                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.IRON_GOLEM))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.IRON_INGOT, 7)))
+                .icon(Items.GOLD_NUGGET)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GOLDEN_CHESTPLATE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GOLDEN_HELMET), 1)))
                 .build();
 
-        this.quest(SUMMER, "bee_nest")
+        this.quest(SUMMER, "quest_02")
+                .icon(Items.IRON_INGOT)
                 .reputation(20)
-                .parent("kill_golem")
+                .parent("quest_01")
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.IRON_GOLEM, 1))
+                .build();
+
+        this.quest(SUMMER, "quest_03")
+                .reputation(20)
+                .parent("quest_02")
                 .gift(Ingredient.of(Blocks.BEE_NEST))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.HONEYCOMB)))
                 .build();
 
-        this.quest(SUMMER, "kill_pillager")
-                .parent("bee_nest")
+        //TODO add item for stringer
+
+        this.quest(SUMMER, "quest_04")
+                .parent("quest_03")
                 .icon(Items.IRON_AXE)
-                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.PILLAGER, 5))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.GOLD_INGOT, 3)))
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.PILLAGER, 8))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.summoningScrollBeeKnight, 1)))
                 .build();
 
-        this.quest(SUMMER, "sapling")
-                .parent("kill_pillager")
+        this.quest(SUMMER, "quest_05")
+                .parent("quest_04")
                 .icon(ModTrees.summerTree.getSapling())
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE, 3))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
+                .build();
+
+        this.quest(SUMMER, "quest_06")
+                .parent("quest_05")
+                .icon(Items.BOOKSHELF)
+                .task(QuestTask.of(StructureTask.INSTANCE, ResourceLocation.of("feywild:library", ':')))
+                .build();
+
+        this.quest(SUMMER, "quest_07")
+                .parent("quest_06")
+                .icon(Items.BOOK)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BOOK), 1)))
+                .build();
+
+        //TODO add book about the shadow court.
+
+        this.quest(SUMMER, "quest_08")
+                .parent("quest_07")
+                .icon(Items.ENDER_EYE)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ENDER_EYE), 12)))
+                .build();
+
+        this.quest(SUMMER, "quest_09")
+                .parent("quest_08")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.ENDER_DRAGON, 1))
+                .build();
+
+        this.quest(SUMMER, "quest_10")
+                .parent("quest_09")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
                 .build();
 
         /* AUTUMN */
@@ -280,27 +320,27 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_06")
                 .icon(Items.POPPY)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ItemTags.FLOWERS), 9)))
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
+                //      .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
                 .build();
 
         this.quest(AUTUMN, "quest_08")
                 .parent("quest_07")
                 .icon(Items.RED_DYE)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Tags.Items.DYES), 9)))
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
+                //     .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
                 .build();
 
         this.quest(AUTUMN, "quest_09")
                 .parent("quest_08")
                 .icon(Items.COOKIE)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKIE), 8)))
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
+                //      .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
                 .build();
 
         this.quest(AUTUMN, "quest_10")
                 .parent("quest_09")
                 .icon(Items.BONE)
-                .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
+                //      .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
                 .build();
 
         this.quest(AUTUMN, "quest_11")

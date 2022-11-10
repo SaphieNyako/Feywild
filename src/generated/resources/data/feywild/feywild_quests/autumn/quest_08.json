@@ -25,10 +25,6 @@
       "item": {
         "tag": "forge:dyes"
       }
-    },
-    {
-      "biome": "feywild:eternal_fall",
-      "id": "feywild:biome"
     }
   ]
 }

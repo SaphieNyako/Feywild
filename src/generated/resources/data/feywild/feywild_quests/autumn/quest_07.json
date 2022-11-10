@@ -25,10 +25,6 @@
       "item": {
         "tag": "minecraft:flowers"
       }
-    },
-    {
-      "biome": "feywild:blossoming_wealds",
-      "id": "feywild:biome"
     }
   ]
 }

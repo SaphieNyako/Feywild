@@ -1,0 +1,37 @@
+{
+  "parent": "feywild:root",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_01.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_01.complete.title"
+    }
+  },
+  "icon": "minecraft:gold_nugget",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_01.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_01.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:golden_chestplate"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:golden_helmet"
+      }
+    }
+  ]
+}

@@ -1,13 +1,5 @@
 {
   "parent": "feywild:quest_08",
-  "complete": {
-    "description": {
-      "translate": "quest.feywild.spring.quest_14.complete.description"
-    },
-    "title": {
-      "translate": "quest.feywild.spring.quest_14.complete.title"
-    }
-  },
   "icon": "minecraft:dandelion",
   "reputation": 5,
   "start": {
@@ -17,11 +9,5 @@
     "title": {
       "translate": "quest.feywild.spring.quest_14.start.title"
     }
-  },
-  "tasks": [
-    {
-      "biome": "feywild:blossoming_wealds",
-      "id": "feywild:biome"
-    }
-  ]
+  }
 }

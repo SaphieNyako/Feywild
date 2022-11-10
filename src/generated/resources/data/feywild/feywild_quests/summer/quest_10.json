@@ -1,0 +1,30 @@
+{
+  "parent": "feywild:quest_09",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_10.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_10.complete.title"
+    }
+  },
+  "icon": "minecraft:dragon_head",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_10.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_10.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:elytra"
+      }
+    }
+  ]
+}
