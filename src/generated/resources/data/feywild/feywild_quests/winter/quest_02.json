@@ -1,0 +1,29 @@
+{
+  "parent": "feywild:quest_01",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_02.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_02.complete.title"
+    }
+  },
+  "icon": "minecraft:soul_lantern",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_02.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_02.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "id": "feywild:craft",
+      "item": {
+        "item": "minecraft:soul_lantern"
+      }
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 {
-  "parent": "feywild:snowballs",
+  "parent": "feywild:quest_02",
   "complete": {
     "description": {
-      "translate": "quest.feywild.winter.skull.complete.description"
+      "translate": "quest.feywild.winter.quest_03.complete.description"
     },
     "title": {
-      "translate": "quest.feywild.winter.skull.complete.title"
+      "translate": "quest.feywild.winter.quest_03.complete.title"
     }
   },
   "icon": "minecraft:zombie_head",
@@ -21,10 +21,10 @@
   ],
   "start": {
     "description": {
-      "translate": "quest.feywild.winter.skull.start.description"
+      "translate": "quest.feywild.winter.quest_03.start.description"
     },
     "title": {
-      "translate": "quest.feywild.winter.skull.start.title"
+      "translate": "quest.feywild.winter.quest_03.start.title"
     }
   },
   "tasks": [

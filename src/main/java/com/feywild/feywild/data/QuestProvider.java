@@ -153,6 +153,8 @@ public class QuestProvider implements DataProvider {
                 // .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
                 .build();
 
+        //TODO Fix BiomeTask
+
         this.quest(SPRING, "quest_15")
                 .parent("quest_14")
                 .icon(Items.DANDELION)
@@ -359,30 +361,75 @@ public class QuestProvider implements DataProvider {
                 .startSound(ModSoundEvents.summoningWinterPixie)
                 .build();
 
-        this.quest(WINTER, "snowballs")
+        this.quest(WINTER, "quest_01")
                 .parent("root")
-                .gift(Ingredient.of(Items.SNOWBALL), 16)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Blocks.ICE, 4)))
+                .icon(Items.ROTTEN_FLESH)
+                .gift(Ingredient.of(Items.ROTTEN_FLESH), 8)
                 .build();
 
-        this.quest(WINTER, "skull")
-                .parent("snowballs")
+        this.quest(WINTER, "quest_02")
+                .parent("quest_01")
+                .icon(Items.SOUL_LANTERN)
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.SOUL_LANTERN)))
+                .build();
+
+        //TODO Add Soul Reaper Scythe and altar recipe
+
+        this.quest(WINTER, "quest_03")
+                .parent("quest_02")
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ZOMBIE_HEAD), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.WITHER_SKELETON_SKULL)))
                 .build();
 
-        this.quest(WINTER, "lantern")
-                .parent("skull")
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.SOUL_LANTERN)))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BONE, 5)))
+        //TODO Scyth drops soulshards, and increases droprate of heads, inculding player heads.
+
+        this.quest(WINTER, "quest_04")
+                .parent("quest_03")
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BONE), 10)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.TOTEM_OF_UNDYING)))
                 .build();
 
-        this.quest(WINTER, "sapling")
-                .parent("lantern")
+        //TODO add soulshards and soulgems
+
+        this.quest(WINTER, "quest_05")
+                .parent("quest_04")
                 .icon(ModTrees.winterTree.getSapling())
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE, 3))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
+
+        this.quest(WINTER, "quest_06")
+                .parent("quest_05")
+                .icon(Items.BOOKSHELF)
+                .task(QuestTask.of(StructureTask.INSTANCE, ResourceLocation.of("feywild:library", ':')))
+                .build();
+
+        this.quest(WINTER, "quest_07")
+                .parent("quest_06")
+                .icon(Items.BOOK)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BOOK), 1)))
+                .build();
+
+        //TODO add book about the shadow court.
+
+        this.quest(WINTER, "quest_08")
+                .parent("quest_07")
+                .icon(Items.ENDER_EYE)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ENDER_EYE), 12)))
+                .build();
+
+        this.quest(WINTER, "quest_09")
+                .parent("quest_08")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.ENDER_DRAGON, 1))
+                .build();
+
+        this.quest(WINTER, "quest_10")
+                .parent("quest_09")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .build();
+        //TODO as reward player will recieve WINGS, add wings for each faction
     }
 
     @Override
