@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 
 public class AutumnBotaniaPixie extends BotaniaPixie {
 
-    protected AutumnBotaniaPixie(EntityType<? extends FeyBase> entityType, Level level) {
+    public AutumnBotaniaPixie(EntityType<? extends FeyBase> entityType, Level level) {
         super(entityType, Alignment.AUTUMN, level);
     }
 

@@ -191,6 +191,13 @@ public class QuestProvider implements DataProvider {
                 .build();
 
 
+        this.quest(SPRING, "quest_20")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
+                .build();
         //TODO repeatable quest for teleportation orb after quest 8
 
         /* SUMMER */
@@ -236,7 +243,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_04")
                 .icon(ModTrees.summerTree.getSapling())
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE, 3))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
+
                 .build();
 
         this.quest(SUMMER, "quest_06")
@@ -269,6 +276,14 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_09")
                 .icon(Items.DRAGON_HEAD)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .build();
+
+        this.quest(SUMMER, "quest_11")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         /* AUTUMN */
@@ -309,7 +324,6 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_04")
                 .icon(ModTrees.autumnTree.getSapling())
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE, 3))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.quest(AUTUMN, "quest_06")
@@ -351,6 +365,14 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
                 .build();
 
+        this.quest(AUTUMN, "quest_12")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
+                .build();
+
         //TODO Teleportation Orb quest  after quest 5
 
         /* WINTER */
@@ -381,7 +403,7 @@ public class QuestProvider implements DataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.WITHER_SKELETON_SKULL)))
                 .build();
 
-        //TODO Scyth drops soulshards, and increases droprate of heads, inculding player heads.
+        //TODO Scythe drops soul shards, and increases drop rate of heads, including player heads.
 
         this.quest(WINTER, "quest_04")
                 .parent("quest_03")
@@ -389,13 +411,12 @@ public class QuestProvider implements DataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.TOTEM_OF_UNDYING)))
                 .build();
 
-        //TODO add soulshards and soulgems
+        //TODO add soul shards and soul gems
 
         this.quest(WINTER, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.winterTree.getSapling())
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE, 3))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.quest(WINTER, "quest_06")
@@ -429,7 +450,15 @@ public class QuestProvider implements DataProvider {
                 .icon(Items.DRAGON_HEAD)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
                 .build();
-        //TODO as reward player will recieve WINGS, add wings for each faction
+
+        this.quest(WINTER, "quest_11")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
+                .build();
+        //TODO as reward player will receive WINGS, add wings for each faction
     }
 
     @Override

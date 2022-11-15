@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 
 public class SpringBotaniaPixie extends BotaniaPixie {
 
-    protected SpringBotaniaPixie(EntityType<? extends FeyBase> entityType, Level level) {
+    public SpringBotaniaPixie(EntityType<? extends FeyBase> entityType, Level level) {
         super(entityType, Alignment.SPRING, level);
     }
 

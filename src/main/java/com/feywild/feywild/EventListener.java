@@ -100,8 +100,10 @@ public class EventListener {
         }
     }
 
+
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
+
         if (!event.getLevel().isClientSide && event.getEntity() instanceof ServerPlayer player) {
             QuestData.get(player).checkComplete(AnimalPetTask.INSTANCE, event.getTarget());
             if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {

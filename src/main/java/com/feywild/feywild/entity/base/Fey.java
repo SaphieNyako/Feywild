@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.base;
 
+import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
@@ -90,7 +91,7 @@ public abstract class Fey extends FlyingFeyBase {
 
                 if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
                     Random random = new Random();
-                    if (random.nextInt(3) <= 0) {
+                    if (random.nextInt(5) <= 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.feyDust));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         this.discard();
@@ -107,6 +108,12 @@ public abstract class Fey extends FlyingFeyBase {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
                 player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_fey_name"));
+            } else if (!this.isTamed() && player.getItemInHand(hand).getItem() == Items.ENDER_EYE) {
+                player.swing(player.getUsedItemHand(), true);
+                if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+                player.addItem(new ItemStack(ModItems.pixieOrb));
+                FeyPlayerData.get(player).putString("capture_pixie", this.alignment.id);
+                this.remove(RemovalReason.DISCARDED);
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.isEmpty()) {

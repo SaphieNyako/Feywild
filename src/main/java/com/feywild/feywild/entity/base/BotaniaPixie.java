@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public abstract class BotaniaPixie extends FlyingFeyBase {
-    
+
     protected BotaniaPixie(EntityType<? extends FeyBase> entityType, Alignment alignment, Level level) {
         super(entityType, alignment, level);
     }
@@ -36,7 +36,7 @@ public abstract class BotaniaPixie extends FlyingFeyBase {
         if (level.isClientSide && getParticle() != null && random.nextInt(11) == 0) {
             for (int i = 0; i < 4; i++) {
                 this.level.addParticle(getParticle(), this.getX() + (Math.random() - 0.5) * 0.25,
-                        this.getY() + 0.5 + (Math.random() - 0.5) * 0.25,
+                        this.getY() + (Math.random() - 0.5) * 0.25,
                         this.getZ() + (Math.random() - 0.5) * 0.25,
                         0, 0, 0);
             }

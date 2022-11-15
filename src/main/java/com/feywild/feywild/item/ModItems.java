@@ -28,6 +28,7 @@ public class ModItems {
     public static final Item inactiveMarketRuneStone = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().stacksTo(1), Component.translatable("message.feywild.inactive_market_rune_stone"));
     public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final TeleportationOrb teleportationOrb = new TeleportationOrb(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
+    public static final PixieOrb pixieOrb = new PixieOrb(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_gem_transmutation"));
     public static final Item schematicsElementalRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_elemental_rune_crafting"));
