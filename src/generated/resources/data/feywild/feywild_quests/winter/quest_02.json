@@ -8,7 +8,7 @@
       "translate": "quest.feywild.winter.quest_02.complete.title"
     }
   },
-  "icon": "minecraft:soul_lantern",
+  "icon": "feywild:soul_shard",
   "reputation": 5,
   "start": {
     "description": {
@@ -20,9 +20,10 @@
   },
   "tasks": [
     {
-      "id": "feywild:craft",
+      "amount": 1,
+      "id": "feywild:item_stack",
       "item": {
-        "item": "minecraft:soul_lantern"
+        "item": "feywild:reaper_scythe"
       }
     }
   ]

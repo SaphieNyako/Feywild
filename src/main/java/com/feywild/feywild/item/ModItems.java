@@ -22,6 +22,7 @@ public class ModItems {
     public static final Item shinyFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item brilliantFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item soulShard = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item summoningScroll = new EmptyScroll(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
@@ -46,6 +47,8 @@ public class ModItems {
 
     /* Geckolib registration requires Item registration */
     public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));
+
+    public static final Item reaperScythe = new ReaperScythe(new Item.Properties().durability(750).tab(FeywildMod.getInstance().tab));
 
     @SuppressWarnings("ConstantConditions")
     public static final Item spawnEggSpringBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.springBotaniaPixie, 0xCA73CA, 0x0EAC0A, new Item.Properties().tab(FeywildMod.getInstance().tab));

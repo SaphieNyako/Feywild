@@ -150,6 +150,14 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.summoningScroll)
                 .build();
 
+        this.altar(ModItems.reaperScythe)
+                .requires(ModTrees.winterTree.getWoodBlock())
+                .requires(ModItems.feyDust)
+                .requires(Items.DIAMOND_HOE)
+                .requires(Items.PACKED_ICE)
+                .requires(Items.SPORE_BLOSSOM)
+                .build();
+
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);

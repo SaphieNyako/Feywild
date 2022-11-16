@@ -391,8 +391,8 @@ public class QuestProvider implements DataProvider {
 
         this.quest(WINTER, "quest_02")
                 .parent("quest_01")
-                .icon(Items.SOUL_LANTERN)
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.SOUL_LANTERN)))
+                .icon(ModItems.soulShard)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.reaperScythe), 1)))
                 .build();
 
         //TODO Add Soul Reaper Scythe and altar recipe
@@ -407,7 +407,7 @@ public class QuestProvider implements DataProvider {
 
         this.quest(WINTER, "quest_04")
                 .parent("quest_03")
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BONE), 10)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.soulShard), 10)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.TOTEM_OF_UNDYING)))
                 .build();
 
@@ -458,6 +458,9 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
+
+        //TODO write story for repeatable teleportation Orb quest
+
         //TODO as reward player will receive WINGS, add wings for each faction
     }
 

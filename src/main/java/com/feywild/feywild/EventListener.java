@@ -6,6 +6,7 @@ import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.item.ReaperScythe;
 import com.feywild.feywild.network.LibraryScreenMessage;
 import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
@@ -25,9 +26,14 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,6 +49,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.event.ConfigLoadedEvent;
+
+import java.util.Random;
 
 public class EventListener {
 
@@ -67,6 +75,32 @@ public class EventListener {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntity());
+            if (event.getEntity() instanceof Monster) {
+                InteractionHand hand = player.getUsedItemHand();
+                ItemStack stack = player.getItemInHand(hand);
+                if (stack.getItem() instanceof ReaperScythe) {
+                    spawnRandomItem(event.getEntity(), 2, ModItems.soulShard);
+                    if (event.getEntity() instanceof Zombie) {
+                        spawnRandomItem(event.getEntity(), 8, Items.ZOMBIE_HEAD);
+                    }
+                    if (event.getEntity() instanceof Skeleton) {
+                        spawnRandomItem(event.getEntity(), 10, Items.SKELETON_SKULL);
+                    }
+                    if (event.getEntity() instanceof WitherSkeleton) {
+                        spawnRandomItem(event.getEntity(), 20, Items.WITHER_SKELETON_SKULL);
+                    }
+                    if (event.getEntity() instanceof Creeper) {
+                        spawnRandomItem(event.getEntity(), 15, Items.CREEPER_HEAD);
+                    }
+                }
+            }
+        }
+    }
+
+    public void spawnRandomItem(Entity entity, int randomNextInt, ItemLike item) {
+        Random random = new Random();
+        if (random.nextInt(randomNextInt) <= 0) {
+            entity.spawnAtLocation(new ItemStack(item));
         }
     }
 
@@ -103,7 +137,6 @@ public class EventListener {
 
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
-
         if (!event.getLevel().isClientSide && event.getEntity() instanceof ServerPlayer player) {
             QuestData.get(player).checkComplete(AnimalPetTask.INSTANCE, event.getTarget());
             if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
