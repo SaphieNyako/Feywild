@@ -32,6 +32,10 @@
       "item": {
         "item": "minecraft:snow_block"
       }
+    },
+    {
+      "biome": "feywild:frozen_retreat",
+      "id": "feywild:biome"
     }
   ]
 }

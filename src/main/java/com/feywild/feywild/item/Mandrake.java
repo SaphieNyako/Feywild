@@ -23,7 +23,6 @@ public class Mandrake extends TooltipItem {
         if (level.isClientSide) {
             player.playSound(ModSoundEvents.mandrakeScream, 1.0f, 0.8f);
         }
-
         return super.use(level, player, hand);
     }
 }

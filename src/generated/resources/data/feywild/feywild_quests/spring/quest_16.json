@@ -25,6 +25,10 @@
       "item": {
         "item": "feywild:honeycomb"
       }
+    },
+    {
+      "biome": "feywild:golden_seelie_fields",
+      "id": "feywild:biome"
     }
   ]
 }

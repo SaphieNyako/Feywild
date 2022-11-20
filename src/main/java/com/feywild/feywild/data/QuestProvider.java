@@ -150,7 +150,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_14")
                 .parent("quest_08")
                 .icon(Items.DANDELION)
-                // .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:blossoming_wealds", ':')))
                 .build();
 
         //TODO Fix BiomeTask
@@ -165,7 +165,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_15")
                 .icon(ModItems.honeycomb)
                 .gift(Ingredient.of(ModItems.honeycomb), 1)
-                //     .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:golden_seelie_fields", ':')))
                 .build();
 
         this.quest(SPRING, "quest_17")
@@ -173,7 +173,7 @@ public class QuestProvider implements DataProvider {
                 .icon(Items.RED_MUSHROOM)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKED_BEEF), 1)))
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BREAD), 1)))
-                //     .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:eternal_fall", ':')))
                 .build();
 
         this.quest(SPRING, "quest_18")
@@ -181,7 +181,7 @@ public class QuestProvider implements DataProvider {
                 .icon(Items.CARVED_PUMPKIN)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CARVED_PUMPKIN), 1)))
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.SNOW_BLOCK), 2)))
-                //   .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:frozen_retreat", ':')))
                 .build();
 
         this.quest(SPRING, "quest_19")

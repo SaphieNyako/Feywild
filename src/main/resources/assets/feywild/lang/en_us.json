@@ -425,7 +425,7 @@
   "quest.feywild.spring.quest_06.complete.title": "Disappointment",
   "quest.feywild.spring.quest_06.start.description": "$(n)You still would like to know more about the other Courts? But I told you everything, we're awesome and fun and the others are boring! $(n)We could go to the Feywild and visit the other Courts! But... I don't know how adventurers can cross the veil and enter our lands. $(n)We could $(spring)visit$() a $(spring)library$()? $(n)-You try to explain to the little pixie what a library is- $(n) Sounds boring...$(n)There are books about food? Count me in!",
   "quest.feywild.spring.quest_06.start.title": "Knowledge",
-  "quest.feywild.spring.quest_07.complete.description": "Ooops! Are you ok adventurer? &(n)- The little pixie can't stop laughing - $(n)Did you see how angry he got! His face was all red!",
+  "quest.feywild.spring.quest_07.complete.description": "Ooops! Are you ok adventurer? $(n)- The little pixie can't stop laughing - $(n)Did you see how angry he got! His face was all red!",
   "quest.feywild.spring.quest_07.complete.title": "Ooops!",
   "quest.feywild.spring.quest_07.start.description": "What!? Every time you ring that bell the Librarian will be summoned to this location! That's so funny! You should $(b;spring)ring$() it!$(n)I dare you! $(n)Again! Do it Again! $(n)– The little pixie wipes a way a tear of laughter - $(n)$(n)$(autumn)Please be aware that ringing the bell multiple times, the librarian will call security. You have been warned!$()",
   "quest.feywild.spring.quest_07.start.title": "Annoying visitors!",

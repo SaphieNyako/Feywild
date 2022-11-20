@@ -32,6 +32,10 @@
       "item": {
         "item": "minecraft:bread"
       }
+    },
+    {
+      "biome": "feywild:eternal_fall",
+      "id": "feywild:biome"
     }
   ]
 }
