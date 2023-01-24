@@ -3,7 +3,6 @@ package com.feywild.feywild.block.trees.seasonal;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -11,9 +10,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.moddingx.libx.mod.ModX;
 
+import java.util.Random;
+
 public class HexenTree extends BaseTree {
     public HexenTree(ModX mod) {
-        super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
+        super(mod);
     }
 
     private static BlockState getDecorationBlock(RandomSource random) {
@@ -30,5 +31,14 @@ public class HexenTree extends BaseTree {
         if (random.nextDouble() < 0.2) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
+    }
+
+    @Override
+    public FeyLeavesBlock getLeafBlock() {
+        Random random = new Random();
+        return switch (random.nextInt(2)) {
+            case 0 -> ModBlocks.hexBlackLeaves;
+            default -> ModBlocks.hexPurpleLeaves;
+        };
     }
 }

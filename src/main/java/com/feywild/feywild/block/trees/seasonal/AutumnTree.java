@@ -4,7 +4,6 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -24,11 +23,12 @@ import org.moddingx.libx.registration.RegistrationContext;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
+import java.util.Random;
 
 public class AutumnTree extends BaseTree {
 
     public AutumnTree(ModX mod) {
-        super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
+        super(mod);
     }
 
     private static BlockState getDecorationBlock(RandomSource random) {
@@ -65,6 +65,19 @@ public class AutumnTree extends BaseTree {
         if (random.nextDouble() < 0.2) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
+    }
+
+    @Override
+    public FeyLeavesBlock getLeafBlock() {
+        Random random = new Random();
+        return switch (random.nextInt(3)) {
+            case 0 -> ModBlocks.autumnBrownLeaves;
+            case 1 -> ModBlocks.autumnDarkGrayLeaves;
+            case 2 -> ModBlocks.autumnLightGrayLeaves;
+            default -> ModBlocks.autumnRedLeaves;
+        };
+
+
     }
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {

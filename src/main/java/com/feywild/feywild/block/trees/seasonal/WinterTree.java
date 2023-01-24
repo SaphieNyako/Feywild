@@ -1,9 +1,9 @@
 package com.feywild.feywild.block.trees.seasonal;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingBlobFoliagePlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -25,11 +25,12 @@ import org.moddingx.libx.util.data.TagAccess;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Random;
 
 public class WinterTree extends BaseTree {
 
     public WinterTree(ModX mod) {
-        super(mod, () -> new FeyLeavesBlock(mod, 15, ModParticles.winterLeafParticle));
+        super(mod);
     }
 
     @Override
@@ -55,10 +56,20 @@ public class WinterTree extends BaseTree {
         }
     }
 
+    @Override
+    public FeyLeavesBlock getLeafBlock() {
+        Random random = new Random();
+        return switch (random.nextInt(2)) {
+            case 0 -> ModBlocks.winterBlueLeaves;
+            default -> ModBlocks.winterLightBlueLeaves;
+        };
+
+    }
+
     private static class LeavesPlacer extends DecoratingBlobFoliagePlacer {
 
         public static final FoliagePlacerType<LeavesPlacer> TYPE = makeType(LeavesPlacer::new);
-        
+
         public LeavesPlacer(IntProvider radiusSpread, IntProvider heightSpread, int height) {
             super(radiusSpread, heightSpread, height);
         }

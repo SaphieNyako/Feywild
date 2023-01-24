@@ -1,7 +1,10 @@
 {
   "textures": [
-    "feywild:winter_leaf_particle",
-    "feywild:winter_leaf_particle_01",
-    "feywild:winter_leaf_particle_03"
+    "feywild:winter_dark_blue_particle",
+    "feywild:winter_dark_blue_particle_01",
+    "feywild:winter_dark_blue_particle_02",
+    "feywild:winter_light_blue_particle",
+    "feywild:winter_light_blue_particle_01",
+    "feywild:winter_light_blue_particle_02"
   ]
 }

@@ -1,8 +1,8 @@
 package com.feywild.feywild.block.trees.seasonal;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -12,10 +12,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.util.data.TagAccess;
 
+import java.util.Random;
+
 public class SummerTree extends BaseTree {
 
     public SummerTree(ModX mod) {
-        super(mod, () -> new FeyLeavesBlock(mod, 20, ModParticles.summerLeafParticle));
+        super(mod);
     }
 
     private static BlockState getDecorationBlock(RandomSource random) {
@@ -34,5 +36,14 @@ public class SummerTree extends BaseTree {
         if (TagAccess.ROOT.has(BlockTags.DIRT, level.getBlockState(pos.below()).getBlock())) {
             level.setBlockAndUpdate(pos, getDecorationBlock(random));
         }
+    }
+
+    @Override
+    public FeyLeavesBlock getLeafBlock() {
+        Random random = new Random();
+        return switch (random.nextInt(2)) {
+            case 0 -> ModBlocks.summerOrangeLeaves;
+            default -> ModBlocks.summerYellowLeaves;
+        };
     }
 }

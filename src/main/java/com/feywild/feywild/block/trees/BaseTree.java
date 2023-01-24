@@ -32,7 +32,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
 
@@ -47,7 +46,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyLogBlock logBlock;
     private final FeyWoodBlock woodBlock;
     private final BlockItem logItem;
-    private final FeyLeavesBlock leaves;
+    //   private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
     private final FeyStrippedLogBlock strippedLog;
     private final BlockItem strippedLogItem;
@@ -58,7 +57,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     private Holder<ConfiguredFeature<?, ?>> feature;
 
-    public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
+    public BaseTree(ModX mod) { //Supplier<? extends FeyLeavesBlock> leavesFactory
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.plankBlock = new FeyPlanksBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
@@ -66,7 +65,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
-        this.leaves = leavesFactory.get();
+        //   this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
         this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.crackedLogItem = new BlockItem(this.crackedLogBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
@@ -78,7 +77,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registry.BLOCK_REGISTRY, "log", this.logBlock);
         builder.registerNamed(Registry.ITEM_REGISTRY, "log", this.logItem);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "wood", this.woodBlock);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "leaves", this.leaves);
+        //   builder.registerNamed(Registry.BLOCK_REGISTRY, "leaves", this.leaves);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "sapling", this.sapling);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_log", this.strippedLog);
         builder.registerNamed(Registry.ITEM_REGISTRY, "stripped_log", this.strippedLogItem);
@@ -137,9 +136,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return this.woodBlock;
     }
 
-    public FeyLeavesBlock getLeafBlock() {
-        return this.leaves;
-    }
+    public abstract FeyLeavesBlock getLeafBlock();
 
     public FeyStrippedLogBlock getStrippedLogBlock() {
         return this.strippedLog;
