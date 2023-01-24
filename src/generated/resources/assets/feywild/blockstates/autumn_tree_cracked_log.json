@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "cracked=1": {
+      "model": "feywild:block/autumn_tree_cracked_log"
+    },
+    "cracked=2": {
+      "model": "feywild:block/autumn_tree_cracked_log_2"
+    },
+    "cracked=3": {
+      "model": "feywild:block/autumn_tree_cracked_log_3"
+    },
+    "cracked=4": {
+      "model": "feywild:block/autumn_tree_cracked_log_4"
+    },
+    "cracked=5": {
+      "model": "feywild:block/autumn_tree_cracked_log_5"
+    },
+    "cracked=6": {
+      "model": "feywild:block/autumn_tree_cracked_log_6"
+    }
+  }
+}

@@ -1,6 +1,5 @@
 package com.feywild.feywild.entity.base;
 
-import com.feywild.feywild.FeyPlayerData;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
@@ -112,7 +111,6 @@ public abstract class Fey extends FlyingFeyBase {
                 player.swing(player.getUsedItemHand(), true);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 player.addItem(new ItemStack(ModItems.pixieOrb));
-                FeyPlayerData.get(player).putString("capture_pixie", this.alignment.id);
                 this.remove(RemovalReason.DISCARDED);
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 ItemStack stack = player.getItemInHand(hand);

@@ -3,6 +3,7 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.base.BotaniaPixie;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.network.FeywildNetwork;
@@ -152,10 +153,10 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
             SpawnPlacements.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
             SpawnPlacements.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
-            SpawnPlacements.register(ModEntities.springBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringBotaniaPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.summerBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerBotaniaPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.autumnBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnBotaniaPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.winterBotaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterBotaniaPixie::canSpawn);
+            SpawnPlacements.register(ModEntities.botaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BotaniaPixie::canSpawn);
+
+            SpawnPlacements.register(ModEntities.titania, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Titania::canSpawn);
+            SpawnPlacements.register(ModEntities.mab, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mab::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntities.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -187,10 +188,10 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
-        EntityRenderers.register(ModEntities.springBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
-        EntityRenderers.register(ModEntities.summerBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
-        EntityRenderers.register(ModEntities.autumnBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
-        EntityRenderers.register(ModEntities.winterBotaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
+        EntityRenderers.register(ModEntities.botaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
+
+        EntityRenderers.register(ModEntities.titania, TitaniaRenderer.create(TitaniaModel::new));
+        EntityRenderers.register(ModEntities.mab, MabRenderer.create(MabModel::new));
 
     }
 
@@ -209,10 +210,10 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.mandragora, Mandragora.getDefaultAttributes().build());
         event.put(ModEntities.beeKnight, BeeKnight.getDefaultAttributes().build());
         event.put(ModEntities.shroomling, Shroomling.getDefaultAttributes().build());
-        event.put(ModEntities.springBotaniaPixie, SpringBotaniaPixie.getDefaultAttributes().build());
-        event.put(ModEntities.summerBotaniaPixie, SummerBotaniaPixie.getDefaultAttributes().build());
-        event.put(ModEntities.autumnBotaniaPixie, AutumnBotaniaPixie.getDefaultAttributes().build());
-        event.put(ModEntities.winterBotaniaPixie, WinterBotaniaPixie.getDefaultAttributes().build());
+        event.put(ModEntities.botaniaPixie, BotaniaPixie.getDefaultAttributes().build());
+
+        event.put(ModEntities.titania, Titania.getDefaultAttributes().build());
+        event.put(ModEntities.mab, Mab.getDefaultAttributes().build());
     }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {

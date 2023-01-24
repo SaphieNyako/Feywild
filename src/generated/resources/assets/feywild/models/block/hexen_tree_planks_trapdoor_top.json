@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_top",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "texture": "feywild:block/hexen_tree_planks_trapdoor"
+  }
+}

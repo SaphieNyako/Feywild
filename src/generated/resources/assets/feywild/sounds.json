@@ -7,6 +7,12 @@
       }
     ]
   },
+  "beating_wings": {
+    "sounds": [
+      "feywild:beating_wings"
+    ],
+    "subtitle": "subtitle.feywild.beating_wings"
+  },
   "dwarf_attack": {
     "sounds": [
       "feywild:dwarf_attack"
@@ -25,6 +31,58 @@
         "name": "feywild:feywild_soundtrack",
         "stream": true
       }
+    ]
+  },
+  "ice_cracking": {
+    "sounds": [
+      "feywild:ice_cracking"
+    ],
+    "subtitle": "subtitle.feywild.ice_cracking"
+  },
+  "mab_ambience": {
+    "sounds": [
+      "feywild:mab_ambience0",
+      "feywild:mab_ambience1",
+      "feywild:mab_ambience2",
+      "feywild:mab_ambience3",
+      "feywild:mab_ambience4"
+    ]
+  },
+  "mab_attack": {
+    "sounds": [
+      "feywild:mab_attack0",
+      "feywild:mab_attack1"
+    ]
+  },
+  "mab_death": {
+    "sounds": [
+      "feywild:mab_death0",
+      "feywild:mab_death1",
+      "feywild:mab_death2",
+      "feywild:mab_death3"
+    ]
+  },
+  "mab_hurt": {
+    "sounds": [
+      "feywild:mab_hurt0",
+      "feywild:mab_hurt1",
+      "feywild:mab_hurt2",
+      "feywild:mab_hurt3"
+    ]
+  },
+  "mab_intimidate": {
+    "sounds": [
+      "feywild:mab_intimidate0",
+      "feywild:mab_intimidate1",
+      "feywild:mab_intimidate2",
+      "feywild:mab_intimidate3"
+    ]
+  },
+  "mab_summon": {
+    "sounds": [
+      "feywild:mab_summon0",
+      "feywild:mab_summon1",
+      "feywild:mab_summon2"
     ]
   },
   "mandragora_ambience": {
@@ -136,6 +194,12 @@
       "feywild:shroomling_wave1"
     ]
   },
+  "spellcasting_short": {
+    "sounds": [
+      "feywild:spellcasting_short"
+    ],
+    "subtitle": "subtitle.feywild.spellcasting_short"
+  },
   "spring_soundtrack": {
     "sounds": [
       {
@@ -199,6 +263,65 @@
       "feywild:summoning_winter_pixie_short"
     ],
     "subtitle": "subtitle.feywild.summoning_winter_pixie_short"
+  },
+  "sword_swing": {
+    "sounds": [
+      "feywild:sword_swing"
+    ],
+    "subtitle": "subtitle.feywild.sword_swing"
+  },
+  "titania_ambience": {
+    "sounds": [
+      "feywild:titania_ambience0",
+      "feywild:titania_ambience1",
+      "feywild:titania_ambience2",
+      "feywild:titania_ambience3",
+      "feywild:titania_ambience4",
+      "feywild:titania_ambience5",
+      "feywild:titania_ambience6",
+      "feywild:titania_ambience7",
+      "feywild:titania_ambience8",
+      "feywild:titania_ambience9"
+    ]
+  },
+  "titania_death": {
+    "sounds": [
+      "feywild:titania_death0",
+      "feywild:titania_death1",
+      "feywild:titania_death2",
+      "feywild:titania_death3"
+    ]
+  },
+  "titania_fire_attack": {
+    "sounds": [
+      "feywild:titania_fire_attack0",
+      "feywild:titania_fire_attack1",
+      "feywild:titania_fire_attack2",
+      "feywild:titania_fire_attack3",
+      "feywild:titania_fire_attack4",
+      "feywild:titania_fire_attack5"
+    ]
+  },
+  "titania_hurt": {
+    "sounds": [
+      "feywild:titania_hurt0",
+      "feywild:titania_hurt1",
+      "feywild:titania_hurt2",
+      "feywild:titania_hurt3",
+      "feywild:titania_hurt4",
+      "feywild:titania_hurt5",
+      "feywild:titania_hurt6",
+      "feywild:titania_hurt7"
+    ]
+  },
+  "titania_summon_bee": {
+    "sounds": [
+      "feywild:titania_summon_bee0",
+      "feywild:titania_summon_bee1",
+      "feywild:titania_summon_bee2",
+      "feywild:titania_summon_bee3",
+      "feywild:titania_summon_bee4"
+    ]
   },
   "winter_soundtrack": {
     "sounds": [

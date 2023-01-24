@@ -1,12 +1,12 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.FeyPlayerData;
-import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.ModEntities;
+import com.feywild.feywild.entity.base.BotaniaPixie;
+import com.feywild.feywild.quest.player.QuestData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -26,8 +26,9 @@ public class PixieOrb extends TooltipItem {
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
         if (player instanceof ServerPlayer) {
-            Entity pixie = getPixie(player, level);
+            BotaniaPixie pixie = new BotaniaPixie(ModEntities.botaniaPixie, level);
             pixie.setPos(player.getX(), player.getY(), player.getZ());
+            pixie.setVariant(getVariantPlayer(player));
             level.addFreshEntity(pixie);
             player.swing(hand, true);
             if (!Objects.requireNonNull(player).isCreative()) {
@@ -39,12 +40,17 @@ public class PixieOrb extends TooltipItem {
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
-    public Entity getPixie(Player player, Level level) {
-        return switch (FeyPlayerData.get(player).getString("capture_pixie")) {
-            case "spring" -> new SpringBotaniaPixie(ModEntities.springBotaniaPixie, level);
-            case "autumn" -> new AutumnBotaniaPixie(ModEntities.autumnBotaniaPixie, level);
-            case "winter" -> new WinterBotaniaPixie(ModEntities.winterBotaniaPixie, level);
-            default -> new SummerBotaniaPixie(ModEntities.summerBotaniaPixie, level);
-        };
+    private BotaniaPixie.BotaniaPixieVariant getVariantPlayer(Player player) {
+        QuestData data = QuestData.get((ServerPlayer) player);
+        if (data.getAlignment() == null) {
+            return BotaniaPixie.BotaniaPixieVariant.DEFAULT;
+        } else {
+            return switch (data.getAlignment()) {
+                case SPRING -> BotaniaPixie.BotaniaPixieVariant.SPRING;
+                case SUMMER -> BotaniaPixie.BotaniaPixieVariant.SUMMER;
+                case WINTER -> BotaniaPixie.BotaniaPixieVariant.WINTER;
+                case AUTUMN -> BotaniaPixie.BotaniaPixieVariant.AUTUMN;
+            };
+        }
     }
 }

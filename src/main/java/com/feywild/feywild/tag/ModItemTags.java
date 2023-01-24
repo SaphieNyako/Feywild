@@ -17,4 +17,6 @@ public class ModItemTags {
     public static final TagKey<Item> SPRING_LOGS = ItemTags.create(FeywildMod.getInstance().resource("spring_logs"));
     public static final TagKey<Item> SUMMER_LOGS = ItemTags.create(FeywildMod.getInstance().resource("summer_logs"));
     public static final TagKey<Item> WINTER_LOGS = ItemTags.create(FeywildMod.getInstance().resource("winter_logs"));
+    public static final TagKey<Item> BLOSSOM_LOGS = ItemTags.create(FeywildMod.getInstance().resource("blossom_logs"));
+    public static final TagKey<Item> HEXEN_LOGS = ItemTags.create(FeywildMod.getInstance().resource("hexen_logs"));
 }

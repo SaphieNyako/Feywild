@@ -7,6 +7,10 @@
     "feywild:autumn_tree_wood_wall",
     "feywild:autumn_tree_stripped_wood_wall",
     "feywild:winter_tree_wood_wall",
-    "feywild:winter_tree_stripped_wood_wall"
+    "feywild:winter_tree_stripped_wood_wall",
+    "feywild:blossom_tree_wood_wall",
+    "feywild:blossom_tree_stripped_wood_wall",
+    "feywild:hexen_tree_wood_wall",
+    "feywild:hexen_tree_stripped_wood_wall"
   ]
 }

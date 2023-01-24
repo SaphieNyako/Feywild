@@ -3,15 +3,13 @@ package com.feywild.feywild.data;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.MossyBlock;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
-import com.feywild.feywild.block.trees.BaseSaplingBlock;
-import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.block.trees.FeyLogBlock;
-import com.feywild.feywild.block.trees.FeyStrippedLogBlock;
+import com.feywild.feywild.block.trees.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -46,7 +44,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
         this.manualModel(ModBlocks.libraryBell);
         this.manualModel(ModBlocks.treeMushroom);
         this.manualModel(ModBlocks.magicalBrazier);
-        
+
         this.manualModel(ModBlocks.feyMushroom, this.models().cross(
                 Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.feyMushroom)).getPath(),
                 this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.feyMushroom)).getPath())
@@ -57,13 +55,34 @@ public class BlockStateProvider extends BlockStateProviderBase {
                 this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)).getPath() + "_side"),
                 this.modLoc("block/" + Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.ancientRunestone)).getPath() + "_top")
         ));
-        
+
         this.makeDisplayGlass();
+        this.makeCrackedLogBlock(ModTrees.autumnTree.getCrackedLogBlock());
+        this.makeCrackedLogBlock(ModTrees.springTree.getCrackedLogBlock());
+        this.makeCrackedLogBlock(ModTrees.winterTree.getCrackedLogBlock());
+        this.makeCrackedLogBlock(ModTrees.summerTree.getCrackedLogBlock());
+        this.makeCrackedLogBlock(ModTrees.blossomTree.getCrackedLogBlock());
+        this.makeCrackedLogBlock(ModTrees.hexenTree.getCrackedLogBlock());
+    }
+
+    private void makeCrackedLogBlock(FeyCrackedLogBlock logBlock) {
+        this.manualState(logBlock);
+
+
+        ResourceLocation id = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(logBlock));
+        String tree = id.getPath().replace("_cracked_log", "");
+        VariantBlockStateBuilder builder = this.getVariantBuilder(logBlock);
+        FeyCrackedLogBlock.CRACKED.getPossibleValues().forEach(i ->
+                builder.partialState().with(FeyCrackedLogBlock.CRACKED, i)
+                        .addModels(new ConfiguredModel(this.models()
+                                .cubeColumn(id.getPath() + (i == 1 ? "" : "_" + i),
+                                        new ResourceLocation(id.getNamespace(), "block/" + id.getPath() + "_" + i),
+                                        new ResourceLocation(id.getNamespace(), "block/" + tree + "_log")))));
     }
 
     private void makeDisplayGlass() {
         this.manualState(ModBlocks.displayGlass);
-        
+
         ResourceLocation id = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(ModBlocks.displayGlass));
         VariantBlockStateBuilder builder = this.getVariantBuilder(ModBlocks.displayGlass);
         DisplayGlassBlock.BREAKAGE.getPossibleValues().forEach(i ->
@@ -76,8 +95,7 @@ public class BlockStateProvider extends BlockStateProviderBase {
                         )
         );
     }
-    
-    
+
 
     @Override
     protected void defaultState(ResourceLocation id, Block block, Supplier<ModelFile> model) {

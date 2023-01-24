@@ -53,7 +53,9 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final BlockItem strippedLogItem;
     private final FeyStrippedWoodBlock strippedWood;
     private final FeyPlanksBlock plankBlock;
-    
+    private final FeyCrackedLogBlock crackedLogBlock;
+    private final BlockItem crackedLogItem;
+
     private Holder<ConfiguredFeature<?, ?>> feature;
 
     public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
@@ -66,6 +68,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
+        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
+        this.crackedLogItem = new BlockItem(this.crackedLogBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
     }
 
     @Override
@@ -80,7 +84,9 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registry.ITEM_REGISTRY, "stripped_log", this.strippedLogItem);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_wood", this.strippedWood);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "planks", this.plankBlock);
-        
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "cracked_log", this.crackedLogBlock);
+        builder.registerNamed(Registry.ITEM_REGISTRY, "cracked_log", this.crackedLogItem);
+
         TreeConfiguration featureConfig = this.getFeatureBuilder().build();
         this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
@@ -88,7 +94,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     public Holder<ConfiguredFeature<?, ?>> getConfiguredFeature() {
         return Objects.requireNonNull(this.feature, "Feywild tree feature not initialised");
     }
-    
+
     @Nullable
     @Override
     public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
@@ -149,6 +155,10 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     public FeyStrippedWoodBlock getStrippedWoodBlock() {
         return this.strippedWood;
+    }
+
+    public FeyCrackedLogBlock getCrackedLogBlock() {
+        return this.crackedLogBlock;
     }
 
     protected int getLeavesRadius() {

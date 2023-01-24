@@ -10,7 +10,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 import org.moddingx.libx.base.ItemBase;
 
@@ -49,12 +48,6 @@ public class ModItems {
     public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));
 
     public static final Item reaperScythe = new ReaperScythe(new Item.Properties().durability(750).tab(FeywildMod.getInstance().tab));
-
-    @SuppressWarnings("ConstantConditions")
-    public static final Item spawnEggSpringBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.springBotaniaPixie, 0xCA73CA, 0x0EAC0A, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggSummerBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.summerBotaniaPixie, 0xCA73CA, 0xE3C53D, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggAutumnBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.autumnBotaniaPixie, 0xCA73CA, 0xD87A0E, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggWinterBotaniaPixie = new ForgeSpawnEggItem(() -> ModEntities.winterBotaniaPixie, 0xCA73CA, 0x0EC2E9, new Item.Properties().tab(FeywildMod.getInstance().tab));
 
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(

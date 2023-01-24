@@ -49,6 +49,9 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
         treeTags(ModTrees.autumnTree, ModBlockTags.AUTUMN_LOGS, ModItemTags.AUTUMN_LOGS);
         treeTags(ModTrees.winterTree, ModBlockTags.WINTER_LOGS, ModItemTags.WINTER_LOGS);
+        treeTags(ModTrees.blossomTree, ModBlockTags.BLOSSOM_LOGS, ModItemTags.BLOSSOM_LOGS);
+        treeTags(ModTrees.hexenTree, ModBlockTags.HEXEN_LOGS, ModItemTags.HEXEN_LOGS);
+
 
         this.block(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.FEY_LOGS);
         this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);

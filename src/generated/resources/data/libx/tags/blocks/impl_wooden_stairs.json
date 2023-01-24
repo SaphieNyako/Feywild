@@ -11,6 +11,12 @@
     "feywild:autumn_tree_planks_stairs",
     "feywild:winter_tree_wood_stairs",
     "feywild:winter_tree_stripped_wood_stairs",
-    "feywild:winter_tree_planks_stairs"
+    "feywild:winter_tree_planks_stairs",
+    "feywild:blossom_tree_wood_stairs",
+    "feywild:blossom_tree_stripped_wood_stairs",
+    "feywild:blossom_tree_planks_stairs",
+    "feywild:hexen_tree_wood_stairs",
+    "feywild:hexen_tree_stripped_wood_stairs",
+    "feywild:hexen_tree_planks_stairs"
   ]
 }

@@ -100,7 +100,7 @@
         "weight": 30
       },
       {
-        "type": "feywild:autumn_botania_pixie",
+        "type": "feywild:botania_pixie",
         "maxCount": 4,
         "minCount": 2,
         "weight": 60

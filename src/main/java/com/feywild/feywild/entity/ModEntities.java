@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.entity.base.BotaniaPixie;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import org.moddingx.libx.annotation.registration.RegisterClass;
@@ -64,21 +65,15 @@ public class ModEntities {
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_winter_pixie");
 
-    public static final EntityType<SpringBotaniaPixie> springBotaniaPixie = EntityType.Builder.of(SpringBotaniaPixie::new, MobCategory.CREATURE)
+    public static final EntityType<BotaniaPixie> botaniaPixie = EntityType.Builder.of(BotaniaPixie::new, MobCategory.CREATURE)
             .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_spring_botania_pixie");
+            .build(FeywildMod.getInstance().modid + "_botania_pixie");
 
-    public static final EntityType<WinterBotaniaPixie> winterBotaniaPixie = EntityType.Builder.of(WinterBotaniaPixie::new, MobCategory.CREATURE)
-            .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_winter_botania_pixie");
+    public static final EntityType<Titania> titania = EntityType.Builder.of(Titania::new, MobCategory.MONSTER)
+            .sized(1.0f, 4.0f)
+            .build(FeywildMod.getInstance().modid + "_titania");
 
-    public static final EntityType<SummerBotaniaPixie> summerBotaniaPixie = EntityType.Builder.of(SummerBotaniaPixie::new, MobCategory.CREATURE)
-            .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_summer_botania_pixie");
-
-    public static final EntityType<AutumnBotaniaPixie> autumnBotaniaPixie = EntityType.Builder.of(AutumnBotaniaPixie::new, MobCategory.CREATURE)
-            .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_autumn_botania_pixie");
-
-
+    public static final EntityType<Mab> mab = EntityType.Builder.of(Mab::new, MobCategory.MONSTER)
+            .sized(1.0f, 4.0f)
+            .build(FeywildMod.getInstance().modid + "_mab");
 }
