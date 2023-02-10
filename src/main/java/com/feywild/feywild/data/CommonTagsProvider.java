@@ -52,6 +52,22 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         treeTags(ModTrees.blossomTree, ModBlockTags.BLOSSOM_LOGS, ModItemTags.BLOSSOM_LOGS);
         treeTags(ModTrees.hexenTree, ModBlockTags.HEXEN_LOGS, ModItemTags.HEXEN_LOGS);
 
+        leavesTags(ModBlocks.springGreenLeaves);
+        leavesTags(ModBlocks.springCyanLeaves);
+        leavesTags(ModBlocks.springLimeLeaves);
+        leavesTags(ModBlocks.summerOrangeLeaves);
+        leavesTags(ModBlocks.summerYellowLeaves);
+        leavesTags(ModBlocks.autumnBrownLeaves);
+        leavesTags(ModBlocks.autumnDarkGrayLeaves);
+        leavesTags(ModBlocks.autumnLightGrayLeaves);
+        leavesTags(ModBlocks.autumnRedLeaves);
+        leavesTags(ModBlocks.winterBlueLeaves);
+        leavesTags(ModBlocks.winterLightBlueLeaves);
+        leavesTags(ModBlocks.blossomMagentaLeaves);
+        leavesTags(ModBlocks.blossomPinkLeaves);
+        leavesTags(ModBlocks.blossomWhiteLeaves);
+        leavesTags(ModBlocks.hexBlackLeaves);
+        leavesTags(ModBlocks.hexPurpleLeaves);
 
         this.block(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.FEY_LOGS);
         this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
@@ -60,6 +76,11 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
     private void tool(Block block, TagKey<Block> tool, @Nullable TagKey<Block> level) {
         this.block(tool).add(block);
         if (level != null) this.block(level).add(block);
+    }
+
+    private void leavesTags(Block block) {
+        this.block(BlockTags.LEAVES).add(block);
+        this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
     }
 
     private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
@@ -71,14 +92,14 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         );
         this.block(ModBlockTags.FEY_LOGS).addTag(logs);
         this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
-        this.block(BlockTags.LEAVES).add(tree.getLeafBlock());
+        // this.block(BlockTags.LEAVES).add(tree.getLeafBlock());
         this.block(BlockTags.SAPLINGS).add(tree.getSapling());
         tool(tree.getLeafBlock(), BlockTags.MINEABLE_WITH_HOE, null);
 
         this.copyBlock(logs, logItems);
         this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
         this.copyBlock(BlockTags.PLANKS, ItemTags.PLANKS);
-        this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
+        //  this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
         this.copyBlock(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
     }
 

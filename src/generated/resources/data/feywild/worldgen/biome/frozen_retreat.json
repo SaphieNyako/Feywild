@@ -4,14 +4,14 @@
   },
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 11260143,
     "particle": {
       "options": {
         "type": "minecraft:snowflake"
       },
       "probability": 0.002
     },
-    "sky_color": 8364543,
+    "sky_color": 8756735,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -188,6 +188,6 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.0,
+  "temperature": -0.7,
   "temperature_modifier": "frozen"
 }

@@ -28,23 +28,24 @@ public class WorldGenProvider extends WorldGenProviderBase {
 
     @Override
     protected void setup() {
-        
+
         // Features
-        this.addData(FeyTrees::new);
+
         this.addData(FeyFeatures::new);
+        this.addData(FeyTrees::new);
         this.addData(FeyPlacements::new);
-        
+
         // Structures
         this.addData(FeyTemplates::new);
         this.addData(FeyStructures::new);
         this.addData(FeyStructureSets::new);
-        
+
         // Biome data
         this.addData(FeyBiomeModifiers::new);
         this.addData(FeyBiomes::new);
         this.addData(FeySurface::new);
         this.addData(FeyBiomeLayers::new);
-        
+
         // Dimensions
         this.addData(FeyNoiseSettings::new);
         this.addData(FeyDimensionTypes::new);

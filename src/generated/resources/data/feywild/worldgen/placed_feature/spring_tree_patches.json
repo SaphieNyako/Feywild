@@ -14,7 +14,7 @@
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR_WG"
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
       "type": "minecraft:block_predicate_filter",
@@ -22,13 +22,13 @@
         "type": "minecraft:all_of",
         "predicates": [
           {
-            "type": "minecraft:would_survive",
-            "state": {
-              "Name": "feywild:spring_tree_sapling",
-              "Properties": {
-                "stage": "0"
-              }
-            }
+            "type": "minecraft:matching_block_tag",
+            "offset": [
+              0,
+              -1,
+              0
+            ],
+            "tag": "minecraft:dirt"
           },
           {
             "type": "minecraft:matching_fluids",

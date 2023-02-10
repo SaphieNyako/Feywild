@@ -20,6 +20,7 @@ import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.FeywildJigsawHelper;
 import com.feywild.feywild.util.LibraryBooks;
+import com.feywild.feywild.world.gen.processor.*;
 import com.feywild.feywild.world.market.MarketGenerator;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
@@ -27,11 +28,13 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeRenderTypes;
@@ -60,7 +63,12 @@ import javax.annotation.Nonnull;
 public final class FeywildMod extends ModXRegistration {
 
     public static final Logger logger = LoggerFactory.getLogger("feywild");
-
+    public static StructureProcessorType<SpringTreeProcessor> SPRING_TREE_PROCESSOR = () -> SpringTreeProcessor.CODEC;
+    public static StructureProcessorType<SummerTreeProcessor> SUMMER_TREE_PROCESSOR = () -> SummerTreeProcessor.CODEC;
+    public static StructureProcessorType<AutumnTreeProcessor> AUTUMN_TREE_PROCESSOR = () -> AutumnTreeProcessor.CODEC;
+    public static StructureProcessorType<WinterTreeProcessor> WINTER_TREE_PROCESSOR = () -> WinterTreeProcessor.CODEC;
+    public static StructureProcessorType<BlossomTreeProcessor> BLOSSOM_TREE_PROCESSOR = () -> BlossomTreeProcessor.CODEC;
+    public static StructureProcessorType<HexenTreeProcessor> HEXEN_TREE_PROCESSOR = () -> HexenTreeProcessor.CODEC;
     private static FeywildMod instance;
     private static FeywildNetwork network;
 
@@ -164,6 +172,13 @@ public final class FeywildMod extends ModXRegistration {
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntities.dwarfArtificer, new BlockPos(7, 63, -2));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntities.dwarfDragonHunter, new BlockPos(21, 63, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntities.dwarfToolsmith, new BlockPos(21, 63, 11));
+
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "spring_tree_processor"), SPRING_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "summer_tree_processor"), SUMMER_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "autumn_tree_processor"), AUTUMN_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "winter_tree_processor"), WINTER_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "blossom_tree_processor"), BLOSSOM_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "hexen_tree_processor"), HEXEN_TREE_PROCESSOR);
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();

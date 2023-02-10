@@ -163,7 +163,6 @@ public class EventListener {
                 //TODO change OpeningScreen text and add story sound
             }
         }
-
     }
 
     @SubscribeEvent

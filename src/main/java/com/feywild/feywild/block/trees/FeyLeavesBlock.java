@@ -37,6 +37,8 @@ import javax.annotation.Nonnull;
 
 public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShearable {
 
+
+    //TODO this can be normal leaves now?
     public static final int MAX_DISTANCE = 15;
     public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
 
@@ -52,11 +54,6 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
         this.particle = particle;
 
         this.registerDefaultState(this.stateDefinition.any().setValue(DISTANCE, 0).setValue(BlockStateProperties.PERSISTENT, false));
-    }
-
-    @Override
-    public void registerCommon(SetupContext ctx) {
-        ctx.enqueue(() -> ComposterBlock.add(0.4f, this));
     }
 
     protected static BlockState updateDistance(BlockState state, LevelAccessor levelIn, BlockPos pos) {
@@ -79,6 +76,11 @@ public class FeyLeavesBlock extends BlockBase implements Registerable, IForgeShe
         } else {
             return MAX_DISTANCE;
         }
+    }
+
+    @Override
+    public void registerCommon(SetupContext ctx) {
+        ctx.enqueue(() -> ComposterBlock.add(0.4f, this));
     }
 
     @Override

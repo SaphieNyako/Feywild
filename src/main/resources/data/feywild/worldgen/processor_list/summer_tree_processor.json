@@ -1,0 +1,7 @@
+{
+  "processors": [
+    {
+      "processor_type": "feywild:summer_tree_processor"
+    }
+  ]
+}

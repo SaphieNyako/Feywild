@@ -1,10 +1,10 @@
 {
   "values": [
-    "feywild:spring_green_leaves",
-    "feywild:summer_orange_leaves",
-    "feywild:autumn_brown_leaves",
+    "feywild:spring_cyan_leaves",
+    "feywild:summer_yellow_leaves",
+    "feywild:autumn_light_gray_leaves",
     "feywild:winter_blue_leaves",
     "feywild:blossom_pink_leaves",
-    "feywild:hex_purple_leaves"
+    "feywild:hex_black_leaves"
   ]
 }

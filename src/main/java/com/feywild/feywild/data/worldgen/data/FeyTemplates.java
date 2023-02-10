@@ -21,7 +21,7 @@ public class FeyTemplates extends TemplateData {
     public final Holder<StructureTemplatePool> winterWorldTree = this.template().element(this.feywild("winter_world_tree")).build();
     public final Holder<StructureTemplatePool> beekeep = this.template().element(this.feywild("beekeep")).build();
     public final Holder<StructureTemplatePool> feyCircle = this.template().element(this.feywild("fey_circle")).build();
-    
+
     public FeyTemplates(Properties properties) {
         super(properties);
     }
@@ -34,11 +34,11 @@ public class FeyTemplates extends TemplateData {
     private StructurePoolElement feywild(String templatePath, Holder<StructureProcessorList> processor) {
         return feywild(this.mod.resource(templatePath), processor);
     }
-    
+
     private StructurePoolElement feywild(ResourceLocation id) {
         return feywild(id, ProcessorLists.EMPTY);
     }
-    
+
     private StructurePoolElement feywild(ResourceLocation id, Holder<StructureProcessorList> processor) {
         return new FeywildStructurePoolElement(Either.left(id), this.registries.holder(Registry.PROCESSOR_LIST_REGISTRY, processor), StructureTemplatePool.Projection.RIGID);
     }

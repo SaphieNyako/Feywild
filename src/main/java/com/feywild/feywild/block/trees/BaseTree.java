@@ -90,6 +90,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
 
+    //TODO add feature?
     public Holder<ConfiguredFeature<?, ?>> getConfiguredFeature() {
         return Objects.requireNonNull(this.feature, "Feywild tree feature not initialised");
     }

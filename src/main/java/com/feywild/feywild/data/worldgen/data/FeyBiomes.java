@@ -34,6 +34,7 @@ public class FeyBiomes extends BiomeData {
             .generation(this.feyGen(true, builder -> {
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, this.placements.dandelions);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.springTrees);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.blossomTreePatches);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.springFlowers);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_WATER);
@@ -61,6 +62,7 @@ public class FeyBiomes extends BiomeData {
                 BiomeDefaultFeatures.addExtraGold(builder);
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, this.placements.sunflowers);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.summerTrees);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.blossomTreePatches);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.summerFlowers);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_SUNFLOWER);
                 builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, CavePlacements.LUSH_CAVES_CEILING_VEGETATION);
@@ -86,7 +88,9 @@ public class FeyBiomes extends BiomeData {
                 BiomeDefaultFeatures.addMushroomFieldVegetation(builder);
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, this.placements.autumnPumpkins);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.autumnTrees);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.hexenTreePatches);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.autumnFlowers);
+                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.treeMushrooms);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_WATERLILY);
@@ -103,9 +107,9 @@ public class FeyBiomes extends BiomeData {
             }))
             .build();
 
-    public final Holder<Biome> winterBiome = this.biome(FeywildBiomes.WINTER_BIOME, 0, 0.5f)
+    public final Holder<Biome> winterBiome = this.biome(FeywildBiomes.WINTER_BIOME, -0.7f, 0.5f)
             .frozen()
-            .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.002f)))
+            .effects(this.effects().fogColor(0xabd0ef).ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.002f)))
             .mobSpawns(this.feySpawns(false, false, Alignment.WINTER)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 5, 1, 2))
