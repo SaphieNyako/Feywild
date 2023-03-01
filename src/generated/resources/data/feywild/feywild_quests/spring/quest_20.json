@@ -1,5 +1,5 @@
 {
-  "parent": "feywild:quest_05",
+  "parent": "feywild:quest_08",
   "complete": {
     "description": {
       "translate": "quest.feywild.spring.quest_20.complete.description"

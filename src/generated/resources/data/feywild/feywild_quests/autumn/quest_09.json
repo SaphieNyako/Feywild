@@ -25,6 +25,10 @@
       "item": {
         "item": "minecraft:cookie"
       }
+    },
+    {
+      "biome": "feywild:golden_seelie_fields",
+      "id": "feywild:biome"
     }
   ]
 }

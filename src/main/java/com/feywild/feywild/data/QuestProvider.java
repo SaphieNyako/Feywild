@@ -87,7 +87,6 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_04")
                 .icon(ModTrees.springTree.getSapling())
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE, 3))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
         this.quest(SPRING, "quest_06")
@@ -108,8 +107,6 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.feywildLexicon), 1)))
                 .build();
         //TODO reward Mysthical world, patchouli book
-
-
 
         /* SPRING PET ANIMAL QUESTS */
 
@@ -153,8 +150,6 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:blossoming_wealds", ':')))
                 .build();
 
-        //TODO Fix BiomeTask
-
         this.quest(SPRING, "quest_15")
                 .parent("quest_14")
                 .icon(Items.DANDELION)
@@ -192,13 +187,12 @@ public class QuestProvider implements DataProvider {
 
 
         this.quest(SPRING, "quest_20")
-                .parent("quest_05")
+                .parent("quest_08")
                 .repeatable()
                 .icon(ModItems.pixieOrb)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
-        //TODO repeatable quest for teleportation orb after quest 8
 
         /* SUMMER */
 
@@ -336,27 +330,27 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_06")
                 .icon(Items.POPPY)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ItemTags.FLOWERS), 9)))
-                //      .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SPRING_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:blossoming_wealds", ':')))
                 .build();
 
         this.quest(AUTUMN, "quest_08")
                 .parent("quest_07")
                 .icon(Items.RED_DYE)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Tags.Items.DYES), 9)))
-                //     .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.AUTUMN_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:eternal_fall", ':')))
                 .build();
 
         this.quest(AUTUMN, "quest_09")
                 .parent("quest_08")
                 .icon(Items.COOKIE)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKIE), 8)))
-                //      .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.SUMMER_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:golden_seelie_fields", ':')))
                 .build();
 
         this.quest(AUTUMN, "quest_10")
                 .parent("quest_09")
                 .icon(Items.BONE)
-                //      .task(QuestTask.of(BiomeTask.INSTANCE, FeywildBiomes.WINTER_BIOME))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:frozen_retreat", ':')))
                 .build();
 
         this.quest(AUTUMN, "quest_11")
@@ -372,8 +366,6 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
-
-        //TODO Teleportation Orb quest  after quest 5
 
         /* WINTER */
 
@@ -395,23 +387,17 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.reaperScythe), 1)))
                 .build();
 
-        //TODO Add Soul Reaper Scythe and altar recipe
-
         this.quest(WINTER, "quest_03")
                 .parent("quest_02")
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ZOMBIE_HEAD), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.WITHER_SKELETON_SKULL)))
                 .build();
 
-        //TODO Scythe drops soul shards, and increases drop rate of heads, including player heads.
-
         this.quest(WINTER, "quest_04")
                 .parent("quest_03")
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.soulShard), 10)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.TOTEM_OF_UNDYING)))
                 .build();
-
-        //TODO add soul shards and soul gems
 
         this.quest(WINTER, "quest_05")
                 .parent("quest_04")
@@ -459,7 +445,6 @@ public class QuestProvider implements DataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
-        //TODO write story for repeatable teleportation Orb quest
 
         //TODO as reward player will receive WINGS, add wings for each faction
     }

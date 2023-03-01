@@ -10,15 +10,6 @@
   },
   "icon": "feywild:spring_tree_sapling",
   "reputation": 5,
-  "rewards": [
-    {
-      "id": "feywild:item",
-      "item": {
-        "count": 1,
-        "item": "feywild:teleportation_orb"
-      }
-    }
-  ],
   "start": {
     "description": {
       "translate": "quest.feywild.spring.quest_05.start.description"
