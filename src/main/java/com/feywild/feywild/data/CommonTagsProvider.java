@@ -44,6 +44,13 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         tool(ModBlocks.feyGemOreDeepSlate, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.feyGemOreLivingrock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.dwarvenAnvil, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockGreen, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockLightBlue, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockBlue, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockPurple, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockPink, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockOrange, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockYellow, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
 
         treeTags(ModTrees.springTree, ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);

@@ -55,6 +55,11 @@ public class FeyStructures extends StructureData {
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
 
+    public final Holder<Structure> feyGeode = this.undergroundSingleJigsaw(this.templates.feyGeode)
+            .biomes(ModBiomeTags.IS_FEYWILD_DIMENSION)
+            .terrain(TerrainAdjustment.BEARD_THIN)
+            .build();
+
 
     public FeyStructures(Properties properties) {
         super(properties);
@@ -72,5 +77,12 @@ public class FeyStructures extends StructureData {
                 .height(Heightmap.Types.WORLD_SURFACE_WG, start_height)
                 .structure()
                 .step(GenerationStep.Decoration.SURFACE_STRUCTURES);
+    }
+
+    private StructureSettingsBuilder undergroundSingleJigsaw(Holder<StructureTemplatePool> pool) {
+        return this.jigsaw(pool)
+                .height(Heightmap.Types.WORLD_SURFACE_WG, -65)
+                .structure()
+                .step(GenerationStep.Decoration.UNDERGROUND_DECORATION);
     }
 }

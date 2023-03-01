@@ -9,14 +9,14 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 public class FeyStructureSets extends StructureSetData {
 
     private final FeyStructures structures = this.resolve(FeyStructures.class);
-    
+
     public final Holder<StructureSet> overworldHouses = this.structureSet()
             .entry(this.structures.library)
             .entry(this.structures.blacksmith)
             .placeRandom(50, 20)
             .frequency(0.9f)
             .build();
-    
+
     public final Holder<StructureSet> worldTrees = this.structureSet()
             .entry(this.structures.springWorldTree)
             .entry(this.structures.summerWorldTree)
@@ -26,14 +26,15 @@ public class FeyStructureSets extends StructureSetData {
             .spreadType(RandomSpreadType.TRIANGULAR)
             .frequency(0.6f)
             .build();
-    
+
     public final Holder<StructureSet> beekeep = this.simple(this.structures.beekeep, 23, 8, 0.9f).build();
     public final Holder<StructureSet> feyCircle = this.simple(this.structures.feyCircle, 13, 6, 0.8f).build();
-    
+    public final Holder<StructureSet> feyGeode = this.simple(this.structures.feyGeode, 8, 4, 0.9f).build();
+
     public FeyStructureSets(Properties properties) {
         super(properties);
     }
-    
+
     @SuppressWarnings("SameParameterValue")
     private RandomPlacementBuilder simple(Holder<Structure> structure, int spacing, int separation, float frequency) {
         return this.structureSet()

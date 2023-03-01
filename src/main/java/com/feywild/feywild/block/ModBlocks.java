@@ -46,13 +46,13 @@ public class ModBlocks {
     public static final ElvenQuartzBlock elvenAutumnQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
     public static final ElvenQuartzBlock elvenWinterQuartz = new ElvenQuartzBlock(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE));
 
-    public static final Block feyStarBlockGreen = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
-    public static final Block feyStarBlockLightBlue = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
-    public static final Block feyStarBlockBlue = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
-    public static final Block feyStarBlockPurple = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
-    public static final Block feyStarBlockPink = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
-    public static final Block feyStarBlockOrange = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
-    public static final Block feyStarBlockYellow = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.SAND).strength(2f, 2f).sound(SoundType.SAND));
+    public static final Block feyStarBlockGreen = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
+    public static final Block feyStarBlockLightBlue = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
+    public static final Block feyStarBlockBlue = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
+    public static final Block feyStarBlockPurple = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
+    public static final Block feyStarBlockPink = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
+    public static final Block feyStarBlockOrange = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
+    public static final Block feyStarBlockYellow = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.of(Material.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
 
     public static final FeyLeavesBlock autumnBrownLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.autumnLeafParticle);
     public static final FeyLeavesBlock autumnDarkGrayLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.autumnLeafParticle);

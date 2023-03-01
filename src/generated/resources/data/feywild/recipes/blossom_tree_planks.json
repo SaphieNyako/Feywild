@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "feywild:blossom_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "feywild:blossom_tree_planks"
+  }
+}

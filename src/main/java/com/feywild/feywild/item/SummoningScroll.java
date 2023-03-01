@@ -30,7 +30,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
     protected final EntityType<T> type;
 
     @Nullable
-    private final SoundEvent soundEvent;
+    protected final SoundEvent soundEvent;
 
     public SummoningScroll(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
         super(mod, properties);

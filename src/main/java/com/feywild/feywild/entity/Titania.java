@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
+import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.goals.BossTargetFireGoal;
 import com.feywild.feywild.entity.goals.DodgeGoal;
 import com.feywild.feywild.entity.goals.SummonBeeKnightGoal;
@@ -35,7 +36,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class Titania extends FlyingBossBase implements IAnimatable {
+public class Titania extends FlyingBossBase implements IAnimatable, ISummonable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Titania.class, EntityDataSerializers.INT);
     public final Alignment alignment;
@@ -138,6 +139,17 @@ public class Titania extends FlyingBossBase implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    @Nullable
+    @Override
+    public BlockPos getSummonPos() {
+        return null;
+    }
+
+    @Override
+    public void setSummonPos(@Nullable BlockPos pos) {
+
     }
 
     public enum State {

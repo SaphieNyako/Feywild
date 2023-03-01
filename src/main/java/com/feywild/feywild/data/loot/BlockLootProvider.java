@@ -28,7 +28,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.treeDrops(ModTrees.springTree);
         this.treeDrops(ModTrees.autumnTree);
         this.treeDrops(ModTrees.winterTree);
-        
+
         this.drops(ModTrees.summerTree.getLeafBlock(), this.first(
                 this.element().with(this.or(this.silkCondition(), this.matchTool(Tags.Items.SHEARS))),
                 this.combine(
@@ -43,6 +43,56 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.drops(ModBlocks.sunflower, this.stack(ModBlocks.sunflower).with(this.count(1, 2)));
         this.drops(ModBlocks.dandelion, this.stack(ModBlocks.dandelion).with(this.count(1, 2)));
         this.drops(ModBlocks.crocus, this.stack(ModBlocks.crocus).with(this.count(1, 2)));
+
+        this.drops(ModBlocks.feyStarBlockGreen, true, this.combine(
+
+                this.stack(ModItems.rawElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawSpringElvenQuartz).with(this.count(2, 4))
+
+        ));
+
+        this.drops(ModBlocks.feyStarBlockLightBlue, true, this.combine(
+
+                this.stack(ModItems.rawWinterElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawSpringElvenQuartz).with(this.count(2, 4))
+
+        ));
+
+        this.drops(ModBlocks.feyStarBlockBlue, true, this.combine(
+
+                this.stack(ModItems.rawElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawWinterElvenQuartz).with(this.count(2, 4))
+
+        ));
+
+        this.drops(ModBlocks.feyStarBlockPink, true, this.combine(
+
+                this.stack(ModItems.rawSpringElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawSummerElvenQuartz).with(this.count(2, 4))
+
+        ));
+
+        this.drops(ModBlocks.feyStarBlockOrange, true, this.combine(
+
+                this.stack(ModItems.rawElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawAutumnElvenQuartz).with(this.count(2, 4))
+
+        ));
+
+        this.drops(ModBlocks.feyStarBlockYellow, true, this.combine(
+
+                this.stack(ModItems.rawElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawSummerElvenQuartz).with(this.count(2, 4))
+
+        ));
+
+        this.drops(ModBlocks.feyStarBlockPurple, true, this.combine(
+
+                this.stack(ModItems.rawWinterElvenQuartz).with(this.count(2, 4)),
+                this.stack(ModItems.rawAutumnElvenQuartz).with(this.count(2, 4))
+
+        ));
+
 
         this.drops(ModBlocks.feyGemOre, true, this.first(
                 this.stack(ModItems.lesserFeyGem).with(this.random(0.6f)),

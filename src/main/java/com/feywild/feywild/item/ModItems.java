@@ -20,6 +20,11 @@ public class ModItems {
     public static final Item greaterFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item shinyFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item brilliantFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item rawElvenQuartz = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item rawAutumnElvenQuartz = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item rawSpringElvenQuartz = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item rawSummerElvenQuartz = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item rawWinterElvenQuartz = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item soulShard = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item summoningScroll = new EmptyScroll(FeywildMod.getInstance(), new Item.Properties());
@@ -43,6 +48,8 @@ public class ModItems {
     public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.beeKnight, null, new Item.Properties());
     public static final SummoningScrollFey<Mandragora> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.mandragora, null, new Item.Properties());
     public static final SummoningScrollFey<Shroomling> summoningScrollShroomling = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.shroomling, null, new Item.Properties());
+    public static final SummoningScrollBoss<Mab> summoningScrollMab = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.mab, ModSoundEvents.mabAmbience, new Item.Properties());
+    public static final SummoningScrollBoss<Titania> summoningScrollTitania = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.titania, ModSoundEvents.titaniaAmbience, new Item.Properties());
 
     /* Geckolib registration requires Item registration */
     public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));

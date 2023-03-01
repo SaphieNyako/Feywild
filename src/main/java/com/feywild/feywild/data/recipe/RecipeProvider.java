@@ -31,17 +31,27 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         shaped(ModTrees.summerTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.summerTree.getLogBlock());
         shaped(ModTrees.autumnTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.autumnTree.getLogBlock());
         shaped(ModTrees.winterTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.winterTree.getLogBlock());
+        shaped(ModTrees.blossomTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.blossomTree.getLogBlock());
+        shaped(ModTrees.hexenTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.hexenTree.getLogBlock());
 
         shapeless(ModTrees.autumnTree.getPlankBlock(), 4, ModItemTags.AUTUMN_LOGS);
         shapeless(ModTrees.springTree.getPlankBlock(), 4, ModItemTags.SPRING_LOGS);
         shapeless(ModTrees.summerTree.getPlankBlock(), 4, ModItemTags.SUMMER_LOGS);
         shapeless(ModTrees.winterTree.getPlankBlock(), 4, ModItemTags.WINTER_LOGS);
+        shapeless(ModTrees.blossomTree.getPlankBlock(), 4, ModItemTags.BLOSSOM_LOGS);
+        shapeless(ModTrees.hexenTree.getPlankBlock(), 4, ModItemTags.HEXEN_LOGS);
 
         shaped(ModBlocks.dwarvenAnvil, "fff", " i ", "iii", 'f', ModItems.lesserFeyGem, 'i', Tags.Items.STORAGE_BLOCKS_IRON);
         shapeless(ModItems.feyInkBottle, ModItems.feyDust, Items.INK_SAC, Items.GLASS_BOTTLE, ModItems.mandrake);
         shapeless(ModItems.mandrakePotion, Items.GLASS_BOTTLE, ModItems.mandrake, Items.GHAST_TEAR, ModItems.brilliantFeyGem);
         shapeless(ModItems.summoningScroll, Items.PAPER, ModItems.feyInkBottle, Items.FEATHER);
         shapeless(ModBlocks.feyMushroom, Tags.Items.MUSHROOMS, ModItems.feyDust);
+
+        shapeless(ModBlocks.elvenQuartz, 4, ModItems.rawElvenQuartz, ModItems.rawElvenQuartz, ModItems.rawElvenQuartz, ModItems.rawElvenQuartz);
+        shapeless(ModBlocks.elvenSpringQuartz, 4, ModItems.rawSpringElvenQuartz, ModItems.rawSpringElvenQuartz, ModItems.rawSpringElvenQuartz, ModItems.rawSpringElvenQuartz);
+        shapeless(ModBlocks.elvenSummerQuartz, 4, ModItems.rawSummerElvenQuartz, ModItems.rawSummerElvenQuartz, ModItems.rawSummerElvenQuartz, ModItems.rawSummerElvenQuartz);
+        shapeless(ModBlocks.elvenWinterQuartz, 4, ModItems.rawWinterElvenQuartz, ModItems.rawWinterElvenQuartz, ModItems.rawWinterElvenQuartz, ModItems.rawWinterElvenQuartz);
+        shapeless(ModBlocks.elvenAutumnQuartz, 4, ModItems.rawAutumnElvenQuartz, ModItems.rawAutumnElvenQuartz, ModItems.rawAutumnElvenQuartz, ModItems.rawAutumnElvenQuartz);
 
         shaped(ModItems.magicalHoneyCookie, " a ", "wbw", " a ", 'a', ModItems.honeycomb, 'b', Items.COCOA_BEANS, 'w', Items.WHEAT);
         shapeless(ModItems.feywildLexicon, Items.BOOK, ModItems.feyDust);
@@ -139,7 +149,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.mandrake)
                 .requires(Blocks.BIG_DRIPLEAF)
                 .requires(Blocks.NOTE_BLOCK)
-                .requires(ModItems.summoningScroll)
+                .requires(ModItems.summoningScrollSpringPixie)
                 .build();
 
         this.altar(ModItems.summoningScrollShroomling)
@@ -147,7 +157,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(Blocks.MUSHROOM_STEM)
                 .requires(ModItems.greaterFeyGem)
                 .requires(Blocks.COMPOSTER)
-                .requires(ModItems.summoningScroll)
+                .requires(ModItems.summoningScrollAutumnPixie)
                 .build();
 
         this.altar(ModItems.reaperScythe)

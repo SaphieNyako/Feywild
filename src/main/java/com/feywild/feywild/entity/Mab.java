@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
+import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.goals.IntimidateGoal;
 import com.feywild.feywild.entity.goals.PhysicalAttackGoal;
 import com.feywild.feywild.entity.goals.SummonVexGoal;
@@ -37,11 +38,13 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class Mab extends FlyingBossBase implements IAnimatable {
+public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Mab.class, EntityDataSerializers.INT);
     public final Alignment alignment;
     private final AnimationFactory factory = new AnimationFactory(this);
+    @Nullable
+    private BlockPos summonPos;
 
     protected Mab(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.mab"),
@@ -131,6 +134,17 @@ public class Mab extends FlyingBossBase implements IAnimatable {
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    @Nullable
+    @Override
+    public BlockPos getSummonPos() {
+        return this.summonPos;
+    }
+
+    @Override
+    public void setSummonPos(@Nullable BlockPos pos) {
+        this.summonPos = pos == null ? null : pos.immutable();
     }
 
     public enum State {

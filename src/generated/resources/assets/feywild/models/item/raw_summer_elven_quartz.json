@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "feywild:item/raw_summer_elven_quartz"
+  }
+}
