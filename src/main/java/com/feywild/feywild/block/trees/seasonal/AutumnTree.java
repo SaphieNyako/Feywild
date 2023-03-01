@@ -4,9 +4,11 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
+import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -76,8 +78,11 @@ public class AutumnTree extends BaseTree {
             case 2 -> ModBlocks.autumnLightGrayLeaves;
             default -> ModBlocks.autumnRedLeaves;
         };
+    }
 
-
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.autumnSparkleParticle;
     }
 
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
@@ -112,6 +117,4 @@ public class AutumnTree extends BaseTree {
             }
         }
     }
-
-
 }

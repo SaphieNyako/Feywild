@@ -4,9 +4,11 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingBlobFoliagePlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
+import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -64,6 +66,11 @@ public class WinterTree extends BaseTree {
             default -> ModBlocks.winterLightBlueLeaves;
         };
 
+    }
+
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.winterSparkleParticle;
     }
 
     private static class LeavesPlacer extends DecoratingBlobFoliagePlacer {

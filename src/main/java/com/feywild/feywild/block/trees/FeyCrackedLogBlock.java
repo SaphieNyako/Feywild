@@ -1,7 +1,11 @@
 package com.feywild.feywild.block.trees;
 
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.item.ModItems;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
@@ -22,14 +28,19 @@ import java.util.Objects;
 public class FeyCrackedLogBlock extends RotatedPillarBlock {
 
     //TODO Particles
+    public static final int MAX_DISTANCE = 15;
+    public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 0, MAX_DISTANCE);
+    public static final int MAX_PARTICLE_DISTANCE = 48;
 
     public static final IntegerProperty CRACKED = IntegerProperty.create("cracked", 1, 6);
     private final FeyStrippedLogBlock strippedLog;
+    private final SimpleParticleType particle;
 
-    public FeyCrackedLogBlock(FeyStrippedLogBlock strippedLog, Properties properties) {
+    public FeyCrackedLogBlock(FeyStrippedLogBlock strippedLog, Properties properties, SimpleParticleType particle) {
         super(properties);
         this.strippedLog = strippedLog;
-        this.registerDefaultState(this.stateDefinition.any().setValue(CRACKED, 1));
+        this.particle = particle;
+        this.registerDefaultState(this.stateDefinition.any().setValue(CRACKED, 1).setValue(DISTANCE, 0));
     }
 
     protected int getCrackedState(BlockState state) {
@@ -75,6 +86,28 @@ public class FeyCrackedLogBlock extends RotatedPillarBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(CRACKED).add(AXIS);
+        builder.add(CRACKED).add(DISTANCE).add(AXIS);
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
+        if (ClientConfig.tree_particles) {
+            // Don't add particles if the blocks are far away
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.player != null && mc.player.position().distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < MAX_PARTICLE_DISTANCE * MAX_PARTICLE_DISTANCE) {
+                animateParticles(state, level, pos, rand);
+            }
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    protected void animateParticles(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
+
+        level.addParticle(particle, pos.getX() + (Math.random() - 0.5),
+                pos.getY() + 1 + (Math.random() - 0.5),
+                pos.getZ() + (Math.random() - 0.5),
+                0, 0, 0);
+
     }
 }

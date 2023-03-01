@@ -3,7 +3,9 @@ package com.feywild.feywild.block.trees.seasonal;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
+import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -51,5 +53,10 @@ public class SpringTree extends BaseTree {
             case 1 -> ModBlocks.springGreenLeaves;
             default -> ModBlocks.springLimeLeaves;
         };
+    }
+
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.springLeafParticle;
     }
 }

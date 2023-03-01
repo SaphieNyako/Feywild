@@ -10,17 +10,8 @@
       "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page0.text0"
     },
     {
-      "type": "patchouli:crafting",
-      "recipe": "feywild:summoning_scroll",
-      "recipe2": "feywild:fey_ink_bottle"
-    },
-    {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page2.text0"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page1.text0"
     }
   ]
 }

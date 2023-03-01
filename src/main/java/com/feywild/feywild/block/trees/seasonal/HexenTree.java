@@ -3,7 +3,9 @@ package com.feywild.feywild.block.trees.seasonal;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
+import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
@@ -40,5 +42,10 @@ public class HexenTree extends BaseTree {
             case 0 -> ModBlocks.hexBlackLeaves;
             default -> ModBlocks.hexPurpleLeaves;
         };
+    }
+
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.winterSparkleParticle;
     }
 }

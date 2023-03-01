@@ -3,6 +3,7 @@ package com.feywild.feywild.block.trees;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -67,7 +68,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         //   this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
-        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
+        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), getParticle());
         this.crackedLogItem = new BlockItem(this.crackedLogBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
     }
 
@@ -138,6 +139,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     }
 
     public abstract FeyLeavesBlock getLeafBlock();
+
+    public abstract SimpleParticleType getParticle();
 
     public FeyStrippedLogBlock getStrippedLogBlock() {
         return this.strippedLog;
