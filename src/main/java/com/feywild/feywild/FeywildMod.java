@@ -82,10 +82,11 @@ public final class FeywildMod extends ModXRegistration {
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderTypes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors));
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors));
+
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
         MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
@@ -232,6 +233,7 @@ public final class FeywildMod extends ModXRegistration {
     }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {
+
         event.register(ModParticles.autumnLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);

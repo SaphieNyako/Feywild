@@ -22,6 +22,16 @@ public class SparkleParticle extends TextureSheetParticle {
         this.lifetime = 20;
     }
 
+    public static ParticleEngine.SpriteParticleRegistration<SimpleParticleType> provider(float red, float green, float blue) {
+        return sprites -> (ParticleProvider<SimpleParticleType>) (type, level, x, y, z, xSpeed, ySpeed, zSpeed) -> {
+            SparkleParticle particle = new SparkleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
+            particle.setColor(red, green, blue);
+            particle.pickSprite(sprites);
+            return particle;
+        };
+    }
+
+
     @Nonnull
     @Override
     public ParticleRenderType getRenderType() {
@@ -34,14 +44,5 @@ public class SparkleParticle extends TextureSheetParticle {
         if (this.lifetime-- <= 0) {
             this.remove();
         }
-    }
-    
-    public static ParticleEngine.SpriteParticleRegistration<SimpleParticleType> provider(float red, float green, float blue) {
-        return sprites -> (ParticleProvider<SimpleParticleType>) (type, level, x, y, z, xSpeed, ySpeed, zSpeed) -> {
-            SparkleParticle particle = new SparkleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed);
-            particle.setColor(red, green, blue);
-            particle.pickSprite(sprites);
-            return particle;
-        };
     }
 }
