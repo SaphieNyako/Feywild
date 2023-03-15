@@ -30,7 +30,7 @@
       "type": "feywild:dwarf_blacksmith",
       "maxCount": 1,
       "minCount": 1,
-      "weight": 3
+      "weight": 15
     }
   ]
 }

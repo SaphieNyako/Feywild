@@ -15,8 +15,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -43,13 +45,14 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
     private boolean isTamed;
-    
+
     @Nullable
     private BlockPos summonPos;
 
@@ -174,7 +177,9 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     @Override
     public boolean checkSpawnRules(@Nonnull LevelAccessor levelIn, @Nonnull MobSpawnType spawnReasonIn) {
-        return super.checkSpawnRules(levelIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !levelIn.canSeeSky(this.blockPosition());
+        return super.checkSpawnRules(levelIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !levelIn.canSeeSky(this.blockPosition())
+                && !level.getBiome(this.blockPosition()).is(Objects.requireNonNull(ResourceLocation.tryParse("minecraft:mushroom_fields")))
+                && level.getBiome(this.blockPosition()).containsTag(BiomeTags.HAS_MINESHAFT);
     }
 
     @Override
@@ -210,7 +215,10 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.VILLAGER_CELEBRATE;
+        return switch (random.nextInt(3)) {
+            case 0 -> SoundEvents.VILLAGER_CELEBRATE;
+            default -> null;
+        };
     }
 
     @Override

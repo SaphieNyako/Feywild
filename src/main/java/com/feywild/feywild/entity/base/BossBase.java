@@ -57,7 +57,7 @@ public abstract class BossBase extends Monster {
     @Override
     public void stopSeenByPlayer(@Nonnull ServerPlayer serverPlayer) {
         super.stopSeenByPlayer(serverPlayer);
-        this.bossInfo.addPlayer(serverPlayer);
+        this.bossInfo.removePlayer(serverPlayer);
     }
 
     @Override

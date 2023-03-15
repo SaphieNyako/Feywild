@@ -72,7 +72,7 @@ public class Titania extends FlyingBossBase implements IAnimatable, ISummonable 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return switch (random.nextInt(2)) {
+        return switch (random.nextInt(3)) {
             case 0 -> ModSoundEvents.titaniaAmbience;
             default -> ModSoundEvents.beatingWings;
         };
@@ -80,7 +80,10 @@ public class Titania extends FlyingBossBase implements IAnimatable, ISummonable 
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
-        return ModSoundEvents.titaniaHurt;
+        return switch (random.nextInt(3)) {
+            case 0 -> ModSoundEvents.titaniaHurt;
+            default -> null;
+        };
     }
 
     @Override

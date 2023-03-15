@@ -15,7 +15,7 @@ public class FeyBiomeModifiers extends BiomeModifierData {
             .spawn(ModEntities.summerPixie, 1, 1, 1)
             .spawn(ModEntities.autumnPixie, 1, 1, 1)
             .spawn(ModEntities.winterPixie, 1, 1, 1)
-            .spawn(ModEntities.dwarfBlacksmith, 3, 1, 1)
+            .spawn(ModEntities.dwarfBlacksmith, 15, 1, 1)
             .build();
 
     private final FeyTrees trees = this.resolve(FeyTrees.class);

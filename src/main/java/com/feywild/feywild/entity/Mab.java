@@ -77,12 +77,18 @@ public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSoundEvents.mabAmbience;
+        return switch (random.nextInt(3)) {
+            case 0 -> ModSoundEvents.mabAmbience;
+            default -> null;
+        };
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
-        return ModSoundEvents.mabHurt;
+        return switch (random.nextInt(3)) {
+            case 0 -> ModSoundEvents.mabHurt;
+            default -> null;
+        };
     }
 
     @Override
@@ -129,6 +135,12 @@ public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
     @Override
     public void registerControllers(AnimationData animationData) {
         animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        this.remove(RemovalReason.KILLED);
     }
 
     @Override
