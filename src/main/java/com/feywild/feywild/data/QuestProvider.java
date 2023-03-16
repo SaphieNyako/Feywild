@@ -190,7 +190,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_08")
                 .repeatable()
                 .icon(ModItems.pixieOrb)
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
@@ -276,7 +276,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_05")
                 .repeatable()
                 .icon(ModItems.pixieOrb)
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
@@ -363,7 +363,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_05")
                 .repeatable()
                 .icon(ModItems.pixieOrb)
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
@@ -441,7 +441,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_05")
                 .repeatable()
                 .icon(ModItems.pixieOrb)
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.pixieOrb), 1)))
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 

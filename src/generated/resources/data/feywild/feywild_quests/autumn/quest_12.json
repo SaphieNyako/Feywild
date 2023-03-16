@@ -30,8 +30,8 @@
   },
   "tasks": [
     {
-      "amount": 1,
-      "id": "feywild:item_stack",
+      "alignment": "autumn",
+      "id": "feywild:fey_gift",
       "item": {
         "item": "feywild:pixie_orb"
       }
