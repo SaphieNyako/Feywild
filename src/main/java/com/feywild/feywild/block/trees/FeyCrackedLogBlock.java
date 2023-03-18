@@ -23,7 +23,7 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
+import javax.annotation.Nullable;
 
 public class FeyCrackedLogBlock extends RotatedPillarBlock {
 
@@ -33,12 +33,12 @@ public class FeyCrackedLogBlock extends RotatedPillarBlock {
     public static final int MAX_PARTICLE_DISTANCE = 48;
 
     public static final IntegerProperty CRACKED = IntegerProperty.create("cracked", 1, 6);
-    private final FeyStrippedLogBlock strippedLog;
+    private final FeyStrippedWoodBlock strippedWood;
     private final SimpleParticleType particle;
 
-    public FeyCrackedLogBlock(FeyStrippedLogBlock strippedLog, Properties properties, SimpleParticleType particle) {
+    public FeyCrackedLogBlock(FeyStrippedWoodBlock strippedWood, Properties properties, SimpleParticleType particle) {
         super(properties);
-        this.strippedLog = strippedLog;
+        this.strippedWood = strippedWood;
         this.particle = particle;
         this.registerDefaultState(this.stateDefinition.any().setValue(CRACKED, 1).setValue(DISTANCE, 0));
     }
@@ -52,10 +52,10 @@ public class FeyCrackedLogBlock extends RotatedPillarBlock {
     }
 
 
+    @Nullable
     @Override
-    public @Nonnull
-    BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-        return toolAction == ToolActions.AXE_STRIP ? strippedLog.defaultBlockState().setValue(AXIS, state.getValue(AXIS)) : Objects.requireNonNull(super.getToolModifiedState(state, context, toolAction, simulate));
+    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+        return toolAction == ToolActions.AXE_STRIP ? strippedWood.defaultBlockState() : super.getToolModifiedState(state, context, toolAction, simulate);
     }
 
     @Nonnull

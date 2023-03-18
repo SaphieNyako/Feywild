@@ -68,7 +68,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         //   this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
-        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), getParticle());
+        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), getParticle());
         this.crackedLogItem = new BlockItem(this.crackedLogBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
     }
 
