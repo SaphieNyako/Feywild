@@ -15,6 +15,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -37,7 +38,7 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
 
 
     public FeyAltarBlock(ModX mod) {
-        super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f).noOcclusion());
+        super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE));
 
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));

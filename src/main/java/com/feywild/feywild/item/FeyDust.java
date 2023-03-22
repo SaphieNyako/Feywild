@@ -2,6 +2,8 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.block.MagicalBrazierBlock;
 import com.feywild.feywild.config.MiscConfig;
+import com.feywild.feywild.entity.base.BossBase;
+import com.feywild.feywild.entity.base.TreeEntBase;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
@@ -55,6 +57,8 @@ public class FeyDust extends ItemBase {
                 if (player instanceof ServerPlayer) {
                     QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
                 }
+            } else if (target instanceof TreeEntBase || target instanceof BossBase) {
+                //do nothing.
             } else {
                 target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, MiscConfig.fey_dust_ticks, 2));
             }

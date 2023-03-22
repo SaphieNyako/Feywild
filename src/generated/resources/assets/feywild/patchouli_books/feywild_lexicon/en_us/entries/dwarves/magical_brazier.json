@@ -1,0 +1,18 @@
+{
+  "category": "feywild:dwarves",
+  "icon": "feywild:magical_brazier",
+  "name": "feywild_lexicon.entry.feywild.dwarves.magical_brazier",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:magical_brazier",
+      "text": "feywild_lexicon.entry.feywild.dwarves.magical_brazier.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_dust",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.dwarves.magical_brazier.page1.text0"
+    }
+  ]
+}

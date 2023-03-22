@@ -5,8 +5,7 @@
   "pages": [
     {
       "type": "patchouli:entity",
-      "entity": "feywild:bee_knight",
-      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page0.text0"
+      "entity": "feywild:bee_knight"
     },
     {
       "type": "patchouli:text",

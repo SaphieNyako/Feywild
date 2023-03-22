@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:raw_winter_elven_quartz"
+    },
+    {
+      "item": "feywild:winter_tree_wood"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_winter_tree_ent"
+  }
+}

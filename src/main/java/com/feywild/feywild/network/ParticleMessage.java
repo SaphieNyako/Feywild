@@ -1,5 +1,6 @@
 package com.feywild.feywild.network;
 
+import com.feywild.feywild.particles.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,12 +9,13 @@ import net.minecraftforge.network.NetworkEvent;
 import org.moddingx.libx.network.PacketHandler;
 import org.moddingx.libx.network.PacketSerializer;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 public record ParticleMessage(Type type, double x, double y, double z, double vx, double vy, double vz) {
 
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW, SHROOMLING_SNEEZE
+        DANDELION_FLUFF, FEY_HEART, WIND_WALK, ANIMAL_BREED, MONSTER_FIRE, CROPS_GROW, SHROOMLING_SNEEZE, MAGIC_EFFECT, LEAVES_AUTUMN, LEAVES_SPRING, LEAVES_SUMMER, LEAVES_WINTER, LEAVES_HEXEN, LEAVES_BLOSSOM
     }
 
     public static class Serializer implements PacketSerializer<ParticleMessage> {
@@ -70,9 +72,11 @@ public record ParticleMessage(Type type, double x, double y, double z, double vx
                         }
                     }
                     case WIND_WALK -> {
+                        Random random = new Random();
                         for (int i = 0; i < 10; i++) {
-                            level.addParticle(ParticleTypes.WITCH, true, msg.x() - 0.5 + level.random.nextDouble(), msg.y() + 0.25 + level.random.nextDouble(), msg.z() - 0.5 + level.random.nextDouble(), 0, 0, 0);
+                            level.addParticle(ModParticles.autumnLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
                         }
+
                     }
                     case ANIMAL_BREED -> {
                         for (int i = 0; i < 10; i++) {
@@ -100,6 +104,54 @@ public record ParticleMessage(Type type, double x, double y, double z, double vx
                             level.addParticle(ParticleTypes.SNEEZE, true, msg.x(), msg.y(), msg.z(), 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
                             level.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, true, msg.x(), msg.y(), msg.z(), 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
 
+                        }
+                    }
+
+                    case MAGIC_EFFECT -> {
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.autumnSparkleParticle, true, msg.x(), msg.y() + 1, msg.z(), 0.8 * (level.random.nextDouble() - 0.7), 0.8 * (level.random.nextDouble() - 0.5), 0.8 * (level.random.nextDouble() - 0.7));
+                        }
+                    }
+
+                    case LEAVES_AUTUMN -> {
+                        Random random = new Random();
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.autumnLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
+                        }
+                    }
+
+                    case LEAVES_SPRING -> {
+                        Random random = new Random();
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.springLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
+                        }
+                    }
+
+                    case LEAVES_SUMMER -> {
+                        Random random = new Random();
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.summerLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
+                        }
+                    }
+
+                    case LEAVES_WINTER -> {
+                        Random random = new Random();
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.winterLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
+                        }
+                    }
+
+                    case LEAVES_HEXEN -> {
+                        Random random = new Random();
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.hexenLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
+                        }
+                    }
+
+                    case LEAVES_BLOSSOM -> {
+                        Random random = new Random();
+                        for (int i = 0; i < 60; i++) {
+                            level.addParticle(ModParticles.blossomLeafParticle, random.nextDouble() * 1.5 + msg.x() - 1, random.nextDouble() * 2 + msg.y() + 2, random.nextDouble() * 1.5 + msg.z() - 1, 0, -0.05, 0);
                         }
                     }
                 }

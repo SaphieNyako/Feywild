@@ -167,6 +167,12 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntities.titania, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Titania::canSpawn);
             SpawnPlacements.register(ModEntities.mab, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mab::canSpawn);
 
+            SpawnPlacements.register(ModEntities.springTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEnt::canSpawn);
+            SpawnPlacements.register(ModEntities.summerTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEnt::canSpawn);
+            SpawnPlacements.register(ModEntities.winterTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEnt::canSpawn);
+            SpawnPlacements.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn);
+            SpawnPlacements.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn);
+
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntities.dwarfBaker, new BlockPos(-3, 64, 10));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "shepherd"), ModEntities.dwarfShepherd, new BlockPos(0, 63, -3));
@@ -209,6 +215,12 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.titania, TitaniaRenderer.create(TitaniaModel::new));
         EntityRenderers.register(ModEntities.mab, MabRenderer.create(MabModel::new));
 
+        EntityRenderers.register(ModEntities.springTreeEnt, BaseTreeEntRenderer.create(SpringTreeEntModel::new));
+        EntityRenderers.register(ModEntities.summerTreeEnt, BaseTreeEntRenderer.create(SummerTreeEntModel::new));
+        EntityRenderers.register(ModEntities.winterTreeEnt, BaseTreeEntRenderer.create(WinterTreeEntModel::new));
+        EntityRenderers.register(ModEntities.blossomTreeEnt, BaseTreeEntRenderer.create(BlossomTreeEntModel::new));
+        EntityRenderers.register(ModEntities.hexenTreeEnt, BaseTreeEntRenderer.create(HexenTreeEntModel::new));
+
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -230,6 +242,12 @@ public final class FeywildMod extends ModXRegistration {
 
         event.put(ModEntities.titania, Titania.getDefaultAttributes().build());
         event.put(ModEntities.mab, Mab.getDefaultAttributes().build());
+
+        event.put(ModEntities.springTreeEnt, SpringTreeEnt.getDefaultAttributes().build());
+        event.put(ModEntities.summerTreeEnt, SummerTreeEnt.getDefaultAttributes().build());
+        event.put(ModEntities.winterTreeEnt, WinterTreeEnt.getDefaultAttributes().build());
+        event.put(ModEntities.blossomTreeEnt, BlossomTreeEnt.getDefaultAttributes().build());
+        event.put(ModEntities.hexenTreeEnt, HexenTreeEnt.getDefaultAttributes().build());
     }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {

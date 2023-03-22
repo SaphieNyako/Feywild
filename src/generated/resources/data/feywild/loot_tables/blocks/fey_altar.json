@@ -10,8 +10,32 @@
       ],
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "feywild:fey_altar_item"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "enchantments": [
+                      {
+                        "enchantment": "minecraft:silk_touch",
+                        "levels": {
+                          "min": 1
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "name": "feywild:fey_altar"
+            },
+            {
+              "type": "minecraft:item",
+              "name": "feywild:fey_altar"
+            }
+          ]
         }
       ],
       "name": "main",

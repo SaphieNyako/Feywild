@@ -1,6 +1,9 @@
 package com.feywild.feywild.entity.base;
 
-import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
+import com.feywild.feywild.block.trees.FeyLogBlock;
+import com.feywild.feywild.entity.goals.TameCheckingGoal;
+import com.feywild.feywild.entity.goals.TreeEntMeleeAttackGoal;
+import com.feywild.feywild.entity.goals.TreeEntMoveAndSoundGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -11,8 +14,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -21,12 +22,12 @@ import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -42,13 +43,12 @@ import java.util.UUID;
 public abstract class TreeEntBase extends PathfinderMob implements IAnimatable, IOwnable, ISummonable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(TreeEntBase.class, EntityDataSerializers.INT);
-    private static final int FEY_WOOD_HEAL_AMOUNT = 25;
+    protected static final int FEY_WOOD_HEAL_AMOUNT = 4;
     private final AnimationFactory factory = new AnimationFactory(this);
     //No Alignment
     protected UUID owner;
     @javax.annotation.Nullable
     private BlockPos summonPos = null;
-    //TODO Add WoodBlock that heals this specific Tree Ent abstract method
 
 
     protected TreeEntBase(EntityType<? extends PathfinderMob> entityType, Level level) {
@@ -63,11 +63,12 @@ public abstract class TreeEntBase extends PathfinderMob implements IAnimatable, 
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2.0)
                 .add(Attributes.ARMOR_TOUGHNESS, 5)
                 .add(Attributes.ARMOR, 15)
-                .add(Attributes.ATTACK_DAMAGE, 20.0D)
+                .add(Attributes.ATTACK_DAMAGE, 15.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 2.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.35D);
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<? extends TreeEntBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return isBrightEnoughToSpawn(level, pos);
     }
 
@@ -75,22 +76,17 @@ public abstract class TreeEntBase extends PathfinderMob implements IAnimatable, 
         return getter.getRawBrightness(pos, 0) > 8;
     }
 
+    protected abstract FeyLogBlock getWoodBlock();
+
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.5D));
-        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
-        //ATTACK MONSTER GOAL
-        //ATTACK PLAYER GOAL?
-    }
-
-    @Nonnull
-    @Override
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 vec, @Nonnull InteractionHand hand) {
-        return super.interactAt(player, vec, hand);
-        //Special interaction
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 15));
+        this.goalSelector.addGoal(70, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 0.5D));
+        this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
     }
 
     @Override
@@ -115,14 +111,14 @@ public abstract class TreeEntBase extends PathfinderMob implements IAnimatable, 
 
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         if (this.getState() == TreeEntBase.State.ATTACKING) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.tree_ent.attack", false));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("attack", true));
             return PlayState.CONTINUE;
         }
 
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.tree_ent.walk", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("walk", true));
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.tree_ent.idle", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
         }
         return PlayState.CONTINUE;
     }
@@ -221,6 +217,11 @@ public abstract class TreeEntBase extends PathfinderMob implements IAnimatable, 
     protected boolean canRide(@Nonnull Entity entityIn) {
         return false;
         //CAN RIDE?
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return false;
     }
 
     @Nullable

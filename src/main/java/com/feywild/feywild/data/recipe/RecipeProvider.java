@@ -140,15 +140,15 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.summoningScrollSummerPixie)
                 .requires(ModItems.honeycomb)
                 .requires(Blocks.BEE_NEST)
-                .requires(Items.LEAD)
+                .requires(ModItems.greaterFeyGem)
                 .requires(ModItems.summoningScroll)
                 .build();
 
         this.altar(ModItems.summoningScrollMandragora)
                 .requires(ModItems.magicalHoneyCookie)
                 .requires(ModItems.mandrake)
-                .requires(Blocks.BIG_DRIPLEAF)
-                .requires(Blocks.NOTE_BLOCK)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.summoningScroll)
                 .requires(ModItems.summoningScrollSpringPixie)
                 .build();
 
@@ -156,8 +156,56 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(Blocks.RED_MUSHROOM_BLOCK)
                 .requires(Blocks.MUSHROOM_STEM)
                 .requires(ModItems.greaterFeyGem)
-                .requires(Blocks.COMPOSTER)
+                .requires(ModItems.summoningScroll)
                 .requires(ModItems.summoningScrollAutumnPixie)
+                .build();
+
+        this.altar(ModItems.summoningScrollAllay)
+                .requires(ModItems.summoningScroll)
+                .requires(ModItems.summoningScrollWinterPixie)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.soulGem)
+                .requires(Items.SOUL_LANTERN)
+                .build();
+
+        this.altar(ModItems.summoningScrollSpringTreeEnt)
+                .requires(ModItems.summoningScrollMandragora)
+                .requires(ModItems.summoningScroll)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.rawSpringElvenQuartz)
+                .requires(ModTrees.springTree.getWoodBlock())
+                .build();
+
+        this.altar(ModItems.summoningScrollSummerTreeEnt)
+                .requires(ModItems.summoningScrollBeeKnight)
+                .requires(ModItems.summoningScroll)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.rawSummerElvenQuartz)
+                .requires(ModTrees.summerTree.getWoodBlock())
+                .build();
+
+        this.altar(ModItems.summoningScrollWinterTreeEnt)
+                .requires(ModItems.summoningScroll)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.rawWinterElvenQuartz)
+                .requires(ModTrees.winterTree.getWoodBlock())
+                .requires(ModItems.summoningScroll)
+                .build();
+
+        this.altar(ModItems.summoningScrollBlossomTreeEnt)
+                .requires(ModItems.summoningScrollSpringTreeEnt)
+                .requires(ModItems.summoningScrollSummerTreeEnt)
+                .requires(ModItems.summoningScroll)
+                .requires(Items.GOLDEN_APPLE)
+                .requires(Items.PINK_CANDLE)
+                .build();
+
+        this.altar(ModItems.summoningScrollHexenTreeEnt)
+                .requires(ModItems.summoningScrollWinterTreeEnt)
+                .requires(Items.PURPLE_CANDLE)
+                .requires(ModItems.summoningScroll)
+                .requires(Items.WITHER_SKELETON_SKULL)
+                .requires(Items.TOTEM_OF_UNDYING)
                 .build();
 
         this.altar(ModItems.reaperScythe)
@@ -166,6 +214,14 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(Items.DIAMOND_HOE)
                 .requires(Items.PACKED_ICE)
                 .requires(Items.SPORE_BLOSSOM)
+                .build();
+
+        this.altar(ModItems.soulGem)
+                .requires(Items.DIAMOND)
+                .requires(ModItems.soulShard)
+                .requires(ModItems.soulShard)
+                .requires(ModItems.soulShard)
+                .requires(ModItems.soulShard)
                 .build();
 
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);

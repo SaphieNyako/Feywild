@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_winter_tree_ent"
+    },
+    {
+      "item": "minecraft:purple_candle"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_hexen_tree_ent"
+  }
+}

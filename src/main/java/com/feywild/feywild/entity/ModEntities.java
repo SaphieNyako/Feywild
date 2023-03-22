@@ -69,6 +69,26 @@ public class ModEntities {
             .sized(0.25f, 0.25f)
             .build(FeywildMod.getInstance().modid + "_botania_pixie");
 
+    public static final EntityType<SpringTreeEnt> springTreeEnt = EntityType.Builder.of(SpringTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_spring_tree_ent");
+
+    public static final EntityType<SummerTreeEnt> summerTreeEnt = EntityType.Builder.of(SummerTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_summer_tree_ent");
+
+    public static final EntityType<WinterTreeEnt> winterTreeEnt = EntityType.Builder.of(WinterTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_winter_tree_ent");
+
+    public static final EntityType<BlossomTreeEnt> blossomTreeEnt = EntityType.Builder.of(BlossomTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_blossom_tree_ent");
+
+    public static final EntityType<HexenTreeEnt> hexenTreeEnt = EntityType.Builder.of(HexenTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_hexen_tree_ent");
+
     public static final EntityType<Titania> titania = EntityType.Builder.of(Titania::new, MobCategory.MONSTER)
             .sized(1.0f, 4.0f)
             .build(FeywildMod.getInstance().modid + "_titania");
@@ -76,4 +96,6 @@ public class ModEntities {
     public static final EntityType<Mab> mab = EntityType.Builder.of(Mab::new, MobCategory.MONSTER)
             .sized(1.0f, 4.0f)
             .build(FeywildMod.getInstance().modid + "_mab");
+
+
 }

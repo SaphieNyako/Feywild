@@ -112,6 +112,18 @@
         "maxCount": 4,
         "minCount": 2,
         "weight": 60
+      },
+      {
+        "type": "feywild:spring_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "feywild:blossom_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 2
       }
     ],
     "misc": [],

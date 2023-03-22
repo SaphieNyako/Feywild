@@ -54,4 +54,6 @@ public class ModSoundEvents {
     public static final SoundEvent mabIntimidate = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_intimidate"));
     public static final SoundEvent mabSummon = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_summon"));
     public static final SoundEvent mabAttack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_attack"));
+    public static final SoundEvent treeEntWalking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "tree_ent_walking"));
+    public static final SoundEvent treeEntAttacking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "tree_ent_attacking"));
 }

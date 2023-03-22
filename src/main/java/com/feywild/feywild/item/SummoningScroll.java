@@ -1,9 +1,11 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.util.TooltipHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -74,10 +76,11 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                         entity.setCustomName(context.getItemInHand().getHoverName());
                     }
                     BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
-                    entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
+                    entity.setPos(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ());
                     this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
                     if (this instanceof SummoningScrollFey || this instanceof SummoningScrollDwarfBlacksmith) {
                         context.getLevel().addFreshEntity(entity);
+                        FeywildMod.getNetwork().sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
                         if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
                     }
                     if (!context.getPlayer().isCreative()) {

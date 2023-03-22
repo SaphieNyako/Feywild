@@ -103,21 +103,34 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        if (superResult == InteractionResult.PASS) {
-            ItemStack itemstack = player.getItemInHand(hand);
-            if (ComposterBlock.COMPOSTABLES.containsKey(itemstack.getItem()) && player.getGameProfile().getId().equals(this.getOwner())) {
-                if (!level.isClientSide) {
-                    if (!player.isCreative()) {
-                        player.getItemInHand(hand).shrink(1);
-                    }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
-                    player.swing(hand, true);
-                    this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
-                    this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
-                }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+        // if (superResult == InteractionResult.PASS) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (ComposterBlock.COMPOSTABLES.containsKey(itemstack.getItem()) && player.getGameProfile().getId().equals(this.getOwner())
+                && player.getItemInHand(hand).getItem() != Items.COOKIE
+                && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            // if (!level.isClientSide) {
+            if (!player.isCreative()) {
+                player.getItemInHand(hand).shrink(1);
             }
+            FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
+            player.swing(hand, true);
+            this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
+            this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
+
+            //  }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
+        } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            //   if (!level.isClientSide) {
+            this.heal(4);
+            if (!player.isCreative()) {
+                player.getItemInHand(hand).shrink(1);
+            }
+            FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
+            player.swing(hand, true);
+            //   }
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            //   }
+            //   return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else {
             return superResult;
         }

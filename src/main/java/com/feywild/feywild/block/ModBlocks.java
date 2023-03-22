@@ -70,4 +70,5 @@ public class ModBlocks {
     public static final FeyLeavesBlock summerYellowLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.summerLeafParticle);
     public static final FeyLeavesBlock winterBlueLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.winterLeafParticle);
     public static final FeyLeavesBlock winterLightBlueLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.winterLeafParticle);
+
 }

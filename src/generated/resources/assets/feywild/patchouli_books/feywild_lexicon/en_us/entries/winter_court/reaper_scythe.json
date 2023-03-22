@@ -22,6 +22,14 @@
       "item": "minecraft:zombie_head",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page3.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:soul_gem_fey_altar"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page5.text0"
     }
   ]
 }

@@ -47,6 +47,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
                 return true;
             }
         }
+        player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
         return false;
     }
 

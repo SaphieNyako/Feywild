@@ -156,34 +156,6 @@
                         }
                       ],
                       "name": "feywild:mandrake_crop_seed"
-                    },
-                    {
-                      "type": "minecraft:item",
-                      "conditions": [
-                        {
-                          "chances": [
-                            0.02,
-                            0.022222223,
-                            0.024999999,
-                            0.03333333,
-                            0.099999994
-                          ],
-                          "condition": "minecraft:table_bonus",
-                          "enchantment": "minecraft:fortune"
-                        }
-                      ],
-                      "functions": [
-                        {
-                          "add": false,
-                          "count": {
-                            "type": "minecraft:uniform",
-                            "max": 2.0,
-                            "min": 1.0
-                          },
-                          "function": "minecraft:set_count"
-                        }
-                      ],
-                      "name": "minecraft:sweet_berries"
                     }
                   ]
                 }

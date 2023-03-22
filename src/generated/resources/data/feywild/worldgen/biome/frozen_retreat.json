@@ -96,16 +96,28 @@
         "weight": 60
       },
       {
+        "type": "feywild:hexen_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 2
+      },
+      {
+        "type": "feywild:winter_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
         "type": "minecraft:polar_bear",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 5
+        "weight": 3
       },
       {
         "type": "minecraft:ocelot",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 3
+        "weight": 1
       },
       {
         "type": "minecraft:wolf",

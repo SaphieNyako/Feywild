@@ -4,10 +4,13 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import org.moddingx.libx.annotation.registration.RegisterClass;
@@ -27,6 +30,7 @@ public class ModItems {
     public static final Item rawWinterElvenQuartz = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feyInkBottle = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item soulShard = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final SoulGem soulGem = new SoulGem(FeywildMod.getInstance(), new Item.Properties());
     public static final Item summoningScroll = new EmptyScroll(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
@@ -48,6 +52,14 @@ public class ModItems {
     public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.beeKnight, null, new Item.Properties());
     public static final SummoningScrollFey<Mandragora> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.mandragora, null, new Item.Properties());
     public static final SummoningScrollFey<Shroomling> summoningScrollShroomling = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.shroomling, null, new Item.Properties());
+    public static final SummoningScrollAllay<Allay> summoningScrollAllay = new SummoningScrollAllay<>(FeywildMod.getInstance(), EntityType.ALLAY, null, new Item.Properties());
+
+    public static final SummoningScrollTreeEnt<SpringTreeEnt> summoningScrollSpringTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.springTreeEnt, null, new Item.Properties(), Alignment.SPRING);
+    public static final SummoningScrollTreeEnt<SummerTreeEnt> summoningScrollSummerTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.summerTreeEnt, null, new Item.Properties(), Alignment.SUMMER);
+    public static final SummoningScrollTreeEnt<WinterTreeEnt> summoningScrollWinterTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.winterTreeEnt, null, new Item.Properties(), Alignment.WINTER);
+    public static final SummoningScrollTreeEnt<HexenTreeEnt> summoningScrollHexenTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.hexenTreeEnt, null, new Item.Properties(), null);
+    public static final SummoningScrollTreeEnt<BlossomTreeEnt> summoningScrollBlossomTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.blossomTreeEnt, null, new Item.Properties(), null);
+
     public static final SummoningScrollBoss<Mab> summoningScrollMab = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.mab, ModSoundEvents.mabAmbience, new Item.Properties());
     public static final SummoningScrollBoss<Titania> summoningScrollTitania = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.titania, ModSoundEvents.titaniaAmbience, new Item.Properties());
 

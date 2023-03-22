@@ -57,6 +57,6 @@ public class SpringTree extends BaseTree {
 
     @Override
     public SimpleParticleType getParticle() {
-        return ModParticles.springLeafParticle;
+        return ModParticles.springSparkleParticle;
     }
 }

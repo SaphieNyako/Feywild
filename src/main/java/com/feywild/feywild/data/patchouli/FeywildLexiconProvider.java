@@ -93,7 +93,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
 
         this.entry("fey_altar")
                 .name("Summoning Fey")
-                .icon(ModItems.summoningScroll)
+                .icon(ModBlocks.feyAltar.asItem())
                 .text("To create the summoning scroll for a specific fey you will requires a Fey Altar, which can be crafted or can be found at places of worship in small villages.")
                 .crafting("fey_altar")
                 .caption("With the right ingredients and incantation written on a summoning scroll with magic ink, you can summon back a Fey.")
@@ -155,6 +155,8 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("Fey gems are very wanted by some creatures and wizards because it still contains some of the Fey's original magic.")
                 .text("Be careful when mining the Fey ore as it is fragile and putting too much pressure on the ore can lower the quality of the excavated Fey Gems.")
                 .flip()
+                .text("Fey Ore can only be found in the Feywild Dimension.")
+                .item(Items.STONECUTTER)
                 .text("Fey gems can be cut to smaller pieces by using a stone cutter.")
                 .text("The knowledge on how to increase the quality of a fey gem is said to be only known by the dwarves.")
                 .item(ModBlocks.feyGemOreDeepSlate)
@@ -207,7 +209,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .add(this.altar("summoning_scroll_spring_pixie_fey_altar"))
                 .text("With this scroll you can summon a Spring Pixie.")
                 .text("The presence of a Spring Pixie will make the animals fall in love with each other.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.");
+                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.")
+                .item(Items.COOKIE)
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
 
         this.entry("mandragora")
                 .name("Mandragora")
@@ -224,6 +228,18 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .caption("Sometimes other mods may prevent you from summoning a Mandragora with a Honey Cookie, then try creating a Summoning Scroll.")
                 .item(ModItems.magicalHoneyCookie)
                 .caption("The magical Honey cookie can be found in the Golden Seelie Fields. There will be a structure called the Beekeep, where the summer Court protects their honey.");
+
+        this.entry("spring_tree_ent")
+                .name("Spring Tree Ent")
+                .icon(ModItems.summoningScrollSpringTreeEnt)
+                .entity(ModEntities.springTreeEnt)
+                .flip()
+                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .add(this.altar("summoning_scroll_spring_tree_ent_fey_altar"))
+                .item(ModTrees.springTree.getLogBlock().asItem())
+                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .item(Items.BONE_MEAL)
+                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Spring tree ent will also drop a variation of flowers.");
 
         this.category("summer_court")
                 .name("Summer Court")
@@ -251,8 +267,8 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Summer Pixie")
                 .icon(ModItems.summoningScrollSummerPixie)
                 .entity(ModEntities.summerPixie)
-                .caption("The Summer Court is the primary reigning Court within the Feywild and they know it.")
                 .flip()
+                .text("The Summer Court is the primary reigning Court within the Feywild and they know it.")
                 .text("Beware that when you summon a pixie, you are bound to their Court!")
                 .text("This means other courts might not be willing to interact with you afterwards.")
                 .text("Also note that not all pixies are willing familiars, and they might trick you!")
@@ -260,13 +276,16 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .add(this.altar("summoning_scroll_summer_pixie_fey_altar"))
                 .text("With this scroll you can summon a Summer Pixie.")
                 .text("As a proud member of the Summer Court the Summer Pixie will smite down her foes.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.");
+                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.")
+                .item(Items.COOKIE)
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
 
         this.entry("bee_knight")
                 .name("Bee Knight")
                 .icon(ModItems.honeycomb)
                 .entity(ModEntities.beeKnight)
-                .caption("The Bee Knights patrol the Golden Seelie Fields, looking for anyone who tries to steal their sacred honey.")
+                .flip()
+                .text("The Bee Knights patrol the Golden Seelie Fields, looking for anyone who tries to steal their sacred honey.")
                 .image("Bee Keep", "textures/patchouli_images/bee_keep_book.png")
                 .caption("Inspired by a building of Kelpie The Fox: $(#b0b)$(l:https://www.youtube.com/watch?v=Cs-nHCvrOpg)YouTube$(/l)$()")
                 .item(ModItems.honeycomb)
@@ -277,6 +296,21 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .add(this.altar("summoning_scroll_bee_knight_fey_altar"))
                 .text("With this scroll you can summon a Bee Knight.")
                 .text("The Bee Knight will protect the area from other creatures interacting with it.");
+
+        this.entry("summer_tree_ent")
+                .name("Summer Tree Ent")
+                .icon(ModItems.summoningScrollSummerTreeEnt)
+                .entity(ModEntities.summerTreeEnt)
+                .flip()
+                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .add(this.altar("summoning_scroll_summer_tree_ent_fey_altar"))
+                .item(ModTrees.summerTree.getLogBlock().asItem())
+                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .item(ModItems.magicalHoneyCookie)
+                .text("The Summer Tree ent has attracted some bees, giving him a magical honey cookie might lure some of them out of their hives.")
+                .item(Items.BONE_MEAL)
+                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements.");
+
 
         this.category("autumn_court")
                 .name("Autumn Court")
@@ -306,8 +340,8 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Autumn Pixie")
                 .icon(ModItems.summoningScrollAutumnPixie)
                 .entity(ModEntities.autumnPixie)
-                .caption("The Autumn Court is the most mature of the four Fey Courts, their age and wisdom has given them a appreciation of fine art, music and poetry.")
                 .flip()
+                .text("The Autumn Court is the most mature of the four Fey Courts, their age and wisdom has given them a appreciation of fine art, music and poetry.")
                 .text("Beware that when you summon a pixie, you are bound to their Court!")
                 .text("This means other courts might not be willing to interact with you afterwards.")
                 .text("Also note that not all pixies are willing familiars, and they might trick you!")
@@ -315,7 +349,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .add(this.altar("summoning_scroll_autumn_pixie"))
                 .text("With this scroll you can summon a Autumn Pixie.")
                 .text("Autumn Pixies will try to ward off any evil spirits by protecting you with a wind walk spell.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.");
+                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.")
+                .item(Items.COOKIE)
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
 
         this.entry("shroomling")
                 .name("Shroomling")
@@ -362,8 +398,8 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Winter Pixie")
                 .icon(ModItems.summoningScrollWinterPixie)
                 .entity(ModEntities.winterPixie)
-                .caption("They may seem cold and sullen at a first glance, but they will warm up to anyone who is willing to help the Feywild to its harshest most deadly period.")
                 .flip()
+                .text("They may seem cold and sullen at a first glance, but they will warm up to anyone who is willing to help the Feywild to its harshest most deadly period.")
                 .text("Beware that when you summon a pixie, you are bound to their Court!")
                 .text("This means other courts might not be willing to interact with you afterwards.")
                 .text("Also note that not all pixies are willing familiars, and they might trick you!")
@@ -371,7 +407,31 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .add(this.altar("summoning_scroll_winter_pixie_fey_altar"))
                 .text("With this scroll you can summon a Winter Pixie.")
                 .text("The Winter Pixie will occasionally summon back a soul into a snowman's body.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.");
+                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.")
+                .item(Items.COOKIE)
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
+
+        this.entry("allay")
+                .name("Allay")
+                .icon(ModItems.summoningScrollAllay)
+                .entity(EntityType.ALLAY)
+                .flip()
+                .text("Allay are spirits of lost Feys. Their only purpose is to find lost items and return it to their owners. The Winter Court's Reapers have made use of these little allays to retrieve souls shards. However, the Allay are not loyal to the winter court, and will aid whom ever they can. ")
+                .add(this.altar("summoning_scroll_allay_fey_altar"))
+                .item(Items.COOKIE)
+                .text("You can try give them a cookie, but they will just return it to you. ");
+
+        this.entry("winter_tree_ent")
+                .name("Winter Tree Ent")
+                .icon(ModItems.summoningScrollWinterTreeEnt)
+                .entity(ModEntities.winterTreeEnt)
+                .flip()
+                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players. The Winter Tree Ents are not hostile towards undead as they grew accustom to their presence.")
+                .add(this.altar("summoning_scroll_winter_tree_ent_fey_altar"))
+                .item(ModTrees.winterTree.getLogBlock().asItem())
+                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .item(Items.BONE_MEAL)
+                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements");
 
         this.entry("reaper_scythe")
                 .name("Winter's Reaper Scythe")
@@ -381,7 +441,41 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(ModItems.soulShard)
                 .caption("With the reaper scythe you can collect soul shards from the undead.")
                 .item(Blocks.ZOMBIE_HEAD)
-                .caption("With the reaper scythe you can sometimes take the head of a undead monster.");
+                .caption("With the reaper scythe you can sometimes take the head of a undead monster.")
+                .add(this.altar("soul_gem_fey_altar"))
+                .text("You can combine the captured souls into a soul gem. You can restore the soul to the world of the living. But if the soul is incomplete, an undead version may spawn");
+
+
+        this.category("neutral_courts")
+                .name("Neutral Courts")
+                .description("Not all fey are aligned to a specific Court and some are even aligned to other lesser known Courts, like the Shadow Court. There are even rumours of fey who are aligned to the stars.")
+                .icon(ModItems.summoningScrollHexenTreeEnt);
+
+        this.entry("hexen_tree_ent")
+                .name("Hexen Tree Ent")
+                .icon(ModItems.summoningScrollHexenTreeEnt)
+                .entity(ModEntities.hexenTreeEnt)
+                .flip()
+                .text("Tree ents are fey who over time became started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .add(this.altar("summoning_scroll_hexen_tree_ent_fey_altar"))
+                .item(ModTrees.hexenTree.getLogBlock().asItem())
+                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .item(Items.BONE_MEAL)
+                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements")
+                .item(ModItems.feyDust)
+                .text("Hexen tree ents, are ents who are corrupted by Hexerei. The witch who summoned them, used their aura and fey dust to get access to all kinds of magic stored in the fey dust. The magic is very volatile and may not always grant the owner a desired enchantment.");
+
+        this.entry("blossom_tree_ent")
+                .name("Blossom Tree Ent")
+                .icon(ModItems.summoningScrollBlossomTreeEnt)
+                .entity(ModEntities.blossomTreeEnt)
+                .flip()
+                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .add(this.altar("summoning_scroll_blossom_tree_ent_fey_altar"))
+                .item(ModTrees.blossomTree.getLogBlock().asItem())
+                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .item(Items.BONE_MEAL)
+                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Blossom tree might also drop apples.");
 
         this.category("dwarves")
                 .name("Dwarves")
@@ -450,6 +544,14 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .entity(ModEntities.dwarfArtificer).caption("This dwarf trades for all kinds of artifacts and trinkets.")
                 .entity(ModEntities.dwarfMiner).caption("This dwarf trades for all kinds of stones and ore.")
                 .entity(ModEntities.dwarfDragonHunter).caption("This dwarf trades for all kinds of monster drops.");
+
+        this.entry("magical_brazier")
+                .name("Magical Brazier")
+                .icon(ModBlocks.magicalBrazier.asItem())
+                .crafting("magical_brazier")
+                .caption("The magical braziers magic is a mystery for now, all that is know is that it was crafted by the dwarves.")
+                .item(ModItems.feyDust)
+                .caption("The magical braziers fire can be turned on and off with fey dust.");
     }
 
     private Content altar(String id) {

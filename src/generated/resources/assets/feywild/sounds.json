@@ -323,6 +323,18 @@
       "feywild:titania_summon_bee4"
     ]
   },
+  "tree_ent_attacking": {
+    "sounds": [
+      "feywild:tree_ent_attacking"
+    ],
+    "subtitle": "subtitle.feywild.tree_ent_attacking"
+  },
+  "tree_ent_walking": {
+    "sounds": [
+      "feywild:tree_ent_walking"
+    ],
+    "subtitle": "subtitle.feywild.tree_ent_walking"
+  },
   "winter_soundtrack": {
     "sounds": [
       {

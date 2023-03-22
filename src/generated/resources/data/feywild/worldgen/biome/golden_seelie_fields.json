@@ -127,6 +127,18 @@
         "maxCount": 3,
         "minCount": 2,
         "weight": 20
+      },
+      {
+        "type": "feywild:summer_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "feywild:blossom_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 2
       }
     ],
     "misc": [],

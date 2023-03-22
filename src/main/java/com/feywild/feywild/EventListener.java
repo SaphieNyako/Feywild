@@ -31,6 +31,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -75,7 +76,7 @@ public class EventListener {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             quests.checkComplete(KillTask.INSTANCE, event.getEntity());
-            if (event.getEntity() instanceof Monster) {
+            if (event.getEntity() instanceof Monster || event.getEntity() instanceof Villager || event.getEntity() instanceof Raider) {
                 InteractionHand hand = player.getUsedItemHand();
                 ItemStack stack = player.getItemInHand(hand);
                 if (stack.getItem() instanceof ReaperScythe) {
@@ -108,7 +109,7 @@ public class EventListener {
     public void tameAnimal(AnimalTameEvent event) {
         Player player = event.getTamer();
         if (player instanceof ServerPlayer) {
-            QuestData.get((ServerPlayer) event.getEntity()).checkComplete(AnimalTameTask.INSTANCE, event.getAnimal());
+            QuestData.get((ServerPlayer) player).checkComplete(AnimalTameTask.INSTANCE, event.getAnimal());
         }
     }
 
