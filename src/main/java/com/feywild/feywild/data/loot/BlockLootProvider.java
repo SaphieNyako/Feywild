@@ -51,6 +51,7 @@ public class BlockLootProvider extends BlockLootProviderBase {
 
         this.drops(ModBlocks.feyAltar, this.stack(ModBlocks.feyAltar));
 
+        // TODO remove in 1.19.3/4
         DoorBlock doorAutumn = ModTrees.autumnTree.getPlankBlock().get(DecorationType.DOOR);
         this.drops(doorAutumn, false, this.identity().with(LootItemBlockStatePropertyCondition.hasBlockStateProperties(doorAutumn)
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER))));
