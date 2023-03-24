@@ -36,7 +36,7 @@ public class SummoningScrollAllay<T extends Allay> extends SummoningScroll<T> im
     }
 
     @Override
-    protected boolean canSummon(Level level, Player player, BlockPos pos, @javax.annotation.Nullable CompoundTag storedTag, T entity) {
+    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
             Alignment alignment = QuestData.get(serverPlayer).getAlignment();
             if (alignment == Alignment.WINTER) {

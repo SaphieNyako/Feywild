@@ -19,6 +19,7 @@ import org.moddingx.libx.base.ItemBase;
 import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -30,8 +31,10 @@ public class SoulGem extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.soul_gem"));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if (level != null) {
+            TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.soul_gem"));
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 

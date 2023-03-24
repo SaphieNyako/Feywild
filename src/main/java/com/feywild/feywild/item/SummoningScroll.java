@@ -96,8 +96,10 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.summoning_scroll"));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if (level != null) {
+            TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.summoning_scroll"));
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }
