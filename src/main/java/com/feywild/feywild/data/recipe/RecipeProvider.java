@@ -189,7 +189,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.shinyFeyGem)
                 .requires(ModItems.rawWinterElvenQuartz)
                 .requires(ModTrees.winterTree.getWoodBlock())
-                .requires(ModItems.summoningScroll)
+                .requires(ModItems.summoningScrollAllay)
                 .build();
 
         this.altar(ModItems.summoningScrollBlossomTreeEnt)

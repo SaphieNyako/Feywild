@@ -43,8 +43,8 @@ public class FeyDust extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.fey_dust"));
+    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.fey_dust"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 

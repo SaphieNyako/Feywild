@@ -37,7 +37,7 @@ public class SummoningScrollBoss<T extends FlyingBossBase> extends SummoningScro
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.boss"));
+        TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.boss"));
     }
 
     @Nonnull

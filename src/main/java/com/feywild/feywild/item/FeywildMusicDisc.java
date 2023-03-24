@@ -11,7 +11,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,8 +28,8 @@ public class FeywildMusicDisc extends RecordItem {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.music_disc_feywild"));
+    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.music_disc_feywild"));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

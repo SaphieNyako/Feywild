@@ -29,7 +29,7 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.dwarf_blacksmith"));
+    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.dwarf_blacksmith"));
     }
 }

@@ -22,7 +22,7 @@ public class TooltipItem extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, this.itemTooltip);
+        TooltipHelper.addTooltip(tooltip, level, this.itemTooltip);
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }
