@@ -66,7 +66,7 @@ public class ModItems {
     /* Geckolib registration requires Item registration */
     public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));
 
-    public static final Item reaperScythe = new ReaperScythe(new Item.Properties().durability(750).tab(FeywildMod.getInstance().tab));
+    public static final Item reaperScythe = new ReaperScythe(new Item.Properties().tab(FeywildMod.getInstance().tab));
 
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(

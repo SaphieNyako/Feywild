@@ -290,8 +290,8 @@ public class QuestProvider implements DataProvider {
 
         this.quest(AUTUMN, "quest_01")
                 .parent("root")
-                .icon(Items.ARROW)
-                .gift(Ingredient.of(Items.IRON_SWORD), 9)
+                .icon(Items.IRON_SWORD)
+                .gift(Ingredient.of(Items.IRON_SWORD), 1)
                 .build();
 
         this.quest(AUTUMN, "quest_02")

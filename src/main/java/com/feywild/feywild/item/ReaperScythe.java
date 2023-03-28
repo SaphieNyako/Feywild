@@ -3,7 +3,6 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.item.render.ReaperScytheRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tiers;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -21,7 +20,7 @@ public class ReaperScythe extends SwordItem implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
 
     public ReaperScythe(Properties properties) {
-        super(Tiers.DIAMOND, 2, 3, properties);
+        super(ModTiers.FEY_LESSER_ORE, 4, -2.7f, properties);
     }
 
     @Override
@@ -41,6 +40,7 @@ public class ReaperScythe extends SwordItem implements IAnimatable {
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
+
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> animationEvent) {
         animationEvent.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));

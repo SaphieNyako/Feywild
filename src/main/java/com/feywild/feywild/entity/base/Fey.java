@@ -129,10 +129,10 @@ public abstract class Fey extends FlyingFeyBase {
             return InteractionResult.sidedSuccess(this.level.isClientSide);
 
         } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-            ItemStack stack = player.getItemInHand(hand);
-            if (stack.isEmpty()) {
-                this.interactQuest((ServerPlayer) player, hand);
-            }
+            //  ItemStack stack = player.getItemInHand(hand);
+            //  if (stack.isEmpty()) {
+            this.interactQuest((ServerPlayer) player, hand);
+            //  }
 
             return InteractionResult.sidedSuccess(this.level.isClientSide);
             //  }

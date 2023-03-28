@@ -8,7 +8,7 @@
       "translate": "quest.feywild.autumn.quest_01.complete.title"
     }
   },
-  "icon": "minecraft:arrow",
+  "icon": "minecraft:iron_sword",
   "reputation": 5,
   "start": {
     "description": {
@@ -24,8 +24,7 @@
       "id": "feywild:fey_gift",
       "item": {
         "item": "minecraft:iron_sword"
-      },
-      "times": 9
+      }
     }
   ]
 }
