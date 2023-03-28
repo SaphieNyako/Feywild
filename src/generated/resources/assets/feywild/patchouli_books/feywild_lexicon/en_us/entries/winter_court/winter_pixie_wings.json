@@ -1,0 +1,15 @@
+{
+  "category": "feywild:winter_court",
+  "icon": "feywild:fey_wings_winter{Damage:0}",
+  "name": "feywild_lexicon.entry.feywild.winter_court.winter_pixie_wings",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_pixie_wings.page0.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_winter_fey_altar"
+    }
+  ]
+}

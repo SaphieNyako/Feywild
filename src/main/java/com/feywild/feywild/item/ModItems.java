@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -67,6 +68,13 @@ public class ModItems {
     public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));
 
     public static final Item reaperScythe = new ReaperScythe(new Item.Properties().tab(FeywildMod.getInstance().tab));
+
+    public static final Item feyWingsAutumn = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.AUTUMN);
+    public static final Item feyWingsBlossom = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.BLOSSOM);
+    public static final Item feyWingsLight = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.LIGHT);
+    public static final Item feyWingsSpring = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.SPRING);
+    public static final Item feyWingsSummer = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.SUMMER);
+    public static final Item feyWingsWinter = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.WINTER);
 
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(

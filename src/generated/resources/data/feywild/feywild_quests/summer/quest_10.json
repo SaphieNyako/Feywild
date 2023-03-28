@@ -10,6 +10,16 @@
   },
   "icon": "minecraft:dragon_head",
   "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_wings_summer",
+        "nbt": "{Damage:0}"
+      }
+    }
+  ],
   "start": {
     "description": {
       "translate": "quest.feywild.summer.quest_10.start.description"

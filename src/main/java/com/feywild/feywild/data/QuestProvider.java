@@ -183,6 +183,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_18")
                 .icon(Items.CARVED_PUMPKIN)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feyWingsSpring)))
                 .build();
 
 
@@ -270,6 +271,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_09")
                 .icon(Items.DRAGON_HEAD)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feyWingsSummer)))
                 .build();
 
         this.quest(SUMMER, "quest_11")
@@ -357,6 +359,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_10")
                 .icon(Items.ELYTRA)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feyWingsAutumn)))
                 .build();
 
         this.quest(AUTUMN, "quest_12")
@@ -435,6 +438,7 @@ public class QuestProvider implements DataProvider {
                 .parent("quest_09")
                 .icon(Items.DRAGON_HEAD)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.feyWingsWinter)))
                 .build();
 
         this.quest(WINTER, "quest_11")

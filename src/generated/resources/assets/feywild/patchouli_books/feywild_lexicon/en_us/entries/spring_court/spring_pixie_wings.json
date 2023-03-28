@@ -1,0 +1,15 @@
+{
+  "category": "feywild:spring_court",
+  "icon": "feywild:fey_wings_spring{Damage:0}",
+  "name": "feywild_lexicon.entry.feywild.spring_court.spring_pixie_wings",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie_wings.page0.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_spring_fey_altar"
+    }
+  ]
+}

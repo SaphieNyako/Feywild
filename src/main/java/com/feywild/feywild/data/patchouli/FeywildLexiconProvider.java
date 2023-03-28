@@ -241,6 +241,13 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(Items.BONE_MEAL)
                 .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Spring tree ent will also drop a variation of flowers.");
 
+        this.entry("spring_pixie_wings")
+                .name("Pixie Wings")
+                .icon(ModItems.feyWingsSpring)
+                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
+                .add(this.altar("fey_wings_spring_fey_altar"));
+
+
         this.category("summer_court")
                 .name("Summer Court")
                 .description("The Summer Court is the primary reigning Court within the Feywild and they know it. The other Courts and inhabitants of the Feywild are there to serve them, and though polite, they demand recognition of their self-claimed royal status.")
@@ -311,6 +318,11 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(Items.BONE_MEAL)
                 .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements.");
 
+        this.entry("summer_pixie_wings")
+                .name("Pixie Wings")
+                .icon(ModItems.feyWingsSummer)
+                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
+                .add(this.altar("fey_wings_summer_fey_altar"));
 
         this.category("autumn_court")
                 .name("Autumn Court")
@@ -369,6 +381,12 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .caption("If the Shroomling sneezes near a cow it might infect it with the 'shrooms', turning the cow into a Mooshroom.")
                 .caption("Did you know you can shear a Mooshroom, it removes the mushrooms and turn it back into a normal cow again?")
                 .caption("You can hold a bowl near a Mushroom and milk it for some fresh Mushroom Stew.");
+
+        this.entry("autumn_pixie_wings")
+                .name("Pixie Wings")
+                .icon(ModItems.feyWingsAutumn)
+                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
+                .add(this.altar("fey_wings_autumn_fey_altar"));
 
         this.category("winter_court")
                 .name("Winter Court")
@@ -433,6 +451,12 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(Items.BONE_MEAL)
                 .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements");
 
+        this.entry("winter_pixie_wings")
+                .name("Pixie Wings")
+                .icon(ModItems.feyWingsWinter)
+                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
+                .add(this.altar("fey_wings_winter_fey_altar"));
+
         this.entry("reaper_scythe")
                 .name("Winter's Reaper Scythe")
                 .icon(ModItems.soulShard)
@@ -476,6 +500,12 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
                 .item(Items.BONE_MEAL)
                 .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Blossom tree might also drop apples.");
+
+        this.entry("blossom_pixie_wings")
+                .name("Pixie Wings")
+                .icon(ModItems.feyWingsBlossom)
+                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
+                .add(this.altar("fey_wings_blossom_fey_altar"));
 
         this.category("dwarves")
                 .name("Dwarves")

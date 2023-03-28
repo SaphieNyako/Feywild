@@ -1,0 +1,25 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "minecraft:elytra"
+    },
+    {
+      "item": "feywild:summoning_scroll_summer_pixie"
+    },
+    {
+      "item": "feywild:brilliant_fey_gem"
+    },
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "feywild:pixie_orb"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:fey_wings_summer",
+    "nbt": "{Damage:0}"
+  }
+}

@@ -224,6 +224,48 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.soulShard)
                 .build();
 
+        this.altar(ModItems.feyWingsAutumn)
+                .requires(Items.ELYTRA)
+                .requires(ModItems.summoningScrollAutumnPixie)
+                .requires(ModItems.brilliantFeyGem)
+                .requires(ModItems.feyDust)
+                .requires(ModItems.pixieOrb)
+                .build();
+
+        this.altar(ModItems.feyWingsSpring)
+                .requires(Items.ELYTRA)
+                .requires(ModItems.summoningScrollSpringPixie)
+                .requires(ModItems.brilliantFeyGem)
+                .requires(ModItems.feyDust)
+                .requires(ModItems.pixieOrb)
+                .build();
+
+        this.altar(ModItems.feyWingsSummer)
+                .requires(Items.ELYTRA)
+                .requires(ModItems.summoningScrollSummerPixie)
+                .requires(ModItems.brilliantFeyGem)
+                .requires(ModItems.feyDust)
+                .requires(ModItems.pixieOrb)
+                .build();
+
+        this.altar(ModItems.feyWingsWinter)
+                .requires(Items.ELYTRA)
+                .requires(ModItems.summoningScrollWinterPixie)
+                .requires(ModItems.brilliantFeyGem)
+                .requires(ModItems.feyDust)
+                .requires(ModItems.pixieOrb)
+                .build();
+
+        this.altar(ModItems.feyWingsBlossom)
+                .requires(Items.ELYTRA)
+                .requires(ModItems.summoningScrollBlossomTreeEnt)
+                .requires(ModItems.brilliantFeyGem)
+                .requires(ModItems.feyDust)
+                .requires(ModItems.pixieOrb)
+                .build();
+
+        //TODO add feywings Day, Night and Hexen
+
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);

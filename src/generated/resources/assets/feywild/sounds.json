@@ -25,6 +25,12 @@
     ],
     "subtitle": "subtitle.feywild.dwarf_rubble"
   },
+  "fey_wings": {
+    "sounds": [
+      "feywild:fey_wings"
+    ],
+    "subtitle": "subtitle.feywild.fey_wings"
+  },
   "feywild_soundtrack": {
     "sounds": [
       {

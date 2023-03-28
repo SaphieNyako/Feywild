@@ -1,0 +1,15 @@
+{
+  "category": "feywild:autumn_court",
+  "icon": "feywild:fey_wings_autumn{Damage:0}",
+  "name": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie_wings",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie_wings.page0.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_autumn_fey_altar"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "category": "feywild:summer_court",
+  "icon": "feywild:fey_wings_summer{Damage:0}",
+  "name": "feywild_lexicon.entry.feywild.summer_court.summer_pixie_wings",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_pixie_wings.page0.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_summer_fey_altar"
+    }
+  ]
+}

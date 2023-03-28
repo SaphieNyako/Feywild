@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Damage:0}"
+            }
+          ],
+          "name": "feywild:fey_wings_winter"
+        }
+      ],
+      "name": "main",
+      "rolls": 1.0
+    }
+  ]
+}

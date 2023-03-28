@@ -10,6 +10,16 @@
   },
   "icon": "minecraft:elytra",
   "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_wings_autumn",
+        "nbt": "{Damage:0}"
+      }
+    }
+  ],
   "start": {
     "description": {
       "translate": "quest.feywild.autumn.quest_11.start.description"

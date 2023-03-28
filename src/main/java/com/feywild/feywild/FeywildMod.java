@@ -6,6 +6,8 @@ import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.BotaniaPixie;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.item.FeyWing;
+import com.feywild.feywild.item.render.FeyWingsRenderer;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.LeafParticle;
 import com.feywild.feywild.particles.ModParticles;
@@ -38,6 +40,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeRenderTypes;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterNamedRenderTypesEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -56,6 +59,7 @@ import org.moddingx.libx.registration.RegistrationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 import javax.annotation.Nonnull;
 
@@ -86,7 +90,7 @@ public final class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderTypes);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors));
-
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerArmorRenderers));
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
         MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
@@ -267,6 +271,10 @@ public final class FeywildMod extends ModXRegistration {
     public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {
         event.register("semi_solid", RenderType.solid(), ForgeRenderTypes.ITEM_LAYERED_TRANSLUCENT.get());
         event.register("semi_cutout", RenderType.cutout(), ForgeRenderTypes.ITEM_LAYERED_TRANSLUCENT.get());
+    }
+
+    public void registerArmorRenderers(final EntityRenderersEvent.AddLayers event) {
+        GeoArmorRenderer.registerArmorRenderer(FeyWing.class, new FeyWingsRenderer());
     }
 
     private void blockColors(RegisterColorHandlersEvent.Block event) {
