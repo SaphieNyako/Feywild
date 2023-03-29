@@ -2,6 +2,7 @@ package com.feywild.feywild.data;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseSaplingBlock;
+import com.feywild.feywild.item.ReaperScythe;
 import com.feywild.feywild.item.Schematics;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -21,13 +22,15 @@ public class ItemModelProvider extends ItemModelProviderBase {
 
     @Override
     protected void setup() {
-        
+
     }
 
     @Override
     protected void defaultItem(ResourceLocation id, Item item) {
         if (item instanceof Schematics) {
             this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation(id.getNamespace(), "item/schematic"));
+        } else if (item instanceof ReaperScythe) {
+            //do nothing?
         } else {
             super.defaultItem(id, item);
         }
