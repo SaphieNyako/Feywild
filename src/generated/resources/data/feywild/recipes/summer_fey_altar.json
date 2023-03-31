@@ -12,14 +12,17 @@
     },
     "p": {
       "tag": "forge:stone"
+    },
+    "x": {
+      "item": "feywild:summer_tree_sapling"
     }
   },
   "pattern": [
     "fpf",
     "pdp",
-    "ggg"
+    "gxg"
   ],
   "result": {
-    "item": "feywild:fey_altar"
+    "item": "feywild:summer_fey_altar"
   }
 }

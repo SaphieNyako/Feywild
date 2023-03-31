@@ -49,7 +49,9 @@ public class BlockLootProvider extends BlockLootProviderBase {
         this.leavesDrops(ModBlocks.blossomPinkLeaves, ModTrees.blossomTree);
         this.leavesDrops(ModBlocks.blossomWhiteLeaves, ModTrees.blossomTree);
 
-        this.drops(ModBlocks.feyAltar, this.stack(ModBlocks.feyAltar));
+        this.drops(ModBlocks.summerFeyAltar, this.stack(ModBlocks.summerFeyAltar));
+        this.drops(ModBlocks.winterFeyAltar, this.stack(ModBlocks.winterFeyAltar));
+        this.drops(ModBlocks.autumnFeyAltar, this.stack(ModBlocks.autumnFeyAltar));
 
         // TODO remove in 1.19.3/4
         DoorBlock doorAutumn = ModTrees.autumnTree.getPlankBlock().get(DecorationType.DOOR);

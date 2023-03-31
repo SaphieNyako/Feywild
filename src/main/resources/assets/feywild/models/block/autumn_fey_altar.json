@@ -1,9 +1,6 @@
 {
   "credit": "Made with Blockbench",
   "parent": "builtin/entity",
-  "textures": {
-    "particle": "minecraft:block/stone"
-  },
   "texture_size": [
     256,
     256
@@ -15,36 +12,46 @@
         0,
         0
       ],
-      "scale": [
-        0.5,
-        0.5,
-        0.5
-      ]
-    },
-    "thirdperson_lefthand": {
-      "rotation": [
-        47,
+      "translation": [
+        2.25,
         0,
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        50,
+        0,
+        0
+      ],
+      "translation": [
+        4,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
       ]
     },
     "firstperson_righthand": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.4,
+        0.4,
+        0.4
       ]
     },
     "firstperson_lefthand": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.4,
+        0.4,
+        0.4
       ]
     },
     "ground": {
@@ -54,9 +61,9 @@
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.4,
+        0.4,
+        0.4
       ]
     },
     "gui": {
@@ -83,16 +90,16 @@
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.4,
+        0.4,
+        0.4
       ]
     },
     "fixed": {
       "translation": [
         0,
         -16.75,
-        -7.25
+        -15.5
       ]
     }
   }

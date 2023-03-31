@@ -3,6 +3,7 @@ package com.feywild.feywild.block;
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.geckolib.BlockGE;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
+import com.feywild.feywild.quest.Alignment;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,11 +36,11 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
 
 
     private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
+    private final Alignment alignment;
 
-
-    public FeyAltarBlock(ModX mod) {
+    public FeyAltarBlock(ModX mod, Alignment alignment) {
         super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE));
-
+        this.alignment = alignment;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
     }
@@ -123,7 +124,7 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
     }
 
     @Override
-    protected void spawnDestroyParticles(Level level, Player player, BlockPos pos, BlockState state) {
+    protected void spawnDestroyParticles(@Nonnull Level level, @Nonnull Player player, @Nonnull BlockPos pos, @Nonnull BlockState state) {
         super.spawnDestroyParticles(level, player, pos, state);
     }
 
@@ -137,5 +138,9 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
     @Override
     protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
         return true;
+    }
+
+    public Alignment getAlignment() {
+        return alignment;
     }
 }

@@ -65,7 +65,9 @@ public class ModItems {
     public static final SummoningScrollBoss<Titania> summoningScrollTitania = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.titania, ModSoundEvents.titaniaAmbience, new Item.Properties());
 
     /* Geckolib registration requires Item registration */
-    public static final Item feyAltar = new FeyAltarItem(ModBlocks.feyAltar, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item summerFeyAltar = new FeyAltarItem(ModBlocks.summerFeyAltar, Alignment.SUMMER);
+    public static final Item winterFeyAltar = new FeyAltarItem(ModBlocks.winterFeyAltar, Alignment.WINTER);
+    public static final Item autumnFeyAltar = new FeyAltarItem(ModBlocks.autumnFeyAltar, Alignment.AUTUMN);
 
     public static final Item reaperScythe = new ReaperScythe(new Item.Properties().tab(FeywildMod.getInstance().tab));
 

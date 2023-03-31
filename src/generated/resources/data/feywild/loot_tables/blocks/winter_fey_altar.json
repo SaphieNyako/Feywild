@@ -29,11 +29,11 @@
                   }
                 }
               ],
-              "name": "feywild:fey_altar"
+              "name": "feywild:winter_fey_altar"
             },
             {
               "type": "minecraft:item",
-              "name": "feywild:fey_altar"
+              "name": "feywild:winter_fey_altar"
             }
           ]
         }

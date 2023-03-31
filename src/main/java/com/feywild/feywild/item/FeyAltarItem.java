@@ -1,8 +1,11 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.render.FeyAltarItemRenderer;
+import com.feywild.feywild.quest.Alignment;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -16,10 +19,12 @@ import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class FeyAltarItem extends BlockItem implements IAnimatable {
+    private final Alignment alignment;
     public AnimationFactory factory = new AnimationFactory(this);
 
-    public FeyAltarItem(Block block, Properties properties) {
-        super(block, properties);
+    public FeyAltarItem(Block block, Alignment alignment) {
+        super(block, new Item.Properties().tab(FeywildMod.getInstance().tab));
+        this.alignment = alignment;
     }
 
     @Override
@@ -42,12 +47,16 @@ public class FeyAltarItem extends BlockItem implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller",
+        data.addAnimationController(new AnimationController<>(this, "controller",
                 0, this::predicate));
     }
 
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    public Alignment getAlignment() {
+        return alignment;
     }
 }

@@ -45,9 +45,21 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "criterion4": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:autumn_tree_sapling"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:fey_altar"
+        "recipe": "feywild:autumn_fey_altar"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -58,12 +70,13 @@
       "criterion1",
       "criterion2",
       "criterion3",
+      "criterion4",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "feywild:fey_altar"
+      "feywild:autumn_fey_altar"
     ]
   }
 }

@@ -11,6 +11,8 @@
     "feywild:fey_star_block_pink",
     "feywild:fey_star_block_orange",
     "feywild:fey_star_block_yellow",
-    "feywild:fey_altar"
+    "feywild:summer_fey_altar",
+    "feywild:winter_fey_altar",
+    "feywild:autumn_fey_altar"
   ]
 }

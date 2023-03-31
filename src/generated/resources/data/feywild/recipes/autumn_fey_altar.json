@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "d": {
+      "item": "feywild:brilliant_fey_gem"
+    },
+    "f": {
+      "item": "feywild:fey_dust"
+    },
+    "g": {
+      "tag": "forge:ingots/iron"
+    },
+    "p": {
+      "tag": "forge:stone"
+    },
+    "x": {
+      "item": "feywild:autumn_tree_sapling"
+    }
+  },
+  "pattern": [
+    "fpf",
+    "pdp",
+    "gxg"
+  ],
+  "result": {
+    "item": "feywild:autumn_fey_altar"
+  }
+}

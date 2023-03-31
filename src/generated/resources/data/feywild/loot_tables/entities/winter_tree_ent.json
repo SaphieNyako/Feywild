@@ -49,7 +49,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:winter_light_blue_leaves"
+              "name": "feywild:winter_blue_leaves"
             }
           ]
         }

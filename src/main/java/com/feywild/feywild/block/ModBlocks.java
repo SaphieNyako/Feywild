@@ -8,6 +8,7 @@ import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.quest.Alignment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -31,7 +32,11 @@ public class ModBlocks {
     public static final GiantFlowerBlock dandelion = new DandelionBlock(FeywildMod.getInstance());
     public static final GiantFlowerBlock crocus = new CrocusBlock(FeywildMod.getInstance());
     public static final DwarvenAnvilBlock dwarvenAnvil = new DwarvenAnvilBlock(FeywildMod.getInstance());
-    public static final FeyAltarBlock feyAltar = new FeyAltarBlock(FeywildMod.getInstance());
+
+    public static final FeyAltarBlock summerFeyAltar = new FeyAltarBlock(FeywildMod.getInstance(), Alignment.SUMMER);
+    public static final FeyAltarBlock winterFeyAltar = new FeyAltarBlock(FeywildMod.getInstance(), Alignment.WINTER);
+    public static final FeyAltarBlock autumnFeyAltar = new FeyAltarBlock(FeywildMod.getInstance(), Alignment.AUTUMN);
+
     public static final MagicalBrazierBlock magicalBrazier = new MagicalBrazierBlock(FeywildMod.getInstance());
 
     public static final TreeMushroomBlock treeMushroom = new TreeMushroomBlock(FeywildMod.getInstance());

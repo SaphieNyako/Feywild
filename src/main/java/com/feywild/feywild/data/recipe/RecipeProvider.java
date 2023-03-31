@@ -55,7 +55,11 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
 
         shaped(ModItems.magicalHoneyCookie, " a ", "wbw", " a ", 'a', ModItems.honeycomb, 'b', Items.COCOA_BEANS, 'w', Items.WHEAT);
         shapeless(ModItems.feywildLexicon, Items.BOOK, ModItems.feyDust);
-        shaped(ModBlocks.feyAltar, "fpf", "pdp", "ggg", 'f', ModItems.feyDust, 'p', Tags.Items.STONE, 'd', ModItems.brilliantFeyGem, 'g', Tags.Items.INGOTS_IRON);
+        shaped(ModBlocks.summerFeyAltar, "fpf", "pdp", "gxg", 'f', ModItems.feyDust, 'p', Tags.Items.STONE, 'd', ModItems.brilliantFeyGem, 'g', Tags.Items.INGOTS_IRON, 'x', ModTrees.summerTree.getSapling());
+        shaped(ModBlocks.winterFeyAltar, "fpf", "pdp", "gxg", 'f', ModItems.feyDust, 'p', Tags.Items.STONE, 'd', ModItems.brilliantFeyGem, 'g', Tags.Items.INGOTS_IRON, 'x', ModTrees.winterTree.getSapling());
+        shaped(ModBlocks.autumnFeyAltar, "fpf", "pdp", "gxg", 'f', ModItems.feyDust, 'p', Tags.Items.STONE, 'd', ModItems.brilliantFeyGem, 'g', Tags.Items.INGOTS_IRON, 'x', ModTrees.autumnTree.getSapling());
+
+
         shaped(ModBlocks.magicalBrazier, "lbl", "xsx", "gxg", 'l', ModItems.lesserFeyGem, 'b', Items.BOOK, 'x', Items.IRON_INGOT, 's', ModItems.shinyFeyGem, 'g', Items.GOLD_NUGGET);
 
         smelting(ModItems.lesserFeyGem, ModItems.feyDust, 0.1f, 100);

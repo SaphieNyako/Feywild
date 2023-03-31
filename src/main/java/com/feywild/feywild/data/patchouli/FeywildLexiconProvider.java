@@ -93,9 +93,11 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
 
         this.entry("fey_altar")
                 .name("Summoning Fey")
-                .icon(ModBlocks.feyAltar.asItem())
+                .icon(ModBlocks.summerFeyAltar.asItem())
                 .text("To create the summoning scroll for a specific fey you will requires a Fey Altar, which can be crafted or can be found at places of worship in small villages.")
-                .crafting("fey_altar")
+                .crafting("summer_fey_altar")
+                .crafting("winter_fey_altar")
+                .crafting("autumn_fey_altar")
                 .caption("With the right ingredients and incantation written on a summoning scroll with magic ink, you can summon back a Fey.")
                 .flip()
                 .crafting("summoning_scroll")

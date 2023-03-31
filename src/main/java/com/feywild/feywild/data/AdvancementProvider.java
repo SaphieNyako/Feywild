@@ -48,8 +48,12 @@ public class AdvancementProvider extends AdvancementProviderBase {
                 .task(this.items(ModItems.schematicsGemTransmutation));
 
         this.advancement("fey_altar")
-                .display(ModBlocks.feyAltar)
-                .task(this.items(ModBlocks.feyAltar));
+                .display(ModBlocks.summerFeyAltar)
+                .task(
+                        this.items(ModBlocks.summerFeyAltar),
+                        this.items(ModBlocks.winterFeyAltar),
+                        this.items(ModBlocks.autumnFeyAltar)
+                );
 
         this.advancement("fey_sapling")
                 .display(ModTrees.springTree.getSapling())

@@ -32,7 +32,7 @@ public interface IAltarRecipe extends Recipe<Container> {
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
-        return new ItemStack(ModBlocks.feyAltar);
+        return new ItemStack(ModBlocks.summerFeyAltar);
     }
 
     // We don't use vanilla matching against a vanilla inventory

@@ -9,16 +9,16 @@ public class FeyAltarItemModel extends AnimatedGeoModel<FeyAltarItem> {
 
     @Override
     public ResourceLocation getModelResource(FeyAltarItem feyAltar) {
-        return FeywildMod.getInstance().resource("geo/fey_altar.geo.json");
+        return FeywildMod.getInstance().resource("geo/" + feyAltar.getAlignment().id + "_fey_altar.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureResource(FeyAltarItem feyAltar) {
-        return FeywildMod.getInstance().resource("textures/block/fey_altar.png");
+        return FeywildMod.getInstance().resource("textures/block/" + feyAltar.getAlignment().id + "_fey_altar.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(FeyAltarItem animatable) {
-        return FeywildMod.getInstance().resource("animations/fey_altar.animation.json");
+    public ResourceLocation getAnimationResource(FeyAltarItem feyAltarItem) {
+        return FeywildMod.getInstance().resource("animations/" + feyAltarItem.getAlignment().id + "_fey_altar.animation.json");
     }
 }
