@@ -462,6 +462,7 @@
   "message.feywild.summer_pixie": "A summoning scroll for a Summer Pixie",
   "message.feywild.summon_fail": "The scroll shimmers shortly...but then it fades away. You are lacking the correct conditions.",
   "message.feywild.summon_cookie_fail": "The Mandrake looks at you with disgust....It's not going to accept anything from you. You are lacking the correct conditions",
+  "message.feywild.summon_fail_dwarf": "The scroll shimmers shortly...but then it fades away. Summoning a dwarf blacksmith requires a dwarven anvil.",
   "message.feywild.summoning_scroll": "Used in summoning rituals but can also be used to recapture a summoned Fey.",
   "message.feywild.winter_fey_name": "A nickname? Such inconvenience....I can't even remember my real name.",
   "message.feywild.winter_fey_thanks": "...your effort is noted, mortal",

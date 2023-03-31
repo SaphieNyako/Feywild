@@ -10,6 +10,12 @@
     {
       "type": "feywild:fey_altar",
       "recipe": "feywild:fey_wings_winter_fey_altar"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_dust",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_pixie_wings.page2.text0"
     }
   ]
 }

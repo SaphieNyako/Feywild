@@ -22,7 +22,7 @@ public class ModEntities {
             .build(FeywildMod.getInstance().modid + "_shroomling");
 
     public static final EntityType<DwarfBlacksmith> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmith::new, MobCategory.MONSTER)
-            .sized(1, 1)
+            .sized(1, 2)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 
     public static final EntityType<MarketDwarf> dwarfToolsmith = EntityType.Builder.of(MarketDwarf::new, MobCategory.MONSTER)

@@ -21,7 +21,7 @@ public class TreeEntMeleeAttackGoal extends MeleeAttackGoal {
     @Override
     protected void checkAndPerformAttack(@Nonnull LivingEntity enemy, double distToEnemySqr) {
         double d0 = this.getAttackReachSqr(enemy);
-        if (distToEnemySqr <= d0 && getTicksUntilNextAttack() <= 0) {
+        if (distToEnemySqr <= d0 + 4 && getTicksUntilNextAttack() <= 0) {
             this.resetAttackCooldown();
             this.mob.doHurtTarget(enemy);
         }

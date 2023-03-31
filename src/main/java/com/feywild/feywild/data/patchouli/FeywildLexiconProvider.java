@@ -245,7 +245,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Pixie Wings")
                 .icon(ModItems.feyWingsSpring)
                 .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_spring_fey_altar"));
+                .add(this.altar("fey_wings_spring_fey_altar"))
+                .item(ModItems.feyDust)
+                .caption("You can repair pixie wings with fey dust.");
 
 
         this.category("summer_court")
@@ -322,7 +324,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Pixie Wings")
                 .icon(ModItems.feyWingsSummer)
                 .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_summer_fey_altar"));
+                .add(this.altar("fey_wings_summer_fey_altar"))
+                .item(ModItems.feyDust)
+                .caption("You can repair pixie wings with fey dust.");
 
         this.category("autumn_court")
                 .name("Autumn Court")
@@ -386,7 +390,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Pixie Wings")
                 .icon(ModItems.feyWingsAutumn)
                 .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_autumn_fey_altar"));
+                .add(this.altar("fey_wings_autumn_fey_altar"))
+                .item(ModItems.feyDust)
+                .caption("You can repair pixie wings with fey dust.");
 
         this.category("winter_court")
                 .name("Winter Court")
@@ -455,7 +461,10 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Pixie Wings")
                 .icon(ModItems.feyWingsWinter)
                 .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_winter_fey_altar"));
+                .add(this.altar("fey_wings_winter_fey_altar"))
+                .item(ModItems.feyDust)
+                .caption("You can repair pixie wings with fey dust.");
+
 
         this.entry("reaper_scythe")
                 .name("Winter's Reaper Scythe")
@@ -467,7 +476,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(Blocks.ZOMBIE_HEAD)
                 .caption("With the reaper scythe you can sometimes take the head of a undead monster.")
                 .add(this.altar("soul_gem_fey_altar"))
-                .text("You can combine the captured souls into a soul gem. You can restore the soul to the world of the living. But if the soul is incomplete, an undead version may spawn");
+                .text("You can combine the captured souls into a soul gem. You can restore the soul to the world of the living. But if the soul is incomplete, an undead version may spawn")
+                .item(ModItems.lesserFeyGem)
+                .caption("You can repair the scythe with lesser fey gems.");
 
 
         this.category("neutral_courts")
@@ -533,7 +544,8 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("The summoned dwarf will craft for you when you place the correct recipe in the anvil.")
                 .text("So make sure you have a dwarf bound to the anvil.")
                 .flip()
-                .text("You can replenish the mana of the anvil, by placing fey dust as fuel in the buttom-left slot of the anvil.")
+                .item(ModItems.feyDust)
+                .caption("You can replenish the mana of the anvil, by placing fey dust as fuel in the buttom-left slot of the anvil.")
                 .text("Most special recipes require mana.")
                 .flip()
                 .text("The summoned dwarf will have different trades then those found in caves or at the blacksmith.")

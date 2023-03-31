@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "libx:all",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "feywild:fey_dust"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:hexen_tree_wood"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:hexen_tree_sapling"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:hexen_tree_log"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:hex_black_leaves"
+            }
+          ]
+        }
+      ],
+      "name": "main",
+      "rolls": 1.0
+    }
+  ]
+}

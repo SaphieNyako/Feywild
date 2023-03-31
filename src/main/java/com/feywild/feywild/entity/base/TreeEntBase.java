@@ -4,6 +4,7 @@ import com.feywild.feywild.block.trees.FeyLogBlock;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
 import com.feywild.feywild.entity.goals.TreeEntMeleeAttackGoal;
 import com.feywild.feywild.entity.goals.TreeEntMoveAndSoundGoal;
+import com.feywild.feywild.entity.goals.TreeEntResetTargetGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -82,11 +83,21 @@ public abstract class TreeEntBase extends PathfinderMob implements IAnimatable, 
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 15));
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 32));
         this.goalSelector.addGoal(70, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 0.5D));
         this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
+        //hurt by target:
+
+        //reset:
+        this.targetSelector.addGoal(3, new TreeEntResetTargetGoal<>(this));
+        //dont forget winter
+    }
+
+    public void stopBeingAngry() {
+        this.setLastHurtByMob(null);
+        this.setTarget(null);
     }
 
     @Override

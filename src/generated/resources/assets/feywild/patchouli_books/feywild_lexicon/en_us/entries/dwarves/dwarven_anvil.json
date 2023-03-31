@@ -19,7 +19,9 @@
       "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page2.text0"
     },
     {
-      "type": "patchouli:text",
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_dust",
+      "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.dwarves.dwarven_anvil.page3.text0"
     },
     {
