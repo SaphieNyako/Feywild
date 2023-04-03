@@ -1,6 +1,5 @@
 package com.feywild.feywild;
 
-import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
@@ -12,21 +11,25 @@ import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.*;
-import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.screens.DisplayQuestScreen;
 import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.screens.SelectQuestScreen;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
+import com.feywild.feywild.world.FeywildDimensions;
 import com.feywild.feywild.world.market.MarketHandler;
+import com.feywild.feywild.world.teleport.DefaultTeleporter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
@@ -44,9 +47,9 @@ import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.AnimalTameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.SleepingLocationCheckEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.event.ConfigLoadedEvent;
@@ -191,6 +194,7 @@ public class EventListener {
         BeeKnight.anger(event.getLevel(), event.getEntity(), event.getPos());
     }
 
+    /*
     @SubscribeEvent
     public void BonemealEvent(BonemealEvent event) {
         Player player = event.getEntity();
@@ -208,7 +212,7 @@ public class EventListener {
                 QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
             }
         }
-    }
+    } */
 
 
     @SubscribeEvent
@@ -220,6 +224,17 @@ public class EventListener {
     public void tickServer(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             MarketHandler.update(event.getServer());
+        }
+    }
+
+    @SubscribeEvent
+    public void sleepInFeywild(SleepingLocationCheckEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player && event.getEntity().level.dimension() == FeywildDimensions.FEYWILD) {
+            ServerLevel targetLevel = player.getLevel().getServer().overworld();
+            player.changeDimension(targetLevel, new DefaultTeleporter());
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
+            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
+            player.sendSystemMessage(Component.literal("Was it all a dream?"));
         }
     }
 

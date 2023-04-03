@@ -21,10 +21,12 @@ public class SpringPixie extends Fey {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(20, new TargetBreedGoal(this));
+
     }
 
     @Override
     public SimpleParticleType getParticle() {
         return ModParticles.springSparkleParticle;
     }
+
 }

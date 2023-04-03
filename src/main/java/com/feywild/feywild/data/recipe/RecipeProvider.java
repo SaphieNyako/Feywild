@@ -67,6 +67,12 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         stoneCutting(ModItems.greaterFeyGem, ModItems.lesserFeyGem, 2);
         stoneCutting(ModItems.shinyFeyGem, ModItems.greaterFeyGem, 2);
         stoneCutting(ModItems.brilliantFeyGem, ModItems.shinyFeyGem, 2);
+        stoneCutting(ModBlocks.summerFeyAltar, ModBlocks.autumnFeyAltar);
+        stoneCutting(ModBlocks.summerFeyAltar, ModBlocks.winterFeyAltar);
+        stoneCutting(ModBlocks.autumnFeyAltar, ModBlocks.winterFeyAltar);
+        stoneCutting(ModBlocks.autumnFeyAltar, ModBlocks.summerFeyAltar);
+        stoneCutting(ModBlocks.winterFeyAltar, ModBlocks.summerFeyAltar);
+        stoneCutting(ModBlocks.winterFeyAltar, ModBlocks.autumnFeyAltar);
 
         this.altar(ModTrees.springTree.getSapling().asItem())
                 .requires(Items.OAK_SAPLING)

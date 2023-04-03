@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
 import com.feywild.feywild.item.ModItems;
@@ -11,8 +12,11 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
+import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
+import com.feywild.feywild.quest.util.SpecialTaskAction;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -28,7 +32,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.level.SaplingGrowTreeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -48,6 +56,14 @@ public abstract class Fey extends FlyingFeyBase {
 
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
         super(type, alignment, level);
+        if (!level.isClientSide)
+            MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public static double distanceFrom(BlockPos start, BlockPos end) {
+        if (start == null || end == null)
+            return 0;
+        return Math.sqrt(Math.pow(start.getX() - end.getX(), 2) + Math.pow(start.getY() - end.getY(), 2) + Math.pow(start.getZ() - end.getZ(), 2));
     }
 
     @Override
@@ -129,14 +145,12 @@ public abstract class Fey extends FlyingFeyBase {
             return InteractionResult.sidedSuccess(this.level.isClientSide);
 
         } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-            //  ItemStack stack = player.getItemInHand(hand);
-            //  if (stack.isEmpty()) {
-            this.interactQuest((ServerPlayer) player, hand);
-            //  }
-
+            ItemStack stack = player.getItemInHand(hand);
+            if (stack.isEmpty() && !player.isShiftKeyDown()) {
+                this.interactQuest((ServerPlayer) player, hand);
+            }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
-            //  }
-            //   return InteractionResult.sidedSuccess(this.level.isClientSide);
+
         } else {
             return superResult;
         }
@@ -200,5 +214,27 @@ public abstract class Fey extends FlyingFeyBase {
         AnimationController<Fey> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
         animationData.addAnimationController(flyingController);
         animationData.addAnimationController(castingController);
+    }
+
+    @SubscribeEvent
+    public void treeGrow(SaplingGrowTreeEvent event) {
+        BlockPos pos = event.getPos();
+        Block block = event.getLevel().getBlockState(pos).getBlock();
+        Player player = this.getOwningPlayer();
+
+        if (this.isTamed() && distanceFrom(this.blockPosition(), event.getPos()) <= 20) {
+            if (block == ModTrees.springTree.getSapling()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE);
+            }
+            if (block == ModTrees.summerTree.getSapling()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE);
+            }
+            if (block == ModTrees.autumnTree.getSapling()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE);
+            }
+            if (block == ModTrees.winterTree.getSapling()) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
+            }
+        }
     }
 }

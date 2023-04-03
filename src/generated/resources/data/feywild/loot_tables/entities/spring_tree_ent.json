@@ -49,7 +49,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:spring_green_leaves"
+              "name": "feywild:spring_cyan_leaves"
             }
           ]
         }
