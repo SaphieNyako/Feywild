@@ -4,16 +4,21 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.util.data.TagAccess;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class SummerTree extends BaseTree {
@@ -52,5 +57,11 @@ public class SummerTree extends BaseTree {
     @Override
     public SimpleParticleType getParticle() {
         return ModParticles.summerSparkleParticle;
+    }
+
+    @Nullable
+    @Override
+    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
+        return ModConfiguredFeatures.SUMMER_TREE;
     }
 }

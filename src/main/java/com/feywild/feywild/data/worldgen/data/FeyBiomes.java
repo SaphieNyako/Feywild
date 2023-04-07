@@ -31,7 +31,9 @@ public class FeyBiomes extends BiomeData {
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.springTreeEnt, 5, 1, 1))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.blossomTreeEnt, 2, 1, 1))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.dwarfBlacksmith, 3, 1, 1))
                     .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ILLUSIONER, 10, 1, 1))
+
             )
             .generation(this.feyGen(true, builder -> {
                 builder.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, this.placements.dandelions);
@@ -50,11 +52,12 @@ public class FeyBiomes extends BiomeData {
 
     public final Holder<Biome> summerBiome = this.biome(FeywildBiomes.SUMMER_BIOME, 0.9f, 0)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIT, 0.001f)))
-            .mobSpawns(this.feySpawns(true, true, Alignment.SUMMER, ModEntities.beeKnight)
+            .mobSpawns(this.feySpawns(false, true, Alignment.SUMMER, ModEntities.beeKnight)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.BEE, 20, 2, 3))
+                    // .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.BEE, 20, 2, 3))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.summerTreeEnt, 5, 1, 1))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.blossomTreeEnt, 2, 1, 1))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.dwarfBlacksmith, 3, 1, 1))
                     .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.PILLAGER, 1, 1, 3))
             )
             .generation(this.feyGen(true, builder -> {
@@ -86,6 +89,7 @@ public class FeyBiomes extends BiomeData {
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.hexenTreeEnt, 5, 1, 1))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.RABBIT, 10, 2, 3))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FOX, 8, 2, 3))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.dwarfBlacksmith, 3, 1, 1))
                     .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.WITCH, 3, 2, 5))
             )
             .generation(this.feyGen(true, builder -> {
@@ -114,14 +118,15 @@ public class FeyBiomes extends BiomeData {
     public final Holder<Biome> winterBiome = this.biome(FeywildBiomes.WINTER_BIOME, -0.7f, 0.5f)
             .frozen()
             .effects(this.effects().fogColor(0xabd0ef).ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.002f)))
-            .mobSpawns(this.feySpawns(false, false, Alignment.WINTER)
+            .mobSpawns(this.feySpawns(false, true, Alignment.WINTER)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.hexenTreeEnt, 2, 1, 1))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.winterTreeEnt, 5, 1, 1))
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 3, 1, 2))
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 1, 1))
-                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 3, 4))
+                    //   .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.POLAR_BEAR, 3, 1, 2))
+                    //  .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.OCELOT, 1, 1, 1))
+                    //   .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 3, 3, 4))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.ALLAY, 10, 1, 2))
+                    .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.dwarfBlacksmith, 3, 1, 1))
                     .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE_VILLAGER, 10, 3, 5))
             )
             .generation(this.feyGen(false, builder -> {
@@ -169,10 +174,10 @@ public class FeyBiomes extends BiomeData {
         }
         BiomeDefaultFeatures.commonSpawns(builder);
         if (river) {
-            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.DOLPHIN, 10, 1, 2));
-            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 20, 3, 4));
-            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PUFFERFISH, 20, 3, 4));
-            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 20, 3, 4));
+            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.DOLPHIN, 5, 1, 2));
+            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.TROPICAL_FISH, 10, 3, 4));
+            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.PUFFERFISH, 10, 3, 4));
+            builder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(EntityType.AXOLOTL, 10, 3, 4));
         }
         if (alignment != null) {
             builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(alignment.fey, 60, 1, 2));

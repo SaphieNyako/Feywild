@@ -81,30 +81,6 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "minecraft:sheep",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 12
-      },
-      {
-        "type": "minecraft:pig",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      },
-      {
-        "type": "minecraft:chicken",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 10
-      },
-      {
-        "type": "minecraft:cow",
-        "maxCount": 4,
-        "minCount": 4,
-        "weight": 8
-      },
-      {
         "type": "feywild:summer_pixie",
         "maxCount": 2,
         "minCount": 1,
@@ -123,12 +99,6 @@
         "weight": 60
       },
       {
-        "type": "minecraft:bee",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 20
-      },
-      {
         "type": "feywild:summer_tree_ent",
         "maxCount": 1,
         "minCount": 1,
@@ -139,6 +109,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 2
+      },
+      {
+        "type": "feywild:dwarf_blacksmith",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 3
       }
     ],
     "misc": [],
@@ -212,25 +188,25 @@
         "type": "minecraft:dolphin",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 10
+        "weight": 5
       },
       {
         "type": "minecraft:tropical_fish",
         "maxCount": 4,
         "minCount": 3,
-        "weight": 20
+        "weight": 10
       },
       {
         "type": "minecraft:pufferfish",
         "maxCount": 4,
         "minCount": 3,
-        "weight": 20
+        "weight": 10
       },
       {
         "type": "minecraft:axolotl",
         "maxCount": 4,
         "minCount": 3,
-        "weight": 20
+        "weight": 10
       }
     ]
   },

@@ -5,8 +5,10 @@ import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +17,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
@@ -23,6 +26,7 @@ import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
@@ -49,6 +53,13 @@ public class AutumnTree extends BaseTree {
         super.registerAdditional(ctx, builder);
         builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
     }
+
+    @Nullable
+    @Override
+    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
+        return ModConfiguredFeatures.AUTUMN_TREE;
+    }
+
 
     @Override
     public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder() {

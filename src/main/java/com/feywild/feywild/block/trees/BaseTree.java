@@ -5,10 +5,12 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -198,7 +200,33 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 }
             }
         }
-        super.growTree(level, generator, pos, state, random);
-        return true;
+        Holder<? extends ConfiguredFeature<?, ?>> holder = this.getConfiguredFeature(random, this.hasFlowers(level, pos));
+        if (holder == null) {
+            return false;
+        } else {
+            ConfiguredFeature<?, ?> configuredfeature = holder.value();
+            BlockState blockstate = level.getFluidState(pos).createLegacyBlock();
+            level.setBlock(pos, blockstate, 4);
+            if (configuredfeature.place(level, generator, random, pos)) {
+                if (level.getBlockState(pos) == blockstate) {
+                    level.sendBlockUpdated(pos, state, blockstate, 2);
+                }
+
+                return true;
+            } else {
+                level.setBlock(pos, state, 4);
+                return false;
+            }
+        }
+    }
+
+    private boolean hasFlowers(LevelAccessor level, BlockPos pos) {
+        for (BlockPos blockpos : BlockPos.MutableBlockPos.betweenClosed(pos.below().north(2).west(2), pos.above().south(2).east(2))) {
+            if (level.getBlockState(blockpos).is(BlockTags.FLOWERS)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

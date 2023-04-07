@@ -3,7 +3,6 @@ package com.feywild.feywild.data.worldgen.data;
 import com.feywild.feywild.tag.ModBiomeTags;
 import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureData;
 import net.minecraft.core.Holder;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -24,7 +23,7 @@ public class FeyStructures extends StructureData {
             .biomes(Tags.Biomes.IS_PLAINS)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-
+    /*
     public final Holder<Structure> springWorldTree = this.singleJigsaw(this.templates.springWorldTree)
             .biomes(ModBiomeTags.IS_SPRING)
             .terrain(TerrainAdjustment.BEARD_THIN)
@@ -44,17 +43,17 @@ public class FeyStructures extends StructureData {
             .biomes(ModBiomeTags.IS_WINTER)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-
+    */
     public final Holder<Structure> beekeep = this.singleJigsaw(this.templates.beekeep)
             .biomes(ModBiomeTags.IS_SUMMER)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-
+    /*
     public final Holder<Structure> feyCircle = this.singleJigsaw(this.templates.feyCircle)
             .biomes(BiomeTags.IS_FOREST)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-
+    */
     public final Holder<Structure> feyGeode = this.undergroundSingleJigsaw(this.templates.feyGeode)
             .biomes(ModBiomeTags.IS_FEYWILD_DIMENSION)
             .terrain(TerrainAdjustment.BEARD_THIN)

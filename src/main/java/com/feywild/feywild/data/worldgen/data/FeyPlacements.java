@@ -102,9 +102,9 @@ public class FeyPlacements extends FeatureData {
             .build();
 
     public final Holder<PlacedFeature> feyGemOre = this.placement(this.features.feyGemOre)
-            .count(20)
+            .count(16)
             .spread()
-            .heightTriangle(VerticalAnchor.aboveBottom(4), VerticalAnchor.absolute(60))
+            .heightTriangle(VerticalAnchor.aboveBottom(30), VerticalAnchor.absolute(60))
             .biomeFilter()
             .build();
 

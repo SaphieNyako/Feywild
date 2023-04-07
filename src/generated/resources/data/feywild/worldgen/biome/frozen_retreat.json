@@ -108,28 +108,16 @@
         "weight": 5
       },
       {
-        "type": "minecraft:polar_bear",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 3
-      },
-      {
-        "type": "minecraft:ocelot",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 1
-      },
-      {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 3,
-        "weight": 3
-      },
-      {
         "type": "minecraft:allay",
         "maxCount": 2,
         "minCount": 1,
         "weight": 10
+      },
+      {
+        "type": "feywild:dwarf_blacksmith",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 3
       }
     ],
     "misc": [],
@@ -198,7 +186,32 @@
       }
     ],
     "water_ambient": [],
-    "water_creature": []
+    "water_creature": [
+      {
+        "type": "minecraft:dolphin",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "minecraft:tropical_fish",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:pufferfish",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:axolotl",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      }
+    ]
   },
   "temperature": -0.7,
   "temperature_modifier": "frozen"
