@@ -11,11 +11,17 @@ import net.minecraftforge.common.world.BiomeModifier;
 public class FeyBiomeModifiers extends BiomeModifierData {
 
     public final Holder<BiomeModifier> overworldSpawn = this.addSpawns(BiomeTags.IS_OVERWORLD)
-            .spawn(ModEntities.springPixie, 1, 1, 1)
-            .spawn(ModEntities.summerPixie, 1, 1, 1)
             .spawn(ModEntities.autumnPixie, 1, 1, 1)
-            .spawn(ModEntities.winterPixie, 1, 1, 1)
+            .spawn(ModEntities.springPixie, 1, 1, 1)
             .spawn(ModEntities.dwarfBlacksmith, 15, 1, 1)
+            .build();
+
+    public final Holder<BiomeModifier> hotOverworldSpawn = this.addSpawns(Tags.Biomes.IS_HOT_OVERWORLD)
+            .spawn(ModEntities.summerPixie, 1, 1, 1)
+            .build();
+
+    public final Holder<BiomeModifier> coldOverworldSpawn = this.addSpawns(Tags.Biomes.IS_COLD_OVERWORLD)
+            .spawn(ModEntities.winterPixie, 1, 1, 1)
             .build();
 
     private final FeyTrees trees = this.resolve(FeyTrees.class);

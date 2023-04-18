@@ -138,12 +138,14 @@ public final class FeywildMod extends ModXRegistration {
                 new ResourceLocation("feywild:village/plains/houses/pond"), 10);
 
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("feywild:village/desert/houses/temple"), 10);
+                new ResourceLocation("feywild:village/snowy/houses/winter_retreat"), 10);
+        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
+                new ResourceLocation("feywild:village/snowy/houses/winter_temple"), 5);
 
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
+                new ResourceLocation("feywild:village/taiga/houses/autumn_pumpkin_patch"), 10);
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
+                new ResourceLocation("feywild:village/taiga/houses/autumn_temple"), 5);
 
     }
 

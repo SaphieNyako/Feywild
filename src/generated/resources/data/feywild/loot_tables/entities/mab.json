@@ -6,13 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_nbt",
-              "tag": "{Damage:0}"
-            }
-          ],
-          "name": "feywild:fey_wings_winter"
+          "name": "feywild:pixie_wing_tiara"
         }
       ],
       "name": "main",

@@ -31,6 +31,14 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
     @Override
     public void setup() {
         this.item(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.feywildMusicDisc);
+
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.pixieWingTiara);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsWinter);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsSummer);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsAutumn);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsSpring);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsLight);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsShadow);
         /*
         this.item(ModItemTags.YGGDRASIL_BOOKS).add(ModItems.schematicsYggdrasilRuneCrafting);
         this.item(ModItemTags.DEADLY_BOOKS).add(ModItems.schematicsDeadlyRuneCrafting);

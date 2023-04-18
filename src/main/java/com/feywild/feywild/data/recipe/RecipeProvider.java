@@ -235,7 +235,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .build();
 
         this.altar(ModItems.feyWingsAutumn)
-                .requires(Items.ELYTRA)
+                .requires(ModItemTags.PIXIE_WING_COMPONENTS)
                 .requires(ModItems.summoningScrollAutumnPixie)
                 .requires(ModItems.brilliantFeyGem)
                 .requires(ModItems.feyDust)
@@ -243,7 +243,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .build();
 
         this.altar(ModItems.feyWingsSpring)
-                .requires(Items.ELYTRA)
+                .requires(ModItemTags.PIXIE_WING_COMPONENTS)
                 .requires(ModItems.summoningScrollSpringPixie)
                 .requires(ModItems.brilliantFeyGem)
                 .requires(ModItems.feyDust)
@@ -251,7 +251,7 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .build();
 
         this.altar(ModItems.feyWingsSummer)
-                .requires(Items.ELYTRA)
+                .requires(ModItemTags.PIXIE_WING_COMPONENTS)
                 .requires(ModItems.summoningScrollSummerPixie)
                 .requires(ModItems.brilliantFeyGem)
                 .requires(ModItems.feyDust)
@@ -259,22 +259,30 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .build();
 
         this.altar(ModItems.feyWingsWinter)
-                .requires(Items.ELYTRA)
+                .requires(ModItemTags.PIXIE_WING_COMPONENTS)
                 .requires(ModItems.summoningScrollWinterPixie)
                 .requires(ModItems.brilliantFeyGem)
                 .requires(ModItems.feyDust)
                 .requires(ModItems.pixieOrb)
                 .build();
 
-        this.altar(ModItems.feyWingsBlossom)
-                .requires(Items.ELYTRA)
-                .requires(ModItems.summoningScrollBlossomTreeEnt)
+        this.altar(ModItems.feyWingsLight)
+                .requires(ModItemTags.PIXIE_WING_COMPONENTS)
+                .requires(ModItems.summoningScrollSummerPixie)
                 .requires(ModItems.brilliantFeyGem)
-                .requires(ModItems.feyDust)
+                .requires(ModItems.summoningScrollSpringPixie)
                 .requires(ModItems.pixieOrb)
                 .build();
 
-        //TODO add feywings Day, Night and Hexen
+        this.altar(ModItems.feyWingsShadow)
+                .requires(ModItemTags.PIXIE_WING_COMPONENTS)
+                .requires(ModItems.summoningScrollWinterPixie)
+                .requires(ModItems.brilliantFeyGem)
+                .requires(ModItems.summoningScrollAutumnPixie)
+                .requires(ModItems.pixieOrb)
+                .build();
+
+        //TODO add feywings Day, Night
 
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);

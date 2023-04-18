@@ -15,8 +15,7 @@
       "id": "feywild:item",
       "item": {
         "count": 1,
-        "item": "feywild:fey_wings_autumn",
-        "nbt": "{Damage:0}"
+        "item": "feywild:pixie_wing_tiara"
       }
     }
   ],

@@ -53,7 +53,7 @@ public class SummonSnowManGoal extends Goal {
     private void spellCasting() {
         this.targetPos = new Vec3(this.entity.getX() + this.entity.getRandom().nextInt(8) - 4, this.entity.getY() + 2, this.entity.getZ() + this.entity.getRandom().nextInt(8) - 4);
         this.entity.setCasting(true);
-        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     private void reset() {

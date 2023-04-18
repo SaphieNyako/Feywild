@@ -6,7 +6,6 @@ import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -39,10 +38,8 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
     private final Alignment alignment;
 
     public FeyAltarBlock(ModX mod, Alignment alignment) {
-        super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+        super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion());
         this.alignment = alignment;
-        this.registerDefaultState(this.stateDefinition.any()
-                .setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Nonnull

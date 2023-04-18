@@ -2,7 +2,7 @@
   "type": "feywild:altar",
   "ingredients": [
     {
-      "item": "minecraft:elytra"
+      "tag": "feywild:pixie_wing_components"
     },
     {
       "item": "feywild:summoning_scroll_winter_pixie"

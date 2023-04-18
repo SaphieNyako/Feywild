@@ -109,13 +109,21 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
         this.entry("handling_fey")
                 .name("Handling Fey")
                 .icon(ModItems.summoningScroll)
-                .item(ModItems.summoningScroll)
-                .text("You can summon a fey by using a fey summoning scroll on a block.")
+                .item(ModItems.summoningScrollSpringPixie)
+                .text("You can $(bold)summon$() a fey by $(bold)right clicking a fey summoning scroll on a block$().")
                 .text("Once used you get a empty summoning scroll back.")
-                .text("By left clicking your fey when it's stationary you can put the fey back into the summoning scroll.")
                 .text("Each Fey has it's own summoning scroll and the recipes for each fey can be found on their corresponding pages or by using JEI.")
+                .flip()
+                .item(ModItems.summoningScroll)
+                .text("By $(bold)left clicking$() your fey with an $(bold)empty summoning scroll$() when it's stationary you can $(bold)return$() your fey into the summoning scroll.")
+                .flip()
                 .text("Some fey follow you around the world.")
-                .text("You can make a fey follow and stop following you by interacting with them while holding shift.");
+                .text("You can make a fey either $(bold)follow$() or $(bold)stay$() by interacting with them while holding $(bold)shift and right clicking$().")
+                .flip()
+                .text("You can open the $(bold)quest$() window for pixies by $(bold)right clicking them with an empty hand$().")
+                .flip()
+                .text("You can $(bold)gift an item$() to the fey for a quest by $(bold)right clicking them with the item required$()");
+
 
         this.entry("quest")
                 .name("Quest")
@@ -293,12 +301,10 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
 
         this.entry("bee_knight")
                 .name("Bee Knight")
-                .icon(ModItems.honeycomb)
+                .icon(ModItems.summoningScrollBeeKnight)
                 .entity(ModEntities.beeKnight)
                 .flip()
                 .text("The Bee Knights patrol the Golden Seelie Fields, looking for anyone who tries to steal their sacred honey.")
-                .image("Bee Keep", "textures/patchouli_images/bee_keep_book.png")
-                .caption("Inspired by a building of Kelpie The Fox: $(#b0b)$(l:https://www.youtube.com/watch?v=Cs-nHCvrOpg)YouTube$(/l)$()")
                 .item(ModItems.honeycomb)
                 .text("The best honey of the Summer Court is kept at the Bee Keep.")
                 .text("The Bee Keep is protected by several Bee Knights.")
@@ -514,11 +520,13 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(Items.BONE_MEAL)
                 .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Blossom tree might also drop apples.");
 
-        this.entry("blossom_pixie_wings")
+        this.entry("pixie_wings")
                 .name("Pixie Wings")
-                .icon(ModItems.feyWingsBlossom)
+                .icon(ModItems.feyWingsShadow)
                 .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_blossom_fey_altar"));
+                .add(this.altar("fey_wings_shadow_fey_altar"))
+                .add(this.altar("fey_wings_light_fey_altar"));
+
 
         this.category("dwarves")
                 .name("Dwarves")

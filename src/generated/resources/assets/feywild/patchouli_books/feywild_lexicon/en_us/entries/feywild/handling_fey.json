@@ -5,13 +5,27 @@
   "pages": [
     {
       "type": "patchouli:spotlight",
-      "item": "feywild:summoning_scroll",
+      "item": "feywild:summoning_scroll_spring_pixie",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page0.text0"
     },
     {
-      "type": "patchouli:text",
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll",
+      "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page2.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page3.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.handling_fey.page4.text0"
     }
   ]
 }

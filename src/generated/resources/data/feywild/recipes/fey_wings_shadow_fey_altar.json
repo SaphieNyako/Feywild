@@ -5,13 +5,13 @@
       "tag": "feywild:pixie_wing_components"
     },
     {
-      "item": "feywild:summoning_scroll_spring_pixie"
+      "item": "feywild:summoning_scroll_winter_pixie"
     },
     {
       "item": "feywild:brilliant_fey_gem"
     },
     {
-      "item": "feywild:fey_dust"
+      "item": "feywild:summoning_scroll_autumn_pixie"
     },
     {
       "item": "feywild:pixie_orb"
@@ -19,7 +19,7 @@
   ],
   "output": {
     "count": 1,
-    "item": "feywild:fey_wings_spring",
+    "item": "feywild:fey_wings_shadow",
     "nbt": "{Damage:0}"
   }
 }

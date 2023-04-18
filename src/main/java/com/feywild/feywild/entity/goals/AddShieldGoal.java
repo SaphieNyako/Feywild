@@ -58,7 +58,7 @@ public class AddShieldGoal extends Goal {
     private void spellCasting() {
         this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
         this.entity.setCasting(true);
-        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 1, 1);
+        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     private void addShieldEffect() {

@@ -37,8 +37,8 @@ public class EntityLootProvider extends EntityLootProviderBase {
                 this.stack(Items.BEETROOT_SEEDS).with(this.random(0.25f))
         ));
 
-        this.drops(ModEntities.mab, new ItemStack(ModItems.feyWingsWinter));
-        this.drops(ModEntities.titania, new ItemStack(ModItems.feyWingsSummer));
+        this.drops(ModEntities.mab, new ItemStack(ModItems.pixieWingTiara));
+        this.drops(ModEntities.titania, new ItemStack(ModItems.pixieWingTiara));
 
         this.drops(ModEntities.dwarfBlacksmith, new ItemStack(ItemStack.EMPTY.getItem()));
         this.drops(ModEntities.dwarfArtificer, new ItemStack(ItemStack.EMPTY.getItem()));

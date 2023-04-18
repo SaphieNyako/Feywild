@@ -1,0 +1,19 @@
+{
+  "category": "feywild:neutral_courts",
+  "icon": "feywild:fey_wings_shadow{Damage:0}",
+  "name": "feywild_lexicon.entry.feywild.neutral_courts.pixie_wings",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.neutral_courts.pixie_wings.page0.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_shadow_fey_altar"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_light_fey_altar"
+    }
+  ]
+}

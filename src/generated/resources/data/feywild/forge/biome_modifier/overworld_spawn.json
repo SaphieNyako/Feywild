@@ -3,25 +3,13 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": [
     {
-      "type": "feywild:spring_pixie",
-      "maxCount": 1,
-      "minCount": 1,
-      "weight": 1
-    },
-    {
-      "type": "feywild:summer_pixie",
-      "maxCount": 1,
-      "minCount": 1,
-      "weight": 1
-    },
-    {
       "type": "feywild:autumn_pixie",
       "maxCount": 1,
       "minCount": 1,
       "weight": 1
     },
     {
-      "type": "feywild:winter_pixie",
+      "type": "feywild:spring_pixie",
       "maxCount": 1,
       "minCount": 1,
       "weight": 1
