@@ -49,6 +49,16 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
+              "name": "feywild:hex_black_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
               "name": "feywild:hex_purple_leaves"
             }
           ]

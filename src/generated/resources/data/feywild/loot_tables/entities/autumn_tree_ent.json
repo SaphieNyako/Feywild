@@ -19,7 +19,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:winter_tree_wood"
+              "name": "feywild:autumn_tree_wood"
             },
             {
               "type": "minecraft:item",
@@ -29,7 +29,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:winter_tree_sapling"
+              "name": "feywild:autumn_tree_sapling"
             },
             {
               "type": "minecraft:item",
@@ -39,7 +39,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:winter_tree_log"
+              "name": "feywild:autumn_tree_log"
             },
             {
               "type": "minecraft:item",
@@ -49,7 +49,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:winter_blue_leaves"
+              "name": "feywild:autumn_brown_leaves"
             },
             {
               "type": "minecraft:item",
@@ -59,7 +59,27 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:winter_light_blue_leaves"
+              "name": "feywild:autumn_dark_gray_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:autumn_light_gray_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:autumn_red_leaves"
             }
           ]
         }

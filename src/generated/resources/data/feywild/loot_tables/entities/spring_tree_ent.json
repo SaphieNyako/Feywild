@@ -49,7 +49,27 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
+              "name": "feywild:spring_cyan_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
               "name": "feywild:spring_green_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:spring_lime_leaves"
             }
           ]
         }

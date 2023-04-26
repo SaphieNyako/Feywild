@@ -108,10 +108,16 @@
         "weight": 60
       },
       {
-        "type": "feywild:hexen_tree_ent",
+        "type": "feywild:autumn_tree_ent",
         "maxCount": 1,
         "minCount": 1,
         "weight": 5
+      },
+      {
+        "type": "feywild:hexen_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 2
       },
       {
         "type": "minecraft:rabbit",

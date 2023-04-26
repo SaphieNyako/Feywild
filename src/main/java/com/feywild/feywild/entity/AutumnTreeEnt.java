@@ -81,10 +81,12 @@ public class AutumnTreeEnt extends TreeEntBase {
             }
             FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY() + 4, this.getZ());
             player.swing(hand, true);
-            this.spawnAtLocation(new ItemStack(Blocks.MYCELIUM));
+            if (random.nextInt(3) < 1) {
+                this.spawnAtLocation(new ItemStack(Blocks.MYCELIUM));
+            }
             this.spawnAtLocation(ModTrees.autumnTree.getSapling());
             this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
-            
+
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else {
             return superResult;

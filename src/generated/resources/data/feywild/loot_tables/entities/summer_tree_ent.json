@@ -19,7 +19,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:summer_tree_wood"
+              "name": "feywild:spring_tree_wood"
             },
             {
               "type": "minecraft:item",
@@ -29,7 +29,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:summer_tree_sapling"
+              "name": "feywild:spring_tree_sapling"
             },
             {
               "type": "minecraft:item",
@@ -39,7 +39,7 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:summer_tree_log"
+              "name": "feywild:spring_tree_log"
             },
             {
               "type": "minecraft:item",
@@ -49,7 +49,17 @@
                   "condition": "minecraft:random_chance"
                 }
               ],
-              "name": "feywild:summer_yellow_leaves"
+              "name": "feywild:summer_orange_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "conditions": [
+                {
+                  "chance": 0.25,
+                  "condition": "minecraft:random_chance"
+                }
+              ],
+              "name": "feywild:summer_orange_leaves"
             }
           ]
         }
