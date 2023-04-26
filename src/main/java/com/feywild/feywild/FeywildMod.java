@@ -1,11 +1,13 @@
 package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.base.BotaniaPixie;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.LeafParticle;
 import com.feywild.feywild.particles.ModParticles;
@@ -33,6 +35,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -158,7 +161,6 @@ public final class FeywildMod extends ModXRegistration {
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
 
-
             SpawnPlacements.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
             SpawnPlacements.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
@@ -194,6 +196,20 @@ public final class FeywildMod extends ModXRegistration {
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();
             }
+
+            ComposterBlock.COMPOSTABLES.put(ModTrees.autumnTree.getSapling().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModTrees.springTree.getSapling().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModTrees.summerTree.getSapling().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModTrees.winterTree.getSapling().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModTrees.hexenTree.getSapling().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModTrees.blossomTree.getSapling().asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.treeMushroom.asItem(), 0.5F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.feyMushroom.asItem(), 0.2F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.mandrakeCrop.asItem(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModItems.mandrake, 2.0F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.sunflower.getSeed(), 0.5F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.crocus.getSeed(), 0.5F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.dandelion.getSeed(), 0.5F);
         });
     }
 
