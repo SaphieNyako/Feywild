@@ -78,6 +78,8 @@ public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScro
             return this.canSummon(level, player, pos, storedTag, entity);
         } else if (this.type == ModEntities.winterTreeEnt && block == ModTrees.winterTree.getSapling()) {
             return this.canSummon(level, player, pos, storedTag, entity);
+        } else if (this.type == ModEntities.autumnTreeEnt && block == ModTrees.autumnTree.getSapling()) {
+            return this.canSummon(level, player, pos, storedTag, entity);
         } else {
             player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
             return false;

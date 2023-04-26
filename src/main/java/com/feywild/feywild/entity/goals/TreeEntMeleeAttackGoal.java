@@ -30,7 +30,7 @@ public class TreeEntMeleeAttackGoal extends MeleeAttackGoal {
     @Override
     public void start() {
         this.entity.setState(SpringTreeEnt.State.ATTACKING);
-        this.entity.playSound(ModSoundEvents.treeEntAttacking, 1, 1);
+        this.entity.playSound(ModSoundEvents.treeEntAttacking, 0.7f, 1);
         super.start();
     }
 

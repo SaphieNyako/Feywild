@@ -15,7 +15,7 @@ public class TreeEntMoveAndSoundGoal extends WaterAvoidingRandomStrollGoal {
 
     @Override
     public void start() {
-        entity.playSound(ModSoundEvents.treeEntWalking);
+        entity.playSound(ModSoundEvents.treeEntWalking, 0.7f, 1);
         super.start();
     }
 }

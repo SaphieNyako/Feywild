@@ -59,6 +59,7 @@ public class ModItems {
     public static final SummoningScrollTreeEnt<SpringTreeEnt> summoningScrollSpringTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.springTreeEnt, null, new Item.Properties(), Alignment.SPRING);
     public static final SummoningScrollTreeEnt<SummerTreeEnt> summoningScrollSummerTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.summerTreeEnt, null, new Item.Properties(), Alignment.SUMMER);
     public static final SummoningScrollTreeEnt<WinterTreeEnt> summoningScrollWinterTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.winterTreeEnt, null, new Item.Properties(), Alignment.WINTER);
+    public static final SummoningScrollTreeEnt<AutumnTreeEnt> summoningScrollAutumnTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.autumnTreeEnt, null, new Item.Properties(), Alignment.AUTUMN);
     public static final SummoningScrollTreeEnt<HexenTreeEnt> summoningScrollHexenTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.hexenTreeEnt, null, new Item.Properties(), null);
     public static final SummoningScrollTreeEnt<BlossomTreeEnt> summoningScrollBlossomTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.blossomTreeEnt, null, new Item.Properties(), null);
 

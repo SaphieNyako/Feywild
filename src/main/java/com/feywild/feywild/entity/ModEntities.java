@@ -81,6 +81,10 @@ public class ModEntities {
             .sized(1.0f, 5.0f)
             .build(FeywildMod.getInstance().modid + "_winter_tree_ent");
 
+    public static final EntityType<AutumnTreeEnt> autumnTreeEnt = EntityType.Builder.of(AutumnTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_autumn_tree_ent");
+
     public static final EntityType<BlossomTreeEnt> blossomTreeEnt = EntityType.Builder.of(BlossomTreeEnt::new, MobCategory.CREATURE)
             .sized(1.0f, 5.0f)
             .build(FeywildMod.getInstance().modid + "_blossom_tree_ent");

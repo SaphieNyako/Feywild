@@ -176,6 +176,7 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntities.springTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEnt::canSpawn);
             SpawnPlacements.register(ModEntities.summerTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEnt::canSpawn);
             SpawnPlacements.register(ModEntities.winterTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEnt::canSpawn);
+            SpawnPlacements.register(ModEntities.autumnTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEnt::canSpawn);
             SpawnPlacements.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn);
             SpawnPlacements.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn);
 
@@ -238,6 +239,7 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.springTreeEnt, BaseTreeEntRenderer.create(SpringTreeEntModel::new));
         EntityRenderers.register(ModEntities.summerTreeEnt, BaseTreeEntRenderer.create(SummerTreeEntModel::new));
         EntityRenderers.register(ModEntities.winterTreeEnt, BaseTreeEntRenderer.create(WinterTreeEntModel::new));
+        EntityRenderers.register(ModEntities.autumnTreeEnt, BaseTreeEntRenderer.create(AutumnTreeEntModel::new));
         EntityRenderers.register(ModEntities.blossomTreeEnt, BaseTreeEntRenderer.create(BlossomTreeEntModel::new));
         EntityRenderers.register(ModEntities.hexenTreeEnt, BaseTreeEntRenderer.create(HexenTreeEntModel::new));
 
@@ -266,6 +268,7 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.springTreeEnt, SpringTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.summerTreeEnt, SummerTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.winterTreeEnt, WinterTreeEnt.getDefaultAttributes().build());
+        event.put(ModEntities.autumnTreeEnt, AutumnTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.blossomTreeEnt, BlossomTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.hexenTreeEnt, HexenTreeEnt.getDefaultAttributes().build());
     }
