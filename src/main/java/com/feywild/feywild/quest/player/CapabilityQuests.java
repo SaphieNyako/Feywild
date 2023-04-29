@@ -21,7 +21,8 @@ public class CapabilityQuests {
 
     public static final ResourceLocation KEY = new ResourceLocation(FeywildMod.getInstance().modid, "player_quests");
 
-    public static final Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {
+    });
 
     public static void register(RegisterCapabilitiesEvent event) {
         event.register(QuestData.class);
@@ -40,15 +41,14 @@ public class CapabilityQuests {
     @SuppressWarnings("CodeBlock2Expr")
     public static void playerCopy(PlayerEvent.Clone event) {
         // Keep the data on death
-        if (event.isWasDeath()) {
-            event.getOriginal().reviveCaps();
-            event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
-                event.getEntity().getCapability(QUESTS).ifPresent(newData -> {
-                    newData.read(oldData.write());
-                });
+
+        event.getOriginal().reviveCaps();
+        event.getOriginal().getCapability(QUESTS).ifPresent(oldData -> {
+            event.getEntity().getCapability(QUESTS).ifPresent(newData -> {
+                newData.read(oldData.write());
             });
-            event.getOriginal().invalidateCaps();
-        }
+        });
+        event.getOriginal().invalidateCaps();
     }
 
     private record Provider(

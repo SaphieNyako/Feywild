@@ -20,10 +20,66 @@
   },
   "tasks": [
     {
-      "amount": 9,
+      "amount": 1,
       "id": "feywild:item_stack",
       "item": {
-        "tag": "minecraft:flowers"
+        "item": "minecraft:allium"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:azure_bluet"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:blue_orchid"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:cornflower"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:dandelion"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:lily_of_the_valley"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:oxeye_daisy"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:poppy"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:sunflower"
       }
     },
     {

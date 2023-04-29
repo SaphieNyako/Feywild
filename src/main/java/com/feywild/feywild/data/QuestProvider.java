@@ -15,7 +15,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +22,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
 import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.crafting.IngredientStack;
 import org.moddingx.libx.mod.ModX;
@@ -74,7 +72,7 @@ public class QuestProvider implements DataProvider {
                 .icon(Blocks.PINK_WOOL)
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP, 3))
                 .build();
-        //TODO reward: Raindbow Grass or Sheep  Plush
+        //TODO reward: Shepherd Staff
 
         this.quest(SPRING, "quest_04")
                 .parent("quest_03")
@@ -106,7 +104,6 @@ public class QuestProvider implements DataProvider {
                 .icon(ModItems.feywildLexicon)
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.feywildLexicon), 1)))
                 .build();
-        //TODO reward Mysthical world, patchouli book
 
         /* SPRING PET ANIMAL QUESTS */
 
@@ -140,7 +137,7 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FOX))
                 .build();
 
-        //TODO quest 14, reward Friendship Bracelet
+        //TODO reward Friendship Bracelet
 
         /* INTO THE FEYWILD SPRING QUEST */
 
@@ -153,7 +150,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_15")
                 .parent("quest_14")
                 .icon(Items.DANDELION)
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION, 5))
                 .build();
 
         this.quest(SPRING, "quest_16")
@@ -331,14 +328,37 @@ public class QuestProvider implements DataProvider {
         this.quest(AUTUMN, "quest_07")
                 .parent("quest_06")
                 .icon(Items.POPPY)
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ItemTags.FLOWERS), 9)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ALLIUM), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.AZURE_BLUET), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BLUE_ORCHID), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CORNFLOWER), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.DANDELION), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LILY_OF_THE_VALLEY), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.OXEYE_DAISY), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.POPPY), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.SUNFLOWER), 1)))
                 .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:blossoming_wealds", ':')))
                 .build();
 
         this.quest(AUTUMN, "quest_08")
                 .parent("quest_07")
                 .icon(Items.RED_DYE)
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Tags.Items.DYES), 9)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BLACK_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BLUE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.RED_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BROWN_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CYAN_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GRAY_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GREEN_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LIGHT_BLUE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LIGHT_GRAY_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LIME_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.MAGENTA_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ORANGE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.PINK_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.PURPLE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.WHITE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.YELLOW_DYE), 1)))
                 .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:eternal_fall", ':')))
                 .build();
 
@@ -448,9 +468,6 @@ public class QuestProvider implements DataProvider {
                 .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
-
-
-        //TODO as reward player will receive WINGS, add wings for each faction
     }
 
     @Override

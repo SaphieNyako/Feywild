@@ -39,6 +39,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsSpring);
         this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsLight);
         this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsShadow);
+
         /*
         this.item(ModItemTags.YGGDRASIL_BOOKS).add(ModItems.schematicsYggdrasilRuneCrafting);
         this.item(ModItemTags.DEADLY_BOOKS).add(ModItems.schematicsDeadlyRuneCrafting);

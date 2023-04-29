@@ -106,7 +106,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
             return InteractionResult.sidedSuccess(level.isClientSide);
 
         } else {
-            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 1.0f, 0.8f);
+            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 0.6f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);
         }
     }

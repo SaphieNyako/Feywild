@@ -21,7 +21,8 @@
   "tasks": [
     {
       "action": "dandelion",
-      "id": "feywild:special"
+      "id": "feywild:special",
+      "times": 5
     }
   ]
 }
