@@ -13,7 +13,7 @@ public class FeyBiomeModifiers extends BiomeModifierData {
     public final Holder<BiomeModifier> overworldSpawn = this.addSpawns(BiomeTags.IS_OVERWORLD)
             .spawn(ModEntities.autumnPixie, 1, 1, 1)
             .spawn(ModEntities.springPixie, 1, 1, 1)
-            .spawn(ModEntities.dwarfBlacksmith, 15, 1, 1)
+            .spawn(ModEntities.dwarfBlacksmith, 5, 1, 1)
             .build();
 
     public final Holder<BiomeModifier> hotOverworldSpawn = this.addSpawns(Tags.Biomes.IS_HOT_OVERWORLD)

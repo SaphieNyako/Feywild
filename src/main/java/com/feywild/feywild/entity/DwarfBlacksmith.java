@@ -95,7 +95,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         //target:
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false, false));
         //move:
-        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 1.0f, 16));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.1f, 16));
         //attack in range:
         this.goalSelector.addGoal(1, new DwarvenMeleeAttackGoal(this, 1.0f, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
