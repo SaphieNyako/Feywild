@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,6 +26,7 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
     private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>())
                     .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.windWalk)).build();
+
     public final Variant variant;
     public AnimationFactory factory = new AnimationFactory(this);
 
@@ -51,9 +53,35 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
     @Override
     public void onArmorTick(ItemStack stack, Level world, Player player) {
         var abilities = player.getAbilities();
-        if (!abilities.mayfly) {
-            abilities.mayfly = true;
+
+        if (!abilities.mayfly && hasFullSuitOfArmorOn(player)) {
+            for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
+                ArmorMaterial mapArmorMaterial = entry.getKey();
+                //MobEffectInstance mapStatusEffect = entry.getValue();
+
+                //    if (hasCorrectArmorOn(mapArmorMaterial, player)) {
+                abilities.mayfly = true;
+                //   }
+            }
+        } else {
+            abilities.mayfly = false;
         }
+    }
+
+    private boolean hasCorrectArmorOn(ArmorMaterial mapArmorMaterial, Player player) {
+        for (ItemStack armorStack : player.getInventory().armor) {
+            if (!(armorStack.getItem() instanceof ArmorItem)) {
+                return false;
+            }
+        }
+
+        ArmorItem breastplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
+        return breastplate.getMaterial() == material;
+    }
+
+    private boolean hasFullSuitOfArmorOn(Player player) {
+        ItemStack breastplate = player.getInventory().getArmor(2);
+        return !breastplate.isEmpty();
     }
 
     public enum Variant {
