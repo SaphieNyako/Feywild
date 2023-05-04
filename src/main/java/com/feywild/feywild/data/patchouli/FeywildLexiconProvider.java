@@ -132,8 +132,8 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("After summoning one you can access quests by right clicking the pixie with an empty hand.")
                 .text("The Pixie first asks you to accept a contract and you will become a Ally of that Court.")
                 .flip("alignment")
-                .text("After accepting the contract with the Pixie you are aligned with that Court.")
-                .text("Aligning yourself with a Court causes all Fey from other Courts to leave!");
+                .text("Depending on your configuration aligning yourself with a court could cause other fey to leave! By default this is turned off.");
+
 
         this.entry("feywild")
                 .name("The Feywild Dimension")

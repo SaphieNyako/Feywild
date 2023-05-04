@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.entity.base.TreeEntBase;
 import com.feywild.feywild.network.ParticleMessage;
@@ -51,7 +52,7 @@ public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScro
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
             Alignment alignmentPlayer = QuestData.get(serverPlayer).getAlignment();
-            if (getAlignment() == null) {
+            if (MiscConfig.summon_all_fey || getAlignment() == null) {
                 return true;
             } else {
                 if (alignmentPlayer != alignment) {

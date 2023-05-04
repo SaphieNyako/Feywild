@@ -8,6 +8,9 @@ import org.moddingx.libx.config.validate.IntRange;
 @RegisterConfig("misc")
 public class MiscConfig {
 
+    @Config("This enables a player to summon all fey. For servers this could be set to false to encourage coop.")
+    public static boolean summon_all_fey = true;
+
     @Config("Whether players should spawn with a Feywild Lexicon")
     public static boolean initial_lexicon = true;
 

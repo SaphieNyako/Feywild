@@ -139,18 +139,7 @@ public class EventListener {
         }
 
         FeyWing.canPlayerFly(event.player);
-        /*
-        var abilities = event.player.getAbilities();
-        if (!event.player.isCreative() && !event.player.isSpectator()) {
-            abilities.mayfly = hasCorrectArmorOn(event.player);
-        } */
     }
-
-    private boolean hasCorrectArmorOn(Player player) {
-        //Make sure its not an Elytra.
-        return player.getInventory().getArmor(2).getItem() instanceof FeyWing;
-    }
-
 
     @SubscribeEvent
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {

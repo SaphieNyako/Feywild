@@ -3,6 +3,7 @@ package com.feywild.feywild.entity;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.FeyLogBlock;
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.base.TreeEntBase;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
 import com.feywild.feywild.entity.goals.TreeEntMeleeAttackGoal;
@@ -62,21 +63,22 @@ public class WinterTreeEnt extends TreeEntBase {
     @Override
     public void tick() {
         super.tick();
-
-        Player owner = this.getOwningPlayer();
-        if (owner instanceof ServerPlayer serverPlayer) {
-            Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
-            if (ownerAlignment != null && ownerAlignment != this.alignment) {
-                unalignedTicks += 1;
-                if (unalignedTicks >= 300) {
-                    owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
-                    this.remove(RemovalReason.DISCARDED);
+        if (!MiscConfig.summon_all_fey) {
+            Player owner = this.getOwningPlayer();
+            if (owner instanceof ServerPlayer serverPlayer) {
+                Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
+                if (ownerAlignment != null && ownerAlignment != this.alignment) {
+                    unalignedTicks += 1;
+                    if (unalignedTicks >= 300) {
+                        owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
+                        this.remove(RemovalReason.DISCARDED);
+                    }
+                } else {
+                    unalignedTicks = 0;
                 }
             } else {
                 unalignedTicks = 0;
             }
-        } else {
-            unalignedTicks = 0;
         }
     }
 

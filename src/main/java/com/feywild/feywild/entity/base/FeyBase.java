@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.base;
 
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
@@ -120,21 +121,22 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 );
             }
         }
-
-        Player owner = this.getOwningPlayer();
-        if (owner instanceof ServerPlayer serverPlayer) {
-            Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
-            if (ownerAlignment != null && ownerAlignment != this.alignment) {
-                unalignedTicks += 1;
-                if (unalignedTicks >= 300) {
-                    owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
-                    this.remove(RemovalReason.DISCARDED);
+        if (!MiscConfig.summon_all_fey) {
+            Player owner = this.getOwningPlayer();
+            if (owner instanceof ServerPlayer serverPlayer) {
+                Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
+                if (ownerAlignment != null && ownerAlignment != this.alignment) {
+                    unalignedTicks += 1;
+                    if (unalignedTicks >= 300) {
+                        owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
+                        this.remove(RemovalReason.DISCARDED);
+                    }
+                } else {
+                    unalignedTicks = 0;
                 }
             } else {
                 unalignedTicks = 0;
             }
-        } else {
-            unalignedTicks = 0;
         }
     }
 

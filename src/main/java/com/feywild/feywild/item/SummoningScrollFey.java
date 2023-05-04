@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.quest.Alignment;
@@ -39,12 +40,16 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
-            Alignment alignment = QuestData.get(serverPlayer).getAlignment();
-            if (alignment != entity.alignment && !(entity instanceof Fey && alignment == null)) {
-                player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
-                return false;
-            } else {
+            if (MiscConfig.summon_all_fey) {
                 return true;
+            } else {
+                Alignment alignment = QuestData.get(serverPlayer).getAlignment();
+                if (alignment != entity.alignment && !(entity instanceof Fey && alignment == null)) {
+                    player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
         player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
