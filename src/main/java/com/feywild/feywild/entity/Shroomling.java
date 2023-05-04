@@ -22,7 +22,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -70,7 +69,6 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
         this.goalSelector.addGoal(60, new WaveGoal(this));
         this.goalSelector.addGoal(30, new SneezeGoal(this));
     }

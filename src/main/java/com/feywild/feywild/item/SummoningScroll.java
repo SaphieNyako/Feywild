@@ -74,8 +74,9 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                     if (context.getItemInHand().hasCustomHoverName()) {
                         entity.setCustomName(context.getItemInHand().getHoverName());
                     }
-                    BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
-                    entity.setPos(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ());
+                    //  BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
+                    entity.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
+
                     this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
                     if (this instanceof SummoningScrollFey) {
                         context.getLevel().addFreshEntity(entity);

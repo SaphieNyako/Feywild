@@ -18,7 +18,7 @@ public class ModEntities {
             .build(FeywildMod.getInstance().modid + "_mandragora");
 
     public static final EntityType<Shroomling> shroomling = EntityType.Builder.of(Shroomling::new, MobCategory.CREATURE)
-            .sized(0.7f, 0.8f)
+            .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_shroomling");
 
     public static final EntityType<DwarfBlacksmith> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmith::new, MobCategory.MONSTER)

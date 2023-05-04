@@ -6,6 +6,9 @@ import com.feywild.feywild.entity.Shroomling;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -13,8 +16,10 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 
 import javax.annotation.Nullable;
@@ -27,10 +32,12 @@ public class SneezeGoal extends Goal {
     protected final Shroomling entity;
     private int ticksLeft = 0;
     private Animal targetAnimal;
+    private Player targetPlayer;
 
     public SneezeGoal(Shroomling shroomling) {
         this.entity = shroomling;
         this.level = shroomling.level;
+
     }
 
     @Override
@@ -40,23 +47,35 @@ public class SneezeGoal extends Goal {
 
             if (this.ticksLeft <= 0) {
 
-                if (this.targetAnimal == null || !this.targetAnimal.isAlive()) {
-                    this.targetAnimal = this.findTarget();
-                    if (this.targetAnimal != null && this.targetAnimal.isAlive()) {
-                        MushroomCow cow = new MushroomCow(EntityType.MOOSHROOM, level);
-                        cow.setPos(this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
-                        this.targetAnimal.remove(Entity.RemovalReason.DISCARDED);
-                        level.addFreshEntity(cow);
-                        cow.playSound(SoundEvents.PANDA_SNEEZE, 1, 0.3f);
-                        FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.SHROOMLING_SNEEZE, cow.getX(), cow.getY(), cow.getZ());
-                    }
-                }
-                if (this.entity.isTamed()) {
-                    if (level.getBrightness(LightLayer.BLOCK, this.entity.blockPosition()) < 3
-                            && this.entity.level.getBlockState(this.entity.blockPosition()).canBeReplaced(Fluids.WATER)) {
 
+                if (this.entity.isTamed()) {
+                    // CHANGE COWS INTO MOOSHROOMS
+                    if (this.targetAnimal == null || !this.targetAnimal.isAlive()) {
+                        this.targetAnimal = this.findCow();
+                        if (this.targetAnimal != null && this.targetAnimal.isAlive()) {
+                            MushroomCow cow = new MushroomCow(EntityType.MOOSHROOM, level);
+                            cow.setPos(this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
+                            this.targetAnimal.remove(Entity.RemovalReason.DISCARDED);
+                            level.addFreshEntity(cow);
+                            cow.playSound(SoundEvents.PANDA_SNEEZE, 1, 0.3f);
+                            FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.SHROOMLING_SNEEZE, cow.getX(), cow.getY(), cow.getZ());
+                        }
+                    }
+                    // ADD MUSHROOM
+                    if (level.getBrightness(LightLayer.BLOCK, this.entity.blockPosition()) < 3
+                            && this.entity.level.getBlockState(this.entity.blockPosition()).canBeReplaced(Fluids.WATER)
+                            && (this.entity.level.getBlockState(this.entity.blockPosition().below()).is(BlockTags.DIRT)
+                            || this.entity.level.getBlockState(this.entity.blockPosition().below()).is(Blocks.FARMLAND))) {
                         this.level.setBlock(this.entity.blockPosition(), ModBlocks.feyMushroom.defaultBlockState(), 2);
                         this.entity.playSound(SoundEvents.COMPOSTER_READY, 1, 1);
+                    }
+                } else {
+                    // IF NOT TAMED POISON TARGET PLAYER
+                    if (this.targetPlayer == null || !this.targetPlayer.isAlive()) {
+                        this.targetPlayer = this.findPlayer();
+                        if (this.targetPlayer != null && this.targetPlayer.isAlive()) {
+                            this.targetPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 5 * 60, 0));
+                        }
                     }
                 }
 
@@ -74,6 +93,7 @@ public class SneezeGoal extends Goal {
     private void reset() {
         this.entity.setState(Shroomling.State.IDLE);
         this.targetAnimal = null;
+        this.targetPlayer = null;
         this.ticksLeft = -1;
     }
 
@@ -85,6 +105,7 @@ public class SneezeGoal extends Goal {
     public void start() {
         this.ticksLeft = 50;
         this.targetAnimal = null;
+        this.targetPlayer = null;
     }
 
     @Override
@@ -100,13 +121,25 @@ public class SneezeGoal extends Goal {
     }
 
     @Nullable
-    private Animal findTarget() {
+    private Animal findCow() {
         double distance = Double.MAX_VALUE;
         Animal current = null;
         for (Animal animal : this.entity.level.getNearbyEntities(Cow.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
             if (animal.getAge() == 0 && this.entity.distanceToSqr(animal) < distance) {
                 current = animal;
                 distance = this.entity.distanceToSqr(animal);
+            }
+        }
+        return current;
+    }
+
+    private Player findPlayer() {
+        double distance = Double.MAX_VALUE;
+        Player current = null;
+        for (Player player : this.entity.level.getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+            if (this.entity.distanceToSqr(player) < distance) {
+                current = player;
+                distance = this.entity.distanceToSqr(player);
             }
         }
         return current;
