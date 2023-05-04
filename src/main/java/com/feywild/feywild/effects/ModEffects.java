@@ -6,4 +6,5 @@ import org.moddingx.libx.annotation.registration.RegisterClass;
 public class ModEffects {
 
     public static final WindWalkEffect windWalk = new WindWalkEffect();
+    public static final FeyFlyingEffect feyFlying = new FeyFlyingEffect();
 }

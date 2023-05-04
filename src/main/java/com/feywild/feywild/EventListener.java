@@ -4,6 +4,7 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
+import com.feywild.feywild.item.FeyWing;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.ReaperScythe;
 import com.feywild.feywild.network.LibraryScreenMessage;
@@ -136,6 +137,18 @@ public class EventListener {
                 });
             }
         }
+
+        FeyWing.canPlayerFly(event.player);
+        /*
+        var abilities = event.player.getAbilities();
+        if (!event.player.isCreative() && !event.player.isSpectator()) {
+            abilities.mayfly = hasCorrectArmorOn(event.player);
+        } */
+    }
+
+    private boolean hasCorrectArmorOn(Player player) {
+        //Make sure its not an Elytra.
+        return player.getInventory().getArmor(2).getItem() instanceof FeyWing;
     }
 
 

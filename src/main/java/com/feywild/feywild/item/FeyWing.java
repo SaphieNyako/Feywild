@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -18,14 +17,13 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class FeyWing extends GeoArmorItem implements IAnimatable {
 
     private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>())
-                    .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.windWalk)).build();
+                    .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.feyFlying)).build();
 
     public final Variant variant;
     public AnimationFactory factory = new AnimationFactory(this);
@@ -33,6 +31,41 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
     public FeyWing(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, Variant variant) {
         super(materialIn, slot, builder);
         this.variant = variant;
+    }
+
+    public static void canPlayerFly(Player player) {
+        var abilities = player.getAbilities();
+        if (!player.isCreative() && !player.isSpectator()) {
+            abilities.mayfly = hasCorrectArmorOn(player);
+            abilities.flying = hasCorrectArmorOn(player);
+        }
+    }
+
+    public static boolean hasCorrectArmorOn(Player player) {
+        return player.getInventory().getArmor(2).getItem() instanceof FeyWing;
+
+    }
+
+    @Override
+    public void onArmorTick(ItemStack stack, Level level, Player player) {
+
+
+        for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
+            ArmorMaterial mapArmorMaterial = entry.getKey();
+            MobEffectInstance mapStatusEffect = entry.getValue();
+            if (player.getInventory().getArmor(2).getItem() instanceof FeyWing) {
+                addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+            }
+        }
+
+    }
+
+    private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffectInstance mapStatusEffect) {
+        boolean hasPlayerEffect = player.hasEffect(mapStatusEffect.getEffect());
+        if (!hasPlayerEffect) {
+            player.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(),
+                    mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
+        }
     }
 
     @Override
@@ -50,40 +83,6 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
         return this.factory;
     }
 
-    @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player) {
-        var abilities = player.getAbilities();
-
-        if (!abilities.mayfly && hasFullSuitOfArmorOn(player)) {
-            for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-                ArmorMaterial mapArmorMaterial = entry.getKey();
-                //MobEffectInstance mapStatusEffect = entry.getValue();
-
-                //    if (hasCorrectArmorOn(mapArmorMaterial, player)) {
-                abilities.mayfly = true;
-                //   }
-            }
-        } else {
-            abilities.mayfly = false;
-        }
-    }
-
-    private boolean hasCorrectArmorOn(ArmorMaterial mapArmorMaterial, Player player) {
-        for (ItemStack armorStack : player.getInventory().armor) {
-            if (!(armorStack.getItem() instanceof ArmorItem)) {
-                return false;
-            }
-        }
-
-        ArmorItem breastplate = ((ArmorItem) player.getInventory().getArmor(2).getItem());
-        return breastplate.getMaterial() == material;
-    }
-
-    private boolean hasFullSuitOfArmorOn(Player player) {
-        ItemStack breastplate = player.getInventory().getArmor(2);
-        return !breastplate.isEmpty();
-    }
-
     public enum Variant {
 
         SPRING("spring"), SUMMER("summer"), AUTUMN("autumn"), WINTER("winter"), BLOSSOM("blossom"), LIGHT("light"), SHADOW("shadow"), HEXEN("hexen");
@@ -92,24 +91,6 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
 
         Variant(String id) {
             this.id = id;
-        }
-        /*
-        public static Variant byId(String id){
-            return switch (id.toLowerCase(Locale.ROOT).trim()){
-                case "spring" -> SPRING;
-                case "summer" -> SUMMER;
-                case "autumn" -> AUTUMN;
-                case "winter" -> WINTER;
-                case "blossom" -> BLOSSOM;
-                case "light" -> LIGHT;
-                case "shadow" -> SHADOW;
-                case "hexen" -> HEXEN;
-                default -> throw new IllegalArgumentException("Invalid Fey Wing Variant: " + id);
-            };
-        } */
-
-        public static String getVariantId(@Nullable Variant variant) {
-            return variant == null ? "spring" : variant.id;
         }
     }
 }
