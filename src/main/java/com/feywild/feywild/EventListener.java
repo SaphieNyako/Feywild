@@ -137,8 +137,9 @@ public class EventListener {
                 });
             }
         }
-
-        FeyWing.canPlayerFly(event.player);
+        if (MiscConfig.players_can_fly) {
+            FeyWing.canPlayerFly(event.player);
+        }
     }
 
     @SubscribeEvent

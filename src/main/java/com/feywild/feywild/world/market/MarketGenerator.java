@@ -1,17 +1,14 @@
 package com.feywild.feywild.world.market;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.util.BoundingBoxUtil;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.phys.AABB;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,17 +35,25 @@ public class MarketGenerator {
         if (data != null) {
             if (data.tryGenerate()) {
                 generateBase(level);
-                for (DwarfEntry entry : DWARVES.values()) {
-                    Entity entity = entry.type.create(level);
-                    if (entity != null) {
-                        entity.setPos(
-                                entry.position.getX() + 0.5,
-                                entry.position.getY(),
-                                entry.position.getZ() + 0.5
-                        );
-                        level.addFreshEntity(entity);
-                    }
-                }
+                addEntities(level);
+            }
+        }
+    }
+
+    private static void addEntities(ServerLevel level) {
+        for (int i = 0; i < 4; i++) {
+            addLivestock(level, -3.5, 63, 1.5);
+        }
+
+        for (DwarfEntry entry : DWARVES.values()) {
+            Entity entity = entry.type.create(level);
+            if (entity != null) {
+                entity.setPos(
+                        entry.position.getX() + 0.5,
+                        entry.position.getY(),
+                        entry.position.getZ() + 0.5
+                );
+                level.addFreshEntity(entity);
             }
         }
     }
@@ -57,16 +62,6 @@ public class MarketGenerator {
         StructureTemplate template = level.getStructureManager().get(FeywildMod.getInstance().resource("market")).orElse(null);
         if (template != null) {
             template.placeInWorld(level, BASE_POS, BASE_POS, new StructurePlaceSettings(), level.random, 0);
-            // Remove all entities from the world
-            // Must use version with bounding box to load the chunks
-            AABB aabb = BoundingBoxUtil.get(template.getBoundingBox(new StructurePlaceSettings(), BASE_POS)).inflate(10);
-            level.getEntities(null, aabb).stream()
-                    .filter(e -> !(e instanceof Player))
-                    .forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
-
-            for (int i = 0; i < 4; i++) {
-                addLivestock(level, -3.5, 63, 1.5);
-            }
         }
     }
 
@@ -80,5 +75,6 @@ public class MarketGenerator {
         }
     }
 
-    private record DwarfEntry(EntityType<?> type, BlockPos position) {}
+    private record DwarfEntry(EntityType<?> type, BlockPos position) {
+    }
 }

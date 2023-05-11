@@ -8,6 +8,9 @@ import org.moddingx.libx.config.validate.IntRange;
 @RegisterConfig("misc")
 public class MiscConfig {
 
+    @Config("Allows players to fly with the Fey Wings.")
+    public static boolean players_can_fly = true;
+
     @Config("This enables a player to summon all fey. For servers this could be set to false to encourage coop.")
     public static boolean summon_all_fey = true;
 

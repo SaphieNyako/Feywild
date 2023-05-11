@@ -467,7 +467,7 @@
   "message.feywild.summon_fail": "The scroll shimmers momentarily before fizzling out. It seems that you're lacking the correct conditions.",
   "message.feywild.summon_cookie_fail": "The Mandrake looks at you with disgust, unwilling to accept anything from you. You're lacking the correct conditions.",
   "message.feywild.summon_fail_dwarf": "The scroll shimmers shortly before fizzling out; the blacksmith requires a Dwarven Anvil.",
-  "message.feywild.summoning_scroll": "Primarily used in summoning rituals, but can also recapture a summoned Fey.",
+  "message.feywild.summoning_scroll": "Primarily used in summoning rituals. Can also Recapture a summoned Fey.",
   "minemention.feywild.faction.description": "Mention everyone from your Feywild faction.",
   "screen.feywild.dwarven_anvil": "Dwarven Anvil",
   "screen.feywild.mana_amount": "Mana: %s",

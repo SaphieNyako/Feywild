@@ -93,7 +93,7 @@
   "feywild_lexicon.entry.feywild.feywild.introduction.page3.text0": "Library",
   "feywild_lexicon.entry.feywild.feywild.quest": "Quest",
   "feywild_lexicon.entry.feywild.feywild.quest.page0.text0": "All the pixies have a quest-line. After summoning one you can access quests by right clicking the pixie with an empty hand. The Pixie first asks you to accept a contract and you will become a Ally of that Court.",
-  "feywild_lexicon.entry.feywild.feywild.quest.page1.text0": "After accepting the contract with the Pixie you are aligned with that Court. Aligning yourself with a Court causes all Fey from other Courts to leave!",
+  "feywild_lexicon.entry.feywild.feywild.quest.page1.text0": "Depending on your configuration aligning yourself with a court could cause other fey to leave! By default this is turned off.",
   "feywild_lexicon.entry.feywild.feywild.seasonal_trees": "Seasonal Trees",
   "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page0.text0": "The fey trees will also drop fey dust when you cut down their leaves.",
   "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page1.text0": "Flowers from the spring season will grow around the tree.",

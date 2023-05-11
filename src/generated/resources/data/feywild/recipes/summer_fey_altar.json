@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "d": {
-      "item": "feywild:brilliant_fey_gem"
+      "item": "minecraft:diamond"
     },
     "f": {
       "item": "feywild:fey_dust"

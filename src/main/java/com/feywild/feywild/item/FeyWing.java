@@ -35,7 +35,7 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
 
     public static void canPlayerFly(Player player) {
         var abilities = player.getAbilities();
-        if (!player.isCreative() && !player.isSpectator()) {
+        if (!player.isCreative() && !player.isSpectator() && !abilities.instabuild) {
             abilities.mayfly = hasCorrectArmorOn(player);
             abilities.flying = hasCorrectArmorOn(player);
         }
