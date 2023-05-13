@@ -1,12 +1,18 @@
 package com.feywild.feywild.effects;
 
+import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.item.FeyWing;
+import com.feywild.feywild.network.UpdateFlight;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class FeyFlyingEffect extends MobEffect {
 
@@ -14,21 +20,30 @@ public class FeyFlyingEffect extends MobEffect {
         super(MobEffectCategory.BENEFICIAL, 0xf59ee8);
     }
 
-    @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
-        return false;
+    public boolean hasCorrectArmorOn(Player player) {
+        return player.getInventory().getArmor(2).getItem() instanceof FeyWing;
     }
 
     @Override
-    public void applyInstantenousEffect(@Nullable Entity source, @Nullable Entity indirectSource, @Nonnull LivingEntity entity, int amplifier, double health) {
-        super.applyInstantenousEffect(source, indirectSource, entity, amplifier, health);
-        //TODO make this work?
-        /*
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
+    }
+
+    @Override
+    public void applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
         if (entity instanceof Player player) {
-            var abilities = ((Player) entity).getAbilities();
-            if (!player.isCreative() && !player.isSpectator()) {
-                abilities.mayfly = player.getInventory().getArmor(2).getItem() instanceof FeyWing;
-            }
-        } */
+            player.getAbilities().mayfly = (player.isCreative() || player.isSpectator()) || hasCorrectArmorOn(player) || Objects.requireNonNull(entity.getEffect(ModEffects.feyFlying)).getDuration() > 1;
+        }
+    }
+
+    @Override
+    public void removeAttributeModifiers(@Nonnull LivingEntity entity, @Nonnull AttributeMap map, int amplifier) {
+        super.removeAttributeModifiers(entity, map, amplifier);
+        if (entity instanceof Player player) {
+            boolean canFly = player.isCreative() || player.isSpectator();
+            player.getAbilities().mayfly = canFly;
+            player.getAbilities().flying = canFly;
+            FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new UpdateFlight(canFly, canFly));
+        }
     }
 }

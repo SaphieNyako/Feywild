@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.effects.ModEffects;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -23,7 +24,7 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
 
     private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>())
-                    .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.feyFlying)).build();
+                    .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.feyFlying, 20 * 60)).build();
 
     public final Variant variant;
     public AnimationFactory factory = new AnimationFactory(this);
@@ -33,31 +34,15 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
         this.variant = variant;
     }
 
-    public static void canPlayerFly(Player player) {
-        var abilities = player.getAbilities();
-        if (!player.isCreative() && !player.isSpectator() && !abilities.instabuild) {
-            abilities.mayfly = hasCorrectArmorOn(player);
-            abilities.flying = hasCorrectArmorOn(player);
-        }
-    }
-
-    public static boolean hasCorrectArmorOn(Player player) {
-        return player.getInventory().getArmor(2).getItem() instanceof FeyWing;
-
-    }
-
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
-
-
         for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
             ArmorMaterial mapArmorMaterial = entry.getKey();
             MobEffectInstance mapStatusEffect = entry.getValue();
-            if (player.getInventory().getArmor(2).getItem() instanceof FeyWing) {
+            if (player.getInventory().getArmor(2).getItem() instanceof FeyWing && MiscConfig.players_can_fly) {
                 addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
             }
         }
-
     }
 
     private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffectInstance mapStatusEffect) {

@@ -4,7 +4,6 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
-import com.feywild.feywild.item.FeyWing;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.ReaperScythe;
 import com.feywild.feywild.network.LibraryScreenMessage;
@@ -137,9 +136,10 @@ public class EventListener {
                 });
             }
         }
-        if (MiscConfig.players_can_fly) {
-            FeyWing.canPlayerFly(event.player);
-        }
+
+        //    FeyWing.canPlayerFly(event.player);
+
+
     }
 
     @SubscribeEvent
