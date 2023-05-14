@@ -34,42 +34,45 @@ public class MarketGenerator {
         MarketData data = MarketData.get(level);
         if (data != null) {
             if (data.tryGenerate()) {
-                generateBase(level);
-                addEntities(level);
+                generateBase(level, data);
+                for (DwarfEntry entry : DWARVES.values()) {
+                    Entity entity = entry.type.create(level);
+                    if (entity != null) {
+                        data.addAllowedEntity(entity);
+                        entity.setPos(
+                                entry.position.getX() + 0.5,
+                                entry.position.getY(),
+                                entry.position.getZ() + 0.5
+                        );
+                        level.addFreshEntity(entity);
+                    }
+                }
             }
         }
     }
 
-    private static void addEntities(ServerLevel level) {
-        for (int i = 0; i < 4; i++) {
-            addLivestock(level, -3.5, 63, 1.5);
-        }
-
-        for (DwarfEntry entry : DWARVES.values()) {
-            Entity entity = entry.type.create(level);
-            if (entity != null) {
-                entity.setPos(
-                        entry.position.getX() + 0.5,
-                        entry.position.getY(),
-                        entry.position.getZ() + 0.5
-                );
-                level.addFreshEntity(entity);
-            }
-        }
-    }
-
-    private static void generateBase(ServerLevel level) {
+    private static void generateBase(ServerLevel level, MarketData data) {
         StructureTemplate template = level.getStructureManager().get(FeywildMod.getInstance().resource("market")).orElse(null);
         if (template != null) {
             template.placeInWorld(level, BASE_POS, BASE_POS, new StructurePlaceSettings(), level.random, 0);
+            // Remove all entities from the world
+            for (Entity entity : level.getEntities().getAll()) {
+                if (!data.isAllowedEntity(entity)) {
+                    entity.remove(Entity.RemovalReason.DISCARDED);
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                addLivestock(level, -3.5, 63, 1.5, data);
+            }
         }
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void addLivestock(ServerLevel level, double x, double y, double z) {
+    private static void addLivestock(ServerLevel level, double x, double y, double z, MarketData data) {
         EntityType<?> type = LIVESTOCK.get(level.random.nextInt(LIVESTOCK.size()));
         Entity entity = type.create(level);
         if (entity != null) {
+            data.addAllowedEntity(entity);
             entity.setPos(x, y, z);
             level.addFreshEntity(entity);
         }

@@ -16,7 +16,7 @@ import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.screens.SelectQuestScreen;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.FeywildDimensions;
+import com.feywild.feywild.world.market.MarketData;
 import com.feywild.feywild.world.market.MarketHandler;
 import com.feywild.feywild.world.teleport.DefaultTeleporter;
 import net.minecraft.client.Minecraft;
@@ -45,7 +45,7 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.AnimalTameEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -247,6 +247,16 @@ public class EventListener {
             FeywildMod.getNetwork().channel.send(PacketDistributor.ALL.noArg(), new TradesMessage(TradeManager.buildRecipes()));
         } else {
             FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(event::getPlayer), new TradesMessage(TradeManager.buildRecipes()));
+        }
+    }
+
+    @SubscribeEvent
+    public void entityJoin(EntityJoinLevelEvent event) {
+        if (event.getLevel() instanceof ServerLevel serverLevel) {
+            MarketData data = MarketData.get(serverLevel);
+            if (data != null && !data.isAllowedEntity(event.getEntity())) {
+                event.setCanceled(true);
+            }
         }
     }
 }

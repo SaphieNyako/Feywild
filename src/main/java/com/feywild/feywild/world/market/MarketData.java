@@ -5,34 +5,46 @@ import com.feywild.feywild.util.BoundingBoxUtil;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 // Holds data about the current state of the dwarf market
 public class MarketData extends SavedData {
 
     private boolean open;
     private boolean generated;
+    private final List<UUID> allowedEntities;
 
     public MarketData() {
         open = false;
         generated = false;
+        allowedEntities = new ArrayList<>();
     }
 
     public MarketData(@Nonnull CompoundTag nbt) {
         open = nbt.getBoolean("Open");
         generated = nbt.getBoolean("Generated");
+        allowedEntities = new ArrayList<>();
+        ListTag list = nbt.getList("AllowedEntities", Tag.TAG_INT_ARRAY);
+        for (Tag tag : list) {
+            allowedEntities.add(NbtUtils.loadUUID(tag));
+        }
     }
 
     @Nullable
@@ -60,12 +72,18 @@ public class MarketData extends SavedData {
     public CompoundTag save(@Nonnull CompoundTag nbt) {
         nbt.putBoolean("Open", open);
         nbt.putBoolean("Generated", generated);
+        ListTag list = new ListTag();
+        for (UUID uid : this.allowedEntities) {
+            list.add(NbtUtils.createUUID(uid));
+        }
+        nbt.put("AllowedEntities", list);
         return nbt;
     }
 
     public boolean tryGenerate() {
         if (!generated) {
             generated = true;
+            this.allowedEntities.clear();
             setDirty();
             return true;
         } else {
@@ -79,10 +97,24 @@ public class MarketData extends SavedData {
             if (!world.isDay()) {
                 onClose.run();
                 generated = false;
-                removeAllEntities(Objects.requireNonNull(server.getLevel(FeywildDimensions.MARKETPLACE)));
+                this.allowedEntities.clear();
             }
             open = world.isDay();
             setDirty();
+        }
+    }
+    
+    public void addAllowedEntity(Entity entity) {
+        if (open && entity instanceof LivingEntity && !(entity instanceof Player) && !(entity instanceof ArmorStand)) {
+            this.allowedEntities.add(entity.getUUID());
+        }
+    }
+    
+    public boolean isAllowedEntity(Entity entity) {
+        if (entity instanceof LivingEntity && !(entity instanceof Player) && !(entity instanceof ArmorStand)) {
+            return this.allowedEntities.contains(entity.getUUID());
+        } else {
+            return true;
         }
     }
 
