@@ -465,6 +465,8 @@
   "message.feywild.blossom_tree_ent": "A summoning scroll for a Blossom Tree Ent; must be used on a Blossom Tree Sapling.",
   "message.feywild.boss": "Beware: this scroll is bound to a powerful Archfey. Summoning them might be a fatal mistake...",
   "message.feywild.summon_fail": "The scroll shimmers momentarily before fizzling out. It seems that you're lacking the correct conditions.",
+  "message.feywild.summon_market": "You cannot cast summoning magic within the Dwarven Market.",
+  "message.feywild.market_condition": "Caution: You can't summon or place entities in the Dwarven Market. The Feywild dev will redesigning this concept in the future.",
   "message.feywild.summon_cookie_fail": "The Mandrake looks at you with disgust, unwilling to accept anything from you. You're lacking the correct conditions.",
   "message.feywild.summon_fail_dwarf": "The scroll shimmers shortly before fizzling out; the blacksmith requires a Dwarven Anvil.",
   "message.feywild.summoning_scroll": "Primarily used in summoning rituals. Can also Recapture a summoned Fey.",

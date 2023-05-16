@@ -9,6 +9,7 @@ import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.util.TooltipHelper;
+import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -52,10 +53,13 @@ public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScro
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
             Alignment alignmentPlayer = QuestData.get(serverPlayer).getAlignment();
-            if (MiscConfig.summon_all_fey || getAlignment() == null) {
+            if ((MiscConfig.summon_all_fey || getAlignment() == null) && player.getLevel().dimension() != FeywildDimensions.MARKETPLACE) {
                 return true;
             } else {
-                if (alignmentPlayer != alignment) {
+                if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+                    player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
+                    return false;
+                } else if (alignmentPlayer != alignment) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
                     return false;
                 } else {

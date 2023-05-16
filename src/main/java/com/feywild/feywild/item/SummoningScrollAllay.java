@@ -1,9 +1,11 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -38,12 +40,19 @@ public class SummoningScrollAllay<T extends Allay> extends SummoningScroll<T> im
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
-            Alignment alignment = QuestData.get(serverPlayer).getAlignment();
-            if (alignment == Alignment.WINTER) {
-                player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
-                return false;
-            } else {
+            if (MiscConfig.summon_all_fey && serverPlayer.getLevel().dimension() != FeywildDimensions.MARKETPLACE) {
                 return true;
+            } else {
+                Alignment alignment = QuestData.get(serverPlayer).getAlignment();
+                if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+                    player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
+                    return false;
+                } else if (alignment == Alignment.WINTER) {
+                    player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
         player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));

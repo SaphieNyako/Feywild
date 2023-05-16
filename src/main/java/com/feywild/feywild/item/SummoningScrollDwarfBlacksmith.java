@@ -5,6 +5,7 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.util.TooltipHelper;
+import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -37,7 +38,10 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, DwarfBlacksmith entity) {
-        if (level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil) {
+        if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+            player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
+            return false;
+        } else if (level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil) {
             return level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil;
         } else {
             player.sendSystemMessage(Component.translatable("message.feywild.summon_fail_dwarf"));

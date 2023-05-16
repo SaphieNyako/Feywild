@@ -14,6 +14,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.minecraft.world.phys.AABB;
@@ -27,9 +29,9 @@ import java.util.UUID;
 // Holds data about the current state of the dwarf market
 public class MarketData extends SavedData {
 
+    private final List<UUID> allowedEntities;
     private boolean open;
     private boolean generated;
-    private final List<UUID> allowedEntities;
 
     public MarketData() {
         open = false;
@@ -103,13 +105,13 @@ public class MarketData extends SavedData {
             setDirty();
         }
     }
-    
+
     public void addAllowedEntity(Entity entity) {
         if (open && entity instanceof LivingEntity && !(entity instanceof Player) && !(entity instanceof ArmorStand)) {
             this.allowedEntities.add(entity.getUUID());
         }
     }
-    
+
     public boolean isAllowedEntity(Entity entity) {
         if (entity instanceof LivingEntity && !(entity instanceof Player) && !(entity instanceof ArmorStand)) {
             return this.allowedEntities.contains(entity.getUUID());

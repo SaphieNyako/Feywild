@@ -2,6 +2,7 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
 import com.feywild.feywild.util.TooltipHelper;
+import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -27,7 +28,13 @@ public class SummoningScrollBoss<T extends FlyingBossBase> extends SummoningScro
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
-        return true;
+        if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+            player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     @Override

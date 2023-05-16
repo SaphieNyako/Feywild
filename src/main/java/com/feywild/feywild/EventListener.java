@@ -16,6 +16,7 @@ import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.screens.SelectQuestScreen;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.LibraryBooks;
+import com.feywild.feywild.world.FeywildDimensions;
 import com.feywild.feywild.world.market.MarketData;
 import com.feywild.feywild.world.market.MarketHandler;
 import com.feywild.feywild.world.teleport.DefaultTeleporter;
@@ -46,6 +47,7 @@ import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.AnimalTameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -136,10 +138,6 @@ public class EventListener {
                 });
             }
         }
-
-        //    FeyWing.canPlayerFly(event.player);
-
-
     }
 
     @SubscribeEvent
@@ -196,27 +194,6 @@ public class EventListener {
     public void blockInteract(PlayerInteractEvent.RightClickBlock event) {
         BeeKnight.anger(event.getLevel(), event.getEntity(), event.getPos());
     }
-
-    /*
-    @SubscribeEvent
-    public void BonemealEvent(BonemealEvent event) {
-        Player player = event.getEntity();
-        if (player instanceof ServerPlayer) {
-            if (event.getBlock() == ModTrees.springTree.getSapling().defaultBlockState()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE);
-            }
-            if (event.getBlock() == ModTrees.summerTree.getSapling().defaultBlockState()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE);
-            }
-            if (event.getBlock() == ModTrees.autumnTree.getSapling().defaultBlockState()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE);
-            }
-            if (event.getBlock() == ModTrees.winterTree.getSapling().defaultBlockState()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
-            }
-        }
-    } */
-
 
     @SubscribeEvent
     public void blockInteract(PlayerInteractEvent.LeftClickBlock event) {
