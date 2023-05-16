@@ -90,8 +90,6 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         leavesTags(ModBlocks.hexBlackLeaves);
         leavesTags(ModBlocks.hexPurpleLeaves);
 
-        this.block(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.FEY_LOGS);
-        this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
     }
 
     private void tool(Block block, TagKey<Block> tool, @Nullable TagKey<Block> level) {
@@ -101,7 +99,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
 
     private void leavesTags(Block block) {
         this.block(BlockTags.LEAVES).add(block);
-        this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
+        this.item(ItemTags.LEAVES).add(block.asItem());
         tool(block, BlockTags.MINEABLE_WITH_HOE, null);
     }
 
@@ -110,19 +108,31 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),
                 tree.getWoodBlock(),
-                tree.getStrippedWoodBlock()
+                tree.getStrippedWoodBlock(),
+                tree.getCrackedLogBlock()
         );
-        this.block(ModBlockTags.FEY_LOGS).addTag(logs);
-        this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
-        // this.block(BlockTags.LEAVES).add(tree.getLeafBlock());
-        this.block(BlockTags.SAPLINGS).add(tree.getSapling());
-        // tool(tree.getLeafBlock(), BlockTags.MINEABLE_WITH_HOE, null);
 
-        this.copyBlock(logs, logItems);
-        this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
-        this.copyBlock(BlockTags.PLANKS, ItemTags.PLANKS);
-        //  this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
-        this.copyBlock(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        this.item(logItems).add(
+                tree.getLogBlock().asItem(),
+                tree.getStrippedWoodBlock().asItem(),
+                tree.getWoodBlock().asItem(),
+                tree.getStrippedWoodBlock().asItem(),
+                tree.getCrackedLogBlock().asItem()
+        );
+
+        this.block(BlockTags.LOGS).addTag(logs);
+        this.block(ModBlockTags.FEY_LOGS).addTag(logs);
+        this.block(BlockTags.LOGS_THAT_BURN).addTag(logs);
+        this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
+        this.block(BlockTags.SAPLINGS).add(tree.getSapling());
+
+        this.item(ItemTags.LOGS).addTag(logItems);
+        this.item(ModItemTags.FEY_LOGS).addTag(logItems);
+        this.item(ItemTags.LOGS_THAT_BURN).addTag(logItems);
+        this.item(ItemTags.PLANKS).addTag(logItems);
+        this.item(ItemTags.SAPLINGS).add(tree.getSapling().asItem());
+
+
     }
 
     @Override
