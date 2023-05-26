@@ -11,7 +11,7 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 import javax.annotation.Nullable;
 
 public class SummerPixieModel extends AnimatedGeoModel<SummerPixie> {
-    
+
     @Override
     public void setLivingAnimations(SummerPixie pixie, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
         super.setLivingAnimations(pixie, uniqueID, customPredicate);
@@ -35,6 +35,6 @@ public class SummerPixieModel extends AnimatedGeoModel<SummerPixie> {
 
     @Override
     public ResourceLocation getAnimationResource(SummerPixie pixie) {
-        return FeywildMod.getInstance().resource("animations/summer_pixie.animation.json");
+        return FeywildMod.getInstance().resource("animations/pixie.animation.json");
     }
 }

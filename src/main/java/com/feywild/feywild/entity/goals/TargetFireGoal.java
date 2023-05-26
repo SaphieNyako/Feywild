@@ -47,7 +47,7 @@ public class TargetFireGoal extends Goal {
 
     private void spellCasting() {
         this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetMonster.position());
-        this.entity.setCasting(true);
+        this.entity.setState(Fey.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
@@ -58,7 +58,7 @@ public class TargetFireGoal extends Goal {
     }
 
     protected void reset() {
-        this.entity.setCasting(false);
+        this.entity.setState(Fey.State.IDLE);
         this.targetMonster = null;
         this.ticksLeft = -1;
     }

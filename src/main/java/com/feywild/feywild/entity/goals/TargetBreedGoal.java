@@ -67,12 +67,12 @@ public class TargetBreedGoal extends Goal {
     }
 
     private void spellCasting() {
-        this.entity.setCasting(true);
+        this.entity.setState(Fey.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     protected void reset() {
-        this.entity.setCasting(false);
+        this.entity.setState(Fey.State.IDLE);
         this.targetAnimal = null;
         this.partner = null;
         this.ticksLeft = -1;

@@ -15,20 +15,15 @@
       "type": "patchouli:image",
       "border": true,
       "images": [
-        "feywild:textures/patchouli_images/winter_book.png",
-        "feywild:textures/patchouli_images/winter_worldtree_book.png"
+        "feywild:textures/patchouli_images/winter_book.png"
       ],
       "title": "feywild_lexicon.entry.feywild.winter_court.winter_court.page2.text0"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.winter_court.winter_court.page3.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:crocus_seed",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.winter_court.winter_court.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.winter_court.winter_court.page3.text0"
     }
   ]
 }

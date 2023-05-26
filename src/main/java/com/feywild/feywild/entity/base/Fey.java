@@ -23,6 +23,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -52,7 +53,7 @@ import java.util.Random;
 
 public abstract class Fey extends FlyingFeyBase {
 
-    public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.INT);
 
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
         super(type, alignment, level);
@@ -82,15 +83,7 @@ public abstract class Fey extends FlyingFeyBase {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(CASTING, false);
-    }
-
-    public boolean isCasting() {
-        return this.entityData.get(CASTING);
-    }
-
-    public void setCasting(boolean casting) {
-        this.entityData.set(CASTING, casting);
+        this.entityData.define(STATE, 0);
     }
 
     @Nonnull
@@ -188,25 +181,34 @@ public abstract class Fey extends FlyingFeyBase {
         return false;
     }
 
-    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.fly", true));
-        return PlayState.CONTINUE;
+    public Fey.State getState() {
+        Fey.State[] states = Fey.State.values();
+        return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
-    private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
-        if (this.isCasting() && !(this.dead || this.isDeadOrDying())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.pixie.spellcasting", true));
-            return PlayState.CONTINUE;
+    public void setState(Fey.State state) {
+        this.entityData.set(STATE, state.ordinal());
+    }
+
+    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
+        if (!this.dead && !this.isDeadOrDying()) {
+            if (this.getState() == State.CASTING) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("spellcasting", true));
+                return PlayState.CONTINUE;
+            }
         }
-        return PlayState.STOP;
+
+        if (event.isMoving()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("fly", true));
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+        }
+        return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData animationData) {
-        AnimationController<Fey> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
-        AnimationController<Fey> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
-        animationData.addAnimationController(flyingController);
-        animationData.addAnimationController(castingController);
+        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
     }
 
     @SubscribeEvent
@@ -229,5 +231,9 @@ public abstract class Fey extends FlyingFeyBase {
                 QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
             }
         }
+    }
+
+    public enum State {
+        IDLE, FLYING, CASTING
     }
 }

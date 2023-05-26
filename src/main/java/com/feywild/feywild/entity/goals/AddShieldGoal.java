@@ -46,7 +46,7 @@ public class AddShieldGoal extends Goal {
     @Override
     public void start() {
         this.ticksLeft = 75;
-        this.entity.setCasting(false);
+        this.entity.setState(Fey.State.IDLE);
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(4);
         for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
@@ -57,7 +57,7 @@ public class AddShieldGoal extends Goal {
 
     private void spellCasting() {
         this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
-        this.entity.setCasting(true);
+        this.entity.setState(Fey.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
@@ -68,7 +68,7 @@ public class AddShieldGoal extends Goal {
     }
 
     private void reset() {
-        this.entity.setCasting(false);
+        this.entity.setState(Fey.State.IDLE);
         this.target = null;
         this.ticksLeft = -1;
     }

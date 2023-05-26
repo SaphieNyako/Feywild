@@ -76,10 +76,6 @@
       "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page13.text0"
     },
     {
-      "type": "feywild:fey_altar",
-      "recipe": "feywild:hexen_tree_sapling_fey_altar"
-    },
-    {
       "type": "patchouli:crafting",
       "recipe": "feywild:hexen_tree_wood",
       "recipe2": "feywild:hexen_tree_planks"
@@ -88,11 +84,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:blossom_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page16.text0"
-    },
-    {
-      "type": "feywild:fey_altar",
-      "recipe": "feywild:blossom_tree_sapling_fey_altar"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page15.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -103,7 +95,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:blossom_tree_cracked_log",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page19.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page17.text0"
     }
   ]
 }

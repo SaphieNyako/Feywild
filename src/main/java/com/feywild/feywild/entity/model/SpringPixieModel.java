@@ -35,6 +35,6 @@ public class SpringPixieModel extends AnimatedGeoModel<SpringPixie> {
 
     @Override
     public ResourceLocation getAnimationResource(SpringPixie pixie) {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/spring_pixie.animation.json");
+        return new ResourceLocation(FeywildMod.getInstance().modid, "animations/pixie.animation.json");
     }
 }

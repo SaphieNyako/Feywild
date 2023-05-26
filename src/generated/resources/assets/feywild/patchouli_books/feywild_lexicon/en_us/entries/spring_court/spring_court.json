@@ -15,8 +15,7 @@
       "type": "patchouli:image",
       "border": true,
       "images": [
-        "feywild:textures/patchouli_images/spring_book.png",
-        "feywild:textures/patchouli_images/spring_worldtree_book.png"
+        "feywild:textures/patchouli_images/spring_book.png"
       ],
       "title": "feywild_lexicon.entry.feywild.spring_court.spring_court.page2.text0"
     },

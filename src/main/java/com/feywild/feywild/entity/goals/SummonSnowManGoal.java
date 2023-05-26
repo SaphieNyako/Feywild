@@ -47,17 +47,17 @@ public class SummonSnowManGoal extends Goal {
     @Override
     public void start() {
         this.ticksLeft = 75;
-        this.entity.setCasting(false);
+        this.entity.setState(Fey.State.IDLE);
     }
 
     private void spellCasting() {
         this.targetPos = new Vec3(this.entity.getX() + this.entity.getRandom().nextInt(8) - 4, this.entity.getY() + 2, this.entity.getZ() + this.entity.getRandom().nextInt(8) - 4);
-        this.entity.setCasting(true);
+        this.entity.setState(Fey.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     private void reset() {
-        this.entity.setCasting(false);
+        this.entity.setState(Fey.State.IDLE);
         this.targetPos = null;
         this.ticksLeft = -1;
     }
