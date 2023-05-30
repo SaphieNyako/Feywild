@@ -28,7 +28,7 @@
               "count": 25
             },
             {
-              "item": "minecraft:clay",
+              "item": "minecraft:clay_ball",
               "count": 8
             },
             {
@@ -113,7 +113,7 @@
               "count": 3
             },
             {
-              "item": "feywild:fey_gem_block",
+              "item": "feywild:fey_gem_ore",
               "count": 3
             },
             {
@@ -145,11 +145,24 @@
     ]
   },
   {
-    "amount": 1,
+    "amount": 2,
     "trades": [
       {
         "output": {
           "item": "feywild:schematics_gem_transmutation",
+          "count": 1
+        },
+        "input": {
+          "item": "feywild:lesser_fey_gem",
+          "count": 30
+        },
+        "uses": 1,
+        "exp": 35,
+        "mul": 0.05
+      },
+      {
+        "output": {
+          "item": "feywild:schematics_elven_quartz",
           "count": 1
         },
         "input": {

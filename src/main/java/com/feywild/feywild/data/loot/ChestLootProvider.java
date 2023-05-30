@@ -27,6 +27,8 @@ public class ChestLootProvider extends ChestLootProviderBase {
                         .with(this.count(1, 3)),
                 this.stack(ModItems.schematicsGemTransmutation)
                         .with(this.random(0.15f)),
+                this.stack(ModItems.schematicsElvenQuartz)
+                        .with(this.random(0.15f)),
                 this.stack(ModItems.shinyFeyGem)
                         .with(this.random(0.15f))
                         .with(this.count(1, 2)),

@@ -566,6 +566,18 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .add(this.anvil("shiny_fey_gem_dwarven_anvil"))
                 .add(this.anvil("brilliant_fey_gem_dwarven_anvil"));
 
+        this.entry("elven_quartz")
+                .name("Elven Quartz")
+                .icon(ModItems.rawElvenQuartz)
+                .item(ModItems.schematicsElvenQuartz)
+                .text("With this knowledge your dwarf can craft all kinds of raw elven quartz.")
+                .text("All you have to do is provide the correct ingredients.")
+                .add(this.anvil("raw_elven_quartz_dwarven_anvil"))
+                .add(this.anvil("raw_autumn_elven_quartz_dwarven_anvil"))
+                .add(this.anvil("raw_spring_elven_quartz_dwarven_anvil"))
+                .add(this.anvil("raw_summer_elven_quartz_dwarven_anvil"))
+                .add(this.anvil("raw_winter_elven_quartz_dwarven_anvil"));
+
         this.entry("dwarf_market")
                 .name("Dwarven Market")
                 .icon(ModItems.marketRuneStone)

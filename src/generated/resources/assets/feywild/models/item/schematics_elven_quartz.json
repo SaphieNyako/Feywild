@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "feywild:item/schematics_gem_transmutation"
+    "layer0": "feywild:item/schematics_elven_quartz"
   }
 }

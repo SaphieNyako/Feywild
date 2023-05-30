@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "feywild:item/schematic"
+    "layer0": "feywild:item/schematics_yggdrasil_rune_crafting"
   }
 }

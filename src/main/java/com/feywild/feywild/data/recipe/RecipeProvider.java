@@ -293,5 +293,55 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
         this.quartzRecipes(ModBlocks.elvenSummerQuartz);
         this.quartzRecipes(ModBlocks.elvenAutumnQuartz);
         this.quartzRecipes(ModBlocks.elvenWinterQuartz);
+
+        this.anvil(ModItems.rawElvenQuartz, 8)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Items.QUARTZ)
+                .requires(Items.QUARTZ)
+                .requires(Items.WHITE_DYE)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(75)
+                .build();
+
+        this.anvil(ModItems.rawSpringElvenQuartz, 8)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Items.QUARTZ)
+                .requires(Items.QUARTZ)
+                .requires(Items.GREEN_DYE)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(75)
+                .build();
+
+        this.anvil(ModItems.rawAutumnElvenQuartz, 8)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Items.QUARTZ)
+                .requires(Items.QUARTZ)
+                .requires(Items.RED_DYE)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(75)
+                .build();
+
+        this.anvil(ModItems.rawSummerElvenQuartz, 8)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Items.QUARTZ)
+                .requires(Items.QUARTZ)
+                .requires(Items.YELLOW_DYE)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(75)
+                .build();
+
+        this.anvil(ModItems.rawWinterElvenQuartz, 8)
+                .requires(ModItems.greaterFeyGem)
+                .requires(ModItems.greaterFeyGem)
+                .requires(Items.QUARTZ)
+                .requires(Items.QUARTZ)
+                .requires(Items.BLUE_DYE)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(75)
+                .build();
     }
 }
