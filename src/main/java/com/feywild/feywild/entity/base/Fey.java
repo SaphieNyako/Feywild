@@ -54,9 +54,11 @@ import java.util.Random;
 public abstract class Fey extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> BORED = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.INT);
 
     protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
         super(type, alignment, level);
+        setBored(4);
         if (!level.isClientSide)
             MinecraftForge.EVENT_BUS.register(this);
     }
@@ -84,6 +86,7 @@ public abstract class Fey extends FlyingFeyBase {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
+        this.entityData.define(BORED, 0);
     }
 
     @Nonnull
@@ -97,8 +100,8 @@ public abstract class Fey extends FlyingFeyBase {
                 player.swing(hand, true);
 
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                this.heal(4);
-
+                this.heal(getBoredCount());
+                this.getBoredCount();
                 if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(4) <= 0) {
@@ -140,6 +143,10 @@ public abstract class Fey extends FlyingFeyBase {
         } else {
             return superResult;
         }
+    }
+
+    public int getBoredCount() {
+        return 20;
     }
 
     private void interactQuest(ServerPlayer player, InteractionHand hand) {
@@ -189,6 +196,15 @@ public abstract class Fey extends FlyingFeyBase {
     public void setState(Fey.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
+
+    public int getBored() {
+        return this.entityData.get(BORED);
+    }
+
+    public void setBored(int bored) {
+        this.entityData.set(BORED, bored);
+    }
+
 
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         if (!this.dead && !this.isDeadOrDying()) {

@@ -48,6 +48,7 @@ public class TargetBreedGoal extends Goal {
                 if (this.entity.level instanceof ServerLevel) {
                     this.targetAnimal.spawnChildFromBreeding((ServerLevel) this.entity.level, this.partner);
                     FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.ANIMAL_BREED, this.entity.getX(), this.entity.getY(), this.entity.getZ(), this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
+                    this.entity.setBored(this.entity.getBored() - 1);
                 }
                 this.reset();
             } else if (this.ticksLeft == 65) {
@@ -87,7 +88,7 @@ public class TargetBreedGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer serverPlayer) {
-            return this.entity.level.random.nextFloat() < 0.01f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
+            return this.entity.level.random.nextFloat() < 0.05f && QuestData.get(serverPlayer).getAlignment() == entity.alignment;
         } else {
             return false;
         }

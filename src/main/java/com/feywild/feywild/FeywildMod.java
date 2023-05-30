@@ -281,6 +281,7 @@ public final class FeywildMod extends ModXRegistration {
         event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.hexenLeafParticle, LeafParticle.Factory::new);
         event.register(ModParticles.blossomLeafParticle, LeafParticle.Factory::new);
+        event.register(ModParticles.frostWalkParticle, LeafParticle.Factory::new);
         event.register(ModParticles.springSparkleParticle, SparkleParticle.provider(0, 1, 0));
         event.register(ModParticles.summerSparkleParticle, SparkleParticle.provider(1, 0.8f, 0));
         event.register(ModParticles.autumnSparkleParticle, SparkleParticle.provider(1, 0.4f, 1));

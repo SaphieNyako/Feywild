@@ -1,6 +1,9 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.goals.AddShieldGoal;
+import com.feywild.feywild.entity.goals.BoredCheckingGoal;
 import com.feywild.feywild.entity.goals.SummonSnowManGoal;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.Alignment;
@@ -20,11 +23,17 @@ public class WinterPixie extends Fey {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(20, new SummonSnowManGoal(this));
+        this.goalSelector.addGoal(20, new BoredCheckingGoal(this, false, new AddShieldGoal(this, ModEffects.frostWalk, 30)));
+        this.goalSelector.addGoal(20, new BoredCheckingGoal(this, true, new SummonSnowManGoal(this)));
     }
 
     @Override
     public SimpleParticleType getParticle() {
         return ModParticles.winterSparkleParticle;
+    }
+
+    @Override
+    public int getBoredCount() {
+        return 10;
     }
 }

@@ -1,12 +1,15 @@
 package com.feywild.feywild.entity.goals;
 
-import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.AutumnPixie;
+import com.feywild.feywild.entity.SpringPixie;
+import com.feywild.feywild.entity.SummerPixie;
+import com.feywild.feywild.entity.WinterPixie;
 import com.feywild.feywild.entity.base.Fey;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -17,11 +20,16 @@ import net.minecraft.world.phys.AABB;
 public class AddShieldGoal extends Goal {
 
     private final Fey entity;
+    private final MobEffect effect;
+    private final int duration;
     private Player target;
     private int ticksLeft = 0;
 
-    public AddShieldGoal(AutumnPixie entity) {
+    public AddShieldGoal(Fey entity, MobEffect effect, int duration) {
+
         this.entity = entity;
+        this.effect = effect;
+        this.duration = duration;
     }
 
     @Override
@@ -62,9 +70,18 @@ public class AddShieldGoal extends Goal {
     }
 
     private void addShieldEffect() {
-        this.target.addEffect(new MobEffectInstance(ModEffects.windWalk, 20 * 60, 2));
-        this.target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
-        // FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.WIND_WALK, this.entity.getX(), this.entity.getY(), this.entity.getZ());
+        this.target.addEffect(new MobEffectInstance(effect, 20 * duration, 2));
+        if (entity instanceof AutumnPixie || entity instanceof WinterPixie) {
+            this.target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * duration, 0));
+            this.entity.setBored(this.entity.getBored() - 1);
+        }
+        if (entity instanceof SummerPixie) {
+            this.target.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20 * duration, 0));
+            this.entity.setBored(this.entity.getBored() - 1);
+        }
+        if (entity instanceof SpringPixie) {
+            this.target.addEffect(new MobEffectInstance(MobEffects.LUCK, 20 * 2, 0));
+        }
     }
 
     private void reset() {

@@ -186,6 +186,15 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.followingPlayer = nbt.getBoolean("FollowingPlayer");
     }
 
+    //TODO negate damage when Player does damage??
+    @Override
+    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+        if (damageSource.getEntity() instanceof Player player && player == this.getOwningPlayer()) {
+            return true;
+        }
+        return super.isDamageSourceBlocked(damageSource);
+    }
+
     @Nullable
     @Override
     public UUID getOwner() {
