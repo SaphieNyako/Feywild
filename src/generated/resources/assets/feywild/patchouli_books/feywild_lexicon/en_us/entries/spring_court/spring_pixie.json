@@ -24,6 +24,12 @@
       "item": "minecraft:cookie",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:rune_of_spring",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page5.text0"
     }
   ]
 }

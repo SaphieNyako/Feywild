@@ -45,5 +45,6 @@ public class SoundProvider extends SoundDefinitionProviderBase {
         this.sound(ModSoundEvents.mabHurt).withRange("mab_hurt", 4);
         this.sound(ModSoundEvents.mabIntimidate).withRange("mab_intimidate", 4);
         this.sound(ModSoundEvents.mabSummon).withRange("mab_summon", 3);
+        this.sound(ModSoundEvents.beeKnight).withRange("bee_knight", 2);
     }
 }

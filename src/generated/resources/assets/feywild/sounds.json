@@ -13,6 +13,12 @@
     ],
     "subtitle": "subtitle.feywild.beating_wings"
   },
+  "bee_knight": {
+    "sounds": [
+      "feywild:bee_knight0",
+      "feywild:bee_knight1"
+    ]
+  },
   "dwarf_attack": {
     "sounds": [
       "feywild:dwarf_attack"

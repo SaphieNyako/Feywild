@@ -219,7 +219,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("The presence of a Spring Pixie will make the animals fall in love with each other.")
                 .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .item(ModItems.runeOfSpring)
+                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
 
         this.entry("mandragora")
                 .name("Mandragora")
@@ -292,7 +294,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("As a proud member of the Summer Court the Summer Pixie will smite down her foes.")
                 .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .item(ModItems.runeOfAutumn)
+                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
 
         this.entry("bee_knight")
                 .name("Bee Knight")
@@ -366,7 +370,9 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("Autumn Pixies will try to ward off any evil spirits by protecting you with a wind walk spell.")
                 .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .item(ModItems.runeOfAutumn)
+                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
 
         this.entry("shroomling")
                 .name("Shroomling")
@@ -429,7 +435,10 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("The Winter Pixie will occasionally summon back a soul into a snowman's body.")
                 .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.");
+                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .item(ModItems.runeOfWinter)
+                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
+
 
         this.entry("allay")
                 .name("Allay")

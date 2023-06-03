@@ -57,4 +57,5 @@ public class ModSoundEvents {
     public static final SoundEvent treeEntWalking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "tree_ent_walking"));
     public static final SoundEvent treeEntAttacking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "tree_ent_attacking"));
     public static final SoundEvent feyWings = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "fey_wings"));
+    public static final SoundEvent beeKnight = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "bee_knight"));
 }
