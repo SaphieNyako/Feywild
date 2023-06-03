@@ -1,5 +1,7 @@
-package com.feywild.feywild.entity.base;
+package com.feywild.feywild.entity;
 
+import com.feywild.feywild.entity.base.FeyBase;
+import com.feywild.feywild.entity.base.FlyingFeyBase;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.Alignment;

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 import org.moddingx.libx.base.ItemBase;
 
@@ -114,4 +115,14 @@ public class ModItems {
                     .saturationMod(2.0f)
                     .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 900, 0), 1)
                     .build()), Component.translatable("message.feywild.magical_honey_cookie"));
+
+    @SuppressWarnings("ConstantConditions")
+    public static final Item spawnEggSpringPixie = new ForgeSpawnEggItem(() -> ModEntities.springPixie, 0xf085a9, 0xa1db67, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggSummerPixie = new ForgeSpawnEggItem(() -> ModEntities.summerPixie, 0xf38807, 0xfedc5a, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggAutumnPixie = new ForgeSpawnEggItem(() -> ModEntities.autumnPixie, 0xb73737, 0xa56259, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggWinterPixie = new ForgeSpawnEggItem(() -> ModEntities.winterPixie, 0x84b4be, 0x323c81, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggBeeKnight = new ForgeSpawnEggItem(() -> ModEntities.beeKnight, 0xfabc25, 0x5f3225, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggShroomling = new ForgeSpawnEggItem(() -> ModEntities.shroomling, 0xd94747, 0xf5eeee, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggMandragora = new ForgeSpawnEggItem(() -> ModEntities.mandragora, 0x649b36, 0xd6b172, new Item.Properties().tab(FeywildMod.getInstance().tab));
+
 }

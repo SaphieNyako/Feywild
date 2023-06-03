@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.render;
 
-import com.feywild.feywild.entity.base.BotaniaPixie;
+import com.feywild.feywild.entity.BotaniaPixie;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public class BotaniaPixieRenderer<T extends BotaniaPixie> extends GeoEntityRenderer<T> {
 
     private static final Vec3 OFFSET = new Vec3(0, -0.36, 0);
-    
+
     public BotaniaPixieRenderer(EntityRendererProvider.Context manager, AnimatedGeoModel<T> model) {
         super(manager, model);
         this.shadowRadius = 0.01F;

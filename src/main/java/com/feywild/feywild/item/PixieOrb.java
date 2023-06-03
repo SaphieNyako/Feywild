@@ -1,7 +1,7 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.entity.BotaniaPixie;
 import com.feywild.feywild.entity.ModEntities;
-import com.feywild.feywild.entity.base.BotaniaPixie;
 import com.feywild.feywild.quest.player.QuestData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

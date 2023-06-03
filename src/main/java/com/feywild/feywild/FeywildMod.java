@@ -4,7 +4,6 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.base.BotaniaPixie;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
 import com.feywild.feywild.item.ModItems;

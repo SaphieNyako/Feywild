@@ -5,6 +5,7 @@ import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FlyingFeyBase;
 import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.entity.goals.beeknight.BeeKnightAttackableTargetGoal;
 import com.feywild.feywild.entity.goals.beeknight.BeeRestrictAttackGoal;
 import com.feywild.feywild.network.ParticleMessage;
@@ -30,7 +31,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
@@ -87,16 +88,24 @@ public class BeeKnight extends FlyingFeyBase {
 
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-        super.registerGoals();
+        //super.registerGoals();
         //target
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        // this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, BeeKnight.class)).setAlertOthers());
         this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal(this, Raider.class, true));
         this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal(this, Pillager.class, true));
         this.targetSelector.addGoal(2, new FeyAttackableTargetGoal<>(this, Player.class, true));
         //move
-        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.1f, 16));
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 1.0f, 16));
         //attack
         this.goalSelector.addGoal(1, new BeeRestrictAttackGoal(this, 1.2f, true));
+
+        //other
+        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 8, this.getTargetPositionSpeed()));
+        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
 
     }
 
