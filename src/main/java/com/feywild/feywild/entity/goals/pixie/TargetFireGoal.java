@@ -1,7 +1,7 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.pixie;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
@@ -16,11 +16,11 @@ public class TargetFireGoal extends Goal {
 
     private static final TargetingConditions TARGETING = TargetingConditions.forCombat().range(8.0D).ignoreLineOfSight();
 
-    private final Fey entity;
+    private final Pixie entity;
     private Monster targetMonster;
     private int ticksLeft = 0;
 
-    public TargetFireGoal(Fey entity) {
+    public TargetFireGoal(Pixie entity) {
         this.entity = entity;
     }
 
@@ -47,7 +47,7 @@ public class TargetFireGoal extends Goal {
 
     private void spellCasting() {
         this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetMonster.position());
-        this.entity.setState(Fey.State.CASTING);
+        this.entity.setState(Pixie.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
@@ -58,7 +58,7 @@ public class TargetFireGoal extends Goal {
     }
 
     protected void reset() {
-        this.entity.setState(Fey.State.IDLE);
+        this.entity.setState(Pixie.State.IDLE);
         this.targetMonster = null;
         this.ticksLeft = -1;
     }

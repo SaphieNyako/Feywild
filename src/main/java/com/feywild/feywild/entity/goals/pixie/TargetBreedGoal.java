@@ -1,7 +1,7 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.pixie;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
@@ -19,12 +19,12 @@ public class TargetBreedGoal extends Goal {
 
     private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
 
-    private final Fey entity;
+    private final Pixie entity;
     private Animal targetAnimal;
     private Animal partner;
     private int ticksLeft = 0;
 
-    public TargetBreedGoal(Fey entity) {
+    public TargetBreedGoal(Pixie entity) {
         this.entity = entity;
     }
 
@@ -68,12 +68,12 @@ public class TargetBreedGoal extends Goal {
     }
 
     private void spellCasting() {
-        this.entity.setState(Fey.State.CASTING);
+        this.entity.setState(Pixie.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     protected void reset() {
-        this.entity.setState(Fey.State.IDLE);
+        this.entity.setState(Pixie.State.IDLE);
         this.targetAnimal = null;
         this.partner = null;
         this.ticksLeft = -1;

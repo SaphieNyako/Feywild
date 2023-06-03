@@ -4,7 +4,9 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
+import com.feywild.feywild.entity.goals.pixie.Ability;
 import com.feywild.feywild.item.ModItems;
+import com.feywild.feywild.item.RuneStone;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.network.quest.OpenQuestDisplayMessage;
 import com.feywild.feywild.network.quest.OpenQuestSelectionMessage;
@@ -51,12 +53,13 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Fey extends FlyingFeyBase {
+public abstract class Pixie extends FlyingFeyBase {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> BORED = SynchedEntityData.defineId(Fey.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> BORED = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
+    public Ability ability;
 
-    protected Fey(EntityType<? extends Fey> type, Alignment alignment, Level level) {
+    protected Pixie(EntityType<? extends Pixie> type, Alignment alignment, Level level) {
         super(type, alignment, level);
         setBored(4);
         if (!level.isClientSide)
@@ -101,7 +104,7 @@ public abstract class Fey extends FlyingFeyBase {
 
             } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(getBoredCount());
-                this.getBoredCount();
+                this.setBored(getBoredCount());
                 if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(4) <= 0) {
@@ -132,6 +135,18 @@ public abstract class Fey extends FlyingFeyBase {
                 }
                 player.addItem(new ItemStack(ModItems.pixieOrb));
                 this.remove(RemovalReason.DISCARDED);
+
+            } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())
+                    && player.getItemInHand(hand).getItem() instanceof RuneStone runeStone) {
+                player.swing(player.getUsedItemHand(), true);
+                if (!player.isCreative()) {
+                    player.getItemInHand(hand).shrink(1);
+                    player.addItem(new ItemStack(runeStone.replaceableItem));
+                }
+                this.setAbility(runeStone.ability);
+                if (!level.isClientSide) {
+                    player.sendSystemMessage(Component.literal("Ow this is a fun ability!"));
+                }
 
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
 
@@ -188,12 +203,12 @@ public abstract class Fey extends FlyingFeyBase {
         return false;
     }
 
-    public Fey.State getState() {
-        Fey.State[] states = Fey.State.values();
+    public Pixie.State getState() {
+        Pixie.State[] states = Pixie.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
-    public void setState(Fey.State state) {
+    public void setState(Pixie.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 
@@ -247,6 +262,14 @@ public abstract class Fey extends FlyingFeyBase {
                 QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
             }
         }
+    }
+
+    public Ability getAbility() {
+        return this.ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
     }
 
     public enum State {

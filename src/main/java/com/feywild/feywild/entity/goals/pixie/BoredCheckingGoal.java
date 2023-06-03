@@ -1,6 +1,6 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.pixie;
 
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Pixie;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import javax.annotation.Nonnull;
@@ -8,11 +8,11 @@ import java.util.EnumSet;
 
 public class BoredCheckingGoal extends Goal {
 
-    private final Fey entity;
+    private final Pixie entity;
     private final boolean shouldBeBored;
     private final Goal parent;
 
-    public BoredCheckingGoal(Fey entity, boolean shouldBeBored, Goal parent) {
+    public BoredCheckingGoal(Pixie entity, boolean shouldBeBored, Goal parent) {
         this.entity = entity;
         this.shouldBeBored = shouldBeBored;
         this.parent = parent;

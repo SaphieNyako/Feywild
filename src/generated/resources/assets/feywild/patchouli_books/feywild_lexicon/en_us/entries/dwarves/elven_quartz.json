@@ -28,6 +28,34 @@
     {
       "type": "feywild:dwarven_anvil",
       "recipe": "feywild:raw_winter_elven_quartz_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_blue_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_green_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_light_blue_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_orange_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_pink_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_purple_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_yellow_dwarven_anvil"
     }
   ]
 }

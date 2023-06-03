@@ -34,7 +34,10 @@ public class FlowerWalkEffect extends MobEffect {
                     BlockState blockstate1 = level.getBlockState(blockpos$mutableblockpos);
                     if (blockstate1.isAir()) {
                         BlockState blockstate2 = level.getBlockState(blockpos.below());
-                        if (blockstate2.getMaterial() == Material.DIRT && blockstate.canSurvive(level, blockpos) && level.isUnobstructed(blockstate, blockpos, CollisionContext.empty()) && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(living, net.minecraftforge.common.util.BlockSnapshot.create(level.dimension(), level, blockpos), net.minecraft.core.Direction.UP)) {
+                        if (blockstate2.getMaterial() == Material.DIRT
+                                && blockstate.canSurvive(level, blockpos.above())
+                                && level.isUnobstructed(blockstate, blockpos, CollisionContext.empty())
+                                && !net.minecraftforge.event.ForgeEventFactory.onBlockPlace(living, net.minecraftforge.common.util.BlockSnapshot.create(level.dimension(), level, blockpos), net.minecraft.core.Direction.UP)) {
                             level.setBlockAndUpdate(blockpos.above(), blockstate);
                         }
                     }

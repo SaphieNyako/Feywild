@@ -180,12 +180,12 @@
     "trades": [
       {
         "output": {
-          "item": "feywild:market_rune_stone",
+          "item": "feywild:schematics_runestones",
           "count": 1
         },
         "input": {
-          "item": "feywild:inactive_market_rune_stone",
-          "count": 1
+          "item": "feywild:greater_fey_gem",
+          "count": 10
         },
         "uses": 1,
         "exp": 5,

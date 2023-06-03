@@ -1,7 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.config.MiscConfig;
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
@@ -49,7 +49,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
                 if (serverPlayer.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
                     return false;
-                } else if (alignment != entity.alignment && !(entity instanceof Fey && alignment == null)) {
+                } else if (alignment != entity.alignment && !(entity instanceof Pixie && alignment == null)) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
                     return false;
                 } else {

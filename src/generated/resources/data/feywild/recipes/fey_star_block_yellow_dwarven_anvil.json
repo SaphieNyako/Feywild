@@ -1,0 +1,28 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "feywild:raw_summer_elven_quartz"
+    },
+    {
+      "item": "feywild:raw_elven_quartz"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "mana": 150,
+  "output": {
+    "count": 1,
+    "item": "feywild:fey_star_block_yellow"
+  },
+  "schematics": {
+    "item": "feywild:schematics_elven_quartz"
+  }
+}

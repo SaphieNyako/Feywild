@@ -1,7 +1,7 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.pixie;
 
 import com.feywild.feywild.entity.WinterPixie;
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -15,9 +15,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class SummonSnowManGoal extends Goal {
 
-    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight().selector(living -> !(living instanceof Fey));
+    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight().selector(living -> !(living instanceof Pixie));
 
-    private final Fey entity;
+    private final Pixie entity;
     private int ticksLeft = 0;
     private Vec3 targetPos;
 
@@ -47,17 +47,17 @@ public class SummonSnowManGoal extends Goal {
     @Override
     public void start() {
         this.ticksLeft = 75;
-        this.entity.setState(Fey.State.IDLE);
+        this.entity.setState(Pixie.State.IDLE);
     }
 
     private void spellCasting() {
         this.targetPos = new Vec3(this.entity.getX() + this.entity.getRandom().nextInt(8) - 4, this.entity.getY() + 2, this.entity.getZ() + this.entity.getRandom().nextInt(8) - 4);
-        this.entity.setState(Fey.State.CASTING);
+        this.entity.setState(Pixie.State.CASTING);
         this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     private void reset() {
-        this.entity.setState(Fey.State.IDLE);
+        this.entity.setState(Pixie.State.IDLE);
         this.targetPos = null;
         this.ticksLeft = -1;
     }

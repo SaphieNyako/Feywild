@@ -343,5 +343,121 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .schematics(ModItems.schematicsElvenQuartz)
                 .mana(75)
                 .build();
+
+        this.anvil(ModItems.runeOfSpring)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.summoningScrollSpringPixie)
+                .requires(Items.WRITABLE_BOOK)
+                .requires(ModItems.feyInkBottle)
+                .schematics(ModItems.schematicsRunestones)
+                .mana(1000)
+                .build();
+
+        this.anvil(ModItems.runeOfSummer)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.summoningScrollSummerPixie)
+                .requires(Items.WRITABLE_BOOK)
+                .requires(ModItems.feyInkBottle)
+                .schematics(ModItems.schematicsRunestones)
+                .mana(1000)
+                .build();
+
+        this.anvil(ModItems.runeOfAutumn)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.summoningScrollAutumnPixie)
+                .requires(Items.WRITABLE_BOOK)
+                .requires(ModItems.feyInkBottle)
+                .schematics(ModItems.schematicsRunestones)
+                .mana(1000)
+                .build();
+
+        this.anvil(ModItems.runeOfWinter)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.shinyFeyGem)
+                .requires(ModItems.summoningScrollWinterPixie)
+                .requires(Items.WRITABLE_BOOK)
+                .requires(ModItems.feyInkBottle)
+                .schematics(ModItems.schematicsRunestones)
+                .mana(1000)
+                .build();
+
+        this.anvil(ModItems.marketRuneStone)
+                .requires(ModItems.inactiveMarketRuneStone)
+                .schematics(ModItems.schematicsRunestones)
+                .mana(1000)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockGreen.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawElvenQuartz)
+                .requires(ModItems.rawSpringElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockLightBlue.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawWinterElvenQuartz)
+                .requires(ModItems.rawSpringElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockBlue.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawWinterElvenQuartz)
+                .requires(ModItems.rawElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockPurple.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawWinterElvenQuartz)
+                .requires(ModItems.rawAutumnElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockPink.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawSpringElvenQuartz)
+                .requires(ModItems.rawSummerElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockOrange.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawAutumnElvenQuartz)
+                .requires(ModItems.rawElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
+
+        this.anvil(ModBlocks.feyStarBlockYellow.asItem())
+                .requires(Items.SAND)
+                .requires(Items.SAND)
+                .requires(ModItems.rawSummerElvenQuartz)
+                .requires(ModItems.rawElvenQuartz)
+                .requires(Items.AMETHYST_SHARD)
+                .schematics(ModItems.schematicsElvenQuartz)
+                .mana(150)
+                .build();
     }
 }

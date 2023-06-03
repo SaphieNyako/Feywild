@@ -1,10 +1,7 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.pixie;
 
-import com.feywild.feywild.entity.AutumnPixie;
-import com.feywild.feywild.entity.SpringPixie;
 import com.feywild.feywild.entity.SummerPixie;
-import com.feywild.feywild.entity.WinterPixie;
-import com.feywild.feywild.entity.base.Fey;
+import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -19,17 +16,15 @@ import net.minecraft.world.phys.AABB;
 
 public class AddShieldGoal extends Goal {
 
-    private final Fey entity;
+    private final Pixie entity;
     private final MobEffect effect;
-    private final int duration;
     private Player target;
     private int ticksLeft = 0;
 
-    public AddShieldGoal(Fey entity, MobEffect effect, int duration) {
+    public AddShieldGoal(Pixie entity, MobEffect effect) {
 
         this.entity = entity;
         this.effect = effect;
-        this.duration = duration;
     }
 
     @Override
@@ -43,9 +38,11 @@ public class AddShieldGoal extends Goal {
             if (this.ticksLeft <= 0) {
                 this.addShieldEffect();
                 this.reset();
-            } else if (this.ticksLeft == 65) {
+            } else if (this.ticksLeft == 50) {
+                this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
+            } else if (this.ticksLeft == 45) {
                 this.spellCasting();
-            } else if (this.ticksLeft <= 55) {
+            } else if (this.ticksLeft <= 40) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
             }
         }
@@ -54,7 +51,7 @@ public class AddShieldGoal extends Goal {
     @Override
     public void start() {
         this.ticksLeft = 75;
-        this.entity.setState(Fey.State.IDLE);
+        this.entity.setState(Pixie.State.IDLE);
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(4);
         for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
@@ -65,27 +62,20 @@ public class AddShieldGoal extends Goal {
 
     private void spellCasting() {
         this.entity.getNavigation().moveTo(this.target.getX(), this.target.getY(), this.target.getZ(), 0.5);
-        this.entity.setState(Fey.State.CASTING);
-        this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
+        this.entity.setState(Pixie.State.CASTING);
+        // this.entity.playSound(ModSoundEvents.pixieSpellcasting, 0.7f, 1);
     }
 
     private void addShieldEffect() {
-        this.target.addEffect(new MobEffectInstance(effect, 20 * duration, 2));
-        if (entity instanceof AutumnPixie || entity instanceof WinterPixie) {
-            this.target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * duration, 0));
-            this.entity.setBored(this.entity.getBored() - 1);
-        }
+        this.target.addEffect(new MobEffectInstance(effect, 20 * entity.getBoredCount(), 2));
+        this.entity.setBored(this.entity.getBored() - 1);
         if (entity instanceof SummerPixie) {
-            this.target.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20 * duration, 0));
-            this.entity.setBored(this.entity.getBored() - 1);
-        }
-        if (entity instanceof SpringPixie) {
-            this.target.addEffect(new MobEffectInstance(MobEffects.LUCK, 20 * 2, 0));
+            this.target.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20 * entity.getBoredCount(), 0));
         }
     }
 
     private void reset() {
-        this.entity.setState(Fey.State.IDLE);
+        this.entity.setState(Pixie.State.IDLE);
         this.target = null;
         this.ticksLeft = -1;
     }

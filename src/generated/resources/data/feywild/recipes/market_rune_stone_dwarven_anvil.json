@@ -1,0 +1,16 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "ingredients": [
+    {
+      "item": "feywild:inactive_market_rune_stone"
+    }
+  ],
+  "mana": 1000,
+  "output": {
+    "count": 1,
+    "item": "feywild:market_rune_stone"
+  },
+  "schematics": {
+    "item": "feywild:schematics_runestones"
+  }
+}

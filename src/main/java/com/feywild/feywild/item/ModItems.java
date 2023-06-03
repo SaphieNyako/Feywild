@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.goals.pixie.Ability;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.chat.Component;
@@ -36,17 +37,28 @@ public class ModItems {
     public static final Item summoningScroll = new EmptyScroll(FeywildMod.getInstance(), new Item.Properties());
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
+    public static final Item inactiveRuneOfSpring = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_spring"));
+    public static final RuneStone runeOfSpring = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.FLOWER_WALK, ModItems.inactiveRuneOfSpring, Component.translatable("message.feywild.rune_of_spring"));
+    public static final Item inactiveRuneOfWinter = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_winter"));
+    public static final RuneStone runeOfWinter = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.FROST_WALK, ModItems.inactiveRuneOfWinter, Component.translatable("message.feywild.rune_of_winter"));
+    public static final Item inactiveRuneOfSummer = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_summer"));
+    public static final RuneStone runeOfSummer = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.FIRE_WALK, ModItems.inactiveRuneOfSummer, Component.translatable("message.feywild.rune_of_summer"));
+    public static final Item inactiveRuneOfAutumn = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_autumn"));
+    public static final RuneStone runeOfAutumn = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.WIND_WALK, ModItems.inactiveRuneOfAutumn, Component.translatable("message.feywild.rune_of_autumn"));
     public static final Item inactiveMarketRuneStone = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().stacksTo(1), Component.translatable("message.feywild.inactive_market_rune_stone"));
     public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final TeleportationOrb teleportationOrb = new TeleportationOrb(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final PixieOrb pixieOrb = new PixieOrb(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final FeywildMusicDisc feywildMusicDisc = new FeywildMusicDisc();
+
     public static final Item schematicsGemTransmutation = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_gem_transmutation"));
     public static final Item schematicsElvenQuartz = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_elven_quartz"));
+    public static final Item schematicsRunestones = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_runestones"));
     public static final Item schematicsElementalRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_elemental_rune_crafting"));
     public static final Item schematicsSeasonalRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_seasonal_rune_crafting"));
     public static final Item schematicsDeadlyRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_deadly_rune_crafting"));
     public static final Item schematicsYggdrasilRuneCrafting = new Schematics(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.schematics_yggdrasil_rune_crafting"));
+
     public static final SummoningScrollDwarfBlacksmith summoningScrollDwarfBlacksmith = new SummoningScrollDwarfBlacksmith(FeywildMod.getInstance(), ModEntities.dwarfBlacksmith, new Item.Properties());
     public static final SummoningScrollFey<SpringPixie> summoningScrollSpringPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.springPixie, ModSoundEvents.summoningSpringPixieShort, new Item.Properties());
     public static final SummoningScrollFey<SummerPixie> summoningScrollSummerPixie = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.summerPixie, ModSoundEvents.summoningSummerPixieShort, new Item.Properties());
