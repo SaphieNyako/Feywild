@@ -108,10 +108,22 @@
         "weight": 60
       },
       {
+        "type": "feywild:mandragora",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 30
+      },
+      {
         "type": "feywild:botania_pixie",
         "maxCount": 4,
         "minCount": 2,
         "weight": 60
+      },
+      {
+        "type": "feywild:mandragora",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 30
       },
       {
         "type": "feywild:spring_tree_ent",

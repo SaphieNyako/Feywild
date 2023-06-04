@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.tree_ent;
 
 import com.feywild.feywild.entity.base.TreeEntBase;
 import net.minecraft.world.entity.ai.goal.Goal;

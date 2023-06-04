@@ -1,7 +1,8 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.dwarf;
 
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.entity.DwarfBlacksmith;
+import com.feywild.feywild.entity.goals.MovementRestrictionGoal;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;

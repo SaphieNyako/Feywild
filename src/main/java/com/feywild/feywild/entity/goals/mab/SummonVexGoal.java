@@ -1,31 +1,29 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.mab;
 
-import com.feywild.feywild.entity.BeeKnight;
-import com.feywild.feywild.entity.ModEntities;
-import com.feywild.feywild.entity.Titania;
+import com.feywild.feywild.entity.Mab;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 import java.util.Random;
 
-public class SummonBeeKnightGoal extends Goal {
+public class SummonVexGoal extends Goal {
 
     private static final TargetingConditions TARGETING = TargetingConditions.forCombat().range(8.0D).ignoreLineOfSight();
     protected final Level level;
-    protected final Titania entity;
+    protected final Mab entity;
     private int ticksLeft = 0;
     private Player target;
 
-    public SummonBeeKnightGoal(Titania titania) {
-        this.entity = titania;
-        this.level = titania.level;
+    public SummonVexGoal(Mab mab) {
+        this.entity = mab;
+        this.level = mab.level;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class SummonBeeKnightGoal extends Goal {
             }
             this.ticksLeft--;
             if (this.ticksLeft <= 0) {
-                this.summonBeeKnight(target);
+                this.summonVex(target);
                 reset();
             } else if (this.ticksLeft <= 30) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
@@ -48,32 +46,19 @@ public class SummonBeeKnightGoal extends Goal {
         }
     }
 
-    private Player findTarget() {
-        double distance = Double.MAX_VALUE;
-        Player current = null;
-        for (Player player : this.entity.level.getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(32))) {
-            if (this.entity.distanceToSqr(player) < distance) {
-                current = player;
-                distance = this.entity.distanceToSqr(player);
-            }
-        }
-        return current;
-    }
-
     private void spellCasting() {
         this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
-        this.entity.setState(Titania.State.ENCHANTING);
-        this.entity.playSound(ModSoundEvents.spellcastingShort, 0.7f, 1.0f);
-        this.entity.playSound(ModSoundEvents.titaniaSummonBee, 1.0f, 1.1f);
+        this.entity.setState(Mab.State.SPECIAL);
+        this.entity.playSound(ModSoundEvents.spellcastingShort, 1, 1);
     }
 
-    private void summonBeeKnight(Player target) {
-        BeeKnight beeKnight = new BeeKnight(ModEntities.beeKnight, this.level);
+    private void summonVex(Player target) {
+        Vex vex = new Vex(EntityType.VEX, this.level);
         Random random = new Random();
-        beeKnight.setPos(this.entity.getX() + (random.nextInt(3)), this.entity.getY() + (random.nextInt(3)), this.entity.getZ() + (random.nextInt(3)));
-        this.level.addFreshEntity(beeKnight);
-        this.entity.playSound(SoundEvents.BEEHIVE_EXIT, 1, 1);
-        BeeKnight.anger(entity.getLevel(), target, target.blockPosition());
+        vex.setPos(this.entity.getX() + (random.nextInt(3)), this.entity.getY() + (random.nextInt(3)), this.entity.getZ() + (random.nextInt(3)));
+        vex.setTarget(target);
+        this.level.addFreshEntity(vex);
+        this.entity.playSound(ModSoundEvents.mabSummon, 1, 1);
     }
 
     @Override
@@ -88,14 +73,14 @@ public class SummonBeeKnightGoal extends Goal {
     }
 
     private void reset() {
-        this.entity.setState(Titania.State.IDLE);
+        this.entity.setState(Mab.State.IDLE);
         this.target = null;
         this.ticksLeft = -1;
     }
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.01f && (this.entity.getState() == Titania.State.IDLE || !(this.entity.getState() == Titania.State.CASTING) || !(this.entity.getState() == Titania.State.ENCHANTING));
+        return this.entity.level.random.nextFloat() < 0.01f && (this.entity.getState() == Mab.State.IDLE || !(this.entity.getState() == Mab.State.INTIMIDATE) || !(this.entity.getState() == Mab.State.SPECIAL) || !(this.entity.getState() == Mab.State.PHYSICAL));
     }
 
     @Override

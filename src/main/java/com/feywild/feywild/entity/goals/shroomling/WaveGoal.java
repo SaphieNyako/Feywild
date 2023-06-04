@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.shroomling;
 
 import com.feywild.feywild.entity.Shroomling;
 import com.feywild.feywild.sound.ModSoundEvents;

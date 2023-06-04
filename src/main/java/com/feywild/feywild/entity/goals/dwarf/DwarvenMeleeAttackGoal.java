@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.dwarf;
 
 import com.feywild.feywild.entity.DwarfBlacksmith;
 import com.feywild.feywild.sound.ModSoundEvents;

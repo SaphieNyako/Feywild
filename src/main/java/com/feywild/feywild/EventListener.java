@@ -19,7 +19,6 @@ import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.FeywildDimensions;
 import com.feywild.feywild.world.market.MarketData;
 import com.feywild.feywild.world.market.MarketHandler;
-import com.feywild.feywild.world.teleport.DefaultTeleporter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.Registry;
@@ -32,6 +31,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.behavior.InteractWithDoor;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +41,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.pathfinder.Node;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -56,6 +58,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.event.ConfigLoadedEvent;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class EventListener {
@@ -209,12 +212,22 @@ public class EventListener {
 
     @SubscribeEvent
     public void sleepInFeywild(SleepingLocationCheckEvent event) {
+
         if (event.getEntity() instanceof ServerPlayer player && event.getEntity().level.dimension() == FeywildDimensions.FEYWILD) {
+
+            player.startSleeping(player.blockPosition());
+            player.getBrain().setMemory(MemoryModuleType.HOME, Optional.empty());
+            InteractWithDoor.closeDoorsThatIHaveOpenedOrPassedThrough(player.getLevel(), player, (Node) null, (Node) null);
+
+            // player.getLevel().getServer().getWorldData().overworldData().setDayTime(1000);
+            player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 70, 0));
+
+            //player.sendSystemMessage(Component.literal("You feel rested, but time did not change. Is this a dream or reality?"));
+
+            /*
             ServerLevel targetLevel = player.getLevel().getServer().overworld();
             player.changeDimension(targetLevel, new DefaultTeleporter());
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
-            player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
-            player.sendSystemMessage(Component.literal("Was it all a dream?"));
+             */
         }
     }
 

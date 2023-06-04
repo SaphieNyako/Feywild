@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.tree_ent;
 
 import com.feywild.feywild.entity.SpringTreeEnt;
 import com.feywild.feywild.entity.base.TreeEntBase;

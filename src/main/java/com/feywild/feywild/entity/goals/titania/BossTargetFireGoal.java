@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.titania;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.Titania;

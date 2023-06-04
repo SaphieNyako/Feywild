@@ -108,6 +108,12 @@
         "weight": 60
       },
       {
+        "type": "feywild:shroomling",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 30
+      },
+      {
         "type": "feywild:autumn_tree_ent",
         "maxCount": 1,
         "minCount": 1,

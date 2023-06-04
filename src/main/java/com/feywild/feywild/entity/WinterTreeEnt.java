@@ -6,11 +6,12 @@ import com.feywild.feywild.block.trees.FeyLogBlock;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.base.TreeEntBase;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
-import com.feywild.feywild.entity.goals.TreeEntMeleeAttackGoal;
-import com.feywild.feywild.entity.goals.TreeEntMoveAndSoundGoal;
+import com.feywild.feywild.entity.goals.tree_ent.TreeEntMeleeAttackGoal;
+import com.feywild.feywild.entity.goals.tree_ent.TreeEntMoveAndSoundGoal;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -86,7 +87,7 @@ public class WinterTreeEnt extends TreeEntBase {
     @Override
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        if ((player.getItemInHand(hand).getItem() == getWoodBlock().asItem() || player.getItemInHand(hand).getItem() == Items.COOKIE)
+        if ((player.getItemInHand(hand).getItem() == getWoodBlock().asItem() || player.getItemInHand(hand).is(ModItemTags.COOKIES))
                 && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
             this.heal(FEY_WOOD_HEAL_AMOUNT);
             if (!player.isCreative()) {

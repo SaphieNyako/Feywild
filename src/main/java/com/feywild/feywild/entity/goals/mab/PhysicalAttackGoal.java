@@ -1,4 +1,4 @@
-package com.feywild.feywild.entity.goals;
+package com.feywild.feywild.entity.goals.mab;
 
 import com.feywild.feywild.entity.Mab;
 import com.feywild.feywild.sound.ModSoundEvents;

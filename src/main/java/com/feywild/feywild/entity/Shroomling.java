@@ -4,11 +4,12 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.base.ITameable;
-import com.feywild.feywild.entity.goals.SneezeGoal;
-import com.feywild.feywild.entity.goals.WaveGoal;
+import com.feywild.feywild.entity.goals.shroomling.SneezeGoal;
+import com.feywild.feywild.entity.goals.shroomling.WaveGoal;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -104,7 +105,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
         // if (superResult == InteractionResult.PASS) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (ComposterBlock.COMPOSTABLES.containsKey(itemstack.getItem()) && player.getGameProfile().getId().equals(this.getOwner())
-                && player.getItemInHand(hand).getItem() != Items.COOKIE
+                && !player.getItemInHand(hand).is(ModItemTags.COOKIES)
                 && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
             // if (!level.isClientSide) {
             if (!player.isCreative()) {
@@ -117,7 +118,7 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
 
             //  }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
-        } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+        } else if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
             //   if (!level.isClientSide) {
             this.heal(4);
             if (!player.isCreative()) {

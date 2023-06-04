@@ -111,7 +111,7 @@
         "type": "minecraft:allay",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 10
+        "weight": 20
       },
       {
         "type": "feywild:dwarf_blacksmith",

@@ -2,9 +2,9 @@ package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.block.trees.FeyLogBlock;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
-import com.feywild.feywild.entity.goals.TreeEntMeleeAttackGoal;
-import com.feywild.feywild.entity.goals.TreeEntMoveAndSoundGoal;
-import com.feywild.feywild.entity.goals.TreeEntResetTargetGoal;
+import com.feywild.feywild.entity.goals.tree_ent.TreeEntMeleeAttackGoal;
+import com.feywild.feywild.entity.goals.tree_ent.TreeEntMoveAndSoundGoal;
+import com.feywild.feywild.entity.goals.tree_ent.TreeEntResetTargetGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;

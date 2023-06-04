@@ -18,6 +18,7 @@ import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -102,7 +103,7 @@ public abstract class Pixie extends FlyingFeyBase {
             if (!stack.isEmpty() && player instanceof ServerPlayer && this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
 
-            } else if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            } else if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(getBoredCount());
                 this.setBored(getBoredCount());
                 if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {

@@ -2,9 +2,9 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
 import com.feywild.feywild.entity.base.ISummonable;
-import com.feywild.feywild.entity.goals.IntimidateGoal;
-import com.feywild.feywild.entity.goals.PhysicalAttackGoal;
-import com.feywild.feywild.entity.goals.SummonVexGoal;
+import com.feywild.feywild.entity.goals.mab.IntimidateGoal;
+import com.feywild.feywild.entity.goals.mab.PhysicalAttackGoal;
+import com.feywild.feywild.entity.goals.mab.SummonVexGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.core.BlockPos;

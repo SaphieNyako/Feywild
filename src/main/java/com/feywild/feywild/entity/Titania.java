@@ -2,9 +2,9 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
 import com.feywild.feywild.entity.base.ISummonable;
-import com.feywild.feywild.entity.goals.BossTargetFireGoal;
 import com.feywild.feywild.entity.goals.DodgeGoal;
-import com.feywild.feywild.entity.goals.SummonBeeKnightGoal;
+import com.feywild.feywild.entity.goals.titania.BossTargetFireGoal;
+import com.feywild.feywild.entity.goals.titania.SummonBeeKnightGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.core.BlockPos;

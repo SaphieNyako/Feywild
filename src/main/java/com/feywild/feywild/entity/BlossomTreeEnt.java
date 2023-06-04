@@ -5,6 +5,7 @@ import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.FeyLogBlock;
 import com.feywild.feywild.entity.base.TreeEntBase;
 import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -35,7 +36,7 @@ public class BlossomTreeEnt extends TreeEntBase {
     @Override
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        if ((player.getItemInHand(hand).getItem() == getWoodBlock().asItem() || player.getItemInHand(hand).getItem() == Items.COOKIE)
+        if ((player.getItemInHand(hand).getItem() == getWoodBlock().asItem() || player.getItemInHand(hand).is(ModItemTags.COOKIES))
                 && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
             this.heal(FEY_WOOD_HEAL_AMOUNT);
             if (!player.isCreative()) {
