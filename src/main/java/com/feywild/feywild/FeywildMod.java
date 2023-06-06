@@ -28,6 +28,7 @@ import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -160,6 +161,7 @@ public final class FeywildMod extends ModXRegistration {
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
 
+
             SpawnPlacements.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
             SpawnPlacements.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
             SpawnPlacements.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
@@ -178,6 +180,8 @@ public final class FeywildMod extends ModXRegistration {
             SpawnPlacements.register(ModEntities.autumnTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEnt::canSpawn);
             SpawnPlacements.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn);
             SpawnPlacements.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn);
+
+            SpawnPlacements.register(ModEntities.loreMaster, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LoreMaster::canSpawn);
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntities.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -242,6 +246,8 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.blossomTreeEnt, BaseTreeEntRenderer.create(BlossomTreeEntModel::new));
         EntityRenderers.register(ModEntities.hexenTreeEnt, BaseTreeEntRenderer.create(HexenTreeEntModel::new));
 
+        EntityRenderers.register(ModEntities.loreMaster, VillagerRenderer::new);
+
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -270,6 +276,7 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.autumnTreeEnt, AutumnTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.blossomTreeEnt, BlossomTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.hexenTreeEnt, HexenTreeEnt.getDefaultAttributes().build());
+        event.put(ModEntities.loreMaster, LoreMaster.createAttributes().build());
     }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {

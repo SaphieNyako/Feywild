@@ -2,7 +2,7 @@
   "type": "feywild:dwarven_anvil",
   "ingredients": [
     {
-      "item": "feywild:inactive_rune_autumn"
+      "item": "feywild:inactive_rune_of_autumn"
     }
   ],
   "mana": 1000,

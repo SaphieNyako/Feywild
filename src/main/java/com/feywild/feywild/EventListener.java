@@ -6,7 +6,6 @@ import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.ReaperScythe;
-import com.feywild.feywild.network.LibraryScreenMessage;
 import com.feywild.feywild.network.OpeningScreenMessage;
 import com.feywild.feywild.network.TradesMessage;
 import com.feywild.feywild.quest.player.QuestData;
@@ -15,7 +14,6 @@ import com.feywild.feywild.screens.DisplayQuestScreen;
 import com.feywild.feywild.screens.FeywildTitleScreen;
 import com.feywild.feywild.screens.SelectQuestScreen;
 import com.feywild.feywild.trade.TradeManager;
-import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.FeywildDimensions;
 import com.feywild.feywild.world.market.MarketData;
 import com.feywild.feywild.world.market.MarketHandler;
@@ -23,7 +21,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -147,12 +144,6 @@ public class EventListener {
     public void entityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!event.getLevel().isClientSide && event.getEntity() instanceof ServerPlayer player) {
             QuestData.get(player).checkComplete(AnimalPetTask.INSTANCE, event.getTarget());
-            if (event.getTarget() instanceof Villager && event.getTarget().getTags().contains("feywild_librarian")) {
-                player.sendSystemMessage(Component.translatable("librarian.feywild.initial"));
-                FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new LibraryScreenMessage(event.getTarget().getDisplayName(), LibraryBooks.getLibraryBooks()));
-                player.swing(event.getHand(), true);
-                event.setCanceled(true);
-            }
         }
     }
 

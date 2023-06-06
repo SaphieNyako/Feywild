@@ -1,6 +1,6 @@
 package com.feywild.feywild.entity.goals.pixie;
 
-import com.feywild.feywild.entity.SummerPixie;
+import com.feywild.feywild.effects.ModEffects;
 import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
@@ -69,8 +69,11 @@ public class AddShieldGoal extends Goal {
     private void addShieldEffect() {
         this.target.addEffect(new MobEffectInstance(effect, 20 * entity.getBoredCount(), 2));
         this.entity.setBored(this.entity.getBored() - 1);
-        if (entity instanceof SummerPixie) {
+        if (effect == ModEffects.fireWalk) {
             this.target.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 20 * entity.getBoredCount(), 0));
+        }
+        if (effect == ModEffects.flowerWalk) {
+            this.target.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5, 0));
         }
     }
 

@@ -100,5 +100,6 @@ public class ModEntities {
             .sized(1.0f, 4.0f)
             .build(FeywildMod.getInstance().modid + "_mab");
 
+    public static final EntityType<LoreMaster> loreMaster = EntityType.Builder.of(LoreMaster::new, MobCategory.CREATURE).build(FeywildMod.getInstance().modid + "_lore_master");
 
 }
