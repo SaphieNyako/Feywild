@@ -26,7 +26,7 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
             (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>())
                     .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.feyFlying, 20 * 60)).build();
 
-    public final Variant variant;
+    public Variant variant;
     public AnimationFactory factory = new AnimationFactory(this);
 
     public FeyWing(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, Variant variant) {
@@ -36,12 +36,34 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
+        setPrideWings(stack);
+        if (stack.getDisplayName().getString().contains("lesbian_pride_wings")) {
+            setVariant(Variant.LESBIAN_PRIDE);
+        }
         for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
             ArmorMaterial mapArmorMaterial = entry.getKey();
             MobEffectInstance mapStatusEffect = entry.getValue();
             if (player.getInventory().getArmor(2).getItem() instanceof FeyWing && MiscConfig.players_can_fly) {
                 addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
             }
+        }
+    }
+
+    private void setPrideWings(ItemStack stack) {
+        if (stack.getDisplayName().getString().contains("lesbian_pride_wings")) {
+            setVariant(Variant.LESBIAN_PRIDE);
+        } else if (stack.getDisplayName().getString().contains("trans_pride_wings")) {
+            setVariant(Variant.TRANS_PRIDE);
+        } else if (stack.getDisplayName().getString().contains("gay_pride_wings")) {
+            setVariant(Variant.GAY_PRIDE);
+        } else if (stack.getDisplayName().getString().contains("bi_pride_wings")) {
+            setVariant(Variant.BI_PRIDE);
+        } else if (stack.getDisplayName().getString().contains("pan_pride_wings")) {
+            setVariant(Variant.PAN_PRIDE);
+        } else if (stack.getDisplayName().getString().contains("aroace_pride_wings")) {
+            setVariant(Variant.AROACE_PRIDE);
+        } else if (stack.getDisplayName().getString().contains("asexual_pride_wings")) {
+            setVariant(Variant.ASEXUAL_PRIDE);
         }
     }
 
@@ -68,9 +90,15 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
         return this.factory;
     }
 
+    public void setVariant(Variant variant) {
+        this.variant = variant;
+    }
+
     public enum Variant {
 
-        SPRING("spring"), SUMMER("summer"), AUTUMN("autumn"), WINTER("winter"), BLOSSOM("blossom"), LIGHT("light"), SHADOW("shadow"), HEXEN("hexen");
+        SPRING("spring"), SUMMER("summer"), AUTUMN("autumn"), WINTER("winter"), BLOSSOM("blossom"), LIGHT("light"), SHADOW("shadow"), HEXEN("hexen"),
+        LESBIAN_PRIDE("lesbian_pride"), TRANS_PRIDE("trans_pride"), GAY_PRIDE("gay_pride"), BI_PRIDE("bi_pride"), PAN_PRIDE("pan_pride"),
+        AROACE_PRIDE("aroace_pride"), ASEXUAL_PRIDE("asexual_pride");
 
         public final String id;
 
