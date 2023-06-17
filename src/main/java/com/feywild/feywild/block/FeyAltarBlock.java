@@ -1,7 +1,6 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltar;
-import com.feywild.feywild.block.geckolib.BlockGE;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -14,44 +13,42 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.moddingx.libx.base.tile.BlockBE;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
 
-public class FeyAltarBlock extends BlockGE<FeyAltar> {
-
-
-    private static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
+public class FeyAltarBlock extends BlockBE<FeyAltar> {
+    
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 32, 16);
     private final Alignment alignment;
 
     public FeyAltarBlock(ModX mod, Alignment alignment) {
-        super(mod, FeyAltar.class, BlockBehaviour.Properties.of(Material.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion());
+        super(mod, FeyAltar.class, BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion());
         this.alignment = alignment;
     }
 
-    @Nonnull
-    @Override
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return SHAPE;
+    public Alignment getAlignment() {
+        return alignment;
     }
-
+    
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(SetupContext ctx) {
-        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), FeyAltarRenderer::new));
+        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), c -> new FeyAltarRenderer()));
     }
 
     @Override
@@ -64,8 +61,7 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
     }
-
-
+    
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -125,19 +121,18 @@ public class FeyAltarBlock extends BlockGE<FeyAltar> {
         super.spawnDestroyParticles(level, player, pos, state);
     }
 
+    // UPDATE_TODO multiblock ?
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+        return SHAPE;
+    }
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
     public RenderShape getRenderShape(@Nonnull BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
-    }
-
-    @Override
-    protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
-        return true;
-    }
-
-    public Alignment getAlignment() {
-        return alignment;
     }
 }

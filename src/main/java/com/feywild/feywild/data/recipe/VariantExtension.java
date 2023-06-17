@@ -1,6 +1,6 @@
 package com.feywild.feywild.data.recipe;
 
-import com.feywild.feywild.block.ElvenQuartzBlock;
+import com.feywild.feywild.block.decoration.ElvenQuartzBlock;
 import net.minecraft.world.item.Items;
 import org.moddingx.libx.base.decoration.DecoratedBlock;
 import org.moddingx.libx.base.decoration.DecorationType;

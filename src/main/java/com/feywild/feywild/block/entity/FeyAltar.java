@@ -21,13 +21,7 @@ import org.moddingx.libx.capability.ItemCapabilities;
 import org.moddingx.libx.inventory.BaseItemStackHandler;
 import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
 import org.moddingx.libx.util.lazy.LazyValue;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,15 +31,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatable {
+// UPDATE_TODO animations
+public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockEntity {
 
     public static final int MAX_PROGRESS = 40;
 
     private final BaseItemStackHandler inventory;
     private final LazyOptional<IAdvancedItemHandlerModifiable> itemHandler;
-    private final AnimationFactory animationFactory = new AnimationFactory(this);
     private int progress = 0;
-    private int particleTimer = 0;
     private boolean needsUpdate = false;
     private LazyValue<Optional<Pair<ItemStack, IAltarRecipe>>> recipe = new LazyValue<>(Optional::empty);
 
@@ -54,7 +47,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
         this.inventory = BaseItemStackHandler.builder(5)
                 .contentsChanged(() -> {
                     this.setChanged();
-                    this.updabeRecipe();
+                    this.updateRecipe();
                     this.setDispatchable();
                 })
                 .defaultSlotLimit(1)
@@ -77,7 +70,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
         if (this.level == null) return;
         if (!this.level.isClientSide) {
             if (this.needsUpdate) {
-                this.updabeRecipe();
+                this.updateRecipe();
                 this.needsUpdate = false;
             }
             if (this.recipe.get().isPresent()) {
@@ -135,7 +128,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
     }
 
 
-    private void updabeRecipe() {
+    private void updateRecipe() {
         if (this.level != null && !this.level.isClientSide) {
             this.recipe = new LazyValue<>(() -> {
                 List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
@@ -190,7 +183,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
             this.progress = nbt.getInt("progress");
         }
     }
-
+/*
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.fey_altar.standard", true));
         return PlayState.CONTINUE;
@@ -205,4 +198,5 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, IAnimatab
     public AnimationFactory getFactory() {
         return this.animationFactory;
     }
+*/
 }

@@ -8,16 +8,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,7 +35,7 @@ public class DwarvenAnvilBlock extends MenuBlockBE<DwarvenAnvil, DwarvenAnvilMen
     public DwarvenAnvilBlock(ModX mod) {
         super(
                 mod, DwarvenAnvil.class, BlockEntityMenu.createMenuType(DwarvenAnvilMenu::new),
-                BlockBehaviour.Properties.of(Material.HEAVY_METAL)
+                BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
                         .strength(3f, 10f)
                         .sound(SoundType.ANVIL)
                         .lightLevel(value -> 14)
@@ -84,10 +79,5 @@ public class DwarvenAnvilBlock extends MenuBlockBE<DwarvenAnvil, DwarvenAnvilMen
     @SuppressWarnings("deprecation")
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
-    }
-
-    @Override
-    protected boolean shouldDropInventory(Level level, BlockPos pos, BlockState state) {
-        return true;
     }
 }

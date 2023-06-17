@@ -4,15 +4,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -37,7 +33,7 @@ public class TreeMushroomBlock extends BlockBase {
     ));
 
     public TreeMushroomBlock(ModX mod) {
-        super(mod, BlockBehaviour.Properties.of(Material.GRASS)
+        super(mod, BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM_BLOCK)
                 .sound(SoundType.FUNGUS)
                 .noOcclusion().noCollission()
                 .lightLevel(value -> 10)

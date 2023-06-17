@@ -1,4 +1,4 @@
-package com.feywild.feywild.block;
+package com.feywild.feywild.block.decoration;
 
 import net.minecraft.world.level.block.Block;
 import org.moddingx.libx.base.BlockBase;

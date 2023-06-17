@@ -7,12 +7,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.base.tile.BlockBE;
@@ -27,7 +27,7 @@ public class DisplayGlassBlock extends BlockBE<DisplayGlass> {
     public static final IntegerProperty BREAKAGE = IntegerProperty.create("breakage", 0, 4);
 
     public DisplayGlassBlock(ModX mod) {
-        super(mod, DisplayGlass.class, BlockBehaviour.Properties.of(Material.GLASS).strength(9999999f).noOcclusion().noLootTable());
+        super(mod, DisplayGlass.class, BlockBehaviour.Properties.copy(Blocks.GLASS).strength(9999999f).noOcclusion().noLootTable());
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(CAN_GENERATE, false)
                 .setValue(BREAKAGE, 0)

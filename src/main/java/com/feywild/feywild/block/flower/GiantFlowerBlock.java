@@ -2,7 +2,7 @@ package com.feywild.feywild.block.flower;
 
 import com.feywild.feywild.config.ClientConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -32,9 +31,6 @@ import org.moddingx.libx.registration.RegistrationContext;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import org.moddingx.libx.registration.Registerable.EntryCollector;
-
 public abstract class GiantFlowerBlock extends Block implements Registerable {
 
     public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
@@ -47,7 +43,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     private final GiantFlowerSeedItem item;
 
     public GiantFlowerBlock(ModX mod, int height) {
-        super(Properties.of(Material.PLANT).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8));
+        super(Properties.copy(Blocks.LARGE_FERN).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8).pushReaction(PushReaction.DESTROY));
         this.height = height;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
         this.item = new GiantFlowerSeedItem(mod, this);
@@ -56,7 +52,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.registerNamed(Registry.ITEM, "seed", this.item);
+        builder.registerNamed(Registries.ITEM, "seed", this.item);
     }
 
     @Override
@@ -102,13 +98,6 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
             this.removeOthers(level, oldState, pos);
         }
         super.onRemove(oldState, level, pos, newState, moving);
-    }
-
-    @Nonnull
-    @Override
-    @SuppressWarnings("deprecation")
-    public PushReaction getPistonPushReaction(@Nonnull BlockState state) {
-        return PushReaction.DESTROY;
     }
 
     @Override

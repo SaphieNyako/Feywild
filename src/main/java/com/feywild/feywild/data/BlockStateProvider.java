@@ -4,7 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.MossyBlock;
+import com.feywild.feywild.block.decoration.MossyBlock;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;

@@ -103,14 +103,14 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
     public void saveAdditional(@Nonnull CompoundTag nbt) {
         super.saveAdditional(nbt);
         nbt.put("inventory", this.inventory.serializeNBT());
-        nbt.put("mana", this.manaStorage.serializeNBT());
+        nbt.put("mana", this.manaStorage.save());
     }
 
     @Override
     public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
         this.inventory.deserializeNBT(nbt.getCompound("inventory"));
-        this.manaStorage.deserializeNBT(nbt.getCompound("mana"));
+        this.manaStorage.load(nbt.getCompound("mana"));
         this.needsUpdate = true;
     }
 
