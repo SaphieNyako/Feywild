@@ -54,11 +54,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.moddingx.libx.datapack.DynamicPacks;
 import org.moddingx.libx.mod.ModXRegistration;
-import org.moddingx.libx.registration.RegistrationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib.GeckoLib;
 
 import javax.annotation.Nonnull;
 
@@ -66,24 +66,28 @@ import javax.annotation.Nonnull;
 public final class FeywildMod extends ModXRegistration {
 
     public static final Logger logger = LoggerFactory.getLogger("feywild");
+    
+    // UPDATE_TODO remove from here
     public static StructureProcessorType<SpringTreeProcessor> SPRING_TREE_PROCESSOR = () -> SpringTreeProcessor.CODEC;
     public static StructureProcessorType<SummerTreeProcessor> SUMMER_TREE_PROCESSOR = () -> SummerTreeProcessor.CODEC;
     public static StructureProcessorType<AutumnTreeProcessor> AUTUMN_TREE_PROCESSOR = () -> AutumnTreeProcessor.CODEC;
     public static StructureProcessorType<WinterTreeProcessor> WINTER_TREE_PROCESSOR = () -> WinterTreeProcessor.CODEC;
     public static StructureProcessorType<BlossomTreeProcessor> BLOSSOM_TREE_PROCESSOR = () -> BlossomTreeProcessor.CODEC;
     public static StructureProcessorType<HexenTreeProcessor> HEXEN_TREE_PROCESSOR = () -> HexenTreeProcessor.CODEC;
+    
     private static FeywildMod instance;
     private static FeywildNetwork network;
+    private static FeywildTab tab;
 
     public FeywildMod() {
-        super(new FeywildTab("feywild"));
-
-
         instance = this;
         network = new FeywildNetwork(this);
-
+        tab = new FeywildTab(this);
+        
         GeckoLib.initialize();
 
+        DynamicPacks.RESOURCE_PACKS.enablePack(this.modid, "redux");
+        
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
@@ -126,6 +130,11 @@ public final class FeywildMod extends ModXRegistration {
         return network;
     }
 
+    @Nonnull
+    public static FeywildTab getCreativeTab() {
+        return tab;
+    }
+
     private void serverAboutToStart(final ServerAboutToStartEvent event) {
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
                 new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
@@ -150,11 +159,6 @@ public final class FeywildMod extends ModXRegistration {
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
                 new ResourceLocation("feywild:village/taiga/houses/autumn_temple"), 5);
 
-    }
-
-    @Override
-    protected void initRegistration(RegistrationBuilder builder) {
-        //
     }
 
     @Override
