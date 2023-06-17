@@ -12,6 +12,8 @@ import org.moddingx.libx.network.PacketSerializer;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import org.moddingx.libx.network.PacketHandler.Target;
+
 public record ParticleMessage(Type type, double x, double y, double z, double vx, double vy, double vz) {
 
     public enum Type {

@@ -35,6 +35,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScroll<T> implements Registerable {
 
     Alignment alignment;
@@ -53,10 +55,10 @@ public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScro
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
             Alignment alignmentPlayer = QuestData.get(serverPlayer).getAlignment();
-            if ((MiscConfig.summon_all_fey || getAlignment() == null) && player.getLevel().dimension() != FeywildDimensions.MARKETPLACE) {
+            if ((MiscConfig.summon_all_fey || getAlignment() == null) && player.level().dimension() != FeywildDimensions.MARKETPLACE) {
                 return true;
             } else {
-                if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+                if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
                     return false;
                 } else if (alignmentPlayer != alignment) {

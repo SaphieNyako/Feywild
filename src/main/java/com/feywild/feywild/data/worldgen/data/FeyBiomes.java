@@ -3,7 +3,7 @@ package com.feywild.feywild.data.worldgen.data;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.world.FeywildBiomes;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.BiomeData;
+import org.moddingx.libx.datagen.provider.sandbox.BiomeProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -20,7 +20,9 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class FeyBiomes extends BiomeData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyBiomes extends BiomeProviderBase {
 
     private final FeyTrees trees = this.resolve(FeyTrees.class);
     private final FeyPlacements placements = this.resolve(FeyPlacements.class);

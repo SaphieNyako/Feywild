@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import org.moddingx.libx.crafting.CraftingHelper2;
+import org.moddingx.libx.crafting.RecipeHelper;
 import org.moddingx.libx.datagen.provider.recipe.RecipeExtension;
 
 import javax.annotation.Nonnull;
@@ -110,7 +110,7 @@ public interface AnvilExtension extends RecipeExtension {
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
                     json.addProperty("mana", AnvilRecipeBuilder.this.mana);
-                    json.add("output", CraftingHelper2.serializeItemStack(AnvilRecipeBuilder.this.result, true));
+                    json.add("output", RecipeHelper.serializeItemStack(AnvilRecipeBuilder.this.result, true));
                     if (AnvilRecipeBuilder.this.schematics != null) {
                         json.add("schematics", AnvilRecipeBuilder.this.schematics.toJson());
                     }

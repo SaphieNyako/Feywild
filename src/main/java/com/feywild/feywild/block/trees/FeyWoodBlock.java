@@ -12,6 +12,8 @@ import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class FeyWoodBlock extends DecoratedBlock {
 
     public static final DecorationContext DECORATION = new DecorationContext("fey_wood", DecorationContext.BaseMaterial.WOOD, DecorationType.BASE, DecorationType.WALL, DecorationType.SLAB, DecorationType.STAIRS);

@@ -1,14 +1,16 @@
 package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.entity.ModEntities;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.BiomeModifierData;
+import org.moddingx.libx.datagen.provider.sandbox.BiomeModifierProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.world.BiomeModifier;
 
-public class FeyBiomeModifiers extends BiomeModifierData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyBiomeModifiers extends BiomeModifierProviderBase {
 
     public final Holder<BiomeModifier> overworldSpawn = this.addSpawns(BiomeTags.IS_OVERWORLD)
             .spawn(ModEntities.autumnPixie, 1, 1, 1)

@@ -38,6 +38,8 @@ import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class LibraryBellBlock extends BlockBE<LibraryBell> {
 
     public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);

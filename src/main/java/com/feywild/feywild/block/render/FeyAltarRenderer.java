@@ -3,7 +3,7 @@ package com.feywild.feywild.block.render;
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;

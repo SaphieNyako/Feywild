@@ -9,6 +9,9 @@ import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public class ElvenQuartzBlock extends DecoratedBlock {
 
     private final DecoratedBlock brick;
@@ -30,11 +33,11 @@ public class ElvenQuartzBlock extends DecoratedBlock {
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         super.registerAdditional(ctx, builder);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "brick", this.brick);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "mossy_brick", this.mossyBrick);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "cracked_brick", this.crackedBrick);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "pillar", this.pillar);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "polished", this.polished);
+        builder.registerNamed(Registry.BLOCK, "brick", this.brick);
+        builder.registerNamed(Registry.BLOCK, "mossy_brick", this.mossyBrick);
+        builder.registerNamed(Registry.BLOCK, "cracked_brick", this.crackedBrick);
+        builder.registerNamed(Registry.BLOCK, "pillar", this.pillar);
+        builder.registerNamed(Registry.BLOCK, "polished", this.polished);
     }
 
     public DecoratedBlock getBrickBlock() {

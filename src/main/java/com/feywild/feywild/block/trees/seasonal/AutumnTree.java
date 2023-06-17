@@ -31,6 +31,8 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
 
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public class AutumnTree extends BaseTree {
 
     public AutumnTree(ModX mod) {
@@ -51,7 +53,7 @@ public class AutumnTree extends BaseTree {
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         super.registerAdditional(ctx, builder);
-        builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
+        builder.register(Registry.TRUNK_PLACER_TYPE, TrunkPlacer.TYPE);
     }
 
     @Nullable

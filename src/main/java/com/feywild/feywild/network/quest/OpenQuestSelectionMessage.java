@@ -15,6 +15,8 @@ import org.moddingx.libx.network.PacketSerializer;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.moddingx.libx.network.PacketHandler.Target;
+
 public record OpenQuestSelectionMessage(Component title, List<SelectableQuest> quests, int entityId, Alignment alignment) {
 
     public static class Serializer implements PacketSerializer<OpenQuestSelectionMessage> {

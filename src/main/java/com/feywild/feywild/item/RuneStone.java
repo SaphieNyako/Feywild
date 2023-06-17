@@ -5,6 +5,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import org.moddingx.libx.mod.ModX;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class RuneStone extends TooltipItem {
 
     public final Ability ability;

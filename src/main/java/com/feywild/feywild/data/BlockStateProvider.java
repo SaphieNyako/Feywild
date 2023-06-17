@@ -28,6 +28,8 @@ import org.moddingx.libx.mod.ModX;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import org.moddingx.libx.datagen.provider.BlockStateProviderBase.RenderTypes;
+
 @Datagen
 public class BlockStateProvider extends BlockStateProviderBase {
 

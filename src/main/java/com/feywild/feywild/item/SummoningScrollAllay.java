@@ -25,6 +25,8 @@ import org.moddingx.libx.registration.SetupContext;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SummoningScrollAllay<T extends Allay> extends SummoningScroll<T> implements Registerable {
 
 
@@ -40,11 +42,11 @@ public class SummoningScrollAllay<T extends Allay> extends SummoningScroll<T> im
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
         if (player instanceof ServerPlayer serverPlayer) {
-            if (MiscConfig.summon_all_fey && serverPlayer.getLevel().dimension() != FeywildDimensions.MARKETPLACE) {
+            if (MiscConfig.summon_all_fey && serverPlayer.level().dimension() != FeywildDimensions.MARKETPLACE) {
                 return true;
             } else {
                 Alignment alignment = QuestData.get(serverPlayer).getAlignment();
-                if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+                if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
                     return false;
                 } else if (alignment == Alignment.WINTER) {

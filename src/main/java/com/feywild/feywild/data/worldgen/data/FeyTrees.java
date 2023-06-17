@@ -1,13 +1,16 @@
 package com.feywild.feywild.data.worldgen.data;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.FeatureData;
+import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public class FeyTrees extends FeatureData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.FeatureData.PlacementModifiers;
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyTrees extends FeatureProviderBase {
 
     /*
     public final Holder<PlacedFeature> springTrees = denseTrees(ModTrees.springTree);

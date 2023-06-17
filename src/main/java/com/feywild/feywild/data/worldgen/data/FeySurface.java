@@ -1,14 +1,16 @@
 package com.feywild.feywild.data.worldgen.data;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.SurfaceData;
-import io.github.noeppi_noeppi.mods.sandbox.surface.BiomeSurface;
-import io.github.noeppi_noeppi.mods.sandbox.surface.SurfaceRuleSet;
+import org.moddingx.libx.datagen.provider.sandbox.SurfaceProviderBase;
+import org.moddingx.libx.sandbox.surface.BiomeSurface;
+import org.moddingx.libx.sandbox.surface.SurfaceRuleSet;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 
-public class FeySurface extends SurfaceData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeySurface extends SurfaceProviderBase {
 
     private final FeyBiomes biomes = this.resolve(FeyBiomes.class);
     

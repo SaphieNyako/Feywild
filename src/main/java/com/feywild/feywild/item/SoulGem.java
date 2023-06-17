@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SoulGem extends ItemBase {
 
     public SoulGem(ModX mod, Properties properties) {

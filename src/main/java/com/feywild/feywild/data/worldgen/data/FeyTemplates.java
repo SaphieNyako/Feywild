@@ -2,7 +2,7 @@ package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.world.gen.structure.FeywildStructurePoolElement;
 import com.mojang.datafixers.util.Either;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.TemplateData;
+import org.moddingx.libx.datagen.provider.sandbox.AnyTemplateProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.ProcessorLists;
@@ -11,7 +11,9 @@ import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class FeyTemplates extends TemplateData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyTemplates extends AnyTemplateProviderBase {
 
     public final Holder<StructureTemplatePool> blacksmith = this.template().element(this.feywild("blacksmith")).build();
     public final Holder<StructureTemplatePool> library = this.template().element(this.feywild("library")).build();
@@ -41,6 +43,6 @@ public class FeyTemplates extends TemplateData {
     }
 
     private StructurePoolElement feywild(ResourceLocation id, Holder<StructureProcessorList> processor) {
-        return new FeywildStructurePoolElement(Either.left(id), this.registries.holder(Registry.PROCESSOR_LIST_REGISTRY, processor), StructureTemplatePool.Projection.RIGID);
+        return new FeywildStructurePoolElement(Either.left(id), this.registries.holder(Registry.PROCESSOR_LIST, processor), StructureTemplatePool.Projection.RIGID);
     }
 }

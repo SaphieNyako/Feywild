@@ -125,12 +125,12 @@ public class EventListener {
             QuestData quests = QuestData.get(player);
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
             //Quest Check for Biome
-            player.getLevel().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
+            player.level().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            if (player.getLevel().structureManager().hasAnyStructureAt(player.blockPosition())) {
-                RegistryAccess access = player.getLevel().registryAccess();
-                Registry<Structure> structureRegistry = access.registryOrThrow(Registry.STRUCTURE_REGISTRY);
-                player.getLevel().structureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> {
+            if (player.level().structureManager().hasAnyStructureAt(player.blockPosition())) {
+                RegistryAccess access = player.level().registryAccess();
+                Registry<Structure> structureRegistry = access.registryOrThrow(Registry.STRUCTURE);
+                player.level().structureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> {
                     ResourceLocation structureId = structureRegistry.getKey(structure);
                     if (structureId != null) {
                         quests.checkComplete(StructureTask.INSTANCE, structureId);
@@ -208,7 +208,7 @@ public class EventListener {
 
             player.startSleeping(player.blockPosition());
             player.getBrain().setMemory(MemoryModuleType.HOME, Optional.empty());
-            InteractWithDoor.closeDoorsThatIHaveOpenedOrPassedThrough(player.getLevel(), player, (Node) null, (Node) null);
+            InteractWithDoor.closeDoorsThatIHaveOpenedOrPassedThrough(player.level(), player, (Node) null, (Node) null);
 
             // player.getLevel().getServer().getWorldData().overworldData().setDayTime(1000);
             player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 70, 0));

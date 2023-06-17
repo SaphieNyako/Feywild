@@ -54,6 +54,8 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public abstract class Pixie extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);

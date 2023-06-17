@@ -39,6 +39,8 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Objects;
 import java.util.UUID;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
 
     public final Alignment alignment;

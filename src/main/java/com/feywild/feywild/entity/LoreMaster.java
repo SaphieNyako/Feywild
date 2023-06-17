@@ -40,7 +40,7 @@ public class LoreMaster extends Villager {
     @Override
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 vec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, vec, hand);
-        Level level = player.getLevel();
+        Level level = player.level();
         if (superResult == InteractionResult.PASS) {
 
             if (!level.isClientSide && player instanceof ServerPlayer) {

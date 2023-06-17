@@ -20,6 +20,8 @@ import software.bernie.geckolib3.item.GeoArmorItem;
 
 import java.util.Map;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class FeyWing extends GeoArmorItem implements IAnimatable {
 
     private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =

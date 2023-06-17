@@ -2,13 +2,15 @@ package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.tag.ModBiomeTags;
 import com.feywild.feywild.world.FeywildDimensions;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.DimensionData;
+import org.moddingx.libx.datagen.provider.sandbox.DimensionProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.LevelStem;
 
-public class FeyDimensions extends DimensionData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyDimensions extends DimensionProviderBase {
 
     private final FeyDimensionTypes types = this.resolve(FeyDimensionTypes.class);
     private final FeyNoiseSettings noise = this.resolve(FeyNoiseSettings.class);

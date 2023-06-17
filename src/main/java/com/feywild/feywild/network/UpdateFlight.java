@@ -9,6 +9,8 @@ import org.moddingx.libx.network.PacketSerializer;
 
 import java.util.function.Supplier;
 
+import org.moddingx.libx.network.PacketHandler.Target;
+
 public record UpdateFlight(Boolean canFly, Boolean flying) {
 
 

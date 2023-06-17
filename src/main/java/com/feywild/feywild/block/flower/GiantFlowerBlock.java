@@ -32,6 +32,9 @@ import org.moddingx.libx.registration.RegistrationContext;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public abstract class GiantFlowerBlock extends Block implements Registerable {
 
     public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
@@ -53,7 +56,7 @@ public abstract class GiantFlowerBlock extends Block implements Registerable {
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.item);
+        builder.registerNamed(Registry.ITEM, "seed", this.item);
     }
 
     @Override

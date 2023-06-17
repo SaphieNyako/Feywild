@@ -3,7 +3,7 @@ package com.feywild.feywild.block.render;
 import com.feywild.feywild.block.AncientRunestoneBlock;
 import com.feywild.feywild.block.entity.AncientRunestone;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import org.joml.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;

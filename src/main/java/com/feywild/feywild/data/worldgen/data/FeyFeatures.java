@@ -3,7 +3,7 @@ package com.feywild.feywild.data.worldgen.data;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.world.gen.feature.FeywildFeatures;
 import com.feywild.feywild.world.gen.feature.GiantFlowerFeature;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.FeatureData;
+import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.world.level.block.Block;
@@ -21,7 +21,9 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import java.util.Arrays;
 import java.util.List;
 
-public class FeyFeatures extends FeatureData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyFeatures extends FeatureProviderBase {
 
     public final Holder<ConfiguredFeature<?, ?>> autumnPumpkins = this.feature(FeywildFeatures.autumnPumpkins);
     public final Holder<ConfiguredFeature<?, ?>> sunflowers = this.feature(FeywildFeatures.giantFlowers, new GiantFlowerFeature.Configuration(ModBlocks.sunflower));

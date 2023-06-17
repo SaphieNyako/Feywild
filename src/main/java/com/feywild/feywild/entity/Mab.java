@@ -38,6 +38,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Mab.class, EntityDataSerializers.INT);

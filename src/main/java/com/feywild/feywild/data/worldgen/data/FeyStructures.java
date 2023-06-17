@@ -1,7 +1,7 @@
 package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.tag.ModBiomeTags;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureData;
+import org.moddingx.libx.datagen.provider.sandbox.StructureProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -10,7 +10,10 @@ import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraftforge.common.Tags;
 
-public class FeyStructures extends StructureData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureData.StructureSettingsBuilder;
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyStructures extends StructureProviderBase {
 
     private final FeyTemplates templates = this.resolve(FeyTemplates.class);
 

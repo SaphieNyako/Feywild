@@ -53,6 +53,8 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable, IOwnable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);

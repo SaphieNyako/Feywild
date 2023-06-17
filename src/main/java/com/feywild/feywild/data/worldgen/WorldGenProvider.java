@@ -3,7 +3,7 @@ package com.feywild.feywild.data.worldgen;
 import com.feywild.feywild.data.worldgen.data.*;
 import com.feywild.feywild.data.worldgen.tags.BiomeLayerTagsProvider;
 import com.feywild.feywild.data.worldgen.tags.BiomeTagsProvider;
-import io.github.noeppi_noeppi.mods.sandbox.SandBox;
+import org.moddingx.libx.sandbox.SandBox;
 import io.github.noeppi_noeppi.mods.sandbox.datagen.WorldGenProviderBase;
 import io.github.noeppi_noeppi.mods.sandbox.datagen.registry.WorldGenRegistries;
 import net.minecraft.core.Registry;
@@ -22,8 +22,8 @@ public class WorldGenProvider extends WorldGenProviderBase {
     @Override
     protected void addAdditionalProviders(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper, WorldGenRegistries registries) {
         // These providers must use the worldgen registry set, so they can add tags for biomes added through the world gen provider.
-        generator.addProvider(true, new BiomeTagsProvider(mod, generator, registries.registry(Registry.BIOME_REGISTRY), fileHelper));
-        generator.addProvider(true, new BiomeLayerTagsProvider(mod, generator, registries.registry(SandBox.BIOME_LAYER_REGISTRY), fileHelper));
+        generator.addProvider(true, new BiomeTagsProvider(mod, generator, registries.registry(Registry.BIOME), fileHelper));
+        generator.addProvider(true, new BiomeLayerTagsProvider(mod, generator, registries.registry(SandBox.BIOME_LAYER), fileHelper));
     }
 
     @Override

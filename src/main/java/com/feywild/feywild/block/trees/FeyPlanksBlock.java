@@ -6,6 +6,8 @@ import org.moddingx.libx.base.decoration.DecorationContext;
 import org.moddingx.libx.base.decoration.DecorationType;
 import org.moddingx.libx.mod.ModX;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class FeyPlanksBlock extends DecoratedBlock {
 
     public static final DecorationContext DECORATION = new DecorationContext("fey_planks", DecorationContext.BaseMaterial.WOOD, DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE,

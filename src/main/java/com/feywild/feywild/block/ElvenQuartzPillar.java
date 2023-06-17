@@ -15,6 +15,8 @@ import org.moddingx.libx.mod.ModX;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class ElvenQuartzPillar extends BlockBase {
 
     public ElvenQuartzPillar(ModX mod, Properties properties) {

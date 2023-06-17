@@ -1,11 +1,14 @@
 package com.feywild.feywild.data.worldgen.data;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureSetData;
+import org.moddingx.libx.datagen.provider.sandbox.StructureSetProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 
-public class FeyStructureSets extends StructureSetData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureSetData.RandomPlacementBuilder;
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyStructureSets extends StructureSetProviderBase {
 
     private final FeyStructures structures = this.resolve(FeyStructures.class);
 

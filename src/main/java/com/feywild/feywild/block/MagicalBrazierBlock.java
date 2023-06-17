@@ -34,6 +34,8 @@ import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
 
     public static final BooleanProperty BRAZIER_LIT = BooleanProperty.create("brazier_lit");

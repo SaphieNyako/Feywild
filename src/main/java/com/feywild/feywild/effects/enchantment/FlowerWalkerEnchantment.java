@@ -22,7 +22,7 @@ public class FlowerWalkerEnchantment extends Enchantment {
     }
 
     public static void onEntityMoved(LivingEntity living, Level level, BlockPos pos, int levelConflicting) {
-        if (living.isOnGround()) {
+        if (living.onGround()) {
             BlockState blockstate = getDecorationBlock();
             float f = (float) Math.min(2, 2 + levelConflicting);
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();

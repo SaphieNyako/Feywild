@@ -33,6 +33,8 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public class WinterTree extends BaseTree {
 
     public WinterTree(ModX mod) {
@@ -43,7 +45,7 @@ public class WinterTree extends BaseTree {
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         super.registerAdditional(ctx, builder);
-        builder.register(Registry.FOLIAGE_PLACER_TYPE_REGISTRY, LeavesPlacer.TYPE);
+        builder.register(Registry.FOLIAGE_PLACER_TYPE, LeavesPlacer.TYPE);
     }
 
     @Override

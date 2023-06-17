@@ -24,6 +24,8 @@ import org.moddingx.libx.registration.SetupContext;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Registerable {
 
     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
@@ -41,7 +43,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.register(Registry.ITEM_REGISTRY, this.item);
+        builder.register(Registry.ITEM, this.item);
     }
 
     @Override

@@ -20,6 +20,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SummoningScrollBoss<T extends FlyingBossBase> extends SummoningScroll<T> {
 
     public SummoningScrollBoss(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
@@ -28,7 +30,7 @@ public class SummoningScrollBoss<T extends FlyingBossBase> extends SummoningScro
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
-        if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+        if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
             player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
             return false;
         } else {

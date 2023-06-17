@@ -27,6 +27,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
 
     public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
@@ -42,11 +44,11 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
 
         if (player instanceof ServerPlayer serverPlayer) {
-            if (MiscConfig.summon_all_fey && serverPlayer.getLevel().dimension() != FeywildDimensions.MARKETPLACE) {
+            if (MiscConfig.summon_all_fey && serverPlayer.level().dimension() != FeywildDimensions.MARKETPLACE) {
                 return true;
             } else {
                 Alignment alignment = QuestData.get(serverPlayer).getAlignment();
-                if (serverPlayer.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+                if (serverPlayer.level().dimension() == FeywildDimensions.MARKETPLACE) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
                     return false;
                 } else if (alignment != entity.alignment && !(entity instanceof Pixie && alignment == null)) {

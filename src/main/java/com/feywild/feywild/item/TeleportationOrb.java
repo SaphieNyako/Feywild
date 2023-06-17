@@ -13,6 +13,8 @@ import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class TeleportationOrb extends TooltipItem {
 
     public TeleportationOrb(ModX mod, Properties prop) {

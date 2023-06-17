@@ -27,6 +27,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class SpringTreeEnt extends TreeEntBase {
 
     public final Alignment alignment = Alignment.SPRING;

@@ -12,6 +12,8 @@ import org.moddingx.libx.network.PacketSerializer;
 
 import java.util.function.Supplier;
 
+import org.moddingx.libx.network.PacketHandler.Target;
+
 public record SelectQuestMessage(ResourceLocation quest) {
 
     public static class Serializer implements PacketSerializer<SelectQuestMessage> {

@@ -94,7 +94,7 @@ public class WinterTreeFeature extends Feature<NoneFeatureConfiguration> {
 
         StructurePlaceSettings placementsettings = (new StructurePlaceSettings()).setRotation(rotation).setRotationPivot(halfLengths).setIgnoreEntities(false);
 
-        Optional<StructureProcessorList> processor = ((Registry) reader.getLevel().getServer().registryAccess().registry(Registry.PROCESSOR_LIST_REGISTRY).get()).getOptional(
+        Optional<StructureProcessorList> processor = ((Registry) reader.getLevel().getServer().registryAccess().registry(Registry.PROCESSOR_LIST).get()).getOptional(
                 new ResourceLocation(FeywildMod.getInstance().modid, "winter_tree_processor"));
         processor.ifPresent((structureProcessorList) -> {
             List<StructureProcessor> var10000 = structureProcessorList.list();

@@ -25,6 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksmith> implements Registerable {
 
     public SummoningScrollDwarfBlacksmith(ModX mod, EntityType<DwarfBlacksmith> type, Properties properties) {
@@ -38,7 +40,7 @@ public class SummoningScrollDwarfBlacksmith extends SummoningScroll<DwarfBlacksm
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, DwarfBlacksmith entity) {
-        if (player.getLevel().dimension() == FeywildDimensions.MARKETPLACE) {
+        if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
             player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
             return false;
         } else if (level.getBlockState(pos).getBlock() == ModBlocks.dwarvenAnvil) {

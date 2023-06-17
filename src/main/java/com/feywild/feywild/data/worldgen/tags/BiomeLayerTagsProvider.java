@@ -2,7 +2,7 @@ package com.feywild.feywild.data.worldgen.tags;
 
 import com.feywild.feywild.tag.ModBiomeTags;
 import com.feywild.feywild.world.FeywildDimensions;
-import io.github.noeppi_noeppi.mods.sandbox.biome.BiomeLayer;
+import org.moddingx.libx.sandbox.generator.BiomeLayer;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;

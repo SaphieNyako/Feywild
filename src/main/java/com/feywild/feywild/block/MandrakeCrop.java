@@ -38,6 +38,8 @@ import org.moddingx.libx.registration.RegistrationContext;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public class MandrakeCrop extends CropBlock implements Registerable {
 
     private static final VoxelShape[] SHAPES = new VoxelShape[]{
@@ -62,7 +64,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.seed);
+        builder.registerNamed(Registry.ITEM, "seed", this.seed);
     }
 
     @Nonnull

@@ -1,11 +1,13 @@
 package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.world.FeywildDimensions;
-import io.github.noeppi_noeppi.mods.sandbox.biome.BiomeLayer;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.BiomeLayerData;
+import org.moddingx.libx.sandbox.generator.BiomeLayer;
+import org.moddingx.libx.datagen.provider.sandbox.BiomeLayerProviderBase;
 import net.minecraft.core.Holder;
 
-public class FeyBiomeLayers extends BiomeLayerData {
+import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+
+public class FeyBiomeLayers extends BiomeLayerProviderBase {
 
     private final FeyBiomes biomes = this.resolve(FeyBiomes.class);
     

@@ -73,7 +73,7 @@ public class SummonBeeKnightGoal extends Goal {
         beeKnight.setPos(this.entity.getX() + (random.nextInt(3)), this.entity.getY() + (random.nextInt(3)), this.entity.getZ() + (random.nextInt(3)));
         this.level.addFreshEntity(beeKnight);
         this.entity.playSound(SoundEvents.BEEHIVE_EXIT, 1, 1);
-        BeeKnight.anger(entity.getLevel(), target, target.blockPosition());
+        BeeKnight.anger(entity.level(), target, target.blockPosition());
     }
 
     @Override

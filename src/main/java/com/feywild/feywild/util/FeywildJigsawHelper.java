@@ -19,14 +19,14 @@ import java.util.Objects;
 
 public class FeywildJigsawHelper {
 
-    private static final ResourceKey<StructureProcessorList> PROCESSOR_LIST_KEY = ResourceKey.create(Registry.PROCESSOR_LIST_REGISTRY, new ResourceLocation("minecraft", "empty"));
+    private static final ResourceKey<StructureProcessorList> PROCESSOR_LIST_KEY = ResourceKey.create(Registry.PROCESSOR_LIST, new ResourceLocation("minecraft", "empty"));
 
     public static void registerJigsaw(MinecraftServer server, ResourceLocation poolLocation, ResourceLocation nbtLocation, int weight) {
 
         RegistryAccess manager = server.registryAccess();
-        Holder<StructureProcessorList> processorListHolder = manager.registry(Registry.PROCESSOR_LIST_REGISTRY).orElseThrow().getHolderOrThrow(PROCESSOR_LIST_KEY);
+        Holder<StructureProcessorList> processorListHolder = manager.registry(Registry.PROCESSOR_LIST).orElseThrow().getHolderOrThrow(PROCESSOR_LIST_KEY);
         SinglePoolElement element = SinglePoolElement.single(nbtLocation.toString(), processorListHolder).apply(StructureTemplatePool.Projection.RIGID);
-        StructureTemplatePool pool = manager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY).get(poolLocation);
+        StructureTemplatePool pool = manager.registryOrThrow(Registry.TEMPLATE_POOL).get(poolLocation);
 
         if (pool == null) return;
 

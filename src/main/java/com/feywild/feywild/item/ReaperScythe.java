@@ -15,6 +15,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class ReaperScythe extends SwordItem implements IAnimatable {
 
     public AnimationFactory factory = new AnimationFactory(this);

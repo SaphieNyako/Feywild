@@ -21,6 +21,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class EmptyScroll extends ItemBase {
 
     // Custom name is on the list as the custom name is handles by the stacks display name

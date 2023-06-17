@@ -36,6 +36,8 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Objects;
 
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+
 public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
 
     private static final int BASE_HEIGHT = 6;
@@ -77,20 +79,20 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "log", this.logBlock);
-        builder.registerNamed(Registry.ITEM_REGISTRY, "log", this.logItem);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "wood", this.woodBlock);
+        builder.registerNamed(Registry.BLOCK, "log", this.logBlock);
+        builder.registerNamed(Registry.ITEM, "log", this.logItem);
+        builder.registerNamed(Registry.BLOCK, "wood", this.woodBlock);
         //   builder.registerNamed(Registry.BLOCK_REGISTRY, "leaves", this.leaves);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "sapling", this.sapling);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_log", this.strippedLog);
-        builder.registerNamed(Registry.ITEM_REGISTRY, "stripped_log", this.strippedLogItem);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_wood", this.strippedWood);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "planks", this.plankBlock);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "cracked_log", this.crackedLogBlock);
-        builder.registerNamed(Registry.ITEM_REGISTRY, "cracked_log", this.crackedLogItem);
+        builder.registerNamed(Registry.BLOCK, "sapling", this.sapling);
+        builder.registerNamed(Registry.BLOCK, "stripped_log", this.strippedLog);
+        builder.registerNamed(Registry.ITEM, "stripped_log", this.strippedLogItem);
+        builder.registerNamed(Registry.BLOCK, "stripped_wood", this.strippedWood);
+        builder.registerNamed(Registry.BLOCK, "planks", this.plankBlock);
+        builder.registerNamed(Registry.BLOCK, "cracked_log", this.crackedLogBlock);
+        builder.registerNamed(Registry.ITEM, "cracked_log", this.crackedLogItem);
 
         TreeConfiguration featureConfig = this.getFeatureBuilder().build();
-        this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
+        this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
 
     //TODO add feature?

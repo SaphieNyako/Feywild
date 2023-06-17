@@ -16,7 +16,7 @@ import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.base.BlockBase;
@@ -29,6 +29,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.lang.reflect.Constructor;
 import java.util.Set;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+import org.moddingx.libx.registration.Registerable.TrackingCollector;
 
 public class BlockGE<T extends BlockEntity> extends BlockBase implements EntityBlock {
 
@@ -69,7 +73,7 @@ public class BlockGE<T extends BlockEntity> extends BlockBase implements EntityB
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         super.registerAdditional(ctx, builder);
-        builder.register(Registry.BLOCK_ENTITY_TYPE_REGISTRY, this.geType);
+        builder.register(Registry.BLOCK_ENTITY_TYPE, this.geType);
     }
 
     @Override
@@ -136,7 +140,7 @@ public class BlockGE<T extends BlockEntity> extends BlockBase implements EntityB
         if (!level.isClientSide && (!state.is(newState.getBlock()) || !newState.hasBlockEntity()) && this.shouldDropInventory(level, pos, state)) {
             BlockEntity be = level.getBlockEntity(pos);
             if (be != null) {
-                be.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).ifPresent(handler -> {
+                be.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(handler -> {
                     if (handler instanceof IItemHandlerModifiable modifiable) {
                         for (int i = 0; i < modifiable.getSlots(); i++) {
                             ItemStack stack = modifiable.getStackInSlot(i);

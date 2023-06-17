@@ -16,6 +16,10 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.function.Consumer;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import org.moddingx.libx.registration.Registerable.EntryCollector;
+import org.moddingx.libx.registration.Registerable.TrackingCollector;
+
 public class LeavesBlockBase extends LeavesBlock implements Registerable {
 
     protected final ModX mod;
@@ -56,7 +60,7 @@ public class LeavesBlockBase extends LeavesBlock implements Registerable {
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         if (this.item != null) {
-            builder.register(Registry.ITEM_REGISTRY, this.item);
+            builder.register(Registry.ITEM, this.item);
         }
     }
 
