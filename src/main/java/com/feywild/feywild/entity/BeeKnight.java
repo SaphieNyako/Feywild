@@ -1,18 +1,22 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.config.MobConfig;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.FlyingFeyBase;
-import com.feywild.feywild.entity.goals.BeeRestrictAttackGoal;
 import com.feywild.feywild.entity.goals.FeyAttackableTargetGoal;
+import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
+import com.feywild.feywild.entity.goals.beeknight.BeeKnightAttackableTargetGoal;
+import com.feywild.feywild.entity.goals.beeknight.BeeRestrictAttackGoal;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,7 +32,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
@@ -57,15 +65,48 @@ public class BeeKnight extends FlyingFeyBase {
                 .add(Attributes.MAX_HEALTH, 24)
                 .add(Attributes.FOLLOW_RANGE, 80)
                 .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.ATTACK_KNOCKBACK, 1)
                 .add(Attributes.FLYING_SPEED, 2.25);
     }
 
-    @Override
+    public static void anger(Level level, Player player, BlockPos pos) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            QuestData quests = QuestData.get(serverPlayer);
+            if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.bee_knight.required_reputation) {
+                AABB aabb = new AABB(pos).inflate(2 * MobConfig.bee_knight.aggrevation_range);
+                level.getEntities(ModEntities.beeKnight, aabb, entity -> true).forEach(bee -> {
+                    if (bee.getTarget() == null && player.position().closerThan(bee.position(), MobConfig.bee_knight.aggrevation_range)
+                            && !player.getGameProfile().getId().equals(bee.getOwner())) {
+                        bee.setTarget(player);
+                        bee.setAngry(true);
+                    }
+                });
+            }
+        }
+    }
+
+
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-        super.registerGoals();
+        //super.registerGoals();
+        //target
+        // this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, BeeKnight.class)).setAlertOthers());
+        this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal(this, Raider.class, true));
+        this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal(this, Pillager.class, true));
         this.targetSelector.addGoal(2, new FeyAttackableTargetGoal<>(this, Player.class, true));
+        //move
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 1.0f, 16));
+        //attack
         this.goalSelector.addGoal(1, new BeeRestrictAttackGoal(this, 1.2f, true));
+
+        //other
+        this.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(this, 1));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 8, this.getTargetPositionSpeed()));
+        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
+
     }
 
     @Override
@@ -90,22 +131,6 @@ public class BeeKnight extends FlyingFeyBase {
         }
     }
 
-    public static void anger(Level level, Player player, BlockPos pos) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            QuestData quests = QuestData.get(serverPlayer);
-            if (quests.getAlignment() != Alignment.SUMMER || quests.getReputation() < MobConfig.bee_knight.required_reputation) {
-                AABB aabb = new AABB(pos).inflate(2 * MobConfig.bee_knight.aggrevation_range);
-                level.getEntities(ModEntities.beeKnight, aabb, entity -> true).forEach(bee -> {
-                    if (bee.getTarget() == null && player.position().closerThan(bee.position(), MobConfig.bee_knight.aggrevation_range)
-                            && !player.getGameProfile().getId().equals(bee.getOwner())) {
-                        bee.setTarget(player);
-                        bee.setAngry(true);
-                    }
-                });
-            }
-        }
-    }
-
     public boolean isAngry() {
         return this.entityData.get(AGGRAVATED);
     }
@@ -125,13 +150,13 @@ public class BeeKnight extends FlyingFeyBase {
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
-            if (!player.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-                QuestData quests = QuestData.get(serverPlayer);
-                if (((quests.getAlignment() == Alignment.SUMMER && quests.getReputation() >= MobConfig.bee_knight.required_reputation) && getOwner() == null) || player.getUUID() == owner) {
-                    player.sendSystemMessage(Component.translatable("message.feywild.bee_knight_pass"));
-                } else {
-                    player.sendSystemMessage(Component.translatable("message.feywild.bee_knight_fail"));
+            if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+                this.heal(4);
+                if (!player.isCreative()) {
+                    player.getItemInHand(hand).shrink(1);
                 }
+                FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
+                player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else {
@@ -173,6 +198,13 @@ public class BeeKnight extends FlyingFeyBase {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.BEE_LOOP;
+        return switch (random.nextInt(4)) {
+            case 0 -> ModSoundEvents.beeKnight;
+            default -> SoundEvents.BEE_LOOP;
+        };
+    }
+
+    public boolean canFollowPlayer() {
+        return true;
     }
 }

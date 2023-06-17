@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_09",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_10.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_10.complete.title"
+    }
+  },
+  "icon": "minecraft:potato",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_10.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_10.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "type": "minecraft:villager",
+      "id": "feywild:pet"
+    }
+  ]
+}

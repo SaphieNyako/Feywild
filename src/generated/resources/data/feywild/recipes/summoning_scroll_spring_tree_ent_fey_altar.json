@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_mandragora"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    },
+    {
+      "item": "feywild:shiny_fey_gem"
+    },
+    {
+      "item": "feywild:raw_spring_elven_quartz"
+    },
+    {
+      "item": "feywild:spring_tree_wood"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_spring_tree_ent"
+  }
+}

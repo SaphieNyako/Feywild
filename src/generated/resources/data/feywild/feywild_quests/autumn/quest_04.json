@@ -1,0 +1,37 @@
+{
+  "parent": "feywild:quest_03",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_04.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_04.complete.title"
+    }
+  },
+  "icon": "minecraft:name_tag",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_04.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_04.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 2,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:cooked_beef"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:name_tag"
+      }
+    }
+  ]
+}

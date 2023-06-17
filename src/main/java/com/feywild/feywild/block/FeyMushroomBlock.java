@@ -2,16 +2,21 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.item.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,19 +24,56 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.Registerable;
+import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.function.Consumer;
 
-public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
+public class FeyMushroomBlock extends BushBlock implements BonemealableBlock, Registerable {
 
     protected static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);
+    protected final ModX mod;
+
+    @Nullable
+    private final Item item;
 
     public FeyMushroomBlock(ModX mod) {
-        super(mod, BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM).lightLevel((mushroom) -> mushroom.getValue(BlockStateProperties.LEVEL)));
+        this(mod, new Item.Properties());
+    }
+
+    public FeyMushroomBlock(ModX mod, @Nullable Item.Properties itemProperties) {
+        super(BlockBehaviour.Properties.copy(Blocks.RED_MUSHROOM).lightLevel((mushroom) -> mushroom.getValue(BlockStateProperties.LEVEL)));
 
         this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.LEVEL, 7));
+
+        this.mod = mod;
+        if (itemProperties == null) {
+            this.item = null;
+        } else {
+            if (mod.tab != null) {
+                itemProperties.tab(mod.tab);
+            }
+
+            this.item = new BlockItem(this, itemProperties) {
+
+                @Override
+                public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
+                    FeyMushroomBlock.this.initializeItemClient(consumer);
+                }
+            };
+        }
+    }
+
+    @Override
+    protected boolean mayPlaceOn(BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos) {
+        return state.is(BlockTags.DIRT) || state.is(Blocks.FARMLAND);
     }
 
     @Nonnull
@@ -76,5 +118,23 @@ public class FeyMushroomBlock extends BlockBase implements BonemealableBlock {
 
         level.setBlock(pos, state.cycle(BlockStateProperties.LEVEL), 3);
 
+    }
+
+    public void initializeItemClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
+
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        if (this.item != null) {
+            builder.register(Registry.ITEM_REGISTRY, this.item);
+        }
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void initTracking(RegistrationContext ctx, TrackingCollector builder) throws ReflectiveOperationException {
+        builder.track(ForgeRegistries.ITEMS, BlockBase.class.getDeclaredField("item"));
     }
 }

@@ -5,16 +5,11 @@
   "pages": [
     {
       "type": "patchouli:entity",
-      "entity": "feywild:spring_pixie",
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page0.text0"
+      "entity": "feywild:spring_pixie"
     },
     {
       "type": "patchouli:text",
       "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page1.text0"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page2.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -22,7 +17,19 @@
     },
     {
       "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:rune_of_spring",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_pixie.page5.text0"
     }
   ]
 }

@@ -1,0 +1,41 @@
+{
+  "parent": "feywild:quest_16",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_17.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_17.complete.title"
+    }
+  },
+  "icon": "minecraft:red_mushroom",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_17.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_17.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:cooked_beef"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:bread"
+      }
+    },
+    {
+      "biome": "feywild:eternal_fall",
+      "id": "feywild:biome"
+    }
+  ]
+}

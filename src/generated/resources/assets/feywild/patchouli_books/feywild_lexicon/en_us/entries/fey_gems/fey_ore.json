@@ -15,9 +15,15 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "feywild:fey_gem_ore_deep_slate",
+      "item": "minecraft:stonecutter",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.fey_gems.fey_ore.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem_ore_deep_slate",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.fey_gems.fey_ore.page3.text0"
     }
   ]
 }

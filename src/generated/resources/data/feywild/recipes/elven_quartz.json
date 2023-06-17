@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "feywild:raw_elven_quartz"
+    },
+    {
+      "item": "feywild:raw_elven_quartz"
+    },
+    {
+      "item": "feywild:raw_elven_quartz"
+    },
+    {
+      "item": "feywild:raw_elven_quartz"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "feywild:elven_quartz"
+  }
+}

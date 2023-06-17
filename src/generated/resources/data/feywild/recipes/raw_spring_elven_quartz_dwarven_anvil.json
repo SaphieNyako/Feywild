@@ -1,0 +1,28 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "ingredients": [
+    {
+      "item": "feywild:greater_fey_gem"
+    },
+    {
+      "item": "feywild:greater_fey_gem"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:quartz"
+    },
+    {
+      "item": "minecraft:green_dye"
+    }
+  ],
+  "mana": 75,
+  "output": {
+    "count": 8,
+    "item": "feywild:raw_spring_elven_quartz"
+  },
+  "schematics": {
+    "item": "feywild:schematics_elven_quartz"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "feywild:block/summer_fey_altar",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "feywild:block/summer_fey_altar"
+    },
+    "facing=south": {
+      "model": "feywild:block/summer_fey_altar",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "feywild:block/summer_fey_altar",
+      "y": 270
+    }
+  }
+}

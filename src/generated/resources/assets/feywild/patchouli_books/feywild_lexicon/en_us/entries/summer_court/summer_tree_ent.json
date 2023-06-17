@@ -1,0 +1,37 @@
+{
+  "category": "feywild:summer_court",
+  "icon": "feywild:summoning_scroll_summer_tree_ent",
+  "name": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:summer_tree_ent"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent.page1.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_summer_tree_ent_fey_altar"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summer_tree_log",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:magical_honey_cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:bone_meal",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent.page5.text0"
+    }
+  ]
+}

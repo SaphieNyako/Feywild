@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_09",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_10.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_10.complete.title"
+    }
+  },
+  "icon": "minecraft:bone",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_10.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_10.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "biome": "feywild:frozen_retreat",
+      "id": "feywild:biome"
+    }
+  ]
+}

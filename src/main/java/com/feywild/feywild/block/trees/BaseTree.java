@@ -3,11 +3,14 @@ package com.feywild.feywild.block.trees;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
@@ -32,7 +35,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
 
@@ -47,16 +49,18 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyLogBlock logBlock;
     private final FeyWoodBlock woodBlock;
     private final BlockItem logItem;
-    private final FeyLeavesBlock leaves;
+    //   private final FeyLeavesBlock leaves;
     private final BaseSaplingBlock sapling;
     private final FeyStrippedLogBlock strippedLog;
     private final BlockItem strippedLogItem;
     private final FeyStrippedWoodBlock strippedWood;
     private final FeyPlanksBlock plankBlock;
-    
+    private final FeyCrackedLogBlock crackedLogBlock;
+    private final BlockItem crackedLogItem;
+
     private Holder<ConfiguredFeature<?, ?>> feature;
 
-    public BaseTree(ModX mod, Supplier<? extends FeyLeavesBlock> leavesFactory) {
+    public BaseTree(ModX mod) { //Supplier<? extends FeyLeavesBlock> leavesFactory
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.plankBlock = new FeyPlanksBlock(mod, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
@@ -64,8 +68,10 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.logBlock = new FeyLogBlock(this.woodBlock, this.strippedLog, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.logItem = new BlockItem(this.logBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
         this.strippedLogItem = new BlockItem(this.strippedLog, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
-        this.leaves = leavesFactory.get();
+        //   this.leaves = leavesFactory.get();
         this.sapling = new BaseSaplingBlock(mod, this);
+        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedWood, BlockBehaviour.Properties.of(Material.WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), getParticle());
+        this.crackedLogItem = new BlockItem(this.crackedLogBlock, mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab));
     }
 
     @Override
@@ -74,21 +80,24 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registry.BLOCK_REGISTRY, "log", this.logBlock);
         builder.registerNamed(Registry.ITEM_REGISTRY, "log", this.logItem);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "wood", this.woodBlock);
-        builder.registerNamed(Registry.BLOCK_REGISTRY, "leaves", this.leaves);
+        //   builder.registerNamed(Registry.BLOCK_REGISTRY, "leaves", this.leaves);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "sapling", this.sapling);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_log", this.strippedLog);
         builder.registerNamed(Registry.ITEM_REGISTRY, "stripped_log", this.strippedLogItem);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "stripped_wood", this.strippedWood);
         builder.registerNamed(Registry.BLOCK_REGISTRY, "planks", this.plankBlock);
-        
+        builder.registerNamed(Registry.BLOCK_REGISTRY, "cracked_log", this.crackedLogBlock);
+        builder.registerNamed(Registry.ITEM_REGISTRY, "cracked_log", this.crackedLogItem);
+
         TreeConfiguration featureConfig = this.getFeatureBuilder().build();
         this.feature = ctx.mod().createHolder(Registry.CONFIGURED_FEATURE_REGISTRY, ctx.id().getPath(), new ConfiguredFeature<>(Feature.TREE, featureConfig));
     }
 
+    //TODO add feature?
     public Holder<ConfiguredFeature<?, ?>> getConfiguredFeature() {
         return Objects.requireNonNull(this.feature, "Feywild tree feature not initialised");
     }
-    
+
     @Nullable
     @Override
     public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
@@ -131,9 +140,9 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return this.woodBlock;
     }
 
-    public FeyLeavesBlock getLeafBlock() {
-        return this.leaves;
-    }
+    public abstract FeyLeavesBlock getLeafBlock();
+
+    public abstract SimpleParticleType getParticle();
 
     public FeyStrippedLogBlock getStrippedLogBlock() {
         return this.strippedLog;
@@ -149,6 +158,10 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     public FeyStrippedWoodBlock getStrippedWoodBlock() {
         return this.strippedWood;
+    }
+
+    public FeyCrackedLogBlock getCrackedLogBlock() {
+        return this.crackedLogBlock;
     }
 
     protected int getLeavesRadius() {
@@ -187,7 +200,33 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
                 }
             }
         }
-        super.growTree(level, generator, pos, state, random);
-        return true;
+        Holder<? extends ConfiguredFeature<?, ?>> holder = this.getConfiguredFeature(random, this.hasFlowers(level, pos));
+        if (holder == null) {
+            return false;
+        } else {
+            ConfiguredFeature<?, ?> configuredfeature = holder.value();
+            BlockState blockstate = level.getFluidState(pos).createLegacyBlock();
+            level.setBlock(pos, blockstate, 4);
+            if (configuredfeature.place(level, generator, random, pos)) {
+                if (level.getBlockState(pos) == blockstate) {
+                    level.sendBlockUpdated(pos, state, blockstate, 2);
+                }
+
+                return true;
+            } else {
+                level.setBlock(pos, state, 4);
+                return false;
+            }
+        }
+    }
+
+    private boolean hasFlowers(LevelAccessor level, BlockPos pos) {
+        for (BlockPos blockpos : BlockPos.MutableBlockPos.betweenClosed(pos.below().north(2).west(2), pos.above().south(2).east(2))) {
+            if (level.getBlockState(blockpos).is(BlockTags.FLOWERS)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

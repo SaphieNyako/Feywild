@@ -1,0 +1,39 @@
+{
+  "parent": "feywild:quest_03",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_04.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_04.complete.title"
+    }
+  },
+  "icon": "feywild:soul_shard",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:totem_of_undying"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_04.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_04.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 10,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "feywild:soul_shard"
+      }
+    }
+  ]
+}

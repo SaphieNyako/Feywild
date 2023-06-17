@@ -77,11 +77,19 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
 
     @Override
     public void performBonemeal(@Nonnull ServerLevel level, @Nonnull RandomSource random, @Nonnull BlockPos pos, BlockState state) {
+
+
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.setValue(STAGE, 1), 4);
         } else {
+            //??
             if (ForgeEventFactory.saplingGrowTree(level, random, pos)) {
+
+                //checks if tree can be grown.
                 if (this.tree.growTree(level, level.getChunkSource().getGenerator(), pos, state, random)) {
+                    //  loadTreeTemplate();
+
+                    //decorations
                     for (int xd = -4; xd <= 4; xd++) {
                         for (int zd = -4; zd <= 4; zd++) {
                             // Try to find the block pos directly above ground

@@ -1,5 +1,10 @@
 {
   "values": [
-    "#feywild:fey_logs"
+    "#feywild:spring_logs",
+    "#feywild:summer_logs",
+    "#feywild:autumn_logs",
+    "#feywild:winter_logs",
+    "#feywild:blossom_logs",
+    "#feywild:hexen_logs"
   ]
 }

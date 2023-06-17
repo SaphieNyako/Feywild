@@ -1,0 +1,28 @@
+{
+  "parent": "feywild:quest_14",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_15.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_15.complete.title"
+    }
+  },
+  "icon": "minecraft:dandelion",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_15.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_15.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "action": "dandelion",
+      "id": "feywild:special",
+      "times": 5
+    }
+  ]
+}

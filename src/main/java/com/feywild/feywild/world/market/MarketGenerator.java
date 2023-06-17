@@ -1,17 +1,14 @@
 package com.feywild.feywild.world.market;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.util.BoundingBoxUtil;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.phys.AABB;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +34,11 @@ public class MarketGenerator {
         MarketData data = MarketData.get(level);
         if (data != null) {
             if (data.tryGenerate()) {
-                generateBase(level);
+                generateBase(level, data);
                 for (DwarfEntry entry : DWARVES.values()) {
                     Entity entity = entry.type.create(level);
                     if (entity != null) {
+                        data.addAllowedEntity(entity);
                         entity.setPos(
                                 entry.position.getX() + 0.5,
                                 entry.position.getY(),
@@ -53,32 +51,33 @@ public class MarketGenerator {
         }
     }
 
-    private static void generateBase(ServerLevel level) {
+    private static void generateBase(ServerLevel level, MarketData data) {
         StructureTemplate template = level.getStructureManager().get(FeywildMod.getInstance().resource("market")).orElse(null);
         if (template != null) {
             template.placeInWorld(level, BASE_POS, BASE_POS, new StructurePlaceSettings(), level.random, 0);
             // Remove all entities from the world
-            // Must use version with bounding box to load the chunks
-            AABB aabb = BoundingBoxUtil.get(template.getBoundingBox(new StructurePlaceSettings(), BASE_POS)).inflate(10);
-            level.getEntities(null, aabb).stream()
-                    .filter(e -> !(e instanceof Player))
-                    .forEach(e -> e.remove(Entity.RemovalReason.DISCARDED));
-
+            for (Entity entity : level.getEntities().getAll()) {
+                if (!data.isAllowedEntity(entity)) {
+                    entity.remove(Entity.RemovalReason.DISCARDED);
+                }
+            }
             for (int i = 0; i < 4; i++) {
-                addLivestock(level, -3.5, 63, 1.5);
+                addLivestock(level, -3.5, 63, 1.5, data);
             }
         }
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void addLivestock(ServerLevel level, double x, double y, double z) {
+    private static void addLivestock(ServerLevel level, double x, double y, double z, MarketData data) {
         EntityType<?> type = LIVESTOCK.get(level.random.nextInt(LIVESTOCK.size()));
         Entity entity = type.create(level);
         if (entity != null) {
+            data.addAllowedEntity(entity);
             entity.setPos(x, y, z);
             level.addFreshEntity(entity);
         }
     }
 
-    private record DwarfEntry(EntityType<?> type, BlockPos position) {}
+    private record DwarfEntry(EntityType<?> type, BlockPos position) {
+    }
 }

@@ -21,9 +21,8 @@ public class Mandrake extends TooltipItem {
     @Override
     public InteractionResultHolder<ItemStack> use(@Nonnull Level level, @Nonnull Player player, @Nonnull InteractionHand hand) {
         if (level.isClientSide) {
-            player.playSound(ModSoundEvents.mandrakeScream, 1.0f, 0.8f);
+            player.playSound(ModSoundEvents.mandrakeScream, 0.6f, 0.8f);
         }
-
         return super.use(level, player, hand);
     }
 }

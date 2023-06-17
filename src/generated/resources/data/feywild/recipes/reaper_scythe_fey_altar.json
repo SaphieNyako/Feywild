@@ -1,0 +1,25 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "feywild:winter_tree_wood"
+    },
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "minecraft:diamond_hoe"
+    },
+    {
+      "item": "minecraft:packed_ice"
+    },
+    {
+      "item": "minecraft:spore_blossom"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:reaper_scythe",
+    "nbt": "{Damage:0}"
+  }
+}

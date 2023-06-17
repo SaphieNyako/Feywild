@@ -1,0 +1,28 @@
+{
+  "parent": "feywild:quest_04",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_05.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_05.complete.title"
+    }
+  },
+  "icon": "feywild:autumn_tree_sapling",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_05.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_05.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "action": "grow_autumn_tree",
+      "id": "feywild:special",
+      "times": 3
+    }
+  ]
+}

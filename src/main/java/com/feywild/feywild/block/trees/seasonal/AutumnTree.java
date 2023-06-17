@@ -5,15 +5,19 @@ import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.DecoratingGiantTrunkPlacer;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
+import com.feywild.feywild.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
@@ -22,20 +26,15 @@ import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
+import java.util.Random;
 
 public class AutumnTree extends BaseTree {
 
     public AutumnTree(ModX mod) {
-        super(mod, () -> new FeyLeavesBlock(mod, 10, ModParticles.leafParticle));
-    }
-
-    @Override
-    @OverridingMethodsMustInvokeSuper
-    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        super.registerAdditional(ctx, builder);
-        builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
+        super(mod);
     }
 
     private static BlockState getDecorationBlock(RandomSource random) {
@@ -47,6 +46,20 @@ public class AutumnTree extends BaseTree {
             default -> Blocks.FERN.defaultBlockState();
         };
     }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.register(Registry.TRUNK_PLACER_TYPE_REGISTRY, TrunkPlacer.TYPE);
+    }
+
+    @Nullable
+    @Override
+    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
+        return ModConfiguredFeatures.AUTUMN_TREE;
+    }
+
 
     @Override
     public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder() {
@@ -67,10 +80,26 @@ public class AutumnTree extends BaseTree {
         }
     }
 
+    @Override
+    public FeyLeavesBlock getLeafBlock() {
+        Random random = new Random();
+        return switch (random.nextInt(3)) {
+            case 0 -> ModBlocks.autumnBrownLeaves;
+            case 1 -> ModBlocks.autumnDarkGrayLeaves;
+            case 2 -> ModBlocks.autumnLightGrayLeaves;
+            default -> ModBlocks.autumnRedLeaves;
+        };
+    }
+
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.autumnSparkleParticle;
+    }
+
     private static class TrunkPlacer extends DecoratingGiantTrunkPlacer {
 
         public static final TrunkPlacerType<TrunkPlacer> TYPE = makeType(TrunkPlacer::new);
-        
+
         public TrunkPlacer(int baseHeight, int heightA, int heightB) {
             super(baseHeight, heightA, heightB);
         }

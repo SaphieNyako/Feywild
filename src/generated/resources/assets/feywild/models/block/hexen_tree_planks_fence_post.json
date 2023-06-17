@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "feywild:block/hexen_tree_planks"
+  }
+}

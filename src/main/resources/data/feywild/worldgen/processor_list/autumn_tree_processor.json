@@ -1,0 +1,7 @@
+{
+  "processors": [
+    {
+      "processor_type": "feywild:autumn_tree_processor"
+    }
+  ]
+}

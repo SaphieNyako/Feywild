@@ -1,0 +1,30 @@
+{
+  "parent": "feywild:quest_01",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_02.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_02.complete.title"
+    }
+  },
+  "icon": "minecraft:white_wool",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_02.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_02.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 3,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:white_wool"
+      }
+    }
+  ]
+}

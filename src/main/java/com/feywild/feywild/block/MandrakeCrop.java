@@ -1,5 +1,6 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.Mandragora;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
@@ -80,6 +81,20 @@ public class MandrakeCrop extends CropBlock implements Registerable {
         return this.seed;
     }
 
+    protected void addMandragora(@Nonnull Level level, BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand) {
+        Mandragora entity = ModEntities.mandragora.create(level);
+
+        if (entity != null) {
+            entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
+            entity.setSummonPos(pos);
+            level.addFreshEntity(entity);
+            entity.playSound(SoundEvents.FOX_EAT, 1, 1);
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+            QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
+        }
+    }
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -87,27 +102,22 @@ public class MandrakeCrop extends CropBlock implements Registerable {
         if (player.getItemInHand(hand).getItem() == ModItems.magicalHoneyCookie && state.getValue(this.getAgeProperty()) == 7) {
             if (!level.isClientSide) {
                 if (QuestData.get((ServerPlayer) player).checkReputation(Alignment.SPRING, 0)) {
-
-                    Mandragora entity = ModEntities.mandragora.create(level);
-
-                    if (entity != null) {
-                        entity.setPos(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5);
-                        entity.setSummonPos(pos);
-                        level.addFreshEntity(entity);
-                        entity.playSound(SoundEvents.FOX_EAT, 1, 1);
-                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                        if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
-                        QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.SUMMON_MANDRAGORA);
-                    }
+                    addMandragora(level, pos, player, hand);
                 } else {
-                    player.sendSystemMessage(Component.translatable("message.feywild.summon_cookie_fail"));
+                    if (MiscConfig.summon_all_fey) {
+                        addMandragora(level, pos, player, hand);
+                    } else {
+                        player.sendSystemMessage(Component.translatable("message.feywild.summon_cookie_fail"));
+                    }
                 }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
 
         } else {
-            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 1.0f, 0.8f);
+            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 0.6f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);
         }
     }
+
+
 }

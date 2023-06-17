@@ -1,5 +1,6 @@
 package com.feywild.feywild.data;
 
+import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.quest.*;
@@ -21,7 +22,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
 import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.crafting.IngredientStack;
 import org.moddingx.libx.mod.ModX;
@@ -48,35 +48,152 @@ public class QuestProvider implements DataProvider {
 
     public void setup() {
         this.root(SPRING)
-                .icon(Items.DIAMOND)
+                .icon(ModItems.summoningScrollSpringPixie)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningSpringPixie)
                 .build();
 
-        this.quest(SPRING, "levitate_sheep")
+        this.quest(SPRING, "quest_01")
                 .parent("root")
+                .icon(Blocks.CHEST)
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.CHEST), 1))
+                .build();
+
+        this.quest(SPRING, "quest_02")
+                .parent("quest_01")
+                .icon(Blocks.WHITE_WOOL)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.WHITE_WOOL), 3)))
+                .build();
+        //TODO detect animal task, if a animal is near the pixie you complete the task.
+        // quest_02 show animals from the overworld
+
+        this.quest(SPRING, "quest_03")
+                .parent("quest_02")
                 .icon(Blocks.PINK_WOOL)
                 .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP, 3))
                 .build();
+        //TODO reward: Shepherd Staff
 
-        this.quest(SPRING, "cake")
-                .parent("levitate_sheep")
+        this.quest(SPRING, "quest_04")
+                .parent("quest_03")
+                .icon(Items.CAKE)
                 .gift(Ingredient.of(Items.CAKE), 2)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.SWEET_BERRIES, 6)))
-                .build();
-
-        this.quest(SPRING, "honey")
-                .parent("cake")
-                .gift(Ingredient.of(ModItems.honeycomb), 1)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.honeycomb, 1)))
-                .build();
-
-        this.quest(SPRING, "sapling")
-                .parent("honey")
-                .icon(ModTrees.springTree.getSapling())
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.springTree.getSapling(), 3)))
+                .build();
+
+        this.quest(SPRING, "quest_05")
+                .parent("quest_04")
+                .icon(ModTrees.springTree.getSapling())
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE, 3))
+                .build();
+
+        this.quest(SPRING, "quest_06")
+                .parent("quest_05")
+                .icon(Items.BOOK)
+                .task(QuestTask.of(StructureTask.INSTANCE, ResourceLocation.of("feywild:library", ':')))
+                .build();
+
+        this.quest(SPRING, "quest_07")
+                .parent("quest_06")
+                .icon(ModBlocks.libraryBell)
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.ANNOY_LIBRARIAN))
+                .build();
+
+        this.quest(SPRING, "quest_08")
+                .parent("quest_06")
+                .icon(ModItems.feywildLexicon)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.feywildLexicon), 1)))
+                .build();
+
+        /* SPRING PET ANIMAL QUESTS */
+
+        this.quest(SPRING, "quest_09")
+                .parent("quest_08")
+                .icon(Items.PINK_CARPET)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.LLAMA))
+                .build();
+
+        this.quest(SPRING, "quest_10")
+                .parent("quest_09")
+                .icon(Items.POTATO)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.VILLAGER))
+                .build();
+
+        this.quest(SPRING, "quest_11")
+                .parent("quest_10")
+                .icon(Items.SCUTE)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.TURTLE))
+                .build();
+
+        this.quest(SPRING, "quest_12")
+                .parent("quest_11")
+                .icon(Items.PEARLESCENT_FROGLIGHT)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FROG))
+                .build();
+
+        this.quest(SPRING, "quest_13")
+                .parent("quest_12")
+                .icon(Items.SWEET_BERRIES)
+                .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FOX))
+                .build();
+
+        //TODO reward Friendship Bracelet
+
+        /* INTO THE FEYWILD SPRING QUEST */
+
+        this.quest(SPRING, "quest_14")
+                .parent("quest_08")
+                .icon(Items.DANDELION)
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:blossoming_wealds", ':')))
+                .build();
+
+        this.quest(SPRING, "quest_15")
+                .parent("quest_14")
+                .icon(Items.DANDELION)
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION, 5))
+                .build();
+
+        this.quest(SPRING, "quest_16")
+                .parent("quest_15")
+                .icon(ModItems.honeycomb)
+                .gift(Ingredient.of(ModItems.honeycomb), 1)
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:golden_seelie_fields", ':')))
+                .build();
+
+        this.quest(SPRING, "quest_17")
+                .parent("quest_16")
+                .icon(Items.RED_MUSHROOM)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKED_BEEF), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BREAD), 1)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:eternal_fall", ':')))
+                .build();
+
+        this.quest(SPRING, "quest_18")
+                .parent("quest_17")
+                .icon(Items.CARVED_PUMPKIN)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CARVED_PUMPKIN), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.SNOW_BLOCK), 2)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:frozen_retreat", ':')))
+                .build();
+
+        this.quest(SPRING, "quest_19")
+                .parent("quest_18")
+                .icon(Items.CARVED_PUMPKIN)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.pixieWingTiara)))
+                .build();
+
+
+        this.quest(SPRING, "quest_20")
+                .parent("quest_08")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
+
+        /* SUMMER */
+
 
         this.root(SUMMER)
                 .icon(Items.DIAMOND)
@@ -84,83 +201,196 @@ public class QuestProvider implements DataProvider {
                 .startSound(ModSoundEvents.summoningSummerPixie)
                 .build();
 
-        this.quest(SUMMER, "kill_golem")
+        this.quest(SUMMER, "quest_01")
                 .parent("root")
-                .icon(Items.IRON_NUGGET)
-                .task(QuestTask.of(KillTask.INSTANCE, EntityType.IRON_GOLEM))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.IRON_INGOT, 7)))
+                .icon(Items.GOLD_NUGGET)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GOLDEN_CHESTPLATE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GOLDEN_HELMET), 1)))
                 .build();
 
-        this.quest(SUMMER, "bee_nest")
+        this.quest(SUMMER, "quest_02")
+                .icon(Items.IRON_INGOT)
                 .reputation(20)
-                .parent("kill_golem")
+                .parent("quest_01")
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.IRON_GOLEM, 1))
+                .build();
+
+        this.quest(SUMMER, "quest_03")
+                .reputation(20)
+                .parent("quest_02")
                 .gift(Ingredient.of(Blocks.BEE_NEST))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.HONEYCOMB)))
                 .build();
 
-        this.quest(SUMMER, "kill_pillager")
-                .parent("bee_nest")
+        //TODO add item for stringer
+
+        this.quest(SUMMER, "quest_04")
+                .parent("quest_03")
                 .icon(Items.IRON_AXE)
-                .task(QuestTask.of(KillTask.INSTANCE, EntityType.PILLAGER, 5))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.GOLD_INGOT, 3)))
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.PILLAGER, 8))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.summoningScrollBeeKnight, 1)))
                 .build();
 
-        this.quest(SUMMER, "sapling")
-                .parent("kill_pillager")
+        this.quest(SUMMER, "quest_05")
+                .parent("quest_04")
                 .icon(ModTrees.summerTree.getSapling())
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.summerTree.getSapling(), 3)))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE, 3))
+
+                .build();
+
+        this.quest(SUMMER, "quest_06")
+                .parent("quest_05")
+                .icon(Items.BOOKSHELF)
+                .task(QuestTask.of(StructureTask.INSTANCE, ResourceLocation.of("feywild:library", ':')))
+                .build();
+
+        this.quest(SUMMER, "quest_07")
+                .parent("quest_06")
+                .icon(Items.BOOK)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BOOK), 1)))
+                .build();
+
+        //TODO add book about the shadow court.
+
+        this.quest(SUMMER, "quest_08")
+                .parent("quest_07")
+                .icon(Items.ENDER_EYE)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ENDER_EYE), 12)))
+                .build();
+
+        this.quest(SUMMER, "quest_09")
+                .parent("quest_08")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.ENDER_DRAGON, 1))
+                .build();
+
+        this.quest(SUMMER, "quest_10")
+                .parent("quest_09")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.pixieWingTiara)))
+                .build();
+
+        this.quest(SUMMER, "quest_11")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
 
+        /* AUTUMN */
+
         this.root(AUTUMN)
-                .icon(Items.DIAMOND)
+                .icon(ModItems.summoningScrollAutumnPixie)
                 .reputation(25)
                 .startSound(ModSoundEvents.summoningAutumnPixie)
                 .build();
 
-        this.quest(AUTUMN, "food_potatoes")
+        this.quest(AUTUMN, "quest_01")
                 .parent("root")
-                .complete(null)
-                .gift(Ingredient.of(Items.POTATO), 9)
+                .icon(Items.IRON_SWORD)
+                .gift(Ingredient.of(Items.IRON_SWORD), 1)
                 .build();
 
-        this.quest(AUTUMN, "food_beetroots")
-                .parent("root")
-                .complete(null)
-                .gift(Ingredient.of(Items.BEETROOT), 9)
+        this.quest(AUTUMN, "quest_02")
+                .parent("quest_01")
+                .icon(Items.SMOKER)
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.SMOKER), 1))
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.CAULDRON), 1))
                 .build();
 
-        this.quest(AUTUMN, "food_carrots")
-                .parent("root")
-                .complete(null)
-                .gift(Ingredient.of(Items.CARROT), 9)
+        this.quest(AUTUMN, "quest_03")
+                .parent("quest_02")
+                .icon(Items.BONE)
+                .task(QuestTask.ofEntry(AnimalTameTask.INSTANCE, EntityType.WOLF))
                 .build();
 
-        this.quest(AUTUMN, "food_complete")
-                .parent("food_potatoes", "food_beetroots", "food_carrots")
-                .icon(Items.BEETROOT_SOUP)
-                .complete(null)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BEETROOT_SOUP, 1)))
+        this.quest(AUTUMN, "quest_04")
+                .parent("quest_03")
+                .icon(Items.NAME_TAG)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKED_BEEF), 2)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.NAME_TAG), 1)))
                 .build();
 
-        this.quest(AUTUMN, "pumpkin")
-                .parent("food_complete")
-                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Blocks.CARVED_PUMPKIN), 2)))
-                .build();
-        
-        this.quest(AUTUMN, "dyes")
-                .parent("pumpkin")
-                .icon(Items.RED_DYE)
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.DYES), 9))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
-                .build();
-        
-        this.quest(AUTUMN, "sapling")
-                .parent("dyes")
+        this.quest(AUTUMN, "quest_05")
+                .parent("quest_04")
                 .icon(ModTrees.autumnTree.getSapling())
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.autumnTree.getSapling(), 3)))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE, 3))
+                .build();
+
+        this.quest(AUTUMN, "quest_06")
+                .parent("quest_05")
+                .icon(Items.WRITABLE_BOOK)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.WRITABLE_BOOK), 1)))
+                .build();
+
+        this.quest(AUTUMN, "quest_07")
+                .parent("quest_06")
+                .icon(Items.POPPY)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ALLIUM), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.AZURE_BLUET), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BLUE_ORCHID), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CORNFLOWER), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.DANDELION), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LILY_OF_THE_VALLEY), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.OXEYE_DAISY), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.POPPY), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.SUNFLOWER), 1)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:blossoming_wealds", ':')))
+                .build();
+
+        this.quest(AUTUMN, "quest_08")
+                .parent("quest_07")
+                .icon(Items.RED_DYE)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BLACK_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BLUE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.RED_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BROWN_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.CYAN_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GRAY_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.GREEN_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LIGHT_BLUE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LIGHT_GRAY_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.LIME_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.MAGENTA_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ORANGE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.PINK_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.PURPLE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.WHITE_DYE), 1)))
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.YELLOW_DYE), 1)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:eternal_fall", ':')))
+                .build();
+
+        this.quest(AUTUMN, "quest_09")
+                .parent("quest_08")
+                .icon(Items.COOKIE)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.COOKIE), 8)))
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:golden_seelie_fields", ':')))
+                .build();
+
+        this.quest(AUTUMN, "quest_10")
+                .parent("quest_09")
+                .icon(Items.BONE)
+                .task(QuestTask.of(BiomeTask.INSTANCE, ResourceLocation.of("feywild:frozen_retreat", ':')))
+                .build();
+
+        this.quest(AUTUMN, "quest_11")
+                .parent("quest_10")
+                .icon(Items.ELYTRA)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.pixieWingTiara)))
+                .build();
+
+        this.quest(AUTUMN, "quest_12")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
+
+        /* WINTER */
 
         this.root(WINTER)
                 .icon(Items.DIAMOND)
@@ -168,28 +398,74 @@ public class QuestProvider implements DataProvider {
                 .startSound(ModSoundEvents.summoningWinterPixie)
                 .build();
 
-        this.quest(WINTER, "snowballs")
+        this.quest(WINTER, "quest_01")
                 .parent("root")
-                .gift(Ingredient.of(Items.SNOWBALL), 16)
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Blocks.ICE, 4)))
+                .icon(Items.ROTTEN_FLESH)
+                .gift(Ingredient.of(Items.ROTTEN_FLESH), 8)
                 .build();
 
-        this.quest(WINTER, "skull")
-                .parent("snowballs")
+        this.quest(WINTER, "quest_02")
+                .parent("quest_01")
+                .icon(ModItems.soulShard)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.reaperScythe), 1)))
+                .build();
+
+        this.quest(WINTER, "quest_03")
+                .parent("quest_02")
                 .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ZOMBIE_HEAD), 1)))
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.WITHER_SKELETON_SKULL)))
                 .build();
 
-        this.quest(WINTER, "lantern")
-                .parent("skull")
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.SOUL_LANTERN)))
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.BONE, 5)))
+        this.quest(WINTER, "quest_04")
+                .parent("quest_03")
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(ModItems.soulShard), 10)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(Items.TOTEM_OF_UNDYING)))
                 .build();
 
-        this.quest(WINTER, "sapling")
-                .parent("lantern")
+        this.quest(WINTER, "quest_05")
+                .parent("quest_04")
                 .icon(ModTrees.winterTree.getSapling())
-                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModTrees.winterTree.getSapling(), 3)))
+                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE, 3))
+                .build();
+
+        this.quest(WINTER, "quest_06")
+                .parent("quest_05")
+                .icon(Items.BOOKSHELF)
+                .task(QuestTask.of(StructureTask.INSTANCE, ResourceLocation.of("feywild:library", ':')))
+                .build();
+
+        this.quest(WINTER, "quest_07")
+                .parent("quest_06")
+                .icon(Items.BOOK)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.BOOK), 1)))
+                .build();
+
+        //TODO add book about the shadow court.
+
+        this.quest(WINTER, "quest_08")
+                .parent("quest_07")
+                .icon(Items.ENDER_EYE)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ENDER_EYE), 12)))
+                .build();
+
+        this.quest(WINTER, "quest_09")
+                .parent("quest_08")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.ofEntry(KillTask.INSTANCE, EntityType.ENDER_DRAGON, 1))
+                .build();
+
+        this.quest(WINTER, "quest_10")
+                .parent("quest_09")
+                .icon(Items.DRAGON_HEAD)
+                .task(QuestTask.of(ItemStackTask.INSTANCE, new IngredientStack(Ingredient.of(Items.ELYTRA), 1)))
+                .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.pixieWingTiara)))
+                .build();
+
+        this.quest(WINTER, "quest_11")
+                .parent("quest_05")
+                .repeatable()
+                .icon(ModItems.pixieOrb)
+                .gift(Ingredient.of(ModItems.pixieOrb), 1)
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
     }

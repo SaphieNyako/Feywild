@@ -6,7 +6,31 @@
         "items": [
           {
             "items": [
-              "feywild:fey_altar"
+              "feywild:summer_fey_altar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "inventory_changed2": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:winter_fey_altar"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "inventory_changed3": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:autumn_fey_altar"
             ]
           }
         ]
@@ -22,7 +46,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "feywild:fey_altar"
+      "item": "feywild:summer_fey_altar"
     },
     "show_toast": true,
     "title": {
@@ -31,7 +55,9 @@
   },
   "requirements": [
     [
-      "inventory_changed"
+      "inventory_changed",
+      "inventory_changed2",
+      "inventory_changed3"
     ]
   ]
 }

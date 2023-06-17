@@ -1,0 +1,29 @@
+{
+  "parent": "feywild:root",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_01.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_01.complete.title"
+    }
+  },
+  "icon": "minecraft:chest",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_01.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_01.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "id": "feywild:craft",
+      "item": {
+        "item": "minecraft:chest"
+      }
+    }
+  ]
+}

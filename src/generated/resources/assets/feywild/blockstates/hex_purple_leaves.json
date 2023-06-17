@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/hex_purple_leaves"
+      },
+      {
+        "model": "feywild:block/hex_purple_leaves_02"
+      }
+    ]
+  }
+}

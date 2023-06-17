@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity.base;
 
+import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
@@ -109,7 +110,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Override
     public void tick() {
         super.tick();
-        
+
         if (level.isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
             for (int i = 0; i < 4; i++) {
                 level.addParticle(this.getParticle(),
@@ -120,21 +121,22 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 );
             }
         }
-        
-        Player owner = this.getOwningPlayer();
-        if (owner instanceof ServerPlayer serverPlayer) {
-            Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
-            if (ownerAlignment != null && ownerAlignment != this.alignment) {
-                unalignedTicks += 1;
-                if (unalignedTicks >= 300) {
-                    owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
-                    this.remove(RemovalReason.DISCARDED);
+        if (!MiscConfig.summon_all_fey) {
+            Player owner = this.getOwningPlayer();
+            if (owner instanceof ServerPlayer serverPlayer) {
+                Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
+                if (ownerAlignment != null && ownerAlignment != this.alignment) {
+                    unalignedTicks += 1;
+                    if (unalignedTicks >= 300) {
+                        owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));
+                        this.remove(RemovalReason.DISCARDED);
+                    }
+                } else {
+                    unalignedTicks = 0;
                 }
             } else {
                 unalignedTicks = 0;
             }
-        } else {
-            unalignedTicks = 0;
         }
     }
 
@@ -182,6 +184,15 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")).immutable() : null;
         this.unalignedTicks = nbt.getInt("UnalignedTicks");
         this.followingPlayer = nbt.getBoolean("FollowingPlayer");
+    }
+
+    //TODO negate damage when Player does damage??
+    @Override
+    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+        if (damageSource.getEntity() instanceof Player player && player == this.getOwningPlayer()) {
+            return true;
+        }
+        return super.isDamageSourceBlocked(damageSource);
     }
 
     @Nullable
@@ -240,6 +251,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     protected boolean canRide(@Nonnull Entity entityIn) {
         return false;
     }
+
 
     @Override
     public float getVoicePitch() {

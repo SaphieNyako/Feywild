@@ -1,9 +1,10 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.entity.DwarfBlacksmith;
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
+import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.util.TooltipHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +31,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
     protected final EntityType<T> type;
 
     @Nullable
-    private final SoundEvent soundEvent;
+    protected final SoundEvent soundEvent;
 
     public SummoningScroll(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
         super(mod, properties);
@@ -73,17 +74,18 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                     if (context.getItemInHand().hasCustomHoverName()) {
                         entity.setCustomName(context.getItemInHand().getHoverName());
                     }
-                    BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
-                    entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
+                    //  BlockPos offsetPos = context.getClickedPos().relative(context.getClickedFace());
+                    entity.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
+
                     this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
-                    if (this instanceof SummoningScrollFey || this instanceof SummoningScrollDwarfBlacksmith) {
+                    if (this instanceof SummoningScrollFey) {
                         context.getLevel().addFreshEntity(entity);
+                        FeywildMod.getNetwork().sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
                         if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
                     }
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
-                        if (!(entity instanceof DwarfBlacksmith))
-                            context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
+                        context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
                     }
                 }
             }
@@ -93,8 +95,10 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.summoning_scroll"));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if (level != null) {
+            TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.summoning_scroll"));
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

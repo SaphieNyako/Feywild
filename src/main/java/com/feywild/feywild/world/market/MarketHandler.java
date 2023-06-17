@@ -41,6 +41,7 @@ public class MarketHandler {
                         player.changeDimension(targetLevel, new SimpleTeleporter(new BlockPos(2, 61, 10)));
                         player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));
+                        player.displayClientMessage(Component.translatable("message.feywild.market_condition"), false);
                         return true;
                     } else {
                         player.displayClientMessage(Component.translatable("message.feywild.market_closed"), false);

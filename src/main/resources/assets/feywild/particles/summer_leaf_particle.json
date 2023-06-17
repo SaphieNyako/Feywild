@@ -1,7 +1,10 @@
 {
   "textures": [
-    "feywild:summer_leaf_particle",
-    "feywild:summer_leaf_particle_01",
-    "feywild:summer_leaf_particle_02"
+    "feywild:summer_orange_particle",
+    "feywild:summer_orange_particle_01",
+    "feywild:summer_orange_particle_02",
+    "feywild:summer_yellow_particle",
+    "feywild:summer_yellow_particle_01",
+    "feywild:summer_yellow_particle_02"
   ]
 }

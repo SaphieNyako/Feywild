@@ -1,0 +1,7 @@
+{
+  "processors": [
+    {
+      "processor_type": "feywild:blossom_tree_processor"
+    }
+  ]
+}

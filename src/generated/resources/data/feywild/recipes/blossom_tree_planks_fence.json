@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "feywild:blossom_tree_planks"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    "#s#",
+    "#s#"
+  ],
+  "result": {
+    "count": 3,
+    "item": "feywild:blossom_tree_planks_fence"
+  }
+}

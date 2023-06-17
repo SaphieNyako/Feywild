@@ -55,7 +55,9 @@ public class MandrakePotion extends ItemBase {
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.mandrake_potion"));
+        if (level != null) {
+            TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.mandrake_potion"));
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

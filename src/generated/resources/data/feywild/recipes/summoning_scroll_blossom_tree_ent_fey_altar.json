@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_spring_tree_ent"
+    },
+    {
+      "item": "feywild:summoning_scroll_summer_tree_ent"
+    },
+    {
+      "item": "feywild:summoning_scroll"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "minecraft:pink_candle"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_blossom_tree_ent"
+  }
+}

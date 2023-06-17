@@ -17,4 +17,7 @@ public class ClientConfig {
 
     @Config("Whether Glow Layers for the Shroomling and Blacksmith should be used: Optifine Users should always disable this!")
     public static boolean mob_glow = true;
+
+    @Config("This determines how many chars should appear each tick when displaying the quest text, 1 being very slow - 5 being very fast.")
+    public static int quest_text_speed = 3;
 }

@@ -1,0 +1,37 @@
+{
+  "category": "feywild:fey_gems",
+  "icon": "feywild:raw_elven_quartz",
+  "name": "feywild_lexicon.entry.feywild.fey_gems.elven_quartz",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_star_block_blue",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.fey_gems.elven_quartz.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:raw_spring_elven_quartz",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.fey_gems.elven_quartz.page1.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_quartz",
+      "recipe2": "feywild:elven_spring_quartz"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.fey_gems.elven_quartz.page3.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_summer_quartz",
+      "recipe2": "feywild:elven_winter_quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_autumn_quartz"
+    }
+  ]
+}

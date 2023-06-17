@@ -1,0 +1,9 @@
+{
+  "feature": "feywild:tree_mushrooms",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 32
+    }
+  ]
+}

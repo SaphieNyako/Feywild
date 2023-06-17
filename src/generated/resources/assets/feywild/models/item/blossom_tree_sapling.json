@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "feywild:block/blossom_tree_sapling"
+  }
+}

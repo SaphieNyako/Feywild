@@ -10,11 +10,12 @@ import javax.annotation.Nonnull;
 
 public class LeafParticle extends TextureSheetParticle {
 
-    private float move = 0;
     private final double initX;
     private final double velY;
     private final double initZ;
     private final int remover;
+    private float move = 0;
+
 
     public LeafParticle(ClientLevel level, double x, double y, double z, double velX, double velY, double velZ) {
         super(level, x, y, z);
@@ -25,7 +26,9 @@ public class LeafParticle extends TextureSheetParticle {
         this.initZ = z;
         this.velY = velY;
         this.remover = velX == velZ ? 1 : 0;
+
     }
+
 
     @Nonnull
     @Override

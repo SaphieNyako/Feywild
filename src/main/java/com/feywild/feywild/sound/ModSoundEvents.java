@@ -21,6 +21,7 @@ public class ModSoundEvents {
     public static final SoundEvent pixieHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "pixie_hurt"));
     public static final SoundEvent pixieDeath = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "pixie_death"));
     public static final SoundEvent pixieSpellcasting = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "pixie_spellcasting"));
+    public static final SoundEvent spellcastingShort = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "spellcasting_short"));
     public static final SoundEvent summoningSpringPixie = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_spring_pixie"));
     public static final SoundEvent summoningSummerPixie = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_summer_pixie"));
     public static final SoundEvent summoningAutumnPixie = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "summoning_autumn_pixie"));
@@ -39,4 +40,22 @@ public class ModSoundEvents {
     public static final SoundEvent shroomlingHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_hurt"));
     public static final SoundEvent shroomlingSneeze = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_sneeze"));
     public static final SoundEvent shroomlingWave = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "shroomling_wave"));
+    public static final SoundEvent iceCracking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "ice_cracking"));
+    public static final SoundEvent beatingWings = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "beating_wings"));
+    public static final SoundEvent swordSwing = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "sword_swing"));
+    public static final SoundEvent titaniaHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "titania_hurt"));
+    public static final SoundEvent titaniaDeath = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "titania_death"));
+    public static final SoundEvent titaniaAmbience = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "titania_ambience"));
+    public static final SoundEvent titaniaFireAttack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "titania_fire_attack"));
+    public static final SoundEvent titaniaSummonBee = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "titania_summon_bee"));
+    public static final SoundEvent mabHurt = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_hurt"));
+    public static final SoundEvent mabDeath = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_death"));
+    public static final SoundEvent mabAmbience = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_ambience"));
+    public static final SoundEvent mabIntimidate = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_intimidate"));
+    public static final SoundEvent mabSummon = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_summon"));
+    public static final SoundEvent mabAttack = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "mab_attack"));
+    public static final SoundEvent treeEntWalking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "tree_ent_walking"));
+    public static final SoundEvent treeEntAttacking = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "tree_ent_attacking"));
+    public static final SoundEvent feyWings = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "fey_wings"));
+    public static final SoundEvent beeKnight = new SoundEvent(new ResourceLocation(FeywildMod.getInstance().modid, "bee_knight"));
 }

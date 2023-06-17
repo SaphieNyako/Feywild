@@ -1,0 +1,40 @@
+{
+  "parent": "feywild:quest_05",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_11.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_11.complete.title"
+    }
+  },
+  "icon": "feywild:pixie_orb",
+  "repeatable": true,
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:teleportation_orb"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_11.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_11.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "winter",
+      "id": "feywild:fey_gift",
+      "item": {
+        "item": "feywild:pixie_orb"
+      }
+    }
+  ]
+}

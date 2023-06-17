@@ -1,0 +1,39 @@
+{
+  "parent": "feywild:quest_02",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_03.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_03.complete.title"
+    }
+  },
+  "icon": "minecraft:bee_nest",
+  "reputation": 20,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:honeycomb"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_03.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_03.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "summer",
+      "id": "feywild:fey_gift",
+      "item": {
+        "item": "minecraft:bee_nest"
+      }
+    }
+  ]
+}

@@ -37,6 +37,6 @@ public class WinterPixieModel extends AnimatedGeoModel<WinterPixie> {
 
     @Override
     public ResourceLocation getAnimationResource(WinterPixie pixie) {
-        return FeywildMod.getInstance().resource("animations/winter_pixie.animation.json");
+        return FeywildMod.getInstance().resource("animations/pixie.animation.json");
     }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "minecraft:oak_sapling"
+    },
+    {
+      "item": "minecraft:oak_sapling"
+    },
+    {
+      "item": "minecraft:oak_sapling"
+    },
+    {
+      "item": "minecraft:oak_sapling"
+    },
+    {
+      "item": "feywild:fey_dust"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:spring_tree_sapling"
+  }
+}

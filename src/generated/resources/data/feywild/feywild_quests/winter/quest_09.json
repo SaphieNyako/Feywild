@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_08",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_09.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_09.complete.title"
+    }
+  },
+  "icon": "minecraft:dragon_head",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_09.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_09.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:ender_dragon",
+      "id": "feywild:kill"
+    }
+  ]
+}

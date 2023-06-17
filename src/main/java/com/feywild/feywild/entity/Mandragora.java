@@ -4,10 +4,13 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.GroundFeyBase;
-import com.feywild.feywild.entity.goals.SingGoal;
+import com.feywild.feywild.entity.base.ITameable;
+import com.feywild.feywild.entity.goals.TameCheckingGoal;
+import com.feywild.feywild.entity.goals.mandragora.SingGoal;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -39,7 +42,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
-public class Mandragora extends GroundFeyBase implements IAnimatable {
+public class Mandragora extends GroundFeyBase implements IAnimatable, ITameable {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.INT);
@@ -57,6 +60,11 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
                 .add(Attributes.MOVEMENT_SPEED, 0.1);
     }
 
+    @Override
+    public boolean canFollowPlayer() {
+        return true;
+    }
+
     public MandragoraVariant getVariant() {
         return MandragoraVariant.values()[this.entityData.get(VARIANT)];
     }
@@ -66,7 +74,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.2f, 4));
-        this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
+        this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
         this.goalSelector.addGoal(20, new SingGoal(this));
     }
 
@@ -113,7 +121,7 @@ public class Mandragora extends GroundFeyBase implements IAnimatable {
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
-            if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 if (!level.isClientSide) {
                     this.heal(4);
                     if (!player.isCreative()) {

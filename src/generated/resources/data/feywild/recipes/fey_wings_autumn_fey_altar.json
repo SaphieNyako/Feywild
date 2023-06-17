@@ -1,0 +1,25 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "tag": "feywild:pixie_wing_components"
+    },
+    {
+      "item": "feywild:summoning_scroll_autumn_pixie"
+    },
+    {
+      "item": "feywild:brilliant_fey_gem"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "feywild:pixie_orb"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:fey_wings_autumn",
+    "nbt": "{Damage:0}"
+  }
+}

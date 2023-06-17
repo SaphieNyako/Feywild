@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/spring_cyan_leaves"
+      },
+      {
+        "model": "feywild:block/spring_cyan_leaves_02"
+      }
+    ]
+  }
+}

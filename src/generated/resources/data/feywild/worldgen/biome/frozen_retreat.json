@@ -4,14 +4,14 @@
   },
   "downfall": 0.5,
   "effects": {
-    "fog_color": 12638463,
+    "fog_color": 11260143,
     "particle": {
       "options": {
         "type": "minecraft:snowflake"
       },
       "probability": 0.002
     },
-    "sky_color": 8364543,
+    "sky_color": 8756735,
     "water_color": 4159204,
     "water_fog_color": 329011
   },
@@ -90,34 +90,34 @@
         "weight": 60
       },
       {
-        "type": "feywild:winter_botania_pixie",
+        "type": "feywild:botania_pixie",
         "maxCount": 4,
         "minCount": 2,
         "weight": 60
       },
       {
-        "type": "minecraft:polar_bear",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 5
-      },
-      {
-        "type": "minecraft:ocelot",
+        "type": "feywild:hexen_tree_ent",
         "maxCount": 1,
         "minCount": 1,
-        "weight": 3
+        "weight": 2
       },
       {
-        "type": "minecraft:wolf",
-        "maxCount": 4,
-        "minCount": 3,
-        "weight": 3
+        "type": "feywild:winter_tree_ent",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 5
       },
       {
         "type": "minecraft:allay",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 10
+        "weight": 20
+      },
+      {
+        "type": "feywild:dwarf_blacksmith",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 3
       }
     ],
     "misc": [],
@@ -186,8 +186,33 @@
       }
     ],
     "water_ambient": [],
-    "water_creature": []
+    "water_creature": [
+      {
+        "type": "minecraft:dolphin",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 5
+      },
+      {
+        "type": "minecraft:tropical_fish",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:pufferfish",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      },
+      {
+        "type": "minecraft:axolotl",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      }
+    ]
   },
-  "temperature": 0.0,
+  "temperature": -0.7,
   "temperature_modifier": "frozen"
 }

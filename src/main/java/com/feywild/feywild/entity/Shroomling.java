@@ -4,11 +4,12 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.entity.base.GroundFeyBase;
 import com.feywild.feywild.entity.base.ITameable;
-import com.feywild.feywild.entity.goals.SneezeGoal;
-import com.feywild.feywild.entity.goals.WaveGoal;
+import com.feywild.feywild.entity.goals.shroomling.SneezeGoal;
+import com.feywild.feywild.entity.goals.shroomling.WaveGoal;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
+import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,7 +23,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -70,7 +70,6 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
         this.goalSelector.addGoal(60, new WaveGoal(this));
         this.goalSelector.addGoal(30, new SneezeGoal(this));
     }
@@ -103,21 +102,34 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        if (superResult == InteractionResult.PASS) {
-            ItemStack itemstack = player.getItemInHand(hand);
-            if (ComposterBlock.COMPOSTABLES.containsKey(itemstack.getItem()) && player.getGameProfile().getId().equals(this.getOwner())) {
-                if (!level.isClientSide) {
-                    if (!player.isCreative()) {
-                        player.getItemInHand(hand).shrink(1);
-                    }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
-                    player.swing(hand, true);
-                    this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
-                    this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
-                }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+        // if (superResult == InteractionResult.PASS) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        if (ComposterBlock.COMPOSTABLES.containsKey(itemstack.getItem()) && player.getGameProfile().getId().equals(this.getOwner())
+                && !player.getItemInHand(hand).is(ModItemTags.COOKIES)
+                && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            // if (!level.isClientSide) {
+            if (!player.isCreative()) {
+                player.getItemInHand(hand).shrink(1);
             }
+            FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
+            player.swing(hand, true);
+            this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
+            this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
+
+            //  }
             return InteractionResult.sidedSuccess(this.level.isClientSide);
+        } else if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            //   if (!level.isClientSide) {
+            this.heal(4);
+            if (!player.isCreative()) {
+                player.getItemInHand(hand).shrink(1);
+            }
+            FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
+            player.swing(hand, true);
+            //   }
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            //   }
+            //   return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else {
             return superResult;
         }

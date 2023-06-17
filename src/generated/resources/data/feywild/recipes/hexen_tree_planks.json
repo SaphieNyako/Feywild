@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "feywild:hexen_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "feywild:hexen_tree_planks"
+  }
+}

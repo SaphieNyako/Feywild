@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_01",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_02.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_02.complete.title"
+    }
+  },
+  "icon": "minecraft:iron_ingot",
+  "reputation": 20,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_02.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_02.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:iron_golem",
+      "id": "feywild:kill"
+    }
+  ]
+}

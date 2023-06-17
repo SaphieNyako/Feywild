@@ -1,0 +1,37 @@
+{
+  "parent": "feywild:quest_03",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_04.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_04.complete.title"
+    }
+  },
+  "icon": "minecraft:iron_axe",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:summoning_scroll_bee_knight"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_04.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_04.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:pillager",
+      "id": "feywild:kill",
+      "times": 8
+    }
+  ]
+}

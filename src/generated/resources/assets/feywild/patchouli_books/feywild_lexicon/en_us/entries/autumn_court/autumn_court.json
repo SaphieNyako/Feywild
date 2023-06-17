@@ -12,27 +12,18 @@
       "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page1.text0"
     },
     {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page2.text0"
-    },
-    {
       "type": "patchouli:image",
       "border": true,
       "images": [
-        "feywild:textures/patchouli_images/autumn_book.png",
-        "feywild:textures/patchouli_images/autumn_worldtree_book.png"
+        "feywild:textures/patchouli_images/autumn_book.png"
       ],
-      "title": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page3.text0"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page4.text0"
+      "title": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:tree_mushroom",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page3.text0"
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.9,
+    "salt": 9840236583,
+    "separation": 20,
+    "spacing": 30
+  },
+  "structures": [
+    {
+      "structure": "feywild:mushroom_houses",
+      "weight": 1
+    }
+  ],
+  "values": [
+  ]
+}

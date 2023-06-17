@@ -1,0 +1,39 @@
+{
+  "parent": "feywild:quest_18",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_19.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_19.complete.title"
+    }
+  },
+  "icon": "minecraft:carved_pumpkin",
+  "reputation": 5,
+  "rewards": [
+    {
+      "id": "feywild:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:pixie_wing_tiara"
+      }
+    }
+  ],
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_19.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_19.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:elytra"
+      }
+    }
+  ]
+}

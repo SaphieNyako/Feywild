@@ -3,6 +3,16 @@
     "feywild:fey_gem_ore",
     "feywild:fey_gem_ore_deep_slate",
     "feywild:fey_gem_ore_livingrock",
-    "feywild:dwarven_anvil"
+    "feywild:dwarven_anvil",
+    "feywild:fey_star_block_green",
+    "feywild:fey_star_block_light_blue",
+    "feywild:fey_star_block_blue",
+    "feywild:fey_star_block_purple",
+    "feywild:fey_star_block_pink",
+    "feywild:fey_star_block_orange",
+    "feywild:fey_star_block_yellow",
+    "feywild:summer_fey_altar",
+    "feywild:winter_fey_altar",
+    "feywild:autumn_fey_altar"
   ]
 }

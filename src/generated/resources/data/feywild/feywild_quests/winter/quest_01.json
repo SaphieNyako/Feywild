@@ -1,0 +1,31 @@
+{
+  "parent": "feywild:root",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_01.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_01.complete.title"
+    }
+  },
+  "icon": "minecraft:rotten_flesh",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.winter.quest_01.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.winter.quest_01.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "alignment": "winter",
+      "id": "feywild:fey_gift",
+      "item": {
+        "item": "minecraft:rotten_flesh"
+      },
+      "times": 8
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "parent": "feywild:quest_07",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_08.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_08.complete.title"
+    }
+  },
+  "icon": "minecraft:red_dye",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.autumn.quest_08.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.autumn.quest_08.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:black_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:blue_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:red_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:brown_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:cyan_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:gray_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:green_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:light_blue_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:light_gray_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:lime_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:magenta_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:orange_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:pink_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:purple_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:white_dye"
+      }
+    },
+    {
+      "amount": 1,
+      "id": "feywild:item_stack",
+      "item": {
+        "item": "minecraft:yellow_dye"
+      }
+    },
+    {
+      "biome": "feywild:eternal_fall",
+      "id": "feywild:biome"
+    }
+  ]
+}

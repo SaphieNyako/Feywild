@@ -1,0 +1,25 @@
+{
+  "category": "feywild:winter_court",
+  "icon": "feywild:summoning_scroll_allay",
+  "name": "feywild_lexicon.entry.feywild.winter_court.allay",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "minecraft:allay"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.winter_court.allay.page1.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summoning_scroll_allay_fey_altar"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.winter_court.allay.page3.text0"
+    }
+  ]
+}

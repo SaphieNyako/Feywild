@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "feywild:block/blossom_tree_stripped_wood",
+    "side": "feywild:block/blossom_tree_stripped_wood",
+    "top": "feywild:block/blossom_tree_stripped_wood"
+  }
+}

@@ -13,6 +13,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.moddingx.libx.annotation.data.Datagen;
@@ -32,6 +33,14 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
     public void setup() {
         this.item(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.feywildMusicDisc);
 
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.pixieWingTiara);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsWinter);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsSummer);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsAutumn);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsSpring);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsLight);
+        this.item(ModItemTags.PIXIE_WING_COMPONENTS).add(ModItems.feyWingsShadow);
+
         this.item(ModItemTags.YGGDRASIL_BOOKS).add(ModItems.schematicsYggdrasilRuneCrafting);
         this.item(ModItemTags.DEADLY_BOOKS).add(ModItems.schematicsDeadlyRuneCrafting);
         this.item(ModItemTags.DEADLY_BOOKS).addTag(ModItemTags.YGGDRASIL_BOOKS);
@@ -44,14 +53,46 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         tool(ModBlocks.feyGemOreDeepSlate, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.feyGemOreLivingrock, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.dwarvenAnvil, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockGreen, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockLightBlue, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockBlue, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockPurple, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockPink, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockOrange, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.feyStarBlockYellow, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.summerFeyAltar, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.winterFeyAltar, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.autumnFeyAltar, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
+        tool(ModBlocks.treeMushroom, BlockTags.MINEABLE_WITH_HOE, null);
+
 
         treeTags(ModTrees.springTree, ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
         treeTags(ModTrees.autumnTree, ModBlockTags.AUTUMN_LOGS, ModItemTags.AUTUMN_LOGS);
         treeTags(ModTrees.winterTree, ModBlockTags.WINTER_LOGS, ModItemTags.WINTER_LOGS);
+        treeTags(ModTrees.blossomTree, ModBlockTags.BLOSSOM_LOGS, ModItemTags.BLOSSOM_LOGS);
+        treeTags(ModTrees.hexenTree, ModBlockTags.HEXEN_LOGS, ModItemTags.HEXEN_LOGS);
 
-        this.block(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.FEY_LOGS);
-        this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+        leavesTags(ModBlocks.springGreenLeaves);
+        leavesTags(ModBlocks.springCyanLeaves);
+        leavesTags(ModBlocks.springLimeLeaves);
+        leavesTags(ModBlocks.summerOrangeLeaves);
+        leavesTags(ModBlocks.summerYellowLeaves);
+        leavesTags(ModBlocks.autumnBrownLeaves);
+        leavesTags(ModBlocks.autumnDarkGrayLeaves);
+        leavesTags(ModBlocks.autumnLightGrayLeaves);
+        leavesTags(ModBlocks.autumnRedLeaves);
+        leavesTags(ModBlocks.winterBlueLeaves);
+        leavesTags(ModBlocks.winterLightBlueLeaves);
+        leavesTags(ModBlocks.blossomMagentaLeaves);
+        leavesTags(ModBlocks.blossomPinkLeaves);
+        leavesTags(ModBlocks.blossomWhiteLeaves);
+        leavesTags(ModBlocks.hexBlackLeaves);
+        leavesTags(ModBlocks.hexPurpleLeaves);
+
+        this.item(ModItemTags.COOKIES).add(Items.COOKIE);
+        this.item(ModItemTags.COOKIES).add(ModItems.magicalHoneyCookie);
+
     }
 
     private void tool(Block block, TagKey<Block> tool, @Nullable TagKey<Block> level) {
@@ -59,24 +100,42 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         if (level != null) this.block(level).add(block);
     }
 
+    private void leavesTags(Block block) {
+        this.block(BlockTags.LEAVES).add(block);
+        this.item(ItemTags.LEAVES).add(block.asItem());
+        tool(block, BlockTags.MINEABLE_WITH_HOE, null);
+    }
+
     private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
         this.block(logs).add(
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),
                 tree.getWoodBlock(),
-                tree.getStrippedWoodBlock()
+                tree.getStrippedWoodBlock(),
+                tree.getCrackedLogBlock()
         );
-        this.block(ModBlockTags.FEY_LOGS).addTag(logs);
-        this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
-        this.block(BlockTags.LEAVES).add(tree.getLeafBlock());
-        this.block(BlockTags.SAPLINGS).add(tree.getSapling());
-        tool(tree.getLeafBlock(), BlockTags.MINEABLE_WITH_HOE, null);
 
-        this.copyBlock(logs, logItems);
-        this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
-        this.copyBlock(BlockTags.PLANKS, ItemTags.PLANKS);
-        this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
-        this.copyBlock(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        this.item(logItems).add(
+                tree.getLogBlock().asItem(),
+                tree.getStrippedWoodBlock().asItem(),
+                tree.getWoodBlock().asItem(),
+                tree.getStrippedWoodBlock().asItem(),
+                tree.getCrackedLogBlock().asItem()
+        );
+
+        this.block(BlockTags.LOGS).addTag(logs);
+        this.block(ModBlockTags.FEY_LOGS).addTag(logs);
+        this.block(BlockTags.LOGS_THAT_BURN).addTag(logs);
+        this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
+        this.block(BlockTags.SAPLINGS).add(tree.getSapling());
+
+        this.item(ItemTags.LOGS).addTag(logItems);
+        this.item(ModItemTags.FEY_LOGS).addTag(logItems);
+        this.item(ItemTags.LOGS_THAT_BURN).addTag(logItems);
+        this.item(ItemTags.PLANKS).addTag(logItems);
+        this.item(ItemTags.SAPLINGS).add(tree.getSapling().asItem());
+
+
     }
 
     @Override

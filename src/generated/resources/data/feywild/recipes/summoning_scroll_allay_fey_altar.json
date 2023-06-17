@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll"
+    },
+    {
+      "item": "feywild:summoning_scroll_winter_pixie"
+    },
+    {
+      "item": "feywild:greater_fey_gem"
+    },
+    {
+      "item": "feywild:soul_gem"
+    },
+    {
+      "item": "minecraft:soul_lantern"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_allay"
+  }
+}

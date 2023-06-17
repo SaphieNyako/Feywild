@@ -1,6 +1,7 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.network.quest.ConfirmQuestMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
@@ -19,7 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import javax.annotation.Nonnull;
 
 public class DisplayQuestScreen extends Screen {
-    
+
     @SuppressWarnings("FieldCanBeLocal")
     private final QuestDisplay display;
     private final boolean hasConfirmationButtons;
@@ -39,25 +40,25 @@ public class DisplayQuestScreen extends Screen {
         this.alignment = alignment;
 
         this.title = FeywildTextProcessor.INSTANCE.processLine(this.display.title);
-        this.text = new AnimatedText(BackgroundWidget.WIDTH - (2 * BackgroundWidget.HORIZONTAL_PADDING), BackgroundWidget.HEIGHT - (2 * BackgroundWidget.VERTICAL_PADDING), 1, FeywildTextProcessor.INSTANCE.process(this.display.description));
+        this.text = new AnimatedText(BackgroundWidget.WIDTH - (2 * BackgroundWidget.HORIZONTAL_PADDING), BackgroundWidget.HEIGHT - (2 * BackgroundWidget.VERTICAL_PADDING), ClientConfig.quest_text_speed, FeywildTextProcessor.INSTANCE.process(this.display.description));
     }
 
     @Override
     protected void init() {
         super.init();
-        
+
         this.left = (this.width / 2) - ((EntityWidget.WIDTH + BackgroundWidget.WIDTH) / 2);
         this.top = (this.height / 2) - (BackgroundWidget.HEIGHT / 2);
-        
+
         this.addRenderableOnly(new BackgroundWidget(this.left + EntityWidget.WIDTH, this.top, alignment));
-        
+
         if (this.entityId != -1) {
             Entity entity = Minecraft.getInstance().level == null ? null : Minecraft.getInstance().level.getEntity(this.entityId);
             if (entity instanceof LivingEntity living) {
                 this.addRenderableWidget(new EntityWidget(this.left, this.top + (BackgroundWidget.HEIGHT - EntityWidget.HEIGHT) / 2, living));
             }
         }
-        
+
         this.addRenderableWidget(FancyButton.makeSmall(this.left + EntityWidget.WIDTH + 320, this.top + 58, Component.literal(this.text.isOnLastPage() ? "x" : ">>"), this.text::canContinue, button -> {
             if (this.text.isOnLastPage()) {
                 this.onClose();

@@ -1,0 +1,24 @@
+{
+  "type": "feywild:altar",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "feywild:soul_shard"
+    },
+    {
+      "item": "feywild:soul_shard"
+    },
+    {
+      "item": "feywild:soul_shard"
+    },
+    {
+      "item": "feywild:soul_shard"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:soul_gem"
+  }
+}

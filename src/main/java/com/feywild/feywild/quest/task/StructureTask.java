@@ -11,7 +11,7 @@ public class StructureTask implements TaskType<ResourceLocation, ResourceLocatio
     public static final StructureTask INSTANCE = new StructureTask();
 
     private StructureTask() {
-        
+
     }
 
     @Override
@@ -28,6 +28,7 @@ public class StructureTask implements TaskType<ResourceLocation, ResourceLocatio
     public boolean checkCompleted(ServerPlayer player, ResourceLocation element, ResourceLocation match) {
         return Objects.equals(element, match);
     }
+
 
     @Override
     public ResourceLocation fromJson(JsonObject json) {

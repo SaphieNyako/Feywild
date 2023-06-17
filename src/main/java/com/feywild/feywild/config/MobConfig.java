@@ -9,12 +9,13 @@ public class MobConfig {
 
     public static class bee_knight {
 
-        @Config("How much reputation the player needs to have for the bee_knight to not attack him.")
+        @Config("How much reputation the player needs to have for the bee_knight to not attack them.")
         @IntRange(min = 0)
         public static int required_reputation = 35;
 
         @Config("What should be the aggravation range of the Bee Knights, when someone tries to steal their honey!")
         @IntRange(min = 3)
         public static int aggrevation_range = 20;
+
     }
 }

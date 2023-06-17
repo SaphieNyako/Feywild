@@ -17,11 +17,11 @@ public class ModEntities {
             .build(FeywildMod.getInstance().modid + "_mandragora");
 
     public static final EntityType<Shroomling> shroomling = EntityType.Builder.of(Shroomling::new, MobCategory.CREATURE)
-            .sized(0.7f, 0.8f)
+            .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_shroomling");
 
     public static final EntityType<DwarfBlacksmith> dwarfBlacksmith = EntityType.Builder.of(DwarfBlacksmith::new, MobCategory.MONSTER)
-            .sized(1, 1)
+            .sized(1, 2)
             .build(FeywildMod.getInstance().modid + "_dwarf_blacksmith");
 
     public static final EntityType<MarketDwarf> dwarfToolsmith = EntityType.Builder.of(MarketDwarf::new, MobCategory.MONSTER)
@@ -64,20 +64,42 @@ public class ModEntities {
             .sized(0.7f, 1)
             .build(FeywildMod.getInstance().modid + "_winter_pixie");
 
-    public static final EntityType<SpringBotaniaPixie> springBotaniaPixie = EntityType.Builder.of(SpringBotaniaPixie::new, MobCategory.CREATURE)
+    public static final EntityType<BotaniaPixie> botaniaPixie = EntityType.Builder.of(BotaniaPixie::new, MobCategory.CREATURE)
             .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_spring_botania_pixie");
+            .build(FeywildMod.getInstance().modid + "_botania_pixie");
 
-    public static final EntityType<WinterBotaniaPixie> winterBotaniaPixie = EntityType.Builder.of(WinterBotaniaPixie::new, MobCategory.CREATURE)
-            .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_winter_botania_pixie");
+    public static final EntityType<SpringTreeEnt> springTreeEnt = EntityType.Builder.of(SpringTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_spring_tree_ent");
 
-    public static final EntityType<SummerBotaniaPixie> summerBotaniaPixie = EntityType.Builder.of(SummerBotaniaPixie::new, MobCategory.CREATURE)
-            .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_summer_botania_pixie");
+    public static final EntityType<SummerTreeEnt> summerTreeEnt = EntityType.Builder.of(SummerTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_summer_tree_ent");
 
-    public static final EntityType<AutumnBotaniaPixie> autumnBotaniaPixie = EntityType.Builder.of(AutumnBotaniaPixie::new, MobCategory.CREATURE)
-            .sized(0.25f, 0.25f)
-            .build(FeywildMod.getInstance().modid + "_autumn_botania_pixie");
+    public static final EntityType<WinterTreeEnt> winterTreeEnt = EntityType.Builder.of(WinterTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_winter_tree_ent");
+
+    public static final EntityType<AutumnTreeEnt> autumnTreeEnt = EntityType.Builder.of(AutumnTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_autumn_tree_ent");
+
+    public static final EntityType<BlossomTreeEnt> blossomTreeEnt = EntityType.Builder.of(BlossomTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_blossom_tree_ent");
+
+    public static final EntityType<HexenTreeEnt> hexenTreeEnt = EntityType.Builder.of(HexenTreeEnt::new, MobCategory.CREATURE)
+            .sized(1.0f, 5.0f)
+            .build(FeywildMod.getInstance().modid + "_hexen_tree_ent");
+
+    public static final EntityType<Titania> titania = EntityType.Builder.of(Titania::new, MobCategory.MONSTER)
+            .sized(1.0f, 4.0f)
+            .build(FeywildMod.getInstance().modid + "_titania");
+
+    public static final EntityType<Mab> mab = EntityType.Builder.of(Mab::new, MobCategory.MONSTER)
+            .sized(1.0f, 4.0f)
+            .build(FeywildMod.getInstance().modid + "_mab");
+
+    public static final EntityType<LoreMaster> loreMaster = EntityType.Builder.of(LoreMaster::new, MobCategory.CREATURE).build(FeywildMod.getInstance().modid + "_lore_master");
 
 }

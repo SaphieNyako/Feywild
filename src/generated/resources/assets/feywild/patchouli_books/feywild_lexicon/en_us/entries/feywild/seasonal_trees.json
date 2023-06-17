@@ -4,59 +4,98 @@
   "name": "feywild_lexicon.entry.feywild.feywild.seasonal_trees",
   "pages": [
     {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page0.text0"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page1.text0"
-    },
-    {
-      "type": "patchouli:image",
-      "border": true,
-      "images": [
-        "feywild:textures/patchouli_images/trees_book.png"
-      ],
-      "title": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page2.text0"
-    },
-    {
       "type": "patchouli:spotlight",
       "item": "feywild:fey_dust",
       "link_recipe": false,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page0.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:spring_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page1.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:spring_tree_sapling_fey_altar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_tree_wood",
+      "recipe2": "feywild:spring_tree_planks"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:summer_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page4.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:summer_tree_sapling_fey_altar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_wood",
+      "recipe2": "feywild:summer_tree_planks"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:autumn_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page6.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page7.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:autumn_tree_sapling_fey_altar"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_tree_wood",
+      "recipe2": "feywild:autumn_tree_planks"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:winter_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page7.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page10.text0"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:winter_tree_sapling_fey_altar"
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "feywild:spring_tree_wood",
-      "recipe2": "feywild:summer_tree_planks"
+      "recipe": "feywild:winter_tree_wood",
+      "recipe2": "feywild:winter_tree_planks"
     },
     {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page9.text0"
+      "type": "patchouli:spotlight",
+      "item": "feywild:hexen_tree_sapling",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page13.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:hexen_tree_wood",
+      "recipe2": "feywild:hexen_tree_planks"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blossom_tree_sapling",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page15.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:blossom_tree_wood",
+      "recipe2": "feywild:blossom_tree_planks"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blossom_tree_cracked_log",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page17.text0"
     }
   ]
 }

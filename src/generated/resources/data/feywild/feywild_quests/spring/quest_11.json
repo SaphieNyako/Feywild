@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_10",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_11.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_11.complete.title"
+    }
+  },
+  "icon": "minecraft:scute",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring.quest_11.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring.quest_11.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "type": "minecraft:turtle",
+      "id": "feywild:pet"
+    }
+  ]
+}

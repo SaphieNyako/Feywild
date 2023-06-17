@@ -1,8 +1,10 @@
 package com.feywild.feywild.quest;
 
+import com.feywild.feywild.quest.task.RegistryTaskType;
 import com.feywild.feywild.quest.task.TaskType;
 import com.feywild.feywild.quest.task.TaskTypes;
 import com.google.gson.JsonObject;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
@@ -34,6 +36,17 @@ public class QuestTask {
     public static <T> QuestTask of(TaskType<T, ?> type, T element, int times) {
         //noinspection unchecked
         return new QuestTask((TaskType<Object, Object>) type, element, times);
+    }
+    
+    public static <T> QuestTask ofEntry(RegistryTaskType<T, ?> type, T element) {
+        return ofEntry(type, element, 1);
+    }
+
+    public static <T> QuestTask ofEntry(RegistryTaskType<T, ?> type, T element, int times) {
+        ResourceKey<T> key = type.registry.getResourceKey(element).orElse(null);
+        if (key == null) throw new IllegalArgumentException("Object not registered: " + element);
+        //noinspection unchecked
+        return new QuestTask((TaskType<Object, Object>) (TaskType<?, ?>) type, key, times);
     }
 
     public boolean checkCompleted(ServerPlayer player, TaskType<?, ?> type, Object match) {

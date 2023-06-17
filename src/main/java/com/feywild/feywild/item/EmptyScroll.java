@@ -18,6 +18,7 @@ import org.moddingx.libx.base.ItemBase;
 import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class EmptyScroll extends ItemBase {
@@ -30,12 +31,12 @@ public class EmptyScroll extends ItemBase {
 
     private static final Map<EntityType<?>, SummoningScroll<?>> CAPTURE_MAP = Collections.synchronizedMap(new HashMap<>());
 
-    public static <T extends LivingEntity> void registerCapture(EntityType<? extends T> type, SummoningScroll<T> scroll) {
-        CAPTURE_MAP.put(type, scroll);
-    }
-
     public EmptyScroll(ModX mod, Properties properties) {
         super(mod, properties);
+    }
+
+    public static <T extends LivingEntity> void registerCapture(EntityType<? extends T> type, SummoningScroll<T> scroll) {
+        CAPTURE_MAP.put(type, scroll);
     }
 
     @Override
@@ -77,8 +78,10 @@ public class EmptyScroll extends ItemBase {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
-        TooltipHelper.addTooltip(tooltip, Component.translatable("message.feywild.summoning_scroll"));
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if (level != null) {
+            TooltipHelper.addTooltip(tooltip, level, Component.translatable("message.feywild.summoning_scroll"));
+        }
         super.appendHoverText(stack, level, tooltip, flag);
     }
 }

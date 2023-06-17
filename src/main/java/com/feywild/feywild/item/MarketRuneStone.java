@@ -32,6 +32,10 @@ public class MarketRuneStone extends TooltipItem {
             if (level.dimension() == FeywildDimensions.MARKETPLACE) {
                 if (MarketHandler.teleportToOverworld(serverPlayer)) {
                     player.getCooldowns().addCooldown(this, 60);
+                    if (!player.isCreative()) {
+                        player.getItemInHand(hand).shrink(1);
+                        player.addItem(new ItemStack(ModItems.inactiveMarketRuneStone));
+                    }
                     return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), false);
                 } else {
                     return InteractionResultHolder.fail(player.getItemInHand(hand));

@@ -27,7 +27,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public AltarRecipeCategory(IGuiHelper helper) {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 85, 85);
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.feyAltar));
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.summerFeyAltar));
     }
 
     @Nonnull
@@ -35,11 +35,11 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     public RecipeType<AltarRecipe> getRecipeType() {
         return TYPE;
     }
-    
+
     @Nonnull
     @Override
     public Component getTitle() {
-        return ModBlocks.feyAltar.getName();
+        return Component.translatable("Fey Altar");
     }
 
     @Nonnull

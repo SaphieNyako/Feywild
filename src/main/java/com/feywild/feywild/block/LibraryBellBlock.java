@@ -1,6 +1,8 @@
 package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.LibraryBell;
+import com.feywild.feywild.entity.LoreMaster;
+import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
@@ -118,8 +120,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
                     librarian.remove(Entity.RemovalReason.DISCARDED);
                 }
 
-                Villager entity = new Villager(EntityType.VILLAGER, level);
-                entity.addTag("feywild_librarian");
+                LoreMaster entity = new LoreMaster(ModEntities.loreMaster, level);
                 VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(pos)), VillagerProfession.LIBRARIAN, 1);
                 entity.setVillagerData(villagerData);
                 entity.setVillagerXp(1);

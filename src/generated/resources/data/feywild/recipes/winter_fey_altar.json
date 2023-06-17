@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "d": {
+      "item": "minecraft:diamond"
+    },
+    "f": {
+      "item": "feywild:fey_dust"
+    },
+    "g": {
+      "tag": "forge:ingots/iron"
+    },
+    "p": {
+      "tag": "forge:stone"
+    },
+    "x": {
+      "item": "feywild:winter_tree_sapling"
+    }
+  },
+  "pattern": [
+    "fpf",
+    "pdp",
+    "gxg"
+  ],
+  "result": {
+    "item": "feywild:winter_fey_altar"
+  }
+}

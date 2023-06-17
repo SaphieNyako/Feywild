@@ -1,0 +1,61 @@
+{
+  "category": "feywild:dwarves",
+  "icon": "feywild:raw_elven_quartz",
+  "name": "feywild_lexicon.entry.feywild.dwarves.elven_quartz",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:schematics_elven_quartz",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.dwarves.elven_quartz.page0.text0"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:raw_elven_quartz_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:raw_autumn_elven_quartz_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:raw_spring_elven_quartz_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:raw_summer_elven_quartz_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:raw_winter_elven_quartz_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_blue_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_green_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_light_blue_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_orange_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_pink_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_purple_dwarven_anvil"
+    },
+    {
+      "type": "feywild:dwarven_anvil",
+      "recipe": "feywild:fey_star_block_yellow_dwarven_anvil"
+    }
+  ]
+}

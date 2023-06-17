@@ -15,21 +15,15 @@
       "type": "patchouli:image",
       "border": true,
       "images": [
-        "feywild:textures/patchouli_images/spring_book.png",
-        "feywild:textures/patchouli_images/spring_worldtree_book.png"
+        "feywild:textures/patchouli_images/spring_book.png"
       ],
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page2.text1",
       "title": "feywild_lexicon.entry.feywild.spring_court.spring_court.page2.text0"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page3.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:dandelion_seed",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page3.text0"
     }
   ]
 }

@@ -1,12 +1,14 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.entity.base.Trader;
-import com.feywild.feywild.entity.goals.DwarvenAttackGoal;
-import com.feywild.feywild.entity.goals.GoToAnvilPositionGoal;
 import com.feywild.feywild.entity.goals.GoToTargetPositionGoal;
-import com.feywild.feywild.entity.goals.RefreshStockGoal;
+import com.feywild.feywild.entity.goals.dwarf.DwarvenMeleeAttackGoal;
+import com.feywild.feywild.entity.goals.dwarf.DwarvenResetTargetGoal;
+import com.feywild.feywild.entity.goals.dwarf.GoToAnvilPositionGoal;
+import com.feywild.feywild.entity.goals.dwarf.RefreshStockGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -15,8 +17,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -28,6 +32,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -43,13 +50,16 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.UUID;
 
-public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable {
+public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable, IOwnable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
     private final AnimationFactory factory = new AnimationFactory(this);
+    @Nullable
+    protected UUID owner;
     private boolean isTamed;
-    
     @Nullable
     private BlockPos summonPos;
 
@@ -63,9 +73,9 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
                 .add(Attributes.MAX_HEALTH, 36)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.ARMOR_TOUGHNESS, 5)
-                .add(Attributes.ARMOR, 15)
-                .add(Attributes.ATTACK_DAMAGE, 4)
+                .add(Attributes.ARMOR_TOUGHNESS, 2)
+                .add(Attributes.ARMOR, 8)
+                .add(Attributes.ATTACK_DAMAGE, 8)
                 .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
@@ -86,13 +96,30 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 0.1f, 8));
+        //target:
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false, false));
+        //move:
+        this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 0.1f, 16));
+        //attack in range:
+        this.goalSelector.addGoal(1, new DwarvenMeleeAttackGoal(this, 1.0f, true));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+
+        //reset:
+        this.targetSelector.addGoal(4, new DwarvenResetTargetGoal<>(this));
+
+
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.5D));
-        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(2, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 5, 0.5f));
-        this.goalSelector.addGoal(2, new GoToAnvilPositionGoal(this, this::getSummonPos, 5));
-        this.goalSelector.addGoal(6, new RefreshStockGoal(this));
-        this.targetSelector.addGoal(1, new DwarvenAttackGoal(this));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 32, 0.5f));
+        this.goalSelector.addGoal(7, new GoToAnvilPositionGoal(this, this::getSummonPos, 32));
+        this.goalSelector.addGoal(5, new RefreshStockGoal(this));
+
+    }
+
+
+    public void stopBeingAngry() {
+        this.setLastHurtByMob(null);
+        this.setTarget(null);
     }
 
     @Override
@@ -123,6 +150,22 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataNbt);
     }
 
+    @Nullable
+    @Override
+    public UUID getOwner() {
+        return this.owner;
+    }
+
+    @Override
+    public void setOwner(@Nullable UUID uid) {
+        this.owner = uid;
+    }
+
+    @Override
+    public Level getEntityLevel() {
+        return this.level;
+    }
+
     @Override
     public boolean isTamed() {
         return this.isTamed;
@@ -149,6 +192,11 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putBoolean("Tamed", this.isTamed);
+        if (this.owner != null) {
+            nbt.putUUID("Owner", this.owner);
+        } else {
+            nbt.remove("Owner");
+        }
         if (this.summonPos != null) {
             nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
         } else {
@@ -160,6 +208,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
         this.isTamed = nbt.getBoolean("Tamed");
+        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
         this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")).immutable() : null;
     }
 
@@ -174,7 +223,9 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     @Override
     public boolean checkSpawnRules(@Nonnull LevelAccessor levelIn, @Nonnull MobSpawnType spawnReasonIn) {
-        return super.checkSpawnRules(levelIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !levelIn.canSeeSky(this.blockPosition());
+        return super.checkSpawnRules(levelIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !levelIn.canSeeSky(this.blockPosition())
+                && !level.getBiome(this.blockPosition()).is(Objects.requireNonNull(ResourceLocation.tryParse("minecraft:mushroom_fields")))
+                && level.getBiome(this.blockPosition()).containsTag(BiomeTags.HAS_MINESHAFT);
     }
 
     @Override
@@ -210,7 +261,10 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.VILLAGER_CELEBRATE;
+        return switch (random.nextInt(3)) {
+            case 0 -> SoundEvents.VILLAGER_CELEBRATE;
+            default -> null;
+        };
     }
 
     @Override
@@ -221,7 +275,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
         if (!this.dead && !this.isDeadOrDying()) {
             if (this.getState() == State.ATTACKING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", false));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
                 return PlayState.CONTINUE;
             } else if (this.getState() == State.WORKING) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));

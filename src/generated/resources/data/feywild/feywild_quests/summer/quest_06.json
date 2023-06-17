@@ -1,0 +1,27 @@
+{
+  "parent": "feywild:quest_05",
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_06.complete.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_06.complete.title"
+    }
+  },
+  "icon": "minecraft:bookshelf",
+  "reputation": 5,
+  "start": {
+    "description": {
+      "translate": "quest.feywild.summer.quest_06.start.description"
+    },
+    "title": {
+      "translate": "quest.feywild.summer.quest_06.start.title"
+    }
+  },
+  "tasks": [
+    {
+      "id": "feywild:structure",
+      "structure": "feywild:library"
+    }
+  ]
+}

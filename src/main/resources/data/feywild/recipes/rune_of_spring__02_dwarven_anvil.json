@@ -1,0 +1,16 @@
+{
+  "type": "feywild:dwarven_anvil",
+  "ingredients": [
+    {
+      "item": "feywild:inactive_rune_of_spring"
+    }
+  ],
+  "mana": 1000,
+  "output": {
+    "count": 1,
+    "item": "feywild:rune_of_spring"
+  },
+  "schematics": {
+    "item": "feywild:schematics_runestones"
+  }
+}
