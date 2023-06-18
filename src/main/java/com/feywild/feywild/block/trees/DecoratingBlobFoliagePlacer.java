@@ -15,7 +15,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerTy
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
 
 public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
 
@@ -31,12 +30,22 @@ public abstract class DecoratingBlobFoliagePlacer extends BlobFoliagePlacer {
     @Override
     protected abstract FoliagePlacerType<?> type();
 
+
     @Override
-    protected void placeLeavesRow(@Nonnull LevelSimulatedReader level, @Nonnull BiConsumer<BlockPos, BlockState> blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, @Nonnull BlockPos pos, int range, int height, boolean large) {
+    protected void placeLeavesRow(@Nonnull LevelSimulatedReader level, @Nonnull FoliageSetter blockSetter, @Nonnull RandomSource random, @Nonnull TreeConfiguration config, @Nonnull BlockPos pos, int range, int height, boolean large) {
         List<BlockPos> positionsToDecorate = new ArrayList<>();
-        BiConsumer<BlockPos, BlockState> setter = (BlockPos target, BlockState state) -> {
-            blockSetter.accept(target, state);
-            positionsToDecorate.add(target.immutable());
+        FoliageSetter setter = new FoliageSetter() {
+            
+            @Override
+            public void set(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+                blockSetter.set(pos, state);
+                positionsToDecorate.add(pos.immutable());
+            }
+
+            @Override
+            public boolean isSet(@Nonnull BlockPos pos) {
+                return blockSetter.isSet(pos);
+            }
         };
         super.placeLeavesRow(level, setter, random, config, pos, range, height, large);
         if (level instanceof WorldGenLevel wg) {

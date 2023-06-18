@@ -56,21 +56,4 @@ public class ModBlocks {
     public static final Block feyStarBlockPink = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
     public static final Block feyStarBlockOrange = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
     public static final Block feyStarBlockYellow = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.copy(Blocks.STONE).strength(1f, 3f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST).lightLevel(value -> 14));
-
-    public static final FeyLeavesBlock autumnBrownLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.autumnLeafParticle);
-    public static final FeyLeavesBlock autumnDarkGrayLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.autumnLeafParticle);
-    public static final FeyLeavesBlock autumnLightGrayLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.autumnLeafParticle);
-    public static final FeyLeavesBlock autumnRedLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.autumnLeafParticle);
-    public static final FeyLeavesBlock blossomPinkLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.blossomLeafParticle);
-    public static final FeyLeavesBlock blossomMagentaLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.blossomLeafParticle);
-    public static final FeyLeavesBlock blossomWhiteLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.blossomLeafParticle);
-    public static final FeyLeavesBlock hexBlackLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.hexenLeafParticle);
-    public static final FeyLeavesBlock hexPurpleLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.hexenLeafParticle);
-    public static final FeyLeavesBlock springGreenLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.springLeafParticle);
-    public static final FeyLeavesBlock springLimeLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.springLeafParticle);
-    public static final FeyLeavesBlock springCyanLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.springLeafParticle);
-    public static final FeyLeavesBlock summerOrangeLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.summerLeafParticle);
-    public static final FeyLeavesBlock summerYellowLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.summerLeafParticle);
-    public static final FeyLeavesBlock winterBlueLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.winterLeafParticle);
-    public static final FeyLeavesBlock winterLightBlueLeaves = new FeyLeavesBlock(FeywildMod.getInstance(), 14, ModParticles.winterLeafParticle);
 }

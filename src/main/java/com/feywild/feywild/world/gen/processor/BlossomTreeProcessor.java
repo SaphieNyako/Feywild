@@ -19,6 +19,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+// UPDATE_TODO merge tree processors + preserve axis on cracked
 public class BlossomTreeProcessor extends StructureProcessor {
 
     public static final BlossomTreeProcessor INSTANCE = new BlossomTreeProcessor();

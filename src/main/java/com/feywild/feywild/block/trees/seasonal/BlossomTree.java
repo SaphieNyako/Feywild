@@ -1,30 +1,62 @@
 package com.feywild.feywild.block.trees.seasonal;
 
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
-import com.feywild.feywild.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.moddingx.libx.mod.ModX;
-import org.moddingx.libx.util.data.TagAccess;
+import org.moddingx.libx.registration.RegistrationContext;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Random;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.List;
 
 public class BlossomTree extends BaseTree {
 
+    private final FeyLeavesBlock pinkLeaves;
+    private final FeyLeavesBlock magentaLeaves;
+    private final FeyLeavesBlock whiteLeaves;
+
     public BlossomTree(ModX mod) {
         super(mod);
+        this.pinkLeaves = new FeyLeavesBlock(ModParticles.blossomLeafParticle, 14);
+        this.magentaLeaves = new FeyLeavesBlock(ModParticles.blossomLeafParticle, 14);
+        this.whiteLeaves = new FeyLeavesBlock(ModParticles.blossomLeafParticle, 14);
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.registerNamed(Registries.BLOCK, "pink_leaves", this.pinkLeaves);
+        builder.registerNamed(Registries.BLOCK, "magenta_leaves", this.magentaLeaves);
+        builder.registerNamed(Registries.BLOCK, "white_leaves", this.whiteLeaves);
+    }
+
+    @Override
+    protected List<Block> getAllLeaves() {
+        return List.of(this.pinkLeaves, this.magentaLeaves, this.whiteLeaves);
+    }
+
+    @Override
+    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, RandomSource random) {
+        if (random.nextDouble() < 0.2) {
+            if (level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
+                level.setBlockAndUpdate(pos, getDecorationBlock(random));
+            }
+        }
+    }
+
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.springSparkleParticle;
     }
 
     private static BlockState getDecorationBlock(RandomSource random) {
@@ -40,35 +72,4 @@ public class BlossomTree extends BaseTree {
             default -> Blocks.GRASS.defaultBlockState();
         };
     }
-
-    @Override
-    public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, RandomSource random) {
-        if (random.nextDouble() < 0.2) {
-            if (TagAccess.ROOT.has(BlockTags.DIRT, level.getBlockState(pos.below()).getBlock())) {
-                level.setBlockAndUpdate(pos, getDecorationBlock(random));
-            }
-        }
-    }
-
-    @Override
-    public FeyLeavesBlock getLeafBlock() {
-        Random random = new Random();
-        return switch (random.nextInt(2)) {
-            case 0 -> ModBlocks.blossomMagentaLeaves;
-            case 1 -> ModBlocks.blossomPinkLeaves;
-            default -> ModBlocks.blossomWhiteLeaves;
-        };
-    }
-
-    @Override
-    public SimpleParticleType getParticle() {
-        return ModParticles.springSparkleParticle;
-    }
-
-    @Nullable
-    @Override
-    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
-        return ModConfiguredFeatures.BLOSSOM_TREE;
-    }
-
 }

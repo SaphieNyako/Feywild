@@ -7,16 +7,17 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.moddingx.libx.base.decoration.DecoratedBlock;
 import org.moddingx.libx.base.decoration.DecorationContext;
+import org.moddingx.libx.base.decoration.DecorationMaterial;
 import org.moddingx.libx.base.decoration.DecorationType;
 import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class FeyWoodBlock extends DecoratedBlock {
 
-    public static final DecorationContext DECORATION = new DecorationContext("fey_wood", DecorationContext.BaseMaterial.WOOD, DecorationType.BASE, DecorationType.WALL, DecorationType.SLAB, DecorationType.STAIRS);
+    public static final DecorationContext DECORATION = new DecorationContext("fey_wood", DecorationMaterial.WOOD,
+            DecorationType.BASE, DecorationType.WALL, DecorationType.SLAB, DecorationType.STAIRS
+    );
 
     private final FeyStrippedWoodBlock feyStrippedWood;
 

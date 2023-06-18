@@ -62,6 +62,7 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
         super.entityInside(state, level, pos, entity);
     }
 
+    // UPDATE_TODO extinguish with a shovel?
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")

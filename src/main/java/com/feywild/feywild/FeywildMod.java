@@ -2,6 +2,7 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.compat.MineMentionCompat;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
@@ -31,6 +32,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -54,6 +56,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegistryBuilder;
+import org.moddingx.libx.LibX;
 import org.moddingx.libx.datapack.DynamicPacks;
 import org.moddingx.libx.mod.ModXRegistration;
 import org.slf4j.Logger;
@@ -89,6 +94,7 @@ public final class FeywildMod extends ModXRegistration {
 
         DynamicPacks.RESOURCE_PACKS.enablePack(this.modid, "redux");
         
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::createRegistries);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
@@ -136,6 +142,10 @@ public final class FeywildMod extends ModXRegistration {
         return tab;
     }
 
+    private void createRegistries(NewRegistryEvent event) {
+        event.create(new RegistryBuilder<>().setName(FeyRegistries.TREES.location()).hasTags());
+    }
+    
     private void serverAboutToStart(final ServerAboutToStartEvent event) {
         FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
                 new ResourceLocation("feywild:village/plains/houses/fountain"), 5);

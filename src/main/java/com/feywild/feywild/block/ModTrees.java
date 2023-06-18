@@ -1,11 +1,12 @@
 package com.feywild.feywild.block;
 
+import com.feywild.feywild.FeyRegistries;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.seasonal.*;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 
-@RegisterClass(registry = "")
+@RegisterClass(registryClass = FeyRegistries.class, registry = "TREES")
 public class ModTrees {
 
     public static final BaseTree springTree = new SpringTree(FeywildMod.getInstance());
