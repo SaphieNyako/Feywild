@@ -3,7 +3,10 @@ package com.feywild.feywild.item;
 import com.feywild.feywild.item.render.ReaperScytheRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -17,15 +20,15 @@ import java.util.function.Consumer;
 
 import net.minecraft.world.item.Item.Properties;
 
-public class ReaperScythe extends SwordItem implements IAnimatable {
-
-    public AnimationFactory factory = new AnimationFactory(this);
-
+// UPDATE_TODO animations
+public class ReaperScythe extends SwordItem implements GeoItem {
+    
     public ReaperScythe(Properties properties) {
         super(ModTiers.FEY_LESSER_ORE, 4, -2.7f, properties);
     }
 
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
         super.initializeClient(consumer);
         consumer.accept(new IClientItemExtensions() {
@@ -38,6 +41,7 @@ public class ReaperScythe extends SwordItem implements IAnimatable {
         });
     }
 
+/*
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<ReaperScythe>(this, "controller", 0, this::predicate));
@@ -54,4 +58,5 @@ public class ReaperScythe extends SwordItem implements IAnimatable {
     public AnimationFactory getFactory() {
         return this.factory;
     }
+ */
 }

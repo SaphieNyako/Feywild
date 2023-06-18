@@ -6,6 +6,7 @@ import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.util.TooltipHelper;
+import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -25,8 +26,6 @@ import org.moddingx.libx.mod.ModX;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-
-import net.minecraft.world.item.Item.Properties;
 
 public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
 
@@ -71,7 +70,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
         if (context.getPlayer() != null) {
             if (!context.getLevel().isClientSide) {
                 T entity = this.type.create(context.getLevel());
-                if (entity != null && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag, entity)) {
+                if (entity != null && context.getLevel().dimension() != FeywildDimensions.MARKETPLACE && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag, entity)) {
                     if (storedTag != null) entity.load(storedTag);
                     if (context.getItemInHand().hasCustomHoverName()) {
                         entity.setCustomName(context.getItemInHand().getHoverName());

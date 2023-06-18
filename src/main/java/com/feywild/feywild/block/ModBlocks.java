@@ -7,8 +7,6 @@ import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
-import com.feywild.feywild.block.trees.FeyLeavesBlock;
-import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;

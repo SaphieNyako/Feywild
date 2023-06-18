@@ -2,56 +2,34 @@ package com.feywild.feywild.item;
 
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.effects.ModEffects;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.item.GeoArmorItem;
+import software.bernie.geckolib.animatable.GeoItem;
 
-import java.util.Map;
-
-import net.minecraft.world.item.Item.Properties;
-
-public class FeyWing extends GeoArmorItem implements IAnimatable {
-
-    private static final Map<ArmorMaterial, MobEffectInstance> MATERIAL_TO_EFFECT_MAP =
-            (new ImmutableMap.Builder<ArmorMaterial, MobEffectInstance>())
-                    .put(ModArmorMaterials.FEY_WINGS, new MobEffectInstance(ModEffects.feyFlying, 20 * 60)).build();
-
-    public Variant variant;
-    public AnimationFactory factory = new AnimationFactory(this);
+// UPDATE_TODO animations
+public class FeyWing extends ArmorItem implements GeoItem {
 
     public FeyWing(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, Variant variant) {
         super(materialIn, slot, builder);
         this.variant = variant;
     }
 
-    // UPDATE_TODO correctly apply effect
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         setPrideWings(stack);
-        if (stack.getDisplayName().getString().contains("lesbian_pride_wings")) {
-            setVariant(Variant.LESBIAN_PRIDE);
-        }
-        for (Map.Entry<ArmorMaterial, MobEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            ArmorMaterial mapArmorMaterial = entry.getKey();
-            MobEffectInstance mapStatusEffect = entry.getValue();
-            if (player.getInventory().getArmor(2).getItem() instanceof FeyWing && MiscConfig.players_can_fly) {
-                addStatusEffectForMaterial(player, mapArmorMaterial, mapStatusEffect);
+        if (player.getItemBySlot(this.getEquipmentSlot()).getItem() instanceof FeyWing && MiscConfig.players_can_fly) {
+            if (!player.hasEffect(ModEffects.feyFlying)) {
+                player.addEffect(new MobEffectInstance(ModEffects.feyFlying, 60 * 20, 0));
             }
         }
     }
 
+/*
     private void setPrideWings(ItemStack stack) {
         if (stack.getDisplayName().getString().contains("lesbian_pride_wings")) {
             setVariant(Variant.LESBIAN_PRIDE);
@@ -69,15 +47,7 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
             setVariant(Variant.ASEXUAL_PRIDE);
         }
     }
-
-    private void addStatusEffectForMaterial(Player player, ArmorMaterial mapArmorMaterial, MobEffectInstance mapStatusEffect) {
-        boolean hasPlayerEffect = player.hasEffect(mapStatusEffect.getEffect());
-        if (!hasPlayerEffect) {
-            player.addEffect(new MobEffectInstance(mapStatusEffect.getEffect(),
-                    mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
-        }
-    }
-
+    
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<FeyWing>(this, "controller", 0, this::predicate));
@@ -109,4 +79,5 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
             this.id = id;
         }
     }
+ */
 }

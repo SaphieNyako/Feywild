@@ -21,8 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class EmptyScroll extends ItemBase {
 
     // Custom name is on the list as the custom name is handles by the stacks display name
@@ -47,7 +45,7 @@ public class EmptyScroll extends ItemBase {
         if (entity instanceof LivingEntity && CAPTURE_MAP.containsKey(type)) {
             SummoningScroll<?> scroll = CAPTURE_MAP.get(type);
             //noinspection unchecked
-            if (!entity.level.isClientSide && ((SummoningScroll<LivingEntity>) scroll).canCapture(entity.level, player, (LivingEntity) entity)) {
+            if (!entity.level().isClientSide && ((SummoningScroll<LivingEntity>) scroll).canCapture(entity.level(), player, (LivingEntity) entity)) {
                 // Saving the dat of riding entities breaks stuff.
                 if (entity.isPassenger()) entity.stopRiding();
                 entity.getPassengers().forEach(Entity::stopRiding);
@@ -67,9 +65,9 @@ public class EmptyScroll extends ItemBase {
                     player.getInventory().setItem(player.getInventory().selected, stack);
                 } else if (!player.getInventory().add(stack)) {
                     // inventory is full. Drop the item
-                    ItemEntity ie = new ItemEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), stack.copy());
-                    ie.setOwner(player.getUUID()); // Only the player can pick this up
-                    entity.level.addFreshEntity(ie);
+                    ItemEntity ie = new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), stack.copy());
+                    ie.setTarget(player.getUUID()); // Only the player can pick this up
+                    entity.level().addFreshEntity(ie);
                 }
                 player.swing(InteractionHand.MAIN_HAND);
                 entity.remove(Entity.RemovalReason.DISCARDED);

@@ -104,7 +104,6 @@ public abstract class Pixie extends FlyingFeyBase {
         if (superResult == InteractionResult.PASS) {
             if (!stack.isEmpty() && player instanceof ServerPlayer && this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
-
             } else if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(getBoredCount());
                 this.setBored(getBoredCount());
@@ -123,14 +122,12 @@ public abstract class Pixie extends FlyingFeyBase {
                 }
                 FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
                 player.swing(hand, true);
-
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
                 if (!level.isClientSide) {
                     player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_fey_name"));
                 }
-
             } else if (!this.isTamed() && this.getOwner() == null && player instanceof ServerPlayer && player.getItemInHand(hand).getItem() == Items.ENDER_EYE) {
                 player.swing(player.getUsedItemHand(), true);
                 if (!player.isCreative()) {
@@ -138,7 +135,6 @@ public abstract class Pixie extends FlyingFeyBase {
                 }
                 player.addItem(new ItemStack(ModItems.pixieOrb));
                 this.remove(RemovalReason.DISCARDED);
-
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())
                     && player.getItemInHand(hand).getItem() instanceof RuneStone runeStone) {
                 player.swing(player.getUsedItemHand(), true);
@@ -150,7 +146,6 @@ public abstract class Pixie extends FlyingFeyBase {
                 if (!level.isClientSide) {
                     player.sendSystemMessage(Component.literal("Ow this is a fun ability!"));
                 }
-
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
 
                 if (stack.isEmpty() && !player.isShiftKeyDown()) {

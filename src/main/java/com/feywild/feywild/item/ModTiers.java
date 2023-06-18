@@ -22,5 +22,4 @@ public class ModTiers {
     public static final ForgeTier FEY_BRILLIANT_ORE = new ForgeTier(5, 3600, 10.0f,
             5.0f, 22, BlockTags.NEEDS_DIAMOND_TOOL,
             () -> Ingredient.of(ModItems.greaterFeyGem));
-
 }

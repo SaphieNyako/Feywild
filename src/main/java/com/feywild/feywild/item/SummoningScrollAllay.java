@@ -28,8 +28,7 @@ import javax.annotation.Nullable;
 import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScrollAllay<T extends Allay> extends SummoningScroll<T> implements Registerable {
-
-
+    
     public SummoningScrollAllay(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
         super(mod, type, soundEvent, properties);
     }

@@ -68,6 +68,7 @@ import software.bernie.geckolib.GeckoLib;
 import javax.annotation.Nonnull;
 
 // UPDATE_TODO support registry tracking
+// UPDATE_TODO clean up AT
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 

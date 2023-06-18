@@ -11,8 +11,6 @@ import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class Mandrake extends TooltipItem {
 
     public Mandrake(ModX mod, Properties properties) {

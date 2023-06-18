@@ -43,7 +43,8 @@ public class FeywildLexicon extends ItemBase {
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new OpeningScreenMessage());
                 // feywild_got_scroll is set when the player actually retrieves a scroll
             } else {
-                PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));
+                // UPDATE_TODO patchouli
+//                PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));
             }
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);

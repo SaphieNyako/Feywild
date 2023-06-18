@@ -3,9 +3,9 @@ package com.feywild.feywild.item.model;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.FeyWing;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class FeyWingsModel extends AnimatedGeoModel<FeyWing> {
+public class FeyWingsModel extends GeoModel<FeyWing> {
     @Override
     public ResourceLocation getModelResource(FeyWing object) {
         return FeywildMod.getInstance().resource("geo/fey_wings.geo.json");

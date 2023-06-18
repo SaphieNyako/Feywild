@@ -3,9 +3,9 @@ package com.feywild.feywild.item.model;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.FeyAltarItem;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class FeyAltarItemModel extends AnimatedGeoModel<FeyAltarItem> {
+public class FeyAltarItemModel extends GeoModel<FeyAltarItem> {
 
     @Override
     public ResourceLocation getModelResource(FeyAltarItem feyAltar) {
