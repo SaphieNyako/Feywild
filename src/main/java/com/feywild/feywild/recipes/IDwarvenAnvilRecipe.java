@@ -1,6 +1,7 @@
 package com.feywild.feywild.recipes;
 
 import com.feywild.feywild.block.ModBlocks;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -24,11 +25,6 @@ public interface IDwarvenAnvilRecipe extends Recipe<Container> {
         return true;
     }
 
-    @Override
-    default boolean isSpecial() {
-        return false;
-    }
-
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
@@ -43,18 +39,10 @@ public interface IDwarvenAnvilRecipe extends Recipe<Container> {
         return false;
     }
 
-    // Again we don't use vanilla inventories
-    @Nonnull
-    @Override
-    @Deprecated
-    default ItemStack assemble(@Nonnull Container container) {
-        return this.getResultItem();
-    }
-
     // Single method for matching and the result.
     // Has the advantage that we can write much shorter expressions to find
     // a recipe
-    Optional<ItemStack> getResult(ItemStack schematics, List<ItemStack> inputs);
+    Optional<ItemStack> getResult(RegistryAccess registries, ItemStack schematics, List<ItemStack> inputs);
 
     int getMana();
 }

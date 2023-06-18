@@ -31,7 +31,7 @@ public class MarketHandler {
 
     public static boolean teleportToMarket(ServerPlayer player) {
         if (player.level().dimension() == Level.OVERWORLD) {
-            ServerLevel targetLevel = player.level().getServer().getLevel(FeywildDimensions.MARKETPLACE);
+            ServerLevel targetLevel = player.serverLevel().getServer().getLevel(FeywildDimensions.MARKETPLACE);
             if (targetLevel != null) {
                 MarketData data = MarketData.get(targetLevel);
                 if (data != null) {
@@ -56,7 +56,7 @@ public class MarketHandler {
 
     public static boolean teleportToOverworld(ServerPlayer player) {
         if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
-            ServerLevel targetLevel = player.level().getServer().overworld();
+            ServerLevel targetLevel = player.serverLevel().getServer().overworld();
             BlockPos targetPos = FeyPlayerData.get(player).contains("OverworldPosWhenVisitingMarket", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(FeyPlayerData.get(player).getCompound("OverworldPosWhenVisitingMarket")) : null;
             if (targetPos == null) {
                 if (player.getRespawnDimension() == Level.OVERWORLD & player.getRespawnPosition() != null) {

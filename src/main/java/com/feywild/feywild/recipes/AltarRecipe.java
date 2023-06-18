@@ -6,9 +6,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -48,7 +50,13 @@ public class AltarRecipe implements IAltarRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack assemble(@Nonnull Container container, @Nonnull RegistryAccess registries) {
+        return this.getResultItem(registries);
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack getResultItem(@Nonnull RegistryAccess registries) {
         return this.output.copy();
     }
 

@@ -36,6 +36,7 @@ public class FeyWing extends GeoArmorItem implements IAnimatable {
         this.variant = variant;
     }
 
+    // UPDATE_TODO correctly apply effect
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         setPrideWings(stack);

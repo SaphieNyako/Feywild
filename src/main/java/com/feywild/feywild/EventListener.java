@@ -21,6 +21,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -121,16 +122,16 @@ public class EventListener {
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent event) {
         // Only check one / second
-        if (event.player.tickCount % 20 == 0 && !event.player.level.isClientSide && event.player instanceof ServerPlayer player) {
+        if (event.player.tickCount % 20 == 0 && !event.player.level().isClientSide && event.player instanceof ServerPlayer player) {
             QuestData quests = QuestData.get(player);
             player.getInventory().items.forEach(stack -> quests.checkComplete(ItemStackTask.INSTANCE, stack));
             //Quest Check for Biome
             player.level().getBiome(player.blockPosition()).is(biome -> quests.checkComplete(BiomeTask.INSTANCE, biome.location()));
             //Quest Check for Structure
-            if (player.level().structureManager().hasAnyStructureAt(player.blockPosition())) {
+            if (player.serverLevel().structureManager().hasAnyStructureAt(player.blockPosition())) {
                 RegistryAccess access = player.level().registryAccess();
-                Registry<Structure> structureRegistry = access.registryOrThrow(Registry.STRUCTURE);
-                player.level().structureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> {
+                Registry<Structure> structureRegistry = access.registryOrThrow(Registries.STRUCTURE);
+                player.serverLevel().structureManager().getAllStructuresAt(player.blockPosition()).forEach((structure, set) -> {
                     ResourceLocation structureId = structureRegistry.getKey(structure);
                     if (structureId != null) {
                         quests.checkComplete(StructureTask.INSTANCE, structureId);
@@ -149,7 +150,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getEntity().level.isClientSide) {
+        if (!event.getEntity().level().isClientSide) {
             if (event.getEntity() instanceof ServerPlayer) {
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) event.getEntity()), new TradesMessage(TradeManager.buildRecipes()));
             }
@@ -203,18 +204,13 @@ public class EventListener {
 
     @SubscribeEvent
     public void sleepInFeywild(SleepingLocationCheckEvent event) {
-
-        if (event.getEntity() instanceof ServerPlayer player && event.getEntity().level.dimension() == FeywildDimensions.FEYWILD) {
-
+        if (event.getEntity() instanceof ServerPlayer player && event.getEntity().level().dimension() == FeywildDimensions.FEYWILD) {
             player.startSleeping(player.blockPosition());
             player.getBrain().setMemory(MemoryModuleType.HOME, Optional.empty());
-            InteractWithDoor.closeDoorsThatIHaveOpenedOrPassedThrough(player.level(), player, (Node) null, (Node) null);
-
+            InteractWithDoor.closeDoorsThatIHaveOpenedOrPassedThrough(player.server(), player, (Node) null, (Node) null);
             // player.getLevel().getServer().getWorldData().overworldData().setDayTime(1000);
             player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 70, 0));
-
             //player.sendSystemMessage(Component.literal("You feel rested, but time did not change. Is this a dream or reality?"));
-
             /*
             ServerLevel targetLevel = player.getLevel().getServer().overworld();
             player.changeDimension(targetLevel, new DefaultTeleporter());

@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -76,9 +77,9 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
     }
 
     @Override
-    public void draw(@Nonnull DwarvenAnvilRecipe recipe, @Nonnull IRecipeSlotsView slots, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(@Nonnull DwarvenAnvilRecipe recipe, @Nonnull IRecipeSlotsView slots, @Nonnull GuiGraphics graphics, double mouseX, double mouseY) {
         int maskBottom = (int) Math.round((Mth.clamp(recipe.getMana(), 0, DwarvenAnvil.MAX_MANA) / (double) DwarvenAnvil.MAX_MANA) * this.manaOverlay.getHeight());
-        this.manaOverlay.draw(poseStack, 1, 2, 0, maskBottom, 0, 0);
-        Minecraft.getInstance().font.draw(poseStack, Component.translatable("screen.feywild.mana_amount", recipe.getMana()), 100, 0, 0xFFFFFF);
+        this.manaOverlay.draw(graphics, 1, 2, 0, maskBottom, 0, 0);
+        graphics.drawString(Minecraft.getInstance().font, Component.translatable("screen.feywild.mana_amount", recipe.getMana()), 100, 0, 0xFFFFFF, false);
     }
 }

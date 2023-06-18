@@ -12,7 +12,7 @@ public class FeyPlanksBlock extends DecoratedBlock {
     public static final DecorationContext DECORATION = new DecorationContext("fey_planks", DecorationMaterial.WOOD,
             DecorationType.BASE, DecorationType.FENCE, DecorationType.FENCE_GATE, DecorationType.SLAB,
             DecorationType.STAIRS, DecorationType.WOOD_BUTTON, DecorationType.WOOD_PRESSURE_PLATE,
-            DecorationType.DOOR, DecorationType.TRAPDOOR
+            DecorationType.DOOR, DecorationType.TRAPDOOR, DecorationType.SIGN, DecorationType.HANGING_SIGN
     );
 
     public FeyPlanksBlock(ModX mod, Properties properties, Item.Properties itemProperties) {

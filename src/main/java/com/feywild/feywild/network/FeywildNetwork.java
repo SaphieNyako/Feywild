@@ -37,8 +37,6 @@ public class FeywildNetwork extends NetworkX {
         this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new OpenQuestDisplayMessage.Serializer(), () -> OpenQuestDisplayMessage.Handler::new);
         this.registerGame(NetworkDirection.PLAY_TO_SERVER, new SelectQuestMessage.Serializer(), () -> SelectQuestMessage.Handler::new);
         this.registerGame(NetworkDirection.PLAY_TO_SERVER, new ConfirmQuestMessage.Serializer(), () -> ConfirmQuestMessage.Handler::new);
-
-        this.registerGame(NetworkDirection.PLAY_TO_CLIENT, new UpdateFlight.Serializer(), () -> UpdateFlight.Handler::new);
     }
 
     public void sendParticles(Level level, ParticleMessage.Type type, BlockPos pos) {

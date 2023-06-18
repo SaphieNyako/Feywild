@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+// UPDATE_TODO why?
 public class AutumnTreeFeature extends Feature<NoneFeatureConfiguration> {
 
     public static final ResourceLocation AUTUMN_TREE_1 = new ResourceLocation("feywild:autumn_tree_1");

@@ -64,7 +64,7 @@ public class WinterTree extends BaseTree {
 
     @Override
     public void decorateSaplingGrowth(ServerLevel level, BlockPos pos, RandomSource random) {
-        if (BlockTags.DIRT, level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
+        if (level.getBlockState(pos.below()).is(BlockTags.DIRT)) {
             level.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, 1 + random.nextInt(2)));
         }
     }

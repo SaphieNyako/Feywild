@@ -6,9 +6,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -54,7 +56,13 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack assemble(@Nonnull Container container, @Nonnull RegistryAccess registries) {
+        return this.getResultItem(registries);
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack getResultItem(@Nonnull RegistryAccess registries) {
         return this.output.copy();
     }
 
@@ -79,13 +87,13 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
     }
 
     @Override
-    public Optional<ItemStack> getResult(ItemStack schematics, List<ItemStack> inputs) {
+    public Optional<ItemStack> getResult(RegistryAccess registries, ItemStack schematics, List<ItemStack> inputs) {
         if (this.schematics != null && (schematics.isEmpty() || !this.schematics.test(schematics))) {
             return Optional.empty();
         } else if (!Util.simpleMatch(this.inputs, inputs)) {
             return Optional.empty();
         } else {
-            return Optional.of(this.getResultItem());
+            return Optional.of(this.getResultItem(registries));
         }
     }
 

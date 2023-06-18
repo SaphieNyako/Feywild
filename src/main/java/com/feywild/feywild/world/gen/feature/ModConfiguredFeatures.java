@@ -5,6 +5,7 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
+// UPDATE_TODO remove
 public class ModConfiguredFeatures {
 
     public static final Holder<ConfiguredFeature<NoneFeatureConfiguration, ?>> AUTUMN_TREE;

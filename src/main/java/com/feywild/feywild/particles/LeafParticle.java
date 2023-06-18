@@ -15,8 +15,7 @@ public class LeafParticle extends TextureSheetParticle {
     private final double initZ;
     private final int remover;
     private float move = 0;
-
-
+    
     public LeafParticle(ClientLevel level, double x, double y, double z, double velX, double velY, double velZ) {
         super(level, x, y, z);
         this.setSize(0.5f, 0.5f);
@@ -26,10 +25,8 @@ public class LeafParticle extends TextureSheetParticle {
         this.initZ = z;
         this.velY = velY;
         this.remover = velX == velZ ? 1 : 0;
-
     }
-
-
+    
     @Nonnull
     @Override
     public ParticleRenderType getRenderType() {
@@ -61,5 +58,6 @@ public class LeafParticle extends TextureSheetParticle {
         }
     }
 }
+
 
 

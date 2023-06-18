@@ -42,7 +42,6 @@ public class LoreMaster extends Villager {
         InteractionResult superResult = super.interactAt(player, vec, hand);
         Level level = player.level();
         if (superResult == InteractionResult.PASS) {
-
             if (!level.isClientSide && player instanceof ServerPlayer) {
                 QuestData.get((ServerPlayer) player).checkComplete(AnimalPetTask.INSTANCE, this);
                 player.sendSystemMessage(Component.translatable("librarian.feywild.initial"));

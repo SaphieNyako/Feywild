@@ -3,6 +3,7 @@ package com.feywild.feywild.config.mapper;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -20,13 +21,11 @@ import javax.annotation.Nullable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
-import org.moddingx.libx.config.mapper.MapperFactory.Context;
-
 @RegisterMapper
 public class TagMapperFactory implements MapperFactory<TagKey<?>> {
 
     private final Map<Class<?>, TagMapper<?>> tagTypes = ImmutableMap.<Class<?>, TagMapper<?>>builder()
-            .put(Biome.class, new TagMapper<>(Registry.BIOME))
+            .put(Biome.class, new TagMapper<>(Registries.BIOME))
             .build();
 
     @Override

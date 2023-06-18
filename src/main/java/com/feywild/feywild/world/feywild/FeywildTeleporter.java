@@ -13,7 +13,7 @@ public class FeywildTeleporter {
 
     public static boolean teleportToFeywild(ServerPlayer player) {
         if (player.level().dimension() == Level.OVERWORLD) {
-            ServerLevel targetLevel = player.level().getServer().getLevel(FeywildDimensions.FEYWILD);
+            ServerLevel targetLevel = player.serverLevel().getServer().getLevel(FeywildDimensions.FEYWILD);
             if (targetLevel != null) {
                 player.changeDimension(targetLevel, new DefaultTeleporter());
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
@@ -28,7 +28,7 @@ public class FeywildTeleporter {
 
     public static boolean teleportToOverworld(ServerPlayer player) {
         if (player.level().dimension() == FeywildDimensions.FEYWILD) {
-            ServerLevel targetLevel = player.level().getServer().overworld();
+            ServerLevel targetLevel = player.serverLevel().getServer().overworld();
             player.changeDimension(targetLevel, new DefaultTeleporter());
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 90, 0));
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 63));

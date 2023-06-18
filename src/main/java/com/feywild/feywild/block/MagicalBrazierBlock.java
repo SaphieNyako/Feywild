@@ -2,11 +2,13 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.MagicalBrazier;
 import com.feywild.feywild.block.render.MagicalBrazierRenderer;
+import com.feywild.feywild.item.ModItems;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -67,11 +69,16 @@ public class MagicalBrazierBlock extends BlockBE<MagicalBrazier> {
     @Override
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
-        if (player.getItemInHand(hand).isEmpty() && state.getValue(BlockStateProperties.LIT)) {
+        if (player.getItemInHand(hand).is(ItemTags.SHOVELS) && state.getValue(BlockStateProperties.LIT)) {
             if (!level.isClientSide) {
                 state = state.setValue(BlockStateProperties.LIT, false);
                 level.setBlock(pos, state, 2);
                 level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1, 1);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        } else if (player.getItemInHand(hand).getItem() == ModItems.feyDust && !state.getValue(BlockStateProperties.LIT)) {
+            if (!level.isClientSide) {
+                
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

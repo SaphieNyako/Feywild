@@ -24,11 +24,6 @@ public interface IAltarRecipe extends Recipe<Container> {
         return true;
     }
 
-    @Override
-    default boolean isSpecial() {
-        return false;
-    }
-
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
@@ -41,14 +36,6 @@ public interface IAltarRecipe extends Recipe<Container> {
     @Deprecated
     default boolean matches(@Nonnull Container container, @Nonnull Level level) {
         return false;
-    }
-
-    // Again we don't use vanilla inventories
-    @Nonnull
-    @Override
-    @Deprecated
-    default ItemStack assemble(@Nonnull Container container) {
-        return this.getResultItem();
     }
 
     Optional<ItemStack> getResult(List<ItemStack> inputs);

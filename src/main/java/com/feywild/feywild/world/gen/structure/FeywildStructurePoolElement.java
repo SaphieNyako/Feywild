@@ -47,7 +47,7 @@ public class FeywildStructurePoolElement extends SinglePoolElement {
             return false;
         } else {
             for (StructureTemplate.StructureBlockInfo info : StructureTemplate.processBlockInfos(level, pos, processorPos, settings, this.getDataMarkers(templates, pos, rotation, false), template)) {
-                this.handleCustomDataMarker(templates, structures, level, info, info.pos, rotation, random, box);
+                this.handleCustomDataMarker(templates, structures, level, info, info.pos(), rotation, random, box);
             }
             return true;
         }
@@ -65,7 +65,7 @@ public class FeywildStructurePoolElement extends SinglePoolElement {
     // Same as handleDataMarker but will get the template manager
     public void handleCustomDataMarker(StructureTemplateManager templates, StructureManager structures, WorldGenLevel level, StructureTemplate.StructureBlockInfo block, BlockPos pos, Rotation rot, RandomSource random, BoundingBox box) {
         //noinspection ConstantConditions
-        String data = block.nbt == null ? "" : block.nbt.getString("metadata");
+        String data = block.nbt() == null ? "" : block.nbt().getString("metadata");
         // Replace structure block in all cases
         level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
         FeywildDataMarkers.handle(data, templates, structures, level, block, pos, rot, random, box);

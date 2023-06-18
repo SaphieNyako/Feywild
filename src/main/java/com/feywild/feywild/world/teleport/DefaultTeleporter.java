@@ -21,7 +21,7 @@ public class DefaultTeleporter implements ITeleporter {
     @Nullable
     @Override
     public PortalInfo getPortalInfo(Entity entity, ServerLevel dest, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
-        if (!(entity.level instanceof ServerLevel level)) return null;
+        if (!(entity.level() instanceof ServerLevel level)) return null;
         double scaleFactor = level.dimensionType().coordinateScale() / dest.dimensionType().coordinateScale();
         BlockPos calculatedTarget = dest.getWorldBorder().clampToBounds(entity.getX() * scaleFactor, 0, entity.getZ() * scaleFactor);
         ChunkPos chunkPos = new ChunkPos(calculatedTarget);
