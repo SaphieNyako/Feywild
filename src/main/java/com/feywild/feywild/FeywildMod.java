@@ -193,6 +193,7 @@ public final class FeywildMod extends ModXRegistration {
 
     private void createRegistries(NewRegistryEvent event) {
         event.create(new RegistryBuilder<>().setName(FeyRegistries.TREES.location()).hasTags());
+        event.create(new RegistryBuilder<>().setName(FeyRegistries.ABILITIES.location()).hasTags());
     }
     
     private void serverAboutToStart(final ServerAboutToStartEvent event) {
@@ -394,6 +395,6 @@ public final class FeywildMod extends ModXRegistration {
         event.addListener(TradeManager.createReloadListener());
         event.addListener(QuestManager.createReloadListener());
     }
-
-
+    
+    
 }

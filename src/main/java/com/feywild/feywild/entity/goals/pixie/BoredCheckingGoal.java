@@ -20,6 +20,7 @@ public class BoredCheckingGoal extends Goal {
         this.parent = parent;
     }
 
+    // UPDATE_TODO invert sign?
     private boolean isBored() {
         return this.entity.getBored() < 1;
     }

@@ -4,7 +4,6 @@ import com.feywild.feywild.entity.Mab;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
@@ -34,13 +33,13 @@ public class PhysicalAttackGoal extends Goal {
             this.ticksLeft--;
             if (this.ticksLeft <= 0) {
                 this.reset();
-                this.entity.playSound(ModSoundEvents.mabAttack, 1, 1);
+                this.entity.playSound(ModSoundEvents.mabAttack.getSoundEvent(), 1, 1);
             } else if (this.ticksLeft == 33) {
-                this.entity.playSound(ModSoundEvents.swordSwing, 1, 1);
+                this.entity.playSound(ModSoundEvents.swordSwing.getSoundEvent(), 1, 1);
             } else if (this.ticksLeft == 35) {
                 moveToPlayer();
                 this.spellCasting();
-                target.hurt(DamageSource.GENERIC, 2);
+                target.hurt(target.level().damageSources().mobAttack(this.entity), 2);
             }
         }
     }
@@ -56,7 +55,7 @@ public class PhysicalAttackGoal extends Goal {
         this.ticksLeft = 36;
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(32);
-        for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+        for (Player match : this.entity.level().getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
             this.target = match;
             break;
         }
@@ -75,7 +74,7 @@ public class PhysicalAttackGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.level.random.nextFloat() < 0.02f && (this.entity.getState() == Mab.State.IDLE || !(this.entity.getState() == Mab.State.INTIMIDATE) || !(this.entity.getState() == Mab.State.SPECIAL) || !(this.entity.getState() == Mab.State.PHYSICAL));
+        return this.entity.level().random.nextFloat() < 0.02f && (this.entity.getState() == Mab.State.IDLE || !(this.entity.getState() == Mab.State.INTIMIDATE) || !(this.entity.getState() == Mab.State.SPECIAL) || !(this.entity.getState() == Mab.State.PHYSICAL));
     }
 
     @Override

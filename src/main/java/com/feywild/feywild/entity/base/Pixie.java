@@ -2,9 +2,9 @@ package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
+import com.feywild.feywild.entity.ability.Ability;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
-import com.feywild.feywild.entity.goals.pixie.Ability;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.RuneStone;
 import com.feywild.feywild.network.ParticleMessage;
@@ -60,7 +60,8 @@ public abstract class Pixie extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> BORED = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
-    public Ability ability;
+    
+    private Ability ability;
 
     protected Pixie(EntityType<? extends Pixie> type, Alignment alignment, Level level) {
         super(type, alignment, level);
@@ -157,11 +158,7 @@ public abstract class Pixie extends FlyingFeyBase {
             return superResult;
         }
     }
-
-    public int getBoredCount() {
-        return 20;
-    }
-
+    
     private void interactQuest(ServerPlayer player, InteractionHand hand) {
         QuestData quests = QuestData.get(player);
         if (quests.canComplete(this.alignment)) {
@@ -214,6 +211,8 @@ public abstract class Pixie extends FlyingFeyBase {
         return this.entityData.get(BORED);
     }
 
+    // UPDATE_TODO rename to boredom, save to disk and clamp
+    //  Also make a decreaseBoredom method for use in AbilityGoal
     public void setBored(int bored) {
         this.entityData.set(BORED, bored);
     }
@@ -242,6 +241,7 @@ public abstract class Pixie extends FlyingFeyBase {
 
     @SubscribeEvent
     public void treeGrow(SaplingGrowTreeEvent event) {
+        MinecraftForge
         BlockPos pos = event.getPos();
         Block block = event.getLevel().getBlockState(pos).getBlock();
         Player player = this.getOwningPlayer();
@@ -262,11 +262,11 @@ public abstract class Pixie extends FlyingFeyBase {
         }
     }
 
-    public Ability getAbility() {
+    public Ability<?> getAbility() {
         return this.ability;
     }
 
-    public void setAbility(Ability ability) {
+    public void setAbility(Ability<?> ability) {
         this.ability = ability;
     }
 
