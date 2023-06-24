@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static RecipeType<AltarRecipe> TYPE = RecipeType.create(FeywildMod.getInstance().modid, "altar", AltarRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
+    public final static ResourceLocation TEXTURE = FeywildMod.getInstance().resource("textures/gui/fey_altar_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;

@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 public class CapabilityQuests {
 
-    public static final ResourceLocation KEY = new ResourceLocation(FeywildMod.getInstance().modid, "player_quests");
+    public static final ResourceLocation KEY = FeywildMod.getInstance().resource("player_quests");
 
     public static final Capability<QuestData> QUESTS = CapabilityManager.get(new CapabilityToken<>() {
     });

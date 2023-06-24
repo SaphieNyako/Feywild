@@ -206,12 +206,12 @@ public final class FeywildMod extends ModXRegistration {
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntities.dwarfDragonHunter, new BlockPos(21, 63, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntities.dwarfToolsmith, new BlockPos(21, 63, 11));
 
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "spring_tree_processor"), SPRING_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "summer_tree_processor"), SUMMER_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "autumn_tree_processor"), AUTUMN_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "winter_tree_processor"), WINTER_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "blossom_tree_processor"), BLOSSOM_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "hexen_tree_processor"), HEXEN_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("spring_tree_processor"), SPRING_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("summer_tree_processor"), SUMMER_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("autumn_tree_processor"), AUTUMN_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("winter_tree_processor"), WINTER_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("blossom_tree_processor"), BLOSSOM_TREE_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("hexen_tree_processor"), HEXEN_TREE_PROCESSOR);
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();

@@ -40,7 +40,7 @@ public class ScrollWidget extends Button {
     }
 
     public ResourceLocation getTexture() {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/begin_atlas.png");
+        return FeywildMod.getInstance().resource("textures/gui/begin_atlas.png");
     }
 
     @Override

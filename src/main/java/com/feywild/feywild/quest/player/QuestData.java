@@ -58,7 +58,7 @@ public class QuestData {
     public QuestDisplay initialize(Alignment alignment) {
         if (this.alignment == null) {
             QuestLine quests = QuestManager.getQuests(alignment);
-            Quest rootQuest = quests == null ? null : quests.getQuest(new ResourceLocation(FeywildMod.getInstance().modid, "root"));
+            Quest rootQuest = quests == null ? null : quests.getQuest(FeywildMod.getInstance().resource("root"));
             if (rootQuest != null) {
                 this.pendingAlignment = alignment;
                 return rootQuest.start;
@@ -79,7 +79,7 @@ public class QuestData {
             this.completedQuests.clear();
             this.activeQuests.clear();
             QuestLine quests = QuestManager.getQuests(this.alignment);
-            Quest rootQuest = quests == null ? null : quests.getQuest(new ResourceLocation(FeywildMod.getInstance().modid, "root"));
+            Quest rootQuest = quests == null ? null : quests.getQuest(FeywildMod.getInstance().resource("root"));
             if (rootQuest != null && rootQuest.tasks.isEmpty()) {
                 for (QuestReward reward : rootQuest.rewards) {
                     reward.grantReward(this.player);

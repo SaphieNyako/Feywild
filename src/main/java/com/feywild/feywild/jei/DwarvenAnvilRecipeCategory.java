@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilRecipe> {
 
     public final static RecipeType<DwarvenAnvilRecipe> TYPE = RecipeType.create(FeywildMod.getInstance().modid, "dwarven_anvil", DwarvenAnvilRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/dwarven_anvil_jei.png");
+    public final static ResourceLocation TEXTURE = FeywildMod.getInstance().resource("textures/gui/dwarven_anvil_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;

@@ -40,7 +40,7 @@ public class BookWidget extends Button {
     }
 
     public ResourceLocation getTexture() {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/librarian_gui.png");
+        return FeywildMod.getInstance().resource("textures/gui/librarian_gui.png");
     }
 
     @Override
