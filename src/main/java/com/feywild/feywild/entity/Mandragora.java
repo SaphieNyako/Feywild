@@ -11,6 +11,8 @@ import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.tag.ModItemTags;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -113,6 +115,21 @@ public class Mandragora extends GroundFeyBase implements IAnimatable, ITameable 
 
     public void setCasting(boolean casting) {
         this.entityData.set(CASTING, casting);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide && this.isCasting()) {
+            if (this.level().random.nextInt(20) == 0 && !Minecraft.getInstance().isPaused()) {
+                this.level().addParticle(ParticleTypes.NOTE,
+                        this.getX() + (Math.random() - 0.5),
+                        this.getY() + 1 + (Math.random() - 0.5),
+                        this.getZ() + (Math.random() - 0.5),
+                        0.917, 0, 0
+                );
+            }
+        }
     }
 
     @Nonnull
