@@ -1,7 +1,7 @@
 package com.feywild.feywild.entity.render;
 
 import com.feywild.feywild.entity.DwarfBlacksmith;
-import com.feywild.feywild.entity.model.DwarfBlacksmithModel;
+import com.feywild.feywild.entity.model.DwarfModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 public class MarketDwarfRenderer extends GeoEntityRenderer<DwarfBlacksmith> {
 
     public MarketDwarfRenderer(EntityRendererProvider.Context manager) {
-        super(manager, new DwarfBlacksmithModel());
+        super(manager, new DwarfModel());
         this.shadowRadius = 0.8F;
     }
 

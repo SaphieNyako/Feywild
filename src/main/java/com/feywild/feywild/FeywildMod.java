@@ -68,8 +68,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegistryBuilder;
-import org.antlr.runtime.tree.Tree;
-import org.moddingx.libx.LibX;
 import org.moddingx.libx.datagen.DatagenSystem;
 import org.moddingx.libx.datagen.PackTarget;
 import org.moddingx.libx.datapack.DynamicPacks;
@@ -292,11 +290,11 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.dwarfDragonHunter, MarketDwarfRenderer::new);
         EntityRenderers.register(ModEntities.dwarfBaker, MarketDwarfRenderer::new);
         EntityRenderers.register(ModEntities.dwarfMiner, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfBlacksmithModel::new));
+        EntityRenderers.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfModel::new));
         EntityRenderers.register(ModEntities.dwarfShepherd, MarketDwarfRenderer::new);
         EntityRenderers.register(ModEntities.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
         EntityRenderers.register(ModEntities.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
-        EntityRenderers.register(ModEntities.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
+        EntityRenderers.register(ModEntities.autumnPixie, BasePixieRenderer.create(PixieModel::new));
         EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
         EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
         EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
@@ -308,7 +306,7 @@ public final class FeywildMod extends ModXRegistration {
         EntityRenderers.register(ModEntities.springTreeEnt, BaseTreeEntRenderer.create(SpringTreeEntModel::new));
         EntityRenderers.register(ModEntities.summerTreeEnt, BaseTreeEntRenderer.create(SummerTreeEntModel::new));
         EntityRenderers.register(ModEntities.winterTreeEnt, BaseTreeEntRenderer.create(WinterTreeEntModel::new));
-        EntityRenderers.register(ModEntities.autumnTreeEnt, BaseTreeEntRenderer.create(AutumnTreeEntModel::new));
+        EntityRenderers.register(ModEntities.autumnTreeEnt, BaseTreeEntRenderer.create(TreeEntModel::new));
         EntityRenderers.register(ModEntities.blossomTreeEnt, BaseTreeEntRenderer.create(BlossomTreeEntModel::new));
         EntityRenderers.register(ModEntities.hexenTreeEnt, BaseTreeEntRenderer.create(HexenTreeEntModel::new));
 

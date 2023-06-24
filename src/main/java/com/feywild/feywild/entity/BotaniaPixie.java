@@ -136,6 +136,21 @@ public class BotaniaPixie extends FlyingFeyBase {
     }
 
     public enum BotaniaPixieVariant {
-        DEFAULT, SPRING, SUMMER, AUTUMN, WINTER
+        
+        DEFAULT("default"),
+        SPRING(Alignment.SPRING),
+        SUMMER(Alignment.SUMMER),
+        AUTUMN(Alignment.AUTUMN),
+        WINTER(Alignment.WINTER);
+        
+        public final String id;
+
+        BotaniaPixieVariant(Alignment alignment) {
+            this(alignment.id);
+        }
+        
+        BotaniaPixieVariant(String id) {
+            this.id = id;
+        }
     }
 }
