@@ -1,8 +1,8 @@
 package com.feywild.feywild.screens.util;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
@@ -74,8 +74,8 @@ public class AnimatedText {
         if (!this.isOnLastPage()) this.currentPage += 1;
     }
     
-    public void render(PoseStack poseStack, int x, int y) {
-        this.pages.get(this.currentPage).render(poseStack, x, y);
+    public void render(GuiGraphics graphics, int x, int y) {
+        this.pages.get(this.currentPage).render(graphics, x, y);
     }
 
     private class Page {
@@ -121,13 +121,13 @@ public class AnimatedText {
             return this.visibleLines >= this.lines.size();
         }
 
-        public void render(PoseStack poseStack, int x, int y) {
+        public void render(GuiGraphics graphics, int x, int y) {
             for (int i = 0; i < Math.min(this.visibleLines, this.lines.size()); i++) {
-                AnimatedText.this.font.drawShadow(poseStack, this.lines.get(i), x, y + i * (AnimatedText.this.font.lineHeight + 2), 0xFFFFFF);
+                graphics.drawString(AnimatedText.this.font, this.lines.get(i), x, y + i * (AnimatedText.this.font.lineHeight + 2), 0xFFFFFF, false);
             }
             if (this.visibleLines < this.lines.size() && this.visibleChars > 0) {
                 FormattedCharSequence fsq = ComponentUtil.subSequence(this.lines.get(this.visibleLines), 0, this.visibleChars);
-                AnimatedText.this.font.drawShadow(poseStack, fsq, x, y + this.visibleLines * (AnimatedText.this.font.lineHeight + 2), 0xFFFFFF);
+                graphics.drawString(AnimatedText.this.font, fsq, x, y + this.visibleLines * (AnimatedText.this.font.lineHeight + 2), 0xFFFFFF, false);
             }
         }
     }

@@ -2,7 +2,6 @@ package com.feywild.feywild.data.worldgen.data;
 
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.quest.Alignment;
-import com.feywild.feywild.world.FeywildBiomes;
 import org.moddingx.libx.datagen.provider.sandbox.BiomeProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;

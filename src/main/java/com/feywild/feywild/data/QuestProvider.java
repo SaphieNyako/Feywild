@@ -523,7 +523,7 @@ public class QuestProvider implements DataProvider {
 
         public QuestBuilder(Alignment alignment, String name) {
             this.alignment = alignment;
-            this.id = new ResourceLocation(QuestProvider.this.mod.modid, name);
+            this.id = QuestProvider.this.mod.resource(name);
             this.parents = new HashSet<>();
             this.reputation = 5;
             this.icon = null;

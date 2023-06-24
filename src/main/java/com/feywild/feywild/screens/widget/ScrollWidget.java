@@ -3,10 +3,11 @@ package com.feywild.feywild.screens.widget;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.RequestItemMessage;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.moddingx.libx.render.RenderHelper;
@@ -25,7 +26,7 @@ public class ScrollWidget extends Button {
     protected final ItemStack stack;
 
     public ScrollWidget(Screen screen, int x, int y, int idx, ItemStack stack) {
-        super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {});
+        super(x, y, WIDTH, HEIGHT, stack.getDisplayName(), b -> {}, l -> Component.empty());
         this.screen = screen;
         this.idx = idx;
         this.stack = stack;
@@ -43,31 +44,25 @@ public class ScrollWidget extends Button {
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        RenderSystem.setShaderTexture(0, getTexture());
+    public void renderWidget(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         RenderHelper.resetColor();
-        this.blit(poseStack, this.x, this.y, idx * WIDTH, 0, 64, 64);
-        poseStack.pushPose();
+        graphics.blit(getTexture(), this.getX(), this.getY(), idx * WIDTH, 0, 64, 64);
+        graphics.pose().pushPose();
         if (this.isHovered(mouseX, mouseY)) {
-            poseStack.translate(this.x + 14, this.y + 14, 0);
-            poseStack.scale(2, 2, 2);
+            graphics.pose().translate(this.getX() + 14, this.getY() + 14, 10);
+            graphics.pose().scale(2, 2, 2);
         } else {
-            poseStack.translate(this.x + 25, this.y + 22, 0);
+            graphics.pose().translate(this.getX() + 25, this.getY() + 22, 10);
         }
-        RenderSystem.getModelViewStack().pushPose();
-        RenderSystem.getModelViewStack().mulPoseMatrix(poseStack.last().pose());
-        RenderSystem.applyModelViewMatrix();
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.stack, 0, 0);
-        RenderSystem.getModelViewStack().popPose();
-        RenderSystem.applyModelViewMatrix();
-        poseStack.popPose();
+        graphics.renderFakeItem(this.stack, 0, 0);
+        graphics.pose().popPose();
 
         if (this.isHovered(mouseX, mouseY)) {
-            this.screen.renderTooltip(poseStack, List.of(this.stack.getHoverName()), Optional.empty(), mouseX, mouseY);
+            graphics.renderTooltip(Minecraft.getInstance().font,  List.of(this.stack.getHoverName()), Optional.empty(), mouseX, mouseY);
         }
     }
 
     public boolean isHovered(int x, int y) {
-        return this.x <= x && this.x + WIDTH >= x && this.y <= y && this.y + HEIGHT >= y;
+        return this.getX() <= x && this.getX() + WIDTH >= x && this.getY() <= y && this.getY() + HEIGHT >= y;
     }
 }

@@ -2,11 +2,10 @@ package com.feywild.feywild.screens.button;
 
 import com.feywild.feywild.FeywildMod;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -24,10 +23,10 @@ public class FancyButton extends Button {
     private final int width;
     private final int height;
 
-    public FancyButton(ResourceLocation texture, int x, int y, int width, int height, Component message, BooleanSupplier enabled, Button.OnPress onPress) {
+    protected FancyButton(ResourceLocation texture, int x, int y, int width, int height, Component message, BooleanSupplier enabled, Button.OnPress onPress) {
         super(x, y, width, height, message, btn -> {
             if (enabled.getAsBoolean()) onPress.onPress(btn);
-        });
+        }, l -> wrapDefaultNarrationMessage(message));
         this.enabled = enabled;
         this.texture = texture;
         this.width = width;
@@ -35,20 +34,12 @@ public class FancyButton extends Button {
     }
 
     @Override
-    public void renderButton(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+    public void renderWidget(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (this.enabled.getAsBoolean()) {
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, this.texture);
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
-            RenderSystem.enableDepthTest();
-            this.blit(poseStack, this.x, this.y, 0, 0, this.width, this.height);
-            this.renderBg(poseStack, minecraft, mouseX, mouseY);
-            drawCenteredString(poseStack, font, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, getFGColor() | Mth.ceil(this.alpha * 255) << 24);
-            RenderSystem.disableDepthTest();
-            RenderSystem.disableBlend();
+            graphics.blit(this.texture, this.getX(), this.getY(), 0, 0, this.width, this.height);
+            graphics.drawCenteredString(font, this.getMessage(), this.getX() + this.width / 2, this.getY() + (this.height - 8) / 2, getFGColor() | Mth.ceil(this.alpha * 255) << 24);
         }
     }
     

@@ -133,7 +133,7 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockE
             this.recipe = new LazyValue<>(() -> {
                 List<ItemStack> inputs = IntStream.range(0, this.inventory.getSlots()).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.altar).stream()
-                        .flatMap(r -> StreamUtil.zipOption(r.getResult(inputs), r))
+                        .flatMap(r -> StreamUtil.zipOption(r.getResult(level.registryAccess(), inputs), r))
                         .findFirst();
             });
         } else {

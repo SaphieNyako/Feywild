@@ -2,6 +2,7 @@ package com.feywild.feywild.screens;
 
 import com.feywild.feywild.screens.widget.BookWidget;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -42,19 +43,23 @@ public class LibrarianScreen extends Screen {
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
-        this.drawTextLines(poseStack, mouseX, mouseY);
+    public void render(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        graphics.pose().pushPose();
+        this.renderBackground(graphics);
+        graphics.pose().translate(0, 0, 20);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        graphics.pose().translate(0, 0, 20);
+        this.drawTextLines(graphics, mouseX, mouseY);
+        graphics.pose().popPose();
     }
 
-    private void drawTextLines(PoseStack poseStack, int x, int y) {
+    private void drawTextLines(GuiGraphics graphics, int x, int y) {
         if (this.minecraft != null) {
-            drawString(poseStack, this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 10, 0xFFFFFF);
+            graphics.drawString(this.minecraft.font, this.title, this.width / 2 - (this.minecraft.font.width(this.title) / 2), 10, 0xFFFFFF, false);
             for (AbstractWidget widget : widgets) {
                 if (widget instanceof BookWidget && ((BookWidget) widget).isHovered(x, y)) {
                     Component name = widget.getMessage();
-                    drawString(poseStack, this.minecraft.font, name, this.width / 2 - (this.minecraft.font.width(name) / 2), 10 + this.minecraft.font.lineHeight + 2, 0xFFFFFF);
+                    graphics.drawString(this.minecraft.font, name, this.width / 2 - (this.minecraft.font.width(name) / 2), 10 + this.minecraft.font.lineHeight + 2, 0xFFFFFF, false);
                     break;
                 }
             }

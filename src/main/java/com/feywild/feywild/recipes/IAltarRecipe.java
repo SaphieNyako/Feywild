@@ -1,6 +1,7 @@
 package com.feywild.feywild.recipes;
 
 import com.feywild.feywild.block.ModBlocks;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -38,5 +39,5 @@ public interface IAltarRecipe extends Recipe<Container> {
         return false;
     }
 
-    Optional<ItemStack> getResult(List<ItemStack> inputs);
+    Optional<ItemStack> getResult(RegistryAccess registries, List<ItemStack> inputs);
 }

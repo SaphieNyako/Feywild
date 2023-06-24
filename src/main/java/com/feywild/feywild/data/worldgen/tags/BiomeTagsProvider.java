@@ -1,7 +1,6 @@
 package com.feywild.feywild.data.worldgen.tags;
 
 import com.feywild.feywild.tag.ModBiomeTags;
-import com.feywild.feywild.world.FeywildBiomes;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BiomeTags;

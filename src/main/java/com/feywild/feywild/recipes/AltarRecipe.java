@@ -67,8 +67,8 @@ public class AltarRecipe implements IAltarRecipe {
     }
 
     @Override
-    public Optional<ItemStack> getResult(List<ItemStack> inputs) {
-        return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem()) : Optional.empty();
+    public Optional<ItemStack> getResult(RegistryAccess registries, List<ItemStack> inputs) {
+        return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem(registries)) : Optional.empty();
     }
 
     public static class Serializer implements RecipeSerializer<AltarRecipe> {

@@ -150,7 +150,7 @@ public class DwarvenAnvil extends BlockEntityBase implements TickingBlock {
                 ItemStack schematics = this.inventory.getStackInSlot(1);
                 List<ItemStack> inputs = IntStream.range(2, 7).mapToObj(this.inventory::getStackInSlot).filter(stack -> !stack.isEmpty()).collect(Collectors.toList());
                 return this.level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.dwarvenAnvil).stream()
-                        .flatMap(r -> StreamUtil.zipOption(r.getResult(schematics, inputs), r)) // Get a stream of all result items that match the current inputs.
+                        .flatMap(r -> StreamUtil.zipOption(r.getResult(level.registryAccess(), schematics, inputs), r)) // Get a stream of all result items that match the current inputs.
                         .findFirst() // The stream should normally only contain one entry but with conflicting recipes it could contain more, so we only take the first
                         .filter(p -> p.getRight().getMana() <= this.manaStorage.getMana()) // Check that we have enough mana for the recipe
                         .filter(p -> this.inventory.getUnrestricted().insertItem(7, p.getLeft(), true).isEmpty()); // Check that the resulting item stack can completely be inserted into the result slot.

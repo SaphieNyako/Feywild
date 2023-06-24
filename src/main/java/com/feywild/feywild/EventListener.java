@@ -26,11 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.behavior.InteractWithDoor;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -39,7 +35,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.pathfinder.Node;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -51,17 +46,16 @@ import net.minecraftforge.event.entity.living.AnimalTameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.SleepingLocationCheckEvent;
+import net.minecraftforge.event.level.SleepFinishedTimeEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.event.ConfigLoadedEvent;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class EventListener {
-
-
+    
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public void showGui(RenderGuiOverlayEvent.Pre event) {
@@ -202,19 +196,12 @@ public class EventListener {
         }
     }
 
-    @SubscribeEvent
-    public void sleepInFeywild(SleepingLocationCheckEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player && event.getEntity().level().dimension() == FeywildDimensions.FEYWILD) {
-            player.startSleeping(player.blockPosition());
-            player.getBrain().setMemory(MemoryModuleType.HOME, Optional.empty());
-            InteractWithDoor.closeDoorsThatIHaveOpenedOrPassedThrough(player.server(), player, (Node) null, (Node) null);
-            // player.getLevel().getServer().getWorldData().overworldData().setDayTime(1000);
-            player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 70, 0));
-            //player.sendSystemMessage(Component.literal("You feel rested, but time did not change. Is this a dream or reality?"));
-            /*
-            ServerLevel targetLevel = player.getLevel().getServer().overworld();
-            player.changeDimension(targetLevel, new DefaultTeleporter());
-             */
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void sleepInFeywild(SleepFinishedTimeEvent event) {
+        if (event.getLevel() instanceof ServerLevel level && !level.isClientSide) {
+            if (FeywildDimensions.FEYWILD.equals(level.dimension())) {
+                level.getServer().overworld().setDayTime(event.getNewTime());
+            }
         }
     }
 
