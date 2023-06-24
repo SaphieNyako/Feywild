@@ -8,12 +8,13 @@ import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.quest.util.FeyGift;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -22,28 +23,28 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.crafting.IngredientStack;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.PackTarget;
 import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static com.feywild.feywild.quest.Alignment.*;
 
-@Datagen
 public class QuestProvider implements DataProvider {
 
     private final ModX mod;
-    private final DataGenerator generator;
+    private final PackTarget packTarget;
     private final Map<Alignment, Set<Quest>> quests = new HashMap<>();
 
-    public QuestProvider(ModX mod, DataGenerator generator) {
-        this.mod = mod;
-        this.generator = generator;
+    public QuestProvider(DatagenContext ctx) {
+        this.mod = ctx.mod();
+        this.packTarget = ctx.target();
     }
 
     public void setup() {
@@ -469,10 +470,12 @@ public class QuestProvider implements DataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
     }
-
+    
+    @Nonnull
     @Override
-    public void run(@Nonnull CachedOutput cache) throws IOException {
+    public CompletableFuture<?> run(@Nonnull CachedOutput cache)  {
         this.setup();
+        List<CompletableFuture<?>> futures = new ArrayList<>();
         for (Alignment alignment : this.quests.keySet()) {
             Set<ResourceLocation> ids = new HashSet<>();
             for (Quest quest : this.quests.get(alignment)) {
@@ -488,9 +491,10 @@ public class QuestProvider implements DataProvider {
                         throw new IllegalStateException("Reference to unknown quest: " + parent + " (in " + quest.id + ")");
                     }
                 }
-                DataProvider.saveStable(cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
+                futures.add(DataProvider.saveStable(cache, quest.toJson(), this.packTarget.path(PackType.SERVER_DATA).resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json")));
             }
         }
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
     @Nonnull
@@ -571,9 +575,17 @@ public class QuestProvider implements DataProvider {
             return this;
         }
 
+        public QuestBuilder startSound(@Nullable FeySound sound) {
+            return this.startSound(sound == null ? null : sound.getSoundEvent());
+        }
+        
         public QuestBuilder startSound(@Nullable SoundEvent sound) {
             this.start = new QuestDisplay(this.start.title, this.start.description, sound);
             return this;
+        }
+
+        public QuestBuilder completeSound(@Nullable FeySound sound) {
+            return this.startSound(sound == null ? null : sound.getSoundEvent());
         }
 
         public QuestBuilder completeSound(@Nullable SoundEvent sound) {

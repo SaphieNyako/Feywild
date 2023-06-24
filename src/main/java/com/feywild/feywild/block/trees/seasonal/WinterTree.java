@@ -49,7 +49,7 @@ public class WinterTree extends BaseTree {
     }
 
     @Override
-    protected List<Block> getAllLeaves() {
+    public List<Block> getAllLeaves() {
         return List.of(this.blueLeaves, this.lightBlueLeaves);
     }
 

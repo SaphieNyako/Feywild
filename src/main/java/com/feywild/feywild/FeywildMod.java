@@ -2,8 +2,18 @@ package com.feywild.feywild;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.compat.MineMentionCompat;
+import com.feywild.feywild.data.*;
+import com.feywild.feywild.data.loot.BlockLootProvider;
+import com.feywild.feywild.data.loot.ChestLootProvider;
+import com.feywild.feywild.data.loot.EntityLootProvider;
+import com.feywild.feywild.data.loot.LootModifierProvider;
+import com.feywild.feywild.data.patchouli.FeywildLexiconProvider;
+import com.feywild.feywild.data.recipe.RecipeProvider;
+import com.feywild.feywild.data.tags.BiomeLayerTagsProvider;
+import com.feywild.feywild.data.tags.BiomeTagsProvider;
+import com.feywild.feywild.data.tags.CommonTagsProvider;
+import com.feywild.feywild.data.worldgen.*;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
 import com.feywild.feywild.entity.render.*;
@@ -32,8 +42,8 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.GrassColor;
@@ -58,7 +68,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegistryBuilder;
+import org.antlr.runtime.tree.Tree;
 import org.moddingx.libx.LibX;
+import org.moddingx.libx.datagen.DatagenSystem;
+import org.moddingx.libx.datagen.PackTarget;
 import org.moddingx.libx.datapack.DynamicPacks;
 import org.moddingx.libx.mod.ModXRegistration;
 import org.slf4j.Logger;
@@ -114,18 +127,55 @@ public final class FeywildMod extends ModXRegistration {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
         // Quest task & reward types. Not in setup as they are required for datagen.
-        TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "fey_gift"), FeyGiftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "item_stack"), ItemStackTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "pet"), AnimalPetTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "tame"), AnimalTameTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+        TaskTypes.register(this.resource("craft"), CraftTask.INSTANCE);
+        TaskTypes.register(this.resource("fey_gift"), FeyGiftTask.INSTANCE);
+        TaskTypes.register(this.resource("item_stack"), ItemStackTask.INSTANCE);
+        TaskTypes.register(this.resource("kill"), KillTask.INSTANCE);
+        TaskTypes.register(this.resource("pet"), AnimalPetTask.INSTANCE);
+        TaskTypes.register(this.resource("tame"), AnimalTameTask.INSTANCE);
+        TaskTypes.register(this.resource("biome"), BiomeTask.INSTANCE);
+        TaskTypes.register(this.resource("structure"), StructureTask.INSTANCE);
+        TaskTypes.register(this.resource("special"), SpecialTask.INSTANCE);
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
+
+        DatagenSystem.create(this, system -> {
+            system.setResourceRoot("../src/main/resources");
+            PackTarget redux = system.dynamic("redux", PackType.CLIENT_RESOURCES);
+
+            system.addRegistryProvider(FeatureProvider::new);
+            system.addRegistryProvider(TreeProvider::new);
+            system.addRegistryProvider(PlacementProvider::new);
+            system.addRegistryProvider(TemplateProvider::new);
+            system.addRegistryProvider(StructureProvider::new);
+            system.addRegistryProvider(StructureSetProvider::new);
+            system.addRegistryProvider(BiomeProvider::new);
+            system.addRegistryProvider(BiomeLayerProvider::new);
+            system.addRegistryProvider(NoiseProvider::new);
+            system.addRegistryProvider(DimensionTypeProvider::new);
+            system.addRegistryProvider(DimensionProvider::new);
+
+            system.addExtensionProvider(BiomeModifierProvider::new);
+            system.addExtensionProvider(SurfaceProvider::new);
+
+            system.addDataProvider(AdvancementProvider::new);
+            system.addDataProvider(BlockStateProvider::new);
+            system.addDataProvider(ItemModelProvider::new);
+            system.addDataProvider(QuestProvider::new);
+            system.addDataProvider(SoundProvider::new);
+            system.addDataProvider(TextureProvider::new);
+            system.addDataProvider(redux, TextureProvider::new);
+            system.addDataProvider(CommonTagsProvider::new);
+            system.addDataProvider(BiomeTagsProvider::new);
+            system.addDataProvider(BiomeLayerTagsProvider::new);
+            system.addDataProvider(BlockLootProvider::new);
+            system.addDataProvider(ChestLootProvider::new);
+            system.addDataProvider(EntityLootProvider::new);
+            system.addDataProvider(LootModifierProvider::new);
+            system.addDataProvider(FeywildLexiconProvider::new);
+            system.addDataProvider(RecipeProvider::new);
+        });
     }
 
     @Nonnull

@@ -1,16 +1,14 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
-import org.moddingx.libx.datagen.provider.sandbox.StructureSetProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.StructureSetProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureSetData.RandomPlacementBuilder;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+public class StructureSetProvider extends StructureSetProviderBase {
 
-public class FeyStructureSets extends StructureSetProviderBase {
-
-    private final FeyStructures structures = this.resolve(FeyStructures.class);
+    private final StructureProvider structures = this.context.findRegistryProvider(StructureProvider.class);
 
     public final Holder<StructureSet> overworldHouses = this.structureSet()
             .entry(this.structures.library)
@@ -34,8 +32,8 @@ public class FeyStructureSets extends StructureSetProviderBase {
     //   public final Holder<StructureSet> feyCircle = this.simple(this.structures.feyCircle, 13, 6, 0.8f).build();
     public final Holder<StructureSet> feyGeode = this.simple(this.structures.feyGeode, 8, 4, 0.9f).build();
 
-    public FeyStructureSets(Properties properties) {
-        super(properties);
+    public StructureSetProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @SuppressWarnings("SameParameterValue")

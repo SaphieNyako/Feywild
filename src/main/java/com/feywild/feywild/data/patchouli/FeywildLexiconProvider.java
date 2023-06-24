@@ -11,17 +11,16 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.patchouli.BookProperties;
 import org.moddingx.libx.datagen.provider.patchouli.PatchouliProviderBase;
 import org.moddingx.libx.datagen.provider.patchouli.page.Content;
 import org.moddingx.libx.mod.ModX;
 
-@Datagen
 public class FeywildLexiconProvider extends PatchouliProviderBase {
 
-    public FeywildLexiconProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
-        super(mod, generator, fileHelper, new BookProperties("feywild_lexicon", PackType.CLIENT_RESOURCES, true));
+    public FeywildLexiconProvider(DatagenContext ctx) {
+        super(ctx, new BookProperties("feywild_lexicon", PackType.CLIENT_RESOURCES, true));
     }
 
     /* Missing title entry for patchouli books*/

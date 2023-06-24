@@ -1,18 +1,17 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
-import org.moddingx.libx.datagen.provider.sandbox.SurfaceProviderBase;
-import org.moddingx.libx.sandbox.surface.BiomeSurface;
-import org.moddingx.libx.sandbox.surface.SurfaceRuleSet;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.SurfaceProviderBase;
+import org.moddingx.libx.sandbox.surface.BiomeSurface;
+import org.moddingx.libx.sandbox.surface.SurfaceRuleSet;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+public class SurfaceProvider extends SurfaceProviderBase {
 
-public class FeySurface extends SurfaceProviderBase {
-
-    private final FeyBiomes biomes = this.resolve(FeyBiomes.class);
+    private final BiomeProvider biomes = this.context.findRegistryProvider(BiomeProvider.class);
     
     public final Holder<SurfaceRuleSet> mainSurface = this.ruleSet()
             .beforeBiomes(
@@ -73,7 +72,7 @@ public class FeySurface extends SurfaceProviderBase {
             )
     );
     
-    public FeySurface(Properties properties) {
-        super(properties);
+    public SurfaceProvider(DatagenContext ctx) {
+        super(ctx);
     }
 }

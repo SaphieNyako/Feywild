@@ -6,11 +6,8 @@ import org.moddingx.libx.mod.ModX;
 
 public class FeywildTab extends CreativeTabX {
 
-    private final ModX mod;
-
     public FeywildTab(ModX mod) {
         super(mod);
-        this.mod = mod;
     }
 
     @Override

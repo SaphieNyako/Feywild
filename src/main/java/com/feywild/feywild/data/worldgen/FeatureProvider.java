@@ -1,11 +1,10 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.world.gen.feature.FeywildFeatures;
 import com.feywild.feywild.world.gen.feature.GiantFlowerFeature;
-import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.features.OreFeatures;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -16,14 +15,15 @@ import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConf
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.NoiseProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 
 import java.util.Arrays;
 import java.util.List;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
-
-public class FeyFeatures extends FeatureProviderBase {
+public class FeatureProvider extends FeatureProviderBase {
 
     public final Holder<ConfiguredFeature<?, ?>> autumnPumpkins = this.feature(FeywildFeatures.autumnPumpkins);
     public final Holder<ConfiguredFeature<?, ?>> sunflowers = this.feature(FeywildFeatures.giantFlowers, new GiantFlowerFeature.Configuration(ModBlocks.sunflower));
@@ -62,12 +62,12 @@ public class FeyFeatures extends FeatureProviderBase {
     //   public final Holder<ConfiguredFeature<?,?>> springTree = this.trees(springTreeCheck);
 
     public final Holder<ConfiguredFeature<?, ?>> feyGemOre = this.feature(Feature.ORE, new OreConfiguration(List.of(
-            OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.feyGemOre.defaultBlockState()),
-            OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.feyGemOreDeepSlate.defaultBlockState())
+            OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ModBlocks.feyGemOre.defaultBlockState()),
+            OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), ModBlocks.feyGemOreDeepSlate.defaultBlockState())
     ), 5));
 
-    public FeyFeatures(Properties properties) {
-        super(properties);
+    public FeatureProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     private Holder<ConfiguredFeature<?, ?>> flowers(Holder<PlacedFeature> featureCheck) {

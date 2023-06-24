@@ -41,7 +41,7 @@ public class BlossomTree extends BaseTree {
     }
 
     @Override
-    protected List<Block> getAllLeaves() {
+    public List<Block> getAllLeaves() {
         return List.of(this.pinkLeaves, this.magentaLeaves, this.whiteLeaves);
     }
 

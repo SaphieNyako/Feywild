@@ -1,8 +1,7 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.quest.Alignment;
-import org.moddingx.libx.datagen.provider.sandbox.BiomeProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
@@ -15,18 +14,18 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.BiomeProviderBase;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+public class BiomeProvider extends BiomeProviderBase {
 
-public class FeyBiomes extends BiomeProviderBase {
+    private final TreeProvider trees = this.context.findRegistryProvider(TreeProvider.class);
+    private final PlacementProvider placements = this.context.findRegistryProvider(PlacementProvider.class);
 
-    private final FeyTrees trees = this.resolve(FeyTrees.class);
-    private final FeyPlacements placements = this.resolve(FeyPlacements.class);
-
-    public final Holder<Biome> springBiome = this.biome(FeywildBiomes.SPRING_BIOME, 0.5f, 0.7f)
+    public final Holder<Biome> springBiome = this.biome(0.5f, 0.7f)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.HAPPY_VILLAGER, 0.001f)))
             .mobSpawns(this.feySpawns(true, true, Alignment.SPRING, ModEntities.mandragora)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
@@ -52,7 +51,7 @@ public class FeyBiomes extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> summerBiome = this.biome(FeywildBiomes.SUMMER_BIOME, 0.9f, 0)
+    public final Holder<Biome> summerBiome = this.biome(0.9f, 0)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIT, 0.001f)))
             .mobSpawns(this.feySpawns(false, true, Alignment.SUMMER, ModEntities.beeKnight)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
@@ -80,7 +79,7 @@ public class FeyBiomes extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> autumnBiome = this.biome(FeywildBiomes.AUTUMN_BIOME, 0.5f, 0.9f)
+    public final Holder<Biome> autumnBiome = this.biome(0.5f, 0.9f)
             .effects(this.effects()
                     .ambientParticle(new AmbientParticleSettings(ParticleTypes.WITCH, 0.001f))
                     .foliageColorOverride(0x6a7039)
@@ -119,7 +118,7 @@ public class FeyBiomes extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> winterBiome = this.biome(FeywildBiomes.WINTER_BIOME, -0.7f, 0.5f)
+    public final Holder<Biome> winterBiome = this.biome(-0.7f, 0.5f)
             .frozen()
             .effects(this.effects().fogColor(0xabd0ef).ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.002f)))
             .mobSpawns(this.feySpawns(false, true, Alignment.WINTER)
@@ -152,7 +151,7 @@ public class FeyBiomes extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> feywildOcean = this.biome(FeywildBiomes.FEY_OCEAN, 0.5f, 0.5f)
+    public final Holder<Biome> feywildOcean = this.biome(0.5f, 0.5f)
             .mobSpawns(this.feySpawns(false, true, null)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.COD, 10, 2, 4))
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.SALMON, 10, 2, 4))
@@ -166,8 +165,8 @@ public class FeyBiomes extends BiomeProviderBase {
             }))
             .build();
 
-    public FeyBiomes(Properties properties) {
-        super(properties);
+    public BiomeProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     private MobSpawnSettings.Builder feySpawns(boolean animals, boolean river, @Nullable Alignment alignment, EntityType<?>... additionalFey) {

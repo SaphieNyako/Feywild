@@ -38,7 +38,7 @@ public class SummerTree extends BaseTree {
     }
 
     @Override
-    protected List<Block> getAllLeaves() {
+    public List<Block> getAllLeaves() {
         return List.of(this.orangeLeaves, this.yellowLeaves);
     }
 

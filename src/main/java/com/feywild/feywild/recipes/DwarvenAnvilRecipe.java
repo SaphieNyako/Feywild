@@ -134,7 +134,7 @@ public class DwarvenAnvilRecipe implements IDwarvenAnvilRecipe {
             if (recipe.schematics != null) recipe.schematics.toNetwork(buffer);
             buffer.writeVarInt(recipe.inputs.size());
             recipe.inputs.forEach(i -> i.toNetwork(buffer));
-            buffer.writeItemStack(recipe.getResultItem(), false);
+            buffer.writeItemStack(recipe.output, false);
         }
     }
 }

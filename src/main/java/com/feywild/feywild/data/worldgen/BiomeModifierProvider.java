@@ -1,16 +1,17 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
 import com.feywild.feywild.entity.ModEntities;
-import org.moddingx.libx.datagen.provider.sandbox.BiomeModifierProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.world.BiomeModifier;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.BiomeModifierProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
-
-public class FeyBiomeModifiers extends BiomeModifierProviderBase {
+public class BiomeModifierProvider extends BiomeModifierProviderBase {
+    
+    private final TreeProvider trees = this.context.findRegistryProvider(TreeProvider.class);
 
     public final Holder<BiomeModifier> overworldSpawn = this.addSpawns(BiomeTags.IS_OVERWORLD)
             .spawn(ModEntities.autumnPixie, 1, 1, 1)
@@ -26,7 +27,6 @@ public class FeyBiomeModifiers extends BiomeModifierProviderBase {
             .spawn(ModEntities.winterPixie, 1, 1, 1)
             .build();
 
-    private final FeyTrees trees = this.resolve(FeyTrees.class);
     public final Holder<BiomeModifier> springTreePatches = this.addFeatures(Tags.Biomes.IS_PLAINS, GenerationStep.Decoration.VEGETAL_DECORATION)
             .feature(trees.springTreePatches)
             .build();
@@ -40,7 +40,7 @@ public class FeyBiomeModifiers extends BiomeModifierProviderBase {
             .feature(trees.winterTreePatches)
             .build();
 
-    public FeyBiomeModifiers(Properties properties) {
-        super(properties);
+    public BiomeModifierProvider(DatagenContext ctx) {
+        super(ctx);
     }
 }

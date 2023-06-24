@@ -1,32 +1,29 @@
-package com.feywild.feywild.data;
+package com.feywild.feywild.data.tags;
 
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.trees.BaseTree;
+import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.Schematics;
 import com.feywild.feywild.tag.ModBlockTags;
 import com.feywild.feywild.tag.ModItemTags;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.moddingx.libx.annotation.data.Datagen;
-import org.moddingx.libx.datagen.provider.CommonTagsProviderBase;
-import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.tags.CommonTagsProviderBase;
 
 import javax.annotation.Nullable;
 
-@Datagen
 public class CommonTagsProvider extends CommonTagsProviderBase {
 
-    public CommonTagsProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
-        super(mod, generator, fileHelper);
+    public CommonTagsProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @Override
@@ -64,8 +61,7 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         tool(ModBlocks.winterFeyAltar, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.autumnFeyAltar, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.treeMushroom, BlockTags.MINEABLE_WITH_HOE, null);
-
-
+        
         treeTags(ModTrees.springTree, ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
         treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
         treeTags(ModTrees.autumnTree, ModBlockTags.AUTUMN_LOGS, ModItemTags.AUTUMN_LOGS);
@@ -73,37 +69,20 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         treeTags(ModTrees.blossomTree, ModBlockTags.BLOSSOM_LOGS, ModItemTags.BLOSSOM_LOGS);
         treeTags(ModTrees.hexenTree, ModBlockTags.HEXEN_LOGS, ModItemTags.HEXEN_LOGS);
 
-        leavesTags(ModBlocks.springGreenLeaves);
-        leavesTags(ModBlocks.springCyanLeaves);
-        leavesTags(ModBlocks.springLimeLeaves);
-        leavesTags(ModBlocks.summerOrangeLeaves);
-        leavesTags(ModBlocks.summerYellowLeaves);
-        leavesTags(ModBlocks.autumnBrownLeaves);
-        leavesTags(ModBlocks.autumnDarkGrayLeaves);
-        leavesTags(ModBlocks.autumnLightGrayLeaves);
-        leavesTags(ModBlocks.autumnRedLeaves);
-        leavesTags(ModBlocks.winterBlueLeaves);
-        leavesTags(ModBlocks.winterLightBlueLeaves);
-        leavesTags(ModBlocks.blossomMagentaLeaves);
-        leavesTags(ModBlocks.blossomPinkLeaves);
-        leavesTags(ModBlocks.blossomWhiteLeaves);
-        leavesTags(ModBlocks.hexBlackLeaves);
-        leavesTags(ModBlocks.hexPurpleLeaves);
-
         this.item(ModItemTags.COOKIES).add(Items.COOKIE);
         this.item(ModItemTags.COOKIES).add(ModItems.magicalHoneyCookie);
 
+        this.copyBlock(BlockTags.LOGS, ItemTags.LOGS);
+        this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
+        this.copyBlock(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN);
+        this.copyBlock(BlockTags.PLANKS, ItemTags.PLANKS);
+        this.copyBlock(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
+        this.copyBlock(BlockTags.LEAVES, ItemTags.LEAVES);
     }
 
     private void tool(Block block, TagKey<Block> tool, @Nullable TagKey<Block> level) {
         this.block(tool).add(block);
         if (level != null) this.block(level).add(block);
-    }
-
-    private void leavesTags(Block block) {
-        this.block(BlockTags.LEAVES).add(block);
-        this.item(ItemTags.LEAVES).add(block.asItem());
-        tool(block, BlockTags.MINEABLE_WITH_HOE, null);
     }
 
     private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
@@ -115,27 +94,13 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
                 tree.getCrackedLogBlock()
         );
 
-        this.item(logItems).add(
-                tree.getLogBlock().asItem(),
-                tree.getStrippedWoodBlock().asItem(),
-                tree.getWoodBlock().asItem(),
-                tree.getStrippedWoodBlock().asItem(),
-                tree.getCrackedLogBlock().asItem()
-        );
-
         this.block(BlockTags.LOGS).addTag(logs);
         this.block(ModBlockTags.FEY_LOGS).addTag(logs);
         this.block(BlockTags.LOGS_THAT_BURN).addTag(logs);
         this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
         this.block(BlockTags.SAPLINGS).add(tree.getSapling());
-
-        this.item(ItemTags.LOGS).addTag(logItems);
-        this.item(ModItemTags.FEY_LOGS).addTag(logItems);
-        this.item(ItemTags.LOGS_THAT_BURN).addTag(logItems);
-        this.item(ItemTags.PLANKS).addTag(logItems);
-        this.item(ItemTags.SAPLINGS).add(tree.getSapling().asItem());
-
-
+        
+        this.copyBlock(logs, logItems);
     }
 
     @Override
@@ -150,6 +115,9 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         if (block instanceof GiantFlowerBlock) {
             this.block(BlockTags.TALL_FLOWERS).add(block);
             this.block(BlockTags.MINEABLE_WITH_AXE).add(block);
+        } else if (block instanceof FeyLeavesBlock) {
+            this.block(BlockTags.LEAVES).add(block);
+            this.tool(block, BlockTags.MINEABLE_WITH_HOE, null);
         }
     }
 }

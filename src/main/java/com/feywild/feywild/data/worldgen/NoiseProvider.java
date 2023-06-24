@@ -1,12 +1,11 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
-import org.moddingx.libx.datagen.provider.sandbox.NoiseProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.*;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.NoiseProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
-
-public class FeyNoiseSettings extends NoiseProviderBase {
+public class NoiseProvider extends NoiseProviderBase {
 
     public final Holder<DensityFunction> feywildTemperature = this.density(DensityFunctions.noise(this.holder(Noises.TEMPERATURE), 0.25, 1));
     public final Holder<DensityFunction> feywildVegetation = this.density(DensityFunctions.noise(this.holder(Noises.VEGETATION), 0.25, 1));
@@ -24,7 +23,7 @@ public class FeyNoiseSettings extends NoiseProviderBase {
             .router().continents(this.feywildContinents)
             .build();
 
-    public FeyNoiseSettings(Properties properties) {
-        super(properties);
+    public NoiseProvider(DatagenContext ctx) {
+        super(ctx);
     }
 }

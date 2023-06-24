@@ -1,7 +1,6 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
 import com.feywild.feywild.tag.ModBiomeTags;
-import org.moddingx.libx.datagen.provider.sandbox.StructureProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -9,13 +8,12 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraftforge.common.Tags;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.StructureProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureData.StructureSettingsBuilder;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+public class StructureProvider extends StructureProviderBase {
 
-public class FeyStructures extends StructureProviderBase {
-
-    private final FeyTemplates templates = this.resolve(FeyTemplates.class);
+    private final TemplateProvider templates = this.context.findRegistryProvider(TemplateProvider.class);
 
     public final Holder<Structure> blacksmith = this.singleJigsaw(this.templates.blacksmith)
             .biomes(Tags.Biomes.IS_PLAINS)
@@ -63,8 +61,8 @@ public class FeyStructures extends StructureProviderBase {
             .build();
 
 
-    public FeyStructures(Properties properties) {
-        super(properties);
+    public StructureProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     private StructureSettingsBuilder singleJigsaw(Holder<StructureTemplatePool> pool) {

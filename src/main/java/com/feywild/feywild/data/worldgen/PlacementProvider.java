@@ -1,18 +1,16 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
-import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.FeatureData.PlacementModifiers;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+public class PlacementProvider extends FeatureProviderBase {
 
-public class FeyPlacements extends FeatureProviderBase {
-
-    private final FeyFeatures features = this.resolve(FeyFeatures.class);
+    private final FeatureProvider features = this.context.findRegistryProvider(FeatureProvider.class);
     /*
     public final Holder<PlacedFeature> springTree = this.placement(this.features.springTree)
             .rarity(2)
@@ -111,8 +109,8 @@ public class FeyPlacements extends FeatureProviderBase {
             .biomeFilter()
             .build();
 
-    public FeyPlacements(Properties properties) {
-        super(properties);
+    public PlacementProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     private PlacementModifiers plant() {

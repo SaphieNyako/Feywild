@@ -1,16 +1,14 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
-import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.FeatureData.PlacementModifiers;
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
-
-public class FeyTrees extends FeatureProviderBase {
+public class TreeProvider extends FeatureProviderBase {
 
     /*
     public final Holder<PlacedFeature> springTrees = denseTrees(ModTrees.springTree);
@@ -24,7 +22,7 @@ public class FeyTrees extends FeatureProviderBase {
     public final Holder<PlacedFeature> winterTreePatches = treePatches(ModTrees.winterTree);
     */
 
-    private final FeyFeatures features = this.resolve(FeyFeatures.class);
+    private final FeatureProvider features = this.context.findRegistryProvider(FeatureProvider.class);
     public final Holder<PlacedFeature> springTrees = denseTrees(this.features.springTree);
     public final Holder<PlacedFeature> summerTrees = denseTrees(this.features.summerTree);
     public final Holder<PlacedFeature> autumnTrees = denseTrees(this.features.autumnTree);
@@ -38,8 +36,8 @@ public class FeyTrees extends FeatureProviderBase {
     public final Holder<PlacedFeature> blossomTreePatches = treePatches(this.features.blossomTree);
     public final Holder<PlacedFeature> hexenTreePatches = treePatches(this.features.hexenTree);
 
-    public FeyTrees(Properties properties) {
-        super(properties);
+    public TreeProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     private Holder<PlacedFeature> denseTrees(Holder<ConfiguredFeature<?, ?>> tree) {

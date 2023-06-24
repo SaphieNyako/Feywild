@@ -4,25 +4,22 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.tag.ModItemTags;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
-import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.recipe.DefaultExtension;
 import org.moddingx.libx.datagen.provider.recipe.RecipeProviderBase;
 import org.moddingx.libx.datagen.provider.recipe.SmeltingExtension;
 import org.moddingx.libx.datagen.provider.recipe.StoneCuttingExtension;
 import org.moddingx.libx.datagen.provider.recipe.crafting.CraftingExtension;
-import org.moddingx.libx.mod.ModX;
 
-@Datagen
 public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
         DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension, VariantExtension {
 
-    public RecipeProvider(ModX mod, DataGenerator generator) {
-        super(mod, generator);
+    public RecipeProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @Override

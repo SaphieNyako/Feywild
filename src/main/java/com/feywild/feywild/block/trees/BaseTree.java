@@ -137,7 +137,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return new TwoLayersFeatureSize(1, 0, 1);
     }
     
-    protected abstract List<Block> getAllLeaves();
+    public abstract List<Block> getAllLeaves();
 
     public abstract void decorateSaplingGrowth(ServerLevel world, BlockPos pos, RandomSource random);
 

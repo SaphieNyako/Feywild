@@ -1,20 +1,21 @@
-package com.feywild.feywild.data.worldgen.data;
+package com.feywild.feywild.data.worldgen;
 
 import com.feywild.feywild.world.gen.structure.FeywildStructurePoolElement;
 import com.mojang.datafixers.util.Either;
-import org.moddingx.libx.datagen.provider.sandbox.AnyTemplateProviderBase;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.worldgen.ProcessorLists;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.sandbox.TemplateProviderBase;
 
-import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.base.WorldGenData.Properties;
+public class TemplateProvider extends TemplateProviderBase {
 
-public class FeyTemplates extends AnyTemplateProviderBase {
-
+    private static final ResourceKey<StructureProcessorList> EMPTY = ResourceKey.create(Registries.PROCESSOR_LIST, new ResourceLocation("minecraft", "empty"));
+    
     public final Holder<StructureTemplatePool> blacksmith = this.template().element(this.feywild("blacksmith")).build();
     public final Holder<StructureTemplatePool> library = this.template().element(this.feywild("library")).build();
     public final Holder<StructureTemplatePool> springWorldTree = this.template().element(this.feywild("spring_world_tree")).build();
@@ -25,24 +26,24 @@ public class FeyTemplates extends AnyTemplateProviderBase {
     public final Holder<StructureTemplatePool> feyCircle = this.template().element(this.feywild("fey_circle")).build();
     public final Holder<StructureTemplatePool> feyGeode = this.template().element(this.feywild("fey_geode")).build();
 
-    public FeyTemplates(Properties properties) {
-        super(properties);
+    public TemplateProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     private StructurePoolElement feywild(String templatePath) {
-        return feywild(templatePath, ProcessorLists.EMPTY);
+        return feywild(templatePath, EMPTY);
     }
 
     @SuppressWarnings("SameParameterValue")
-    private StructurePoolElement feywild(String templatePath, Holder<StructureProcessorList> processor) {
+    private StructurePoolElement feywild(String templatePath, ResourceKey<StructureProcessorList> processor) {
         return feywild(this.mod.resource(templatePath), processor);
     }
 
     private StructurePoolElement feywild(ResourceLocation id) {
-        return feywild(id, ProcessorLists.EMPTY);
+        return feywild(id, EMPTY);
     }
 
-    private StructurePoolElement feywild(ResourceLocation id, Holder<StructureProcessorList> processor) {
-        return new FeywildStructurePoolElement(Either.left(id), this.registries.holder(Registry.PROCESSOR_LIST, processor), StructureTemplatePool.Projection.RIGID);
+    private StructurePoolElement feywild(ResourceLocation id, ResourceKey<StructureProcessorList> processor) {
+        return new FeywildStructurePoolElement(Either.left(id), this.holder(processor), StructureTemplatePool.Projection.RIGID);
     }
 }

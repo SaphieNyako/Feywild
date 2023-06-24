@@ -101,7 +101,7 @@ public class AltarRecipe implements IAltarRecipe {
         public void toNetwork(FriendlyByteBuf buffer, AltarRecipe recipe) {
             buffer.writeVarInt(recipe.getIngredients().size());
             recipe.inputs.forEach(i -> i.toNetwork(buffer));
-            buffer.writeItemStack(recipe.getResultItem(), false);
+            buffer.writeItemStack(recipe.output, false);
         }
     }
 }
