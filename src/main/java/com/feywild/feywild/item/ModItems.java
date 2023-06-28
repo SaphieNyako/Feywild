@@ -4,7 +4,6 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
-import com.feywild.feywild.entity.goals.pixie.Ability;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.chat.Component;

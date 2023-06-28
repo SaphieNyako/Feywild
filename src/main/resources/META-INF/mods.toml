@@ -54,7 +54,7 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="forge"
     mandatory=true
-    versionRange="[47.0.3,)"
+    versionRange="[47.0.19,)"
     ordering="NONE"
     side="BOTH"
 

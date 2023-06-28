@@ -80,6 +80,7 @@ import javax.annotation.Nonnull;
 
 // UPDATE_TODO support registry tracking
 // UPDATE_TODO clean up AT
+// UPDATE_TODO add translations
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -133,6 +134,7 @@ public final class FeywildMod extends ModXRegistration {
         TaskTypes.register(this.resource("tame"), AnimalTameTask.INSTANCE);
         TaskTypes.register(this.resource("biome"), BiomeTask.INSTANCE);
         TaskTypes.register(this.resource("structure"), StructureTask.INSTANCE);
+        TaskTypes.register(this.resource("tree"), GrowTreeTask.INSTANCE);
         TaskTypes.register(this.resource("special"), SpecialTask.INSTANCE);
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);

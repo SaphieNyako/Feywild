@@ -86,6 +86,7 @@ public class BeeKnight extends FlyingFeyBase {
     }
 
 
+    @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         //super.registerGoals();
@@ -204,6 +205,7 @@ public class BeeKnight extends FlyingFeyBase {
         };
     }
 
+    @Override
     public boolean canFollowPlayer() {
         return true;
     }

@@ -2,16 +2,34 @@ package com.feywild.feywild.block.render;
 
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.model.FeyAltarModel;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.moddingx.libx.render.ClientTickHandler;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
-public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
-    public FeyAltarRenderer() {
-        super(new FeyAltarModel());
+public class FeyAltarRenderer<T extends BlockEntity & GeoAnimatable> extends GeoBlockRenderer<T> {
+
+    public static FeyAltarRenderer<FeyAltar> create() {
+        return new FeyAltarRenderer<>();
     }
-
-    // UPDATE_TODO
-/*
+    
+    private FeyAltarRenderer() {
+        //noinspection unchecked
+        super((GeoModel<T>) new FeyAltarModel());
+    }
+    
     @Override
     public void render(@Nonnull BlockEntity tile, float partialTick, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int light, int overlay) {
         super.render(tile, partialTick, poseStack, buffer, light, overlay);
@@ -40,5 +58,4 @@ public class FeyAltarRenderer extends GeoBlockRenderer<FeyAltar> {
             }
         }
     }
- */
 }

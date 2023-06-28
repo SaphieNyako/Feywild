@@ -30,8 +30,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,12 +40,9 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Objects;
 import java.util.UUID;
 
-import net.minecraft.world.entity.Entity.RemovalReason;
-
-public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
+public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, GeoEntity {
 
     public final Alignment alignment;
-    private final AnimationFactory factory = new AnimationFactory(this);
     @Nullable
     protected UUID owner;
     @Nullable
@@ -113,9 +111,9 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public void tick() {
         super.tick();
 
-        if (level.isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
+        if (level().isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
             for (int i = 0; i < 4; i++) {
-                level.addParticle(this.getParticle(),
+                level().addParticle(this.getParticle(),
                         this.getX() + (Math.random() - 0.5),
                         this.getY() + 1 + (Math.random() - 0.5),
                         this.getZ() + (Math.random() - 0.5),
@@ -157,7 +155,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                     player.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".follow").append(Component.translatable("message.feywild.fey_follow").withStyle(ChatFormatting.ITALIC)));
                 }
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
         return InteractionResult.PASS;
     }
@@ -221,7 +219,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     @Override
     public Level getEntityLevel() {
-        return this.level;
+        return this.level();
     }
 
     @Override
@@ -254,7 +252,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return false;
     }
 
-
     @Override
     public float getVoicePitch() {
         return 1;
@@ -273,19 +270,19 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
-        return ModSoundEvents.pixieHurt;
+        return ModSoundEvents.pixieHurt.getSoundEvent();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.pixieDeath;
+        return ModSoundEvents.pixieDeath.getSoundEvent();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.random.nextBoolean() ? ModSoundEvents.pixieAmbient : null;
+        return this.random.nextBoolean() ? ModSoundEvents.pixieAmbient.getSoundEvent() : null;
     }
 
     @Override
@@ -293,8 +290,10 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return 0.6f;
     }
 
+    private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
+
     @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
     }
 }

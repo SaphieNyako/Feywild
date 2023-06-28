@@ -1,7 +1,6 @@
 package com.feywild.feywild.entity.base;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ability.Ability;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
@@ -14,12 +13,10 @@ import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestDisplay;
 import com.feywild.feywild.quest.player.QuestData;
 import com.feywild.feywild.quest.task.FeyGiftTask;
-import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.AlignmentStack;
 import com.feywild.feywild.quest.util.SelectableQuest;
-import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.tag.ModItemTags;
-import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -36,44 +33,30 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.level.SaplingGrowTreeEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import org.moddingx.libx.util.data.NbtX;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.world.entity.Entity.RemovalReason;
-
 public abstract class Pixie extends FlyingFeyBase {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> BORED = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
+    public static final int MAX_BOREDOM = 40;
     
-    private Ability ability;
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
+    
+    private int boredom;
+    private Ability<?> ability;
 
     protected Pixie(EntityType<? extends Pixie> type, Alignment alignment, Level level) {
         super(type, alignment, level);
-        setBored(4);
-        if (!level.isClientSide)
-            MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    public static double distanceFrom(BlockPos start, BlockPos end) {
-        if (start == null || end == null)
-            return 0;
-        return Math.sqrt(Math.pow(start.getX() - end.getX(), 2) + Math.pow(start.getY() - end.getY(), 2) + Math.pow(start.getZ() - end.getZ(), 2));
     }
 
     @Override
@@ -93,7 +76,6 @@ public abstract class Pixie extends FlyingFeyBase {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
-        this.entityData.define(BORED, 0);
     }
 
     @Nonnull
@@ -106,11 +88,11 @@ public abstract class Pixie extends FlyingFeyBase {
             if (!stack.isEmpty() && player instanceof ServerPlayer && this.tryAcceptGift((ServerPlayer) player, hand)) {
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                this.heal(getBoredCount());
-                this.setBored(getBoredCount());
+                this.heal(MAX_BOREDOM);
+                this.setBoredom(0);
                 if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
                     Random random = new Random();
-                    if (random.nextInt(4) <= 0) {
+                    if (random.nextInt(4) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.feyDust));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         this.discard();
@@ -121,12 +103,12 @@ public abstract class Pixie extends FlyingFeyBase {
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
+                FeywildMod.getNetwork().sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                if (!level.isClientSide) {
+                if (!level().isClientSide) {
                     player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_fey_name"));
                 }
             } else if (!this.isTamed() && this.getOwner() == null && player instanceof ServerPlayer && player.getItemInHand(hand).getItem() == Items.ENDER_EYE) {
@@ -141,10 +123,10 @@ public abstract class Pixie extends FlyingFeyBase {
                 player.swing(player.getUsedItemHand(), true);
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
-                    player.addItem(new ItemStack(runeStone.replaceableItem));
+                    player.addItem(new ItemStack(runeStone.replacedBy));
                 }
                 this.setAbility(runeStone.ability);
-                if (!level.isClientSide) {
+                if (!level().isClientSide) {
                     player.sendSystemMessage(Component.literal("Ow this is a fun ability!"));
                 }
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
@@ -153,7 +135,7 @@ public abstract class Pixie extends FlyingFeyBase {
                     this.interactQuest((ServerPlayer) player, hand);
                 }
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return superResult;
         }
@@ -207,67 +189,60 @@ public abstract class Pixie extends FlyingFeyBase {
         this.entityData.set(STATE, state.ordinal());
     }
 
-    public int getBored() {
-        return this.entityData.get(BORED);
+    public int getBoredom() {
+        return this.boredom;
     }
 
-    // UPDATE_TODO rename to boredom, save to disk and clamp
-    //  Also make a decreaseBoredom method for use in AbilityGoal
-    public void setBored(int bored) {
-        this.entityData.set(BORED, bored);
+    public void setBoredom(int boredom) {
+        this.boredom = Mth.clamp(boredom, 0, MAX_BOREDOM);
     }
 
-
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (!this.dead && !this.isDeadOrDying()) {
-            if (this.getState() == State.CASTING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("spellcasting", true));
-                return PlayState.CONTINUE;
-            }
-        }
-
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("fly", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
-        }
-        return PlayState.CONTINUE;
+    public void adjustBoredom(int adjustment) {
+        this.boredom = Mth.clamp(this.boredom + adjustment, 0, MAX_BOREDOM);
     }
 
-    @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
-    }
-
-    @SubscribeEvent
-    public void treeGrow(SaplingGrowTreeEvent event) {
-        MinecraftForge
-        BlockPos pos = event.getPos();
-        Block block = event.getLevel().getBlockState(pos).getBlock();
-        Player player = this.getOwningPlayer();
-
-        if (this.isTamed() && distanceFrom(this.blockPosition(), event.getPos()) <= 20) {
-            if (block == ModTrees.springTree.getSapling()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE);
-            }
-            if (block == ModTrees.summerTree.getSapling()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE);
-            }
-            if (block == ModTrees.autumnTree.getSapling()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE);
-            }
-            if (block == ModTrees.winterTree.getSapling()) {
-                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE);
-            }
-        }
-    }
-
+    protected abstract Ability<?> getDefaultAbility();
+    
     public Ability<?> getAbility() {
+        if (this.ability == null) this.ability = this.getDefaultAbility();
         return this.ability;
     }
 
     public void setAbility(Ability<?> ability) {
         this.ability = ability;
+    }
+    
+    @Override
+    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putInt("PixieBoredom", this.boredom);
+        NbtX.putResource(nbt, "PixieAbility", this.getAbility().id());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        this.setBoredom(nbt.getInt("PixieBoredom"));
+        this.setAbility(Ability.get(NbtX.getResource(nbt, "PixieAbility"), this.getDefaultAbility()));
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            if (!this.dead && !this.isDeadOrDying()) {
+                 if (this.getState() == State.CASTING) {
+                     event.getController().setAnimation(RawAnimation.begin().thenLoop("spellcasting"));
+                     return PlayState.CONTINUE;
+                 }
+             }
+
+             if (event.isMoving()) {
+                 event.getController().setAnimation(RawAnimation.begin().thenLoop("fly"));
+             } else {
+                 event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
+             }
+             return PlayState.CONTINUE;
+        }));
     }
 
     public enum State {

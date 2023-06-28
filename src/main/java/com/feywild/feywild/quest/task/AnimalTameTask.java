@@ -5,13 +5,19 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class AnimalTameTask extends RegistryTaskType<EntityType<?>, Entity> {
 
     public static final AnimalTameTask INSTANCE = new AnimalTameTask();
 
-    protected AnimalTameTask() {
-        super("type", ForgeRegistries.ENTITY_TYPES);
+    private AnimalTameTask() {
+        super("type");
+    }
+
+    @Override
+    protected IForgeRegistry<EntityType<?>> registry() {
+        return ForgeRegistries.ENTITY_TYPES;
     }
 
     @Override

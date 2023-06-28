@@ -22,6 +22,12 @@ import org.moddingx.libx.inventory.BaseItemStackHandler;
 import org.moddingx.libx.inventory.IAdvancedItemHandlerModifiable;
 import org.moddingx.libx.util.lazy.LazyValue;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +37,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-// UPDATE_TODO animations
 public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockEntity {
 
     public static final int MAX_PROGRESS = 40;
@@ -183,20 +188,19 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockE
             this.progress = nbt.getInt("progress");
         }
     }
-/*
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.fey_altar.standard", true));
-        return PlayState.CONTINUE;
+
+    private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
+    
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controller", 0, event -> {
+            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.fey_altar.standard"));
+            return PlayState.CONTINUE;
+        }));
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return animationCache;
     }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.animationFactory;
-    }
-*/
 }

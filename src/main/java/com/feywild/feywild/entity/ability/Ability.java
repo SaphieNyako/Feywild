@@ -29,7 +29,8 @@ public interface Ability<T> {
         return null;
     }
     
-    static Ability<?> get(ResourceLocation id, Ability<?> defaultValue) {
+    static Ability<?> get(@Nullable ResourceLocation id, Ability<?> defaultValue) {
+        if (id == null) return defaultValue;
         //noinspection UnstableApiUsage
         IForgeRegistry<Ability<?>> registry = RegistryManager.ACTIVE.getRegistry(FeyRegistries.ABILITIES);
         Ability<?> value = registry.getValue(id);

@@ -4,6 +4,7 @@ import com.feywild.feywild.config.ClientConfig;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.config.data.ScrollSelectType;
 import com.feywild.feywild.entity.BeeKnight;
+import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.ReaperScythe;
 import com.feywild.feywild.network.OpeningScreenMessage;
@@ -19,6 +20,7 @@ import com.feywild.feywild.world.market.MarketData;
 import com.feywild.feywild.world.market.MarketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
@@ -34,7 +36,9 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -46,12 +50,14 @@ import net.minecraftforge.event.entity.living.AnimalTameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.SaplingGrowTreeEvent;
 import net.minecraftforge.event.level.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.event.ConfigLoadedEvent;
 
+import java.util.List;
 import java.util.Random;
 
 public class EventListener {
@@ -220,6 +226,20 @@ public class EventListener {
             MarketData data = MarketData.get(serverLevel);
             if (data != null && !data.isAllowedEntity(event.getEntity())) {
                 event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void treeGrow(SaplingGrowTreeEvent event) {
+        BlockPos pos = event.getPos();
+        BlockState state = event.getLevel().getBlockState(pos);
+
+        List<Pixie> pixies = event.getLevel().getEntitiesOfClass(Pixie.class, new AABB(pos).inflate(20));
+        for (Pixie pixie : pixies) {
+            if (pixie.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) > 20 * 20) continue;
+            if (pixie.getOwningPlayer() instanceof ServerPlayer serverPlayer) {
+                QuestData.get(serverPlayer).checkComplete(GrowTreeTask.INSTANCE, state);
             }
         }
     }

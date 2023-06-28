@@ -61,7 +61,7 @@ public class AbilityGoal extends Goal {
             this.ticksLeft -= 1;
             if (this.ability != null) {
                 if (this.ticksLeft <= 0) {
-                    this.pixie.setBored(this.pixie.getBored() - 1);
+                    this.pixie.adjustBoredom(1);
                     this.ability.perform(this.pixie.level(), this.pixie, this.data);
                     this.stop();
                 } else if (this.ticksLeft == 50) {

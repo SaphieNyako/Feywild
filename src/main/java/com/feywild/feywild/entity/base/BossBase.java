@@ -12,10 +12,13 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 
-public abstract class BossBase extends Monster {
+public abstract class BossBase extends Monster implements GeoEntity {
 
     private final ServerBossEvent bossInfo;
 
@@ -117,6 +120,11 @@ public abstract class BossBase extends Monster {
     public boolean ignoreExplosion() {
         return true;
     }
+    
+    private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
 
-
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
+    }
 }

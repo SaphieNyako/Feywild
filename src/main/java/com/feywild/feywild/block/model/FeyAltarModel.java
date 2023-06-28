@@ -11,7 +11,7 @@ public class FeyAltarModel extends GeoModel<FeyAltar> {
     @Override
     public ResourceLocation getModelResource(FeyAltar feyAltar) {
         FeyAltarBlock feyAltarBlock = (FeyAltarBlock) feyAltar.getBlockState().getBlock();
-        return FeywildMod.getInstance().resource("geo/" + feyAltarBlock.getAlignment().id + "_fey_altar.geo.json");
+        return FeywildMod.getInstance().resource("geo/" + feyAltarBlock.getAlignment().id + "/fey_altar.geo.json");
     }
 
     @Override
@@ -24,6 +24,6 @@ public class FeyAltarModel extends GeoModel<FeyAltar> {
     @Override
     public ResourceLocation getAnimationResource(FeyAltar feyAltar) {
         FeyAltarBlock feyAltarBlock = (FeyAltarBlock) feyAltar.getBlockState().getBlock();
-        return FeywildMod.getInstance().resource("animations/" + feyAltarBlock.getAlignment().id + "_fey_altar.animation.json");
+        return FeywildMod.getInstance().resource("animations/" + feyAltarBlock.getAlignment().id + "/fey_altar.animation.json");
     }
 }
