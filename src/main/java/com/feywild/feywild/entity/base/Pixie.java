@@ -44,6 +44,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Pixie extends FlyingFeyBase {
@@ -52,11 +53,14 @@ public abstract class Pixie extends FlyingFeyBase {
     
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
     
+    private final Alignment alignment;
+    
     private int boredom;
     private Ability<?> ability;
 
-    protected Pixie(EntityType<? extends Pixie> type, Alignment alignment, Level level) {
-        super(type, alignment, level);
+    protected Pixie(EntityType<? extends Pixie> type, @Nonnull Alignment alignment, Level level) {
+        super(type, Objects.requireNonNull(alignment), level);
+        this.alignment = alignment;
     }
 
     @Override
@@ -130,7 +134,6 @@ public abstract class Pixie extends FlyingFeyBase {
                     player.sendSystemMessage(Component.literal("Ow this is a fun ability!"));
                 }
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-
                 if (stack.isEmpty() && !player.isShiftKeyDown()) {
                     this.interactQuest((ServerPlayer) player, hand);
                 }

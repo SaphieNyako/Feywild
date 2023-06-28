@@ -1,6 +1,7 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
@@ -24,19 +25,8 @@ import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScrollBoss<T extends FlyingBossBase> extends SummoningScroll<T> {
 
-    public SummoningScrollBoss(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
-        super(mod, type, soundEvent, properties);
-    }
-
-    @Override
-    protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
-        if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
-            player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
-            return false;
-        } else {
-            return true;
-        }
-
+    public SummoningScrollBoss(ModX mod, EntityType<T> type, @Nullable FeySound sound, Properties properties) {
+        super(mod, type, sound, properties);
     }
 
     @Override
@@ -61,7 +51,7 @@ public class SummoningScrollBoss<T extends FlyingBossBase> extends SummoningScro
                     entity.setPos(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5);
                     this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
                     context.getLevel().addFreshEntity(entity);
-                    if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
+                    if (this.sound != null) entity.playSound(this.sound.getSoundEvent(), 1, 1);
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
                         context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));

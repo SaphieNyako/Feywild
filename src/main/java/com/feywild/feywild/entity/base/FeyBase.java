@@ -42,15 +42,13 @@ import java.util.UUID;
 
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, GeoEntity {
 
-    public final Alignment alignment;
-    @Nullable
-    protected UUID owner;
-    @Nullable
-    private BlockPos summonPos = null;
+    @Nullable public final Alignment alignment;
+    @Nullable protected UUID owner;
+    @Nullable private BlockPos summonPos = null;
     private int unalignedTicks = 0;
     private boolean followingPlayer = false;
 
-    protected FeyBase(EntityType<? extends PathfinderMob> entityType, Alignment alignment, Level level) {
+    protected FeyBase(EntityType<? extends PathfinderMob> entityType, @Nullable Alignment alignment, Level level) {
         super(entityType, level);
         this.alignment = alignment;
         this.noCulling = true;
@@ -125,7 +123,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             Player owner = this.getOwningPlayer();
             if (owner instanceof ServerPlayer serverPlayer) {
                 Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
-                if (ownerAlignment != null && ownerAlignment != this.alignment) {
+                if (ownerAlignment != null && this.alignment != null && ownerAlignment != this.alignment) {
                     unalignedTicks += 1;
                     if (unalignedTicks >= 300) {
                         owner.sendSystemMessage(Component.translatable("message.feywild." + Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(this.getType())).getPath() + ".disappear"));

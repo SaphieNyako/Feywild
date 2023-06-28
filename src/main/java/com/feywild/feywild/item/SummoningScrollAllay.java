@@ -5,6 +5,7 @@ import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -29,8 +30,8 @@ import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScrollAllay<T extends Allay> extends SummoningScroll<T> implements Registerable {
     
-    public SummoningScrollAllay(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
-        super(mod, type, soundEvent, properties);
+    public SummoningScrollAllay(ModX mod, EntityType<T> type, @Nullable FeySound sound, Properties properties) {
+        super(mod, type, sound, properties);
     }
 
     @Override

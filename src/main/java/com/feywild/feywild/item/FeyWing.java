@@ -14,8 +14,10 @@ import software.bernie.geckolib.animatable.GeoItem;
 // UPDATE_TODO animations
 public class FeyWing extends ArmorItem implements GeoItem {
 
-    public FeyWing(ArmorMaterial materialIn, EquipmentSlot slot, Properties builder, Variant variant) {
-        super(materialIn, slot, builder);
+    private final Variant variant;
+    
+    public FeyWing(ArmorMaterial materialIn, Properties builder, Variant variant) {
+        super(materialIn, Type.CHESTPLATE, builder);
         this.variant = variant;
     }
 
@@ -62,10 +64,7 @@ public class FeyWing extends ArmorItem implements GeoItem {
     public AnimationFactory getFactory() {
         return this.factory;
     }
-
-    public void setVariant(Variant variant) {
-        this.variant = variant;
-    }
+*/
 
     public enum Variant {
 

@@ -5,6 +5,7 @@ import com.feywild.feywild.entity.base.Pixie;
 import com.feywild.feywild.entity.base.FeyBase;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
@@ -31,8 +32,8 @@ import net.minecraft.world.item.Item.Properties;
 
 public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> implements Registerable {
 
-    public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
-        super(mod, type, soundEvent, properties);
+    public SummoningScrollFey(ModX mod, EntityType<T> type, @Nullable FeySound sound, Properties properties) {
+        super(mod, type, sound, properties);
     }
 
     @Override
@@ -42,7 +43,6 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
 
     @Override
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
-
         if (player instanceof ServerPlayer serverPlayer) {
             if (MiscConfig.summon_all_fey && serverPlayer.level().dimension() != FeywildDimensions.MARKETPLACE) {
                 return true;
@@ -51,7 +51,7 @@ public class SummoningScrollFey<T extends FeyBase> extends SummoningScroll<T> im
                 if (serverPlayer.level().dimension() == FeywildDimensions.MARKETPLACE) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_market"));
                     return false;
-                } else if (alignment != entity.alignment && !(entity instanceof Pixie && alignment == null)) {
+                } else if (entity.alignment != null && alignment != entity.alignment && !(entity instanceof Pixie && alignment == null)) {
                     player.sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
                     return false;
                 } else {

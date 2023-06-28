@@ -8,6 +8,7 @@ import com.feywild.feywild.entity.base.TreeEntBase;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
@@ -41,8 +42,8 @@ public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScro
 
     Alignment alignment;
 
-    public SummoningScrollTreeEnt(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties, @Nullable Alignment alignment) {
-        super(mod, type, soundEvent, properties);
+    public SummoningScrollTreeEnt(ModX mod, EntityType<T> type, @Nullable FeySound sound, Properties properties, @Nullable Alignment alignment) {
+        super(mod, type, sound, properties);
         this.alignment = alignment;
     }
 

@@ -84,15 +84,15 @@ public class ModItems {
     public static final Item winterFeyAltar = new FeyAltarItem(ModBlocks.winterFeyAltar, Alignment.WINTER);
     public static final Item autumnFeyAltar = new FeyAltarItem(ModBlocks.autumnFeyAltar, Alignment.AUTUMN);
 
-    public static final Item reaperScythe = new ReaperScythe(new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item reaperScythe = new ReaperScythe(new Item.Properties());
 
-    public static final Item feyWingsAutumn = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.AUTUMN);
-    // public static final Item feyWingsBlossom = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.BLOSSOM);
-    public static final Item feyWingsLight = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.LIGHT);
-    public static final Item feyWingsSpring = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.SPRING);
-    public static final Item feyWingsSummer = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.SUMMER);
-    public static final Item feyWingsWinter = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.WINTER);
-    public static final Item feyWingsShadow = new FeyWing(ModArmorMaterials.FEY_WINGS, EquipmentSlot.CHEST, new Item.Properties().tab(FeywildMod.getInstance().tab), FeyWing.Variant.SHADOW);
+    public static final Item feyWingsAutumn = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.AUTUMN);
+     public static final Item feyWingsBlossom = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.BLOSSOM);
+    public static final Item feyWingsLight = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.LIGHT);
+    public static final Item feyWingsSpring = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SPRING);
+    public static final Item feyWingsSummer = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SUMMER);
+    public static final Item feyWingsWinter = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.WINTER);
+    public static final Item feyWingsShadow = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SHADOW);
 
     /* FOOD */
     public static final FeyDust feyDust = new FeyDust(FeywildMod.getInstance(), new Item.Properties().food(
@@ -116,12 +116,12 @@ public class ModItems {
                     .build()), Component.translatable("message.feywild.magical_honey_cookie"));
 
     @SuppressWarnings("ConstantConditions")
-    public static final Item spawnEggSpringPixie = new ForgeSpawnEggItem(() -> ModEntities.springPixie, 0xf085a9, 0xa1db67, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggSummerPixie = new ForgeSpawnEggItem(() -> ModEntities.summerPixie, 0xf38807, 0xfedc5a, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggAutumnPixie = new ForgeSpawnEggItem(() -> ModEntities.autumnPixie, 0xb73737, 0xa56259, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggWinterPixie = new ForgeSpawnEggItem(() -> ModEntities.winterPixie, 0x84b4be, 0x323c81, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggBeeKnight = new ForgeSpawnEggItem(() -> ModEntities.beeKnight, 0xfabc25, 0x5f3225, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggShroomling = new ForgeSpawnEggItem(() -> ModEntities.shroomling, 0xd94747, 0xf5eeee, new Item.Properties().tab(FeywildMod.getInstance().tab));
-    public static final Item spawnEggMandragora = new ForgeSpawnEggItem(() -> ModEntities.mandragora, 0x649b36, 0xd6b172, new Item.Properties().tab(FeywildMod.getInstance().tab));
+    public static final Item spawnEggSpringPixie = new ForgeSpawnEggItem(() -> ModEntities.springPixie, 0xf085a9, 0xa1db67, new Item.Properties());
+    public static final Item spawnEggSummerPixie = new ForgeSpawnEggItem(() -> ModEntities.summerPixie, 0xf38807, 0xfedc5a, new Item.Properties());
+    public static final Item spawnEggAutumnPixie = new ForgeSpawnEggItem(() -> ModEntities.autumnPixie, 0xb73737, 0xa56259, new Item.Properties());
+    public static final Item spawnEggWinterPixie = new ForgeSpawnEggItem(() -> ModEntities.winterPixie, 0x84b4be, 0x323c81, new Item.Properties());
+    public static final Item spawnEggBeeKnight = new ForgeSpawnEggItem(() -> ModEntities.beeKnight, 0xfabc25, 0x5f3225, new Item.Properties());
+    public static final Item spawnEggShroomling = new ForgeSpawnEggItem(() -> ModEntities.shroomling, 0xd94747, 0xf5eeee, new Item.Properties());
+    public static final Item spawnEggMandragora = new ForgeSpawnEggItem(() -> ModEntities.mandragora, 0x649b36, 0xd6b172, new Item.Properties());
 
 }

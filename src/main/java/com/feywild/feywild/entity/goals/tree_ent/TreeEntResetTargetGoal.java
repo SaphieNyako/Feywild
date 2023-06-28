@@ -11,12 +11,12 @@ public class TreeEntResetTargetGoal<T extends TreeEntBase> extends Goal {
         this.entity = entity;
     }
 
-
     @Override
     public boolean canUse() {
-        return this.entity.level.random.nextFloat() < 0.05f;
+        return this.entity.level().random.nextFloat() < 0.05f;
     }
 
+    @Override
     public void start() {
         this.entity.stopBeingAngry();
     }

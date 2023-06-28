@@ -5,13 +5,13 @@ import com.feywild.feywild.entity.base.IOwnable;
 import com.feywild.feywild.entity.base.ISummonable;
 import com.feywild.feywild.entity.base.ITameable;
 import com.feywild.feywild.network.ParticleMessage;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.util.TooltipHelper;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,17 +27,17 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+// UPDATE_TODO clean up subclasses
 public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
 
     protected final EntityType<T> type;
 
-    @Nullable
-    protected final SoundEvent soundEvent;
+    @Nullable protected final FeySound sound;
 
-    public SummoningScroll(ModX mod, EntityType<T> type, @Nullable SoundEvent soundEvent, Properties properties) {
+    public SummoningScroll(ModX mod, EntityType<T> type, @Nullable FeySound sound, Properties properties) {
         super(mod, properties);
         this.type = type;
-        this.soundEvent = soundEvent;
+        this.sound = sound;
     }
 
     protected boolean canSummon(Level level, Player player, BlockPos pos, @Nullable CompoundTag storedTag, T entity) {
@@ -82,7 +82,7 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase {
                     if (this instanceof SummoningScrollFey) {
                         context.getLevel().addFreshEntity(entity);
                         FeywildMod.getNetwork().sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
-                        if (this.soundEvent != null) entity.playSound(this.soundEvent, 1, 1);
+                        if (this.sound != null) entity.playSound(this.sound.getSoundEvent(), 1, 1);
                     }
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
