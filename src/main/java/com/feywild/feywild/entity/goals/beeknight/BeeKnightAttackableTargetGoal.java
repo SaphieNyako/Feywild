@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 
 public class BeeKnightAttackableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
 
-    BeeKnight beeKnight;
+    private final BeeKnight beeKnight;
 
     public BeeKnightAttackableTargetGoal(BeeKnight beeKnight, Class<T> targetType, boolean mustSee) {
         super(beeKnight, targetType, mustSee);

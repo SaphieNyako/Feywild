@@ -4,7 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.ModEntities;
-import com.feywild.feywild.entity.base.TreeEntBase;
+import com.feywild.feywild.entity.base.TreeEnt;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
@@ -16,7 +16,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -36,9 +35,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import net.minecraft.world.item.Item.Properties;
-
-public class SummoningScrollTreeEnt<T extends TreeEntBase> extends SummoningScroll<T> implements Registerable {
+public class SummoningScrollTreeEnt<T extends TreeEnt> extends SummoningScroll<T> implements Registerable {
 
     Alignment alignment;
 

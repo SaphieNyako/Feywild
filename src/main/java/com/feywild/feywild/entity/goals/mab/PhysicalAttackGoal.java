@@ -16,12 +16,10 @@ public class PhysicalAttackGoal extends Goal {
     private final Mab entity;
     private Player target;
     private int ticksLeft = 0;
-
-
+    
     public PhysicalAttackGoal(Mab mab) {
         this.entity = mab;
     }
-
 
     @Override
     public void tick() {

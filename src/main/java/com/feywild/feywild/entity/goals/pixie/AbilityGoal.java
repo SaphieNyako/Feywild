@@ -28,7 +28,7 @@ public class AbilityGoal extends Goal {
     @Override
     public boolean canUse() {
         if (!(this.pixie.getOwningPlayer() instanceof ServerPlayer serverPlayer)) return false;
-        if (QuestData.get(serverPlayer).getAlignment() != this.pixie.alignment) return false;
+        if (QuestData.get(serverPlayer).getAlignment() != this.pixie.alignment()) return false;
         if (this.pixie.level().random.nextFloat() > 0.01f) return false;
         this.ability = null;
         this.initIfNeeded();

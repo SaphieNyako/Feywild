@@ -19,7 +19,7 @@ public class WaveGoal extends Goal {
 
     public WaveGoal(Shroomling shroomling) {
         this.entity = shroomling;
-        this.level = shroomling.level;
+        this.level = shroomling.level();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class WaveGoal extends Goal {
     }
 
     protected SoundEvent getWaveSound() {
-        return ModSoundEvents.shroomlingWave;
+        return ModSoundEvents.shroomlingWave.getSoundEvent();
     }
 
     private void waving() {
@@ -58,7 +58,7 @@ public class WaveGoal extends Goal {
         this.ticksLeft = 50;
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(4);
-        for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+        for (Player match : this.entity.level().getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
             this.target = match;
             break;
         }
@@ -66,13 +66,11 @@ public class WaveGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.01f
-                && !(this.entity.getState() == Shroomling.State.SNEEZING);
+        return level.random.nextFloat() < 0.01f && !(this.entity.getState() == Shroomling.State.SNEEZING);
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.ticksLeft > 0
-                && !(this.entity.getState() == Shroomling.State.SNEEZING);
+        return this.ticksLeft > 0 && !(this.entity.getState() == Shroomling.State.SNEEZING);
     }
 }

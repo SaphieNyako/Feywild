@@ -15,11 +15,14 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class Trader extends AbstractVillager implements ReputationEventHandler {
+public abstract class Trader extends AbstractVillager implements ReputationEventHandler, GeoEntity {
 
     private int villagerXp;
     private int updateMerchantTimer;
@@ -196,5 +199,12 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
     private void resetNumberOfRestocks() {
         this.catchUpDemand();
         this.numberOfRestocksToday = 0;
+    }
+
+    private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return animationCache;
     }
 }

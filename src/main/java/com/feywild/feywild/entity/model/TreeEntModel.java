@@ -1,11 +1,11 @@
 package com.feywild.feywild.entity.model;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.entity.base.TreeEntBase;
+import com.feywild.feywild.entity.base.TreeEnt;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.resources.ResourceLocation;
 
-public class TreeEntModel extends TypedEntityModel<TreeEntBase> {
+public class TreeEntModel extends TypedEntityModel<TreeEnt> {
 
     public TreeEntModel(Alignment alignment) {
         this(alignment.id);

@@ -2,7 +2,7 @@ package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
 import com.feywild.feywild.entity.base.ISummonable;
-import com.feywild.feywild.entity.goals.DodgeGoal;
+import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.titania.BossTargetFireGoal;
 import com.feywild.feywild.entity.goals.titania.SummonBeeKnightGoal;
 import com.feywild.feywild.quest.Alignment;
@@ -66,7 +66,7 @@ public class Titania extends FlyingBossBase implements IAnimatable, ISummonable 
         super.registerGoals();
         this.goalSelector.addGoal(40, new SummonBeeKnightGoal(this));
         this.goalSelector.addGoal(50, new BossTargetFireGoal(this));
-        this.goalSelector.addGoal(50, new DodgeGoal(this, 0.003, 16));
+        this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 16));
     }
 
     @Nullable

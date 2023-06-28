@@ -28,4 +28,3 @@ public class RefreshStockGoal extends Goal {
         }
     }
 }
-

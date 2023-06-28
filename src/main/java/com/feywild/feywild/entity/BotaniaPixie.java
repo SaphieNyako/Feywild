@@ -16,12 +16,10 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import org.checkerframework.checker.nullness.qual.NonNull;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -86,22 +84,15 @@ public class BotaniaPixie extends FlyingFeyBase {
     public void tick() {
         super.tick();
 
-        if (level.getBiome(this.blockPosition()).is(ModBiomeTags.IS_AUTUMN)) {
-            setVariant(BotaniaPixieVariant.AUTUMN);
-        } else if (level.getBiome(this.blockPosition()).is(ModBiomeTags.IS_SPRING)) {
-            setVariant(BotaniaPixieVariant.SPRING);
-        } else if (level.getBiome(this.blockPosition()).is(ModBiomeTags.IS_SUMMER)) {
-            setVariant(BotaniaPixieVariant.SUMMER);
-        } else if (level.getBiome(this.blockPosition()).is(ModBiomeTags.IS_WINTER)) {
-            setVariant(BotaniaPixieVariant.WINTER);
-        }
-
-        if (level.isClientSide && getParticle() != null && random.nextInt(11) == 0) {
-            for (int i = 0; i < 4; i++) {
-                this.level.addParticle(getParticle(), this.getX() + (Math.random() - 0.5) * 0.25,
-                        this.getY() + (Math.random() - 0.5) * 0.25,
-                        this.getZ() + (Math.random() - 0.5) * 0.25,
-                        0, 0, 0);
+        if (!this.level().isClientSide) {
+            if (level().getBiome(this.blockPosition()).is(ModBiomeTags.IS_AUTUMN)) {
+                setVariant(BotaniaPixieVariant.AUTUMN);
+            } else if (level().getBiome(this.blockPosition()).is(ModBiomeTags.IS_SPRING)) {
+                setVariant(BotaniaPixieVariant.SPRING);
+            } else if (level().getBiome(this.blockPosition()).is(ModBiomeTags.IS_SUMMER)) {
+                setVariant(BotaniaPixieVariant.SUMMER);
+            } else if (level().getBiome(this.blockPosition()).is(ModBiomeTags.IS_WINTER)) {
+                setVariant(BotaniaPixieVariant.WINTER);
             }
         }
     }
@@ -125,18 +116,14 @@ public class BotaniaPixie extends FlyingFeyBase {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<BotaniaPixie> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
-        data.addAnimationController(flyingController);
-    }
-
-    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.botania_pixie.fly", true));
-        return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.botania_pixie.fly"));
+            return PlayState.CONTINUE;
+        }));
     }
 
     public enum BotaniaPixieVariant {
-        
         DEFAULT("default"),
         SPRING(Alignment.SPRING),
         SUMMER(Alignment.SUMMER),

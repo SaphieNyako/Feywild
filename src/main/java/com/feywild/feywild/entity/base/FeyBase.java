@@ -42,7 +42,7 @@ import java.util.UUID;
 
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, GeoEntity {
 
-    @Nullable public final Alignment alignment;
+    @Nullable private final Alignment alignment;
     @Nullable protected UUID owner;
     @Nullable private BlockPos summonPos = null;
     private int unalignedTicks = 0;
@@ -54,6 +54,11 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.noCulling = true;
     }
 
+    @Nullable
+    public Alignment alignment() {
+        return this.alignment;
+    }
+    
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
@@ -221,6 +226,16 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     @Override
+    public boolean canFreeze() {
+        return this.alignment != Alignment.WINTER;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return this.alignment == Alignment.SUMMER;
+    }
+
+    @Override
     public boolean onClimbable() {
         return false;
     }
@@ -292,6 +307,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return null;
+        return animationCache;
     }
 }

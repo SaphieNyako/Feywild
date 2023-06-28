@@ -125,6 +125,6 @@ public abstract class BossBase extends Monster implements GeoEntity {
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return null;
+        return animationCache;
     }
 }

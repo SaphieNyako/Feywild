@@ -45,7 +45,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
     @Override
     public boolean canUse() {
         Vec3 target = this.targetPosition.get();
-        return this.entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
+        return this.entity.level().random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
     }
 
     public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {

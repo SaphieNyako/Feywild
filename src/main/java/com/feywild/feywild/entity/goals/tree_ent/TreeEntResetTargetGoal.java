@@ -1,9 +1,9 @@
 package com.feywild.feywild.entity.goals.tree_ent;
 
-import com.feywild.feywild.entity.base.TreeEntBase;
+import com.feywild.feywild.entity.base.TreeEnt;
 import net.minecraft.world.entity.ai.goal.Goal;
 
-public class TreeEntResetTargetGoal<T extends TreeEntBase> extends Goal {
+public class TreeEntResetTargetGoal<T extends TreeEnt> extends Goal {
 
     private final T entity;
 

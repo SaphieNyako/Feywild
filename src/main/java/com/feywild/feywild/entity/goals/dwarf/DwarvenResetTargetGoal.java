@@ -10,8 +10,7 @@ public class DwarvenResetTargetGoal<T extends DwarfBlacksmith> extends Goal {
     public DwarvenResetTargetGoal(T entity) {
         this.entity = entity;
     }
-
-
+    
     @Override
     public boolean canUse() {
         return this.entity.level().random.nextFloat() < 0.05f;

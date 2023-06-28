@@ -42,6 +42,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Objects;
@@ -61,6 +62,12 @@ public abstract class Pixie extends FlyingFeyBase {
     protected Pixie(EntityType<? extends Pixie> type, @Nonnull Alignment alignment, Level level) {
         super(type, Objects.requireNonNull(alignment), level);
         this.alignment = alignment;
+    }
+
+    @Nonnull
+    @Override
+    public Alignment alignment() {
+        return this.alignment;
     }
 
     @Override

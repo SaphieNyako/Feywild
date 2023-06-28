@@ -64,7 +64,6 @@ public class IntimidateGoal extends Goal {
         this.entity.playSound(ModSoundEvents.mabIntimidate.getSoundEvent(), 1, 1);
     }
 
-
     @Override
     public boolean canUse() {
         return this.entity.level().random.nextFloat() < 0.02f && (this.entity.getState() == Mab.State.IDLE || !(this.entity.getState() == Mab.State.INTIMIDATE) || !(this.entity.getState() == Mab.State.SPECIAL) || !(this.entity.getState() == Mab.State.PHYSICAL));

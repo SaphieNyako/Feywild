@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -37,11 +36,11 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class TreeEntBase extends GroundFeyBase {
+public abstract class TreeEnt extends GroundFeyBase {
     
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(TreeEntBase.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(TreeEnt.class, EntityDataSerializers.INT);
     
-    protected TreeEntBase(EntityType<? extends TreeEntBase> entityType, @Nullable Alignment alignment, Level level) {
+    protected TreeEnt(EntityType<? extends TreeEnt> entityType, @Nullable Alignment alignment, Level level) {
         super(entityType, alignment, level);
     }
 
@@ -57,6 +56,14 @@ public abstract class TreeEntBase extends GroundFeyBase {
     }
 
     protected abstract BaseTree getTree();
+    
+    protected ItemStack getRewardItem() {
+        return ItemStack.EMPTY;
+    }
+    
+    protected void grantReward(Player player) {
+        //
+    }
 
     @Override
     protected void registerGoals() {
@@ -79,12 +86,12 @@ public abstract class TreeEntBase extends GroundFeyBase {
         this.setTarget(null);
     }
 
-    public TreeEntBase.State getState() {
-        TreeEntBase.State[] states = TreeEntBase.State.values();
+    public TreeEnt.State getState() {
+        TreeEnt.State[] states = TreeEnt.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
-    public void setState(TreeEntBase.State state) {
+    public void setState(TreeEnt.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 
@@ -107,9 +114,12 @@ public abstract class TreeEntBase extends GroundFeyBase {
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
                 FeywildMod.getNetwork().sendParticles(this.level(), ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY() + 4, this.getZ());
                 player.swing(hand, true);
-                
-                if (random.nextInt(3) == 0) this.spawnAtLocation(new ItemStack(Blocks.MYCELIUM));
                 this.spawnAtLocation(this.getTree().getSapling());
+                ItemStack reward = this.getRewardItem();
+                if (!reward.isEmpty()) this.spawnAtLocation(reward);
+                if (!this.level().isClientSide) {
+                    this.grantReward(player);
+                }
                 this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -121,7 +131,7 @@ public abstract class TreeEntBase extends GroundFeyBase {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, event -> {
-            if (this.getState() == TreeEntBase.State.ATTACKING) {
+            if (this.getState() == TreeEnt.State.ATTACKING) {
                 event.getController().setAnimation(RawAnimation.begin().thenLoop("attack"));
                 return PlayState.CONTINUE;
             }

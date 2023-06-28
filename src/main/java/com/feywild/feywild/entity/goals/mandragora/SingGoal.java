@@ -26,7 +26,6 @@ public class SingGoal extends Goal {
     public SingGoal(Mandragora mandragoraEntity) {
         this.entity = mandragoraEntity;
         this.level = mandragoraEntity.level();
-
     }
 
     @Override
