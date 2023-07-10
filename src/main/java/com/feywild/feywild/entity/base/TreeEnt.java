@@ -56,7 +56,7 @@ public abstract class TreeEnt extends GroundFeyBase {
                 .add(Attributes.MOVEMENT_SPEED, 0.35);
     }
 
-    protected abstract BaseTree getTree();
+    public abstract BaseTree getTree();
     
     protected ItemStack getRewardItem() {
         return ItemStack.EMPTY;

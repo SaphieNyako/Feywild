@@ -4,13 +4,13 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
+import com.feywild.feywild.entity.ability.ModAbilities;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -38,13 +38,13 @@ public class ModItems {
     public static final Item feywildLexicon = new FeywildLexicon(FeywildMod.getInstance(), new Item.Properties());
     public static final Item honeycomb = new ItemBase(FeywildMod.getInstance(), new Item.Properties());
     public static final Item inactiveRuneOfSpring = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_spring"));
-    public static final RuneStone runeOfSpring = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.FLOWER_WALK, ModItems.inactiveRuneOfSpring, Component.translatable("message.feywild.rune_of_spring"));
+    public static final RuneStone runeOfSpring = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), ModAbilities.flowerWalk, ModItems.inactiveRuneOfSpring, Component.translatable("message.feywild.rune_of_spring"));
     public static final Item inactiveRuneOfWinter = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_winter"));
-    public static final RuneStone runeOfWinter = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.FROST_WALK, ModItems.inactiveRuneOfWinter, Component.translatable("message.feywild.rune_of_winter"));
+    public static final RuneStone runeOfWinter = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), ModAbilities.frostWalk, ModItems.inactiveRuneOfWinter, Component.translatable("message.feywild.rune_of_winter"));
     public static final Item inactiveRuneOfSummer = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_summer"));
-    public static final RuneStone runeOfSummer = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.FIRE_WALK, ModItems.inactiveRuneOfSummer, Component.translatable("message.feywild.rune_of_summer"));
+    public static final RuneStone runeOfSummer = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), ModAbilities.fireWalk, ModItems.inactiveRuneOfSummer, Component.translatable("message.feywild.rune_of_summer"));
     public static final Item inactiveRuneOfAutumn = new TooltipItem(FeywildMod.getInstance(), new Item.Properties(), Component.translatable("message.feywild.inactive_rune_of_autumn"));
-    public static final RuneStone runeOfAutumn = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), Ability.WIND_WALK, ModItems.inactiveRuneOfAutumn, Component.translatable("message.feywild.rune_of_autumn"));
+    public static final RuneStone runeOfAutumn = new RuneStone(FeywildMod.getInstance(), new Item.Properties(), ModAbilities.windWalk, ModItems.inactiveRuneOfAutumn, Component.translatable("message.feywild.rune_of_autumn"));
     public static final Item inactiveMarketRuneStone = new TooltipItem(FeywildMod.getInstance(), new Item.Properties().stacksTo(1), Component.translatable("message.feywild.inactive_market_rune_stone"));
     public static final MarketRuneStone marketRuneStone = new MarketRuneStone(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
     public static final TeleportationOrb teleportationOrb = new TeleportationOrb(FeywildMod.getInstance(), new Item.Properties().stacksTo(1));
@@ -67,7 +67,7 @@ public class ModItems {
     public static final SummoningScrollFey<BeeKnight> summoningScrollBeeKnight = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.beeKnight, null, new Item.Properties());
     public static final SummoningScrollFey<Mandragora> summoningScrollMandragora = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.mandragora, null, new Item.Properties());
     public static final SummoningScrollFey<Shroomling> summoningScrollShroomling = new SummoningScrollFey<>(FeywildMod.getInstance(), ModEntities.shroomling, null, new Item.Properties());
-    public static final SummoningScrollAllay<Allay> summoningScrollAllay = new SummoningScrollAllay<>(FeywildMod.getInstance(), EntityType.ALLAY, null, new Item.Properties());
+    public static final SummoningScrollGeneric<Allay> summoningScrollAllay = new SummoningScrollGeneric<>(FeywildMod.getInstance(), EntityType.ALLAY, null, Alignment.WINTER, new Item.Properties());
 
     public static final SummoningScrollTreeEnt<SpringTreeEnt> summoningScrollSpringTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.springTreeEnt, null, new Item.Properties(), Alignment.SPRING);
     public static final SummoningScrollTreeEnt<SummerTreeEnt> summoningScrollSummerTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.summerTreeEnt, null, new Item.Properties(), Alignment.SUMMER);
@@ -76,8 +76,8 @@ public class ModItems {
     public static final SummoningScrollTreeEnt<HexenTreeEnt> summoningScrollHexenTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.hexenTreeEnt, null, new Item.Properties(), null);
     public static final SummoningScrollTreeEnt<BlossomTreeEnt> summoningScrollBlossomTreeEnt = new SummoningScrollTreeEnt<>(FeywildMod.getInstance(), ModEntities.blossomTreeEnt, null, new Item.Properties(), null);
 
-    public static final SummoningScrollBoss<Mab> summoningScrollMab = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.mab, ModSoundEvents.mabAmbience, new Item.Properties());
-    public static final SummoningScrollBoss<Titania> summoningScrollTitania = new SummoningScrollBoss<>(FeywildMod.getInstance(), ModEntities.titania, ModSoundEvents.titaniaAmbience, new Item.Properties());
+    public static final SummoningScrollGeneric<Mab> summoningScrollMab = new SummoningScrollGeneric<>(FeywildMod.getInstance(), ModEntities.mab, ModSoundEvents.mabAmbience, null, new Item.Properties());
+    public static final SummoningScrollGeneric<Titania> summoningScrollTitania = new SummoningScrollGeneric<>(FeywildMod.getInstance(), ModEntities.titania, ModSoundEvents.titaniaAmbience, null, new Item.Properties());
 
     /* Geckolib registration requires Item registration */
     public static final Item summerFeyAltar = new FeyAltarItem(ModBlocks.summerFeyAltar, Alignment.SUMMER);
@@ -87,7 +87,7 @@ public class ModItems {
     public static final Item reaperScythe = new ReaperScythe(new Item.Properties());
 
     public static final Item feyWingsAutumn = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.AUTUMN);
-     public static final Item feyWingsBlossom = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.BLOSSOM);
+    public static final Item feyWingsBlossom = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.BLOSSOM);
     public static final Item feyWingsLight = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.LIGHT);
     public static final Item feyWingsSpring = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SPRING);
     public static final Item feyWingsSummer = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SUMMER);

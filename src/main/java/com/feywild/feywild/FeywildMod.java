@@ -13,6 +13,7 @@ import com.feywild.feywild.data.recipe.RecipeProvider;
 import com.feywild.feywild.data.tags.BiomeLayerTagsProvider;
 import com.feywild.feywild.data.tags.BiomeTagsProvider;
 import com.feywild.feywild.data.tags.CommonTagsProvider;
+import com.feywild.feywild.data.tags.EntityTagsProvider;
 import com.feywild.feywild.data.worldgen.*;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
@@ -167,6 +168,7 @@ public final class FeywildMod extends ModXRegistration {
             system.addDataProvider(TextureProvider::new);
             system.addDataProvider(redux, TextureProvider::new);
             system.addDataProvider(CommonTagsProvider::new);
+            system.addDataProvider(EntityTagsProvider::new);
             system.addDataProvider(BiomeTagsProvider::new);
             system.addDataProvider(BiomeLayerTagsProvider::new);
             system.addDataProvider(BlockLootProvider::new);

@@ -11,6 +11,9 @@ import org.moddingx.libx.sandbox.generator.BiomeLayer;
 
 public class ModEntityTags {
 
+    // UPDATE_TODO add tree bosses
+    public static final TagKey<EntityType<?>> BOSSES = EntityTypeTags.create(FeywildMod.getInstance().resource("bosses").toString());
+    
     // UPDATE_TODO add tree ents and bosses
     public static final TagKey<EntityType<?>> LEVITATION_IMMUNE = EntityTypeTags.create(FeywildMod.getInstance().resource("levitation_immune").toString());
     
