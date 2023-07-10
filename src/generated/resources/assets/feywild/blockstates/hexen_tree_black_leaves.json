@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/hexen_tree_black_leaves"
+      },
+      {
+        "model": "feywild:block/hexen_tree_black_leaves_02"
+      }
+    ]
+  }
+}

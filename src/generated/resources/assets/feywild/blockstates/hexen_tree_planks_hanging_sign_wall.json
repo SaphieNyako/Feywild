@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "feywild:block/hexen_tree_planks_hanging_sign_wall",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "feywild:block/hexen_tree_planks_hanging_sign_wall"
+    },
+    "facing=south": {
+      "model": "feywild:block/hexen_tree_planks_hanging_sign_wall",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "feywild:block/hexen_tree_planks_hanging_sign_wall",
+      "y": 270
+    }
+  }
+}

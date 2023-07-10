@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "feywild:item/autumn_tree_planks_hanging_sign"
+  }
+}

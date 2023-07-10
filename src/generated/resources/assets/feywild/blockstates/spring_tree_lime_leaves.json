@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/spring_tree_lime_leaves"
+      },
+      {
+        "model": "feywild:block/spring_tree_lime_leaves_02"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:cutout_mipped",
+  "textures": {
+    "all": "feywild:block/autumn_tree_dark_gray_leaves_02"
+  }
+}

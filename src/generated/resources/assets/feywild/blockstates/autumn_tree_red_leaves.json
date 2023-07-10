@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/autumn_tree_red_leaves"
+      },
+      {
+        "model": "feywild:block/autumn_tree_red_leaves_02"
+      }
+    ]
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "biomes": [
+    {
+      "biome": "feywild:spring_biome",
+      "parameters": {
+        "continentalness": [
+          -0.18,
+          1.0
+        ],
+        "depth": [
+          -1.0,
+          1.0
+        ],
+        "erosion": [
+          -1.0,
+          1.0
+        ],
+        "humidity": [
+          0.0,
+          1.0
+        ],
+        "offset": 0.0,
+        "temperature": [
+          0.0,
+          1.0
+        ],
+        "weirdness": [
+          -1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "biome": "feywild:summer_biome",
+      "parameters": {
+        "continentalness": [
+          -0.18,
+          1.0
+        ],
+        "depth": [
+          -1.0,
+          1.0
+        ],
+        "erosion": [
+          -1.0,
+          1.0
+        ],
+        "humidity": [
+          -1.0,
+          0.0
+        ],
+        "offset": 0.0,
+        "temperature": [
+          0.0,
+          1.0
+        ],
+        "weirdness": [
+          -1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "biome": "feywild:autumn_biome",
+      "parameters": {
+        "continentalness": [
+          -0.18,
+          1.0
+        ],
+        "depth": [
+          -1.0,
+          1.0
+        ],
+        "erosion": [
+          -1.0,
+          1.0
+        ],
+        "humidity": [
+          0.0,
+          1.0
+        ],
+        "offset": 0.0,
+        "temperature": [
+          -1.0,
+          0.0
+        ],
+        "weirdness": [
+          -1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "biome": "feywild:winter_biome",
+      "parameters": {
+        "continentalness": [
+          -0.18,
+          1.0
+        ],
+        "depth": [
+          -1.0,
+          1.0
+        ],
+        "erosion": [
+          -1.0,
+          1.0
+        ],
+        "humidity": [
+          -1.0,
+          0.0
+        ],
+        "offset": 0.0,
+        "temperature": [
+          -1.0,
+          0.0
+        ],
+        "weirdness": [
+          -1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "biome": "feywild:feywild_ocean",
+      "parameters": {
+        "continentalness": [
+          -1.0,
+          -0.18
+        ],
+        "depth": [
+          -1.0,
+          0.5
+        ],
+        "erosion": [
+          -1.0,
+          1.0
+        ],
+        "humidity": [
+          -1.0,
+          1.0
+        ],
+        "offset": 0.0,
+        "temperature": [
+          -1.0,
+          1.0
+        ],
+        "weirdness": [
+          -1.0,
+          1.0
+        ]
+      }
+    }
+  ],
+  "density": 0.0,
+  "range": {
+    "continentalness": [
+      -1.0,
+      1.0
+    ],
+    "depth": [
+      -1.0,
+      1.0
+    ],
+    "erosion": [
+      -1.0,
+      1.0
+    ],
+    "humidity": [
+      -1.0,
+      1.0
+    ],
+    "offset": 0.0,
+    "temperature": [
+      -1.0,
+      1.0
+    ],
+    "weirdness": [
+      -1.0,
+      1.0
+    ]
+  }
+}

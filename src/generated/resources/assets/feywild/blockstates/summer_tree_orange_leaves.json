@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/summer_tree_orange_leaves"
+      },
+      {
+        "model": "feywild:block/summer_tree_orange_leaves_02"
+      }
+    ]
+  }
+}
