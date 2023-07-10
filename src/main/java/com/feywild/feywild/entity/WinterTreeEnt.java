@@ -18,7 +18,7 @@ public class WinterTreeEnt extends TreeEnt {
     }
 
     @Override
-    protected BaseTree getTree() {
+    public BaseTree getTree() {
         return null;
     }
 

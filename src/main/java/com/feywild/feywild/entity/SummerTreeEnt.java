@@ -19,7 +19,7 @@ public class SummerTreeEnt extends TreeEnt {
     }
 
     @Override
-    protected BaseTree getTree() {
+    public BaseTree getTree() {
         return ModTrees.summerTree;
     }
 

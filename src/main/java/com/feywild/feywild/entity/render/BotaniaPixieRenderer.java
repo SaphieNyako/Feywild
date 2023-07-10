@@ -12,7 +12,7 @@ public class BotaniaPixieRenderer<T extends BotaniaPixie> extends BaseEntityRend
 
     private static final Vec3 OFFSET = new Vec3(0, -0.36, 0);
 
-    public BotaniaPixieRenderer(EntityType<T> entityType, EntityRendererProvider.Context ctx, GeoModel<T> model) {
+    public BotaniaPixieRenderer(EntityType<? extends T> entityType, EntityRendererProvider.Context ctx, GeoModel<T> model) {
         super(entityType, ctx, model);
         this.shadowRadius = 0.01f;
     }

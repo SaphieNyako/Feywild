@@ -16,7 +16,7 @@ public class AutumnTreeEnt extends TreeEnt {
     }
 
     @Override
-    protected BaseTree getTree() {
+    public BaseTree getTree() {
         return ModTrees.autumnTree;
     }
 

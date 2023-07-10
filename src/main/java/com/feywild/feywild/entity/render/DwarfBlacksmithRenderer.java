@@ -9,7 +9,7 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class DwarfBlacksmithRenderer<T extends DwarfBlacksmith> extends BaseEntityRenderer<T> {
 
-    public DwarfBlacksmithRenderer(EntityType<T> entityType, EntityRendererProvider.Context ctx, GeoModel<T> model) {
+    public DwarfBlacksmithRenderer(EntityType<? extends T> entityType, EntityRendererProvider.Context ctx, GeoModel<T> model) {
         super(entityType, ctx, model);
         if (ClientConfig.mob_glow) this.addRenderLayer(new DwarfBlacksmithGlowLayer<>(this));
     }

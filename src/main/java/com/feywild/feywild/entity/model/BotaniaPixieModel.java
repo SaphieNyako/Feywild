@@ -6,8 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BotaniaPixieModel extends TypedEntityModel<BotaniaPixie> {
 
-    public BotaniaPixieModel(BotaniaPixie.BotaniaPixieVariant variant) {
-        super("botania_pixie", variant.id);
+    public BotaniaPixieModel() {
+        super("botania_pixie", null);
     }
 
     @Override
@@ -18,5 +18,10 @@ public class BotaniaPixieModel extends TypedEntityModel<BotaniaPixie> {
     @Override
     public ResourceLocation getAnimationResource(BotaniaPixie pixie) {
         return FeywildMod.getInstance().resource("animations/botania_pixie.animation.json");
+    }
+
+    @Override
+    public ResourceLocation getTextureResource(BotaniaPixie pixie) {
+        return FeywildMod.getInstance().resource("textures/entity/" + pixie.getVariant().id + "/botania_pixie.png");
     }
 }

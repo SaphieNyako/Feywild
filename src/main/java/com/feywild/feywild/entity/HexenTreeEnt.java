@@ -18,7 +18,7 @@ public class HexenTreeEnt extends TreeEnt {
     }
 
     @Override
-    protected BaseTree getTree() {
+    public BaseTree getTree() {
         return ModTrees.hexenTree;
     }
 

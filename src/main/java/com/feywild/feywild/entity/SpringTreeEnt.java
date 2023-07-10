@@ -20,7 +20,7 @@ public class SpringTreeEnt extends TreeEnt {
     }
 
     @Override
-    protected BaseTree getTree() {
+    public BaseTree getTree() {
         return null;
     }
 

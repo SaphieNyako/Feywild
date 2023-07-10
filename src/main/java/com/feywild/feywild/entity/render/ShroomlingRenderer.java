@@ -9,7 +9,7 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class ShroomlingRenderer<T extends Shroomling> extends BaseEntityRenderer<T> {
 
-    public ShroomlingRenderer(EntityType<T> entityType, EntityRendererProvider.Context ctx, GeoModel<T> model) {
+    public ShroomlingRenderer(EntityType<? extends T> entityType, EntityRendererProvider.Context ctx, GeoModel<T> model) {
         super(entityType, ctx, model);
         if (ClientConfig.mob_glow) this.addRenderLayer(new ShroomlingGlowLayer<>(this));
     }

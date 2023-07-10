@@ -17,12 +17,16 @@ import com.feywild.feywild.data.tags.EntityTagsProvider;
 import com.feywild.feywild.data.worldgen.*;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
-import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.entity.render.BaseEntityRenderer;
+import com.feywild.feywild.entity.render.BotaniaPixieRenderer;
+import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
+import com.feywild.feywild.entity.render.ShroomlingRenderer;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.LeafParticle;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.particles.SparkleParticle;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.CommandReward;
@@ -33,7 +37,6 @@ import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
 import com.feywild.feywild.util.FeywildJigsawHelper;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.gen.processor.*;
 import com.feywild.feywild.world.market.MarketGenerator;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
@@ -42,7 +45,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.Entity;
@@ -50,7 +52,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeRenderTypes;
@@ -60,6 +61,7 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -87,14 +89,6 @@ public final class FeywildMod extends ModXRegistration {
 
     public static final Logger logger = LoggerFactory.getLogger("feywild");
     
-    // UPDATE_TODO remove from here
-    public static StructureProcessorType<SpringTreeProcessor> SPRING_TREE_PROCESSOR = () -> SpringTreeProcessor.CODEC;
-    public static StructureProcessorType<SummerTreeProcessor> SUMMER_TREE_PROCESSOR = () -> SummerTreeProcessor.CODEC;
-    public static StructureProcessorType<AutumnTreeProcessor> AUTUMN_TREE_PROCESSOR = () -> AutumnTreeProcessor.CODEC;
-    public static StructureProcessorType<WinterTreeProcessor> WINTER_TREE_PROCESSOR = () -> WinterTreeProcessor.CODEC;
-    public static StructureProcessorType<BlossomTreeProcessor> BLOSSOM_TREE_PROCESSOR = () -> BlossomTreeProcessor.CODEC;
-    public static StructureProcessorType<HexenTreeProcessor> HEXEN_TREE_PROCESSOR = () -> HexenTreeProcessor.CODEC;
-    
     private static FeywildMod instance;
     private static FeywildNetwork network;
     private static FeywildTab tab;
@@ -111,6 +105,7 @@ public final class FeywildMod extends ModXRegistration {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::createRegistries);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::spawnPlacement);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderTypes);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors));
@@ -229,28 +224,7 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-
-
-            SpawnPlacements.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
-            SpawnPlacements.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
-            SpawnPlacements.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
-            SpawnPlacements.register(ModEntities.botaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BotaniaPixie::canSpawn);
-
-            SpawnPlacements.register(ModEntities.titania, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Titania::canSpawn);
-            SpawnPlacements.register(ModEntities.mab, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mab::canSpawn);
-
-            SpawnPlacements.register(ModEntities.springTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.summerTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.winterTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.autumnTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn);
-
-            SpawnPlacements.register(ModEntities.loreMaster, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LoreMaster::canSpawn);
+            
 
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntities.dwarfBaker, new BlockPos(-3, 64, 10));
@@ -258,13 +232,6 @@ public final class FeywildMod extends ModXRegistration {
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntities.dwarfArtificer, new BlockPos(7, 63, -2));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntities.dwarfDragonHunter, new BlockPos(21, 63, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntities.dwarfToolsmith, new BlockPos(21, 63, 11));
-
-            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("spring_tree_processor"), SPRING_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("summer_tree_processor"), SUMMER_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("autumn_tree_processor"), AUTUMN_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("winter_tree_processor"), WINTER_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("blossom_tree_processor"), BLOSSOM_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, FeywildMod.getInstance().resource("hexen_tree_processor"), HEXEN_TREE_PROCESSOR);
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();
@@ -289,34 +256,37 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(ModEntities.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
-        EntityRenderers.register(ModEntities.dwarfToolsmith, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfArtificer, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfDragonHunter, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfBaker, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfMiner, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfModel::new));
-        EntityRenderers.register(ModEntities.dwarfShepherd, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
-        EntityRenderers.register(ModEntities.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
-        EntityRenderers.register(ModEntities.autumnPixie, BasePixieRenderer.create(PixieModel::new));
-        EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
-        EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
-        EntityRenderers.register(ModEntities.botaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
-
-        EntityRenderers.register(ModEntities.titania, TitaniaRenderer.create(TitaniaModel::new));
-        EntityRenderers.register(ModEntities.mab, MabRenderer.create(MabModel::new));
-
-        EntityRenderers.register(ModEntities.springTreeEnt, BaseTreeEntRenderer.create(SpringTreeEntModel::new));
-        EntityRenderers.register(ModEntities.summerTreeEnt, BaseTreeEntRenderer.create(SummerTreeEntModel::new));
-        EntityRenderers.register(ModEntities.winterTreeEnt, BaseTreeEntRenderer.create(WinterTreeEntModel::new));
-        EntityRenderers.register(ModEntities.autumnTreeEnt, BaseTreeEntRenderer.create(TreeEntModel::new));
-        EntityRenderers.register(ModEntities.blossomTreeEnt, BaseTreeEntRenderer.create(BlossomTreeEntModel::new));
-        EntityRenderers.register(ModEntities.hexenTreeEnt, BaseTreeEntRenderer.create(HexenTreeEntModel::new));
-
+        BaseEntityRenderer.register(ModEntities.beeKnight, new BeeKnightModel());
+        
+        BaseEntityRenderer.register(ModEntities.dwarfToolsmith, DwarfBlacksmithRenderer::new, new DwarfModel("toolsmith"));
+        BaseEntityRenderer.register(ModEntities.dwarfArtificer, DwarfBlacksmithRenderer::new, new DwarfModel("artificer"));
+        BaseEntityRenderer.register(ModEntities.dwarfDragonHunter, DwarfBlacksmithRenderer::new, new DwarfModel("dragon_hunter"));
+        BaseEntityRenderer.register(ModEntities.dwarfBaker, DwarfBlacksmithRenderer::new, new DwarfModel("baker"));
+        BaseEntityRenderer.register(ModEntities.dwarfMiner, DwarfBlacksmithRenderer::new, new DwarfModel("miner"));
+        BaseEntityRenderer.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer::new, new DwarfModel("blacksmith"));
+        BaseEntityRenderer.register(ModEntities.dwarfShepherd, DwarfBlacksmithRenderer::new, new DwarfModel("shepherd"));
+        
+        BaseEntityRenderer.register(ModEntities.springPixie, new PixieModel(Alignment.SPRING));
+        BaseEntityRenderer.register(ModEntities.summerPixie, new PixieModel(Alignment.SUMMER));
+        BaseEntityRenderer.register(ModEntities.autumnPixie, new PixieModel(Alignment.AUTUMN));
+        BaseEntityRenderer.register(ModEntities.winterPixie, new PixieModel(Alignment.WINTER));
+        
+        BaseEntityRenderer.register(ModEntities.beeKnight, new BeeKnightModel());
+        BaseEntityRenderer.register(ModEntities.mandragora, new MandragoraModel());
+        BaseEntityRenderer.register(ModEntities.shroomling, ShroomlingRenderer::new, new ShroomlingModel());
+        BaseEntityRenderer.register(ModEntities.botaniaPixie, BotaniaPixieRenderer::new, new BotaniaPixieModel());
+        
+        BaseEntityRenderer.register(ModEntities.titania, new TitaniaModel());
+        BaseEntityRenderer.register(ModEntities.mab, new MabModel());
+        
+        BaseEntityRenderer.register(ModEntities.springTreeEnt, new TreeEntModel(Alignment.SPRING));
+        BaseEntityRenderer.register(ModEntities.summerTreeEnt, new TreeEntModel(Alignment.SUMMER));
+        BaseEntityRenderer.register(ModEntities.autumnTreeEnt, new TreeEntModel(Alignment.AUTUMN));
+        BaseEntityRenderer.register(ModEntities.winterTreeEnt, new TreeEntModel(Alignment.WINTER));
+        BaseEntityRenderer.register(ModEntities.blossomTreeEnt, new TreeEntModel("blossom"));
+        BaseEntityRenderer.register(ModEntities.hexenTreeEnt, new TreeEntModel("hexen"));
+        
         EntityRenderers.register(ModEntities.loreMaster, VillagerRenderer::new);
-
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -347,20 +317,42 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.hexenTreeEnt, HexenTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.loreMaster, LoreMaster.createAttributes().build());
     }
+    
+    private void spawnPlacement(SpawnPlacementRegisterEvent event) {
+        event.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.botaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BotaniaPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.titania, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Titania::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.mab, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mab::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.springTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.summerTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.winterTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.autumnTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.loreMaster, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LoreMaster::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+    }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {
-
-        event.register(ModParticles.autumnLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.hexenLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.blossomLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.frostWalkParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.springSparkleParticle, SparkleParticle.provider(0, 1, 0));
-        event.register(ModParticles.summerSparkleParticle, SparkleParticle.provider(1, 0.8f, 0));
-        event.register(ModParticles.autumnSparkleParticle, SparkleParticle.provider(1, 0.4f, 1));
-        event.register(ModParticles.winterSparkleParticle, SparkleParticle.provider(0.2f, 0.8f, 0.9f));
+        event.registerSpriteSet(ModParticles.autumnLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.springLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.hexenLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.blossomLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.frostWalkParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.springSparkleParticle, SparkleParticle.provider(0, 1, 0));
+        event.registerSpriteSet(ModParticles.summerSparkleParticle, SparkleParticle.provider(1, 0.8f, 0));
+        event.registerSpriteSet(ModParticles.autumnSparkleParticle, SparkleParticle.provider(1, 0.4f, 1));
+        event.registerSpriteSet(ModParticles.winterSparkleParticle, SparkleParticle.provider(0.2f, 0.8f, 0.9f));
     }
 
     public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {
@@ -399,6 +391,4 @@ public final class FeywildMod extends ModXRegistration {
         event.addListener(TradeManager.createReloadListener());
         event.addListener(QuestManager.createReloadListener());
     }
-    
-    
 }
