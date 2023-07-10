@@ -10,6 +10,7 @@ import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.Id;
 import org.moddingx.libx.datagen.provider.sandbox.TemplateProviderBase;
 
 public class TemplateProvider extends TemplateProviderBase {
@@ -25,6 +26,17 @@ public class TemplateProvider extends TemplateProviderBase {
     public final Holder<StructureTemplatePool> beekeep = this.template().element(this.feywild("beekeep")).build();
     public final Holder<StructureTemplatePool> feyCircle = this.template().element(this.feywild("fey_circle")).build();
     public final Holder<StructureTemplatePool> feyGeode = this.template().element(this.feywild("fey_geode")).build();
+    
+    @Id("mushroom_houses/start_pool")
+    public final Holder<StructureTemplatePool> mushroomHouseStart = this.template().single("mushroom_house_1").build();
+    
+    @Id("mushroom_houses/side_pool")
+    public final Holder<StructureTemplatePool> mushroomHouseSide = this.template()
+            .single("mushroom_house_2")
+            .single("mushroom_house_3")
+            .single("mushroom_house_4")
+            .single("mushroom_house_5")
+            .build();
 
     public TemplateProvider(DatagenContext ctx) {
         super(ctx);

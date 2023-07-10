@@ -54,19 +54,19 @@ description="Feywild Mod"
 [[dependencies.feywild]]
     modId="forge"
     mandatory=true
-    versionRange="[47.0.19,)"
+    versionRange="[47.1.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.feywild]]
     modId="libx"
     mandatory=true
-    versionRange="[1.20.1-5.0.2,)"
+    versionRange="[1.20.1-5.0.4,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.feywild]]
-    modId="geckolib3"
+    modId="geckolib"
     mandatory=true
     versionRange="[4.2,)"
     ordering="AFTER"

@@ -2,9 +2,11 @@ package com.feywild.feywild.block;
 
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.render.FeyAltarRenderer;
+import com.feywild.feywild.item.FeyAltarItem;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -27,24 +29,35 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.moddingx.libx.base.tile.BlockBE;
 import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.RegistrationContext;
 import org.moddingx.libx.registration.SetupContext;
 
 import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class FeyAltarBlock extends BlockBE<FeyAltar> {
     
     private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 32, 16);
     private final Alignment alignment;
+    private final FeyAltarItem item;
 
     public FeyAltarBlock(ModX mod, Alignment alignment) {
-        super(mod, FeyAltar.class, BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion());
+        super(mod, FeyAltar.class, BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), null);
         this.alignment = alignment;
+        this.item = new FeyAltarItem(this, alignment);
     }
 
     public Alignment getAlignment() {
         return alignment;
     }
-    
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.register(Registries.ITEM, this.item);
+    }
+
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(SetupContext ctx) {

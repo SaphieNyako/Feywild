@@ -20,6 +20,8 @@ import org.moddingx.libx.datagen.provider.tags.CommonTagsProviderBase;
 
 import javax.annotation.Nullable;
 
+// UPDATE_TODO
+//  forge tags (like ores)
 public class CommonTagsProvider extends CommonTagsProviderBase {
 
     public CommonTagsProvider(DatagenContext ctx) {

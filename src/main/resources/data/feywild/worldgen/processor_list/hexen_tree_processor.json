@@ -1,7 +1,0 @@
-{
-  "processors": [
-    {
-      "processor_type": "feywild:hexen_tree_processor"
-    }
-  ]
-}

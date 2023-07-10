@@ -1,7 +1,0 @@
-{
-  "processors": [
-    {
-      "processor_type": "feywild:winter_tree_processor"
-    }
-  ]
-}

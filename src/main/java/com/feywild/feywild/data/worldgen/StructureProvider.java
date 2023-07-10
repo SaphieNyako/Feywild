@@ -1,10 +1,15 @@
 package com.feywild.feywild.data.worldgen;
 
+import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.tag.ModBiomeTags;
 import net.minecraft.core.Holder;
+import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraftforge.common.Tags;
@@ -59,7 +64,14 @@ public class StructureProvider extends StructureProviderBase {
             .biomes(ModBiomeTags.IS_FEYWILD_DIMENSION)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-
+    
+    public final Holder<Structure> mushroomHouses = this.singleJigsaw(this.templates.mushroomHouseStart)
+            .biomes(ModBiomeTags.IS_AUTUMN)
+            .terrain(TerrainAdjustment.BEARD_THIN)
+            .spawn(MobCategory.MONSTER, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, WeightedRandomList.create(
+                    new MobSpawnSettings.SpawnerData(ModEntities.shroomling, 1, 1, 1)
+            )))
+            .build();
 
     public StructureProvider(DatagenContext ctx) {
         super(ctx);

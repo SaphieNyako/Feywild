@@ -1,7 +1,6 @@
 package com.feywild.feywild.item;
 
 import com.feywild.feywild.FeywildMod;
-import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.config.MiscConfig;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.ability.ModAbilities;
@@ -79,15 +78,9 @@ public class ModItems {
     public static final SummoningScrollGeneric<Mab> summoningScrollMab = new SummoningScrollGeneric<>(FeywildMod.getInstance(), ModEntities.mab, ModSoundEvents.mabAmbience, null, new Item.Properties());
     public static final SummoningScrollGeneric<Titania> summoningScrollTitania = new SummoningScrollGeneric<>(FeywildMod.getInstance(), ModEntities.titania, ModSoundEvents.titaniaAmbience, null, new Item.Properties());
 
-    /* Geckolib registration requires Item registration */
-    public static final Item summerFeyAltar = new FeyAltarItem(ModBlocks.summerFeyAltar, Alignment.SUMMER);
-    public static final Item winterFeyAltar = new FeyAltarItem(ModBlocks.winterFeyAltar, Alignment.WINTER);
-    public static final Item autumnFeyAltar = new FeyAltarItem(ModBlocks.autumnFeyAltar, Alignment.AUTUMN);
-
     public static final Item reaperScythe = new ReaperScythe(new Item.Properties());
 
     public static final Item feyWingsAutumn = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.AUTUMN);
-    public static final Item feyWingsBlossom = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.BLOSSOM);
     public static final Item feyWingsLight = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.LIGHT);
     public static final Item feyWingsSpring = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SPRING);
     public static final Item feyWingsSummer = new FeyWing(ModArmorMaterials.FEY_WINGS, new Item.Properties(), FeyWing.Variant.SUMMER);

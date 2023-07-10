@@ -15,6 +15,7 @@ import org.moddingx.libx.datagen.provider.recipe.SmeltingExtension;
 import org.moddingx.libx.datagen.provider.recipe.StoneCuttingExtension;
 import org.moddingx.libx.datagen.provider.recipe.crafting.CraftingExtension;
 
+// UPDATE_TODO missing decoration recipes
 public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
         DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension, VariantExtension {
 

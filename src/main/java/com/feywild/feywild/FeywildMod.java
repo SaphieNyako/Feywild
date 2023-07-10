@@ -150,18 +150,18 @@ public final class FeywildMod extends ModXRegistration {
             system.addRegistryProvider(BiomeLayerProvider::new);
             system.addRegistryProvider(NoiseProvider::new);
             system.addRegistryProvider(DimensionTypeProvider::new);
-            system.addRegistryProvider(DimensionProvider::new);
 
             system.addExtensionProvider(BiomeModifierProvider::new);
             system.addExtensionProvider(SurfaceProvider::new);
+            system.addExtensionProvider(DimensionProvider::new);
 
+            system.addDataProvider(TextureProvider::new);
+            system.addDataProvider(redux, TextureProvider::new);
             system.addDataProvider(AdvancementProvider::new);
             system.addDataProvider(BlockStateProvider::new);
             system.addDataProvider(ItemModelProvider::new);
             system.addDataProvider(QuestProvider::new);
             system.addDataProvider(SoundProvider::new);
-            system.addDataProvider(TextureProvider::new);
-            system.addDataProvider(redux, TextureProvider::new);
             system.addDataProvider(CommonTagsProvider::new);
             system.addDataProvider(EntityTagsProvider::new);
             system.addDataProvider(BiomeTagsProvider::new);

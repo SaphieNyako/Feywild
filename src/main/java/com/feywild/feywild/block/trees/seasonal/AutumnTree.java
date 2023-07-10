@@ -46,7 +46,7 @@ public class AutumnTree extends BaseTree {
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         super.registerAdditional(ctx, builder);
-        builder.registerNamed(Registries.BLOCK, "brows_leaves", this.brownLeaves);
+        builder.registerNamed(Registries.BLOCK, "brown_leaves", this.brownLeaves);
         builder.registerNamed(Registries.BLOCK, "dark_gray_leaves", this.darkGrayLeaves);
         builder.registerNamed(Registries.BLOCK, "light_gray_leaves", this.lightGrayLeaves);
         builder.registerNamed(Registries.BLOCK, "red_leaves", this.redLeaves);

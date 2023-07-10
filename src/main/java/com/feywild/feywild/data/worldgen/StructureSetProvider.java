@@ -17,6 +17,12 @@ public class StructureSetProvider extends StructureSetProviderBase {
             .frequency(0.9f)
             .build();
 
+    public final Holder<StructureSet> mushroomHouses = this.structureSet()
+            .entry(this.structures.mushroomHouses)
+            .placeRandom(30, 20)
+            .frequency(0.9f)
+            .build();
+
     /*
     public final Holder<StructureSet> worldTrees = this.structureSet()
             .entry(this.structures.springWorldTree)
