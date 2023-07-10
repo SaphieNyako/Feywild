@@ -20,9 +20,9 @@
   },
   "tasks": [
     {
-      "action": "grow_winter_tree",
-      "id": "feywild:special",
-      "times": 3
+      "id": "feywild:tree",
+      "times": 3,
+      "tree": "feywild:winter_tree"
     }
   ]
 }

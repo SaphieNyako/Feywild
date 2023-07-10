@@ -20,9 +20,9 @@
   },
   "tasks": [
     {
-      "action": "grow_summer_tree",
-      "id": "feywild:special",
-      "times": 3
+      "id": "feywild:tree",
+      "times": 3,
+      "tree": "feywild:summer_tree"
     }
   ]
 }

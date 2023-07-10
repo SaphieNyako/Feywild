@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "f": {
       "item": "feywild:lesser_fey_gem"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "feywild:dwarven_anvil"
-  }
+  },
+  "show_notification": true
 }

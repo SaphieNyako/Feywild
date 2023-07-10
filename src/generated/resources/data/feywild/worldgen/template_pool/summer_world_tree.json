@@ -10,6 +10,5 @@
       "weight": 1
     }
   ],
-  "fallback": "minecraft:empty",
-  "name": "feywild:summer_world_tree"
+  "fallback": "minecraft:empty"
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
   "ingredients": [
     {
       "item": "feywild:autumn_tree_planks"

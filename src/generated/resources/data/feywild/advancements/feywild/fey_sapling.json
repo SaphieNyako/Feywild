@@ -72,5 +72,6 @@
       "inventory_changed3",
       "inventory_changed4"
     ]
-  ]
+  ],
+  "sends_telemetry_event": false
 }

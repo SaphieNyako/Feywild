@@ -1,12 +1,10 @@
 {
   "type": "minecraft:overworld",
   "generator": {
-    "type": "sandbox:noise",
+    "type": "libx:noise",
     "biome_source": {
-      "type": "sandbox:layered",
-      "horizontal_scale": 48.0,
-      "layers": "#feywild:feywild_layers",
-      "vertical_scale": 120.0
+      "type": "libx:layered",
+      "layers": "#feywild:feywild_layers"
     },
     "settings": "feywild:feywild",
     "surface_override": "feywild:main_surface"

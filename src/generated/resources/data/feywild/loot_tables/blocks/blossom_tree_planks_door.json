@@ -6,24 +6,21 @@
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
+        },
+        {
+          "block": "feywild:blossom_tree_planks_door",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower"
+          }
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "feywild:blossom_tree_planks_door",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "half": "lower"
-              }
-            }
-          ],
           "name": "feywild:blossom_tree_planks_door"
         }
       ],
-      "name": "main",
       "rolls": 1.0
     }
   ]

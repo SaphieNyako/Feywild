@@ -40,5 +40,6 @@
     [
       "villager_trade"
     ]
-  ]
+  ],
+  "sends_telemetry_event": false
 }

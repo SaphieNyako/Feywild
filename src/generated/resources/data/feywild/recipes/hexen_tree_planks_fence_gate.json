@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "feywild:hexen_tree_planks"
@@ -14,5 +15,6 @@
   ],
   "result": {
     "item": "feywild:hexen_tree_planks_fence_gate"
-  }
+  },
+  "show_notification": true
 }

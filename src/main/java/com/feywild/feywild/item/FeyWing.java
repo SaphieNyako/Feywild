@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import org.jetbrains.annotations.NotNull;
+import org.moddingx.libx.util.lazy.LazyValue;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -24,6 +24,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -51,12 +52,13 @@ public class FeyWing extends ArmorItem implements GeoItem {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        Map<Variant, FeyWingsRenderer> rendererMap = Arrays.stream(Variant.values()).collect(Collectors.toUnmodifiableMap(Function.identity(), FeyWingsRenderer::new));
+        LazyValue<Map<Variant, FeyWingsRenderer>> rendererMap = new LazyValue<>(() -> Arrays.stream(Variant.values()).collect(Collectors.toUnmodifiableMap(Function.identity(), FeyWingsRenderer::new)));
         consumer.accept(new IClientItemExtensions() {
-            
+
+            @Nonnull
             @Override
-            public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> model) {
-                return rendererMap.get(getRenderVariant(stack));
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> model) {
+                return rendererMap.get().get(getRenderVariant(stack));
             }
         });
     }
