@@ -26,8 +26,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class FeywildLexicon extends ItemBase {
 
     public FeywildLexicon(ModX mod, Properties properties) {
@@ -43,8 +41,7 @@ public class FeywildLexicon extends ItemBase {
                 FeywildMod.getNetwork().channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new OpeningScreenMessage());
                 // feywild_got_scroll is set when the player actually retrieves a scroll
             } else {
-                // UPDATE_TODO patchouli
-//                PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));
+                PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));
             }
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
