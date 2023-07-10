@@ -6,7 +6,7 @@ import software.bernie.geckolib.renderer.GeoArmorRenderer;
 
 public class FeyWingsRenderer extends GeoArmorRenderer<FeyWing> {
     
-    public FeyWingsRenderer() {
-        super(new FeyWingsModel());
+    public FeyWingsRenderer(FeyWing.Variant variant) {
+        super(new FeyWingsModel(variant));
     }
 }
