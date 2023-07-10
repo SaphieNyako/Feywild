@@ -2,7 +2,7 @@ package com.feywild.feywild.recipes;
 
 import org.moddingx.libx.annotation.registration.RegisterClass;
 
-@RegisterClass(registry = "RECIPE_TYPE_REGISTRY")
+@RegisterClass(registry = "RECIPE_TYPE")
 public class ModRecipeTypes {
 
     public static final FeywildRecipeType<IAltarRecipe, AltarRecipe> altar = new FeywildRecipeType<>(new AltarRecipe.Serializer());

@@ -66,6 +66,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public void initTracking(RegistrationContext ctx, TrackingCollector builder) throws ReflectiveOperationException {
         builder.trackNamed(ForgeRegistries.ITEMS, "seed", MandrakeCrop.class.getDeclaredField("seed"));
     }

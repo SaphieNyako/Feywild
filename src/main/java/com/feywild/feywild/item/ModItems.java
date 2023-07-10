@@ -18,7 +18,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 import org.moddingx.libx.base.ItemBase;
 
-@RegisterClass(registry = "ITEM_REGISTRY")
+@RegisterClass(registry = "ITEM")
 public class ModItems {
 
     public static final Item lesserFeyGem = new ItemBase(FeywildMod.getInstance(), new Item.Properties());

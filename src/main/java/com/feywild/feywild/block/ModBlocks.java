@@ -16,7 +16,7 @@ import org.moddingx.libx.annotation.registration.RegisterClass;
 import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.base.tile.BlockBE;
 
-@RegisterClass(registry = "BLOCK_REGISTRY")
+@RegisterClass(registry = "BLOCK")
 public class ModBlocks {
 
     public static final Block feyGemOre = new BlockBase(FeywildMod.getInstance(), BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE));

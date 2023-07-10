@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nonnull;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public abstract class FlyingFeyBase extends FeyBase implements FlyingEntity {
 
@@ -18,6 +19,7 @@ public abstract class FlyingFeyBase extends FeyBase implements FlyingEntity {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.registerFlyingGoals(this);

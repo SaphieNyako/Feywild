@@ -35,6 +35,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public abstract class TreeEnt extends GroundFeyBase {
     
@@ -66,6 +67,7 @@ public abstract class TreeEnt extends GroundFeyBase {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 1.0D, true));
@@ -97,6 +99,7 @@ public abstract class TreeEnt extends GroundFeyBase {
 
     @Nonnull
     @Override
+    @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         ItemStack stack = player.getItemInHand(hand);
