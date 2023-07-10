@@ -249,7 +249,7 @@ public abstract class Pixie extends FlyingFeyBase {
         Block block = event.getLevel().getBlockState(pos).getBlock();
         Player player = this.getOwningPlayer();
 
-        if (this.isTamed() && distanceFrom(this.blockPosition(), event.getPos()) <= 20) {
+        if (this.isTamed() && distanceFrom(this.blockPosition(), event.getPos()) <= 20 && player != null) {
             if (block == ModTrees.springTree.getSapling()) {
                 QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE);
             }

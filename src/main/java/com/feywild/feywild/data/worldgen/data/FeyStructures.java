@@ -3,6 +3,7 @@ package com.feywild.feywild.data.worldgen.data;
 import com.feywild.feywild.tag.ModBiomeTags;
 import io.github.noeppi_noeppi.mods.sandbox.datagen.ext.StructureData;
 import net.minecraft.core.Holder;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -23,6 +24,13 @@ public class FeyStructures extends StructureData {
             .biomes(Tags.Biomes.IS_PLAINS)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
+
+    public final Holder<Structure> dwarvenForge = this.undergroundSingleJigsaw(this.templates.dwarvenForge, -65)
+            .biomes(BiomeTags.HAS_MINESHAFT)
+            .terrain(TerrainAdjustment.BEARD_THIN)
+            .build();
+
+
     /*
     public final Holder<Structure> springWorldTree = this.singleJigsaw(this.templates.springWorldTree)
             .biomes(ModBiomeTags.IS_SPRING)
@@ -48,13 +56,8 @@ public class FeyStructures extends StructureData {
             .biomes(ModBiomeTags.IS_SUMMER)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-    /*
-    public final Holder<Structure> feyCircle = this.singleJigsaw(this.templates.feyCircle)
-            .biomes(BiomeTags.IS_FOREST)
-            .terrain(TerrainAdjustment.BEARD_THIN)
-            .build();
-    */
-    public final Holder<Structure> feyGeode = this.undergroundSingleJigsaw(this.templates.feyGeode)
+
+    public final Holder<Structure> feyGeode = this.undergroundSingleJigsaw(this.templates.feyGeode, -65)
             .biomes(ModBiomeTags.IS_FEYWILD_DIMENSION)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
@@ -78,9 +81,9 @@ public class FeyStructures extends StructureData {
                 .step(GenerationStep.Decoration.SURFACE_STRUCTURES);
     }
 
-    private StructureSettingsBuilder undergroundSingleJigsaw(Holder<StructureTemplatePool> pool) {
+    private StructureSettingsBuilder undergroundSingleJigsaw(Holder<StructureTemplatePool> pool, int relativeHeight) {
         return this.jigsaw(pool)
-                .height(Heightmap.Types.WORLD_SURFACE_WG, -65)
+                .height(Heightmap.Types.WORLD_SURFACE_WG, relativeHeight)
                 .structure()
                 .step(GenerationStep.Decoration.UNDERGROUND_DECORATION);
     }

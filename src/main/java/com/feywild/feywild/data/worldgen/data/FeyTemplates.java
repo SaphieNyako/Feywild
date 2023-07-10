@@ -20,8 +20,8 @@ public class FeyTemplates extends TemplateData {
     public final Holder<StructureTemplatePool> autumnWorldTree = this.template().element(this.feywild("autumn_world_tree")).build();
     public final Holder<StructureTemplatePool> winterWorldTree = this.template().element(this.feywild("winter_world_tree")).build();
     public final Holder<StructureTemplatePool> beekeep = this.template().element(this.feywild("beekeep")).build();
-    public final Holder<StructureTemplatePool> feyCircle = this.template().element(this.feywild("fey_circle")).build();
     public final Holder<StructureTemplatePool> feyGeode = this.template().element(this.feywild("fey_geode")).build();
+    public final Holder<StructureTemplatePool> dwarvenForge = this.template().element(this.feywild("dwarven_forge")).build();
 
     public FeyTemplates(Properties properties) {
         super(properties);

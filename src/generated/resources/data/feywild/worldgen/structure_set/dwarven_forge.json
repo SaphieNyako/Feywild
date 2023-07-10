@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.9,
+    "salt": 2138045150,
+    "separation": 6,
+    "spacing": 15
+  },
+  "structures": [
+    {
+      "structure": "feywild:dwarven_forge",
+      "weight": 1
+    }
+  ]
+}
