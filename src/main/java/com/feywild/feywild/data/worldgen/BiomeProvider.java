@@ -101,7 +101,6 @@ public class BiomeProvider extends BiomeProviderBase {
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.autumnTrees);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.trees.hexenTreePatches);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.autumnFlowers);
-                builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, this.placements.treeMushrooms);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_NORMAL);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_DEAD_BUSH);
                 builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_WATERLILY);

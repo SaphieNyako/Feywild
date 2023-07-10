@@ -48,7 +48,7 @@ public class FeyAltarBlock extends BlockBE<FeyAltar> {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void registerClient(SetupContext ctx) {
-        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), c -> new FeyAltarRenderer()));
+        ctx.enqueue(() -> BlockEntityRenderers.register(this.getBlockEntityType(), c -> new FeyAltarRenderer<>()));
     }
 
     @Override

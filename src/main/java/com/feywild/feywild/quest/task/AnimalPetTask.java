@@ -16,7 +16,7 @@ public class AnimalPetTask extends RegistryTaskType<EntityType<?>, Entity> {
     }
 
     @Override
-    protected IForgeRegistry<EntityType<?>> registry() {
+    public IForgeRegistry<EntityType<?>> registry() {
         return ForgeRegistries.ENTITY_TYPES;
     }
 

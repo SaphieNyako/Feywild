@@ -11,11 +11,13 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
@@ -39,7 +41,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable("Fey Altar");
+        return Component.literal("Fey Altar");
     }
 
     @Nonnull
@@ -64,6 +66,6 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
             int z = (int) Math.round(46 + yd - 8);
             builder.addSlot(RecipeIngredientRole.INPUT, x, z).addIngredients(recipe.getIngredients().get(i));
         }
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 36, 38).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 36, 38).addItemStack(recipe.getResultItem(Objects.requireNonNull(Minecraft.getInstance().level).registryAccess()));
     }
 }

@@ -15,7 +15,7 @@ public abstract class RegistryTaskType<T, X> implements TaskType<ResourceKey<T>,
         this.key = key;
     }
 
-    protected abstract IForgeRegistry<T> registry();
+    public abstract IForgeRegistry<T> registry();
     
     @Override
     public Class<ResourceKey<T>> element() {

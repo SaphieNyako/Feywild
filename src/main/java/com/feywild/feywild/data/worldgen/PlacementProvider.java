@@ -11,7 +11,9 @@ import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 public class PlacementProvider extends FeatureProviderBase {
 
     private final FeatureProvider features = this.context.findRegistryProvider(FeatureProvider.class);
-    /*
+    
+    // UPDATE_TODO explicit ids + make one for each leaf.
+/*
     public final Holder<PlacedFeature> springTree = this.placement(this.features.springTree)
             .rarity(2)
             .countExtra(2, 0.1f, 1)
@@ -36,8 +38,6 @@ public class PlacementProvider extends FeatureProviderBase {
             .add(this.plant())
             .build();
 
-    //TODO Change extra
-
     public final Holder<PlacedFeature> blossomTree = this.placement(this.features.blossomTree)
             .rarity(2)
             .countExtra(2, 0.1f, 1)
@@ -49,15 +49,11 @@ public class PlacementProvider extends FeatureProviderBase {
             .countExtra(2, 0.1f, 1)
             .add(this.plant())
             .build();
-    */
+ */
 
     public final Holder<PlacedFeature> autumnPumpkins = this.placement(this.features.autumnPumpkins)
             .countExtra(1, 0.5f, 3)
             .add(this.plant())
-            .build();
-
-    public final Holder<PlacedFeature> treeMushrooms = this.placement(this.features.treeMushrooms)
-            .rarity(32)
             .build();
 
     public final Holder<PlacedFeature> sunflowers = this.placement(this.features.sunflowers)

@@ -43,7 +43,7 @@ public class QuestTask {
     }
 
     public static <T> QuestTask ofEntry(RegistryTaskType<T, ?> type, T element, int times) {
-        ResourceKey<T> key = type.registry.getResourceKey(element).orElse(null);
+        ResourceKey<T> key = type.registry().getResourceKey(element).orElse(null);
         if (key == null) throw new IllegalArgumentException("Object not registered: " + element);
         //noinspection unchecked
         return new QuestTask((TaskType<Object, Object>) (TaskType<?, ?>) type, key, times);

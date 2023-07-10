@@ -104,15 +104,12 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         //reset:
         this.targetSelector.addGoal(4, new DwarvenResetTargetGoal<>(this));
 
-
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.5D));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, GoToTargetPositionGoal.byBlockPos(this, this::getSummonPos, 32, 0.5f));
         this.goalSelector.addGoal(7, new GoToAnvilPositionGoal(this, this::getSummonPos, 32));
         this.goalSelector.addGoal(5, new RefreshStockGoal(this));
-
     }
-
 
     public void stopBeingAngry() {
         this.setLastHurtByMob(null);

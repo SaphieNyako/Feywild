@@ -17,7 +17,7 @@ public class GrowTreeTask extends RegistryTaskType<BaseTree, BlockState> {
     }
 
     @Override
-    protected IForgeRegistry<BaseTree> registry() {
+    public IForgeRegistry<BaseTree> registry() {
         //noinspection UnstableApiUsage
         return RegistryManager.ACTIVE.getRegistry(FeyRegistries.TREES);
     }

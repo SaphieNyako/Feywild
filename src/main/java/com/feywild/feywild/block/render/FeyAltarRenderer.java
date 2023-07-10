@@ -25,7 +25,7 @@ public class FeyAltarRenderer<T extends BlockEntity & GeoAnimatable> extends Geo
         return new FeyAltarRenderer<>();
     }
     
-    private FeyAltarRenderer() {
+    public FeyAltarRenderer() {
         //noinspection unchecked
         super((GeoModel<T>) new FeyAltarModel());
     }

@@ -85,7 +85,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.springTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.springTree, 3))
                 .build();
 
         this.quest(SPRING, "quest_06")
@@ -235,7 +235,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SUMMER, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.summerTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.summerTree, 3))
 
                 .build();
 
@@ -317,7 +317,7 @@ public class QuestProvider implements DataProvider {
         this.quest(AUTUMN, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.autumnTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.autumnTree, 3))
                 .build();
 
         this.quest(AUTUMN, "quest_06")
@@ -426,7 +426,7 @@ public class QuestProvider implements DataProvider {
         this.quest(WINTER, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.winterTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.winterTree, 3))
                 .build();
 
         this.quest(WINTER, "quest_06")

@@ -4,7 +4,6 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.entity.DwarvenAnvil;
 import com.feywild.feywild.recipes.DwarvenAnvilRecipe;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -23,6 +22,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilRecipe> {
 
@@ -73,7 +73,7 @@ public class DwarvenAnvilRecipeCategory implements IRecipeCategory<DwarvenAnvilR
         if (recipe.getInputs().size() >= 3) builder.addSlot(RecipeIngredientRole.INPUT, 85, 44).addIngredients(recipe.getInputs().get(2));
         if (recipe.getInputs().size() >= 4) builder.addSlot(RecipeIngredientRole.INPUT, 59, 44).addIngredients(recipe.getInputs().get(3));
         if (recipe.getInputs().size() >= 5) builder.addSlot(RecipeIngredientRole.INPUT, 44, 23).addIngredients(recipe.getInputs().get(4));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 50).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 50).addItemStack(recipe.getResultItem(Objects.requireNonNull(Minecraft.getInstance().level).registryAccess()));
     }
 
     @Override

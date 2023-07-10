@@ -32,7 +32,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 
@@ -119,7 +118,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
-            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 0.6f, 0.8f);
+            level.playSound(player, pos, ModSoundEvents.mandrakeScream.getSoundEvent(), SoundSource.BLOCKS, 0.6f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);
         }
     }
