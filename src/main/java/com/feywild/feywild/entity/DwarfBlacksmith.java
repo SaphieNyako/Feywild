@@ -18,6 +18,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BiomeTags;
@@ -40,25 +41,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.UUID;
 
-import net.minecraft.world.entity.Entity.RemovalReason;
-
-public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IAnimatable, IOwnable {
+public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, IOwnable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(DwarfBlacksmith.class, EntityDataSerializers.INT);
-    private final AnimationFactory factory = new AnimationFactory(this);
     @Nullable
     protected UUID owner;
     private boolean isTamed;
@@ -136,7 +131,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         if (!player.getCommandSenderWorld().isClientSide) {
             trade(player);
         }
-        return InteractionResult.sidedSuccess(this.level.isClientSide);
+        return InteractionResult.sidedSuccess(this.level().isClientSide);
     }
 
     protected void trade(Player player) {
@@ -165,7 +160,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     @Override
     public Level getEntityLevel() {
-        return this.level;
+        return this.level();
     }
 
     @Override
@@ -226,8 +221,8 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     @Override
     public boolean checkSpawnRules(@Nonnull LevelAccessor levelIn, @Nonnull MobSpawnType spawnReasonIn) {
         return super.checkSpawnRules(levelIn, spawnReasonIn) && this.blockPosition().getY() < 60 && !levelIn.canSeeSky(this.blockPosition())
-                && !level.getBiome(this.blockPosition()).is(Objects.requireNonNull(ResourceLocation.tryParse("minecraft:mushroom_fields")))
-                && level.getBiome(this.blockPosition()).containsTag(BiomeTags.HAS_MINESHAFT);
+                && !level().getBiome(this.blockPosition()).is(Objects.requireNonNull(ResourceLocation.tryParse("minecraft:mushroom_fields")))
+                && level().getBiome(this.blockPosition()).containsTag(BiomeTags.HAS_MINESHAFT);
     }
 
     @Override
@@ -263,10 +258,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return switch (random.nextInt(3)) {
-            case 0 -> SoundEvents.VILLAGER_CELEBRATE;
-            default -> null;
-        };
+        return random.nextInt(3) == 0 ? SoundEvents.VILLAGER_CELEBRATE : null;
     }
 
     @Override
@@ -274,44 +266,11 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         return 0.6f;
     }
 
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (!this.dead && !this.isDeadOrDying()) {
-            if (this.getState() == State.ATTACKING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.smash", true));
-                return PlayState.CONTINUE;
-            } else if (this.getState() == State.WORKING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.craft", true));
-                return PlayState.CONTINUE;
-            }
-        }
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.walk", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.dwarf_blacksmith.stand", true));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    public boolean isPersistenceRequired() {
-        return this.isTamed || this.getVillagerXp() > 0 || super.isPersistenceRequired();
-    }
-
     @Override
     public void checkDespawn() {
-        if (!this.isPersistenceRequired()) {
-            Entity entity = this.level.getNearestPlayer(this, -1.0D);
-            net.minecraftforge.eventbus.api.Event.Result result = net.minecraftforge.event.ForgeEventFactory.canEntityDespawn(this);
+        if (!this.isPersistenceRequired() && this.level() instanceof ServerLevel serverLevel) {
+            Entity entity = this.level().getNearestPlayer(this, -1.0D);
+            net.minecraftforge.eventbus.api.Event.Result result = net.minecraftforge.event.ForgeEventFactory.canEntityDespawn(this, serverLevel);
             if (result == net.minecraftforge.eventbus.api.Event.Result.DENY) {
                 noActionTime = 0;
                 entity = null;
@@ -337,6 +296,32 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
         }
     }
 
+    @Override
+    public boolean isPersistenceRequired() {
+        return this.isTamed || super.isPersistenceRequired();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            if (!this.dead && !this.isDeadOrDying()) {
+                if (this.getState() == State.ATTACKING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.dwarf_blacksmith.smash"));
+                    return PlayState.CONTINUE;
+                } else if (this.getState() == State.WORKING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.dwarf_blacksmith.craft"));
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (event.isMoving()) {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.dwarf_blacksmith.walk"));
+            } else {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.dwarf_blacksmith.stand"));
+            }
+            return PlayState.CONTINUE;
+        }));
+    }
+    
     public enum State {
         IDLE, ATTACKING, WORKING
     }

@@ -136,6 +136,11 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
         return true;
     }
 
+    @Override
+    public boolean isPersistenceRequired() {
+        return this.getVillagerXp() > 0 || super.isPersistenceRequired();
+    }
+
     public void restock() {
         this.updateDemand();
 

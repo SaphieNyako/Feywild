@@ -31,7 +31,6 @@ public class HexenTreeEnt extends TreeEnt {
     }
 
     public MobEffectInstance randomEffect() {
-
         return switch (random.nextInt(29)) {
             case 0 -> new MobEffectInstance(MobEffects.ABSORPTION, 12000);
             case 1 -> new MobEffectInstance(MobEffects.BAD_OMEN, 600);

@@ -33,7 +33,6 @@ public class LoreMaster extends Villager {
 
     public static boolean canSpawn(EntityType<? extends LoreMaster> entityType, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock());
-
     }
 
     @Nonnull

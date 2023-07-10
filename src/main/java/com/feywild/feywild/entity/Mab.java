@@ -27,24 +27,18 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.world.entity.Entity.RemovalReason;
-
-public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
+public class Mab extends FlyingBossBase implements ISummonable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Mab.class, EntityDataSerializers.INT);
     public final Alignment alignment;
-    private final AnimationFactory factory = new AnimationFactory(this);
     @Nullable
     private BlockPos summonPos;
 
@@ -79,23 +73,17 @@ public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return switch (random.nextInt(3)) {
-            case 0 -> ModSoundEvents.mabAmbience;
-            default -> null;
-        };
+        return random.nextInt(3) == 0 ? ModSoundEvents.mabAmbience.getSoundEvent() : null;
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
-        return switch (random.nextInt(3)) {
-            case 0 -> ModSoundEvents.mabHurt;
-            default -> null;
-        };
+        return random.nextInt(3) == 0 ? ModSoundEvents.mabHurt.getSoundEvent() : null;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.mabDeath;
+        return ModSoundEvents.mabDeath.getSoundEvent();
     }
 
     public Mab.State getState() {
@@ -113,41 +101,10 @@ public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
         this.entityData.define(STATE, 0);
     }
 
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (!this.dead && !this.isDeadOrDying()) {
-            if (this.getState() == State.PHYSICAL) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("physical_attack", false));
-                return PlayState.CONTINUE;
-            } else if (this.getState() == State.SPECIAL) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("special_attack", false));
-                return PlayState.CONTINUE;
-            } else if (this.getState() == State.INTIMIDATE) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("intimidation", false));
-                return PlayState.CONTINUE;
-            }
-        }
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("flying", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
-        }
-        return PlayState.CONTINUE;
-    }
-
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
-    }
-
-    @Override
-    public void die(DamageSource damageSource) {
+    public void die(@Nonnull DamageSource damageSource) {
         super.die(damageSource);
         this.remove(RemovalReason.KILLED);
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
     }
 
     @Nullable
@@ -159,6 +116,30 @@ public class Mab extends FlyingBossBase implements IAnimatable, ISummonable {
     @Override
     public void setSummonPos(@Nullable BlockPos pos) {
         this.summonPos = pos == null ? null : pos.immutable();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            if (!this.dead && !this.isDeadOrDying()) {
+                if (this.getState() == State.PHYSICAL) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("physical_attack"));
+                    return PlayState.CONTINUE;
+                } else if (this.getState() == State.SPECIAL) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("special_attack"));
+                    return PlayState.CONTINUE;
+                } else if (this.getState() == State.INTIMIDATE) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("intimidation"));
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (event.isMoving()) {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("flying"));
+            } else {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
+            }
+            return PlayState.CONTINUE;
+        }));
     }
 
     public enum State {

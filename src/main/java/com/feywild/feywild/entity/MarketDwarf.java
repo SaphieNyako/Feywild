@@ -37,7 +37,7 @@ public class MarketDwarf extends DwarfBlacksmith {
     @Override
     public InteractionResult interactAt(Player player, @Nonnull Vec3 vec, @Nonnull InteractionHand hand) {
         if (!player.getCommandSenderWorld().isClientSide) {
-            if (player.level.dimension() == FeywildDimensions.MARKETPLACE) {
+            if (player.level().dimension() == FeywildDimensions.MARKETPLACE) {
                 trade(player);
             } else {
                 player.displayClientMessage(Component.translatable("dwarf.feywild.annoyed"), false);
@@ -47,22 +47,10 @@ public class MarketDwarf extends DwarfBlacksmith {
     }
 
     @Override
-    protected void trade(Player player) {
-        this.setTradingPlayer(player);
-        this.openTradingScreen(player, Component.translatable("Dwarven Trader"), 1);
-        player.displayClientMessage(Component.translatable("dwarf.feywild.dialogue"), false);
-    }
-
-    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(3, new LookAtTradingPlayerGoal(this));
-    }
-
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
     }
 
     @Override
