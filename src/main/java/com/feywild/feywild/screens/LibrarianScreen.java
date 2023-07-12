@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens;
 
 import com.feywild.feywild.screens.widget.BookWidget;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class LibrarianScreen extends Screen {
 
-    private final Component title = Component.literal("- Available Books -");
+    private final Component title = Component.translatable("title.feywild.library.available");
     private final List<ItemStack> stacks;
     private final List<AbstractWidget> widgets;
 

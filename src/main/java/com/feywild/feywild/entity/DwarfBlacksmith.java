@@ -133,7 +133,7 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     protected void trade(Player player) {
         this.setTradingPlayer(player);
-        this.openTradingScreen(player, Component.literal("Dwarven Trader"), 1);
+        this.openTradingScreen(player, this.getName(), 1);
         player.displayClientMessage(Component.translatable("dwarf.feywild.dialogue"), false);
     }
 

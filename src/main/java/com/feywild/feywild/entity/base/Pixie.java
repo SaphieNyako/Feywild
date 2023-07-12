@@ -42,7 +42,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Objects;
@@ -108,7 +107,7 @@ public abstract class Pixie extends FlyingFeyBase {
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         this.discard();
                         //TODO Change message for each court/add voice
-                        player.sendSystemMessage(Component.literal("Come find me!"));
+                        player.sendSystemMessage(Component.translatable("message.feywild.pixie.feed"));
                     }
                 }
                 if (!player.isCreative()) {
@@ -138,7 +137,7 @@ public abstract class Pixie extends FlyingFeyBase {
                 }
                 this.setAbility(runeStone.ability);
                 if (!level().isClientSide) {
-                    player.sendSystemMessage(Component.literal("Ow this is a fun ability!"));
+                    player.sendSystemMessage(Component.translatable("message.feywild.pixie.ability.gain"));
                 }
             } else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 if (stack.isEmpty() && !player.isShiftKeyDown()) {

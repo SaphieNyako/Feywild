@@ -41,7 +41,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.literal("Fey Altar");
+        return Component.translatable("block.feywild.fey_altar");
     }
 
     @Nonnull

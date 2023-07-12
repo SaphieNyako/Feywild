@@ -81,7 +81,6 @@ import javax.annotation.Nonnull;
 
 // UPDATE_TODO support registry tracking
 // UPDATE_TODO clean up AT
-// UPDATE_TODO add translations
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 

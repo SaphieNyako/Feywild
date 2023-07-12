@@ -462,6 +462,8 @@
   "message.feywild.market_wrong_source": "Hello, dear customer! \nWe are sorry for the inconvenience, but we can't bring you here from that dimension. \n-Marketplace Management",
   "message.feywild.music_disc_feywild": "Music composed, mixed, and mastered by Davy Habets (IKIGA) - www.ikigamusic.com",
   "message.feywild.music_disc_feywild_2": "Song of the Seasons- composed, mixed, and mastered by Davy Habets (IKIGA)",
+  "message.feywild.pixie.ability.gain": "Ow this is a fun ability!",
+  "message.feywild.pixie.feed": "Come find me!",
   "message.feywild.pixie_orb": "A pixie captured inside an Eye of Ender. Bring it to your pixie to trade for a Teleportation Orb, or free the pixie inside (at the cost of most of their magic).",
   "message.feywild.quest_accept": "Accept!",
   "message.feywild.quest_completion": "The Fey are satisfied.",
@@ -744,5 +746,6 @@
   "screen.feywild.welcome": "$(b;spring)Welcome to the Feywild!$()",
   "spring_quest_pixie.feywild.summon_message": "Where am I? Who are you? Are you tasty? Let's go on an adventure! You wanna play? ...I'm hungry!",
   "summer_quest_pixie.feywild.summon_message": "How dare you summon me like I am some sort of magician's pet! You'd better know your place... Hmph!",
+  "title.feywild.library.available": "- Available Books -",
   "winter_quest_pixie.feywild.summon_message": "Such inconvenience... why did you summon me, mortal? This ordeal will most certainly lead to your premature demise. But then, maybe we can be friends..."
 }
