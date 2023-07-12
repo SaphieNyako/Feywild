@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.moddingx.libx.render.ClientTickHandler;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
@@ -31,6 +33,7 @@ public class FeyAltarRenderer<T extends BlockEntity & GeoAnimatable & FeyAltarBl
     
     @Override
     public void render(@Nonnull BlockEntity tile, float partialTick, @Nonnull PoseStack poseStack, @Nonnull MultiBufferSource buffer, int light, int overlay) {
+        if (tile.getBlockState().getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != DoubleBlockHalf.LOWER) return;
         super.render(tile, partialTick, poseStack, buffer, light, overlay);
         if (!(tile instanceof FeyAltar altar)) return;
 
