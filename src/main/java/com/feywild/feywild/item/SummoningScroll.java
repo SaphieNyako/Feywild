@@ -17,7 +17,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +36,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-// UPDATE_TODO clean up subclasses
 public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase implements Registerable {
 
     protected final EntityType<T> type;

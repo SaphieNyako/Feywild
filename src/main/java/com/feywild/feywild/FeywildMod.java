@@ -35,7 +35,6 @@ import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
-import com.feywild.feywild.util.FeywildJigsawHelper;
 import com.feywild.feywild.util.LibraryBooks;
 import com.feywild.feywild.world.market.MarketGenerator;
 import net.minecraft.client.color.block.BlockColor;
@@ -62,7 +61,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -112,7 +110,6 @@ public final class FeywildMod extends ModXRegistration {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors));
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
-        MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
@@ -196,32 +193,6 @@ public final class FeywildMod extends ModXRegistration {
         event.create(new RegistryBuilder<>().setName(FeyRegistries.ABILITIES.location()).hasTags());
     }
     
-    private void serverAboutToStart(final ServerAboutToStartEvent event) {
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
-                new ResourceLocation("feywild:village/desert/houses/temple"), 10);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("feywild:village/snowy/houses/winter_retreat"), 10);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("feywild:village/snowy/houses/winter_temple"), 5);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("feywild:village/taiga/houses/autumn_pumpkin_patch"), 10);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("feywild:village/taiga/houses/autumn_temple"), 5);
-
-    }
-
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {

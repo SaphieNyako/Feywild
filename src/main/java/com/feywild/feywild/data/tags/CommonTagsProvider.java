@@ -15,13 +15,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.tags.CommonTagsProviderBase;
 
 import javax.annotation.Nullable;
 
-// UPDATE_TODO
-//  forge tags (like ores)
 public class CommonTagsProvider extends CommonTagsProviderBase {
 
     public CommonTagsProvider(DatagenContext ctx) {
@@ -73,6 +72,8 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
 
         this.item(ModItemTags.COOKIES).add(Items.COOKIE);
         this.item(ModItemTags.COOKIES).add(ModItems.magicalHoneyCookie);
+        
+        this.block(Tags.Blocks.ORES).add(ModBlocks.feyGemOre, ModBlocks.feyGemOreDeepSlate, ModBlocks.feyGemOreLivingrock);
 
         this.copyBlock(BlockTags.LOGS, ItemTags.LOGS);
         this.copyBlock(ModBlockTags.FEY_LOGS, ModItemTags.FEY_LOGS);
