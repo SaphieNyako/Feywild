@@ -12,8 +12,6 @@ import net.minecraftforge.network.PacketDistributor;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.network.NetworkX;
 
-import org.moddingx.libx.network.NetworkX.Protocol;
-
 public class FeywildNetwork extends NetworkX {
 
     public FeywildNetwork(ModX mod) {

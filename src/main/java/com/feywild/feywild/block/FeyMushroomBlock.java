@@ -60,7 +60,6 @@ public class FeyMushroomBlock extends BushBlock implements BonemealableBlock, Re
     public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (player.getItemInHand(hand).getItem() == ModItems.feyDust) {
             if (!level.isClientSide) {
-
                 level.setBlock(pos, state.cycle(BlockStateProperties.LEVEL), 3);
                 if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
             }

@@ -2,7 +2,6 @@ package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.network.RequestItemMessage;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

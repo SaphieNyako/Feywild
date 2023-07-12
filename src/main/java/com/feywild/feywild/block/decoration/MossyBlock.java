@@ -4,8 +4,6 @@ import net.minecraft.world.level.block.Block;
 import org.moddingx.libx.base.BlockBase;
 import org.moddingx.libx.mod.ModX;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class MossyBlock extends BlockBase {
 
     private final Block baseBlock;

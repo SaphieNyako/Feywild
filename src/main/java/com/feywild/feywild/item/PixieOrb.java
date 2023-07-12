@@ -16,8 +16,6 @@ import org.moddingx.libx.mod.ModX;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class PixieOrb extends TooltipItem {
 
     public PixieOrb(ModX mod, Properties properties) {

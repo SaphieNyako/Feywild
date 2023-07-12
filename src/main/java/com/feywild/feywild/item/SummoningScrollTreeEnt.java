@@ -1,7 +1,5 @@
 package com.feywild.feywild.item;
 
-import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.entity.base.TreeEnt;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.FeySound;

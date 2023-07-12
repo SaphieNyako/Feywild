@@ -12,8 +12,6 @@ import org.moddingx.libx.network.PacketSerializer;
 import java.util.List;
 import java.util.function.Supplier;
 
-import org.moddingx.libx.network.PacketHandler.Target;
-
 public record LibraryScreenMessage(Component title, List<ItemStack> books) {
     
     public static class Serializer implements PacketSerializer<LibraryScreenMessage> {

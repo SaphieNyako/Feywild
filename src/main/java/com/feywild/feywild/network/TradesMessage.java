@@ -14,8 +14,6 @@ import org.moddingx.libx.network.PacketSerializer;
 import java.util.List;
 import java.util.function.Supplier;
 
-import org.moddingx.libx.network.PacketHandler.Target;
-
 public record TradesMessage(List<TradeRecipe> recipes) {
     
     public static class Serializer implements PacketSerializer<TradesMessage> {

@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens.button;
 
 import com.feywild.feywild.FeywildMod;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

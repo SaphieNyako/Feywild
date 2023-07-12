@@ -1,7 +1,6 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.entity.ModEntities;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;

@@ -2,11 +2,10 @@ package com.feywild.feywild.world;
 
 import com.feywild.feywild.FeywildMod;
 import net.minecraft.core.registries.Registries;
-import org.moddingx.libx.sandbox.SandBox;
-import org.moddingx.libx.sandbox.generator.BiomeLayer;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import org.moddingx.libx.sandbox.SandBox;
+import org.moddingx.libx.sandbox.generator.BiomeLayer;
 
 public class FeywildDimensions {
 
