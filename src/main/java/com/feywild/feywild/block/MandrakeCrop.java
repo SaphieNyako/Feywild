@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 
@@ -62,12 +61,6 @@ public class MandrakeCrop extends CropBlock implements Registerable {
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
         builder.registerNamed(Registries.ITEM, "seed", this.seed);
-    }
-
-    @Override
-    @OverridingMethodsMustInvokeSuper
-    public void initTracking(RegistrationContext ctx, TrackingCollector builder) throws ReflectiveOperationException {
-        builder.trackNamed(ForgeRegistries.ITEMS, "seed", MandrakeCrop.class.getDeclaredField("seed"));
     }
 
     @Nonnull

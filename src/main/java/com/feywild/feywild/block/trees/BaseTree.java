@@ -58,7 +58,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final BlockItem strippedLogItem;
     private final FeyStrippedWoodBlock strippedWood;
     private final FeyPlanksBlock plankBlock;
-    private final FeyCrackedLogBlock crackedLogBlock;
+    private final FeyCrackedLogBlock crackedLog;
     private final BlockItem crackedLogItem;
     
     private TagKey<Block> blockLogTag;
@@ -73,8 +73,8 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         this.logItem = new BlockItem(this.logBlock, new Item.Properties());
         this.strippedLogItem = new BlockItem(this.strippedLog, new Item.Properties());
         this.sapling = new BaseSaplingBlock(this);
-        this.crackedLogBlock = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), getParticle());
-        this.crackedLogItem = new BlockItem(this.crackedLogBlock, new Item.Properties());
+        this.crackedLog = new FeyCrackedLogBlock(this.strippedLog, BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), getParticle());
+        this.crackedLogItem = new BlockItem(this.crackedLog, new Item.Properties());
     }
 
     @Override
@@ -88,7 +88,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registries.ITEM, "stripped_log", this.strippedLogItem);
         builder.registerNamed(Registries.BLOCK, "stripped_wood", this.strippedWood);
         builder.registerNamed(Registries.BLOCK, "planks", this.plankBlock);
-        builder.registerNamed(Registries.BLOCK, "cracked_log", this.crackedLogBlock);
+        builder.registerNamed(Registries.BLOCK, "cracked_log", this.crackedLog);
         builder.registerNamed(Registries.ITEM, "cracked_log", this.crackedLogItem);
         
         this.blockLogTag = BlockTags.create(new ResourceLocation(ctx.id().getNamespace(), ctx.id().getPath() + "_logs"));
@@ -177,7 +177,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     }
 
     public FeyCrackedLogBlock getCrackedLogBlock() {
-        return this.crackedLogBlock;
+        return this.crackedLog;
     }
 
     protected int getLeavesRadius() {

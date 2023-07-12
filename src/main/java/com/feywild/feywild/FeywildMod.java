@@ -73,14 +73,13 @@ import org.moddingx.libx.datagen.DatagenSystem;
 import org.moddingx.libx.datagen.PackTarget;
 import org.moddingx.libx.datapack.DynamicPacks;
 import org.moddingx.libx.mod.ModXRegistration;
+import org.moddingx.libx.registration.RegistrationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.bernie.geckolib.GeckoLib;
 
 import javax.annotation.Nonnull;
 
-// UPDATE_TODO support registry tracking
-// UPDATE_TODO clean up AT
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
@@ -185,6 +184,11 @@ public final class FeywildMod extends ModXRegistration {
     @Nonnull
     public static FeywildTab getCreativeTab() {
         return tab;
+    }
+
+    @Override
+    protected void initRegistration(RegistrationBuilder builder) {
+        builder.disableRegistryTracking();
     }
 
     private void createRegistries(NewRegistryEvent event) {

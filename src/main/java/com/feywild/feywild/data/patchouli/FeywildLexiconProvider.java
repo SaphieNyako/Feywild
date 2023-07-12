@@ -4,18 +4,15 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.patchouli.BookProperties;
 import org.moddingx.libx.datagen.provider.patchouli.PatchouliProviderBase;
 import org.moddingx.libx.datagen.provider.patchouli.page.Content;
-import org.moddingx.libx.mod.ModX;
 
 public class FeywildLexiconProvider extends PatchouliProviderBase {
 
