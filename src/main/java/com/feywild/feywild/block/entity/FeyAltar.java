@@ -1,5 +1,7 @@
 package com.feywild.feywild.block.entity;
 
+import com.feywild.feywild.block.FeyAltarBlock;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.recipes.IAltarRecipe;
 import com.feywild.feywild.recipes.ModRecipeTypes;
 import com.feywild.feywild.util.StreamUtil;
@@ -37,7 +39,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockEntity {
+public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockEntity, FeyAltarBlock.FeyAltarModelProperties {
 
     public static final int MAX_PROGRESS = 40;
 
@@ -152,6 +154,11 @@ public class FeyAltar extends BlockEntityBase implements TickingBlock, GeoBlockE
 
     public int getProgress() {
         return this.progress;
+    }
+
+    @Override
+    public Alignment getAlignment() {
+        return ((FeyAltarBlock) this.getBlockState().getBlock()).getAlignment();
     }
 
     @Override

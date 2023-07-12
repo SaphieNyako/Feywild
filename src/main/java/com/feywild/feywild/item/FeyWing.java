@@ -58,13 +58,15 @@ public class FeyWing extends ArmorItem implements GeoItem {
             @Nonnull
             @Override
             public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entity, ItemStack stack, EquipmentSlot slot, HumanoidModel<?> model) {
-                return rendererMap.get().get(getRenderVariant(stack));
+                FeyWingsRenderer renderer = rendererMap.get().get(getRenderVariant(stack));
+                renderer.prepForRender(entity, stack, slot, model);
+                return renderer;
             }
         });
     }
 
     private Variant getRenderVariant(ItemStack stack) {
-        return switch (stack.getDisplayName().getString().strip()) {
+        return switch (stack.getHoverName().getString().strip()) {
             case "lesbian_pride_wings" -> Variant.LESBIAN_PRIDE;
             case "trans_pride_wings" -> Variant.TRANS_PRIDE;
             case "gay_pride_wings" -> Variant.GAY_PRIDE;

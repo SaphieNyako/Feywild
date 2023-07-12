@@ -13,7 +13,7 @@ public class FeywildTab extends CreativeTabX {
     @Override
     protected void buildTab(CreativeModeTab.Builder builder) {
         super.buildTab(builder);
-        builder.withBackgroundLocation(this.mod.resource("textures/gui/tab_icon.png"));
+        builder.withTabsImage(this.mod.resource("textures/gui/tab_icon.png"));
     }
 
     @Override

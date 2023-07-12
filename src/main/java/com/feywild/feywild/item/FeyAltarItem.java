@@ -1,5 +1,6 @@
 package com.feywild.feywild.item;
 
+import com.feywild.feywild.block.FeyAltarBlock;
 import com.feywild.feywild.item.render.FeyAltarItemRenderer;
 import com.feywild.feywild.quest.Alignment;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -19,7 +20,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class FeyAltarItem extends BlockItem implements GeoItem {
+public class FeyAltarItem extends BlockItem implements GeoItem, FeyAltarBlock.FeyAltarModelProperties {
     
     private final Alignment alignment;
 
@@ -42,6 +43,7 @@ public class FeyAltarItem extends BlockItem implements GeoItem {
         });
     }
 
+    @Override
     public Alignment getAlignment() {
         return alignment;
     }

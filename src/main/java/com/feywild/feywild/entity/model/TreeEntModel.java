@@ -17,7 +17,7 @@ public class TreeEntModel extends TypedEntityModel<TreeEnt> {
 
     @Override
     public ResourceLocation buildFormattedAnimationPath(ResourceLocation basePath) {
-        return FeywildMod.getInstance().resource("animations/pixie.animation.json");
+        return FeywildMod.getInstance().resource("animations/tree_ent.animation.json");
     }
 
     @Override

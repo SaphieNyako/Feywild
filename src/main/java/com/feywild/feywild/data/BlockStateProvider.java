@@ -101,12 +101,14 @@ public class BlockStateProvider extends BlockStateProviderBase {
         if (block instanceof FeyLeavesBlock) {
             this.simpleBlock(block,
                     new ConfiguredModel(this.models()
-                            .cubeAll(id.getPath(), this.modLoc("block/" + id.getPath()))
-                            .renderType(RenderTypes.CUTOUT_MIPPED)
+                            .withExistingParent(id.getPath(), LEAVES_PARENT)
+                            .texture("all", this.modLoc("block/" + id.getPath()))
+                            .renderType(RenderTypes.CUTOUT)
                     ),
                     new ConfiguredModel(this.models()
-                            .cubeAll(id.getPath() + "_02", this.modLoc("block/" + id.getPath() + "_02"))
-                            .renderType(RenderTypes.CUTOUT_MIPPED)
+                            .withExistingParent(id.getPath() + "_02", LEAVES_PARENT)
+                            .texture("all", this.modLoc("block/" + id.getPath()))
+                            .renderType(RenderTypes.CUTOUT)
                     )
             );
         } else if (block instanceof FeyLogBlock feyLog) {

@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "render_type": "minecraft:cutout_mipped",
+  "parent": "minecraft:block/leaves",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "feywild:block/winter_tree_light_blue_leaves_02"
+    "all": "feywild:block/winter_tree_light_blue_leaves"
   }
 }

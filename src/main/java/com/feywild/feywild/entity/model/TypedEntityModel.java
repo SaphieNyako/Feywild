@@ -15,6 +15,10 @@ public class TypedEntityModel<T extends GeoAnimatable> extends DefaultedEntityGe
     public TypedEntityModel(String type, @Nullable String subType) {
         super(FeywildMod.getInstance().resource(type), true);
         this.subType = subType;
+        ResourceLocation id = FeywildMod.getInstance().resource(type);
+        this.withAltModel(id);
+		this.withAltTexture(id);
+		this.withAltAnimations(id);
     }
 
     @Override
@@ -24,16 +28,16 @@ public class TypedEntityModel<T extends GeoAnimatable> extends DefaultedEntityGe
 
     @Override
     public ResourceLocation buildFormattedModelPath(ResourceLocation basePath) {
-        return new ResourceLocation(basePath.getNamespace(), "geo/" + (subType == null ? "" : subType) + basePath.getPath() + ".geo.json");
+        return new ResourceLocation(basePath.getNamespace(), "geo/" + (subType == null ? "" : subType + "/") + basePath.getPath() + ".geo.json");
     }
 
     @Override
     public ResourceLocation buildFormattedAnimationPath(ResourceLocation basePath) {
-        return new ResourceLocation(basePath.getNamespace(), "animations/" + (subType == null ? "" : subType) + basePath.getPath() + ".animation.json");
+        return new ResourceLocation(basePath.getNamespace(), "animations/" + (subType == null ? "" : subType + "/") + basePath.getPath() + ".animation.json");
     }
 
     @Override
     public ResourceLocation buildFormattedTexturePath(ResourceLocation basePath) {
-        return new ResourceLocation(basePath.getNamespace(), "textures/entity/" + (subType == null ? "" : subType) + basePath.getPath() + ".png");
+        return new ResourceLocation(basePath.getNamespace(), "textures/entity/" + (subType == null ? "" : subType + "/") + basePath.getPath() + ".png");
     }
 }

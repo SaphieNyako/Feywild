@@ -153,6 +153,7 @@ public final class FeywildMod extends ModXRegistration {
 
             system.addExtensionProvider(BiomeModifierProvider::new);
             system.addExtensionProvider(SurfaceProvider::new);
+            system.addExtensionProvider(TemplateExtensionProvider::new);
             system.addExtensionProvider(DimensionProvider::new);
 
             system.addDataProvider(TextureProvider::new);

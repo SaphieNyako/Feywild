@@ -31,6 +31,7 @@ import org.moddingx.libx.base.tile.BlockBE;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.RegistrationContext;
 import org.moddingx.libx.registration.SetupContext;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -147,5 +148,10 @@ public class FeyAltarBlock extends BlockBE<FeyAltar> {
     @SuppressWarnings("deprecation")
     public RenderShape getRenderShape(@Nonnull BlockState state) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    public interface FeyAltarModelProperties extends GeoAnimatable {
+
+        Alignment getAlignment();
     }
 }

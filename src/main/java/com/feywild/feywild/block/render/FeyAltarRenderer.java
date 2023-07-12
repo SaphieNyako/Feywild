@@ -1,5 +1,6 @@
 package com.feywild.feywild.block.render;
 
+import com.feywild.feywild.block.FeyAltarBlock;
 import com.feywild.feywild.block.entity.FeyAltar;
 import com.feywild.feywild.block.model.FeyAltarModel;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,22 +13,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.moddingx.libx.render.ClientTickHandler;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeyAltarRenderer<T extends BlockEntity & GeoAnimatable> extends GeoBlockRenderer<T> {
+public class FeyAltarRenderer<T extends BlockEntity & GeoAnimatable & FeyAltarBlock.FeyAltarModelProperties> extends GeoBlockRenderer<T> {
 
     public static FeyAltarRenderer<FeyAltar> create() {
         return new FeyAltarRenderer<>();
     }
     
     public FeyAltarRenderer() {
-        //noinspection unchecked
-        super((GeoModel<T>) new FeyAltarModel());
+        super(new FeyAltarModel<>());
     }
     
     @Override

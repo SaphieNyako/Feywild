@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "render_type": "minecraft:cutout_mipped",
+  "parent": "minecraft:block/leaves",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "feywild:block/blossom_tree_magenta_leaves_02"
+    "all": "feywild:block/blossom_tree_magenta_leaves"
   }
 }

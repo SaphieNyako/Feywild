@@ -67,7 +67,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     @Override
     @Nonnull
     public String getName() {
-        return FeywildMod.getInstance() + ":" + this.name;
+        return FeywildMod.getInstance().resource(this.name).toString();
     }
 
     @Override
