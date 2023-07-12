@@ -6,21 +6,21 @@ body:
     id: mc-version
     attributes:
       label: Minecraft version
-      placeholder: eg. 1.17.1
+      placeholder: eg. 1.20.1
     validations:
       required: true
   - type: input
     id: mod-version
     attributes:
       label: Feywild version
-      placeholder: eg. 1.17.1-1.0.0
+      placeholder: eg. 1.20.1-1.0.0
     validations:
       required: true
   - type: input
     id: forge-version
     attributes:
       label: Forge version
-      placeholder: eg. 37.0.95
+      placeholder: eg. 47.1.0
     validations:
       required: true
   - type: input
