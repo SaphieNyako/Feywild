@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "feywild:winter_tree_logs"
+            "items": [
+              "feywild:winter_tree_stripped_log"
+            ]
           }
         ]
       },
@@ -13,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:winter_tree_planks"
+        "recipe": "feywild:winter_tree_stripped_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "feywild:winter_tree_planks"
+      "feywild:winter_tree_stripped_wood"
     ]
   },
   "sends_telemetry_event": false

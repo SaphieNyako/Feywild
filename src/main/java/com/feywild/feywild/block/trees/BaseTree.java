@@ -8,6 +8,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -57,6 +60,9 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private final FeyPlanksBlock plankBlock;
     private final FeyCrackedLogBlock crackedLogBlock;
     private final BlockItem crackedLogItem;
+    
+    private TagKey<Block> blockLogTag;
+    private TagKey<Item> itemLogTag;
 
     public BaseTree(ModX mod) { //Supplier<? extends FeyLeavesBlock> leavesFactory
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
@@ -84,6 +90,9 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         builder.registerNamed(Registries.BLOCK, "planks", this.plankBlock);
         builder.registerNamed(Registries.BLOCK, "cracked_log", this.crackedLogBlock);
         builder.registerNamed(Registries.ITEM, "cracked_log", this.crackedLogItem);
+        
+        this.blockLogTag = BlockTags.create(new ResourceLocation(ctx.id().getNamespace(), ctx.id().getPath() + "_logs"));
+        this.itemLogTag = ItemTags.create(this.blockLogTag.location());
     }
 
     @Override
@@ -193,6 +202,14 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     protected int getSecondRandomHeight() {
         return SECOND_RANDOM_HEIGHT;
+    }
+    
+    public TagKey<Block> getBlockLogTag() {
+        return Objects.requireNonNull(this.blockLogTag, "Tree not yet registered.");
+    }
+    
+    public TagKey<Item> getItemLogTag() {
+        return Objects.requireNonNull(this.itemLogTag, "Tree not yet registered.");
     }
 
     @Override

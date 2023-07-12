@@ -2,13 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "a": {
+    "#": {
       "item": "feywild:winter_tree_log"
     }
   },
   "pattern": [
-    "aa",
-    "aa"
+    "##",
+    "##"
   ],
   "result": {
     "count": 3,

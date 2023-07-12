@@ -5,7 +5,21 @@
       "conditions": {
         "items": [
           {
-            "tag": "feywild:winter_tree_logs"
+            "items": [
+              "minecraft:chain"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "criterion1": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "feywild:winter_tree_stripped_log"
+            ]
           }
         ]
       },
@@ -13,7 +27,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:winter_tree_planks"
+        "recipe": "feywild:winter_tree_planks_hanging_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +35,13 @@
   "requirements": [
     [
       "criterion0",
+      "criterion1",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "feywild:winter_tree_planks"
+      "feywild:winter_tree_planks_hanging_sign"
     ]
   },
   "sends_telemetry_event": false

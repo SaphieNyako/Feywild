@@ -63,12 +63,12 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         tool(ModBlocks.autumnFeyAltar, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_IRON_TOOL);
         tool(ModBlocks.treeMushroom, BlockTags.MINEABLE_WITH_HOE, null);
         
-        treeTags(ModTrees.springTree, ModBlockTags.SPRING_LOGS, ModItemTags.SPRING_LOGS);
-        treeTags(ModTrees.summerTree, ModBlockTags.SUMMER_LOGS, ModItemTags.SUMMER_LOGS);
-        treeTags(ModTrees.autumnTree, ModBlockTags.AUTUMN_LOGS, ModItemTags.AUTUMN_LOGS);
-        treeTags(ModTrees.winterTree, ModBlockTags.WINTER_LOGS, ModItemTags.WINTER_LOGS);
-        treeTags(ModTrees.blossomTree, ModBlockTags.BLOSSOM_LOGS, ModItemTags.BLOSSOM_LOGS);
-        treeTags(ModTrees.hexenTree, ModBlockTags.HEXEN_LOGS, ModItemTags.HEXEN_LOGS);
+        treeTags(ModTrees.springTree);
+        treeTags(ModTrees.summerTree);
+        treeTags(ModTrees.autumnTree);
+        treeTags(ModTrees.winterTree);
+        treeTags(ModTrees.blossomTree);
+        treeTags(ModTrees.hexenTree);
 
         this.item(ModItemTags.COOKIES).add(Items.COOKIE);
         this.item(ModItemTags.COOKIES).add(ModItems.magicalHoneyCookie);
@@ -88,8 +88,8 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
         if (level != null) this.block(level).add(block);
     }
 
-    private void treeTags(BaseTree tree, TagKey<Block> logs, TagKey<Item> logItems) {
-        this.block(logs).add(
+    private void treeTags(BaseTree tree) {
+        this.block(tree.getBlockLogTag()).add(
                 tree.getLogBlock(),
                 tree.getStrippedLogBlock(),
                 tree.getWoodBlock(),
@@ -97,13 +97,13 @@ public class CommonTagsProvider extends CommonTagsProviderBase {
                 tree.getCrackedLogBlock()
         );
 
-        this.block(BlockTags.LOGS).addTag(logs);
-        this.block(ModBlockTags.FEY_LOGS).addTag(logs);
-        this.block(BlockTags.LOGS_THAT_BURN).addTag(logs);
+        this.block(BlockTags.LOGS).addTag(tree.getBlockLogTag());
+        this.block(ModBlockTags.FEY_LOGS).addTag(tree.getBlockLogTag());
+        this.block(BlockTags.LOGS_THAT_BURN).addTag(tree.getBlockLogTag());
         this.block(BlockTags.PLANKS).add(tree.getPlankBlock());
         this.block(BlockTags.SAPLINGS).add(tree.getSapling());
         
-        this.copyBlock(logs, logItems);
+        this.copyBlock(tree.getBlockLogTag(), tree.getItemLogTag());
     }
 
     @Override

@@ -1,44 +1,42 @@
 package com.feywild.feywild.data.recipe;
 
+import com.feywild.feywild.FeyRegistries;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
+import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import org.moddingx.libx.base.decoration.DecorationType;
 import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.RegistrySet;
 import org.moddingx.libx.datagen.provider.recipe.DefaultExtension;
 import org.moddingx.libx.datagen.provider.recipe.RecipeProviderBase;
 import org.moddingx.libx.datagen.provider.recipe.SmeltingExtension;
 import org.moddingx.libx.datagen.provider.recipe.StoneCuttingExtension;
 import org.moddingx.libx.datagen.provider.recipe.crafting.CraftingExtension;
 
-// UPDATE_TODO missing decoration recipes
-public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension,
-        DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension, VariantExtension {
+public class RecipeProvider extends RecipeProviderBase implements CraftingExtension, SmeltingExtension, DefaultExtension, AltarExtension, AnvilExtension, StoneCuttingExtension, VariantExtension {
 
+    private final RegistrySet registries;
+    
     public RecipeProvider(DatagenContext ctx) {
         super(ctx);
+        this.registries = ctx.registries();
     }
 
     @Override
     protected void setup() {
-        shaped(ModTrees.springTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.springTree.getLogBlock());
-        shaped(ModTrees.summerTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.summerTree.getLogBlock());
-        shaped(ModTrees.autumnTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.autumnTree.getLogBlock());
-        shaped(ModTrees.winterTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.winterTree.getLogBlock());
-        shaped(ModTrees.blossomTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.blossomTree.getLogBlock());
-        shaped(ModTrees.hexenTree.getWoodBlock(), 3, "aa", "aa", 'a', ModTrees.hexenTree.getLogBlock());
-
-        shapeless(ModTrees.autumnTree.getPlankBlock(), 4, ModItemTags.AUTUMN_LOGS);
-        shapeless(ModTrees.springTree.getPlankBlock(), 4, ModItemTags.SPRING_LOGS);
-        shapeless(ModTrees.summerTree.getPlankBlock(), 4, ModItemTags.SUMMER_LOGS);
-        shapeless(ModTrees.winterTree.getPlankBlock(), 4, ModItemTags.WINTER_LOGS);
-        shapeless(ModTrees.blossomTree.getPlankBlock(), 4, ModItemTags.BLOSSOM_LOGS);
-        shapeless(ModTrees.hexenTree.getPlankBlock(), 4, ModItemTags.HEXEN_LOGS);
-
+        for (BaseTree tree : this.registries.registry(FeyRegistries.TREES)) {
+            shaped(tree.getWoodBlock(), 3, "##", "##", '#', tree.getLogBlock());
+            shaped(tree.getStrippedWoodBlock(), 3, "##", "##", '#', tree.getStrippedLogBlock());
+            shapeless(tree.getPlankBlock(), 4, tree.getItemLogTag());
+            shaped(tree.getPlankBlock().get(DecorationType.HANGING_SIGN), 6, "s s", "###", "###", 's', Blocks.CHAIN,'#', tree.getStrippedLogBlock());
+        }
+        
         shaped(ModBlocks.dwarvenAnvil, "fff", " i ", "iii", 'f', ModItems.lesserFeyGem, 'i', Tags.Items.STORAGE_BLOCKS_IRON);
         shapeless(ModItems.feyInkBottle, ModItems.feyDust, Items.INK_SAC, Items.GLASS_BOTTLE, ModItems.mandrake);
         shapeless(ModItems.mandrakePotion, Items.GLASS_BOTTLE, ModItems.mandrake, Items.GHAST_TEAR, ModItems.brilliantFeyGem);
