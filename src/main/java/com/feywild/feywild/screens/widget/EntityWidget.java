@@ -26,7 +26,7 @@ public class EntityWidget extends AbstractWidget {
     @Override
     public void renderWidget(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         double scale = ((this.height) / this.entity.getType().getHeight()) * scale(this.entity.getType());
-        InventoryScreen.renderEntityInInventoryFollowsAngle(
+        InventoryScreen.renderEntityInInventoryFollowsMouse(
                 graphics,
                 this.getX() + (this.width / 2),
                 this.getY() + this.height + (int) (scale * offset(this.entity.getType()) / 85),
@@ -38,8 +38,6 @@ public class EntityWidget extends AbstractWidget {
     }
     
     private static int offset(EntityType<?> type) {
-        // Pixies have a lot of empty space below them that is part of their hitbox
-        // Move them down a bit
         if (type == ModEntities.springPixie || type == ModEntities.summerPixie || type == ModEntities.autumnPixie || type == ModEntities.winterPixie) {
             return 48;
         } else {
@@ -48,10 +46,8 @@ public class EntityWidget extends AbstractWidget {
     }
     
     private static double scale(EntityType<?> type) {
-        // Pixies have a lot of empty space below them that is part of their hitbox
-        // Make them a bit bigger
         if (type == ModEntities.springPixie || type == ModEntities.summerPixie || type == ModEntities.autumnPixie || type == ModEntities.winterPixie) {
-            return 1.8;
+            return 1.5;
         } else {
             return 1;
         }

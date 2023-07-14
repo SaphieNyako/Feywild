@@ -4,6 +4,7 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.ability.Ability;
 import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.TameCheckingGoal;
+import com.feywild.feywild.entity.goals.pixie.AbilityGoal;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.item.RuneStone;
 import com.feywild.feywild.network.ParticleMessage;
@@ -78,6 +79,7 @@ public abstract class Pixie extends FlyingFeyBase {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(20, new AbilityGoal(this));
         this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 13));
         this.goalSelector.addGoal(10, new TameCheckingGoal(this, false, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false)));
     }

@@ -104,10 +104,10 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase i
                         entity.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
 
                         this.prepareEntity(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), entity);
-                        if (this instanceof SummoningScrollFey) {
-                            context.getLevel().addFreshEntity(entity);
-                            FeywildMod.getNetwork().sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
-                            if (this.sound != null) entity.playSound(this.sound.getSoundEvent(), 1, 1);
+                        context.getLevel().addFreshEntity(entity);
+                        FeywildMod.getNetwork().sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
+                        if (this.sound != null) {
+                            entity.playSound(this.sound.getSoundEvent(), 1, 1);
                         }
                         if (!context.getPlayer().isCreative()) {
                             context.getItemInHand().shrink(1);

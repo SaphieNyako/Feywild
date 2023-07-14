@@ -8,12 +8,12 @@ import javax.annotation.Nonnull;
 
 public class DwarfModel extends TypedEntityModel<DwarfBlacksmith> {
 
-    public DwarfModel(@Nonnull String subType) {
-        super("dwarf", subType);
+    public DwarfModel(@Nonnull String type) {
+        super(type, "dwarf");
     }
 
     @Override
     public ResourceLocation buildFormattedAnimationPath(ResourceLocation basePath) {
-        return FeywildMod.getInstance().resource("animations/dwarf_blacksmith.animation.json");
+        return FeywildMod.getInstance().resource("animations/dwarf.animation.json");
     }
 }
