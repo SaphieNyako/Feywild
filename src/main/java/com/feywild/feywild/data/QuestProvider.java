@@ -22,6 +22,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import org.moddingx.libx.annotation.data.Datagen;
 import org.moddingx.libx.crafting.IngredientStack;
 import org.moddingx.libx.mod.ModX;
@@ -56,7 +57,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_01")
                 .parent("root")
                 .icon(Blocks.CHEST)
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.CHEST), 1))
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.CHESTS), 1))
                 .build();
 
         this.quest(SPRING, "quest_02")
