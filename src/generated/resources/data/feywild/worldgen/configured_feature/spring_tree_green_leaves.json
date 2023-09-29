@@ -1,0 +1,8 @@
+{
+  "type": "feywild:template",
+  "config": {
+    "actions": [],
+    "processors": "feywild:spring_tree_green_leaves",
+    "templates": []
+  }
+}

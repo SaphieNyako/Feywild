@@ -10,25 +10,15 @@ import org.moddingx.libx.datagen.provider.sandbox.FeatureProviderBase;
 
 public class TreeProvider extends FeatureProviderBase {
 
-    /*
-    public final Holder<PlacedFeature> springTrees = denseTrees(ModTrees.springTree);
-    public final Holder<PlacedFeature> summerTrees = denseTrees(ModTrees.summerTree);
-    public final Holder<PlacedFeature> autumnTrees = denseTrees(ModTrees.autumnTree);
-    public final Holder<PlacedFeature> winterTrees = denseTrees(ModTrees.winterTree);
-
-    public final Holder<PlacedFeature> springTreePatches = treePatches(ModTrees.springTree);
-    public final Holder<PlacedFeature> summerTreePatches = treePatches(ModTrees.summerTree);
-    public final Holder<PlacedFeature> autumnTreePatches = treePatches(ModTrees.autumnTree);
-    public final Holder<PlacedFeature> winterTreePatches = treePatches(ModTrees.winterTree);
-    */
-
     private final FeatureProvider features = this.context.findRegistryProvider(FeatureProvider.class);
+    
     public final Holder<PlacedFeature> springTrees = denseTrees(this.features.springTree);
     public final Holder<PlacedFeature> summerTrees = denseTrees(this.features.summerTree);
     public final Holder<PlacedFeature> autumnTrees = denseTrees(this.features.autumnTree);
     public final Holder<PlacedFeature> winterTrees = denseTrees(this.features.winterTree);
     public final Holder<PlacedFeature> blossomTrees = denseTrees(this.features.blossomTree);
     public final Holder<PlacedFeature> hexenTrees = denseTrees(this.features.hexenTree);
+    
     public final Holder<PlacedFeature> springTreePatches = treePatches(this.features.springTree);
     public final Holder<PlacedFeature> summerTreePatches = treePatches(this.features.summerTree);
     public final Holder<PlacedFeature> autumnTreePatches = treePatches(this.features.autumnTree);
@@ -63,35 +53,4 @@ public class TreeProvider extends FeatureProviderBase {
                 .biomeFilter()
                 .build();
     }
-
-
-    /*
-    private Holder<PlacedFeature> denseTrees(BaseTree tree) {
-        return this.placement(tree.getConfiguredFeature())
-                .countExtra(1, 0.2f, 2)
-                .add(trees(tree))
-                .build();
-    } */
-
-    /*
-    private Holder<PlacedFeature> treePatches(BaseTree tree) {
-        return this.placement(tree.getConfiguredFeature())
-                .rarity(80)
-                .add(trees(tree))
-                .build();
-    }
-    */
-
-    /*
-    private PlacementModifiers trees(BaseTree tree) {
-        return this.modifiers()
-                .spread()
-                .waterDepth(0)
-                .heightmap(Heightmap.Types.OCEAN_FLOOR_WG)
-                .validGround(tree.getSapling())
-                .biomeFilter()
-                .build();
-    } */
-
-
 }

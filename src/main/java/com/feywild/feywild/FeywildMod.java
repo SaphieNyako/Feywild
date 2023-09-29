@@ -194,6 +194,7 @@ public final class FeywildMod extends ModXRegistration {
     private void createRegistries(NewRegistryEvent event) {
         event.create(new RegistryBuilder<>().setName(FeyRegistries.TREES.location()).hasTags());
         event.create(new RegistryBuilder<>().setName(FeyRegistries.ABILITIES.location()).hasTags());
+        event.create(new RegistryBuilder<>().setName(FeyRegistries.TEMPLATE_ACTIONS.location()).hasTags());
     }
     
     @Override

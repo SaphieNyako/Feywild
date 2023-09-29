@@ -1,0 +1,8 @@
+{
+  "type": "feywild:template",
+  "config": {
+    "actions": [],
+    "processors": "feywild:blossom_tree_white_leaves",
+    "templates": []
+  }
+}

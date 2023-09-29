@@ -12,7 +12,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -23,14 +22,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.Registerable;
@@ -38,17 +29,10 @@ import org.moddingx.libx.registration.RegistrationContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 public abstract class BaseTree extends AbstractTreeGrower implements Registerable {
-
-    private static final int BASE_HEIGHT = 6;
-    private static final int FIRST_RANDOM_HEIGHT = 7;
-    private static final int SECOND_RANDOM_HEIGHT = 8;
-
-    private static final int LEAVES_RADIUS = 5;
-    private static final int LEAVES_OFFSET = 4;
-    private static final int LEAVES_HEIGHT = 5;
 
     private final FeyLogBlock logBlock;
     private final FeyWoodBlock woodBlock;
@@ -64,7 +48,7 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
     private TagKey<Block> blockLogTag;
     private TagKey<Item> itemLogTag;
 
-    public BaseTree(ModX mod) { //Supplier<? extends FeyLeavesBlock> leavesFactory
+    public BaseTree(ModX mod) {
         this.strippedWood = new FeyStrippedWoodBlock(mod, BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion());
         this.woodBlock = new FeyWoodBlock(mod, this.strippedWood, BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), new Item.Properties());
         this.plankBlock = new FeyPlanksBlock(mod, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2f, 2f).sound(SoundType.WOOD).noOcclusion(), new Item.Properties());
@@ -108,44 +92,6 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
         return registries.registryOrThrow(Registries.CONFIGURED_FEATURE).getHolder(key).orElseThrow(() -> new NullPointerException("Feywild tree feature not registered: " + key.location()));
     }
 
-    public Map<ResourceLocation, TreeConfiguration.TreeConfigurationBuilder> getFeatureBuilders() {
-        Map<ResourceLocation, TreeConfiguration.TreeConfigurationBuilder> map = new HashMap<>();
-        List<Block> leaves = this.getAllLeaves();
-        if (leaves.isEmpty()) throw new IllegalStateException("Tree has no leaves");
-        for (Block leaf : leaves) {
-            ResourceLocation id = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(leaf));
-            TreeConfiguration.TreeConfigurationBuilder builder = this.getFeatureBuilder(leaf);
-            map.put(id, builder);
-        }
-        return Collections.unmodifiableMap(map);
-    }
-    
-    public TreeConfiguration.TreeConfigurationBuilder getFeatureBuilder(Block leavesBlock) {
-        return new TreeConfiguration.TreeConfigurationBuilder(
-                SimpleStateProvider.simple(this.getLogBlock().defaultBlockState()),
-                this.getGiantTrunkPlacer(),
-                BlockStateProvider.simple(leavesBlock),
-                this.getFoliagePlacer(),
-                this.getTwoLayerFeature()
-        );
-    }
-
-    protected FoliagePlacer getFoliagePlacer() {
-        return new BlobFoliagePlacer(
-                UniformInt.of(this.getLeavesRadius(), this.getLeavesRadius()),
-                UniformInt.of(this.getLeavesOffset(), this.getLeavesOffset()),
-                this.getLeavesHeight()
-        );
-    }
-
-    protected TrunkPlacer getGiantTrunkPlacer() {
-        return new MegaJungleTrunkPlacer(this.getBaseHeight(), this.getFirstRandomHeight(), this.getSecondRandomHeight());
-    }
-
-    protected TwoLayersFeatureSize getTwoLayerFeature() {
-        return new TwoLayersFeatureSize(1, 0, 1);
-    }
-    
     public abstract List<Block> getAllLeaves();
 
     public abstract void decorateSaplingGrowth(ServerLevel world, BlockPos pos, RandomSource random);
@@ -178,30 +124,6 @@ public abstract class BaseTree extends AbstractTreeGrower implements Registerabl
 
     public FeyCrackedLogBlock getCrackedLogBlock() {
         return this.crackedLog;
-    }
-
-    protected int getLeavesRadius() {
-        return LEAVES_RADIUS;
-    }
-
-    protected int getLeavesOffset() {
-        return LEAVES_OFFSET;
-    }
-
-    protected int getLeavesHeight() {
-        return LEAVES_HEIGHT;
-    }
-
-    protected int getBaseHeight() {
-        return BASE_HEIGHT;
-    }
-
-    protected int getFirstRandomHeight() {
-        return FIRST_RANDOM_HEIGHT;
-    }
-
-    protected int getSecondRandomHeight() {
-        return SECOND_RANDOM_HEIGHT;
     }
     
     public TagKey<Block> getBlockLogTag() {

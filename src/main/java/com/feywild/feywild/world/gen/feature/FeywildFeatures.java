@@ -9,4 +9,5 @@ public class FeywildFeatures {
 
     public static final Feature<GiantFlowerFeature.Configuration> giantFlowers = new GiantFlowerFeature();
     public static final Feature<NoneFeatureConfiguration> autumnPumpkins = new AutumnPumpkinsFeature();
+    public static final Feature<TemplateFeatureConfig> template = new TemplateFeature();
 }

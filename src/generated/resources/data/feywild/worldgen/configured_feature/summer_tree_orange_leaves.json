@@ -1,0 +1,8 @@
+{
+  "type": "feywild:template",
+  "config": {
+    "actions": [],
+    "processors": "feywild:summer_tree_orange_leaves",
+    "templates": []
+  }
+}

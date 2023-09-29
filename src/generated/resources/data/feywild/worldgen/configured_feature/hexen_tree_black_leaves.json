@@ -1,0 +1,8 @@
+{
+  "type": "feywild:template",
+  "config": {
+    "actions": [],
+    "processors": "feywild:hexen_tree_black_leaves",
+    "templates": []
+  }
+}

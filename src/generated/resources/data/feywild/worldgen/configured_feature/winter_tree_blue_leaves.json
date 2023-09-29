@@ -1,0 +1,8 @@
+{
+  "type": "feywild:template",
+  "config": {
+    "actions": [],
+    "processors": "feywild:winter_tree_blue_leaves",
+    "templates": []
+  }
+}

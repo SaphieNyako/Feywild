@@ -18,8 +18,7 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class FlowerWalkEffect extends MobEffect {
-
-
+    
     protected FlowerWalkEffect() {
         super(MobEffectCategory.BENEFICIAL, 0x67df8c);
     }

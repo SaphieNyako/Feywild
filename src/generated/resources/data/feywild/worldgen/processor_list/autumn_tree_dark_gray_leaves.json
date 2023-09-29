@@ -1,0 +1,29 @@
+{
+  "processors": [
+    {
+      "leaves": [
+        {
+          "data": "feywild:autumn_tree_dark_gray_leaves",
+          "weight": 1
+        }
+      ],
+      "log": [
+        {
+          "data": "feywild:autumn_tree_log",
+          "weight": 19
+        },
+        {
+          "data": "feywild:autumn_tree_cracked_log",
+          "weight": 1
+        }
+      ],
+      "processor_type": "feywild:tree_processor",
+      "wood": [
+        {
+          "data": "feywild:autumn_tree_wood",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

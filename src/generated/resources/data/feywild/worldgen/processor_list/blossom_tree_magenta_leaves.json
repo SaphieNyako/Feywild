@@ -1,0 +1,29 @@
+{
+  "processors": [
+    {
+      "leaves": [
+        {
+          "data": "feywild:blossom_tree_magenta_leaves",
+          "weight": 1
+        }
+      ],
+      "log": [
+        {
+          "data": "feywild:blossom_tree_log",
+          "weight": 19
+        },
+        {
+          "data": "feywild:blossom_tree_cracked_log",
+          "weight": 1
+        }
+      ],
+      "processor_type": "feywild:tree_processor",
+      "wood": [
+        {
+          "data": "feywild:blossom_tree_wood",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

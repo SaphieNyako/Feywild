@@ -1,0 +1,10 @@
+{
+  "type": "feywild:template",
+  "config": {
+    "actions": [
+      "feywild:mushroom_action"
+    ],
+    "processors": "feywild:autumn_tree_red_leaves",
+    "templates": []
+  }
+}
