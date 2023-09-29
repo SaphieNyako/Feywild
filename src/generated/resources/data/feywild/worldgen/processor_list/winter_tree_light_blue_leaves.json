@@ -1,6 +1,9 @@
 {
   "processors": [
     {
+      "processor_type": "feywild:leaf_skipper"
+    },
+    {
       "leaves": [
         {
           "data": "feywild:winter_tree_light_blue_leaves",

@@ -1,6 +1,9 @@
 {
   "processors": [
     {
+      "processor_type": "feywild:leaf_skipper"
+    },
+    {
       "leaves": [
         {
           "data": "feywild:autumn_tree_dark_gray_leaves",

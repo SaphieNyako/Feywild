@@ -2,7 +2,47 @@
   "type": "feywild:template",
   "config": {
     "actions": [],
+    "offset": [
+      0,
+      -3,
+      0
+    ],
     "processors": "feywild:spring_tree_cyan_leaves",
-    "templates": []
+    "space_check": "ABOVE_SURFACE",
+    "space_check_block": "minecraft:logs",
+    "templates": [
+      {
+        "data": "feywild:tree_0",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_1",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_2",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_3",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_4",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_5",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_6",
+        "weight": 1
+      },
+      {
+        "data": "feywild:tree_7",
+        "weight": 1
+      }
+    ]
   }
 }

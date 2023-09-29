@@ -1,6 +1,9 @@
 {
   "processors": [
     {
+      "processor_type": "feywild:leaf_skipper"
+    },
+    {
       "leaves": [
         {
           "data": "feywild:hexen_tree_purple_leaves",

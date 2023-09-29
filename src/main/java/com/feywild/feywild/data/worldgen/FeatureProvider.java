@@ -1,5 +1,6 @@
 package com.feywild.feywild.data.worldgen;
 
+import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.BaseTree;
@@ -8,8 +9,10 @@ import com.feywild.feywild.world.gen.feature.GiantFlowerFeature;
 import com.feywild.feywild.world.gen.feature.TemplateFeatureConfig;
 import com.feywild.feywild.world.gen.template.TemplatePlacementAction;
 import com.feywild.feywild.world.gen.template.TemplatePlacementActions;
+import com.feywild.feywild.world.gen.tree.LeafSkipper;
 import com.feywild.feywild.world.gen.tree.TreeProcessor;
 import com.mojang.serialization.Lifecycle;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -111,10 +114,15 @@ public class FeatureProvider extends FeatureProviderBase {
         for (Block leaf : tree.getAllLeaves()) {
             ResourceLocation id = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(leaf));
             WeightedRandomList<WeightedEntry.Wrapper<Block>> leaves = WeightedRandomList.create(WeightedEntry.wrap(leaf, 1));
-            StructureProcessorList list = new StructureProcessorList(List.of(new TreeProcessor(logs, wood, leaves)));
+            StructureProcessorList list = new StructureProcessorList(List.of(LeafSkipper.INSTANCE, new TreeProcessor(logs, wood, leaves)));
             Holder<StructureProcessorList> listHolder = this.registries.writableRegistry(Registries.PROCESSOR_LIST).register(ResourceKey.create(Registries.PROCESSOR_LIST, id), list, Lifecycle.stable());
             TemplateFeatureConfig.Builder cfgBuilder = TemplateFeatureConfig.builder();
-            // TODO set templates and offset
+            cfgBuilder.spaceCheck(TemplateFeatureConfig.SpaceCheck.ABOVE_SURFACE);
+            cfgBuilder.spaceCheckBlock(BlockTags.LOGS);
+            for (int i = 0; i < 8; i++) {
+                cfgBuilder.template(FeywildMod.getInstance().resource("tree_" + i));
+            }
+            cfgBuilder.offset(new BlockPos(0, -3, 0));
             cfgBuilder.processors(listHolder);
             for (TemplatePlacementAction action : actions) {
                 cfgBuilder.action(action);
@@ -126,9 +134,9 @@ public class FeatureProvider extends FeatureProviderBase {
         }
         
         if (subPlacements.isEmpty()) return this.feature(Feature.NO_OP);
+        
         // Entries are checked one after another and the first one where random < chance is taken.
         // The probabilities assigned here make an even spread.
-        
         List<WeightedPlacedFeature> featureList = new ArrayList<>();
         for (int i = 0; i < subPlacements.size() - 1; i++) {
             featureList.add(new WeightedPlacedFeature(subPlacements.get(i), 1f / (subPlacements.size() - i)));

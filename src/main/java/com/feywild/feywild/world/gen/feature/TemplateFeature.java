@@ -4,9 +4,11 @@ import com.feywild.feywild.world.gen.template.TemplatePlacementAction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -44,18 +46,25 @@ public class TemplateFeature extends Feature<TemplateFeatureConfig> {
         });
         settings.setRotation(Rotation.getRandom(context.random()));
 
-        Vec3i size = template.getSize(settings.getRotation());
+        Vec3i size = StructureTemplate.calculateRelativePosition(settings, new BlockPos(template.getSize().getX(), template.getSize().getY(), template.getSize().getZ()));
         Vec3i offset = new Vec3i(-(size.getX() / 2) + cfg.getOffset().getX(), cfg.getOffset().getY(), -(size.getZ() / 2) + cfg.getOffset().getZ());
         
         BlockPos start = context.origin().offset(offset);
+        List<StructureTemplate.StructureBlockInfo> processedBlocks = StructureTemplate.processBlockInfos(context.level(), start, start, settings, settings.getRandomPalette(template.palettes, start).blocks(), template);
+
+        if (cfg.getSpaceCheck() != TemplateFeatureConfig.SpaceCheck.NOWHERE) {
+            for (StructureTemplate.StructureBlockInfo info : processedBlocks) {
+                if (cfg.getSpaceCheck() == TemplateFeatureConfig.SpaceCheck.ABOVE_SURFACE && info.pos().getY() < context.origin().getY()) continue;
+                if (cfg.getSpaceCheckBlock().isPresent() && !info.state().is(cfg.getSpaceCheckBlock().get())) continue;
+                BlockState old = context.level().getBlockState(info.pos());
+                if (!old.isAir() && !old.is(BlockTags.REPLACEABLE)) return false;
+            }
+        }
+
         if (!template.placeInWorld(context.level(), start, start, settings, context.random(), 18)) return false;
         
-        if (!cfg.getActions().isEmpty()) {
-            List<StructureTemplate.StructureBlockInfo> processedBlocks = StructureTemplate.processBlockInfos(context.level(), start, start, settings, settings.getRandomPalette(template.palettes, start).blocks(), template);
-
-            for (TemplatePlacementAction action : cfg.getActions()) {
-                action.act(context.level(), template, settings, start, processedBlocks, context.random().fork());
-            }
+        for (TemplatePlacementAction action : cfg.getActions()) {
+            action.act(context.level(), template, settings, start, processedBlocks, context.random().fork());
         }
         
         return true;

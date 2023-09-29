@@ -1,5 +1,6 @@
 package com.feywild.feywild.world.gen.structure;
 
+import com.feywild.feywild.world.gen.tree.LeafSkipper;
 import com.feywild.feywild.world.gen.tree.TreeProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import org.moddingx.libx.annotation.registration.RegisterClass;
@@ -8,4 +9,5 @@ import org.moddingx.libx.annotation.registration.RegisterClass;
 public class ModStructureProcessorTypes {
     
     public static final StructureProcessorType<?> treeProcessor = TreeProcessor.TYPE;
+    public static final StructureProcessorType<?> leafSkipper = LeafSkipper.TYPE;
 }
