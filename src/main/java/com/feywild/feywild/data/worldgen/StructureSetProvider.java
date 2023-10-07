@@ -35,8 +35,8 @@ public class StructureSetProvider extends StructureSetProviderBase {
             .build();
     */
     public final Holder<StructureSet> beekeep = this.simple(this.structures.beekeep, 15, 8, 0.9f).build();
-    //   public final Holder<StructureSet> feyCircle = this.simple(this.structures.feyCircle, 13, 6, 0.8f).build();
     public final Holder<StructureSet> feyGeode = this.simple(this.structures.feyGeode, 8, 4, 0.9f).build();
+    public final Holder<StructureSet> dwarvenForge = this.simple(this.structures.dwarvenForge, 15, 6, 0.9f).build();
 
     public StructureSetProvider(DatagenContext ctx) {
         super(ctx);

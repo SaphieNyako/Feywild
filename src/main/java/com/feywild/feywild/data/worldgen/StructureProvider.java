@@ -3,6 +3,7 @@ package com.feywild.feywild.data.worldgen;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.tag.ModBiomeTags;
 import net.minecraft.core.Holder;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -54,17 +55,17 @@ public class StructureProvider extends StructureProviderBase {
             .biomes(ModBiomeTags.IS_SUMMER)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-    /*
-    public final Holder<Structure> feyCircle = this.singleJigsaw(this.templates.feyCircle)
-            .biomes(BiomeTags.IS_FOREST)
-            .terrain(TerrainAdjustment.BEARD_THIN)
-            .build();
-    */
+
     public final Holder<Structure> feyGeode = this.undergroundSingleJigsaw(this.templates.feyGeode)
             .biomes(ModBiomeTags.IS_FEYWILD_DIMENSION)
             .terrain(TerrainAdjustment.BEARD_THIN)
             .build();
-    
+
+    public final Holder<Structure> dwarvenForge = this.undergroundSingleJigsaw(this.templates.dwarvenForge)
+            .biomes(BiomeTags.HAS_MINESHAFT)
+            .terrain(TerrainAdjustment.BEARD_THIN)
+            .build();
+
     public final Holder<Structure> mushroomHouses = this.singleJigsaw(this.templates.mushroomHouseStart)
             .biomes(ModBiomeTags.IS_AUTUMN)
             .terrain(TerrainAdjustment.BEARD_THIN)
