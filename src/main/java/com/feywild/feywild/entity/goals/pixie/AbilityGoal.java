@@ -14,12 +14,14 @@ import javax.annotation.Nullable;
 public class AbilityGoal extends Goal {
 
     private final Pixie pixie;
-    
-    @Nullable private Ability<Object> ability;
-    @Nullable private Object data;
-    
+
+    @Nullable
+    private Ability<Object> ability;
+    @Nullable
+    private Object data;
+
     private int ticksLeft;
-    
+
     public AbilityGoal(Pixie pixie) {
         this.pixie = pixie;
         this.ticksLeft = -1;
@@ -29,10 +31,12 @@ public class AbilityGoal extends Goal {
     public boolean canUse() {
         if (!(this.pixie.getOwningPlayer() instanceof ServerPlayer serverPlayer)) return false;
         if (QuestData.get(serverPlayer).getAlignment() != this.pixie.alignment()) return false;
-        if (this.pixie.level().random.nextFloat() > 0.01f) return false;
+        if (this.pixie.getBoredom() >= 5) return false;
+        if (this.pixie.level().random.nextFloat() > 0.005f) return false;
         this.ability = null;
         this.initIfNeeded();
         return this.ability != null;
+
     }
 
     @Override
@@ -62,6 +66,7 @@ public class AbilityGoal extends Goal {
             if (this.ability != null) {
                 if (this.ticksLeft <= 0) {
                     this.pixie.adjustBoredom(1);
+
                     this.ability.perform(this.pixie.level(), this.pixie, this.data);
                     this.stop();
                 } else if (this.ticksLeft == 50) {
@@ -69,7 +74,7 @@ public class AbilityGoal extends Goal {
                 } else if (this.ticksLeft == 45) {
                     Vec3 target = this.ability.target(this.pixie.level(), this.pixie, this.data);
                     if (target != null) {
-                        this.pixie.getNavigation().moveTo(target.x, target.y, target.z, 0.5);
+                        this.pixie.getNavigation().moveTo(target.x, target.y, target.z, 0.2);
                     }
                     this.pixie.setState(Pixie.State.CASTING);
                 } else if (this.ticksLeft <= 40) {

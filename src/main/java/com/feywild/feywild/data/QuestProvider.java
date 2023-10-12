@@ -23,6 +23,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import org.moddingx.libx.crafting.IngredientStack;
 import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.PackTarget;
@@ -57,7 +58,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_01")
                 .parent("root")
                 .icon(Blocks.CHEST)
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.CHEST), 1))
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.CHESTS), 1))
                 .build();
 
         this.quest(SPRING, "quest_02")
@@ -470,10 +471,10 @@ public class QuestProvider implements DataProvider {
                 .reward(QuestReward.of(ItemReward.INSTANCE, new ItemStack(ModItems.teleportationOrb)))
                 .build();
     }
-    
+
     @Nonnull
     @Override
-    public CompletableFuture<?> run(@Nonnull CachedOutput cache)  {
+    public CompletableFuture<?> run(@Nonnull CachedOutput cache) {
         this.setup();
         List<CompletableFuture<?>> futures = new ArrayList<>();
         for (Alignment alignment : this.quests.keySet()) {
@@ -578,7 +579,7 @@ public class QuestProvider implements DataProvider {
         public QuestBuilder startSound(@Nullable FeySound sound) {
             return this.startSound(sound == null ? null : sound.getSoundEvent());
         }
-        
+
         public QuestBuilder startSound(@Nullable SoundEvent sound) {
             this.start = new QuestDisplay(this.start.title, this.start.description, sound);
             return this;

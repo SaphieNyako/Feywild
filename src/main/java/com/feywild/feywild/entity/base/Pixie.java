@@ -50,13 +50,14 @@ import java.util.Random;
 
 public abstract class Pixie extends FlyingFeyBase {
 
-    public static final int MAX_BOREDOM = 40;
-    
+    public static final int MAX_BOREDOM = 5;
+
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
-    
+    public static final EntityDataAccessor<Integer> BOREDOM = SynchedEntityData.defineId(Pixie.class, EntityDataSerializers.INT);
+
     private final Alignment alignment;
-    
-    private int boredom;
+
+    // private int boredom;
     private Ability<?> ability;
 
     protected Pixie(EntityType<? extends Pixie> type, @Nonnull Alignment alignment, Level level) {
@@ -88,6 +89,7 @@ public abstract class Pixie extends FlyingFeyBase {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
+        this.entityData.define(BOREDOM, 0);
     }
 
     @Nonnull
@@ -151,7 +153,7 @@ public abstract class Pixie extends FlyingFeyBase {
             return superResult;
         }
     }
-    
+
     private void interactQuest(ServerPlayer player, InteractionHand hand) {
         QuestData quests = QuestData.get(player);
         if (quests.canComplete(this.alignment)) {
@@ -201,19 +203,23 @@ public abstract class Pixie extends FlyingFeyBase {
     }
 
     public int getBoredom() {
-        return this.boredom;
+        return this.entityData.get(BOREDOM);
     }
 
     public void setBoredom(int boredom) {
-        this.boredom = Mth.clamp(boredom, 0, MAX_BOREDOM);
+        this.entityData.set(BOREDOM, boredom);
     }
 
     public void adjustBoredom(int adjustment) {
-        this.boredom = Mth.clamp(this.boredom + adjustment, 0, MAX_BOREDOM);
+        this.entityData.set(BOREDOM, getBoredom() + adjustment);
+        if (this.getBoredom() >= 5 && getOwningPlayer() != null) {
+            //TODO add different versions
+            this.getOwningPlayer().sendSystemMessage(Component.literal("I'm hungry!"));
+        }
     }
 
     protected abstract Ability<?> getDefaultAbility();
-    
+
     public Ability<?> getAbility() {
         if (this.ability == null) this.ability = this.getDefaultAbility();
         return this.ability;
@@ -222,18 +228,16 @@ public abstract class Pixie extends FlyingFeyBase {
     public void setAbility(Ability<?> ability) {
         this.ability = ability;
     }
-    
+
     @Override
     public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putInt("PixieBoredom", this.boredom);
         NbtX.putResource(nbt, "PixieAbility", this.getAbility().id());
     }
 
     @Override
     public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        this.setBoredom(nbt.getInt("PixieBoredom"));
         this.setAbility(Ability.get(NbtX.getResource(nbt, "PixieAbility"), this.getDefaultAbility()));
     }
 
@@ -241,18 +245,18 @@ public abstract class Pixie extends FlyingFeyBase {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, event -> {
             if (!this.dead && !this.isDeadOrDying()) {
-                 if (this.getState() == State.CASTING) {
-                     event.getController().setAnimation(RawAnimation.begin().thenLoop("spellcasting"));
-                     return PlayState.CONTINUE;
-                 }
-             }
+                if (this.getState() == State.CASTING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenLoop("spellcasting"));
+                    return PlayState.CONTINUE;
+                }
+            }
 
-             if (event.isMoving()) {
-                 event.getController().setAnimation(RawAnimation.begin().thenLoop("fly"));
-             } else {
-                 event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
-             }
-             return PlayState.CONTINUE;
+            if (event.isMoving()) {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("fly"));
+            } else {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("idle"));
+            }
+            return PlayState.CONTINUE;
         }));
     }
 

@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "feywild:element_type",
-        "location": "feywild:fey_circle",
+        "location": "feywild:dwarven_forge",
         "processors": "minecraft:empty",
         "projection": "rigid"
       },

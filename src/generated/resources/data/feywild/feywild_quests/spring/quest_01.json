@@ -22,7 +22,7 @@
     {
       "id": "feywild:craft",
       "item": {
-        "item": "minecraft:chest"
+        "tag": "forge:chests"
       }
     }
   ]

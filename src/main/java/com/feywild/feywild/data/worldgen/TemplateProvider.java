@@ -16,7 +16,7 @@ import org.moddingx.libx.datagen.provider.sandbox.TemplateProviderBase;
 public class TemplateProvider extends TemplateProviderBase {
 
     private static final ResourceKey<StructureProcessorList> EMPTY = ResourceKey.create(Registries.PROCESSOR_LIST, new ResourceLocation("minecraft", "empty"));
-    
+
     public final Holder<StructureTemplatePool> blacksmith = this.template().element(this.feywild("blacksmith")).build();
     public final Holder<StructureTemplatePool> library = this.template().element(this.feywild("library")).build();
     public final Holder<StructureTemplatePool> springWorldTree = this.template().element(this.feywild("spring_world_tree")).build();
@@ -24,12 +24,12 @@ public class TemplateProvider extends TemplateProviderBase {
     public final Holder<StructureTemplatePool> autumnWorldTree = this.template().element(this.feywild("autumn_world_tree")).build();
     public final Holder<StructureTemplatePool> winterWorldTree = this.template().element(this.feywild("winter_world_tree")).build();
     public final Holder<StructureTemplatePool> beekeep = this.template().element(this.feywild("beekeep")).build();
-    public final Holder<StructureTemplatePool> feyCircle = this.template().element(this.feywild("fey_circle")).build();
     public final Holder<StructureTemplatePool> feyGeode = this.template().element(this.feywild("fey_geode")).build();
-    
+    public final Holder<StructureTemplatePool> dwarvenForge = this.template().element(this.feywild("dwarven_forge")).build();
+
     @Id("mushroom_houses/start_pool")
     public final Holder<StructureTemplatePool> mushroomHouseStart = this.template().single("mushroom_house_1").build();
-    
+
     @Id("mushroom_houses/side_pool")
     public final Holder<StructureTemplatePool> mushroomHouseSide = this.template()
             .single("mushroom_house_2")
