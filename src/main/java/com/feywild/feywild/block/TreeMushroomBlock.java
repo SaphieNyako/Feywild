@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,6 +49,14 @@ public class TreeMushroomBlock extends BlockBase {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
 
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        if (context.getClickedFace().getAxis() == Direction.Axis.Y) return null;
+        BlockState state = this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getClickedFace());
+        return state.canSurvive(context.getLevel(), context.getClickedPos()) ? state : null;
+    }
+
     @Nonnull
     @Override
     @SuppressWarnings("deprecation")
@@ -54,10 +64,18 @@ public class TreeMushroomBlock extends BlockBase {
         return SHAPE.getShape(state.getValue(BlockStateProperties.HORIZONTAL_FACING));
     }
 
-    @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+    @SuppressWarnings("deprecation")
+    public boolean canSurvive(@Nonnull BlockState state, @Nonnull LevelReader level, @Nonnull BlockPos pos) {
+        Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
+        return level.getBlockState(pos.relative(direction)).isFaceSturdy(level, pos.relative(direction), direction.getOpposite());
+    }
+
+    @Nonnull
+    @Override
+    @SuppressWarnings("deprecation")
+    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction direction, @Nonnull BlockState neighborState, @Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockPos neighborPos) {
+        return state.getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite() == direction && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Nonnull
