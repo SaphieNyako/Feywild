@@ -1,5 +1,6 @@
 package com.feywild.feywild.data;
 
+import com.feywild.feywild.block.FeyAltarBlock;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseSaplingBlock;
 import com.feywild.feywild.item.ReaperScythe;
@@ -34,7 +35,9 @@ public class ItemModelProvider extends ItemModelProviderBase {
         } else if (item == ModBlocks.mandrakeCrop.getSeed()) {
             this.withExistingParent(id.getPath(), GENERATED).texture("layer0", new ResourceLocation(id.getNamespace(), "item/" + id.getPath()));
         } else {
-            super.defaultBlock(id, item);
+            if (!(item.getBlock() instanceof FeyAltarBlock)) {
+                super.defaultBlock(id, item);
+            }
         }
     }
 }

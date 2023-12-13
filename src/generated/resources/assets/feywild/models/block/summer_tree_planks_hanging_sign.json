@@ -1,1 +1,5 @@
-{}
+{
+  "textures": {
+    "particle": "feywild:block/summer_tree_planks"
+  }
+}

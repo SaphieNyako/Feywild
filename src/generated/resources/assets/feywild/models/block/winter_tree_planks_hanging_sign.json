@@ -1,1 +1,5 @@
-{}
+{
+  "textures": {
+    "particle": "feywild:block/winter_tree_planks"
+  }
+}

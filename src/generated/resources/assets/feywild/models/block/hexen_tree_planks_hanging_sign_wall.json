@@ -1,1 +1,5 @@
-{}
+{
+  "textures": {
+    "particle": "feywild:block/hexen_tree_planks"
+  }
+}
