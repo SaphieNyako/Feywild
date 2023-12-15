@@ -110,8 +110,7 @@ public abstract class Pixie extends FlyingFeyBase {
                         this.spawnAtLocation(new ItemStack(ModItems.feyDust));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         this.discard();
-                        //TODO Change message for each court/add voice
-                        player.sendSystemMessage(Component.translatable("message.feywild.pixie.feed"));
+                        player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_feed"));
                     }
                 }
                 if (!player.isCreative()) {

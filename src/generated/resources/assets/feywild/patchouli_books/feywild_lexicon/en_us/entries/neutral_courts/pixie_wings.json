@@ -1,6 +1,6 @@
 {
   "category": "feywild:neutral_courts",
-  "icon": "feywild:fey_wings_shadow{Damage:0}",
+  "icon": "feywild:fey_wings_spring{Damage:0}",
   "name": "feywild_lexicon.entry.feywild.neutral_courts.pixie_wings",
   "pages": [
     {
@@ -9,11 +9,33 @@
     },
     {
       "type": "feywild:fey_altar",
-      "recipe": "feywild:fey_wings_shadow_fey_altar"
+      "recipe": "feywild:fey_wings_spring_fey_altar"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_summer_fey_altar"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_autumn_fey_altar"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_winter_fey_altar"
     },
     {
       "type": "feywild:fey_altar",
       "recipe": "feywild:fey_wings_light_fey_altar"
+    },
+    {
+      "type": "feywild:fey_altar",
+      "recipe": "feywild:fey_wings_shadow_fey_altar"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_dust",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.neutral_courts.pixie_wings.page7.text0"
     }
   ]
 }

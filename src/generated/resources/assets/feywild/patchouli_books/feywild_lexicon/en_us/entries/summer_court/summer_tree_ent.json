@@ -23,13 +23,13 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "feywild:magical_honey_cookie",
+      "item": "minecraft:bone_meal",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent.page4.text0"
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:bone_meal",
+      "item": "feywild:magical_honey_cookie",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.summer_court.summer_tree_ent.page5.text0"
     }

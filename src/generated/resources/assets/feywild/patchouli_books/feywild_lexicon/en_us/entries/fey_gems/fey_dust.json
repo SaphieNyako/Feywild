@@ -9,7 +9,8 @@
     },
     {
       "type": "patchouli:smelting",
-      "recipe": "feywild:smelting/fey_dust"
+      "recipe": "feywild:smelting/fey_dust",
+      "text": "feywild_lexicon.entry.feywild.fey_gems.fey_dust.page1.text0"
     }
   ]
 }

@@ -50,9 +50,13 @@
       "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page7.text0"
     },
     {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page8.text0"
+    },
+    {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_dragon_hunter",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page8.text0"
+      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page9.text0"
     }
   ]
 }

@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "anchor": "alignment",
+      "anchor": "Alignment",
       "text": "feywild_lexicon.entry.feywild.feywild.quest.page1.text0"
     }
   ]
