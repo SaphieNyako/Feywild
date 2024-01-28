@@ -1,11 +1,11 @@
 {
   "category": "feywild:spring_court",
   "icon": "feywild:summoning_scroll_mandragora",
-  "name": "feywild_lexicon.entry.feywild.spring_court.mandragora",
+  "name": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page0.text0"
     },
     {
       "type": "patchouli:entity",
@@ -14,13 +14,13 @@
     {
       "type": "patchouli:crafting",
       "recipe": "feywild:magical_honey_cookie",
-      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:mandrake_crop_seed",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page3.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -28,13 +28,13 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page5.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:magical_honey_cookie",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.spring_court.mandragora.page6.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page6.text0"
     }
   ]
 }

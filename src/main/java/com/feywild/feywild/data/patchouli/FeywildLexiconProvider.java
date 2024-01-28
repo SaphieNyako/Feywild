@@ -5,7 +5,6 @@ import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -17,7 +16,7 @@ import org.moddingx.libx.datagen.provider.patchouli.page.Content;
 public class FeywildLexiconProvider extends PatchouliProviderBase {
 
     public FeywildLexiconProvider(DatagenContext ctx) {
-        super(ctx, new BookProperties("feywild_lexicon", PackType.CLIENT_RESOURCES, true));
+        super(ctx, new BookProperties("feywild_lexicon", true));
     }
 
     /* Missing title entry for patchouli books*/

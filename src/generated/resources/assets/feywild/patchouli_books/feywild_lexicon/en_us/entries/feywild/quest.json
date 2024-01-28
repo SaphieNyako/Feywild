@@ -1,16 +1,16 @@
 {
   "category": "feywild:feywild",
   "icon": "feywild:summoning_scroll_spring_pixie",
-  "name": "feywild_lexicon.entry.feywild.feywild.quest",
+  "name": "feywild_lexicon.entry.feywild.feywild.feywild.quest",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.quest.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.quest.page0.text0"
     },
     {
       "type": "patchouli:text",
       "anchor": "Alignment",
-      "text": "feywild_lexicon.entry.feywild.feywild.quest.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.quest.page1.text0"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "category": "feywild:winter_court",
   "icon": "feywild:soul_shard",
-  "name": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe",
+  "name": "feywild_lexicon.entry.feywild.feywild.winter_court.reaper_scythe",
   "pages": [
     {
       "type": "feywild:fey_altar",
@@ -9,19 +9,19 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.reaper_scythe.page1.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:soul_shard",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.reaper_scythe.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:zombie_head",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.reaper_scythe.page3.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -29,13 +29,13 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.reaper_scythe.page5.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:lesser_fey_gem",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.winter_court.reaper_scythe.page6.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.reaper_scythe.page6.text0"
     }
   ]
 }

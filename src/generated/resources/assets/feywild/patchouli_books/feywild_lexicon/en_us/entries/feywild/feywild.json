@@ -1,19 +1,19 @@
 {
   "category": "feywild:feywild",
   "icon": "feywild:teleportation_orb",
-  "name": "feywild_lexicon.entry.feywild.feywild.feywild",
+  "name": "feywild_lexicon.entry.feywild.feywild.feywild.feywild",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:teleportation_orb",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.feywild.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.feywild.page0.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:pixie_orb",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.feywild.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.feywild.page1.text0"
     }
   ]
 }

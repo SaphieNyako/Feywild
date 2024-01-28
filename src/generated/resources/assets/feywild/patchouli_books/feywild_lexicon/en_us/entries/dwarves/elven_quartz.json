@@ -1,13 +1,13 @@
 {
   "category": "feywild:dwarves",
   "icon": "feywild:raw_elven_quartz",
-  "name": "feywild_lexicon.entry.feywild.dwarves.elven_quartz",
+  "name": "feywild_lexicon.entry.feywild.feywild.dwarves.elven_quartz",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:schematics_elven_quartz",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.dwarves.elven_quartz.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.elven_quartz.page0.text0"
     },
     {
       "type": "feywild:dwarven_anvil",

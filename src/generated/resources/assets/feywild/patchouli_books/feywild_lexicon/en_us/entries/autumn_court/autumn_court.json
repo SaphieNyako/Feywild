@@ -1,15 +1,15 @@
 {
   "category": "feywild:autumn_court",
   "icon": "feywild:autumn_tree_sapling",
-  "name": "feywild_lexicon.entry.feywild.autumn_court.autumn_court",
+  "name": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_court",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_court.page0.text0"
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_court.page1.text0"
     },
     {
       "type": "patchouli:image",
@@ -17,13 +17,13 @@
       "images": [
         "feywild:textures/patchouli_images/autumn_book.png"
       ],
-      "title": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page2.text0"
+      "title": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_court.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:tree_mushroom",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_court.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_court.page3.text0"
     }
   ]
 }

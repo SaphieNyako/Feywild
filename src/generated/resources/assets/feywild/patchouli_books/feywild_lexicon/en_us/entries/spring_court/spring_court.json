@@ -1,15 +1,15 @@
 {
   "category": "feywild:spring_court",
   "icon": "feywild:spring_tree_sapling",
-  "name": "feywild_lexicon.entry.feywild.spring_court.spring_court",
+  "name": "feywild_lexicon.entry.feywild.feywild.spring_court.spring_court",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.spring_court.page0.text0"
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.spring_court.page1.text0"
     },
     {
       "type": "patchouli:image",
@@ -17,13 +17,13 @@
       "images": [
         "feywild:textures/patchouli_images/spring_book.png"
       ],
-      "title": "feywild_lexicon.entry.feywild.spring_court.spring_court.page2.text0"
+      "title": "feywild_lexicon.entry.feywild.feywild.spring_court.spring_court.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:dandelion_seed",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.spring_court.spring_court.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.spring_court.spring_court.page3.text0"
     }
   ]
 }

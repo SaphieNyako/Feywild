@@ -1,7 +1,7 @@
 {
   "category": "feywild:summer_court",
   "icon": "feywild:summoning_scroll_bee_knight",
-  "name": "feywild_lexicon.entry.feywild.summer_court.bee_knight",
+  "name": "feywild_lexicon.entry.feywild.feywild.summer_court.bee_knight",
   "pages": [
     {
       "type": "patchouli:entity",
@@ -9,13 +9,13 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.bee_knight.page1.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:honeycomb",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.bee_knight.page2.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -23,7 +23,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.summer_court.bee_knight.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.bee_knight.page4.text0"
     }
   ]
 }

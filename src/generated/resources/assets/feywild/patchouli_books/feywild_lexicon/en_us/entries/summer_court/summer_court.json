@@ -1,15 +1,15 @@
 {
   "category": "feywild:summer_court",
   "icon": "feywild:summer_tree_sapling",
-  "name": "feywild_lexicon.entry.feywild.summer_court.summer_court",
+  "name": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.summer_court.summer_court.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page0.text0"
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.summer_court.summer_court.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page1.text0"
     },
     {
       "type": "patchouli:image",
@@ -17,13 +17,13 @@
       "images": [
         "feywild:textures/patchouli_images/summer_book.png"
       ],
-      "title": "feywild_lexicon.entry.feywild.summer_court.summer_court.page2.text0"
+      "title": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:sunflower_seed",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.summer_court.summer_court.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page3.text0"
     }
   ]
 }
