@@ -3,6 +3,7 @@ package com.feywild.feywild.entity.goals;
 import com.feywild.feywild.entity.base.ITameable;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -35,11 +36,11 @@ public class FeywildPanicGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canUse() {
-        return this.entity.getLastDamageSource() != null && (!(entity instanceof ITameable tameable) || !tameable.isTamed());
+        return (this.entity.getLastDamageSource() != null && (!(entity instanceof ITameable tameable) || !tameable.isTamed()) || this.entity.getLastDamageSource() == this.entity.damageSources().inWall());
     }
 }

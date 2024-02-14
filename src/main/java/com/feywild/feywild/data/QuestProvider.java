@@ -139,9 +139,11 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FOX))
                 .build();
 
-        //TODO reward Friendship Bracelet
+        //TODO reward Runestone of breeding
 
         /* INTO THE FEYWILD SPRING QUEST */
+
+        //TODO make this not use hardcode strings
 
         this.quest(SPRING, "quest_14")
                 .parent("quest_08")

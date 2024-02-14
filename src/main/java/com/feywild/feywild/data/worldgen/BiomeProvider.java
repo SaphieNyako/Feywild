@@ -25,7 +25,7 @@ public class BiomeProvider extends BiomeProviderBase {
     private final TreeProvider trees = this.context.findRegistryProvider(TreeProvider.class);
     private final PlacementProvider placements = this.context.findRegistryProvider(PlacementProvider.class);
 
-    public final Holder<Biome> springBiome = this.biome(0.5f, 0.7f)
+    public final Holder<Biome> blossomingWealds = this.biome(0.5f, 0.7f)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.HAPPY_VILLAGER, 0.001f)))
             .mobSpawns(this.feySpawns(true, true, Alignment.SPRING, ModEntities.mandragora)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
@@ -51,7 +51,7 @@ public class BiomeProvider extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> summerBiome = this.biome(0.9f, 0)
+    public final Holder<Biome> goldenSeelieFields = this.biome(0.9f, 0)
             .effects(this.effects().ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIT, 0.001f)))
             .mobSpawns(this.feySpawns(false, true, Alignment.SUMMER, ModEntities.beeKnight)
                     .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.botaniaPixie, 60, 2, 4))
@@ -79,7 +79,7 @@ public class BiomeProvider extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> autumnBiome = this.biome(0.5f, 0.9f)
+    public final Holder<Biome> eternalFall = this.biome(0.5f, 0.9f)
             .effects(this.effects()
                     .ambientParticle(new AmbientParticleSettings(ParticleTypes.WITCH, 0.001f))
                     .foliageColorOverride(0x6a7039)
@@ -117,7 +117,7 @@ public class BiomeProvider extends BiomeProviderBase {
             }))
             .build();
 
-    public final Holder<Biome> winterBiome = this.biome(-0.7f, 0.5f)
+    public final Holder<Biome> frozenRetreat = this.biome(-0.7f, 0.5f)
             .frozen()
             .effects(this.effects().fogColor(0xabd0ef).ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.002f)))
             .mobSpawns(this.feySpawns(false, true, Alignment.WINTER)

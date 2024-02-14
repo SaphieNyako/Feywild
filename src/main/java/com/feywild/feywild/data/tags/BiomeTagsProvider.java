@@ -21,22 +21,22 @@ public class BiomeTagsProvider extends TagProviderBase<Biome> {
     @Override
     protected void setup() {
         this.tag(ModBiomeTags.IS_FEYWILD_DIMENSION).add(
-                biomes.springBiome.value(),
-                biomes.summerBiome.value(),
-                biomes.autumnBiome.value(),
-                biomes.winterBiome.value(),
+                biomes.blossomingWealds.value(),
+                biomes.goldenSeelieFields.value(),
+                biomes.eternalFall.value(),
+                biomes.frozenRetreat.value(),
                 biomes.feywildOcean.value()
         );
         
-        this.tag(BiomeTags.IS_FOREST).add(biomes.springBiome.value(), biomes.summerBiome.value(), biomes.autumnBiome.value(), biomes.winterBiome.value());
+        this.tag(BiomeTags.IS_FOREST).add(biomes.blossomingWealds.value(), biomes.goldenSeelieFields.value(), biomes.eternalFall.value(), biomes.frozenRetreat.value());
         this.tag(BiomeTags.IS_OCEAN).add(biomes.feywildOcean.value());
-        this.tag(Tags.Biomes.IS_HOT).add(biomes.summerBiome.value());
-        this.tag(Tags.Biomes.IS_COLD).add(biomes.winterBiome.value());
-        this.tag(Tags.Biomes.IS_MAGICAL).add(biomes.springBiome.value(), biomes.summerBiome.value(), biomes.autumnBiome.value(), biomes.winterBiome.value());
+        this.tag(Tags.Biomes.IS_HOT).add(biomes.goldenSeelieFields.value());
+        this.tag(Tags.Biomes.IS_COLD).add(biomes.frozenRetreat.value());
+        this.tag(Tags.Biomes.IS_MAGICAL).add(biomes.blossomingWealds.value(), biomes.goldenSeelieFields.value(), biomes.eternalFall.value(), biomes.frozenRetreat.value());
         
-        this.tag(ModBiomeTags.IS_SPRING).add(biomes.springBiome.value());
-        this.tag(ModBiomeTags.IS_SUMMER).add(biomes.summerBiome.value());
-        this.tag(ModBiomeTags.IS_AUTUMN).add(biomes.autumnBiome.value());
-        this.tag(ModBiomeTags.IS_WINTER).add(biomes.winterBiome.value());
+        this.tag(ModBiomeTags.IS_SPRING).add(biomes.blossomingWealds.value());
+        this.tag(ModBiomeTags.IS_SUMMER).add(biomes.goldenSeelieFields.value());
+        this.tag(ModBiomeTags.IS_AUTUMN).add(biomes.eternalFall.value());
+        this.tag(ModBiomeTags.IS_WINTER).add(biomes.frozenRetreat.value());
     }
 }

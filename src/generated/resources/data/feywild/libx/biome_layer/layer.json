@@ -1,7 +1,7 @@
 {
   "biomes": [
     {
-      "biome": "feywild:spring_biome",
+      "biome": "feywild:blossoming_wealds",
       "parameters": {
         "continentalness": [
           -0.18,
@@ -31,7 +31,7 @@
       }
     },
     {
-      "biome": "feywild:summer_biome",
+      "biome": "feywild:golden_seelie_fields",
       "parameters": {
         "continentalness": [
           -0.18,
@@ -61,7 +61,7 @@
       }
     },
     {
-      "biome": "feywild:autumn_biome",
+      "biome": "feywild:eternal_fall",
       "parameters": {
         "continentalness": [
           -0.18,
@@ -91,7 +91,7 @@
       }
     },
     {
-      "biome": "feywild:winter_biome",
+      "biome": "feywild:frozen_retreat",
       "parameters": {
         "continentalness": [
           -0.18,

@@ -83,8 +83,8 @@ import javax.annotation.Nonnull;
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
+    public static final String MODID = "feywild";
     public static final Logger logger = LoggerFactory.getLogger("feywild");
-    
     private static FeywildMod instance;
     private static FeywildNetwork network;
     private static FeywildTab tab;
