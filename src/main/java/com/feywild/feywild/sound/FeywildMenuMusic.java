@@ -15,11 +15,11 @@ public class FeywildMenuMusic {
 
     public static void playSound(PlaySoundEvent event) {
         if (ClientConfig.replace_menu && event.getSound() != null && event.getSound().canPlaySound()) {
-            if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.getLocation())) {
-                handleSoundReplace(ModSoundEvents.musicMenu, event);
-            } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.getLocation())) {
+            if (event.getSound().getLocation().equals(SoundEvents.MUSIC_MENU.key().location())) {
+                handleSoundReplace(ModSoundEvents.musicMenu.getSoundEvent(), event);
+            } else if (event.getSound().getLocation().equals(SoundEvents.MUSIC_CREATIVE.key().location())) {
                 if (Math.random() < 0.2f) {
-                    handleSoundReplace(ModSoundEvents.musicCreative, event);
+                    handleSoundReplace(ModSoundEvents.musicCreative.getSoundEvent(), event);
                 }
             }
         }

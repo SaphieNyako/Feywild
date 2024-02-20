@@ -1,9 +1,9 @@
 package com.feywild.feywild.entity.goals.tree_ent;
 
-import com.feywild.feywild.entity.base.TreeEntBase;
+import com.feywild.feywild.entity.base.TreeEnt;
 import net.minecraft.world.entity.ai.goal.Goal;
 
-public class TreeEntResetTargetGoal<T extends TreeEntBase> extends Goal {
+public class TreeEntResetTargetGoal<T extends TreeEnt> extends Goal {
 
     private final T entity;
 
@@ -11,12 +11,12 @@ public class TreeEntResetTargetGoal<T extends TreeEntBase> extends Goal {
         this.entity = entity;
     }
 
-
     @Override
     public boolean canUse() {
-        return this.entity.level.random.nextFloat() < 0.05f;
+        return this.entity.level().random.nextFloat() < 0.05f;
     }
 
+    @Override
     public void start() {
         this.entity.stopBeingAngry();
     }

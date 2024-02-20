@@ -46,5 +46,6 @@
       "inventory_changed",
       "inventory_changed2"
     ]
-  ]
+  ],
+  "sends_telemetry_event": false
 }

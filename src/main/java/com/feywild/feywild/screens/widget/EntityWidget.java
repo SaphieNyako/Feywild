@@ -1,7 +1,7 @@
 package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.entity.ModEntities;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -24,21 +24,21 @@ public class EntityWidget extends AbstractWidget {
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+    public void renderWidget(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         double scale = ((this.height) / this.entity.getType().getHeight()) * scale(this.entity.getType());
-        InventoryScreen.renderEntityInInventory(this.x + (this.width / 2), this.y + this.height + (int) (scale * offset(this.entity.getType()) / 85), (int) scale, -(mouseX - this.x - (this.width / 2f)),  -(mouseY - this.y - (this.height / 2f)), this.entity);
-    }
-
-    @Override
-    public void updateNarration(@Nonnull NarrationElementOutput output) {
-        //
+        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                graphics,
+                this.getX() + (this.width / 2),
+                this.getY() + this.height + (int) (scale * offset(this.entity.getType()) / 85),
+                (int) scale,
+                -(mouseX - this.getX() - (this.width / 2f)),
+                -(mouseY - this.getY() - (this.height / 2f)),
+                this.entity
+        );
     }
     
     private static int offset(EntityType<?> type) {
-        // Pixies have a lot of empty space below them that is part of their hitbox
-        // Move them down a bit
-        if (type == ModEntities.springPixie || type == ModEntities.summerPixie || type == ModEntities.autumnPixie
-                || type == ModEntities.winterPixie) {
+        if (type == ModEntities.springPixie || type == ModEntities.summerPixie || type == ModEntities.autumnPixie || type == ModEntities.winterPixie) {
             return 48;
         } else {
             return 0;
@@ -46,13 +46,15 @@ public class EntityWidget extends AbstractWidget {
     }
     
     private static double scale(EntityType<?> type) {
-        // Pixies have a lot of empty space below them that is part of their hitbox
-        // Make them a bit bigger
-        if (type == ModEntities.springPixie || type == ModEntities.summerPixie || type == ModEntities.autumnPixie
-                || type == ModEntities.winterPixie) {
-            return 1.8;
+        if (type == ModEntities.springPixie || type == ModEntities.summerPixie || type == ModEntities.autumnPixie || type == ModEntities.winterPixie) {
+            return 1.5;
         } else {
             return 1;
         }
+    }
+
+    @Override
+    protected void updateWidgetNarration(@Nonnull NarrationElementOutput output) {
+        
     }
 }

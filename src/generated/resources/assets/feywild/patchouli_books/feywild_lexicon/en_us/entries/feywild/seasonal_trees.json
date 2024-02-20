@@ -1,19 +1,13 @@
 {
   "category": "feywild:feywild",
   "icon": "feywild:autumn_tree_sapling",
-  "name": "feywild_lexicon.entry.feywild.feywild.seasonal_trees",
+  "name": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees",
   "pages": [
-    {
-      "type": "patchouli:spotlight",
-      "item": "feywild:fey_dust",
-      "link_recipe": false,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page0.text0"
-    },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:spring_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page0.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -28,7 +22,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:summer_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page3.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -43,7 +37,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:autumn_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page7.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page6.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -58,7 +52,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:winter_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page10.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page9.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -73,7 +67,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:hexen_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page13.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page12.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -84,7 +78,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:blossom_tree_sapling",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page15.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page14.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -93,9 +87,15 @@
     },
     {
       "type": "patchouli:spotlight",
+      "item": "feywild:fey_dust",
+      "link_recipe": false,
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page16.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
       "item": "feywild:blossom_tree_cracked_log",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.seasonal_trees.page17.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.seasonal_trees.page17.text0"
     }
   ]
 }

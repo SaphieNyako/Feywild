@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import org.moddingx.libx.crafting.CraftingHelper2;
+import org.moddingx.libx.crafting.RecipeHelper;
 
 public class ItemReward implements RewardType<ItemStack> {
 
@@ -32,7 +32,7 @@ public class ItemReward implements RewardType<ItemStack> {
     @Override
     public JsonObject toJson(ItemStack element) {
         JsonObject json = new JsonObject();
-        json.add("item", CraftingHelper2.serializeItemStack(element, true));
+        json.add("item", RecipeHelper.serializeItemStack(element, true));
         return json;
     }
 }

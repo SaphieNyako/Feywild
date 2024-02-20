@@ -2,12 +2,12 @@ package com.feywild.feywild.block.render;
 
 import com.feywild.feywild.block.entity.DisplayGlass;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.moddingx.libx.render.ClientTickHandler;
 
@@ -21,9 +21,9 @@ public class DisplayGlassRenderer implements BlockEntityRenderer<DisplayGlass> {
         if (!stack.isEmpty()) {
             poseStack.pushPose();
             poseStack.translate(0.5, 0.5, 0.5);
-            poseStack.mulPose(Vector3f.YP.rotation((ClientTickHandler.ticksInGame + partialTicks) / 20f));
+            poseStack.mulPose(Axis.YP.rotation((ClientTickHandler.ticksInGame() + partialTicks) / 20f));
             poseStack.scale(0.85f, 0.85f, 0.85f);
-            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, 0);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, tile.getLevel(), 0);
             poseStack.popPose();
         }
     }

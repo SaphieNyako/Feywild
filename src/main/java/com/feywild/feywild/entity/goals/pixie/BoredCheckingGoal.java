@@ -19,7 +19,7 @@ public class BoredCheckingGoal extends Goal {
     }
 
     private boolean isBored() {
-        return this.entity.getBored() < 1;
+        return this.entity.getBoredom() == Pixie.MAX_BOREDOM;
     }
 
     @Override

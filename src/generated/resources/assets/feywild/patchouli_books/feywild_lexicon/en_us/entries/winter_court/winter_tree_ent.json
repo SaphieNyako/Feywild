@@ -1,7 +1,7 @@
 {
   "category": "feywild:winter_court",
   "icon": "feywild:summoning_scroll_winter_tree_ent",
-  "name": "feywild_lexicon.entry.feywild.winter_court.winter_tree_ent",
+  "name": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_tree_ent",
   "pages": [
     {
       "type": "patchouli:entity",
@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.winter_court.winter_tree_ent.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_tree_ent.page1.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -19,13 +19,13 @@
       "type": "patchouli:spotlight",
       "item": "feywild:winter_tree_log",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.winter_court.winter_tree_ent.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_tree_ent.page3.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:bone_meal",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.winter_court.winter_tree_ent.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_tree_ent.page4.text0"
     }
   ]
 }

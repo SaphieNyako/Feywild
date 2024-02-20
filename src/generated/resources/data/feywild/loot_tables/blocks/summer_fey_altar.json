@@ -6,39 +6,21 @@
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
+        },
+        {
+          "block": "feywild:summer_fey_altar",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "half": "lower"
+          }
         }
       ],
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:match_tool",
-                  "predicate": {
-                    "enchantments": [
-                      {
-                        "enchantment": "minecraft:silk_touch",
-                        "levels": {
-                          "min": 1
-                        }
-                      }
-                    ]
-                  }
-                }
-              ],
-              "name": "feywild:summer_fey_altar"
-            },
-            {
-              "type": "minecraft:item",
-              "name": "feywild:summer_fey_altar"
-            }
-          ]
+          "type": "minecraft:item",
+          "name": "feywild:summer_fey_altar"
         }
       ],
-      "name": "main",
       "rolls": 1.0
     }
   ]

@@ -4,7 +4,7 @@
   "texture_size": [32, 32],
   "textures": {
     "0": "feywild:block/tree_mushroom",
-    "particle": "feywild:block/tree_mushroom"
+    "particle": "minecraft:block/red_mushroom"
   },
   "elements": [
     {

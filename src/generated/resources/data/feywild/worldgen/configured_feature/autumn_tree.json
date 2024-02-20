@@ -1,4 +1,20 @@
 {
-  "type": "feywild:autumn_tree",
-  "config": {}
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "feywild:autumn_tree_red_leaves",
+    "features": [
+      {
+        "chance": 0.25,
+        "feature": "feywild:autumn_tree_brown_leaves"
+      },
+      {
+        "chance": 0.33333334,
+        "feature": "feywild:autumn_tree_dark_gray_leaves"
+      },
+      {
+        "chance": 0.5,
+        "feature": "feywild:autumn_tree_light_gray_leaves"
+      }
+    ]
+  }
 }

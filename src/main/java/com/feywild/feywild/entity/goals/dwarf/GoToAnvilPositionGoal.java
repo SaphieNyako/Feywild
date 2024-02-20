@@ -78,7 +78,7 @@ public class GoToAnvilPositionGoal extends MovementRestrictionGoal {
 
     private void init() {
         if (this.tile == null && this.entity.getSummonPos() != null) {
-            BlockEntity tile = this.entity.level.getBlockEntity(this.entity.getSummonPos());
+            BlockEntity tile = this.entity.level().getBlockEntity(this.entity.getSummonPos());
             this.tile = tile instanceof DwarvenAnvil ? (DwarvenAnvil) tile : null;
         }
     }

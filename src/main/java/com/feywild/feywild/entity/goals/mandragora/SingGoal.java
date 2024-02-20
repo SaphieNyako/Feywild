@@ -25,8 +25,7 @@ public class SingGoal extends Goal {
 
     public SingGoal(Mandragora mandragoraEntity) {
         this.entity = mandragoraEntity;
-        this.level = mandragoraEntity.level;
-
+        this.level = mandragoraEntity.level();
     }
 
     @Override
@@ -50,7 +49,7 @@ public class SingGoal extends Goal {
 
             } else if (this.ticksLeft == 100) {
                 this.singing();
-                this.entity.playSound(ModSoundEvents.mandragoraSinging, 1, 1);
+                this.entity.playSound(ModSoundEvents.mandragoraSinging.getSoundEvent(), 1, 1);
             }
         }
     }
@@ -83,7 +82,7 @@ public class SingGoal extends Goal {
     private Player findPlayer() {
         double distance = Double.MAX_VALUE;
         Player current = null;
-        for (Player player : this.entity.level.getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        for (Player player : this.entity.level().getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
             if (this.entity.distanceToSqr(player) < distance) {
                 current = player;
                 distance = this.entity.distanceToSqr(player);

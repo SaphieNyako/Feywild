@@ -11,6 +11,8 @@ import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.tag.ModItemTags;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -31,18 +33,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
-public class Mandragora extends GroundFeyBase implements IAnimatable, ITameable {
+public class Mandragora extends GroundFeyBase implements ITameable {
 
     public static final EntityDataAccessor<Boolean> CASTING = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Mandragora.class, EntityDataSerializers.INT);
@@ -115,6 +115,21 @@ public class Mandragora extends GroundFeyBase implements IAnimatable, ITameable 
         this.entityData.set(CASTING, casting);
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide && this.isCasting()) {
+            if (this.level().random.nextInt(20) == 0 && !Minecraft.getInstance().isPaused()) {
+                this.level().addParticle(ParticleTypes.NOTE,
+                        this.getX() + (Math.random() - 0.5),
+                        this.getY() + 1 + (Math.random() - 0.5),
+                        this.getZ() + (Math.random() - 0.5),
+                        0.917, 0, 0
+                );
+            }
+        }
+    }
+
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
@@ -122,53 +137,35 @@ public class Mandragora extends GroundFeyBase implements IAnimatable, ITameable 
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
             if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                if (!level.isClientSide) {
+                if (!level().isClientSide) {
                     this.heal(4);
                     if (!player.isCreative()) {
                         player.getItemInHand(hand).shrink(1);
                     }
-                    FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
+                    FeywildMod.getNetwork().sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getX(), this.getY(), this.getZ());
                     player.swing(hand, true);
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.sidedSuccess(level().isClientSide);
             } else if (player.getItemInHand(hand).getItem() == ModBlocks.mandrakeCrop.getSeed()) {
-                if (!level.isClientSide) {
-                    Mandragora entity = ModEntities.mandragora.create(level);
+                if (!level().isClientSide) {
+                    Mandragora entity = ModEntities.mandragora.create(level());
                     if (entity != null) {
                         entity.setSummonPos(this.getSummonPos());
                         entity.setPos(position().x, position().y, position().z);
                         entity.setOwner(getOwner());
-                        level.addFreshEntity(entity);
+                        level().addFreshEntity(entity);
                         if (!player.isCreative())
                             player.getItemInHand(hand).shrink(1);
                         remove(Entity.RemovalReason.DISCARDED);
                     }
                 }
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.sidedSuccess(level().isClientSide);
             } else {
                 return InteractionResult.PASS;
             }
         } else {
             return superResult;
         }
-    }
-
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (this.isCasting() && !(this.dead || this.isDeadOrDying())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.sing", false));
-            return PlayState.CONTINUE;
-        }
-        if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.idle", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.mandragora.walk", true));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
     }
 
     @Override
@@ -179,19 +176,35 @@ public class Mandragora extends GroundFeyBase implements IAnimatable, ITameable 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
-        return ModSoundEvents.mandragoraHurt;
+        return ModSoundEvents.mandragoraHurt.getSoundEvent();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.mandragoraDeath;
+        return ModSoundEvents.mandragoraDeath.getSoundEvent();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.random.nextBoolean() ? ModSoundEvents.mandragoraAmbience : null;
+        return this.random.nextBoolean() ? ModSoundEvents.mandragoraAmbience.getSoundEvent() : null;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            if (this.isCasting() && !(this.dead || this.isDeadOrDying())) {
+                event.getController().setAnimation(RawAnimation.begin().thenPlay("animation.mandragora.sing"));
+                return PlayState.CONTINUE;
+            }
+            if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.mandragora.idle"));
+            } else {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.mandragora.walk"));
+            }
+            return PlayState.CONTINUE;
+        }));
     }
 
     public enum MandragoraVariant {

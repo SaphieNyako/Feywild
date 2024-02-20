@@ -1,6 +1,6 @@
 {
-  "description": "feywild_lexicon.category.feywild.neutral_courts.description",
+  "description": "feywild_lexicon.category.feywild.feywild.neutral_courts.description",
   "icon": "feywild:summoning_scroll_hexen_tree_ent",
-  "name": "feywild_lexicon.category.feywild.neutral_courts.name",
+  "name": "feywild_lexicon.category.feywild.feywild.neutral_courts.name",
   "sortnum": 6
 }

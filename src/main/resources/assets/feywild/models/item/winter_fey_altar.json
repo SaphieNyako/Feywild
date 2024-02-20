@@ -1,0 +1,12 @@
+{
+  "parent": "forge:item/default",
+  "base": {
+    "parent": "feywild:block/winter_fey_altar"
+  },
+  "loader": "forge:separate_transforms",
+  "perspectives": {
+    "gui": {
+      "parent": "feywild:item/winter_fey_altar_inventory"
+    }
+  }
+}

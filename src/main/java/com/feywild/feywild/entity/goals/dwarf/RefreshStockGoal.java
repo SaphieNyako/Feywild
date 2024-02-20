@@ -18,7 +18,7 @@ public class RefreshStockGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.level.isNight();
+        return this.entity.level().isNight();
     }
 
     @Override
@@ -28,4 +28,3 @@ public class RefreshStockGoal extends Goal {
         }
     }
 }
-

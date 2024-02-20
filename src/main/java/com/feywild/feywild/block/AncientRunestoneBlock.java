@@ -10,9 +10,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,7 +28,7 @@ public class AncientRunestoneBlock extends BlockBE<AncientRunestone> {
     public static final ResourceLocation NIDAVELLIR_RUNE = new ResourceLocation("mythicbotany", "nidavellir_rune");
 
     public AncientRunestoneBlock(ModX mod) {
-        super(mod, AncientRunestone.class, BlockBehaviour.Properties.of(Material.STONE).strength(-1.0F, 3600000).noLootTable());
+        super(mod, AncientRunestone.class, BlockBehaviour.Properties.copy(Blocks.STONE).strength(-1.0F, 3600000).noLootTable());
     }
 
     @Override

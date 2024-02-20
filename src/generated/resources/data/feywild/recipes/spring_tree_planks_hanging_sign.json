@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "feywild:spring_tree_stripped_log"
+    },
+    "s": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "s s",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 6,
+    "item": "feywild:spring_tree_planks_hanging_sign"
+  },
+  "show_notification": true
+}

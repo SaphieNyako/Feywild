@@ -1,17 +1,14 @@
 package com.feywild.feywild.data.loot;
 
 import com.feywild.feywild.item.ModItems;
-import net.minecraft.data.DataGenerator;
-import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.loot.ChestLootProviderBase;
-import org.moddingx.libx.mod.ModX;
 
-@Datagen
 @SuppressWarnings("unchecked")
 public class ChestLootProvider extends ChestLootProviderBase {
 
-    public ChestLootProvider(ModX mod, DataGenerator generator) {
-        super(mod, generator);
+    public ChestLootProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @Override

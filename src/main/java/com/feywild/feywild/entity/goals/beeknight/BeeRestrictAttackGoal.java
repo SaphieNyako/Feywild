@@ -49,5 +49,4 @@ public class BeeRestrictAttackGoal extends MeleeAttackGoal {
     public boolean canContinueToUse() {
         return beeKnight.isAngry() && beeKnight.getTarget() != null && !beeKnight.getTarget().isDeadOrDying();
     }
-
 }

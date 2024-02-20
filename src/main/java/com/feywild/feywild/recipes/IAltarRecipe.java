@@ -1,6 +1,7 @@
 package com.feywild.feywild.recipes;
 
 import com.feywild.feywild.block.ModBlocks;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -24,11 +25,6 @@ public interface IAltarRecipe extends Recipe<Container> {
         return true;
     }
 
-    @Override
-    default boolean isSpecial() {
-        return false;
-    }
-
     @Nonnull
     @Override
     default ItemStack getToastSymbol() {
@@ -43,13 +39,5 @@ public interface IAltarRecipe extends Recipe<Container> {
         return false;
     }
 
-    // Again we don't use vanilla inventories
-    @Nonnull
-    @Override
-    @Deprecated
-    default ItemStack assemble(@Nonnull Container container) {
-        return this.getResultItem();
-    }
-
-    Optional<ItemStack> getResult(List<ItemStack> inputs);
+    Optional<ItemStack> getResult(RegistryAccess registries, List<ItemStack> inputs);
 }

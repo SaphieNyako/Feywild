@@ -4,7 +4,7 @@ package com.feywild.feywild.particles;
 import net.minecraft.core.particles.SimpleParticleType;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 
-@RegisterClass(registry = "PARTICLE_TYPE_REGISTRY")
+@RegisterClass(registry = "PARTICLE_TYPE")
 public class ModParticles {
 
     public static final SimpleParticleType autumnLeafParticle = new SimpleParticleType(true);

@@ -1,10 +1,10 @@
 {
   "values": [
+    "feywild:autumn_tree_planks_door",
+    "feywild:blossom_tree_planks_door",
+    "feywild:hexen_tree_planks_door",
     "feywild:spring_tree_planks_door",
     "feywild:summer_tree_planks_door",
-    "feywild:autumn_tree_planks_door",
-    "feywild:winter_tree_planks_door",
-    "feywild:blossom_tree_planks_door",
-    "feywild:hexen_tree_planks_door"
+    "feywild:winter_tree_planks_door"
   ]
 }

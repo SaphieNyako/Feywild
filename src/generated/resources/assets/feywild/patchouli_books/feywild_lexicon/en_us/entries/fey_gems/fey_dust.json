@@ -1,15 +1,16 @@
 {
   "category": "feywild:fey_gems",
   "icon": "feywild:fey_dust",
-  "name": "feywild_lexicon.entry.feywild.fey_gems.fey_dust",
+  "name": "feywild_lexicon.entry.feywild.feywild.fey_gems.fey_dust",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.fey_gems.fey_dust.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.fey_gems.fey_dust.page0.text0"
     },
     {
       "type": "patchouli:smelting",
-      "recipe": "feywild:smelting/fey_dust"
+      "recipe": "feywild:smelting/fey_dust",
+      "text": "feywild_lexicon.entry.feywild.feywild.fey_gems.fey_dust.page1.text0"
     }
   ]
 }

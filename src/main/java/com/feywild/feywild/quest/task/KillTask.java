@@ -5,13 +5,19 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class KillTask extends RegistryTaskType<EntityType<?>, Entity> {
 
     public static final KillTask INSTANCE = new KillTask();
 
     private KillTask() {
-        super("entity", ForgeRegistries.ENTITY_TYPES);
+        super("entity");
+    }
+
+    @Override
+    public IForgeRegistry<EntityType<?>> registry() {
+        return ForgeRegistries.ENTITY_TYPES;
     }
 
     @Override

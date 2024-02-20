@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import org.moddingx.libx.crafting.CraftingHelper2;
+import org.moddingx.libx.crafting.RecipeHelper;
 import org.moddingx.libx.datagen.provider.recipe.RecipeExtension;
 
 import javax.annotation.Nonnull;
@@ -71,7 +71,7 @@ public interface AltarExtension extends RecipeExtension {
 
                 @Override
                 public void serializeRecipeData(@Nonnull JsonObject json) {
-                    json.add("output", CraftingHelper2.serializeItemStack(AltarRecipeBuilder.this.result, true));
+                    json.add("output", RecipeHelper.serializeItemStack(AltarRecipeBuilder.this.result, true));
                     JsonArray inputList = new JsonArray();
                     AltarRecipeBuilder.this.inputs.forEach(i -> inputList.add(i.toJson()));
                     json.add("ingredients", inputList);

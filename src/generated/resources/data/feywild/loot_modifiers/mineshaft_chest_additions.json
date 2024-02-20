@@ -1,5 +1,5 @@
 {
-  "type": "feywild:addition",
+  "type": "libx:addition",
   "conditions": [
     {
       "condition": "forge:loot_table_id",

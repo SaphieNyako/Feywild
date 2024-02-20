@@ -15,11 +15,14 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class Trader extends AbstractVillager implements ReputationEventHandler {
+public abstract class Trader extends AbstractVillager implements ReputationEventHandler, GeoEntity {
 
     private int villagerXp;
     private int updateMerchantTimer;
@@ -49,7 +52,7 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
         }
 
         if (offer.shouldRewardExp()) {
-            this.level.addFreshEntity(new ExperienceOrb(this.level, this.getX(), this.getY() + 0.5D, this.getZ(), i));
+            this.level().addFreshEntity(new ExperienceOrb(this.level(), this.getX(), this.getY() + 0.5D, this.getZ(), i));
         }
     }
 
@@ -133,6 +136,11 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
         return true;
     }
 
+    @Override
+    public boolean isPersistenceRequired() {
+        return this.getVillagerXp() > 0 || super.isPersistenceRequired();
+    }
+
     public void restock() {
         this.updateDemand();
 
@@ -140,7 +148,7 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
             merchantoffer.resetUses();
         }
 
-        this.lastRestockGameTime = this.level.getGameTime();
+        this.lastRestockGameTime = this.level().getGameTime();
         this.numberOfRestocksToday++;
     }
 
@@ -154,20 +162,20 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
     }
 
     private boolean allowedToRestock() {
-        return this.numberOfRestocksToday == 0 || (this.numberOfRestocksToday < 2 && this.level.getGameTime() > this.lastRestockGameTime + 2400);
+        return this.numberOfRestocksToday == 0 || (this.numberOfRestocksToday < 2 && this.level().getGameTime() > this.lastRestockGameTime + 2400);
     }
 
     public boolean shouldRestock() {
-        boolean timeForRestock = this.level.getGameTime() > this.lastRestockGameTime + 12000L;
+        boolean timeForRestock = this.level().getGameTime() > this.lastRestockGameTime + 12000L;
         if (this.lastRestockCheckDayTime > 0 && !timeForRestock) {
             long lastRestockDay = this.lastRestockCheckDayTime / 24000;
-            long currentRestockDay = this.level.getDayTime() / 24000;
+            long currentRestockDay = this.level().getDayTime() / 24000;
             if (currentRestockDay > lastRestockDay) timeForRestock = true;
         }
 
-        this.lastRestockCheckDayTime = this.level.getDayTime();
+        this.lastRestockCheckDayTime = this.level().getDayTime();
         if (timeForRestock) {
-            this.lastRestockGameTime = this.level.getGameTime();
+            this.lastRestockGameTime = this.level().getGameTime();
             this.resetNumberOfRestocks();
         }
 
@@ -196,5 +204,12 @@ public abstract class Trader extends AbstractVillager implements ReputationEvent
     private void resetNumberOfRestocks() {
         this.catchUpDemand();
         this.numberOfRestocksToday = 0;
+    }
+
+    private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return animationCache;
     }
 }

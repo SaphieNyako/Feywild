@@ -2,11 +2,9 @@ package com.feywild.feywild.screens.widget;
 
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.quest.Alignment;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -42,23 +40,13 @@ public class BackgroundWidget extends AbstractWidget {
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
-
-        RenderSystem.setShaderTexture(0, TEXTURES1.get(this.alignment));
-        this.blit(poseStack, this.x, this.y, 0, 0, 240, HEIGHT);
-        RenderSystem.setShaderTexture(0, TEXTURES2.get(this.alignment));
-        this.blit(poseStack, this.x + 240, this.y, 0, 0, WIDTH - 240, HEIGHT);
-        
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
+    public void renderWidget(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        graphics.blit(TEXTURES1.get(this.alignment), this.getX(), this.getY(), 0, 0, 240, HEIGHT);
+        graphics.blit(TEXTURES2.get(this.alignment), this.getX() + 240, this.getY(), 0, 0, WIDTH - 240, HEIGHT);
     }
 
     @Override
-    public void updateNarration(@Nonnull NarrationElementOutput output) {
+    protected void updateWidgetNarration(@Nonnull NarrationElementOutput output) {
         //
     }
 }

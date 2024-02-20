@@ -33,16 +33,14 @@ public class LoreMaster extends Villager {
 
     public static boolean canSpawn(EntityType<? extends LoreMaster> entityType, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.DIRT).contains(level.getBlockState(pos.below()).getBlock()) || Objects.requireNonNull(ForgeRegistries.BLOCKS.tags()).getTag(BlockTags.SAND).contains(level.getBlockState(pos.below()).getBlock());
-
     }
 
     @Nonnull
     @Override
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 vec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, vec, hand);
-        Level level = player.getLevel();
+        Level level = player.level();
         if (superResult == InteractionResult.PASS) {
-
             if (!level.isClientSide && player instanceof ServerPlayer) {
                 QuestData.get((ServerPlayer) player).checkComplete(AnimalPetTask.INSTANCE, this);
                 player.sendSystemMessage(Component.translatable("librarian.feywild.initial"));

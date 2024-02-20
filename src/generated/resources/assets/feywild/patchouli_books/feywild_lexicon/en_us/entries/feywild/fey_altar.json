@@ -1,11 +1,11 @@
 {
   "category": "feywild:feywild",
   "icon": "feywild:summer_fey_altar",
-  "name": "feywild_lexicon.entry.feywild.feywild.fey_altar",
+  "name": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.fey_altar.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar.page0.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -15,7 +15,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "feywild:autumn_fey_altar",
-      "text": "feywild_lexicon.entry.feywild.feywild.fey_altar.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar.page2.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -26,7 +26,7 @@
       "type": "patchouli:spotlight",
       "item": "feywild:mandrake_crop_seed",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.fey_altar.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar.page4.text0"
     }
   ]
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "feywild:summer_tree_wood"
@@ -12,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "feywild:summer_tree_wood_wall"
-  }
+  },
+  "show_notification": true
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "a": {
       "item": "feywild:honeycomb"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "feywild:magical_honey_cookie"
-  }
+  },
+  "show_notification": true
 }

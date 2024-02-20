@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "feywild:block/blossom_tree_white_leaves"
+      },
+      {
+        "model": "feywild:block/blossom_tree_white_leaves_02"
+      }
+    ]
+  }
+}

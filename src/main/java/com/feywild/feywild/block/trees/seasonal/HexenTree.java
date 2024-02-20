@@ -4,33 +4,42 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.block.trees.FeyLeavesBlock;
 import com.feywild.feywild.particles.ModParticles;
-import com.feywild.feywild.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.registration.RegistrationContext;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Random;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.List;
 
 public class HexenTree extends BaseTree {
+
+    private final FeyLeavesBlock blackLeaves;
+    private final FeyLeavesBlock purpleLeaves;
+
     public HexenTree(ModX mod) {
         super(mod);
+        this.blackLeaves = new FeyLeavesBlock(ModParticles.hexenLeafParticle, 14);
+        this.purpleLeaves = new FeyLeavesBlock(ModParticles.hexenLeafParticle, 14);
     }
 
-    private static BlockState getDecorationBlock(RandomSource random) {
-        return switch (random.nextInt(20)) {
-            case 0 -> Blocks.PUMPKIN.defaultBlockState();
-            case 1 -> Blocks.CARVED_PUMPKIN.defaultBlockState();
-            case 2 -> ModBlocks.feyMushroom.defaultBlockState();
-            default -> Blocks.FERN.defaultBlockState();
-        };
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
+        super.registerAdditional(ctx, builder);
+        builder.registerNamed(Registries.BLOCK, "black_leaves", this.blackLeaves);
+        builder.registerNamed(Registries.BLOCK, "purple_leaves", this.purpleLeaves);
+    }
+
+    @Override
+    public List<Block> getAllLeaves() {
+        return List.of(this.blackLeaves, this.purpleLeaves);
     }
 
     @Override
@@ -41,22 +50,16 @@ public class HexenTree extends BaseTree {
     }
 
     @Override
-    public FeyLeavesBlock getLeafBlock() {
-        Random random = new Random();
-        return switch (random.nextInt(2)) {
-            case 0 -> ModBlocks.hexBlackLeaves;
-            default -> ModBlocks.hexPurpleLeaves;
-        };
-    }
-
-    @Override
     public SimpleParticleType getParticle() {
         return ModParticles.winterSparkleParticle;
     }
 
-    @Nullable
-    @Override
-    public Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(@Nonnull RandomSource random, boolean largeHive) {
-        return ModConfiguredFeatures.HEXEN_TREE;
+    private static BlockState getDecorationBlock(RandomSource random) {
+        return switch (random.nextInt(20)) {
+            case 0 -> Blocks.PUMPKIN.defaultBlockState();
+            case 1 -> Blocks.CARVED_PUMPKIN.defaultBlockState();
+            case 2 -> ModBlocks.feyMushroom.defaultBlockState();
+            default -> Blocks.FERN.defaultBlockState();
+        };
     }
 }

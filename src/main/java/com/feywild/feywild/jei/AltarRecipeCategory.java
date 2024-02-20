@@ -11,16 +11,18 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
 
     public final static RecipeType<AltarRecipe> TYPE = RecipeType.create(FeywildMod.getInstance().modid, "altar", AltarRecipe.class);
-    public final static ResourceLocation TEXTURE = new ResourceLocation(FeywildMod.getInstance().modid, "textures/gui/fey_altar_jei.png");
+    public final static ResourceLocation TEXTURE = FeywildMod.getInstance().resource("textures/gui/fey_altar_jei.png");
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -39,7 +41,7 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
     @Nonnull
     @Override
     public Component getTitle() {
-        return Component.translatable("Fey Altar");
+        return Component.translatable("block.feywild.fey_altar");
     }
 
     @Nonnull
@@ -64,6 +66,6 @@ public class AltarRecipeCategory implements IRecipeCategory<AltarRecipe> {
             int z = (int) Math.round(46 + yd - 8);
             builder.addSlot(RecipeIngredientRole.INPUT, x, z).addIngredients(recipe.getIngredients().get(i));
         }
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 36, 38).addItemStack(recipe.getResultItem());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 36, 38).addItemStack(recipe.getResultItem(Objects.requireNonNull(Minecraft.getInstance().level).registryAccess()));
     }
 }

@@ -30,8 +30,7 @@ public class SparkleParticle extends TextureSheetParticle {
             return particle;
         };
     }
-
-
+    
     @Nonnull
     @Override
     public ParticleRenderType getRenderType() {

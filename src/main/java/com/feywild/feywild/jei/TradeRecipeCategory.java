@@ -3,7 +3,6 @@ package com.feywild.feywild.jei;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.trade.recipe.TradeRecipe;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -15,6 +14,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -74,19 +74,19 @@ public class TradeRecipeCategory implements IRecipeCategory<TradeRecipe> {
     }
 
     @Override
-    public void draw(@Nonnull TradeRecipe recipe, @Nonnull IRecipeSlotsView slots, @Nonnull PoseStack poseStack, double mouseX, double mouseY) {
+    public void draw(@Nonnull TradeRecipe recipe, @Nonnull IRecipeSlotsView slots, @Nonnull GuiGraphics graphics, double mouseX, double mouseY) {
         Font font = Minecraft.getInstance().font;
         int textX = 89 - (font.width(recipe.id.getPath()) / 2);
-        font.drawShadow(poseStack, getText(recipe.id.getPath()), textX, 3, 0xFFFFFF);
+        graphics.drawString(font, getText(recipe.id.getPath()), textX, 3, 0xFFFFFF, true);
         Component levelText = Component.translatable("jei.trades.level", recipe.level);
-        font.drawShadow(poseStack, levelText, textX, 14, 0xFFFFFF);
+        graphics.drawString(font, levelText, textX, 14, 0xFFFFFF, true);
         for (int i = 0; i < recipe.trades.size(); i++) {
             int xOff = recipe.trades.size() <= 8 ? 42 : (i / 8) * 93;
             int yOff = 26 + (20 * (i % 8));
-            slot.draw(poseStack, xOff + 1, yOff);
-            slot.draw(poseStack, xOff + 21, yOff);
-            slot.draw(poseStack, xOff + 67, yOff);
-            rightArrow.draw(poseStack, xOff + 41, yOff + 1);
+            slot.draw(graphics, xOff + 1, yOff);
+            slot.draw(graphics, xOff + 21, yOff);
+            slot.draw(graphics, xOff + 67, yOff);
+            rightArrow.draw(graphics, xOff + 41, yOff + 1);
         }
     }
 

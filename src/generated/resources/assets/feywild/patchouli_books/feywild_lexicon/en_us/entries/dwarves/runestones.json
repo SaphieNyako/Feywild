@@ -1,13 +1,13 @@
 {
   "category": "feywild:dwarves",
   "icon": "feywild:rune_of_autumn",
-  "name": "feywild_lexicon.entry.feywild.dwarves.runestones",
+  "name": "feywild_lexicon.entry.feywild.feywild.dwarves.runestones",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:schematics_runestones",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.dwarves.runestones.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.runestones.page0.text0"
     },
     {
       "type": "feywild:dwarven_anvil",
@@ -19,7 +19,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.dwarves.runestones.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.runestones.page3.text0"
     },
     {
       "type": "feywild:dwarven_anvil",
@@ -27,7 +27,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.dwarves.runestones.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.runestones.page5.text0"
     },
     {
       "type": "feywild:dwarven_anvil",
@@ -35,7 +35,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.dwarves.runestones.page7.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.runestones.page7.text0"
     },
     {
       "type": "feywild:dwarven_anvil",
@@ -43,7 +43,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.dwarves.runestones.page9.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.runestones.page9.text0"
     }
   ]
 }

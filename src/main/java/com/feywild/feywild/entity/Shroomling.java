@@ -29,18 +29,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
-public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable {
+public class Shroomling extends GroundFeyBase implements ITameable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Shroomling.class, EntityDataSerializers.INT);
 
@@ -102,34 +100,26 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        // if (superResult == InteractionResult.PASS) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (ComposterBlock.COMPOSTABLES.containsKey(itemstack.getItem()) && player.getGameProfile().getId().equals(this.getOwner())
                 && !player.getItemInHand(hand).is(ModItemTags.COOKIES)
                 && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-            // if (!level.isClientSide) {
             if (!player.isCreative()) {
                 player.getItemInHand(hand).shrink(1);
             }
-            FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
+            FeywildMod.getNetwork().sendParticles(this.level(), ParticleMessage.Type.CROPS_GROW, this.getX(), this.getY(), this.getZ());
             player.swing(hand, true);
             this.spawnAtLocation(new ItemStack(Items.BONE_MEAL));
             this.playSound(SoundEvents.COMPOSTER_READY, 1, 0.6f);
-
-            //  }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else if (player.getItemInHand(hand).is(ModItemTags.COOKIES) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-            //   if (!level.isClientSide) {
             this.heal(4);
             if (!player.isCreative()) {
                 player.getItemInHand(hand).shrink(1);
             }
-            FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
+            FeywildMod.getNetwork().sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
             player.swing(hand, true);
-            //   }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
-            //   }
-            //   return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return superResult;
         }
@@ -138,43 +128,41 @@ public class Shroomling extends GroundFeyBase implements IAnimatable, ITameable 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn) {
-        return ModSoundEvents.shroomlingHurt;
+        return ModSoundEvents.shroomlingHurt.getSoundEvent();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.shroomlingDeath;
+        return ModSoundEvents.shroomlingDeath.getSoundEvent();
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.random.nextBoolean() ? ModSoundEvents.shroomlingAmbience : null;
+        return this.random.nextBoolean() ? ModSoundEvents.shroomlingAmbience.getSoundEvent() : null;
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
-    }
-
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (!this.dead && !this.isDeadOrDying()) {
-            if (this.getState() == State.WAVING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.shroomling.wave", false));
-                return PlayState.CONTINUE;
-            } else if (this.getState() == State.SNEEZING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.shroomling.sneeze", false));
-                return PlayState.CONTINUE;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            if (!this.dead && !this.isDeadOrDying()) {
+                if (this.getState() == State.WAVING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("animation.shroomling.wave"));
+                    return PlayState.CONTINUE;
+                } else if (this.getState() == State.SNEEZING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("animation.shroomling.sneeze"));
+                    return PlayState.CONTINUE;
+                }
             }
-        }
-        if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.shroomling.static", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.shroomling.walk", true));
-        }
+            if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.shroomling.static"));
+            } else {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.shroomling.walk"));
+            }
 
-        return PlayState.CONTINUE;
+            return PlayState.CONTINUE;
+        }));
     }
 
     @Override

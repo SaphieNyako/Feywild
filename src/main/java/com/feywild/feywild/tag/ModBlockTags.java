@@ -8,10 +8,5 @@ import net.minecraft.world.level.block.Block;
 public class ModBlockTags {
 
     public static final TagKey<Block> FEY_LOGS = BlockTags.create(FeywildMod.getInstance().resource("fey_logs"));
-    public static final TagKey<Block> AUTUMN_LOGS = BlockTags.create(FeywildMod.getInstance().resource("autumn_logs"));
-    public static final TagKey<Block> SPRING_LOGS = BlockTags.create(FeywildMod.getInstance().resource("spring_logs"));
-    public static final TagKey<Block> SUMMER_LOGS = BlockTags.create(FeywildMod.getInstance().resource("summer_logs"));
-    public static final TagKey<Block> WINTER_LOGS = BlockTags.create(FeywildMod.getInstance().resource("winter_logs"));
-    public static final TagKey<Block> BLOSSOM_LOGS = BlockTags.create(FeywildMod.getInstance().resource("blossom_logs"));
-    public static final TagKey<Block> HEXEN_LOGS = BlockTags.create(FeywildMod.getInstance().resource("hexen_logs"));
+    public static final TagKey<Block> FLOWER_WALK_FLOWERS = BlockTags.create(FeywildMod.getInstance().resource("flower_walk_flowers"));
 }

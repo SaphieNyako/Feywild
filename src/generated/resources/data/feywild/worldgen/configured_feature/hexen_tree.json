@@ -1,4 +1,12 @@
 {
-  "type": "feywild:hexen_tree",
-  "config": {}
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "feywild:hexen_tree_purple_leaves",
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": "feywild:hexen_tree_black_leaves"
+      }
+    ]
+  }
 }

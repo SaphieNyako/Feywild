@@ -41,12 +41,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -84,16 +82,15 @@ public class BeeKnight extends FlyingFeyBase {
             }
         }
     }
-
-
+    
+    @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-        //super.registerGoals();
         //target
         // this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, (new HurtByTargetGoal(this, BeeKnight.class)).setAlertOthers());
-        this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal(this, Raider.class, true));
-        this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal(this, Pillager.class, true));
+        this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal<>(this, Raider.class, true));
+        this.targetSelector.addGoal(2, new BeeKnightAttackableTargetGoal<>(this, Pillager.class, true));
         this.targetSelector.addGoal(2, new FeyAttackableTargetGoal<>(this, Player.class, true));
         //move
         this.goalSelector.addGoal(2, new MoveTowardsTargetGoal(this, 1.0f, 16));
@@ -114,18 +111,20 @@ public class BeeKnight extends FlyingFeyBase {
         super.defineSynchedData();
         this.entityData.define(AGGRAVATED, false);
     }
-
+    
     @Nullable
     @Override
+    @SuppressWarnings("deprecation")
     public SpawnGroupData finalizeSpawn(@Nonnull ServerLevelAccessor level, @Nonnull DifficultyInstance difficulty, @Nonnull MobSpawnType reason, @Nullable SpawnGroupData data, @Nullable CompoundTag nbt) {
         setSummonPos(this.blockPosition());
+        //noinspection OverrideOnly
         return super.finalizeSpawn(level, difficulty, reason, data, nbt);
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide && hurtTime > 0 && getLastHurtByMob() != getOwningPlayer()) {
+        if (!this.level().isClientSide && hurtTime > 0 && getLastHurtByMob() != getOwningPlayer()) {
             setTarget(getLastHurtByMob());
             setAngry(true);
         }
@@ -155,24 +154,13 @@ public class BeeKnight extends FlyingFeyBase {
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                FeywildMod.getNetwork().sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
+                FeywildMod.getNetwork().sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getX(), this.getY() + 1, this.getZ());
                 player.swing(hand, true);
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return superResult;
         }
-    }
-
-    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bee_knight.fly", true));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData animationData) {
-        AnimationController<BeeKnight> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
-        animationData.addAnimationController(flyingController);
     }
 
     @Override
@@ -186,25 +174,31 @@ public class BeeKnight extends FlyingFeyBase {
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damage) {
-        return this.random.nextBoolean() ? ModSoundEvents.pixieHurt : SoundEvents.BEE_HURT;
+        return this.random.nextBoolean() ? ModSoundEvents.pixieHurt.getSoundEvent() : SoundEvents.BEE_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return this.random.nextBoolean() ? ModSoundEvents.pixieDeath : SoundEvents.BEE_DEATH;
+        return this.random.nextBoolean() ? ModSoundEvents.pixieDeath.getSoundEvent() : SoundEvents.BEE_DEATH;
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return switch (random.nextInt(4)) {
-            case 0 -> ModSoundEvents.beeKnight;
-            default -> SoundEvents.BEE_LOOP;
-        };
+        return random.nextInt(4) == 0 ? ModSoundEvents.beeKnight.getSoundEvent() : SoundEvents.BEE_LOOP;
     }
 
+    @Override
     public boolean canFollowPlayer() {
         return true;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            event.getController().setAnimation(RawAnimation.begin().thenLoop("animation.bee_knight.fly"));
+            return PlayState.CONTINUE;
+        }));
     }
 }

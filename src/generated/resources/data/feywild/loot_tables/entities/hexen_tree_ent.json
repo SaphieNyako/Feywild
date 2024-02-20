@@ -12,59 +12,62 @@
               "name": "feywild:fey_dust"
             },
             {
-              "type": "minecraft:item",
-              "conditions": [
+              "type": "libx:all",
+              "children": [
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:hexen_tree_wood"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "chance": 0.25,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ],
+                  "name": "feywild:hexen_tree_wood"
+                },
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:hexen_tree_sapling"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "chance": 0.25,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ],
+                  "name": "feywild:hexen_tree_sapling"
+                },
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:hexen_tree_log"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "chance": 0.25,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ],
+                  "name": "feywild:hexen_tree_log"
+                },
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
+                  "type": "minecraft:group",
+                  "children": [
+                    {
+                      "type": "minecraft:item",
+                      "name": "feywild:hexen_tree_black_leaves"
+                    },
+                    {
+                      "type": "minecraft:item",
+                      "name": "feywild:hexen_tree_purple_leaves"
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "chance": 0.5,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ]
                 }
-              ],
-              "name": "feywild:hex_black_leaves"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:hex_purple_leaves"
+              ]
             }
           ]
         }
       ],
-      "name": "main",
       "rolls": 1.0
     }
   ]

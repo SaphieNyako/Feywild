@@ -27,9 +27,9 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -43,7 +43,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
     public static final VoxelShape SHAPE = box(5.1875, 0, 5.26563, 10.8125, 3.23438, 10.70313);
 
     public LibraryBellBlock(ModX mod) {
-        super(mod, LibraryBell.class, Properties.of(Material.METAL)
+        super(mod, LibraryBell.class, Properties.copy(Blocks.IRON_BLOCK)
                 .strength(-1, 3600000)
                 .noLootTable()
                 .noOcclusion()
@@ -81,7 +81,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState state, Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult trace) {
         if (level.isClientSide) {
-            level.playSound(player, pos, SoundEvents.NOTE_BLOCK_BELL, SoundSource.BLOCKS, 1f, 1.2f);
+            level.playSound(player, pos, SoundEvents.NOTE_BLOCK_BELL.value(), SoundSource.BLOCKS, 1f, 1.2f);
         } else {
             LibraryBell blockEntity = this.getBlockEntity(level, pos);
             if (player.getGameProfile().getId().equals(blockEntity.getPlayer())) {
@@ -121,7 +121,7 @@ public class LibraryBellBlock extends BlockBE<LibraryBell> {
                 }
 
                 LoreMaster entity = new LoreMaster(ModEntities.loreMaster, level);
-                VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level.getBiome(pos)), VillagerProfession.LIBRARIAN, 1);
+                VillagerData villagerData = new VillagerData(VillagerType.byBiome(player.level().getBiome(pos)), VillagerProfession.LIBRARIAN, 1);
                 entity.setVillagerData(villagerData);
                 entity.setVillagerXp(1);
                 entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);

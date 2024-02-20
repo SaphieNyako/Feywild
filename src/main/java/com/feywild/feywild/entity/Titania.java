@@ -1,8 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.entity.base.FlyingBossBase;
-import com.feywild.feywild.entity.base.ISummonable;
-import com.feywild.feywild.entity.goals.DodgeGoal;
+import com.feywild.feywild.entity.goals.FeywildPanicGoal;
 import com.feywild.feywild.entity.goals.titania.BossTargetFireGoal;
 import com.feywild.feywild.entity.goals.titania.SummonBeeKnightGoal;
 import com.feywild.feywild.quest.Alignment;
@@ -25,22 +24,18 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class Titania extends FlyingBossBase implements IAnimatable, ISummonable {
+public class Titania extends FlyingBossBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(Titania.class, EntityDataSerializers.INT);
     public final Alignment alignment;
-    private final AnimationFactory factory = new AnimationFactory(this);
 
     protected Titania(EntityType<? extends Titania> entityType, Level level) {
         super(entityType, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.titania"),
@@ -66,39 +61,28 @@ public class Titania extends FlyingBossBase implements IAnimatable, ISummonable 
         super.registerGoals();
         this.goalSelector.addGoal(40, new SummonBeeKnightGoal(this));
         this.goalSelector.addGoal(50, new BossTargetFireGoal(this));
-        this.goalSelector.addGoal(50, new DodgeGoal(this, 0.003, 16));
+        this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 16));
     }
 
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return switch (random.nextInt(3)) {
-            case 0 -> ModSoundEvents.titaniaAmbience;
-            default -> ModSoundEvents.beatingWings;
-        };
+        return random.nextInt(3) == 0 ? ModSoundEvents.titaniaAmbience.getSoundEvent() : ModSoundEvents.beatingWings.getSoundEvent();
     }
 
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
-        return switch (random.nextInt(3)) {
-            case 0 -> ModSoundEvents.titaniaHurt;
-            default -> null;
-        };
+        return random.nextInt(3) == 0 ? ModSoundEvents.titaniaHurt.getSoundEvent() : null;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSoundEvents.titaniaDeath;
+        return ModSoundEvents.titaniaDeath.getSoundEvent();
     }
 
     @Override
     public float getVoicePitch() {
         return 1.1f;
-    }
-
-    @Override
-    protected float getSoundVolume() {
-        return 1.0f;
     }
 
     @Override
@@ -116,47 +100,28 @@ public class Titania extends FlyingBossBase implements IAnimatable, ISummonable 
         this.entityData.set(STATE, state.ordinal());
     }
 
-    private <E extends IAnimatable> PlayState animationPredicate(AnimationEvent<E> event) {
-        if (!this.dead && !this.isDeadOrDying()) {
-            if (this.getState() == State.CASTING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("casting", false));
-                return PlayState.CONTINUE;
-            } else if (this.getState() == Titania.State.ENCHANTING) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("enchanting", false));
-                return PlayState.CONTINUE;
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, event -> {
+            if (!this.dead && !this.isDeadOrDying()) {
+                if (this.getState() == State.CASTING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("casting"));
+                    return PlayState.CONTINUE;
+                } else if (this.getState() == Titania.State.ENCHANTING) {
+                    event.getController().setAnimation(RawAnimation.begin().thenPlay("enchanting"));
+                    return PlayState.CONTINUE;
+                }
             }
-        }
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("flying", true));
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("flying_idle", true));
-        }
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController<>(this, "controller", 0, this::animationPredicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Nullable
-    @Override
-    public BlockPos getSummonPos() {
-        return null;
-    }
-
-    @Override
-    public void setSummonPos(@Nullable BlockPos pos) {
-
+            if (event.isMoving()) {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("flying"));
+            } else {
+                event.getController().setAnimation(RawAnimation.begin().thenLoop("flying_idle"));
+            }
+            return PlayState.CONTINUE;
+        }));
     }
 
     public enum State {
         IDLE, CASTING, ENCHANTING
     }
-
 }

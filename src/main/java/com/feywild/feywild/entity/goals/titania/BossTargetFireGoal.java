@@ -7,18 +7,14 @@ import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
 public class BossTargetFireGoal extends Goal {
-
-    private static final TargetingConditions TARGETING = TargetingConditions.forCombat().range(8.0D).ignoreLineOfSight();
-
+    
     private final Titania entity;
     private Player target;
     private int ticksLeft = 0;
-
 
     public BossTargetFireGoal(Titania entity) {
         this.entity = entity;
@@ -34,7 +30,7 @@ public class BossTargetFireGoal extends Goal {
             this.ticksLeft--;
             if (this.ticksLeft <= 0) {
                 this.target.setSecondsOnFire(60);
-                FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY() + 3, this.entity.getZ(), this.target.getX(), this.target.getY(), this.target.getZ());
+                FeywildMod.getNetwork().sendParticles(this.entity.level(), ParticleMessage.Type.MONSTER_FIRE, this.entity.getX(), this.entity.getY() + 3, this.entity.getZ(), this.target.getX(), this.target.getY(), this.target.getZ());
                 this.reset();
             } else if (this.ticksLeft == 35) {
                 this.spellCasting();
@@ -47,7 +43,7 @@ public class BossTargetFireGoal extends Goal {
         this.ticksLeft = 36;
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(32);
-        for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+        for (Player match : this.entity.level().getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
             this.target = match;
             break;
         }
@@ -66,13 +62,13 @@ public class BossTargetFireGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.level.random.nextFloat() < 0.01f && (this.entity.getState() == Titania.State.IDLE || !(this.entity.getState() == Titania.State.CASTING) || !(this.entity.getState() == Titania.State.ENCHANTING));
+        return this.entity.level().random.nextFloat() < 0.01f && (this.entity.getState() == Titania.State.IDLE || !(this.entity.getState() == Titania.State.CASTING) || !(this.entity.getState() == Titania.State.ENCHANTING));
     }
 
     private void spellCasting() {
         this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
         this.entity.setState(Titania.State.CASTING);
-        this.entity.playSound(ModSoundEvents.spellcastingShort, 0.7f, 1.0f);
-        this.entity.playSound(ModSoundEvents.titaniaFireAttack, 1.0f, 1.1f);
+        this.entity.playSound(ModSoundEvents.spellcastingShort.getSoundEvent(), 0.7f, 1.0f);
+        this.entity.playSound(ModSoundEvents.titaniaFireAttack.getSoundEvent(), 1.0f, 1.1f);
     }
 }

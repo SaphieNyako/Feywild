@@ -3,9 +3,10 @@ package com.feywild.feywild.item.model;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.item.ReaperScythe;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class ReaperScytheModel extends AnimatedGeoModel<ReaperScythe> {
+public class ReaperScytheModel extends GeoModel<ReaperScythe> {
+    
     @Override
     public ResourceLocation getModelResource(ReaperScythe object) {
         return FeywildMod.getInstance().resource("geo/reaper_scythe.geo.json");

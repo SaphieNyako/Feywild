@@ -2,21 +2,23 @@ package com.feywild.feywild.block.trees;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraftforge.event.ForgeEventFactory;
-import org.moddingx.libx.mod.ModX;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.level.SaplingGrowTreeEvent;
 import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 import org.moddingx.libx.registration.SetupContext;
@@ -31,17 +33,21 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     private final BaseTree tree;
     private final BlockItem item;
 
-    public BaseSaplingBlock(ModX mod, BaseTree tree) {
+    public BaseSaplingBlock(BaseTree tree) {
         super(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING));
         this.tree = tree;
-        Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
-        this.item = new BlockItem(this, properties);
+        this.item = new BlockItem(this, new Item.Properties());
     }
 
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.register(Registry.ITEM_REGISTRY, this.item);
+        builder.register(Registries.ITEM, this.item);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(STAGE);
     }
 
     @Override
@@ -50,7 +56,7 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
     }
 
     @Override
-    public boolean isValidBonemealTarget(@Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(@Nonnull LevelReader level, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
         return true;
     }
 
@@ -77,26 +83,21 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
 
     @Override
     public void performBonemeal(@Nonnull ServerLevel level, @Nonnull RandomSource random, @Nonnull BlockPos pos, BlockState state) {
-
-
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.setValue(STAGE, 1), 4);
-        } else {
-            //??
-            if (ForgeEventFactory.saplingGrowTree(level, random, pos)) {
-
-                //checks if tree can be grown.
-                if (this.tree.growTree(level, level.getChunkSource().getGenerator(), pos, state, random)) {
-                    //  loadTreeTemplate();
-
-                    //decorations
+        } else if (!level.isClientSide) {
+            Holder<ConfiguredFeature<?, ?>> feature = this.tree.getConfiguredFeature(level.registryAccess(), random, false);
+            SaplingGrowTreeEvent event = new SaplingGrowTreeEvent(level, random, pos, feature);
+            if (!MinecraftForge.EVENT_BUS.post(event)) {
+                feature = event.getFeature();
+                if (this.tree.growTree(level, level.getChunkSource().getGenerator(), pos, state, random, feature)) {
                     for (int xd = -4; xd <= 4; xd++) {
                         for (int zd = -4; zd <= 4; zd++) {
                             // Try to find the block pos directly above ground
                             // to prevent floating pumpkins
                             for (int yd = 2; yd >= -2; yd--) {
                                 BlockPos target = pos.offset(xd, yd, zd);
-                                if (level.getBlockState(target).isAir() || level.getBlockState(target).getMaterial().isReplaceable()) {
+                                if (level.getBlockState(target).isAir() || level.getBlockState(target).canBeReplaced()) {
                                     if (level.getBlockState(target.below()).isFaceSturdy(level, pos.below(), Direction.UP)) {
                                         this.tree.decorateSaplingGrowth(level, target, random);
                                         break;
@@ -108,10 +109,5 @@ public class BaseSaplingBlock extends BushBlock implements BonemealableBlock, Re
                 }
             }
         }
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(STAGE);
     }
 }

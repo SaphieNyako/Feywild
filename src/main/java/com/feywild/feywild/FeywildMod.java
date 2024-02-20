@@ -3,14 +3,30 @@ package com.feywild.feywild;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.compat.MineMentionCompat;
+import com.feywild.feywild.data.*;
+import com.feywild.feywild.data.loot.BlockLootProvider;
+import com.feywild.feywild.data.loot.ChestLootProvider;
+import com.feywild.feywild.data.loot.EntityLootProvider;
+import com.feywild.feywild.data.loot.LootModifierProvider;
+import com.feywild.feywild.data.patchouli.FeywildLexiconProvider;
+import com.feywild.feywild.data.recipe.RecipeProvider;
+import com.feywild.feywild.data.tags.BiomeLayerTagsProvider;
+import com.feywild.feywild.data.tags.BiomeTagsProvider;
+import com.feywild.feywild.data.tags.CommonTagsProvider;
+import com.feywild.feywild.data.tags.EntityTagsProvider;
+import com.feywild.feywild.data.worldgen.*;
 import com.feywild.feywild.entity.*;
 import com.feywild.feywild.entity.model.*;
-import com.feywild.feywild.entity.render.*;
+import com.feywild.feywild.entity.render.BaseEntityRenderer;
+import com.feywild.feywild.entity.render.BotaniaPixieRenderer;
+import com.feywild.feywild.entity.render.DwarfBlacksmithRenderer;
+import com.feywild.feywild.entity.render.ShroomlingRenderer;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.network.FeywildNetwork;
 import com.feywild.feywild.particles.LeafParticle;
 import com.feywild.feywild.particles.ModParticles;
 import com.feywild.feywild.particles.SparkleParticle;
+import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.QuestManager;
 import com.feywild.feywild.quest.player.CapabilityQuests;
 import com.feywild.feywild.quest.reward.CommandReward;
@@ -19,9 +35,7 @@ import com.feywild.feywild.quest.reward.RewardTypes;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.sound.FeywildMenuMusic;
 import com.feywild.feywild.trade.TradeManager;
-import com.feywild.feywild.util.FeywildJigsawHelper;
 import com.feywild.feywild.util.LibraryBooks;
-import com.feywild.feywild.world.gen.processor.*;
 import com.feywild.feywild.world.market.MarketGenerator;
 import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.color.item.ItemColor;
@@ -30,14 +44,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.VillagerRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeRenderTypes;
@@ -47,52 +60,54 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.NewRegistryEvent;
+import net.minecraftforge.registries.RegistryBuilder;
+import org.moddingx.libx.datagen.DatagenSystem;
+import org.moddingx.libx.datagen.PackTarget;
+import org.moddingx.libx.datapack.DynamicPacks;
 import org.moddingx.libx.mod.ModXRegistration;
 import org.moddingx.libx.registration.RegistrationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib.GeckoLib;
 
 import javax.annotation.Nonnull;
 
 @Mod("feywild")
 public final class FeywildMod extends ModXRegistration {
 
+    public static final String MODID = "feywild";
     public static final Logger logger = LoggerFactory.getLogger("feywild");
-    public static StructureProcessorType<SpringTreeProcessor> SPRING_TREE_PROCESSOR = () -> SpringTreeProcessor.CODEC;
-    public static StructureProcessorType<SummerTreeProcessor> SUMMER_TREE_PROCESSOR = () -> SummerTreeProcessor.CODEC;
-    public static StructureProcessorType<AutumnTreeProcessor> AUTUMN_TREE_PROCESSOR = () -> AutumnTreeProcessor.CODEC;
-    public static StructureProcessorType<WinterTreeProcessor> WINTER_TREE_PROCESSOR = () -> WinterTreeProcessor.CODEC;
-    public static StructureProcessorType<BlossomTreeProcessor> BLOSSOM_TREE_PROCESSOR = () -> BlossomTreeProcessor.CODEC;
-    public static StructureProcessorType<HexenTreeProcessor> HEXEN_TREE_PROCESSOR = () -> HexenTreeProcessor.CODEC;
     private static FeywildMod instance;
     private static FeywildNetwork network;
+    private static FeywildTab tab;
 
     public FeywildMod() {
-        super(new FeywildTab("feywild"));
-
-
         instance = this;
         network = new FeywildNetwork(this);
-
+        tab = new FeywildTab(this);
+        
         GeckoLib.initialize();
 
+        DynamicPacks.RESOURCE_PACKS.enablePack(this.modid, "redux");
+        
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::createRegistries);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(CapabilityQuests::register);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::spawnPlacement);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerRenderTypes);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::blockColors));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::itemColors));
 
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
-        MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 
         MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityQuests::attachPlayerCaps);
         MinecraftForge.EVENT_BUS.addListener(CapabilityQuests::playerCopy);
@@ -102,18 +117,58 @@ public final class FeywildMod extends ModXRegistration {
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(FeywildMenuMusic::playSound));
 
         // Quest task & reward types. Not in setup as they are required for datagen.
-        TaskTypes.register(new ResourceLocation(this.modid, "craft"), CraftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "fey_gift"), FeyGiftTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "item_stack"), ItemStackTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "kill"), KillTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "pet"), AnimalPetTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "tame"), AnimalTameTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "biome"), BiomeTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "structure"), StructureTask.INSTANCE);
-        TaskTypes.register(new ResourceLocation(this.modid, "special"), SpecialTask.INSTANCE);
+        TaskTypes.register(this.resource("craft"), CraftTask.INSTANCE);
+        TaskTypes.register(this.resource("fey_gift"), FeyGiftTask.INSTANCE);
+        TaskTypes.register(this.resource("item_stack"), ItemStackTask.INSTANCE);
+        TaskTypes.register(this.resource("kill"), KillTask.INSTANCE);
+        TaskTypes.register(this.resource("pet"), AnimalPetTask.INSTANCE);
+        TaskTypes.register(this.resource("tame"), AnimalTameTask.INSTANCE);
+        TaskTypes.register(this.resource("biome"), BiomeTask.INSTANCE);
+        TaskTypes.register(this.resource("structure"), StructureTask.INSTANCE);
+        TaskTypes.register(this.resource("tree"), GrowTreeTask.INSTANCE);
+        TaskTypes.register(this.resource("special"), SpecialTask.INSTANCE);
 
         RewardTypes.register(new ResourceLocation(this.modid, "item"), ItemReward.INSTANCE);
         RewardTypes.register(new ResourceLocation(this.modid, "command"), CommandReward.INSTANCE);
+
+        DatagenSystem.create(this, system -> {
+            system.setResourceRoot("../src/main/resources");
+            PackTarget redux = system.dynamic("redux", PackType.CLIENT_RESOURCES);
+
+            system.addRegistryProvider(FeatureProvider::new);
+            system.addRegistryProvider(TreeProvider::new);
+            system.addRegistryProvider(PlacementProvider::new);
+            system.addRegistryProvider(TemplateProvider::new);
+            system.addRegistryProvider(StructureProvider::new);
+            system.addRegistryProvider(StructureSetProvider::new);
+            system.addRegistryProvider(BiomeProvider::new);
+            system.addRegistryProvider(BiomeLayerProvider::new);
+            system.addRegistryProvider(NoiseProvider::new);
+            system.addRegistryProvider(DimensionTypeProvider::new);
+
+            system.addExtensionProvider(BiomeModifierProvider::new);
+            system.addExtensionProvider(SurfaceProvider::new);
+            system.addExtensionProvider(TemplateExtensionProvider::new);
+            system.addExtensionProvider(DimensionProvider::new);
+
+            system.addDataProvider(TextureProvider::new);
+            system.addDataProvider(redux, TextureProvider::new);
+            system.addDataProvider(AdvancementProvider::new);
+            system.addDataProvider(BlockStateProvider::new);
+            system.addDataProvider(ItemModelProvider::new);
+            system.addDataProvider(QuestProvider::new);
+            system.addDataProvider(SoundProvider::new);
+            system.addDataProvider(CommonTagsProvider::new);
+            system.addDataProvider(EntityTagsProvider::new);
+            system.addDataProvider(BiomeTagsProvider::new);
+            system.addDataProvider(BiomeLayerTagsProvider::new);
+            system.addDataProvider(BlockLootProvider::new);
+            system.addDataProvider(ChestLootProvider::new);
+            system.addDataProvider(EntityLootProvider::new);
+            system.addDataProvider(LootModifierProvider::new);
+            system.addDataProvider(FeywildLexiconProvider::new);
+            system.addDataProvider(RecipeProvider::new);
+        });
     }
 
     @Nonnull
@@ -126,76 +181,31 @@ public final class FeywildMod extends ModXRegistration {
         return network;
     }
 
-    private void serverAboutToStart(final ServerAboutToStartEvent event) {
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/plains/houses"),
-                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/desert/houses"),
-                new ResourceLocation("feywild:village/desert/houses/temple"), 10);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("feywild:village/plains/houses/fountain"), 5);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/savanna/houses"),
-                new ResourceLocation("feywild:village/plains/houses/pond"), 10);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("feywild:village/snowy/houses/winter_retreat"), 10);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/snowy/houses"),
-                new ResourceLocation("feywild:village/snowy/houses/winter_temple"), 5);
-
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("feywild:village/taiga/houses/autumn_pumpkin_patch"), 10);
-        FeywildJigsawHelper.registerJigsaw(event.getServer(), new ResourceLocation("minecraft:village/taiga/houses"),
-                new ResourceLocation("feywild:village/taiga/houses/autumn_temple"), 5);
-
+    @Nonnull
+    public static FeywildTab getCreativeTab() {
+        return tab;
     }
 
     @Override
     protected void initRegistration(RegistrationBuilder builder) {
-        //
+        builder.disableRegistryTracking();
     }
 
+    private void createRegistries(NewRegistryEvent event) {
+        event.create(new RegistryBuilder<>().setName(FeyRegistries.TREES.location()).hasTags());
+        event.create(new RegistryBuilder<>().setName(FeyRegistries.ABILITIES.location()).hasTags());
+        event.create(new RegistryBuilder<>().setName(FeyRegistries.TEMPLATE_ACTIONS.location()).hasTags());
+    }
+    
     @Override
     protected void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-
-
-            SpawnPlacements.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn);
-            SpawnPlacements.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn);
-            SpawnPlacements.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn);
-            SpawnPlacements.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn);
-            SpawnPlacements.register(ModEntities.botaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BotaniaPixie::canSpawn);
-
-            SpawnPlacements.register(ModEntities.titania, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Titania::canSpawn);
-            SpawnPlacements.register(ModEntities.mab, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mab::canSpawn);
-
-            SpawnPlacements.register(ModEntities.springTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.summerTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.winterTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.autumnTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn);
-            SpawnPlacements.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn);
-
-            SpawnPlacements.register(ModEntities.loreMaster, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LoreMaster::canSpawn);
-
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "miner"), ModEntities.dwarfMiner, new BlockPos(11, 64, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "baker"), ModEntities.dwarfBaker, new BlockPos(-3, 64, 10));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "shepherd"), ModEntities.dwarfShepherd, new BlockPos(0, 63, -3));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "artificer"), ModEntities.dwarfArtificer, new BlockPos(7, 63, -2));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "dragon_hunter"), ModEntities.dwarfDragonHunter, new BlockPos(21, 63, 20));
             MarketGenerator.registerMarketDwarf(new ResourceLocation(this.modid, "tool_smith"), ModEntities.dwarfToolsmith, new BlockPos(21, 63, 11));
-
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "spring_tree_processor"), SPRING_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "summer_tree_processor"), SUMMER_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "autumn_tree_processor"), AUTUMN_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "winter_tree_processor"), WINTER_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "blossom_tree_processor"), BLOSSOM_TREE_PROCESSOR);
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(FeywildMod.getInstance().modid, "hexen_tree_processor"), HEXEN_TREE_PROCESSOR);
 
             if (ModList.get().isLoaded("minemention")) {
                 MineMentionCompat.setup();
@@ -220,34 +230,37 @@ public final class FeywildMod extends ModXRegistration {
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void clientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(ModEntities.beeKnight, BasePixieRenderer.create(BeeKnightModel::new));
-        EntityRenderers.register(ModEntities.dwarfToolsmith, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfArtificer, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfDragonHunter, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfBaker, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfMiner, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer.create(DwarfBlacksmithModel::new));
-        EntityRenderers.register(ModEntities.dwarfShepherd, MarketDwarfRenderer::new);
-        EntityRenderers.register(ModEntities.springPixie, BasePixieRenderer.create(SpringPixieModel::new));
-        EntityRenderers.register(ModEntities.summerPixie, BasePixieRenderer.create(SummerPixieModel::new));
-        EntityRenderers.register(ModEntities.autumnPixie, BasePixieRenderer.create(AutumnPixieModel::new));
-        EntityRenderers.register(ModEntities.winterPixie, BasePixieRenderer.create(WinterPixieModel::new));
-        EntityRenderers.register(ModEntities.mandragora, MandragoraRenderer.create(MandragoraModel::new));
-        EntityRenderers.register(ModEntities.shroomling, ShroomlingRenderer.create(ShroomlingModel::new));
-        EntityRenderers.register(ModEntities.botaniaPixie, BotaniaPixieRenderer.create(BotaniaPixieModel::new));
-
-        EntityRenderers.register(ModEntities.titania, TitaniaRenderer.create(TitaniaModel::new));
-        EntityRenderers.register(ModEntities.mab, MabRenderer.create(MabModel::new));
-
-        EntityRenderers.register(ModEntities.springTreeEnt, BaseTreeEntRenderer.create(SpringTreeEntModel::new));
-        EntityRenderers.register(ModEntities.summerTreeEnt, BaseTreeEntRenderer.create(SummerTreeEntModel::new));
-        EntityRenderers.register(ModEntities.winterTreeEnt, BaseTreeEntRenderer.create(WinterTreeEntModel::new));
-        EntityRenderers.register(ModEntities.autumnTreeEnt, BaseTreeEntRenderer.create(AutumnTreeEntModel::new));
-        EntityRenderers.register(ModEntities.blossomTreeEnt, BaseTreeEntRenderer.create(BlossomTreeEntModel::new));
-        EntityRenderers.register(ModEntities.hexenTreeEnt, BaseTreeEntRenderer.create(HexenTreeEntModel::new));
-
+        BaseEntityRenderer.register(ModEntities.beeKnight, new BeeKnightModel());
+        
+        BaseEntityRenderer.register(ModEntities.dwarfToolsmith, DwarfBlacksmithRenderer::new, new DwarfModel("toolsmith"));
+        BaseEntityRenderer.register(ModEntities.dwarfArtificer, DwarfBlacksmithRenderer::new, new DwarfModel("artificer"));
+        BaseEntityRenderer.register(ModEntities.dwarfDragonHunter, DwarfBlacksmithRenderer::new, new DwarfModel("dragon_hunter"));
+        BaseEntityRenderer.register(ModEntities.dwarfBaker, DwarfBlacksmithRenderer::new, new DwarfModel("baker"));
+        BaseEntityRenderer.register(ModEntities.dwarfMiner, DwarfBlacksmithRenderer::new, new DwarfModel("miner"));
+        BaseEntityRenderer.register(ModEntities.dwarfBlacksmith, DwarfBlacksmithRenderer::new, new DwarfModel("blacksmith"));
+        BaseEntityRenderer.register(ModEntities.dwarfShepherd, DwarfBlacksmithRenderer::new, new DwarfModel("shepherd"));
+        
+        BaseEntityRenderer.register(ModEntities.springPixie, new PixieModel(Alignment.SPRING));
+        BaseEntityRenderer.register(ModEntities.summerPixie, new PixieModel(Alignment.SUMMER));
+        BaseEntityRenderer.register(ModEntities.autumnPixie, new PixieModel(Alignment.AUTUMN));
+        BaseEntityRenderer.register(ModEntities.winterPixie, new PixieModel(Alignment.WINTER));
+        
+        BaseEntityRenderer.register(ModEntities.beeKnight, new BeeKnightModel());
+        BaseEntityRenderer.register(ModEntities.mandragora, new MandragoraModel());
+        BaseEntityRenderer.register(ModEntities.shroomling, ShroomlingRenderer::new, new ShroomlingModel());
+        BaseEntityRenderer.register(ModEntities.botaniaPixie, BotaniaPixieRenderer::new, new BotaniaPixieModel());
+        
+        BaseEntityRenderer.register(ModEntities.titania, new TitaniaModel());
+        BaseEntityRenderer.register(ModEntities.mab, new MabModel());
+        
+        BaseEntityRenderer.register(ModEntities.springTreeEnt, new TreeEntModel(Alignment.SPRING));
+        BaseEntityRenderer.register(ModEntities.summerTreeEnt, new TreeEntModel(Alignment.SUMMER));
+        BaseEntityRenderer.register(ModEntities.autumnTreeEnt, new TreeEntModel(Alignment.AUTUMN));
+        BaseEntityRenderer.register(ModEntities.winterTreeEnt, new TreeEntModel(Alignment.WINTER));
+        BaseEntityRenderer.register(ModEntities.blossomTreeEnt, new TreeEntModel("blossom"));
+        BaseEntityRenderer.register(ModEntities.hexenTreeEnt, new TreeEntModel("hexen"));
+        
         EntityRenderers.register(ModEntities.loreMaster, VillagerRenderer::new);
-
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -278,20 +291,42 @@ public final class FeywildMod extends ModXRegistration {
         event.put(ModEntities.hexenTreeEnt, HexenTreeEnt.getDefaultAttributes().build());
         event.put(ModEntities.loreMaster, LoreMaster.createAttributes().build());
     }
+    
+    private void spawnPlacement(SpawnPlacementRegisterEvent event) {
+        event.register(ModEntities.springPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.summerPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.autumnPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.winterPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.dwarfBlacksmith, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfBlacksmith::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.beeKnight, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnight::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.shroomling, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shroomling::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.botaniaPixie, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BotaniaPixie::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.titania, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Titania::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.mab, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mab::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.springTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.summerTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.winterTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.autumnTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.blossomTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlossomTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.hexenTreeEnt, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HexenTreeEnt::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.loreMaster, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LoreMaster::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+    }
 
     public void registerParticles(RegisterParticleProvidersEvent event) {
-
-        event.register(ModParticles.autumnLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.springLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.hexenLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.blossomLeafParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.frostWalkParticle, LeafParticle.Factory::new);
-        event.register(ModParticles.springSparkleParticle, SparkleParticle.provider(0, 1, 0));
-        event.register(ModParticles.summerSparkleParticle, SparkleParticle.provider(1, 0.8f, 0));
-        event.register(ModParticles.autumnSparkleParticle, SparkleParticle.provider(1, 0.4f, 1));
-        event.register(ModParticles.winterSparkleParticle, SparkleParticle.provider(0.2f, 0.8f, 0.9f));
+        event.registerSpriteSet(ModParticles.autumnLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.springLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.summerLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.winterLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.hexenLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.blossomLeafParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.frostWalkParticle, LeafParticle.Factory::new);
+        event.registerSpriteSet(ModParticles.springSparkleParticle, SparkleParticle.provider(0, 1, 0));
+        event.registerSpriteSet(ModParticles.summerSparkleParticle, SparkleParticle.provider(1, 0.8f, 0));
+        event.registerSpriteSet(ModParticles.autumnSparkleParticle, SparkleParticle.provider(1, 0.4f, 1));
+        event.registerSpriteSet(ModParticles.winterSparkleParticle, SparkleParticle.provider(0.2f, 0.8f, 0.9f));
     }
 
     public void registerRenderTypes(RegisterNamedRenderTypesEvent event) {
@@ -330,6 +365,4 @@ public final class FeywildMod extends ModXRegistration {
         event.addListener(TradeManager.createReloadListener());
         event.addListener(QuestManager.createReloadListener());
     }
-
-
 }

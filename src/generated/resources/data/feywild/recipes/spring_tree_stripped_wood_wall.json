@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "feywild:spring_tree_stripped_wood"
@@ -12,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "feywild:spring_tree_stripped_wood_wall"
-  }
+  },
+  "show_notification": true
 }

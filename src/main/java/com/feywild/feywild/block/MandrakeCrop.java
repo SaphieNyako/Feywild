@@ -10,7 +10,7 @@ import com.feywild.feywild.quest.task.SpecialTask;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.moddingx.libx.mod.ModX;
 import org.moddingx.libx.registration.Registerable;
 import org.moddingx.libx.registration.RegistrationContext;
 
@@ -53,16 +52,15 @@ public class MandrakeCrop extends CropBlock implements Registerable {
 
     private final BlockItem seed;
 
-    public MandrakeCrop(ModX mod) {
+    public MandrakeCrop() {
         super(BlockBehaviour.Properties.copy(Blocks.WHEAT));
-        Item.Properties properties = mod.tab == null ? new Item.Properties() : new Item.Properties().tab(mod.tab);
-        this.seed = new BlockItem(this, properties);
+        this.seed = new BlockItem(this, new Item.Properties());
     }
 
     @Override
     @OverridingMethodsMustInvokeSuper
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.registerNamed(Registry.ITEM_REGISTRY, "seed", this.seed);
+        builder.registerNamed(Registries.ITEM, "seed", this.seed);
     }
 
     @Nonnull
@@ -112,12 +110,9 @@ public class MandrakeCrop extends CropBlock implements Registerable {
                 }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
-
         } else {
-            level.playSound(player, pos, ModSoundEvents.mandrakeScream, SoundSource.BLOCKS, 0.6f, 0.8f);
+            level.playSound(player, pos, ModSoundEvents.mandrakeScream.getSoundEvent(), SoundSource.BLOCKS, 0.6f, 0.8f);
             return super.use(state, level, pos, player, hand, hit);
         }
     }
-
-
 }

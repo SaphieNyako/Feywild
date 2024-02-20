@@ -6,9 +6,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -48,7 +50,13 @@ public class AltarRecipe implements IAltarRecipe {
 
     @Nonnull
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack assemble(@Nonnull Container container, @Nonnull RegistryAccess registries) {
+        return this.getResultItem(registries);
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack getResultItem(@Nonnull RegistryAccess registries) {
         return this.output.copy();
     }
 
@@ -59,8 +67,8 @@ public class AltarRecipe implements IAltarRecipe {
     }
 
     @Override
-    public Optional<ItemStack> getResult(List<ItemStack> inputs) {
-        return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem()) : Optional.empty();
+    public Optional<ItemStack> getResult(RegistryAccess registries, List<ItemStack> inputs) {
+        return Util.simpleMatch(this.inputs, inputs) ? Optional.of(this.getResultItem(registries)) : Optional.empty();
     }
 
     public static class Serializer implements RecipeSerializer<AltarRecipe> {
@@ -93,7 +101,7 @@ public class AltarRecipe implements IAltarRecipe {
         public void toNetwork(FriendlyByteBuf buffer, AltarRecipe recipe) {
             buffer.writeVarInt(recipe.getIngredients().size());
             recipe.inputs.forEach(i -> i.toNetwork(buffer));
-            buffer.writeItemStack(recipe.getResultItem(), false);
+            buffer.writeItemStack(recipe.output, false);
         }
     }
 }

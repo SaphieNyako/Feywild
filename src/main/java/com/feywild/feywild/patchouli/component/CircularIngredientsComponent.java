@@ -1,6 +1,6 @@
 package com.feywild.feywild.patchouli.component;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -35,23 +35,23 @@ public class CircularIngredientsComponent implements ICustomComponent {
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, @Nonnull IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
+    public void render(@Nonnull GuiGraphics graphics, @Nonnull IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
         if (this.ingredients == null) return;
         float degreePerInput = 360f / (float) this.ingredients.size();
         float angle = 0;
         for (Ingredient ingredient : ingredients) {
-            this.renderIngredientAtAngle(poseStack, context, angle, ingredient, mouseX, mouseY);
+            this.renderIngredientAtAngle(graphics, context, angle, ingredient, mouseX, mouseY);
             angle += degreePerInput;
         }
     }
 
-    private void renderIngredientAtAngle(PoseStack poseStack, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
+    private void renderIngredientAtAngle(GuiGraphics graphics, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
         if (!ingredient.isEmpty()) {
             angle -= 90f;
             int radius = 32;
             double xPos = (this.x + Math.cos(angle * Math.PI / 180d) * radius) + radius;
             double yPos = (this.y + Math.sin(angle * Math.PI / 180d) * radius) + radius;
-            context.renderIngredient(poseStack, (int) xPos, (int) yPos, mouseX, mouseY, ingredient);
+            context.renderIngredient(graphics, (int) xPos, (int) yPos, mouseX, mouseY, ingredient);
         }
     }
 }

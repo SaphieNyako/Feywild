@@ -4,24 +4,19 @@ import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.patchouli.BookProperties;
 import org.moddingx.libx.datagen.provider.patchouli.PatchouliProviderBase;
 import org.moddingx.libx.datagen.provider.patchouli.page.Content;
-import org.moddingx.libx.mod.ModX;
 
-@Datagen
 public class FeywildLexiconProvider extends PatchouliProviderBase {
 
-    public FeywildLexiconProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
-        super(mod, generator, fileHelper, new BookProperties("feywild_lexicon", PackType.CLIENT_RESOURCES, true));
+    public FeywildLexiconProvider(DatagenContext ctx) {
+        super(ctx, new BookProperties("feywild_lexicon", true));
     }
 
     /* Missing title entry for patchouli books*/
@@ -36,388 +31,329 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
         this.entry("introduction")
                 .name("Introduction")
                 .icon(Items.WRITABLE_BOOK)
-                .text("Did you ever find your shoes laced together after a good nights sleep?")
-                .text("The sugar in your tea has suddenly turned to salt?")
-                .text("Did you ever travel through the forest swearing you see something just in the corner of your eye or hearing the giggle of children's voices?")
-                .text("Don't fret, you're not going mad!")
-                .text("It's just the local fey showing you they care for you in their own very special way.")
-                .text("Fey are pranksters, tricksters who enjoy teasing us big folk.")
-                .text("Most of the time they are harmless, but just as with us, there might be a bad seed or two amongst them.")
-                .text("It's hard to gain the trust of a fairy, as they see the world in a different way that we do.")
+                .text("Did you ever find your shoes laced together after a good night's sleep?")
+                .text("Or the sugar in your tea suddenly turn to salt?")
+                .text("Did you ever travel through the forest swearing you saw something in the corner of your eye or hearing the giggle of a child's voice?")
+                .text("Don't fret, you're not going mad! It's just the local Fey showing you that they care for you in their own very special way.")
+                .flip()
+                .text("The Fey are pranksters- tricksters who enjoy teasing us big folk. Most of the time they are harmless, but just as with us, there may be a bad seed or two amongst them.")
+                .text("It's hard to gain the trust of the Fey, as they see the world in a different way that we do.")
                 .item(ModItems.feywildLexicon)
-                .text("If you want to learn more about the Fey, you may want to visit a Library and speak to one of the librarians there.")
-                .text("They also have guide books on magic, depending what magic you brought to the Feywild.")
-                .text("If he is not present just ring the bell.")
+                .text("If you want to learn more about the Fey, you may want to visit a Library and speak to one of the Lore Masters there. (If one isn't present, just ring the bell.)")
+                .text("They also have guide books on all sorts of other subjects, depending what other schools of magic are present in the region.")
                 .image("Library", "textures/patchouli_images/library_book.png")
                 .crafting("feywild_lexicon");
 
         this.entry("seasonal_trees")
                 .name("Seasonal Trees")
                 .icon(ModTrees.autumnTree.getSapling())
-                .item(ModItems.feyDust, false)
-                .text("The fey trees will also drop fey dust when you cut down their leaves.")
                 .item(ModTrees.springTree.getSapling())
-                .text("Flowers from the spring season will grow around the tree.")
+                .text("Flowers from the spring season will grow around the Spring Tree.")
                 .add(this.altar("spring_tree_sapling_fey_altar"))
                 .crafting("spring_tree_wood")
                 .crafting("spring_tree_planks")
                 .item(ModTrees.summerTree.getSapling())
-                .text("Flowers from the summer season will grow around the tree and sometimes the tree may be a home for the Summer Court's bees.")
+                .text("Flowers from the summer season will grow around the Summer Tree, and sometimes the Summer Court's bees will take residence in its branches.")
                 .add(this.altar("summer_tree_sapling_fey_altar"))
                 .crafting("summer_tree_wood")
                 .crafting("summer_tree_planks")
                 .item(ModTrees.autumnTree.getSapling())
-                .text("The area around the tree will soon be filled with fallen leaves.")
-                .text("To ward of evil spirits sometimes a carved pumpkin may appear.")
+                .text("The area around the Autumn Tree will soon be filled with fallen leaves. Sometimes a carved pumpkin will also appear to help ward off evil spirits.")
                 .add(this.altar("autumn_tree_sapling_fey_altar"))
                 .crafting("autumn_tree_wood")
                 .crafting("autumn_tree_planks")
                 .item(ModTrees.winterTree.getSapling())
-                .text("The Winter tree will be covered in snow and coldness.")
+                .text("The Winter Tree blankets the ground beneath it in snow and frost.")
                 .add(this.altar("winter_tree_sapling_fey_altar"))
                 .crafting("winter_tree_wood")
                 .crafting("winter_tree_planks")
                 .item(ModTrees.hexenTree.getSapling())
-                .text("Some use Hexerei to corrupt fey magic. In places where the magic has been corrupted a hexen tree will grow.")
+                .text("Some use witchcraft to corrupt Fey magic. Hexen Trees often grow in places where magic has been tainted in this way.")
                 .crafting("hexen_tree_wood")
                 .crafting("hexen_tree_planks")
                 .item(ModTrees.blossomTree.getSapling())
-                .text("An area blessed by a arch fey will grow a special fey blossom tree.")
+                .text("An area blessed by a Archfey will often grow a special Blossom Tree.")
                 .crafting("blossom_tree_wood")
                 .crafting("blossom_tree_planks")
+                .item(ModItems.feyDust, false)
+                .text("The Fey Trees will also often drop Fey Dust from their leaves- as well as the occasional Mandrake Seed.")
                 .item(ModTrees.blossomTree.getCrackedLogBlock())
-                .text("Sometimes the magic of the feywild will leaves crackes in the tree's structure. Using feydust on the cracked log will only scar the block more.");
+                .text("Sometimes the Feywild's magic will leave cracks in the tree's bark. Using Fey Dust on the cracked log will only scar the block more.");
 
 
         this.entry("fey_altar")
                 .name("Summoning Fey")
                 .icon(ModBlocks.summerFeyAltar.asItem())
-                .text("To create the summoning scroll for a specific fey you will requires a Fey Altar, which can be crafted or can be found at places of worship in small villages.")
+                .text("In order to summon the Fey or conjure the various artifacts associated with them, you will need a Fey Altar- which can be crafted or found in shrines present around villages.")
                 .crafting("summer_fey_altar")
                 .crafting("winter_fey_altar")
                 .crafting("autumn_fey_altar")
-                .caption("With the right ingredients and incantation written on a summoning scroll with magic ink, you can summon back a Fey.")
+                .caption("With the right combination of ingredients to establish a sympathetic link to your desired Fey, and the incantation written on a summoning scroll with magic ink, you can summon Fey out of the Feywild and into your realm.")
                 .flip()
                 .crafting("summoning_scroll")
                 .crafting("fey_ink_bottle")
                 .item(ModBlocks.mandrakeCrop.getSeed())
-                .text("A Mandrake Seed can be found in the Fey trees.")
-                .text("Once a normal tree is corrupted by the fey's magic some of its seeds will turn into a mandrake seed.");
+                .text("When a tree has been transmuted by Fey magic, some of its leaves will yield Mandrake Seeds when broken. You'll need the mandrakes grown from them for the ink used on summoning scrolls!");
 
         this.entry("handeling_fey")
-                .name("Handeling Fey")
+                .name("Handling Fey")
                 .icon(ModItems.summoningScroll)
                 .item(ModItems.summoningScrollSpringPixie)
-                .text("You can $(bold)summon$() a fey by $(bold)right clicking a fey summoning scroll on a block$().")
-                .text("Once used you get a empty summoning scroll back.")
-                .text("Each Fey has it's own summoning scroll and the recipes for each fey can be found on their corresponding pages or by using JEI.")
+                .text("You can summon a fey by $(italic)using their Summoning Scroll on a block$(); you'll get the now-empty scroll back.")
+                .text("Each kind of Fey has their own summoning scroll, and the recipes for each can be found on their corresponding pages [or by using JEI/REI].")
                 .flip()
                 .item(ModItems.summoningScroll)
-                .text("By $(bold)left clicking$() your fey with an $(bold)empty summoning scroll$() when it's stationary you can $(bold)return$() your fey into the summoning scroll.")
+                .text("By $(italic)hitting your Fey with an empty summoning scroll$(), you can withdraw them back into the summoning scroll.")
                 .flip()
-                .text("Some fey follow you around the world.")
-                .text("You can make a fey either $(bold)follow$() or $(bold)stay$() by interacting with them while holding $(bold)shift and right clicking$().")
+                .text("Some Fey are willing to follow you around the world. You can make a fey either $(italic)follow$() or $(italic)stay$() by interacting with them while sneaking.")
                 .flip()
-                .text("You can open the $(bold)quest$() window for pixies by $(bold)right clicking them with an empty hand$().")
+                .text("You can open your pixie's quest window by $(italic)interacting with them while empty-handed$().")
                 .flip()
-                .text("You can $(bold)gift an item$() to the fey for a quest by $(bold)right clicking them with the item required$()");
+                .text("You can give an requested item to the Fey for their quest by $(italic)interacting with them while holding the required item$().");
 
 
         this.entry("quest")
-                .name("Quest")
+                .name("Quests")
                 .icon(ModItems.summoningScrollSpringPixie)
-                .text("All the pixies have a quest-line.")
-                .text("After summoning one you can access quests by right clicking the pixie with an empty hand.")
-                .text("The Pixie first asks you to accept a contract and you will become a Ally of that Court.")
-                .flip("alignment")
-                .text("Depending on your configuration aligning yourself with a court could cause other fey to leave! By default this is turned off.");
-
+                .text("Each of the pixies have a questline that you can follow. To access your quests, interact with a Pixie you have summoned while empty-handed.")
+                .text("The Pixie will start by asking for your name- after which you'll be aligned with their court.")
+                .flip("Alignment")
+                .text("[Editor's Note: Be aware that depending on your config settings, aligning with a court may cause Fey of other courts to leave! This is disabled by default.]");
 
         this.entry("feywild")
                 .name("The Feywild Dimension")
                 .icon(ModItems.teleportationOrb)
                 .item(ModItems.teleportationOrb)
-                .text("By completing questlines for your pixie you can obtain the Feywild teleportation Orb. The quest is repeatable should you loose the orb.")
+                .text("Once you have earned the trust of a Pixie you have summoned, she may offer to create a special artifact for you which will allow you to cross the veil of dreams and enter the Feywild.")
                 .item(ModItems.pixieOrb)
-                .text("During the questline the pixie will ask you to capture a fey with an eye of ender.")
-                .text("When returning the pixie orb to your pixie she will grant it special powers wich allow you to travel back and forth from the feywild.");
-
+                .text("These mystical pearls are created by sealing a Pixie inside an Eye of Ender; one of their primary uses is that a befrinded Pixie requires one in order to create your gateway into and out of the Feywild!")
+                .text("You can offer additional Pixie Orbs to your Pixie friend if you need any replacement Teleportation Orbs.");
 
         this.category("fey_gems")
                 .name("Fey Gems")
-                .description("When a Fey passes into the next world, they leave behind a small amount of Fey Dust. This dust is sought after by craftsmen, as compressing it turns it into the rare and precious Fey Ore.")
+                .description("When a Fey passes on to the next world, they leave behind a pinch of Fey Dust. This dust is valued by craftsmen as it can be condensed into the rare and precious Fey Ore.")
                 .icon(ModItems.greaterFeyGem);
 
         this.entry("fey_dust")
                 .name("Fey Dust")
                 .icon(ModItems.feyDust)
-                .text("When a Fey passes into the next world, they leave behind a small amount of Fey Dust.")
-                .text("Breaking the fey trees will also provide you with fey dust.")
-                .text("Fey Dust is also obtained by heating up fey ore.")
-                .smelting("smelting/fey_dust");
+                .text("When a Fey passes into the next world, they leave behind a small amount of Fey Dust. This magical powder pervades all plants, creatures, and items native to the Feyild, and can be obtained in more peaceful ways by offering cookies to untamed Pixies.")
+                .text("Alternatively, you can get Fey Dust from breaking the leaves of Fey trees.")
+                .smelting("smelting/fey_dust")
+                .caption("You can break a Fey Gem back down into dust by smelting it.");
 
         this.entry("fey_ore")
                 .name("Fey Ore")
                 .icon(ModItems.lesserFeyGem)
                 .item(ModBlocks.feyGemOre)
-                .text("Fey gems are very wanted by some creatures and wizards because it still contains some of the Fey's original magic.")
-                .text("Be careful when mining the Fey ore as it is fragile and putting too much pressure on the ore can lower the quality of the excavated Fey Gems.")
-                .flip()
-                .text("Fey Ore can only be found in the Feywild Dimension.")
+                .text("Fey gems are sought after by some wizards and creatures because it is a refined form of the Fey's original magic.")
                 .item(Items.STONECUTTER)
-                .text("Fey gems can be cut to smaller pieces by using a stone cutter.")
-                .text("The knowledge on how to increase the quality of a fey gem is said to be only known by the dwarves.")
+                .text("Fey gems can be cut to smaller pieces by using a Stonecutter.")
+                .text("It's theoretically possible to improve the quality of a such a gem, but that's a secret that only the Dwarves know!")
+                .flip()
+                .text("Fey Ore can only be found in the Feywild Dimension. Be careful when mining this ore; it is fragile, and putting too much pressure on it can lower the quality of the excavated gems.")
                 .item(ModBlocks.feyGemOreDeepSlate)
-                .text("Fey ore can also be found in Deepslate veins.")
-                .text("The Fey ore is better preserved in Deepslate and will have a slightly higher chance of dropping higher quality gems.");
+                .text("Fey ore can also be found in Deepslate veins. The magic is better preserved within deepslate, and this ore is somewhat more likely to yield high-quality gems.");
 
         this.entry("elven_quartz")
                 .name("Elven Quartz")
                 .icon(ModItems.rawElvenQuartz)
                 .item(ModBlocks.feyStarBlockBlue)
-                .caption("In the Feywild Dimension you can find colorful geodes filled with star blocks.")
+                .caption("In the Feywild, you can find colorful geodes lined with Star Blocks.")
                 .item(ModItems.rawSpringElvenQuartz)
-                .caption("The star blocks will contain raw elven quartz. There are five different types of quartz. Normal and one representing each season.")
+                .caption("Underneath the starry shell is a geode full of Elven Quartz. There are five different varieties of it: one to represent each season, and a fifth that isn't attuned to any court.")
                 .crafting("elven_quartz")
-                .caption("Combining the raw quartz will create a elven quartz block. These blocks can be used to create all kinds of blocks using a stonecutter.")
+                .caption("Combining the raw quartz in a crafting table will create a block of Elven Quartz; these can be used to create all kinds of decorative blocks with a Stonecutter.")
                 .crafting("elven_spring_quartz")
                 .crafting("elven_summer_quartz")
                 .crafting("elven_winter_quartz")
                 .crafting("elven_autumn_quartz");
 
-
         this.category("spring_court")
                 .name("Spring Court")
-                .description("They represent the birth of a new year and the coming of new life and are the most innocent of the Court. They are however, notoriously obnoxious when playing pranks, as they do not know the dangers or consequences of their actions. Nor do they care about it.")
+                .description("The Spring Court represents the birth of a new year and the coming of new life, and they are the most innocent of the Courts. However, they are notoriously obnoxious when playing pranks- as they seldom consider the consequences of their actions.")
                 .icon(ModItems.summoningScrollSpringPixie);
 
         this.entry("spring_court")
                 .name("Spring Court")
                 .icon(ModTrees.springTree.getSapling())
-                .text("Bouncy, bubbly and completely void of the idea of personal space, the fey of the Spring Court treat everything as if they have never seen it before.")
-                .text("They are like hyperactive children, always wondering what everything is, stuffing anything into their mouth that seems slightly edible and their only concern is not having either enough fun or food for the day.")
-                .text("They represent the birth of a new year and the coming of new life and are the most innocent of the Courts.")
-                .text("They are however, notoriously obnoxious when playing pranks, as they do not know the dangers or consequences of their actions.")
-                .text("Nor do they care about it.")
-                .image("Blossoming Wealds", "textures/patchouli_images/spring_book.png")
-                .item(ModBlocks.dandelion.getSeed())
-                .text("In the Blossoming Wealds you can find giant dandelions.")
-                .text("The giant dandelion has three variations; a bud, a flower and the flower's well known fluff.")
-                .text("The flower will also drop dandelion seeds, which can be used to grow your own giant dandelions.");
+                .text("Bouncy, bubbly, and completely devoid of the idea of personal space, the Fey of the Spring Court treat everything as if they have never seen it before.")
+                        .text("They are like hyperactive children- always wondering what everything is, stuffing anything into their mouth that seems remotely edible, and only particularly concerned about not having enough fun or food for the day.")
+                        .text("They represent the birth of a new year and the coming of new life, and are the most innocent of the Courts. However, they are notoriously obnoxious when playing pranks- as they do not know of the dangers or consequences of their actions.")
+                        .text("...Nor do they care about that, for that matter!")
+                        .image("Blossoming Wealds", "textures/patchouli_images/spring_book.png")
+                        .item(ModBlocks.dandelion.getSeed())
+                        .text("In the Blossoming Wealds, you can find Giant Dandelions in three variations: budding, flowering, and the flower's well known fluff- ready to scatter its seeds to the wind.")
+                        .text("The flower will also drop dandelion seeds, which can be planted to grow your own giant dandelions.");
 
         this.entry("spring_pixie")
                 .name("Spring Pixie")
                 .icon(ModItems.summoningScrollSpringPixie)
                 .entity(ModEntities.springPixie)
                 .flip()
-                .text("Beware that when you summon a pixie, you are bound to their Court!")
-                .text("This means other courts might not be willing to interact with you afterwards.")
-                .text("Also note that not all pixies are willing familiars, and they might trick you!")
-                .text("Try interacting with your pixie after you summoned one, if possible try to gain their trust.")
+                .text("Commonly seen frolicking in the Blossoming Wealds without a care in the world, the Spring Pixie is often called the cutest and sweetest of the Fey- and she's more than happy to explore the world and make new friends. Just don't forget that sweetness and kindness are two different things!")
+                .flip()
+                .text("Remember that when you accept a Pixie's terms, you will be bound to their Court and the others will take notice of that!")
+                .text("Also note that not all Pixies are willing familiars, and they may trick you! Try interacting with the pixie you summoned, and see if you can gain their trust.")
                 .add(this.altar("summoning_scroll_spring_pixie_fey_altar"))
-                .text("With this scroll you can summon a Spring Pixie.")
-                .text("The presence of a Spring Pixie will make the animals fall in love with each other.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.")
+                .text("A Spring Pixie summoned by this scroll will cast a spell that causes flowers to grow where you tread- as well as to regenerate a bit of your health.")
+                .text("As a reminder, you can ask the summoned pixie to follow you, or wait in a specific spot, by interacting with her while sneaking.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .text("Pixies love Cookies, as most Fey do! You can give a hungry Fey cookies to restore some of their health.")
                 .item(ModItems.runeOfSpring)
-                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
+                .text("You can change your Pixie's innate powers with Runestones. The Dwarves will know more about how these work.");
 
         this.entry("mandragora")
                 .name("Mandragora")
                 .icon(ModItems.summoningScrollMandragora)
-                .text("As if touched by a fey spirit, mandragoras are typically bright and cheerful optimists, ready to laugh, frolic and enjoy life and nature.")
-                .text("They sprout from their less charming relatives, the mandrakes.")
+                .text("Touched by a Fey spirit, the bright and optimistic Mandragoras are always ready to laugh, frolic, and enjoy life and nature. They sprout from their less-charming relatives: the Mandrakes.")
                 .entity(ModEntities.mandragora)
                 .crafting("magical_honey_cookie")
-                .caption("By feeding a mandrake their favorite food, a magical honey cookie, they will sprout into a Mandragora.")
-                .caption("A Mandragora will take care of your garden, and her lovely singing voice might even grow crops.")
-                .item(ModBlocks.mandrakeCrop.getSeed())
-                .caption("You can use a Mandrake Seed to change the Type of the Mandragora.")
+                .caption("By feeding a mandrake their favorite food- a Magical Honey Cookie- they will sprout into a Mandragora. They will take care of your garden, and her lovely singing voice may even help crops grow.")
+                .item(ModItems.honeycomb)
+                .caption("The Magical Honeycomb you need for these cookies can be found in the Feywild's Golden Seelie Fields. They're typically found in the Beekeeps, and guarded by Bee Knights!");
                 .add(this.altar("summoning_scroll_mandragora_fey_altar"))
-                .caption("Sometimes other mods may prevent you from summoning a Mandragora with a Honey Cookie, then try creating a Summoning Scroll.")
-                .item(ModItems.magicalHoneyCookie)
-                .caption("The magical Honey cookie can be found in the Golden Seelie Fields. There will be a structure called the Beekeep, where the summer Court protects their honey.");
+                .caption("[Editor's Note: If for whatever reason another mod prevents you from using Honey Cookies on your crops, a summoning scroll is available as an alternative.]")
+                .item(ModBlocks.mandrakeCrop.getSeed())
+                .caption("You can use Mandrake Seeds to change what type of Mandragora she currently looks like.")
+
 
         this.entry("spring_tree_ent")
                 .name("Spring Tree Ent")
                 .icon(ModItems.summoningScrollSpringTreeEnt)
                 .entity(ModEntities.springTreeEnt)
                 .flip()
-                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_spring_tree_ent_fey_altar"))
                 .item(ModTrees.springTree.getLogBlock().asItem())
-                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them!")
                 .item(Items.BONE_MEAL)
-                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Spring tree ent will also drop a variation of flowers.");
-
-        this.entry("spring_pixie_wings")
-                .name("Pixie Wings")
-                .icon(ModItems.feyWingsSpring)
-                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_spring_fey_altar"))
-                .item(ModItems.feyDust)
-                .caption("You can repair pixie wings with fey dust.");
-
+                .text("When given bone meal, the Spring Tree Ent will grant you some of their saplings- as well as flowers and their magical blessing to the particularly Lucky.");
 
         this.category("summer_court")
                 .name("Summer Court")
-                .description("The Summer Court is the primary reigning Court within the Feywild and they know it. The other Courts and inhabitants of the Feywild are there to serve them, and though polite, they demand recognition of their self-claimed royal status.")
+                .description("The primary reigning Court within the Feywild, the Summer Court serve as the main defenders of the realm. Though polite, they demand recognition of their self-proclaimed sovereignty from the other inhabitants of the Feywild in turn.")
                 .icon(ModItems.summoningScrollSummerPixie);
 
         this.entry("summer_court")
                 .name("Summer Court")
                 .icon(ModTrees.summerTree.getSapling())
-                .text("The Summer Court is the primary reigning Court within the Feywild and they know it.")
-                .text("Haughty and demanding, they expect anyone who addresses them to treat them as the royals they are.")
-                .text("The other Courts and inhabitants of the Feywild are there to serve them, and though polite, they demand recognition of their self-claimed royal status.")
-                .text("The Summer Court defend the Feywild against intruders which seek to take a hold of the Faerie Court's riches and are more combat orientated then the other Courts.")
-                .text("They are quick to answer any threat or opposition with their righteous judgment.")
+                .text("The Summer Court is the primary reigning Court within the Feywild, and they know it! Haughty and demanding, they expect everyone who addresses them to treat them as the royals they are.")
+                .text("The other Courts and inhabitants of the Feywild are there to serve them, and though polite, they demand recognition of their self-proclaimed royal status.")
+                .flip()
+                .text("The Summer Court defends the Feywild from intruders who seek to take a hold of the Faerie Court's riches; they are more combat-focused than the other Courts as a result- quick to answer any threat or opposition with their righteous judgment.")
                 .image("Golden Seelie Fields", "textures/patchouli_images/summer_book.png")
                 .item(ModBlocks.sunflower.getSeed())
-                .text("In the Golden Seelie Fields you can find giant sunflowers.")
-                .text("The giant sunflowers will face the sun's position.")
-                .text("The flower will also drop sunflower seeds, which can be used to grow your own giant sunflowers.");
+                .text("In the Golden Seelie Fields you can find Giant Sunflowers, which will turn to face the sun's position in the sky.")
+                .text("They can also drop sunflower seeds, which can be used to grow your own giant sunflowers.");
 
         this.entry("summer_pixie")
                 .name("Summer Pixie")
                 .icon(ModItems.summoningScrollSummerPixie)
                 .entity(ModEntities.summerPixie)
                 .flip()
-                .text("The Summer Court is the primary reigning Court within the Feywild and they know it.")
-                .text("Beware that when you summon a pixie, you are bound to their Court!")
-                .text("This means other courts might not be willing to interact with you afterwards.")
-                .text("Also note that not all pixies are willing familiars, and they might trick you!")
-                .text("Try interacting with your pixie after you summoned one, if possible try to gain their trust.")
+                .text("In the Summer Court, even the smallest Pixie is endowed with the status and authority of their Court- and they'll make sure you remember that!")
+                .text("If you manage to earn the favor of such a Fey, however, then you may gain a potent ally who will help guide you through thick and thin.")
+                .flip()
+                .text("Remember that when you accept a Pixie's terms, you will be bound to their Court and the others will take notice of that!")
+                .text("Also note that not all Pixies are willing familiars, and they may trick you! Try interacting with the pixie you summoned, and see if you can gain their trust.")
                 .add(this.altar("summoning_scroll_summer_pixie_fey_altar"))
-                .text("With this scroll you can summon a Summer Pixie.")
-                .text("As a proud member of the Summer Court the Summer Pixie will smite down her foes.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain position, shift-right click her again.")
+                .text("A Summer Pixie summoned by this scroll will cast a spell that grants you Fire Resistance, and an aura that will burn any hostile mob who dares approach you.")
+                .text("As a reminder, you can ask the summoned pixie to follow you, or wait in a specific spot, by interacting with her while sneaking.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
-                .item(ModItems.runeOfAutumn)
-                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
+                .text("Pixies love Cookies, as most Fey do! You can give a hungry Fey cookies to restore some of their health.")
+                .item(ModItems.runeOfSummer)
+                .text("You can change your Pixie's innate powers with Runestones. The Dwarves will know more about how these work.");
 
         this.entry("bee_knight")
                 .name("Bee Knight")
                 .icon(ModItems.summoningScrollBeeKnight)
                 .entity(ModEntities.beeKnight)
                 .flip()
-                .text("The Bee Knights patrol the Golden Seelie Fields, looking for anyone who tries to steal their sacred honey.")
+                .text("The Bee Knights patrol the Golden Seelie Fields, keeping an eye out for anyone who may try to steal their sacred honey.")
                 .item(ModItems.honeycomb)
-                .text("The best honey of the Summer Court is kept at the Bee Keep.")
-                .text("The Bee Keep is protected by several Bee Knights.")
-                .text("The Sacred Honey Comb is kept in a glass display.")
-                .text("The display can be broken by left clicking it rapidly so it will break, and the golden treasure is yours.")
+                .text("The best of the Summer Court's honey is stored in the Bee Keep and kept under constant watch by several Bee Knights.")
+                .text("The glass display the Sacred Honeycomb is kept in is protected by magic. You can break into it by punching it repeatedly until the hole is big enough to extract the golden treasure within.")
                 .add(this.altar("summoning_scroll_bee_knight_fey_altar"))
-                .text("With this scroll you can summon a Bee Knight.")
-                .text("The Bee Knight will protect the area from other creatures interacting with it.");
+                .text("A Bee Knight summoned by this scroll will protect the nearby area from other creatures trying to interact with it.");
 
         this.entry("summer_tree_ent")
                 .name("Summer Tree Ent")
                 .icon(ModItems.summoningScrollSummerTreeEnt)
                 .entity(ModEntities.summerTreeEnt)
                 .flip()
-                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_summer_tree_ent_fey_altar"))
                 .item(ModTrees.summerTree.getLogBlock().asItem())
-                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
-                .item(ModItems.magicalHoneyCookie)
-                .text("The Summer Tree ent has attracted some bees, giving him a magical honey cookie might lure some of them out of their hives.")
+                .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them!")
                 .item(Items.BONE_MEAL)
-                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements.");
-
-        this.entry("summer_pixie_wings")
-                .name("Pixie Wings")
-                .icon(ModItems.feyWingsSummer)
-                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_summer_fey_altar"))
-                .item(ModItems.feyDust)
-                .caption("You can repair pixie wings with fey dust.");
+                .text("When given bone meal the Summer Tree Ent will grant you some of their saplings, as well as the Strength to protect the realm of the Fey.")
+                .item(ModItems.magicalHoneyCookie)
+                .text("The Summer Tree Ent has attracted bees into nesting in their branches; perhaps giving them a Magical Honey Cookie will lure some of these bees out into the open.");
 
         this.category("autumn_court")
                 .name("Autumn Court")
-                .description("The Autumn Court is the most mature of the four Fae Courts, their age and wisdom has given them a appreciation of fine art, music and poetry. They know the upcoming period will be a harsh one, and feel the responsibility of preparing for the end of a cycle.")
+                .description("The most mature of the four Fae Courts, the Autumn Court bears the responsibility of preparing for the end of a yearly cycle. They have an appreciation for the arts, and are perhaps the kindest of the courts.")
                 .icon(ModItems.summoningScrollAutumnPixie);
 
         this.entry("autumn_court")
                 .name("Autumn Court")
                 .icon(ModTrees.autumnTree.getSapling())
-                .text("The Autumn Court is the most mature of the four Fae Courts, their age and wisdom has given them a appreciation of fine art, music and poetry.")
-                .text("They rather spend a night listening to song, dancing and flirting then going to combat or mindlessly indulging themselves.")
-                .text("They know the upcoming period will be a harsh one, and feel the responsibility of preparing for the end of a cycle.")
-                .text("Perhaps the most kind of the Courts, they are still capable of trickery and mischief, but they are more hush-hush about it.")
-                .text("The Autumn Court will protect the Feywild from any evil spirits and will harvest souls who have gone astray.")
-                .text("To honour them but also to give the lost soul one more good time before passing on to the next stage.")
+                .text("The Autumn Court is the most mature of the four Fae Courts, and their age and wisdom has given them a appreciation of fine art, music and poetry.")
+                .text("They would rather spend a night listening to songs, dancing, and flirting than going to combat or mindlessly indulging themselves. They know the upcoming period will be a harsh one, and feel the responsibility of preparing for the end of a cycle.")
+                .flip()
+                .text("Perhaps the kindest of the Courts, the Autumn Fey are still fully capable of trickery and mischief; they are just more hush-hush about it.")
+                .text("The Autumn Court will protect the Feywild from any evil spirits and harvest souls who have gone astray. To honor the lost souls, and to give them one more good time before they pass on to the next stage.")
                 .image("The Eternal Fall", "textures/patchouli_images/autumn_book.png")
                 .item(ModBlocks.treeMushroom)
-                .text("In the Eternal Falls you can find giant Mushrooms.")
-                .text("You can grow your own giant mushrooms by placing a red or brown mushroom on podzol, and grow it with bone meal.")
-                .text("The tree mushrooms can be carefully harvested with a shear.");
+                .text("In the Eternal Falls you can find Giant Mushrooms.")
+                .text("You can grow your own giant mushrooms by bone-mealing red or brown mushrooms planted on podzol, and then carefully harvest them with shears.");
 
         this.entry("autumn_pixie")
                 .name("Autumn Pixie")
                 .icon(ModItems.summoningScrollAutumnPixie)
                 .entity(ModEntities.autumnPixie)
                 .flip()
-                .text("The Autumn Court is the most mature of the four Fey Courts, their age and wisdom has given them a appreciation of fine art, music and poetry.")
-                .text("Beware that when you summon a pixie, you are bound to their Court!")
-                .text("This means other courts might not be willing to interact with you afterwards.")
-                .text("Also note that not all pixies are willing familiars, and they might trick you!")
-                .text("Try interacting with your pixie after you summoned one, if possible try to gain their trust.")
+                .text("A caretaker through and through, the Autumn Pixie is happy to look after anyone who comes to her. Though not particularly inclined to venture out into the larger world, she knows much about the mysteries of the Feywild and will do her best to support those she cares about.")
+                .flip()
+                .text("Remember that when you accept a Pixie's terms, you will be bound to their Court and the others will take notice of that!")
+                .text("Also note that not all Pixies are willing familiars, and they may trick you! Try interacting with the pixie you summoned, and see if you can gain their trust.")
                 .add(this.altar("summoning_scroll_autumn_pixie_fey_altar"))
-                .text("With this scroll you can summon a Autumn Pixie.")
-                .text("Autumn Pixies will try to ward off any evil spirits by protecting you with a wind walk spell.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.")
+                .text("An Autumn Pixie summoned by this scroll will wrap you in a magical wind that eases your movement and pushes away evil spirits who try to approach you.")
+                .text("As a reminder, you can ask the summoned pixie to follow you, or wait in a specific spot, by interacting with her while sneaking.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .text("Pixies love Cookies, as most Fey do! You can give a hungry Fey cookies to restore some of their health.")
                 .item(ModItems.runeOfAutumn)
-                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
+                .text("You can change your Pixie's innate powers with Runestones. The Dwarves will know more about how these work.");
 
         this.entry("shroomling")
                 .name("Shroomling")
                 .icon(ModItems.summoningScrollShroomling)
                 .item(ModItems.summoningScrollShroomling)
-                .text("With this scroll you can summon a Shroomling.")
-                .text("The Shroomling has some allergies for spores and will sneeze at random times.")
+                .text("Though not the most talkative, the Shroomlings are always eager to please. They have a considerable spore allergy, though, and will sneeze at random.")
                 .entity(ModEntities.shroomling)
                 .add(this.altar("summoning_scroll_shroomling_fey_altar"))
                 .crafting("fey_mushroom")
-                .text("If the area the shroomling is in, is not well lit up, it will spawn a fey mushroom to light up the area. $(p) You can easily harvest the fey mushroom and replace it.")
-                .text("Right clicking with fey dust or bonemeal will light up the mushroom.")
-                .text("Don't use to much or it will loose it magic.")
+                .text("If the Shroomling wanders into an area that is not well lit, it will plant Fey Mushrooms to help light up the area; these can be harvested and placed elsewhere if you wish.")
+                .text("Using Fey Dust or bone meal on a fey mushroom will make it glow brighter. Just don't use too much or it will turn dim instead!")
                 .entity(EntityType.MOOSHROOM)
-                .caption("If the Shroomling sneezes near a cow it might infect it with the 'shrooms', turning the cow into a Mooshroom.")
-                .caption("Did you know you can shear a Mooshroom, it removes the mushrooms and turn it back into a normal cow again?")
-                .caption("You can hold a bowl near a Mushroom and milk it for some fresh Mushroom Stew.");
-
-        this.entry("autumn_pixie_wings")
-                .name("Pixie Wings")
-                .icon(ModItems.feyWingsAutumn)
-                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_autumn_fey_altar"))
-                .item(ModItems.feyDust)
-                .caption("You can repair pixie wings with fey dust.");
+                .caption("A Shroomling sneezing near a cow might infect them with the 'shrooms- turning that cow into a Mooshroom. They can be milked with a bowl for some fresh Mushroom Stew, or sheared to revert them back into a normal cow.");
 
         this.category("winter_court")
                 .name("Winter Court")
-                .description("When leaves have fallen and the sky has turned to gray and the night has closed in on the day. That's when the Winter Court reigns supreme in the Feywild. Eventually death will come for us all and their purpose is to make sure the Feywild sees another turn of the year.")
+                .description("Sovereign over the Feywild's harshest season, the Winter Court are to make sure the Feywild sees another turn of the year. Soft-spoken and often a bit morbid, the Winter Fey will often warm up to those willing to help the Feywild through its deadliest period.")
                 .icon(ModItems.summoningScrollWinterPixie);
 
         this.entry("winter_court")
                 .name("Winter Court")
                 .icon(ModTrees.winterTree.getSapling())
-                .text("When leaves have fallen and the sky has turned to gray and the night has closed in on the day.")
-                .text("That's when the Winter Court reigns supreme in the Feywild.")
-                .text("These fey are not concerned with the living and their power struggles.")
-                .text("Eventually death will come for us all and their purpose is to make sure the Feywild sees another turn of the year.")
-                .text("They may seem cold and sullen at a first glance, but they will warm up to anyone who is willing to help the Feywild to its harshest most deadly period.")
-                .text("Winter fey tend to be soft spoken, slightly morbid and never choose their words without thinking about them.")
-                .text("They seem to be a bit on the awkward side when it comes to social dealings, and some prefer the company of the dead.")
+                .text("When the leaves have fallen, the sky has turned to gray, and the night closed in on the day- that's when the Winter Court reigns supreme in the Feywild.")
+                .text("These Fey are apathetic to the living and their power struggles; eventually death will come for us all, and their purpose is to make sure the Feywild sees another turn of the year.")
+                .flip()
+                .text("Winter Fey tend to be soft spoken, slightly morbid, and never choose their words without thinking about them. They seem to be a bit on the awkward side in social dealings, and some prefer the company of the dead.")
                 .image("Frozen Retreat", "textures/patchouli_images/winter_book.png")
                 .item(ModBlocks.crocus.getSeed())
-                .text("In the Frozen Retreat you can find giant crocuses.")
-                .text("The giant crocus will open it's flower during the day and will close at night.")
+                .text("The Giant Crocuses of the Frozen Retreat will open their flowers during the day and close them at night.")
                 .text("The flower will also drop crocus seeds, which can be used to grow your own giant crocus.");
 
         this.entry("winter_pixie")
@@ -425,152 +361,140 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModItems.summoningScrollWinterPixie)
                 .entity(ModEntities.winterPixie)
                 .flip()
-                .text("They may seem cold and sullen at a first glance, but they will warm up to anyone who is willing to help the Feywild to its harshest most deadly period.")
-                .text("Beware that when you summon a pixie, you are bound to their Court!")
-                .text("This means other courts might not be willing to interact with you afterwards.")
-                .text("Also note that not all pixies are willing familiars, and they might trick you!")
-                .text("Try interacting with your pixie after you summoned one, if possible try to gain their trust.")
+                .text("As with the rest of her Court, the Winter Pixie is soft-spoken, fairly withdrawn, and often given to... morbid interests.")
+                .text("Cold and sullen at a first glance, they will often warm up to those willing to help the Feywild through its harshest and deadliest season.")
+                .flip()
+                .text("Remember that when you accept a Pixie's terms, you will be bound to their Court and the others will take notice of that!")
+                .text("Also note that not all Pixies are willing familiars, and they may trick you! Try interacting with the pixie you summoned, and see if you can gain their trust.")
                 .add(this.altar("summoning_scroll_winter_pixie_fey_altar"))
-                .text("With this scroll you can summon a Winter Pixie.")
-                .text("The Winter Pixie will occasionally summon back a soul into a snowman's body.")
-                .text("The summoned pixie will follow you by shift-right clicking her, if you want her to stay at a certain location, shift-right click her again.")
+                .text("A Winter Pixie summoned by this scoll will grant you the power to walk on water by freezing it beneath your feet.")
+                .text("As a reminder, you can ask the summoned pixie to follow you, or wait in a specific spot, by interacting with her while sneaking.")
                 .item(Items.COOKIE)
-                .text("Pixies love cookies, as most fey do! When they are hungry you can give them a cookie and it will heal some of their health.")
+                .text("Pixies love Cookies, as most Fey do! You can give a hungry Fey cookies to restore some of their health.")
                 .item(ModItems.runeOfWinter)
-                .text("You can change your pixie's ability with a runestone. Dwarves will know more about these runestones.");
-
+                .text("You can change your Pixie's innate powers with Runestones. The Dwarves will know more about how these work.");
 
         this.entry("allay")
                 .name("Allay")
                 .icon(ModItems.summoningScrollAllay)
                 .entity(EntityType.ALLAY)
                 .flip()
-                .text("Allay are spirits of lost Feys. Their only purpose is to find lost items and return it to their owners. The Winter Court's Reapers have made use of these little allays to retrieve souls shards. However, the Allay are not loyal to the winter court, and will aid whom ever they can. ")
+                .text("The Allay are spirits of lost Fey. They're commonly instructed to look for lost items and return them to their owner; among other things, the Winter Court's Reapers like to employ them to retrieve souls shards for them. However, the Allay are not truly loyal to the Winter Court and will aid whomever they can. ")
                 .add(this.altar("summoning_scroll_allay_fey_altar"))
                 .item(Items.COOKIE)
-                .text("You can try give them a cookie, but they will just return it to you. ");
+                .text("Unlike other Fey, Allay do not react to cookies or other treats in any special way. [Editor's Note: I was told we're supposed to blame 'vanilla ice cream' or something like that.]");
 
         this.entry("winter_tree_ent")
                 .name("Winter Tree Ent")
                 .icon(ModItems.summoningScrollWinterTreeEnt)
                 .entity(ModEntities.winterTreeEnt)
                 .flip()
-                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players. The Winter Tree Ents are not hostile towards undead as they grew accustom to their presence.")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
+                .text("Ents of this persuasion are not hostile towards the undead; like the rest of the Winter Court, they are accustomed to life's many endings.")
                 .add(this.altar("summoning_scroll_winter_tree_ent_fey_altar"))
                 .item(ModTrees.winterTree.getLogBlock().asItem())
-                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them.")
                 .item(Items.BONE_MEAL)
-                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements");
-
-        this.entry("winter_pixie_wings")
-                .name("Pixie Wings")
-                .icon(ModItems.feyWingsWinter)
-                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_winter_fey_altar"))
-                .item(ModItems.feyDust)
-                .caption("You can repair pixie wings with fey dust.");
-
+                .text("When given bone meal, the Winter Tree Ent will grant you some of their saplings- as well as the power to Resist those who seek to extinguish your life prematurely.");
 
         this.entry("reaper_scythe")
                 .name("Winter's Reaper Scythe")
                 .icon(ModItems.soulShard)
                 .add(this.altar("reaper_scythe_fey_altar"))
-                .text("The winter reaper scythe grants special abilities to a player aligned to the Winter Court.")
+                .text("Bone-chilling scythes such as this one are commonly-used weapons by the soul reapers of the Winter Court; as such, it grants its full power to those attuned to their court.")
                 .item(ModItems.soulShard)
-                .caption("With the reaper scythe you can collect soul shards from the undead.")
+                .caption("By striking down undead creatures using the Reaper Scythe, you may extract pieces of their reanimated souls- condensed into crystalline shards like these. ")
                 .item(Blocks.ZOMBIE_HEAD)
-                .caption("With the reaper scythe you can sometimes take the head of a undead monster.")
+                .caption("As an added bonus, slaying certain mobs with the scythe yields a moderate chance to behead them! Such a grisly trophy might earn you the approval of the most morbid of Fey.")
                 .add(this.altar("soul_gem_fey_altar"))
-                .text("You can combine the captured souls into a soul gem. You can restore the soul to the world of the living. But if the soul is incomplete, an undead version may spawn")
+                .text("By combining these crystalized soul fragments into a Soul Gem, you may return the poor soul within to the world of the living. This process isn't perfect, however, and if the soul inside is malformed or incomplete, then they might wind up corrupted as a result!")
                 .item(ModItems.lesserFeyGem)
-                .caption("You can repair the scythe with lesser fey gems.");
-
+                .caption("Your scythe can be repaired with Lesser Fey Gems.");
 
         this.category("neutral_courts")
                 .name("Neutral Courts")
-                .description("Not all fey are aligned to a specific Court and some are even aligned to other lesser known Courts, like the Shadow Court. There are even rumours of fey who are aligned to the stars.")
+                .description("Not all Fey belong to the Seasonal Courts, and some even hail from other, more obscure Courts! There are even rumours of Fey who have aligned with the stars.")
                 .icon(ModItems.summoningScrollHexenTreeEnt);
+
+        this.entry("pixie_wings")
+                .name("Pixie Wings")
+                .icon(ModItems.feyWingsSpring)
+                .text("In stories past, Pixies didn't originally have wings; that changed after the fall of Light and Darkness, when their domains were split apart into the Courts we know of today. Wishing to discover their origins, the Fey yearning for the stars bestowed their kin with power of flight.$(br)You can recieve the Pixie Wing Tiara required to craft your own set of wings by earning your place within one of the Fey Courts.")
+                .add(this.altar("fey_wings_spring_fey_altar"))
+                .add(this.altar("fey_wings_summer_fey_altar"))
+                .add(this.altar("fey_wings_autumn_fey_altar"))
+                .add(this.altar("fey_wings_winter_fey_altar"))
+                .add(this.altar("fey_wings_light_fey_altar"))
+                .add(this.altar("fey_wings_shadow_fey_altar"))
+                .item(ModItems.feyDust)
+                .caption("You can repair your wings by using Fey Dust.");
 
         this.entry("hexen_tree_ent")
                 .name("Hexen Tree Ent")
                 .icon(ModItems.summoningScrollHexenTreeEnt)
                 .entity(ModEntities.hexenTreeEnt)
                 .flip()
-                .text("Tree ents are fey who over time became started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_hexen_tree_ent_fey_altar"))
                 .item(ModTrees.hexenTree.getLogBlock().asItem())
-                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them.")
                 .item(Items.BONE_MEAL)
-                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements")
+                .text("When given bone meal, the Hexen Tree Ent will grant you some of their saplings.")
                 .item(ModItems.feyDust)
-                .text("Hexen tree ents, are ents who are corrupted by Hexerei. The witch who summoned them, used their aura and fey dust to get access to all kinds of magic stored in the fey dust. The magic is very volatile and may not always grant the owner a desired enchantment.");
+                .text("Twisted by dark magic, Hexen ents can consume fey dust to provide the witches who summon them with all sorts of magical boons. Just be warned that due to the volatile nature of their magic, the 'blessings' these ents have to offer might not turn out the way you'd like them to!");
 
         this.entry("blossom_tree_ent")
                 .name("Blossom Tree Ent")
                 .icon(ModItems.summoningScrollBlossomTreeEnt)
                 .entity(ModEntities.blossomTreeEnt)
                 .flip()
-                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_blossom_tree_ent_fey_altar"))
                 .item(ModTrees.blossomTree.getLogBlock().asItem())
-                .text("Tree ents can be healed by giving them logs of their resembling trees. You can also give them a cookie if you want to spoil them.")
+                .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them.")
                 .item(Items.BONE_MEAL)
-                .text("Bone meal will make them grow saplings and their auras will expand more granting their owners special enhancements. The Blossom tree might also drop apples.");
-
-        this.entry("pixie_wings")
-                .name("Pixie Wings")
-                .icon(ModItems.feyWingsShadow)
-                .text("Pixies originally didn't have wings. After the fall of Light and Dark, the Courts where divided. Not knowing where they where from the pixies longing to return to the stars gave them wings.$(br)$(br)You can receive your own Pixie Wings by completing the quest line.")
-                .add(this.altar("fey_wings_shadow_fey_altar"))
-                .add(this.altar("fey_wings_light_fey_altar"));
-
+                .text("When given bone meal, the Blossom Tree Ent will grant you some of their saplings. They may also grace you with apples- potentially magical ones at that!");
 
         this.category("dwarves")
                 .name("Dwarves")
-                .description("Brought into life by the spilling of Ymirs lifeblood, the dwarves have a strong binding with the earth, fire and the mountains. This makes them excellent and skilled metalworkers and craftsmen, and they take great pride in this.")
+                .description("The secretive Dwarves are highly attuned with fire, the earth, and the mountains. They are excellent metalworkers and highly-skilled craftsmen, and they take great pride in this.")
                 .icon(ModBlocks.dwarvenAnvil);
 
         this.entry("dwarves")
                 .name("Dwarves")
                 .icon(Items.DIAMOND_PICKAXE)
-                .text("Brought into life by the spilling of Ymirs lifeblood, the dwarves have a strong binding with the earth, fire and the mountains.")
-                .text("This makes them excellent and skilled metalworkers and craftsmen, and they take great pride in this.")
+                .text("Brought into life by the spilling of Ymir's life-blood, the Dwarves are highly attuned with fire, the earth, and the mountains.")
+                .text("This makes them excellent metalworkers and highly-skilled craftsmen, and they take great pride in this.")
                 .entity(ModEntities.dwarfBlacksmith)
                 .item(ModItems.summoningScrollDwarfBlacksmith, false)
-                .text("Most dwarves can be found underground mining and some have build a home, somewhere in the Feywild.")
-                .text("If you trade alot with them, they may offer you a Summoning Contract.");
+                .text("Most dwarves can be found underground in their Dwarven Forges, and a few have built homes for themselves somewhere in the Feywild.")
+                .text("If you trade a lot of items with them, they may offer you a Summoning Contract.");
 
         this.entry("dwarven_anvil")
                 .name("Dwarven Anvil")
                 .icon(ModBlocks.dwarvenAnvil)
                 .crafting("dwarven_anvil")
-                .caption("Dwarves don't easily make friends with outsiders, but if you are one of the few who has earned the gratitude of a dwarf, you have a friend for life.")
+                .caption("Dwarves don't easily make friends with outsiders, but if you are one of the few who have earned the gratitude of a dwarf, you have a friend for life.")
+                .text("If you have a Dwarven Anvil and the resources it requires (read on), a Dwarven friend can use it to craft all sorts of magical items for you.")
                 .item(ModItems.summoningScrollDwarfBlacksmith)
-                .text("A summoning contract can be obtained by trading with dwarves (up to level 3).")
-                .text("By shift-right clicking the dwarven anvil with the summoning scroll, you will bind a dwarf to that anvil.")
-                .text("The summoned dwarf will craft for you when you place the correct recipe in the anvil.")
-                .text("So make sure you have a dwarf bound to the anvil.")
+                .text("A Summoning Contract can be obtained by trading with dwarves [up to level 3].")
+                .text("By sneak-using the summoning contract on a Dwarven Anvil, you will summon a dwarf bound to that anvil. You may then provide the anvil with the ingredients for your crafting recipe, which the summoned dwarf will use to craft your desired item!")
                 .flip()
                 .item(ModItems.feyDust)
-                .caption("You can replenish the mana of the anvil, by placing fey dust as fuel in the buttom-left slot of the anvil.")
-                .text("Most special recipes require mana.")
+                .caption("Many recipes require additional arcane power in the form of mana. You can replenish your anvil's mana reserves by inserting fuel in the form of Fey Dust into the bottom-left slot of the anvil.")
                 .flip()
-                .text("The summoned dwarf will have different trades then those found in caves or at the blacksmith.")
-                .text("They will require a daily meal in exchange for ore.")
-                .text("If you provide the dwarf with enough meals he will offer you his knowledge in the form of schematics.")
+                .text("A summoned dwarf will have different trades than those found out in the world. They will request a daily meal in exchange for ore.")
+                .text("If you provide the dwarf enough provisions, he may offer you his knowledge in the form of Schematics.")
                 .item(ModItems.schematicsGemTransmutation, false)
-                .text("Most recipes for the anvil will require schematics.")
-                .text("You can place the schematics in the top-left slot of the anvil.")
+                .text("Written in the Dwarves' native tongue, these various books contain the detailed procedures and instructions required to craft items with the Dwarven Anvil. They are not consumed during crafting, but a dwarf needs to have the prerequisite set of schematics on hand in order to craft items. They can be placed in the top-left slot of the anvil.")
                 .flip()
-                .text("So to craft with the dwarven anvil make sure you have enough mana, a dwarf should be bound to the anvil, and you require the correct schematics.")
-                .text("Once all items are placed the dwarf will start crafting for you!");
+                .text("Once the Dwarven Anvil has been supplied with the correct schematics, ingredients, and sufficient mana, the dwarf will begin crafting for you!");
 
         this.entry("gem_transmutation")
                 .name("Gem Transmutation")
                 .icon(ModItems.brilliantFeyGem)
                 .item(ModItems.schematicsGemTransmutation)
-                .text("With the knowledge of gem transmutation your dwarf can craft you high quality fey gems.")
-                .text("All you have to do is provide the correct ingredients.")
+                .text("This set of schematics contains the elusive secret to manufacturing high-quality Fey Gems! All you need to do is provide your friendly neighborhood Dwarf sufficient mana and five fey gems of matching quality.")
                 .add(this.anvil("greater_fey_gem_dwarven_anvil"))
                 .add(this.anvil("shiny_fey_gem_dwarven_anvil"))
                 .add(this.anvil("brilliant_fey_gem_dwarven_anvil"));
@@ -579,8 +503,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Elven Quartz")
                 .icon(ModItems.rawElvenQuartz)
                 .item(ModItems.schematicsElvenQuartz)
-                .text("With this knowledge your dwarf can craft all kinds of raw elven quartz and star blocks")
-                .text("All you have to do is provide the correct ingredients.")
+                .text("With this knowledge, an allied Dwarf can craft all kinds of Elven Quartz, as well as the various Star Blocks.")
                 .add(this.anvil("raw_elven_quartz_dwarven_anvil"))
                 .add(this.anvil("raw_autumn_elven_quartz_dwarven_anvil"))
                 .add(this.anvil("raw_spring_elven_quartz_dwarven_anvil"))
@@ -599,45 +522,40 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Runestones")
                 .icon(ModItems.runeOfAutumn)
                 .item(ModItems.schematicsRunestones)
-                .text("With this knowledge your dwarf can craft runestones.")
-                .text("All you have to do is provide the correct ingredients.")
-                .text("You can also replenish the mana of an inactive runestone.")
+                .text("Besides the Traveling Stones, there are a variety of different runestones with unique magical powers. This set of blueprints allows a Dwarf you've befriended to craft a few of them, as well as to recharge runestones that have been depleted of their energy.")
                 .add(this.anvil("market_rune_stone_dwarven_anvil"))
                 .add(this.anvil("rune_of_spring_dwarven_anvil"))
-                .text("This runestone will grant your pixie the ability to cast 'Flower Walk' on their owner.")
+                .text("This runestone allows your pixie to cast the 'Flower Walk' spell on their owner.")
                 .add(this.anvil("rune_of_summer_dwarven_anvil"))
-                .text("This runestone will grant your pixie the ability to cast 'Fire Walk' on their owner.")
+                .text("This runestone allows your pixie to cast the 'Fire Walk' spell on their owner.")
                 .add(this.anvil("rune_of_winter_dwarven_anvil"))
-                .text("This runestone will grant your pixie the ability to cast 'Frost walk' on their owner.")
+                .text("This runestone allows your pixie to cast the 'Frost Walk' spell on their owner.")
                 .add(this.anvil("rune_of_autumn_dwarven_anvil"))
-                .text("This runestone will grant your pixie the ability to cast 'Wind walk' on their owner.");
+                .text("This runestone allows your pixie to cast the 'Wind Walk' spell on their owner.");
 
         this.entry("dwarf_market")
-                .name("Dwarven Market")
+                .name("The Dwarven Market")
                 .icon(ModItems.marketRuneStone)
                 .item(ModItems.inactiveMarketRuneStone)
-                .text("Runestones are small slabs of stone with magical properties.")
-                .text("They can hold different kinds of magical spells.")
-                .text("The most common are the Traveling stones, used to travel to other locations.")
+                .text("Runestones are small stone slates with magical properties. They can hold many kinds of magical powers; the most common are the Traveling Stones, used to travel to other locations.")
                 .item(ModItems.marketRuneStone)
-                .text("You can ask a dwarf you are friends with to activate an inactive rune stone.")
-                .text("When activated it can be used to teleport to a secret location only known by the dwarves and those they trust.")
+                .text("If you have earned the trust of a dwarf, you may ask them to reactivate such a runestone, and grant you access to a secret location known only to the dwarves and those they trust.")
                 .image("Dwarven Market", "textures/patchouli_images/market_book.png")
-                .caption("At the dwarven market you can trade for all kinds of items.")
-                .entity(ModEntities.dwarfBaker).caption("This dwarf trades for all kinds of culinary items.")
-                .entity(ModEntities.dwarfShepherd).caption("This dwarf trades for all kinds of farm animal items.")
-                .entity(ModEntities.dwarfToolsmith).caption("This dwarf trades for all kinds of armour, weapons and tools.")
-                .entity(ModEntities.dwarfArtificer).caption("This dwarf trades for all kinds of artifacts and trinkets.")
-                .entity(ModEntities.dwarfMiner).caption("This dwarf trades for all kinds of stones and ore.")
-                .entity(ModEntities.dwarfDragonHunter).caption("This dwarf trades for all kinds of monster drops.");
+                .caption("At the Dwarven Market, you can trade for all kinds of commodities:")
+                .entity(ModEntities.dwarfBaker).caption("This dwarf has a variety of culinary items for sale.")
+                .entity(ModEntities.dwarfShepherd).caption("This dwarf has some animal products up for sale.")
+                .entity(ModEntities.dwarfToolsmith).caption("This dwarf can supply you with various weapons, armor, and tools.")
+                .entity(ModEntities.dwarfArtificer).caption("This dwarf is an avid creator of artifacts, trinkets, and other gizmos- and eager to sell them, too.")
+                .entity(ModEntities.dwarfMiner).caption("This dwarf sells some of the ore and stone they've dug up, and well as surplus mining supplies.")
+                .entity(ModEntities.dwarfDragonHunter).caption("This dwarf is selling the drops of monsters they've hunted.");
 
         this.entry("magical_brazier")
                 .name("Magical Brazier")
                 .icon(ModBlocks.magicalBrazier.asItem())
                 .crafting("magical_brazier")
-                .caption("The magical braziers magic is a mystery for now, all that is know is that it was crafted by the dwarves.")
+                .caption("For now, the true nature of the Magical Brazier remains a mystery to us. What we know thus far is that the Dwarves invented them.")
                 .item(ModItems.feyDust)
-                .caption("The magical braziers fire can be turned on and off with fey dust.");
+                .caption("By using Fey Dust on a brazier, you can set it alight; it can be extinguished with a shovel.");
     }
 
     private Content altar(String id) {

@@ -36,7 +36,7 @@ public class SneezeGoal extends Goal {
 
     public SneezeGoal(Shroomling shroomling) {
         this.entity = shroomling;
-        this.level = shroomling.level;
+        this.level = shroomling.level();
 
     }
 
@@ -44,10 +44,7 @@ public class SneezeGoal extends Goal {
     public void tick() {
         if (this.ticksLeft > 0) {
             this.ticksLeft--;
-
             if (this.ticksLeft <= 0) {
-
-
                 if (this.entity.isTamed()) {
                     // CHANGE COWS INTO MOOSHROOMS
                     if (this.targetAnimal == null || !this.targetAnimal.isAlive()) {
@@ -58,14 +55,14 @@ public class SneezeGoal extends Goal {
                             this.targetAnimal.remove(Entity.RemovalReason.DISCARDED);
                             level.addFreshEntity(cow);
                             cow.playSound(SoundEvents.PANDA_SNEEZE, 1, 0.3f);
-                            FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.SHROOMLING_SNEEZE, cow.getX(), cow.getY(), cow.getZ());
+                            FeywildMod.getNetwork().sendParticles(this.entity.level(), ParticleMessage.Type.SHROOMLING_SNEEZE, cow.getX(), cow.getY(), cow.getZ());
                         }
                     }
                     // ADD MUSHROOM
                     if (level.getBrightness(LightLayer.BLOCK, this.entity.blockPosition()) < 3
-                            && this.entity.level.getBlockState(this.entity.blockPosition()).canBeReplaced(Fluids.WATER)
-                            && (this.entity.level.getBlockState(this.entity.blockPosition().below()).is(BlockTags.DIRT)
-                            || this.entity.level.getBlockState(this.entity.blockPosition().below()).is(Blocks.FARMLAND))) {
+                            && this.entity.level().getBlockState(this.entity.blockPosition()).canBeReplaced(Fluids.WATER)
+                            && (this.entity.level().getBlockState(this.entity.blockPosition().below()).is(BlockTags.DIRT)
+                            || this.entity.level().getBlockState(this.entity.blockPosition().below()).is(Blocks.FARMLAND))) {
                         this.level.setBlock(this.entity.blockPosition(), ModBlocks.feyMushroom.defaultBlockState(), 2);
                         this.entity.playSound(SoundEvents.COMPOSTER_READY, 1, 1);
                     }
@@ -78,14 +75,12 @@ public class SneezeGoal extends Goal {
                         }
                     }
                 }
-
                 this.reset();
-
             } else if (this.ticksLeft == 20) {
-                FeywildMod.getNetwork().sendParticles(this.entity.level, ParticleMessage.Type.SHROOMLING_SNEEZE, this.entity.getX(), this.entity.getY(), this.entity.getZ());
+                FeywildMod.getNetwork().sendParticles(this.entity.level(), ParticleMessage.Type.SHROOMLING_SNEEZE, this.entity.getX(), this.entity.getY(), this.entity.getZ());
             } else if (this.ticksLeft == 40) {
                 this.sneezing();
-                this.entity.playSound(ModSoundEvents.shroomlingSneeze, 1, 1);
+                this.entity.playSound(ModSoundEvents.shroomlingSneeze.getSoundEvent(), 1, 1);
             }
         }
     }
@@ -110,21 +105,19 @@ public class SneezeGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return level.random.nextFloat() < 0.01f
-                && !(this.entity.getState() == Shroomling.State.WAVING);
+        return level.random.nextFloat() < 0.01f && !(this.entity.getState() == Shroomling.State.WAVING);
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.ticksLeft > 0
-                && !(this.entity.getState() == Shroomling.State.WAVING);
+        return this.ticksLeft > 0 && !(this.entity.getState() == Shroomling.State.WAVING);
     }
 
     @Nullable
     private Animal findCow() {
         double distance = Double.MAX_VALUE;
         Animal current = null;
-        for (Animal animal : this.entity.level.getNearbyEntities(Cow.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        for (Animal animal : this.entity.level().getNearbyEntities(Cow.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
             if (animal.getAge() == 0 && this.entity.distanceToSqr(animal) < distance) {
                 current = animal;
                 distance = this.entity.distanceToSqr(animal);
@@ -136,7 +129,7 @@ public class SneezeGoal extends Goal {
     private Player findPlayer() {
         double distance = Double.MAX_VALUE;
         Player current = null;
-        for (Player player : this.entity.level.getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        for (Player player : this.entity.level().getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
             if (this.entity.distanceToSqr(player) < distance) {
                 current = player;
                 distance = this.entity.distanceToSqr(player);

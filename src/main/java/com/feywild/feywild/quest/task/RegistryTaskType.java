@@ -5,19 +5,18 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import javax.annotation.Nonnull;
+import java.util.Objects;
 
 public abstract class RegistryTaskType<T, X> implements TaskType<ResourceKey<T>, X> {
-
-    @Nonnull
-    public final IForgeRegistry<T> registry;
+    
     private final String key;
 
-    protected RegistryTaskType(String key, @Nonnull IForgeRegistry<T> registry) {
+    protected RegistryTaskType(String key) {
         this.key = key;
-        this.registry = registry;
     }
 
+    public abstract IForgeRegistry<T> registry();
+    
     @Override
     public Class<ResourceKey<T>> element() {
         //noinspection unchecked
@@ -27,10 +26,11 @@ public abstract class RegistryTaskType<T, X> implements TaskType<ResourceKey<T>,
     @Override
     public ResourceKey<T> fromJson(JsonObject json) {
         ResourceLocation rl = ResourceLocation.tryParse(json.get(this.key).getAsString());
-        if (rl == null || this.registry.getValue(rl) == null) {
-            throw new IllegalStateException("Can't load feywild quest task: " + this.registry.getRegistryName() + " not found: " + rl);
+        IForgeRegistry<T> registry = Objects.requireNonNull(this.registry());
+        if (rl == null || registry.getValue(rl) == null) {
+            throw new IllegalStateException("Can't load feywild quest task: " + registry.getRegistryName() + " not found: " + rl);
         }
-        return ResourceKey.create(this.registry.getRegistryKey(), rl);
+        return ResourceKey.create(registry.getRegistryKey(), rl);
     }
 
     @Override

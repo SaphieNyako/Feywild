@@ -4,13 +4,12 @@ import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.block.DisplayGlassBlock;
 import com.feywild.feywild.block.ModBlocks;
 import com.feywild.feywild.block.ModTrees;
-import com.feywild.feywild.block.MossyBlock;
+import com.feywild.feywild.block.decoration.MossyBlock;
 import com.feywild.feywild.block.flower.CrocusBlock;
 import com.feywild.feywild.block.flower.DandelionBlock;
 import com.feywild.feywild.block.flower.GiantFlowerBlock;
 import com.feywild.feywild.block.flower.SunflowerBlock;
 import com.feywild.feywild.block.trees.*;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
@@ -19,22 +18,20 @@ import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.VariantBlockStateBuilder;
 import net.minecraftforge.client.model.generators.loaders.CompositeModelBuilder;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.moddingx.libx.annotation.data.Datagen;
-import org.moddingx.libx.datagen.provider.BlockStateProviderBase;
-import org.moddingx.libx.mod.ModX;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.provider.model.BlockStateProviderBase;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-@Datagen
+
 public class BlockStateProvider extends BlockStateProviderBase {
 
     public static final ResourceLocation MOSS_OVERLAY = FeywildMod.getInstance().resource("block/moss_overlay");
 
-    public BlockStateProvider(ModX mod, DataGenerator generator, ExistingFileHelper fileHelper) {
-        super(mod, generator, fileHelper);
+    public BlockStateProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @Override
@@ -104,12 +101,14 @@ public class BlockStateProvider extends BlockStateProviderBase {
         if (block instanceof FeyLeavesBlock) {
             this.simpleBlock(block,
                     new ConfiguredModel(this.models()
-                            .cubeAll(id.getPath(), this.modLoc("block/" + id.getPath()))
-                            .renderType(RenderTypes.CUTOUT_MIPPED)
+                            .withExistingParent(id.getPath(), LEAVES_PARENT)
+                            .texture("all", this.modLoc("block/" + id.getPath()))
+                            .renderType(RenderTypes.CUTOUT)
                     ),
                     new ConfiguredModel(this.models()
-                            .cubeAll(id.getPath() + "_02", this.modLoc("block/" + id.getPath() + "_02"))
-                            .renderType(RenderTypes.CUTOUT_MIPPED)
+                            .withExistingParent(id.getPath() + "_02", LEAVES_PARENT)
+                            .texture("all", this.modLoc("block/" + id.getPath()))
+                            .renderType(RenderTypes.CUTOUT)
                     )
             );
         } else if (block instanceof FeyLogBlock feyLog) {

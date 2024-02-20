@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
-      "tag": "feywild:summer_logs"
+      "tag": "feywild:summer_tree_logs"
     }
   ],
   "result": {

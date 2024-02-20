@@ -5,12 +5,11 @@ import com.feywild.feywild.network.quest.SelectQuestMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.util.SelectableQuest;
 import com.feywild.feywild.util.FeywildTextProcessor;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -37,7 +36,7 @@ public class SelectQuestWidget extends Button {
     private final ItemStack iconStack;
 
     public SelectQuestWidget(int x, int y, SelectableQuest quest, Alignment alignment) {
-        super(x, y, WIDTH, HEIGHT, FeywildTextProcessor.INSTANCE.processLine(quest.display().title), b -> {});
+        super(x, y, WIDTH, HEIGHT, FeywildTextProcessor.INSTANCE.processLine(quest.display().title), b -> {}, l -> Component.empty());
         this.quest = quest;
         this.iconStack = new ItemStack(quest.icon());
         this.alignment = alignment;
@@ -50,23 +49,17 @@ public class SelectQuestWidget extends Button {
     }
 
     @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderWidget(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, TEXTURES3.get(alignment));
         
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
+        graphics.blit(TEXTURES3.get(alignment), this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT);
         
-        this.blit(poseStack, this.x, this.y, 0, 0, WIDTH, HEIGHT);
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, 10);
+        graphics.renderFakeItem(this.iconStack, this.getX() + 20, this.getY() + (this.height - 16) / 2);
         
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-        
-        Minecraft.getInstance().getItemRenderer().renderGuiItem(this.iconStack, this.x + 20, this.y + (this.height - 16) / 2);
-
-        font.drawShadow(poseStack, quest.display().title, this.x + 38, this.y + ((HEIGHT - font.lineHeight) / 2f), 0xFFFFFF);
+        graphics.drawString(Minecraft.getInstance().font, quest.display().title, this.getX() + 38, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
+        graphics.pose().popPose();
     }
 }

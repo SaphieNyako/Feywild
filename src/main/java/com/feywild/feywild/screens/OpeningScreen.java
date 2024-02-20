@@ -3,8 +3,8 @@ package com.feywild.feywild.screens;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.screens.widget.ScrollWidget;
 import com.feywild.feywild.util.FeywildTextProcessor;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ComponentRenderUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -47,23 +47,22 @@ public class OpeningScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
-        return true;
+    public void render(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        graphics.pose().pushPose();
+        this.renderBackground(graphics);
+        graphics.pose().translate(0, 0, 20);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        graphics.pose().translate(0, 0, 20);
+        this.drawTextLines(graphics, mouseX, mouseY);
+        graphics.pose().popPose();
     }
 
-    @Override
-    public void render(@Nonnull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
-        drawTextLines(poseStack, mouseX, mouseY);
-    }
-
-    private void drawTextLines(PoseStack poseStack, int mouseX, int mouseY) {
+    private void drawTextLines(GuiGraphics graphics, int mouseX, int mouseY) {
         if (this.minecraft != null && this.text != null && !this.text.isEmpty()) {
-            this.minecraft.font.drawShadow(poseStack, this.text.get(0), this.width / 2f - (this.minecraft.font.width(this.text.get(0)) / 2f), 10, 0xFFFFFF);
+            graphics.drawString(Minecraft.getInstance().font, this.text.get(0), this.width / 2 - (this.minecraft.font.width(this.text.get(0)) / 2), 10, 0xFFFFFF, false);
 
             for (int i = 1; i < this.text.size(); i++) {
-                this.minecraft.font.drawShadow(poseStack, this.text.get(i), 20, 55 + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF);
+                graphics.drawString(Minecraft.getInstance().font, this.text.get(i), 20, 55 + ((2 + this.minecraft.font.lineHeight) * i), 0xFFFFFF, false);
             }
         }
     }

@@ -1,19 +1,19 @@
 {
   "category": "feywild:dwarves",
   "icon": "feywild:market_rune_stone",
-  "name": "feywild_lexicon.entry.feywild.dwarves.dwarf_market",
+  "name": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:inactive_market_rune_stone",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page0.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:market_rune_stone",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page1.text0"
     },
     {
       "type": "patchouli:image",
@@ -21,38 +21,42 @@
       "images": [
         "feywild:textures/patchouli_images/market_book.png"
       ],
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page2.text1",
-      "title": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page2.text1",
+      "title": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page2.text0"
     },
     {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_baker",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page3.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page3.text0"
     },
     {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_shepherd",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page4.text0"
     },
     {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_toolsmith",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page5.text0"
     },
     {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_artificer",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page6.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page6.text0"
     },
     {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_miner",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page7.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page7.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page8.text0"
     },
     {
       "type": "patchouli:entity",
       "entity": "feywild:dwarf_dragon_hunter",
-      "text": "feywild_lexicon.entry.feywild.dwarves.dwarf_market.page8.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.dwarf_market.page9.text0"
     }
   ]
 }

@@ -1,9 +1,8 @@
 package com.feywild.feywild.item.render;
 
-
 import com.feywild.feywild.item.ReaperScythe;
 import com.feywild.feywild.item.model.ReaperScytheModel;
-import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
 
 public class ReaperScytheRenderer extends GeoItemRenderer<ReaperScythe> {
 

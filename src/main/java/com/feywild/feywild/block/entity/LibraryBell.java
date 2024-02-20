@@ -74,32 +74,32 @@ public class LibraryBell extends BlockEntity {
     @Override
     public void load(@Nonnull CompoundTag nbt) {
         super.load(nbt);
-        this.annoyance = nbt.getInt("annoyance");
-        this.player = nbt.hasUUID("playerId") ? nbt.getUUID("playerId") : null;
-        this.librarian = nbt.hasUUID("librarianId") ? nbt.getUUID("librarianId") : null;
-        this.security = nbt.hasUUID("securityId") ? nbt.getUUID("securityId") : null;
-        this.despawnTimer = nbt.getInt("despawner");
+        this.annoyance = nbt.getInt("Annoyance");
+        this.player = nbt.hasUUID("Player") ? nbt.getUUID("Player") : null;
+        this.librarian = nbt.hasUUID("Librarian") ? nbt.getUUID("Librarian") : null;
+        this.security = nbt.hasUUID("Security") ? nbt.getUUID("Security") : null;
+        this.despawnTimer = nbt.getInt("DespawnTimer");
     }
 
     @Override
     public void saveAdditional(@Nonnull CompoundTag nbt) {
         super.saveAdditional(nbt);
-        nbt.putInt("annoyance", this.annoyance);
-        nbt.putInt("despawner", this.despawnTimer);
+        nbt.putInt("Annoyance", this.annoyance);
+        nbt.putInt("DespawnTimer", this.despawnTimer);
         if (this.player == null) {
-            nbt.remove("playerId");
+            nbt.remove("Player");
         } else {
-            nbt.putUUID("playerId", this.player);
+            nbt.putUUID("Player", this.player);
         }
         if (this.librarian == null) {
-            nbt.remove("librarianId");
+            nbt.remove("Librarian");
         } else {
-            nbt.putUUID("librarianId", this.librarian);
+            nbt.putUUID("Librarian", this.librarian);
         }
         if (this.security == null) {
-            nbt.remove("securityId");
+            nbt.remove("Security");
         } else {
-            nbt.putUUID("securityId", this.security);
+            nbt.putUUID("Security", this.security);
         }
     }
 }

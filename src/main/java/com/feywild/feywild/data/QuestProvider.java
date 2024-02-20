@@ -8,12 +8,13 @@ import com.feywild.feywild.quest.reward.ItemReward;
 import com.feywild.feywild.quest.task.*;
 import com.feywild.feywild.quest.util.FeyGift;
 import com.feywild.feywild.quest.util.SpecialTaskAction;
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.sound.ModSoundEvents;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -22,28 +23,29 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import org.moddingx.libx.annotation.data.Datagen;
+import net.minecraftforge.common.Tags;
 import org.moddingx.libx.crafting.IngredientStack;
+import org.moddingx.libx.datagen.DatagenContext;
+import org.moddingx.libx.datagen.PackTarget;
 import org.moddingx.libx.mod.ModX;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static com.feywild.feywild.quest.Alignment.*;
 
-@Datagen
 public class QuestProvider implements DataProvider {
 
     private final ModX mod;
-    private final DataGenerator generator;
+    private final PackTarget packTarget;
     private final Map<Alignment, Set<Quest>> quests = new HashMap<>();
 
-    public QuestProvider(ModX mod, DataGenerator generator) {
-        this.mod = mod;
-        this.generator = generator;
+    public QuestProvider(DatagenContext ctx) {
+        this.mod = ctx.mod();
+        this.packTarget = ctx.target();
     }
 
     public void setup() {
@@ -56,7 +58,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_01")
                 .parent("root")
                 .icon(Blocks.CHEST)
-                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Items.CHEST), 1))
+                .task(QuestTask.of(CraftTask.INSTANCE, Ingredient.of(Tags.Items.CHESTS), 1))
                 .build();
 
         this.quest(SPRING, "quest_02")
@@ -84,7 +86,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SPRING, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.springTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SPRING_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.springTree, 3))
                 .build();
 
         this.quest(SPRING, "quest_06")
@@ -137,9 +139,11 @@ public class QuestProvider implements DataProvider {
                 .task(QuestTask.ofEntry(AnimalPetTask.INSTANCE, EntityType.FOX))
                 .build();
 
-        //TODO reward Friendship Bracelet
+        //TODO reward Runestone of breeding
 
         /* INTO THE FEYWILD SPRING QUEST */
+
+        //TODO make this not use hardcode strings
 
         this.quest(SPRING, "quest_14")
                 .parent("quest_08")
@@ -234,7 +238,7 @@ public class QuestProvider implements DataProvider {
         this.quest(SUMMER, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.summerTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_SUMMER_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.summerTree, 3))
 
                 .build();
 
@@ -316,7 +320,7 @@ public class QuestProvider implements DataProvider {
         this.quest(AUTUMN, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.autumnTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_AUTUMN_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.autumnTree, 3))
                 .build();
 
         this.quest(AUTUMN, "quest_06")
@@ -425,7 +429,7 @@ public class QuestProvider implements DataProvider {
         this.quest(WINTER, "quest_05")
                 .parent("quest_04")
                 .icon(ModTrees.winterTree.getSapling())
-                .task(QuestTask.of(SpecialTask.INSTANCE, SpecialTaskAction.GROW_WINTER_TREE, 3))
+                .task(QuestTask.ofEntry(GrowTreeTask.INSTANCE, ModTrees.winterTree, 3))
                 .build();
 
         this.quest(WINTER, "quest_06")
@@ -470,9 +474,11 @@ public class QuestProvider implements DataProvider {
                 .build();
     }
 
+    @Nonnull
     @Override
-    public void run(@Nonnull CachedOutput cache) throws IOException {
+    public CompletableFuture<?> run(@Nonnull CachedOutput cache) {
         this.setup();
+        List<CompletableFuture<?>> futures = new ArrayList<>();
         for (Alignment alignment : this.quests.keySet()) {
             Set<ResourceLocation> ids = new HashSet<>();
             for (Quest quest : this.quests.get(alignment)) {
@@ -488,9 +494,10 @@ public class QuestProvider implements DataProvider {
                         throw new IllegalStateException("Reference to unknown quest: " + parent + " (in " + quest.id + ")");
                     }
                 }
-                DataProvider.saveStable(cache, quest.toJson(), this.generator.getOutputFolder().resolve("data").resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json"));
+                futures.add(DataProvider.saveStable(cache, quest.toJson(), this.packTarget.path(PackType.SERVER_DATA).resolve(quest.id.getNamespace()).resolve("feywild_quests").resolve(alignment.id).resolve(quest.id.getPath() + ".json")));
             }
         }
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
     @Nonnull
@@ -523,7 +530,7 @@ public class QuestProvider implements DataProvider {
 
         public QuestBuilder(Alignment alignment, String name) {
             this.alignment = alignment;
-            this.id = new ResourceLocation(QuestProvider.this.mod.modid, name);
+            this.id = QuestProvider.this.mod.resource(name);
             this.parents = new HashSet<>();
             this.reputation = 5;
             this.icon = null;
@@ -571,9 +578,17 @@ public class QuestProvider implements DataProvider {
             return this;
         }
 
+        public QuestBuilder startSound(@Nullable FeySound sound) {
+            return this.startSound(sound == null ? null : sound.getSoundEvent());
+        }
+
         public QuestBuilder startSound(@Nullable SoundEvent sound) {
             this.start = new QuestDisplay(this.start.title, this.start.description, sound);
             return this;
+        }
+
+        public QuestBuilder completeSound(@Nullable FeySound sound) {
+            return this.startSound(sound == null ? null : sound.getSoundEvent());
         }
 
         public QuestBuilder completeSound(@Nullable SoundEvent sound) {

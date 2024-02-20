@@ -10,6 +10,5 @@
       "weight": 1
     }
   ],
-  "fallback": "minecraft:empty",
-  "name": "feywild:blacksmith"
+  "fallback": "minecraft:empty"
 }

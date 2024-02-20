@@ -25,7 +25,7 @@ public class SummonBeeKnightGoal extends Goal {
 
     public SummonBeeKnightGoal(Titania titania) {
         this.entity = titania;
-        this.level = titania.level;
+        this.level = titania.level();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SummonBeeKnightGoal extends Goal {
     private Player findTarget() {
         double distance = Double.MAX_VALUE;
         Player current = null;
-        for (Player player : this.entity.level.getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(32))) {
+        for (Player player : this.entity.level().getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(32))) {
             if (this.entity.distanceToSqr(player) < distance) {
                 current = player;
                 distance = this.entity.distanceToSqr(player);
@@ -63,8 +63,8 @@ public class SummonBeeKnightGoal extends Goal {
     private void spellCasting() {
         this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());
         this.entity.setState(Titania.State.ENCHANTING);
-        this.entity.playSound(ModSoundEvents.spellcastingShort, 0.7f, 1.0f);
-        this.entity.playSound(ModSoundEvents.titaniaSummonBee, 1.0f, 1.1f);
+        this.entity.playSound(ModSoundEvents.spellcastingShort.getSoundEvent(), 0.7f, 1.0f);
+        this.entity.playSound(ModSoundEvents.titaniaSummonBee.getSoundEvent(), 1.0f, 1.1f);
     }
 
     private void summonBeeKnight(Player target) {
@@ -73,7 +73,7 @@ public class SummonBeeKnightGoal extends Goal {
         beeKnight.setPos(this.entity.getX() + (random.nextInt(3)), this.entity.getY() + (random.nextInt(3)), this.entity.getZ() + (random.nextInt(3)));
         this.level.addFreshEntity(beeKnight);
         this.entity.playSound(SoundEvents.BEEHIVE_EXIT, 1, 1);
-        BeeKnight.anger(entity.getLevel(), target, target.blockPosition());
+        BeeKnight.anger(entity.level(), target, target.blockPosition());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class SummonBeeKnightGoal extends Goal {
         this.ticksLeft = 36;
         this.target = null;
         AABB box = new AABB(this.entity.blockPosition()).inflate(32);
-        for (Player match : this.entity.level.getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
+        for (Player match : this.entity.level().getEntities(EntityType.PLAYER, box, e -> !e.isSpectator())) {
             this.target = match;
             break;
         }

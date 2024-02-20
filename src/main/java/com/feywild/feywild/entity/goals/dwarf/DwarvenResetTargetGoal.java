@@ -10,14 +10,13 @@ public class DwarvenResetTargetGoal<T extends DwarfBlacksmith> extends Goal {
     public DwarvenResetTargetGoal(T entity) {
         this.entity = entity;
     }
-
-
+    
     @Override
     public boolean canUse() {
-        return this.entity.level.random.nextFloat() < 0.05f; // && this.entity.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER);
-        // this.entity.getLastHurtByMob() != null && this.entity.getLastHurtByMobTimestamp() > lastHurtByPlayerTimestamp
+        return this.entity.level().random.nextFloat() < 0.05f;
     }
 
+    @Override
     public void start() {
         this.entity.stopBeingAngry();
     }

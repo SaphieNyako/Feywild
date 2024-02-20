@@ -1,17 +1,14 @@
 package com.feywild.feywild.data;
 
+import com.feywild.feywild.sound.FeySound;
 import com.feywild.feywild.sound.ModSoundEvents;
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.SoundDefinitionProviderBase;
-import org.moddingx.libx.mod.ModX;
 
-@Datagen
 public class SoundProvider extends SoundDefinitionProviderBase {
 
-    public SoundProvider(ModX mod, DataGenerator generator, ExistingFileHelper helper) {
-        super(mod, generator, helper);
+    public SoundProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @Override
@@ -22,7 +19,7 @@ public class SoundProvider extends SoundDefinitionProviderBase {
                 .with("menu/menu2", sound -> sound.stream().weight(1));
 
         this.sound(ModSoundEvents.musicCreative)
-                .event(ModSoundEvents.musicMenu)
+                .event(ModSoundEvents.musicMenu.getSoundEvent())
                 .with("menu/menu1", sound -> sound.stream().weight(1));
 
         this.sound(ModSoundEvents.feywildSoundtrack).with("feywild_soundtrack", sound -> sound.stream());
@@ -46,5 +43,13 @@ public class SoundProvider extends SoundDefinitionProviderBase {
         this.sound(ModSoundEvents.mabIntimidate).withRange("mab_intimidate", 4);
         this.sound(ModSoundEvents.mabSummon).withRange("mab_summon", 3);
         this.sound(ModSoundEvents.beeKnight).withRange("bee_knight", 2);
+    }
+
+    protected SoundDefinitionBuilder sound(FeySound sound) {
+        return super.sound(sound.getSoundEvent());
+    }
+
+    protected SoundDefinitionBuilder sound(FeySound sound, SoundSettingsBuilder settings) {
+        return super.sound(sound.getSoundEvent(), settings);
     }
 }

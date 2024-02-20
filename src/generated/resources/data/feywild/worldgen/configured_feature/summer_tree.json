@@ -1,4 +1,12 @@
 {
-  "type": "feywild:summer_tree",
-  "config": {}
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "feywild:summer_tree_yellow_leaves",
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": "feywild:summer_tree_orange_leaves"
+      }
+    ]
+  }
 }

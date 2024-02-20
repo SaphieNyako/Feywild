@@ -22,7 +22,7 @@ public class DwarvenMeleeAttackGoal extends MeleeAttackGoal {
         if (distToEnemySqr <= d0 + 2 && getTicksUntilNextAttack() <= 0) {
             this.resetAttackCooldown();
             this.mob.doHurtTarget(enemy);
-            this.entity.playSound(ModSoundEvents.dwarfAttack, 0.7f, 1);
+            this.entity.playSound(ModSoundEvents.dwarfAttack.getSoundEvent(), 0.7f, 1);
         }
     }
 

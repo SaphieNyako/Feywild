@@ -12,79 +12,70 @@
               "name": "feywild:fey_dust"
             },
             {
-              "type": "minecraft:item",
-              "conditions": [
+              "type": "libx:all",
+              "children": [
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:autumn_tree_wood"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "chance": 0.25,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ],
+                  "name": "feywild:autumn_tree_wood"
+                },
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:autumn_tree_sapling"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "chance": 0.25,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ],
+                  "name": "feywild:autumn_tree_sapling"
+                },
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:autumn_tree_log"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
+                  "type": "minecraft:item",
+                  "conditions": [
+                    {
+                      "chance": 0.25,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ],
+                  "name": "feywild:autumn_tree_log"
+                },
                 {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
+                  "type": "minecraft:group",
+                  "children": [
+                    {
+                      "type": "minecraft:item",
+                      "name": "feywild:autumn_tree_brown_leaves"
+                    },
+                    {
+                      "type": "minecraft:item",
+                      "name": "feywild:autumn_tree_dark_gray_leaves"
+                    },
+                    {
+                      "type": "minecraft:item",
+                      "name": "feywild:autumn_tree_light_gray_leaves"
+                    },
+                    {
+                      "type": "minecraft:item",
+                      "name": "feywild:autumn_tree_red_leaves"
+                    }
+                  ],
+                  "conditions": [
+                    {
+                      "chance": 0.5,
+                      "condition": "minecraft:random_chance"
+                    }
+                  ]
                 }
-              ],
-              "name": "feywild:autumn_brown_leaves"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:autumn_dark_gray_leaves"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:autumn_light_gray_leaves"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "chance": 0.25,
-                  "condition": "minecraft:random_chance"
-                }
-              ],
-              "name": "feywild:autumn_red_leaves"
+              ]
             }
           ]
         }
       ],
-      "name": "main",
       "rolls": 1.0
     }
   ]

@@ -6,22 +6,19 @@ import com.feywild.feywild.entity.ModEntities;
 import com.feywild.feywild.item.ModItems;
 import com.feywild.feywild.world.FeywildDimensions;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.TradeTrigger;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
-import org.moddingx.libx.annotation.data.Datagen;
+import org.moddingx.libx.datagen.DatagenContext;
 import org.moddingx.libx.datagen.provider.AdvancementProviderBase;
-import org.moddingx.libx.mod.ModX;
 
-@Datagen
 public class AdvancementProvider extends AdvancementProviderBase {
 
-    public AdvancementProvider(ModX mod, DataGenerator generator) {
-        super(mod, generator);
+    public AdvancementProvider(DatagenContext ctx) {
+        super(ctx);
     }
 
     @Override
@@ -37,7 +34,7 @@ public class AdvancementProvider extends AdvancementProviderBase {
 
         this.advancement("dwarf_trade").parent("fey_dust")
                 .display(ModItems.lesserFeyGem)
-                .task(new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
+                .task(new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfBlacksmith), this.stack(ModItems.lesserFeyGem)));
 
         this.advancement("dwarf_contract").parent("dwarf_trade")
                 .display(ModItems.summoningScrollDwarfBlacksmith)
@@ -91,12 +88,12 @@ public class AdvancementProvider extends AdvancementProviderBase {
         this.advancement("dwarf_trades").parent("dwarven_market")
                 .display(ModItems.marketRuneStone)
                 .task(
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfBaker), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfShepherd), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfArtificer), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfToolsmith), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfMiner), ItemPredicate.ANY),
-                        new TradeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, this.entity(ModEntities.dwarfDragonHunter), ItemPredicate.ANY)
+                        new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfBaker), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfShepherd), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfArtificer), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfToolsmith), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfMiner), ItemPredicate.ANY),
+                        new TradeTrigger.TriggerInstance(ContextAwarePredicate.ANY, this.entity(ModEntities.dwarfDragonHunter), ItemPredicate.ANY)
                 );
 
         this.advancement("honeycomb")

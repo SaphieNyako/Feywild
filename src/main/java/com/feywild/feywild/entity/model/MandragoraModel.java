@@ -3,11 +3,14 @@ package com.feywild.feywild.entity.model;
 import com.feywild.feywild.FeywildMod;
 import com.feywild.feywild.entity.Mandragora;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 import java.util.Locale;
 
-public class MandragoraModel extends AnimatedGeoModel<Mandragora> {
+public class MandragoraModel extends TypedEntityModel<Mandragora> {
+
+    public MandragoraModel() {
+        super("mandragora", null);
+    }
 
     @Override
     public ResourceLocation getModelResource(Mandragora mandragora) {
@@ -15,12 +18,12 @@ public class MandragoraModel extends AnimatedGeoModel<Mandragora> {
     }
 
     @Override
-    public ResourceLocation getTextureResource(Mandragora mandragora) {
-        return FeywildMod.getInstance().resource("textures/entity/mandragora_" + mandragora.getVariant().name().toLowerCase(Locale.ROOT) + ".png");
+    public ResourceLocation getAnimationResource(Mandragora mandragora) {
+        return FeywildMod.getInstance().resource("animations/mandragora.animation.json");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Mandragora mandragora) {
-        return FeywildMod.getInstance().resource("animations/mandragora.animation.json");
+    public ResourceLocation getTextureResource(Mandragora mandragora) {
+        return FeywildMod.getInstance().resource("textures/entity/mandragora/" + mandragora.getVariant().name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

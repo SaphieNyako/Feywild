@@ -1,38 +1,30 @@
 buildscript {
-    apply from: 'https://moddingx.github.io/ModUtils/v4/buildscript.gradle', to: buildscript
+    apply from: 'https://moddingx.github.io/ModUtils/v5/buildscript.gradle', to: buildscript
 }
 
-apply from: 'https://moddingx.github.io/ModUtils/v4/mod.gradle'
+apply from: 'https://moddingx.github.io/ModUtils/v5/mod.gradle'
 
 repositories {
     maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     maven { url = 'https://maven.blamejared.com' }
-    maven { url = 'https://dvs1.progwml6.com/files/maven/' }
-    maven { url = 'https://modmaven.k-4u.nl' }
     maven { url = 'https://maven.theillusivec4.top/' }
     maven { url = 'https://maven.melanx.de/' }
     maven { url = 'https://maven.moddingx.org/' }
 }
 
 dependencies {
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19:3.1.11")
+    annotationProcessor fg.deobf("org.moddingx:LibX:1.20.1-5.0.12")
+    
+    implementation fg.deobf("org.moddingx:LibX:1.20.1-5.0.12")
+    implementation fg.deobf("io.github.noeppi_noeppi.mods:MineMention:1.20.1-3.0.0")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.20.1:4.4.2")
 
-    annotationProcessor fg.deobf("org.moddingx:LibX:1.19.2-4.2.5")
-    implementation fg.deobf("org.moddingx:LibX:1.19.2-4.2.5")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE")
 
-//    implementation fg.deobf("io.github.noeppi_noeppi.mods:MythicBotany:1.16.5-1.4.14")
-//    runtimeOnly fg.deobf('vazkii.botania:Botania:1.16.5-419')
-//    runtimeOnly fg.deobf('top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.5')
-
-    implementation fg.deobf("io.github.noeppi_noeppi.mods:SandBox:1.19.2-1.0.0")
-    implementation fg.deobf("io.github.noeppi_noeppi.mods:MineMention:1.19.1-2.1.0")
-
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-75:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-75")
-
-    implementation fg.deobf("mezz.jei:jei-1.19.2-common-api:11.2.0.256")
-    implementation fg.deobf("mezz.jei:jei-1.19.2-forge-api:11.2.0.256")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:11.2.0.256")
+    implementation fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.27")
+    implementation fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.27")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.27")
 }
 
 compileJava.options.compilerArgs += [

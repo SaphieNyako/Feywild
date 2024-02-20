@@ -1,7 +1,7 @@
 {
   "category": "feywild:autumn_court",
   "icon": "feywild:summoning_scroll_autumn_pixie",
-  "name": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie",
+  "name": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_pixie",
   "pages": [
     {
       "type": "patchouli:entity",
@@ -9,11 +9,11 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page1.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_pixie.page1.text0"
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_pixie.page2.text0"
     },
     {
       "type": "feywild:fey_altar",
@@ -21,19 +21,19 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page4.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_pixie.page4.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:cookie",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page5.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_pixie.page5.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:rune_of_autumn",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.autumn_court.autumn_pixie.page6.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.autumn_court.autumn_pixie.page6.text0"
     }
   ]
 }

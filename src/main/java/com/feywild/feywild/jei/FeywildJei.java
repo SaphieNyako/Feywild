@@ -38,7 +38,8 @@ public class FeywildJei implements IModPlugin {
     @Nonnull
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(FeywildMod.getInstance().modid, "jei_plugin");
+        return new ResourceLocation(FeywildMod.MODID, "jei_plugin");
+
     }
 
     @Override

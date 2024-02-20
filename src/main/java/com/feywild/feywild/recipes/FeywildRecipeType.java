@@ -1,6 +1,6 @@
 package com.feywild.feywild.recipes;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -16,7 +16,7 @@ public record FeywildRecipeType<T extends Recipe<?>, I extends T>(RecipeSerializ
     
     @Override
     public void registerAdditional(RegistrationContext ctx, EntryCollector builder) {
-        builder.register(Registry.RECIPE_SERIALIZER_REGISTRY, this.serializer);
+        builder.register(Registries.RECIPE_SERIALIZER, this.serializer);
     }
 
     public ResourceLocation id() {
@@ -26,6 +26,6 @@ public record FeywildRecipeType<T extends Recipe<?>, I extends T>(RecipeSerializ
     @Override
     public String toString() {
         ResourceLocation id = ForgeRegistries.RECIPE_TYPES.getKey(this);
-        return Objects.requireNonNullElse(id, Misc.MISSIGNO).toString();
+        return Objects.requireNonNullElse(id, Misc.MISSINGNO).toString();
     }
 }

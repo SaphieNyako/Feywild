@@ -8,7 +8,7 @@ import net.minecraftforge.common.ToolActions;
 
 import javax.annotation.Nullable;
 
-public class FeyLogBlock extends RotatedPillarBlock implements ILogBlock {
+public class FeyLogBlock extends RotatedPillarBlock {
 
     private final FeyWoodBlock feyWood;
     private final FeyStrippedLogBlock strippedLog;
@@ -19,7 +19,6 @@ public class FeyLogBlock extends RotatedPillarBlock implements ILogBlock {
         this.strippedLog = strippedLog;
     }
 
-    @Override
     public FeyWoodBlock getWoodBlock() {
         return feyWood;
     }
@@ -30,4 +29,3 @@ public class FeyLogBlock extends RotatedPillarBlock implements ILogBlock {
         return toolAction == ToolActions.AXE_STRIP ? strippedLog.defaultBlockState().setValue(AXIS, state.getValue(AXIS)) : super.getToolModifiedState(state, context, toolAction, simulate);
     }
 }
-

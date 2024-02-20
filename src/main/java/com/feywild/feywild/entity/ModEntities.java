@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import org.moddingx.libx.annotation.registration.RegisterClass;
 
-@RegisterClass(registry = "ENTITY_TYPE_REGISTRY")
+@RegisterClass(registry = "ENTITY_TYPE")
 public class ModEntities {
 
     public static final EntityType<BeeKnight> beeKnight = EntityType.Builder.of(BeeKnight::new, MobCategory.CREATURE)

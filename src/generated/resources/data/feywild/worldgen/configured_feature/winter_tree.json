@@ -1,4 +1,12 @@
 {
-  "type": "feywild:winter_tree",
-  "config": {}
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": "feywild:winter_tree_light_blue_leaves",
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": "feywild:winter_tree_blue_leaves"
+      }
+    ]
+  }
 }

@@ -1,13 +1,13 @@
 {
   "category": "feywild:dwarves",
   "icon": "feywild:brilliant_fey_gem",
-  "name": "feywild_lexicon.entry.feywild.dwarves.gem_transmutation",
+  "name": "feywild_lexicon.entry.feywild.feywild.dwarves.gem_transmutation",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:schematics_gem_transmutation",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.dwarves.gem_transmutation.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.feywild.dwarves.gem_transmutation.page0.text0"
     },
     {
       "type": "feywild:dwarven_anvil",

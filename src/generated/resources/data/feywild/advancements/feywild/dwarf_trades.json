@@ -110,5 +110,6 @@
       "villager_trade5",
       "villager_trade6"
     ]
-  ]
+  ],
+  "sends_telemetry_event": false
 }
