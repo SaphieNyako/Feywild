@@ -211,11 +211,11 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .crafting("magical_honey_cookie")
                 .caption("By feeding a mandrake their favorite food- a Magical Honey Cookie- they will sprout into a Mandragora. They will take care of your garden, and her lovely singing voice may even help crops grow.")
                 .item(ModItems.honeycomb)
-                .caption("The Magical Honeycomb you need for these cookies can be found in the Feywild's Golden Seelie Fields. They're typically found in the Beekeeps, and guarded by Bee Knights!");
+                .caption("The Magical Honeycomb you need for these cookies can be found in the Feywild's Golden Seelie Fields. They're typically found in the Beekeeps, and guarded by Bee Knights!")
                 .add(this.altar("summoning_scroll_mandragora_fey_altar"))
                 .caption("[Editor's Note: If for whatever reason another mod prevents you from using Honey Cookies on your crops, a summoning scroll is available as an alternative.]")
                 .item(ModBlocks.mandrakeCrop.getSeed())
-                .caption("You can use Mandrake Seeds to change what type of Mandragora she currently looks like.")
+                .caption("You can use Mandrake Seeds to change what type of Mandragora she currently looks like.");
 
 
         this.entry("spring_tree_ent")

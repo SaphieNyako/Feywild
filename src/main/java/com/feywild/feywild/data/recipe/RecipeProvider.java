@@ -278,8 +278,6 @@ public class RecipeProvider extends RecipeProviderBase implements CraftingExtens
                 .requires(ModItems.pixieOrb)
                 .build();
 
-        //TODO add feywings Day, Night
-
         this.gemTransmutation(ModItems.lesserFeyGem, ModItems.greaterFeyGem, 50);
         this.gemTransmutation(ModItems.greaterFeyGem, ModItems.shinyFeyGem, 100);
         this.gemTransmutation(ModItems.shinyFeyGem, ModItems.brilliantFeyGem, 150);

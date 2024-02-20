@@ -213,7 +213,7 @@ public abstract class Pixie extends FlyingFeyBase {
         this.entityData.set(BOREDOM, getBoredom() + adjustment);
         if (this.getBoredom() >= 5 && getOwningPlayer() != null) {
             //TODO add different versions
-            this.getOwningPlayer().sendSystemMessage(Component.literal("I'm hungry!"));
+            this.getOwningPlayer().sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_bored"));
         }
     }
 
