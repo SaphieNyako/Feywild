@@ -35,11 +35,12 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("Or the sugar in your tea suddenly turn to salt?")
                 .text("Did you ever travel through the forest swearing you saw something in the corner of your eye or hearing the giggle of a child's voice?")
                 .text("Don't fret, you're not going mad! It's just the local Fey showing you that they care for you in their own very special way.")
+                .flip()
                 .text("The Fey are pranksters- tricksters who enjoy teasing us big folk. Most of the time they are harmless, but just as with us, there may be a bad seed or two amongst them.")
                 .text("It's hard to gain the trust of the Fey, as they see the world in a different way that we do.")
                 .item(ModItems.feywildLexicon)
                 .text("If you want to learn more about the Fey, you may want to visit a Library and speak to one of the Lore Masters there. (If one isn't present, just ring the bell.)")
-                .text("They also have guide books on all sorts of other subjects, depending what other schools of magic are present in the area.")
+                .text("They also have guide books on all sorts of other subjects, depending what other schools of magic are present in the region.")
                 .image("Library", "textures/patchouli_images/library_book.png")
                 .crafting("feywild_lexicon");
 
@@ -98,17 +99,17 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .name("Handling Fey")
                 .icon(ModItems.summoningScroll)
                 .item(ModItems.summoningScrollSpringPixie)
-                .text("You can summon a fey by $(bold)using their Summoning Scroll on a block$(); you'll get the now-empty scroll back.")
+                .text("You can summon a fey by $(italic)using their Summoning Scroll on a block$(); you'll get the now-empty scroll back.")
                 .text("Each kind of Fey has their own summoning scroll, and the recipes for each can be found on their corresponding pages [or by using JEI/REI].")
                 .flip()
                 .item(ModItems.summoningScroll)
-                .text("By $(bold)hitting your Fey with an empty summoning scroll$(), you can withdraw them back into the summoning scroll.")
+                .text("By $(italic)hitting your Fey with an empty summoning scroll$(), you can withdraw them back into the summoning scroll.")
                 .flip()
-                .text("Some Fey are willing to follow you around the world. You can make a fey either $(bold)follow$() or $(bold)stay$() by interacting with them while sneaking.")
+                .text("Some Fey are willing to follow you around the world. You can make a fey either $(italic)follow$() or $(italic)stay$() by interacting with them while sneaking.")
                 .flip()
-                .text("You can open your pixie's quest window by $(bold)interacting with them while empty-handed$().")
+                .text("You can open your pixie's quest window by $(italic)interacting with them while empty-handed$().")
                 .flip()
-                .text("You can give an requested item to the Fey for their quest by $(bold)interacting with them while holding the required item$().");
+                .text("You can give an requested item to the Fey for their quest by $(italic)interacting with them while holding the required item$().");
 
 
         this.entry("quest")
@@ -125,7 +126,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(ModItems.teleportationOrb)
                 .text("Once you have earned the trust of a Pixie you have summoned, she may offer to create a special artifact for you which will allow you to cross the veil of dreams and enter the Feywild.")
                 .item(ModItems.pixieOrb)
-                .text("These mystical pearls are created by sealing a Pixie inside an Eye of Ender. There are a few different uses for them, but chief among them is that a befrinded Pixie requires one in order to create your gateway into and out of the Feywild!")
+                .text("These mystical pearls are created by sealing a Pixie inside an Eye of Ender; one of their primary uses is that a befrinded Pixie requires one in order to create your gateway into and out of the Feywild!")
                 .text("You can offer additional Pixie Orbs to your Pixie friend if you need any replacement Teleportation Orbs.");
 
         this.category("fey_gems")
@@ -162,7 +163,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .item(ModItems.rawSpringElvenQuartz)
                 .caption("Underneath the starry shell is a geode full of Elven Quartz. There are five different varieties of it: one to represent each season, and a fifth that isn't attuned to any court.")
                 .crafting("elven_quartz")
-                .caption("Combining the raw quartz in a crafting table will create a block of Elven Quartz. These can be used to create all kinds of decorative blocks with a Stonecutter.")
+                .caption("Combining the raw quartz in a crafting table will create a block of Elven Quartz; these can be used to create all kinds of decorative blocks with a Stonecutter.")
                 .crafting("elven_spring_quartz")
                 .crafting("elven_summer_quartz")
                 .crafting("elven_winter_quartz")
@@ -209,19 +210,20 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .entity(ModEntities.mandragora)
                 .crafting("magical_honey_cookie")
                 .caption("By feeding a mandrake their favorite food- a Magical Honey Cookie- they will sprout into a Mandragora. They will take care of your garden, and her lovely singing voice may even help crops grow.")
-                .item(ModBlocks.mandrakeCrop.getSeed())
-                .caption("You can use Mandrake Seeds to change what type of Mandragora she currently looks like.")
+                .item(ModItems.honeycomb)
+                .caption("The Magical Honeycomb you need for these cookies can be found in the Feywild's Golden Seelie Fields. They're typically found in the Beekeeps, and guarded by Bee Knights!");
                 .add(this.altar("summoning_scroll_mandragora_fey_altar"))
                 .caption("[Editor's Note: If for whatever reason another mod prevents you from using Honey Cookies on your crops, a summoning scroll is available as an alternative.]")
-                .item(ModItems.magicalHoneyCookie)
-                .caption("The Magical Honeycomb you need for these cookies can be found in the Feywild's Golden Seelie Fields. They're typically found in the Beekeeps, and guarded by Bee Knights!");
+                .item(ModBlocks.mandrakeCrop.getSeed())
+                .caption("You can use Mandrake Seeds to change what type of Mandragora she currently looks like.")
+
 
         this.entry("spring_tree_ent")
                 .name("Spring Tree Ent")
                 .icon(ModItems.summoningScrollSpringTreeEnt)
                 .entity(ModEntities.springTreeEnt)
                 .flip()
-                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- potentially including you, unless a player summoned them!")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_spring_tree_ent_fey_altar"))
                 .item(ModTrees.springTree.getLogBlock().asItem())
                 .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them!")
@@ -238,6 +240,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModTrees.summerTree.getSapling())
                 .text("The Summer Court is the primary reigning Court within the Feywild, and they know it! Haughty and demanding, they expect everyone who addresses them to treat them as the royals they are.")
                 .text("The other Courts and inhabitants of the Feywild are there to serve them, and though polite, they demand recognition of their self-proclaimed royal status.")
+                .flip()
                 .text("The Summer Court defends the Feywild from intruders who seek to take a hold of the Faerie Court's riches; they are more combat-focused than the other Courts as a result- quick to answer any threat or opposition with their righteous judgment.")
                 .image("Golden Seelie Fields", "textures/patchouli_images/summer_book.png")
                 .item(ModBlocks.sunflower.getSeed())
@@ -279,14 +282,14 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModItems.summoningScrollSummerTreeEnt)
                 .entity(ModEntities.summerTreeEnt)
                 .flip()
-                .text("Tree ents are fey who over time started to resemble the trees they are guarding. Tree Ents will attack anyone who they think doesn't belong in their territory. When summoned they won't attack players.")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_summer_tree_ent_fey_altar"))
                 .item(ModTrees.summerTree.getLogBlock().asItem())
                 .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them!")
                 .item(Items.BONE_MEAL)
                 .text("When given bone meal the Summer Tree Ent will grant you some of their saplings, as well as the Strength to protect the realm of the Fey.")
                 .item(ModItems.magicalHoneyCookie)
-                .text("The Summer Tree Ent has attracted bees into nesting in their branches; perhaps giving them a Magical Honey Cookie will lure some of those bees out into the open.");
+                .text("The Summer Tree Ent has attracted bees into nesting in their branches; perhaps giving them a Magical Honey Cookie will lure some of these bees out into the open.");
 
         this.category("autumn_court")
                 .name("Autumn Court")
@@ -298,6 +301,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModTrees.autumnTree.getSapling())
                 .text("The Autumn Court is the most mature of the four Fae Courts, and their age and wisdom has given them a appreciation of fine art, music and poetry.")
                 .text("They would rather spend a night listening to songs, dancing, and flirting than going to combat or mindlessly indulging themselves. They know the upcoming period will be a harsh one, and feel the responsibility of preparing for the end of a cycle.")
+                .flip()
                 .text("Perhaps the kindest of the Courts, the Autumn Fey are still fully capable of trickery and mischief; they are just more hush-hush about it.")
                 .text("The Autumn Court will protect the Feywild from any evil spirits and harvest souls who have gone astray. To honor the lost souls, and to give them one more good time before they pass on to the next stage.")
                 .image("The Eternal Fall", "textures/patchouli_images/autumn_book.png")
@@ -330,10 +334,10 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .entity(ModEntities.shroomling)
                 .add(this.altar("summoning_scroll_shroomling_fey_altar"))
                 .crafting("fey_mushroom")
-                .text("If the Shroomling wanders into an area that is not well lit, it will plant Fey Mushrooms to help light up the area. These can be harvested and placed elsewhere if you wish.")
+                .text("If the Shroomling wanders into an area that is not well lit, it will plant Fey Mushrooms to help light up the area; these can be harvested and placed elsewhere if you wish.")
                 .text("Using Fey Dust or bone meal on a fey mushroom will make it glow brighter. Just don't use too much or it will turn dim instead!")
                 .entity(EntityType.MOOSHROOM)
-                .caption("If the Shroomling sneezes near a cow it might infect them with the 'shrooms- turning that cow into a Mooshroom. You can milk them while holding a bowl for some fresh Mushroom Stew, or shear them to revert them back into a normal cow.");
+                .caption("A Shroomling sneezing near a cow might infect them with the 'shrooms- turning that cow into a Mooshroom. They can be milked with a bowl for some fresh Mushroom Stew, or sheared to revert them back into a normal cow.");
 
         this.category("winter_court")
                 .name("Winter Court")
@@ -345,6 +349,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModTrees.winterTree.getSapling())
                 .text("When the leaves have fallen, the sky has turned to gray, and the night closed in on the day- that's when the Winter Court reigns supreme in the Feywild.")
                 .text("These Fey are apathetic to the living and their power struggles; eventually death will come for us all, and their purpose is to make sure the Feywild sees another turn of the year.")
+                .flip()
                 .text("Winter Fey tend to be soft spoken, slightly morbid, and never choose their words without thinking about them. They seem to be a bit on the awkward side in social dealings, and some prefer the company of the dead.")
                 .image("Frozen Retreat", "textures/patchouli_images/winter_book.png")
                 .item(ModBlocks.crocus.getSeed())
@@ -384,7 +389,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModItems.summoningScrollWinterTreeEnt)
                 .entity(ModEntities.winterTreeEnt)
                 .flip()
-                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- potentially including you, unless a player summoned them!")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .text("Ents of this persuasion are not hostile towards the undead; like the rest of the Winter Court, they are accustomed to life's many endings.")
                 .add(this.altar("summoning_scroll_winter_tree_ent_fey_altar"))
                 .item(ModTrees.winterTree.getLogBlock().asItem())
@@ -414,7 +419,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
         this.entry("pixie_wings")
                 .name("Pixie Wings")
                 .icon(ModItems.feyWingsSpring)
-                .text("In stories past, the Pixies didn't originally have wings; that changed after the fall of Light and Darkness, when their domains were broken apart into the Courts we know of today. Wishing to discover their origins, the Fey yearning for the stars bestowed their kin with power of flight.$(br)$(br)You can recieve the Pixie Wing Tiara required to craft your own set of wings by earning your place within one of the Fey Courts.")
+                .text("In stories past, Pixies didn't originally have wings; that changed after the fall of Light and Darkness, when their domains were split apart into the Courts we know of today. Wishing to discover their origins, the Fey yearning for the stars bestowed their kin with power of flight.$(br)You can recieve the Pixie Wing Tiara required to craft your own set of wings by earning your place within one of the Fey Courts.")
                 .add(this.altar("fey_wings_spring_fey_altar"))
                 .add(this.altar("fey_wings_summer_fey_altar"))
                 .add(this.altar("fey_wings_autumn_fey_altar"))
@@ -429,7 +434,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModItems.summoningScrollHexenTreeEnt)
                 .entity(ModEntities.hexenTreeEnt)
                 .flip()
-                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- potentially including you, unless a player summoned them!")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_hexen_tree_ent_fey_altar"))
                 .item(ModTrees.hexenTree.getLogBlock().asItem())
                 .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them.")
@@ -443,7 +448,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .icon(ModItems.summoningScrollBlossomTreeEnt)
                 .entity(ModEntities.blossomTreeEnt)
                 .flip()
-                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- potentially including you, unless a player summoned them!")
+                .text("The Tree Ents are Fey who, over time, came to resemble the trees they protected. They will attack anyone they deem unworthy of being in their territory- possibly including you, unless summoned by a player!")
                 .add(this.altar("summoning_scroll_blossom_tree_ent_fey_altar"))
                 .item(ModTrees.blossomTree.getLogBlock().asItem())
                 .text("You can help restore an Ent's body by giving them logs of the kind of tree they're made from; you can also give them a cookie if you really want to spoil them.")
@@ -481,14 +486,15 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .text("A summoned dwarf will have different trades than those found out in the world. They will request a daily meal in exchange for ore.")
                 .text("If you provide the dwarf enough provisions, he may offer you his knowledge in the form of Schematics.")
                 .item(ModItems.schematicsGemTransmutation, false)
-                .text("Written in the Dwarves' native tongue, these various books of Schematics contain the detailed procedures and instructions required to craft items with the Dwarven Anvil. They are not consumed during crafting, but a dwarf needs to have the prerequisite set of schematics on hand in order to craft items. They can be placed in the top-left slot of the anvil.")
+                .text("Written in the Dwarves' native tongue, these various books contain the detailed procedures and instructions required to craft items with the Dwarven Anvil. They are not consumed during crafting, but a dwarf needs to have the prerequisite set of schematics on hand in order to craft items. They can be placed in the top-left slot of the anvil.")
+                .flip()
                 .text("Once the Dwarven Anvil has been supplied with the correct schematics, ingredients, and sufficient mana, the dwarf will begin crafting for you!");
 
         this.entry("gem_transmutation")
                 .name("Gem Transmutation")
                 .icon(ModItems.brilliantFeyGem)
                 .item(ModItems.schematicsGemTransmutation)
-                .text("This set of schematics contains the elusive secret to manufacturing high-quality Fey Gems! You just need to provide your friendly neighborhood Dwarf sufficient mana and five fey gems of matching quality.")
+                .text("This set of schematics contains the elusive secret to manufacturing high-quality Fey Gems! All you need to do is provide your friendly neighborhood Dwarf sufficient mana and five fey gems of matching quality.")
                 .add(this.anvil("greater_fey_gem_dwarven_anvil"))
                 .add(this.anvil("shiny_fey_gem_dwarven_anvil"))
                 .add(this.anvil("brilliant_fey_gem_dwarven_anvil"));
@@ -540,7 +546,7 @@ public class FeywildLexiconProvider extends PatchouliProviderBase {
                 .entity(ModEntities.dwarfShepherd).caption("This dwarf has some animal products up for sale.")
                 .entity(ModEntities.dwarfToolsmith).caption("This dwarf can supply you with various weapons, armor, and tools.")
                 .entity(ModEntities.dwarfArtificer).caption("This dwarf is an avid creator of artifacts, trinkets, and other gizmos- and eager to sell them, too.")
-                .entity(ModEntities.dwarfMiner).caption("This dwarf will sell some of the ore and stone they've mined underground, and perhaps some surplus mining supplies.")
+                .entity(ModEntities.dwarfMiner).caption("This dwarf sells some of the ore and stone they've dug up, and well as surplus mining supplies.")
                 .entity(ModEntities.dwarfDragonHunter).caption("This dwarf is selling the drops of monsters they've hunted.");
 
         this.entry("magical_brazier")
