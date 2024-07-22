@@ -51,8 +51,11 @@ public class ModSoundEvents {
     public static final FeySound mabIntimidate = new FeySound();
     public static final FeySound mabSummon = new FeySound();
     public static final FeySound mabAttack = new FeySound();
+
     public static final FeySound treeEntWalking = new FeySound();
     public static final FeySound treeEntAttacking = new FeySound();
+    public static final FeySound treeEntHurt = new FeySound();
+
     public static final FeySound feyWings = new FeySound();
     public static final FeySound beeKnight = new FeySound();
 }

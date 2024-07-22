@@ -94,8 +94,6 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase i
             if (!context.getLevel().isClientSide) {
                 T entity = this.type.create(context.getLevel());
                 if (entity != null && context.getLevel().dimension() != FeywildDimensions.MARKETPLACE && this.canSummon(context.getLevel(), context.getPlayer(), context.getClickedPos().immutable(), storedTag, entity)) {
-                    Alignment requiredAlignment = requiredAlignment(context.getLevel(), context.getPlayer(), entity);
-                    if (MiscConfig.summon_all_fey || requiredAlignment == null || (context.getPlayer() instanceof ServerPlayer serverPlayer && requiredAlignment == QuestData.get(serverPlayer).getAlignment())) {
                         if (storedTag != null) entity.load(storedTag);
                         if (context.getItemInHand().hasCustomHoverName()) {
                             entity.setCustomName(context.getItemInHand().getHoverName());
@@ -113,9 +111,6 @@ public abstract class SummoningScroll<T extends LivingEntity> extends ItemBase i
                             context.getItemInHand().shrink(1);
                             context.getPlayer().addItem(new ItemStack(ModItems.summoningScroll));
                         }
-                    } else {
-                        context.getPlayer().sendSystemMessage(Component.translatable("message.feywild.summon_fail"));
-                    }
                 }
             }
             return InteractionResult.sidedSuccess(context.getLevel().isClientSide);

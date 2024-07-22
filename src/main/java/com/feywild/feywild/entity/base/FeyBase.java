@@ -124,7 +124,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 );
             }
         }
-        if (!MiscConfig.summon_all_fey) {
+
             Player owner = this.getOwningPlayer();
             if (owner instanceof ServerPlayer serverPlayer) {
                 Alignment ownerAlignment = QuestData.get(serverPlayer).getAlignment();
@@ -140,7 +140,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             } else {
                 unalignedTicks = 0;
             }
-        }
+
     }
 
     @Nonnull

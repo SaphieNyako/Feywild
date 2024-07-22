@@ -102,11 +102,7 @@ public class MandrakeCrop extends CropBlock implements Registerable {
                 if (QuestData.get((ServerPlayer) player).checkReputation(Alignment.SPRING, 0)) {
                     addMandragora(level, pos, player, hand);
                 } else {
-                    if (MiscConfig.summon_all_fey) {
                         addMandragora(level, pos, player, hand);
-                    } else {
-                        player.sendSystemMessage(Component.translatable("message.feywild.summon_cookie_fail"));
-                    }
                 }
             }
             return InteractionResult.sidedSuccess(level.isClientSide);

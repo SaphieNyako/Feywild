@@ -18,7 +18,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "feywild:mandrake_crop_seed",
+      "item": "feywild:honeycomb",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page3.text0"
     },
@@ -32,7 +32,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "feywild:magical_honey_cookie",
+      "item": "feywild:mandrake_crop_seed",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.feywild.spring_court.mandragora.page6.text0"
     }

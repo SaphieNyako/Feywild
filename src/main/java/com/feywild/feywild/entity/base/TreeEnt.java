@@ -9,15 +9,18 @@ import com.feywild.feywild.entity.goals.tree_ent.TreeEntResetTargetGoal;
 import com.feywild.feywild.network.ParticleMessage;
 import com.feywild.feywild.quest.Alignment;
 import com.feywild.feywild.quest.player.QuestData;
+import com.feywild.feywild.sound.ModSoundEvents;
 import com.feywild.feywild.tag.ModItemTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -134,6 +137,24 @@ public abstract class TreeEnt extends GroundFeyBase {
         } else {
             return superResult;
         }
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@Nonnull DamageSource damageSource) {
+        return ModSoundEvents.treeEntHurt.getSoundEvent();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSoundEvents.treeEntHurt.getSoundEvent();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return this.random.nextBoolean() ? ModSoundEvents.treeEntWalking.getSoundEvent() : null;
     }
     
     @Override

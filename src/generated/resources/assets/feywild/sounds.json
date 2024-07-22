@@ -341,6 +341,12 @@
     ],
     "subtitle": "subtitle.feywild.tree_ent_attacking"
   },
+  "tree_ent_hurt": {
+    "sounds": [
+      "feywild:tree_ent_hurt"
+    ],
+    "subtitle": "subtitle.feywild.tree_ent_hurt"
+  },
   "tree_ent_walking": {
     "sounds": [
       "feywild:tree_ent_walking"

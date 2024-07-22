@@ -78,11 +78,15 @@ public class DwarfBlacksmith extends Trader implements ITameable, ISummonable, I
 
     public static boolean canSpawn(EntityType<DwarfBlacksmith> type, ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         //noinspection deprecation
+        return false;
+        /* Dwarf can only be found in the blacksmith from this patch forward
+
+
         if (pos.getY() >= level.getSeaLevel() || level.canSeeSky(pos)) { //|| random.nextDouble() < 0.15
             return false;
         } else {
             return checkMobSpawnRules(type, level, reason, pos, random);
-        }
+        } */
     }
 
     @Override
