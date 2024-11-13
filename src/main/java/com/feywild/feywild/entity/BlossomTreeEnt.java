@@ -1,5 +1,6 @@
 package com.feywild.feywild.entity;
 
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.entity.base.TreeEnt;
 import net.minecraft.world.entity.EntityType;
@@ -15,7 +16,7 @@ public class BlossomTreeEnt extends TreeEnt {
 
     @Override
     public BaseTree getTree() {
-        return null;
+        return ModTrees.blossomTree;
     }
 
     @Override
