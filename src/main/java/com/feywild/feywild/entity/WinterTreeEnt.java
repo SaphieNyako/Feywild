@@ -1,6 +1,7 @@
 package com.feywild.feywild.entity;
 
 import com.feywild.feywild.FeywildMod;
+import com.feywild.feywild.block.ModTrees;
 import com.feywild.feywild.block.trees.BaseTree;
 import com.feywild.feywild.entity.base.TreeEnt;
 import com.feywild.feywild.network.ParticleMessage;
@@ -19,7 +20,7 @@ public class WinterTreeEnt extends TreeEnt {
 
     @Override
     public BaseTree getTree() {
-        return null;
+        return ModTrees.winterTree;
     }
 
     @Override
