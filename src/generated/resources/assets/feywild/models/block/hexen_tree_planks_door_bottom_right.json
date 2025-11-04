@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_right",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "bottom": "feywild:block/hexen_tree_planks_door_bottom",
-    "top": "feywild:block/hexen_tree_planks_door_top"
-  }
-}

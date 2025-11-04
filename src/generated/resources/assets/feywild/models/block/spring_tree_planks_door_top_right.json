@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_right",
-  "render_type": "minecraft:cutout",
-  "textures": {
-    "bottom": "feywild:block/spring_tree_planks_door_bottom",
-    "top": "feywild:block/spring_tree_planks_door_top"
-  }
-}

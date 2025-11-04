@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "feywild:block/blossom_tree_wood",
-    "side": "feywild:block/blossom_tree_wood",
-    "top": "feywild:block/blossom_tree_wood"
-  }
-}

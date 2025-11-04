@@ -1,0 +1,24 @@
+ {
+  "type": "feywild:fairy_altar",
+  "ingredients": [
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "item": "minecraft:dandelion"
+    },
+    {
+      "tag": "forge:seeds"
+    },
+    {
+      "item": "minecraft:dandelion"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:giant_dandelion_flower_seed"
+  }
+}

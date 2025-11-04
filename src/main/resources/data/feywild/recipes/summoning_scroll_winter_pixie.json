@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fairy_altar",
+  "ingredients": [
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "minecraft:ice"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_winter_pixie"
+  }
+}
