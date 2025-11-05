@@ -1,39 +1,39 @@
 {
   "variants": {
     "part=0": {
-      "model": "feywildt:block/giant_dandelion_flower_stem"
+      "model": "feywild:block/giant_dandelion_flower_stem"
     },
     "part=1": [
       {
-        "model": "feywildt:block/giant_dandelion_flower_stem"
+        "model": "feywild:block/giant_dandelion_flower_stem"
       },
       {
-        "model": "feywildt:block/giant_dandelion_flower_stem",
+        "model": "feywild:block/giant_dandelion_flower_stem",
         "y": 90
       },
       {
-        "model": "feywildt:block/giant_dandelion_flower_stem",
+        "model": "feywild:block/giant_dandelion_flower_stem",
         "y": 180
       },
       {
-        "model": "feywildt:block/giant_dandelion_flower_stem",
+        "model": "feywild:block/giant_dandelion_flower_stem",
         "y": 270
       }
     ],
     "part=2": {
-      "model": "feywildt:block/giant_dandelion_flower_stem"
+      "model": "feywild:block/giant_dandelion_flower_stem"
     },
     "part=3,variant=0": {
-      "model": "feywildt:block/giant_dandelion_flower_bud"
+      "model": "feywild:block/giant_dandelion_flower_bud"
     },
     "part=3,variant=1": {
-      "model": "feywildt:block/giant_dandelion_flower"
+      "model": "feywild:block/giant_dandelion_flower"
     },
     "part=3,variant=2": {
-      "model": "feywildt:block/giant_dandelion_flower_fluff"
+      "model": "feywild:block/giant_dandelion_flower_fluff"
     },
     "part=3,variant=3": {
-      "model": "feywildt:block/giant_dandelion_flower_nofluff"
+      "model": "feywild:block/giant_dandelion_flower_nofluff"
     }
   }
 }

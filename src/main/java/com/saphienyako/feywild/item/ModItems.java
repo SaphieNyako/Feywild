@@ -17,10 +17,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Feywild.MOD_ID);
-    public static final RegistryObject<Item> FEYWILD_LEXICON = ITEMS.register("feywild_lexicon", () -> new Item(new Item.Properties()));
     //TODO add patchouli(?)
     //TODO JEI
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Feywild.MOD_ID);
+    public static final RegistryObject<Item> FEYWILD_LEXICON = ITEMS.register("feywild_lexicon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FEY_GEM = ITEMS.register("fey_gem", () -> new Item(new Item.Properties()));
     //Removed Fey Gem Types
     public static final RegistryObject<Item> MANDRAKE_CROP_SEED = ITEMS.register("mandrake_crop_seed", () -> new ItemNameBlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties()));

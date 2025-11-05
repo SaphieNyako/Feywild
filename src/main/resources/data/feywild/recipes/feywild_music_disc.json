@@ -1,20 +1,20 @@
 {
-  "type": "feywild:fairy_altar",
+  "type": "feywild:fey_altar",
   "ingredients": [
     {
       "tag": "minecraft:music_discs"
     },
     {
-      "item": "feywild:pixie_dust"
+      "item": "feywild:fey_dust"
     },
     {
-      "item": "feywild:pixie_dust"
+      "item": "feywild:fey_dust"
     },
     {
-      "item": "feywild:pixie_dust"
+      "item": "feywild:fey_dust"
     },
     {
-      "item": "feywild:pixie_dust"
+      "item": "feywild:fey_dust"
     }
   ],
   "output": {

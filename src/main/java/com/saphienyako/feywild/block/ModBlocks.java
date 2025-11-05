@@ -26,7 +26,6 @@ public class ModBlocks {
     public static final RegistryObject<Block> FEY_GEM_ORE_DEEP_SLATE = registerBlockAndItem("fey_gem_ore_deep_slate",
             ()-> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
-
     public static final RegistryObject<Block> GIANT_SUN_FLOWER = registerBlock("giant_sun_flower",
             ()-> new SunFlowerBlock(4));
 

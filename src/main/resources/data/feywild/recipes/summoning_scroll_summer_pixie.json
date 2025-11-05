@@ -1,11 +1,8 @@
 {
-  "type": "feywild:fairy_altar",
+  "type": "feywild:fey_altar",
   "ingredients": [
     {
-      "item": "feywild:fey_dust"
-    },
-    {
-      "item": "minecraft:sunflower"
+      "item": "feywild:fey_gem"
     },
     {
       "item": "minecraft:honeycomb"
@@ -14,7 +11,10 @@
       "item": "minecraft:golden_sword"
     },
     {
-      "item": "feywild:empty_summoning_scroll"
+      "item": "feywild:fey_ink_bottle"
+    },
+    {
+      "item": "minecraft:paper"
     }
   ],
   "output": {

@@ -1,20 +1,20 @@
 {
-  "type": "feywild:fairy_altar",
+  "type": "feywild:fey_altar",
   "ingredients": [
     {
-      "item": "feywild:fey_dust"
+      "item": "feywild:fey_gem"
     },
     {
-      "item": "minecraft:oxeye_daisy"
+      "tag": "minecraft:flowers"
     },
     {
-      "tag": "forge:seeds"
+      "item": "minecraft:cake"
     },
     {
-      "item": "minecraft:egg"
+      "item": "feywild:fey_ink_bottle"
     },
     {
-      "item": "feywild:empty_summoning_scroll"
+      "item": "minecraft:paper"
     }
   ],
   "output": {

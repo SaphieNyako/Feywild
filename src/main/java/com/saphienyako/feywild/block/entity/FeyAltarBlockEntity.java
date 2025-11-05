@@ -129,7 +129,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return Component.translatable("block.fey_craft.fairy_altar");
+        return Component.translatable("block.feywild.fey_altar");
     }
 
     @Nullable
