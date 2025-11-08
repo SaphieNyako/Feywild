@@ -3,9 +3,8 @@
 	"texture_size": [256, 256],
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "feywild:block/fey_altar",
-		"2": "feywild:block/fey_altar_02",
-		"particle": "feywild:block/fey_altar_02"
+		"2": "feywild:block/fey_altar",
+		"particle": "feywild:block/fey_altar"
 	},
 	"elements": [
 		{
@@ -141,7 +140,6 @@
 		{
 			"from": [5.05, 25.3, 3.175],
 			"to": [7.95, 26.7, 4.575],
-			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 21.25, 6.625]},
 			"faces": {
 				"north": {"uv": [2.4375, 0.1875, 2.0625, 0.375], "texture": "#2"},
@@ -155,7 +153,6 @@
 		{
 			"from": [4.3, 21.8, 2.925],
 			"to": [5.7, 26.2, 4.325],
-			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [2, 21.25, 6.625]},
 			"faces": {
 				"north": {"uv": [1.375, 7.9375, 1.1875, 8.5], "texture": "#2"},
@@ -234,7 +231,6 @@
 		{
 			"from": [5.75, 18, 3.75],
 			"to": [7.75, 20.5, 4.25],
-			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 16.5, 6]},
 			"faces": {
 				"north": {"uv": [4.6875, 0.0625, 4.4375, 0.375], "texture": "#2"},
@@ -313,7 +309,6 @@
 		{
 			"from": [3.25, 11.5, 5],
 			"to": [5.25, 17.5, 7],
-			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [5.25, 20.5, 6]},
 			"faces": {
 				"north": {"uv": [5.5, 0.25, 5.25, 1], "texture": "#2"},
@@ -327,7 +322,6 @@
 		{
 			"from": [2.21263, 15.50127, 7.25],
 			"to": [5.21263, 17.50127, 7.25],
-			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [5.25, 20.5, 6]},
 			"faces": {
 				"north": {"uv": [2.25, 0.375, 1.875, 0.625], "texture": "#2"},
@@ -354,7 +348,6 @@
 		{
 			"from": [2.21263, 15.50127, 4.75],
 			"to": [5.21263, 17.50127, 4.75],
-			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [5.25, 20.5, 6]},
 			"faces": {
 				"north": {"uv": [2.25, 0.375, 1.875, 0.625], "texture": "#2"},
@@ -368,7 +361,6 @@
 		{
 			"from": [10.25, 17.5, 4.25],
 			"to": [13.75, 21, 7.75],
-			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [10.75, 20.5, 6]},
 			"faces": {
 				"north": {"uv": [6.875, 4.8125, 6.4375, 5.25], "texture": "#2"},
@@ -395,7 +387,6 @@
 		{
 			"from": [10.78763, 15.50127, 4.75],
 			"to": [13.78763, 17.50127, 4.75],
-			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [10.75, 20.5, 6]},
 			"faces": {
 				"north": {"uv": [2.625, 0.375, 2.25, 0.625], "texture": "#2"},
@@ -422,7 +413,6 @@
 		{
 			"from": [10.78763, 15.50127, 7.25],
 			"to": [13.78763, 17.50127, 7.25],
-			"shade": false,
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [10.75, 20.5, 6]},
 			"faces": {
 				"north": {"uv": [2.625, 0.375, 2.25, 0.625], "texture": "#2"},
@@ -540,7 +530,6 @@
 		{
 			"from": [8.25, 4, 5],
 			"to": [10.25, 13.5, 7],
-			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [10.25, 13.5, 6]},
 			"faces": {
 				"north": {"uv": [5.1875, 2.5, 4.9375, 3.6875], "texture": "#2"},
@@ -554,7 +543,6 @@
 		{
 			"from": [8, 3.75, 4.75],
 			"to": [10.5, 13.75, 7.25],
-			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [10.25, 13.5, 6]},
 			"faces": {
 				"north": {"uv": [5.1875, 4.375, 4.9375, 5.5625], "texture": "#2"},
