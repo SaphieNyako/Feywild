@@ -22,6 +22,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.MANDRAKE_CROP_SEED);
         simpleItem(ModItems.FEY_INK_BOTTLE);
         simpleItem(ModItems.FEYWILD_MUSIC_DISC);
+        simpleItem(ModItems.EMPTY_SUMMONING_SCROLL);
+        simpleItem(ModItems.PIXIE_ORB);
         simpleItem(ModItems.SUMMONING_SCROLL_SPRING_PIXIE);
         simpleItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE);
         simpleItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE);

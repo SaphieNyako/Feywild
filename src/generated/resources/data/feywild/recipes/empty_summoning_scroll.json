@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "feywild:fey_ink_bottle"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "result": {
+    "item": "feywild:empty_summoning_scroll"
+  }
+}

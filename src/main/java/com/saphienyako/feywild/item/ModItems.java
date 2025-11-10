@@ -22,10 +22,12 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Feywild.MOD_ID);
     public static final RegistryObject<Item> FEYWILD_LEXICON = ITEMS.register("feywild_lexicon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FEY_GEM = ITEMS.register("fey_gem", () -> new Item(new Item.Properties()));
-    //Removed Fey Gem Types
     public static final RegistryObject<Item> MANDRAKE_CROP_SEED = ITEMS.register("mandrake_crop_seed", () -> new ItemNameBlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties()));
     public static final RegistryObject<Item> FEY_INK_BOTTLE = ITEMS.register("fey_ink_bottle", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FEYWILD_MUSIC_DISC = ITEMS.register("feywild_music_disc", FeywildMusicDiscItem::new);
+
+    public static final RegistryObject<Item> PIXIE_ORB = ITEMS.register("pixie_orb", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_SUMMONING_SCROLL = ITEMS.register("empty_summoning_scroll", () -> new Item(new Item.Properties()));
     //Removed Empty Summoning Scroll
     public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE = ITEMS.register("summoning_scroll_spring_pixie", () -> new SummoningScrollItem<>(new Item.Properties()));
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE = ITEMS.register("summoning_scroll_summer_pixie", () -> new SummoningScrollItem<>(new Item.Properties()));

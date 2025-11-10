@@ -11,10 +11,10 @@
       "item": "minecraft:golden_sword"
     },
     {
-      "item": "feywild:fey_ink_bottle"
+      "item": "feywild:empty_summoning_scroll"
     },
     {
-      "item": "minecraft:paper"
+      "item": "minecraft:melon"
     }
   ],
   "output": {

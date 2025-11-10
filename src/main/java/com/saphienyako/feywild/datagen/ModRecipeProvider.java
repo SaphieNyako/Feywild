@@ -59,6 +59,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(ModItems.MANDRAKE.get()), has(ModItems.MANDRAKE.get()))
                 .save(pWriter);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.EMPTY_SUMMONING_SCROLL.get(), 1)
+                .requires(ModItems.FEY_INK_BOTTLE.get())
+                .requires(Items.FEATHER)
+                .requires(Items.PAPER)
+                .unlockedBy(getHasName(ModItems.FEY_INK_BOTTLE.get()), has(ModItems.FEY_INK_BOTTLE.get()))
+                .save(pWriter);
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEYWILD_LEXICON.get(), 1)
                 .requires(ModItems.FEY_DUST.get())
                 .requires(Items.BOOK)

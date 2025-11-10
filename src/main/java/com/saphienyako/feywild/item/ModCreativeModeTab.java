@@ -26,6 +26,8 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModItems.FEY_INK_BOTTLE.get());
                         pOutput.accept(ModBlocks.FEY_ALTAR.get());
                         pOutput.accept(ModItems.FEYWILD_MUSIC_DISC.get());
+                        pOutput.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());
+                        pOutput.accept(ModItems.PIXIE_ORB.get());
                         pOutput.accept(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
                         pOutput.accept(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
                         pOutput.accept(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());

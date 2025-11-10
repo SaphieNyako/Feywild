@@ -30,5 +30,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.ENCHANTING_FUELS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.GEMS).add(ModItems.FEY_GEM.get());
         this.tag(Tags.Items.ORES).add(ModItems.FEY_GEM.get());
+
     }
 }
