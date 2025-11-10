@@ -85,7 +85,7 @@ public class BreedAbilityGoal extends Goal {
 
     @Override
     public boolean canUse() {
-
+        //TODO Add check for ABILITY_ON TRUE/FALSE
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer) {
             return this.level.random.nextFloat() < 0.05f;

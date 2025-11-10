@@ -19,6 +19,12 @@
       "feywild:pixie_spell_casting"
     ]
   },
+  "pixie_spell_casting_short": {
+    "subtitles": "sounds.feywild.pixie_spell_casting_short",
+    "sounds": [
+      "feywild:pixie_spell_casting_short"
+    ]
+  },
   "pixie_ambient": {
     "subtitles": "sounds.feywild.pixie_ambient",
     "sounds": [

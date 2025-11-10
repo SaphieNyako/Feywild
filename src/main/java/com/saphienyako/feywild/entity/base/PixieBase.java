@@ -33,7 +33,11 @@ import java.util.Random;
 
 public abstract class PixieBase extends FlyingFeyBase {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(SpringPixieEntity.class, EntityDataSerializers.INT);
+
+    //TODO FOLLOW/STAY ?
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.INT);
+
+    public static final EntityDataAccessor<Boolean> ABILITY_ON = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.BOOLEAN);
     public final AnimationState IDLE_ANIMATION = new AnimationState();
     private int idleAnimationTimeout = 0;
 
@@ -43,14 +47,12 @@ public abstract class PixieBase extends FlyingFeyBase {
         super(entityType, level);
     }
 
-    //Can always follow players
-
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(50, new PanicGoal(this, 0.003, 13));
-        this.goalSelector.addGoal(20, new BlessingEffectGoal(this, getMobEffect(), this.level()));
+        //this.goalSelector.addGoal(20, new BlessingEffectGoal(this, getMobEffect(), this.level()));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
     }
 
@@ -58,6 +60,7 @@ public abstract class PixieBase extends FlyingFeyBase {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
+        this.entityData.define(ABILITY_ON, true);
     }
 
 
@@ -147,6 +150,7 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
     }
 
+    //TODO Name en Cookie Message
     protected abstract Component getPixieNameMessage();
     protected abstract Component getPixieCookieMessage();
 
@@ -166,12 +170,14 @@ public abstract class PixieBase extends FlyingFeyBase {
         return false;
     }
 
-    public SpringPixieEntity.State getState() {
-        SpringPixieEntity.State[] states = SpringPixieEntity.State.values();
+    public PixieBase.State getState() {
+        PixieBase.State[] states = PixieBase.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
-    public void setState(SpringPixieEntity.State state) {
+
+
+    public void setState(PixieBase.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 

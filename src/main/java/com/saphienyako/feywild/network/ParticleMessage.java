@@ -30,18 +30,23 @@ public record ParticleMessage(Type type, BlockPos pos) {
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        withLevelDo(l -> {
-            final RandomSource ran = l.random;
+        withLevelDo(level -> {
+            final RandomSource ran = level.random;
             switch (this.type) {
                 case DANDELION_FLUFF -> {
                     for (int i = 0; i < 40; i++) {
-                        l.addParticle(ParticleTypes.END_ROD, true,this.pos.getX(), this.pos.getY(), this.pos().getZ(), 0.6 * (ran.nextDouble() - 0.5), 0.6 * (ran.nextDouble() - 0.3), 0.6 * (ran.nextDouble() - 0.5));
+                        level.addParticle(ParticleTypes.END_ROD, true,this.pos.getX(), this.pos.getY(), this.pos().getZ(), 0.6 * (ran.nextDouble() - 0.5), 0.6 * (ran.nextDouble() - 0.3), 0.6 * (ran.nextDouble() - 0.5));
                     }
                 }
                 case FEY_HEART -> {
                     int y = this.pos.getY() + 1;
                     for (int i = 0; i < 5; i++) {
-                        l.addParticle(ParticleTypes.HEART, true, this.pos.getX() - 0.3 + (0.6 * ran.nextDouble()), y + (0.6 * ran.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * ran.nextDouble()), 0, 0, 0);
+                        level.addParticle(ParticleTypes.HEART, true, this.pos.getX() - 0.3 + (0.6 * ran.nextDouble()), y + (0.6 * ran.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * ran.nextDouble()), 0, 0, 0);
+                    }
+                }
+                case CROPS_GROW -> {
+                    for (int i = 0; i < 10; i++) {
+                        level.addParticle(ParticleTypes.FLAME, true, this.pos.getX() - 0.3 + (0.6 * level.random.nextDouble()), this.pos.getY() + (0.8 * level.random.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * level.random.nextDouble()), 0, 0, 0);
                     }
                 }
             }
@@ -50,7 +55,7 @@ public record ParticleMessage(Type type, BlockPos pos) {
     }
 
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART
+        DANDELION_FLUFF, FEY_HEART, CROPS_GROW
     }
 }
 

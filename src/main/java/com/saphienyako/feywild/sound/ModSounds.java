@@ -16,6 +16,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MANDRAKE_SCREAM = registerSoundEvents("mandrake_scream");
     public static final RegistryObject<SoundEvent> FAIRY_CRAFT_MUSIC_DISC = registerSoundEvents("fairy_craft_music_disc");
     public static final RegistryObject<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvents("pixie_spell_casting");
+    public static final RegistryObject<SoundEvent> PIXIE_SPELL_CASTING_SHORT = registerSoundEvents("pixie_spell_casting_short");
     public static final RegistryObject<SoundEvent> PIXIE_AMBIENT = registerSoundEvents("pixie_ambient");
     public static final RegistryObject<SoundEvent> PIXIE_HURT = registerSoundEvents("pixie_hurt");
     public static final RegistryObject<SoundEvent> PIXIE_DEATH = registerSoundEvents("pixie_death");

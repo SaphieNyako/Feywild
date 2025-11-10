@@ -17,6 +17,14 @@ public abstract class FlyingFeyBase extends FeyBase implements FlyingEntity {
         this.moveControl = new FlyingMoveControl(this, 4, true);
     }
 
+    //TODO Doesn't crush Crops
+
+
+    @Override
+    public boolean onGround() {
+        return false;
+    }
+
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
