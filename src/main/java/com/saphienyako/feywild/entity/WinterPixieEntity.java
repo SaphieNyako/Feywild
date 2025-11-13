@@ -2,6 +2,8 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.PixieBase;
+import com.saphienyako.feywild.entity.goals.GatherCropsAbilityGoal;
+import com.saphienyako.feywild.entity.goals.GatherMobItemsGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -15,9 +17,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+
 public class WinterPixieEntity extends PixieBase {
     protected WinterPixieEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(20, new GatherMobItemsGoal(this, this.level()));
     }
 
     @Override

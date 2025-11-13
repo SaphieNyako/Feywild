@@ -52,7 +52,9 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 .add(Attributes.MAX_HEALTH, 12)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 24D);
+
     }
 
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {

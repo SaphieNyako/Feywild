@@ -73,9 +73,6 @@ public class CropGrowAbilityGoal extends Goal {
                         ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
                         ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
                         FeywildNetwork.sendParticles(level, ParticleMessage.Type.CROPS_GROW, target);
-                        //get Item ?
-                       // ((CropBlock) level.getBlockState(target).getBlock()).getCloneItemStack(level, target, level.getBlockState(target));
-
                     }
                 }
             }

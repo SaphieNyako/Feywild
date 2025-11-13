@@ -49,13 +49,29 @@ public record ParticleMessage(Type type, BlockPos pos) {
                         level.addParticle(ParticleTypes.FLAME, true, this.pos.getX() - 0.3 + (0.6 * level.random.nextDouble()), this.pos.getY() + (0.8 * level.random.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * level.random.nextDouble()), 0, 0, 0);
                     }
                 }
+
+                case MOB_COLLECT -> {
+                    for (int i = 0; i < 20; i++) {
+                        level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, true, this.pos.getX() - 0.3 + (0.9 * level.random.nextDouble()), this.pos.getY() + (1.2 * level.random.nextDouble()), this.pos.getZ() - 0.3 + (0.9 * level.random.nextDouble()), 0, 0, 0);
+                    }
+                }
+
+                case CROPS_RESET -> {
+                    for (int i = 0; i < 10; i++) {
+                        level.addParticle(ParticleTypes.GLOW, true, this.pos.getX() - 0.3 + (0.6 * level.random.nextDouble()), this.pos.getY() + (0.8 * level.random.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * level.random.nextDouble()), 0, 0, 0);
+                    }
+                }
+
+
+
+
             }
 
         });
     }
 
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART, CROPS_GROW
+        DANDELION_FLUFF, FEY_HEART, CROPS_GROW, CROPS_RESET, MOB_COLLECT
     }
 }
 
