@@ -49,11 +49,6 @@ public class GatherCropsAbilityGoal extends Goal {
         this.entity = entity;
     }
 
-    //Locate Crops Blocks
-    //If Crop Block get Item from it
-    //Move to Chest or Player
-    //Drop Item
-
     @Override
     public void tick() {
         if (this.ticksLeft > 0) {
@@ -85,7 +80,7 @@ public class GatherCropsAbilityGoal extends Goal {
         }
     }
 
-    private void locateCrops(BlockPos pos) { //private ItemStack
+    private void locateCrops(BlockPos pos) {
         for (int xd = -8; xd <= 8; xd++) {
             for (int zd = -8; zd <= 8; zd++) {
                 for (int yd = 8; yd >= -8; yd--) {
@@ -93,16 +88,13 @@ public class GatherCropsAbilityGoal extends Goal {
                     if (level.getBlockState(target).getBlock() instanceof CropBlock cropBlock && cropBlock.isMaxAge(level.getBlockState(target)) && level.random.nextFloat() < 0.16f) { //
                         this.foundViableCrop = true;
                         this.item = cropBlock.getCloneItemStack(level, target, level.getBlockState(target));
-                       // this.item = ((CropBlock) level.getBlockState(target).getBlock()).getCloneItemStack(level, target, level.getBlockState(target));
                         resetCrops(cropBlock,level, target, level.getBlockState(target));
                         FeywildNetwork.sendParticles(level, ParticleMessage.Type.CROPS_RESET, target);
                         return;
-                        //level.getBlockState(target).setValue(CropBlock.AGE, 1);
                     }
                 }
             }
         }
-      //  return null;
     }
 
     public void resetCrops(CropBlock cropBlock, Level pLevel, BlockPos pPos, BlockState pState) {
@@ -137,9 +129,8 @@ public class GatherCropsAbilityGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        //TODO Add check for ABILITY_ON TRUE/FALSE
         Player owning = this.entity.getOwningPlayer();
-        if (owning instanceof ServerPlayer) {
+        if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
             return this.level.random.nextFloat() < 0.01f;
         } else {
             return false;

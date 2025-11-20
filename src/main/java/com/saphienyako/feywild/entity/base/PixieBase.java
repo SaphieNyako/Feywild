@@ -1,11 +1,15 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.SpringPixieEntity;
 import com.saphienyako.feywild.entity.goals.BlessingEffectGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
+import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.screen.FeyMenuScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -33,11 +37,8 @@ import java.util.Random;
 
 public abstract class PixieBase extends FlyingFeyBase {
 
-
-    //TODO FOLLOW/STAY ?
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.INT);
 
-    public static final EntityDataAccessor<Boolean> ABILITY_ON = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.BOOLEAN);
     public final AnimationState IDLE_ANIMATION = new AnimationState();
     private int idleAnimationTimeout = 0;
 
@@ -52,7 +53,6 @@ public abstract class PixieBase extends FlyingFeyBase {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(50, new PanicGoal(this, 0.003, 13));
-        //this.goalSelector.addGoal(20, new BlessingEffectGoal(this, getMobEffect(), this.level()));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
     }
 
@@ -60,7 +60,6 @@ public abstract class PixieBase extends FlyingFeyBase {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
-        this.entityData.define(ABILITY_ON, true);
     }
 
 
@@ -102,11 +101,9 @@ public abstract class PixieBase extends FlyingFeyBase {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         ItemStack stack = player.getItemInHand(hand);
         if (superResult == InteractionResult.PASS) {
-            if (!stack.isEmpty() && player instanceof ServerPlayer && this.tryAcceptGift((ServerPlayer) player, hand)) {
-                player.swing(hand, true);
 
-                //GIVE COOKIE, HEAL, DISSAPEAR
-            } else if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+                //GIVE COOKIE, HEAL
+            if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
                 if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
                     Random random = new Random();
@@ -131,19 +128,20 @@ public abstract class PixieBase extends FlyingFeyBase {
                     player.sendSystemMessage(getPixieNameMessage());
                 }
 
-                //PIXIE ORB
-            } /*  else if (!this.isTamed() && this.getOwner() == null && player instanceof ServerPlayer && player.getItemInHand(hand).getItem() == Items.ENDER_EYE) {
-                player.swing(player.getUsedItemHand(), true);
-                if (!player.isCreative()) {
-                    player.getItemInHand(hand).shrink(1);
-                }
-                player.addItem(new ItemStack(ModItems.pixieOrb));
-                this.remove(RemovalReason.DISCARDED);
-
-                //QUEST
-            } */ else if (this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-                //TODO QUEST
+                //PIXIE ORB OPENS MENU
+            } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
+                  FeywildNetwork.sendToPlayer(new OpenMenuMessage(
+                                this.getName(),
+                                this.getId(),
+                                this.getAligment(),
+                                this.getFollowingPlayer(),
+                                this.blockPosition(),
+                                this.getAbilityActive()),
+                        (ServerPlayer) player);
+                player.swing(hand, true);
             }
+
+            //TODO QUEST
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return superResult;
@@ -155,20 +153,6 @@ public abstract class PixieBase extends FlyingFeyBase {
     protected abstract Component getPixieCookieMessage();
 
     protected abstract MobEffect getMobEffect();
-
-    private boolean tryAcceptGift(ServerPlayer player, InteractionHand hand) {
-      /*  ItemStack stack = player.getItemInHand(hand);
-        if (!stack.isEmpty()) {
-
-            if (QuestData.get(player).checkComplete(FeyGiftTask.INSTANCE, input)) {
-                if (!player.isCreative()) stack.shrink(1);
-                player.sendSystemMessage(Component.translatable("message.feywild." + this.alignment.id + "_fey_thanks"));
-                return true;
-            }
-        } */
-        //TODO Quest GIFT
-        return false;
-    }
 
     public PixieBase.State getState() {
         PixieBase.State[] states = PixieBase.State.values();

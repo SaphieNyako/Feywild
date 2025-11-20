@@ -40,6 +40,30 @@ public class FeywildNetwork {
                 .consumerMainThread(AltarParticleMessage::handle)
                 .add();
 
+        net.messageBuilder(OpenMenuMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(OpenMenuMessage::decode)
+                .encoder(OpenMenuMessage::encode)
+                .consumerMainThread(OpenMenuMessage::handle)
+                .add();
+
+        net.messageBuilder(ToggleFollowPlayerMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleFollowPlayerMessage::decode)
+                .encoder(ToggleFollowPlayerMessage::encode)
+                .consumerMainThread(ToggleFollowPlayerMessage::handle)
+                .add();
+
+        net.messageBuilder(ToggleAbilityMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleAbilityMessage::decode)
+                .encoder(ToggleAbilityMessage::encode)
+                .consumerMainThread(ToggleAbilityMessage::handle)
+                .add();
+
+        net.messageBuilder(DismissEntityMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(DismissEntityMessage::decode)
+                .encoder(DismissEntityMessage::encode)
+                .consumerMainThread(DismissEntityMessage::handle)
+                .add();
+
     }
 
     public static <MSG> void sendToServer(MSG message) {

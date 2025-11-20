@@ -14,6 +14,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,5 +51,15 @@ public class WinterPixieEntity extends PixieBase {
     @Override
     public SimpleParticleType getParticle() {
         return ModParticles.WINTER_SPARKLE_PARTICLE.get();
+    }
+
+    @Override
+    public Alignment getAligment() {
+        return Alignment.WINTER;
+    }
+
+    @Override
+    public ItemLike getDismissItem() {
+        return ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get();
     }
 }

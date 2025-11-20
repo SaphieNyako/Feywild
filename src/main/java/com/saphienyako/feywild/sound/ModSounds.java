@@ -14,7 +14,7 @@ public class ModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Feywild.MOD_ID);
 
     public static final RegistryObject<SoundEvent> MANDRAKE_SCREAM = registerSoundEvents("mandrake_scream");
-    public static final RegistryObject<SoundEvent> FAIRY_CRAFT_MUSIC_DISC = registerSoundEvents("fairy_craft_music_disc");
+    public static final RegistryObject<SoundEvent> FEYWILD_MUSIC_DISC = registerSoundEvents("feywild_music_disc");
     public static final RegistryObject<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvents("pixie_spell_casting");
     public static final RegistryObject<SoundEvent> PIXIE_SPELL_CASTING_SHORT = registerSoundEvents("pixie_spell_casting_short");
     public static final RegistryObject<SoundEvent> PIXIE_AMBIENT = registerSoundEvents("pixie_ambient");

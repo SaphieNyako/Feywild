@@ -15,8 +15,6 @@ import net.minecraft.world.level.block.CropBlock;
 
 public class CropGrowAbilityGoal extends Goal {
 
-    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(4).ignoreLineOfSight();
-
     protected final Level level;
     protected final PixieBase entity;
     protected boolean foundViableCrop;
@@ -38,7 +36,6 @@ public class CropGrowAbilityGoal extends Goal {
             else if (this.ticksLeft == 20){
                 this.growCrops(entity.blockPosition());
                 if(foundViableCrop){
-                    //if found viable crops is true do spell casting.
                     spellCasting();
                 }
 
@@ -86,9 +83,8 @@ public class CropGrowAbilityGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        //TODO Add check for ABILITY_ON TRUE/FALSE
         Player owning = this.entity.getOwningPlayer();
-        if (owning instanceof ServerPlayer) {
+        if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
             return this.level.random.nextFloat() < 0.01f;
         } else {
             return false;

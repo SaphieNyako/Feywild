@@ -4,6 +4,7 @@ import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.goals.BreedAbilityGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
+import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,12 +36,12 @@ public class SpringPixieEntity extends PixieBase {
 
     @Override
     protected Component getPixieNameMessage() {
-        return  Component.translatable("message.fairy_craft.spring_pixie_name");
+        return  Component.translatable("message.feywild.spring_pixie_name");
     }
 
     @Override
     protected Component getPixieCookieMessage() {
-        return  Component.translatable("message.fairy_craft.spring_pixie_feed");
+        return  Component.translatable("message.feywild.spring_pixie_feed");
     }
 
     @Override
@@ -51,5 +53,15 @@ public class SpringPixieEntity extends PixieBase {
     @Override
     public SimpleParticleType getParticle() {
         return ModParticles.SPRING_SPARKLE_PARTICLE.get();
+    }
+
+    @Override
+   public Alignment getAligment() {
+        return Alignment.SPRING;
+    }
+
+    @Override
+    public ItemLike getDismissItem() {
+        return ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get();
     }
 }

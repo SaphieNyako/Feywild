@@ -4,12 +4,14 @@ import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.goals.BreedAbilityGoal;
 import com.saphienyako.feywild.entity.goals.CropGrowAbilityGoal;
+import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,5 +48,14 @@ public class SummerPixieEntity extends PixieBase {
     @Override
     public SimpleParticleType getParticle() {
         return ModParticles.SUMMER_SPARKLE_PARTICLE.get();
+    }
+
+    @Override
+    public Alignment getAligment() {
+        return Alignment.SUMMER;
+    }
+    @Override
+    public ItemLike getDismissItem() {
+        return ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get();
     }
 }

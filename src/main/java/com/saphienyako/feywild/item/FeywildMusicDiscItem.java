@@ -13,7 +13,7 @@ import java.util.List;
 public class FeywildMusicDiscItem extends RecordItem {
 
     public FeywildMusicDiscItem() {
-        super(1, ModSounds.FAIRY_CRAFT_MUSIC_DISC.get(), new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1880);
+        super(1, ModSounds.FEYWILD_MUSIC_DISC.get(), new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 1880);
     }
 
     @Override

@@ -46,9 +46,13 @@ import org.slf4j.Logger;
 public class Feywild
 {
     public static final String MOD_ID = "feywild";
+
+    private static Feywild instance;
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Feywild() {
+
+        instance = this;
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
@@ -71,6 +75,12 @@ public class Feywild
         MinecraftForge.EVENT_BUS.register(this);
         //modEventBus.addListener(this::addCreative);
     }
+
+
+    public static Feywild getInstance() {
+        return instance;
+    }
+
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SPRING_PIXIE.get(), SpringPixieEntity.getDefaultAttributes().build());

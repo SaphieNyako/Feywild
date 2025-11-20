@@ -95,9 +95,8 @@ public class GatherMobItemsGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        //TODO Add check for ABILITY_ON TRUE/FALSE
         Player owning = this.entity.getOwningPlayer();
-        if (owning instanceof ServerPlayer) {
+        if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
             return this.level.random.nextFloat() < 0.01f;
         } else {
             return false;

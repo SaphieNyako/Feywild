@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
@@ -9,7 +10,11 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -39,6 +45,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @javax.annotation.Nullable
     private BlockPos summonPos = null;
     private boolean followingPlayer = false;
+    private boolean abilityActive = false;
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -54,11 +61,11 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 24D);
-
     }
 
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return isBrightEnoughToSpawn(level, pos);
+        //TODO make mobs spawn in overworld?
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
@@ -72,7 +79,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     @javax.annotation.Nullable
     public Vec3 getCurrentPointOfInterest() {
-        if (this.canFollowPlayer() && this.followingPlayer) {
+        if (this.getFollowingPlayer()) {
             Player player = this.getOwningPlayer();
             return player == null ? null : player.position();
         } else if (this.summonPos != null) {
@@ -84,10 +91,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     public float getTargetPositionSpeed() {
         return 1.5f;
-    }
-
-    public boolean canFollowPlayer() {
-        return true;
     }
 
     @Override
@@ -112,15 +115,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 );
             }
         }
-        //No Allignment
-    }
-
-    @Nonnull
-    @Override
-    @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        return super.interactAt(player, hitVec, hand);
-        //TODO Follow via Menu
     }
 
     @Override
@@ -137,6 +131,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             nbt.remove("SummonPos");
         }
         nbt.putBoolean("FollowingPlayer", this.followingPlayer);
+        nbt.putBoolean("AbilityActive", this.abilityActive);
     }
 
     @Override
@@ -145,6 +140,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
         this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")).immutable() : null;
         this.followingPlayer = nbt.getBoolean("FollowingPlayer");
+        this.abilityActive = nbt.getBoolean("AbilityActive");
+
     }
 
     @Override
@@ -165,15 +162,31 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.owner = uid;
     }
 
-    @javax.annotation.Nullable
+
     @Override
-    public BlockPos getSummonPos() {
+    public @org.jetbrains.annotations.Nullable BlockPos getSummonPos() {
         return this.summonPos;
     }
 
     @Override
     public void setSummonPos(BlockPos pos) {
         this.summonPos = pos == null ? null : pos.immutable();
+    }
+
+    public void setFollowingPlayer(Boolean followingPlayer){
+        this.followingPlayer = followingPlayer;
+    }
+
+    public Boolean getFollowingPlayer(){
+        return this.followingPlayer;
+    }
+
+    public Boolean getAbilityActive() {
+        return this.abilityActive;
+    }
+
+    public void setAbilityActive(Boolean abilityActive) {
+        this.abilityActive = abilityActive;
     }
 
     @Override
@@ -252,4 +265,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     protected float getSoundVolume() {
         return 0.6f;
     }
+
+    public abstract Alignment getAligment();
+
+    public abstract ItemLike getDismissItem();
 }
