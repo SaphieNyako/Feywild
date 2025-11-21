@@ -9,6 +9,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +22,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider pProvider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.FEYWILD_MUSIC_DISC.get());
         this.tag(ItemTags.MUSIC_DISCS).add(ModItems.FEYWILD_MUSIC_DISC.get());
         this.tag(Tags.Items.CROPS).add(ModItems.MANDRAKE.get());
@@ -29,7 +30,5 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.DUSTS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.ENCHANTING_FUELS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.GEMS).add(ModItems.FEY_GEM.get());
-        this.tag(Tags.Items.ORES).add(ModItems.FEY_GEM.get());
-
     }
 }

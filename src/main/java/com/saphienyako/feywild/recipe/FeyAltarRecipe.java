@@ -70,6 +70,11 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
         return this.id;
     }
 
+    @Override
+    public @NotNull NonNullList<Ingredient> getIngredients() {
+        return inputList;
+    }
+
     public static boolean matchesLists(List<Ingredient> ingredients, List<ItemStack> stacks) {
         if (ingredients.size() != stacks.size()) return false;
         List<ItemStack> left = new ArrayList<>(stacks);
