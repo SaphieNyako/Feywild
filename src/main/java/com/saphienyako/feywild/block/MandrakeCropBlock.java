@@ -45,7 +45,7 @@ public class MandrakeCropBlock extends CropBlock {
     @Nonnull
     @Override
     protected ItemLike getBaseSeedId() {
-        return ModItems.MANDRAKE_CROP_SEED.get();
+        return ModItems.MANDRAKE_ROOT.get();
     }
 
     @Nonnull

@@ -21,7 +21,7 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModItems.FEYWILD_LEXICON.get());
                         pOutput.accept(ModItems.FEY_DUST.get());
                         pOutput.accept(ModItems.FEY_GEM.get());
-                        pOutput.accept(ModItems.MANDRAKE_CROP_SEED.get());
+                        pOutput.accept(ModItems.MANDRAKE_ROOT.get());
                         pOutput.accept(ModItems.MANDRAKE.get());
                         pOutput.accept(ModItems.FEY_INK_BOTTLE.get());
                         pOutput.accept(ModBlocks.FEY_ALTAR.get());

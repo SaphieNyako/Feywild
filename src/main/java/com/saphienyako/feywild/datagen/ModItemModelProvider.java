@@ -19,7 +19,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         simpleItem(ModItems.FEYWILD_LEXICON);
         simpleItem(ModItems.FEY_GEM);
-        simpleItem(ModItems.MANDRAKE_CROP_SEED);
+        simpleItem(ModItems.MANDRAKE_ROOT);
         simpleItem(ModItems.FEY_INK_BOTTLE);
         simpleItem(ModItems.FEYWILD_MUSIC_DISC);
         simpleItem(ModItems.EMPTY_SUMMONING_SCROLL);

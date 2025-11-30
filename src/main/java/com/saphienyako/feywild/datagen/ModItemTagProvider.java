@@ -26,7 +26,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.FEYWILD_MUSIC_DISC.get());
         this.tag(ItemTags.MUSIC_DISCS).add(ModItems.FEYWILD_MUSIC_DISC.get());
         this.tag(Tags.Items.CROPS).add(ModItems.MANDRAKE.get());
-        this.tag(Tags.Items.SEEDS).add(ModItems.MANDRAKE_CROP_SEED.get());
         this.tag(Tags.Items.DUSTS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.ENCHANTING_FUELS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.GEMS).add(ModItems.FEY_GEM.get());

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:mandrake_crop_seed"
+        "recipe": "feywild:mandrake_root"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "feywild:mandrake_crop_seed"
+      "feywild:mandrake_root"
     ]
   },
   "sends_telemetry_event": false
