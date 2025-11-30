@@ -10,14 +10,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -269,4 +265,25 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public abstract Alignment getAligment();
 
     public abstract ItemLike getDismissItem();
+
+    public String getEntityName(){
+        ResourceLocation id =this.getType().builtInRegistryHolder().key().location();
+        return id.getPath();
+    }
+
+    public Component getFeyNameMessage(){
+        return  Component.translatable("message.feywild."+ getEntityName() + "_name");
+    }
+
+    public Component getFeyCookieMessage(){
+        return  Component.translatable("message.feywild."+ getEntityName() + "_cookie");
+    }
+
+    public Component getFeyFollowMessage(){
+        return  Component.translatable("message.feywild."+ getEntityName() + "_follow");
+    }
+
+    public Component getFeyStayMessage(){
+        return  Component.translatable("message.feywild."+ getEntityName() + "_stay");
+    }
 }

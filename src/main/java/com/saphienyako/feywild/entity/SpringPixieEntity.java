@@ -32,18 +32,6 @@ public class SpringPixieEntity extends PixieBase {
         super.registerGoals();
         this.goalSelector.addGoal(20, new BreedAbilityGoal(this, this.level()));
     }
-
-
-    @Override
-    protected Component getPixieNameMessage() {
-        return  Component.translatable("message.feywild.spring_pixie_name");
-    }
-
-    @Override
-    protected Component getPixieCookieMessage() {
-        return  Component.translatable("message.feywild.spring_pixie_feed");
-    }
-
     @Override
     protected MobEffect getMobEffect() {
         return ModEffects.SPRING_BLESSING.get();

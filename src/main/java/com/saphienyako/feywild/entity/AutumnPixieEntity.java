@@ -28,17 +28,6 @@ public class AutumnPixieEntity extends PixieBase {
         super.registerGoals();
         this.goalSelector.addGoal(20, new GatherCropsAbilityGoal(this, this.level()));
     }
-
-    @Override
-    protected Component getPixieNameMessage() {
-        return  Component.translatable("message.feywild.autumn_pixie_name");
-    }
-
-    @Override
-    protected Component getPixieCookieMessage() {
-        return  Component.translatable("message.feywild.autumn_pixie_feed");
-    }
-
     @Nullable
     @Override
     public SimpleParticleType getParticle() {

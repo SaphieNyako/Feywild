@@ -1,16 +1,12 @@
 package com.saphienyako.feywild.network;
 
-import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.FeyBase;
-import com.saphienyako.feywild.screen.FeyMenuScreen;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, BlockPos currentBlockPos) {
@@ -37,7 +33,13 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {
                 entity.setFollowingPlayer(this.followingPlayer);
-                if(!this.followingPlayer) {entity.setSummonPos(this.currentBlockPos);}
+
+                if(!this.followingPlayer) {
+                    Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyStayMessage());
+                    entity.setSummonPos(this.currentBlockPos);
+                } else {
+                    Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyFollowMessage());
+                }
             }
         }
     }

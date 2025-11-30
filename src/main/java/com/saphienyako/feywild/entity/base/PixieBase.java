@@ -1,16 +1,10 @@
 package com.saphienyako.feywild.entity.base;
 
-import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.SpringPixieEntity;
-import com.saphienyako.feywild.entity.goals.BlessingEffectGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
-import com.saphienyako.feywild.screen.FeyMenuScreen;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -111,7 +105,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         this.discard();
-                        player.sendSystemMessage(getPixieCookieMessage());
+                        player.sendSystemMessage(getFeyCookieMessage());
                     }
                 }
                 if (!player.isCreative()) {
@@ -125,7 +119,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
                 if (!level().isClientSide) {
-                    player.sendSystemMessage(getPixieNameMessage());
+                    player.sendSystemMessage(getFeyNameMessage());
                 }
 
                 //PIXIE ORB OPENS MENU
@@ -147,10 +141,6 @@ public abstract class PixieBase extends FlyingFeyBase {
             return superResult;
         }
     }
-
-    //TODO Name en Cookie Message
-    protected abstract Component getPixieNameMessage();
-    protected abstract Component getPixieCookieMessage();
 
     protected abstract MobEffect getMobEffect();
 

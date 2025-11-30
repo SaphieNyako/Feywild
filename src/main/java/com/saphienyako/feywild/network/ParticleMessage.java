@@ -41,7 +41,7 @@ public record ParticleMessage(Type type, BlockPos pos) {
                 case FEY_HEART -> {
                     int y = this.pos.getY() + 1;
                     for (int i = 0; i < 5; i++) {
-                        level.addParticle(ParticleTypes.HEART, true, this.pos.getX() - 0.3 + (0.6 * ran.nextDouble()), y + (0.6 * ran.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * ran.nextDouble()), 0, 0, 0);
+                        level.addParticle(ParticleTypes.HEART, true, this.pos.getX() - 0.3 + (0.6 * ran.nextDouble()), y + (1.9 * ran.nextDouble()), this.pos.getZ() - 0.3 + (0.6 * ran.nextDouble()), 0, 0, 0);
                     }
                 }
                 case CROPS_GROW -> {

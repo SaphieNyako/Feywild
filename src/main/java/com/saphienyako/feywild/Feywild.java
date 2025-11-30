@@ -24,7 +24,9 @@ import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -32,6 +34,7 @@ import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -100,6 +103,8 @@ public class Feywild
 
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+
+        event.enqueueWork(FeywildNetwork::register);
         event.enqueueWork(() -> {
             ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE.get(), 2.0F);
             ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE_ROOT.get(), 0.3F);
@@ -115,6 +120,8 @@ public class Feywild
     public void onServerStarting(ServerStartingEvent event) {
 
     }
+
+
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
@@ -137,4 +144,13 @@ public class Feywild
         event.registerSpriteSet(ModParticles.WINTER_SPARKLE_PARTICLE.get(), SparkleParticle.provider(0.2f, 0.8f, 0.9f));
         event.registerSpriteSet(ModParticles.FEY_SPARKLE_PARTICLE.get(), SparkleParticle.provider(0.3f,0.9f,0.9f));
     }
+
+    private void spawnPlacement(SpawnPlacementRegisterEvent event) {
+        event.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.SUMMER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+    }
+
 }

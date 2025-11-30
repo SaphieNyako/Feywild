@@ -28,17 +28,6 @@ public class SummerPixieEntity extends PixieBase {
         super.registerGoals();
         this.goalSelector.addGoal(20, new CropGrowAbilityGoal(this, this.level()));
     }
-
-    @Override
-    protected Component getPixieNameMessage() {
-        return  Component.translatable("message.fairy_craft.summer_pixie_name");
-    }
-
-    @Override
-    protected Component getPixieCookieMessage() {
-        return  Component.translatable("message.fairy_craft.summer_pixie_feed");
-    }
-
     @Override
     protected MobEffect getMobEffect() {
         return ModEffects.SUMMER_BLESSING.get();
