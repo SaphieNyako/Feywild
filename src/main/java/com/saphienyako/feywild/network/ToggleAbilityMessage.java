@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
@@ -31,6 +32,11 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {
                 entity.setAbilityActive(this.abilityActive);
+                if(!this.abilityActive){
+                    Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOffMessage());
+                } else {
+                    Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOnMessage());
+                }
             }
         }
     }

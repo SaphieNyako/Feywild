@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
@@ -54,16 +55,13 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
         if (context.getPlayer() != null) {
             if (!context.getLevel().isClientSide) {
 
-                LivingEntity entity = returnLivingEntity().create(context.getLevel());
+                FeyBase entity = returnLivingEntity().create(context.getLevel());
 
                 if (entity != null) {
-                    if (context.getItemInHand().hasCustomHoverName()) {
-                        entity.setCustomName(context.getItemInHand().getHoverName());
-                    }
-
                     this.prepareEntity(entity, context);
 
                     context.getLevel().addFreshEntity(entity);
+                    context.getPlayer().sendSystemMessage(entity.getFeySummonMessage());
                     FeywildNetwork.sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos());
 
                     //TODO add sound?

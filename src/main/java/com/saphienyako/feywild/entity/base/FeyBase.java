@@ -22,11 +22,15 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -140,12 +144,23 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     }
 
-    @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        if (damageSource.getEntity() instanceof Player player && player == this.getOwningPlayer()) {
-            return true;
+        Entity attacker = damageSource.getEntity();
+        if (attacker instanceof LivingEntity living) {
+            ItemStack held = living.getMainHandItem();
+            if (!isIronTool(held)) {
+                return true;
+            }
+        } else {
+            // Non-living damage sources (falling, fire, projectiles) are blocked too
+           return true;
         }
         return super.isDamageSourceBlocked(damageSource);
+    }
+
+    private boolean isIronTool(ItemStack stack) {
+        return stack.is(Tags.Items.TOOLS) && stack.getItem() instanceof TieredItem tiered &&
+                tiered.getTier() == Tiers.IRON;
     }
     @javax.annotation.Nullable
     @Override
@@ -286,4 +301,22 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public Component getFeyStayMessage(){
         return  Component.translatable("message.feywild."+ getEntityName() + "_stay");
     }
+
+    public Component getFeySummonMessage(){
+        return  Component.translatable("message.feywild."+ getEntityName() + "_summon");
+    }
+
+   public Component getFeyDismissMessage(){
+       return  Component.translatable("message.feywild."+ getEntityName() + "_dismiss");
+   }
+
+   public Component getFeyAbilityOnMessage(){
+       return  Component.translatable("message.feywild."+ getEntityName() + "_ability_on");
+   }
+
+    public Component getFeyAbilityOffMessage(){
+        return  Component.translatable("message.feywild."+ getEntityName() + "_ability_off");
+    }
+
+    //TODO messages Ability on/off, dismiss
 }
