@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.item;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -7,10 +8,14 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.List;
 import java.util.Objects;
 
 public class FeywildLexicon extends Item {
@@ -27,6 +32,15 @@ public class FeywildLexicon extends Item {
                 PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+    }
+
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        if (level != null) {
+            tooltip.add(Component.translatable("message.feywild.feywild_lexicon"));
+        }
+        super.appendHoverText(stack, level, tooltip, flag);
     }
 
 

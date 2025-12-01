@@ -11,6 +11,7 @@ import com.saphienyako.feywild.entity.renderer.AutumnPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SpringPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SummerPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.WinterPixieRenderer;
+import com.saphienyako.feywild.events.EventListener;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
@@ -39,7 +40,9 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -75,8 +78,10 @@ public class Feywild
         ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        addConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new EventListener());
         //modEventBus.addListener(this::addCreative);
     }
 
@@ -112,6 +117,13 @@ public class Feywild
         });
     }
 
+    private void addConfig(){
+        ModLoadingContext.get().registerConfig(
+                ModConfig.Type.COMMON,
+                com.saphienyako.feywild.config.ModConfig.COMMON_SPEC,
+                "feywild-common.toml"
+        );
+    }
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         //Added ModCreativeModeTab for the mod itself
     }
@@ -152,5 +164,4 @@ public class Feywild
         event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
     }
-
 }
