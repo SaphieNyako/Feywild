@@ -74,7 +74,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
         super.onRemove(oldState, level, pos, newState, moving);
 
         if (oldState.getValue(VARIANT) == 2) {
-            FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, BlockPos.containing(pos.getCenter()));
+            FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, pos); //TODO 1.19 backport does this center?
         }
     }
 

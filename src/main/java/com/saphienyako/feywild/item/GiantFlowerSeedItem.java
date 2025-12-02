@@ -27,7 +27,7 @@ public class GiantFlowerSeedItem extends Item {
     private final GiantFlowerBlock block;
 
     public GiantFlowerSeedItem(GiantFlowerBlock block) {
-        super(new Item.Properties());
+        super(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB));
         this.block = block;
     }
 

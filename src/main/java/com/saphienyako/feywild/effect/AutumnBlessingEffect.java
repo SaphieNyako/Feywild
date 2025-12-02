@@ -24,15 +24,15 @@ public class AutumnBlessingEffect extends MobEffect {
     @Override
     public void applyEffectTick(@Nonnull LivingEntity living, int amplifier) {
         super.applyEffectTick(living, amplifier);
-        if (!living.level().isClientSide) {
+        if (!living.level.isClientSide) {
             AABB box = new AABB(living.blockPosition()).inflate(amplifier);
-            living.level().getEntities(null, box).forEach(entity -> {
+            living.level.getEntities(null, box).forEach(entity -> {
                 if (entity instanceof Monster || entity instanceof Projectile) {
                     entity.setDeltaMovement((entity.getX() - living.getX()) / 10, (entity.getY() - living.getY()) / 10, (entity.getZ() - living.getZ()) / 10);
                 }
             });
         } else {
-         living.level().addParticle(ModParticles.AUTUMN_LEAF_PARTICLE.get(), living.getRandom().nextDouble() * 1.5 + living.getX() - 1, living.getRandom().nextDouble() * 2 + living.getY() + 2, living.getRandom().nextDouble() * 1.5 + living.getZ() - 1, 0, -0.05, 0);
+         living.level.addParticle(ModParticles.AUTUMN_LEAF_PARTICLE.get(), living.getRandom().nextDouble() * 1.5 + living.getX() - 1, living.getRandom().nextDouble() * 2 + living.getY() + 2, living.getRandom().nextDouble() * 1.5 + living.getZ() - 1, 0, -0.05, 0);
         }
     }
 }

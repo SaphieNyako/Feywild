@@ -26,6 +26,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -66,7 +67,6 @@ public class Feywild
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayer);
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
 
-        ModCreativeModeTab.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
@@ -123,9 +123,6 @@ public class Feywild
                 com.saphienyako.feywild.config.ModConfig.COMMON_SPEC,
                 "feywild-common.toml"
         );
-    }
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        //Added ModCreativeModeTab for the mod itself
     }
 
     @SubscribeEvent

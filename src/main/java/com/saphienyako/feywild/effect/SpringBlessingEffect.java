@@ -28,12 +28,12 @@ public class SpringBlessingEffect extends MobEffect {
     @Override
     public void applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
         if (entity instanceof Player player) {
-            onEntityMoved(player, player.level(), player.blockPosition(), amplifier);
+            onEntityMoved(player, player.level, player.blockPosition(), amplifier);
         }
     }
 
     public static void onEntityMoved(LivingEntity living, Level level, BlockPos basePos, int amplifier) {
-        if (living.onGround()) {
+        if (living.isOnGround()) {
             int radius = Math.min(2, 2 + amplifier);
             BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
             for (BlockPos pos : BlockPos.betweenClosed(basePos.offset(-radius, 0, -radius), basePos.offset(radius, 0, radius))) {

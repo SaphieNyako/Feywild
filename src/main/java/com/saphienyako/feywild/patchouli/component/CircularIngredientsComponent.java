@@ -1,6 +1,6 @@
 package com.saphienyako.feywild.patchouli.component;
 
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -35,7 +35,7 @@ public class CircularIngredientsComponent implements ICustomComponent {
     }
 
     @Override
-    public void render(@Nonnull GuiGraphics graphics, @Nonnull IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
+    public void render(@Nonnull PoseStack graphics, @Nonnull IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
         if (this.ingredients == null) return;
         float degreePerInput = 360f / (float) this.ingredients.size();
         float angle = 0;
@@ -45,7 +45,8 @@ public class CircularIngredientsComponent implements ICustomComponent {
         }
     }
 
-    private void renderIngredientAtAngle(GuiGraphics graphics, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
+
+    private void renderIngredientAtAngle(@Nonnull PoseStack graphics, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
         if (!ingredient.isEmpty()) {
             angle -= 90f;
             int radius = 32;

@@ -27,7 +27,7 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
 
-        Level level = supplier.get().getSender().level();
+        Level level = supplier.get().getSender().level;
         if (this.entityId() != -1) {
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {

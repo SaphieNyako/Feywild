@@ -36,7 +36,7 @@ public class FeywildJEI implements IModPlugin {
     }
 
     @Override
-    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+    public void registerGuiHandlers(@NotNull IGuiHandlerRegistration registration) {
         IModPlugin.super.registerGuiHandlers(registration);
     }
 }

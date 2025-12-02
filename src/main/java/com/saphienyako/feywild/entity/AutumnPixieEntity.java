@@ -26,7 +26,7 @@ public class AutumnPixieEntity extends PixieBase {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(20, new GatherCropsAbilityGoal(this, this.level()));
+        this.goalSelector.addGoal(20, new GatherCropsAbilityGoal(this, this.level));
     }
     @Nullable
     @Override

@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity.base.intereface;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
@@ -27,17 +28,17 @@ public interface FlyingEntity {
         } else {
             BlockPos ground = new BlockPos(self.getBlockX(), self.getBlockY() - 1, self.getBlockZ());
             float slipperiness = 0.91f;
-            if (self.onGround()) {
-                slipperiness = self.level().getBlockState(ground).getFriction(self.level(), ground, self) * 0.91F;
+            if (self.isOnGround()) {
+                slipperiness = self.level.getBlockState(ground).getFriction(self.level, ground, self) * 0.91F;
             }
 
             float groundMovementModifier = 0.16277137f / (slipperiness * slipperiness * slipperiness);
             slipperiness = 0.91f;
-            if (self.onGround()) {
-                slipperiness = self.level().getBlockState(ground).getFriction(self.level(), ground, self) * 0.91F;
+            if (self.isOnGround()) {
+                slipperiness = self.level.getBlockState(ground).getFriction(self.level, ground, self) * 0.91F;
             }
 
-            self.moveRelative(self.onGround() ? 0.1f * groundMovementModifier : 0.02f, position);
+            self.moveRelative(self.isOnGround() ? 0.1f * groundMovementModifier : 0.02f, position);
             self.move(MoverType.SELF, self.getDeltaMovement());
             self.setDeltaMovement(self.getDeltaMovement().scale(slipperiness));
         }
@@ -48,7 +49,14 @@ public interface FlyingEntity {
         if (scaledLastHorizontalMotion > 1) {
             scaledLastHorizontalMotion = 1;
         }
-        self.walkAnimation.update(scaledLastHorizontalMotion, 0.4f);
+        //self.walkAnimation.update(scaledLastHorizontalMotion, 0.4f);
+        float movement = scaledLastHorizontalMotion;
+
+        self.animationSpeedOld = self.animationSpeed;
+        float clamped = Mth.clamp(movement * 4.0F, 0.0F, 1.0F);
+
+        self.animationSpeed += (clamped - self.animationSpeed) * 0.4F;
+        self.animationPosition += self.animationSpeed;
     }
 
     default PathNavigation createFlyingNavigation(PathfinderMob self, Level level) {

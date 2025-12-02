@@ -18,7 +18,7 @@ public abstract class FeywildProcessor implements IComponentProcessor {
     @Nullable
     private Recipe recipe;
 
-    @Override
+
     public void setup(Level level, IVariableProvider vars) {
         RecipeManager manager = level.getRecipeManager();
         recipe = manager.byKey(Objects.requireNonNull(ResourceLocation.tryParse(getRecipeId()))).orElseThrow(IllegalArgumentException::new);
@@ -26,12 +26,11 @@ public abstract class FeywildProcessor implements IComponentProcessor {
 
 
     @Nonnull
-    @Override
     public IVariable process(Level level, String key) {
         if (recipe == null) return IVariable.empty();
         return switch (key) {
-            case "description" -> IVariable.from(Component.translatable(this.recipe.getResultItem(level.registryAccess()).getDescriptionId()));
-            case "output" -> IVariable.from(this.recipe.getResultItem(level.registryAccess()));
+            case "description" -> IVariable.from(Component.translatable(this.recipe.getResultItem().getDescriptionId()));
+            case "output" -> IVariable.from(this.recipe.getResultItem());
             case "inputs" -> IVariable.wrapList(this.recipe.getIngredients().stream().map(IVariable::from).toList());
             default -> IVariable.empty();
         };

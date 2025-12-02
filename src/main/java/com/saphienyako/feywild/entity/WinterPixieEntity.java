@@ -29,7 +29,7 @@ public class WinterPixieEntity extends PixieBase {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(20, new GatherMobItemsGoal(this, this.level()));
+        this.goalSelector.addGoal(20, new GatherMobItemsGoal(this, this.level));
     }
     @Override
     protected MobEffect getMobEffect() {

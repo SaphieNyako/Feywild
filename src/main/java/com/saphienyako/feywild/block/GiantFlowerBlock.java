@@ -19,6 +19,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -31,9 +32,15 @@ public abstract class GiantFlowerBlock extends Block {
     public final int height;
 
     public GiantFlowerBlock(int height) {
-        super(Properties.copy(Blocks.LARGE_FERN).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8).pushReaction(PushReaction.DESTROY));
+        super(Properties.copy(Blocks.LARGE_FERN).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8));
         this.height = height;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState state) {
+        return PushReaction.DESTROY;
     }
 
 

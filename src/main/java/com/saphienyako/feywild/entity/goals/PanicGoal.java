@@ -24,7 +24,7 @@ public class PanicGoal extends Goal {
         Vec3 targetPos = null;
         for (int i = 0; i < 30; i++) {
             targetPos = new Vec3(this.entity.getX() - this.range + this.entity.getRandom().nextInt(this.range * 2), this.entity.getY() - this.range + this.entity.getRandom().nextInt(this.range * 2), this.entity.getZ() - this.range + this.entity.getRandom().nextInt(this.range * 2));
-            if (this.entity.level().getBlockState(new BlockPos((int) Math.floor(targetPos.x()), (int) Math.floor(targetPos.y()), (int) Math.floor(targetPos.z()))).isAir()) {
+            if (this.entity.level.getBlockState(new BlockPos((int) Math.floor(targetPos.x()), (int) Math.floor(targetPos.y()), (int) Math.floor(targetPos.z()))).isAir()) {
                 break;
             }
         }

@@ -45,7 +45,7 @@ public class FeyDustItem extends Item {
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
-        if (!player.level().isClientSide) {
+        if (!player.level.isClientSide) {
            /* if (target instanceof Sheep) {
                 target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, Math.max(60, 30), 2));
 
@@ -61,7 +61,7 @@ public class FeyDustItem extends Item {
         player.awardStat(Stats.ITEM_USED.get(this));
         if (!player.isCreative()) stack.shrink(1);
 
-        return InteractionResult.sidedSuccess(player.level().isClientSide);
+        return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
 
     @Nullable

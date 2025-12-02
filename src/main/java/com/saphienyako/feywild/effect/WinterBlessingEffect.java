@@ -22,7 +22,7 @@ public class WinterBlessingEffect extends MobEffect {
     @Override
     public void applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
         if (entity instanceof Player player) {
-            FrostWalkerEnchantment.onEntityMoved(player, player.level(), player.blockPosition(), amplifier);
+            FrostWalkerEnchantment.onEntityMoved(player, player.level, player.blockPosition(), amplifier);
         }
     }
 }

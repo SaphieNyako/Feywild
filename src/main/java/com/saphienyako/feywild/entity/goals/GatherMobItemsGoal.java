@@ -18,13 +18,16 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -118,12 +121,34 @@ public class GatherMobItemsGoal extends Goal {
 
 
     protected void dropFromLootTable(Mob mob) {
-        DamageSource source = entity.level().damageSources().magic();
-        ResourceLocation resourcelocation = mob.getLootTable();
-        LootTable loottable = Objects.requireNonNull(mob.level().getServer()).getLootData().getLootTable(resourcelocation);
-        LootParams.Builder lootparams$builder = (new LootParams.Builder((ServerLevel)mob.level())).withParameter(LootContextParams.THIS_ENTITY, mob).withParameter(LootContextParams.ORIGIN, mob.position()).withParameter(LootContextParams.DAMAGE_SOURCE, source).withOptionalParameter(LootContextParams.KILLER_ENTITY, source.getEntity()).withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, source.getDirectEntity());
+        // Damage source — magic
+        DamageSource source = DamageSource.MAGIC; // 1.19.2 uses static fields
 
-        LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
-        loottable.getRandomItems(lootparams, mob.getLootTableSeed(), this.entity::spawnAtLocation);
+        // Get the loot table
+        ResourceLocation lootTableId = mob.getLootTable();
+        LootTable lootTable = mob.level.getServer().getLootTables().get(lootTableId);
+
+        // Build the loot context
+        LootContext.Builder builder = new LootContext.Builder((ServerLevel) mob.level)
+                .withParameter(LootContextParams.THIS_ENTITY, mob)
+                .withParameter(LootContextParams.ORIGIN, mob.position())
+                .withParameter(LootContextParams.DAMAGE_SOURCE, source);
+
+        if (source.getEntity() != null) {
+            builder.withOptionalParameter(LootContextParams.KILLER_ENTITY, source.getEntity());
+            builder.withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, source.getDirectEntity());
+        }
+
+        LootContext lootContext = builder.create(LootContextParamSets.ENTITY);
+
+        // This is the correct 1.19.2 method
+        List<ItemStack> drops = lootTable.getRandomItems(lootContext);
+
+        for (ItemStack stack : drops) {
+            mob.spawnAtLocation(stack, 0);
+        }
+
+        //TODO does this work?
+
     }
 }

@@ -30,7 +30,7 @@ public class SpringPixieEntity extends PixieBase {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(20, new BreedAbilityGoal(this, this.level()));
+        this.goalSelector.addGoal(20, new BreedAbilityGoal(this, this.level));
     }
     @Override
     protected MobEffect getMobEffect() {

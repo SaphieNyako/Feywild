@@ -60,7 +60,7 @@ public abstract class PixieBase extends FlyingFeyBase {
     @Override
     public void tick() {
         super.tick();
-        if(this.level().isClientSide()) {
+        if(this.level.isClientSide()) {
             setupAnimationStates();
         }
     }
@@ -111,14 +111,14 @@ public abstract class PixieBase extends FlyingFeyBase {
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                FeywildNetwork.sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getOnPos());
+                FeywildNetwork.sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getOnPos());
                 player.swing(hand, true);
 
                 //NAME TAG
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                if (!level().isClientSide) {
+                if (!level.isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
                 }
 
@@ -136,7 +136,7 @@ public abstract class PixieBase extends FlyingFeyBase {
             }
 
             //TODO QUEST
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else {
             return superResult;
         }

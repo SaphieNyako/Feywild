@@ -26,7 +26,7 @@ public class SummerPixieEntity extends PixieBase {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(20, new CropGrowAbilityGoal(this, this.level()));
+        this.goalSelector.addGoal(20, new CropGrowAbilityGoal(this, this.level));
     }
     @Override
     protected MobEffect getMobEffect() {

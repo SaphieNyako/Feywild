@@ -10,7 +10,7 @@ public class EventListener {
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getEntity().level().isClientSide) {
+        if (!event.getEntity().level.isClientSide) {
            if (!FeywildPlayerData.get(event.getEntity()).getBoolean("feywild_got_lexicon") && ModConfig.COMMON.spawn_with_lexicon.get()) {
                event.getEntity().getInventory().add(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
                FeywildPlayerData.get(event.getEntity()).putBoolean("feywild_got_lexicon", true);

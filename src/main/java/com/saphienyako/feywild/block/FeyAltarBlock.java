@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -135,7 +135,7 @@ public class FeyAltarBlock extends BaseEntityBlock{
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         if(level.isClientSide()) {
             return null;
         }
@@ -155,9 +155,9 @@ public class FeyAltarBlock extends BaseEntityBlock{
         return super.rotate(state, level, pos, direction);
     }
 
-    @Nullable
+    @SuppressWarnings("deprecation")
     @Override
-    public PushReaction getPistonPushReaction(BlockState state) {
+    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState state) {
         return PushReaction.BLOCK;
     }
 }
