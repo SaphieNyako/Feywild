@@ -12,7 +12,6 @@ import com.saphienyako.feywild.entity.renderer.SpringPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SummerPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.WinterPixieRenderer;
 import com.saphienyako.feywild.events.EventListener;
-import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.particle.LeafParticle;
@@ -22,11 +21,13 @@ import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
+import com.saphienyako.feywild.worldgen.ModPlacedFeatures;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,7 +35,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -76,6 +76,10 @@ public class Feywild
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
+
+        //Needs register
+        ModConfiguredFeatures.register(modEventBus);
+        ModPlacedFeatures.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         addConfig();
@@ -145,13 +149,25 @@ public class Feywild
         }
     }
 
+    @SubscribeEvent
     public void registerParticles(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticles.AUTUMN_LEAF_PARTICLE.get(), LeafParticle.Factory::new);
-        event.registerSpriteSet(ModParticles.SPRING_SPARKLE_PARTICLE.get(), SparkleParticle.provider(0, 1, 0));
-        event.registerSpriteSet(ModParticles.SUMMER_SPARKLE_PARTICLE.get(), SparkleParticle.provider(1, 0.8f, 0));
-        event.registerSpriteSet(ModParticles.AUTUMN_SPARKLE_PARTICLE.get(), SparkleParticle.provider(1, 0.4f, 0));
-        event.registerSpriteSet(ModParticles.WINTER_SPARKLE_PARTICLE.get(), SparkleParticle.provider(0.2f, 0.8f, 0.9f));
-        event.registerSpriteSet(ModParticles.FEY_SPARKLE_PARTICLE.get(), SparkleParticle.provider(0.3f,0.9f,0.9f));
+        Minecraft.getInstance().particleEngine.register(ModParticles.AUTUMN_LEAF_PARTICLE.get(),
+                LeafParticle.Factory::new);
+
+        Minecraft.getInstance().particleEngine.register(ModParticles.SPRING_SPARKLE_PARTICLE.get(),
+                SparkleParticle.provider(0, 1, 0));
+
+        Minecraft.getInstance().particleEngine.register(ModParticles.SUMMER_SPARKLE_PARTICLE.get(),
+                SparkleParticle.provider(1, 0.8f, 0));
+
+        Minecraft.getInstance().particleEngine.register(ModParticles.AUTUMN_SPARKLE_PARTICLE.get(),
+                SparkleParticle.provider(1, 0.4f, 0));
+
+        Minecraft.getInstance().particleEngine.register(ModParticles.WINTER_SPARKLE_PARTICLE.get(),
+                SparkleParticle.provider(0.2f, 0.8f, 0.9f));
+
+        Minecraft.getInstance().particleEngine.register(ModParticles.FEY_SPARKLE_PARTICLE.get(),
+                SparkleParticle.provider(0.3f, 0.9f, 0.9f));
     }
 
     private void spawnPlacement(SpawnPlacementRegisterEvent event) {

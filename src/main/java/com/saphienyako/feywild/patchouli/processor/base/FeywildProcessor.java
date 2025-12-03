@@ -1,10 +1,12 @@
 package com.saphienyako.feywild.patchouli.processor.base;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
@@ -18,15 +20,14 @@ public abstract class FeywildProcessor implements IComponentProcessor {
     @Nullable
     private Recipe recipe;
 
-
-    public void setup(Level level, IVariableProvider vars) {
-        RecipeManager manager = level.getRecipeManager();
+    @Override
+    public void setup(@NotNull IVariableProvider variables) {
+        RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
         recipe = manager.byKey(Objects.requireNonNull(ResourceLocation.tryParse(getRecipeId()))).orElseThrow(IllegalArgumentException::new);
     }
 
-
-    @Nonnull
-    public IVariable process(Level level, String key) {
+    @Override
+    public @NotNull IVariable process(@NotNull String key) {
         if (recipe == null) return IVariable.empty();
         return switch (key) {
             case "description" -> IVariable.from(Component.translatable(this.recipe.getResultItem().getDescriptionId()));

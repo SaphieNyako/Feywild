@@ -19,14 +19,14 @@ public class FeyAltarMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public FeyAltarMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
+        this(pContainerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
     public FeyAltarMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.FAIRY_ALTAR_MENU.get(), pContainerId);
         checkContainerSize(inv, 5);
         blockEntity = ((FeyAltarBlockEntity) entity);
-        this.level = inv.player.level();
+        this.level = inv.player.level;
         this.data = data;
 
         addPlayerInventory(inv);

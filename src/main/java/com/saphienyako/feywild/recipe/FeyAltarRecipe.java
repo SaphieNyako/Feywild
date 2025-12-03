@@ -51,9 +51,10 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer, @NotNull RegistryAccess registries) {
-        return this.getResultItem(registries);
+    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer) {
+        return this.getResultItem(); //No registeries
     }
+
 
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
@@ -61,7 +62,7 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess registries) {
+    public @NotNull ItemStack getResultItem() {
         return this.output.copy();
     }
 

@@ -1,16 +1,14 @@
 package com.saphienyako.feywild.screen;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.entity.Alignment;
-import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import org.jetbrains.annotations.NotNull;
 
 public class FeyMenuScreen extends Screen {
 
@@ -54,14 +52,11 @@ public class FeyMenuScreen extends Screen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        graphics.pose().pushPose();
-        this.renderBackground(graphics);
-        graphics.pose().translate(0, 0, 20);
-        super.render(graphics, mouseX, mouseY, partialTicks);
-        graphics.pose().translate(0, 0, 20);
-        graphics.pose().popPose();
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTick);
     }
+
 
     @Override
     public boolean isPauseScreen() {

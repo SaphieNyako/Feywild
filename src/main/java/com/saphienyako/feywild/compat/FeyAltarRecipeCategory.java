@@ -68,6 +68,6 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 94, 58).addIngredients(recipe.getIngredients().get(4));
 
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).addItemStack(recipe.getResultItem(Objects.requireNonNull(Minecraft.getInstance().level).registryAccess()));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).addItemStack(recipe.getResultItem());
     }
 }

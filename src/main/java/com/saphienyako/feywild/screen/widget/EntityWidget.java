@@ -1,6 +1,6 @@
 package com.saphienyako.feywild.screen.widget;
 
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -19,23 +19,23 @@ public class EntityWidget extends AbstractWidget {
         this.entity = entity;
     }
 
+
     @Override
-    public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        double scale = ((this.height) / this.entity.getType().getHeight()) * 1.5;
-        InventoryScreen.renderEntityInInventoryFollowsMouse(
-                graphics,
-                this.getX() + (this.width / 2),
-                this.getY() + this.height + (int) (scale * 48 / 85),
+    public void renderButton(@NotNull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        double scale = ((double) this.height / this.entity.getType().getHeight()) * 1.5;
+
+        InventoryScreen.renderEntityInInventory(
+                this.x + (this.width / 2),
+                this.y + this.height + (int) (scale * 48 / 85),
                 (int) scale,
-                -(mouseX - this.getX() - (this.width / 2f)),
-                -(mouseY - this.getY() - (this.height / 2f)),
+                -(mouseX - this.x - (this.width / 2f)),
+                -(mouseY - this.y - (this.height / 2f)),
                 this.entity
         );
     }
 
-
     @Override
-    protected void updateWidgetNarration(@NotNull NarrationElementOutput output) {
+    public void updateNarration(@NotNull NarrationElementOutput output) {
         //
     }
 }

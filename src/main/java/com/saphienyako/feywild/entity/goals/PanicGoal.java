@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity.goals;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -39,7 +40,7 @@ public class PanicGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return (this.entity.getLastDamageSource() != null || this.entity.getLastDamageSource() == this.entity.damageSources().inWall());
+        return (this.entity.getLastDamageSource() != null || this.entity.getLastDamageSource() == DamageSource.IN_WALL);
         //TODO WHY WAS TAMABLE ADDED HERE BEFORE? CAUSE THE PLAYER SHOULDNT CAUSE THE FAIRY TO FLEE WHEN HIT.
         //&& (!(entity instanceof ITameable tameable) || !tameable.isTamed())
     }

@@ -1,44 +1,34 @@
 package com.saphienyako.feywild.worldgen;
 
+import com.google.common.base.Suppliers;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModConfiguredFeatures {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FEY_GEM_ORE_KEY = registerKey("fey_gem_ore_key");
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-        RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-        // RuleTest netherrackReplacables = new BlockMatchTest(Blocks.NETHERRACK);
-        // RuleTest endReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
-        List<OreConfiguration.TargetBlockState> feyGemOres = List.of(OreConfiguration.target(stoneReplaceable, ModBlocks.FEY_GEM_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get().defaultBlockState()));
+    public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES =
+            DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, Feywild.MOD_ID);
 
-        register(context,FEY_GEM_ORE_KEY, Feature.ORE, new OreConfiguration(feyGemOres, 5));
-    }
+    public static final Supplier<List<OreConfiguration.TargetBlockState>> FEY_GEM_ORES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.FEY_GEM_ORE.get().defaultBlockState()),
+            OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get().defaultBlockState())));
 
-    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Feywild.MOD_ID, name));
-    }
+    public static final RegistryObject<ConfiguredFeature<?, ?>> FEY_GEM_ORE = CONFIGURED_FEATURES.register("fey_gem_ore",
+            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(FEY_GEM_ORES.get(),5)));
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
-                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
-        context.register(key, new ConfiguredFeature<>(feature, configuration));
+    public static void register(IEventBus eventBus) {
+        CONFIGURED_FEATURES.register(eventBus);
     }
 }

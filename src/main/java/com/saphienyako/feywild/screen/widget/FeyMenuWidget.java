@@ -1,10 +1,12 @@
 package com.saphienyako.feywild.screen.widget;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.Alignment;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -31,13 +33,16 @@ public class FeyMenuWidget extends AbstractWidget {
     }
 
     @Override
-    protected void renderWidget(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick) {
-        graphics.blit(TEXTURE.get(this.alignment), this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT);
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURE.get(this.alignment));
+        blit(poseStack, this.x, this.y, 0,0, WIDTH, HEIGHT);
     }
 
     @Override
-    protected void updateWidgetNarration(@NotNull NarrationElementOutput output) {
-        //
+    public void updateNarration(@NotNull NarrationElementOutput output) {
+
     }
 
     @Override

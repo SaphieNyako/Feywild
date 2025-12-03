@@ -317,6 +317,4 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public Component getFeyAbilityOffMessage(){
         return  Component.translatable("message.feywild."+ getEntityName() + "_ability_off");
     }
-
-    //TODO messages Ability on/off, dismiss
 }

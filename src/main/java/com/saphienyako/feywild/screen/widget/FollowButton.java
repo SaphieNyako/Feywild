@@ -1,17 +1,17 @@
 package com.saphienyako.feywild.screen.widget;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ToggleFollowPlayerMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 public class FollowButton extends Button {
 
@@ -28,7 +28,7 @@ public class FollowButton extends Button {
 
     private final int entityId;
     public FollowButton(int x, int y, boolean followPlayer, int entityId, BlockPos currentBlockPos) {
-        super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {}, l -> Component.empty());
+        super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {});
         this.followPlayer = followPlayer;
         this.entityId = entityId;
         this.currentBlockPos = currentBlockPos;
@@ -52,16 +52,21 @@ public class FollowButton extends Button {
 
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void renderButton(@NotNull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
 
-        graphics.blit(BUTTON_TEXTURE, this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT);
+        RenderSystem.setShaderTexture(0, BUTTON_TEXTURE);
 
-        graphics.pose().pushPose();
-        graphics.pose().translate(0, 0, 10);
+        blit(poseStack, this.x, this.y, 0, 0, WIDTH, HEIGHT);
 
-        graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
-        graphics.pose().popPose();
+        drawString(
+                poseStack,
+                font,
+                this.textComponent,
+                this.x + 22,
+                this.y + (HEIGHT - font.lineHeight) / 2,
+                0xFFFFFF
+        );
     }
 }

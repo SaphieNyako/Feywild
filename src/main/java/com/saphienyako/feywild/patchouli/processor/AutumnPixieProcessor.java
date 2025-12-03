@@ -9,4 +9,5 @@ public class AutumnPixieProcessor extends FeywildProcessor {
     public String getRecipeId() {
         return recipeId;
     }
+
 }

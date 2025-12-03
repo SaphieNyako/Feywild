@@ -68,7 +68,6 @@ public class CropGrowAbilityGoal extends Goal {
                     if (level.getBlockState(target).getBlock() instanceof CropBlock && level.random.nextFloat() < 0.16f) {
                         this.foundViableCrop = true;
                         ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
-                        ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
                         FeywildNetwork.sendParticles(level, ParticleMessage.Type.CROPS_GROW, target);
                     }
                 }

@@ -1,35 +1,31 @@
 package com.saphienyako.feywild.worldgen;
 
 import com.saphienyako.feywild.Feywild;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 
 public class ModPlacedFeatures {
 
-    public static final ResourceKey<PlacedFeature> FEY_GEM_ORE_PLACED_KEY = registerKey("fey_gem_ore_placed");
-    public static void bootstrap(BootstapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES =
+            DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, Feywild.MOD_ID);
 
-        register(context, FEY_GEM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.FEY_GEM_ORE_KEY),
-                ModOrePlacement.commonOrePlacement(9, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(32))));
-    }
-    private static ResourceKey<PlacedFeature> registerKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(Feywild.MOD_ID, name));
-    }
-    private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
-                                 List<PlacementModifier> modifiers) {
-        context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
+
+    public static final RegistryObject<PlacedFeature> FEY_GEM_ORE_PLACED = PLACED_FEATURES.register("fey_gem_ore_placed",
+            () -> new PlacedFeature(ModConfiguredFeatures.FEY_GEM_ORE.getHolder().get(),
+                    ModOrePlacement.commonOrePlacement(9,
+                            HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(32)))));
+
+
+
+
+    public static void register(IEventBus eventBus) {
+        PLACED_FEATURES.register(eventBus);
     }
 
-    }
+}
