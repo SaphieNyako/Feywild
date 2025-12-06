@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.entity.goals.IronPanicGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
@@ -46,8 +47,9 @@ public abstract class PixieBase extends FlyingFeyBase {
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(50, new PanicGoal(this, 0.003, 13));
+        this.goalSelector.addGoal(50, new PanicGoal(this));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
+        this.goalSelector.addGoal(40, new IronPanicGoal(this, this.level(),0.25, 6 ));
     }
 
     @Override

@@ -151,10 +151,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
             if (!isIronTool(held)) {
                 return true;
             }
-        } else {
-            // Non-living damage sources (falling, fire, projectiles) are blocked too
-           return true;
         }
+        
         return super.isDamageSourceBlocked(damageSource);
     }
 
