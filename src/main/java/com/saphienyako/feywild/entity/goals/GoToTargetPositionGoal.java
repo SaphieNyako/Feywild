@@ -30,9 +30,9 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
     public void tick() {
         Vec3 target = this.targetPosition.get();
         if (target != null && distanceFromSquared(this.entity.position(), target) > this.triggerRangeSquared) {
-            this.entity.setPos(target.x, target.y, target.z);
+            this.entity.setPos(target.x, target.y + 1, target.z);
         } else if (target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared) {
-            this.entity.getNavigation().moveTo(target.x, target.y, target.z, this.speed);
+            this.entity.getNavigation().moveTo(target.x, target.y + 1, target.z, this.speed);
         }
     }
 
