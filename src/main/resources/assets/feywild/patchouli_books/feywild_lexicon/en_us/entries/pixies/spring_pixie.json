@@ -25,6 +25,11 @@
       "item": "minecraft:cookie",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.feywild.feywild.pixies.spring_pixie.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.handling_fey.page2.text0"
     }
   ]
 }

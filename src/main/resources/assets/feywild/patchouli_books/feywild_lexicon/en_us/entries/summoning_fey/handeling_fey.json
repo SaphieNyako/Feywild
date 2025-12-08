@@ -16,8 +16,7 @@
     {
       "type": "feywild:pixie_orb",
       "recipe": "feywild:pixie_orb",
-      "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.feywild.handling_fey.page1.text0"
+      "link_recipe": true
     }
   ]
 }

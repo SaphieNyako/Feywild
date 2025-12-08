@@ -7,7 +7,11 @@ import com.saphienyako.feywild.screen.FeyAltarMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -35,7 +39,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(6);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(6) {
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (slot == OUTPUT_SLOT) {
+                return stack;
+            }
+            return super.insertItem(slot, stack, simulate);
+        }
+    };
     private static final int INPUT_SLOT_00 = 0;
     private static final int INPUT_SLOT_01 = 1;
     private static final int INPUT_SLOT_02 = 2;
@@ -143,14 +155,19 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         if (!this.level.isClientSide) {
             if (hasRecipe()) {
                 increaseCraftingProgress();
-                setChanged(level, pos, state);
+                setChanged();
+                level.sendBlockUpdated(worldPosition, state, state, 2);
 
                 if (hasProgressFinished()) {
                     craftItem();
                     resetProgress();
+                    setChanged();
+                    level.sendBlockUpdated(worldPosition, state, state, 2);
                 }
             } else {
                 resetProgress();
+                setChanged();
+                level.sendBlockUpdated(worldPosition, state, state, 2);
             }
             addParticles();
         }
@@ -235,5 +252,17 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public AABB getRenderBoundingBox() {
         return super.getRenderBoundingBox();
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        CompoundTag nbt = new CompoundTag();
+        saveAdditional(nbt);
+        return ClientboundBlockEntityDataPacket.create(this, (te) -> nbt);
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
+        load(packet.getTag());
     }
 }

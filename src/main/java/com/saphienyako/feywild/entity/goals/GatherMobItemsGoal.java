@@ -11,9 +11,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -105,7 +107,12 @@ public class GatherMobItemsGoal extends Goal {
         double distance = Double.MAX_VALUE;
         Animal current = null;
         for (Animal mob : this.level.getNearbyEntities(Animal.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
-            if (this.entity.distanceToSqr(mob) < distance) {
+
+            if(mob instanceof AbstractHorse horse && horse.isTamed()) continue;
+            if (!mob.isAlive() || mob.isBaby()) continue;
+            if (mob instanceof TamableAnimal tameable && tameable.isTame()) continue;
+
+            if (this.entity.distanceToSqr(mob) < distance ) {
                 current = mob;
                 distance = this.entity.distanceToSqr(mob);
             }

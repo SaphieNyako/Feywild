@@ -30,7 +30,10 @@ public class FairyAltarBlockRenderer<T extends FeyAltarBlockEntity> implements B
         double progressScaled = altar.getProgress() / (double) altar.getMaxProgress();
 
         List<ItemStack> stacks = new ArrayList<>();
-        for (int slot = 0; slot < altar.getInventory().getSlots(); slot++) {
+
+        int lastSlot = altar.getInventory().getSlots() - 1;
+
+        for (int slot = 0; slot < lastSlot; slot++) {
             ItemStack stack = altar.getInventory().getStackInSlot(slot);
             if (!stack.isEmpty()) stacks.add(stack);
         }
@@ -49,5 +52,28 @@ public class FairyAltarBlockRenderer<T extends FeyAltarBlockEntity> implements B
                 poseStack.popPose();
             }
         }
+
+        // Render the centerpiece (last slot item) above the altar
+        ItemStack centerpiece = altar.getInventory().getStackInSlot(lastSlot);
+        if (!centerpiece.isEmpty()) {
+            poseStack.pushPose();
+            double time = (double) altar.getLevel().getGameTime() + partialTick;
+            double amplitude = 0.1;
+            double ShiftY = Math.sin((time / 8)) * amplitude;
+
+            //  Item above altar moving up and down
+            poseStack.translate(0.5, 2.0 + ShiftY, 0.5);
+
+            // Spin around the item's vertical axis
+            poseStack.mulPose(Vector3f.YP.rotation((float) (time / 8.0))); // adjust speed with divisor
+
+            // Scale
+            poseStack.scale(1f, 1f, 1f);
+
+            Minecraft.getInstance().getItemRenderer().renderStatic(centerpiece, ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer,0 );
+
+            poseStack.popPose();
+        }
+
     }
 }

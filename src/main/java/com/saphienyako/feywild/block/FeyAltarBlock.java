@@ -110,7 +110,8 @@ public class FeyAltarBlock extends BaseEntityBlock{
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (!player.getItemInHand(hand).isEmpty()) {
-                for (int slot = 0; slot < ((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().getSlots(); slot++) {
+                NetworkHooks.openScreen(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
+              /*  for (int slot = 0; slot < ((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().getSlots(); slot++) {
                     if (((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().getStackInSlot(slot).isEmpty()) {
                         ItemStack insertStack = player.getItemInHand(hand).copy();
                         insertStack.setCount(1);
@@ -122,7 +123,7 @@ public class FeyAltarBlock extends BaseEntityBlock{
                         }
                     }
                 }
-                return InteractionResult.FAIL;
+                return InteractionResult.FAIL; */
             } else if(entity instanceof FeyAltarBlockEntity) {
                 NetworkHooks.openScreen(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
             } else {
