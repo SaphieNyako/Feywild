@@ -1,0 +1,109 @@
+loader="neoforge"
+loaderVersion="1.21-1.0.0" # Replace with your loader version
+license="""
+MIT License
+...
+"""
+
+[[mods]]
+modId="feywild"           # <- replace with your actual mod id
+version="1.0.0"           # <- your mod version
+displayName="Feywild"     # <- your mod display name
+authors="SaphieNyako"
+description='''Feywild is a magic-themed dimension mod for Minecraft.'''
+
+[[dependencies.feywild]]
+modId="neoforge"
+mandatory=true
+versionRange="[1.21,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.feywild]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21,)"
+ordering="NONE"
+side="BOTH"
+✅ Key points:
+
+Replace all placeholders like ${mod_id}, ${mod_version}, ${mod_name}, ${forge_version_range}, ${minecraft_version_range} with the actual literal values.
+
+loader="neoforge" instead of javafml.
+
+After this, mods.toml will parse correctly and NeoForge can read it.
+
+If you want, I can write a fully fixed NeoForge 1.21 mods.toml for your Feywild mod with all literal values ready to drop in. Do you want me to do that?
+
+
+
+
+
+
+
+Je zei:
+yes its a neoforge.mods.toml, could you pls write that for me
+
+
+ChatGPT zei:
+Absolutely! Here’s a ready-to-use neoforge.mods.toml for your Feywild mod on NeoForge 1.21. I replaced all placeholders with literal values based on the info you gave. You can adjust versions if needed.
+
+toml
+Code kopiëren
+loader="neoforge"
+loaderVersion="1.21-1.0.0" # Replace with the actual NeoForge 1.21 build if different
+license="""
+MIT License
+
+Copyright (c) 2021 SaphieNyako
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Feywild is eligible to use the ‘Four Seasons theme’ (as well as all alterations of this piece of music) on the ‘Feywild mod’ the Feywild Minecraft server and all promotional media related to this.
+
+The registered name of this piece on the official Buma/Stemra copyrights website is: ‘Soundtrack’,
+
+Buma-Stemra code: W-024625744
+ISRC code: NL-3UH-21-00001
+Composer IPI code: 397561413
+Composer: Davy Habets (IKIGA)
+Mix/Master: Davy Habets (IKIGA)
+Owner: Davy Habets (IKIGA)
+"""
+
+[[mods]]
+modId="feywild"
+version="1.0.0"
+displayName="Feywild"
+authors="SaphieNyako"
+description='''Feywild is a magic-themed dimension mod for Minecraft.'''
+
+[[dependencies.feywild]]
+modId="neoforge"
+mandatory=true
+versionRange="[1.21,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.feywild]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.21,)"
+ordering="NONE"
+side="BOTH"
+
