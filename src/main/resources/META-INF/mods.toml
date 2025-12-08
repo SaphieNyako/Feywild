@@ -37,6 +37,7 @@ Owner: Davy Habets (IKIGA)
 [[mods]]
 modId="${mod_id}"
 version="${mod_version}"
+logoFile="feywild.png"
 displayName="${mod_name}"
 authors="${mod_authors}"
 description='''${mod_description}'''
