@@ -1,5 +1,6 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
+logoFile="feywild.png"
 license="""
 MIT License
 
