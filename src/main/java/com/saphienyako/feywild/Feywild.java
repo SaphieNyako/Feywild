@@ -1,6 +1,9 @@
 package com.saphienyako.feywild;
 
 import com.mojang.logging.LogUtils;
+import com.saphienyako.feywild.block.ModBlocks;
+import com.saphienyako.feywild.item.ModCreativeModeTab;
+import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -8,6 +11,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -28,10 +32,10 @@ public class Feywild
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-       // ModCreativeModeTabs.register(modEventBus);
+        ModCreativeModeTab.register(modEventBus);
 
-       // ModItems.register(modEventBus);
-      //  ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
 
         // Register ourselves for server and other game events we are interested in.
@@ -43,7 +47,7 @@ public class Feywild
         modEventBus.addListener(this::addCreative);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-       // modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -62,10 +66,7 @@ public class Feywild
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-          // event.accept(ModItems.BLACK_OPAL);
-          //  event.accept(ModItems.RAW_BLACK_OPAL);
-        }
+        //Added ModCreativeModeTab for the mod itself
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
