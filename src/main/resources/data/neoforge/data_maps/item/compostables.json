@@ -1,7 +1,7 @@
 {
   "values": {
     "feywild:mandrake": {
-      "chance": 2.00
+      "chance": 1.0
     },
     "feywild:mandrake_root": {
       "chance": 0.3
