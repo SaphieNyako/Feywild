@@ -37,9 +37,9 @@ public class ModCreativeModeTab {
                      //   pOutput.accept(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
                       //  pOutput.accept(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
                      //   pOutput.accept(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get());
-                    //    pOutput.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
-                     //   pOutput.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
-                    //    pOutput.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
+                        pOutput.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
+                        pOutput.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
+                        pOutput.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
                         pOutput.accept(ModBlocks.FEY_GEM_ORE.get());
                         pOutput.accept(ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
                       //  pOutput.accept(ModItems.SPAWN_EGG_SPRING_PIXIE.get());

@@ -28,17 +28,16 @@ public class ModBlocks {
     public static final DeferredBlock<Block> MANDRAKE_CROP = BLOCKS.register("mandrake_crop",
             () -> new MandrakeCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).noCollission().noOcclusion()));
 
-
-    /*
-
-    public static final RegistryObject<Block> GIANT_SUN_FLOWER = registerBlock("giant_sun_flower",
+    public static final DeferredBlock<Block> GIANT_SUN_FLOWER = registerBlock("giant_sun_flower",
             ()-> new SunFlowerBlock(4));
 
-    public static final RegistryObject<Block> GIANT_CROCUS_FLOWER = registerBlock("giant_crocus_flower",
+    public static final DeferredBlock<Block> GIANT_CROCUS_FLOWER = registerBlock("giant_crocus_flower",
             ()-> new CrocusFlowerBlock(3));
 
-    public static final RegistryObject<Block> GIANT_DANDELION_FLOWER = registerBlock("giant_dandelion_flower",
+    public static final DeferredBlock<Block> GIANT_DANDELION_FLOWER = registerBlock("giant_dandelion_flower",
             ()-> new DandelionFlowerBlock(4));
+
+    /*
 
     public static final RegistryObject<Block> FEY_ALTAR = registerBlockAndItem("fey_altar",
             () -> new FeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
