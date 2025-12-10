@@ -1,4 +1,4 @@
-package com.saphienyako.feywild.data;
+package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.item.ModItems;

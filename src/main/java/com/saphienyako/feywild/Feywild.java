@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -36,6 +37,7 @@ public class Feywild
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModSounds.register(modEventBus);
 
 
         // Register ourselves for server and other game events we are interested in.

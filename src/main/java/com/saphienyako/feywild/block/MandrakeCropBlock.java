@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -59,7 +60,7 @@ public class MandrakeCropBlock extends CropBlock {
 
     @Override
     protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
-        level.playSound(player, pos, SoundType.ROOTS.getStepSound(), SoundSource.BLOCKS, 0.6f, 0.8f); //TODO Change Sound
+        level.playSound(player, pos, ModSounds.MANDRAKE_SCREAM.get(), SoundSource.BLOCKS, 0.6f, 0.8f);
         return super.useItemOn(stack, state, level,pos, player, hand, hit);
     }
 }
