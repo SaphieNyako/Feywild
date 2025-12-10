@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -39,11 +40,15 @@ public class ModItems {
                     new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 30, 1), 1).build()));
     //TODO Configurations
 
-    public static final DeferredItem<Item> MANDRAKE_ROOT = ITEMS.registerSimpleItem("mandrake_root");
-    //TODO ItenNameBlockItem
+    public static final DeferredItem<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",
+            () -> new ItemNameBlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties().food(
+                    new FoodProperties.Builder()
+                            .nutrition(1)
+                            .saturationModifier(0.4f)
+                            .build())));
+    //TODO make food item in other versions too
 
     /*
-    public static final RegistryObject<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root", () -> new ItemNameBlockItem(ModBlocks.MANDRAKE_CROP.get(), new Item.Properties()));
 
     public static final RegistryObject<Item> FEYWILD_MUSIC_DISC = ITEMS.register("feywild_music_disc", FeywildMusicDiscItem::new);
     //TODO add Music Disc

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "feywild:block/mandrake_crop0"
+    },
+    "age=1": {
+      "model": "feywild:block/mandrake_crop1"
+    },
+    "age=2": {
+      "model": "feywild:block/mandrake_crop2"
+    },
+    "age=3": {
+      "model": "feywild:block/mandrake_crop3"
+    },
+    "age=4": {
+      "model": "feywild:block/mandrake_crop4"
+    },
+    "age=5": {
+      "model": "feywild:block/mandrake_crop5"
+    },
+    "age=6": {
+      "model": "feywild:block/mandrake_crop6"
+    },
+    "age=7": {
+      "model": "feywild:block/mandrake_crop7"
+    }
+  }
+}

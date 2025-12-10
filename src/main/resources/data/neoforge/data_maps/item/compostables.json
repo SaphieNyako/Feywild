@@ -1,0 +1,10 @@
+{
+  "values": {
+    "feywild:mandrake": {
+      "chance": 2.00
+    },
+    "feywild:mandrake_root": {
+      "chance": 0.3
+    }
+  }
+}
