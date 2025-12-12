@@ -34,5 +34,13 @@
     "sounds": [
       "feywild:pixie_death"
     ]
+  },
+  "feywild_music": {
+    "sounds": [
+      {
+        "name": "feywild:feywild_music",
+        "stream": true
+      }
+    ]
   }
 }

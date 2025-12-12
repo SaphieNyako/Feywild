@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "item.feywild.feywild_music_disc.desc"
+  },
+  "length_in_seconds": 93.0,
+  "sound_event": "feywild:feywild_music"
+}

@@ -23,8 +23,9 @@ public class ModSounds {
     public static final Supplier<SoundEvent> PIXIE_AMBIENT = registerSoundEvent("pixie_ambient");
     public static final Supplier<SoundEvent> PIXIE_HURT = registerSoundEvent("pixie_hurt");
     public static final Supplier<SoundEvent> PIXIE_DEATH = registerSoundEvent("pixie_death");
+    public static final Supplier<SoundEvent> FEYWILD_MUSIC = registerSoundEvent("feywild_music");
+    public static final ResourceKey<JukeboxSong> FEYWILD_MUSIC_KEY = createSong("feywild_music");
 
-    //public static final Supplier<SoundEvent> FEYWILD_MUSIC_DISC = registerSoundEvent("feywild_music_disc");
     private static ResourceKey<JukeboxSong> createSong(String name) {
         return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }

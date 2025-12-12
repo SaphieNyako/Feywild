@@ -3,6 +3,7 @@ package com.saphienyako.feywild.item;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.GiantFlowerBlock;
 import com.saphienyako.feywild.block.ModBlocks;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -53,7 +54,9 @@ public class ModItems {
     public static final DeferredItem<Item> GIANT_CROCUS_FLOWER_SEED = ITEMS.register("giant_crocus_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_CROCUS_FLOWER.get()));
     public static final DeferredItem<Item> GIANT_DANDELION_FLOWER_SEED = ITEMS.register("giant_dandelion_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_DANDELION_FLOWER.get()));
 
-    public static final DeferredItem<Item> FEYWILD_MUSIC_DISC = ITEMS.registerSimpleItem("feywild_music_disc");
+    public static final DeferredItem<Item> FEYWILD_MUSIC_DISC = ITEMS.registerItem("feywild_music_disc",
+            properties -> new Item(properties.jukeboxPlayable(ModSounds.FEYWILD_MUSIC_KEY).stacksTo(1)));
+
 
     /*
 

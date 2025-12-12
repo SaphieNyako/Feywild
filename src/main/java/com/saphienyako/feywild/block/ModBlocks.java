@@ -22,7 +22,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> FEY_GEM_ORE = registerBlock("fey_gem_ore",
             () -> new Block(BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
     public static final DeferredBlock<Block> FEY_GEM_ORE_DEEP_SLATE = registerBlock("fey_gem_ore_deep_slate",
-            () -> new Block(BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
+            () -> new Block(BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
 
     public static final DeferredBlock<Block> MANDRAKE_CROP = BLOCKS.register("mandrake_crop",
