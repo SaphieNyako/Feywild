@@ -26,8 +26,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 ModBlocks.FEY_GEM_ORE.get(),
-                ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
-               // ModBlocks.FEY_ALTAR.get());
+                ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get(),
+                ModBlocks.FEY_ALTAR.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL).add(
                 ModBlocks.FEY_GEM_ORE.get(),

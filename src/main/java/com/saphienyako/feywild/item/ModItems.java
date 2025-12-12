@@ -60,9 +60,6 @@ public class ModItems {
 
     /*
 
-    public static final RegistryObject<Item> FEYWILD_MUSIC_DISC = ITEMS.register("feywild_music_disc", FeywildMusicDiscItem::new);
-    //TODO add Music Disc
-
     public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_PIXIE = ITEMS.register("summoning_scroll_spring_pixie", () -> new SummoningScrollItem<>(new Item.Properties()));
     public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_PIXIE = ITEMS.register("summoning_scroll_summer_pixie", () -> new SummoningScrollItem<>(new Item.Properties()));
     public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_PIXIE = ITEMS.register("summoning_scroll_autumn_pixie", () -> new SummoningScrollItem<>(new Item.Properties()));

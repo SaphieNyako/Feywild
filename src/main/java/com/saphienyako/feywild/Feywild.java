@@ -2,8 +2,13 @@ package com.saphienyako.feywild;
 
 import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
+import com.saphienyako.feywild.block.entity.ModBlockEntities;
+import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.recipe.ModRecipes;
+import com.saphienyako.feywild.screen.FeyAltarScreen;
+import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
@@ -15,6 +20,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -38,6 +45,9 @@ public class Feywild
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
+        ModRecipes.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
 
         // Register ourselves for server and other game events we are interested in.
@@ -87,5 +97,19 @@ public class Feywild
             // LOGGER.info("HELLO FROM CLIENT SETUP");
             // LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
+
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
+        }
+
+
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
+        }
+
     }
+
+
 }

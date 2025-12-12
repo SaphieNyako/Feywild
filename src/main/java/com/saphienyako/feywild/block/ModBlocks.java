@@ -37,11 +37,8 @@ public class ModBlocks {
     public static final DeferredBlock<Block> GIANT_DANDELION_FLOWER = registerBlock("giant_dandelion_flower",
             ()-> new DandelionFlowerBlock(4));
 
-    /*
-
-    public static final RegistryObject<Block> FEY_ALTAR = registerBlockAndItem("fey_altar",
-            () -> new FeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
-    */
+    public static final DeferredBlock<Block> FEY_ALTAR = registerBlock("fey_altar",
+            () -> new FeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

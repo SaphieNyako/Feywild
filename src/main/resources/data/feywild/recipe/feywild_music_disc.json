@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "tag": "c:music_discs"
+    },
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "feywild:fey_dust"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:feywild_music_disc"
+  }
+}

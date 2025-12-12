@@ -56,7 +56,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     private static final Set<Block> EXCLUDED_BLOCKS = Set.of(
             ModBlocks.GIANT_SUN_FLOWER.get(),
             ModBlocks.GIANT_CROCUS_FLOWER.get(),
-            ModBlocks.GIANT_DANDELION_FLOWER.get()
+            ModBlocks.GIANT_DANDELION_FLOWER.get(),
+            ModBlocks.FEY_ALTAR.get()
     );
 
     @Override

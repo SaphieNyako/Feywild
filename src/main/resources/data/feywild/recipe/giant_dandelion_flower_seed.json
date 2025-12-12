@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "tag": "c:seeds"
+    },
+    {
+      "item": "minecraft:dandelion"
+    },
+    {
+      "tag": "c:seeds"
+    },
+    {
+      "item": "minecraft:dandelion"
+    }
+  ],
+  "output": {
+    "id": "feywild:giant_dandelion_flower_seed",
+    "count": 1
+  }
+}

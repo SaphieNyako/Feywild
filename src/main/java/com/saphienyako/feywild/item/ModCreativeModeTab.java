@@ -29,7 +29,7 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModItems.MANDRAKE_ROOT.get());
                         pOutput.accept(ModItems.MANDRAKE.get());
                         pOutput.accept(ModItems.FEY_INK_BOTTLE.get());
-                     //   pOutput.accept(ModBlocks.FEY_ALTAR.get());
+                        pOutput.accept(ModBlocks.FEY_ALTAR.get());
                         pOutput.accept(ModItems.FEYWILD_MUSIC_DISC.get());
                         pOutput.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());
                         pOutput.accept(ModItems.PIXIE_ORB.get());

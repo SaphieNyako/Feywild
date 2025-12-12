@@ -1,0 +1,24 @@
+ {
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:fey_dust"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:pixie_orb"
+  }
+}
