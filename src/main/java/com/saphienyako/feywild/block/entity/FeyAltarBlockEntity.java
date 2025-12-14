@@ -1,5 +1,7 @@
 package com.saphienyako.feywild.block.entity;
 
+import com.saphienyako.feywild.network.AltarParticleMessage;
+import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.recipe.FeyAltarRecipe;
 import com.saphienyako.feywild.recipe.FeyAltarRecipeInput;
 import com.saphienyako.feywild.recipe.ModRecipes;
@@ -10,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -23,8 +26,10 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -160,16 +165,22 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
                 setChanged();
                 level.sendBlockUpdated(worldPosition, state, state, 2);
             }
-            addParticles();
+            addParticles((ServerLevel) level);
         }
     }
 
-    private void addParticles() {
+    private void addParticles(ServerLevel level) {
         if (this.progress > 0) {
             if (this.progress >= (maxProgress - 1)) {
                 //Particles after item has been crafted
-                //TODO add particles
-               // FeywildNetwork.sendParticles(level, AltarParticleMessage.Type.ALTAR_01,this.worldPosition, progress, maxProgress);
+                    PacketDistributor.sendToPlayersTrackingChunk(level, this.level.getChunkAt(this.worldPosition).getPos(),
+                            new AltarParticleMessage(
+                                    AltarParticleMessage.Particles.ALTAR_01,
+                                    this.worldPosition,
+                                    progress,
+                                    maxProgress
+                            )
+                    );
             } else {
                 List<ItemStack> stacks = new ArrayList<>();
                 for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
@@ -178,14 +189,26 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
                 }
                 if (!stacks.isEmpty()) {
                     //Particles moving up while being crafted
-                    //TODO add particles
-                  //  FeywildNetwork.sendParticles(level, AltarParticleMessage.Type.ALTAR_02,this.worldPosition, progress, maxProgress);
+                    PacketDistributor.sendToPlayersTrackingChunk(level, this.level.getChunkAt(this.worldPosition).getPos(),
+                            new AltarParticleMessage(
+                                    AltarParticleMessage.Particles.ALTAR_02,
+                                    this.worldPosition,
+                                    progress,
+                                    maxProgress
+                            )
+                    );
                 }
             }
         } else {
             //Particles on Model
-            //TODO add particles
-           // FeywildNetwork.sendParticles(level, AltarParticleMessage.Type.ALTAR_03,this.worldPosition, progress, maxProgress);
+            PacketDistributor.sendToPlayersTrackingChunk(level, this.level.getChunkAt(this.worldPosition).getPos(),
+                    new AltarParticleMessage(
+                            AltarParticleMessage.Particles.ALTAR_03,
+                            this.worldPosition,
+                            progress,
+                            maxProgress
+                    )
+            );
         }
     }
 

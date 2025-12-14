@@ -6,11 +6,13 @@ import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.network.FeywildNetwork;
+import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.particle.SparkleParticleProvider;
 import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -22,6 +24,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -39,15 +42,20 @@ public class Feywild
     public Feywild(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(FeywildNetwork::register);
 
         ModCreativeModeTab.register(modEventBus);
 
+        ModParticles.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+
+
+
 
 
         // Register ourselves for server and other game events we are interested in.
@@ -99,6 +107,15 @@ public class Feywild
         }
 
         @SubscribeEvent
+        public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticles.SPRING_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0, 1, 0));
+            event.registerSpriteSet(ModParticles.SUMMER_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 1, 0.8f, 0));
+            event.registerSpriteSet(ModParticles.WINTER_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.2f, 0.8f, 0.9f));
+            event.registerSpriteSet(ModParticles.AUTUMN_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 1, 0.4f, 0));
+            event.registerSpriteSet(ModParticles.FEY_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.3f,0.9f,0.9f));
+        }
+
+        @SubscribeEvent
         public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
         }
@@ -110,6 +127,4 @@ public class Feywild
         }
 
     }
-
-
 }
