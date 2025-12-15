@@ -25,35 +25,32 @@ public class FeywildNetwork {
                 AltarParticleMessage.STREAM_CODEC,
                 AltarParticleMessage::handle
         );
-        /*
-        registrar.playToClient(
+
+        REGISTRAR.playToClient(
                 OpenMenuMessage.TYPE,
                 OpenMenuMessage.STREAM_CODEC,
                 OpenMenuMessage::handle
         );
-        */
+
 
         // Server
-        /*
-        registrar.playToServer(
+
+        REGISTRAR.playToServer(
                 ToggleFollowPlayerMessage.TYPE,
                 ToggleFollowPlayerMessage.STREAM_CODEC,
                 ToggleFollowPlayerMessage::handle
         );
 
-        registrar.playToServer(
+        REGISTRAR.playToServer(
                 ToggleAbilityMessage.TYPE,
                 ToggleAbilityMessage.STREAM_CODEC,
                 ToggleAbilityMessage::handle
         );
 
-        registrar.playToServer(
+        REGISTRAR.playToServer(
                 DismissEntityMessage.TYPE,
                 DismissEntityMessage.STREAM_CODEC,
                 DismissEntityMessage::handle
         );
-
-        */
-
     }
 }

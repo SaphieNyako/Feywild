@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity.base;
 import com.saphienyako.feywild.entity.goals.IronPanicGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -136,14 +137,16 @@ public abstract class PixieBase extends FlyingFeyBase {
 
                 //PIXIE ORB OPENS MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-                 /* FeywildNetwork.sendToPlayer(new OpenMenuMessage(
-                                this.getName(),
+                PacketDistributor.sendToPlayer(
+                        (ServerPlayer)player,
+                        new OpenMenuMessage(
                                 this.getId(),
                                 this.getAligment(),
                                 this.getFollowingPlayer(),
                                 this.blockPosition(),
-                                this.getAbilityActive()),
-                        (ServerPlayer) player); */
+                                this.getAbilityActive()
+                        )
+                );
 
                 //TODO Open Menu
                 player.swing(hand, true);
