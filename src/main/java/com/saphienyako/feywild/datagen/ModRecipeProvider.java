@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -33,7 +34,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('#', ModItems.FEY_DUST.get())
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
                 .save(recipeOutput);
-        /*
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR.get())
                 .pattern(" # ")
                 .pattern("#S#")
@@ -43,11 +44,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('_', Items.SMOOTH_STONE_SLAB.asItem())
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
                 .save(recipeOutput);
-        */
-        /* ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEY_DUST.get(), 4)
-                .requires(ModItems.FEY_GEM.get())
-                .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
-                .save(recipeOutput); */
 
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEY_INK_BOTTLE.get(), 1)
@@ -75,11 +71,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(Items.POISONOUS_POTATO)
                 .unlockedBy(getHasName(ModItems.FEY_DUST.get()), has(ModItems.FEY_DUST.get()))
                 .save(recipeOutput);
-
-        //TODO Fey Altar Recipes
-        //TODO add tag unlocked in Fey Altar Recipes
-
-
     }
 
     protected static void oreSmelting(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult,

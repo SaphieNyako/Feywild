@@ -20,7 +20,7 @@ public class ModCreativeModeTab {
     public static final Supplier<CreativeModeTab> FEYWILD_TAB =
             CREATIVE_MODE_TABS.register("feywild_tab", () -> CreativeModeTab.builder()
                     .title(Component.translatable("creative_tab.feywild_creative_tab"))
-                    .icon(() -> new ItemStack(ModItems.EMPTY_SUMMONING_SCROLL.get()))
+                    .icon(() -> new ItemStack(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get()))
                     .displayItems((pParameters, pOutput) -> {
                         //TODO change icon
                         pOutput.accept(ModItems.FEYWILD_LEXICON.get());
@@ -33,19 +33,19 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModItems.FEYWILD_MUSIC_DISC.get());
                         pOutput.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());
                         pOutput.accept(ModItems.PIXIE_ORB.get());
-                     //   pOutput.accept(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
-                     //   pOutput.accept(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
-                      //  pOutput.accept(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
-                     //   pOutput.accept(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get());
+                        pOutput.accept(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
+                        pOutput.accept(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
+                        pOutput.accept(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
+                        pOutput.accept(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get());
                         pOutput.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         pOutput.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
                         pOutput.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
                         pOutput.accept(ModBlocks.FEY_GEM_ORE.get());
                         pOutput.accept(ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
-                      //  pOutput.accept(ModItems.SPAWN_EGG_SPRING_PIXIE.get());
-                     //   pOutput.accept(ModItems.SPAWN_EGG_AUTUMN_PIXIE.get());
-                     //   pOutput.accept(ModItems.SPAWN_EGG_SUMMER_PIXIE.get());
-                      //  pOutput.accept(ModItems.SPAWN_EGG_WINTER_PIXIE.get());
+                        pOutput.accept(ModItems.SPAWN_EGG_SPRING_PIXIE.get());
+                        pOutput.accept(ModItems.SPAWN_EGG_AUTUMN_PIXIE.get());
+                        pOutput.accept(ModItems.SPAWN_EGG_SUMMER_PIXIE.get());
+                        pOutput.accept(ModItems.SPAWN_EGG_WINTER_PIXIE.get());
 
                     }).build());
 

@@ -4,6 +4,12 @@ import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
+import com.saphienyako.feywild.entity.*;
+import com.saphienyako.feywild.entity.model.*;
+import com.saphienyako.feywild.entity.renderer.AutumnPixieRenderer;
+import com.saphienyako.feywild.entity.renderer.SpringPixieRenderer;
+import com.saphienyako.feywild.entity.renderer.SummerPixieRenderer;
+import com.saphienyako.feywild.entity.renderer.WinterPixieRenderer;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
@@ -27,6 +33,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
@@ -43,6 +50,7 @@ public class Feywild
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(FeywildNetwork::register);
+        modEventBus.addListener(this::entityAttributes);
 
         ModCreativeModeTab.register(modEventBus);
 
@@ -53,6 +61,7 @@ public class Feywild
         ModRecipes.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModEntities.register(modEventBus);
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
@@ -84,6 +93,13 @@ public class Feywild
         //Added ModCreativeModeTab for the mod itself
     }
 
+    private void entityAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.SPRING_PIXIE.get(), SpringPixieEntity.getDefaultAttributes().build());
+        event.put(ModEntities.SUMMER_PIXIE.get(), SummerPixieEntity.getDefaultAttributes().build());
+        event.put(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieEntity.getDefaultAttributes().build());
+        event.put(ModEntities.WINTER_PIXIE.get(), WinterPixieEntity.getDefaultAttributes().build());
+    }
+
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
@@ -111,8 +127,21 @@ public class Feywild
         }
 
         @SubscribeEvent
+        public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+            event.registerLayerDefinition(ModModelLayers.SPRING_PIXIE_LAYER, SpringPixieModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.SUMMER_PIXIE_LAYER, SummerPixieModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.AUTUMN_PIXIE_LAYER, AutumnPixieModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.WINTER_PIXIE_LAYER, WinterPixieModel::createBodyLayer);
+        }
+
+        @SubscribeEvent
         public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
+            event.registerEntityRenderer(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
+            event.registerEntityRenderer(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
+            event.registerEntityRenderer(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
+            event.registerEntityRenderer(ModEntities.WINTER_PIXIE.get(), WinterPixieRenderer::new);
+
         }
 
 

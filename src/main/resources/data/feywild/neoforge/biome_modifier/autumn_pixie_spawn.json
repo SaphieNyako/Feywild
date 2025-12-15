@@ -1,0 +1,19 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:flower_forest"
+  ],
+  "spawners": [
+    {
+      "type": "feywild:autumn_pixie",
+      "minCount": 1,
+      "maxCount": 1,
+      "weight": 2
+    }
+  ]
+}

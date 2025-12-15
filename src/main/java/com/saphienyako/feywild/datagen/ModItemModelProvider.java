@@ -4,10 +4,12 @@ import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -23,15 +25,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.FEYWILD_MUSIC_DISC.get());
         basicItem(ModItems.EMPTY_SUMMONING_SCROLL.get());
         basicItem(ModItems.PIXIE_ORB.get());
-       // basicItem(ModItems.SUMMONING_SCROLL_SPRING_PIXIE);
-       // basicItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE);
-       // basicItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE);
-       // basicItem(ModItems.SUMMONING_SCROLL_WINTER_PIXIE);
+        basicItem(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
+        basicItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
+        basicItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
+        basicItem(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get());
         basicItem(ModItems.FEY_DUST.get());
         basicItem(ModItems.MANDRAKE.get());
         basicItem(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
         basicItem(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
         basicItem(ModItems.GIANT_SUN_FLOWER_SEED.get());
+
     }
 
     public void flowerItem(DeferredBlock<Block> block) {
