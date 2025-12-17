@@ -29,7 +29,4 @@ public class ModRecipes {
         SERIALIZERS.register(eventBus);
         TYPES.register(eventBus);
     }
-
-
-
 }

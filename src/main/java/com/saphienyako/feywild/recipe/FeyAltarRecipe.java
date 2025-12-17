@@ -19,19 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) implements Recipe<FeyAltarRecipeInput>  {
-    /*
-    private final ResourceLocation id;
-    private final ItemStack output;
-    private final List<Ingredient> inputs;
-    private final NonNullList<Ingredient> inputList;
-
-    public FeyAltarRecipe(ResourceLocation id, ItemStack output, List<Ingredient> inputs) {
-        this.id = id;
-        this.output = output;
-        this.inputs = ImmutableList.copyOf(inputs);
-        this.inputList = NonNullList.withSize(this.inputs.size(), Ingredient.EMPTY);
-        for (int i = 0; i < this.inputs.size(); i++) this.inputList.set(i, this.inputs.get(i));
-    } */
 
 
     @Override
@@ -47,7 +34,6 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
         for(int i = 0; i < inventory.size()-1; i++) {
             stacks.add(i, inventory.getItem(i));
         }
-        //Match list with all existing ingredient list  of recipes of FairyAltarRecipes.
         return matchesLists(this.inputItems, stacks);
     }
 
@@ -63,15 +49,8 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
 
     @Override
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider registries) {
-        //return this.output.copy();
         return this.output;
     }
-
-    /*
-    public @NotNull ResourceLocation getId() {
-        return this.id;
-    } */
-
 
     public static boolean matchesLists(List<Ingredient> ingredients, List<ItemStack> stacks) {
         if (ingredients.size() != stacks.size()) return false;
@@ -114,26 +93,12 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
 
 
         public static void toNetwork(RegistryFriendlyByteBuf buffer, FeyAltarRecipe recipe) {
-            //Write ingredients size
             buffer.writeVarInt(recipe.getIngredients().size());
-
-            //Write List of Ingredients
-                    //List of recipe.inputItems
-                    //For each item on list
             for(Ingredient i : recipe.inputItems){
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, i);
             }
-            //Write Output
             ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
         }
-
-        /*
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, FeyAltarRecipe recipe) {
-            buffer.writeVarInt(recipe.getIngredients().size());
-            recipe.inputs.forEach(i -> i.toNetwork(buffer));
-            buffer.writeItemStack(recipe.output, false);
-        } */
 
 
 
@@ -147,24 +112,6 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
             return new FeyAltarRecipe(inputs, output);
         }
 
-        /*
-        @Override
-        public FeyAltarRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            int inputSize = buffer.readVarInt();
-            ImmutableList.Builder<Ingredient> inputs = ImmutableList.builder();
-            for (int i = 0; i < inputSize; i++) {
-                inputs.add(Ingredient.fromNetwork(buffer));
-            }
-            ItemStack output = buffer.readItem();
-            return new FeyAltarRecipe(recipeId, output, inputs.build());
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, FeyAltarRecipe recipe) {
-            buffer.writeVarInt(recipe.getIngredients().size());
-            recipe.inputs.forEach(i -> i.toNetwork(buffer));
-            buffer.writeItemStack(recipe.output, false);
-        } */
 
         @Override
         public @NotNull MapCodec<FeyAltarRecipe> codec() {
