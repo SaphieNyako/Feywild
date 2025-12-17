@@ -1,0 +1,27 @@
+{
+  "category": "feywild:summoning_fey",
+  "icon": "feywild:fey_altar",
+  "name": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar.page0.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:fey_altar",
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar.page1.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:mandrake_root",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.fey_altar.page2.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:fey_ink_bottle",
+      "recipe2": "feywild:empty_summoning_scroll"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "category": "feywild:feywild",
+  "icon": "feywild:summoning_scroll_summer_pixie",
+  "name": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page0.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page1.text0"
+    },
+    {
+      "type": "feywild:sun_flower",
+      "recipe": "feywild:giant_sun_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_sun_flower_seed",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.feywild.summer_court.summer_court.page2.text0"
+    }
+  ]
+}

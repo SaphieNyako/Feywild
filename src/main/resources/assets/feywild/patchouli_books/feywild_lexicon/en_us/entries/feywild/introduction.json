@@ -1,0 +1,19 @@
+{
+  "category": "feywild:feywild",
+  "icon": "minecraft:writable_book",
+  "name": "feywild_lexicon.entry.feywild.feywild.feywild.introduction",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.introduction.page0.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:feywild_lexicon"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.feywild.feywild.feywild.introduction.page1.text0"
+    }
+  ]
+}
