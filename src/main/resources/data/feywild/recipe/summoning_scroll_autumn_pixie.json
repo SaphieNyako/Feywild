@@ -1,0 +1,24 @@
+ {
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "tag": "c:mushrooms"
+    },
+    {
+      "tag": "minecraft:hoes"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "item": "minecraft:pumpkin"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:summoning_scroll_autumn_pixie"
+  }
+}

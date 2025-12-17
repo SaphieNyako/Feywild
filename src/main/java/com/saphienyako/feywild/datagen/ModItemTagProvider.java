@@ -28,5 +28,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.DUSTS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.ENCHANTING_FUELS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.GEMS).add(ModItems.FEY_GEM.get());
+        this.tag(Tags.Items.SEEDS).add(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
+        this.tag(Tags.Items.SEEDS).add(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
+        this.tag(Tags.Items.SEEDS).add(ModItems.GIANT_SUN_FLOWER_SEED.get());
     }
 }

@@ -1,5 +1,7 @@
 package com.saphienyako.feywild.block;
 
+import com.saphienyako.feywild.network.AltarParticleMessage;
+import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -46,8 +49,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     public boolean onDestroyedByPlayer(BlockState state, @NotNull Level level, BlockPos pos, @NotNull Player player, boolean willHarvest, @NotNull FluidState fluid) {
         if (this.replaceFlower(level, pos.above(3 - state.getValue(PART)))) {
             if (!level.isClientSide && player instanceof ServerPlayer) {
-                // Forge notifies the client of the block break before calling this
-                // So we just tell the client that the block is still there
+                /// Tell the client that the block is still there
                 ((ServerPlayer) player).connection.send(new ClientboundBlockUpdatePacket(level, pos));
             }
             return false;
@@ -72,8 +74,14 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
         super.onRemove(oldState, level, pos, newState, moving);
 
         if (oldState.getValue(VARIANT) == 2) {
-           // FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, BlockPos.containing(pos.getCenter()));
-            //TODO add Particles
+            if (!level.isClientSide) {
+                PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(),
+                        new ParticleMessage(
+                                ParticleMessage.Particles.DANDELION_FLUFF,
+                                pos
+                        )
+                );
+            }
         }
     }
 

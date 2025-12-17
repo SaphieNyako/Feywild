@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "tag": "minecraft:flowers"
+    },
+    {
+      "item": "minecraft:cake"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:summoning_scroll_spring_pixie"
+  }
+}
