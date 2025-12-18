@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.item;
 
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.GiantFlowerBlock;
 import com.saphienyako.feywild.block.ModBlocks;
@@ -41,7 +42,7 @@ public class ModItems {
 
     public static final DeferredItem<Item> FEY_DUST =
             ITEMS.registerItem("fey_dust", FeyDustItem::new, new Item.Properties().food(
-                    new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 30, 1), 1).build()));
+                    new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, FeywildConfig.feyDustDuration, 1), 1).build()));
     //TODO Configurations
 
     public static final DeferredItem<Item> MANDRAKE_ROOT = ITEMS.register("mandrake_root",

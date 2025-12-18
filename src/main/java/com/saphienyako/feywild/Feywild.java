@@ -4,12 +4,14 @@ import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
 import com.saphienyako.feywild.entity.renderer.AutumnPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SpringPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SummerPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.WinterPixieRenderer;
+import com.saphienyako.feywild.events.ModEventListener;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
@@ -48,6 +50,7 @@ public class Feywild
 
     public Feywild(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(FeywildNetwork::register);
         modEventBus.addListener(this::entityAttributes);
@@ -62,16 +65,20 @@ public class Feywild
         ModMenuTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
+
+
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        NeoForge.EVENT_BUS.register(new ModEventListener());
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+          modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.item;
 
+import com.saphienyako.feywild.config.FeywildConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -50,7 +51,7 @@ public class FeyDustItem extends Item {
                     QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
                 }
             } else if (!target.getType().is(ModEntityTags.LEVITATION_IMMUNE)) */
-                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 30, 2)); //TODO add config
+                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, FeywildConfig.feyDustDuration, 2)); //TODO add config
         } else {
             return InteractionResult.FAIL;
         }
@@ -70,6 +71,6 @@ public class FeyDustItem extends Item {
     }
 
     public void updateFood() {
-        this.food = new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 30, 2), 1).build();
+        this.food = new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, FeywildConfig.feyDustDuration, 2), 1).build();
     }
 }
