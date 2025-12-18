@@ -1,14 +1,11 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.PixieBase;
-import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CropBlock;

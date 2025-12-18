@@ -19,24 +19,21 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
     public static final StreamCodec<FriendlyByteBuf, ToggleAbilityMessage> STREAM_CODEC =
             StreamCodec.of(ToggleAbilityMessage::encode, ToggleAbilityMessage::decode);
 
-    // Encoding
     private static void encode(FriendlyByteBuf buf, ToggleAbilityMessage msg) {
         buf.writeInt(msg.entityId());
         buf.writeBoolean(msg.abilityActive());
     }
 
-    // Decoding
     private static ToggleAbilityMessage decode(FriendlyByteBuf buf) {
         int id = buf.readInt();
         boolean abilityActive = buf.readBoolean();
         return new ToggleAbilityMessage(id, abilityActive);
     }
-
-    // Handling on server
+    @SuppressWarnings("resource")
     public static void handle(ToggleAbilityMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player == null || player.level().isClientSide) return;
+            if (player.level().isClientSide) return;
 
             Level level = player.level();
             if (msg.entityId() != -1) {

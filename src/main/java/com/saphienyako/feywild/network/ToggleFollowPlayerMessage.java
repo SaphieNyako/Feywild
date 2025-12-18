@@ -32,11 +32,11 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
         BlockPos pos = buf.readBlockPos();
         return new ToggleFollowPlayerMessage(id, followingPlayer, pos);
     }
-
+    @SuppressWarnings("resource")
     public static void handle(ToggleFollowPlayerMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            Player player = context.player(); // get the sender
-            if (player == null || player.level().isClientSide) return; // only run on server
+            Player player = context.player();
+            if (player.level().isClientSide) return;
 
             Level level = player.level();
             if (msg.entityId() != -1) {

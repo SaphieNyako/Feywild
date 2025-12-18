@@ -10,7 +10,7 @@ import vazkii.patchouli.api.IVariable;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.UnaryOperator;
-
+@SuppressWarnings("unused")
 public class CircularIngredientsComponent implements ICustomComponent {
 
     public IVariable items;

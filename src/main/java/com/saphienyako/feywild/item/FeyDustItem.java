@@ -37,20 +37,11 @@ public class FeyDustItem extends Item {
         super.appendHoverText(stack, context, tooltip, flag);
     }
 
-
-    // TODO add LIVITATION_IMMUUM tag or config
-    //TODO add quest
+    @SuppressWarnings("resource")
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
         if (!player.level().isClientSide) {
-           /* if (target instanceof Sheep) {
-                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, Math.max(60, 30), 2));
-
-                if (player instanceof ServerPlayer) {
-                    QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
-                }
-            } else if (!target.getType().is(ModEntityTags.LEVITATION_IMMUNE)) */
                 target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, FeywildConfig.feyDustDuration, 2)); //TODO add config
         } else {
             return InteractionResult.FAIL;
@@ -64,7 +55,7 @@ public class FeyDustItem extends Item {
 
     @Nullable
     @Override
-    public FoodProperties getFoodProperties(ItemStack stack, LivingEntity entity) {
+    public FoodProperties getFoodProperties(@NotNull ItemStack stack, LivingEntity entity) {
         // Overridden instead of item properties, so it will
         // instantly change on config reload
         return this.food;

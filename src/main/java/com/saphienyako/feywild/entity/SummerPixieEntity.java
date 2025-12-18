@@ -32,7 +32,7 @@ public class SummerPixieEntity extends PixieBase {
     }
 
     @Override
-    public Alignment getAligment() {
+    public Alignment getAlignment() {
         return Alignment.SUMMER;
     }
     @Override

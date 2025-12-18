@@ -50,7 +50,6 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 LootItem.lootTableItem(item)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
                         .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
-
     }
 
     private static final Set<Block> EXCLUDED_BLOCKS = Set.of(

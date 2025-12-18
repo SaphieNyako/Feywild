@@ -16,6 +16,8 @@ public class FeywildConfig {
     private static final ModConfigSpec.IntValue FEY_DUST_DURATION;
     private static final ModConfigSpec.BooleanValue SPAWN_WITH_LEXICON;
 
+    private static final ModConfigSpec.BooleanValue FLOWER_PARTICLES;
+
     static {
         BUILDER
                 .comment("Feywild General Config")
@@ -29,6 +31,10 @@ public class FeywildConfig {
                 .comment("Whether players should spawn with a Feywild Lexicon")
                 .define("spawn_with_lexicon", true);
 
+        FLOWER_PARTICLES = BUILDER
+                .comment("Whether giant flowers should have particles")
+                .define("flower_particles", true);
+
         BUILDER.pop();
     }
 
@@ -36,6 +42,8 @@ public class FeywildConfig {
 
     public static int feyDustDuration;
     public static boolean spawnWithLexicon;
+
+    public static boolean flowerParticles;
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
@@ -47,6 +55,7 @@ public class FeywildConfig {
 
         feyDustDuration = FEY_DUST_DURATION.get();
         spawnWithLexicon = SPAWN_WITH_LEXICON.get();
+        flowerParticles = FLOWER_PARTICLES.get();
     }
 
 }

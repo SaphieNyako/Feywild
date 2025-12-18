@@ -62,13 +62,11 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return isBrightEnoughToSpawn(level, pos);
-        //TODO make mobs spawn in overworld?
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
         return getter.getRawBrightness(pos, 0) > 8;
     }
-
 
     public SimpleParticleType getParticle() {
         return null;
@@ -98,7 +96,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, this.getTargetPositionSpeed()));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
     }
-
+    @SuppressWarnings("resource")
     @Override
     public void tick() {
         super.tick();
@@ -276,10 +274,10 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return 0.6f;
     }
 
-    public abstract Alignment getAligment();
+    public abstract Alignment getAlignment();
 
     public abstract ItemLike getDismissItem();
-
+    @SuppressWarnings("deprecation")
     public String getEntityName(){
         ResourceLocation id =this.getType().builtInRegistryHolder().key().location();
         return id.getPath();

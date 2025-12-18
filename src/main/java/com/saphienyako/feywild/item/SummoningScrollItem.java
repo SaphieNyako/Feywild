@@ -18,7 +18,7 @@ import java.util.Objects;
 
 import static com.saphienyako.feywild.item.ModItems.*;
 
-public class SummoningScrollItem<T extends LivingEntity> extends Item {
+public class SummoningScrollItem extends Item {
 
 
     public SummoningScrollItem(Properties pProperties) {

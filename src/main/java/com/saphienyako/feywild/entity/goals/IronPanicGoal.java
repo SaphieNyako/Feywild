@@ -19,18 +19,16 @@ public class IronPanicGoal extends Goal {
     private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
 
     private final LivingEntity entity;
-    private final double speed;
     private final double range;
-
-    private Level level;
+    private final Level level;
 
     public IronPanicGoal(PixieBase entity, Level level, double speed, double range) {
         this.entity = entity;
         this.level = level;
-        this.speed = speed;
         this.range = range;
     }
 
+    @SuppressWarnings("resource")
     @Override
     public boolean canUse() {
         List<Player> players = entity.level().getEntitiesOfClass(Player.class,

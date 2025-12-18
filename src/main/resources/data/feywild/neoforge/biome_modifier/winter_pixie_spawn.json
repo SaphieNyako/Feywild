@@ -1,11 +1,16 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#c:is_cold/overworld",
+  "biomes": [
+    "minecraft:ice_spikes",
+    "minecraft:snowy_taiga",
+    "minecraft:snowy_plains",
+    "minecraft:snowy_slopes"
+  ],
   "spawners": [
     {
       "type": "feywild:winter_pixie",
-      "maxCount": 1,
       "minCount": 1,
+      "maxCount": 1,
       "weight": 2
     }
   ]

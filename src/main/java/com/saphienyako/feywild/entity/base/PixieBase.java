@@ -13,7 +13,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -60,7 +59,7 @@ public abstract class PixieBase extends FlyingFeyBase {
         builder.define(STATE,0);
     }
 
-
+    @SuppressWarnings("resource")
     @Override
     public void tick() {
         super.tick();
@@ -91,13 +90,12 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
       //TODO make FLY and IDLE work, check for moving?
     }
-
+    @SuppressWarnings("resource")
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        ItemStack stack = player.getItemInHand(hand);
         if (superResult == InteractionResult.PASS) {
 
                 //GIVE COOKIE, HEAL
@@ -141,7 +139,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                         (ServerPlayer)player,
                         new OpenMenuMessage(
                                 this.getId(),
-                                this.getAligment(),
+                                this.getAlignment(),
                                 this.getFollowingPlayer(),
                                 this.blockPosition(),
                                 this.getAbilityActive()

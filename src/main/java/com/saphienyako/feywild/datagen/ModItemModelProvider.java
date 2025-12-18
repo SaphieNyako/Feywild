@@ -4,12 +4,10 @@ import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -36,25 +34,25 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.GIANT_SUN_FLOWER_SEED.get());
 
     }
-
+    @SuppressWarnings("unused")
     public void flowerItem(DeferredBlock<Block> block) {
         this.withExistingParent(block.getId().getPath(), mcLoc("item/generated"))
                 .texture("layer0",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + block.getId().getPath()));
     }
-
+    @SuppressWarnings("unused")
     public void buttonItem(DeferredBlock<Block> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/button_inventory"))
                 .texture("texture",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
     }
-
+    @SuppressWarnings("unused")
     public void fenceItem(DeferredBlock<Block> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/fence_inventory"))
                 .texture("texture",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
     }
-
+    @SuppressWarnings("unused")
     public void wallItem(DeferredBlock<Block> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,

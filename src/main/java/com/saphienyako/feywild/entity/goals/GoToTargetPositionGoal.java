@@ -18,7 +18,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
         this.speed = speed;
         this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
-
+    @SuppressWarnings("unused")
     public GoToTargetPositionGoal(Mob entity, Supplier<Vec3> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
         super(pos, maxMovementRange);
         this.entity = entity;
@@ -42,16 +42,17 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
         return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared / 2.0;
     }
 
+    @SuppressWarnings("resource")
     @Override
     public boolean canUse() {
         Vec3 target = this.targetPosition.get();
         return this.entity.level().random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
     }
-
+    @SuppressWarnings("unused")
     public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {
         return new GoToTargetPositionGoal(entity, asVector(pos), maxMovementRange, speed);
     }
-
+    @SuppressWarnings("unused")
     public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
         return new GoToTargetPositionGoal(entity, asVector(pos), maxMovementRange, speed, shouldReturn);
     }

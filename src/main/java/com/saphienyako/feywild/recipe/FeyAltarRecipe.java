@@ -47,6 +47,8 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
         return true;
     }
 
+
+
     @Override
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider registries) {
         return this.output;

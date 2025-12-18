@@ -16,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -25,10 +24,8 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
     public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar");
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
             "textures/gui/fey_altar_gui.png");
-
     public static final RecipeType<FeyAltarRecipe> FEY_ALTAR_TYPE =
             new RecipeType<>(UID, FeyAltarRecipe.class);
-
     private final IDrawable background;
     private final IDrawable icon;
 
@@ -41,7 +38,6 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
     public @NotNull RecipeType<FeyAltarRecipe> getRecipeType() {
         return FEY_ALTAR_TYPE;
     }
-
 
     @Override
     public @NotNull Component getTitle() {
@@ -65,7 +61,6 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 105, 23).addIngredients(recipe.getIngredients().get(2));
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 58).addIngredients(recipe.getIngredients().get(3));
         builder.addSlot(RecipeIngredientRole.INPUT, 94, 58).addIngredients(recipe.getIngredients().get(4));
-
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).addItemStack(recipe.getResultItem(Objects.requireNonNull(Minecraft.getInstance().level).registryAccess()));
     }

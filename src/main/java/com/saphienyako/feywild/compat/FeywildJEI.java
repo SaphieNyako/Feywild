@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
+@SuppressWarnings("unused")
 @JeiPlugin
 public class FeywildJEI implements IModPlugin {
 
@@ -23,7 +23,6 @@ public class FeywildJEI implements IModPlugin {
     public @NotNull ResourceLocation getPluginUid() {
         return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "jei_plugin");
     }
-
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {

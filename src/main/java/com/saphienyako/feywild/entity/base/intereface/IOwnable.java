@@ -22,7 +22,6 @@ public interface IOwnable extends ITameable {
         return id == null ? null : this.getEntityLevel().getPlayerByUUID(id);
     }
 
-    // Can't use getLevel because of reobf
     Level getEntityLevel();
 
     @Override

@@ -22,7 +22,7 @@ public class BreedAbilityGoal extends Goal {
     private Animal partner;
     private int ticksLeft = 0;
 
-    private Level level;
+    private final Level level;
 
     public BreedAbilityGoal(PixieBase entity, Level level) {
         this.entity = entity;

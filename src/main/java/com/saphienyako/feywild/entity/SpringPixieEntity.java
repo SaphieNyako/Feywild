@@ -33,7 +33,7 @@ public class SpringPixieEntity extends PixieBase {
     }
 
     @Override
-   public Alignment getAligment() {
+   public Alignment getAlignment() {
         return Alignment.SPRING;
     }
 

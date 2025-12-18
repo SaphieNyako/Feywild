@@ -4,7 +4,7 @@ import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
-
+@SuppressWarnings("unused")
 public class WinterPixieAnimations {
     public static final AnimationDefinition POSE = AnimationDefinition.Builder.withLength(0.0F)
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.SCALE,

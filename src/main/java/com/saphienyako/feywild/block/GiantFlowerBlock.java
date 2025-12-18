@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.block;
 
+import com.saphienyako.feywild.config.FeywildConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -24,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 public abstract class GiantFlowerBlock extends Block {
     public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
     public static final VoxelShape FLOWER_SHAPE = box(1, 0, 1, 15, 15, 15);
-
     // 0 - 2 = stem, 3 = flower
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 3);
     public final int height;
@@ -35,18 +35,11 @@ public abstract class GiantFlowerBlock extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
     }
 
-
-
-
     @Override
     protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(PART);
     }
-
-
-
-
 
     @Override
 
@@ -54,24 +47,18 @@ public abstract class GiantFlowerBlock extends Block {
         return state.getValue(PART) == 3 ? FLOWER_SHAPE : STEM_SHAPE;
     }
 
-
     @Override
 
     public @NotNull VoxelShape getVisualShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return Shapes.empty();
     }
 
-
     @Override
-    @SuppressWarnings("deprecation")
     public @NotNull RenderShape getRenderShape(BlockState state) {
         return state.getValue(PART) == 1 || state.getValue(PART) == 3 ? RenderShape.MODEL : RenderShape.INVISIBLE;
     }
 
-
-
     @Override
-
     public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean moving) {
         if (oldState.getBlock() != newState.getBlock()) {
             this.removeOthers(level, oldState, pos);
@@ -85,10 +72,7 @@ public abstract class GiantFlowerBlock extends Block {
         return state.getValue(PART) == 3;
     }
 
-
-
     @Override
-
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         super.randomTick(state, level, pos, random);
         if (state.getValue(PART) == 3) this.tickFlower(state, level, pos, random);
@@ -98,8 +82,7 @@ public abstract class GiantFlowerBlock extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         super.animateTick(state, level, pos, random);
-        if (state.getValue(PART) == 3 /*&& ClientConfig.flower_particles */) this.animateFlower(state, level, pos, random);
-        //TODO add Config for particles
+        if (state.getValue(PART) == 3 && FeywildConfig.flowerParticles) this.animateFlower(state, level, pos, random);
     }
 
     protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
@@ -116,7 +99,6 @@ public abstract class GiantFlowerBlock extends Block {
         for (int i = 1; i <= blocksBelow; i++) {
             BlockPos target = pos.offset(0, -i, 0);
             if (level.getBlockState(target).getBlock() == this) {
-                // No block update
                 level.setBlock(target, Blocks.AIR.defaultBlockState(), 2);
             }
         }
@@ -124,7 +106,6 @@ public abstract class GiantFlowerBlock extends Block {
         for (int i = 1; i <= blocksAbove; i++) {
             BlockPos target = pos.offset(0, i, 0);
             if (level.getBlockState(target).getBlock() == this) {
-                // No block update
                 level.setBlock(target, Blocks.AIR.defaultBlockState(), 2);
             }
         }

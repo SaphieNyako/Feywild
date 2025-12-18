@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.screen.widget;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ToggleAbilityMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

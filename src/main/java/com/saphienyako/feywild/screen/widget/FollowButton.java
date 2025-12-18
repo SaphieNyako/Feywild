@@ -1,8 +1,6 @@
 package com.saphienyako.feywild.screen.widget;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.base.FeyBase;
-import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ToggleFollowPlayerMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -11,7 +9,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class FollowButton extends Button {

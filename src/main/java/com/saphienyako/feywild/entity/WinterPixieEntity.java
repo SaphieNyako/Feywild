@@ -32,7 +32,7 @@ public class WinterPixieEntity extends PixieBase {
     }
 
     @Override
-    public Alignment getAligment() {
+    public Alignment getAlignment() {
         return Alignment.WINTER;
     }
 

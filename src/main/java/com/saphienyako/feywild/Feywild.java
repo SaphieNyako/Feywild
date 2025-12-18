@@ -21,6 +21,8 @@ import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -34,22 +36,18 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 @Mod(Feywild.MOD_ID)
-
 public class Feywild
 {
     public static final String MOD_ID = "feywild";
-
-    private static Feywild instance;
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Feywild(IEventBus modEventBus, ModContainer modContainer) {
-        // Register the commonSetup method for modloading
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(FeywildNetwork::register);
@@ -66,38 +64,14 @@ public class Feywild
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
 
-
-        // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
-
         NeoForge.EVENT_BUS.register(new ModEventListener());
 
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
-
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-          modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
-        /*
-        if (Config.logDirtBlock)
-            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
-
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
-
-        */
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        //Added ModCreativeModeTab for the mod itself
+        LOGGER.info("THE FEY ARE PLEASED!");
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -106,22 +80,18 @@ public class Feywild
         event.put(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieEntity.getDefaultAttributes().build());
         event.put(ModEntities.WINTER_PIXIE.get(), WinterPixieEntity.getDefaultAttributes().build());
     }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        LOGGER.info("THEY FEY ARE PLEASE the server is starting");
     }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    @SuppressWarnings("unused")
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            // Some client setup code
-            // LOGGER.info("HELLO FROM CLIENT SETUP");
-            // LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            LOGGER.info("AND A LITTLE BIT OF PIXIE DUST!");
         }
 
         @SubscribeEvent
@@ -151,10 +121,16 @@ public class Feywild
 
         }
 
-
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
+        }
+        @SubscribeEvent
+        private static void spawnPlacement(RegisterSpawnPlacementsEvent event) {
+            event.register(ModEntities.SUMMER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }

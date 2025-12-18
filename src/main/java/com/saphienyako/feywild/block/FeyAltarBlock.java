@@ -6,7 +6,6 @@ import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -44,14 +43,13 @@ public class FeyAltarBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
     public int getLightEmission(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return 1;
-        //Solves Shadow problem, not solid solution
     }
 
     @Override
@@ -77,13 +75,11 @@ public class FeyAltarBlock extends BaseEntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     protected @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
         return  RenderShape.MODEL;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     protected @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
@@ -96,7 +92,7 @@ public class FeyAltarBlock extends BaseEntityBlock {
 
 
     @Override
-        public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean moving) {
+        public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean moving) {
         if (oldState.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof FeyAltarBlockEntity) {
@@ -114,11 +110,11 @@ public class FeyAltarBlock extends BaseEntityBlock {
             BlockEntity entity = level.getBlockEntity(pos);
             if (!player.getItemInHand(hand).isEmpty()) {
 
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider((FeyAltarBlockEntity)entity, Component.translatable("block.feywild.fey_altar")), pos);
+                player.openMenu(new SimpleMenuProvider((FeyAltarBlockEntity)entity, Component.translatable("block.feywild.fey_altar")), pos);
 
 
             } else if(entity instanceof FeyAltarBlockEntity) {
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider((FeyAltarBlockEntity)entity, Component.translatable("block.feywild.fey_altar")), pos);
+                player.openMenu(new SimpleMenuProvider((FeyAltarBlockEntity)entity, Component.translatable("block.feywild.fey_altar")), pos);
 
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
@@ -130,7 +126,7 @@ public class FeyAltarBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         if(level.isClientSide()) {
             return null;
         }
@@ -152,7 +148,7 @@ public class FeyAltarBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public PushReaction getPistonPushReaction(BlockState state) {
+    public PushReaction getPistonPushReaction(@NotNull BlockState state) {
         return PushReaction.BLOCK;
     }
 }

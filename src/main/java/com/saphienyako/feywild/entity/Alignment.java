@@ -23,18 +23,17 @@ public enum Alignment {
             default -> throw new IllegalArgumentException("Invalid fey alignment: " + id);
         };
     }
-
-        public static String optionId(Alignment alignment) {
+    @SuppressWarnings("unused")
+    public static String optionId(Alignment alignment) {
         return alignment == null ? "unaligned" : alignment.id;
     }
 
-
-        public static Alignment byOptionId(String id) {
+    @SuppressWarnings("unused")
+    public static Alignment byOptionId(String id) {
         try {
             return byId(id);
         } catch (IllegalArgumentException e) {
             return null;
         }
     }
-
-    }
+}

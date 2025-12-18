@@ -17,6 +17,7 @@ public class ModCreativeModeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Feywild.MOD_ID);
 
+    @SuppressWarnings("unused")
     public static final Supplier<CreativeModeTab> FEYWILD_TAB =
             CREATIVE_MODE_TABS.register("feywild_tab", () -> CreativeModeTab.builder()
                     .title(Component.translatable("creative_tab.feywild_creative_tab"))

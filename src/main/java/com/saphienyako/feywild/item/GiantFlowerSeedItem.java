@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
 public class GiantFlowerSeedItem extends Item {
     private final GiantFlowerBlock block;
@@ -35,8 +34,6 @@ public class GiantFlowerSeedItem extends Item {
             level.setBlock(pos.above(i), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);
         }
     }
-
-
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {

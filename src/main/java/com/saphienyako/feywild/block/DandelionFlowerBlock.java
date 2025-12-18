@@ -1,6 +1,5 @@
 package com.saphienyako.feywild.block;
 
-import com.saphienyako.feywild.network.AltarParticleMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -86,8 +85,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+    public float getDestroyProgress(BlockState state, @NotNull Player player, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return state.getValue(PART) == 3 && state.getValue(VARIANT) == 2 ? 1 : super.getDestroyProgress(state, player, level, pos);
     }
 

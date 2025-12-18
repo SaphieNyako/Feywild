@@ -1,30 +1,23 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.PixieBase;
-import com.saphienyako.feywild.item.ModItems;
-import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.*;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -32,15 +25,13 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
-import java.util.Random;
 
 public class GatherMobItemsGoal extends Goal {
 
     private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
 
     private final PixieBase entity;
-    private Level level;
+    private final Level level;
     private int ticksLeft = 0;
 
     private Animal targetMob;
@@ -133,8 +124,7 @@ public class GatherMobItemsGoal extends Goal {
         }
         return current;
     }
-
-
+    @SuppressWarnings("resource")
     protected void dropFromLootTable(Mob mob) {
         DamageSource source = entity.level().damageSources().magic();
 

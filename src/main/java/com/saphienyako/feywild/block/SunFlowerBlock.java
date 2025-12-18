@@ -20,8 +20,6 @@ public class SunFlowerBlock extends GiantFlowerBlock{
         super(height);
     }
 
-
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);

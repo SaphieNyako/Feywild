@@ -14,9 +14,10 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
+@SuppressWarnings("unused")
 @EventBusSubscriber(modid = Feywild.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerator {
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         net.minecraft.data.DataGenerator generator = event.getGenerator();

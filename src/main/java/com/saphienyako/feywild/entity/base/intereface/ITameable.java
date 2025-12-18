@@ -8,5 +8,6 @@ public interface ITameable {
     // ownables are only tamed if owned, so passing `true` here
     // will do nothing.
     // Returns whether it was successful.
+    @SuppressWarnings("unused")
     boolean trySetTamed(boolean tamed);
 }

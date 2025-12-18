@@ -15,7 +15,7 @@ public class FeywildPlayerData {
         }
         return persistent.getCompound(KEY);
     }
-
+    @SuppressWarnings("unused")
     public static void copy(Player source, Player target) {
         if (source.getPersistentData().contains(KEY, Tag.TAG_COMPOUND)) {
             target.getPersistentData().put(KEY, source.getPersistentData().getCompound(KEY).copy());

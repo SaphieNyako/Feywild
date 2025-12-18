@@ -5,7 +5,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
-
+@SuppressWarnings("unused")
 public class TameCheckingGoal extends Goal {
 
     private final ITameable entity;

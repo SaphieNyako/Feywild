@@ -14,7 +14,7 @@ public interface FlyingEntity {
     default void registerFlyingGoals(PathfinderMob self) {
         self.goalSelector.addGoal(50, new WaterAvoidingRandomFlyingGoal(self, 1));
     }
-    
+    @SuppressWarnings("resource")
     default void flyingTravel(PathfinderMob self, Vec3 position) {
         if (self.isInWater()) {
             self.moveRelative(0.02f, position);

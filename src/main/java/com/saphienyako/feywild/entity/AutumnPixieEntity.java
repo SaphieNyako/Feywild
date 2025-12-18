@@ -31,7 +31,7 @@ public class AutumnPixieEntity extends PixieBase {
     }
 
     @Override
-    public Alignment getAligment() {
+    public Alignment getAlignment() {
         return Alignment.AUTUMN;
     }
 

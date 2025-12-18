@@ -1,7 +1,7 @@
 package com.saphienyako.feywild.patchouli.processor;
 
 import com.saphienyako.feywild.patchouli.processor.base.FeywildProcessor;
-
+@SuppressWarnings("unused")
 public class SunFlowerProcessor extends FeywildProcessor {
     String recipeId = "feywild:giant_sun_flower_seed";
 

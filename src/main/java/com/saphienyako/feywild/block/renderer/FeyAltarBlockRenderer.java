@@ -14,8 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FeyAltarBlockRenderer implements BlockEntityRenderer<FeyAltarBlockEntity> {
+    @SuppressWarnings("unused")
     public FeyAltarBlockRenderer(BlockEntityRendererProvider.Context context) {
     }
 
@@ -52,7 +54,7 @@ public class FeyAltarBlockRenderer implements BlockEntityRenderer<FeyAltarBlockE
         ItemStack centerpiece = altar.getInventory().getStackInSlot(lastSlot);
         if (!centerpiece.isEmpty()) {
             poseStack.pushPose();
-            double time = (double) altar.getLevel().getGameTime() + partialTick;
+            double time = (double) Objects.requireNonNull(altar.getLevel()).getGameTime() + partialTick;
             double amplitude = 0.1;
             double ShiftY = Math.sin((time / 8)) * amplitude;
 
