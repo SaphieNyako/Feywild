@@ -1,10 +1,12 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.goals.IronPanicGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -106,6 +108,9 @@ public abstract class PixieBase extends FlyingFeyBase {
                     if (random.nextInt(6) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
+                        if(FeywildConfig.voicesActive) {
+                            this.playSound(ModSounds.SPRING_PIXIE_COOKIE.get());
+                        }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
                     }
@@ -131,6 +136,9 @@ public abstract class PixieBase extends FlyingFeyBase {
                 setCustomNameVisible(true);
                 if (!level().isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
+                    if(FeywildConfig.voicesActive && this.getVoiceActive()) {
+                        this.playSound(ModSounds.SPRING_PIXIE_NAME.get());
+                    }
                 }
 
                 //PIXIE ORB OPENS MENU
@@ -142,7 +150,8 @@ public abstract class PixieBase extends FlyingFeyBase {
                                 this.getAlignment(),
                                 this.getFollowingPlayer(),
                                 this.blockPosition(),
-                                this.getAbilityActive()
+                                this.getAbilityActive(),
+                                this.getVoiceActive()
                         )
                 );
 

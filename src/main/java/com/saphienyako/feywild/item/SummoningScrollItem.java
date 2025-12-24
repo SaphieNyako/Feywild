@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.item;
 
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.PixieBase;
@@ -69,7 +70,9 @@ public class SummoningScrollItem extends Item {
                             )
                     );
 
-                    //TODO add sound?
+                    if(FeywildConfig.voicesActive) {
+                        entity.playSound(entity.getSummonSound());
+                    }
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
                     }

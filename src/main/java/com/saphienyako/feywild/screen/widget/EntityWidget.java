@@ -25,14 +25,10 @@ public class EntityWidget extends AbstractWidget {
 
         int x1 = this.getX();
         int y1 = this.getY();
-        int x2 = x1 + this.width;
+        int x2 = x1 + (this.width * 2);
         int y2 = y1 + this.height + (int) (scale * 48 / 85);
 
         float yOffset = 0f;
-
-
-        float rotX = -(mouseX - (x1 + width / 2f));
-        float rotY = -(mouseY - (y1 + height / 2f));
 
         InventoryScreen.renderEntityInInventoryFollowsMouse(
                 graphics,
@@ -40,8 +36,8 @@ public class EntityWidget extends AbstractWidget {
                 x2, y2,
                 (int) scale,
                 yOffset,
-                rotX,
-                rotY,
+                mouseX,
+                mouseY,
                 this.entity
         );
     }

@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -42,8 +43,14 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
                     entity.setAbilityActive(msg.abilityActive());
                     if (!msg.abilityActive()) {
                         player.sendSystemMessage(entity.getFeyAbilityOffMessage());
+                        if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
+                            entity.playSound(entity.getAbilityOffSound());
+                        }
                     } else {
                         player.sendSystemMessage(entity.getFeyAbilityOnMessage());
+                        if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
+                            entity.playSound(entity.getAbilityOnSound());
+                        }
                     }
                 }
             }

@@ -45,6 +45,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     private boolean followingPlayer = false;
     private boolean abilityActive = false;
 
+    private boolean voiceActive = true;
+
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
@@ -129,6 +131,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         }
         nbt.putBoolean("FollowingPlayer", this.followingPlayer);
         nbt.putBoolean("AbilityActive", this.abilityActive);
+        nbt.putBoolean("VoiceActive", this.voiceActive);
     }
 
     @Override
@@ -140,7 +143,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 .orElse(null);
         this.followingPlayer = nbt.getBoolean("FollowingPlayer");
         this.abilityActive = nbt.getBoolean("AbilityActive");
-
+        this.voiceActive = nbt.getBoolean("VoiceActive");
     }
 
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
@@ -197,6 +200,10 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.abilityActive = abilityActive;
     }
 
+    public Boolean getVoiceActive() {return this.voiceActive;}
+
+    public void setVoiceActive(Boolean voiceActive){this.voiceActive = voiceActive;}
+
     @Override
     public Level getEntityLevel() {
         return this.level();
@@ -247,36 +254,26 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return false;
     }
 
-    @javax.annotation.Nullable
-    @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
-        return ModSounds.PIXIE_HURT.get();
-    }
-
-    @javax.annotation.Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return ModSounds.PIXIE_DEATH.get();
-    }
-
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        Random random = new Random();
-        if(random.nextFloat() < 0.1f){
-            return ModSounds.PIXIE_AMBIENT.get();
-        } else return null;
-
-    }
-
-    @Override
-    protected float getSoundVolume() {
-        return 0.6f;
-    }
-
     public abstract Alignment getAlignment();
 
     public abstract ItemLike getDismissItem();
+
+    public abstract SoundEvent getCookieSound();
+    public abstract SoundEvent getNameSound();
+
+    public abstract SoundEvent getSummonSound();
+
+    public abstract SoundEvent getDismissSound();
+
+    public abstract SoundEvent getFollowSound();
+
+    public abstract SoundEvent getStaySound();
+
+    public abstract SoundEvent getAbilityOnSound();
+
+    public abstract SoundEvent getAbilityOffSound();
+
+
     @SuppressWarnings("deprecation")
     public String getEntityName(){
         ResourceLocation id =this.getType().builtInRegistryHolder().key().location();

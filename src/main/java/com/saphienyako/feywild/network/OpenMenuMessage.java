@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record OpenMenuMessage(int entityId, Alignment alignment, boolean followingPlayer, BlockPos currentBlockPos, boolean abilityActive) implements CustomPacketPayload {
+public record OpenMenuMessage(int entityId, Alignment alignment, boolean followingPlayer, BlockPos currentBlockPos, boolean abilityActive, boolean voiceActive) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<OpenMenuMessage> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "open_menu"));
@@ -26,6 +26,7 @@ public record OpenMenuMessage(int entityId, Alignment alignment, boolean followi
         buf.writeBoolean(msg.followingPlayer());
         buf.writeBlockPos(msg.currentBlockPos());
         buf.writeBoolean(msg.abilityActive());
+        buf.writeBoolean(msg.voiceActive());
     }
 
     private static OpenMenuMessage decode(FriendlyByteBuf buf) {
@@ -34,7 +35,8 @@ public record OpenMenuMessage(int entityId, Alignment alignment, boolean followi
         boolean followingPlayer = buf.readBoolean();
         BlockPos currentBlockPos = buf.readBlockPos();
         boolean abilityActive = buf.readBoolean();
-        return new OpenMenuMessage(id, alignment, followingPlayer, currentBlockPos, abilityActive);
+        boolean voiceActive = buf.readBoolean();
+        return new OpenMenuMessage(id, alignment, followingPlayer, currentBlockPos, abilityActive, voiceActive);
     }
 
     public static void handle(OpenMenuMessage msg, IPayloadContext context) {
@@ -46,7 +48,8 @@ public record OpenMenuMessage(int entityId, Alignment alignment, boolean followi
                         msg.alignment(),
                         msg.followingPlayer(),
                         msg.currentBlockPos(),
-                        msg.abilityActive()
+                        msg.abilityActive(),
+                        msg.voiceActive()
                 ));
             }
         });

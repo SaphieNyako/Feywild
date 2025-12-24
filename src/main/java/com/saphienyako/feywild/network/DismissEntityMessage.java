@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -41,6 +42,9 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
                 if (entity != null) {
                     entity.spawnAtLocation(entity.getDismissItem());
                     player.sendSystemMessage(entity.getFeyDismissMessage());
+                    if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
+                        entity.playSound(entity.getDismissSound());
+                    }
                     PacketDistributor.sendToPlayersTrackingEntity(
                             entity,
                             new ParticleMessage(

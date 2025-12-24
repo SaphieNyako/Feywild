@@ -48,6 +48,12 @@ public class FeywildNetwork {
         );
 
         REGISTRAR.playToServer(
+                ToggleVoiceMessage.TYPE,
+                ToggleVoiceMessage.STREAM_CODEC,
+                ToggleVoiceMessage::handle
+        );
+
+        REGISTRAR.playToServer(
                 DismissEntityMessage.TYPE,
                 DismissEntityMessage.STREAM_CODEC,
                 DismissEntityMessage::handle

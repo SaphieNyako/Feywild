@@ -18,6 +18,8 @@ public class FeywildConfig {
 
     private static final ModConfigSpec.BooleanValue FLOWER_PARTICLES;
 
+    private static final ModConfigSpec.BooleanValue VOICES_ACTIVE;
+
     static {
         BUILDER
                 .comment("Feywild General Config")
@@ -34,6 +36,9 @@ public class FeywildConfig {
         FLOWER_PARTICLES = BUILDER
                 .comment("Whether giant flowers should have particles")
                 .define("flower_particles", true);
+        VOICES_ACTIVE = BUILDER
+                .comment("Whether fey should have voice acting on")
+                .define("voices_active", true);
 
         BUILDER.pop();
     }
@@ -44,6 +49,8 @@ public class FeywildConfig {
     public static boolean spawnWithLexicon;
 
     public static boolean flowerParticles;
+
+    public static boolean voicesActive;
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
@@ -56,6 +63,7 @@ public class FeywildConfig {
         feyDustDuration = FEY_DUST_DURATION.get();
         spawnWithLexicon = SPAWN_WITH_LEXICON.get();
         flowerParticles = FLOWER_PARTICLES.get();
+        voicesActive = VOICES_ACTIVE.get();
     }
 
 }
