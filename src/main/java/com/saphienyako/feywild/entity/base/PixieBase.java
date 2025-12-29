@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.goals.IronPanicGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
@@ -14,7 +15,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -95,7 +95,6 @@ public abstract class PixieBase extends FlyingFeyBase {
     @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        ItemStack stack = player.getItemInHand(hand);
         if (superResult == InteractionResult.PASS) {
 
                 //GIVE COOKIE, HEAL
@@ -106,6 +105,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                     if (random.nextInt(6) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
+                        this.playSound(this.getCookieSound());
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
                     }
@@ -122,22 +122,26 @@ public abstract class PixieBase extends FlyingFeyBase {
                 setCustomNameVisible(true);
                 if (!level().isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
+                    if(ModConfig.CLIENT.voices_active.get() && this.getVoiceActive()) {
+                        this.playSound(this.getNameSound());
+                    }
                 }
+
 
                 //PIXIE ORB OPENS MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                   FeywildNetwork.sendToPlayer(new OpenMenuMessage(
                                 this.getName(),
                                 this.getId(),
-                                this.getAligment(),
+                                this.getAlignment(),
                                 this.getFollowingPlayer(),
                                 this.blockPosition(),
-                                this.getAbilityActive()),
+                                this.getAbilityActive(),
+                                this.getVoiceActive()),
                         (ServerPlayer) player);
                 player.swing(hand, true);
             }
 
-            //TODO QUEST
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return superResult;
@@ -148,8 +152,6 @@ public abstract class PixieBase extends FlyingFeyBase {
         PixieBase.State[] states = PixieBase.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
-
-
 
     public void setState(PixieBase.State state) {
         this.entityData.set(STATE, state.ordinal());

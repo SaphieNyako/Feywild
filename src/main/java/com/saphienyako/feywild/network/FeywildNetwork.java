@@ -58,6 +58,12 @@ public class FeywildNetwork {
                 .consumerMainThread(ToggleAbilityMessage::handle)
                 .add();
 
+        net.messageBuilder(ToggleVoiceMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleVoiceMessage::decode)
+                .encoder(ToggleVoiceMessage::encode)
+                .consumerMainThread(ToggleVoiceMessage::handle)
+                .add();
+
         net.messageBuilder(DismissEntityMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DismissEntityMessage::decode)
                 .encoder(DismissEntityMessage::encode)

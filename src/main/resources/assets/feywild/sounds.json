@@ -1,6 +1,6 @@
 {
   "mandrake_scream": {
-    "subtitles": "sounds.feywild.mandrake_scream",
+    "subtitle": "sounds.feywild.mandrake_scream",
     "sounds": [
       "feywild:mandrake_scream"
     ]
@@ -14,33 +14,279 @@
   ]
   },
   "pixie_spell_casting": {
-    "subtitles": "sounds.feywild.pixie_spell_casting",
+    "subtitle": "sounds.feywild.pixie_spell_casting",
     "sounds": [
       "feywild:pixie_spell_casting"
     ]
   },
   "pixie_spell_casting_short": {
-    "subtitles": "sounds.feywild.pixie_spell_casting_short",
+    "subtitle": "sounds.feywild.pixie_spell_casting_short",
     "sounds": [
       "feywild:pixie_spell_casting_short"
     ]
   },
-  "pixie_ambient": {
-    "subtitles": "sounds.feywild.pixie_ambient",
+  "winter_pixie_giggle": {
+    "subtitle": "sounds.feywild.pixie_giggle",
     "sounds": [
-      "feywild:pixie_ambient"
+      "feywild:winter_pixie_giggle"
     ]
   },
-  "pixie_hurt": {
-    "subtitles": "sounds.feywild.pixie_hurt",
+  "winter_pixie_hurt": {
+    "subtitle": "sounds.feywild.pixie_hurt",
     "sounds": [
-      "feywild:pixie_hurt"
+      "feywild:winter_pixie_hurt"
     ]
   },
-  "pixie_death": {
-    "subtitles": "sounds.feywild.pixie_death",
+  "winter_pixie_death": {
+    "subtitle": "sounds.feywild.pixie_death",
     "sounds": [
-      "feywild:pixie_death"
+      "feywild:winter_pixie_death"
+    ]
+  },
+  "winter_pixie_cookie": {
+    "subtitle": "message.feywild.winter_pixie_cookie",
+    "sounds": [
+      "feywild:winter_pixie_cookie"
+    ]
+  },
+  "winter_pixie_name": {
+    "subtitle": "message.feywild.winter_pixie_name",
+    "sounds": [
+      "feywild:winter_pixie_name"
+    ]
+  },
+  "winter_pixie_summon": {
+    "subtitle": "message.feywild.winter_pixie_summon",
+    "sounds": [
+      "feywild:winter_pixie_summon"
+    ]
+  },
+  "winter_pixie_dismiss": {
+    "subtitle": "message.feywild.winter_pixie_dismiss",
+    "sounds": [
+      "feywild:winter_pixie_dismiss"
+    ]
+  },
+  "winter_pixie_follow": {
+    "subtitle": "message.feywild.winter_pixie_follow",
+    "sounds": [
+      "feywild:winter_pixie_follow"
+    ]
+  },
+  "winter_pixie_stay": {
+    "subtitle": "message.feywild.winter_pixie_stay",
+    "sounds": [
+      "feywild:winter_pixie_stay"
+    ]
+  },
+  "winter_pixie_ability_on": {
+    "subtitle": "message.feywild.winter_pixie_ability_on",
+    "sounds": [
+      "feywild:winter_pixie_ability_on"
+    ]
+  },
+  "winter_pixie_ability_off": {
+    "subtitle": "message.feywild.winter_pixie_ability_off",
+    "sounds": [
+      "feywild:winter_pixie_ability_off"
+    ]
+  },
+  "summer_pixie_giggle": {
+    "subtitle": "sounds.feywild.pixie_giggle",
+    "sounds": [
+      "feywild:summer_pixie_giggle"
+    ]
+  },
+  "summer_pixie_hurt": {
+    "subtitle": "sounds.feywild.pixie_hurt",
+    "sounds": [
+      "feywild:summer_pixie_hurt"
+    ]
+  },
+  "summer_pixie_death": {
+    "subtitle": "sounds.feywild.pixie_death",
+    "sounds": [
+      "feywild:summer_pixie_death"
+    ]
+  },
+  "summer_pixie_cookie": {
+    "subtitle": "message.feywild.summer_pixie_cookie",
+    "sounds": [
+      "feywild:summer_pixie_cookie"
+    ]
+  },
+  "summer_pixie_name": {
+    "subtitle": "message.feywild.summer_pixie_name",
+    "sounds": [
+      "feywild:summer_pixie_name"
+    ]
+  },
+  "summer_pixie_summon": {
+    "subtitle": "message.feywild.summer_pixie_summon",
+    "sounds": [
+      "feywild:summer_pixie_summon"
+    ]
+  },
+  "summer_pixie_dismiss": {
+    "subtitle": "message.feywild.summer_pixie_dismiss",
+    "sounds": [
+      "feywild:summer_pixie_dismiss"
+    ]
+  },
+  "summer_pixie_follow": {
+    "subtitle": "message.feywild.summer_pixie_follow",
+    "sounds": [
+      "feywild:summer_pixie_follow"
+    ]
+  },
+  "summer_pixie_stay": {
+    "subtitle": "message.feywild.summer_pixie_stay",
+    "sounds": [
+      "feywild:summer_pixie_stay"
+    ]
+  },
+  "summer_pixie_ability_on": {
+    "subtitle": "message.feywild.summer_pixie_ability_on",
+    "sounds": [
+      "feywild:summer_pixie_ability_on"
+    ]
+  },
+  "summer_pixie_ability_off": {
+    "subtitle": "message.feywild.summer_pixie_ability_off",
+    "sounds": [
+      "feywild:summer_pixie_ability_off"
+    ]
+  },
+  "spring_pixie_giggle": {
+    "subtitle": "sounds.feywild.pixie_giggle",
+    "sounds": [
+      "feywild:spring_pixie_giggle"
+    ]
+  },
+  "spring_pixie_hurt": {
+    "subtitle": "sounds.feywild.pixie_hurt",
+    "sounds": [
+      "feywild:spring_pixie_hurt"
+    ]
+  },
+  "spring_pixie_death": {
+    "subtitle": "sounds.feywild.pixie_death",
+    "sounds": [
+      "feywild:spring_pixie_death"
+    ]
+  },
+  "spring_pixie_cookie": {
+    "subtitle": "message.feywild.spring_pixie_cookie",
+    "sounds": [
+      "feywild:spring_pixie_cookie"
+    ]
+  },
+  "spring_pixie_name": {
+    "subtitle": "message.feywild.spring_pixie_name",
+    "sounds": [
+      "feywild:spring_pixie_name"
+    ]
+  },
+  "spring_pixie_summon": {
+    "subtitle": "message.feywild.spring_pixie_summon",
+    "sounds": [
+      "feywild:spring_pixie_summon"
+    ]
+  },
+  "spring_pixie_dismiss": {
+    "subtitle": "message.feywild.spring_pixie_dismiss",
+    "sounds": [
+      "feywild:spring_pixie_dismiss"
+    ]
+  },
+  "spring_pixie_follow": {
+    "subtitle": "message.feywild.spring_pixie_follow",
+    "sounds": [
+      "feywild:spring_pixie_follow"
+    ]
+  },
+  "spring_pixie_stay": {
+    "subtitle": "message.feywild.spring_pixie_stay",
+    "sounds": [
+      "feywild:spring_pixie_stay"
+    ]
+  },
+  "spring_pixie_ability_on": {
+    "subtitle": "message.feywild.spring_pixie_ability_on",
+    "sounds": [
+      "feywild:spring_pixie_ability_on"
+    ]
+  },
+  "spring_pixie_ability_off": {
+    "subtitle": "message.feywild.spring_pixie_ability_off",
+    "sounds": [
+      "feywild:spring_pixie_ability_off"
+    ]
+  },
+  "autumn_pixie_giggle": {
+    "subtitle": "sounds.feywild.pixie_giggle",
+    "sounds": [
+      "feywild:autumn_pixie_giggle"
+    ]
+  },
+  "autumn_pixie_hurt": {
+    "subtitle": "sounds.feywild.pixie_hurt",
+    "sounds": [
+      "feywild:autumn_pixie_hurt"
+    ]
+  },
+  "autumn_pixie_death": {
+    "subtitle": "sounds.feywild.pixie_death",
+    "sounds": [
+      "feywild:autumn_pixie_death"
+    ]
+  },
+  "autumn_pixie_cookie": {
+    "subtitle": "message.feywild.autumn_pixie_cookie",
+    "sounds": [
+      "feywild:autumn_pixie_cookie"
+    ]
+  },
+  "autumn_pixie_name": {
+    "subtitle": "message.feywild.autumn_pixie_name",
+    "sounds": [
+      "feywild:autumn_pixie_name"
+    ]
+  },
+  "autumn_pixie_summon": {
+    "subtitle": "message.feywild.autumn_pixie_summon",
+    "sounds": [
+      "feywild:autumn_pixie_summon"
+    ]
+  },
+  "autumn_pixie_dismiss": {
+    "subtitle": "message.feywild.autumn_pixie_dismiss",
+    "sounds": [
+      "feywild:autumn_pixie_dismiss"
+    ]
+  },
+  "autumn_pixie_follow": {
+    "subtitle": "message.feywild.autumn_pixie_follow",
+    "sounds": [
+      "feywild:autumn_pixie_follow"
+    ]
+  },
+  "autumn_pixie_stay": {
+    "subtitle": "message.feywild.autumn_pixie_stay",
+    "sounds": [
+      "feywild:autumn_pixie_stay"
+    ]
+  },
+  "autumn_pixie_ability_on": {
+    "subtitle": "message.feywild.autumn_pixie_ability_on",
+    "sounds": [
+      "feywild:autumn_pixie_ability_on"
+    ]
+  },
+  "autumn_pixie_ability_off": {
+    "subtitle": "message.feywild.autumn_pixie_ability_off",
+    "sounds": [
+      "feywild:autumn_pixie_ability_off"
     ]
   }
 }

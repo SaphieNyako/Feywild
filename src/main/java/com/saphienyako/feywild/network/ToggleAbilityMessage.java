@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.network;
 
+import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -34,8 +35,14 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
                 entity.setAbilityActive(this.abilityActive);
                 if(!this.abilityActive){
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOffMessage());
+                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
+                        entity.playSound(entity.getAbilityOffSound());
+                    }
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOnMessage());
+                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
+                        entity.playSound(entity.getAbilityOnSound());
+                    }
                 }
             }
         }

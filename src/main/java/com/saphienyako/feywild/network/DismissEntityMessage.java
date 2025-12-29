@@ -1,7 +1,9 @@
 package com.saphienyako.feywild.network;
 
+import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
@@ -30,6 +32,9 @@ public record DismissEntityMessage(int entityId) {
             if(entity != null) {
                 entity.spawnAtLocation(entity.getDismissItem());
                 Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyDismissMessage());
+                if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
+                    entity.playSound(entity.getDismissSound());
+                }
                 FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, entity.blockPosition().above());
                 entity.remove(Entity.RemovalReason.DISCARDED);
             }
