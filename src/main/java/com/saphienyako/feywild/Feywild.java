@@ -57,6 +57,7 @@ public class Feywild
     private static Feywild instance;
     private static final Logger LOGGER = LogUtils.getLogger();
 
+    @SuppressWarnings("removal")
     public Feywild() {
 
         instance = this;
@@ -116,6 +117,7 @@ public class Feywild
         });
     }
 
+    @SuppressWarnings("removal")
     private void addConfig(){
         ModLoadingContext.get().registerConfig(
                 ModConfig.Type.COMMON,

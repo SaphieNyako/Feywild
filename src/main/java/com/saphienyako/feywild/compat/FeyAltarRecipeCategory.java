@@ -50,6 +50,7 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
 
     @Nullable
     @Override
+    @SuppressWarnings("removal")
     public IDrawable getBackground() {
         return this.background;
     }
