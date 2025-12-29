@@ -31,10 +31,6 @@ public class WinterPixieEntity extends PixieBase {
         super.registerGoals();
         this.goalSelector.addGoal(20, new GatherMobItemsGoal(this, this.level()));
     }
-    @Override
-    protected MobEffect getMobEffect() {
-        return ModEffects.WINTER_BLESSING.get();
-    }
 
     @Nullable
     @Override

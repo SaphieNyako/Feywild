@@ -34,10 +34,6 @@ public class AutumnPixieEntity extends PixieBase {
         return ModParticles.AUTUMN_SPARKLE_PARTICLE.get();
     }
 
-    @Override
-    protected MobEffect getMobEffect() {
-        return ModEffects.AUTUMN_BLESSING.get();
-    }
 
     @Override
     public Alignment getAligment() {

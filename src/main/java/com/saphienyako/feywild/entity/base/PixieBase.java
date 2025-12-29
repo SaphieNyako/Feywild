@@ -144,8 +144,6 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
     }
 
-    protected abstract MobEffect getMobEffect();
-
     public PixieBase.State getState() {
         PixieBase.State[] states = PixieBase.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];

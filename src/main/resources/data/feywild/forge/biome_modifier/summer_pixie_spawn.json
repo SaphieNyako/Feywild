@@ -1,6 +1,12 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "#forge:is_hot/overworld",
+  "biomes": [
+    "minecraft:desert",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:badlands",
+    "minecraft:eroded_badlands"
+  ],
   "spawners": {
     "type": "feywild:summer_pixie",
     "maxCount": 1,

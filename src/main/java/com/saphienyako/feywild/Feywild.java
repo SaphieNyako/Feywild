@@ -3,7 +3,7 @@ package com.saphienyako.feywild;
 import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
-import com.saphienyako.feywild.block.renderer.FairyAltarBlockRenderer;
+import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
@@ -143,8 +143,8 @@ public class Feywild
             EntityRenderers.register(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
             EntityRenderers.register(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
             EntityRenderers.register(ModEntities.WINTER_PIXIE.get(), WinterPixieRenderer::new);
-            BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FairyAltarBlockRenderer::new);
-            MenuScreens.register(ModMenuTypes.FAIRY_ALTAR_MENU.get(), FeyAltarScreen::new);
+            BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
+            MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
         }
     }
 
