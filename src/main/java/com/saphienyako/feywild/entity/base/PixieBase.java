@@ -100,7 +100,6 @@ public abstract class PixieBase extends FlyingFeyBase {
 
             // GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                // Always do server-side logic on the server
                 if (!level().isClientSide) {
                     this.heal(3);
 
@@ -108,8 +107,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                         Random random = new Random();
                         if (random.nextInt(6) == 0) {
                             this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
-                            this.playSound(SoundEvents.ENDERMAN_TELEPORT); // server sound for all nearby
-                            // Send a packet to the client to play the cookie sound if their config allows
+                            this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                             FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getCookieSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
 
                             this.discard();
@@ -131,7 +129,6 @@ public abstract class PixieBase extends FlyingFeyBase {
 
                 if (!level().isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
-                    // Play sound only on client via packet
                     if (this.getVoiceActive()) {
                         FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getNameSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
                     }
