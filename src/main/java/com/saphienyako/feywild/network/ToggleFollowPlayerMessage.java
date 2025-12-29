@@ -38,13 +38,17 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
                 if(!this.followingPlayer) {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyStayMessage());
                     if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        entity.playSound(entity.getStaySound());
+                        FeywildNetwork.sendToPlayer(
+                                new PlaySoundMessage(entity.getStaySound().getLocation(), entity.blockPosition()),
+                                supplier.get().getSender());
                     }
                     entity.setSummonPos(this.currentBlockPos);
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyFollowMessage());
                     if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        entity.playSound(entity.getFollowSound());
+                        FeywildNetwork.sendToPlayer(
+                                new PlaySoundMessage(entity.getFollowSound().getLocation(), entity.blockPosition()),
+                                supplier.get().getSender());
                     }
                 }
             }

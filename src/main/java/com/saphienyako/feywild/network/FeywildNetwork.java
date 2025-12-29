@@ -46,6 +46,12 @@ public class FeywildNetwork {
                 .consumerMainThread(OpenMenuMessage::handle)
                 .add();
 
+        net.messageBuilder(PlaySoundMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PlaySoundMessage::decode)
+                .encoder(PlaySoundMessage::encode)
+                .consumerMainThread(PlaySoundMessage::handle)
+                .add();
+
         net.messageBuilder(ToggleFollowPlayerMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ToggleFollowPlayerMessage::decode)
                 .encoder(ToggleFollowPlayerMessage::encode)

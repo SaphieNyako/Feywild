@@ -33,12 +33,13 @@ public record DismissEntityMessage(int entityId) {
                 entity.spawnAtLocation(entity.getDismissItem());
                 Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyDismissMessage());
                 if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                    entity.playSound(entity.getDismissSound());
+                    FeywildNetwork.sendToPlayer(
+                            new PlaySoundMessage(entity.getDismissSound().getLocation(), entity.blockPosition()),
+                            supplier.get().getSender());
                 }
                 FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, entity.blockPosition().above());
                 entity.remove(Entity.RemovalReason.DISCARDED);
             }
         }
     }
-
 }

@@ -7,6 +7,7 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.network.PlaySoundMessage;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -97,36 +98,44 @@ public abstract class PixieBase extends FlyingFeyBase {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
 
-                //GIVE COOKIE, HEAL
+            // GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                this.heal(3);
-                if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
-                    Random random = new Random();
-                    if (random.nextInt(6) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
-                        this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                        this.playSound(this.getCookieSound());
-                        this.discard();
-                        player.sendSystemMessage(getFeyCookieMessage());
-                    }
-                }
-                if (!player.isCreative()) {
-                    player.getItemInHand(hand).shrink(1);
-                }
-                FeywildNetwork.sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getOnPos());
-                player.swing(hand, true);
+                // Always do server-side logic on the server
+                if (!level().isClientSide) {
+                    this.heal(3);
 
-                //NAME TAG
+                    if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
+                        Random random = new Random();
+                        if (random.nextInt(6) == 0) {
+                            this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
+                            this.playSound(SoundEvents.ENDERMAN_TELEPORT); // server sound for all nearby
+                            // Send a packet to the client to play the cookie sound if their config allows
+                            FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getCookieSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
+
+                            this.discard();
+                            player.sendSystemMessage(getFeyCookieMessage());
+                        }
+                    }
+
+                    if (!player.isCreative()) {
+                        player.getItemInHand(hand).shrink(1);
+                    }
+
+                    FeywildNetwork.sendParticles(this.level(), ParticleMessage.Type.FEY_HEART, this.getOnPos());
+                    player.swing(hand, true);
+                }
+                // NAME TAG
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
+
                 if (!level().isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
-                    if(ModConfig.CLIENT.voices_active.get() && this.getVoiceActive()) {
-                        this.playSound(this.getNameSound());
+                    // Play sound only on client via packet
+                    if (this.getVoiceActive()) {
+                        FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getNameSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
                     }
                 }
-
 
                 //PIXIE ORB OPENS MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {

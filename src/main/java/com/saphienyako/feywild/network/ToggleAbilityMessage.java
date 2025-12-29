@@ -36,12 +36,16 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
                 if(!this.abilityActive){
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOffMessage());
                     if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        entity.playSound(entity.getAbilityOffSound());
+                        FeywildNetwork.sendToPlayer(
+                                new PlaySoundMessage(entity.getAbilityOffSound().getLocation(), entity.blockPosition()),
+                                supplier.get().getSender());
                     }
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOnMessage());
                     if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        entity.playSound(entity.getAbilityOnSound());
+                        FeywildNetwork.sendToPlayer(
+                                new PlaySoundMessage(entity.getAbilityOnSound().getLocation(), entity.blockPosition()),
+                                supplier.get().getSender());
                     }
                 }
             }
