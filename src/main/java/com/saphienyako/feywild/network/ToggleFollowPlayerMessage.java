@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,7 +41,7 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
             if (player.level().isClientSide) return;
 
             Level level = player.level();
-            if (msg.entityId() != -1) {
+            if (!level.isClientSide && msg.entityId() != -1) {
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (entity != null) {
                     entity.setFollowingPlayer(msg.followingPlayer());
@@ -48,13 +49,19 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
                     if (!msg.followingPlayer()) {
                         player.sendSystemMessage(entity.getFeyStayMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            entity.playSound(entity.getStaySound());
+                            PacketDistributor.sendToPlayersTrackingEntity(
+                                    entity,
+                                    new PlaySoundMessage(entity.getStaySound(), entity.blockPosition())
+                            );
                         }
                         entity.setSummonPos(msg.currentBlockPos());
                     } else {
                         player.sendSystemMessage(entity.getFeyFollowMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            entity.playSound(entity.getFollowSound());
+                            PacketDistributor.sendToPlayersTrackingEntity(
+                                    entity,
+                                    new PlaySoundMessage(entity.getFollowSound(), entity.blockPosition())
+                            );
                         }
                     }
                 }

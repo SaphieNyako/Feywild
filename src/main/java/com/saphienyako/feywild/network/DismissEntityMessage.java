@@ -37,13 +37,16 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
             if (player.level().isClientSide) return;
 
             Level level = player.level();
-            if (msg.entityId() != -1) {
+            if (!level.isClientSide && msg.entityId() != -1) {
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (entity != null) {
                     entity.spawnAtLocation(entity.getDismissItem());
                     player.sendSystemMessage(entity.getFeyDismissMessage());
                     if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                        entity.playSound(entity.getDismissSound());
+                        PacketDistributor.sendToPlayersTrackingEntity(
+                                entity,
+                                new PlaySoundMessage(entity.getDismissSound(), entity.blockPosition())
+                        );
                     }
                     PacketDistributor.sendToPlayersTrackingEntity(
                             entity,

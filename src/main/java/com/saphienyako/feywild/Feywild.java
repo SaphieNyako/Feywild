@@ -68,7 +68,9 @@ public class Feywild
         NeoForge.EVENT_BUS.register(new ModEventListener());
 
         modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, FeywildConfig.CLIENT_SPEC);
     }
+
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("THE FEY ARE PLEASED!");

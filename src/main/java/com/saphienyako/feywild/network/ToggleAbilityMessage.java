@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,19 +38,25 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
             if (player.level().isClientSide) return;
 
             Level level = player.level();
-            if (msg.entityId() != -1) {
+            if (!level.isClientSide && msg.entityId() != -1) {
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (entity != null) {
                     entity.setAbilityActive(msg.abilityActive());
                     if (!msg.abilityActive()) {
                         player.sendSystemMessage(entity.getFeyAbilityOffMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            entity.playSound(entity.getAbilityOffSound());
+                            PacketDistributor.sendToPlayersTrackingEntity(
+                                    entity,
+                                    new PlaySoundMessage(entity.getAbilityOffSound(), entity.blockPosition())
+                            );
                         }
                     } else {
                         player.sendSystemMessage(entity.getFeyAbilityOnMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            entity.playSound(entity.getAbilityOnSound());
+                            PacketDistributor.sendToPlayersTrackingEntity(
+                                    entity,
+                                    new PlaySoundMessage(entity.getAbilityOnSound(), entity.blockPosition())
+                            );
                         }
                     }
                 }

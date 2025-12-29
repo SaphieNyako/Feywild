@@ -6,6 +6,7 @@ import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.network.PlaySoundMessage;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -109,7 +110,8 @@ public abstract class PixieBase extends FlyingFeyBase {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         if(FeywildConfig.voicesActive) {
-                            this.playSound(ModSounds.SPRING_PIXIE_COOKIE.get());
+                            PacketDistributor.sendToPlayer((ServerPlayer) player,
+                                    new PlaySoundMessage(ModSounds.SPRING_PIXIE_COOKIE.get(), this.blockPosition()));
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -137,7 +139,8 @@ public abstract class PixieBase extends FlyingFeyBase {
                 if (!level().isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
                     if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        this.playSound(ModSounds.SPRING_PIXIE_NAME.get());
+                        PacketDistributor.sendToPlayer((ServerPlayer) player,
+                                new PlaySoundMessage(ModSounds.SPRING_PIXIE_NAME.get(), this.blockPosition()));
                     }
                 }
 

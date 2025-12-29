@@ -11,46 +11,60 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 @EventBusSubscriber(modid = Feywild.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class FeywildConfig {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    //COMMON
+    private static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec COMMON_SPEC;
 
     private static final ModConfigSpec.IntValue FEY_DUST_DURATION;
     private static final ModConfigSpec.BooleanValue SPAWN_WITH_LEXICON;
 
-    private static final ModConfigSpec.BooleanValue FLOWER_PARTICLES;
-
-    private static final ModConfigSpec.BooleanValue VOICES_ACTIVE;
-
-    static {
-        BUILDER
-                .comment("Feywild General Config")
-                .push("feywild");
-
-        FEY_DUST_DURATION = BUILDER
-                .comment("The duration in ticks for the levitation effect applied by fey dust. (Minimum: 1)")
-                .defineInRange("fey_dust_duration", 30, 1, 100);
-
-        SPAWN_WITH_LEXICON = BUILDER
-                .comment("Whether players should spawn with a Feywild Lexicon")
-                .define("spawn_with_lexicon", true);
-
-        FLOWER_PARTICLES = BUILDER
-                .comment("Whether giant flowers should have particles")
-                .define("flower_particles", true);
-        VOICES_ACTIVE = BUILDER
-                .comment("Whether fey should have voice acting on")
-                .define("voices_active", true);
-
-        BUILDER.pop();
-    }
-
-    public static final ModConfigSpec COMMON_SPEC = BUILDER.build();
-
     public static int feyDustDuration;
     public static boolean spawnWithLexicon;
 
-    public static boolean flowerParticles;
+    //CLIENT
+    private static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec CLIENT_SPEC;
 
+    private static final ModConfigSpec.BooleanValue FLOWER_PARTICLES;
+    private static final ModConfigSpec.BooleanValue VOICES_ACTIVE;
+
+    public static boolean flowerParticles;
     public static boolean voicesActive;
+
+    static {
+        //COMMON
+        COMMON_BUILDER
+                .comment("Feywild General Config")
+                .push("feywild");
+
+        FEY_DUST_DURATION = COMMON_BUILDER
+                .comment("The duration in ticks for the levitation effect applied by fey dust. (Minimum: 1)")
+                .defineInRange("fey_dust_duration", 30, 1, 100);
+
+        SPAWN_WITH_LEXICON = COMMON_BUILDER
+                .comment("Whether players should spawn with a Feywild Lexicon")
+                .define("spawn_with_lexicon", true);
+
+        COMMON_BUILDER.pop();
+        COMMON_SPEC = COMMON_BUILDER.build();
+
+        //CLIENT
+        CLIENT_BUILDER
+                .comment("Feywild Client Config")
+                .push("client");
+
+        FLOWER_PARTICLES = CLIENT_BUILDER
+                .comment("Whether giant flowers should have particles")
+                .define("flower_particles", true);
+
+        VOICES_ACTIVE = CLIENT_BUILDER
+                .comment("Whether fey should have voice acting on")
+                .define("voices_active", true);
+
+        CLIENT_BUILDER.pop();
+        CLIENT_SPEC = CLIENT_BUILDER.build();
+
+    }
 
     private static boolean validateItemName(final Object obj) {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
@@ -58,12 +72,16 @@ public class FeywildConfig {
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
-        if (event.getConfig().getSpec() != COMMON_SPEC) return;
 
-        feyDustDuration = FEY_DUST_DURATION.get();
-        spawnWithLexicon = SPAWN_WITH_LEXICON.get();
-        flowerParticles = FLOWER_PARTICLES.get();
-        voicesActive = VOICES_ACTIVE.get();
+        if (event.getConfig().getSpec() == COMMON_SPEC) {
+            feyDustDuration = FEY_DUST_DURATION.get();
+            spawnWithLexicon = SPAWN_WITH_LEXICON.get();
+        }
+
+        if (event.getConfig().getSpec() == CLIENT_SPEC) {
+            flowerParticles = FLOWER_PARTICLES.get();
+            voicesActive = VOICES_ACTIVE.get();
+        }
     }
 
 }

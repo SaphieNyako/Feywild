@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
@@ -32,9 +33,15 @@ public class FeywildNetwork {
                 OpenMenuMessage::handle
         );
 
+        REGISTRAR.playToClient(
+                PlaySoundMessage.TYPE,
+                PlaySoundMessage.STREAM_CODEC,
+                PlaySoundMessage::handle
+        );
+
+
 
         // Server
-
         REGISTRAR.playToServer(
                 ToggleFollowPlayerMessage.TYPE,
                 ToggleFollowPlayerMessage.STREAM_CODEC,
