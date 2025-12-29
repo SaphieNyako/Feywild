@@ -39,7 +39,7 @@ public record PlaySoundMessage(SoundEvent sound, BlockPos pos) implements Custom
 
     public static void handle(PlaySoundMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            Level level = Minecraft.getInstance().level;
+            Level level = context.player().level();
             if (level != null) {
                 level.playLocalSound(
                         msg.pos().getX() + 0.5, msg.pos().getY() + 0.5, msg.pos().getZ() + 0.5,

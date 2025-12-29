@@ -111,7 +111,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         if(FeywildConfig.voicesActive) {
                             PacketDistributor.sendToPlayer((ServerPlayer) player,
-                                    new PlaySoundMessage(ModSounds.SPRING_PIXIE_COOKIE.get(), this.blockPosition()));
+                                    new PlaySoundMessage(this.getCookieSound(), this.blockPosition()));
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -140,7 +140,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                     player.sendSystemMessage(getFeyNameMessage());
                     if(FeywildConfig.voicesActive && this.getVoiceActive()) {
                         PacketDistributor.sendToPlayer((ServerPlayer) player,
-                                new PlaySoundMessage(ModSounds.SPRING_PIXIE_NAME.get(), this.blockPosition()));
+                                new PlaySoundMessage(this.getNameSound(), this.blockPosition()));
                     }
                 }
 
