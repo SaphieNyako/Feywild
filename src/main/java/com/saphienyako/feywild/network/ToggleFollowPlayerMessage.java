@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.network;
 
+import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,9 +37,19 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
 
                 if(!this.followingPlayer) {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyStayMessage());
+                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
+                        FeywildNetwork.sendToPlayer(
+                                new PlaySoundMessage(entity.getStaySound().getLocation(), entity.blockPosition()),
+                                supplier.get().getSender());
+                    }
                     entity.setSummonPos(this.currentBlockPos);
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyFollowMessage());
+                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
+                        FeywildNetwork.sendToPlayer(
+                                new PlaySoundMessage(entity.getFollowSound().getLocation(), entity.blockPosition()),
+                                supplier.get().getSender());
+                    }
                 }
             }
         }

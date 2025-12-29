@@ -40,6 +40,12 @@ public class FeywildNetwork {
                 .consumerMainThread(AltarParticleMessage::handle)
                 .add();
 
+        net.messageBuilder(PlaySoundMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(PlaySoundMessage::decode)
+                .encoder(PlaySoundMessage::encode)
+                .consumerMainThread(PlaySoundMessage::handle)
+                .add();
+
         net.messageBuilder(OpenMenuMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(OpenMenuMessage::decode)
                 .encoder(OpenMenuMessage::encode)
@@ -56,6 +62,12 @@ public class FeywildNetwork {
                 .decoder(ToggleAbilityMessage::decode)
                 .encoder(ToggleAbilityMessage::encode)
                 .consumerMainThread(ToggleAbilityMessage::handle)
+                .add();
+
+        net.messageBuilder(ToggleVoiceMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleVoiceMessage::decode)
+                .encoder(ToggleVoiceMessage::encode)
+                .consumerMainThread(ToggleVoiceMessage::handle)
                 .add();
 
         net.messageBuilder(DismissEntityMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)

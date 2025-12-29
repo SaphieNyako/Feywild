@@ -21,13 +21,16 @@ public class FeyMenuScreen extends Screen {
     private boolean followingPlayer;
     private BlockPos currentBlockPos;
     private boolean abilityActive;
-    public FeyMenuScreen(Component name, int entityId, Alignment alignment, boolean followingPlayer, BlockPos currentBlockPos, boolean abilityActive) {
+    private boolean voiceActive;
+
+    public FeyMenuScreen(Component name, int entityId, Alignment alignment, boolean followingPlayer, BlockPos currentBlockPos, boolean abilityActive, boolean voiceActive) {
         super(name);
         this.entityId = entityId;
         this.alignment = alignment;
         this.followingPlayer = followingPlayer;
         this.currentBlockPos = currentBlockPos;
         this.abilityActive = abilityActive;
+        this.voiceActive = voiceActive;
     }
 
     @Override
@@ -47,6 +50,9 @@ public class FeyMenuScreen extends Screen {
                 this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
                 this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
                 // TODO Button Quest
+                //if(ModConfig.CLIENT.voices_active.get()) {
+                    this.addRenderableWidget(new VolumeButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH) / 2), this.top + 28 + AbilityButton.HEIGHT * 6, this.voiceActive, this.entityId));
+               // }
             }
         }
     }

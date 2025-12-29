@@ -6,6 +6,7 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.network.PlaySoundMessage;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,7 +15,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -95,56 +95,63 @@ public abstract class PixieBase extends FlyingFeyBase {
     @OverridingMethodsMustInvokeSuper
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        ItemStack stack = player.getItemInHand(hand);
         if (superResult == InteractionResult.PASS) {
 
-                //GIVE COOKIE, HEAL
+            // GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                this.heal(3);
-                if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
-                    Random random = new Random();
-                    if (random.nextInt(6) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
-                        this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                        this.discard();
-                        player.sendSystemMessage(getFeyCookieMessage());
-                    }
-                }
-                if (!player.isCreative()) {
-                    player.getItemInHand(hand).shrink(1);
-                }
-                FeywildNetwork.sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getOnPos());
-                player.swing(hand, true);
+                if (!level.isClientSide) {
+                    this.heal(3);
 
-                //NAME TAG
+                    if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
+                        Random random = new Random();
+                        if (random.nextInt(6) == 0) {
+                            this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
+                            this.playSound(SoundEvents.ENDERMAN_TELEPORT);
+                            FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getCookieSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
+
+                            this.discard();
+                            player.sendSystemMessage(getFeyCookieMessage());
+                        }
+                    }
+
+                    if (!player.isCreative()) {
+                        player.getItemInHand(hand).shrink(1);
+                    }
+
+                    FeywildNetwork.sendParticles(this.level, ParticleMessage.Type.FEY_HEART, this.getOnPos());
+                    player.swing(hand, true);
+                }
+                // NAME TAG
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
+
                 if (!level.isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
+                    if (this.getVoiceActive()) {
+                        FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getNameSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
+                    }
                 }
 
                 //PIXIE ORB OPENS MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-                  FeywildNetwork.sendToPlayer(new OpenMenuMessage(
+                FeywildNetwork.sendToPlayer(new OpenMenuMessage(
                                 this.getName(),
                                 this.getId(),
-                                this.getAligment(),
+                                this.getAlignment(),
                                 this.getFollowingPlayer(),
                                 this.blockPosition(),
-                                this.getAbilityActive()),
+                                this.getAbilityActive(),
+                                this.getVoiceActive()),
                         (ServerPlayer) player);
                 player.swing(hand, true);
             }
 
-            //TODO QUEST
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         } else {
             return superResult;
         }
     }
-
-    protected abstract MobEffect getMobEffect();
 
     public PixieBase.State getState() {
         PixieBase.State[] states = PixieBase.State.values();

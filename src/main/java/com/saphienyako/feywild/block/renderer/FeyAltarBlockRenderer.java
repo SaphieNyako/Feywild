@@ -18,10 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 @OnlyIn(Dist.CLIENT)
-public class FairyAltarBlockRenderer<T extends FeyAltarBlockEntity> implements BlockEntityRenderer<FeyAltarBlockEntity> {
+public class FeyAltarBlockRenderer<T extends FeyAltarBlockEntity> implements BlockEntityRenderer<FeyAltarBlockEntity> {
 
 
-    public FairyAltarBlockRenderer(BlockEntityRendererProvider.Context context) {
+    public FeyAltarBlockRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override

@@ -22,14 +22,23 @@ public class EntityWidget extends AbstractWidget {
 
     @Override
     public void renderButton(@NotNull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        //Note; in 1.19 make all intermediate calculations double before casting to int to prevent flickering of the model.
+
         double scale = ((double) this.height / this.entity.getType().getHeight()) * 1.5;
+        double posX = this.x + this.width / 2.0;
+        double posY = this.y + this.height + scale * 48.0 / 85.0;
+        double centerX = this.x + this.width / 2.0;
+        double centerY = this.y + this.height / 2.0;
+
+        float deltaX = (float)(centerX - mouseX);
+        float deltaY = (float)(centerY - mouseY);
 
         InventoryScreen.renderEntityInInventory(
-                this.x + (this.width / 2),
-                this.y + this.height + (int) (scale * 48 / 85),
+                (int) posX,
+                (int) posY,
                 (int) scale,
-                -(mouseX - this.x - (this.width / 2f)),
-                -(mouseY - this.y - (this.height / 2f)),
+                (float) deltaX,
+                (float) deltaY,
                 this.entity
         );
     }

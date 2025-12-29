@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.config;
 
 
+import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 
@@ -10,10 +11,17 @@ public class ModConfig {
     public static final ForgeConfigSpec COMMON_SPEC;
     public static final Common COMMON;
 
+    public static final ForgeConfigSpec CLIENT_SPEC;
+    public static final Client CLIENT;
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         COMMON = new Common(builder);
         COMMON_SPEC = builder.build();
+
+        ForgeConfigSpec.Builder clientBuilder = new ForgeConfigSpec.Builder();
+        CLIENT = new Client(clientBuilder);
+        CLIENT_SPEC = clientBuilder.build();
 }
 
     public static class Common {
@@ -32,6 +40,27 @@ public class ModConfig {
             spawn_with_lexicon = builder
                     .comment("Whether players should spawn with a Feywild Lexicon")
                     .define("spawn_with_lexicon", true);
+
+            builder.pop();
+        }
+    }
+
+    public static class Client {
+
+        public final ForgeConfigSpec.BooleanValue flower_particles;
+
+        public final ForgeConfigSpec.BooleanValue voices_active;
+
+        public Client(ForgeConfigSpec.Builder builder) {
+            builder.comment("Feywild Client Config").push("client");
+
+            flower_particles = builder
+                    .comment("Whether giant flowers should have particles")
+                    .define("flower_particles", true);
+
+            voices_active = builder
+                    .comment("Whether fey should have voice acting on")
+                    .define("voices_active", true);
 
             builder.pop();
         }

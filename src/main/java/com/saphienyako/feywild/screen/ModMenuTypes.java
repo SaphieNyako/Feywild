@@ -15,7 +15,7 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, Feywild.MOD_ID);
 
-    public static final RegistryObject<MenuType<FeyAltarMenu>> FAIRY_ALTAR_MENU =
+    public static final RegistryObject<MenuType<FeyAltarMenu>> FEY_ALTAR_MENU =
             registerMenuType("fey_altar_menu", FeyAltarMenu::new);
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {

@@ -23,7 +23,7 @@ public class FeyAltarMenu extends AbstractContainerMenu {
     }
 
     public FeyAltarMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
-        super(ModMenuTypes.FAIRY_ALTAR_MENU.get(), pContainerId);
+        super(ModMenuTypes.FEY_ALTAR_MENU.get(), pContainerId);
         checkContainerSize(inv, 5);
         blockEntity = ((FeyAltarBlockEntity) entity);
         this.level = inv.player.level;
