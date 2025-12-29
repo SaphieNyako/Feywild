@@ -40,19 +40,10 @@ public class FeyDustItem extends Item {
     }
 
 
-    // TODO add LIVITATION_IMMUUM tag or config
-    //TODO add quest
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
         if (!player.level().isClientSide) {
-           /* if (target instanceof Sheep) {
-                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, Math.max(60, 30), 2));
-
-                if (player instanceof ServerPlayer) {
-                    QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.LEVITATE_SHEEP);
-                }
-            } else if (!target.getType().is(ModEntityTags.LEVITATION_IMMUNE)) */
                 target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, ModConfig.COMMON.fey_dust_duration.get(), 2));
         } else {
             return InteractionResult.FAIL;

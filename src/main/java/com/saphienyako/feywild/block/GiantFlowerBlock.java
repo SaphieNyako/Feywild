@@ -91,7 +91,7 @@ public abstract class GiantFlowerBlock extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
         super.animateTick(state, level, pos, random);
-        if (state.getValue(PART) == 3 && ModConfig.COMMON.flower_particles.get()) this.animateFlower(state, level, pos, random);
+        if (state.getValue(PART) == 3 && ModConfig.CLIENT.flower_particles.get()) this.animateFlower(state, level, pos, random);
     }
 
     protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);

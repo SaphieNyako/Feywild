@@ -32,7 +32,6 @@ public record DismissEntityMessage(int entityId) {
                 Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyDismissMessage());
                 FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, entity.blockPosition().above());
                 entity.remove(Entity.RemovalReason.DISCARDED);
-
             }
         }
     }

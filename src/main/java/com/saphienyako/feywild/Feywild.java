@@ -82,7 +82,6 @@ public class Feywild
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventListener());
-        //modEventBus.addListener(this::addCreative);
     }
 
 
@@ -123,9 +122,12 @@ public class Feywild
                 com.saphienyako.feywild.config.ModConfig.COMMON_SPEC,
                 "feywild-common.toml"
         );
-    }
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        //Added ModCreativeModeTab for the mod itself
+
+        ModLoadingContext.get().registerConfig(
+                ModConfig.Type.CLIENT,
+                com.saphienyako.feywild.config.ModConfig.CLIENT_SPEC,
+                "feywild-client.toml"
+        );
     }
 
     @SubscribeEvent
