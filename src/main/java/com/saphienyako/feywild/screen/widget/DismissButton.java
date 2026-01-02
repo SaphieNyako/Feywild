@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,10 +28,10 @@ public class DismissButton extends Button {
     private final int entityId;
 
     public DismissButton(int x, int y, Screen screen, int entityId) {
-        super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {});
+        super(x, y, WIDTH, HEIGHT, new TranslatableComponent("message.feywild.test"), b -> {});
         this.screen = screen;
         this.entityId = entityId;
-        this.textComponent = Component.translatable("message.feywild.dismiss");
+        this.textComponent = new TranslatableComponent("message.feywild.dismiss");
     }
 
     @Override

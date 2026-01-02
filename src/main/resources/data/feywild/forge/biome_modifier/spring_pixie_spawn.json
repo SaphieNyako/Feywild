@@ -4,12 +4,14 @@
     "minecraft:plains",
     "minecraft:sunflower_plains"
   ],
-  "spawners": [
-    {
-      "type": "feywild:spring_pixie",
-      "maxCount": 1,
-      "minCount": 1,
-      "weight": 2
-    }
-  ]
+  "spawners": {
+    "creature": [
+      {
+        "type": "feywild:spring_pixie",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ]
+  }
 }

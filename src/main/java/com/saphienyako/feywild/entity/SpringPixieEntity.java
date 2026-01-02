@@ -21,6 +21,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;

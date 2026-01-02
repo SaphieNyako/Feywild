@@ -2,8 +2,8 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.2.0'
 }
 
 version = minecraft_version +'-'+ mod_version
@@ -43,7 +43,7 @@ minecraft {
     // This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
     // It is REQUIRED to be set to true for this template to function.
     // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
-    copyIdeResources = true
+    //copyIdeResources = true
 
     // When true, this property will add the folder name of all declared run configurations to generated IDE run configurations.
     // The folder name can be set on a run configuration using the "folderName" property.
@@ -122,18 +122,23 @@ repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
     // flatDir {
     //     dir 'libs'
     // }
     maven {
-        // location of the maven that hosts JEI files since January 2023
-        name = "Jared's maven"
-        url = "https://maven.blamejared.com/"
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
     }
 
-    maven { url = 'https://maven.blamejared.com' }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
 }
 
 
@@ -162,12 +167,16 @@ dependencies {
 
     /* other minecraft dependencies are here */
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77")
+
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71")
+
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.57')
 
 }
 

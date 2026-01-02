@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Feywild.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Feywild.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<FeyAltarBlockEntity>> FEY_ALTAR_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fey_altar_block_entity", ()->

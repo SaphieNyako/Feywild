@@ -7,12 +7,14 @@
     "minecraft:flower_forest",
     "minecraft:taiga"
   ],
-  "spawners": [
-    {
-      "type": "feywild:autumn_pixie",
-      "maxCount": 1,
-      "minCount": 1,
-      "weight": 1
-    }
-  ]
+  "spawners": {
+    "creature": [
+      {
+        "type": "feywild:autumn_pixie",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ]
+  }
 }

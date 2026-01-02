@@ -29,18 +29,24 @@ public record PlaySoundMessage(ResourceLocation soundId, BlockPos pos) {
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        Level level = Minecraft.getInstance().level;
-        SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
-        if (sound != null) { //&& ModConfig.CLIENT.voices_active.get()
-            Objects.requireNonNull(level).playLocalSound(
-                    pos.getX() + 0.5,
-                    pos.getY() + 0.5,
-                    pos.getZ() + 0.5,
-                    sound,
-                    SoundSource.NEUTRAL,
-                    1.0F,
-                    1.0F,
-                    false);
-        }
+        NetworkEvent.Context context = supplier.get();
+        context.enqueueWork(() -> {
+            Level level = Minecraft.getInstance().level;
+            if (level == null) return;
+            SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
+            if (sound != null) {
+                level.playLocalSound(
+                        pos.getX() + 0.5,
+                        pos.getY() + 0.5,
+                        pos.getZ() + 0.5,
+                        sound,
+                        SoundSource.NEUTRAL,
+                        1.0F,
+                        1.0F,
+                        false
+                );
+            }
+        });
+        context.setPacketHandled(true);
     }
 }

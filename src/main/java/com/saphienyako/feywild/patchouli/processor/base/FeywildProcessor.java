@@ -2,6 +2,7 @@ package com.saphienyako.feywild.patchouli.processor.base;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -22,7 +23,7 @@ public abstract class FeywildProcessor implements IComponentProcessor {
 
     @Override
     public void setup(@NotNull IVariableProvider variables) {
-        RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
+        RecipeManager manager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
         recipe = manager.byKey(Objects.requireNonNull(ResourceLocation.tryParse(getRecipeId()))).orElseThrow(IllegalArgumentException::new);
     }
 
@@ -30,7 +31,7 @@ public abstract class FeywildProcessor implements IComponentProcessor {
     public @NotNull IVariable process(@NotNull String key) {
         if (recipe == null) return IVariable.empty();
         return switch (key) {
-            case "description" -> IVariable.from(Component.translatable(this.recipe.getResultItem().getDescriptionId()));
+            case "description" -> IVariable.from(new TranslatableComponent(this.recipe.getResultItem().getDescriptionId()));
             case "output" -> IVariable.from(this.recipe.getResultItem());
             case "inputs" -> IVariable.wrapList(this.recipe.getIngredients().stream().map(IVariable::from).toList());
             default -> IVariable.empty();

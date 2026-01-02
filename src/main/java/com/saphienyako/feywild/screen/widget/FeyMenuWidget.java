@@ -8,6 +8,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +29,7 @@ public class FeyMenuWidget extends AbstractWidget {
     );
 
     public FeyMenuWidget(int x, int y, Alignment alignment) {
-        super(x, y, WIDTH, HEIGHT, Component.empty());
+        super(x, y, WIDTH, HEIGHT, new TextComponent(""));
         this.alignment = alignment;
     }
 

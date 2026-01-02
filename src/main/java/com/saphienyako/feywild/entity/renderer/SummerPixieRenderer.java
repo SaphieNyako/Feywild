@@ -1,28 +1,30 @@
 package com.saphienyako.feywild.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.SummerPixieEntity;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
 import com.saphienyako.feywild.entity.model.SummerPixieModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public class SummerPixieRenderer extends MobRenderer<SummerPixieEntity, SummerPixieModel<SummerPixieEntity>> {
-    public SummerPixieRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new SummerPixieModel<>(pContext.bakeLayer(ModModelLayers.SUMMER_PIXIE_LAYER)),  0.50f);
+public class SummerPixieRenderer extends GeoEntityRenderer<SummerPixieEntity> {
+
+    public SummerPixieRenderer(EntityRendererProvider.Context renderManager) {
+        super(renderManager, new SummerPixieModel());
+        this.shadowRadius = 0.50f;
     }
 
     @Override
-    public void render(@NotNull SummerPixieEntity pEntity, float pEntityYaw, float pPartialTicks, @NotNull PoseStack pMatrixStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
-    }
-
-    @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull SummerPixieEntity summerPixieEntity) {
-        return new ResourceLocation(Feywild.MOD_ID, "textures/entity/summer_pixie.png");
+    public RenderType getRenderType(SummerPixieEntity animatable, float partialTick, PoseStack poseStack, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, int packedLight, ResourceLocation texture) {
+        return RenderType.entityTranslucent(this.getTextureLocation(animatable));
     }
 }

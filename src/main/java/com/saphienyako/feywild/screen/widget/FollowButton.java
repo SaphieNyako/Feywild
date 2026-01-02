@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,24 +29,24 @@ public class FollowButton extends Button {
 
     private final int entityId;
     public FollowButton(int x, int y, boolean followPlayer, int entityId, BlockPos currentBlockPos) {
-        super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {});
+        super(x, y, WIDTH, HEIGHT, new TranslatableComponent("message.feywild.test"), b -> {});
         this.followPlayer = followPlayer;
         this.entityId = entityId;
         this.currentBlockPos = currentBlockPos;
-        this.textComponent = followPlayer ? Component.translatable("message.feywild.follow_on") : Component.translatable("message.feywild.follow_off");
+        this.textComponent = followPlayer ? new TranslatableComponent("message.feywild.follow_on") : new TranslatableComponent("message.feywild.follow_off");
     }
 
     @Override
     public void onPress() {
         if (this.followPlayer) {
             this.followPlayer = false;
-            this.textComponent = Component.translatable("message.feywild.follow_off");
+            this.textComponent = new TranslatableComponent("message.feywild.follow_off");
             FeywildNetwork.sendToServer(new ToggleFollowPlayerMessage(this.entityId,false, this.currentBlockPos));
 
         }
         else {
             this.followPlayer = true;
-            this.textComponent = Component.translatable("message.feywild.follow_on");
+            this.textComponent = new TranslatableComponent("message.feywild.follow_on");
             FeywildNetwork.sendToServer(new ToggleFollowPlayerMessage(this.entityId,true, this.currentBlockPos));
         }
     }

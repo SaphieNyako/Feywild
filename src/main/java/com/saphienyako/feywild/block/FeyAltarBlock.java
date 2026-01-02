@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -30,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 public class FeyAltarBlock extends BaseEntityBlock{
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -110,22 +108,15 @@ public class FeyAltarBlock extends BaseEntityBlock{
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if (!player.getItemInHand(hand).isEmpty()) {
-                NetworkHooks.openScreen(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
-              /*  for (int slot = 0; slot < ((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().getSlots(); slot++) {
-                    if (((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().getStackInSlot(slot).isEmpty()) {
-                        ItemStack insertStack = player.getItemInHand(hand).copy();
-                        insertStack.setCount(1);
-                        if (((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().insertItem(slot, insertStack, true).isEmpty() && slot != 5) {
-                            ((FeyAltarBlockEntity) Objects.requireNonNull(entity)).getInventory().insertItem(slot, insertStack, false);
-                            player.getItemInHand(hand).shrink(1);
-                            NetworkHooks.openScreen(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
-                            return InteractionResult.CONSUME;
-                        }
-                    }
-                }
-                return InteractionResult.FAIL; */
+                NetworkHooks.openGui((ServerPlayer) player, (FeyAltarBlockEntity) entity, buf -> {
+                    buf.writeBlockPos(pos);
+                });
+
             } else if(entity instanceof FeyAltarBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
+               // NetworkHooks.openGui(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
+                NetworkHooks.openGui((ServerPlayer) player, (FeyAltarBlockEntity) entity, buf -> {
+                    buf.writeBlockPos(pos);
+                });
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }

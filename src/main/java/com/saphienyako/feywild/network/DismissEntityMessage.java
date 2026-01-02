@@ -3,7 +3,9 @@ package com.saphienyako.feywild.network;
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -23,14 +25,14 @@ public record DismissEntityMessage(int entityId) {
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-
-        Level level = supplier.get().getSender().level;
+        Player player = supplier.get().getSender();
+        Level level = player.level;
         if (this.entityId() != -1) {
 
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {
                 entity.spawnAtLocation(entity.getDismissItem());
-                Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyDismissMessage());
+                Objects.requireNonNull(player).sendMessage(entity.getFeyDismissMessage(), Objects.requireNonNull(player).getUUID());
                 if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
                     FeywildNetwork.sendToPlayer(
                             new PlaySoundMessage(entity.getDismissSound().getLocation(), entity.blockPosition()),

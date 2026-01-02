@@ -2,7 +2,6 @@ package com.saphienyako.feywild.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -13,6 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class SunFlowerBlock extends GiantFlowerBlock{
     public static final IntegerProperty TIME_VARIANT = IntegerProperty.create("time_variant", 0, 2);
@@ -28,7 +28,7 @@ public class SunFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
         if (level.getDayTime() < 2800) {
             level.setBlock(pos, state.setValue(TIME_VARIANT, 0), 3);
         } else if (level.getDayTime() < 8400) {
@@ -40,12 +40,12 @@ public class SunFlowerBlock extends GiantFlowerBlock{
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
         //
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
+    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
         return this.defaultBlockState();
     }
 }

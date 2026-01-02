@@ -3,7 +3,6 @@ package com.saphienyako.feywild.block;
 import com.saphienyako.feywild.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -23,6 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public abstract class GiantFlowerBlock extends Block {
     public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
@@ -89,24 +89,24 @@ public abstract class GiantFlowerBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.randomTick(state, level, pos, random);
         if (state.getValue(PART) == 3) this.tickFlower(state, level, pos, random);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource random) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.animateTick(state, level, pos, random);
         if (state.getValue(PART) == 3 && ModConfig.CLIENT.flower_particles.get()) this.animateFlower(state, level, pos, random);
     }
 
-    protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
+    protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, Random random);
 
     @OnlyIn(Dist.CLIENT)
-    protected abstract void animateFlower(BlockState state, Level world, BlockPos pos, RandomSource random);
+    protected abstract void animateFlower(BlockState state, Level world, BlockPos pos, Random random);
 
-    public abstract BlockState flowerState(LevelAccessor world, BlockPos pos, RandomSource random);
+    public abstract BlockState flowerState(LevelAccessor world, BlockPos pos, Random random);
 
     protected void removeOthers(Level level, BlockState state, BlockPos pos) {
         int blocksBelow = state.getValue(PART) - (4 - this.height);

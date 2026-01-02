@@ -7,6 +7,7 @@ import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ToggleVoiceMessage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class VolumeButton extends Button {
@@ -25,7 +26,7 @@ public class VolumeButton extends Button {
 
     public VolumeButton(int x, int y, boolean voiceActive, int entityId) {
         super(x, y, (int)(WIDTH * SCALE),
-                (int)(HEIGHT * SCALE), Component.translatable("message.feywild.test"), b -> {});
+                (int)(HEIGHT * SCALE), new TranslatableComponent("message.feywild.test"), b -> {});
         this.voiceActive = voiceActive;
         this.entityId = entityId;
     }

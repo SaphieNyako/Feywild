@@ -10,9 +10,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -30,12 +30,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Random;
 import java.util.UUID;
-
-public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable {
+@SuppressWarnings("removal")
+public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
 
     @javax.annotation.Nullable
     protected UUID owner;
@@ -44,6 +48,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     private boolean followingPlayer = false;
     private boolean abilityActive = false;
     private boolean voiceActive = true;
+    private final AnimationFactory factory = new AnimationFactory(this);
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -61,7 +66,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return isBrightEnoughToSpawn(level, pos);
         //TODO make mobs spawn in overworld?
     }
@@ -155,8 +160,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     private boolean isIronTool(ItemStack stack) {
-        return stack.is(Tags.Items.TOOLS) && stack.getItem() instanceof TieredItem tiered &&
-                tiered.getTier() == Tiers.IRON;
+        if (!(stack.getItem() instanceof TieredItem tiered)) return false;
+        return tiered.getTier() == Tiers.IRON;
     }
     @javax.annotation.Nullable
     @Override
@@ -221,8 +226,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     @Override
-    public int getExperienceReward() {
-        return this.isTamed() ? 0 : super.getExperienceReward();
+    protected int getExperienceReward(@NotNull Player player) {
+        return this.isTamed() ? 0 : super.getExperienceReward(player);
     }
 
     @Override
@@ -270,34 +275,39 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     public Component getFeyNameMessage(){
-        return  Component.translatable("message.feywild."+ getEntityName() + "_name");
+        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_name");
     }
 
     public Component getFeyCookieMessage(){
-        return  Component.translatable("message.feywild."+ getEntityName() + "_cookie");
+        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_cookie");
     }
 
     public Component getFeyFollowMessage(){
-        return  Component.translatable("message.feywild."+ getEntityName() + "_follow");
+        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_follow");
     }
 
     public Component getFeyStayMessage(){
-        return  Component.translatable("message.feywild."+ getEntityName() + "_stay");
+        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_stay");
     }
 
     public Component getFeySummonMessage(){
-        return  Component.translatable("message.feywild."+ getEntityName() + "_summon");
+        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_summon");
     }
 
    public Component getFeyDismissMessage(){
-       return  Component.translatable("message.feywild."+ getEntityName() + "_dismiss");
+       return  new TranslatableComponent("message.feywild."+ getEntityName() + "_dismiss");
    }
 
    public Component getFeyAbilityOnMessage(){
-       return  Component.translatable("message.feywild."+ getEntityName() + "_ability_on");
+       return  new TranslatableComponent("message.feywild."+ getEntityName() + "_ability_on");
    }
 
     public Component getFeyAbilityOffMessage(){
-        return  Component.translatable("message.feywild."+ getEntityName() + "_ability_off");
+        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_ability_off");
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
     }
 }

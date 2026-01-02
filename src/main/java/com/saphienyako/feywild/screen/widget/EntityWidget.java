@@ -5,6 +5,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +16,7 @@ public class EntityWidget extends AbstractWidget {
 
     private final LivingEntity entity;
     public EntityWidget(int x, int y, LivingEntity entity) {
-        super(x, y, WIDTH, HEIGHT, Component.empty());
+        super(x, y, WIDTH, HEIGHT, new TextComponent(""));
         this.entity = entity;
     }
 

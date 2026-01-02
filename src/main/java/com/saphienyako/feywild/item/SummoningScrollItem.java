@@ -9,10 +9,12 @@ import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.network.PlaySoundMessage;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraftforge.fml.common.Mod;
@@ -29,55 +31,62 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
         super(pProperties);
     }
 
-    protected void prepareEntity(LivingEntity entity, @Nonnull UseOnContext context) {
-        entity.setPos(context.getClickedPos().getX(), context.getClickedPos().getY() + 1, context.getClickedPos().getZ());
-        if (entity instanceof ISummonable summoned) {
-            summoned.setSummonPos(context.getClickedPos().immutable());
+    protected void prepareEntity(FeyBase entity, @Nonnull UseOnContext context) {
+        BlockPos pos = context.getClickedPos();
+        entity.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+
+        entity.setSummonPos(pos.immutable());
+
+        Player player = context.getPlayer();
+        if (player != null) {
+                entity.setOwner(player.getUUID());
         }
-        if (entity instanceof IOwnable owned) {
-            owned.setOwner(Objects.requireNonNull(context.getPlayer()));
-        }
+
     }
 
-    protected EntityType<? extends PixieBase> returnLivingEntity(){
-        if(this.equals(SUMMONING_SCROLL_SPRING_PIXIE.get())){
+    protected EntityType<? extends FeyBase> getEntityType() {
+        if (this.equals(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get())) {
             return ModEntities.SPRING_PIXIE.get();
-        } else if (this.equals(SUMMONING_SCROLL_SUMMER_PIXIE.get())) {
+        } else if (this.equals(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get())) {
             return ModEntities.SUMMER_PIXIE.get();
-        } else if (this.equals(SUMMONING_SCROLL_AUTUMN_PIXIE.get())){
+        } else if (this.equals(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get())) {
             return ModEntities.AUTUMN_PIXIE.get();
-        } else if (this.equals(SUMMONING_SCROLL_WINTER_PIXIE.get())){
+        } else if (this.equals(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get())) {
             return ModEntities.WINTER_PIXIE.get();
-        } else return null;
-
+        } else {
+            return null;
+        }
     }
 
     @Nonnull
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
-        if (context.getPlayer() != null) {
-            if (!context.getLevel().isClientSide) {
+        if (context.getPlayer() == null || context.getLevel().isClientSide) return InteractionResult.PASS;
 
-                FeyBase entity = returnLivingEntity().create(context.getLevel());
+        EntityType<? extends FeyBase> type = getEntityType();
+        if (type == null) return InteractionResult.PASS;
 
-                if (entity != null) {
-                    this.prepareEntity(entity, context);
+        LivingEntity entityRaw = type.create(context.getLevel());
+        if (!(entityRaw instanceof FeyBase entity)) return InteractionResult.PASS;
 
-                    context.getLevel().addFreshEntity(entity);
-                    context.getPlayer().sendSystemMessage(entity.getFeySummonMessage());
-                    FeywildNetwork.sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos());
+        prepareEntity(entity, context);
 
-                    if (ModConfig.CLIENT.voices_active.get()) {
-                        FeywildNetwork.sendToPlayer(new PlaySoundMessage(entity.getSummonSound().getLocation(), entity.blockPosition()), (ServerPlayer) context.getPlayer());
-                    }
-                    if (!context.getPlayer().isCreative()) {
-                        context.getItemInHand().shrink(1);
-                    }
-                }
-            }
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+        context.getLevel().addFreshEntity(entity);
+
+        Player player = context.getPlayer();
+        player.sendMessage(entity.getFeySummonMessage(), player.getUUID());
+
+        FeywildNetwork.sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos());
+
+        if (ModConfig.CLIENT.voices_active.get() && player instanceof ServerPlayer serverPlayer) {
+            FeywildNetwork.sendToPlayer(new PlaySoundMessage(entity.getSummonSound().getLocation(), entity.blockPosition()), serverPlayer);
         }
-        return InteractionResult.PASS;
+
+        if (!player.isCreative()) {
+            context.getItemInHand().shrink(1);
+        }
+
+        return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }
 
 }

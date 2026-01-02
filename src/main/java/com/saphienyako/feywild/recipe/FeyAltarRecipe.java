@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.saphienyako.feywild.Feywild;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -19,6 +18,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -141,6 +141,25 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
             buffer.writeVarInt(recipe.getIngredients().size());
             recipe.inputs.forEach(i -> i.toNetwork(buffer));
             buffer.writeItemStack(recipe.output, false);
+        }
+
+        @Override
+        public RecipeSerializer<?> setRegistryName(ResourceLocation resourceLocation) {
+            return this;
+        }
+
+        @org.jetbrains.annotations.Nullable
+        @Override
+        public ResourceLocation getRegistryName() {
+            return ID;
+        }
+
+        @Override
+        public Class<RecipeSerializer<?>> getRegistryType() {
+            @SuppressWarnings("unchecked")
+            Class<RecipeSerializer<?>> serializerClass = (Class<RecipeSerializer<?>>) (Class<?>) RecipeSerializer.class;
+            return serializerClass;
+          //  return ModRecipes.FEY_ALTAR_SERIALIZER.get().getRegistryType();
         }
     }
 }

@@ -11,11 +11,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -25,6 +25,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -33,12 +39,8 @@ import java.util.Random;
 public abstract class PixieBase extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.INT);
+    public static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
 
-    public final AnimationState IDLE_ANIMATION = new AnimationState();
-    private int idleAnimationTimeout = 0;
-
-    public final AnimationState SPELL_CASTING_ANIMATION = new AnimationState();
-    public int spellCastingAnimationTimeout = 0;
     protected PixieBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -58,38 +60,6 @@ public abstract class PixieBase extends FlyingFeyBase {
         this.entityData.define(STATE, 0);
     }
 
-
-    @Override
-    public void tick() {
-        super.tick();
-        if(this.level.isClientSide()) {
-            setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
-
-        if(getState().equals(State.IDLE) && idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
-            this.IDLE_ANIMATION.start(this.tickCount);
-        } else {
-            --this.idleAnimationTimeout;
-        }
-
-        if(getState().equals(State.SPELL_CASTING) && spellCastingAnimationTimeout <= 0) {
-            this.IDLE_ANIMATION.stop();
-            spellCastingAnimationTimeout = 85;
-            SPELL_CASTING_ANIMATION.start(this.tickCount);
-        } else {
-            --this.spellCastingAnimationTimeout;
-        }
-
-        if(!getState().equals(State.SPELL_CASTING)) {
-            SPELL_CASTING_ANIMATION.stop();
-        }
-      //TODO make FLY and IDLE work, check for moving?
-    }
-
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
@@ -106,11 +76,11 @@ public abstract class PixieBase extends FlyingFeyBase {
                         Random random = new Random();
                         if (random.nextInt(6) == 0) {
                             this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
-                            this.playSound(SoundEvents.ENDERMAN_TELEPORT);
+                            this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
                             FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getCookieSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
 
                             this.discard();
-                            player.sendSystemMessage(getFeyCookieMessage());
+                            player.sendMessage(getFeyCookieMessage(), player.getUUID());
                         }
                     }
 
@@ -127,7 +97,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                 setCustomNameVisible(true);
 
                 if (!level.isClientSide) {
-                    player.sendSystemMessage(getFeyNameMessage());
+                    player.sendMessage(getFeyNameMessage(), player.getUUID());
                     if (this.getVoiceActive()) {
                         FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getNameSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
                     }
@@ -153,11 +123,37 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
     }
 
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        AnimationController<PixieBase> flyingController = new AnimationController<>(this, "flyingController", 0, this::flyingPredicate);
+        AnimationController<PixieBase> castingController = new AnimationController<>(this, "castingController", 0, this::castingPredicate);
+        animationData.addAnimationController(flyingController);
+        animationData.addAnimationController(castingController);
+    }
+    @SuppressWarnings("removal")
+    private <E extends IAnimatable> PlayState flyingPredicate(AnimationEvent<E> event) {
+        if (this.getDeltaMovement().lengthSqr() < MIN_MOVING_SPEED_SQR) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("fly", true));
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+        }
+        return PlayState.CONTINUE;
+    }
+    @SuppressWarnings("removal")
+    private <E extends IAnimatable> PlayState castingPredicate(AnimationEvent<E> event) {
+        if (this.getState() == State.SPELL_CASTING && !(this.dead || this.isDeadOrDying())) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("spellcasting", true));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
+
+
+
     public PixieBase.State getState() {
         PixieBase.State[] states = PixieBase.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
-
 
 
     public void setState(PixieBase.State state) {

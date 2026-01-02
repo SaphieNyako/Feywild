@@ -13,6 +13,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +46,7 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
 
     @Override
     public @NotNull Component getTitle() {
-        return Component.translatable("block.feywild.fey_altar");
+        return new TranslatableComponent("block.feywild.fey_altar");
     }
 
 
@@ -69,5 +70,17 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
 
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).addItemStack(recipe.getResultItem());
+    }
+
+    @SuppressWarnings("removal")
+    @Override
+    public @NotNull ResourceLocation getUid() {
+        return UID;
+    }
+
+    @SuppressWarnings("removal")
+    @Override
+    public @NotNull Class<? extends FeyAltarRecipe> getRecipeClass() {
+        return FeyAltarRecipe.class;
     }
 }

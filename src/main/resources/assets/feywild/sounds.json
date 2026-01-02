@@ -1,6 +1,6 @@
 {
   "mandrake_scream": {
-    "subtitles": "sounds.feywild.mandrake_scream",
+    "subtitle": "sounds.feywild.mandrake_scream",
     "sounds": [
       "feywild:mandrake_scream"
     ]
@@ -8,19 +8,19 @@
   "feywild_music_disc": {
   "sounds": [
     {
-      "name": "feywild.feywild_music_disc",
+      "name": "sounds.feywild_music_disc",
       "stream": true
     }
   ]
   },
   "pixie_spell_casting": {
-    "subtitles": "sounds.feywild.pixie_spell_casting",
+    "subtitle": "sounds.feywild.pixie_spell_casting",
     "sounds": [
       "feywild:pixie_spell_casting"
     ]
   },
   "pixie_spell_casting_short": {
-    "subtitles": "sounds.feywild.pixie_spell_casting_short",
+    "subtitle": "sounds.feywild.pixie_spell_casting_short",
     "sounds": [
       "feywild:pixie_spell_casting_short"
     ]

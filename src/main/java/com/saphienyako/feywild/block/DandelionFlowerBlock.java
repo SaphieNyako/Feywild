@@ -7,7 +7,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,6 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class DandelionFlowerBlock extends GiantFlowerBlock{
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 3);
@@ -36,7 +36,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
         if (state.getValue(VARIANT) == 3 && level.random.nextInt(3) == 0) {
             level.setBlock(pos, state.setValue(VARIANT, 2), 3);
         }
@@ -88,7 +88,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
         if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
             double windStrength = Math.cos((double) level.getGameTime() / 2000) / 8;
             double windX = Math.cos((double) level.getGameTime() / 1200) * windStrength;
@@ -98,7 +98,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
+    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
         return this.defaultBlockState().setValue(VARIANT, random.nextInt(3));
     }
 }

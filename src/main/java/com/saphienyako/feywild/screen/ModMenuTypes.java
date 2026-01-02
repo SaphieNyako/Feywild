@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModMenuTypes {
 
     public static final DeferredRegister<MenuType<?>> MENUS =
-            DeferredRegister.create(ForgeRegistries.MENU_TYPES, Feywild.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.CONTAINERS, Feywild.MOD_ID);
 
     public static final RegistryObject<MenuType<FeyAltarMenu>> FEY_ALTAR_MENU =
             registerMenuType("fey_altar_menu", FeyAltarMenu::new);
@@ -25,5 +25,4 @@ public class ModMenuTypes {
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }
-
 }

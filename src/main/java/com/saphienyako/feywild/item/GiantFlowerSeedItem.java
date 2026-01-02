@@ -5,8 +5,8 @@ import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class GiantFlowerSeedItem extends Item {
     private final GiantFlowerBlock block;
@@ -31,7 +32,7 @@ public class GiantFlowerSeedItem extends Item {
         this.block = block;
     }
 
-    public static void placeFlower(GiantFlowerBlock block, LevelAccessor level, BlockPos pos, RandomSource random, int placeFlags) {
+    public static void placeFlower(GiantFlowerBlock block, LevelAccessor level, BlockPos pos, Random random, int placeFlags) {
         for (int i = 0; i < block.height; i++) {
             BlockState baseState = (i == block.height - 1) ? block.flowerState(level, pos.above(i), random) : block.defaultBlockState();
             level.setBlock(pos.above(i), baseState.setValue(GiantFlowerBlock.PART, i + (4 - block.height)), placeFlags);
@@ -67,13 +68,13 @@ public class GiantFlowerSeedItem extends Item {
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (level != null) {
             if(this.block == ModBlocks.GIANT_SUN_FLOWER.get()) {
-                tooltip.add(Component.translatable("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
+                tooltip.add(new TranslatableComponent("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
             }
             if(this.block == ModBlocks.GIANT_CROCUS_FLOWER.get()) {
-                tooltip.add(Component.translatable("message.feywild.giant_crocus_flower").withStyle(ChatFormatting.BLUE));
+                tooltip.add(new TranslatableComponent("message.feywild.giant_crocus_flower").withStyle(ChatFormatting.BLUE));
             }
             if(this.block == ModBlocks.GIANT_DANDELION_FLOWER.get()) {
-                tooltip.add(Component.translatable("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
+                tooltip.add(new TranslatableComponent("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
             }
         }
         super.appendHoverText(stack, level, tooltip, flag);

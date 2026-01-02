@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Feywild.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ENTITIES, Feywild.MOD_ID);
 
     public static final RegistryObject<EntityType<SpringPixieEntity>> SPRING_PIXIE =
             ENTITY_TYPES.register("spring_pixie", () -> EntityType.Builder.of(SpringPixieEntity::new, MobCategory.CREATURE)

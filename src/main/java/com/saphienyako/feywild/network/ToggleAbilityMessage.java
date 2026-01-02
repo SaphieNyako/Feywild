@@ -5,6 +5,8 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -27,21 +29,21 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-
-        Level level = supplier.get().getSender().level;
+        Player player = supplier.get().getSender();
+        Level level = player.level;
         if (this.entityId() != -1) {
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {
                 entity.setAbilityActive(this.abilityActive);
                 if(!this.abilityActive){
-                    Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOffMessage());
+                    Objects.requireNonNull(player).sendMessage(entity.getFeyAbilityOffMessage(), player.getUUID());
                     if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
                         FeywildNetwork.sendToPlayer(
                                 new PlaySoundMessage(entity.getAbilityOffSound().getLocation(), entity.blockPosition()),
                                 supplier.get().getSender());
                     }
                 } else {
-                    Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOnMessage());
+                    Objects.requireNonNull(player).sendMessage(entity.getFeyAbilityOnMessage(), player.getUUID());
                     if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
                         FeywildNetwork.sendToPlayer(
                                 new PlaySoundMessage(entity.getAbilityOnSound().getLocation(), entity.blockPosition()),

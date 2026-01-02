@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,23 +26,23 @@ public class AbilityButton extends Button {
 
     private final int entityId;
     public AbilityButton(int x, int y, boolean abilityActive, int entityId) {
-        super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {});
+        super(x, y, WIDTH, HEIGHT, new TranslatableComponent("message.feywild.test"), b -> {});
         this.abilityActive = abilityActive;
         this.entityId = entityId;
-        this.textComponent = abilityActive ? Component.translatable("message.feywild.ability_on") : Component.translatable("message.feywild.ability_off");
+        this.textComponent = abilityActive ? new TranslatableComponent("message.feywild.ability_on") : new TranslatableComponent("message.feywild.ability_off");
     }
 
     @Override
     public void onPress() {
         if (this.abilityActive) {
             this.abilityActive = false;
-            this.textComponent = Component.translatable("message.feywild.ability_off");
+            this.textComponent = new TranslatableComponent("message.feywild.ability_off");
             FeywildNetwork.sendToServer(new ToggleAbilityMessage(this.entityId,false));
 
         }
         else {
             this.abilityActive = true;
-            this.textComponent = Component.translatable("message.feywild.ability_on");
+            this.textComponent = new TranslatableComponent("message.feywild.ability_on");
             FeywildNetwork.sendToServer(new ToggleAbilityMessage(this.entityId,true));
         }
     }

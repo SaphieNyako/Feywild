@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +33,7 @@ public class FeyAltarMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         //Adding Slots
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
+        this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(iItemHandler -> {
             this.addSlot(new SlotItemHandler(iItemHandler, 0, 80, 5)); //INPUT_SLOT_00
             this.addSlot(new SlotItemHandler(iItemHandler, 1, 49, 26)); //INPUT_SLOT_01
             this.addSlot(new SlotItemHandler(iItemHandler, 2, 110, 26)); //INPUT_SLOT_02

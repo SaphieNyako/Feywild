@@ -35,9 +35,23 @@ public record OpenMenuMessage(Component name, int entityId, Alignment alignment,
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        if (this.entityId() != -1) {
-            Minecraft.getInstance().setScreen(new FeyMenuScreen(this.name, this.entityId, this.alignment, this.followingPlayer, this.currentBlockPos, this.abilityActive, this.voiceActive));
-        }
+        NetworkEvent.Context context = supplier.get();
+        context.enqueueWork(() -> {
+            if (this.entityId() != -1) {
+                Minecraft.getInstance().setScreen(
+                        new FeyMenuScreen(
+                                this.name,
+                                this.entityId,
+                                this.alignment,
+                                this.followingPlayer,
+                                this.currentBlockPos,
+                                this.abilityActive,
+                                this.voiceActive
+                        )
+                );
+            }
+        });
+        context.setPacketHandled(true);
     }
 
 }
