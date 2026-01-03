@@ -8,7 +8,7 @@
   "feywild_music_disc": {
   "sounds": [
     {
-      "name": "sounds.feywild_music_disc",
+      "name": "feywild:feywild_music_disc",
       "stream": true
     }
   ]

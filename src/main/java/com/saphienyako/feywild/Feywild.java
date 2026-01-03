@@ -4,9 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
-import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
-import com.saphienyako.feywild.entity.model.*;
 import com.saphienyako.feywild.entity.renderer.AutumnPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SpringPixieRenderer;
 import com.saphienyako.feywild.entity.renderer.SummerPixieRenderer;
@@ -16,13 +14,10 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.particle.LeafParticle;
 import com.saphienyako.feywild.particle.ModParticles;
-import com.saphienyako.feywild.particle.SparkleParticle;
 import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
-import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
-import com.saphienyako.feywild.worldgen.ModPlacedFeatures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -33,7 +28,6 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -68,15 +62,10 @@ public class Feywild
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
-        ModEffects.register(modEventBus);
         ModParticles.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
-
-        //Needs register
-        ModConfiguredFeatures.register(modEventBus);
-        ModPlacedFeatures.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         addConfig();

@@ -4,6 +4,8 @@ import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
@@ -68,7 +70,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
         return isBrightEnoughToSpawn(level, pos);
-        //TODO make mobs spawn in overworld?
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
@@ -108,16 +109,16 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Override
     public void tick() {
         super.tick();
-        if (level.isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
-            for (int i = 0; i < 4; i++) {
-                level.addParticle(this.getParticle(),
-                        this.getX() + (Math.random() - 0.5),
-                        this.getY() + 1 + (Math.random() - 0.5),
-                        this.getZ() + (Math.random() - 0.5),
-                        0, 0, 0
-                );
+            if (this.getParticle() != null && random.nextInt(11) == 0) {
+                for (int i = 0; i < 4; i++) {
+                    level.addParticle(this.getParticle(),
+                            this.getX() + (Math.random() - 0.5),
+                            this.getY() + 1 + (Math.random() - 0.5),
+                            this.getZ() + (Math.random() - 0.5),
+                            0, 0, 0
+                    );
+                }
             }
-        }
     }
 
     @Override

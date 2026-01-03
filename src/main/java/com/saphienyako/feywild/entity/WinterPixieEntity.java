@@ -1,17 +1,23 @@
 package com.saphienyako.feywild.entity;
 
+import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.goals.GatherMobItemsGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -104,5 +110,17 @@ public class WinterPixieEntity extends PixieBase {
         if(random.nextFloat() < 0.1f){
             return ModSounds.WINTER_PIXIE_GIGGLE.get();
         } else return null;
+    }
+
+    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
+        BlockState blockBelow = level.getBlockState(pos.below());
+
+        if (blockBelow.is(Blocks.SNOW)) {
+            blockBelow = level.getBlockState(pos.below(2));
+        }
+
+        return blockBelow.isValidSpawn(level, pos, entity)
+                && isBrightEnoughToSpawn(level, pos)
+                && level.getBlockState(pos).isAir();
     }
 }
