@@ -85,7 +85,7 @@ public class Feywild
     @SuppressWarnings("unused")
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("THEY FEY ARE PLEASE the server is starting");
+        LOGGER.info("THE FEY ARE PLEASE the server is starting");
     }
     @SuppressWarnings("unused")
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
