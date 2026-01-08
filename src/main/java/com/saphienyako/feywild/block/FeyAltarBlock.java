@@ -141,11 +141,6 @@ public class FeyAltarBlock extends BaseEntityBlock {
         return new FeyAltarBlockEntity(pos, blockState);
     }
 
-    @Override
-    public @NotNull BlockState rotate(@NotNull BlockState state, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull Rotation direction) {
-        return super.rotate(state, level, pos, direction);
-    }
-
     @Nullable
     @Override
     public PushReaction getPistonPushReaction(@NotNull BlockState state) {
