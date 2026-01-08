@@ -27,7 +27,7 @@ public record AltarParticleMessage (AltarParticleMessage.Type type, BlockPos pos
         int maxProgress = buffer.readInt();
         return new AltarParticleMessage(type, pos, progress, maxProgress);
     }
-
+    //TODO Add Client Handler
     private static void withLevelDo(Consumer<Level> action) {
         var level = Minecraft.getInstance().level;
         if (level != null) action.accept(level);

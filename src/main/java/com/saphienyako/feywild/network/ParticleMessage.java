@@ -24,6 +24,7 @@ public record ParticleMessage(Type type, BlockPos pos) {
         return new ParticleMessage(type, pos);
     }
 
+    //TODO Add Client Handler
     private static void withLevelDo(Consumer<Level> action) {
         var level = Minecraft.getInstance().level;
         if (level != null) action.accept(level);

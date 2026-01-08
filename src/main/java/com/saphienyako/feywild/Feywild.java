@@ -33,7 +33,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -63,9 +62,11 @@ public class Feywild
         instance = this;
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayer);
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
+        modEventBus.addListener(this::entityAttributes);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            modEventBus.addListener(this::registerLayer);
+            modEventBus.addListener(this::registerParticles);
+        });
 
         ModCreativeModeTab.register(modEventBus);
         ModItems.register(modEventBus);
@@ -134,15 +135,17 @@ public class Feywild
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-
+        LOGGER.info("THE FEY ARE PLEASE the server is starting");
     }
 
 
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
-        @SubscribeEvent
+                @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+                    LOGGER.info("AND A LITTLE BIT OF PIXIE DUST!");
+
             EntityRenderers.register(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
             EntityRenderers.register(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
             EntityRenderers.register(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);

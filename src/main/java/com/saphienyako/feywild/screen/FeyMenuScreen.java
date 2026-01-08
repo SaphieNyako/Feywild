@@ -52,7 +52,7 @@ public class FeyMenuScreen extends Screen {
                 this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
                 this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
                 // TODO Button Quest
-                if(ModConfig.CLIENT.voices_active.get()) {
+                if(ModConfig.COMMON.voice_active.get()) {
                     this.addRenderableWidget(new VolumeButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH) / 2), this.top + 28 + AbilityButton.HEIGHT * 6, this.voiceActive, this.entityId));
                 }
             }

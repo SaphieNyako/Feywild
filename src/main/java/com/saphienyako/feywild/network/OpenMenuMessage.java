@@ -1,11 +1,14 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.network.handler.OpenMenuMessageClientHandler;
 import com.saphienyako.feywild.screen.FeyMenuScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -35,9 +38,11 @@ public record OpenMenuMessage(Component name, int entityId, Alignment alignment,
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        if (this.entityId() != -1) {
-            Minecraft.getInstance().setScreen(new FeyMenuScreen(this.name, this.entityId, this.alignment, this.followingPlayer, this.currentBlockPos, this.abilityActive, this.voiceActive));
-        }
+        supplier.get().enqueueWork(() -> {
+            if (FMLEnvironment.dist == Dist.CLIENT) {
+                OpenMenuMessageClientHandler.openMenu(name() ,entityId(), alignment(), followingPlayer(), currentBlockPos(), abilityActive(), voiceActive());
+            }
+        });
+        supplier.get().setPacketHandled(true);
     }
-
 }
