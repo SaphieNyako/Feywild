@@ -4,6 +4,7 @@ import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -37,18 +38,28 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
 
                 if(!this.followingPlayer) {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyStayMessage());
-                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        FeywildNetwork.sendToPlayer(
-                                new PlaySoundMessage(entity.getStaySound().getLocation(), entity.blockPosition()),
-                                supplier.get().getSender());
+                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                        level.playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getStaySound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                     entity.setSummonPos(this.currentBlockPos);
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyFollowMessage());
-                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        FeywildNetwork.sendToPlayer(
-                                new PlaySoundMessage(entity.getFollowSound().getLocation(), entity.blockPosition()),
-                                supplier.get().getSender());
+                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                        level.playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getFollowSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 }
             }

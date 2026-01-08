@@ -23,7 +23,7 @@ public record ParticleMessage(Type type, BlockPos pos) {
         BlockPos pos = buffer.readBlockPos();
         return new ParticleMessage(type, pos);
     }
-
+    //TODO Client Handler
     private static void withLevelDo(Consumer<Level> action) {
         var level = Minecraft.getInstance().level;
         if (level != null) action.accept(level);

@@ -5,6 +5,7 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -35,17 +36,27 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
                 entity.setAbilityActive(this.abilityActive);
                 if(!this.abilityActive){
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOffMessage());
-                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        FeywildNetwork.sendToPlayer(
-                                new PlaySoundMessage(entity.getAbilityOffSound().getLocation(), entity.blockPosition()),
-                                supplier.get().getSender());
+                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                        level.playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getAbilityOffSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOnMessage());
-                    if(ModConfig.CLIENT.voices_active.get() && entity.getVoiceActive()) {
-                        FeywildNetwork.sendToPlayer(
-                                new PlaySoundMessage(entity.getAbilityOnSound().getLocation(), entity.blockPosition()),
-                                supplier.get().getSender());
+                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                        level.playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getAbilityOnSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 }
             }

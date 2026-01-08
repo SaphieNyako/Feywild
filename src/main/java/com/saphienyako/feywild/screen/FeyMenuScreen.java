@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
@@ -50,9 +51,9 @@ public class FeyMenuScreen extends Screen {
                 this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
                 this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
                 // TODO Button Quest
-                //if(ModConfig.CLIENT.voices_active.get()) {
+                if(ModConfig.COMMON.voices_active.get()) {
                     this.addRenderableWidget(new VolumeButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH) / 2), this.top + 28 + AbilityButton.HEIGHT * 6, this.voiceActive, this.entityId));
-               // }
+                }
             }
         }
     }

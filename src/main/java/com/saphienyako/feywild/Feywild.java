@@ -63,9 +63,11 @@ public class Feywild
         instance = this;
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerLayer);
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles));
+        modEventBus.addListener(this::entityAttributes);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            modEventBus.addListener(this::registerLayer);
+            modEventBus.addListener(this::registerParticles);
+        });
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
@@ -136,7 +138,7 @@ public class Feywild
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-
+        LOGGER.info("THE FEY ARE PLEASE the server is starting");
     }
 
 
@@ -145,6 +147,8 @@ public class Feywild
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            LOGGER.info("AND A LITTLE BIT OF PIXIE DUST!");
+
             EntityRenderers.register(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
             EntityRenderers.register(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
             EntityRenderers.register(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
@@ -154,7 +158,6 @@ public class Feywild
         }
     }
 
-    @SubscribeEvent
     public void registerParticles(RegisterParticleProvidersEvent event) {
         Minecraft.getInstance().particleEngine.register(ModParticles.AUTUMN_LEAF_PARTICLE.get(),
                 LeafParticle.Factory::new);

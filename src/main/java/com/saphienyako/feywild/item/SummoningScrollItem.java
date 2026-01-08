@@ -8,14 +8,13 @@ import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
-import com.saphienyako.feywild.network.PlaySoundMessage;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -67,8 +66,15 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
                     context.getPlayer().sendSystemMessage(entity.getFeySummonMessage());
                     FeywildNetwork.sendParticles(context.getLevel(), ParticleMessage.Type.DANDELION_FLUFF, context.getClickedPos());
 
-                    if (ModConfig.CLIENT.voices_active.get()) {
-                        FeywildNetwork.sendToPlayer(new PlaySoundMessage(entity.getSummonSound().getLocation(), entity.blockPosition()), (ServerPlayer) context.getPlayer());
+                    if (ModConfig.COMMON.voices_active.get()) {
+                        context.getLevel().playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getSummonSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);

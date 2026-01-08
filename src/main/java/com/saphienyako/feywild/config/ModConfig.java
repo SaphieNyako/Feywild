@@ -29,6 +29,8 @@ public class ModConfig {
         public final ForgeConfigSpec.IntValue fey_dust_duration;
         public final ForgeConfigSpec.BooleanValue spawn_with_lexicon;
 
+        public final ForgeConfigSpec.BooleanValue voices_active;
+
         public Common(ForgeConfigSpec.Builder builder) {
 
             builder.comment("Feywild General Config").push("feywild");
@@ -41,6 +43,10 @@ public class ModConfig {
                     .comment("Whether players should spawn with a Feywild Lexicon")
                     .define("spawn_with_lexicon", true);
 
+            voices_active = builder
+                    .comment("Whether fey should have voice acting on")
+                    .define("voices_active", true);
+
             builder.pop();
         }
     }
@@ -49,18 +55,12 @@ public class ModConfig {
 
         public final ForgeConfigSpec.BooleanValue flower_particles;
 
-        public final ForgeConfigSpec.BooleanValue voices_active;
-
         public Client(ForgeConfigSpec.Builder builder) {
             builder.comment("Feywild Client Config").push("client");
 
             flower_particles = builder
                     .comment("Whether giant flowers should have particles")
                     .define("flower_particles", true);
-
-            voices_active = builder
-                    .comment("Whether fey should have voice acting on")
-                    .define("voices_active", true);
 
             builder.pop();
         }

@@ -40,12 +40,6 @@ public class FeywildNetwork {
                 .consumerMainThread(AltarParticleMessage::handle)
                 .add();
 
-        net.messageBuilder(PlaySoundMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(PlaySoundMessage::decode)
-                .encoder(PlaySoundMessage::encode)
-                .consumerMainThread(PlaySoundMessage::handle)
-                .add();
-
         net.messageBuilder(OpenMenuMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(OpenMenuMessage::decode)
                 .encoder(OpenMenuMessage::encode)
