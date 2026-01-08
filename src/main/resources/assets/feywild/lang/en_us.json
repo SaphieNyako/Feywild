@@ -77,7 +77,7 @@
   "message.feywild.winter_pixie_ability_off": "I will cease...could you offer your soul instead?",
   "message.feywild.summer_pixie_ability_off": "I shall decide when to cease...and that moment...is now!",
   "message.feywild.feywild_lexicon": "This Lexicon appeared mysteriously in your inventory.",
-  "message.feywild.no_lexicon": "You need Patchouli for this book to open up it's information to you.",
+  "message.feywild.no_lexicon": "You need Patchouli for this book to open up it's information to you or check the feywild wiki. ",
   "sounds.feywild.mandrake_scream": "Mandrake screams.",
   "sounds.feywild.pixie_spell_casting": "Pixie is casting a spell.",
   "sounds.feywild.pixie_spell_casting_short": "Pixie is casting a spell.",
