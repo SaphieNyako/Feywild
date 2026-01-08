@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

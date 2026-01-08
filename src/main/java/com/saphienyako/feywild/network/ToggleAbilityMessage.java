@@ -7,9 +7,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,17 +45,26 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
                     if (!msg.abilityActive()) {
                         player.sendSystemMessage(entity.getFeyAbilityOffMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            PacketDistributor.sendToPlayersTrackingEntity(
-                                    entity,
-                                    new PlaySoundMessage(entity.getAbilityOffSound(), entity.blockPosition())
+                            level.playSound(
+                                    null,
+                                    entity.blockPosition(),
+                                    entity.getAbilityOffSound(),
+                                    SoundSource.NEUTRAL,
+                                    1.0F,
+                                    1.0F
                             );
                         }
                     } else {
                         player.sendSystemMessage(entity.getFeyAbilityOnMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            PacketDistributor.sendToPlayersTrackingEntity(
-                                    entity,
-                                    new PlaySoundMessage(entity.getAbilityOnSound(), entity.blockPosition())
+
+                            level.playSound(
+                                    null,
+                                    entity.blockPosition(),
+                                    entity.getAbilityOnSound(),
+                                    SoundSource.NEUTRAL,
+                                    1.0F,
+                                    1.0F
                             );
                         }
                     }

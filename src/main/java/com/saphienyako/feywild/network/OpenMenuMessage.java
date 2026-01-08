@@ -2,13 +2,14 @@ package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.Alignment;
-import com.saphienyako.feywild.screen.FeyMenuScreen;
-import net.minecraft.client.Minecraft;
+import com.saphienyako.feywild.network.handler.OpenMenuMessageClientHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,16 +42,8 @@ public record OpenMenuMessage(int entityId, Alignment alignment, boolean followi
 
     public static void handle(OpenMenuMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (msg.entityId() != -1) {
-                Minecraft mc = Minecraft.getInstance();
-                mc.setScreen(new FeyMenuScreen(
-                        msg.entityId(),
-                        msg.alignment(),
-                        msg.followingPlayer(),
-                        msg.currentBlockPos(),
-                        msg.abilityActive(),
-                        msg.voiceActive()
-                ));
+            if (FMLEnvironment.dist == Dist.CLIENT) {
+                OpenMenuMessageClientHandler.openMenu(msg);
             }
         });
     }

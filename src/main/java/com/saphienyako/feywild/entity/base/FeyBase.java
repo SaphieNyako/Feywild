@@ -5,7 +5,6 @@ import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
-import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +32,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
 import java.util.UUID;
 
 public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable {

@@ -8,9 +8,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,18 +49,26 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
                     if (!msg.followingPlayer()) {
                         player.sendSystemMessage(entity.getFeyStayMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            PacketDistributor.sendToPlayersTrackingEntity(
-                                    entity,
-                                    new PlaySoundMessage(entity.getStaySound(), entity.blockPosition())
+                            level.playSound(
+                                    null,
+                                    entity.blockPosition(),
+                                    entity.getStaySound(),
+                                    SoundSource.NEUTRAL,
+                                    1.0F,
+                                    1.0F
                             );
                         }
                         entity.setSummonPos(msg.currentBlockPos());
                     } else {
                         player.sendSystemMessage(entity.getFeyFollowMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            PacketDistributor.sendToPlayersTrackingEntity(
-                                    entity,
-                                    new PlaySoundMessage(entity.getFollowSound(), entity.blockPosition())
+                            level.playSound(
+                                    null,
+                                    entity.blockPosition(),
+                                    entity.getFollowSound(),
+                                    SoundSource.NEUTRAL,
+                                    1.0F,
+                                    1.0F
                             );
                         }
                     }

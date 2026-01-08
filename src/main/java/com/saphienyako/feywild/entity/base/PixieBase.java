@@ -6,13 +6,12 @@ import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
-import com.saphienyako.feywild.network.PlaySoundMessage;
-import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -104,14 +103,18 @@ public abstract class PixieBase extends FlyingFeyBase {
                 //GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
-                if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
+                if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(6) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         if(FeywildConfig.voicesActive) {
-                            PacketDistributor.sendToPlayer((ServerPlayer) player,
-                                    new PlaySoundMessage(this.getCookieSound(), this.blockPosition()));
+                            serverPlayer.playNotifySound(
+                                    this.getCookieSound(),
+                                    SoundSource.NEUTRAL,
+                                    1.0F,
+                                    1.0F
+                            );
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -139,8 +142,12 @@ public abstract class PixieBase extends FlyingFeyBase {
                 if (!level().isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
                     if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        PacketDistributor.sendToPlayer((ServerPlayer) player,
-                                new PlaySoundMessage(this.getNameSound(), this.blockPosition()));
+                        player.playNotifySound(
+                                this.getNameSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 }
 

@@ -7,7 +7,7 @@ import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.ParticleMessage;
-import com.saphienyako.feywild.network.PlaySoundMessage;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -72,9 +72,13 @@ public class SummoningScrollItem extends Item {
                     );
 
                     if (FeywildConfig.voicesActive) {
-                        PacketDistributor.sendToPlayersTrackingEntity(
-                                entity,
-                                new PlaySoundMessage(entity.getSummonSound(), entity.blockPosition())
+                        context.getLevel().playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getSummonSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
                         );
                     }
 

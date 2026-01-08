@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -43,9 +44,13 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
                     entity.spawnAtLocation(entity.getDismissItem());
                     player.sendSystemMessage(entity.getFeyDismissMessage());
                     if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                        PacketDistributor.sendToPlayersTrackingEntity(
-                                entity,
-                                new PlaySoundMessage(entity.getDismissSound(), entity.blockPosition())
+                        level.playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getDismissSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
                         );
                     }
                     PacketDistributor.sendToPlayersTrackingEntity(

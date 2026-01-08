@@ -17,6 +17,7 @@ public class FeywildConfig {
 
     private static final ModConfigSpec.IntValue FEY_DUST_DURATION;
     private static final ModConfigSpec.BooleanValue SPAWN_WITH_LEXICON;
+    private static final ModConfigSpec.BooleanValue VOICES_ACTIVE;
 
     public static int feyDustDuration;
     public static boolean spawnWithLexicon;
@@ -26,7 +27,7 @@ public class FeywildConfig {
     public static final ModConfigSpec CLIENT_SPEC;
 
     private static final ModConfigSpec.BooleanValue FLOWER_PARTICLES;
-    private static final ModConfigSpec.BooleanValue VOICES_ACTIVE;
+
 
     public static boolean flowerParticles;
     public static boolean voicesActive;
@@ -45,6 +46,10 @@ public class FeywildConfig {
                 .comment("Whether players should spawn with a Feywild Lexicon")
                 .define("spawn_with_lexicon", true);
 
+        VOICES_ACTIVE = COMMON_BUILDER
+                .comment("Whether fey should have voice acting on")
+                .define("voices_active", true);
+
         COMMON_BUILDER.pop();
         COMMON_SPEC = COMMON_BUILDER.build();
 
@@ -56,10 +61,6 @@ public class FeywildConfig {
         FLOWER_PARTICLES = CLIENT_BUILDER
                 .comment("Whether giant flowers should have particles")
                 .define("flower_particles", true);
-
-        VOICES_ACTIVE = CLIENT_BUILDER
-                .comment("Whether fey should have voice acting on")
-                .define("voices_active", true);
 
         CLIENT_BUILDER.pop();
         CLIENT_SPEC = CLIENT_BUILDER.build();
@@ -76,11 +77,12 @@ public class FeywildConfig {
         if (event.getConfig().getSpec() == COMMON_SPEC) {
             feyDustDuration = FEY_DUST_DURATION.get();
             spawnWithLexicon = SPAWN_WITH_LEXICON.get();
+            voicesActive = VOICES_ACTIVE.get();
         }
 
         if (event.getConfig().getSpec() == CLIENT_SPEC) {
             flowerParticles = FLOWER_PARTICLES.get();
-            voicesActive = VOICES_ACTIVE.get();
+
         }
     }
 
