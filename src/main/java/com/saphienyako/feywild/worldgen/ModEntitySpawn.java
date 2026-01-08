@@ -2,17 +2,18 @@ package com.saphienyako.feywild.worldgen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.ModEntities;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.MobSpawnSettings;
+
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Feywild.MOD_ID)
 public class ModEntitySpawn {
@@ -24,59 +25,56 @@ public class ModEntitySpawn {
                 3,
                 1,
                 1,
-                Biomes.PLAINS,
-                Biomes.SUNFLOWER_PLAINS);
+                Biomes.PLAINS.getRegistryName(),
+                Biomes.SUNFLOWER_PLAINS.getRegistryName());
 
         addEntityToSpecificBiomes(event,
                 ModEntities.AUTUMN_PIXIE.get(),
                 3,
                 1,
                 1,
-                Biomes.FOREST,
-                Biomes.BIRCH_FOREST,
-                Biomes.DARK_FOREST,
-                Biomes.FLOWER_FOREST,
-                Biomes.TAIGA);
+                Biomes.FOREST.getRegistryName(),
+                Biomes.BIRCH_FOREST.getRegistryName(),
+                Biomes.DARK_FOREST.getRegistryName(),
+                Biomes.FLOWER_FOREST.getRegistryName(),
+                Biomes.TAIGA.getRegistryName());
 
         addEntityToSpecificBiomes(event,
                 ModEntities.SUMMER_PIXIE.get(),
                 2,
                 1,
                 1,
-                Biomes.DESERT,
-                Biomes.SAVANNA,
-                Biomes.SAVANNA_PLATEAU,
-                Biomes.BADLANDS);
+                Biomes.DESERT.getRegistryName(),
+                Biomes.SAVANNA.getRegistryName(),
+                Biomes.SAVANNA_PLATEAU.getRegistryName(),
+                Biomes.BADLANDS.getRegistryName());
 
         addEntityToSpecificBiomes(event,
                 ModEntities.WINTER_PIXIE.get(),
                 2,
                 1,
                 1,
-                Biomes.ICE_SPIKES,
-                Biomes.SNOWY_PLAINS,
-                Biomes.SNOWY_SLOPES,
-                Biomes.SNOWY_TAIGA);
+                Biomes.ICE_SPIKES.getRegistryName(),
+                Biomes.SNOWY_TUNDRA.getRegistryName(),
+                Biomes.SNOWY_TAIGA.getRegistryName());
     }
 
-    @SafeVarargs
     private static void addEntityToSpecificBiomes(BiomeLoadingEvent event, EntityType<?> type,
-                                                  int weight, int minCount, int maxCount, ResourceKey<Biome>... biomes) {
-        // Goes through each entry in the biomes and sees if it matches the current biome we are loading
-      //  boolean isBiomeSelected = Arrays.stream(biomes).map(ResourceKey::location).map(Object::toString).anyMatch(s -> s.equals(event.getName().toString()));
-        boolean isBiomeSelected = Arrays.stream(biomes)
-                .anyMatch(biome -> biome.location().equals(event.getName()));
+                                                  int weight, int minCount, int maxCount, ResourceLocation... biomes) {
+        ResourceLocation biomeName = event.getName();
+        if (biomeName == null) return;
 
-        if(isBiomeSelected) {
+        boolean isBiomeSelected = Arrays.stream(biomes)
+                .anyMatch(biome -> biome.equals(biomeName));
+
+        if (isBiomeSelected) {
             addEntityToAllBiomes(event, type, weight, minCount, maxCount);
         }
     }
 
     private static void addEntityToAllBiomes(BiomeLoadingEvent event, EntityType<?> type,
                                              int weight, int minCount, int maxCount) {
-        List<MobSpawnSettings.SpawnerData> base = event.getSpawns().getSpawner(type.getCategory());
-        base.add(new MobSpawnSettings.SpawnerData(type,weight, minCount, maxCount));
+        event.getSpawns().getSpawner(EntityClassification.CREATURE)
+                .add(new MobSpawnInfo.Spawners(type, weight, minCount, maxCount));
     }
-
-
 }

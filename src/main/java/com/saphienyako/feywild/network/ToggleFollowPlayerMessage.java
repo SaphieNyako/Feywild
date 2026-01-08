@@ -2,25 +2,46 @@ package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, BlockPos currentBlockPos) {
+public class ToggleFollowPlayerMessage {
 
-    public static void encode(ToggleFollowPlayerMessage msg, FriendlyByteBuf buffer) {
-        buffer.writeInt(msg.entityId());
-        buffer.writeBoolean(msg.followingPlayer());
-        buffer.writeBlockPos(msg.currentBlockPos());
+    private final int entityId;
+    private final boolean followingPlayer;
+    private final BlockPos currentBlockPos;
+
+    public ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, BlockPos currentBlockPos) {
+        this.entityId = entityId;
+        this.followingPlayer = followingPlayer;
+        this.currentBlockPos = currentBlockPos;
     }
 
-    public static ToggleFollowPlayerMessage decode(FriendlyByteBuf buffer) {
+    public int getEntityId() {
+        return entityId;
+    }
+
+    public boolean isFollowingPlayer() {
+        return followingPlayer;
+    }
+
+    public BlockPos getCurrentBlockPos() {
+        return currentBlockPos;
+    }
+
+    public static void encode(ToggleFollowPlayerMessage msg, PacketBuffer buffer) {
+        buffer.writeInt(msg.entityId);
+        buffer.writeBoolean(msg.followingPlayer);
+        buffer.writeBlockPos(msg.currentBlockPos);
+    }
+
+    public static ToggleFollowPlayerMessage decode(PacketBuffer buffer) {
         int id = buffer.readInt();
         boolean followingPlayer = buffer.readBoolean();
         BlockPos currentBlockPos = buffer.readBlockPos();
@@ -29,9 +50,9 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-       Player player = supplier.get().getSender();
-        Level level = player.level;
-        if (this.entityId() != -1) {
+       PlayerEntity player = supplier.get().getSender();
+        World level = player.level;
+        if (this.entityId != -1) {
 
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {

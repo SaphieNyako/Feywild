@@ -1,80 +1,79 @@
 package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.config.ModConfig;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+
+import net.minecraft.block.*;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
+
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 public abstract class GiantFlowerBlock extends Block {
-    public static final VoxelShape STEM_SHAPE = box(4, 0, 4, 12, 16, 12);
-    public static final VoxelShape FLOWER_SHAPE = box(1, 0, 1, 15, 15, 15);
+    public static final VoxelShape STEM_SHAPE =
+            box(4, 0, 4, 12, 16, 12);
+    public static final VoxelShape FLOWER_SHAPE =
+            box(1, 0, 1, 15, 15, 15);
 
     // 0 - 2 = stem, 3 = flower
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 3);
     public final int height;
 
     public GiantFlowerBlock(int height) {
-        super(Properties.copy(Blocks.LARGE_FERN).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8));
+        super(Properties.copy(Blocks.LARGE_FERN).noCollission().sound(SoundType.BAMBOO).strength(1,1).lightLevel(value -> 8));
         this.height = height;
-        this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(PART, 3));
     }
 
     @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
-    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState state) {
+    public PushReaction getPistonPushReaction(@Nonnull BlockState state) {
         return PushReaction.DESTROY;
     }
 
-
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(PART);
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    public VoxelShape getShape(BlockState state,@Nonnull IBlockReader reader,@Nonnull BlockPos pos,@Nonnull ISelectionContext context) {
         return state.getValue(PART) == 3 ? FLOWER_SHAPE : STEM_SHAPE;
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getVisualShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
-        return Shapes.empty();
+    public VoxelShape getVisualShape( @Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+        return VoxelShapes.empty();
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
-    @SuppressWarnings("deprecation")
-    public RenderShape getRenderShape(@Nonnull BlockState state) {
-        return state.getValue(PART) == 1 || state.getValue(PART) == 3 ? RenderShape.MODEL : RenderShape.INVISIBLE;
+    public BlockRenderType getRenderShape(BlockState state) {
+        return state.getValue(PART) == 1 || state.getValue(PART) == 3 ? BlockRenderType.MODEL : BlockRenderType.INVISIBLE;
     }
 
-    @Override
     @SuppressWarnings("deprecation")
-    public void onRemove(@Nonnull BlockState oldState, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
+    @Override
+    public void onRemove(BlockState oldState,@Nonnull World level,@Nonnull BlockPos pos, BlockState newState, boolean moving) {
         if (oldState.getBlock() != newState.getBlock()) {
             this.removeOthers(level, oldState, pos);
         }
@@ -89,26 +88,26 @@ public abstract class GiantFlowerBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void randomTick(@Nonnull BlockState state, @Nonnull ServerLevel level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld level, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.randomTick(state, level, pos, random);
         if (state.getValue(PART) == 3) this.tickFlower(state, level, pos, random);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Random random) {
+    public void animateTick(@Nonnull BlockState state, @Nonnull World level, @Nonnull BlockPos pos, @Nonnull Random random) {
         super.animateTick(state, level, pos, random);
         if (state.getValue(PART) == 3 && ModConfig.CLIENT.flower_particles.get()) this.animateFlower(state, level, pos, random);
     }
 
-    protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, Random random);
+    protected abstract void tickFlower(BlockState state, ServerWorld level, BlockPos pos, Random random);
 
     @OnlyIn(Dist.CLIENT)
-    protected abstract void animateFlower(BlockState state, Level world, BlockPos pos, Random random);
+    protected abstract void animateFlower(BlockState state, World level, BlockPos pos, Random random);
 
-    public abstract BlockState flowerState(LevelAccessor world, BlockPos pos, Random random);
+    public abstract BlockState flowerState(IWorld world, BlockPos pos, Random random);
 
-    protected void removeOthers(Level level, BlockState state, BlockPos pos) {
+    protected void removeOthers(World level, BlockState state, BlockPos pos) {
         int blocksBelow = state.getValue(PART) - (4 - this.height);
         int blocksAbove = 3 - state.getValue(PART);
 

@@ -1,25 +1,26 @@
 package com.saphienyako.feywild.entity.goals;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+
 
 import java.util.function.Supplier;
 
 public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
-    private final Mob entity;
+    private final MobEntity entity;
     private final int triggerRangeSquared;
     private final float speed;
 
-    public GoToTargetPositionGoal(Mob entity, Supplier<Vec3> pos, int maxMovementRange, float speed) {
+    public GoToTargetPositionGoal(MobEntity entity, Supplier<Vector3d> pos, int maxMovementRange, float speed) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.speed = speed;
         this.triggerRangeSquared = (maxMovementRange * 2) * (maxMovementRange * 2);
     }
 
-    public GoToTargetPositionGoal(Mob entity, Supplier<Vec3> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
+    public GoToTargetPositionGoal(MobEntity entity, Supplier<Vector3d> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
         super(pos, maxMovementRange);
         this.entity = entity;
         this.speed = speed;
@@ -28,7 +29,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public void tick() {
-        Vec3 target = this.targetPosition.get();
+        Vector3d target = this.targetPosition.get();
         if (target != null && distanceFromSquared(this.entity.position(), target) > this.triggerRangeSquared) {
             this.entity.setPos(target.x, target.y + 1, target.z);
         } else if (target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared) {
@@ -38,21 +39,21 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
 
     @Override
     public boolean canContinueToUse() {
-        Vec3 target = this.targetPosition.get();
+        Vector3d target = this.targetPosition.get();
         return target != null && distanceFromSquared(this.entity.position(), target) > this.maxMovementRangeSquared / 2.0;
     }
 
     @Override
     public boolean canUse() {
-        Vec3 target = this.targetPosition.get();
+        Vector3d target = this.targetPosition.get();
         return this.entity.level.random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
     }
 
-    public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {
+    public static GoToTargetPositionGoal byBlockPos(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {
         return new GoToTargetPositionGoal(entity, asVector(pos), maxMovementRange, speed);
     }
 
-    public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
+    public static GoToTargetPositionGoal byBlockPos(MobEntity entity, Supplier<BlockPos> pos, int maxMovementRange, float speed, Supplier<Boolean> shouldReturn) {
         return new GoToTargetPositionGoal(entity, asVector(pos), maxMovementRange, speed, shouldReturn);
     }
 }

@@ -1,60 +1,57 @@
 package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
-import com.saphienyako.feywild.block.entity.ModBlockEntities;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class FeyAltarBlock extends BaseEntityBlock{
+public class FeyAltarBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape FEY_ALTAR = Block.box(0, 0, 0, 16, 32, 16);
 
     protected FeyAltarBlock(Properties pProperties) {
         super(pProperties);
-      this.registerDefaultState(this.getStateDefinition().any()
-              .setValue(FACING, Direction.EAST)
-              );
+        this.registerDefaultState(this.getStateDefinition().any()
+                .setValue(FACING, Direction.EAST)
+        );
     }
 
     @Override
-    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
         return 1;
-        //Solves Shadow problem, not solid solution
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
 
-    @javax.annotation.Nullable
+
+
+    @Nonnull
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockPos pos = context.getClickedPos();
         if (context.getLevel().getBlockState(pos.above()).canBeReplaced(context)) {
             return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getCounterClockWise());
@@ -64,70 +61,75 @@ public class FeyAltarBlock extends BaseEntityBlock{
     }
 
     @Nonnull
-    @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter level, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
+    @Override
+    public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader reader, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
         return FEY_ALTAR;
     }
 
     @Nonnull
-    @Override
     @SuppressWarnings("deprecation")
-    public RenderShape getRenderShape(@Nonnull BlockState state) {
-        return  RenderShape.MODEL;
+    @Override
+    public BlockRenderType getRenderShape(BlockState state) {
+        return BlockRenderType.MODEL;
     }
-    @Nonnull
+
     @Override
-    @SuppressWarnings("deprecation")
-    public BlockState rotate(BlockState state, Rotation rotation) {
+    public BlockState rotate(BlockState state, IWorld world, BlockPos pos, Rotation rotation){
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
     @Nonnull
-    @Override
     @SuppressWarnings("deprecation")
+    @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
-    @Override
     @SuppressWarnings("deprecation")
-    public void onRemove(@Nonnull BlockState oldState, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
+    @Override
+    public void onRemove(BlockState oldState, @Nonnull World level, @Nonnull BlockPos pos, BlockState newState, boolean moving) {
         if (oldState.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+            TileEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof FeyAltarBlockEntity) {
                 ((FeyAltarBlockEntity) blockEntity).drops();
             }
         }
-
-        super.onRemove(oldState, level, pos, newState, moving);
     }
 
-    @Override
     @SuppressWarnings("deprecation")
-    public @NotNull InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
+    @Nonnull
+    @Override
+    public ActionResultType use(@Nonnull BlockState state,@Nonnull World level,@Nonnull BlockPos pos,@Nonnull PlayerEntity player,@Nonnull Hand hand,@Nonnull BlockRayTraceResult hit) {
         if (!level.isClientSide()) {
-            BlockEntity entity = level.getBlockEntity(pos);
+            TileEntity entity = level.getBlockEntity(pos);
             if (!player.getItemInHand(hand).isEmpty()) {
-                NetworkHooks.openGui((ServerPlayer) player, (FeyAltarBlockEntity) entity, buf -> {
-                    buf.writeBlockPos(pos);
-                });
-
+                NetworkHooks.openGui((ServerPlayerEntity) player, (FeyAltarBlockEntity) entity, buf -> buf.writeBlockPos(pos));
             } else if(entity instanceof FeyAltarBlockEntity) {
-               // NetworkHooks.openGui(((ServerPlayer)player), (FeyAltarBlockEntity)entity, pos);
-                NetworkHooks.openGui((ServerPlayer) player, (FeyAltarBlockEntity) entity, buf -> {
-                    buf.writeBlockPos(pos);
-                });
+                NetworkHooks.openGui((ServerPlayerEntity) player, (FeyAltarBlockEntity) entity, buf -> buf.writeBlockPos(pos));
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return ActionResultType.sidedSuccess(level.isClientSide);
+    }
+
+    //Add TileEntity
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new FeyAltarBlockEntity();
+    }
+
+    /*
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
         if(level.isClientSide()) {
             return null;
         }
@@ -135,21 +137,13 @@ public class FeyAltarBlock extends BaseEntityBlock{
         return createTickerHelper(blockEntityType, ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(),
                 (level1, pos, state1, blockEntity) -> blockEntity.tick(level1, pos, state1));
     }
+    */
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState blockState) {
-        return new FeyAltarBlockEntity(pos, blockState);
-    }
-
-    @Override
-    public BlockState rotate(BlockState state, LevelAccessor level, BlockPos pos, Rotation direction) {
-        return super.rotate(state, level, pos, direction);
-    }
-
+    //rotate
+    @Nonnull
     @SuppressWarnings("deprecation")
     @Override
-    public @NotNull PushReaction getPistonPushReaction(@NotNull BlockState state) {
+    public PushReaction getPistonPushReaction(@Nonnull BlockState state) {
         return PushReaction.BLOCK;
     }
 }

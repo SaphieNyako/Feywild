@@ -1,34 +1,34 @@
 package com.saphienyako.feywild.block;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.state.IntegerProperty;
 
-import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class CrocusFlowerBlock extends GiantFlowerBlock{
-    public static final IntegerProperty OPENING_STATE = IntegerProperty.create("opening_state", 0, 2);
+    public static final IntegerProperty OPENING_STATE = IntegerProperty.create("variant", 0, 2);
     public CrocusFlowerBlock(int height) {
         super(height);
     }
 
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(OPENING_STATE);
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerWorld level, BlockPos pos, Random random) {
         if (level.isNight()) {
             level.setBlock(pos, state.setValue(OPENING_STATE, 0), 2);
         } else if (random.nextDouble() <= 0.4) {
@@ -36,9 +36,10 @@ public class CrocusFlowerBlock extends GiantFlowerBlock{
         }
     }
 
+
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    protected void animateFlower(BlockState state, World level, BlockPos pos, Random random) {
         if (level.isNight()) {
             level.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
         } else {
@@ -47,9 +48,9 @@ public class CrocusFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
-        if (level instanceof Level) {
-            if (((Level) level).isNight()) {
+    public BlockState flowerState(IWorld level, BlockPos pos, Random random) {
+        if (level instanceof World) {
+            if (((World) level).isNight()) {
                 return this.defaultBlockState().setValue(OPENING_STATE, 0);
             } else {
                 return this.defaultBlockState().setValue(OPENING_STATE, 1 + random.nextInt(2));

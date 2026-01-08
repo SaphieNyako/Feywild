@@ -4,40 +4,34 @@ import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class GatherMobItemsGoal extends Goal {
 
-    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
-
     private final PixieBase entity;
-    private Level level;
+    private World level;
     private int ticksLeft = 0;
 
-    private Animal targetMob;
+    private AnimalEntity targetMob;
 
-    public GatherMobItemsGoal(PixieBase entity, Level level) {
+    public GatherMobItemsGoal(PixieBase entity, World level) {
         this.entity = entity;
         this.level = level;
     }
@@ -54,7 +48,7 @@ public class GatherMobItemsGoal extends Goal {
                 }
             }
             if (this.ticksLeft <= 0) {
-                if (this.level instanceof ServerLevel) {
+                if (this.level instanceof ServerWorld) {
                    dropFromLootTable(targetMob);
                    this.entity.doHurtTarget(targetMob);
                    FeywildNetwork.sendParticles(level, ParticleMessage.Type.MOB_COLLECT, targetMob.blockPosition());
@@ -64,7 +58,7 @@ public class GatherMobItemsGoal extends Goal {
             } else if (this.ticksLeft == 45) {
                 this.spellCasting();
             } else if (this.ticksLeft <= 35) {
-                this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.targetMob.position());
+                LookAtHelper.lookAt(this.targetMob, this.entity);
             }
         }
     }
@@ -94,62 +88,53 @@ public class GatherMobItemsGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        Player owning = this.entity.getOwningPlayer();
-        if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
+        PlayerEntity owning = this.entity.getOwningPlayer();
+        if (owning instanceof ServerPlayerEntity && this.entity.getAbilityActive()) {
             return this.level.random.nextFloat() < 0.01f;
         } else {
             return false;
         }
     }
-
-    @Nullable
-    private Animal findTarget() {
+    private AnimalEntity findTarget() {
         double distance = Double.MAX_VALUE;
-        Animal current = null;
-        for (Animal mob : this.level.getNearbyEntities(Animal.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        AnimalEntity current = null;
 
-            if(mob instanceof AbstractHorse horse && horse.isTamed()) continue;
+        for (AnimalEntity mob : this.level.getEntitiesOfClass(AnimalEntity.class, this.entity.getBoundingBox().inflate(8))) {
+            if (mob instanceof AbstractHorseEntity && ((AbstractHorseEntity) mob).isTamed()) continue;
             if (!mob.isAlive() || mob.isBaby()) continue;
-            if (mob instanceof TamableAnimal tameable && tameable.isTame()) continue;
+            if (mob instanceof TameableEntity && ((TameableEntity) mob).isTame()) continue;
 
-            if (this.entity.distanceToSqr(mob) < distance ) {
+            double dist = this.entity.distanceToSqr(mob);
+            if (dist < distance) {
                 current = mob;
-                distance = this.entity.distanceToSqr(mob);
+                distance = dist;
             }
         }
         return current;
     }
 
+    protected void dropFromLootTable(MobEntity mob) {
+        DamageSource source = DamageSource.MAGIC;
 
-    protected void dropFromLootTable(Mob mob) {
-        // Damage source — magic
-        DamageSource source = DamageSource.MAGIC; // 1.19.2 uses static fields
-
-        // Get the loot table
         ResourceLocation lootTableId = mob.getLootTable();
         LootTable lootTable = mob.level.getServer().getLootTables().get(lootTableId);
 
-        // Build the loot context
-        LootContext.Builder builder = new LootContext.Builder((ServerLevel) mob.level)
-                .withParameter(LootContextParams.THIS_ENTITY, mob)
-                .withParameter(LootContextParams.ORIGIN, mob.position())
-                .withParameter(LootContextParams.DAMAGE_SOURCE, source);
+        LootContext.Builder builder = new LootContext.Builder((ServerWorld) mob.level)
+                .withParameter(LootParameters.THIS_ENTITY, mob)
+                .withParameter(LootParameters.ORIGIN, mob.position())
+                .withParameter(LootParameters.DAMAGE_SOURCE, source);
 
         if (source.getEntity() != null) {
-            builder.withOptionalParameter(LootContextParams.KILLER_ENTITY, source.getEntity());
-            builder.withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, source.getDirectEntity());
+            builder.withOptionalParameter(LootParameters.KILLER_ENTITY, source.getEntity());
+            builder.withOptionalParameter(LootParameters.DIRECT_KILLER_ENTITY, source.getDirectEntity());
         }
 
-        LootContext lootContext = builder.create(LootContextParamSets.ENTITY);
+        LootContext lootContext = builder.create(LootParameterSets.ENTITY);
 
-        // This is the correct 1.19.2 method
         List<ItemStack> drops = lootTable.getRandomItems(lootContext);
 
         for (ItemStack stack : drops) {
             mob.spawnAtLocation(stack, 0);
         }
-
-        //TODO does this work?
-
     }
 }

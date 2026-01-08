@@ -2,32 +2,41 @@ package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public record DismissEntityMessage(int entityId) {
 
-    public static void encode(DismissEntityMessage msg, FriendlyByteBuf buffer) {
-        buffer.writeInt(msg.entityId());
+public class DismissEntityMessage {
+
+    private final int entityId;
+
+    public DismissEntityMessage(int entityId) {
+        this.entityId = entityId;
     }
 
-    public static DismissEntityMessage decode(FriendlyByteBuf buffer) {
+    public int getEntityId(){
+        return entityId;
+    }
+
+    public static void encode(DismissEntityMessage msg, PacketBuffer buffer) {
+        buffer.writeInt(msg.entityId);
+    }
+
+    public static DismissEntityMessage decode(PacketBuffer buffer) {
         int id = buffer.readInt();
 
         return new DismissEntityMessage(id);
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        Player player = supplier.get().getSender();
-        Level level = player.level;
-        if (this.entityId() != -1) {
+        PlayerEntity player = supplier.get().getSender();
+        World level = player.level;
+        if (this.entityId != -1) {
 
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {
@@ -39,7 +48,7 @@ public record DismissEntityMessage(int entityId) {
                             supplier.get().getSender());
                 }
                 FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, entity.blockPosition().above());
-                entity.remove(Entity.RemovalReason.DISCARDED);
+                entity.remove();
 
             }
         }

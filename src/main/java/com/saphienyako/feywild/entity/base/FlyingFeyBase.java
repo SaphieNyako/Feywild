@@ -1,20 +1,21 @@
 package com.saphienyako.feywild.entity.base;
 
 import com.saphienyako.feywild.entity.base.intereface.FlyingEntity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.controller.FlyingMovementController;
+import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public abstract class FlyingFeyBase extends FeyBase implements FlyingEntity {
-    protected FlyingFeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected FlyingFeyBase(EntityType<? extends CreatureEntity> entityType, World level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveControl(this, 4, true);
+        this.moveControl = new FlyingMovementController(this, 4, true);
     }
 
     @Override
@@ -30,13 +31,13 @@ public abstract class FlyingFeyBase extends FeyBase implements FlyingEntity {
     }
 
     @Override
-    public void travel(@Nonnull Vec3 to) {
+    public void travel(@Nonnull Vector3d to) {
         this.flyingTravel(this, to);
     }
 
     @Nonnull
     @Override
-    protected PathNavigation createNavigation(@Nonnull Level level) {
+    protected PathNavigator createNavigation(@Nonnull World level) {
         return this.createFlyingNavigation(this, level);
     }
 }

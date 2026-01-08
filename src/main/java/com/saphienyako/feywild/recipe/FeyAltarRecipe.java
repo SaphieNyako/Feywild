@@ -5,19 +5,19 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.saphienyako.feywild.Feywild;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import org.jetbrains.annotations.NotNull;
+
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FeyAltarRecipe implements Recipe<SimpleContainer> {
+
+public class FeyAltarRecipe implements IRecipe<IInventory> {
 
     private final ResourceLocation id;
     private final ItemStack output;
@@ -41,39 +42,51 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
     }
 
     @Override
-    public boolean matches(@NotNull SimpleContainer inventory, Level level) {
-        List<ItemStack> stacks = new ArrayList<>();
-        for(int i = 0; i < inventory.getContainerSize()-1; i++) {
-            stacks.add(i, inventory.getItem(i));
+    public boolean matches(@Nonnull IInventory inventory,@Nonnull World level) {
+        NonNullList<ItemStack> stacks = NonNullList.withSize(inventory.getContainerSize(), ItemStack.EMPTY);
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            stacks.set(i, inventory.getItem(i));
         }
-        //Match list with all existing ingredient list  of recipes of FairyAltarRecipes.
-        return matchesLists(this.inputs, stacks);
+        return matchesLists(inputs, stacks);
     }
 
+    @Nonnull
     @Override
-    public @NotNull ItemStack assemble(@NotNull SimpleContainer simpleContainer) {
-        return this.getResultItem(); //No registeries
+    public ItemStack assemble(@Nonnull IInventory inventory) {
+        return this.getResultItem();
     }
-
 
     @Override
     public boolean canCraftInDimensions(int i, int i1) {
         return true;
     }
-
+    @Nonnull
     @Override
-    public @NotNull ItemStack getResultItem() {
+    public ItemStack getResultItem() {
         return this.output.copy();
     }
 
+    @Nonnull
     @Override
-    public @NotNull ResourceLocation getId() {
+    public ResourceLocation getId() {
         return this.id;
     }
-
+    @Nonnull
     @Override
-    public @NotNull NonNullList<Ingredient> getIngredients() {
+    public NonNullList<Ingredient> getIngredients() {
         return inputList;
+    }
+
+    @Nonnull
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+        return Serializer.INSTANCE;
+    }
+
+    @Nonnull
+    @Override
+    public IRecipeType<?> getType() {
+        return Type.INSTANCE;
     }
 
     public static boolean matchesLists(List<Ingredient> ingredients, List<ItemStack> stacks) {
@@ -81,7 +94,7 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
         List<ItemStack> left = new ArrayList<>(stacks);
         ingredients:
         for (Ingredient ingredient : ingredients) {
-            Iterator<ItemStack> itr = left.iterator();
+           Iterator<ItemStack> itr = left.iterator();
             while (itr.hasNext()) {
                 if (ingredient.test(itr.next())) {
                     itr.remove();
@@ -93,40 +106,35 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
         return true;
     }
 
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return Serializer.INSTANCE;
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
-        return Type.INSTANCE;
-    }
-
-    public static class Type implements RecipeType<FeyAltarRecipe> {
+    public static class Type implements IRecipeType<FeyAltarRecipe> {
         public static final Type INSTANCE = new Type();
         public static final String ID = "fey_altar";
+
+        @Override
+        public String toString() {
+            return ID;
+        }
     }
 
-    public static class Serializer implements RecipeSerializer<FeyAltarRecipe> {
+    public static class Serializer implements IRecipeSerializer<FeyAltarRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID = new ResourceLocation(Feywild.MOD_ID, "fey_altar");
 
         @Nonnull
         @Override
         public FeyAltarRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
+            JsonArray ingredients = JSONUtils.getAsJsonArray(json, "ingredients");
             ImmutableList.Builder<Ingredient> inputs = ImmutableList.builder();
             for (JsonElement jsonElement : ingredients) {
                 inputs.add(Ingredient.fromJson(jsonElement));
             }
-            ItemStack output = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "output"), true);
+            ItemStack output = CraftingHelper.getItemStack(JSONUtils.getAsJsonObject(json, "output"), true);
             return new FeyAltarRecipe(recipeId, output, inputs.build());
         }
 
         @Nullable
         @Override
-        public FeyAltarRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+        public FeyAltarRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
             int inputSize = buffer.readVarInt();
             ImmutableList.Builder<Ingredient> inputs = ImmutableList.builder();
             for (int i = 0; i < inputSize; i++) {
@@ -137,29 +145,26 @@ public class FeyAltarRecipe implements Recipe<SimpleContainer> {
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, FeyAltarRecipe recipe) {
+        public void toNetwork(PacketBuffer buffer, FeyAltarRecipe recipe) {
             buffer.writeVarInt(recipe.getIngredients().size());
             recipe.inputs.forEach(i -> i.toNetwork(buffer));
             buffer.writeItemStack(recipe.output, false);
         }
 
         @Override
-        public RecipeSerializer<?> setRegistryName(ResourceLocation resourceLocation) {
+        public IRecipeSerializer<?> setRegistryName(ResourceLocation resourceLocation) {
             return this;
         }
-
-        @org.jetbrains.annotations.Nullable
         @Override
         public ResourceLocation getRegistryName() {
             return ID;
         }
 
         @Override
-        public Class<RecipeSerializer<?>> getRegistryType() {
+        public Class<IRecipeSerializer<?>> getRegistryType() {
             @SuppressWarnings("unchecked")
-            Class<RecipeSerializer<?>> serializerClass = (Class<RecipeSerializer<?>>) (Class<?>) RecipeSerializer.class;
+            Class<IRecipeSerializer<?>> serializerClass = (Class<IRecipeSerializer<?>>) (Class<?>) IRecipeSerializer.class;
             return serializerClass;
-          //  return ModRecipes.FEY_ALTAR_SERIALIZER.get().getRegistryType();
         }
     }
 }

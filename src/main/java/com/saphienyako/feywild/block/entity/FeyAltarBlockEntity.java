@@ -4,42 +4,42 @@ import com.saphienyako.feywild.network.AltarParticleMessage;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.recipe.FeyAltarRecipe;
 import com.saphienyako.feywild.screen.FeyAltarMenu;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.IIntArray;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
+public class FeyAltarBlockEntity extends TileEntity implements INamedContainerProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(6) {
+
+        @Nonnull
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+        public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
             if (slot == OUTPUT_SLOT) {
                 return stack;
             }
@@ -53,47 +53,56 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     private static final int INPUT_SLOT_04 = 4;
     private static final int OUTPUT_SLOT = 5;
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-    protected final ContainerData data;
+
+    //ContainerData
+    protected final IIntArray data;
     private int progress = 0;
     private int maxProgress = 40;
 
 
-    public FeyAltarBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), pos, blockState);
-        this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
-                    case 0 -> FeyAltarBlockEntity.this.progress;
-                    case 1 -> FeyAltarBlockEntity.this.maxProgress;
-                    default -> 0;
-                };
-            }
+    public FeyAltarBlockEntity() {
+        super(ModTileEntities.FEY_ALTAR_BLOCK_ENTITY.get());
 
+        this.data = new IIntArray() {
             @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> FeyAltarBlockEntity.this.progress = pValue;
-                    case 1 -> FeyAltarBlockEntity.this.maxProgress = pValue;
+            public int get(int index) {
+                switch (index) {
+                    case 0:
+                        return FeyAltarBlockEntity.this.progress;
+                    case 1:
+                        return FeyAltarBlockEntity.this.maxProgress;
+                    default:
+                        return 0;
                 }
             }
 
             @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0:
+                        FeyAltarBlockEntity.this.progress = value;
+                        break;
+                    case 1:
+                        FeyAltarBlockEntity.this.maxProgress = value;
+                        break;
+                }
+            }
+
             public int getCount() {
                 return 2;
             }
         };
     }
 
+    @Nonnull
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         }
 
         return super.getCapability(cap, side);
     }
-
     public ItemStackHandler getInventory() {
         return itemHandler;
     }
@@ -103,24 +112,25 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     public int getMaxProgress() {return maxProgress;}
 
     public void drops() {
-        //Drop Items
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+      Inventory inventory = new Inventory(itemHandler.getSlots());
         for(int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
-        Containers.dropContents(this.level, this.worldPosition, inventory);
+
+        InventoryHelper.dropContents(this.level, this.worldPosition, inventory);
     }
 
+    @Nonnull
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt) {
-        super.saveAdditional(nbt);
+    public CompoundNBT save(@Nonnull CompoundNBT nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
         nbt.putInt("progress", this.progress);
+        return super.save(nbt);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
+    public void load(@Nonnull BlockState state,@Nonnull CompoundNBT nbt) {
+        super.load(state, nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         this.progress = nbt.getInt("progress");
     }
@@ -137,18 +147,19 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         lazyItemHandler.invalidate();
     }
 
+    @Nonnull
     @Override
-    public @NotNull Component getDisplayName() {
-        return new TranslatableComponent("block.feywild.fey_altar");
+    public ITextComponent getDisplayName() {
+        return  new TranslationTextComponent("block.feywild.fey_altar");
     }
 
-    @Nullable
+    @Nonnull
     @Override
-    public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
-        return new FeyAltarMenu(id,inventory,this,this.data);
+    public Container createMenu(int id,@Nonnull PlayerInventory inventory,@Nonnull PlayerEntity player) {
+        return new FeyAltarMenu(id, inventory,this,this.data);
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state) {
+    public void tick(World level, BlockPos pos, BlockState state) {
         if (this.level == null) return;
         if (!this.level.isClientSide) {
             if (hasRecipe()) {
@@ -200,7 +211,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     private boolean hasRecipe() {
         Optional<FeyAltarRecipe> recipe = getCurrentRecipe();
 
-        if(recipe.isEmpty()) {
+        if(!recipe.isPresent()) {
             return false;
         }
         ItemStack result = recipe.get().getResultItem();
@@ -209,7 +220,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private Optional<FeyAltarRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        Inventory inventory = new Inventory(this.itemHandler.getSlots());
         for(int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, this.itemHandler.getStackInSlot(i));
         }
@@ -233,7 +244,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item);
+        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).getItem().equals(item);
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
@@ -247,20 +258,29 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         return progress >= maxProgress;
     }
 
+
     @Override
-    public AABB getRenderBoundingBox() {
-        return super.getRenderBoundingBox();
+    public AxisAlignedBB getRenderBoundingBox() {
+        return new AxisAlignedBB(this.worldPosition); // render particles outside of block
+    }
+
+    @Nonnull
+    @Override
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT nbt = super.getUpdateTag();
+        if (this.level != null && !this.level.isClientSide) {
+            nbt.put("inventory", itemHandler.serializeNBT());
+            nbt.putInt("progress", this.progress);
+        }
+        return nbt;
     }
 
     @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        CompoundTag nbt = new CompoundTag();
-        saveAdditional(nbt);
-        return ClientboundBlockEntityDataPacket.create(this, (te) -> nbt);
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
-        load(packet.getTag());
+    public void handleUpdateTag(BlockState state, CompoundNBT nbt) {
+        super.handleUpdateTag(state, nbt);
+        if (this.level != null && this.level.isClientSide) {
+            itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+            this.progress = nbt.getInt("progress");
+        }
     }
 }

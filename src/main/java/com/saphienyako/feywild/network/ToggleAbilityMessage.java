@@ -2,26 +2,40 @@ package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
+public class ToggleAbilityMessage {
 
-    public static void encode(ToggleAbilityMessage msg, FriendlyByteBuf buffer) {
-        buffer.writeInt(msg.entityId());
-        buffer.writeBoolean(msg.abilityActive());
+    private final int entityId;
+
+    private final boolean abilityActive;
+
+    public ToggleAbilityMessage(int entityId, boolean abilityActive) {
+        this.entityId = entityId;
+        this.abilityActive = abilityActive;
+    }
+
+    public boolean isAbilityActive() {
+        return abilityActive;
+    }
+
+    public int getEntityId() {
+        return entityId;
+    }
+
+    public static void encode(ToggleAbilityMessage msg, PacketBuffer buffer) {
+        buffer.writeInt(msg.entityId);
+        buffer.writeBoolean(msg.abilityActive);
 
     }
 
-    public static ToggleAbilityMessage decode(FriendlyByteBuf buffer) {
+    public static ToggleAbilityMessage decode(PacketBuffer buffer) {
         int id = buffer.readInt();
         boolean abilityActive = buffer.readBoolean();
 
@@ -29,9 +43,9 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        Player player = supplier.get().getSender();
-        Level level = player.level;
-        if (this.entityId() != -1) {
+        PlayerEntity player = supplier.get().getSender();
+        World level = player.level;
+        if (this.entityId != -1) {
             FeyBase entity = (FeyBase) level.getEntity(this.entityId);
             if(entity != null) {
                 entity.setAbilityActive(this.abilityActive);

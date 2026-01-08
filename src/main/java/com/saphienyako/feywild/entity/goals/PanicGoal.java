@@ -1,12 +1,13 @@
 package com.saphienyako.feywild.entity.goals;
 
-import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.phys.Vec3;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.vector.Vector3d;
+
+import java.util.Random;
 
 public class PanicGoal extends Goal {
 
@@ -21,21 +22,25 @@ public class PanicGoal extends Goal {
         DamageSource source = this.entity.getLastDamageSource();
         Entity attacker = source == null ? null : source.getEntity();
 
-        Vec3 direction;
+        Vector3d direction;
         if (attacker != null) {
-            direction = this.entity.position().subtract(attacker.position()).normalize();
+            direction = new Vector3d(
+                    this.entity.getX() - attacker.getX(),
+                    this.entity.getY() - attacker.getY(),
+                    this.entity.getZ() - attacker.getZ()
+            ).normalize();
         } else {
-            direction = new Vec3(
-                    this.entity.getRandom().nextDouble() - 0.5,
-                    this.entity.getRandom().nextDouble() - 0.5,
-                    this.entity.getRandom().nextDouble() - 0.5
+            Random rand = this.entity.getRandom();
+            direction = new Vector3d(
+                    rand.nextDouble() - 0.5,
+                    rand.nextDouble() - 0.5,
+                    rand.nextDouble() - 0.5
             ).normalize();
         }
 
         double intensity = 0.8;
         this.entity.setDeltaMovement(direction.scale(intensity));
     }
-
 
     @Override
     public boolean canContinueToUse() {

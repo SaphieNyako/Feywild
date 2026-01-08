@@ -1,17 +1,18 @@
 package com.saphienyako.feywild.screen.widget;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ToggleAbilityMessage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+
+import javax.annotation.Nonnull;
+
 
 public class AbilityButton extends Button {
 
@@ -22,40 +23,40 @@ public class AbilityButton extends Button {
 
     private boolean abilityActive;
 
-    private Component textComponent;
+    private ITextComponent textComponent;
 
     private final int entityId;
     public AbilityButton(int x, int y, boolean abilityActive, int entityId) {
-        super(x, y, WIDTH, HEIGHT, new TranslatableComponent("message.feywild.test"), b -> {});
+        super(x, y, WIDTH, HEIGHT, new TranslationTextComponent("") {
+        }, b -> {
+        });
         this.abilityActive = abilityActive;
         this.entityId = entityId;
-        this.textComponent = abilityActive ? new TranslatableComponent("message.feywild.ability_on") : new TranslatableComponent("message.feywild.ability_off");
+        this.textComponent = abilityActive ? new TranslationTextComponent("message.feywild.ability_on") : new TranslationTextComponent("message.feywild.ability_off");
     }
 
     @Override
     public void onPress() {
         if (this.abilityActive) {
             this.abilityActive = false;
-            this.textComponent = new TranslatableComponent("message.feywild.ability_off");
+            this.textComponent = new TranslationTextComponent("message.feywild.ability_off");
             FeywildNetwork.sendToServer(new ToggleAbilityMessage(this.entityId,false));
 
         }
         else {
             this.abilityActive = true;
-            this.textComponent = new TranslatableComponent("message.feywild.ability_on");
+            this.textComponent = new TranslationTextComponent("message.feywild.ability_on");
             FeywildNetwork.sendToServer(new ToggleAbilityMessage(this.entityId,true));
         }
     }
 
     @Override
-    public void render(@NotNull PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+    public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
-        Font font = minecraft.font;
-        RenderSystem.setShaderTexture(0, BUTTON_TEXTURE);
-
-        blit(poseStack, this.x, this.y, 0, 0, WIDTH, HEIGHT);
-
-        drawString(poseStack, font, this.textComponent,
+        FontRenderer font = minecraft.font;
+        minecraft.getTextureManager().getTexture(BUTTON_TEXTURE);
+        blit(matrixStack,this.x, this.y, 0, 0, WIDTH, HEIGHT);
+        drawString(matrixStack, font, this.textComponent,
                 this.x + 22,
                 this.y + (HEIGHT - font.lineHeight) / 2,
                 0xFFFFFF);

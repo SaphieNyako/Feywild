@@ -1,15 +1,15 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class FeywildNetwork {
     private static SimpleChannel INSTANCE;
@@ -82,18 +82,18 @@ public class FeywildNetwork {
         INSTANCE.sendToServer(message);
     }
 
-    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
+    public static <MSG> void sendToPlayer(MSG message, ServerPlayerEntity player) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 
-    public static void sendParticles(Level level, ParticleMessage.Type type, BlockPos chunk) {
-        if (level instanceof ServerLevel) {
+    public static void sendParticles(World level, ParticleMessage.Type type, BlockPos chunk) {
+        if (level instanceof ServerWorld) {
            INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new ParticleMessage(type, chunk));
         }
     }
 
-    public static void sendParticles(Level level, AltarParticleMessage.Type type, BlockPos chunk, int progress, int maxProgress) {
-        if (level instanceof ServerLevel) {
+    public static void sendParticles(World level, AltarParticleMessage.Type type, BlockPos chunk, int progress, int maxProgress) {
+        if (level instanceof ServerWorld) {
             INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(chunk)), new AltarParticleMessage(type, chunk, progress, maxProgress));
         }
     }

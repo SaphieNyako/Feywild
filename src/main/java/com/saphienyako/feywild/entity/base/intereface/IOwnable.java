@@ -1,7 +1,7 @@
 package com.saphienyako.feywild.entity.base.intereface;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -13,17 +13,28 @@ public interface IOwnable extends ITameable {
 
     void setOwner(@Nullable UUID uid);
 
-    default void setOwner(Player player) {
+    default void setOwner(PlayerEntity player) {
         setOwner(player.getGameProfile().getId());
     }
 
-    default Player getOwningPlayer() {
+    default PlayerEntity getOwningPlayer() {
         UUID id = this.getOwner();
-        return id == null ? null : this.getEntityLevel().getPlayerByUUID(id);
+        if (id == null) return null;
+
+        if (this.getEntityLevel() instanceof World) {
+            World level = (World) this.getEntityLevel();
+            for (PlayerEntity player : level.players()) {
+                if (id.equals(player.getUUID())) {
+                    return player;
+                }
+            }
+        }
+
+        return null;
     }
 
     // Can't use getLevel because of reobf
-    Level getEntityLevel();
+    World getEntityLevel();
 
     @Override
     default boolean isTamed() {

@@ -1,29 +1,23 @@
 package com.saphienyako.feywild.entity;
 
-import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.PixieBase;
-import com.saphienyako.feywild.entity.goals.BreedAbilityGoal;
 import com.saphienyako.feywild.entity.goals.GatherCropsAbilityGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+import net.minecraft.util.SoundEvent;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
 public class AutumnPixieEntity extends PixieBase {
-    protected AutumnPixieEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected AutumnPixieEntity(EntityType<? extends CreatureEntity> entityType, World level) {
         super(entityType, level);
     }
 
@@ -33,9 +27,9 @@ public class AutumnPixieEntity extends PixieBase {
         super.registerGoals();
         this.goalSelector.addGoal(20, new GatherCropsAbilityGoal(this, this.level));
     }
-    @Nullable
+
     @Override
-    public SimpleParticleType getParticle() {
+    public IParticleData getParticle() {
         return ModParticles.AUTUMN_SPARKLE_PARTICLE.get();
     }
 
@@ -45,7 +39,7 @@ public class AutumnPixieEntity extends PixieBase {
     }
 
     @Override
-    public ItemLike getDismissItem() {
+    public Item getDismissItem() {
         return ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get();
     }
 
@@ -90,7 +84,7 @@ public class AutumnPixieEntity extends PixieBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return ModSounds.AUTUMN_PIXIE_HURT.get();
     }
 

@@ -1,36 +1,37 @@
 package com.saphienyako.feywild.block.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.saphienyako.feywild.block.entity.ClientTickHandler;
 import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
+
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 @OnlyIn(Dist.CLIENT)
-public class FeyAltarBlockRenderer<T extends FeyAltarBlockEntity> implements BlockEntityRenderer<FeyAltarBlockEntity> {
+public class FeyAltarBlockRenderer<T extends FeyAltarBlockEntity> extends TileEntityRenderer<FeyAltarBlockEntity> {
 
 
-    public FeyAltarBlockRenderer(BlockEntityRendererProvider.Context context) {
+
+    public FeyAltarBlockRenderer(TileEntityRendererDispatcher dispatcher) {
+        super(dispatcher);
     }
 
     @Override
-    public void render(FeyAltarBlockEntity altar, float partialTick, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int light, int overlay) {
-
+    public void render(@Nonnull FeyAltarBlockEntity altar, float partialTicks,@Nonnull MatrixStack matrixStack,@Nonnull IRenderTypeBuffer buffer, int light, int overlay) {
         double progressScaled = altar.getProgress() / (double) altar.getMaxProgress();
 
         List<ItemStack> stacks = new ArrayList<>();
-
         int lastSlot = altar.getInventory().getSlots() - 1;
 
         for (int slot = 0; slot < lastSlot; slot++) {
@@ -41,39 +42,38 @@ public class FeyAltarBlockRenderer<T extends FeyAltarBlockEntity> implements Blo
         if (!stacks.isEmpty()) {
             double anglePerStack = (2 * Math.PI) / stacks.size();
             for (int idx = 0; idx < stacks.size(); idx++) {
-                //noinspection ConstantConditions
-                double shiftX = Math.cos((((double) altar.getLevel().getGameTime() + partialTick) / 8) + (idx * anglePerStack)) * (1 - progressScaled);
-                double shiftZ = Math.sin((((double) altar.getLevel().getGameTime() + partialTick) / 8) + (idx * anglePerStack)) * (1 - progressScaled);
-                poseStack.pushPose();
-                poseStack.translate(0.5 + shiftX, 1 + progressScaled, 0.5 + shiftZ);
-                poseStack.mulPose(Vector3f.YP.rotation((ClientTickHandler.ticksInGame() + partialTick) / 20));
-                poseStack.scale(0.85f, 0.85f, 0.85f);
-                Minecraft.getInstance().getItemRenderer().renderStatic(stacks.get(idx), ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer, 0);
-                poseStack.popPose();
+                double shiftX = Math.cos(((altar.getLevel().getGameTime() + partialTicks) / 8) + (idx * anglePerStack)) * (1 - progressScaled);
+                double shiftZ = Math.sin(((altar.getLevel().getGameTime() + partialTicks) / 8) + (idx * anglePerStack)) * (1 - progressScaled);
+                GlStateManager._pushMatrix();
+
+
+                GlStateManager._pushMatrix();
+                GlStateManager._translated(shiftX + 0.5 + shiftX, progressScaled, 0.5 + shiftZ);
+                GlStateManager._rotatef((ClientTickHandler.ticksInGame() + partialTicks) / 20f, 0, 1, 0);
+                GlStateManager._scalef(0.85f, 0.85f, 0.85f);
+
+                Minecraft.getInstance().getItemRenderer().renderStatic(stacks.get(idx), ItemCameraTransforms.TransformType.GROUND, light, overlay, matrixStack, buffer );
+
+                GlStateManager._popMatrix();
             }
+
+            // Render the centerpiece (last slot item) above the altar
+            ItemStack centerpiece = altar.getInventory().getStackInSlot(lastSlot);
+            if (!centerpiece.isEmpty()) {
+                GlStateManager._pushMatrix();
+                double time = altar.getLevel().getGameTime() + partialTicks;
+                double amplitude = 0.1;
+                double shiftY = Math.sin(time / 8) * amplitude;
+
+                GlStateManager._translated(0.5, 2.0 + shiftY, 0.5);
+                GlStateManager._rotatef((float) (time / 8), 0, 1, 0);
+                GlStateManager._scalef(1f, 1f, 1f);
+
+                Minecraft.getInstance().getItemRenderer().renderStatic(centerpiece, ItemCameraTransforms.TransformType.GROUND, light, overlay, matrixStack, buffer);
+
+                GlStateManager._popMatrix();
+            }
+
         }
-
-        // Render the centerpiece (last slot item) above the altar
-        ItemStack centerpiece = altar.getInventory().getStackInSlot(lastSlot);
-        if (!centerpiece.isEmpty()) {
-            poseStack.pushPose();
-            double time = (double) altar.getLevel().getGameTime() + partialTick;
-            double amplitude = 0.1;
-            double ShiftY = Math.sin((time / 8)) * amplitude;
-
-            //  Item above altar moving up and down
-            poseStack.translate(0.5, 2.0 + ShiftY, 0.5);
-
-            // Spin around the item's vertical axis
-            poseStack.mulPose(Vector3f.YP.rotation((float) (time / 8.0))); // adjust speed with divisor
-
-            // Scale
-            poseStack.scale(1f, 1f, 1f);
-
-            Minecraft.getInstance().getItemRenderer().renderStatic(centerpiece, ItemTransforms.TransformType.GROUND, light, OverlayTexture.NO_OVERLAY, poseStack, buffer,0 );
-
-            poseStack.popPose();
-        }
-
     }
 }

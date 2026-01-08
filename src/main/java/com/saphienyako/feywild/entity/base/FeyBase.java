@@ -4,90 +4,82 @@ import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.item.Tiers;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.TieredItem;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraft.util.SoundEvent;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 import java.util.UUID;
-@SuppressWarnings("removal")
-public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummonable, IAnimatable {
 
-    @javax.annotation.Nullable
+@SuppressWarnings("removal")
+public abstract class FeyBase extends CreatureEntity implements IOwnable, ISummonable, IAnimatable {
     protected UUID owner;
-    @javax.annotation.Nullable
+
     private BlockPos summonPos = null;
     private boolean followingPlayer = false;
     private boolean abilityActive = false;
     private boolean voiceActive = true;
     private final AnimationFactory factory = new AnimationFactory(this);
 
-    protected FeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected FeyBase(EntityType<? extends CreatureEntity> entityType, World level) {
         super(entityType, level);
-        this.noCulling = true;
+        //this.noCulling = true;
     }
 
-    public static AttributeSupplier.Builder getDefaultAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
-                .add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
-                .add(Attributes.LUCK, 0.2)
-                .add(Attributes.ATTACK_DAMAGE, 3.0)
-                .add(Attributes.FOLLOW_RANGE, 24D);
+    public static AttributeModifierMap.MutableAttribute getDefaultAttributes() {
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MOVEMENT_SPEED, 0.35D)
+                .add(Attributes.FLYING_SPEED, 0.4D)
+                .add(Attributes.MAX_HEALTH, 12.0D)
+                .add(Attributes.LUCK, 0.2D)
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.FOLLOW_RANGE, 24.0D);
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<? extends FeyBase> entity, IWorld level, SpawnReason reason, BlockPos pos, Random random) {
         return isBrightEnoughToSpawn(level, pos);
     }
 
-    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
-        return getter.getRawBrightness(pos, 0) > 8;
+    protected static boolean isBrightEnoughToSpawn(IWorldReader level, BlockPos pos) {
+        return level.getBrightness(pos) > 8;
     }
 
-    @javax.annotation.Nullable
-    public SimpleParticleType getParticle() {
+
+    public IParticleData getParticle() {
         return null;
     }
 
-    @javax.annotation.Nullable
-    public Vec3 getCurrentPointOfInterest() {
+
+    public Vector3d getCurrentPointOfInterest() {
         if (this.getFollowingPlayer()) {
-            Player player = this.getOwningPlayer();
+            PlayerEntity player = this.getOwningPlayer();
             return player == null ? null : player.position();
         } else if (this.summonPos != null) {
-            return new Vec3(this.summonPos.getX() + 0.5, this.summonPos.getY(), this.summonPos.getZ() + 0.5);
+            return new Vector3d(this.summonPos.getX() + 0.5, this.summonPos.getY(), this.summonPos.getZ() + 0.5);
         } else {
             return null;
         }
@@ -100,69 +92,67 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+        this.goalSelector.addGoal(0, new SwimGoal(this)); //Instead of FloatGoal
+        this.goalSelector.addGoal(30, new LookAtGoal(this, PlayerEntity.class, 8f));
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, this.getTargetPositionSpeed()));
-        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(30, new LookRandomlyGoal(this));
     }
 
     @Override
     public void tick() {
         super.tick();
-            if (this.getParticle() != null && random.nextInt(11) == 0) {
-                for (int i = 0; i < 4; i++) {
-                    level.addParticle(this.getParticle(),
-                            this.getX() + (Math.random() - 0.5),
-                            this.getY() + 1 + (Math.random() - 0.5),
-                            this.getZ() + (Math.random() - 0.5),
-                            0, 0, 0
-                    );
-                }
+        if (this.getParticle() != null && random.nextInt(11) == 0) {
+            for (int i = 0; i < 4; i++) {
+                level.addParticle(
+                        this.getParticle(),
+                        this.getX() + (Math.random() - 0.5),
+                        this.getY() + 1 + (Math.random() - 0.5),
+                        this.getZ() + (Math.random() - 0.5),
+                        0, 0, 0
+                );
             }
+        }
     }
 
     @Override
-    public void addAdditionalSaveData(@Nonnull CompoundTag nbt) {
+    public void addAdditionalSaveData(CompoundNBT nbt) {
         super.addAdditionalSaveData(nbt);
-        if (this.owner != null) {
-            nbt.putUUID("Owner", this.owner);
-        } else {
-            nbt.remove("Owner");
-        }
-        if (this.summonPos != null) {
-            nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
-        } else {
-            nbt.remove("SummonPos");
-        }
-        nbt.putBoolean("FollowingPlayer", this.followingPlayer);
-        nbt.putBoolean("AbilityActive", this.abilityActive);
-        nbt.putBoolean("VoiceActive", this.voiceActive);
+        if (owner != null) nbt.putUUID("Owner", owner);
+        if (summonPos != null) nbt.put("SummonPos", NBTUtil.writeBlockPos(summonPos));
+
+        nbt.putBoolean("FollowingPlayer", followingPlayer);
+        nbt.putBoolean("AbilityActive", abilityActive);
+        nbt.putBoolean("VoiceActive", voiceActive);
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag nbt) {
+    public void readAdditionalSaveData(CompoundNBT nbt) {
         super.readAdditionalSaveData(nbt);
-        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
-        this.summonPos = nbt.contains("SummonPos", Tag.TAG_COMPOUND) ? NbtUtils.readBlockPos(nbt.getCompound("SummonPos")).immutable() : null;
-        this.followingPlayer = nbt.getBoolean("FollowingPlayer");
-        this.abilityActive = nbt.getBoolean("AbilityActive");
-        this.voiceActive = nbt.getBoolean("VoiceActive");
+
+        owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
+        summonPos = nbt.contains("SummonPos") ? NBTUtil.readBlockPos(nbt.getCompound("SummonPos")) : null;
+
+        followingPlayer = nbt.getBoolean("FollowingPlayer");
+        abilityActive = nbt.getBoolean("AbilityActive");
+        voiceActive = nbt.getBoolean("VoiceActive");
     }
 
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+    @Override
+    public boolean isInvulnerableTo(DamageSource damageSource) {
         Entity attacker = damageSource.getEntity();
-        if (attacker instanceof LivingEntity living) {
-            ItemStack held = living.getMainHandItem();
+        if (attacker instanceof LivingEntity) {
+            ItemStack held = ((LivingEntity) attacker).getMainHandItem();
             if (!isIronTool(held)) {
-                return true;
+                return true; // block damage if not iron tool
             }
         }
-        return super.isDamageSourceBlocked(damageSource);
+        return super.isInvulnerableTo(damageSource);
     }
 
     private boolean isIronTool(ItemStack stack) {
-        if (!(stack.getItem() instanceof TieredItem tiered)) return false;
-        return tiered.getTier() == Tiers.IRON;
+        if (!(stack.getItem() instanceof TieredItem)) return false;
+        TieredItem tiered = (TieredItem) stack.getItem();
+        return tiered.getTier() == ItemTier.IRON;
     }
     @javax.annotation.Nullable
     @Override
@@ -177,13 +167,13 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
 
     @Override
-    public @org.jetbrains.annotations.Nullable BlockPos getSummonPos() {
+    public BlockPos getSummonPos() {
         return this.summonPos;
     }
 
     @Override
     public void setSummonPos(BlockPos pos) {
-        this.summonPos = pos == null ? null : pos.immutable();
+        this.summonPos = pos == null ? null : new BlockPos(pos.getX(), pos.getY(), pos.getZ());
     }
 
     public void setFollowingPlayer(Boolean followingPlayer){
@@ -207,11 +197,11 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public void setVoiceActive(Boolean voiceActive){this.voiceActive = voiceActive;}
 
     @Override
-    public Level getEntityLevel() {
+    public World getEntityLevel() {
         return this.level;
     }
 
-       @Override
+    @Override
     public boolean onClimbable() {
         return false;
     }
@@ -222,27 +212,27 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
+    public boolean causeFallDamage(float fallDistance, float multiplier) {
         return false;
     }
 
     @Override
-    protected int getExperienceReward(@NotNull Player player) {
-        return this.isTamed() ? 0 : super.getExperienceReward(player);
+    protected int getExperienceReward(@Nonnull PlayerEntity entity) {
+        return this.isTamed() ? 0 : super.getExperienceReward(entity);
     }
 
     @Override
-    public boolean canBeLeashed(@Nonnull Player player) {
+    public boolean canBeLeashed(@Nonnull PlayerEntity player) {
         return false;
     }
 
     @Override
-    protected boolean canRide(@Nonnull Entity entityIn) {
+    protected boolean canRide(@Nonnull Entity entity) {
         return false;
     }
 
     @Override
-    public float getVoicePitch() {
+    protected float getVoicePitch() {
         return 1;
     }
 
@@ -257,6 +247,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
 
+
     public abstract SoundEvent getCookieSound();
     public abstract SoundEvent getNameSound();
     public abstract SoundEvent getSummonSound();
@@ -268,43 +259,44 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     public abstract Alignment getAlignment();
 
-    public abstract ItemLike getDismissItem();
+    public abstract Item  getDismissItem();
 
     public String getEntityName(){
-        ResourceLocation id =this.getType().builtInRegistryHolder().key().location();
-        return id.getPath();
+        EntityType<?> type = this.getType();
+        ResourceLocation id = type.getRegistryName();
+        return id == null ? "" : id.getPath();
     }
 
-    public Component getFeyNameMessage(){
-        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_name");
+    public ITextComponent getFeyNameMessage(){
+        return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_name");
     }
 
-    public Component getFeyCookieMessage(){
-        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_cookie");
+    public ITextComponent getFeyCookieMessage(){
+        return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_cookie");
     }
 
-    public Component getFeyFollowMessage(){
-        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_follow");
+    public ITextComponent getFeyFollowMessage(){
+        return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_follow");
     }
 
-    public Component getFeyStayMessage(){
-        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_stay");
+    public ITextComponent getFeyStayMessage(){
+        return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_stay");
     }
 
-    public Component getFeySummonMessage(){
-        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_summon");
+    public ITextComponent getFeySummonMessage(){
+        return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_summon");
     }
 
-   public Component getFeyDismissMessage(){
-       return  new TranslatableComponent("message.feywild."+ getEntityName() + "_dismiss");
+   public ITextComponent getFeyDismissMessage(){
+       return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_dismiss");
    }
 
-   public Component getFeyAbilityOnMessage(){
-       return  new TranslatableComponent("message.feywild."+ getEntityName() + "_ability_on");
+   public ITextComponent getFeyAbilityOnMessage(){
+       return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_ability_on");
    }
 
-    public Component getFeyAbilityOffMessage(){
-        return  new TranslatableComponent("message.feywild."+ getEntityName() + "_ability_off");
+    public ITextComponent getFeyAbilityOffMessage(){
+        return  new TranslationTextComponent("message.feywild."+ getEntityName() + "_ability_off");
     }
 
     @Override

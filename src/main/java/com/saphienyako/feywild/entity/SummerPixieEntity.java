@@ -1,29 +1,24 @@
 package com.saphienyako.feywild.entity;
 
-import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.PixieBase;
-import com.saphienyako.feywild.entity.goals.BreedAbilityGoal;
 import com.saphienyako.feywild.entity.goals.CropGrowAbilityGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.world.World;
+
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
 public class SummerPixieEntity extends PixieBase {
-    protected SummerPixieEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected SummerPixieEntity(EntityType<? extends CreatureEntity> entityType, World level) {
         super(entityType, level);
     }
 
@@ -34,9 +29,9 @@ public class SummerPixieEntity extends PixieBase {
         this.goalSelector.addGoal(20, new CropGrowAbilityGoal(this, this.level));
     }
 
-    @Nullable
+
     @Override
-    public SimpleParticleType getParticle() {
+    public IParticleData getParticle() {
         return ModParticles.SUMMER_SPARKLE_PARTICLE.get();
     }
 
@@ -45,7 +40,7 @@ public class SummerPixieEntity extends PixieBase {
         return Alignment.SUMMER;
     }
     @Override
-    public ItemLike getDismissItem() {
+    public Item getDismissItem() {
         return ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get();
     }
 
@@ -90,7 +85,7 @@ public class SummerPixieEntity extends PixieBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return ModSounds.SUMMER_PIXIE_HURT.get();
     }
 

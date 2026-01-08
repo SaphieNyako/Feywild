@@ -2,7 +2,7 @@ package com.saphienyako.feywild.entity.model;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.AutumnPixieEntity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

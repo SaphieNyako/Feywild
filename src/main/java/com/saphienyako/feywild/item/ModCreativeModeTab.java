@@ -1,14 +1,18 @@
 package com.saphienyako.feywild.item;
 
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
 
 public class ModCreativeModeTab {
 
-    public static final CreativeModeTab FEYWILD_TAB  = new CreativeModeTab("feywild_tab"){
+    public static final ItemGroup FEYWILD_TAB  = new  ItemGroup("feywild_tab"){
+
+        @Nonnull
         @Override
-        public @NotNull ItemStack makeIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
         }
     };

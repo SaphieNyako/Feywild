@@ -6,26 +6,26 @@ import com.saphienyako.feywild.entity.goals.GatherMobItemsGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.item.Item;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
 public class WinterPixieEntity extends PixieBase {
-    protected WinterPixieEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected WinterPixieEntity(EntityType<? extends CreatureEntity> entityType, World level) {
         super(entityType, level);
     }
 
@@ -36,9 +36,9 @@ public class WinterPixieEntity extends PixieBase {
         this.goalSelector.addGoal(20, new GatherMobItemsGoal(this, this.level));
     }
 
-    @Nullable
+
     @Override
-    public SimpleParticleType getParticle() {
+    public IParticleData getParticle() {
         return ModParticles.WINTER_SPARKLE_PARTICLE.get();
     }
 
@@ -48,12 +48,12 @@ public class WinterPixieEntity extends PixieBase {
     }
 
     @Override
-    public ItemLike getDismissItem() {
+    public Item getDismissItem() {
         return ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get();
     }
 
     @Override
-    public SoundEvent getCookieSound() {
+    public SoundEvent  getCookieSound() {
         return ModSounds.WINTER_PIXIE_COOKIE.get();
     }
 
@@ -93,7 +93,7 @@ public class WinterPixieEntity extends PixieBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return ModSounds.WINTER_PIXIE_HURT.get();
     }
 
@@ -112,8 +112,8 @@ public class WinterPixieEntity extends PixieBase {
         } else return null;
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, Random random) {
-        BlockState blockBelow = level.getBlockState(pos.below());
+    public static boolean canSpawn(EntityType<? extends FeyBase> entity, IWorld level, SpawnReason reason, BlockPos pos, Random random) {
+       BlockState blockBelow = level.getBlockState(pos.below());
 
         if (blockBelow.is(Blocks.SNOW)) {
             blockBelow = level.getBlockState(pos.below(2));

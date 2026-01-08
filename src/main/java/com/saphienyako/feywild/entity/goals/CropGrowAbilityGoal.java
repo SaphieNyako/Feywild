@@ -4,23 +4,22 @@ import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.block.CropsBlock;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
 
 public class CropGrowAbilityGoal extends Goal {
 
-    protected final Level level;
+    protected final World  level;
     protected final PixieBase entity;
     protected boolean foundViableCrop;
     private int ticksLeft = 0;
 
-    public CropGrowAbilityGoal(PixieBase entity, Level level) {
+    public CropGrowAbilityGoal(PixieBase entity, World level) {
         this.level = level;
         this.entity = entity;
     }
@@ -65,9 +64,9 @@ public class CropGrowAbilityGoal extends Goal {
             for (int zd = -8; zd <= 8; zd++) {
                 for (int yd = 8; yd >= -8; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
-                    if (level.getBlockState(target).getBlock() instanceof CropBlock && level.random.nextFloat() < 0.16f) {
+                    if (level.getBlockState(target).getBlock() instanceof CropsBlock && level.random.nextFloat() < 0.16f) {
                         this.foundViableCrop = true;
-                        ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
+                        ((CropsBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
                         FeywildNetwork.sendParticles(level, ParticleMessage.Type.CROPS_GROW, target);
                     }
                 }
@@ -82,8 +81,8 @@ public class CropGrowAbilityGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        Player owning = this.entity.getOwningPlayer();
-        if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
+        PlayerEntity owning = this.entity.getOwningPlayer();
+        if (owning instanceof ServerPlayerEntity && this.entity.getAbilityActive()) {
             return this.level.random.nextFloat() < 0.01f;
         } else {
             return false;

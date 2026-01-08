@@ -1,18 +1,19 @@
 package com.saphienyako.feywild.screen.widget;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.network.DismissEntityMessage;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+
+import javax.annotation.Nonnull;
 
 public class DismissButton extends Button {
 
@@ -23,15 +24,15 @@ public class DismissButton extends Button {
 
     protected final Screen screen;
 
-    private final Component textComponent;
+    private final ITextComponent textComponent;
 
     private final int entityId;
 
     public DismissButton(int x, int y, Screen screen, int entityId) {
-        super(x, y, WIDTH, HEIGHT, new TranslatableComponent("message.feywild.test"), b -> {});
+        super(x, y, WIDTH, HEIGHT, new TranslationTextComponent(""), b -> {});
         this.screen = screen;
         this.entityId = entityId;
-        this.textComponent = new TranslatableComponent("message.feywild.dismiss");
+        this.textComponent = new TranslationTextComponent("message.feywild.dismiss");
     }
 
     @Override
@@ -41,15 +42,12 @@ public class DismissButton extends Button {
     }
 
     @Override
-    public void renderButton(@NotNull PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
-        Font font = minecraft.font;
-
-        RenderSystem.setShaderTexture(0, BUTTON_TEXTURE);
-
-        blit(poseStack, this.x, this.y, 0, 0, WIDTH, HEIGHT);
-
-        drawString(poseStack, font, this.textComponent,
+        FontRenderer font = minecraft.font;
+        minecraft.getTextureManager().getTexture(BUTTON_TEXTURE);
+        blit(matrixStack,this.x, this.y, 0, 0, WIDTH, HEIGHT);
+        drawString(matrixStack, font, this.textComponent,
                 this.x + 22,
                 this.y + (HEIGHT - font.lineHeight) / 2,
                 0xFFFFFF);

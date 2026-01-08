@@ -1,6 +1,6 @@
 package com.saphienyako.feywild.entity.base.intereface;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 

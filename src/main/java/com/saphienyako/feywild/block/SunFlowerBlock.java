@@ -1,13 +1,13 @@
 package com.saphienyako.feywild.block;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -21,14 +21,15 @@ public class SunFlowerBlock extends GiantFlowerBlock{
         super(height);
     }
 
+
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(TIME_VARIANT);
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerWorld level, BlockPos pos, Random random) {
         if (level.getDayTime() < 2800) {
             level.setBlock(pos, state.setValue(TIME_VARIANT, 0), 3);
         } else if (level.getDayTime() < 8400) {
@@ -40,12 +41,12 @@ public class SunFlowerBlock extends GiantFlowerBlock{
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    protected void animateFlower(BlockState state, World level, BlockPos pos, Random random) {
         //
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
+    public BlockState flowerState(IWorld level, BlockPos pos, Random random) {
         return this.defaultBlockState();
     }
 }

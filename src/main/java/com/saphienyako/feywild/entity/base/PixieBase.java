@@ -7,24 +7,23 @@ import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.network.PlaySoundMessage;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -38,10 +37,14 @@ import java.util.Random;
 
 public abstract class PixieBase extends FlyingFeyBase {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.INT);
+    //TODO check if this works; FlyingFeyBase properties
+    public float animationSpeed = 0f;
+    public float prevAnimationSpeed = 0f;
+    public float animationPosition = 0f;
+    private static final DataParameter<Integer> STATE = EntityDataManager.defineId(PixieBase.class, DataSerializers.INT);
     public static final double MIN_MOVING_SPEED_SQR = 0.05 * 0.05;
 
-    protected PixieBase(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected PixieBase(EntityType<? extends CreatureEntity> entityType, World level) {
         super(entityType, level);
     }
 
@@ -51,7 +54,7 @@ public abstract class PixieBase extends FlyingFeyBase {
         super.registerGoals();
         this.goalSelector.addGoal(50, new PanicGoal(this));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
-        this.goalSelector.addGoal(40, new IronPanicGoal(this, this.level,0.25, 6 ));
+        this.goalSelector.addGoal(40, new IronPanicGoal(this, this.level, 6 ));
     }
 
     @Override
@@ -60,26 +63,27 @@ public abstract class PixieBase extends FlyingFeyBase {
         this.entityData.define(STATE, 0);
     }
 
+
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        InteractionResult superResult = super.interactAt(player, hitVec, hand);
-        if (superResult == InteractionResult.PASS) {
+    public ActionResultType interactAt(@Nonnull PlayerEntity player, @Nonnull Vector3d hitVec, @Nonnull Hand hand) {
+        ActionResultType superResult = super.interactAt(player, hitVec, hand);
+        if (superResult == ActionResultType.PASS) {
 
             // GIVE COOKIE, HEAL
-            if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+            if (player.getItemInHand(hand).getItem() == Items.COOKIE && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 if (!level.isClientSide) {
                     this.heal(3);
 
-                    if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
+                    if (!this.isTamed() && player instanceof ServerPlayerEntity && this.owner == null) {
                         Random random = new Random();
                         if (random.nextInt(6) == 0) {
                             this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                             this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
-                            FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getCookieSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
+                            FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getCookieSound().getLocation(), this.blockPosition()), (ServerPlayerEntity) player);
 
-                            this.discard();
+                            this.remove();
                             player.sendMessage(getFeyCookieMessage(), player.getUUID());
                         }
                     }
@@ -99,12 +103,12 @@ public abstract class PixieBase extends FlyingFeyBase {
                 if (!level.isClientSide) {
                     player.sendMessage(getFeyNameMessage(), player.getUUID());
                     if (this.getVoiceActive()) {
-                        FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getNameSound().getLocation(), this.blockPosition()), (ServerPlayer) player);
+                        FeywildNetwork.sendToPlayer(new PlaySoundMessage(this.getNameSound().getLocation(), this.blockPosition()), (ServerPlayerEntity) player);
                     }
                 }
 
                 //PIXIE ORB OPENS MENU
-            } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
+            } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayerEntity && this.owner != null && this.owner.equals(player.getUUID())) {
                 FeywildNetwork.sendToPlayer(new OpenMenuMessage(
                                 this.getName(),
                                 this.getId(),
@@ -113,11 +117,11 @@ public abstract class PixieBase extends FlyingFeyBase {
                                 this.blockPosition(),
                                 this.getAbilityActive(),
                                 this.getVoiceActive()),
-                        (ServerPlayer) player);
+                        (ServerPlayerEntity) player);
                 player.swing(hand, true);
             }
 
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return ActionResultType.sidedSuccess(this.level.isClientSide);
         } else {
             return superResult;
         }
@@ -148,15 +152,13 @@ public abstract class PixieBase extends FlyingFeyBase {
         return PlayState.STOP;
     }
 
-
-
-    public PixieBase.State getState() {
-        PixieBase.State[] states = PixieBase.State.values();
-        return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
+    public State getState() {
+        State[] states = State.values();
+        return states[MathHelper.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
 
-    public void setState(PixieBase.State state) {
+    public void setState(State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 

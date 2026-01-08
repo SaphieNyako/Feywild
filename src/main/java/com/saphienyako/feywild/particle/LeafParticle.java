@@ -1,14 +1,14 @@
 package com.saphienyako.feywild.particle;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 
-public class LeafParticle extends TextureSheetParticle {
+public class LeafParticle extends SpriteTexturedParticle {
 
     private final double initX;
     private final double velY;
@@ -16,7 +16,7 @@ public class LeafParticle extends TextureSheetParticle {
     private final int remover;
     private float move = 0;
     
-    public LeafParticle(ClientLevel level, double x, double y, double z, double velX, double velY, double velZ) {
+    public LeafParticle(ClientWorld level, double x, double y, double z, double velX, double velY, double velZ) {
         super(level, x, y, z);
         this.setSize(0.5f, 0.5f);
         this.alpha = 0;
@@ -29,8 +29,8 @@ public class LeafParticle extends TextureSheetParticle {
     
     @Nonnull
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    public IParticleRenderType getRenderType() {
+        return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
     @Override
@@ -47,10 +47,15 @@ public class LeafParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public record Factory(SpriteSet sprite) implements ParticleProvider<SimpleParticleType> {
+    public static class Factory implements IParticleFactory<BasicParticleType> {
+
+        private final IAnimatedSprite sprite;
+        public Factory(IAnimatedSprite sprite){
+            this.sprite = sprite;
+        }
 
         @Override
-        public Particle createParticle(@Nonnull SimpleParticleType type, @Nonnull ClientLevel level, double x, double y, double z, double velX, double velY, double velZ) {
+        public Particle createParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld level, double x, double y, double z, double velX, double velY, double velZ) {
             LeafParticle particle = new LeafParticle(level, x, y, z, velX, velY, velZ);
             particle.setColor(1, 1, 1);
             particle.pickSprite(this.sprite);

@@ -1,39 +1,36 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.PixieBase;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 
 public class IronPanicGoal extends Goal {
-    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
 
     private final LivingEntity entity;
-    private final double speed;
     private final double range;
+    private World level;
 
-    private Level level;
-
-    public IronPanicGoal(PixieBase entity, Level level, double speed, double range) {
+    public IronPanicGoal(PixieBase entity, World level, double range) {
         this.entity = entity;
         this.level = level;
-        this.speed = speed;
         this.range = range;
     }
 
     @Override
     public boolean canUse() {
-        List<Player> players = entity.level.getEntitiesOfClass(Player.class,
+        List<PlayerEntity> players = level.getEntitiesOfClass(PlayerEntity.class,
                 entity.getBoundingBox().inflate(range),
                 player -> !player.isCreative() && isHoldingIron(player));
 
@@ -42,43 +39,71 @@ public class IronPanicGoal extends Goal {
 
     @Override
     public void start() {
-        Player targetPlayer = findPlayer();
+        PlayerEntity targetPlayer = findPlayer();
 
         if (targetPlayer == null) return;
-        Vec3 dir = this.entity.position().subtract(targetPlayer.position()).normalize();
+        double dx = entity.getX() - targetPlayer.getX();
+        double dy = entity.getY() - targetPlayer.getY();
+        double dz = entity.getZ() - targetPlayer.getZ();
+        Vector3d dir = new Vector3d(dx, dy, dz).normalize();
 
         double intensity = 0.4;
         this.entity.setDeltaMovement(dir.scale(intensity));
 
-        entity.lookAt(EntityAnchorArgument.Anchor.EYES, targetPlayer.position());
+
+        LookAtHelper.lookAt(targetPlayer, entity);
+    }
+    /*
+    private void lookAt(PlayerEntity target) {
+
+        Vector3d dir = target.position().subtract(entity.position()).normalize();
+
+        float yaw = (float)(MathHelper.atan2(dir.z, dir.x) * (180D / Math.PI)) - 90F;
+        float pitch = (float)(-(MathHelper.atan2(dir.y, MathHelper.sqrt(dir.x * dir.x + dir.z * dir.z)) * (180D / Math.PI)));
+
+        entity.yRot = updateRotation(entity.yRot, yaw, 30.0F);
+        entity.xRot = updateRotation(entity.xRot, pitch, 30.0F);
+        entity.yHeadRot = entity.yRot;
+        entity.yBodyRot = entity.yRot;
     }
 
-    private boolean isHoldingIron(Player player) {
-        ItemStack main = player.getMainHandItem();
-        ItemStack off = player.getOffhandItem();
+    private float updateRotation(float current, float target, float maxChange) {
+        float f = MathHelper.wrapDegrees(target - current);
+        if (f > maxChange) f = maxChange;
+        if (f < -maxChange) f = -maxChange;
+        return current + f;
+    }
+
+     */
+    private boolean isHoldingIron(PlayerEntity player) {
+       ItemStack main = player.getMainHandItem();
+       ItemStack off = player.getOffhandItem();
 
         return isIron(main) || isIron(off);
     }
 
     private boolean isIron(ItemStack stack) {
-        return !stack.isEmpty() && stack.is(Items.IRON_INGOT);
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        return false;
+        return !stack.isEmpty() && stack.getItem() == Items.IRON_INGOT;
     }
 
     @Nullable
-    private Player findPlayer() {
+    private PlayerEntity findPlayer() {
         double distance = Double.MAX_VALUE;
-        Player current = null;
-        for (Player player : this.level.getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
-            if (!player.isCreative() && isHoldingIron(player) && this.entity.distanceToSqr(player) < distance) {
+        PlayerEntity current = null;
+        AxisAlignedBB box = this.entity.getBoundingBox().inflate(range);
+
+        List<PlayerEntity> players = level.getEntitiesOfClass(PlayerEntity.class, box,
+                player -> !player.isCreative() && isHoldingIron(player));
+
+        for (PlayerEntity player : players) {
+            double distSq = this.entity.distanceToSqr(player);
+            if (distSq < distance) {
                 current = player;
-                distance = this.entity.distanceToSqr(player);
+                distance = distSq;
             }
         }
         return current;
     }
 }
+
+

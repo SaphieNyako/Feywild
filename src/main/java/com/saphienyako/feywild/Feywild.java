@@ -1,8 +1,8 @@
 package com.saphienyako.feywild;
 
-import com.mojang.logging.LogUtils;
+
 import com.saphienyako.feywild.block.ModBlocks;
-import com.saphienyako.feywild.block.entity.ModBlockEntities;
+import com.saphienyako.feywild.block.entity.ModTileEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.renderer.AutumnPixieRenderer;
@@ -14,32 +14,33 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.particle.LeafParticle;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.particle.SparkleParticle;
 import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 
 
 @Mod(Feywild.MOD_ID)
@@ -48,7 +49,6 @@ public class Feywild
     public static final String MOD_ID = "feywild";
 
     private static Feywild instance;
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public Feywild() {
 
@@ -58,12 +58,13 @@ public class Feywild
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::entityAttributes);
 
+        ModEntities.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
-        ModEntities.register(modEventBus);
+
         ModParticles.register(modEventBus);
-        ModBlockEntities.register(modEventBus);
+        ModTileEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
 
@@ -95,24 +96,25 @@ public class Feywild
             ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE.get(), 2.0F);
             ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE_ROOT.get(), 0.3F);
 
-            SpawnPlacements.register(ModEntities.SPRING_PIXIE.get(),
-                    SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+
+            EntitySpawnPlacementRegistry.register(ModEntities.SPRING_PIXIE.get(),
+                    EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
+                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     SpringPixieEntity::canSpawn);
 
-            SpawnPlacements.register(ModEntities.SUMMER_PIXIE.get(),
-                    SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            EntitySpawnPlacementRegistry.register(ModEntities.SUMMER_PIXIE.get(),
+                    EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
+                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     SummerPixieEntity::canSpawn);
 
-            SpawnPlacements.register(ModEntities.AUTUMN_PIXIE.get(),
-                    SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            EntitySpawnPlacementRegistry.register(ModEntities.AUTUMN_PIXIE.get(),
+                    EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
+                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     AutumnPixieEntity::canSpawn);
 
-            SpawnPlacements.register(ModEntities.WINTER_PIXIE.get(),
-                    SpawnPlacements.Type.ON_GROUND,
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            EntitySpawnPlacementRegistry.register(ModEntities.WINTER_PIXIE.get(),
+                    EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
+                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     WinterPixieEntity::canSpawn);
 
         });
@@ -133,7 +135,7 @@ public class Feywild
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    public void onServerStarting(FMLServerStartingEvent event) {
 
     }
 
@@ -143,20 +145,43 @@ public class Feywild
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
-            EntityRenderers.register(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
-            EntityRenderers.register(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
-            EntityRenderers.register(ModEntities.WINTER_PIXIE.get(), WinterPixieRenderer::new);
-            BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
+            RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
+            RenderingRegistry.registerEntityRenderingHandler(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
+            RenderingRegistry.registerEntityRenderingHandler(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
+            RenderingRegistry.registerEntityRenderingHandler(ModEntities.WINTER_PIXIE.get(), WinterPixieRenderer::new);
+            ClientRegistry.bindTileEntityRenderer(ModTileEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
 
-            MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
+            ParticleManager manager = Minecraft.getInstance().particleEngine;
+            manager.register(ModParticles.AUTUMN_LEAF_PARTICLE.get(), LeafParticle.Factory::new);
+                   manager.register(
+                    ModParticles.SPRING_SPARKLE_PARTICLE.get(),
+                    sprites -> new SparkleParticle.Factory(sprites,0, 1, 0)
+            );
 
-            Minecraft minecraft = Minecraft.getInstance();
-            minecraft.particleEngine.register(ModParticles.AUTUMN_LEAF_PARTICLE.get(), LeafParticle.Factory::new);
+            manager.register(
+                    ModParticles.SUMMER_SPARKLE_PARTICLE.get(),
+                    sprites -> new SparkleParticle.Factory(sprites,1, 0.8f, 0)
+            );
 
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.MANDRAKE_CROP.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(ModBlocks.FEY_ALTAR.get(), RenderType.cutout());
+            manager.register(
+                    ModParticles.AUTUMN_SPARKLE_PARTICLE.get(),
+                    sprites -> new SparkleParticle.Factory(sprites,1, 0.4f, 0)
+            );
 
+            manager.register(
+                    ModParticles.WINTER_SPARKLE_PARTICLE.get(),
+                    sprites -> new SparkleParticle.Factory(sprites,0.2f, 0.8f, 0.9f)
+            );
+
+            manager.register(
+                    ModParticles.FEY_SPARKLE_PARTICLE.get(),
+                    sprites -> new SparkleParticle.Factory(sprites,0.3f, 0.9f, 0.9f)
+            );
+
+            ScreenManager.register(ModMenuTypes.FEY_ALTAR_MENU.get(),FeyAltarScreen::new);
+
+            RenderTypeLookup.setRenderLayer(ModBlocks.MANDRAKE_CROP.get(), RenderType.cutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.FEY_ALTAR.get(), RenderType.cutout());
         }
     }
 }

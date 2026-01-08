@@ -1,21 +1,18 @@
 package com.saphienyako.feywild.block;
 
-import com.saphienyako.feywild.network.FeywildNetwork;
-import com.saphienyako.feywild.network.ParticleMessage;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.FluidState;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -30,34 +27,34 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    protected void createBlockStateDefinition(@Nonnull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(VARIANT);
     }
 
     @Override
-    protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    protected void tickFlower(BlockState state, ServerWorld level, BlockPos pos, Random random) {
         if (state.getValue(VARIANT) == 3 && level.random.nextInt(3) == 0) {
             level.setBlock(pos, state.setValue(VARIANT, 2), 3);
         }
     }
 
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+    public boolean removedByPlayer(BlockState state, World level, BlockPos pos, PlayerEntity player, boolean willHarvest, FluidState fluid) {
         if (this.replaceFlower(level, pos.above(3 - state.getValue(PART)))) {
-            if (!level.isClientSide && player instanceof ServerPlayer) {
-                // Forge notifies the client of the block break before calling this
-                // So we just tell the client that the block is still there
-                ((ServerPlayer) player).connection.send(new ClientboundBlockUpdatePacket(level, pos));
-               // QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION);
-                //TODO Add Quest
+            if (!level.isClientSide && player instanceof ServerPlayerEntity) {
+                BlockState newState = state.setValue(VARIANT, 3);
+            //send packet?
+            level.setBlock(pos, newState, 3);
+            //    level.markAndNotifyBlock(pos, state, newState, 3);
             }
             return false;
         }
-        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+        return super.removedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 
-    private boolean replaceFlower(@Nonnull Level level, @Nonnull BlockPos pos) {
+
+    private boolean replaceFlower(@Nonnull World level, @Nonnull BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() == this && state.getValue(PART) == 3 && state.getValue(VARIANT) == 2) {
             if (!level.isClientSide) {
@@ -70,25 +67,24 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    public void onRemove(@Nonnull BlockState oldState, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moving) {
+    public void onRemove(BlockState oldState, @Nonnull World level, @Nonnull BlockPos pos, BlockState newState, boolean moving) {
         super.onRemove(oldState, level, pos, newState, moving);
-
         BlockPos midPos = new BlockPos(pos.getX()+0.5, pos.getY()+0.5, pos.getZ()+0.5);
 
         if (oldState.getValue(VARIANT) == 2) {
-            FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, midPos); //TODO 1.19 backport does this center?
+            //  FeywildNetwork.sendParticles(level, ParticleMessage.Type.DANDELION_FLUFF, midPos);
         }
     }
 
-    @Override
     @SuppressWarnings("deprecation")
-    public float getDestroyProgress(@Nonnull BlockState state, @Nonnull Player player, @Nonnull BlockGetter level, @Nonnull BlockPos pos) {
-        return state.getValue(PART) == 3 && state.getValue(VARIANT) == 2 ? 1 : super.getDestroyProgress(state, player, level, pos);
+    @Override
+    public float getDestroyProgress(BlockState state, PlayerEntity player, IBlockReader reader, BlockPos pos) {
+        return state.getValue(PART) == 3 && state.getValue(VARIANT) == 2 ? 1 : super.getDestroyProgress(state, player, reader, pos);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    protected void animateFlower(BlockState state, Level level, BlockPos pos, Random random) {
+    protected void animateFlower(BlockState state, World level, BlockPos pos, Random random) {
         if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
             double windStrength = Math.cos((double) level.getGameTime() / 2000) / 8;
             double windX = Math.cos((double) level.getGameTime() / 1200) * windStrength;
@@ -98,7 +94,7 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    public BlockState flowerState(LevelAccessor level, BlockPos pos, Random random) {
+    public BlockState flowerState(IWorld level, BlockPos pos, Random random) {
         return this.defaultBlockState().setValue(VARIANT, random.nextInt(3));
     }
 }

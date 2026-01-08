@@ -1,28 +1,37 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.MusicDiscItem;
+import net.minecraft.item.Rarity;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.Color;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FeywildMusicDiscItem extends RecordItem {
+public class FeywildMusicDiscItem extends MusicDiscItem {
+
 
     public FeywildMusicDiscItem() {
         super(1, ModSounds.FEYWILD_MUSIC_DISC, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB).stacksTo(1).rarity(Rarity.RARE));
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable World level, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
         if (level != null) {
-            tooltip.add(new TranslatableComponent("message.feywild.music_disc").withStyle(ChatFormatting.GOLD));
+            TranslationTextComponent text = new TranslationTextComponent("message.feywild.music_disc");
+            text.getStyle().withColor(Color.fromLegacyFormat(TextFormatting.GOLD));
+            tooltip.add(text);
         }
-        super.appendHoverText(stack, level, tooltip, flag);
-    }
 
+        super.appendHoverText(stack,level,tooltip,flag);
+    }
 }
