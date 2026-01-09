@@ -8,7 +8,7 @@
       "tag": "forge:mushrooms"
     },
     {
-      "tag": "minecraft:hoes"
+      "item": "minecraft:iron_hoe"
     },
     {
       "item": "feywild:empty_summoning_scroll"
