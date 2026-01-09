@@ -135,7 +135,7 @@ public class Feywild
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        LOGGER.info("THE FEY ARE PLEASE the server is starting");
+        LOGGER.info("THE FEY ARE PLEASED the server is starting");
     }
 
 
