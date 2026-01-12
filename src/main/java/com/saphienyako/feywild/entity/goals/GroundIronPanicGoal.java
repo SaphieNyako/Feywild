@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.FeyBase;
+
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -13,20 +14,18 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 
-public class IronPanicGoal extends Goal {
+public class GroundIronPanicGoal extends Goal {
 
-    private static final TargetingConditions TARGETING =
-            TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
+    private static final TargetingConditions TARGETING = TargetingConditions.forNonCombat().range(8).ignoreLineOfSight();
 
     private final LivingEntity entity;
     private final Level level;
     private final double speed;
     private final double range;
-
     private Vec3 panicDirection = Vec3.ZERO;
     private int panicTicks;
 
-    public IronPanicGoal(FeyBase entity, Level level, double speed, double range) {
+    public GroundIronPanicGoal(FeyBase entity, Level level, double speed, double range) {
         this.entity = entity;
         this.level = level;
         this.speed = speed;
@@ -51,8 +50,8 @@ public class IronPanicGoal extends Goal {
         Player targetPlayer = findPlayer();
         if (targetPlayer == null) return;
 
-        Vec3 dir = entity.position().subtract(targetPlayer.position());
-        panicDirection = dir.normalize();
+        Vec3 direction = entity.position().subtract(targetPlayer.position());
+        panicDirection = new Vec3(direction.x, 0, direction.z).normalize();
     }
 
     @Override
@@ -60,18 +59,20 @@ public class IronPanicGoal extends Goal {
         panicTicks--;
 
         if (panicDirection == Vec3.ZERO) return;
+        //stick to ground pls T_T
+        Vec3 motion = new Vec3(
+                panicDirection.x * speed,
+                entity.getDeltaMovement().y,
+                panicDirection.z * speed
+        );
 
-        entity.setDeltaMovement(panicDirection.scale(speed));
+        entity.setDeltaMovement(motion);
 
-    /*    float yaw = (float) (Math.atan2(panicDirection.z, panicDirection.x) * (180.0 / Math.PI)) - 90f;
-        float pitch = (float) (-Math.asin(panicDirection.y) * (180.0 / Math.PI));
-
+        float yaw = (float) (Math.atan2(panicDirection.z, panicDirection.x) * (180.0 / Math.PI)) - 90f;
         entity.setYRot(yaw);
         entity.yRotO = yaw;
-        entity.setXRot(pitch);
-        entity.xRotO = pitch;
         entity.setYHeadRot(yaw);
-        entity.yHeadRotO = yaw; */
+        entity.yHeadRotO = yaw;
     }
 
     @Override
@@ -81,11 +82,11 @@ public class IronPanicGoal extends Goal {
     }
 
     @Nullable
-    private Player findPlayer() {
+    protected Player findPlayer() {
         double closest = Double.MAX_VALUE;
         Player result = null;
 
-        for (Player player : level.getNearbyEntities( Player.class, TARGETING, entity, entity.getBoundingBox().inflate(range))) {
+        for (Player player : level.getNearbyEntities(Player.class, TARGETING, entity, entity.getBoundingBox().inflate(range))) {
             if (!player.isCreative() && isHoldingIron(player)) {
                 double distance = entity.distanceToSqr(player);
                 if (distance < closest) {
@@ -94,7 +95,6 @@ public class IronPanicGoal extends Goal {
                 }
             }
         }
-
         return result;
     }
 

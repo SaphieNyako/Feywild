@@ -1,15 +1,18 @@
-package com.saphienyako.feywild.entity.base;
+package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.config.FeywildConfig;
-import com.saphienyako.feywild.entity.goals.IronPanicGoal;
-import com.saphienyako.feywild.entity.goals.PanicGoal;
+import com.saphienyako.feywild.entity.base.FeyBase;
+import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
+import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -21,52 +24,73 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
-public abstract class PixieBase extends FlyingFeyBase {
+public class ShroomlingEntity extends FeyBase implements GroundEntity {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(PixieBase.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(ShroomlingEntity.class, EntityDataSerializers.INT);
 
     public final AnimationState IDLE_ANIMATION = new AnimationState();
-    private int idleAnimationTimeout = 0;
+    public final AnimationState SNEEZE_ANIMATION = new AnimationState();
 
-    public final AnimationState SPELL_CASTING_ANIMATION = new AnimationState();
-    public int spellCastingAnimationTimeout = 0;
-    protected PixieBase(EntityType<? extends PathfinderMob> entityType, Level level) {
+    public final AnimationState POSE_ANIMATION = new AnimationState();
+
+    public final AnimationState WALK_ANIMATION = new AnimationState();
+
+    public final AnimationState WAVE_ANIMATION = new AnimationState();
+
+    private int idleAnimationTimeout = 0;
+    public int sneezeAnimationTimeout = 0;
+
+    public int waveAnimationTimeout = 0;
+
+    public int poseAnimationTimeout = 0;
+
+    private int movingTicks = 0;
+
+    public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
+
+
+    protected ShroomlingEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
+        this.noCulling = true;
     }
 
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new PanicGoal(this));
+        this.registerGroundGoals(this);
+        this.goalSelector.addGoal(0, new GroundPanicGoal(this));
+        this.goalSelector.addGoal(1, new GroundIronPanicGoal(this, this.level(), 0.25, 6));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
-        this.goalSelector.addGoal(2, new IronPanicGoal(this, this.level(),0.25, 6 ));
+        this.goalSelector.addGoal(25, new WaveGoal(this));
+        //TODO Add Sneeze Goal
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.FLYING_SPEED, 0.35)
                 .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
+                .add(Attributes.MOVEMENT_SPEED, 0.10)
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
-
 
     @Override
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
@@ -83,28 +107,65 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
     }
 
+    private boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
+    }
+
+    private boolean isActuallyMoving() {
+        if (isMoving()) {
+            movingTicks = 20; // stay "moving" for 40 ticks
+        } else {
+            movingTicks--;
+        }
+
+        return movingTicks > 0;
+    }
+
     private void setupAnimationStates() {
 
-        if(getState().equals(State.IDLE) && idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
-            this.IDLE_ANIMATION.start(this.tickCount);
+        // SNEEZE
+        if (getState() == State.SNEEZE) {
+            if (!SNEEZE_ANIMATION.isStarted()) {
+                SNEEZE_ANIMATION.start(this.tickCount);
+            }
         } else {
-            --this.idleAnimationTimeout;
+            SNEEZE_ANIMATION.stop();
         }
 
-        if(getState().equals(State.SPELL_CASTING) && spellCastingAnimationTimeout <= 0) {
-            this.IDLE_ANIMATION.stop();
-            spellCastingAnimationTimeout = 85;
-            SPELL_CASTING_ANIMATION.start(this.tickCount);
+        // POSE
+        if (getState() == State.POSE) {
+            if (!POSE_ANIMATION.isStarted()) {
+                POSE_ANIMATION.start(this.tickCount);
+            }
         } else {
-            --this.spellCastingAnimationTimeout;
+            POSE_ANIMATION.stop();
         }
 
-        if(!getState().equals(State.SPELL_CASTING)) {
-            SPELL_CASTING_ANIMATION.stop();
+        // WAVE
+        if (getState() == State.WAVE) {
+            if (!WAVE_ANIMATION.isStarted()) {
+                WAVE_ANIMATION.start(this.tickCount);
+            }
+        } else {
+            WAVE_ANIMATION.stop();
         }
-      //TODO make FLY and IDLE work, check for moving?
+
+
+        if (getState() != State.WAVE) {
+            if (isActuallyMoving()) {
+                if (!WALK_ANIMATION.isStarted()) {
+                    WALK_ANIMATION.start(this.tickCount);
+                }
+                IDLE_ANIMATION.stop();
+            } else {
+                if (!IDLE_ANIMATION.isStarted()) {
+                    IDLE_ANIMATION.start(this.tickCount);
+                }
+                WALK_ANIMATION.stop();
+            }
+        }
     }
+
     @SuppressWarnings("resource")
     @Nonnull
     @Override
@@ -113,7 +174,7 @@ public abstract class PixieBase extends FlyingFeyBase {
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
 
-                //GIVE COOKIE, HEAL
+            //GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
                 if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
@@ -185,11 +246,72 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
     }
 
+    //TODO check below
+
+    @Nullable
+    @Override
+    public SimpleParticleType getParticle() {
+        return null;
+    }
+
+    @Override
+    public Alignment getAlignment() {
+        return Alignment.AUTUMN;
+    }
+
+    @Override
+    public ItemLike getDismissItem() {
+        return ModItems.SUMMONING_SCROLL_SHROOMLING;
+    }
+
+    public SoundEvent getWaveSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getCookieSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getNameSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getSummonSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getDismissSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getFollowSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getStaySound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getAbilityOnSound() {
+        return null;
+    }
+
+    @Override
+    public SoundEvent getAbilityOffSound() {
+        return null;
+    }
+
     public State getState() {
         State[] states = State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
-
 
 
     public void setState(State state) {
@@ -197,6 +319,6 @@ public abstract class PixieBase extends FlyingFeyBase {
     }
 
     public enum State {
-        IDLE, POSE, FLY, SPELL_CASTING
+        IDLE, POSE, WALK, WAVE, SNEEZE
     }
 }
