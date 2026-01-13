@@ -81,6 +81,14 @@ public class ParticleMessageClientHandler {
                     );
                 }
             }
+
+            case SHROOMLING_SNEEZE -> {
+                for (int i = 0; i < 40; i++) {
+                    level.addParticle(ParticleTypes.SNEEZE, true, msg.pos().getX(), msg.pos().getY(), msg.pos().getZ(), 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
+                    level.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, true, msg.pos().getX(), msg.pos().getY(), msg.pos().getZ(), 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
+
+                }
+            }
         }
     }
 }

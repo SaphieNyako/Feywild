@@ -54,6 +54,6 @@ public record ParticleMessage(Particles particles, BlockPos pos) implements Cust
 
 
     public enum Particles {
-        DANDELION_FLUFF, FEY_HEART, CROPS_GROW, CROPS_RESET, MOB_COLLECT
+        DANDELION_FLUFF, FEY_HEART, CROPS_GROW, CROPS_RESET, MOB_COLLECT, SHROOMLING_SNEEZE
     }
 }

@@ -63,7 +63,7 @@ public class WaveGoal extends Goal {
     @Override
     public boolean canUse() {
         return this.entity.getState() == ShroomlingEntity.State.IDLE
-                && level.random.nextFloat() < 0.005f;
+                && level.random.nextFloat() < 0.005f &&  this.entity.getState() != ShroomlingEntity.State.SNEEZE;
     }
 
     @Override

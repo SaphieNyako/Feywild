@@ -80,6 +80,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         this.goalSelector.addGoal(1, new GroundIronPanicGoal(this, this.level(), 0.25, 6));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(25, new WaveGoal(this));
+        this.goalSelector.addGoal(20, new SneezeGoal(this));
         //TODO Add Sneeze Goal
     }
 
@@ -124,7 +125,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
     private void setupAnimationStates() {
 
         // SNEEZE
-        if (getState() == State.SNEEZE) {
+        if (getState() == State.SNEEZE && getState() != State.WAVE) {
             if (!SNEEZE_ANIMATION.isStarted()) {
                 SNEEZE_ANIMATION.start(this.tickCount);
             }
@@ -142,7 +143,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         }
 
         // WAVE
-        if (getState() == State.WAVE) {
+        if (getState() == State.WAVE && getState() != State.SNEEZE) {
             if (!WAVE_ANIMATION.isStarted()) {
                 WAVE_ANIMATION.start(this.tickCount);
             }
@@ -151,7 +152,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         }
 
 
-        if (getState() != State.WAVE) {
+        if (getState() != State.WAVE && getState() != State.SNEEZE ) {
             if (isActuallyMoving()) {
                 if (!WALK_ANIMATION.isStarted()) {
                     WALK_ANIMATION.start(this.tickCount);
@@ -265,6 +266,10 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
     }
 
     public SoundEvent getWaveSound() {
+        return null;
+    }
+
+    public SoundEvent getSneezeSound() {
         return null;
     }
 
