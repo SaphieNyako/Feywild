@@ -92,7 +92,6 @@ public class ShroomlingModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-        //TODO check Speed of animations
         this.animate(((ShroomlingEntity)entity).IDLE_ANIMATION, ShroomlingAnimations.IDLE, ageInTicks, 1.0f);
         this.animate(((ShroomlingEntity)entity).SNEEZE_ANIMATION, ShroomlingAnimations.SNEEZE, ageInTicks, 1.0f);
         this.animate(((ShroomlingEntity)entity).WAVE_ANIMATION, ShroomlingAnimations.WAVE, ageInTicks, 1.0f);

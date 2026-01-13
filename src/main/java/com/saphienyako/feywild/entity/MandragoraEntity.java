@@ -3,11 +3,13 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
-import com.saphienyako.feywild.entity.goals.*;
+import com.saphienyako.feywild.entity.goals.GroundIronPanicGoal;
+import com.saphienyako.feywild.entity.goals.GroundPanicGoal;
+import com.saphienyako.feywild.entity.goals.SneezeGoal;
+import com.saphienyako.feywild.entity.goals.WaveGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,7 +26,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -35,31 +36,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
-public class ShroomlingEntity extends FeyBase implements GroundEntity {
+public class MandragoraEntity extends FeyBase implements GroundEntity {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(ShroomlingEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(MandragoraEntity.class, EntityDataSerializers.INT);
 
     public final AnimationState IDLE_ANIMATION = new AnimationState();
-    public final AnimationState SNEEZE_ANIMATION = new AnimationState();
+    public final AnimationState SING_ANIMATION = new AnimationState();
 
     public final AnimationState POSE_ANIMATION = new AnimationState();
 
     public final AnimationState WALK_ANIMATION = new AnimationState();
-
-    public final AnimationState WAVE_ANIMATION = new AnimationState();
-
     private int movingTicks = 0;
 
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
 
-    protected ShroomlingEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected MandragoraEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
     }
@@ -72,9 +69,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         this.goalSelector.addGoal(0, new GroundPanicGoal(this));
         this.goalSelector.addGoal(1, new GroundIronPanicGoal(this, this.level(), 0.25, 6));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
-        this.goalSelector.addGoal(25, new WaveGoal(this));
-        this.goalSelector.addGoal(20, new SneezeGoal(this));
-        //TODO Add Sneeze Goal
+        //TODO add SING goal
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -101,14 +96,14 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         }
     }
 
+
     private boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
     }
 
     private boolean isActuallyMoving() {
         if (isMoving()) {
-            movingTicks = 20; // stay "moving" for 40 ticks
-        } else {
+            movingTicks = 20;
             movingTicks--;
         }
 
@@ -116,18 +111,8 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
     }
 
     private void setupAnimationStates() {
-
-        // SNEEZE
-        if (getState() == State.SNEEZE && getState() != State.WAVE) {
-            if (!SNEEZE_ANIMATION.isStarted()) {
-                SNEEZE_ANIMATION.start(this.tickCount);
-            }
-        } else {
-            SNEEZE_ANIMATION.stop();
-        }
-
         // POSE
-        if (getState() == State.POSE) {
+        if (getState() == MandragoraEntity.State.POSE) {
             if (!POSE_ANIMATION.isStarted()) {
                 POSE_ANIMATION.start(this.tickCount);
             }
@@ -135,17 +120,17 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
             POSE_ANIMATION.stop();
         }
 
-        // WAVE
-        if (getState() == State.WAVE && getState() != State.SNEEZE) {
-            if (!WAVE_ANIMATION.isStarted()) {
-                WAVE_ANIMATION.start(this.tickCount);
+        // SING
+        if (getState() == MandragoraEntity.State.SING) {
+            if (!SING_ANIMATION.isStarted()) {
+                SING_ANIMATION.start(this.tickCount);
             }
         } else {
-            WAVE_ANIMATION.stop();
+            SING_ANIMATION.stop();
         }
 
 
-        if (getState() != State.WAVE && getState() != State.SNEEZE ) {
+        if (getState() != MandragoraEntity.State.SING) {
             if (isActuallyMoving()) {
                 if (!WALK_ANIMATION.isStarted()) {
                     WALK_ANIMATION.start(this.tickCount);
@@ -240,29 +225,15 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         }
     }
 
-    //TODO check below
 
-    @Nullable
-    @Override
-    public SimpleParticleType getParticle() {
-        return null;
-    }
 
     @Override
     public Alignment getAlignment() {
-        return Alignment.AUTUMN;
+        return Alignment.SPRING;
     }
 
     @Override
     public ItemLike getDismissItem() {
-        return ModItems.SUMMONING_SCROLL_SHROOMLING;
-    }
-
-    public SoundEvent getWaveSound() {
-        return null;
-    }
-
-    public SoundEvent getSneezeSound() {
         return null;
     }
 
@@ -306,17 +277,17 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         return null;
     }
 
-    public State getState() {
-        State[] states = State.values();
+    public MandragoraEntity.State getState() {
+        MandragoraEntity.State[] states = MandragoraEntity.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
 
-    public void setState(State state) {
+    public void setState(MandragoraEntity.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 
     public enum State {
-        IDLE, POSE, WALK, WAVE, SNEEZE
+        IDLE, POSE, WALK, SING
     }
 }

@@ -48,6 +48,8 @@ public class SummoningScrollItem extends Item {
             return ModEntities.WINTER_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_SHROOMLING.get())){
             return ModEntities.SHROOMLING.get();
+        } else if (this.equals(SUMMONING_SCROLL_MANDRAGORA.get())){
+            return ModEntities.MANDRAGORA.get();
         } else return null;
 
     }

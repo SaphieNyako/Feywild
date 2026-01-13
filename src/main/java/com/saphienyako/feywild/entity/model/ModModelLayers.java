@@ -21,4 +21,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation SHROOMLING_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "shroomling_layer"), "main");
 
+    public static final ModelLayerLocation MANDRAGORA_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mandragora_layer"), "main");
+
 }

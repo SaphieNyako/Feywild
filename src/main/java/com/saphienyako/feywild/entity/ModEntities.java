@@ -32,6 +32,10 @@ public class ModEntities {
 
     public static final Supplier<EntityType<ShroomlingEntity>> SHROOMLING =
             ENTITY_TYPES.register("shroomling", () -> EntityType.Builder.of(ShroomlingEntity::new, MobCategory.CREATURE).build("shroomling"));
+
+    public static final Supplier<EntityType<MandragoraEntity>> MANDRAGORA =
+            ENTITY_TYPES.register("mandragora", () -> EntityType.Builder.of(MandragoraEntity::new, MobCategory.CREATURE).build("mandragora"));
+
     //TODO .sized?
 
     public static void register(IEventBus eventBus) {
