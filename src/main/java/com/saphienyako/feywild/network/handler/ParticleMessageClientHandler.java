@@ -89,6 +89,12 @@ public class ParticleMessageClientHandler {
 
                 }
             }
+
+            case SINGING -> {
+                for (int i = 0; i < 10; i++) {
+                    level.addParticle(ParticleTypes.NOTE, true, msg.pos().getX() - 0.3 + (0.6 * level.random.nextDouble()), msg.pos().getY() + (0.6 * level.random.nextDouble()), msg.pos().getZ() - 0.3 + (0.6 * level.random.nextDouble()), 0, 0, 0);
+                }
+            }
         }
     }
 }

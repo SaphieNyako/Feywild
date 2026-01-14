@@ -3,13 +3,11 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
-import com.saphienyako.feywild.entity.goals.GroundIronPanicGoal;
-import com.saphienyako.feywild.entity.goals.GroundPanicGoal;
-import com.saphienyako.feywild.entity.goals.SneezeGoal;
-import com.saphienyako.feywild.entity.goals.WaveGoal;
+import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -28,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,11 +38,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Map;
 import java.util.Random;
 
 public class MandragoraEntity extends FeyBase implements GroundEntity {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(MandragoraEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MandragoraEntity.class, EntityDataSerializers.INT);
 
     public final AnimationState IDLE_ANIMATION = new AnimationState();
     public final AnimationState SING_ANIMATION = new AnimationState();
@@ -55,10 +56,28 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
 
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
+    public static final Map<Item, MandragoraVariant> FLOWER_VARIANTS = Map.ofEntries(
+            Map.entry(Items.ALLIUM, MandragoraVariant.ALLIUM),
+            Map.entry(Items.AZURE_BLUET, MandragoraVariant.AZURE_BLUET),
+            Map.entry(Items.BLUE_ORCHID, MandragoraVariant.BLUE_ORCHID),
+            Map.entry(Items.CORNFLOWER, MandragoraVariant.CORNFLOWER),
+            Map.entry(Items.DANDELION, MandragoraVariant.DANDELION),
+            Map.entry(Items.LILY_OF_THE_VALLEY, MandragoraVariant.LILY_OF_THE_VALLEY),
+            Map.entry(Items.ORANGE_TULIP, MandragoraVariant.ORANGE_TULIP),
+            Map.entry(Items.PINK_TULIP, MandragoraVariant.PINK_TULIP),
+            Map.entry(Items.WHITE_TULIP, MandragoraVariant.WHITE_TULIP),
+            Map.entry(Items.RED_TULIP, MandragoraVariant.RED_TULIP),
+            Map.entry(Items.OXEYE_DAISY, MandragoraVariant.OXEYE_DAISY),
+            Map.entry(Items.POPPY, MandragoraVariant.POPPY),
+            Map.entry(Items.WITHER_ROSE, MandragoraVariant.WITHER_ROSE),
+            Map.entry(Items.TORCHFLOWER, MandragoraVariant.TORCHFLOWER)
+    );
+
 
     protected MandragoraEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+        this.entityData.set(VARIANT, MandragoraVariant.DEFAULT.ordinal());
     }
 
     @Override
@@ -69,6 +88,7 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
         this.goalSelector.addGoal(0, new GroundPanicGoal(this));
         this.goalSelector.addGoal(1, new GroundIronPanicGoal(this, this.level(), 0.25, 6));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
+        this.goalSelector.addGoal(20, new SingGoal(this));
         //TODO add SING goal
     }
 
@@ -85,6 +105,21 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
+        builder.define(VARIANT, VARIANT.id());
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putInt("MandragoraVariant", this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        if (nbt.contains("MandragoraVariant")) {
+            this.entityData.set(VARIANT, nbt.getInt("MandragoraVariant"));
+        }
     }
 
     @SuppressWarnings("resource")
@@ -103,10 +138,10 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
 
     private boolean isActuallyMoving() {
         if (isMoving()) {
-            movingTicks = 20;
-            movingTicks--;
+            movingTicks = 5;
+        } else {
+            movingTicks = Math.max(0, movingTicks - 1);
         }
-
         return movingTicks > 0;
     }
 
@@ -218,6 +253,30 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
                         )
                 );
                 player.swing(hand, true);
+
+                //GIVE FLOWER
+            } else if (FLOWER_VARIANTS.containsKey(player.getItemInHand(hand).getItem())) {
+                MandragoraVariant variant = FLOWER_VARIANTS.get(player.getItemInHand(hand).getItem());
+                this.setVariant(variant);
+                if (!player.isCreative()) {
+                    player.getItemInHand(hand).shrink(1);
+                }
+                if (!level().isClientSide) {
+                    PacketDistributor.sendToPlayersTrackingEntity(
+                            this,
+                            new ParticleMessage(
+                                    ParticleMessage.Particles.DANDELION_FLUFF,
+                                    this.getOnPos().above()
+                            )
+                    );
+                    player.playNotifySound(
+                            SoundEvents.COMPOSTER_EMPTY,
+                            SoundSource.NEUTRAL,
+                            1.0F,
+                            1.0F
+                    );
+                }
+                player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
@@ -287,7 +346,20 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
         this.entityData.set(STATE, state.ordinal());
     }
 
+
+    public MandragoraVariant getVariant() {
+        return MandragoraVariant.values()[this.entityData.get(VARIANT)];
+    }
+
+    public void setVariant(MandragoraEntity.MandragoraVariant variant) {this.entityData.set(VARIANT, variant.ordinal());}
+
     public enum State {
         IDLE, POSE, WALK, SING
+    }
+
+    public enum MandragoraVariant {
+        //Closed/Open eyed blossom in 1.21.4+
+        //TorchFlower 1.20+
+        DEFAULT, ALLIUM, AZURE_BLUET, BLUE_ORCHID, CORNFLOWER, DANDELION, LILY_OF_THE_VALLEY, ORANGE_TULIP, PINK_TULIP, WHITE_TULIP, RED_TULIP, OXEYE_DAISY, POPPY, WITHER_ROSE, TORCHFLOWER
     }
 }

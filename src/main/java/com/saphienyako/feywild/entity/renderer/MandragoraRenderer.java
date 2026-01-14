@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public class MandragoraRenderer extends MobRenderer<MandragoraEntity, MandragoraModel<MandragoraEntity>> {
 
     public MandragoraRenderer(EntityRendererProvider.Context pContext) {
@@ -24,7 +26,7 @@ public class MandragoraRenderer extends MobRenderer<MandragoraEntity, Mandragora
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull MandragoraEntity mandragoraEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/mandragora.png");
+        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/mandragora/" + mandragoraEntity.getVariant().name().toLowerCase(Locale.ROOT) + ".png");
     }
 }
 

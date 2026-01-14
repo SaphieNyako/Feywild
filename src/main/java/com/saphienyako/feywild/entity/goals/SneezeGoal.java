@@ -88,7 +88,6 @@ public class SneezeGoal extends Goal {
     private void reset() {
         this.entity.setState(ShroomlingEntity.State.IDLE);
         this.targetAnimal = null;
-    //    this.targetPlayer = null;
         this.ticksLeft = -1;
     }
 
@@ -100,7 +99,6 @@ public class SneezeGoal extends Goal {
     public void start() {
         this.ticksLeft = 45;
         this.targetAnimal = null;
-    //    this.targetPlayer = null;
     }
 
     @Override
@@ -130,17 +128,4 @@ public class SneezeGoal extends Goal {
         }
         return current;
     }
-    /*
-    private Player findPlayer() {
-        double distance = Double.MAX_VALUE;
-        Player current = null;
-        for (Player player : this.entity.level().getNearbyEntities(Player.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
-            if (this.entity.distanceToSqr(player) < distance) {
-                current = player;
-                distance = this.entity.distanceToSqr(player);
-            }
-        }
-        return current;
-    } */
-
 }
