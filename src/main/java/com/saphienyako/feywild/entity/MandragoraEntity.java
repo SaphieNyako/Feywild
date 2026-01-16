@@ -18,6 +18,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -129,6 +131,15 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
         if(this.level().isClientSide()) {
             setupAnimationStates();
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean canBeAffected(MobEffectInstance effect) {
+        if (effect.getEffect() == MobEffects.WITHER) {
+           if(this.getVariant() == MandragoraVariant.WITHER_ROSE) return false;
+        }
+        return super.canBeAffected(effect);
     }
 
 
