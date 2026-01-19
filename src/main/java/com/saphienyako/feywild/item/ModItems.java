@@ -62,7 +62,7 @@ public class ModItems {
     public static final DeferredItem<Item> SUMMONING_SCROLL_WINTER_PIXIE = ITEMS.register("summoning_scroll_winter_pixie", () -> new SummoningScrollItem(new Item.Properties()));
     public static final DeferredItem<Item> SUMMONING_SCROLL_SHROOMLING = ITEMS.register("summoning_scroll_shroomling", () -> new SummoningScrollItem(new Item.Properties()));
     public static final DeferredItem<Item> SUMMONING_SCROLL_MANDRAGORA = ITEMS.register("summoning_scroll_mandragora", () -> new SummoningScrollItem(new Item.Properties()));
-
+    //public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem(new Item.Properties()));
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_SPRING_PIXIE = ITEMS.register("spawn_egg_spring_pixie", () -> new SpawnEggItem(ModEntities.SPRING_PIXIE.get(), 0xf085a9, 0xa1db67, new Item.Properties()));
     @SuppressWarnings("deprecation")

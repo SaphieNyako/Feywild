@@ -16,12 +16,13 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import static com.saphienyako.feywild.item.ModItems.*;
 
 public class SummoningScrollItem extends Item {
-
 
     public SummoningScrollItem(Properties pProperties) {
         super(pProperties);
@@ -37,6 +38,8 @@ public class SummoningScrollItem extends Item {
         }
     }
 
+
+
     protected EntityType<? extends FeyBase> returnLivingEntity(){
         if(this.equals(SUMMONING_SCROLL_SPRING_PIXIE.get())){
             return ModEntities.SPRING_PIXIE.get();
@@ -50,8 +53,9 @@ public class SummoningScrollItem extends Item {
             return ModEntities.SHROOMLING.get();
         } else if (this.equals(SUMMONING_SCROLL_MANDRAGORA.get())){
             return ModEntities.MANDRAGORA.get();
-        } else return null;
-
+        } /*else if (this.equals(SUMMONING_SCROLL_BEE_KNIGHT.get())){
+            return ModEntities.BEE_KNIGHT.get();
+        } */ else return null;
     }
 
     @Nonnull

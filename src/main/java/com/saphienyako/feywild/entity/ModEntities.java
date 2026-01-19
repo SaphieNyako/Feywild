@@ -36,6 +36,9 @@ public class ModEntities {
     public static final Supplier<EntityType<MandragoraEntity>> MANDRAGORA =
             ENTITY_TYPES.register("mandragora", () -> EntityType.Builder.of(MandragoraEntity::new, MobCategory.CREATURE).build("mandragora"));
 
+ //   public static final Supplier<EntityType<BeeKnightEntity>> BEE_KNIGHT =
+ //           ENTITY_TYPES.register("bee_knight", () -> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE).build("bee_knight"));
+
     //TODO .sized?
 
     public static void register(IEventBus eventBus) {
