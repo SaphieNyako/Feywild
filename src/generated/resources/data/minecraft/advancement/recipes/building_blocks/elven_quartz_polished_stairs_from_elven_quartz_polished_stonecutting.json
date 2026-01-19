@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_elven_quartz_polished": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:elven_quartz_polished"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:elven_quartz_polished_stairs_from_elven_quartz_polished_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_elven_quartz_polished"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:elven_quartz_polished_stairs_from_elven_quartz_polished_stonecutting"
+    ]
+  }
+}

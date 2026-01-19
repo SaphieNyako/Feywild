@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "minecraft:yellow_dye"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "id": "feywild:summer_elven_quartz_block"
+  }
+}

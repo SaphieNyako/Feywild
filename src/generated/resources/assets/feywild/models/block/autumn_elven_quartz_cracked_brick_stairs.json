@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "feywild:block/autumn_elven_quartz_cracked_brick",
+    "side": "feywild:block/autumn_elven_quartz_cracked_brick",
+    "top": "feywild:block/autumn_elven_quartz_cracked_brick"
+  }
+}

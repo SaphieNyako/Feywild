@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "feywild:autumn_elven_quartz_block"
+    },
+    {
+      "item": "feywild:autumn_elven_quartz_block"
+    },
+    {
+      "item": "feywild:autumn_elven_quartz_block"
+    },
+    {
+      "item": "feywild:autumn_elven_quartz_block"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "feywild:autumn_elven_quartz_brick"
+  }
+}

@@ -42,6 +42,102 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MandrakeCropBlock.AGE, 7));
         this.add(ModBlocks.MANDRAKE_CROP.get(), this.createCropDrops(ModBlocks.MANDRAKE_CROP.get(),
                 ModItems.MANDRAKE.get(), ModItems.MANDRAKE_ROOT.asItem(), lootItemConditionBuilder));
+
+        dropSelf(ModBlocks.ELVEN_QUARTZ_BLOCK.get());
+        dropSelf(ModBlocks.ELVEN_QUARTZ_STAIRS.get());
+        this.add(ModBlocks.ELVEN_QUARTZ_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_SLAB.get()));
+        dropSelf(ModBlocks.ELVEN_QUARTZ_BRICK.get());
+        dropSelf(ModBlocks.ELVEN_QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get());
+        dropSelf(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK.get());
+        dropSelf(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
+        this.add(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.ELVEN_QUARTZ_PILLAR.get());
+        dropSelf(ModBlocks.ELVEN_QUARTZ_POLISHED.get());
+        dropSelf(ModBlocks.ELVEN_QUARTZ_POLISHED_STAIRS.get());
+        this.add(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get()));
+
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_BLOCK.get());
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_STAIRS.get());
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get()));
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK.get());
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get());
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK.get());
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_PILLAR.get());
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED.get());
+        dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_STAIRS.get());
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_BLOCK.get());
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_STAIRS.get());
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get()));
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK.get());
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get());
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK.get());
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_PILLAR.get());
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED.get());
+        dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_STAIRS.get());
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_BLOCK.get());
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_STAIRS.get());
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get()));
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK.get());
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get());
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK.get());
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_PILLAR.get());
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED.get());
+        dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_STAIRS.get());
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_BLOCK.get());
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_STAIRS.get());
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get()));
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK.get());
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get());
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK.get());
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_PILLAR.get());
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get());
+        dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS.get());
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+
     }
 
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {

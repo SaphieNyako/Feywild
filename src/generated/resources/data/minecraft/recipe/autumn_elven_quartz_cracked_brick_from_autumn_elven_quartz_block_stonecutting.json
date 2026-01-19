@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "feywild:autumn_elven_quartz_block"
+  },
+  "result": {
+    "count": 1,
+    "id": "feywild:autumn_elven_quartz_cracked_brick"
+  }
+}

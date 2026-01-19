@@ -18,6 +18,9 @@ import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
@@ -29,9 +32,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.NeoForgeRenderTypes;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -93,6 +95,55 @@ public class Feywild
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             LOGGER.info("AND A LITTLE BIT OF PIXIE DUST!");
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+        }
+
+        @SubscribeEvent
+        public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+            event.getBlockColors().register((state, world, pos, tintIndex) -> {
+                        if (tintIndex == 0) return 0xFFFFFF; // base brick, no tint
+
+                        return switch (tintIndex) {
+                            case 1 -> world != null && pos != null ? BiomeColors.getAverageFoliageColor(world, pos) : 0x91BD59; // default moss
+                            case 2 -> 0xA3E48C; // spring, fresh green
+                            case 3 -> 0xFFD35B; // summer, golden leaves
+                            case 4 -> 0xA0D8FF; // winter, icy blue
+                            case 5 -> 0xD88C3F; // autumn, orange/brown
+                            default -> 0xFFFFFF;
+                        };
+                    },
+                    ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get(),
+                    ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get(),
+                    ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get(),
+                    ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get(),
+                    ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get()
+            );
+        }
+
+        @SubscribeEvent
+        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+            event.getItemColors().register((stack, tintIndex) -> {
+                        if (tintIndex == 0) return 0xFFFFFF;
+
+                        return switch (tintIndex) {
+                            case 1 -> 0x91BD59; // default
+                            case 2 -> 0xA3E48C; // spring, fresh green
+                            case 3 -> 0xFFD35B; // summer, golden leaves
+                            case 4 -> 0xA0D8FF; // winter, icy blue
+                            case 5 -> 0xD88C3F; // autumn, orange/brown
+                            default -> 0xFFFFFF;
+                        };
+                    },
+                    ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get().asItem(),
+                    ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.asItem(),
+                    ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get().asItem(),
+                    ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get().asItem(),
+                    ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get().asItem()
+            );
         }
 
         @SubscribeEvent

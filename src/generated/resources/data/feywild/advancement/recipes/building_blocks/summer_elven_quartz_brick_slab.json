@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_summer_elven_quartz_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:summer_elven_quartz_brick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "feywild:summer_elven_quartz_brick_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_summer_elven_quartz_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "feywild:summer_elven_quartz_brick_slab"
+    ]
+  }
+}

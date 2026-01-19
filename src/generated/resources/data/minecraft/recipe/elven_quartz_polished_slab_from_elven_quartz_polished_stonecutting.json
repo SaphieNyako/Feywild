@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "feywild:elven_quartz_polished"
+  },
+  "result": {
+    "count": 2,
+    "id": "feywild:elven_quartz_polished_slab"
+  }
+}

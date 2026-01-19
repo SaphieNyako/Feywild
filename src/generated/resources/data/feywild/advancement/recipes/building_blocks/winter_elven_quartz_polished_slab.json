@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "feywild:winter_elven_quartz_polished_slab"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_winter_elven_quartz_polished": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:winter_elven_quartz_polished"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_winter_elven_quartz_polished"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "feywild:winter_elven_quartz_polished_slab"
+    ]
+  }
+}
