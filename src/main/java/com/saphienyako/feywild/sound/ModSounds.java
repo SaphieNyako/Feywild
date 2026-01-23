@@ -20,9 +20,6 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANDRAKE_SCREAM = registerSoundEvent("mandrake_scream");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvent("pixie_spell_casting");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING_SHORT = registerSoundEvent("pixie_spell_casting_short");
-  //  public static final Supplier<SoundEvent> PIXIE_AMBIENT = registerSoundEvent("pixie_ambient");
-  //  public static final Supplier<SoundEvent> PIXIE_HURT = registerSoundEvent("pixie_hurt");
- //   public static final Supplier<SoundEvent> PIXIE_DEATH = registerSoundEvent("pixie_death");
     //TODO remove sounds
     public static final Supplier<SoundEvent> FEYWILD_MUSIC = registerSoundEvent("feywild_music");
     public static final ResourceKey<JukeboxSong> FEYWILD_MUSIC_KEY = createSong("feywild_music");
@@ -75,6 +72,21 @@ public class ModSounds {
     public static final Supplier<SoundEvent> WINTER_PIXIE_ABILITY_ON = registerSoundEvent("winter_pixie_ability_on");
     public static final Supplier<SoundEvent> WINTER_PIXIE_ABILITY_OFF = registerSoundEvent("winter_pixie_ability_off");
 
+    public static final Supplier<SoundEvent> SHROOMLING_WAVE = registerSoundEvent("shroomling_wave");
+    public static final Supplier<SoundEvent> SHROOMLING_AMBIANCE_01 = registerSoundEvent("shroomling_ambiance_01");
+    public static final Supplier<SoundEvent> SHROOMLING_AMBIANCE_02 = registerSoundEvent("shroomling_ambiance_02");
+    public static final Supplier<SoundEvent> SHROOMLING_HURT = registerSoundEvent("shroomling_hurt");
+    public static final Supplier<SoundEvent> SHROOMLING_DEATH = registerSoundEvent("shroomling_death");
+    public static final Supplier<SoundEvent> SHROOMLING_COOKIE = registerSoundEvent("shroomling_cookie");
+    public static final Supplier<SoundEvent> SHROOMLING_NAME = registerSoundEvent("shroomling_name");
+    public static final Supplier<SoundEvent> SHROOMLING_SUMMON = registerSoundEvent("shroomling_summon");
+    public static final Supplier<SoundEvent> SHROOMLING_DISMISS = registerSoundEvent("shroomling_dismiss");
+    public static final Supplier<SoundEvent> SHROOMLING_FOLLOW = registerSoundEvent("shroomling_follow");
+    public static final Supplier<SoundEvent> SHROOMLING_STAY = registerSoundEvent("shroomling_stay");
+    public static final Supplier<SoundEvent> SHROOMLING_ABILITY_ON = registerSoundEvent("shroomling_ability_on");
+    public static final Supplier<SoundEvent> SHROOMLING_ABILITY_OFF = registerSoundEvent("shroomling_ability_off");
+    public static final Supplier<SoundEvent> SHROOMLING_TRADE = registerSoundEvent("shroomling_trade");
+    public static final Supplier<SoundEvent> SHROOMLING_SNEEZE = registerSoundEvent("shroomling_sneeze");
 
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));

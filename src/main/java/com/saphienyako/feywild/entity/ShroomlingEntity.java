@@ -7,6 +7,7 @@ import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,6 +19,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -171,6 +173,17 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
             //GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
+                if (!level().isClientSide) {
+                    player.sendSystemMessage(getFeyNameMessage());
+                    if(FeywildConfig.voicesActive && this.getVoiceActive()) {
+                        player.playNotifySound(
+                                this.getCookieSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
+                    }
+                }
                 if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(6) == 0) {
@@ -178,7 +191,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         if(FeywildConfig.voicesActive) {
                             serverPlayer.playNotifySound(
-                                    this.getCookieSound(),
+                                    this.getDismissSound(),
                                     SoundSource.NEUTRAL,
                                     1.0F,
                                     1.0F
@@ -259,52 +272,74 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
     }
 
     public SoundEvent getWaveSound() {
-        return null;
+        return ModSounds.SHROOMLING_WAVE.get();
     }
 
     public SoundEvent getSneezeSound() {
-        return null;
+        return ModSounds.SHROOMLING_SNEEZE.get();
     }
 
     @Override
     public SoundEvent getCookieSound() {
-        return null;
+        return ModSounds.SHROOMLING_COOKIE.get();
     }
 
     @Override
     public SoundEvent getNameSound() {
-        return null;
+        return ModSounds.SHROOMLING_NAME.get();
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.SHROOMLING_SUMMON.get();
     }
 
     @Override
     public SoundEvent getDismissSound() {
-        return null;
+        return ModSounds.SHROOMLING_DISMISS.get();
     }
 
     @Override
     public SoundEvent getFollowSound() {
-        return null;
+        return ModSounds.SHROOMLING_FOLLOW.get();
     }
 
     @Override
     public SoundEvent getStaySound() {
-        return null;
+        return ModSounds.SHROOMLING_STAY.get();
     }
 
     @Override
     public SoundEvent getAbilityOnSound() {
-        return null;
+        return ModSounds.SHROOMLING_ABILITY_ON.get();
     }
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return null;
+        return ModSounds.SHROOMLING_ABILITY_OFF.get();
     }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.SHROOMLING_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.SHROOMLING_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        Random random = new Random();
+        if (random.nextFloat() < 0.1f) {
+           if(random.nextInt(2) == 0) return ModSounds.SHROOMLING_AMBIANCE_02.get();
+           else return ModSounds.SHROOMLING_AMBIANCE_01.get();
+        } else return null;
+    }
+
 
     public State getState() {
         State[] states = State.values();

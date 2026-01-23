@@ -29,8 +29,7 @@ public class WaveGoal extends Goal {
                 this.reset();
             } else if (this.ticksLeft == 20) {
                 this.waving();
-              //  this.entity.playSound(entity.getWaveSound(), 1, 1);
-                //TODO set sound
+                this.entity.playSound(entity.getWaveSound(), 1, 1);
 
             } else if (this.ticksLeft <= 20 && target != null) {
                 this.entity.lookAt(EntityAnchorArgument.Anchor.EYES, this.target.position());

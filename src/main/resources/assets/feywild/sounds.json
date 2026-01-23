@@ -288,5 +288,95 @@
     "sounds": [
       "feywild:autumn_pixie_ability_off"
     ]
+  },
+  "shroomling_wave": {
+    "subtitles": "message.feywild.shroomling_wave",
+    "sounds": [
+      "feywild:shroomling_wave"
+    ]
+  },
+  "shroomling_ambiance_01": {
+    "subtitles": "message.feywild.shroomling_ambiance_01",
+    "sounds": [
+      "feywild:shroomling_ambiance_01"
+    ]
+  },
+  "shroomling_ambiance_02": {
+    "subtitles": "message.feywild.shroomling_ambiance_02",
+    "sounds": [
+      "feywild:shroomling_ambiance_02"
+    ]
+  },
+  "shroomling_hurt": {
+    "subtitles": "sounds.feywild.shroomling_hurt",
+    "sounds": [
+      "feywild:shroomling_hurt"
+    ]
+  },
+  "shroomling_death": {
+    "subtitles": "sounds.feywild.shroomling_death",
+    "sounds": [
+      "feywild:shroomling_death"
+    ]
+  },
+  "shroomling_cookie": {
+    "subtitles": "message.feywild.shroomling_cookie",
+    "sounds": [
+      "feywild:shroomling_cookie"
+    ]
+  },
+  "shroomling_name": {
+    "subtitles": "message.feywild.shroomling_name",
+    "sounds": [
+      "feywild:shroomling_name"
+    ]
+  },
+  "shroomling_summon": {
+    "subtitles": "message.feywild.shroomling_summon",
+    "sounds": [
+      "feywild:shroomling_summon"
+    ]
+  },
+  "shroomling_dismiss": {
+    "subtitles": "message.feywild.shroomling_dismiss",
+    "sounds": [
+      "feywild:shroomling_dismiss"
+    ]
+  },
+  "shroomling_follow": {
+    "subtitles": "message.feywild.shroomling_follow",
+    "sounds": [
+      "feywild:shroomling_follow"
+    ]
+  },
+  "shroomling_stay": {
+    "subtitles": "message.feywild.shroomling_stay",
+    "sounds": [
+      "feywild:shroomling_stay"
+    ]
+  },
+  "shroomling_ability_on": {
+    "subtitles": "message.feywild.shroomling_ability_on",
+    "sounds": [
+      "feywild:shroomling_ability_on"
+    ]
+  },
+  "shroomling_ability_off": {
+    "subtitles": "message.feywild.shroomling_ability_off",
+    "sounds": [
+      "feywild:shroomling_ability_off"
+    ]
+  },
+  "shroomling_trade": {
+    "subtitles": "message.feywild.shroomling_trade",
+    "sounds": [
+      "feywild:shroomling_trade"
+    ]
+  },
+  "shroomling_sneeze": {
+    "subtitles": "message.feywild.shroomling_sneeze",
+    "sounds": [
+      "feywild:shroomling_sneeze"
+    ]
   }
 }

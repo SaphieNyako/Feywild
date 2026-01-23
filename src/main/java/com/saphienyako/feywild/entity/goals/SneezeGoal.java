@@ -80,7 +80,7 @@ public class SneezeGoal extends Goal {
             } else if (this.ticksLeft == 35) {
                 this.sneezing();
                 //TODO add Sound
-               // this.entity.playSound(ModSoundEvents.shroomlingSneeze.getSoundEvent(), 1, 1);
+                this.entity.playSound(entity.getSneezeSound(), 1, 1);
             }
         }
     }
