@@ -88,6 +88,21 @@ public class ModSounds {
     public static final Supplier<SoundEvent> SHROOMLING_TRADE = registerSoundEvent("shroomling_trade");
     public static final Supplier<SoundEvent> SHROOMLING_SNEEZE = registerSoundEvent("shroomling_sneeze");
 
+    public static final Supplier<SoundEvent> MANDRAGORA_SING = registerSoundEvent("mandragora_sing");
+    public static final Supplier<SoundEvent> MANDRAGORA_AMBIANCE_01 = registerSoundEvent("mandragora_ambiance_01");
+    public static final Supplier<SoundEvent> MANDRAGORA_AMBIANCE_02 = registerSoundEvent("mandragora_ambiance_02");
+    public static final Supplier<SoundEvent> MANDRAGORA_HURT = registerSoundEvent("mandragora_hurt");
+    public static final Supplier<SoundEvent> MANDRAGORA_DEATH = registerSoundEvent("mandragora_death");
+    public static final Supplier<SoundEvent> MANDRAGORA_COOKIE = registerSoundEvent("mandragora_cookie");
+    public static final Supplier<SoundEvent> MANDRAGORA_NAME = registerSoundEvent("mandragora_name");
+    public static final Supplier<SoundEvent> MANDRAGORA_SUMMON = registerSoundEvent("mandragora_summon");
+    public static final Supplier<SoundEvent> MANDRAGORA_DISMISS = registerSoundEvent("mandragora_dismiss");
+    public static final Supplier<SoundEvent> MANDRAGORA_FOLLOW = registerSoundEvent("mandragora_follow");
+    public static final Supplier<SoundEvent> MANDRAGORA_STAY = registerSoundEvent("mandragora_stay");
+    public static final Supplier<SoundEvent> MANDRAGORA_ABILITY_ON = registerSoundEvent("mandragora_ability_on");
+    public static final Supplier<SoundEvent> MANDRAGORA_ABILITY_OFF = registerSoundEvent("mandragora_ability_off");
+    public static final Supplier<SoundEvent> MANDRAGORA_TRADE = registerSoundEvent("mandragora_trade");
+
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }

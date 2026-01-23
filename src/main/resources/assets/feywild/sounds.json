@@ -378,5 +378,89 @@
     "sounds": [
       "feywild:shroomling_sneeze"
     ]
+  },
+  "mandragora_sing": {
+    "subtitles": "message.feywild.mandragora_sing",
+    "sounds": [
+      "feywild:mandragora_sing"
+    ]
+  },
+  "mandragora_ambiance_01": {
+    "subtitles": "message.feywild.mandragora_ambiance_01",
+    "sounds": [
+      "feywild:mandragora_ambiance_01"
+    ]
+  },
+  "mandragora_ambiance_02": {
+    "subtitles": "message.feywild.mandragora_ambiance_02",
+    "sounds": [
+      "feywild:mandragora_ambiance_02"
+    ]
+  },
+  "mandragora_hurt": {
+    "subtitles": "sounds.feywild.mandragora_hurt",
+    "sounds": [
+      "feywild:mandragora_hurt"
+    ]
+  },
+  "mandragora_death": {
+    "subtitles": "sounds.feywild.mandragora_death",
+    "sounds": [
+      "feywild:mandragora_death"
+    ]
+  },
+  "mandragora_cookie": {
+    "subtitles": "message.feywild.mandragora_cookie",
+    "sounds": [
+      "feywild:mandragora_cookie"
+    ]
+  },
+  "mandragora_name": {
+    "subtitles": "message.feywild.mandragora_name",
+    "sounds": [
+      "feywild:mandragora_name"
+    ]
+  },
+  "mandragora_summon": {
+    "subtitles": "message.feywild.mandragora_summon",
+    "sounds": [
+      "feywild:mandragora_summon"
+    ]
+  },
+  "mandragora_dismiss": {
+    "subtitles": "message.feywild.mandragora_dismiss",
+    "sounds": [
+      "feywild:mandragora_dismiss"
+    ]
+  },
+  "mandragora_follow": {
+    "subtitles": "message.feywild.mandragora_follow",
+    "sounds": [
+      "feywild:mandragora_follow"
+    ]
+  },
+  "mandragora_stay": {
+    "subtitles": "message.feywild.mandragora_stay",
+    "sounds": [
+      "feywild:mandragora_stay"
+    ]
+  },
+  "mandragora_ability_on": {
+    "subtitles": "message.feywild.mandragora_ability_on",
+    "sounds": [
+      "feywild:mandragora_ability_on"
+    ]
+  },
+  "mandragora_ability_off": {
+    "subtitles": "message.feywild.mandragora_ability_off",
+    "sounds": [
+      "feywild:mandragora_ability_off"
+    ]
+  },
+  "mandragora_trade": {
+    "subtitles": "message.feywild.mandragora_trade",
+    "sounds": [
+      "feywild:mandragora_trade"
+    ]
   }
 }

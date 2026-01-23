@@ -7,6 +7,7 @@ import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,6 +19,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AnimationState;
@@ -35,8 +37,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -304,47 +308,70 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
 
     @Override
     public ItemLike getDismissItem() {
-        return null;
+        return ModItems.SUMMONING_SCROLL_MANDRAGORA;
     }
 
     @Override
     public SoundEvent getCookieSound() {
-        return null;
+        return ModSounds.MANDRAGORA_COOKIE.get();
     }
 
     @Override
     public SoundEvent getNameSound() {
-        return null;
+        return ModSounds.MANDRAGORA_NAME.get();
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.MANDRAGORA_SUMMON.get();
     }
 
     @Override
     public SoundEvent getDismissSound() {
-        return null;
+        return ModSounds.MANDRAGORA_DISMISS.get();
     }
 
     @Override
     public SoundEvent getFollowSound() {
-        return null;
+        return ModSounds.MANDRAGORA_FOLLOW.get();
     }
 
     @Override
     public SoundEvent getStaySound() {
-        return null;
+        return ModSounds.MANDRAGORA_STAY.get();
     }
 
     @Override
     public SoundEvent getAbilityOnSound() {
-        return null;
+        return ModSounds.MANDRAGORA_ABILITY_ON.get();
     }
+
+    public SoundEvent getSingSound() {return ModSounds.MANDRAGORA_SING.get();}
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return null;
+        return ModSounds.MANDRAGORA_ABILITY_OFF.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.MANDRAGORA_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.MANDRAGORA_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        Random random = new Random();
+        if (random.nextFloat() < 0.1f) {
+            if(random.nextInt(2) == 0) return ModSounds.MANDRAGORA_AMBIANCE_02.get();
+            else return ModSounds.MANDRAGORA_AMBIANCE_01.get();
+        } else return null;
     }
 
     public MandragoraEntity.State getState() {
