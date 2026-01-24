@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity;
 
+import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
@@ -9,6 +10,7 @@ import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,9 +28,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -41,11 +43,14 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Map;
 import java.util.Random;
 
 public class ShroomlingEntity extends FeyBase implements GroundEntity {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(ShroomlingEntity.class, EntityDataSerializers.INT);
+
+    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ShroomlingEntity.class, EntityDataSerializers.INT);
 
     public final AnimationState IDLE_ANIMATION = new AnimationState();
     public final AnimationState SNEEZE_ANIMATION = new AnimationState();
@@ -60,10 +65,23 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
 
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
+    public static final Map<Item, ShroomlingEntity.ShroomlingVariant> MUSHROOM_VARIANTS = Map.ofEntries(
+            Map.entry(Items.RED_MUSHROOM, ShroomlingVariant.DEFAULT),
+            Map.entry(Items.BROWN_MUSHROOM, ShroomlingVariant.BROWN),
+            Map.entry(ModBlocks.ORANGE_MUSHROOM.asItem(), ShroomlingVariant.ORANGE),
+            Map.entry(ModBlocks.YELLOW_MUSHROOM.asItem(), ShroomlingVariant.YELLOW),
+            Map.entry(ModBlocks.GREEN_MUSHROOM.asItem(), ShroomlingVariant.GREEN),
+            Map.entry(ModBlocks.LIGHT_BLUE_MUSHROOM.asItem(), ShroomlingVariant.LIGHT_BLUE),
+            Map.entry(ModBlocks.BLUE_MUSHROOM.asItem(), ShroomlingVariant.BLUE),
+            Map.entry(ModBlocks.PURPLE_MUSHROOM.asItem(), ShroomlingVariant.PURPLE),
+            Map.entry(ModBlocks.PINK_MUSHROOM.asItem(), ShroomlingEntity.ShroomlingVariant.PINK)
+    );
+
 
     protected ShroomlingEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+        this.entityData.set(VARIANT, ShroomlingEntity.ShroomlingVariant.DEFAULT.ordinal());
     }
 
     @Override
@@ -92,7 +110,23 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
+        builder.define(VARIANT, VARIANT.id());
     }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
+        super.addAdditionalSaveData(nbt);
+        nbt.putInt("ShroomlingVariant", this.entityData.get(VARIANT));
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
+        if (nbt.contains("ShroomlingVariant")) {
+            this.entityData.set(VARIANT, nbt.getInt("ShroomlingVariant"));
+        }
+    }
+
 
     @SuppressWarnings("resource")
     @Override
@@ -246,6 +280,30 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
                         )
                 );
                 player.swing(hand, true);
+
+                //MUSHROOM VARIANT
+            } else if (MUSHROOM_VARIANTS.containsKey(player.getItemInHand(hand).getItem())) {
+                ShroomlingEntity.ShroomlingVariant variant = MUSHROOM_VARIANTS.get(player.getItemInHand(hand).getItem());
+                this.setVariant(variant);
+                if (!player.isCreative()) {
+                    player.getItemInHand(hand).shrink(1);
+                }
+                if (!level().isClientSide) {
+                    PacketDistributor.sendToPlayersTrackingEntity(
+                            this,
+                            new ParticleMessage(
+                                    ParticleMessage.Particles.DANDELION_FLUFF,
+                                    this.getOnPos().above()
+                            )
+                    );
+                    player.playNotifySound(
+                            SoundEvents.COMPOSTER_EMPTY,
+                            SoundSource.NEUTRAL,
+                            1.0F,
+                            1.0F
+                    );
+                }
+                player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
@@ -346,12 +404,23 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
-
     public void setState(State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 
+
+    public ShroomlingEntity.ShroomlingVariant getVariant() {
+        return ShroomlingEntity.ShroomlingVariant.values()[this.entityData.get(VARIANT)];
+    }
+
+    public void setVariant(ShroomlingEntity.ShroomlingVariant variant) {this.entityData.set(VARIANT, variant.ordinal());}
+
+
     public enum State {
         IDLE, POSE, WALK, WAVE, SNEEZE
+    }
+
+    public enum ShroomlingVariant {
+        DEFAULT, BROWN, ORANGE, YELLOW, GREEN, LIGHT_BLUE, BLUE, PURPLE, PINK
     }
 }

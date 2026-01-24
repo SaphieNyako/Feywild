@@ -34,7 +34,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
         basicItem(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
         basicItem(ModItems.GIANT_SUN_FLOWER_SEED.get());
-
     }
     @SuppressWarnings("unused")
     public void flowerItem(DeferredBlock<Block> block) {

@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import org.jetbrains.annotations.NotNull;
 
@@ -70,6 +71,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(ModItems.FEY_DUST.get())
                 .requires(Items.POISONOUS_POTATO)
                 .unlockedBy(getHasName(ModItems.FEY_DUST.get()), has(ModItems.FEY_DUST.get()))
+                .save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.MUSHROOM_STEW, 1)
+                .requires(Tags.Items.MUSHROOMS)
+                .requires(Tags.Items.MUSHROOMS)
+                .requires(Items.BOWL)
+                .unlockedBy(getHasName(ModItems.SUMMONING_SCROLL_SHROOMLING.get()), has(ModItems.SUMMONING_SCROLL_SHROOMLING.get()))
                 .save(recipeOutput);
 
         addDefaultElvenQuartzRecipes(recipeOutput);

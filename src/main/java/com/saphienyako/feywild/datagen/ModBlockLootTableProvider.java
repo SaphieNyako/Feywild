@@ -3,6 +3,8 @@ package com.saphienyako.feywild.datagen;
 import com.saphienyako.feywild.block.MandrakeCropBlock;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -13,14 +15,16 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.functions.*;
+import net.minecraft.world.level.storage.loot.predicates.*;
 
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
@@ -42,6 +46,29 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MandrakeCropBlock.AGE, 7));
         this.add(ModBlocks.MANDRAKE_CROP.get(), this.createCropDrops(ModBlocks.MANDRAKE_CROP.get(),
                 ModItems.MANDRAKE.get(), ModItems.MANDRAKE_ROOT.asItem(), lootItemConditionBuilder));
+
+        dropSelf(ModBlocks.ORANGE_MUSHROOM.get());
+        dropSelf(ModBlocks.YELLOW_MUSHROOM.get());
+        dropSelf(ModBlocks.GREEN_MUSHROOM.get());
+        dropSelf(ModBlocks.LIGHT_BLUE_MUSHROOM.get());
+        dropSelf(ModBlocks.BLUE_MUSHROOM.get());
+        dropSelf(ModBlocks.PURPLE_MUSHROOM.get());
+        dropSelf(ModBlocks.PINK_MUSHROOM.get());
+
+        this.add(ModBlocks.ORANGE_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.ORANGE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.YELLOW_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.YELLOW_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.GREEN_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.GREEN_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.LIGHT_BLUE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.BLUE_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.BLUE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.PURPLE_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.PURPLE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.PINK_MUSHROOM_BLOCK.get(),
+                block -> createMushroomDrops(block, ModBlocks.PINK_MUSHROOM.asItem(), -6, 2));
 
         dropSelf(ModBlocks.ELVEN_QUARTZ_BLOCK.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_STAIRS.get());
@@ -146,6 +173,13 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 LootItem.lootTableItem(item)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
                         .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
+    }
+
+    protected LootTable.Builder createMushroomDrops(Block mushroomBlock, Item mushroomItem, float minDrops, float maxDrops) {
+        HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(mushroomBlock, this.applyExplosionDecay(mushroomBlock,
+                LootItem.lootTableItem(mushroomItem)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))));
     }
 
     private static final Set<Block> EXCLUDED_BLOCKS = Set.of(

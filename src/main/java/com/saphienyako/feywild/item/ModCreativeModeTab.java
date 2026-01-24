@@ -120,6 +120,21 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS.get());
                         pOutput.accept(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get());
 
+                        pOutput.accept(ModBlocks.ORANGE_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.ORANGE_MUSHROOM_BLOCK.get());
+                        pOutput.accept(ModBlocks.YELLOW_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.YELLOW_MUSHROOM_BLOCK.get());
+                        pOutput.accept(ModBlocks.GREEN_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.GREEN_MUSHROOM_BLOCK.get());
+                        pOutput.accept(ModBlocks.LIGHT_BLUE_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get());
+                        pOutput.accept(ModBlocks.BLUE_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.BLUE_MUSHROOM_BLOCK.get());
+                        pOutput.accept(ModBlocks.PURPLE_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.PURPLE_MUSHROOM_BLOCK.get());
+                        pOutput.accept(ModBlocks.PINK_MUSHROOM.get());
+                        pOutput.accept(ModBlocks.PINK_MUSHROOM_BLOCK.get());
+
                         pOutput.accept(ModItems.SPAWN_EGG_SPRING_PIXIE.get());
                         pOutput.accept(ModItems.SPAWN_EGG_AUTUMN_PIXIE.get());
                         pOutput.accept(ModItems.SPAWN_EGG_SUMMER_PIXIE.get());

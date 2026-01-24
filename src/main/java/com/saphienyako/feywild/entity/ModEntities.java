@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.entity.renderer.MooShroomCowRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -35,6 +36,9 @@ public class ModEntities {
 
     public static final Supplier<EntityType<MandragoraEntity>> MANDRAGORA =
             ENTITY_TYPES.register("mandragora", () -> EntityType.Builder.of(MandragoraEntity::new, MobCategory.CREATURE).build("mandragora"));
+
+    public static final Supplier<EntityType<MooShroomCowEntity>> MOO_SHROOM_COW =
+            ENTITY_TYPES.register("moo_shroom_cow", () -> EntityType.Builder.of(MooShroomCowEntity::new, MobCategory.CREATURE).build("moo_shroom_cow"));
 
  //   public static final Supplier<EntityType<BeeKnightEntity>> BEE_KNIGHT =
  //           ENTITY_TYPES.register("bee_knight", () -> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE).build("bee_knight"));

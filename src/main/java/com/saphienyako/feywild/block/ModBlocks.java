@@ -2,10 +2,20 @@ package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.HugeBrownMushroomFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -37,6 +47,96 @@ public class ModBlocks {
     public static final DeferredBlock<Block> FEY_ALTAR = registerBlock("fey_altar",
             () -> new FeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
+    //MUSHROOM BLOCKS
+    public static final DeferredBlock<Block> ORANGE_MUSHROOM = registerBlock("orange_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.ORANGE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> YELLOW_MUSHROOM = registerBlock("yellow_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.YELLOW_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> GREEN_MUSHROOM = registerBlock("green_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.GREEN_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> LIGHT_BLUE_MUSHROOM = registerBlock("light_blue_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.LIGHT_BLUE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> BLUE_MUSHROOM = registerBlock("blue_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.BLUE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> PURPLE_MUSHROOM = registerBlock("purple_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.PURPLE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> PINK_MUSHROOM = registerBlock("pink_mushroom",
+            () -> new MushroomBlock(ModConfiguredFeatures.PINK_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<Block> ORANGE_MUSHROOM_BLOCK = registerBlock("orange_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+    public static final DeferredBlock<Block> YELLOW_MUSHROOM_BLOCK = registerBlock("yellow_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+    public static final DeferredBlock<Block> GREEN_MUSHROOM_BLOCK = registerBlock("green_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+    public static final DeferredBlock<Block> LIGHT_BLUE_MUSHROOM_BLOCK = registerBlock("light_blue_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+    public static final DeferredBlock<Block> BLUE_MUSHROOM_BLOCK = registerBlock("blue_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+    public static final DeferredBlock<Block> PURPLE_MUSHROOM_BLOCK = registerBlock("purple_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
+
+    public static final DeferredBlock<Block> PINK_MUSHROOM_BLOCK = registerBlock("pink_mushroom_block",
+            () -> new HugeMushroomBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM_BLOCK).instrument(NoteBlockInstrument.BASS)
+                    .strength(0.2F)
+                    .sound(SoundType.WOOD)
+                    .ignitedByLava()));
 
     //DEFAULT ELVEN QUARTZ
     public static final DeferredBlock<Block> ELVEN_QUARTZ_BLOCK = registerBlock("elven_quartz_block",

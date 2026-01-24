@@ -18,6 +18,8 @@ import com.saphienyako.feywild.recipe.ModRecipes;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.client.model.CowModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -82,6 +84,7 @@ public class Feywild
         event.put(ModEntities.WINTER_PIXIE.get(), WinterPixieEntity.getDefaultAttributes().build());
         event.put(ModEntities.SHROOMLING.get(), ShroomlingEntity.getDefaultAttributes().build());
         event.put(ModEntities.MANDRAGORA.get(), MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowEntity.createAttributes().build());
     }
     @SuppressWarnings("unused")
     @SubscribeEvent
@@ -100,6 +103,13 @@ public class Feywild
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ORANGE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.YELLOW_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.GREEN_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.LIGHT_BLUE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.BLUE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.PURPLE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.PINK_MUSHROOM.get(), RenderType.cutout());
         }
 
         @SubscribeEvent
@@ -163,6 +173,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.WINTER_PIXIE_LAYER, WinterPixieModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.SHROOMLING_LAYER, ShroomlingModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MANDRAGORA_LAYER, MandragoraModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.MOO_SHROOM_LAYER, CowModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -174,6 +185,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.WINTER_PIXIE.get(), WinterPixieRenderer::new);
             event.registerEntityRenderer(ModEntities.SHROOMLING.get(), ShroomlingRenderer::new);
             event.registerEntityRenderer(ModEntities.MANDRAGORA.get(), MandragoraRenderer::new);
+            event.registerEntityRenderer(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowRenderer::new);
         }
 
         @SubscribeEvent
@@ -188,6 +200,7 @@ public class Feywild
             event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.SHROOMLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }

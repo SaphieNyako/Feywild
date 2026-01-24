@@ -206,4 +206,23 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void blockItem(DeferredBlock<Block> deferredBlock, String appendix) {
         simpleBlockItem(deferredBlock.get(), new ModelFile.UncheckedModelFile("feywild:block/" + deferredBlock.getId().getPath() + appendix));
     }
+    /*
+    private void mushroomBlock(DeferredBlock<Block> block) {
+        // Generate the blockstate and block model
+        simpleBlock(block.get(),
+                models().cross(
+                        block.getId().getPath(),          // model name = block name
+                        blockTexture(block.get())         // texture = block texture
+                ).renderType("cutout")                // cutout render type for transparency
+        );
+
+        // Generate the item model pointing to the block model
+        simpleBlockItem(
+                block.get(),
+                new ModelFile.UncheckedModelFile(
+                        modLoc("block/" + block.getId().getPath())
+                )
+        );
+    } */
+
 }
