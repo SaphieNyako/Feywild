@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
@@ -44,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -433,7 +435,12 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
 
     @Override
     public ItemStack getTradeResult() {
-        return new ItemStack(Items.EMERALD);
+        List<ItemStack> items = ShroomlingItems.shroomlingItems();
+        if (items.isEmpty()) return ItemStack.EMPTY;
+
+        Random random = new Random();
+        int index = random.nextInt(items.size());
+        return items.get(index).copy();
     }
 
 

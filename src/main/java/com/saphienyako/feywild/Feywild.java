@@ -5,6 +5,7 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
 import com.saphienyako.feywild.entity.renderer.*;
@@ -37,6 +38,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.NeoForgeRenderTypes;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -67,11 +69,15 @@ public class Feywild
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new ModEventListener());
+        NeoForge.EVENT_BUS.addListener(this::reloadData);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, FeywildConfig.CLIENT_SPEC);
     }
 
+    public void reloadData(AddReloadListenerEvent event) {
+        event.addListener(ShroomlingItems.createReloadListener());
+    }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         LOGGER.info("THE FEY ARE PLEASED!");

@@ -1,0 +1,11 @@
+[
+  {
+    "item": "minecraft:emerald",
+    "count": 1
+  },
+  {
+    "item": "feywild:fey_dust",
+    "count": 1,
+    "mod": "feywild"
+  }
+]
