@@ -46,9 +46,7 @@ public class SneezeGoal extends Goal {
                     if (this.targetAnimal == null || !this.targetAnimal.isAlive()) {
                         this.targetAnimal = this.findCow();
                         if (this.targetAnimal != null && this.targetAnimal.isAlive()&& !(this.targetAnimal instanceof MushroomCow)) {
-                          //  MushroomCow cow = new MushroomCow(EntityType.MOOSHROOM, level);
-                         //   cow.setPos(this.targetAnimal.getX(), this.targetAnimal.getY(), this.targetAnimal.getZ());
-                            PacketDistributor.sendToPlayersTrackingEntity(
+                                    PacketDistributor.sendToPlayersTrackingEntity(
                                     this.targetAnimal,
                                     new ParticleMessage(
                                             ParticleMessage.Particles.SHROOMLING_SNEEZE,
@@ -60,15 +58,7 @@ public class SneezeGoal extends Goal {
                             level.addFreshEntity(getMushroomCow());
                         }
                     }
-                } /* else {
-                    // IF NOT TAMED POISON TARGET PLAYER
-                    if (this.targetPlayer == null || !this.targetPlayer.isAlive()) {
-                        this.targetPlayer = this.findPlayer();
-                        if (this.targetPlayer != null && this.targetPlayer.isAlive()) {
-                            this.targetPlayer.addEffect(new MobEffectInstance(MobEffects.POISON, 5 * 60, 0));
-                        }
-                    }
-                } */
+                }
                 this.reset();
             } else if (this.ticksLeft == 20) {
                 //SHROOMLING SNEEZE

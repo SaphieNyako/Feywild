@@ -4,6 +4,7 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
+import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
@@ -46,7 +47,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Map;
 import java.util.Random;
 
-public class ShroomlingEntity extends FeyBase implements GroundEntity {
+public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(ShroomlingEntity.class, EntityDataSerializers.INT);
 
@@ -94,7 +95,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(25, new WaveGoal(this));
         this.goalSelector.addGoal(20, new SneezeGoal(this));
-        //TODO Add Sneeze Goal
+        this.goalSelector.addGoal(5, new TradeForGemsGoal(this));
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -414,6 +415,26 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity {
     }
 
     public void setVariant(ShroomlingEntity.ShroomlingVariant variant) {this.entityData.set(VARIANT, variant.ordinal());}
+
+    @Override
+    public SoundEvent getTradeSound() {
+        return ModSounds.SHROOMLING_TRADE.get();
+    }
+
+    @Override
+    public ItemStack getTradeItem() {
+        return ModItems.FEY_GEM.toStack();
+    }
+
+    @Override
+    public boolean isTradeItem(ItemStack stack) {
+        return stack.is(ModItems.FEY_GEM);
+    }
+
+    @Override
+    public ItemStack getTradeResult() {
+        return new ItemStack(Items.EMERALD);
+    }
 
 
     public enum State {

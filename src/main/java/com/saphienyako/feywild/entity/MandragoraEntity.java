@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
+import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
@@ -47,7 +48,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Map;
 import java.util.Random;
 
-public class MandragoraEntity extends FeyBase implements GroundEntity {
+public class MandragoraEntity extends FeyBase implements GroundEntity, ITradeable {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(MandragoraEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MandragoraEntity.class, EntityDataSerializers.INT);
@@ -95,7 +96,7 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
         this.goalSelector.addGoal(1, new GroundIronPanicGoal(this, this.level(), 0.25, 6));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(20, new SingGoal(this));
-        //TODO add SING goal
+        this.goalSelector.addGoal(5, new TradeForGemsGoal(this));
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -390,6 +391,26 @@ public class MandragoraEntity extends FeyBase implements GroundEntity {
     }
 
     public void setVariant(MandragoraEntity.MandragoraVariant variant) {this.entityData.set(VARIANT, variant.ordinal());}
+
+    @Override
+    public SoundEvent getTradeSound() {
+        return ModSounds.MANDRAGORA_TRADE.get();
+    }
+
+    @Override
+    public ItemStack getTradeItem() {
+        return ModItems.FEY_GEM.toStack();
+    }
+
+    @Override
+    public boolean isTradeItem(ItemStack stack) {
+        return stack.is(ModItems.FEY_GEM);
+    }
+
+    @Override
+    public ItemStack getTradeResult() {
+        return new ItemStack(Items.EMERALD);
+    }
 
     public enum State {
         IDLE, POSE, WALK, SING
