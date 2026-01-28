@@ -1,6 +1,8 @@
 package com.saphienyako.feywild.data;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -26,7 +28,7 @@ public class ShroomlingItems {
         }
     }
 
-    public static PreparableReloadListener createReloadListener() {
+    public static PreparableReloadListener createReloadListener(RegistryAccess registryAccess) {
         return new SimplePreparableReloadListener<Void>() {
             @Nonnull
             @Override
@@ -36,10 +38,8 @@ public class ShroomlingItems {
 
             @Override
             protected void apply(@Nonnull Void value, @Nonnull ResourceManager manager, @Nonnull ProfilerFiller profiler) {
-                itemList = DatapackHelper.loadStackList(manager, "feywild_trades", "shroomling");
+                itemList = DatapackHelper.loadStackList(manager, "feywild_trades", "shroomling", registryAccess);
             }
         };
     }
-
-
 }

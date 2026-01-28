@@ -76,7 +76,7 @@ public class Feywild
     }
 
     public void reloadData(AddReloadListenerEvent event) {
-        event.addListener(ShroomlingItems.createReloadListener());
+        event.addListener(ShroomlingItems.createReloadListener(event.getRegistryAccess()));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

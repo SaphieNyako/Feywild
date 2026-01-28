@@ -1,11 +1,29 @@
 [
   {
     "item": "minecraft:emerald",
-    "count": 1
+    "count": 1,
+    "rarity": 10
   },
   {
     "item": "feywild:fey_dust",
     "count": 1,
+    "rarity": 1,
     "mod": "feywild"
+  },
+  {
+    "item": "minecraft:diamond_sword",
+    "count": 1,
+    "rarity": 1,
+    "enchantments": {
+      "minecraft:mending": 1
+    }
+  },
+  {
+    "item": "minecraft:enchanted_book",
+    "count": 1,
+    "rarity": 1,
+    "enchantments": {
+      "minecraft:mending": 1
+    }
   }
 ]
