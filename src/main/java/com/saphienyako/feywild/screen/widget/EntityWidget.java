@@ -26,7 +26,7 @@ public class EntityWidget extends AbstractWidget {
         int x1 = this.getX();
         int y1 = this.getY();
         int x2 = x1 + (this.width * 2);
-        int y2 = y1 + this.height + (int) (scale * 48 / 85);
+        int y2 = y1 + this.height + (int) (scale);
 
         float yOffset = 0f;
 
