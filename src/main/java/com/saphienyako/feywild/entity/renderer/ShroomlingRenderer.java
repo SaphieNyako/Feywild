@@ -13,6 +13,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
+
 public class ShroomlingRenderer extends MobRenderer<ShroomlingEntity, ShroomlingModel<ShroomlingEntity>> {
 
     public ShroomlingRenderer(EntityRendererProvider.Context pContext) {
@@ -26,6 +28,6 @@ public class ShroomlingRenderer extends MobRenderer<ShroomlingEntity, Shroomling
 
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull ShroomlingEntity shroomlingEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/shroomling.png");
+        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/shroomling/" + shroomlingEntity.getVariant().name().toLowerCase(Locale.ROOT) + ".png");
     }
 }
