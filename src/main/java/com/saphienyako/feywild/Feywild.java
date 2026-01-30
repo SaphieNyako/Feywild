@@ -5,6 +5,7 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
@@ -77,6 +78,7 @@ public class Feywild
 
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(ShroomlingItems.createReloadListener(event.getRegistryAccess()));
+        event.addListener(MandragoraItems.createReloadListener(event.getRegistryAccess()));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

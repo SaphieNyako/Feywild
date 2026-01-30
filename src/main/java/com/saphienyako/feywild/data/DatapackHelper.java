@@ -12,17 +12,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.EnchantedBookItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.enchantment.*;
 import net.neoforged.fml.ModList;
 
@@ -108,8 +111,78 @@ public class DatapackHelper {
             });
         }
 
+        if (json.has("effects")) {
+            List<MobEffectInstance> effects =
+                    readEffects(json.getAsJsonArray("effects"), registryAccess);
+
+            if (stack.is(Items.POTION)
+                    || stack.is(Items.SPLASH_POTION)
+                    || stack.is(Items.LINGERING_POTION)
+                    || stack.is(Items.TIPPED_ARROW)) {
+
+                stack.set(
+                        DataComponents.POTION_CONTENTS,
+                        new PotionContents(Optional.empty(), Optional.empty(), effects)
+                );
+            }
+
+            if (stack.is(Items.SUSPICIOUS_STEW)) {
+                stack.set(
+                        DataComponents.SUSPICIOUS_STEW_EFFECTS,
+                        new SuspiciousStewEffects(toStewEntries(effects))
+                );
+            }
+        }
+
+        if (json.has("name")) {
+            stack.set(
+                    DataComponents.CUSTOM_NAME,
+                    Component.literal(json.get("name").getAsString())
+            );
+        }
+
+        if (json.has("description")) {
+            List<Component> loreList = new ArrayList<>();
+            loreList.add(Component.literal(json.get("description").getAsString()));
+            stack.set(DataComponents.LORE, new ItemLore(loreList));
+        }
+
+
         return stack;
     }
+
+    private static List<MobEffectInstance> readEffects(JsonArray array, RegistryAccess registryAccess) {
+        List<MobEffectInstance> effects = new ArrayList<>();
+
+        for (JsonElement el : array) {
+            if (!el.isJsonObject()) continue;
+
+            JsonObject obj = el.getAsJsonObject();
+            ResourceLocation id = ResourceLocation.tryParse(obj.get("effect").getAsString());
+            if (id == null) continue;
+
+            Holder<MobEffect> effect = registryAccess
+                    .lookupOrThrow(Registries.MOB_EFFECT)
+                    .getOrThrow(ResourceKey.create(Registries.MOB_EFFECT, id));
+
+            int duration = obj.has("duration") ? obj.get("duration").getAsInt() : 200;
+            int amplifier = obj.has("amplifier") ? obj.get("amplifier").getAsInt() : 0;
+
+            effects.add(new MobEffectInstance(effect, duration, amplifier));
+        }
+
+        return effects;
+    }
+
+    private static List<SuspiciousStewEffects.Entry> toStewEntries(List<MobEffectInstance> effects) {
+        return effects.stream()
+                .map(e -> new SuspiciousStewEffects.Entry(
+                        e.getEffect(),
+                        e.getDuration()
+                ))
+                .toList();
+    }
+
 
     public static List<ItemStack> getAllEnchantedBooks(RegistryAccess registryAccess) {
         List<ItemStack> books = new ArrayList<>();

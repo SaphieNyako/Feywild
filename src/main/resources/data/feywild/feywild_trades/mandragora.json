@@ -1,0 +1,135 @@
+[
+  {
+    "item": "minecraft:dandelion",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:poppy",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:orchid",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:allium",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:red_tulip",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:orange_tulip",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:white_tulip",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:pink_tulip",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:oxeye_daisy",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:cornflower",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:lily_of_the_valley",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:torchflower",
+    "count": 4,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:peony",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:lilac",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:sunflower",
+    "count": 5,
+    "rarity": 5
+  },
+  {
+    "item": "feywild:giant_sun_flower_seed",
+    "count": 2,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:giant_crocus_flower_seed",
+    "count": 2,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:giant_dandelion_flower_seed",
+    "count": 2,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "minecraft:azalea",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:flowering_azalea",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:moss_block",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:spore_blossom",
+    "count": 1,
+    "rarity": 3
+  },
+  {
+    "item": "minecraft:big_dripleaf",
+    "count": 2,
+    "rarity": 3
+  },
+  {
+    "item": "minecraft:small_dripleaf",
+    "count": 3,
+    "rarity": 3
+  },
+  {
+    "item": "minecraft:pink_petals",
+    "count": 5,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:wither_rose",
+    "count": 1,
+    "rarity": 2
+  }
+]
