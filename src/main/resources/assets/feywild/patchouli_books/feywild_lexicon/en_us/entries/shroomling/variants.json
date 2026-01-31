@@ -1,0 +1,46 @@
+{
+  "category": "feywild:shroomling",
+  "icon": "feywild:purple_mushroom",
+  "name": "feywild_lexicon.entry.shroomling.variants.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page1.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:yellow_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:green_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:light_blue_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blue_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page5.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:purple_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page6.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pink_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.variants.page7.text0"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:moo_shroom_cow"
+    }
+  ]
+}

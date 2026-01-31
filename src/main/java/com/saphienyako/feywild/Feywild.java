@@ -206,7 +206,7 @@ public class Feywild
             event.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.SHROOMLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.SHROOMLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canShroomlingSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }

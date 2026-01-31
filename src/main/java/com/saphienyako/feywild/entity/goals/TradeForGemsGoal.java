@@ -54,10 +54,13 @@ public class TradeForGemsGoal extends Goal {
 
     @Override
     public void start() {
+
         pathfindingResetCooldown = 0;
         tradeTimeout = 40 + entity.level().random.nextInt(40);
-
         entity.getNavigation().moveTo(target, SPEED);
+        if(entity.getRandom().nextInt(10) <= 1) {
+            this.entity.playSound(((ITradeable)entity).getTradeSound(), 0.7f, 1);
+        }
     }
 
     @Override

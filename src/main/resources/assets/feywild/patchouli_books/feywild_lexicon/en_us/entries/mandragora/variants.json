@@ -1,0 +1,12 @@
+{
+  "category": "feywild:mandragora",
+  "icon": "minecraft:torchflower",
+  "name": "feywild_lexicon.entry.mandragora.variants.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:dandelion",
+      "text": "feywild_lexicon.entry.mandragora.variants.page1.text0"
+    }
+  ]
+}

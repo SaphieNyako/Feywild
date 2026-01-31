@@ -1,6 +1,6 @@
 {
-  "description": "feywild_lexicon.category.feywild.feywild.summoning_fey.description",
+  "description": "feywild_lexicon.category.summoning_fey.description",
   "icon": "feywild:fey_altar",
-  "name": "feywild_lexicon.category.feywild.feywild.summoning_fey.name",
+  "name": "feywild_lexicon.category.summoning_fey.name",
   "sortnum": 2
 }

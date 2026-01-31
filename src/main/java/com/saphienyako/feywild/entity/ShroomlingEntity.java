@@ -11,6 +11,8 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,13 +23,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -38,6 +40,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -128,6 +135,43 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
         if (nbt.contains("ShroomlingVariant")) {
             this.entityData.set(VARIANT, nbt.getInt("ShroomlingVariant"));
         }
+    }
+    @Override
+    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+        Entity attacker = damageSource.getEntity();
+        if (attacker instanceof LivingEntity living && !this.isTamed()) {
+                living.addEffect(new MobEffectInstance(MobEffects.POISON, 2 * 60, 0));
+                    PacketDistributor.sendToPlayersTrackingEntity(
+                    this,
+                    new ParticleMessage(
+                            ParticleMessage.Particles.SHROOMLING_SNEEZE,
+                            this.blockPosition().above()
+                    )
+            );
+        }
+
+        return super.isDamageSourceBlocked(damageSource);
+    }
+
+    public static boolean canShroomlingSpawn(EntityType<? extends FeyBase> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+
+        if (level.getBiome(pos).unwrapKey()
+                .map(key -> key == Biomes.MUSHROOM_FIELDS)
+                .orElse(false)) {
+
+            BlockState below = level.getBlockState(pos.below());
+            return below.is(Blocks.MYCELIUM) && level.getRawBrightness(pos, 0) > 8;
+        }
+
+        if (level.getBiome(pos).unwrapKey()
+                .map(key -> key == Biomes.DARK_FOREST)
+                .orElse(false)) {
+
+            BlockState below = level.getBlockState(pos.below());
+            return (below.is(Blocks.GRASS_BLOCK) || below.is(Blocks.RED_MUSHROOM_BLOCK))  && level.getRawBrightness(pos, 0) > 8;
+        }
+
+        return false;
     }
 
 

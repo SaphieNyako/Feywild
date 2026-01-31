@@ -1,0 +1,45 @@
+{
+  "category": "feywild:mandragora",
+  "icon": "feywild:fey_gem",
+  "name":  "feywild_lexicon.entry.mandragora.trade.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "feywild_lexicon.entry.mandragora.trade.page1.text0"
+    },
+    {
+      "type": "feywild:dandelion",
+      "recipe": "feywild:giant_dandelion_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_dandelion_flower_seed",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.spring_court.page2.text0"
+    },
+    {
+      "type": "feywild:sun_flower",
+      "recipe": "feywild:giant_sun_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_sun_flower_seed",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.summer_court.page2.text0"
+    },
+    {
+      "type": "feywild:crocus",
+      "recipe": "feywild:giant_crocus_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_crocus_flower_seed",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.feywild.winter_court.page2.text0"
+    }
+  ]
+}

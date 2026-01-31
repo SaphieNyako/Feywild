@@ -1,0 +1,35 @@
+{
+  "category": "feywild:mandragora",
+  "icon": "feywild:summoning_scroll_mandragora",
+  "name":  "feywild_lexicon.entry.mandragora.summon.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:mandragora"
+    },
+    {
+      "type": "feywild:mandragora",
+      "recipe": "feywild:summoning_scroll_mandragora"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "feywild_lexicon.entry.mandragora.summon.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.mandragora.summon.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.mandragora.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "feywild_lexicon.entry.summoning_fey.handling_fey.page2.text0"
+    }
+  ]
+}

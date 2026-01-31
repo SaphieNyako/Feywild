@@ -2,8 +2,11 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,6 +17,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.MobSpawnType;
@@ -34,6 +39,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MooShroomCowEntity extends MushroomCow {
 
@@ -67,14 +74,13 @@ public class MooShroomCowEntity extends MushroomCow {
         if (itemstack.is(Items.BOWL) && !this.isBaby()) {
             boolean flag = false;
             ItemStack itemstack2;
-            if (this.stewEffects != null) {
-                flag = true;
-                itemstack2 = new ItemStack(Items.SUSPICIOUS_STEW);
-                itemstack2.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, this.stewEffects);
-                this.stewEffects = null;
-            } else {
-                itemstack2 = new ItemStack(Items.MUSHROOM_STEW);
-            }
+            MooShroomCowVariant variant = this.getMooShroomVariant();
+            this.stewEffects = stewEffectForVariant(variant);
+
+            flag = true;
+            itemstack2 = new ItemStack(Items.SUSPICIOUS_STEW);
+            itemstack2.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, this.stewEffects);
+            this.stewEffects = null;
 
             ItemStack itemstack1 = ItemUtils.createFilledResult(itemstack, player, itemstack2, false);
             player.setItemInHand(hand, itemstack1);
@@ -140,6 +146,29 @@ public class MooShroomCowEntity extends MushroomCow {
     }
 
     public void setMooShroomVariant(MooShroomCowVariant variant) {this.entityData.set(MOO_SHROOM_VARIANT, variant.ordinal());}
+
+    private static SuspiciousStewEffects stewEffectForVariant(MooShroomCowVariant variant) {
+        List<SuspiciousStewEffects.Entry> effects = new ArrayList<>();
+
+        switch (variant) {
+            case ORANGE ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.FIRE_RESISTANCE, 120));
+            case YELLOW ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.GLOWING, 180));
+            case GREEN ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.ABSORPTION, 100));
+            case LIGHT_BLUE ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.JUMP, 120));
+            case BLUE ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.NIGHT_VISION, 200));
+            case PURPLE ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.SLOW_FALLING, 180));
+            case PINK ->
+                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.REGENERATION, 120));
+        }
+
+        return new SuspiciousStewEffects(effects);
+    }
 
     public enum State {
         IDLE, POSE, WALK, SING
