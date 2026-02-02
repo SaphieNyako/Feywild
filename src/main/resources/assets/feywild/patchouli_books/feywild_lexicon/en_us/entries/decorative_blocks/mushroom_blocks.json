@@ -1,0 +1,64 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:blue_mushroom_block",
+  "name": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:green_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    },{
+      "type": "patchouli:entity",
+      "entity": "feywild:moo_shroom_cow"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:shears",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.shroomling.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "Giant Colored Mushrooms",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:yellow_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:light_blue_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blue_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:purple_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pink_mushroom_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_spring_pixie"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "minecraft:flowering_azalea"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "item": "feywild:mandrake"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:summoning_scroll_mandragora"
+  }
+}

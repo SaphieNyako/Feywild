@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -29,5 +30,15 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.DUSTS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.ENCHANTING_FUELS).add(ModItems.FEY_DUST.get());
         this.tag(Tags.Items.GEMS).add(ModItems.FEY_GEM.get());
+        this.tag(Tags.Items.SEEDS).add(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
+        this.tag(Tags.Items.SEEDS).add(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
+        this.tag(Tags.Items.SEEDS).add(ModItems.GIANT_SUN_FLOWER_SEED.get());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.ORANGE_MUSHROOM.get().asItem());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.YELLOW_MUSHROOM.get().asItem());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.GREEN_MUSHROOM.get().asItem());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.LIGHT_BLUE_MUSHROOM.get().asItem());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.BLUE_MUSHROOM.get().asItem());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.PURPLE_MUSHROOM.get().asItem());
+        this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.PINK_MUSHROOM.get().asItem());
     }
 }

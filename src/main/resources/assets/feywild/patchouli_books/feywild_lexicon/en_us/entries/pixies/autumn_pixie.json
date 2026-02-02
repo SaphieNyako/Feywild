@@ -1,7 +1,7 @@
 {
   "category": "feywild:pixies",
   "icon": "feywild:summoning_scroll_autumn_pixie",
-  "name": "feywild_lexicon.entry.feywild.feywild.pixies.autumn_pixie",
+  "name": "feywild_lexicon.entry.pixies.autumn_pixie",
   "pages": [
     {
       "type": "patchouli:entity",
@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.pixies.autumn_pixie.page1.text0"
+      "text": "feywild_lexicon.entry.pixies.autumn_pixie.page1.text0"
     },
     {
       "type": "feywild:autumn_pixie",
@@ -18,18 +18,18 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:pixie_orb",
-      "text": "feywild_lexicon.entry.feywild.feywild.pixies.autumn_pixie.page2.text0"
+      "text": "feywild_lexicon.entry.pixies.autumn_pixie.page2.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:cookie",
       "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.pixies.autumn_pixie.page3.text0"
+      "text": "feywild_lexicon.entry.pixies.autumn_pixie.page3.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:iron_ingot",
-      "text": "feywild_lexicon.entry.feywild.feywild.feywild.handling_fey.page2.text0"
+      "text": "feywild_lexicon.entry.summoning_fey.handling_fey.page2.text0"
     }
   ]
 }

@@ -21,6 +21,7 @@ public class EntityWidget extends AbstractWidget {
 
     @Override
     public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        //TODO does this need changing?
         double scale = ((this.height) / this.entity.getType().getHeight()) * 1.5;
         InventoryScreen.renderEntityInInventoryFollowsMouse(
                 graphics,

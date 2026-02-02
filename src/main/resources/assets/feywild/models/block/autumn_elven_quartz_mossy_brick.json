@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "feywild:block/autumn_elven_quartz_brick",
+    "base": "feywild:block/autumn_elven_quartz_brick",
+    "moss": "feywild:block/elven_quartz_brick_moss"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": { "texture": "#base" },
+        "south": { "texture": "#base" },
+        "west":  { "texture": "#base" },
+        "east":  { "texture": "#base" },
+        "up":    { "texture": "#base" },
+        "down":  { "texture": "#base" }
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": { "texture": "#moss", "tintindex": 5 },
+        "south": { "texture": "#moss", "tintindex": 5 },
+        "west":  { "texture": "#moss", "tintindex": 5 },
+        "east":  { "texture": "#moss", "tintindex": 5 }
+      }
+    }
+  ]
+}

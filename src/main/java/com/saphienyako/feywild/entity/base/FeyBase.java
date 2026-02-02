@@ -51,17 +51,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.noCulling = true;
     }
 
-    public static AttributeSupplier.Builder getDefaultAttributes() {
-        return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, Attributes.MOVEMENT_SPEED.getDefaultValue())
-                .add(Attributes.FLYING_SPEED, Attributes.FLYING_SPEED.getDefaultValue())
-                .add(Attributes.MAX_HEALTH, 12)
-                .add(Attributes.MOVEMENT_SPEED, 0.35)
-                .add(Attributes.LUCK, 0.2)
-                .add(Attributes.ATTACK_DAMAGE, 3.0)
-                .add(Attributes.FOLLOW_RANGE, 24D);
-    }
-
     public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
         return isBrightEnoughToSpawn(level, pos);
     }
@@ -251,6 +240,10 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return false;
     }
 
+    public abstract Alignment getAlignment();
+
+    public abstract ItemLike getDismissItem();
+
     public abstract SoundEvent getCookieSound();
     public abstract SoundEvent getNameSound();
 
@@ -265,10 +258,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     public abstract SoundEvent getAbilityOnSound();
 
     public abstract SoundEvent getAbilityOffSound();
-
-    public abstract Alignment getAlignment();
-
-    public abstract ItemLike getDismissItem();
 
     public String getEntityName(){
         ResourceLocation id =this.getType().builtInRegistryHolder().key().location();

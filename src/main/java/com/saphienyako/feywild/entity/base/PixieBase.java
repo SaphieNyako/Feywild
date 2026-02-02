@@ -18,7 +18,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -51,6 +54,16 @@ public abstract class PixieBase extends FlyingFeyBase {
         this.goalSelector.addGoal(50, new PanicGoal(this));
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(40, new IronPanicGoal(this, this.level(),0.25, 6 ));
+    }
+
+    public static AttributeSupplier.Builder getDefaultAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.FLYING_SPEED, 0.35)
+                .add(Attributes.MAX_HEALTH, 12)
+                .add(Attributes.MOVEMENT_SPEED, 0.35)
+                .add(Attributes.LUCK, 0.2)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.FOLLOW_RANGE, 24D);
     }
 
     @Override

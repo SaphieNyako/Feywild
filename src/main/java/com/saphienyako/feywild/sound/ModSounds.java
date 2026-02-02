@@ -66,6 +66,36 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> WINTER_PIXIE_ABILITY_ON = registerSoundEvents("winter_pixie_ability_on");
     public static final RegistryObject<SoundEvent> WINTER_PIXIE_ABILITY_OFF = registerSoundEvents("winter_pixie_ability_off");
 
+    public static final RegistryObject<SoundEvent> SHROOMLING_WAVE = registerSoundEvents("shroomling_wave");
+    public static final RegistryObject<SoundEvent> SHROOMLING_AMBIANCE_01 = registerSoundEvents("shroomling_ambiance_01");
+    public static final RegistryObject<SoundEvent> SHROOMLING_AMBIANCE_02 = registerSoundEvents("shroomling_ambiance_02");
+    public static final RegistryObject<SoundEvent> SHROOMLING_HURT = registerSoundEvents("shroomling_hurt");
+    public static final RegistryObject<SoundEvent> SHROOMLING_DEATH = registerSoundEvents("shroomling_death");
+    public static final RegistryObject<SoundEvent> SHROOMLING_COOKIE = registerSoundEvents("shroomling_cookie");
+    public static final RegistryObject<SoundEvent> SHROOMLING_NAME = registerSoundEvents("shroomling_name");
+    public static final RegistryObject<SoundEvent> SHROOMLING_SUMMON = registerSoundEvents("shroomling_summon");
+    public static final RegistryObject<SoundEvent> SHROOMLING_DISMISS = registerSoundEvents("shroomling_dismiss");
+    public static final RegistryObject<SoundEvent> SHROOMLING_FOLLOW = registerSoundEvents("shroomling_follow");
+    public static final RegistryObject<SoundEvent> SHROOMLING_STAY = registerSoundEvents("shroomling_stay");
+    public static final RegistryObject<SoundEvent> SHROOMLING_ABILITY_ON = registerSoundEvents("shroomling_ability_on");
+    public static final RegistryObject<SoundEvent> SHROOMLING_ABILITY_OFF = registerSoundEvents("shroomling_ability_off");
+    public static final RegistryObject<SoundEvent> SHROOMLING_TRADE = registerSoundEvents("shroomling_trade");
+    public static final RegistryObject<SoundEvent> SHROOMLING_SNEEZE = registerSoundEvents("shroomling_sneeze");
+
+    public static final RegistryObject<SoundEvent> MANDRAGORA_SING = registerSoundEvents("mandragora_sing");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_AMBIANCE_01 = registerSoundEvents("mandragora_ambiance_01");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_AMBIANCE_02 = registerSoundEvents("mandragora_ambiance_02");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_HURT = registerSoundEvents("mandragora_hurt");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_DEATH = registerSoundEvents("mandragora_death");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_COOKIE = registerSoundEvents("mandragora_cookie");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_NAME = registerSoundEvents("mandragora_name");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_SUMMON = registerSoundEvents("mandragora_summon");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_DISMISS = registerSoundEvents("mandragora_dismiss");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_FOLLOW = registerSoundEvents("mandragora_follow");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_STAY = registerSoundEvents("mandragora_stay");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_ABILITY_ON = registerSoundEvents("mandragora_ability_on");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_ABILITY_OFF = registerSoundEvents("mandragora_ability_off");
+    public static final RegistryObject<SoundEvent> MANDRAGORA_TRADE = registerSoundEvents("mandragora_trade");
 
 
 

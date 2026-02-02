@@ -38,7 +38,7 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
         }
     }
 
-    protected EntityType<? extends PixieBase> returnLivingEntity(){
+    protected EntityType<? extends FeyBase> returnLivingEntity(){
         if(this.equals(SUMMONING_SCROLL_SPRING_PIXIE.get())){
             return ModEntities.SPRING_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_SUMMER_PIXIE.get())) {
@@ -47,6 +47,10 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
             return ModEntities.AUTUMN_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_WINTER_PIXIE.get())){
             return ModEntities.WINTER_PIXIE.get();
+        } else if (this.equals(SUMMONING_SCROLL_SHROOMLING.get())){
+            return ModEntities.SHROOMLING.get();
+        } else if (this.equals(SUMMONING_SCROLL_MANDRAGORA.get())){
+            return ModEntities.MANDRAGORA.get();
         } else return null;
 
     }

@@ -1,26 +1,15 @@
 {
   "category": "feywild:feywild",
   "icon": "feywild:summoning_scroll_winter_pixie",
-  "name": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_court",
+  "name": "feywild_lexicon.entry.feywild.winter_court",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_court.page0.text0"
+      "text": "feywild_lexicon.entry.feywild.winter_court.page0.text0"
     },
     {
       "type": "patchouli:text",
-      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_court.page1.text0"
-    },
-    {
-      "type": "feywild:crocus",
-      "recipe": "feywild:giant_crocus_flower_seed",
-      "link_recipe": true
-    },
-    {
-      "type": "patchouli:spotlight",
-      "item": "feywild:giant_crocus_flower_seed",
-      "link_recipe": true,
-      "text": "feywild_lexicon.entry.feywild.feywild.winter_court.winter_court.page2.text0"
+      "text": "feywild_lexicon.entry.feywild.winter_court.page1.text0"
     }
   ]
 }

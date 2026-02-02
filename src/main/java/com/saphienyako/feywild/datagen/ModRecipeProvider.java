@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.Tags;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -22,9 +23,9 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+    protected void buildRecipes(Consumer<FinishedRecipe> recipeOutput) {
 
-        oreSmelting(pWriter, FEY_GEM_SMELTABLES, RecipeCategory.MISC, ModItems.FEY_DUST.get(), 0.1f, 100, "fey_dust");
+        oreSmelting(recipeOutput, FEY_GEM_SMELTABLES, RecipeCategory.MISC, ModItems.FEY_DUST.get(), 0.1f, 100, "fey_dust");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.FEY_GEM.get())
                 .pattern("## ")
@@ -32,7 +33,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("   ")
                 .define('#', ModItems.FEY_DUST.get())
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
-                .save(pWriter);
+                .save(recipeOutput);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR.get())
                 .pattern(" # ")
@@ -42,12 +43,12 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('S', ModItems.FEY_GEM.get())
                 .define('_', Items.SMOOTH_STONE_SLAB.asItem())
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
-                .save(pWriter);
+                .save(recipeOutput);
 
         /* ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEY_DUST.get(), 4)
                 .requires(ModItems.FEY_GEM.get())
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
-                .save(pWriter); */
+                .save(recipeOutput); */
 
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEY_INK_BOTTLE.get(), 1)
@@ -55,29 +56,39 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(Items.GLASS_BOTTLE)
                 .requires(Items.INK_SAC)
                 .unlockedBy(getHasName(ModItems.MANDRAKE.get()), has(ModItems.MANDRAKE.get()))
-                .save(pWriter);
+                .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.EMPTY_SUMMONING_SCROLL.get(), 1)
                 .requires(ModItems.FEY_INK_BOTTLE.get())
                 .requires(Items.FEATHER)
                 .requires(Items.PAPER)
                 .unlockedBy(getHasName(ModItems.FEY_INK_BOTTLE.get()), has(ModItems.FEY_INK_BOTTLE.get()))
-                .save(pWriter);
+                .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEYWILD_LEXICON.get(), 1)
                 .requires(ModItems.FEY_DUST.get())
                 .requires(Items.BOOK)
                 .unlockedBy(getHasName(ModItems.FEY_DUST.get()), has(ModItems.FEY_DUST.get()))
-                .save(pWriter);
+                .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.MANDRAKE_ROOT.get(), 1)
                 .requires(ModItems.FEY_DUST.get())
                 .requires(Items.POISONOUS_POTATO)
                 .unlockedBy(getHasName(ModItems.FEY_DUST.get()), has(ModItems.FEY_DUST.get()))
-                .save(pWriter);
+                .save(recipeOutput);
 
-        //TODO Fey Altar Recipes
-        //TODO add tag unlocked in Fey Altar Recipes
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.MUSHROOM_STEW, 1)
+                .requires(Tags.Items.MUSHROOMS)
+                .requires(Tags.Items.MUSHROOMS)
+                .requires(Items.BOWL)
+                .unlockedBy(getHasName(ModItems.SUMMONING_SCROLL_SHROOMLING.get()), has(ModItems.SUMMONING_SCROLL_SHROOMLING.get()))
+                .save(recipeOutput);
+
+     //  addDefaultElvenQuartzRecipes(recipeOutput);
+     //   addSpringElvenQuartzRecipes(recipeOutput);
+     //   addSummerElvenQuartzRecipes(recipeOutput);
+     //   addWinterElvenQuartzRecipes(recipeOutput);
+     //   addAutumnElvenQuartzRecipes(recipeOutput);
     }
 
     protected static void oreSmelting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {

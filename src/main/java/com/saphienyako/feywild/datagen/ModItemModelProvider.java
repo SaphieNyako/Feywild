@@ -28,6 +28,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE);
         simpleItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE);
         simpleItem(ModItems.SUMMONING_SCROLL_WINTER_PIXIE);
+        simpleItem(ModItems.SUMMONING_SCROLL_SHROOMLING);
+        simpleItem(ModItems.SUMMONING_SCROLL_MANDRAGORA);
         simpleItem(ModItems.FEY_DUST);
         simpleItem(ModItems.MANDRAKE);
         simpleItem(ModItems.GIANT_CROCUS_FLOWER_SEED);
