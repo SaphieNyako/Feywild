@@ -1,0 +1,74 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:elven_quartz_block",
+  "name": "feywild_lexicon.entry.decorative_blocks.elven_quartz",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:elven_quartz_block",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.decorative_blocks.elven_quartz.page0.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_quartz_block"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_elven_quartz_block",
+      "recipe2": "feywild:summer_elven_quartz_block",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_elven_quartz_block",
+      "recipe2": "feywild:winter_elven_quartz_block",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_quartz_stairs",
+      "recipe2": "feywild:spring_elven_quartz_slabs",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_elven_quartz_brick",
+      "recipe2": "feywild:autumn_elven_quartz_mossy_brick",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_elven_quartz_brick_stairs",
+      "recipe2": "feywild:spring_elven_quartz_brick_slab",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "feywild:summer_elven_quartz_cracked_brick",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_elven_quartz_cracked_brick_stairs",
+      "recipe2": "feywild:winter_elven_quartz_cracked_brick_slab",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_elven_quartz_pillar",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "feywild:spring_elven_quartz_polished",
+      "title": "Elven Quartz"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_elven_quartz_polished_stairs",
+      "recipe2": "feywild:winter_elven_quartz_polished_slab",
+      "title": "Elven Quartz"
+    }
+  ]
+}

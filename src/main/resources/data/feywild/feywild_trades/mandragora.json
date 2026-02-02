@@ -1,78 +1,38 @@
 [
   {
-    "item": "minecraft:dandelion",
+    "item": "minecraft:vines",
     "count": 5,
-    "rarity": 5
+    "rarity": 7
   },
   {
-    "item": "minecraft:poppy",
+    "item": "minecraft:glow_lichen",
     "count": 5,
-    "rarity": 5
+    "rarity": 7
   },
   {
-    "item": "minecraft:orchid",
+    "item": "minecraft:large_fern",
     "count": 5,
-    "rarity": 5
+    "rarity": 7
   },
   {
-    "item": "minecraft:allium",
+    "item": "minecraft:rose_bush",
     "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:red_tulip",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:orange_tulip",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:white_tulip",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:pink_tulip",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:oxeye_daisy",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:cornflower",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:lily_of_the_valley",
-    "count": 5,
-    "rarity": 5
-  },
-  {
-    "item": "minecraft:torchflower",
-    "count": 4,
-    "rarity": 4
+    "rarity": 6
   },
   {
     "item": "minecraft:peony",
     "count": 5,
-    "rarity": 5
+    "rarity": 6
   },
   {
     "item": "minecraft:lilac",
     "count": 5,
-    "rarity": 5
+    "rarity": 6
   },
   {
     "item": "minecraft:sunflower",
     "count": 5,
-    "rarity": 5
+    "rarity": 6
   },
   {
     "item": "feywild:giant_sun_flower_seed",
@@ -110,7 +70,7 @@
   {
     "item": "minecraft:spore_blossom",
     "count": 1,
-    "rarity": 3
+    "rarity": 2
   },
   {
     "item": "minecraft:big_dripleaf",

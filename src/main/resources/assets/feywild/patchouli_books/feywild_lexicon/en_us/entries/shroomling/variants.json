@@ -4,6 +4,11 @@
   "name": "feywild_lexicon.entry.shroomling.variants.name",
   "pages": [
     {
+      "type": "patchouli:entity",
+      "title": "Shroom Variants",
+      "entity": "feywild:moo_shroom_cow"
+    },
+    {
       "type": "patchouli:spotlight",
       "item": "feywild:orange_mushroom",
       "text": "feywild_lexicon.entry.shroomling.variants.page1.text0"
@@ -37,10 +42,6 @@
       "type": "patchouli:spotlight",
       "item": "feywild:pink_mushroom",
       "text": "feywild_lexicon.entry.shroomling.variants.page7.text0"
-    },
-    {
-      "type": "patchouli:entity",
-      "entity": "feywild:moo_shroom_cow"
     }
   ]
 }

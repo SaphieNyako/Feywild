@@ -16,6 +16,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:orange_mushroom",
+      "title": "Giant Colored Mushrooms",
       "text": "feywild_lexicon.entry.feywild.autumn_court.page2.text0"
     }
   ]

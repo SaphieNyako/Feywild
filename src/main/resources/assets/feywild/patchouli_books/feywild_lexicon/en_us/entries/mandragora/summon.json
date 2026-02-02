@@ -18,6 +18,7 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Ability",
       "text": "feywild_lexicon.entry.mandragora.summon.page2.text0"
     },
     {

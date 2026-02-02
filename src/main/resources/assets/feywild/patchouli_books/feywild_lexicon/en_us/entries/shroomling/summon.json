@@ -18,17 +18,29 @@
     },
     {
       "type": "patchouli:text",
+      "title": "Ability",
       "text": "feywild_lexicon.entry.shroomling.summon.page2.text0"
-    },
-    {
+    },{
       "type": "patchouli:entity",
       "entity": "feywild:moo_shroom_cow"
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:cookie",
+      "item": "minecraft:shears",
       "link_recipe": true,
       "text": "feywild_lexicon.entry.shroomling.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "Giant Colored Mushrooms",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.shroomling.summon.page4.text0"
     },
     {
       "type": "patchouli:spotlight",
