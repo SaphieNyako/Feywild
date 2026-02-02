@@ -34,7 +34,7 @@ public class SummoningScrollItem extends Item {
             owned.setOwner(Objects.requireNonNull(context.getPlayer()));
         }
     }
-    
+
     protected EntityType<? extends FeyBase> returnLivingEntity(){
         if(this.equals(SUMMONING_SCROLL_SPRING_PIXIE.get())){
             return ModEntities.SPRING_PIXIE.get();
