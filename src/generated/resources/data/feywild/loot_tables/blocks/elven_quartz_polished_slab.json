@@ -25,7 +25,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "minecraft:air"
+          "name": "feywild:elven_quartz_polished_slab"
         }
       ],
       "rolls": 1.0

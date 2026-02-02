@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "feywild:elven_quartz_polished_stairs"
         }
       ],
       "rolls": 1.0

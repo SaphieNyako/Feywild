@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "feywild:autumn_elven_quartz_block"
         }
       ],
       "rolls": 1.0

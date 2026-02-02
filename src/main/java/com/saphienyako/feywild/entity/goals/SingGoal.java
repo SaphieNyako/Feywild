@@ -78,7 +78,7 @@ public class SingGoal extends Goal {
             } else if (this.ticksLeft <= 20) {
                 //MANDRAGORA SINGING NOTES
                 if(level.random.nextInt(3) < 1) {
-                    FeywildNetwork.sendParticles(entity.level(), ParticleMessage.Type.SHROOMLING_SNEEZE, entity.blockPosition().above());
+                    FeywildNetwork.sendParticles(entity.level(), ParticleMessage.Type.SINGING, entity.blockPosition().above());
                 }
             } else if (this.ticksLeft == 35) {
                 this.singing();

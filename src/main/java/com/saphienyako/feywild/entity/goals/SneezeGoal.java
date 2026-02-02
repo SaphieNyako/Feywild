@@ -55,7 +55,7 @@ public class SneezeGoal extends Goal {
                 this.reset();
             } else if (this.ticksLeft == 20) {
                 //SHROOMLING SNEEZE
-                FeywildNetwork.sendParticles(entity.level(), ParticleMessage.Type.SHROOMLING_SNEEZE,  this.targetAnimal.blockPosition().above());
+                FeywildNetwork.sendParticles(entity.level(), ParticleMessage.Type.SHROOMLING_SNEEZE,  entity.blockPosition().above());
             } else if (this.ticksLeft == 35) {
                 this.sneezing();
                 this.entity.playSound(entity.getSneezeSound(), 1, 1);

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "feywild:winter_elven_quartz_block"
+    },
+    {
+      "item": "feywild:winter_elven_quartz_block"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "feywild:winter_elven_quartz_pillar"
+  }
+}

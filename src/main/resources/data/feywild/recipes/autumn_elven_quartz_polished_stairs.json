@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "elven_quartz",
+  "key": {
+    "#": {
+      "item": "feywild:autumn_elven_quartz_polished"
+    }
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "item": "feywild:autumn_elven_quartz_polished_stairs"
+  }
+}

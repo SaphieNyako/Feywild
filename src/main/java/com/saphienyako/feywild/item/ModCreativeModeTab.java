@@ -39,7 +39,7 @@ public class ModCreativeModeTab {
                         pOutput.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
                         pOutput.accept(ModBlocks.FEY_GEM_ORE.get());
                         pOutput.accept(ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
-                        pOutput.accept(ModBlocks.ELVEN_QUARTZ_BLOCK.get());
+                        pOutput.accept(ModBlocks.ELVEN_QUARTZ_BLOCK.get().asItem());
                         pOutput.accept(ModBlocks.ELVEN_QUARTZ_STAIRS.get());
                         pOutput.accept(ModBlocks.ELVEN_QUARTZ_SLAB.get());
                         pOutput.accept(ModBlocks.ELVEN_QUARTZ_BRICK.get());

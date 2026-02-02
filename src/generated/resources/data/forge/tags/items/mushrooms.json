@@ -1,11 +1,11 @@
 {
   "values": [
-    "minecraft:air",
-    "minecraft:air",
-    "minecraft:air",
-    "minecraft:air",
-    "minecraft:air",
-    "minecraft:air",
-    "minecraft:air"
+    "feywild:orange_mushroom",
+    "feywild:yellow_mushroom",
+    "feywild:green_mushroom",
+    "feywild:light_blue_mushroom",
+    "feywild:blue_mushroom",
+    "feywild:purple_mushroom",
+    "feywild:pink_mushroom"
   ]
 }

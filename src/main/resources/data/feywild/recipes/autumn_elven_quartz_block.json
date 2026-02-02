@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    },
+    {
+      "item": "feywild:elven_quartz_block"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "item": "feywild:autumn_elven_quartz_block"
+  }
+}

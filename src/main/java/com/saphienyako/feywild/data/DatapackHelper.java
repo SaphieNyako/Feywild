@@ -132,7 +132,9 @@ public class DatapackHelper {
             }
         }
 
-        stack.setHoverName(Component.literal(json.get("name").getAsString()));
+        if (json.has("name")) {
+            stack.setHoverName(Component.literal(json.get("name").getAsString()));
+        }
 
         if (json.has("description")) {
             ListTag loreTag = new ListTag();
@@ -148,7 +150,6 @@ public class DatapackHelper {
             CompoundTag display = stack.getOrCreateTagElement("display");
             display.put("Lore", loreTag);
         }
-
 
         return stack;
     }

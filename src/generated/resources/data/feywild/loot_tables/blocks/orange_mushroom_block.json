@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "minecraft:air"
+              "name": "feywild:orange_mushroom_block"
             },
             {
               "type": "minecraft:item",
@@ -42,7 +42,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:air"
+              "name": "feywild:orange_mushroom"
             }
           ]
         }
