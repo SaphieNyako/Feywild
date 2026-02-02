@@ -166,20 +166,31 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
 
     public static boolean canShroomlingSpawn(EntityType<? extends FeyBase> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
 
-        if (level.getBiome(pos).unwrapKey()
-                .map(key -> key == Biomes.MUSHROOM_FIELDS)
-                .orElse(false)) {
+        BlockState below = level.getBlockState(pos.below());
+        int light = level.getMaxLocalRawBrightness(pos);
 
-            BlockState below = level.getBlockState(pos.below());
-            return below.is(Blocks.MYCELIUM) && level.getRawBrightness(pos, 0) > 8;
+        if (level.getBiome(pos).unwrapKey()
+                .map(key -> key.equals(Biomes.MUSHROOM_FIELDS))
+                .orElse(false)) {
+            return below.is(Blocks.MYCELIUM) && light > 8;
         }
 
         if (level.getBiome(pos).unwrapKey()
-                .map(key -> key == Biomes.DARK_FOREST)
+                .map(key -> key.equals(Biomes.DARK_FOREST))
                 .orElse(false)) {
 
-            BlockState below = level.getBlockState(pos.below());
-            return (below.is(Blocks.GRASS_BLOCK) || below.is(Blocks.RED_MUSHROOM_BLOCK))  && level.getRawBrightness(pos, 0) > 8;
+            boolean isSurface = below.is(Blocks.GRASS_BLOCK) || below.is(Blocks.DIRT) || below.is(Blocks.PODZOL);
+
+
+            boolean isShady = light > 1;
+            boolean notUnderground = pos.getY() > 50;
+            return isSurface && isShady && notUnderground;
+        }
+
+        if (level.getBiome(pos).unwrapKey()
+                .map(key -> key.equals(Biomes.FOREST))
+                .orElse(false)) {
+            return (below.is(Blocks.GRASS_BLOCK) || below.is(Blocks.DIRT)) && light > 8;
         }
 
         return false;

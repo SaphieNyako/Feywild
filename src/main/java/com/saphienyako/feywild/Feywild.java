@@ -83,11 +83,13 @@ public class Feywild
         ModRecipes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::spawnPlacement);
         addConfig();
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventListener());
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
+
     }
 
 
@@ -218,6 +220,5 @@ public class Feywild
         event.register(ModEntities.SHROOMLING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canShroomlingSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ModEntities.MANDRAGORA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
-
     }
 }
