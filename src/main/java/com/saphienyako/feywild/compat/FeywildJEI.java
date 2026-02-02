@@ -19,6 +19,8 @@ import java.util.List;
 @JeiPlugin
 public class FeywildJEI implements IModPlugin {
 
+    //TODO Feywild Trades
+
     @Override
     public @NotNull ResourceLocation getPluginUid() {
         return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "jei_plugin");

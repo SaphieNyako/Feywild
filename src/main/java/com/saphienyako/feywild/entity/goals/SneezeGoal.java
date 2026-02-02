@@ -5,7 +5,6 @@ import com.saphienyako.feywild.entity.MooShroomCowEntity;
 import com.saphienyako.feywild.entity.ShroomlingEntity;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

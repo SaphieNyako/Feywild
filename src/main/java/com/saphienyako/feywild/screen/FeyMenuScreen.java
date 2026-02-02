@@ -2,7 +2,6 @@ package com.saphienyako.feywild.screen;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.Alignment;
-import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

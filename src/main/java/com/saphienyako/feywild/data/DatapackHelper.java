@@ -1,17 +1,11 @@
 package com.saphienyako.feywild.data;
 
 import com.google.gson.*;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.TagParser;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,16 +15,23 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
-import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.neoforged.fml.ModList;
 
 import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class DatapackHelper {
 
@@ -93,22 +94,20 @@ public class DatapackHelper {
         ItemStack stack = new ItemStack(item, count);
 
         if (json.has("enchantments")) {
-            JsonObject ench = json.getAsJsonObject("enchantments");
+            JsonObject enchantments = json.getAsJsonObject("enchantments");
 
-            EnchantmentHelper.updateEnchantments(stack, mutable -> {
-                ench.entrySet().forEach(entry -> {
-                    ResourceLocation enchId = ResourceLocation.tryParse(entry.getKey());
-                    if (enchId == null) return;
+            EnchantmentHelper.updateEnchantments(stack, mutable -> enchantments.entrySet().forEach(entry -> {
+                ResourceLocation enchantmentId = ResourceLocation.tryParse(entry.getKey());
+                if (enchantmentId == null) return;
 
-                    int level = entry.getValue().getAsInt();
+                int level = entry.getValue().getAsInt();
 
-                    Holder<Enchantment> holder = registryAccess
-                            .lookupOrThrow(Registries.ENCHANTMENT)
-                            .getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, enchId));
+                Holder<Enchantment> holder = registryAccess
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, enchantmentId));
 
-                    mutable.set(holder, level);
-                });
-            });
+                mutable.set(holder, level);
+            }));
         }
 
         if (json.has("effects")) {
@@ -154,10 +153,10 @@ public class DatapackHelper {
     private static List<MobEffectInstance> readEffects(JsonArray array, RegistryAccess registryAccess) {
         List<MobEffectInstance> effects = new ArrayList<>();
 
-        for (JsonElement el : array) {
-            if (!el.isJsonObject()) continue;
+        for (JsonElement element : array) {
+            if (!element.isJsonObject()) continue;
 
-            JsonObject obj = el.getAsJsonObject();
+            JsonObject obj = element.getAsJsonObject();
             ResourceLocation id = ResourceLocation.tryParse(obj.get("effect").getAsString());
             if (id == null) continue;
 
@@ -182,7 +181,6 @@ public class DatapackHelper {
                 ))
                 .toList();
     }
-
 
     public static List<ItemStack> getAllEnchantedBooks(RegistryAccess registryAccess) {
         List<ItemStack> books = new ArrayList<>();

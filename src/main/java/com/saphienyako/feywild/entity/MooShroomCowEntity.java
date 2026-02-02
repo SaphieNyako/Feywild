@@ -2,11 +2,8 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -17,7 +14,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
@@ -63,7 +59,7 @@ public class MooShroomCowEntity extends MushroomCow {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(@Nonnull SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(MOO_SHROOM_VARIANT, MOO_SHROOM_VARIANT.id());
     }
@@ -72,27 +68,23 @@ public class MooShroomCowEntity extends MushroomCow {
     public @NotNull InteractionResult mobInteract(Player player,@Nonnull InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.is(Items.BOWL) && !this.isBaby()) {
-            boolean flag = false;
+
             ItemStack itemstack2;
             MooShroomCowVariant variant = this.getMooShroomVariant();
             this.stewEffects = stewEffectForVariant(variant);
 
-            flag = true;
+
             itemstack2 = new ItemStack(Items.SUSPICIOUS_STEW);
             itemstack2.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, this.stewEffects);
             this.stewEffects = null;
 
             ItemStack itemstack1 = ItemUtils.createFilledResult(itemstack, player, itemstack2, false);
             player.setItemInHand(hand, itemstack1);
-            SoundEvent soundevent;
-            if (flag) {
-                soundevent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
-            } else {
-                soundevent = SoundEvents.MOOSHROOM_MILK;
-            }
+            SoundEvent soundevent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
 
             this.playSound(soundevent, 1.0F, 1.0F);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
+
         } else if (itemstack.is(Items.SHEARS) && this.readyForShearing()) {
             this.shear(SoundSource.PLAYERS);
             //TODO shear returns correct mushrooms
@@ -133,7 +125,7 @@ public class MooShroomCowEntity extends MushroomCow {
                 this.level().addFreshEntity(cow);
 
                 for (int i = 0; i < 5; i++) {
-                    //Neo: Change from addFreshEntity to spawnAtLocation to ensure captureDrops can capture this, we also need to unset the default pickup delay from the item
+
                     ItemEntity item = spawnAtLocation(new ItemStack(this.getMooShroomVariant().getShroomBlock().asItem()), getBbHeight());
                     if (item != null) item.setNoPickUpDelay();
                 }

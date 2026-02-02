@@ -2,9 +2,7 @@ package com.saphienyako.feywild.entity.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.AutumnPixieEntity;
 import com.saphienyako.feywild.entity.ShroomlingEntity;
-import com.saphienyako.feywild.entity.animations.AutumnPixieAnimations;
 import com.saphienyako.feywild.entity.animations.ShroomlingAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

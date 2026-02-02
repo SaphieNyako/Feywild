@@ -3,7 +3,6 @@ package com.saphienyako.feywild.item;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.base.FeyBase;
-import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.ParticleMessage;
@@ -16,9 +15,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 import static com.saphienyako.feywild.item.ModItems.*;
 
@@ -37,9 +34,7 @@ public class SummoningScrollItem extends Item {
             owned.setOwner(Objects.requireNonNull(context.getPlayer()));
         }
     }
-
-
-
+    
     protected EntityType<? extends FeyBase> returnLivingEntity(){
         if(this.equals(SUMMONING_SCROLL_SPRING_PIXIE.get())){
             return ModEntities.SPRING_PIXIE.get();
