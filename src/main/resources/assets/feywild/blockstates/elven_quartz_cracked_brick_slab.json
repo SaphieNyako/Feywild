@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "feywild:block/elven_quartz_cracked_brick_slab"
+    },
+    "type=double": {
+      "model": "feywild:block/elven_quartz_cracked_brick"
+    },
+    "type=top": {
+      "model": "feywild:block/elven_quartz_cracked_brick_slab_top"
+    }
+  }
+}

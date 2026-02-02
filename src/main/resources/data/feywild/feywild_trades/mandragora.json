@@ -1,0 +1,95 @@
+[
+  {
+    "item": "minecraft:vines",
+    "count": 5,
+    "rarity": 7
+  },
+  {
+    "item": "minecraft:glow_lichen",
+    "count": 5,
+    "rarity": 7
+  },
+  {
+    "item": "minecraft:large_fern",
+    "count": 5,
+    "rarity": 7
+  },
+  {
+    "item": "minecraft:rose_bush",
+    "count": 5,
+    "rarity": 6
+  },
+  {
+    "item": "minecraft:peony",
+    "count": 5,
+    "rarity": 6
+  },
+  {
+    "item": "minecraft:lilac",
+    "count": 5,
+    "rarity": 6
+  },
+  {
+    "item": "minecraft:sunflower",
+    "count": 5,
+    "rarity": 6
+  },
+  {
+    "item": "feywild:giant_sun_flower_seed",
+    "count": 2,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:giant_crocus_flower_seed",
+    "count": 2,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:giant_dandelion_flower_seed",
+    "count": 2,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "minecraft:azalea",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:flowering_azalea",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:moss_block",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:spore_blossom",
+    "count": 1,
+    "rarity": 2
+  },
+  {
+    "item": "minecraft:big_dripleaf",
+    "count": 2,
+    "rarity": 3
+  },
+  {
+    "item": "minecraft:small_dripleaf",
+    "count": 3,
+    "rarity": 3
+  },
+  {
+    "item": "minecraft:pink_petals",
+    "count": 5,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:wither_rose",
+    "count": 1,
+    "rarity": 2
+  }
+]

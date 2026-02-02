@@ -2,8 +2,6 @@ package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.base.FeyBase;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -36,7 +34,7 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
                 entity.setAbilityActive(this.abilityActive);
                 if(!this.abilityActive){
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOffMessage());
-                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                    if(ModConfig.COMMON.voice_active.get() && entity.getVoiceActive()) {
                         level.playSound(
                                 null,
                                 entity.blockPosition(),
@@ -48,7 +46,7 @@ public record ToggleAbilityMessage (int entityId, boolean abilityActive) {
                     }
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyAbilityOnMessage());
-                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                    if(ModConfig.COMMON.voice_active.get() && entity.getVoiceActive()) {
                         level.playSound(
                                 null,
                                 entity.blockPosition(),

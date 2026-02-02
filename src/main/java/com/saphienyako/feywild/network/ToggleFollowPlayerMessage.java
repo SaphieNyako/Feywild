@@ -38,7 +38,7 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
 
                 if(!this.followingPlayer) {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyStayMessage());
-                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                    if(ModConfig.COMMON.voice_active.get() && entity.getVoiceActive()) {
                         level.playSound(
                                 null,
                                 entity.blockPosition(),
@@ -51,7 +51,7 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
                     entity.setSummonPos(this.currentBlockPos);
                 } else {
                     Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyFollowMessage());
-                    if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                    if(ModConfig.COMMON.voice_active.get() && entity.getVoiceActive()) {
                         level.playSound(
                                 null,
                                 entity.blockPosition(),

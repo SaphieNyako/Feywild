@@ -1,0 +1,250 @@
+[
+  {
+    "item": "minecraft:red_mushroom",
+    "count": 5,
+    "rarity": 10
+  },
+  {
+    "item": "minecraft:brown_mushroom",
+    "count": 5,
+    "rarity": 10
+  },
+  {
+    "item": "minecraft:warped_fungus",
+    "count": 3,
+    "rarity": 9
+  },
+  {
+    "item": "minecraft:crimson_fungus",
+    "count": 3,
+    "rarity": 9
+  },
+  {
+    "item": "minecraft:warped_nylium",
+    "count": 1,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:crimson_nylium",
+    "count": 3,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:mushroom_stew",
+    "count": 2,
+    "rarity": 5
+  },
+  {
+    "item": "feywild:yellow_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:orange_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:green_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:light_blue_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:blue_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:purple_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "feywild:pink_mushroom",
+    "count": 1,
+    "rarity":  5,
+    "mod": "feywild"
+  },
+  {
+    "item": "minecraft:potion",
+    "count": 1,
+    "rarity": 4,
+    "name": "Potion of Poison",
+    "effects": [
+      {
+        "effect": "minecraft:poison",
+        "duration": 900
+      }
+    ]
+  },
+  {
+    "item": "minecraft:splash_potion",
+    "count": 1,
+    "rarity": 4,
+    "name": "Splash Potion of Poison",
+    "effects": [
+      {
+        "effect": "minecraft:poison",
+        "duration": 900
+      }
+    ]
+  },
+  {
+    "item": "minecraft:tipped_arrow",
+    "count": 3,
+    "rarity": 4,
+    "name": "Arrow of Poison",
+    "effects": [
+      {
+        "effect": "minecraft:poison",
+        "duration": 900
+      }
+    ]
+  },
+  {
+    "item": "minecraft:mycelium",
+    "count": 1,
+    "rarity": 6
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Poison Effect",
+    "effects": [
+      {
+        "effect": "minecraft:poison",
+        "duration": 240
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Saturation Effect",
+    "effects": [
+      {
+        "effect": "minecraft:saturation",
+        "duration": 240
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Night Vision Effect",
+    "effects": [
+      {
+        "effect": "minecraft:night_vision",
+        "duration": 100
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Fire Resistance Effect",
+    "effects": [
+      {
+        "effect": "minecraft:fire_resistance",
+        "duration": 80
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Blindness Effect",
+    "effects": [
+      {
+        "effect": "minecraft:blindness",
+        "duration": 160
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Weakness Effect",
+    "effects": [
+      {
+        "effect": "minecraft:weakness",
+        "duration": 180
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Regeneration Effect",
+    "effects": [
+      {
+        "effect": "minecraft:regeneration",
+        "duration": 160
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Jump Boost Effect",
+    "effects": [
+      {
+        "effect": "minecraft:jump_boost",
+        "duration": 120
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Poison Effect",
+    "effects": [
+      {
+        "effect": "minecraft:poison",
+        "duration": 240
+      }
+    ]
+  },
+  {
+    "item": "minecraft:suspicious_stew",
+    "count": 1,
+    "rarity": 1,
+    "name": "Suspicious Stew",
+    "description": "Gives Wither Effect",
+    "effects": [
+      {
+        "effect": "minecraft:wither",
+        "duration": 160
+      }
+    ]
+  }
+]

@@ -29,6 +29,15 @@ public class ModEntities {
             ENTITY_TYPES.register("autumn_pixie", () -> EntityType.Builder.of(AutumnPixieEntity::new, MobCategory.CREATURE)
                     .sized(0.7f, 1.7f).build("autumn_pixie"));
 
+    public static final RegistryObject<EntityType<ShroomlingEntity>> SHROOMLING =
+            ENTITY_TYPES.register("shroomling", () -> EntityType.Builder.of(ShroomlingEntity::new, MobCategory.CREATURE).build("shroomling"));
+
+    public static final RegistryObject<EntityType<MandragoraEntity>> MANDRAGORA =
+            ENTITY_TYPES.register("mandragora", () -> EntityType.Builder.of(MandragoraEntity::new, MobCategory.CREATURE).build("mandragora"));
+
+    public static final RegistryObject<EntityType<MooShroomCowEntity>> MOO_SHROOM_COW =
+            ENTITY_TYPES.register("moo_shroom_cow", () -> EntityType.Builder.of(MooShroomCowEntity::new, MobCategory.CREATURE).build("moo_shroom_cow"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

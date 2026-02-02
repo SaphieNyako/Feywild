@@ -108,7 +108,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                         if (random.nextInt(6) == 0) {
                             this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                             this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                            if (ModConfig.COMMON.voices_active.get()) {
+                            if (ModConfig.COMMON.voice_active.get()) {
                                 serverPlayer.playNotifySound(
                                         this.getCookieSound(),
                                         SoundSource.NEUTRAL,
@@ -135,7 +135,7 @@ public abstract class PixieBase extends FlyingFeyBase {
 
                 if (!level.isClientSide) {
                     player.sendSystemMessage(getFeyNameMessage());
-                    if (this.getVoiceActive() && ModConfig.COMMON.voices_active.get()) {
+                    if (this.getVoiceActive() && ModConfig.COMMON.voice_active.get()) {
                         player.playNotifySound(
                                 this.getNameSound(),
                                 SoundSource.NEUTRAL,

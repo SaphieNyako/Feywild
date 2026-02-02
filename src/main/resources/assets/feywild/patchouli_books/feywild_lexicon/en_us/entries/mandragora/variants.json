@@ -1,0 +1,13 @@
+{
+  "category": "feywild:mandragora",
+  "icon": "minecraft:blue_orchid",
+  "name": "feywild_lexicon.entry.mandragora.variants.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:dandelion",
+      "title": "Variants",
+      "text": "feywild_lexicon.entry.mandragora.variants.page1.text0"
+    }
+  ]
+}

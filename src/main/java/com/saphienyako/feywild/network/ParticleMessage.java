@@ -62,16 +62,24 @@ public record ParticleMessage(Type type, BlockPos pos) {
                     }
                 }
 
+                case SHROOMLING_SNEEZE -> {
+                    for (int i = 0; i < 40; i++) {
+                        level.addParticle(ParticleTypes.SNEEZE, true, this.pos().getX(), this.pos().getY(), this.pos().getZ(), 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
+                        level.addParticle(ParticleTypes.SPORE_BLOSSOM_AIR, true, this.pos().getX(), this.pos().getY(), this.pos().getZ(), 0.3 * (level.random.nextDouble() - 0.5), 0.3 * (level.random.nextDouble() - 0.3), 0.3 * (level.random.nextDouble() - 0.5));
 
+                    }
+                }
 
-
+                case SINGING -> {
+                    level.addParticle(ParticleTypes.NOTE, true, this.pos().getX() - 0.3 + (0.6 * level.random.nextDouble()), this.pos().getY() + (0.6 * level.random.nextDouble()), this.pos().getZ() - 0.3 + (0.6 * level.random.nextDouble()), 0, 0, 0);
+                }
             }
 
         });
     }
 
     public enum Type {
-        DANDELION_FLUFF, FEY_HEART, CROPS_GROW, CROPS_RESET, MOB_COLLECT
+        DANDELION_FLUFF, FEY_HEART, CROPS_GROW, CROPS_RESET, MOB_COLLECT, SHROOMLING_SNEEZE, SINGING
     }
 }
 

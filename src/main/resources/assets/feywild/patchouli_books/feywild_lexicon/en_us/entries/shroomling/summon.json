@@ -1,0 +1,51 @@
+{
+  "category": "feywild:shroomling",
+  "icon": "feywild:summoning_scroll_shroomling",
+  "name":  "feywild_lexicon.entry.shroomling.summon.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:shroomling"
+    },
+    {
+      "type": "feywild:shroomling",
+      "recipe": "feywild:summoning_scroll_shroomling"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "feywild_lexicon.entry.shroomling.summon.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Ability",
+      "text": "feywild_lexicon.entry.shroomling.summon.page2.text0"
+    },{
+      "type": "patchouli:entity",
+      "entity": "feywild:moo_shroom_cow"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:shears",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.shroomling.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "Giant Colored Mushrooms",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.shroomling.summon.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "feywild_lexicon.entry.summoning_fey.handling_fey.page2.text0"
+    }
+  ]
+}

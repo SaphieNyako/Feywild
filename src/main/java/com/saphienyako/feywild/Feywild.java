@@ -4,13 +4,12 @@ import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
+import com.saphienyako.feywild.data.MandragoraItems;
+import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
-import com.saphienyako.feywild.entity.renderer.AutumnPixieRenderer;
-import com.saphienyako.feywild.entity.renderer.SpringPixieRenderer;
-import com.saphienyako.feywild.entity.renderer.SummerPixieRenderer;
-import com.saphienyako.feywild.entity.renderer.WinterPixieRenderer;
+import com.saphienyako.feywild.entity.renderer.*;
 import com.saphienyako.feywild.events.EventListener;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
@@ -25,6 +24,9 @@ import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
 import com.saphienyako.feywild.worldgen.ModPlacedFeatures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.CowModel;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -35,6 +37,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -88,6 +92,7 @@ public class Feywild
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new EventListener());
+        MinecraftForge.EVENT_BUS.addListener(this::reloadData);
     }
 
 
@@ -95,12 +100,19 @@ public class Feywild
         return instance;
     }
 
+    public void reloadData(AddReloadListenerEvent event) {
+        event.addListener(ShroomlingItems.createReloadListener());
+        event.addListener(MandragoraItems.createReloadListener());
+    }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SPRING_PIXIE.get(), SpringPixieEntity.getDefaultAttributes().build());
         event.put(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieEntity.getDefaultAttributes().build());
         event.put(ModEntities.SUMMER_PIXIE.get(), SummerPixieEntity.getDefaultAttributes().build());
         event.put(ModEntities.WINTER_PIXIE.get(), WinterPixieEntity.getDefaultAttributes().build());
+        event.put(ModEntities.SHROOMLING.get(), ShroomlingEntity.getDefaultAttributes().build());
+        event.put(ModEntities.MANDRAGORA.get(), MandragoraEntity.getDefaultAttributes().build());
+        event.put(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowEntity.createAttributes().build());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -109,15 +121,42 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.AUTUMN_PIXIE_LAYER, AutumnPixieModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.SUMMER_PIXIE_LAYER, SummerPixieModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.WINTER_PIXIE_LAYER, WinterPixieModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.SHROOMLING_LAYER, ShroomlingModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.MANDRAGORA_LAYER, MandragoraModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.MOO_SHROOM_LAYER, CowModel::createBodyLayer);
     }
 
-
+    @SuppressWarnings("deprecated")
     private void commonSetup(final FMLCommonSetupEvent event) {
 
         event.enqueueWork(FeywildNetwork::register);
+        event.enqueueWork(ShroomlingEntity::initVariants);
         event.enqueueWork(() -> {
             ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE.get(), 2.0F);
             ComposterBlock.COMPOSTABLES.put(ModItems.MANDRAKE_ROOT.get(), 0.3F);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.ORANGE_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.ORANGE_MUSHROOM_BLOCK.get(), 0.85f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.YELLOW_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.YELLOW_MUSHROOM_BLOCK.get(), 0.85f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.GREEN_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.GREEN_MUSHROOM_BLOCK.get(), 0.85f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.LIGHT_BLUE_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get(), 0.85f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.BLUE_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.BLUE_MUSHROOM_BLOCK.get(), 0.85f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.PURPLE_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.PURPLE_MUSHROOM_BLOCK.get(), 0.85f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.PINK_MUSHROOM.get(), 0.65f);
+            ComposterBlock.COMPOSTABLES.put(ModBlocks.PINK_MUSHROOM_BLOCK.get(), 0.85f);
+
+            SpawnPlacements.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixieEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.SUMMER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixieEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixieEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.SHROOMLING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canShroomlingSpawn);
+            SpawnPlacements.register(ModEntities.MANDRAGORA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn);
+
 
         });
     }
@@ -142,23 +181,42 @@ public class Feywild
     }
 
 
-
+    @SuppressWarnings("removal")
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             LOGGER.info("AND A LITTLE BIT OF PIXIE DUST!");
+
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.ORANGE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.YELLOW_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.GREEN_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.LIGHT_BLUE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.BLUE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.PURPLE_MUSHROOM.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocks.PINK_MUSHROOM.get(), RenderType.cutout());
 
             EntityRenderers.register(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
             EntityRenderers.register(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieRenderer::new);
             EntityRenderers.register(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
             EntityRenderers.register(ModEntities.WINTER_PIXIE.get(), WinterPixieRenderer::new);
+            EntityRenderers.register(ModEntities.SHROOMLING.get(), ShroomlingRenderer::new);
+            EntityRenderers.register(ModEntities.MANDRAGORA.get(), MandragoraRenderer::new);
+            EntityRenderers.register(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowRenderer::new);
+
             BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
         }
     }
-
+    @SuppressWarnings("removal")
     public void registerParticles(RegisterParticleProvidersEvent event) {
+
         Minecraft.getInstance().particleEngine.register(ModParticles.AUTUMN_LEAF_PARTICLE.get(),
                 LeafParticle.Factory::new);
 
@@ -176,13 +234,5 @@ public class Feywild
 
         Minecraft.getInstance().particleEngine.register(ModParticles.FEY_SPARKLE_PARTICLE.get(),
                 SparkleParticle.provider(0.3f, 0.9f, 0.9f));
-    }
-
-    private void spawnPlacement(SpawnPlacementRegisterEvent event) {
-        event.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
-        event.register(ModEntities.SUMMER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
-        event.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
-        event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterPixieEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
-
     }
 }

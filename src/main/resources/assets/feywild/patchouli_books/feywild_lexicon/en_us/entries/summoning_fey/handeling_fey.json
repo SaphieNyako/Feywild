@@ -1,17 +1,17 @@
 {
   "category": "feywild:summoning_fey",
   "icon": "feywild:pixie_orb",
-  "name": "feywild_lexicon.entry.feywild.feywild.feywild.handling_fey",
+  "name": "feywild_lexicon.entry.summoning_fey.handling_fey",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:summoning_scroll_spring_pixie",
-      "text": "feywild_lexicon.entry.feywild.feywild.feywild.handling_fey.page0.text0"
+      "text": "feywild_lexicon.entry.summoning_fey.handling_fey.page0.text0"
     },
     {
       "type": "patchouli:spotlight",
       "item": "feywild:pixie_orb",
-      "text": "feywild_lexicon.entry.feywild.feywild.feywild.handling_fey.page1.text0"
+      "text": "feywild_lexicon.entry.summoning_fey.handling_fey.page1.text0"
     },
     {
       "type": "feywild:pixie_orb",

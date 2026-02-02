@@ -1,0 +1,23 @@
+{
+  "category": "feywild:shroomling",
+  "icon": "feywild:fey_gem",
+  "name":  "feywild_lexicon.entry.shroomling.trade.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "feywild_lexicon.entry.shroomling.trade.page1.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blue_mushroom",
+      "text": "feywild_lexicon.entry.shroomling.trade.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "Giant Colored Mushrooms",
+      "text": "feywild_lexicon.entry.feywild.autumn_court.page2.text0"
+    }
+  ]
+}

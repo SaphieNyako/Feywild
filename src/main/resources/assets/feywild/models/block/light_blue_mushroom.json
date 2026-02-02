@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "feywild:block/light_blue_mushroom"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "feywild:block/winter_elven_quartz_polished",
+    "side": "feywild:block/winter_elven_quartz_polished",
+    "top": "feywild:block/winter_elven_quartz_polished"
+  }
+}

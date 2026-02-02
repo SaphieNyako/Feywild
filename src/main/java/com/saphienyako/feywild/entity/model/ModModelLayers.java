@@ -17,4 +17,13 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation AUTUMN_PIXIE_LAYER = new ModelLayerLocation(
             new ResourceLocation(Feywild.MOD_ID, "autumn_pixie_layer"), "main");
+
+    public static final ModelLayerLocation SHROOMLING_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Feywild.MOD_ID, "shroomling_layer"), "main");
+    public static final ModelLayerLocation MANDRAGORA_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Feywild.MOD_ID, "mandragora_layer"), "main");
+
+    public static final ModelLayerLocation MOO_SHROOM_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Feywild.MOD_ID, "moo_shroom_layer"), "main");
+
 }

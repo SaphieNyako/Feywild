@@ -32,7 +32,7 @@ public record DismissEntityMessage(int entityId) {
             if(entity != null) {
                 entity.spawnAtLocation(entity.getDismissItem());
                 Objects.requireNonNull(supplier.get().getSender()).sendSystemMessage(entity.getFeyDismissMessage());
-                if(ModConfig.COMMON.voices_active.get() && entity.getVoiceActive()) {
+                if(ModConfig.COMMON.voice_active.get() && entity.getVoiceActive()) {
                     level.playSound(
                             null,
                             entity.blockPosition(),

@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.config;
 
 
-import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 
@@ -29,7 +28,7 @@ public class ModConfig {
         public final ForgeConfigSpec.IntValue fey_dust_duration;
         public final ForgeConfigSpec.BooleanValue spawn_with_lexicon;
 
-        public final ForgeConfigSpec.BooleanValue voices_active;
+        public final ForgeConfigSpec.BooleanValue voice_active;
 
         public Common(ForgeConfigSpec.Builder builder) {
 
@@ -43,7 +42,7 @@ public class ModConfig {
                     .comment("Whether players should spawn with a Feywild Lexicon")
                     .define("spawn_with_lexicon", true);
 
-            voices_active = builder
+            voice_active = builder
                     .comment("Whether fey should have voice acting on")
                     .define("voices_active", true);
 
