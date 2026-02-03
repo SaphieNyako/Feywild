@@ -15,6 +15,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.MobSpawnType;
@@ -138,6 +139,17 @@ public class MooShroomCowEntity extends MushroomCow {
     }
 
     public void setMooShroomVariant(MooShroomCowVariant variant) {this.entityData.set(MOO_SHROOM_VARIANT, variant.ordinal());}
+
+    @Nullable
+    public MushroomCow getBreedOffspring(ServerLevel level, AgeableMob mob) {
+        MooShroomCowEntity mushroomcow = ModEntities.MOO_SHROOM_COW.get().create(level);
+        if (mushroomcow != null) {
+            mushroomcow.setMooShroomVariant(this.getMooShroomVariant());
+        }
+
+        return mushroomcow;
+    }
+
 
     private static SuspiciousStewEffects stewEffectForVariant(MooShroomCowVariant variant) {
         List<SuspiciousStewEffects.Entry> effects = new ArrayList<>();
