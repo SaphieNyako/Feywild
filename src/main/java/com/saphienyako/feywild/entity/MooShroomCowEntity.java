@@ -15,10 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -150,6 +147,16 @@ public class MooShroomCowEntity extends MushroomCow {
     }
 
     public void setMooShroomVariant(MooShroomCowVariant variant) {this.entityData.set(MOO_SHROOM_VARIANT, variant.ordinal());}
+
+    @Nullable
+    public MushroomCow getBreedOffspring(@Nonnull ServerLevel level,@Nonnull AgeableMob mob) {
+        MooShroomCowEntity mushroomcow = ModEntities.MOO_SHROOM_COW.get().create(level);
+        if (mushroomcow != null) {
+            mushroomcow.setMooShroomVariant(this.getMooShroomVariant());
+        }
+
+        return mushroomcow;
+    }
 
     private static List<MobEffectInstance> stewEffectForVariant(MooShroomCowVariant variant) {
         List<MobEffectInstance> effects = new ArrayList<>();
