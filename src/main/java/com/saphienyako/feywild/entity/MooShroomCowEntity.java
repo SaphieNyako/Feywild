@@ -177,7 +177,7 @@ public class MooShroomCowEntity extends MushroomCow {
     public MushroomCow getBreedOffspring(@Nonnull ServerLevel level,@Nonnull AgeableMob mob) {
         MooShroomCowEntity mushroomcow = ModEntities.MOO_SHROOM_COW.get().create(level);
         if (mushroomcow != null) {
-            mushroomcow.setMooShroomVariant(this.getMooShroomVariant());
+            mushroomcow.setMooShroomVariant(((MooShroomCowEntity)mob).getMooShroomVariant());
         }
 
         return mushroomcow;
