@@ -4,6 +4,7 @@ import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -373,6 +374,7 @@ public class ModBlocks {
         registerBlockItem(name, toReturn);
         return toReturn;
     }
+
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
