@@ -8,24 +8,35 @@ import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Objects;
 
 import static com.saphienyako.feywild.item.ModItems.*;
 
 public class SummoningScrollItem<T extends LivingEntity> extends Item {
 
+    protected final MutableComponent component;
 
-    public SummoningScrollItem(Properties pProperties) {
+
+    public SummoningScrollItem(Properties pProperties, MutableComponent component) {
         super(pProperties);
+        this.component = component;
     }
 
     protected void prepareEntity(LivingEntity entity, @Nonnull UseOnContext context) {
@@ -91,4 +102,11 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
         return InteractionResult.PASS;
     }
 
+    @Override
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if (level != null) {
+            tooltip.add(this.component.withStyle(ChatFormatting.BLUE));
+        }
+        super.appendHoverText(stack, level, tooltip, flag);
+    }
 }

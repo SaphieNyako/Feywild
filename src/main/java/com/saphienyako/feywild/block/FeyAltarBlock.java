@@ -2,12 +2,16 @@ package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class FeyAltarBlock extends BaseEntityBlock{
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -39,6 +44,15 @@ public class FeyAltarBlock extends BaseEntityBlock{
               .setValue(FACING, Direction.EAST)
               );
     }
+
+    @Override
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable BlockGetter level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
+        if (level != null) {
+            tooltip.add(Component.translatable("message.feywild.fey_altar").withStyle(ChatFormatting.BLUE));
+        }
+        super.appendHoverText(stack, level, tooltip, flag);
+    }
+
 
     @Override
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
