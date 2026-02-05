@@ -1,6 +1,8 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.Feywild;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,7 +44,13 @@ public class FeywildLexicon extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        tooltip.add(Component.translatable("message.feywild.feywild_lexicon"));
+        if(Screen.hasShiftDown()){
+            tooltip.add(Component.translatable("message.feywild.feywild_lexicon").withStyle(ChatFormatting.BLUE));
+        }
+
+        else {
+            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+        }
         super.appendHoverText(stack, context, tooltip, flag);
     }
 }

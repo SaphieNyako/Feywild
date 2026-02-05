@@ -3,6 +3,7 @@ package com.saphienyako.feywild.item;
 import com.saphienyako.feywild.block.GiantFlowerBlock;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
@@ -61,14 +62,21 @@ public class GiantFlowerSeedItem extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if(this.block == ModBlocks.GIANT_SUN_FLOWER.get()) {
-            tooltip.add(Component.translatable("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
+
+        if(Screen.hasShiftDown()) {
+            if (this.block == ModBlocks.GIANT_SUN_FLOWER.get()) {
+                tooltip.add(Component.translatable("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
+            }
+            if (this.block == ModBlocks.GIANT_CROCUS_FLOWER.get()) {
+                tooltip.add(Component.translatable("message.feywild.giant_crocus_flower").withStyle(ChatFormatting.BLUE));
+            }
+            if (this.block == ModBlocks.GIANT_DANDELION_FLOWER.get()) {
+                tooltip.add(Component.translatable("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
+            }
         }
-        if(this.block == ModBlocks.GIANT_CROCUS_FLOWER.get()) {
-            tooltip.add(Component.translatable("message.feywild.giant_crocus_flower").withStyle(ChatFormatting.BLUE));
-        }
-        if(this.block == ModBlocks.GIANT_DANDELION_FLOWER.get()) {
-            tooltip.add(Component.translatable("message.feywild.giant_sun_flower").withStyle(ChatFormatting.BLUE));
+
+        else {
+            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
         }
     }
 }
