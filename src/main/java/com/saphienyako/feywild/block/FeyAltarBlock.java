@@ -3,6 +3,7 @@ package com.saphienyako.feywild.block;
 import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -48,7 +49,15 @@ public class FeyAltarBlock extends BaseEntityBlock{
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable BlockGetter level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (level != null) {
-            tooltip.add(Component.translatable("message.feywild.fey_altar").withStyle(ChatFormatting.BLUE));
+            if(Screen.hasShiftDown()){
+                tooltip.add(Component.translatable("message.feywild.fey_altar").withStyle(ChatFormatting.BLUE));
+            }
+
+            else {
+                tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+            }
+
+
         }
         super.appendHoverText(stack, level, tooltip, flag);
     }

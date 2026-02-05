@@ -3,6 +3,7 @@ package com.saphienyako.feywild.item;
 import com.saphienyako.feywild.config.ModConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -34,7 +35,15 @@ public class FeyDustItem extends Item {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (level != null) {
-            tooltip.add(Component.translatable("message.feywild.fey_dust").withStyle(ChatFormatting.BLUE));
+            if(Screen.hasShiftDown()){
+                tooltip.add(Component.translatable("message.feywild.fey_dust").withStyle(ChatFormatting.BLUE));
+            }
+
+            else {
+                tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+            }
+
+
         }
         super.appendHoverText(stack, level, tooltip, flag);
     }
