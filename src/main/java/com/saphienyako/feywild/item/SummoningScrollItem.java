@@ -8,6 +8,7 @@ import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundSource;
@@ -101,7 +102,13 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
     @Override
     public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level level, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
         if (level != null) {
-            tooltip.add(this.component.withStyle(ChatFormatting.BLUE));
+            if(Screen.hasShiftDown()){
+                tooltip.add(this.component.withStyle(ChatFormatting.BLUE));
+            }
+
+            else {
+                tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+            }
         }
         super.appendHoverText(stack, level, tooltip, flag);
     }
