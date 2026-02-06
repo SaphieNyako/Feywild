@@ -5,6 +5,7 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.entity.*;
@@ -80,6 +81,7 @@ public class Feywild
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(ShroomlingItems.createReloadListener(event.getRegistryAccess()));
         event.addListener(MandragoraItems.createReloadListener(event.getRegistryAccess()));
+        event.addListener(BellsnickelItems.createReloadListener(event.getRegistryAccess()));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -94,6 +96,7 @@ public class Feywild
         event.put(ModEntities.SHROOMLING.get(), ShroomlingEntity.getDefaultAttributes().build());
         event.put(ModEntities.MANDRAGORA.get(), MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowEntity.createAttributes().build());
+        event.put(ModEntities.BELLSNICKEL.get(), BellsnickelEntity.getDefaultAttributes().build());
     }
     @SuppressWarnings("unused")
     @SubscribeEvent
@@ -184,6 +187,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.SHROOMLING_LAYER, ShroomlingModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MANDRAGORA_LAYER, MandragoraModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MOO_SHROOM_LAYER, CowModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.BELLSNICKEL_LAYER, BellsnickelModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -196,6 +200,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.SHROOMLING.get(), ShroomlingRenderer::new);
             event.registerEntityRenderer(ModEntities.MANDRAGORA.get(), MandragoraRenderer::new);
             event.registerEntityRenderer(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowRenderer::new);
+            event.registerEntityRenderer(ModEntities.BELLSNICKEL.get(), BellsnickelRenderer::new);
         }
 
         @SubscribeEvent
@@ -211,6 +216,7 @@ public class Feywild
             event.register(ModEntities.SHROOMLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canShroomlingSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.BELLSNICKEL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BellsnickelEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }

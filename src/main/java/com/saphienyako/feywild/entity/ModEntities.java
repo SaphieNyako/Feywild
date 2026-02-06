@@ -40,6 +40,9 @@ public class ModEntities {
     public static final Supplier<EntityType<MooShroomCowEntity>> MOO_SHROOM_COW =
             ENTITY_TYPES.register("moo_shroom_cow", () -> EntityType.Builder.of(MooShroomCowEntity::new, MobCategory.CREATURE).build("moo_shroom_cow"));
 
+    public static final Supplier<EntityType<BellsnickelEntity>> BELLSNICKEL =
+            ENTITY_TYPES.register("bellsnickel", ()-> EntityType.Builder.of(BellsnickelEntity::new, MobCategory.CREATURE).build("bellsnickel"));
+
  //   public static final Supplier<EntityType<BeeKnightEntity>> BEE_KNIGHT =
  //           ENTITY_TYPES.register("bee_knight", () -> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE).build("bee_knight"));
 

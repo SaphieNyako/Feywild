@@ -75,6 +75,11 @@ public class ModItems {
             Component.translatable("message.feywild.summoning_scroll_shroomling")));
     public static final DeferredItem<Item> SUMMONING_SCROLL_MANDRAGORA = ITEMS.register("summoning_scroll_mandragora", () -> new SummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_mandragora")));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel", () -> new SummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
+    //TODO add lang
+
     //public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem(new Item.Properties()));
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_SPRING_PIXIE = ITEMS.register("spawn_egg_spring_pixie", () -> new SpawnEggItem(ModEntities.SPRING_PIXIE.get(), 0xf085a9, 0xa1db67, new Item.Properties()));

@@ -57,6 +57,8 @@ public class SummoningScrollItem extends Item {
             return ModEntities.SHROOMLING.get();
         } else if (this.equals(SUMMONING_SCROLL_MANDRAGORA.get())){
             return ModEntities.MANDRAGORA.get();
+        } else if (this.equals(SUMMONING_SCROLL_BELLSNICKEL.get())){
+            return ModEntities.BELLSNICKEL.get();
         } /*else if (this.equals(SUMMONING_SCROLL_BEE_KNIGHT.get())){
             return ModEntities.BEE_KNIGHT.get();
         } */ else return null;
