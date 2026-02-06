@@ -7,12 +7,11 @@ import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.GroundIronPanicGoal;
 import com.saphienyako.feywild.entity.goals.GroundPanicGoal;
-import com.saphienyako.feywild.entity.goals.SingGoal;
 import com.saphienyako.feywild.entity.goals.TradeForGemsGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
-import com.saphienyako.feywild.particle.ModParticles;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
@@ -39,6 +38,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -65,6 +66,8 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     private int movingTicks = 0;
 
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
+
+    private BlockPos lanternLightPos;
 
     protected BellsnickelEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -138,6 +141,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         super.tick();
         if(this.level().isClientSide()) {
             setupAnimationStates();
+            handleLanternLight();
         }
         if (level().isClientSide && this.getParticle() != null && random.nextInt(25) == 0) {
                 level().addParticle(this.getParticle(),
@@ -149,6 +153,46 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
 
         }
     }
+
+    private void handleLanternLight() {
+        boolean shouldHaveLight = POSE_ANIMATION.isStarted() && this.isAlive();
+
+        if (!shouldHaveLight) {
+            removeLanternLight();
+            return;
+        }
+
+        BlockPos newPos = this.blockPosition().above();
+
+        if (newPos.equals(lanternLightPos)) {
+            return;
+        }
+
+        removeLanternLight();
+
+        if (level().getBlockState(newPos).isAir()) {
+            level().setBlock(newPos, Blocks.LIGHT.defaultBlockState().setValue(LightBlock.LEVEL, 13), 3);
+            lanternLightPos = newPos;
+        }
+    }
+
+    private void removeLanternLight() {
+        if (lanternLightPos != null) {
+            if (level().getBlockState(lanternLightPos).is(Blocks.LIGHT)) {
+                level().removeBlock(lanternLightPos, false);
+            }
+            lanternLightPos = null;
+        }
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        if (!level().isClientSide) {
+            removeLanternLight();
+        }
+        super.remove(reason);
+    }
+
 
     private boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
@@ -164,14 +208,6 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     private void setupAnimationStates() {
-        // POSE
-        if (getState() == BellsnickelEntity.State.POSE) {
-            if (!POSE_ANIMATION.isStarted()) {
-                POSE_ANIMATION.start(this.tickCount);
-            }
-        } else {
-            POSE_ANIMATION.stop();
-        }
 
         // SING
         if (getState() == State.TRADE) {
@@ -187,13 +223,16 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
             if (isActuallyMoving()) {
                 if (!WALK_ANIMATION.isStarted()) {
                     WALK_ANIMATION.start(this.tickCount);
+                    POSE_ANIMATION.start(this.tickCount);
                 }
                 IDLE_ANIMATION.stop();
             } else {
                 if (!IDLE_ANIMATION.isStarted()) {
                     IDLE_ANIMATION.start(this.tickCount);
+                    POSE_ANIMATION.start(this.tickCount);
                 }
                 WALK_ANIMATION.stop();
+
             }
         }
     }

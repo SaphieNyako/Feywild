@@ -125,6 +125,10 @@ public class BellsnickelModel<T extends Entity> extends HierarchicalModel<T> {
         bellsnickel.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
+    public ModelPart getRightArm() {
+        return this.right_arm;
+    }
+
 
     @Override
     public ModelPart root() {

@@ -23,8 +23,7 @@ public class MooShroomCowRenderer extends MobRenderer<MooShroomCowEntity, CowMod
 
     public MooShroomCowRenderer(EntityRendererProvider.Context context) {
         super(context, new CowModel<>(context.bakeLayer(ModModelLayers.MOO_SHROOM_LAYER)),0.7F);
-        this.addLayer(new MooShroomCowLayer<>(this, context.getBlockRenderDispatcher())); // Mushroom
-        //TODO MushroomCowMushroomLayer make new Layer
+        this.addLayer(new MooShroomCowLayer<>(this, context.getBlockRenderDispatcher()));
     }
 
     @Nonnull

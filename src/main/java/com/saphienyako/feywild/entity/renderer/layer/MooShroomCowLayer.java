@@ -17,6 +17,7 @@ import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class MooShroomCowLayer <T extends MooShroomCowEntity> extends RenderLayer<T, CowModel<T>> {
@@ -27,18 +28,7 @@ public class MooShroomCowLayer <T extends MooShroomCowEntity> extends RenderLaye
         this.blockRenderer = blockRenderer;
     }
 
-    public void render(
-            PoseStack poseStack,
-            MultiBufferSource source,
-            int light,
-            T cowEntity,
-            float limbSwing,
-            float limbSwingAmount,
-            float partialTick,
-            float ageInTicks,
-            float netHeadYaw,
-            float headPitch
-    ) {
+    public void render(@NotNull PoseStack poseStack,@NotNull MultiBufferSource source, int light, T cowEntity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!cowEntity.isBaby()) {
             Minecraft minecraft = Minecraft.getInstance();
             boolean flag = minecraft.shouldEntityAppearGlowing(cowEntity) && cowEntity.isInvisible();
@@ -77,14 +67,7 @@ public class MooShroomCowLayer <T extends MooShroomCowEntity> extends RenderLaye
     private void renderMushroomBlock(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, boolean renderOutline, BlockState blockState, int packedOverlay, BakedModel bakedModel
     ) {
         if (renderOutline) {
-            blockRenderer.getModelRenderer().renderModel(poseStack.last(),
-                    bufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
-                    blockState, bakedModel,
-                    0.0F,
-                    0.0F,
-                    0.0F,
-                    packedLight,
-                    packedOverlay);
+            blockRenderer.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)), blockState, bakedModel, 0.0F, 0.0F, 0.0F, packedLight, packedOverlay);
         } else {
             blockRenderer.renderSingleBlock(blockState, poseStack, bufferSource, packedLight, packedOverlay
             );
