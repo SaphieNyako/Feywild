@@ -118,7 +118,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
-        builder.define(VARIANT, VARIANT.id());
+        builder.define(VARIANT, ShroomlingVariant.DEFAULT.ordinal());
     }
 
     @Override

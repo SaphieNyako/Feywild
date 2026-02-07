@@ -56,5 +56,12 @@ public class FeywildNetwork {
                 DismissEntityMessage.STREAM_CODEC,
                 DismissEntityMessage::handle
         );
+
+        REGISTRAR.playToServer(
+                OpenBellsnickelMenuMessage.TYPE,
+                OpenBellsnickelMenuMessage.STREAM_CODEC,
+                OpenBellsnickelMenuMessage::handle
+        );
+
     }
 }

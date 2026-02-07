@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity;
 
+import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.entity.base.FeyBase;
@@ -11,10 +12,12 @@ import com.saphienyako.feywild.entity.goals.TradeForGemsGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.screen.BellsnickelMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,8 +26,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -40,6 +42,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -50,11 +53,26 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
 
-public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeable {
+public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeable, ContainerListener, HasCustomInventoryScreen  {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.INT);
 
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.INT);
+
+    private static final EntityDataAccessor<Boolean> HAS_BOOK =
+            SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_FEY_INK_BOTTLE =
+            SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_COPY =
+            SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.BOOLEAN);
+
+    protected SimpleContainer inventory;
+    public static final int INVENTORY_SIZE = 22; //2*9 + 4
+
+    private final int BOOK_SLOT = 0;
+    private final int FEY_INK_BOTTLE_SLOT = 1;
+    private final int OUT_PUT_SLOT= 2;
+    private final int COPY_SLOT= 3;
 
     public final AnimationState IDLE_ANIMATION = new AnimationState();
     public final AnimationState TRADE_ANIMATION = new AnimationState();
@@ -72,6 +90,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     protected BellsnickelEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+        this.createInventory();
         this.entityData.set(VARIANT, BellsnickelEntity.BellsnickelVariant.DEFAULT.ordinal());
     }
 
@@ -99,13 +118,27 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
-        builder.define(VARIANT, VARIANT.id());
+        builder.define(VARIANT, BellsnickelVariant.DEFAULT.ordinal());
+        builder.define(HAS_BOOK, false);
+        builder.define(HAS_FEY_INK_BOTTLE, false);
+        builder.define(HAS_COPY, false);
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("BellsnickelVariant", this.entityData.get(VARIANT));
+        //Inventory
+        ListTag listtag = new ListTag();
+        for (int x = 0; x < this.inventory.getContainerSize(); x++) {
+            ItemStack itemstack = this.inventory.getItem(x);
+            if (!itemstack.isEmpty()) {
+                CompoundTag compoundtag = new CompoundTag();
+                compoundtag.putByte("Slot", (byte)(x));
+                listtag.add(itemstack.save(this.registryAccess(), compoundtag));
+            }
+        }
+        nbt.put("Items", listtag);
     }
 
     @Override
@@ -113,6 +146,17 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         super.readAdditionalSaveData(nbt);
         if (nbt.contains("BellsnickelVariant")) {
             this.entityData.set(VARIANT, nbt.getInt("BellsnickelVariant"));
+        }
+        //Inventory
+        this.createInventory();
+        ListTag listtag = nbt.getList("Items", 10); //TODO
+
+        for (int x = 0; x < listtag.size(); x++) {
+            CompoundTag compoundtag = listtag.getCompound(x);
+            int j = compoundtag.getByte("Slot") & 255;
+            if (j < this.inventory.getContainerSize()) {
+                this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
+            }
         }
     }
 
@@ -185,11 +229,18 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         }
     }
 
+
+
     @Override
     public void remove(RemovalReason reason) {
-        if (!level().isClientSide) {
+        if (!this.level().isClientSide) {
+            if (reason == RemovalReason.KILLED || reason == RemovalReason.DISCARDED) {
+                dropInventory();
+            }
+
             removeLanternLight();
         }
+
         super.remove(reason);
     }
 
@@ -296,8 +347,9 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
                     }
                 }
 
-                //PIXIE ORB OPENS MENU
+                //PIXIE ORB OPENS BELLSNICKEL MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
+               //openCustomInventoryScreen(player);
                 PacketDistributor.sendToPlayer(
                         (ServerPlayer)player,
                         new OpenMenuMessage(
@@ -316,6 +368,103 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
             return superResult;
         }
     }
+
+    //INVENTORY
+
+    protected void createInventory() {
+        SimpleContainer simplecontainer = this.inventory;
+        this.inventory = new SimpleContainer(this.getInventorySize());
+        if (simplecontainer != null) {
+            simplecontainer.removeListener(this);
+            int i = Math.min(simplecontainer.getContainerSize(), this.inventory.getContainerSize());
+
+            for (int j = 0; j < i; j++) {
+                ItemStack itemstack = simplecontainer.getItem(j);
+                if (!itemstack.isEmpty()) {
+                    this.inventory.setItem(j, itemstack.copy());
+                }
+            }
+        }
+
+        this.inventory.addListener(this);
+    }
+
+    @Override
+    public void containerChanged(@Nonnull Container container) {
+        this.entityData.set(HAS_BOOK,
+                container.getItem(BOOK_SLOT).is(Items.BOOK));
+
+        this.entityData.set(HAS_FEY_INK_BOTTLE,
+                container.getItem(FEY_INK_BOTTLE_SLOT).is(ModItems.FEY_INK_BOTTLE));
+
+        this.entityData.set(HAS_COPY,
+                container.getItem(COPY_SLOT).is(Items.ENCHANTED_BOOK));
+
+        updateOutputSlot();
+    }
+
+    @Override
+    public void openCustomInventoryScreen(@Nonnull Player player) {
+        if (!this.level().isClientSide && this.isTamed()) {
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            if (player.containerMenu != player.inventoryMenu) {
+                player.closeContainer();
+            }
+
+            serverPlayer.openMenu(new SimpleMenuProvider((ix, playerInventory, playerEntity) ->
+                    new BellsnickelMenu(ix, playerInventory, this.inventory, this), this.getDisplayName()), buf -> {
+                buf.writeUUID(getUUID());
+            });
+        }
+    }
+
+    public final int getInventorySize() {
+        return getInventorySize(2);
+    }
+
+    public static int getInventorySize(int columns) {
+        return INVENTORY_SIZE;
+    }
+
+    private void dropInventory() {
+        if (this.level().isClientSide || this.inventory == null) {
+            return;
+        }
+
+        for (int i = 0; i < this.inventory.getContainerSize(); i++) {
+            ItemStack stack = this.inventory.getItem(i);
+            if (!stack.isEmpty()) {
+                this.spawnAtLocation(stack);
+            }
+        }
+
+        this.inventory.clearContent();
+    }
+
+    private void updateOutputSlot() {
+        if (level().isClientSide || inventory == null) return;
+
+        inventory.removeListener(this);
+
+        ItemStack book = inventory.getItem(BOOK_SLOT);
+        ItemStack ink = inventory.getItem(FEY_INK_BOTTLE_SLOT);
+        ItemStack copyBook = inventory.getItem(COPY_SLOT);
+
+        if (book.is(Items.BOOK) && ink.is(ModItems.FEY_INK_BOTTLE) && copyBook.is(Items.ENCHANTED_BOOK)) {
+            ItemStack output = copyBook.copy();
+            output.setCount(1);
+            inventory.setItem(OUT_PUT_SLOT, output);
+            book.shrink(1);
+            ink.shrink(1);
+
+            level().playSound(null, this.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0F, 1.0F);
+        }
+
+        inventory.addListener(this);
+    }
+
+
+    //Particles and Sounds
 
     @Nullable
     @Override
@@ -415,6 +564,8 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     public void setVariant(BellsnickelEntity.BellsnickelVariant variant) {this.entityData.set(VARIANT, variant.ordinal());}
+
+
 
     public enum State {
         IDLE, POSE, WALK, TRADE

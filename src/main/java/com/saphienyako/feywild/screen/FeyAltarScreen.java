@@ -15,8 +15,8 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
     private static final ResourceLocation TEXTURE =
              ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/fey_altar_gui.png");
 
-    public FeyAltarScreen(FeyAltarMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+    public FeyAltarScreen(FeyAltarMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title);
     }
 
     @Override

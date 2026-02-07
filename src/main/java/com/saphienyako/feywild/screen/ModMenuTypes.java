@@ -18,8 +18,10 @@ public class ModMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<FeyAltarMenu>> FEY_ALTAR_MENU =
             registerMenuType("fey_altar_menu", FeyAltarMenu::new);
 
-    private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
-                                                                                                              IContainerFactory<T> factory) {
+    public static final DeferredHolder<MenuType<?>, MenuType<BellsnickelMenu>> BELLSNICKEL_MENU =
+            registerMenuType("bellsnickel_menu", BellsnickelMenu::create);
+
+    private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));
     }
 

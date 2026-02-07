@@ -2,6 +2,7 @@ package com.saphienyako.feywild.screen;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -49,7 +50,11 @@ public class FeyMenuScreen extends Screen {
             if (entity instanceof LivingEntity living) {
                 this.addRenderableWidget(new EntityWidget(EntityWidget.WIDTH + 25, (this.height - EntityWidget.HEIGHT) / 2, living));
                 this.addRenderableWidget(new FollowButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  FollowButton.HEIGHT, this.followingPlayer, this.entityId, this.currentBlockPos));
-                this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
+                if (entity instanceof BellsnickelEntity bellsnickel) {
+                    this.addRenderableWidget(new BellsnickelScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BellsnickelScreenButton.WIDTH)/2), this.top + 12 + BellsnickelScreenButton.HEIGHT * 2, this.entityId));
+                } else {
+                    this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH) / 2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
+                }
                 this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
                 // TODO Button Quest
                 if(FeywildConfig.voicesActive) {
