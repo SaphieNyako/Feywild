@@ -142,6 +142,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SPAWN_EGG_WINTER_PIXIE.get());
                         output.accept(ModItems.SPAWN_EGG_SHROOMLING.get());
                         output.accept(ModItems.SPAWN_EGG_MANDRAGORA.get());
+                        output.accept(ModItems.SPAWN_EGG_BELLSNICKEL.get());
 
                     }).build());
 

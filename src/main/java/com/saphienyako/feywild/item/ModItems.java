@@ -93,7 +93,8 @@ public class ModItems {
     public static final DeferredItem<Item> SPAWN_EGG_SHROOMLING = ITEMS.register("spawn_egg_shroomling", () -> new SpawnEggItem(ModEntities.SHROOMLING.get(), 0xf2d5d0, 0xd4260b, new Item.Properties()));
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_MANDRAGORA = ITEMS.register("spawn_egg_mandragora", () -> new SpawnEggItem(ModEntities.MANDRAGORA.get(), 0x54d911, 0xf7a3f7, new Item.Properties()));
-
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new SpawnEggItem(ModEntities.BELLSNICKEL.get(),0x6a95f6, 0x2f3063, new Item.Properties()));
 
 
     public static void register(IEventBus eventBus) {

@@ -1,0 +1,12 @@
+{
+  "category": "feywild:bellsnickel",
+  "icon": "feywild:fey_gem",
+  "name":  "feywild_lexicon.entry.bellsnickel.trade.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "feywild_lexicon.entry.bellsnickel.trade.page1.text0"
+    }
+  ]
+}

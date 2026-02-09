@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_winter_pixie"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "minecraft:soul_lantern"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "item": "minecraft:enchanted_book"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:summoning_scroll_bellsnickel"
+  }
+}
