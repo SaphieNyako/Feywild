@@ -1,6 +1,5 @@
 package com.saphienyako.feywild.entity;
 
-import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.entity.base.FeyBase;
@@ -19,6 +18,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -43,7 +43,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -67,7 +66,12 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     private static final EntityDataAccessor<Boolean> HAS_COPY =
             SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private static final EntityDataAccessor<Boolean> HAS_OUTPUT =
+            SynchedEntityData.defineId(BellsnickelEntity.class, EntityDataSerializers.BOOLEAN);
+
     protected SimpleContainer inventory;
+
+    private ItemStack[] lastInventoryCheck;
     public static final int INVENTORY_SIZE = 22; //2*9 + 4
 
     private final int BOOK_SLOT = 0;
@@ -123,6 +127,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         builder.define(HAS_BOOK, false);
         builder.define(HAS_FEY_INK_BOTTLE, false);
         builder.define(HAS_COPY, false);
+        builder.define(HAS_OUTPUT, false);
     }
 
     @Override
@@ -387,6 +392,11 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
             }
         }
 
+        this.lastInventoryCheck = new ItemStack[this.inventory.getContainerSize()];
+        for (int i = 0; i < this.inventory.getContainerSize(); i++) {
+            this.lastInventoryCheck[i] = this.inventory.getItem(i).copy();
+        }
+
         this.inventory.addListener(this);
     }
 
@@ -400,6 +410,30 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
 
         this.entityData.set(HAS_COPY,
                 container.getItem(COPY_SLOT).is(Items.ENCHANTED_BOOK));
+
+        this.entityData.set(HAS_OUTPUT,
+                container.getItem(OUT_PUT_SLOT).is(Items.ENCHANTED_BOOK));
+
+
+        for (int slot = 4; slot < container.getContainerSize(); slot++) {
+            ItemStack oldStack = lastInventoryCheck[slot];
+            ItemStack newStack = container.getItem(slot);
+
+            boolean added = oldStack.isEmpty() && !newStack.isEmpty() || (!oldStack.isEmpty() && !newStack.isEmpty() && newStack.getCount() > oldStack.getCount());
+
+            if (added && this.random.nextFloat() < 0.1F) {
+                level().playSound(null,
+                        this.blockPosition(),
+                        ModSounds.BELLSNICKEL_CARRY_STUFF.get(),
+                        SoundSource.NEUTRAL,
+                        0.6F, 1.0F);
+                break;
+            }
+        }
+
+        for (int i = 0; i < container.getContainerSize(); i++) {
+            lastInventoryCheck[i] = container.getItem(i).copy();
+        }
 
         updateOutputSlot();
     }
@@ -450,8 +484,9 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         ItemStack book = inventory.getItem(BOOK_SLOT);
         ItemStack ink = inventory.getItem(FEY_INK_BOTTLE_SLOT);
         ItemStack copyBook = inventory.getItem(COPY_SLOT);
+        ItemStack out_put = inventory.getItem(OUT_PUT_SLOT);
 
-        if (book.is(Items.BOOK) && ink.is(ModItems.FEY_INK_BOTTLE) && copyBook.is(Items.ENCHANTED_BOOK)) {
+        if (book.is(Items.BOOK) && ink.is(ModItems.FEY_INK_BOTTLE) && copyBook.is(Items.ENCHANTED_BOOK) && !out_put.is(Items.ENCHANTED_BOOK)) {
             ItemStack output = copyBook.copy();
             output.setCount(1);
             inventory.setItem(OUT_PUT_SLOT, output);
@@ -459,6 +494,8 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
             ink.shrink(1);
 
             level().playSound(null, this.blockPosition(), SoundEvents.BOOK_PAGE_TURN, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            if (this.random.nextFloat() < 0.3F) {level().playSound(null, this.blockPosition(), ModSounds.BELLSNICKEL_AMBIANCE.get(), SoundSource.NEUTRAL, 0.6F, 1.0F);
+            }
         }
 
         inventory.addListener(this);
