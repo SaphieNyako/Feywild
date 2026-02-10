@@ -63,6 +63,8 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
             return ModEntities.SHROOMLING.get();
         } else if (this.equals(SUMMONING_SCROLL_MANDRAGORA.get())){
             return ModEntities.MANDRAGORA.get();
+        } else if (this.equals(SUMMONING_SCROLL_BELLSNICKEL.get())){
+            return ModEntities.BELLSNICKEL.get();
         } else return null;
 
     }

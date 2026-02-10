@@ -1,0 +1,41 @@
+{
+  "category": "feywild:bellsnickel",
+  "icon": "feywild:summoning_scroll_bellsnickel",
+  "name":  "feywild_lexicon.entry.bellsnickel.summon.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:bellsnickel"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The Bellsnickel",
+      "text": "feywild_lexicon.entry.bellsnickel.summon.page0.text0"
+    },
+    {
+      "type": "feywild:bellsnickel",
+      "recipe": "feywild:summoning_scroll_bellsnickel"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "feywild_lexicon.entry.bellsnickel.summon.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Ability",
+      "text": "feywild_lexicon.entry.bellsnickel.summon.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.bellsnickel.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "feywild_lexicon.entry.summoning_fey.handling_fey.page2.text0"
+    }
+  ]
+}

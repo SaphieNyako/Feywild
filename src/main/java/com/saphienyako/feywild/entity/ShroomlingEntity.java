@@ -75,20 +75,6 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
     public static final Map<Item, ShroomlingVariant> MUSHROOM_VARIANTS = new HashMap<>();
-    /*
-    public static final Map<Item, ShroomlingVariant> MUSHROOM_VARIANTS = Map.ofEntries(
-            Map.entry(Items.RED_MUSHROOM, ShroomlingVariant.DEFAULT),
-            Map.entry(Items.BROWN_MUSHROOM, ShroomlingVariant.BROWN),
-            Map.entry(ModBlocks.ORANGE_MUSHROOM.get().asItem(), ShroomlingVariant.ORANGE),
-            Map.entry(ModBlocks.YELLOW_MUSHROOM.get().asItem(), ShroomlingVariant.YELLOW),
-            Map.entry(ModBlocks.GREEN_MUSHROOM.get().asItem(), ShroomlingVariant.GREEN),
-            Map.entry(ModBlocks.LIGHT_BLUE_MUSHROOM.get().asItem(), ShroomlingVariant.LIGHT_BLUE),
-            Map.entry(ModBlocks.BLUE_MUSHROOM.get().asItem(), ShroomlingVariant.BLUE),
-            Map.entry(ModBlocks.PURPLE_MUSHROOM.get().asItem(), ShroomlingVariant.PURPLE),
-            Map.entry(ModBlocks.PINK_MUSHROOM.get().asItem(), ShroomlingVariant.PINK)
-    );
-
-     */
 
 
     protected ShroomlingEntity(EntityType<? extends PathfinderMob> entityType, Level level) {

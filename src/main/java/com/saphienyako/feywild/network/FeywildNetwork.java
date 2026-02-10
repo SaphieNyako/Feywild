@@ -45,12 +45,7 @@ public class FeywildNetwork {
                 .encoder(OpenMenuMessage::encode)
                 .consumerMainThread(OpenMenuMessage::handle)
                 .add();
-/*
-        net.messageBuilder(PlaySoundMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(PlaySoundMessage::decode)
-                .encoder(PlaySoundMessage::encode)
-                .consumerMainThread(PlaySoundMessage::handle)
-                .add(); */
+
 
         net.messageBuilder(ToggleFollowPlayerMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ToggleFollowPlayerMessage::decode)
@@ -74,6 +69,12 @@ public class FeywildNetwork {
                 .decoder(DismissEntityMessage::decode)
                 .encoder(DismissEntityMessage::encode)
                 .consumerMainThread(DismissEntityMessage::handle)
+                .add();
+
+        net.messageBuilder(OpenBellsnickelMenuMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenBellsnickelMenuMessage::decode)
+                .encoder(OpenBellsnickelMenuMessage::encode)
+                .consumerMainThread(OpenBellsnickelMenuMessage::handle)
                 .add();
 
     }

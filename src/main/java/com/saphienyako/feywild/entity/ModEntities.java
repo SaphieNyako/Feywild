@@ -38,6 +38,8 @@ public class ModEntities {
     public static final RegistryObject<EntityType<MooShroomCowEntity>> MOO_SHROOM_COW =
             ENTITY_TYPES.register("moo_shroom_cow", () -> EntityType.Builder.of(MooShroomCowEntity::new, MobCategory.CREATURE).build("moo_shroom_cow"));
 
+    public static final RegistryObject<EntityType<BellsnickelEntity>> BELLSNICKEL =
+        ENTITY_TYPES.register("bellsnickel", ()-> EntityType.Builder.of(BellsnickelEntity::new, MobCategory.CREATURE).build("bellsnickel"));
 
 
     public static void register(IEventBus eventBus) {

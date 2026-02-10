@@ -1,14 +1,14 @@
 {
   "type": "forge:add_spawns",
   "biomes": [
-    "minecraft:mushroom_fields",
-    "minecraft:dark_forest",
+    "minecraft:snowy_taiga",
     "minecraft:old_growth_spruce_taiga",
-    "minecraft:old_growth_pine_taiga"
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:snowy_slopes"
   ],
   "spawners": [
     {
-      "type": "feywild:shroomling",
+      "type": "feywild:bellsnickel",
       "weight": 5,
       "minCount": 1,
       "maxCount": 1

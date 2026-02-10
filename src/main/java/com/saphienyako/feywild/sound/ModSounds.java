@@ -97,7 +97,18 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MANDRAGORA_ABILITY_OFF = registerSoundEvents("mandragora_ability_off");
     public static final RegistryObject<SoundEvent> MANDRAGORA_TRADE = registerSoundEvents("mandragora_trade");
 
-
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_AMBIANCE = registerSoundEvents("bellsnickel_ambiance");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_HURT = registerSoundEvents("bellsnickel_hurt");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_DEATH = registerSoundEvents("bellsnickel_death");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_COOKIE = registerSoundEvents("bellsnickel_cookie");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_NAME = registerSoundEvents("bellsnickel_name");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_SUMMON = registerSoundEvents("bellsnickel_summon");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_DISMISS = registerSoundEvents("bellsnickel_dismiss");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_FOLLOW = registerSoundEvents("bellsnickel_follow");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_STAY_01 = registerSoundEvents("bellsnickel_stay_01");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_STAY_02 = registerSoundEvents("bellsnickel_stay_02");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_CARRY_STUFF = registerSoundEvents("bellsnickel_carry_stuff");
+    public static final RegistryObject<SoundEvent> BELLSNICKEL_TRADE = registerSoundEvents("bellsnickel_trade");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Feywild.MOD_ID, name)));
