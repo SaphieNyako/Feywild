@@ -103,6 +103,21 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANDRAGORA_ABILITY_OFF = registerSoundEvent("mandragora_ability_off");
     public static final Supplier<SoundEvent> MANDRAGORA_TRADE = registerSoundEvent("mandragora_trade");
 
+
+    public static final Supplier<SoundEvent> BELLSNICKEL_AMBIANCE = registerSoundEvent("bellsnickel_ambiance");
+    public static final Supplier<SoundEvent> BELLSNICKEL_HURT = registerSoundEvent("bellsnickel_hurt");
+    public static final Supplier<SoundEvent> BELLSNICKEL_DEATH = registerSoundEvent("bellsnickel_death");
+    public static final Supplier<SoundEvent> BELLSNICKEL_COOKIE = registerSoundEvent("bellsnickel_cookie");
+    public static final Supplier<SoundEvent> BELLSNICKEL_NAME = registerSoundEvent("bellsnickel_name");
+    public static final Supplier<SoundEvent> BELLSNICKEL_SUMMON = registerSoundEvent("bellsnickel_summon");
+    public static final Supplier<SoundEvent> BELLSNICKEL_DISMISS = registerSoundEvent("bellsnickel_dismiss");
+    public static final Supplier<SoundEvent> BELLSNICKEL_FOLLOW = registerSoundEvent("bellsnickel_follow");
+    public static final Supplier<SoundEvent> BELLSNICKEL_STAY_01 = registerSoundEvent("bellsnickel_stay_01");
+    public static final Supplier<SoundEvent> BELLSNICKEL_STAY_02 = registerSoundEvent("bellsnickel_stay_02");
+    public static final Supplier<SoundEvent> BELLSNICKEL_CARRY_STUFF = registerSoundEvent("bellsnickel_carry_stuff");
+    public static final Supplier<SoundEvent> BELLSNICKEL_TRADE = registerSoundEvent("bellsnickel_trade");
+    
+
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }

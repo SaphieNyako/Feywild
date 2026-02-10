@@ -1,11 +1,13 @@
 package com.saphienyako.feywild.entity.goals;
 
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.config.ModConfig;
 
 import java.util.Comparator;
 import java.util.EnumSet;
@@ -58,7 +60,7 @@ public class TradeForGemsGoal extends Goal {
         pathfindingResetCooldown = 0;
         tradeTimeout = 40 + entity.level().random.nextInt(40);
         entity.getNavigation().moveTo(target, SPEED);
-        if(entity.getRandom().nextInt(10) <= 1) {
+        if(entity.getRandom().nextInt(10) <= 1 && FeywildConfig.voicesActive) {
             this.entity.playSound(((ITradeable)entity).getTradeSound(), 0.7f, 1);
         }
     }

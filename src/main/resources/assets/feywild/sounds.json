@@ -462,5 +462,77 @@
     "sounds": [
       "feywild:mandragora_trade"
     ]
+  },
+  "bellsnickel_ambiance": {
+    "subtitles": "message.feywild.bellsnickel_ambiance",
+    "sounds": [
+      "feywild:bellsnickel_ambiance"
+    ]
+  },
+  "bellsnickel_hurt": {
+    "subtitles": "sounds.feywild.bellsnickel_hurt",
+    "sounds": [
+      "feywild:bellsnickel_hurt"
+    ]
+  },
+  "bellsnickel_death": {
+    "subtitles": "sounds.feywild.bellsnickel_death",
+    "sounds": [
+      "feywild:bellsnickel_death"
+    ]
+  },
+  "bellsnickel_cookie": {
+    "subtitles": "message.feywild.bellsnickel_cookie",
+    "sounds": [
+      "feywild:bellsnickel_cookie"
+    ]
+  },
+  "bellsnickel_name": {
+    "subtitles": "message.feywild.bellsnickel_name",
+    "sounds": [
+      "feywild:bellsnickel_name"
+    ]
+  },
+  "bellsnickel_summon": {
+    "subtitles": "message.feywild.bellsnickel_summon",
+    "sounds": [
+      "feywild:bellsnickel_summon"
+    ]
+  },
+  "bellsnickel_dismiss": {
+    "subtitles": "message.feywild.bellsnickel_dismiss",
+    "sounds": [
+      "feywild:bellsnickel_dismiss"
+    ]
+  },
+  "bellsnickel_follow": {
+    "subtitles": "message.feywild.bellsnickel_follow",
+    "sounds": [
+      "feywild:bellsnickel_follow"
+    ]
+  },
+  "bellsnickel_stay_01": {
+    "subtitles": "message.feywild.bellsnickel_stay_01",
+    "sounds": [
+      "feywild:bellsnickel_stay_01"
+    ]
+  },
+  "bellsnickel_stay_02": {
+    "subtitles": "message.feywild.bellsnickel_stay_02",
+    "sounds": [
+      "feywild:bellsnickel_stay_02"
+    ]
+  },
+  "bellsnickel_carry_stuff": {
+    "subtitles": "message.feywild.bellsnickel_carry_stuff",
+    "sounds": [
+      "feywild:bellsnickel_carry_stuff"
+    ]
+  },
+  "bellsnickel_trade": {
+    "subtitles": "message.feywild.bellsnickel_trade",
+    "sounds": [
+      "feywild:bellsnickel_trade"
+    ]
   }
 }

@@ -13,6 +13,7 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.screen.BellsnickelMenu;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -301,7 +302,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
                 this.heal(3);
                 if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
                     Random random = new Random();
-                    if (random.nextInt(6) == 0) {
+                    if (random.nextInt(3) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         if(FeywildConfig.voicesActive) {
@@ -485,47 +486,49 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
 
     @Override
     public SoundEvent getCookieSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_COOKIE.get();
     }
 
     @Override
     public SoundEvent getNameSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_NAME.get();
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_SUMMON.get();
     }
 
     @Override
     public SoundEvent getDismissSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_DISMISS.get();
     }
 
     @Override
     public SoundEvent getFollowSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_FOLLOW.get();
     }
 
     @Override
     public SoundEvent getStaySound() {
-        return null;
+        Random random = new Random();
+            if(random.nextInt(4) == 0) return ModSounds.BELLSNICKEL_STAY_02.get();
+            else return ModSounds.BELLSNICKEL_STAY_01.get();
     }
 
     @Override
     public SoundEvent getAbilityOnSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_CARRY_STUFF.get();
     }
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_CARRY_STUFF.get();
     }
 
     @Override
     public SoundEvent getTradeSound() {
-        return null;
+        return ModSounds.BELLSNICKEL_TRADE.get();
     }
 
     @Override
