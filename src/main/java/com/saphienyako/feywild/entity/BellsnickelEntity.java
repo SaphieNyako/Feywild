@@ -498,7 +498,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     @Nullable
     @Override
     public SimpleParticleType getParticle() {
-        return ParticleTypes.SNOWFLAKE;
+        return ParticleTypes.SOUL_FIRE_FLAME;
     }
 
 
