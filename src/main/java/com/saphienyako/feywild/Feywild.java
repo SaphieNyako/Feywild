@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
 import com.saphienyako.feywild.block.renderer.FeyAltarBlockRenderer;
+import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.effect.ModEffects;
@@ -17,6 +18,7 @@ import com.saphienyako.feywild.particle.LeafParticle;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.particle.SparkleParticle;
 import com.saphienyako.feywild.recipe.ModRecipes;
+import com.saphienyako.feywild.screen.BellsnickelScreen;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
@@ -95,6 +97,7 @@ public class Feywild
         MinecraftForge.EVENT_BUS.addListener(this::reloadData);
     }
 
+    //Creative Tab in 1.19.2 is done in the Items Properties.
 
     public static Feywild getInstance() {
         return instance;
@@ -103,6 +106,7 @@ public class Feywild
     public void reloadData(AddReloadListenerEvent event) {
         event.addListener(ShroomlingItems.createReloadListener());
         event.addListener(MandragoraItems.createReloadListener());
+        event.addListener(BellsnickelItems.createReloadListener());
     }
 
     private void entityAttributes(EntityAttributeCreationEvent event) {
@@ -113,6 +117,7 @@ public class Feywild
         event.put(ModEntities.SHROOMLING.get(), ShroomlingEntity.getDefaultAttributes().build());
         event.put(ModEntities.MANDRAGORA.get(), MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowEntity.createAttributes().build());
+        event.put(ModEntities.BELLSNICKEL.get(), BellsnickelEntity.getDefaultAttributes().build());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -124,6 +129,7 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.SHROOMLING_LAYER, ShroomlingModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MANDRAGORA_LAYER, MandragoraModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MOO_SHROOM_LAYER, CowModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.BELLSNICKEL_LAYER, BellsnickelModel::createBodyLayer);
     }
 
     @SuppressWarnings("deprecated")
@@ -156,7 +162,7 @@ public class Feywild
             SpawnPlacements.register(ModEntities.SHROOMLING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ShroomlingEntity::canShroomlingSpawn);
             SpawnPlacements.register(ModEntities.MANDRAGORA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn);
             SpawnPlacements.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn);
-
+            SpawnPlacements.register(ModEntities.BELLSNICKEL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BellsnickelEntity::canSpawn);
 
         });
     }
@@ -209,9 +215,11 @@ public class Feywild
             EntityRenderers.register(ModEntities.SHROOMLING.get(), ShroomlingRenderer::new);
             EntityRenderers.register(ModEntities.MANDRAGORA.get(), MandragoraRenderer::new);
             EntityRenderers.register(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowRenderer::new);
+            EntityRenderers.register(ModEntities.BELLSNICKEL.get(), BellsnickelRenderer::new);
 
             BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
+            MenuScreens.register(ModMenuTypes.BELLSNICKEL_MENU.get(), BellsnickelScreen::new);
         }
     }
     @SuppressWarnings("removal")

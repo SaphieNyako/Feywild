@@ -70,6 +70,11 @@ public class FeywildNetwork {
                 .consumerMainThread(DismissEntityMessage::handle)
                 .add();
 
+        net.messageBuilder(OpenBellsnickelMenuMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenBellsnickelMenuMessage::decode)
+                .encoder(OpenBellsnickelMenuMessage::encode)
+                .consumerMainThread(OpenBellsnickelMenuMessage::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

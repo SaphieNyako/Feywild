@@ -26,4 +26,6 @@ public class ModModelLayers {
     public static final ModelLayerLocation MOO_SHROOM_LAYER = new ModelLayerLocation(
             new ResourceLocation(Feywild.MOD_ID, "moo_shroom_layer"), "main");
 
+    public static final ModelLayerLocation BELLSNICKEL_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Feywild.MOD_ID, "bellsnickel_layer"), "main");
 }

@@ -51,6 +51,8 @@ public class ModItems {
             Component.translatable("message.feywild.summoning_scroll_shroomling")));
     public static final RegistryObject<Item> SUMMONING_SCROLL_MANDRAGORA = ITEMS.register("summoning_scroll_mandragora", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_mandragora")));
+    public static final RegistryObject<Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel",() -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+            Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
 
     public static final RegistryObject<Item> FEY_DUST = ITEMS.register("fey_dust", () -> new FeyDustItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB).food(
             new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 30, 1), 1).build())));
@@ -72,6 +74,6 @@ public class ModItems {
     public static final RegistryObject<Item> SPAWN_EGG_SHROOMLING = ITEMS.register("spawn_egg_shroomling", () -> new ForgeSpawnEggItem(ModEntities.SHROOMLING, 0xf2d5d0, 0xd4260b, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> SPAWN_EGG_MANDRAGORA = ITEMS.register("spawn_egg_mandragora", () -> new ForgeSpawnEggItem(ModEntities.MANDRAGORA, 0x54d911, 0xf7a3f7, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
-
+    public static final RegistryObject<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new ForgeSpawnEggItem(ModEntities.BELLSNICKEL, 0x6a95f6, 0x2f3063, new Item.Properties()));
     public static void register(IEventBus eventBus) {ITEMS.register(eventBus);}
 }

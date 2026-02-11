@@ -18,6 +18,9 @@ public class ModMenuTypes {
     public static final RegistryObject<MenuType<FeyAltarMenu>> FEY_ALTAR_MENU =
             registerMenuType("fey_altar_menu", FeyAltarMenu::new);
 
+    public static final RegistryObject<MenuType<BellsnickelMenu>> BELLSNICKEL_MENU =
+            registerMenuType("bellsnickel_menu", BellsnickelMenu::create);
+
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
