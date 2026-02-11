@@ -563,6 +563,27 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         return ModSounds.BELLSNICKEL_CARRY_STUFF.get();
     }
 
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(@Nonnull DamageSource source) {
+        return ModSounds.BELLSNICKEL_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.BELLSNICKEL_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        Random random = new Random();
+        if (random.nextFloat() < 0.1f) {
+           return ModSounds.BELLSNICKEL_AMBIANCE.get();
+
+        } else return null;
+    }
+
     @Override
     public SoundEvent getTradeSound() {
         return ModSounds.BELLSNICKEL_TRADE.get();
