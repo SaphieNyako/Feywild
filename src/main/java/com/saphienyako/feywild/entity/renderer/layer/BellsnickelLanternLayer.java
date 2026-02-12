@@ -37,7 +37,7 @@ public class BellsnickelLanternLayer extends RenderLayer<BellsnickelEntity, Bell
         poseStack.scale(0.5F, 0.5F, 0.5F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
 
-        blockRenderer.renderSingleBlock(Blocks.LANTERN.defaultBlockState(), poseStack, buffer, packedLight, OverlayTexture.NO_OVERLAY);
+        blockRenderer.renderSingleBlock(Blocks.SOUL_LANTERN.defaultBlockState(), poseStack, buffer, packedLight, OverlayTexture.NO_OVERLAY);
 
         poseStack.popPose();
     }
