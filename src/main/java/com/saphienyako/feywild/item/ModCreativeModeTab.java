@@ -41,6 +41,11 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SUMMONING_SCROLL_SHROOMLING.get());
                         output.accept(ModItems.SUMMONING_SCROLL_MANDRAGORA.get());
                         output.accept(ModItems.SUMMONING_SCROLL_BELLSNICKEL.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_BEE_KNIGHT.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_SPRING_TREE_ENT.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
@@ -143,6 +148,10 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SPAWN_EGG_SHROOMLING.get());
                         output.accept(ModItems.SPAWN_EGG_MANDRAGORA.get());
                         output.accept(ModItems.SPAWN_EGG_BELLSNICKEL.get());
+                        output.accept(ModItems.SPAWN_EGG_SPRING_TREE_ENT.get());
+                        output.accept(ModItems.SPAWN_EGG_SUMMER_TREE_ENT.get());
+                        output.accept(ModItems.SPAWN_EGG_AUTUMN_TREE_ENT.get());
+                        output.accept(ModItems.SPAWN_EGG_WINTER_TREE_ENT.get());
 
                     }).build());
 

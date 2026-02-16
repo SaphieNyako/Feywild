@@ -30,6 +30,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.SUMMONING_SCROLL_SHROOMLING.get());
         basicItem(ModItems.SUMMONING_SCROLL_MANDRAGORA.get());
         basicItem(ModItems.SUMMONING_SCROLL_BELLSNICKEL.get());
+        basicItem(ModItems.SUMMONING_SCROLL_BEE_KNIGHT.get());
+        basicItem(ModItems.SUMMONING_SCROLL_SPRING_TREE_ENT.get());
+        basicItem(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT.get());
+        basicItem(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get());
+        basicItem(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
         basicItem(ModItems.FEY_DUST.get());
         basicItem(ModItems.MANDRAKE.get());
         basicItem(ModItems.GIANT_CROCUS_FLOWER_SEED.get());

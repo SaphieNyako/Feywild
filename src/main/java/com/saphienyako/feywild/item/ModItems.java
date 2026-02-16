@@ -8,6 +8,7 @@ import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.item.base.ToolTipBaseItem;
 import com.saphienyako.feywild.item.base.ToolTipBaseItemNameBlockItem;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -78,9 +79,23 @@ public class ModItems {
 
     public static final DeferredItem<Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel", () -> new SummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
-    //TODO add lang
 
     //public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem(new Item.Properties()));
+    public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new ToolTipBaseItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_bee_knight").withStyle(ChatFormatting.RED)));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.register("summoning_scroll_spring_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_spring_tree_ent")));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_SUMMER_TREE_ENT = ITEMS.register("summoning_scroll_summer_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_summer_tree_ent")));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_AUTUMN_TREE_ENT = ITEMS.register("summoning_scroll_autumn_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_autumn_tree_ent")));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.register("summoning_scroll_winter_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_winter_tree_ent")));
+
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_SPRING_PIXIE = ITEMS.register("spawn_egg_spring_pixie", () -> new SpawnEggItem(ModEntities.SPRING_PIXIE.get(), 0xf085a9, 0xa1db67, new Item.Properties()));
     @SuppressWarnings("deprecation")
@@ -95,6 +110,18 @@ public class ModItems {
     public static final DeferredItem<Item> SPAWN_EGG_MANDRAGORA = ITEMS.register("spawn_egg_mandragora", () -> new SpawnEggItem(ModEntities.MANDRAGORA.get(), 0x54d911, 0xf7a3f7, new Item.Properties()));
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new SpawnEggItem(ModEntities.BELLSNICKEL.get(),0x6a95f6, 0x2f3063, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_SPRING_TREE_ENT = ITEMS.register("spawn_egg_spring_tree_ent", () -> new SpawnEggItem(ModEntities.SPRING_TREE_ENT.get(),0x5C281E, 0xa1db67, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_SUMMER_TREE_ENT = ITEMS.register("spawn_egg_summer_tree_ent", () -> new SpawnEggItem(ModEntities.SUMMER_TREE_ENT.get(),0x5C281E, 0xfedc5a, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_AUTUMN_TREE_ENT = ITEMS.register("spawn_egg_autumn_tree_ent", () -> new SpawnEggItem(ModEntities.AUTUMN_TREE_ENT.get(),0x5C281E, 0xb73737, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new SpawnEggItem(ModEntities.WINTER_TREE_ENT.get(),0x5C281E, 0x84b4be, new Item.Properties()));
 
 
     public static void register(IEventBus eventBus) {

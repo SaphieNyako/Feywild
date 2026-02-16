@@ -98,6 +98,10 @@ public class Feywild
         event.put(ModEntities.MANDRAGORA.get(), MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowEntity.createAttributes().build());
         event.put(ModEntities.BELLSNICKEL.get(), BellsnickelEntity.getDefaultAttributes().build());
+        event.put(ModEntities.SPRING_TREE_ENT.get(), SpringTreeEntEntity.getDefaultAttributes().build());
+        event.put(ModEntities.SUMMER_TREE_ENT.get(), SummerTreeEntEntity.getDefaultAttributes().build());
+        event.put(ModEntities.AUTUMN_TREE_ENT.get(), AutumnTreeEntEntity.getDefaultAttributes().build());
+        event.put(ModEntities.WINTER_TREE_ENT.get(), WinterTreeEntEntity.getDefaultAttributes().build());
     }
     @SuppressWarnings("unused")
     @SubscribeEvent
@@ -189,6 +193,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.MANDRAGORA_LAYER, MandragoraModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MOO_SHROOM_LAYER, CowModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.BELLSNICKEL_LAYER, BellsnickelModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.TREE_ENT_LAYER, TreeEntModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -202,6 +207,10 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.MANDRAGORA.get(), MandragoraRenderer::new);
             event.registerEntityRenderer(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowRenderer::new);
             event.registerEntityRenderer(ModEntities.BELLSNICKEL.get(), BellsnickelRenderer::new);
+            event.registerEntityRenderer(ModEntities.SPRING_TREE_ENT.get(), TreeEntRenderer::new);
+            event.registerEntityRenderer(ModEntities.SUMMER_TREE_ENT.get(), TreeEntRenderer::new);
+            event.registerEntityRenderer(ModEntities.AUTUMN_TREE_ENT.get(), TreeEntRenderer::new);
+            event.registerEntityRenderer(ModEntities.WINTER_TREE_ENT.get(), TreeEntRenderer::new);
         }
 
         @SubscribeEvent
@@ -219,6 +228,10 @@ public class Feywild
             event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.BELLSNICKEL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BellsnickelEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.SPRING_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.WINTER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }
