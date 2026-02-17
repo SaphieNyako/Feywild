@@ -1,4 +1,4 @@
-package com.saphienyako.feywild.entity.goals;
+package com.saphienyako.feywild.entity.goals.guardian_goals;
 
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.MooShroomCowEntity;

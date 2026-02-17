@@ -7,6 +7,8 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.*;
+import com.saphienyako.feywild.entity.goals.guardian_goals.SneezeGoal;
+import com.saphienyako.feywild.entity.goals.guardian_goals.WaveGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;

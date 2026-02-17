@@ -1,4 +1,4 @@
-package com.saphienyako.feywild.entity.goals;
+package com.saphienyako.feywild.entity.goals.pixie_goals;
 
 import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.network.ParticleMessage;

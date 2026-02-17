@@ -1,4 +1,4 @@
-package com.saphienyako.feywild.entity.goals;
+package com.saphienyako.feywild.entity.goals.guardian_goals;
 
 import com.saphienyako.feywild.entity.ShroomlingEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;

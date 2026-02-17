@@ -47,16 +47,20 @@ public class ModEntities {
  //           ENTITY_TYPES.register("bee_knight", () -> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE).build("bee_knight"));
 
     public static final Supplier<EntityType<SpringTreeEntEntity>> SPRING_TREE_ENT =
-            ENTITY_TYPES.register("spring_tree_ent", ()-> EntityType.Builder.of(SpringTreeEntEntity::new, MobCategory.CREATURE).build("spring_tree_ent"));
+            ENTITY_TYPES.register("spring_tree_ent", ()-> EntityType.Builder.of(SpringTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("spring_tree_ent"));
 
     public static final Supplier<EntityType<SummerTreeEntEntity>> SUMMER_TREE_ENT =
-            ENTITY_TYPES.register("summer_tree_ent", () -> EntityType.Builder.of(SummerTreeEntEntity::new, MobCategory.CREATURE).build("summer_tree_ent"));
+            ENTITY_TYPES.register("summer_tree_ent", () -> EntityType.Builder.of(SummerTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("summer_tree_ent"));
 
     public static final Supplier<EntityType<AutumnTreeEntEntity>> AUTUMN_TREE_ENT =
-            ENTITY_TYPES.register("autumn_tree_ent", () -> EntityType.Builder.of(AutumnTreeEntEntity::new, MobCategory.CREATURE).build("autumn_tree_ent"));
+            ENTITY_TYPES.register("autumn_tree_ent", () -> EntityType.Builder.of(AutumnTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("autumn_tree_ent"));
 
     public static final Supplier<EntityType<WinterTreeEntEntity>> WINTER_TREE_ENT =
-            ENTITY_TYPES.register("winter_tree_ent", ()-> EntityType.Builder.of(WinterTreeEntEntity::new, MobCategory.CREATURE).build("winter_tree_ent"));
+            ENTITY_TYPES.register("winter_tree_ent", ()-> EntityType.Builder.of(WinterTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("winter_tree_ent"));
 
 
     public static void register(IEventBus eventBus) {

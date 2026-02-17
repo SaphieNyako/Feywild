@@ -3,6 +3,10 @@ package com.saphienyako.feywild.entity.base;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
+import com.saphienyako.feywild.entity.goals.TameCheckingGoal;
+import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMeleeAttackGoal;
+import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMoveAndSoundGoal;
+import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntResetTargetGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
@@ -14,18 +18,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -54,7 +60,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity {
 
     private int movingTicks = 0;
 
-    public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
+    public static final double MIN_MOVING_SPEED_SQR = 1.0E-8;
 
 
     
@@ -71,6 +77,14 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity {
         super.registerGoals();
         this.registerGroundGoals(this);
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
+
+        this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 2.0D, true));
+        this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 0.5D));
+        this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(TreeEntBase.class));
+        //   this.targetSelector.addGoal(1, new TameCheckingGoal(this, false, new HurtByTargetGoal(this, Creeper.class))); Why was this a thing?
+        this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
+        this.targetSelector.addGoal(3, new TreeEntResetTargetGoal<>(this));
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -116,6 +130,31 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity {
         builder.define(STATE,0);
     }
 
+    public void stopBeingAngry() {
+        this.setLastHurtByMob(null);
+        this.setTarget(null);
+    }
+    @Override
+    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+        Entity entity = damageSource.getDirectEntity();
+        boolean flag = false;
+        if (entity instanceof AbstractArrow abstractarrow && abstractarrow.getPierceLevel() > 0) {
+            flag = true;
+        }
+
+        if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
+            Vec3 vec32 = damageSource.getSourcePosition();
+            if (vec32 != null) {
+                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
+                Vec3 vec31 = vec32.vectorTo(this.position());
+                vec31 = new Vec3(vec31.x, 0.0, vec31.z).normalize();
+                return vec31.dot(vec3) < 0.0;
+            }
+        }
+
+        return false;
+    }
+
 
     @SuppressWarnings("resource")
     @Override
@@ -146,6 +185,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity {
             if (!ATTACK_ANIMATION.isStarted()) {
                 ATTACK_ANIMATION.start(this.tickCount);
             }
+            IDLE_ANIMATION.stop();
         } else {
             ATTACK_ANIMATION.stop();
         }

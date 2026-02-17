@@ -1,7 +1,7 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.PixieBase;
-import com.saphienyako.feywild.entity.goals.BreedAbilityGoal;
+import com.saphienyako.feywild.entity.goals.pixie_goals.BreedAbilityGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;

@@ -7,7 +7,7 @@ import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.GroundIronPanicGoal;
 import com.saphienyako.feywild.entity.goals.GroundPanicGoal;
-import com.saphienyako.feywild.entity.goals.SingGoal;
+import com.saphienyako.feywild.entity.goals.guardian_goals.SingGoal;
 import com.saphienyako.feywild.entity.goals.TradeForGemsGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
