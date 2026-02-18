@@ -2,8 +2,6 @@ package com.saphienyako.feywild.entity.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.ShroomlingEntity;
-import com.saphienyako.feywild.entity.animations.ShroomlingAnimations;
 import com.saphienyako.feywild.entity.animations.TreeEntAnimations;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import net.minecraft.client.model.HierarchicalModel;
@@ -39,6 +37,7 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart head;
     private final ModelPart beard;
     private final ModelPart left_arm;
+    private final ModelPart ice_left;
     private final ModelPart left_arm2;
     private final ModelPart left_finger1;
     private final ModelPart left_finger2;
@@ -48,6 +47,7 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart ice_stalagmite5;
     private final ModelPart ice_stalagmite6;
     private final ModelPart right_arm;
+    private final ModelPart ice_right;
     private final ModelPart ice_stalagmite;
     private final ModelPart ice_stalagmite2;
     private final ModelPart ice_stalagmite3;
@@ -97,6 +97,7 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
         this.head = this.tree_ent.getChild("head");
         this.beard = this.head.getChild("beard");
         this.left_arm = this.tree_ent.getChild("left_arm");
+        this.ice_left = this.left_arm.getChild("ice_left");
         this.left_arm2 = this.left_arm.getChild("left_arm2");
         this.left_finger1 = this.left_arm2.getChild("left_finger1");
         this.left_finger2 = this.left_arm2.getChild("left_finger2");
@@ -106,6 +107,7 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
         this.ice_stalagmite5 = this.left_arm.getChild("ice_stalagmite5");
         this.ice_stalagmite6 = this.left_arm.getChild("ice_stalagmite6");
         this.right_arm = this.tree_ent.getChild("right_arm");
+        this.ice_right = this.right_arm.getChild("ice_right");
         this.ice_stalagmite = this.right_arm.getChild("ice_stalagmite");
         this.ice_stalagmite2 = this.right_arm.getChild("ice_stalagmite2");
         this.ice_stalagmite3 = this.right_arm.getChild("ice_stalagmite3");
@@ -196,7 +198,7 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
                 .texOffs(0, 78).addBox(6.0F, -5.0F, -8.0F, 4.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(60, 79).addBox(7.0F, -8.0F, -8.0F, 3.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, -9.0F));
 
-        PartDefinition cube_r1 = head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(28, 154).addBox(0.25F, -3.5F, -3.5F, 0.0F, 7.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(6.7406F, -6.023F, -11.8802F, 0.2439F, 0.3241F, -0.4077F));
+        PartDefinition cube_r1 = head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(28, 154).addBox(0.25F, -3.5F, -3.5F, 0.0F, 7.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(6.7406F, -6.023F, -11.8803F, 0.2439F, 0.3241F, -0.4077F));
 
         PartDefinition cube_r2 = head.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(188, 64).addBox(0.0F, -2.0F, -1.0F, 0.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 5.0F, -13.5F, 0.0F, -1.5708F, 0.0F));
 
@@ -219,6 +221,8 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
                 .texOffs(48, 136).addBox(8.0F, 10.0F, -5.0F, 8.0F, 4.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(66, 148).addBox(-2.0F, 12.0F, -6.0F, 5.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(24, 129).addBox(-1.0F, 11.0F, 3.0F, 5.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(16.0F, -29.0F, 0.0F, 0.0F, 0.0F, -0.0436F));
+
+        PartDefinition ice_left = left_arm.addOrReplaceChild("ice_left", CubeListBuilder.create().texOffs(176, 83).addBox(-6.5F, -1.5F, -5.0F, 13.0F, 3.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(14.0F, -19.5F, -0.5F));
 
         PartDefinition left_arm2 = left_arm.addOrReplaceChild("left_arm2", CubeListBuilder.create().texOffs(76, 70).addBox(-6.5F, 0.0F, -6.0F, 13.0F, 30.0F, 12.0F, new CubeDeformation(0.0F))
                 .texOffs(0, 214).addBox(-6.5F, 0.0F, -6.0F, 13.0F, 30.0F, 12.0F, new CubeDeformation(0.1F))
@@ -269,6 +273,8 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
                 .texOffs(48, 136).mirror().addBox(-16.0F, 10.0F, -5.0F, 8.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(66, 148).mirror().addBox(-3.0F, 12.0F, -6.0F, 5.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false)
                 .texOffs(24, 129).mirror().addBox(-4.0F, 11.0F, 3.0F, 5.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-16.0F, -29.0F, 0.0F, 0.0F, 0.0F, 0.0436F));
+
+        PartDefinition ice_right = right_arm.addOrReplaceChild("ice_right", CubeListBuilder.create().texOffs(176, 83).mirror().addBox(-6.5F, -1.5F, -5.0F, 13.0F, 3.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-14.0F, -19.5F, -0.5F));
 
         PartDefinition ice_stalagmite = right_arm.addOrReplaceChild("ice_stalagmite", CubeListBuilder.create().texOffs(0, 97).mirror().addBox(-2.5F, 0.0F, 0.0F, 5.0F, 10.0F, 0.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-19.5436F, -5.999F, 4.0F));
 
