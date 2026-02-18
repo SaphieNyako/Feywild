@@ -62,6 +62,8 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
 
     public Vec3 getCurrentPointOfInterest() {
+        // Skip moving if someone is riding
+        if (this.isVehicle()) return null;
         if (this.getFollowingPlayer()) {
             Player player = this.getOwningPlayer();
             return player == null ? null : player.position();

@@ -94,7 +94,8 @@ public class SummoningScrollItem extends Item {
                                     context.getClickedPos()
                             )
                     );
-
+                    //TODO fix sound
+/*
                     if (FeywildConfig.voicesActive) {
                         context.getLevel().playSound(
                                 null,
@@ -104,7 +105,7 @@ public class SummoningScrollItem extends Item {
                                 1.0F,
                                 1.0F
                         );
-                    }
+                    } */
 
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
