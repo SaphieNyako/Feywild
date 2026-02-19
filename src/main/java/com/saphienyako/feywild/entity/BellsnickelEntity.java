@@ -237,6 +237,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
         if (!this.level().isClientSide) {
             if (reason == RemovalReason.KILLED || reason == RemovalReason.DISCARDED) {
                 dropInventory();
+                removeLanternLight();
             }
 
             removeLanternLight();
@@ -261,7 +262,6 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
 
     private void setupAnimationStates() {
 
-        // SING
         if (getState() == State.TRADE) {
             if (!TRADE_ANIMATION.isStarted()) {
                 TRADE_ANIMATION.start(this.tickCount);
