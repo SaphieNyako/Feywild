@@ -239,8 +239,9 @@
   "sounds.feywild.pixie_giggle": "Pixie giggles.",
   "sounds.feywild.pixie_hurt": "Pixie is hurt.",
   "sounds.feywild.pixie_death": "Pixie dies.",
-  "effect.feywild.summer_blessing": "Summer's Blessing",
-  "effect.feywild.spring_blessing": "Spring's Blessing",
-  "effect.feywild.winter_blessing": "Winter's Blessing",
-  "effect.feywild.autumn_blessing": "Autumn's Blessing"
+  "effect.feywild.autumn_tree_ent_protection": "Tree Ent Protection",
+  "effect.feywild.spring_tree_ent_protection": "Tree Ent Protection",
+  "effect.feywild.summer_tree_ent_protection": "Tree Ent Protection",
+  "effect.feywild.winter_tree_ent_protection": "Tree Ent Protection",
+  "effect.feywild.fey_flying": "Fey Flying"
 }

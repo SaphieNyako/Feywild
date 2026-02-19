@@ -8,6 +8,7 @@ import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.data.ShroomlingItems;
+import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.base.TreeEntCameraHandler;
 import com.saphienyako.feywild.entity.model.*;
@@ -72,6 +73,7 @@ public class Feywild
         ModMenuTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new ModEventListener());
