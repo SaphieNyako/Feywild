@@ -90,7 +90,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     @Override
     public void tick() {
         super.tick();
-
     }
 
 

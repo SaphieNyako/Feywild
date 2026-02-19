@@ -15,34 +15,39 @@ public class ModParticles {
             DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Feywild.MOD_ID);
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SPRING_SPARKLE_PARTICLE =
-            PARTICLE_TYPES.register(
-                    "spring_sparkle_particle",
-                    () -> new SimpleParticleType(true)
-            );
+            PARTICLE_TYPES.register("spring_sparkle_particle",
+                    () -> new SimpleParticleType(true));
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SUMMER_SPARKLE_PARTICLE =
-            PARTICLE_TYPES.register(
-                    "summer_sparkle_particle",
-                    () -> new SimpleParticleType(true)
-            );
+            PARTICLE_TYPES.register("summer_sparkle_particle",
+                    () -> new SimpleParticleType(true));
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> WINTER_SPARKLE_PARTICLE =
-            PARTICLE_TYPES.register(
-                    "winter_sparkle_particle",
-                    () -> new SimpleParticleType(true)
-            );
+            PARTICLE_TYPES.register("winter_sparkle_particle",
+                    () -> new SimpleParticleType(true));
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> AUTUMN_SPARKLE_PARTICLE =
-            PARTICLE_TYPES.register(
-                    "autumn_sparkle_particle",
-                    () -> new SimpleParticleType(true)
-            );
+            PARTICLE_TYPES.register("autumn_sparkle_particle",
+                    () -> new SimpleParticleType(true));
 
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FEY_SPARKLE_PARTICLE =
-            PARTICLE_TYPES.register(
-                    "fey_sparkle_particle",
-                    () -> new SimpleParticleType(true)
-            );
+            PARTICLE_TYPES.register("fey_sparkle_particle",
+                    () -> new SimpleParticleType(true));
+
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> AUTUMN_LEAF_PARTICLE =
+            PARTICLE_TYPES.register("autumn_leaf_particle",
+                    ()-> new SimpleParticleType(true));
+
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SPRING_LEAF_PARTICLE =
+            PARTICLE_TYPES.register("spring_leaf_particle",
+                    ()-> new SimpleParticleType(true));
+
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SUMMER_LEAF_PARTICLE =
+            PARTICLE_TYPES.register("summer_leaf_particle",
+                    ()-> new SimpleParticleType(true));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> WINTER_LEAF_PARTICLE =
+            PARTICLE_TYPES.register("winter_leaf_particle",
+                    ()-> new SimpleParticleType(true));
 
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);

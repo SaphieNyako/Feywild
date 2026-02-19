@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.entity.base;
 
 import com.saphienyako.feywild.config.FeywildConfig;
-import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.goals.TameCheckingGoal;
 import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMeleeAttackGoal;
@@ -11,8 +10,6 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -33,12 +30,9 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -115,12 +109,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     }
     @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        Entity entity = damageSource.getDirectEntity();
-        boolean flag = false;
-        if (entity instanceof AbstractArrow abstractarrow && abstractarrow.getPierceLevel() > 0) {
-            flag = true;
-        }
-
         if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
             Vec3 vec32 = damageSource.getSourcePosition();
             if (vec32 != null) {
@@ -141,6 +129,17 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         super.tick();
         if(this.level().isClientSide()) {
             setupAnimationStates();
+        }
+        if (level().isClientSide && this.getParticle() != null && random.nextInt(15) == 0) {
+            for (int i = 0; i < 4; i++) {
+                level().addParticle(
+                        this.getParticle(),
+                        this.getX() + random.nextDouble() - 0.5,
+                        this.getY() + random.nextDouble() * 6.0 - 3.0,
+                        this.getZ() + random.nextDouble() - 0.5,
+                        0, 0, 0
+                );
+            }
         }
     }
 
@@ -330,9 +329,9 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         Entity passenger = this.getFirstPassenger();
         return passenger instanceof LivingEntity living ? living : null;
     }
-
+    @NonNull
     @Override
-    protected Vec3 getPassengerAttachmentPoint(@NotNull Entity passenger, @NotNull EntityDimensions dimensions, float partialTick) {
+    protected Vec3 getPassengerAttachmentPoint(@NonNull Entity passenger, @NotNull EntityDimensions dimensions, float partialTick) {
         return super.getPassengerAttachmentPoint(passenger, dimensions, partialTick)
                 .add(new Vec3(0.0, 0.15 * (double)partialTick, -0.0 * (double)partialTick).yRot(-this.getYRot() * (float) (Math.PI / 180.0)));
     }
@@ -376,7 +375,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     //JUMPING
 
     @Override
-    protected void tickRidden(Player player, Vec3 movementInput) {
+    protected void tickRidden(@NonNull Player player,@NonNull Vec3 movementInput) {
         super.tickRidden(player, movementInput);
 
         if (this.isControlledByLocalInstance()) {

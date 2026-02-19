@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.TreeEntBase;
+import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -16,7 +17,7 @@ public class SpringTreeEntEntity extends TreeEntBase {
     @Nullable
     @Override
     public SimpleParticleType getParticle() {
-        return null;
+        return ModParticles.SPRING_LEAF_PARTICLE.get();
     }
 
 

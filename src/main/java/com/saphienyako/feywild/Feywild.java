@@ -16,6 +16,7 @@ import com.saphienyako.feywild.events.ModEventListener;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
+import com.saphienyako.feywild.particle.LeafParticleProvider;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.particle.SparkleParticleProvider;
 import com.saphienyako.feywild.recipe.ModRecipes;
@@ -182,6 +183,10 @@ public class Feywild
             event.registerSpriteSet(ModParticles.WINTER_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.2f, 0.8f, 0.9f));
             event.registerSpriteSet(ModParticles.AUTUMN_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 1, 0.4f, 0));
             event.registerSpriteSet(ModParticles.FEY_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.3f,0.9f,0.9f));
+            event.registerSpriteSet(ModParticles.AUTUMN_LEAF_PARTICLE.get(), LeafParticleProvider::new);
+            event.registerSpriteSet(ModParticles.SPRING_LEAF_PARTICLE.get(), LeafParticleProvider::new);
+            event.registerSpriteSet(ModParticles.SUMMER_LEAF_PARTICLE.get(), LeafParticleProvider::new);
+            event.registerSpriteSet(ModParticles.WINTER_LEAF_PARTICLE.get(), LeafParticleProvider::new);
         }
 
         @SubscribeEvent
