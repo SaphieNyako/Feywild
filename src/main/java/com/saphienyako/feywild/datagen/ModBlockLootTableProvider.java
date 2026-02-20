@@ -165,6 +165,18 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get(),
                 block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
+        this.dropSelf(ModBlocks.AUTUMN_TREE_LOG.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
+
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_SAPLING.get());
+
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        //TODO custumn drops
+
     }
 
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {

@@ -183,5 +183,19 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS.get(),
                 ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()
         );
+
+        //TREES
+        //AUTUMN
+        this.tag(BlockTags.LOGS)
+                .add(ModBlocks.AUTUMN_TREE_LOG.get())
+                .add(ModBlocks.AUTUMN_TREE_WOOD.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
+
+        this.tag(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.AUTUMN_TREE_LOG.get())
+                .add(ModBlocks.AUTUMN_TREE_WOOD.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
     }
 }

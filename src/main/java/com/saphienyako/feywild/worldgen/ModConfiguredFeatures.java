@@ -7,6 +7,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
@@ -15,7 +16,13 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaPineFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
@@ -31,6 +38,9 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_MUSHROOM_KEY = registerKey("blue_mushroom_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PURPLE_MUSHROOM_KEY = registerKey("purple_mushroom_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PINK_MUSHROOM_KEY = registerKey("pink_mushroom_key");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AUTUMN_TREE_KEY = registerKey("autumn_tree");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         register(context, ORANGE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
                 colouredMushroomConfig(ModBlocks.ORANGE_MUSHROOM_BLOCK.get()));
@@ -61,6 +71,18 @@ public class ModConfiguredFeatures {
                 OreConfiguration.target(deepslateReplaceables, ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get().defaultBlockState()));
 
         register(context, FEY_GEM_ORE_KEY, Feature.ORE, new OreConfiguration(feyGemOres, 5));
+
+        TreeConfiguration treeConfig =  new TreeConfiguration.TreeConfigurationBuilder(
+                BlockStateProvider.simple(Blocks.DARK_OAK_LOG),        // trunk block
+                new DarkOakTrunkPlacer(6, 3, 1),                      // base height 6, random 0-3, extra height 1
+                BlockStateProvider.simple(Blocks.DARK_OAK_LEAVES),   // leaves block
+                new DarkOakFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)), // radius 2, offset 0
+                new TwoLayersFeatureSize(1, 0, 2)                     // lower layer 1, lower offset 0, upper limit 2
+        )
+                .ignoreVines()
+                .build();
+
+        register(context, AUTUMN_TREE_KEY, Feature.TREE, treeConfig);
     }
 
 

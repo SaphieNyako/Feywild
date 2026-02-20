@@ -1,11 +1,13 @@
 package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.trees.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
@@ -329,6 +331,29 @@ public class ModBlocks {
     public static final DeferredBlock<Block> AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB = registerBlock("autumn_elven_quartz_polished_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
 
+
+    //WOOD, PLANKS AND LOGS
+    //AUTUMN
+    public static final DeferredBlock<Block> AUTUMN_TREE_SAPLING = registerBlock("autumn_tree_sapling",
+            () -> new FeySaplingBlock(AutumnTreeGrower.AUTUMN_TREE_GROWER, BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+    //TODO SAPLING GROWER
+    public static final DeferredBlock<Block> AUTUMN_TREE_LOG = registerBlock("autumn_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_LOG = registerBlock("autumn_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_WOOD = registerBlock("autumn_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_WOOD = registerBlock("autumn_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES = registerBlock("autumn_tree_leaves",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS = registerBlock("autumn_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

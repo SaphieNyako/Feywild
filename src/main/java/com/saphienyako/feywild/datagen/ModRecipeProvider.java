@@ -85,7 +85,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         addSummerElvenQuartzRecipes(recipeOutput);
         addWinterElvenQuartzRecipes(recipeOutput);
         addAutumnElvenQuartzRecipes(recipeOutput);
-
     }
 
     protected static void oreSmelting(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult,

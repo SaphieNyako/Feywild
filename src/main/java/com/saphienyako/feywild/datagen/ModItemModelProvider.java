@@ -1,10 +1,12 @@
 package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -40,7 +42,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
         basicItem(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
         basicItem(ModItems.GIANT_SUN_FLOWER_SEED.get());
+
+        saplingItem(ModBlocks.AUTUMN_TREE_SAPLING);
     }
+
+    private ItemModelBuilder saplingItem(DeferredBlock<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                ResourceLocation.parse("item/generated")).texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"block/" + item.getId().getPath()));
+    }
+
     @SuppressWarnings("unused")
     public void flowerItem(DeferredBlock<Block> block) {
         this.withExistingParent(block.getId().getPath(), mcLoc("item/generated"))

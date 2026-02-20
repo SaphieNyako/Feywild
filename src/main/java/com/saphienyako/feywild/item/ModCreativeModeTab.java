@@ -141,6 +141,14 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.PINK_MUSHROOM.get());
                         output.accept(ModBlocks.PINK_MUSHROOM_BLOCK.get());
 
+                        output.accept(ModBlocks.AUTUMN_TREE_SAPLING.asItem());
+                        output.accept(ModBlocks.AUTUMN_TREE_LEAVES.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_LOG.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_WOOD.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_PLANKS.get());
+
                         output.accept(ModItems.SPAWN_EGG_SPRING_PIXIE.get());
                         output.accept(ModItems.SPAWN_EGG_AUTUMN_PIXIE.get());
                         output.accept(ModItems.SPAWN_EGG_SUMMER_PIXIE.get());

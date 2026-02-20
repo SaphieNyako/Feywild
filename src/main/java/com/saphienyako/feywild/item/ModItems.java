@@ -13,12 +13,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 
 public class ModItems {
@@ -123,6 +126,8 @@ public class ModItems {
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new SpawnEggItem(ModEntities.WINTER_TREE_ENT.get(),0x5C281E, 0x84b4be, new Item.Properties()));
 
+   // public static final Supplier<Item> AUTUMN_TREE_LEAVES_ITEM = ITEMS.register("autumn_tree_leaves",
+   //         () -> new BlockItem(ModBlocks.AUTUMN_TREE_LEAVES.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -39,5 +39,22 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.BLUE_MUSHROOM.asItem());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.PURPLE_MUSHROOM.asItem());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.PINK_MUSHROOM.asItem());
+
+        //TREES
+        //AUTUMN
+        tag(ItemTags.LOGS)
+                .add(ModBlocks.AUTUMN_TREE_LOG.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_WOOD.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get().asItem());
+
+        tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.AUTUMN_TREE_LOG.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_WOOD.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get().asItem());
+
+        tag(ItemTags.PLANKS)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS.get().asItem());
     }
 }

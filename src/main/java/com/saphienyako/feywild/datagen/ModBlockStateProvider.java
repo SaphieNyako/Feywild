@@ -3,6 +3,7 @@ package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -187,6 +188,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlock(((SlabBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()), blockTexture(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get()), blockTexture(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get()));
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS);
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB);
+
+        //TREES
+        //AUTUMN
+
+        logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_LOG.get()));
+        axisBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_WOOD.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
+        logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+        axisBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+
+        blockItem(ModBlocks.AUTUMN_TREE_LOG);
+        blockItem(ModBlocks.AUTUMN_TREE_WOOD);
+        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD);
+
+        blockWithItem(ModBlocks.AUTUMN_TREE_PLANKS);
+
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES);
+        saplingBlock(ModBlocks.AUTUMN_TREE_SAPLING);
     }
     @SuppressWarnings("unused")
     private void leavesBlock(DeferredBlock<Block> deferredBlock) {
@@ -206,23 +225,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void blockItem(DeferredBlock<Block> deferredBlock, String appendix) {
         simpleBlockItem(deferredBlock.get(), new ModelFile.UncheckedModelFile("feywild:block/" + deferredBlock.getId().getPath() + appendix));
     }
-    /*
-    private void mushroomBlock(DeferredBlock<Block> block) {
-        // Generate the blockstate and block model
-        simpleBlock(block.get(),
-                models().cross(
-                        block.getId().getPath(),          // model name = block name
-                        blockTexture(block.get())         // texture = block texture
-                ).renderType("cutout")                // cutout render type for transparency
-        );
-
-        // Generate the item model pointing to the block model
-        simpleBlockItem(
-                block.get(),
-                new ModelFile.UncheckedModelFile(
-                        modLoc("block/" + block.getId().getPath())
-                )
-        );
-    } */
+    private void saplingBlock(DeferredBlock<Block> deferredBlock) {
+        simpleBlock(deferredBlock.get(), models().cross(BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath(), blockTexture(deferredBlock.get())).renderType("cutout"));
+    }
 
 }
