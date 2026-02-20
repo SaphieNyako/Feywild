@@ -41,7 +41,7 @@ public class BellsnickelScreen extends AbstractContainerScreen<BellsnickelMenu> 
         inventoryLabelX = 1000;
 
         int entityX = this.leftPos - EntityWidget.WIDTH - 30;
-        int entityY = this.topPos + (this.imageHeight - EntityWidget.HEIGHT) / 2 + 10;
+        int entityY = this.topPos + (this.imageHeight - EntityWidget.HEIGHT) / 2;
 
         this.addRenderableWidget(new EntityWidget(entityX, entityY, bellsnickel));
         //TODO add Buttons

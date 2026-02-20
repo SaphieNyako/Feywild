@@ -214,13 +214,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
-
-            //RIDE TREE ENT
-            if (!this.level().isClientSide && player.getItemInHand(hand).isEmpty() && this.canRide(player) && !this.isVehicle()) {
-                player.startRiding(this, true);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-
             //GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
@@ -312,7 +305,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     //Custom camera offset
 
     @Override
-    protected boolean canRide(@NonNull Entity entity) {
+    public boolean canRide(@NonNull Entity entity) {
         return entity instanceof Player player
                 && this.isTamed()
                 && player.getUUID().equals(this.owner);

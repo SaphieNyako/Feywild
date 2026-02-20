@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class EntityWidget extends AbstractWidget {
 
-    public static final int WIDTH = 64;
-    public static final int HEIGHT = 64;
+    public static final int WIDTH = 84;
+    public static final int HEIGHT = 104;
 
     private final LivingEntity entity;
     public EntityWidget(int x, int y, LivingEntity entity) {
@@ -21,12 +21,12 @@ public class EntityWidget extends AbstractWidget {
 
     @Override
     public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        double scale = ((double) this.height / this.entity.getType().getHeight()) * 1.5;
+        double scale = ((double) this.height / this.entity.getType().getHeight());
 
         int x1 = this.getX();
         int y1 = this.getY();
         int x2 = x1 + (this.width * 2);
-        int y2 = y1 + this.height + (int) (scale);
+        int y2 = y1 + this.height + 30 + (int) (scale);
 
         float yOffset = 0f;
 
