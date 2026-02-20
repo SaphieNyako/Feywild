@@ -13,9 +13,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PINK_MUSHROOM_PLACED_KEY = registerKey("pink_mushroom_placed");
     public static final ResourceKey<PlacedFeature> FEY_GEM_ORE_PLACED_KEY = registerKey("fey_gem_ore_placed");
 
-    public static final ResourceKey<PlacedFeature> AUTUMN_TREE_PLACED_KEY = registerKey("autumn_tree_placed");
+  //  public static final ResourceKey<PlacedFeature> AUTUMN_TREE_PLACED_KEY = registerKey("autumn_tree_placed");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -51,10 +49,16 @@ public class ModPlacedFeatures {
 
         register(context, FEY_GEM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.FEY_GEM_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(9, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(32))));
+ /*
+        register(context, AUTUMN_TREE_PLACED_KEY,
+                configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.05f, 1),
+                        ModBlocks.AUTUMN_TREE_SAPLING.get())
+        );
 
         register(context, AUTUMN_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2),
-                        ModBlocks.AUTUMN_TREE_SAPLING.get()));
+                        ModBlocks.AUTUMN_TREE_SAPLING.get())); */
     }
 
 

@@ -25,6 +25,7 @@ import com.saphienyako.feywild.screen.BellsnickelScreen;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import com.saphienyako.feywild.worldgen.ModFeatures;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -74,6 +75,7 @@ public class Feywild
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new ModEventListener());

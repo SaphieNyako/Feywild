@@ -335,7 +335,7 @@ public class ModBlocks {
     //WOOD, PLANKS AND LOGS
     //AUTUMN
     public static final DeferredBlock<Block> AUTUMN_TREE_SAPLING = registerBlock("autumn_tree_sapling",
-            () -> new FeySaplingBlock(AutumnTreeGrower.AUTUMN_TREE_GROWER, BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
     //TODO SAPLING GROWER
     public static final DeferredBlock<Block> AUTUMN_TREE_LOG = registerBlock("autumn_tree_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
