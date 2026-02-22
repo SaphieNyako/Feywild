@@ -88,7 +88,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 120)
                 .add(Attributes.MOVEMENT_SPEED, 0.15)
-                .add(Attributes.JUMP_STRENGTH, 1.7)
+                .add(Attributes.JUMP_STRENGTH, 1.5)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2.0)
                 .add(Attributes.ATTACK_DAMAGE, 15)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)

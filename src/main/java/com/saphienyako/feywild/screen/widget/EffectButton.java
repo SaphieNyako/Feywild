@@ -37,6 +37,7 @@ public class EffectButton extends Button {
     @Override
     public void onPress() {
         PacketDistributor.sendToServer(new GivePlayerEffectMessage(ModEffects.AUTUMN_TREE_ENT_PROTECTION.getId(), 18000, 1));
+        //TODO different ent different blessing
         this.screen.onClose();
     }
 

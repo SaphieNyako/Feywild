@@ -1,18 +1,21 @@
 package com.saphienyako.feywild.worldgen;
 
 import com.mojang.serialization.Codec;
+import com.saphienyako.feywild.Feywild;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 public class StructureFeature extends Feature<NoneFeatureConfiguration> {
     private final ResourceLocation structureLocation;
@@ -23,20 +26,41 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration>context) {
-        ServerLevel level = context.level().getLevel();
-        BlockPos pos = context.origin();
-        RandomSource random = context.random();
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+        StructureTemplateManager manager = context.level().getLevel().getStructureManager();
+        StructureTemplate template = manager.get(structureLocation).orElse(null);
 
-        StructureTemplate template = level.getStructureManager().get(structureLocation).orElse(null);
-        if (template == null) return false;
+        Feywild.LOGGER.info("Template loaded: {}", template != null);
+
+        if (template == null) {
+            Feywild.LOGGER.error("Structure not found: {}", structureLocation);
+            return false;
+        }
+
+        Rotation rotation = Rotation.getRandom(context.random());
+        Mirror mirror = Mirror.NONE;
 
         StructurePlaceSettings settings = new StructurePlaceSettings()
-                .setIgnoreEntities(true)
-                .setRotation(Rotation.values()[random.nextInt(Rotation.values().length)])
-                .setMirror(Mirror.values()[random.nextInt(Mirror.values().length)])
-                .setRandom(random);
+                .setRotation(rotation)
+                .setMirror(mirror)
+                .setIgnoreEntities(false);
 
-        return template.placeInWorld(level, pos, pos, settings, random, 2);
+        Vec3i size = template.getSize(rotation);
+        BlockPos placementPos = context.origin().offset(
+                -size.getX() / 2,
+                0,
+                -size.getZ() / 2
+        );
+
+        template.placeInWorld(
+                context.level(),
+                placementPos,
+                placementPos,
+                settings,
+                context.random(),
+                2
+        );
+
+        return true;
     }
 }

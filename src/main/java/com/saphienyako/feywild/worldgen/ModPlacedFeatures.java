@@ -3,6 +3,7 @@ package com.saphienyako.feywild.worldgen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -11,7 +12,11 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
@@ -28,7 +33,7 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PINK_MUSHROOM_PLACED_KEY = registerKey("pink_mushroom_placed");
     public static final ResourceKey<PlacedFeature> FEY_GEM_ORE_PLACED_KEY = registerKey("fey_gem_ore_placed");
 
-  //  public static final ResourceKey<PlacedFeature> AUTUMN_TREE_PLACED_KEY = registerKey("autumn_tree_placed");
+    public static final ResourceKey<PlacedFeature> AUTUMN_TREE_PLACED_KEY = registerKey("autumn_tree_placed");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -49,13 +54,21 @@ public class ModPlacedFeatures {
 
         register(context, FEY_GEM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.FEY_GEM_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(9, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(32))));
- /*
+
         register(context, AUTUMN_TREE_PLACED_KEY,
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.05f, 1),
-                        ModBlocks.AUTUMN_TREE_SAPLING.get())
+                List.of(
+                        RarityFilter.onAverageOnceEvery(6),
+                        InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE),
+                        BlockPredicateFilter.forPredicate(
+                                BlockPredicate.matchesBlocks(
+                                        BlockPos.ZERO.below(),
+                                        Blocks.GRASS_BLOCK)),
+                        BiomeFilter.biome()
+                )
         );
-
+/*
         register(context, AUTUMN_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2),
                         ModBlocks.AUTUMN_TREE_SAPLING.get())); */
