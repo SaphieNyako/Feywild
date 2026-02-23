@@ -19,14 +19,11 @@ public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
     protected void checkAndPerformAttack(LivingEntity target) {
         if (this.isTimeToAttack() && this.canTreeEntAttack(target)) {
             this.resetAttackCooldown();
-
+            entity.playSound(entity.getAttackingSound(), 0.3f,1f);
             this.mob.doHurtTarget(target);
         }
     }
 
-    /**
-     * Replacement for vanilla canPerformAttack (reach logic)
-     */
     protected boolean canTreeEntAttack(LivingEntity target) {
         double distSqr = this.mob.distanceToSqr(target);
         double reachSqr = this.getTreeEntAttackReachSqr(target);

@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity.base;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
+import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
 import com.saphienyako.feywild.entity.goals.TameCheckingGoal;
 import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMeleeAttackGoal;
 import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMoveAndSoundGoal;
@@ -9,6 +10,7 @@ import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntResetTargetGoa
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,7 +27,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -64,6 +66,18 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     private boolean isJumping;
     protected float playerJumpPendingScale;
 
+    private int walkingSoundCooldown = 0;
+
+    private static final SoundEvent[] STORIES = new SoundEvent[] {
+            ModSounds.TREE_ENT_STORY_01.get(),
+            ModSounds.TREE_ENT_STORY_02.get(),
+            ModSounds.TREE_ENT_STORY_03.get(),
+            ModSounds.TREE_ENT_STORY_04.get(),
+            ModSounds.TREE_ENT_STORY_05.get(),
+            ModSounds.TREE_ENT_STORY_06.get()
+    };
+
+
     public TreeEntBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
@@ -72,16 +86,19 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-        super.registerGoals();
-        this.registerGroundGoals(this);
+       // super.registerGoals();
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
-
         this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 2.0D, true));
-        this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 0.5D));
+        this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 1.0D));
         this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(TreeEntBase.class));
         this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
         this.targetSelector.addGoal(3, new TreeEntResetTargetGoal<>(this));
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0D, 8));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+      //  this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, this.getTargetPositionSpeed()));
+        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -214,54 +231,8 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
         if (superResult == InteractionResult.PASS) {
-            //GIVE COOKIE, HEAL
-            if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
-                this.heal(3);
-                if (!level().isClientSide) {
-                    player.sendSystemMessage(getFeyNameMessage());
-                    if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getCookieSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
-                    }
-                }
-                if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
-                    Random random = new Random();
-                    if (random.nextInt(6) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
-                        this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                        if(FeywildConfig.voicesActive) {
-                            serverPlayer.playNotifySound(
-                                    this.getDismissSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
-                        }
-                        this.discard();
-                        player.sendSystemMessage(getFeyCookieMessage());
-                    }
-                }
-                if (!player.isCreative()) {
-                    player.getItemInHand(hand).shrink(1);
-                }
-                if (!level().isClientSide) {
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            this,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.FEY_HEART,
-                                    this.getOnPos()
-                            )
-                    );
-                }
-
-                player.swing(hand, true);
-
-                //NAME TAG
-            } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
+            //NAME
+            if  (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
                 if (!level().isClientSide) {
@@ -296,13 +267,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
             return superResult;
         }
     }
-
-    //MOUNTABLE
-
-    //TODO Tree Ent jumping
-    //TODO Multiple passengers
-    //TODO Attack abilities while mounted
-    //Custom camera offset
 
     @Override
     public boolean canRide(@NonNull Entity entity) {
@@ -371,6 +335,10 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     protected void tickRidden(@NonNull Player player,@NonNull Vec3 movementInput) {
         super.tickRidden(player, movementInput);
 
+        if (walkingSoundCooldown > 0) {
+            walkingSoundCooldown--;
+        }
+
         if (this.isControlledByLocalInstance()) {
             if (this.onGround()) {
                 this.setIsJumping(false);
@@ -437,10 +405,17 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
     @Override
     public void playStepSound(@Nonnull BlockPos pos,@Nonnull BlockState state) {
-        if (!this.isVehicle() || !(this.getControllingPassenger() instanceof Player)) {
-          //TODO play walking Sound
+        if (this.isVehicle() && this.getControllingPassenger() instanceof Player player) {
+            if (walkingSoundCooldown <= 0) {
+                this.playSound(ModSounds.TREE_ENT_WALKING.get(), 0.1f, 1.0f);
+                walkingSoundCooldown = 88; // ~4 seconds
+            }
         }
     }
+
+    public SoundEvent getWalkingSound() {return ModSounds.TREE_ENT_WALKING.get();}
+    public SoundEvent getAttackingSound() {return ModSounds.TREE_ENT_ATTACKING.get();}
+    public SoundEvent getBlessingSound() {return ModSounds.TREE_ENT_BLESSING.get();}
 
     @Override
     public SoundEvent getCookieSound() {
@@ -449,27 +424,27 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
     @Override
     public SoundEvent getNameSound() {
-        return null;
+        return ModSounds.TREE_ENT_NAME.get();
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.TREE_ENT_SUMMON.get();
     }
 
     @Override
     public SoundEvent getDismissSound() {
-        return null;
+        return ModSounds.TREE_ENT_DISMISS.get();
     }
 
     @Override
     public SoundEvent getFollowSound() {
-        return null;
+        return ModSounds.TREE_ENT_MOUNT.get();
     }
 
     @Override
     public SoundEvent getStaySound() {
-        return null;
+        return ModSounds.TREE_ENT_STAY.get();
     }
 
     @Override
@@ -485,30 +460,28 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@Nonnull DamageSource source) {
-        return null;
-        //return ModSounds.TREE_ENT_HURT.get();
+        return ModSounds.TREE_ENT_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return null;
-      //  return ModSounds.TREE_ENT_DEATH.get();
+        return ModSounds.TREE_ENT_DEATH.get();
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
-        /*
-        Random random = new Random();
-        if (random.nextFloat() < 0.1f) {
-            if(random.nextInt(2) == 0) return ModSounds.TREE_ENT_AMBIANCE_02.get();
-            else return ModSounds.TREE_ENT_AMBIANCE_01.get();
-        } else return null;
-
-         */
+        if(this.isVehicle() && this.getControllingPassenger() instanceof Player) {
+            Random random = new Random();
+                return STORIES[random.nextInt(STORIES.length)]; //TODO make goal if vehicle tell a story and tell it on player side.
+        } else
+            return ModSounds.TREE_ENT_AMBIANCE.get();
     }
-    
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 600; //YES THIS IS A THING T_T
+    }
 
     public TreeEntBase.State getState() {
         TreeEntBase.State[] states = TreeEntBase.State.values();

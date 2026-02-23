@@ -534,5 +534,107 @@
     "sounds": [
       "feywild:bellsnickel_trade"
     ]
+  },
+  "tree_ent_ambiance": {
+    "subtitles": "message.feywild.tree_ent_ambiance",
+    "sounds": [
+      "feywild:tree_ent_ambiance"
+    ]
+  },
+  "tree_ent_hurt": {
+    "subtitles": "sounds.feywild.tree_ent_hurt",
+    "sounds": [
+      "feywild:tree_ent_hurt"
+    ]
+  },
+  "tree_ent_death": {
+    "subtitles": "sounds.feywild.tree_ent_death",
+    "sounds": [
+      "feywild:tree_ent_death"
+    ]
+  },
+  "tree_ent_attacking": {
+    "subtitles": "message.feywild.tree_ent_attacking",
+    "sounds": [
+      "feywild:tree_ent_attacking"
+    ]
+  },
+  "tree_ent_name": {
+    "subtitles": "message.feywild.tree_ent_name",
+    "sounds": [
+      "feywild:tree_ent_name"
+    ]
+  },
+  "tree_ent_summon": {
+    "subtitles": "message.feywild.tree_ent_summon",
+    "sounds": [
+      "feywild:tree_ent_summon"
+    ]
+  },
+  "tree_ent_dismiss": {
+    "subtitles": "message.feywild.tree_ent_dismiss",
+    "sounds": [
+      "feywild:tree_ent_dismiss"
+    ]
+  },
+  "tree_ent_mount": {
+    "subtitles": "message.feywild.tree_ent_mount",
+    "sounds": [
+      "feywild:tree_ent_mount"
+    ]
+  },
+  "tree_ent_stay": {
+    "subtitles": "message.feywild.tree_ent_stay",
+    "sounds": [
+      "feywild:tree_ent_stay"
+    ]
+  },
+  "tree_ent_blessing": {
+    "subtitles": "message.feywild.tree_ent_blessing",
+    "sounds": [
+      "feywild:tree_ent_blessing"
+    ]
+  },
+  "tree_ent_walking": {
+    "subtitles": "message.feywild.tree_ent_walking",
+    "sounds": [
+      "feywild:tree_ent_walking"
+    ]
+  },
+  "tree_ent_story_01": {
+    "subtitles": "message.feywild.tree_ent_story_01",
+    "sounds": [
+      "feywild:tree_ent_story_01"
+    ]
+  },
+  "tree_ent_story_02": {
+    "subtitles": "message.feywild.tree_ent_story_02",
+    "sounds": [
+      "feywild:tree_ent_story_02"
+    ]
+  },
+  "tree_ent_story_03": {
+    "subtitles": "message.feywild.tree_ent_story_03",
+    "sounds": [
+      "feywild:tree_ent_story_03"
+    ]
+  },
+  "tree_ent_story_04": {
+    "subtitles": "message.feywild.tree_ent_story_04",
+    "sounds": [
+      "feywild:tree_ent_story_04"
+    ]
+  },
+  "tree_ent_story_05": {
+    "subtitles": "message.feywild.tree_ent_story_05",
+    "sounds": [
+      "feywild:tree_ent_story_05"
+    ]
+  },
+  "tree_ent_story_06": {
+    "subtitles": "message.feywild.tree_ent_story_06",
+    "sounds": [
+      "feywild:tree_ent_story_06"
+    ]
   }
 }

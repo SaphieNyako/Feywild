@@ -116,7 +116,26 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BELLSNICKEL_STAY_02 = registerSoundEvent("bellsnickel_stay_02");
     public static final Supplier<SoundEvent> BELLSNICKEL_CARRY_STUFF = registerSoundEvent("bellsnickel_carry_stuff");
     public static final Supplier<SoundEvent> BELLSNICKEL_TRADE = registerSoundEvent("bellsnickel_trade");
-    
+
+
+
+    public static final Supplier<SoundEvent> TREE_ENT_AMBIANCE = registerSoundEvent("tree_ent_ambiance");
+    public static final Supplier<SoundEvent> TREE_ENT_HURT = registerSoundEvent("tree_ent_hurt");
+    public static final Supplier<SoundEvent> TREE_ENT_DEATH = registerSoundEvent("tree_ent_death");
+    public static final Supplier<SoundEvent> TREE_ENT_NAME = registerSoundEvent("tree_ent_name");
+    public static final Supplier<SoundEvent> TREE_ENT_SUMMON = registerSoundEvent("tree_ent_summon");
+    public static final Supplier<SoundEvent> TREE_ENT_DISMISS = registerSoundEvent("tree_ent_dismiss");
+    public static final Supplier<SoundEvent> TREE_ENT_MOUNT = registerSoundEvent("tree_ent_mount");
+    public static final Supplier<SoundEvent> TREE_ENT_STAY = registerSoundEvent("tree_ent_stay");
+    public static final Supplier<SoundEvent> TREE_ENT_WALKING = registerSoundEvent("tree_ent_walking");
+    public static final Supplier<SoundEvent> TREE_ENT_BLESSING = registerSoundEvent("tree_ent_blessing");
+    public static final Supplier<SoundEvent> TREE_ENT_ATTACKING = registerSoundEvent("tree_ent_attacking");
+    public static final Supplier<SoundEvent> TREE_ENT_STORY_01 = registerSoundEvent("tree_ent_story_01");
+    public static final Supplier<SoundEvent> TREE_ENT_STORY_02 = registerSoundEvent("tree_ent_story_02");
+    public static final Supplier<SoundEvent> TREE_ENT_STORY_03 = registerSoundEvent("tree_ent_story_03");
+    public static final Supplier<SoundEvent> TREE_ENT_STORY_04 = registerSoundEvent("tree_ent_story_04");
+    public static final Supplier<SoundEvent> TREE_ENT_STORY_05 = registerSoundEvent("tree_ent_story_05");
+    public static final Supplier<SoundEvent> TREE_ENT_STORY_06 = registerSoundEvent("tree_ent_story_06");
 
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));

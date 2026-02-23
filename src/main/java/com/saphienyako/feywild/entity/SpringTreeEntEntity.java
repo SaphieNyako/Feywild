@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.TreeEntBase;
+import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.entity.EntityType;
@@ -28,7 +29,6 @@ public class SpringTreeEntEntity extends TreeEntBase {
 
     @Override
     public ItemLike getDismissItem() {
-        //TODO add mapping
-        return null;
+        return ModItems.SUMMONING_SCROLL_SPRING_TREE_ENT.get();
     }
 }

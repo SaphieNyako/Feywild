@@ -1,11 +1,13 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -40,6 +42,16 @@ public record MountTreeEntMessage(int entityId) implements CustomPacketPayload {
 
                     if (treeEnt.canRide(player) && !treeEnt.isVehicle()) {
                         player.startRiding(treeEnt, true);
+                    }
+                    if(FeywildConfig.voicesActive && treeEnt.getVoiceActive()) {
+                        level.playSound(
+                                null,
+                                treeEnt.blockPosition(),
+                                treeEnt.getFollowSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 }
             }
