@@ -4,6 +4,7 @@ package com.saphienyako.feywild.worldgen;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -60,11 +61,24 @@ public class ModPlacedFeatures {
                 List.of(
                         RarityFilter.onAverageOnceEvery(6),
                         InSquarePlacement.spread(),
-                        HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE),
+
+                        // Choose a sane Y-level
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+
+                        // Ensure the sapling could actually survive here (CRITICAL)
+                        PlacementUtils.filteredByBlockSurvival(ModBlocks.AUTUMN_TREE_SAPLING.get()),
+
+                        // Prevent water / shore placement
+                        SurfaceWaterDepthFilter.forMaxDepth(0),
+
+                        // Prevent steep slopes / ledges
                         BlockPredicateFilter.forPredicate(
-                                BlockPredicate.matchesBlocks(
-                                        BlockPos.ZERO.below(),
-                                        Blocks.GRASS_BLOCK)),
+                                BlockPredicate.allOf(
+                                        BlockPredicate.solid(BlockPos.ZERO.below()),
+                                        BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP)
+                                )
+                        ),
+
                         BiomeFilter.biome()
                 )
         );

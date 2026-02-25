@@ -2,10 +2,14 @@ package com.saphienyako.feywild.block.trees;
 
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.worldgen.processor.FeyTreeProcessor;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -14,12 +18,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
-import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FeySaplingBlock extends BushBlock implements BonemealableBlock {
 
-    public static final ResourceLocation STRUCTURE =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree");
+    private static final List<ResourceLocation> TREES = new ArrayList<>();
+    static {
+        for (int i = 0; i <= 4; i++) {
+            TREES.add(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_tree_" + i));
+        }
+    }
 
     public FeySaplingBlock(Properties properties) {
         super(properties);
@@ -46,24 +56,69 @@ public class FeySaplingBlock extends BushBlock implements BonemealableBlock {
     }
 
     private void growStructure(ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!canGrow(level, pos, 2, 6)) {
+            sendPixieMessage(level, pos);
+            return;
+        }
         StructureTemplateManager manager = level.getStructureManager();
-        StructureTemplate template = manager.get(STRUCTURE).orElse(null);
 
-        Feywild.LOGGER.info("Template loaded: {}", template != null);
+        ResourceLocation structureLocation = TREES.get(random.nextInt(TREES.size()));
+        StructureTemplate template = manager.get(structureLocation).orElse(null);
 
         if (template == null) {
-            Feywild.LOGGER.error("Structure not found: {}", STRUCTURE);
+            Feywild.LOGGER.error("Structure not found: {}", structureLocation);
             return;
         }
 
-        BlockPos newPos = new BlockPos(pos.getX()-1, pos.getY(), pos.getZ()-1);
-
         StructurePlaceSettings settings = new StructurePlaceSettings()
                 .setIgnoreEntities(true)
-                .setRotation(Rotation.NONE)
-                .setMirror(Mirror.NONE)
-                .setRotationPivot(pos);
+                .addProcessor(FeyTreeProcessor.INSTANCE);
 
-        template.placeInWorld(level, newPos, newPos, settings, random, Block.UPDATE_ALL);
+        Vec3i size = template.getSize();
+
+        int halfX = size.getX() / 2;
+        int halfZ = size.getZ() / 2;
+
+        BlockPos placementPos = pos.offset(-halfX + 1, 0, -halfZ + 1);
+
+        template.placeInWorld(level, placementPos, placementPos, settings, random, Block.UPDATE_ALL);
     }
+
+    private boolean canGrow(ServerLevel level, BlockPos origin, int radius, int height) {
+        BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
+                for (int dy = 0; dy <= height; dy++) {
+                    cursor.set(origin.getX() + dx, origin.getY() + dy, origin.getZ() + dz);
+
+                    BlockState state = level.getBlockState(cursor);
+
+                    // Skip the sapling itself
+                    if (cursor.equals(origin)) {
+                        continue;
+                    }
+                    if (!state.isAir() && !state.canBeReplaced()) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private void sendPixieMessage(ServerLevel level, BlockPos pos) {
+        if (!(level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5.0, false) instanceof ServerPlayer player)) {
+            return;
+        }
+
+        player.displayClientMessage(
+                Component.literal("[A Pixie whispers] ")
+                        .withStyle(ChatFormatting.LIGHT_PURPLE)
+                        .append(Component.literal("This little Sapling needs more room to grow!").withStyle(ChatFormatting.ITALIC)),
+                true // actionbar; set false for chat
+        );
+    }
+
 }

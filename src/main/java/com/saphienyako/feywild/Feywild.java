@@ -10,7 +10,6 @@ import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
-import com.saphienyako.feywild.entity.base.TreeEntCameraHandler;
 import com.saphienyako.feywild.entity.model.*;
 import com.saphienyako.feywild.entity.renderer.*;
 import com.saphienyako.feywild.events.ModEventListener;
@@ -25,7 +24,8 @@ import com.saphienyako.feywild.screen.BellsnickelScreen;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
-import com.saphienyako.feywild.worldgen.ModFeatures;
+import com.saphienyako.feywild.worldgen.features.ModFeatures;
+import com.saphienyako.feywild.worldgen.processor.FeywildProcessors;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -75,7 +75,9 @@ public class Feywild
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
+
         ModFeatures.FEATURES.register(modEventBus);
+        FeywildProcessors.PROCESSORS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new ModEventListener());

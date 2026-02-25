@@ -1,4 +1,4 @@
-package com.saphienyako.feywild.worldgen;
+package com.saphienyako.feywild.worldgen.features;
 
 import com.saphienyako.feywild.Feywild;
 import net.minecraft.core.registries.Registries;
@@ -14,9 +14,5 @@ public class ModFeatures {
 
     public static final DeferredHolder<Feature<?>, StructureFeature> AUTUMN_TREE =
             FEATURES.register("autumn_tree",
-                    () -> new StructureFeature(
-                            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree"),
-                            NoneFeatureConfiguration.CODEC
-                    )
-            );
+                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC));
 }
