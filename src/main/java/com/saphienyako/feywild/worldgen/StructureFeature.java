@@ -30,7 +30,7 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
         StructureTemplateManager manager = context.level().getLevel().getStructureManager();
         StructureTemplate template = manager.get(structureLocation).orElse(null);
 
-        Feywild.LOGGER.info("Template loaded: {}", template != null);
+   //     Feywild.LOGGER.info("Template loaded: {}", template != null);
 
         if (template == null) {
             Feywild.LOGGER.error("Structure not found: {}", structureLocation);
@@ -43,6 +43,7 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
         StructurePlaceSettings settings = new StructurePlaceSettings()
                 .setRotation(rotation)
                 .setMirror(mirror)
+              //  .addProcessor() TODO add processor
                 .setIgnoreEntities(false);
 
         Vec3i size = template.getSize(rotation);

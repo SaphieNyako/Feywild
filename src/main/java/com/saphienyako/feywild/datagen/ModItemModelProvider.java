@@ -44,6 +44,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.GIANT_SUN_FLOWER_SEED.get());
 
         saplingItem(ModBlocks.AUTUMN_TREE_SAPLING);
+        saplingItem(ModBlocks.SPRING_TREE_SAPLING);
+        saplingItem(ModBlocks.SUMMER_TREE_SAPLING);
+        saplingItem(ModBlocks.WINTER_TREE_SAPLING);
     }
 
     private ItemModelBuilder saplingItem(DeferredBlock<Block> item) {

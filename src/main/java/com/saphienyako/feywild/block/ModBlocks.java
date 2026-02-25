@@ -9,7 +9,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -332,13 +334,15 @@ public class ModBlocks {
             () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
 
 
-    //WOOD, PLANKS AND LOGS
-    //AUTUMN
+
+    //AUTUMN WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> AUTUMN_TREE_SAPLING = registerBlock("autumn_tree_sapling",
             () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
-    //TODO SAPLING GROWER
     public static final DeferredBlock<Block> AUTUMN_TREE_LOG = registerBlock("autumn_tree_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_CRACKED_LOG = registerBlock("autumn_tree_cracked_log",
+    ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_LOG = registerBlock("autumn_tree_stripped_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
@@ -346,8 +350,25 @@ public class ModBlocks {
     public static final DeferredBlock<Block> AUTUMN_TREE_WOOD = registerBlock("autumn_tree_wood",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
 
+    public static final DeferredBlock<Block> AUTUMN_TREE_WOOD_SLAB = registerBlock("autumn_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_WOOD_STAIRS = registerBlock("autumn_tree_wood_stairs",
+            () -> new StairBlock(AUTUMN_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_WOOD_WALL = registerBlock("autumn_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
     public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_WOOD = registerBlock("autumn_tree_stripped_wood",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_WOOD_SLAB = registerBlock("autumn_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_WOOD_STAIRS = registerBlock("autumn_tree_stripped_wood_stairs",
+            () -> new StairBlock(AUTUMN_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_WOOD_WALL = registerBlock("autumn_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
 
     public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES = registerBlock("autumn_tree_leaves",
             () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
@@ -355,6 +376,226 @@ public class ModBlocks {
     public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS = registerBlock("autumn_tree_planks",
             () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_SLAB = registerBlock("autumn_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_STAIRS = registerBlock("autumn_tree_planks_stairs",
+            () -> new StairBlock(AUTUMN_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_FENCE = registerBlock("autumn_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_FENCE_GATE = registerBlock("autumn_tree_planks_fence_gate",
+            () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_DOOR = registerBlock("autumn_tree_planks_door",
+            () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_TRAPDOOR = registerBlock("autumn_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
+                            .noOcclusion()
+                            .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_PRESSURE_PLATE = registerBlock("autumn_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_BUTTON = registerBlock("autumn_tree_planks_button",
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+
+    //SPRING WOOD, PLANKS AND LOGS
+    public static final DeferredBlock<Block> SPRING_TREE_SAPLING = registerBlock("spring_tree_sapling",
+            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+    public static final DeferredBlock<Block> SPRING_TREE_LOG = registerBlock("spring_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_CRACKED_LOG = registerBlock("spring_tree_cracked_log",
+            ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_LOG = registerBlock("spring_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_WOOD = registerBlock("spring_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_WOOD_SLAB = registerBlock("spring_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_WOOD_STAIRS = registerBlock("spring_tree_wood_stairs",
+            () -> new StairBlock(SPRING_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_WOOD_WALL = registerBlock("spring_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_WOOD = registerBlock("spring_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_WOOD_SLAB = registerBlock("spring_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_WOOD_STAIRS = registerBlock("spring_tree_stripped_wood_stairs",
+            () -> new StairBlock(SPRING_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_WOOD_WALL = registerBlock("spring_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_LEAVES = registerBlock("spring_tree_leaves",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS = registerBlock("spring_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_SLAB = registerBlock("spring_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_STAIRS = registerBlock("spring_tree_planks_stairs",
+            () -> new StairBlock(SPRING_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_FENCE = registerBlock("spring_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_FENCE_GATE = registerBlock("spring_tree_planks_fence_gate",
+            () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_DOOR = registerBlock("spring_tree_planks_door",
+            () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_TRAPDOOR = registerBlock("spring_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_PRESSURE_PLATE = registerBlock("spring_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> SPRING_TREE_PLANKS_BUTTON = registerBlock("spring_tree_planks_button",
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+
+    //SUMMER WOOD, PLANKS AND LOGS
+    public static final DeferredBlock<Block> SUMMER_TREE_SAPLING = registerBlock("summer_tree_sapling",
+            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+    public static final DeferredBlock<Block> SUMMER_TREE_LOG = registerBlock("summer_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_CRACKED_LOG = registerBlock("summer_tree_cracked_log",
+            ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_LOG = registerBlock("summer_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_WOOD = registerBlock("summer_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_WOOD_SLAB = registerBlock("summer_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_WOOD_STAIRS = registerBlock("summer_tree_wood_stairs",
+            () -> new StairBlock(SUMMER_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_WOOD_WALL = registerBlock("summer_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_WOOD = registerBlock("summer_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_WOOD_SLAB = registerBlock("summer_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_WOOD_STAIRS = registerBlock("summer_tree_stripped_wood_stairs",
+            () -> new StairBlock(SUMMER_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_WOOD_WALL = registerBlock("summer_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_LEAVES = registerBlock("summer_tree_leaves",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS = registerBlock("summer_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_SLAB = registerBlock("summer_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_STAIRS = registerBlock("summer_tree_planks_stairs",
+            () -> new StairBlock(SUMMER_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_FENCE = registerBlock("summer_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_FENCE_GATE = registerBlock("summer_tree_planks_fence_gate",
+            () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_DOOR = registerBlock("summer_tree_planks_door",
+            () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_TRAPDOOR = registerBlock("summer_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_PRESSURE_PLATE = registerBlock("summer_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_BUTTON = registerBlock("summer_tree_planks_button",
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+
+    //SUMMER WOOD, PLANKS AND LOGS
+    public static final DeferredBlock<Block> WINTER_TREE_SAPLING = registerBlock("winter_tree_sapling",
+            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+    public static final DeferredBlock<Block> WINTER_TREE_LOG = registerBlock("winter_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_CRACKED_LOG = registerBlock("winter_tree_cracked_log",
+            ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_LOG = registerBlock("winter_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_WOOD = registerBlock("winter_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_WOOD_SLAB = registerBlock("winter_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_WOOD_STAIRS = registerBlock("winter_tree_wood_stairs",
+            () -> new StairBlock(WINTER_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_WOOD_WALL = registerBlock("winter_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_WOOD = registerBlock("winter_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_WOOD_SLAB = registerBlock("winter_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_WOOD_STAIRS = registerBlock("winter_tree_stripped_wood_stairs",
+            () -> new StairBlock(WINTER_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_WOOD_WALL = registerBlock("winter_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_LEAVES = registerBlock("winter_tree_leaves",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS = registerBlock("winter_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_SLAB = registerBlock("winter_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_STAIRS = registerBlock("winter_tree_planks_stairs",
+            () -> new StairBlock(WINTER_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_FENCE = registerBlock("winter_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_FENCE_GATE = registerBlock("winter_tree_planks_fence_gate",
+            () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_DOOR = registerBlock("winter_tree_planks_door",
+            () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_TRAPDOOR = registerBlock("winter_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_PRESSURE_PLATE = registerBlock("winter_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> WINTER_TREE_PLANKS_BUTTON = registerBlock("winter_tree_planks_button",
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+
+    
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

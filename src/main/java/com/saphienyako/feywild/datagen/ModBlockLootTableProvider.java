@@ -166,16 +166,104 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         this.dropSelf(ModBlocks.AUTUMN_TREE_LOG.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_CRACKED_LOG.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_WALL.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
-
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE.get());
+        // this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_DOOR.get()); doors need manual loot table otherwise they drop 2
+        //exclude below
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_SAPLING.get());
-
         this.add(ModBlocks.AUTUMN_TREE_LEAVES.get(), block ->
                 createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-        //TODO custumn drops
+
+        this.dropSelf(ModBlocks.SPRING_TREE_LOG.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_CRACKED_LOG.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE.get());
+        // this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_DOOR.get()); doors need manual loot table otherwise they drop 2
+        //exclude below
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_SAPLING.get());
+        this.add(ModBlocks.SPRING_TREE_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+
+        this.dropSelf(ModBlocks.SUMMER_TREE_LOG.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_CRACKED_LOG.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE.get());
+        // this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_DOOR.get()); doors need manual loot table otherwise they drop 2
+        //exclude below
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_SAPLING.get());
+        this.add(ModBlocks.SUMMER_TREE_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+
+        this.dropSelf(ModBlocks.WINTER_TREE_LOG.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_CRACKED_LOG.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE.get());
+        // this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_DOOR.get()); doors need manual loot table otherwise they drop 2
+        //exclude below
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_SAPLING.get());
+        this.add(ModBlocks.WINTER_TREE_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
     }
 
@@ -198,7 +286,11 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             ModBlocks.GIANT_SUN_FLOWER.get(),
             ModBlocks.GIANT_CROCUS_FLOWER.get(),
             ModBlocks.GIANT_DANDELION_FLOWER.get(),
-            ModBlocks.FEY_ALTAR.get()
+            ModBlocks.FEY_ALTAR.get(),
+            ModBlocks.AUTUMN_TREE_PLANKS_DOOR.get(),
+            ModBlocks.SPRING_TREE_PLANKS_DOOR.get(),
+            ModBlocks.SUMMER_TREE_PLANKS_DOOR.get(),
+            ModBlocks.WINTER_TREE_PLANKS_DOOR.get()
     );
 
     @Override
