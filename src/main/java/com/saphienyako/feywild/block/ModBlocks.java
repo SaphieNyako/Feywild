@@ -337,7 +337,7 @@ public class ModBlocks {
 
     //AUTUMN WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> AUTUMN_TREE_SAPLING = registerBlock("autumn_tree_sapling",
-            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+            () -> new AutumnTreeSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
     public static final DeferredBlock<Block> AUTUMN_TREE_LOG = registerBlock("autumn_tree_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
@@ -402,7 +402,7 @@ public class ModBlocks {
 
     //SPRING WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> SPRING_TREE_SAPLING = registerBlock("spring_tree_sapling",
-            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+            () -> new SpringTreeSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
     public static final DeferredBlock<Block> SPRING_TREE_LOG = registerBlock("spring_tree_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
@@ -467,7 +467,7 @@ public class ModBlocks {
 
     //SUMMER WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> SUMMER_TREE_SAPLING = registerBlock("summer_tree_sapling",
-            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+            () -> new SummerTreeSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
     public static final DeferredBlock<Block> SUMMER_TREE_LOG = registerBlock("summer_tree_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
@@ -530,9 +530,9 @@ public class ModBlocks {
     public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_BUTTON = registerBlock("summer_tree_planks_button",
             () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
 
-    //SUMMER WOOD, PLANKS AND LOGS
+    //WINTER WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> WINTER_TREE_SAPLING = registerBlock("winter_tree_sapling",
-            () -> new FeySaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
+            () -> new WinterTreeSaplingBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_OAK_SAPLING)));
     public static final DeferredBlock<Block> WINTER_TREE_LOG = registerBlock("winter_tree_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 

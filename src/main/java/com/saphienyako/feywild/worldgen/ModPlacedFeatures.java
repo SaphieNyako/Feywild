@@ -33,8 +33,10 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> PURPLE_MUSHROOM_PLACED_KEY = registerKey("purple_mushroom_placed");
     public static final ResourceKey<PlacedFeature> PINK_MUSHROOM_PLACED_KEY = registerKey("pink_mushroom_placed");
     public static final ResourceKey<PlacedFeature> FEY_GEM_ORE_PLACED_KEY = registerKey("fey_gem_ore_placed");
-
     public static final ResourceKey<PlacedFeature> AUTUMN_TREE_PLACED_KEY = registerKey("autumn_tree_placed");
+    public static final ResourceKey<PlacedFeature> SPRING_TREE_PLACED_KEY = registerKey("spring_tree_placed");
+    public static final ResourceKey<PlacedFeature> SUMMER_TREE_PLACED_KEY = registerKey("summer_tree_placed");
+    public static final ResourceKey<PlacedFeature> WINTER_TREE_PLACED_KEY = registerKey("winter_tree_placed");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -56,60 +58,69 @@ public class ModPlacedFeatures {
         register(context, FEY_GEM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.FEY_GEM_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(9, HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.aboveBottom(32))));
 
-        register(context, AUTUMN_TREE_PLACED_KEY,
-                configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
-                List.of(
-                        RarityFilter.onAverageOnceEvery(6),
-                        InSquarePlacement.spread(),
-
-                        // Choose a sane Y-level
-                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
-
-                        // Ensure the sapling could actually survive here (CRITICAL)
-                        PlacementUtils.filteredByBlockSurvival(ModBlocks.AUTUMN_TREE_SAPLING.get()),
-
-                        // Prevent water / shore placement
-                        SurfaceWaterDepthFilter.forMaxDepth(0),
-
-                        // Prevent steep slopes / ledges
-                        BlockPredicateFilter.forPredicate(
-                                BlockPredicate.allOf(
-                                        BlockPredicate.solid(BlockPos.ZERO.below()),
-                                        BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP)
-                                )
-                        ),
-
-                        BiomeFilter.biome()
-                )
-        );
-/*
         register(context, AUTUMN_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2),
-                        ModBlocks.AUTUMN_TREE_SAPLING.get())); */
+                List.of(
+                        RarityFilter.onAverageOnceEvery(8),
+                        InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), //Y-level
+                        PlacementUtils.filteredByBlockSurvival(ModBlocks.AUTUMN_TREE_SAPLING.get()), //Survive
+                        SurfaceWaterDepthFilter.forMaxDepth(0),  // Prevent water / shore placement
+                        BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                                        BlockPredicate.solid(BlockPos.ZERO.below()),
+                                        BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP))),  // Prevent steep slopes / ledges
+                        BiomeFilter.biome())
+        );
+
+        register(context, SPRING_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SPRING_TREE_KEY),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(8),
+                        InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                        PlacementUtils.filteredByBlockSurvival(ModBlocks.SPRING_TREE_SAPLING.get()),
+                        SurfaceWaterDepthFilter.forMaxDepth(0),
+                        BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                                BlockPredicate.solid(BlockPos.ZERO.below()),
+                                BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP))),
+                        BiomeFilter.biome())
+        );
+
+        register(context, SUMMER_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SUMMER_TREE_KEY),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(8),
+                        InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                        PlacementUtils.filteredByBlockSurvival(ModBlocks.SUMMER_TREE_SAPLING.get()),
+                        SurfaceWaterDepthFilter.forMaxDepth(0),
+                        BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                                BlockPredicate.solid(BlockPos.ZERO.below()),
+                                BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP))),
+                        BiomeFilter.biome())
+        );
+
+        register(context, WINTER_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.WINTER_TREE_KEY),
+                List.of(
+                        RarityFilter.onAverageOnceEvery(8),
+                        InSquarePlacement.spread(),
+                        HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                        PlacementUtils.filteredByBlockSurvival(ModBlocks.WINTER_TREE_SAPLING.get()),
+                        SurfaceWaterDepthFilter.forMaxDepth(0),
+                        BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                                BlockPredicate.solid(BlockPos.ZERO.below()),
+                                BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP))),
+                        BiomeFilter.biome())
+        );
     }
 
 
-    private static void registerMushroomPlaced(
-            BootstrapContext<PlacedFeature> context,
-            ResourceKey<PlacedFeature> placedKey,
-            ResourceKey<ConfiguredFeature<?, ?>> configuredKey
-    ) {
-        Holder<ConfiguredFeature<?, ?>> configured =
-                context.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredKey);
-
-        context.register(
-                placedKey,
-                new PlacedFeature(configured, List.of())
-        );
+    private static void registerMushroomPlaced(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> placedKey, ResourceKey<ConfiguredFeature<?, ?>> configuredKey) {
+        Holder<ConfiguredFeature<?, ?>> configured = context.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(configuredKey);
+        context.register(placedKey, new PlacedFeature(configured, List.of()));
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }
-    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,
-                                 List<PlacementModifier> modifiers) {
+    private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration, List<PlacementModifier> modifiers) {
         context.register(key, new PlacedFeature(configuration, List.copyOf(modifiers)));
     }
-
-
 }

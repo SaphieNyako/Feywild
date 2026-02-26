@@ -30,8 +30,10 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_MUSHROOM_KEY = registerKey("blue_mushroom_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PURPLE_MUSHROOM_KEY = registerKey("purple_mushroom_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PINK_MUSHROOM_KEY = registerKey("pink_mushroom_key");
-
     public static final ResourceKey<ConfiguredFeature<?, ?>> AUTUMN_TREE_KEY = registerKey("autumn_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_TREE_KEY = registerKey("spring_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SUMMER_TREE_KEY = registerKey("summer_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WINTER_TREE_KEY = registerKey("winter_tree");
 
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -66,17 +68,9 @@ public class ModConfiguredFeatures {
         register(context, FEY_GEM_ORE_KEY, Feature.ORE, new OreConfiguration(feyGemOres, 5));
 
         register(context, AUTUMN_TREE_KEY, ModFeatures.AUTUMN_TREE.get(), NoneFeatureConfiguration.INSTANCE);
-
-/*
-        TreeConfiguration config = new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(ModBlocks.AUTUMN_TREE_LOG.get()),
-                new DarkOakTrunkPlacer(6, 3, 1),  //FEYTRUNKPLACER
-                BlockStateProvider.simple(ModBlocks.AUTUMN_TREE_LEAVES.get()),
-                new DarkOakFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),  //new BlobFoliagePlacer(UniformInt.of(0, 0), UniformInt.of(0, 0), 0),
-                new TwoLayersFeatureSize(1, 0, 2)
-        ).ignoreVines().build();
-
-        register(context, AUTUMN_TREE_KEY, Feature.TREE, config); */
+        register(context, SPRING_TREE_KEY, ModFeatures.SPRING_TREE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, SUMMER_TREE_KEY, ModFeatures.SUMMER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, WINTER_TREE_KEY, ModFeatures.WINTER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
     }
 
 

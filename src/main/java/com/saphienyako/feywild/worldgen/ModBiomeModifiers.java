@@ -17,6 +17,9 @@ public class ModBiomeModifiers {
 
     public static final ResourceKey<BiomeModifier> ADD_FEY_GEM_ORE = registerKey("add_fey_gem_ore");
     public static final ResourceKey<BiomeModifier> ADD_AUTUMN_TREE = registerKey("add_autumn_tree");
+    public static final ResourceKey<BiomeModifier> ADD_SPRING_TREE = registerKey("add_spring_tree");
+    public static final ResourceKey<BiomeModifier> ADD_SUMMER_TREE = registerKey("add_summer_tree");
+    public static final ResourceKey<BiomeModifier> ADD_WINTER_TREE = registerKey("add_winter_tree");
 
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -28,18 +31,41 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_AUTUMN_TREE, new BiomeModifiers.AddFeaturesBiomeModifier(
-                HolderSet.direct(biomes.getOrThrow(Biomes.PLAINS)),
+                HolderSet.direct(
+                        biomes.getOrThrow(Biomes.FOREST),
+                        biomes.getOrThrow(Biomes.DARK_FOREST)
+                ),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.AUTUMN_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
-        /*
-        context.register(ADD_AUTUMN_TREE, new BiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_FOREST),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.AUTUMN_TREE_PLACED_KEY)),
+        context.register(ADD_SPRING_TREE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(
+                        biomes.getOrThrow(Biomes.PLAINS),
+                        biomes.getOrThrow(Biomes.MEADOW)
+                ),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.SPRING_TREE_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION
-        )); */
+        ));
 
+        context.register(ADD_SUMMER_TREE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(
+                        biomes.getOrThrow(Biomes.SAVANNA),
+                        biomes.getOrThrow(Biomes.SAVANNA_PLATEAU)
+                ),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.SUMMER_TREE_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
+
+        context.register(ADD_WINTER_TREE, new BiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(
+                        biomes.getOrThrow(Biomes.SNOWY_PLAINS),
+                        biomes.getOrThrow(Biomes.SNOWY_SLOPES),
+                        biomes.getOrThrow(Biomes.GROVE)
+                ),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.WINTER_TREE_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {

@@ -1,8 +1,6 @@
 package com.saphienyako.feywild.block.trees;
 
-import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.worldgen.processor.FeyTreeProcessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -16,28 +14,17 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeySaplingBlock extends BushBlock implements BonemealableBlock {
-
-    private static final List<ResourceLocation> TREES = new ArrayList<>();
-    static {
-        for (int i = 0; i <= 4; i++) {
-            TREES.add(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_tree_" + i));
-        }
-    }
+public abstract class FeySaplingBlock extends BushBlock implements BonemealableBlock {
 
     public FeySaplingBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BushBlock> codec() {
-        return simpleCodec(FeySaplingBlock::new);
     }
 
     @Override
@@ -62,7 +49,7 @@ public class FeySaplingBlock extends BushBlock implements BonemealableBlock {
         }
         StructureTemplateManager manager = level.getStructureManager();
 
-        ResourceLocation structureLocation = TREES.get(random.nextInt(TREES.size()));
+        ResourceLocation structureLocation = getTrees().get(random.nextInt(getTrees().size()));
         StructureTemplate template = manager.get(structureLocation).orElse(null);
 
         if (template == null) {
@@ -72,7 +59,7 @@ public class FeySaplingBlock extends BushBlock implements BonemealableBlock {
 
         StructurePlaceSettings settings = new StructurePlaceSettings()
                 .setIgnoreEntities(true)
-                .addProcessor(FeyTreeProcessor.INSTANCE);
+                .addProcessor(getProcessor());
 
         Vec3i size = template.getSize();
 
@@ -120,5 +107,9 @@ public class FeySaplingBlock extends BushBlock implements BonemealableBlock {
                 true // actionbar; set false for chat
         );
     }
+
+    abstract protected StructureProcessor getProcessor();
+
+    abstract protected List<ResourceLocation> getTrees();
 
 }

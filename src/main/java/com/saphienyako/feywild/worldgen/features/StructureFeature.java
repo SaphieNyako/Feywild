@@ -2,13 +2,9 @@ package com.saphienyako.feywild.worldgen.features;
 
 import com.mojang.serialization.Codec;
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.worldgen.processor.FeyTreeProcessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -17,20 +13,23 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class StructureFeature extends Feature<NoneFeatureConfiguration> {
 
     private static final List<ResourceLocation> TREES = new ArrayList<>();
     private static boolean initialized = false;
 
-    public StructureFeature(Codec<NoneFeatureConfiguration> codec) {
+    private final StructureProcessor processor;
+
+    public StructureFeature(Codec<NoneFeatureConfiguration> codec, StructureProcessor processor) {
         super(codec);
+        this.processor = processor;
     }
 
     private static void initialize() {
@@ -56,14 +55,8 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
             return false;
         }
 
-        // Random rotation and mirror
-        Rotation rotation = Rotation.getRandom(context.random());
-        Mirror mirror = Mirror.values()[context.random().nextInt(Mirror.values().length)];
-
         StructurePlaceSettings settings = new StructurePlaceSettings()
-                .setRotation(rotation)
-                .setMirror(mirror)
-                .addProcessor(FeyTreeProcessor.INSTANCE)
+                .addProcessor(processor) //AutumnTreeProcessor.INSTANCE
                 .setIgnoreEntities(false);
 
         Vec3i size = template.getSize();
