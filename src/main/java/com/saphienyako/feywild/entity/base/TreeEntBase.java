@@ -11,7 +11,9 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -260,6 +262,16 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                                 this.getVoiceActive()
                         )
                 );
+                player.swing(hand, true);
+            } else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    player.displayClientMessage(
+                            Component.translatable("message.feywild.pixie_whisper")
+                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
+                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
+                            true
+                    );
+                }
                 player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);

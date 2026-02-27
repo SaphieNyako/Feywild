@@ -201,7 +201,7 @@ public abstract class PixieBase extends FlyingFeyBase {
                             true
                     );
                 }
-                player.swing(hand, true); // optional: swing the hand anyway for feedback
+                player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
