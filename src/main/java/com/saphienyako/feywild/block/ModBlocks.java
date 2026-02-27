@@ -343,7 +343,7 @@ public class ModBlocks {
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> AUTUMN_TREE_CRACKED_LOG = registerBlock("autumn_tree_cracked_log",
-    ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+    ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_LOG = registerBlock("autumn_tree_stripped_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
@@ -414,7 +414,7 @@ public class ModBlocks {
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> SPRING_TREE_CRACKED_LOG = registerBlock("spring_tree_cracked_log",
-            ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_LOG = registerBlock("spring_tree_stripped_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
@@ -483,7 +483,7 @@ public class ModBlocks {
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> SUMMER_TREE_CRACKED_LOG = registerBlock("summer_tree_cracked_log",
-            ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_LOG = registerBlock("summer_tree_stripped_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
@@ -550,7 +550,7 @@ public class ModBlocks {
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> WINTER_TREE_CRACKED_LOG = registerBlock("winter_tree_cracked_log",
-            ()-> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
 
     public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_LOG = registerBlock("winter_tree_stripped_log",
             () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));

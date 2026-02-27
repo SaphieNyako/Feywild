@@ -22,7 +22,7 @@ public class SpringTreeSaplingBlock extends FeySaplingBlock{
 
     @Override
     protected StructureProcessor getProcessor() {
-        return SpringTreeProcessor.INSTANCE;
+        return SpringTreeProcessor.SAPLING;
     }
 
     @Override

@@ -166,7 +166,15 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         this.dropSelf(ModBlocks.AUTUMN_TREE_LOG.get());
-        this.dropSelf(ModBlocks.AUTUMN_TREE_CRACKED_LOG.get());
+        this.add(ModBlocks.AUTUMN_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.AUTUMN_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
         this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_SLAB.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get());
@@ -198,7 +206,15 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.SPRING_TREE_LOG.get());
-        this.dropSelf(ModBlocks.SPRING_TREE_CRACKED_LOG.get());
+        this.add(ModBlocks.SPRING_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.SPRING_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
         this.dropSelf(ModBlocks.SPRING_TREE_WOOD.get());
         this.dropSelf(ModBlocks.SPRING_TREE_WOOD_SLAB.get());
         this.dropSelf(ModBlocks.SPRING_TREE_WOOD_STAIRS.get());
@@ -228,7 +244,15 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.SUMMER_TREE_LOG.get());
-        this.dropSelf(ModBlocks.SUMMER_TREE_CRACKED_LOG.get());
+        this.add(ModBlocks.SUMMER_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.SUMMER_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
         this.dropSelf(ModBlocks.SUMMER_TREE_WOOD.get());
         this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_SLAB.get());
         this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_STAIRS.get());
@@ -255,7 +279,15 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.WINTER_TREE_LOG.get());
-        this.dropSelf(ModBlocks.WINTER_TREE_CRACKED_LOG.get());
+        this.add(ModBlocks.WINTER_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.WINTER_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
         this.dropSelf(ModBlocks.WINTER_TREE_WOOD.get());
         this.dropSelf(ModBlocks.WINTER_TREE_WOOD_SLAB.get());
         this.dropSelf(ModBlocks.WINTER_TREE_WOOD_STAIRS.get());

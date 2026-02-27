@@ -23,7 +23,7 @@ public class WinterTreeSaplingBlock extends FeySaplingBlock{
 
     @Override
     protected StructureProcessor getProcessor() {
-        return WinterTreeProcessor.INSTANCE;
+        return WinterTreeProcessor.SAPLING;
     }
 
     @Override

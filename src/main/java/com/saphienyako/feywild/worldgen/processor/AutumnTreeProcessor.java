@@ -3,15 +3,30 @@ package com.saphienyako.feywild.worldgen.processor;
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 
 import java.util.List;
 
 public class AutumnTreeProcessor extends FeyTreeProcessor{
 
-    public static final AutumnTreeProcessor INSTANCE = new AutumnTreeProcessor();
+    public static final AutumnTreeProcessor WORLDGEN =
+            new AutumnTreeProcessor(false);
+
+    public static final AutumnTreeProcessor SAPLING =
+            new AutumnTreeProcessor(true);
+
+    private AutumnTreeProcessor(boolean fromSapling) {
+        super(fromSapling);
+    }
+
+    @Override
+    protected StructureProcessorType<?> getType() {
+        return FeywildProcessors.AUTUMN_TREE.get();
+    }
+
 
     public static final MapCodec<AutumnTreeProcessor> MAP_CODEC =
-            MapCodec.unit(() -> INSTANCE);
+            MapCodec.unit(() -> WORLDGEN);
     @Override
     protected Block getLogBlock() {
         return ModBlocks.AUTUMN_TREE_LOG.get();

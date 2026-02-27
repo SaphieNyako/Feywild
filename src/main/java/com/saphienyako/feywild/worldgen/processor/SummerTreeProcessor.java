@@ -3,15 +3,30 @@ package com.saphienyako.feywild.worldgen.processor;
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 
 import java.util.List;
 
 public class SummerTreeProcessor extends FeyTreeProcessor{
 
-    public static final SummerTreeProcessor INSTANCE = new SummerTreeProcessor();
+    public static final SummerTreeProcessor WORLDGEN =
+            new SummerTreeProcessor(false);
+
+    public static final SummerTreeProcessor SAPLING =
+            new SummerTreeProcessor(true);
+
+    private SummerTreeProcessor(boolean fromSapling) {
+        super(fromSapling);
+    }
+
+    @Override
+    protected StructureProcessorType<?> getType() {
+        return FeywildProcessors.SUMMER_TREE.get();
+    }
+
 
     public static final MapCodec<SummerTreeProcessor> MAP_CODEC =
-            MapCodec.unit(() -> INSTANCE);
+            MapCodec.unit(() -> WORLDGEN);
 
 
     @Override

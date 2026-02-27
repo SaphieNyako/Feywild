@@ -3,15 +3,30 @@ package com.saphienyako.feywild.worldgen.processor;
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 
 import java.util.List;
 
 public class WinterTreeProcessor extends FeyTreeProcessor{
 
-    public static final WinterTreeProcessor INSTANCE = new WinterTreeProcessor();
+    public static final WinterTreeProcessor WORLDGEN =
+            new WinterTreeProcessor(false);
+
+    public static final WinterTreeProcessor SAPLING =
+            new WinterTreeProcessor(true);
+
+    private WinterTreeProcessor(boolean fromSapling) {
+        super(fromSapling);
+    }
+
+    @Override
+    protected StructureProcessorType<?> getType() {
+        return FeywildProcessors.WINTER_TREE.get();
+    }
+
 
     public static final MapCodec<WinterTreeProcessor> MAP_CODEC =
-            MapCodec.unit(() -> INSTANCE);
+            MapCodec.unit(() -> WORLDGEN);
     @Override
     protected Block getLogBlock() {
         return ModBlocks.WINTER_TREE_LOG.get();

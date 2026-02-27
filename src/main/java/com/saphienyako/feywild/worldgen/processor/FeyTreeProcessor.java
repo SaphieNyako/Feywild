@@ -17,11 +17,10 @@ import java.util.List;
 
 public abstract class FeyTreeProcessor extends StructureProcessor {
 
+    protected final boolean fromSapling;
 
-
-    @Override
-    protected StructureProcessorType<?> getType() {
-        return FeywildProcessors.AUTUMN_TREE.get();
+    protected FeyTreeProcessor(boolean fromSapling) {
+        this.fromSapling = fromSapling;
     }
 
     @Nullable
@@ -34,7 +33,7 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
             RandomSource random = setting.getRandom(current.pos());
 
             BlockState logState =
-                    random.nextInt(20) == 0
+                    random.nextInt(crackedChance()) == 0
                             ? getCrackedLogBlock().defaultBlockState()
                             : getLogBlock().defaultBlockState();
 
@@ -79,6 +78,10 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
         }
 
         return current;
+    }
+
+    protected int crackedChance() {
+        return fromSapling ? 1200 : 120;
     }
 
     abstract protected Block getLogBlock();

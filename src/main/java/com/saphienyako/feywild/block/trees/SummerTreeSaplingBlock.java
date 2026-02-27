@@ -22,7 +22,7 @@ public class SummerTreeSaplingBlock extends FeySaplingBlock{
 
     @Override
     protected StructureProcessor getProcessor() {
-        return SummerTreeProcessor.INSTANCE;
+        return SummerTreeProcessor.SAPLING;
     }
 
     @Override

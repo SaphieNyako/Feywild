@@ -20,6 +20,7 @@ public class AutumnTreeSaplingBlock extends FeySaplingBlock{
         }
     }
 
+
     public AutumnTreeSaplingBlock(Properties properties) {
         super(properties);
     }
@@ -31,7 +32,7 @@ public class AutumnTreeSaplingBlock extends FeySaplingBlock{
 
     @Override
     protected StructureProcessor getProcessor() {
-        return AutumnTreeProcessor.INSTANCE;
+        return AutumnTreeProcessor.SAPLING;
     }
 
     @Override

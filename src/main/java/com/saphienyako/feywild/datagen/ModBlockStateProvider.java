@@ -3,14 +3,19 @@ package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
+
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -192,7 +197,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_LOG.get()));
 
         //CRACKEDLOG
-        logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_CRACKED_LOG.get()));
+       // logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_CRACKED_LOG.get()));
 
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_WOOD.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
@@ -229,7 +234,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // ITEMS
         blockItem(ModBlocks.AUTUMN_TREE_LOG);
-        blockItem(ModBlocks.AUTUMN_TREE_CRACKED_LOG);
+        //crackedLogBlock
         blockItem(ModBlocks.AUTUMN_TREE_WOOD);
         blockItem(ModBlocks.AUTUMN_TREE_WOOD_STAIRS);
         blockItem(ModBlocks.AUTUMN_TREE_WOOD_SLAB);
@@ -253,7 +258,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         logBlock(((RotatedPillarBlock) ModBlocks.SPRING_TREE_LOG.get()));
 
         //CRACKEDLOG
-        logBlock(((RotatedPillarBlock) ModBlocks.SPRING_TREE_CRACKED_LOG.get()));
+        //logBlock(((RotatedPillarBlock) ModBlocks.SPRING_TREE_CRACKED_LOG.get()));
 
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.SPRING_TREE_WOOD.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
@@ -289,7 +294,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // ITEMS
         blockItem(ModBlocks.SPRING_TREE_LOG);
-        blockItem(ModBlocks.SPRING_TREE_CRACKED_LOG);
+        //blockItem(ModBlocks.SPRING_TREE_CRACKED_LOG);
         blockItem(ModBlocks.SPRING_TREE_WOOD);
         blockItem(ModBlocks.SPRING_TREE_WOOD_STAIRS);
         blockItem(ModBlocks.SPRING_TREE_WOOD_SLAB);
@@ -313,7 +318,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         logBlock(((RotatedPillarBlock) ModBlocks.SUMMER_TREE_LOG.get()));
 
         //CRACKEDLOG
-        logBlock(((RotatedPillarBlock) ModBlocks.SUMMER_TREE_CRACKED_LOG.get()));
+        //logBlock(((RotatedPillarBlock) ModBlocks.SUMMER_TREE_CRACKED_LOG.get()));
 
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.SUMMER_TREE_WOOD.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
@@ -348,7 +353,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // ITEMS
         blockItem(ModBlocks.SUMMER_TREE_LOG);
-        blockItem(ModBlocks.SUMMER_TREE_CRACKED_LOG);
+       // blockItem(ModBlocks.SUMMER_TREE_CRACKED_LOG);
         blockItem(ModBlocks.SUMMER_TREE_WOOD);
         blockItem(ModBlocks.SUMMER_TREE_WOOD_STAIRS);
         blockItem(ModBlocks.SUMMER_TREE_WOOD_SLAB);
@@ -372,7 +377,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         logBlock(((RotatedPillarBlock) ModBlocks.WINTER_TREE_LOG.get()));
 
         //CRACKEDLOG
-        logBlock(((RotatedPillarBlock) ModBlocks.WINTER_TREE_CRACKED_LOG.get()));
+       // logBlock(((RotatedPillarBlock) ModBlocks.WINTER_TREE_CRACKED_LOG.get()));
 
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.WINTER_TREE_WOOD.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
@@ -407,7 +412,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         // ITEMS
         blockItem(ModBlocks.WINTER_TREE_LOG);
-        blockItem(ModBlocks.WINTER_TREE_CRACKED_LOG);
+       // blockItem(ModBlocks.WINTER_TREE_CRACKED_LOG);
         blockItem(ModBlocks.WINTER_TREE_WOOD);
         blockItem(ModBlocks.WINTER_TREE_WOOD_STAIRS);
         blockItem(ModBlocks.WINTER_TREE_WOOD_SLAB);
@@ -455,5 +460,4 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void fenceItem(DeferredBlock<Block> fence, DeferredBlock<Block> baseBlock) {
         simpleBlockItem(fence.get(), models().withExistingParent(fence.getId().getPath(), mcLoc("block/fence_inventory")).texture("texture", blockTexture(baseBlock.get())));
     }
-
 }

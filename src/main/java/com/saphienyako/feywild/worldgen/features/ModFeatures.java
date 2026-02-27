@@ -14,18 +14,18 @@ public class ModFeatures {
 
     public static final DeferredHolder<Feature<?>, StructureFeature> AUTUMN_TREE =
             FEATURES.register("autumn_tree",
-                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, AutumnTreeProcessor.INSTANCE));
+                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, AutumnTreeProcessor.WORLDGEN));
 
     public static final DeferredHolder<Feature<?>, StructureFeature> SPRING_TREE =
             FEATURES.register("spring_tree",
-                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, SpringTreeProcessor.INSTANCE));
+                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, SpringTreeProcessor.WORLDGEN));
 
     public static final DeferredHolder<Feature<?>, StructureFeature> SUMMER_TREE =
             FEATURES.register("summer_tree",
-                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, SummerTreeProcessor.INSTANCE));
+                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, SummerTreeProcessor.WORLDGEN));
 
     public static final DeferredHolder<Feature<?>, StructureFeature> WINTER_TREE =
             FEATURES.register("winter_tree",
-                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, WinterTreeProcessor.INSTANCE));
+                    () -> new StructureFeature(NoneFeatureConfiguration.CODEC, WinterTreeProcessor.WORLDGEN));
 
 }
