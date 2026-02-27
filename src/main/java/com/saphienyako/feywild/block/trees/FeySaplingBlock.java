@@ -18,7 +18,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FeySaplingBlock extends BushBlock implements BonemealableBlock {
@@ -101,10 +100,10 @@ public abstract class FeySaplingBlock extends BushBlock implements BonemealableB
         }
 
         player.displayClientMessage(
-                Component.literal("[A Pixie whispers] ")
+                Component.translatable("message.feywild.pixie_whisper")
                         .withStyle(ChatFormatting.LIGHT_PURPLE)
-                        .append(Component.literal("This little Sapling needs more room to grow!").withStyle(ChatFormatting.ITALIC)),
-                true // actionbar; set false for chat
+                        .append(Component.translatable("message.feywild.grow_sapling").withStyle(ChatFormatting.ITALIC)),
+                true
         );
     }
 

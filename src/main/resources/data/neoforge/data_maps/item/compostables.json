@@ -5,48 +5,93 @@
     },
     "feywild:mandrake_root": {
       "chance": 0.3
+    },
+    "feywild:orange_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:orange_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:yellow_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:yellow_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:green_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:green_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:light_blue_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:light_blue_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:blue_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:blue_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:purple_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:purple_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:pink_mushroom": {
+      "chance": 0.65
+    },
+    "feywild:pink_mushroom_block": {
+      "chance": 0.85
+    },
+    "feywild:autumn_tree_sapling": {
+      "chance": 0.3
+    },
+    "feywild:autumn_tree_leaves_brown": {
+      "chance": 0.3
+    },
+    "feywild:autumn_tree_leaves_red": {
+      "chance": 0.3
+    },
+    "feywild:autumn_tree_leaves_light_gray": {
+      "chance": 0.3
+    },
+    "feywild:autumn_tree_leaves_dark_gray": {
+      "chance": 0.3
+    },
+    "feywild:spring_tree_sapling": {
+      "chance": 0.3
+    },
+    "feywild:spring_tree_leaves_cyan": {
+      "chance": 0.3
+    },
+    "feywild:spring_tree_leaves_green": {
+      "chance": 0.3
+    },
+    "feywild:spring_tree_leaves_lime": {
+      "chance": 0.3
+    },
+    "feywild:summer_tree_sapling": {
+      "chance": 0.3
+    },
+    "feywild:summer_tree_leaves_orange": {
+      "chance": 0.3
+    },
+    "feywild:summer_tree_leaves_yellow": {
+      "chance": 0.3
+    },
+    "feywild:winter_tree_sapling": {
+      "chance": 0.3
+    },
+    "feywild:winter_tree_leaves_blue": {
+      "chance": 0.3
+    },
+    "feywild:winter_tree_leaves_light_blue": {
+      "chance": 0.3
     }
-  },
-  "minecraft:orange_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:orange_mushroom_block": {
-    "chance": 0.85
-  },
-  "minecraft:yellow_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:yellow_mushroom_block": {
-    "chance": 0.85
-  },
-  "minecraft:green_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:green_mushroom_block": {
-    "chance": 0.85
-  },
-  "minecraft:light_blue_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:light_blue_mushroom_block": {
-    "chance": 0.85
-  },
-  "minecraft:blue_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:blue_mushroom_block": {
-    "chance": 0.85
-  },
-  "minecraft:purple_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:purple_mushroom_block": {
-    "chance": 0.85
-  },
-  "minecraft:pink_mushroom": {
-    "chance": 0.65
-  },
-  "minecraft:pink_mushroom_block": {
-    "chance": 0.85
   }
 }

@@ -85,6 +85,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         addSummerElvenQuartzRecipes(recipeOutput);
         addWinterElvenQuartzRecipes(recipeOutput);
         addAutumnElvenQuartzRecipes(recipeOutput);
+
+        addAutumnTreeRecipes(recipeOutput);
+        addSpringTreeRecipes(recipeOutput);
+        addSummerTreeRecipes(recipeOutput);
+        addWinterTreeRecipes(recipeOutput);
     }
 
     protected static void oreSmelting(@NotNull RecipeOutput pRecipeOutput, List<ItemLike> pIngredients, @NotNull RecipeCategory pCategory, @NotNull ItemLike pResult,
@@ -471,4 +476,365 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS.get(), ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get());
         stonecutterResultFromBase(recipeOutput, RecipeCategory.BUILDING_BLOCKS, ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get(), ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get(),2);
     }
+
+    protected static void addAutumnTreeRecipes(@NotNull RecipeOutput recipeOutput){
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AUTUMN_TREE_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.AUTUMN_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.AUTUMN_TREE_LOG.get()), has(ModBlocks.AUTUMN_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.AUTUMN_TREE_WOOD_SLAB.get(),
+                ModBlocks.AUTUMN_TREE_WOOD.get());
+
+        stairBuilder(ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_WOOD.get()))
+                .unlockedBy("has_autumn_wood", has(ModBlocks.AUTUMN_TREE_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.AUTUMN_TREE_WOOD_WALL.get(),
+                ModBlocks.AUTUMN_TREE_WOOD.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()), has(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get(),
+                ModBlocks.AUTUMN_TREE_STRIPPED_WOOD);
+
+        stairBuilder(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get()))
+                .unlockedBy("has_autumn_stripped_wood", has(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get(),
+                ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AUTUMN_TREE_PLANKS.get(), 4)
+                .requires(ModBlocks.AUTUMN_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.AUTUMN_TREE_LOG.get()), has(ModBlocks.AUTUMN_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.AUTUMN_TREE_PLANKS_SLAB.get(),
+                ModBlocks.AUTUMN_TREE_PLANKS.get());
+
+        stairBuilder(ModBlocks.AUTUMN_TREE_PLANKS_STAIRS.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceBuilder(ModBlocks.AUTUMN_TREE_PLANKS_FENCE.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceGateBuilder(ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        doorBuilder(ModBlocks.AUTUMN_TREE_PLANKS_DOOR.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        trapdoorBuilder(ModBlocks.AUTUMN_TREE_PLANKS_TRAPDOOR.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        buttonBuilder(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        pressurePlateBuilder(RecipeCategory.REDSTONE,
+                ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get(),
+                Ingredient.of(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .unlockedBy("has_autumn_planks", has(ModBlocks.AUTUMN_TREE_PLANKS.get()))
+                .save(recipeOutput);
+    }
+
+    protected static void addSpringTreeRecipes(@NotNull RecipeOutput recipeOutput){
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPRING_TREE_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.SPRING_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.SPRING_TREE_LOG.get()), has(ModBlocks.SPRING_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SPRING_TREE_WOOD_SLAB.get(),
+                ModBlocks.SPRING_TREE_WOOD.get());
+
+        stairBuilder(ModBlocks.SPRING_TREE_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_WOOD.get()))
+                .unlockedBy("has_spring_wood", has(ModBlocks.SPRING_TREE_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SPRING_TREE_WOOD_WALL.get(),
+                ModBlocks.SPRING_TREE_WOOD.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPRING_TREE_STRIPPED_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.SPRING_TREE_STRIPPED_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()), has(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get(),
+                ModBlocks.SPRING_TREE_STRIPPED_WOOD);
+
+        stairBuilder(ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_STRIPPED_WOOD.get()))
+                .unlockedBy("has_spring_stripped_wood", has(ModBlocks.SPRING_TREE_STRIPPED_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL.get(),
+                ModBlocks.SPRING_TREE_STRIPPED_WOOD.get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPRING_TREE_PLANKS.get(), 4)
+                .requires(ModBlocks.SPRING_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.SPRING_TREE_LOG.get()), has(ModBlocks.SPRING_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SPRING_TREE_PLANKS_SLAB.get(),
+                ModBlocks.SPRING_TREE_PLANKS.get());
+
+        stairBuilder(ModBlocks.SPRING_TREE_PLANKS_STAIRS.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceBuilder(ModBlocks.SPRING_TREE_PLANKS_FENCE.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceGateBuilder(ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        doorBuilder(ModBlocks.SPRING_TREE_PLANKS_DOOR.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        trapdoorBuilder(ModBlocks.SPRING_TREE_PLANKS_TRAPDOOR.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        buttonBuilder(ModBlocks.SPRING_TREE_PLANKS_BUTTON.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        pressurePlateBuilder(RecipeCategory.REDSTONE,
+                ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get(),
+                Ingredient.of(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .unlockedBy("has_spring_planks", has(ModBlocks.SPRING_TREE_PLANKS.get()))
+                .save(recipeOutput);
+    }
+
+    protected static void addSummerTreeRecipes(@NotNull RecipeOutput recipeOutput){
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SUMMER_TREE_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.SUMMER_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.SUMMER_TREE_LOG.get()), has(ModBlocks.SUMMER_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SUMMER_TREE_WOOD_SLAB.get(),
+                ModBlocks.SUMMER_TREE_WOOD.get());
+
+        stairBuilder(ModBlocks.SUMMER_TREE_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_WOOD.get()))
+                .unlockedBy("has_summer_wood", has(ModBlocks.SUMMER_TREE_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SUMMER_TREE_WOOD_WALL.get(),
+                ModBlocks.SUMMER_TREE_WOOD.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.SUMMER_TREE_STRIPPED_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()), has(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get(),
+                ModBlocks.SUMMER_TREE_STRIPPED_WOOD);
+
+        stairBuilder(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get()))
+                .unlockedBy("has_summer_stripped_wood", has(ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL.get(),
+                ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SUMMER_TREE_PLANKS.get(), 4)
+                .requires(ModBlocks.SUMMER_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.SUMMER_TREE_LOG.get()), has(ModBlocks.SUMMER_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.SUMMER_TREE_PLANKS_SLAB.get(),
+                ModBlocks.SUMMER_TREE_PLANKS.get());
+
+        stairBuilder(ModBlocks.SUMMER_TREE_PLANKS_STAIRS.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceBuilder(ModBlocks.SUMMER_TREE_PLANKS_FENCE.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceGateBuilder(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        doorBuilder(ModBlocks.SUMMER_TREE_PLANKS_DOOR.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        trapdoorBuilder(ModBlocks.SUMMER_TREE_PLANKS_TRAPDOOR.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        buttonBuilder(ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        pressurePlateBuilder(RecipeCategory.REDSTONE,
+                ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get(),
+                Ingredient.of(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .unlockedBy("has_summer_planks", has(ModBlocks.SUMMER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+    }
+
+    protected static void addWinterTreeRecipes(@NotNull RecipeOutput recipeOutput){
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.WINTER_TREE_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.WINTER_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.WINTER_TREE_LOG.get()), has(ModBlocks.WINTER_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.WINTER_TREE_WOOD_SLAB.get(),
+                ModBlocks.WINTER_TREE_WOOD.get());
+
+        stairBuilder(ModBlocks.WINTER_TREE_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_WOOD.get()))
+                .unlockedBy("has_winter_wood", has(ModBlocks.WINTER_TREE_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.WINTER_TREE_WOOD_WALL.get(),
+                ModBlocks.WINTER_TREE_WOOD.get());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.WINTER_TREE_STRIPPED_WOOD.get(), 3)
+                .pattern("##")
+                .pattern("##")
+                .define('#', ModBlocks.WINTER_TREE_STRIPPED_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()), has(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get(),
+                ModBlocks.WINTER_TREE_STRIPPED_WOOD);
+
+        stairBuilder(ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_STRIPPED_WOOD.get()))
+                .unlockedBy("has_winter_stripped_wood", has(ModBlocks.WINTER_TREE_STRIPPED_WOOD.get()))
+                .save(recipeOutput);
+
+        wall(recipeOutput,
+                RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL.get(),
+                ModBlocks.WINTER_TREE_STRIPPED_WOOD.get());
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.WINTER_TREE_PLANKS.get(), 4)
+                .requires(ModBlocks.WINTER_TREE_LOG.get())
+                .unlockedBy(getHasName(ModBlocks.WINTER_TREE_LOG.get()), has(ModBlocks.WINTER_TREE_LOG.get()))
+                .save(recipeOutput);
+
+        slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS,
+                ModBlocks.WINTER_TREE_PLANKS_SLAB.get(),
+                ModBlocks.WINTER_TREE_PLANKS.get());
+
+        stairBuilder(ModBlocks.WINTER_TREE_PLANKS_STAIRS.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceBuilder(ModBlocks.WINTER_TREE_PLANKS_FENCE.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        fenceGateBuilder(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        doorBuilder(ModBlocks.WINTER_TREE_PLANKS_DOOR.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        trapdoorBuilder(ModBlocks.WINTER_TREE_PLANKS_TRAPDOOR.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        buttonBuilder(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+
+        pressurePlateBuilder(RecipeCategory.REDSTONE,
+                ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get(),
+                Ingredient.of(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .unlockedBy("has_winter_planks", has(ModBlocks.WINTER_TREE_PLANKS.get()))
+                .save(recipeOutput);
+    }
+
 }

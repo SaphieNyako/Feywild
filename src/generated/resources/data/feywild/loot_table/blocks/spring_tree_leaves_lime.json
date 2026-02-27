@@ -130,6 +130,31 @@
         }
       ],
       "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.008,
+              "condition": "minecraft:random_chance"
+            },
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:match_tool",
+                "predicate": {
+                  "items": "minecraft:shears"
+                }
+              }
+            }
+          ],
+          "name": "feywild:fey_dust"
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "feywild:blocks/spring_tree_leaves_lime"

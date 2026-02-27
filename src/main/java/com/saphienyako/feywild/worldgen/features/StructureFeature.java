@@ -46,7 +46,6 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
 
         StructureTemplateManager manager = context.level().getLevel().getStructureManager();
 
-        // Pick a random tree template
         ResourceLocation structureLocation = TREES.get(context.random().nextInt(TREES.size()));
         StructureTemplate template = manager.get(structureLocation).orElse(null);
 
@@ -56,12 +55,11 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
         }
 
         StructurePlaceSettings settings = new StructurePlaceSettings()
-                .addProcessor(processor) //AutumnTreeProcessor.INSTANCE
+                .addProcessor(processor)
                 .setIgnoreEntities(false);
 
         Vec3i size = template.getSize();
 
-        // Center and sink into ground by 1
         BlockPos placementPos = context.origin().offset(
                 -size.getX() / 2,
                 0,
@@ -74,12 +72,11 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
                 BlockState state = context.level().getBlockState(checkPos);
                 if (!state.isSolidRender(context.level(), checkPos) ||
                         (!state.is(Blocks.GRASS_BLOCK) && !state.is(Blocks.DIRT) && !state.is(Blocks.PODZOL))) {
-                    return false; // Skip placement if ground unsuitable
+                    return false;
                 }
             }
         }
 
-        // Place the structure
         template.placeInWorld(
                 context.level(),
                 placementPos,

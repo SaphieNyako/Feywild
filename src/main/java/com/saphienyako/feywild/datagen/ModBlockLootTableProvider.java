@@ -3,6 +3,7 @@ package com.saphienyako.feywild.datagen;
 import com.saphienyako.feywild.block.MandrakeCropBlock;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -12,8 +13,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -197,13 +200,24 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.AUTUMN_TREE_SAPLING.get());
         //LEAVES
         this.add(ModBlocks.AUTUMN_TREE_LEAVES_BROWN.get(), block ->
-                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.AUTUMN_TREE_LEAVES_RED.get(), block ->
-                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY.get(), block ->
-                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY.get(), block ->
-                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
 
         this.dropSelf(ModBlocks.SPRING_TREE_LOG.get());
         this.add(ModBlocks.SPRING_TREE_CRACKED_LOG.get(),
@@ -237,11 +251,19 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SPRING_TREE_SAPLING.get());
         //LEAVES
         this.add(ModBlocks.SPRING_TREE_LEAVES_CYAN.get(), block ->
-                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.SPRING_TREE_LEAVES_GREEN.get(), block ->
-                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.SPRING_TREE_LEAVES_LIME.get(), block ->
-                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
 
         this.dropSelf(ModBlocks.SUMMER_TREE_LOG.get());
         this.add(ModBlocks.SUMMER_TREE_CRACKED_LOG.get(),
@@ -274,9 +296,14 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.SUMMER_TREE_SAPLING.get());
         this.add(ModBlocks.SUMMER_TREE_LEAVES_ORANGE.get(), block ->
-                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get(), block ->
-                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
 
         this.dropSelf(ModBlocks.WINTER_TREE_LOG.get());
         this.add(ModBlocks.WINTER_TREE_CRACKED_LOG.get(),
@@ -308,10 +335,16 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get());
         this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.WINTER_TREE_SAPLING.get());
+
         this.add(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get(), block ->
-                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
         this.add(ModBlocks.WINTER_TREE_LEAVES_BLUE.get(), block ->
-                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
 
     }
 
@@ -329,6 +362,19 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 LootItem.lootTableItem(mushroomItem)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))));
     }
+
+    protected static LootPool.Builder extraLeafDrop(ItemLike dropItem, float chance) {
+        return LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(dropItem)
+                        .when(LootItemRandomChanceCondition.randomChance(chance))
+                        // Only drop if not using shears
+                        .when(InvertedLootItemCondition.invert(
+                                MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS))
+                        ))
+                );
+    }
+
 
     private static final Set<Block> EXCLUDED_BLOCKS = Set.of(
             ModBlocks.GIANT_SUN_FLOWER.get(),
