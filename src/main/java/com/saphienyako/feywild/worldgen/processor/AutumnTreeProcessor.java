@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 
+import java.util.List;
+
 public class AutumnTreeProcessor extends FeyTreeProcessor{
 
     public static final AutumnTreeProcessor INSTANCE = new AutumnTreeProcessor();
@@ -21,8 +23,14 @@ public class AutumnTreeProcessor extends FeyTreeProcessor{
     }
 
     @Override
-    protected Block getLeavesBlock() {
-        return ModBlocks.AUTUMN_TREE_LEAVES.get();
+    protected List<Block> getLeafVariants() {
+        return List.of(
+                ModBlocks.AUTUMN_TREE_LEAVES_BROWN.get(),
+                ModBlocks.AUTUMN_TREE_LEAVES_RED.get(),
+                ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY.get(),
+                ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY.get()
+
+        );
     }
 
     @Override

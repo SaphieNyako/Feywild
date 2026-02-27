@@ -3,6 +3,7 @@ package com.saphienyako.feywild.block;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.trees.*;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -370,8 +371,14 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> AUTUMN_TREE_STRIPPED_WOOD_WALL = registerBlock("autumn_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
 
-    public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES = registerBlock("autumn_tree_leaves",
-            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES_BROWN = registerBlock("autumn_tree_leaves_brown",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+    public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES_RED = registerBlock("autumn_tree_leaves_red",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+    public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES_LIGHT_GRAY = registerBlock("autumn_tree_leaves_light_gray",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+    public static final DeferredBlock<Block> AUTUMN_TREE_LEAVES_DARK_GRAY = registerBlock("autumn_tree_leaves_dark_gray",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
 
     public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS = registerBlock("autumn_tree_planks",
             () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
@@ -435,8 +442,12 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> SPRING_TREE_STRIPPED_WOOD_WALL = registerBlock("spring_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
 
-    public static final DeferredBlock<Block> SPRING_TREE_LEAVES = registerBlock("spring_tree_leaves",
-            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredBlock<Block> SPRING_TREE_LEAVES_CYAN = registerBlock("spring_tree_leaves_cyan",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.SPRING_LEAF_PARTICLE, 14));
+    public static final DeferredBlock<Block> SPRING_TREE_LEAVES_GREEN = registerBlock("spring_tree_leaves_green",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.SPRING_LEAF_PARTICLE, 14));
+    public static final DeferredBlock<Block> SPRING_TREE_LEAVES_LIME = registerBlock("spring_tree_leaves_lime",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.SPRING_LEAF_PARTICLE, 14));
 
     public static final DeferredBlock<Block> SPRING_TREE_PLANKS = registerBlock("spring_tree_planks",
             () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
@@ -500,9 +511,11 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> SUMMER_TREE_STRIPPED_WOOD_WALL = registerBlock("summer_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
 
-    public static final DeferredBlock<Block> SUMMER_TREE_LEAVES = registerBlock("summer_tree_leaves",
-            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredBlock<Block> SUMMER_TREE_LEAVES_ORANGE = registerBlock("summer_tree_leaves_orange",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.SUMMER_LEAF_PARTICLE, 14));
 
+    public static final DeferredBlock<Block> SUMMER_TREE_LEAVES_YELLOW = registerBlock("summer_tree_leaves_yellow",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.SUMMER_LEAF_PARTICLE, 14));
     public static final DeferredBlock<Block> SUMMER_TREE_PLANKS = registerBlock("summer_tree_planks",
             () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
 
@@ -565,8 +578,11 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> WINTER_TREE_STRIPPED_WOOD_WALL = registerBlock("winter_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
 
-    public static final DeferredBlock<Block> WINTER_TREE_LEAVES = registerBlock("winter_tree_leaves",
-            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)));
+    public static final DeferredBlock<Block> WINTER_TREE_LEAVES_LIGHT_BLUE = registerBlock("winter_tree_leaves_light_blue",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.WINTER_LEAF_PARTICLE, 14));
+
+    public static final DeferredBlock<Block> WINTER_TREE_LEAVES_BLUE = registerBlock("winter_tree_leaves_blue",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES), ModParticles.WINTER_LEAF_PARTICLE, 14));
 
     public static final DeferredBlock<Block> WINTER_TREE_PLANKS = registerBlock("winter_tree_planks",
             () -> new FeyPlanksBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));

@@ -2,6 +2,6 @@
   "parent": "minecraft:block/leaves",
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "feywild:block/winter_tree_leaves"
+    "all": "feywild:block/summer_tree_leaves_orange"
   }
 }

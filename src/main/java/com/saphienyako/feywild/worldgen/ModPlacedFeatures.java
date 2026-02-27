@@ -60,7 +60,7 @@ public class ModPlacedFeatures {
 
         register(context, AUTUMN_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.AUTUMN_TREE_KEY),
                 List.of(
-                        RarityFilter.onAverageOnceEvery(8),
+                        RarityFilter.onAverageOnceEvery(12),
                         InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES), //Y-level
                         PlacementUtils.filteredByBlockSurvival(ModBlocks.AUTUMN_TREE_SAPLING.get()), //Survive
@@ -73,7 +73,7 @@ public class ModPlacedFeatures {
 
         register(context, SPRING_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SPRING_TREE_KEY),
                 List.of(
-                        RarityFilter.onAverageOnceEvery(8),
+                        RarityFilter.onAverageOnceEvery(12),
                         InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
                         PlacementUtils.filteredByBlockSurvival(ModBlocks.SPRING_TREE_SAPLING.get()),
@@ -86,7 +86,7 @@ public class ModPlacedFeatures {
 
         register(context, SUMMER_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.SUMMER_TREE_KEY),
                 List.of(
-                        RarityFilter.onAverageOnceEvery(8),
+                        RarityFilter.onAverageOnceEvery(12),
                         InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
                         PlacementUtils.filteredByBlockSurvival(ModBlocks.SUMMER_TREE_SAPLING.get()),
@@ -99,7 +99,7 @@ public class ModPlacedFeatures {
 
         register(context, WINTER_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.WINTER_TREE_KEY),
                 List.of(
-                        RarityFilter.onAverageOnceEvery(8),
+                        RarityFilter.onAverageOnceEvery(12),
                         InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
                         PlacementUtils.filteredByBlockSurvival(ModBlocks.WINTER_TREE_SAPLING.get()),

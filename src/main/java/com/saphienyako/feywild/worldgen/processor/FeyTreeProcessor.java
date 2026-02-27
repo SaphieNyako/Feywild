@@ -13,6 +13,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public abstract class FeyTreeProcessor extends StructureProcessor {
 
 
@@ -48,9 +50,14 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
 
         // Replace oak leaves
         if (state.is(Blocks.OAK_LEAVES)) {
+            RandomSource random = setting.getRandom(pos);
+
+            List<Block> leaves = getLeafVariants();
+            Block chosenLeaves = leaves.get(random.nextInt(leaves.size()));
+
             return new StructureTemplate.StructureBlockInfo(
                     current.pos(),
-                    getLeavesBlock().defaultBlockState(),
+                    chosenLeaves.defaultBlockState(),
                     current.nbt()
             );
         }
@@ -77,7 +84,7 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
     abstract protected Block getLogBlock();
     abstract protected Block getCrackedLogBlock();
 
-    abstract protected Block getLeavesBlock();
+    protected abstract List<Block> getLeafVariants();
 
     abstract protected Block getWoodBlock();
 }

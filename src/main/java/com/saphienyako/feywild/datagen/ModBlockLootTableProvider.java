@@ -187,7 +187,14 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.AUTUMN_TREE_SAPLING.get());
-        this.add(ModBlocks.AUTUMN_TREE_LEAVES.get(), block ->
+        //LEAVES
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_BROWN.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_RED.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY.get(), block ->
                 createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.SPRING_TREE_LOG.get());
@@ -212,7 +219,12 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_BUTTON.get());
         this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.SPRING_TREE_SAPLING.get());
-        this.add(ModBlocks.SPRING_TREE_LEAVES.get(), block ->
+        //LEAVES
+        this.add(ModBlocks.SPRING_TREE_LEAVES_CYAN.get(), block ->
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.SPRING_TREE_LEAVES_GREEN.get(), block ->
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.SPRING_TREE_LEAVES_LIME.get(), block ->
                 createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.SUMMER_TREE_LOG.get());
@@ -237,7 +249,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get());
         this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.SUMMER_TREE_SAPLING.get());
-        this.add(ModBlocks.SUMMER_TREE_LEAVES.get(), block ->
+        this.add(ModBlocks.SUMMER_TREE_LEAVES_ORANGE.get(), block ->
+                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get(), block ->
                 createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         this.dropSelf(ModBlocks.WINTER_TREE_LOG.get());
@@ -262,7 +276,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get());
         this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
         this.dropSelf(ModBlocks.WINTER_TREE_SAPLING.get());
-        this.add(ModBlocks.WINTER_TREE_LEAVES.get(), block ->
+        this.add(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get(), block ->
+                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.WINTER_TREE_LEAVES_BLUE.get(), block ->
                 createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
     }

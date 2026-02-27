@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 
+import java.util.List;
+
 public class SpringTreeProcessor extends FeyTreeProcessor{
 
     public static final SpringTreeProcessor INSTANCE = new SpringTreeProcessor();
@@ -21,8 +23,12 @@ public class SpringTreeProcessor extends FeyTreeProcessor{
     }
 
     @Override
-    protected Block getLeavesBlock() {
-        return ModBlocks.SPRING_TREE_LEAVES.get();
+    protected List<Block> getLeafVariants() {
+        return List.of(
+                ModBlocks.SPRING_TREE_LEAVES_CYAN.get(),
+                ModBlocks.SPRING_TREE_LEAVES_GREEN.get(),
+                ModBlocks.SPRING_TREE_LEAVES_LIME.get()
+        );
     }
 
     @Override

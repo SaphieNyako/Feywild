@@ -142,7 +142,8 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.PINK_MUSHROOM_BLOCK.get());
 
                         output.accept(ModBlocks.SUMMER_TREE_SAPLING.asItem());
-                        output.accept(ModBlocks.SUMMER_TREE_LEAVES.get());
+                        output.accept(ModBlocks.SUMMER_TREE_LEAVES_ORANGE.get());
+                        output.accept(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get());
                         output.accept(ModBlocks.SUMMER_TREE_LOG.get());
                         output.accept(ModBlocks.SUMMER_TREE_CRACKED_LOG);
                         output.accept(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get());
@@ -165,7 +166,9 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get());
 
                         output.accept(ModBlocks.SPRING_TREE_SAPLING.asItem());
-                        output.accept(ModBlocks.SPRING_TREE_LEAVES.get());
+                        output.accept(ModBlocks.SPRING_TREE_LEAVES_CYAN.get());
+                        output.accept(ModBlocks.SPRING_TREE_LEAVES_GREEN.get());
+                        output.accept(ModBlocks.SPRING_TREE_LEAVES_LIME.get());
                         output.accept(ModBlocks.SPRING_TREE_LOG.get());
                         output.accept(ModBlocks.SPRING_TREE_CRACKED_LOG);
                         output.accept(ModBlocks.SPRING_TREE_STRIPPED_LOG.get());
@@ -188,7 +191,8 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get());
 
                         output.accept(ModBlocks.WINTER_TREE_SAPLING.asItem());
-                        output.accept(ModBlocks.WINTER_TREE_LEAVES.get());
+                        output.accept(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get());
+                        output.accept(ModBlocks.WINTER_TREE_LEAVES_BLUE.get());
                         output.accept(ModBlocks.WINTER_TREE_LOG.get());
                         output.accept(ModBlocks.WINTER_TREE_CRACKED_LOG);
                         output.accept(ModBlocks.WINTER_TREE_STRIPPED_LOG.get());
@@ -211,7 +215,10 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
 
                         output.accept(ModBlocks.AUTUMN_TREE_SAPLING.asItem());
-                        output.accept(ModBlocks.AUTUMN_TREE_LEAVES.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_LEAVES_BROWN.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_LEAVES_RED.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY.get());
+                        output.accept(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY.get());
                         output.accept(ModBlocks.AUTUMN_TREE_LOG.get());
                         output.accept(ModBlocks.AUTUMN_TREE_CRACKED_LOG);
                         output.accept(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get());

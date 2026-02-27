@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 
+import java.util.List;
+
 public class SummerTreeProcessor extends FeyTreeProcessor{
 
     public static final SummerTreeProcessor INSTANCE = new SummerTreeProcessor();
@@ -23,8 +25,11 @@ public class SummerTreeProcessor extends FeyTreeProcessor{
     }
 
     @Override
-    protected Block getLeavesBlock() {
-        return ModBlocks.SUMMER_TREE_LEAVES.get();
+    protected List<Block> getLeafVariants() {
+        return List.of(
+                ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get(),
+                ModBlocks.SUMMER_TREE_LEAVES_ORANGE.get()
+        );
     }
 
     @Override

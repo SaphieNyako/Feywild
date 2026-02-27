@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 
+import java.util.List;
+
 public class WinterTreeProcessor extends FeyTreeProcessor{
 
     public static final WinterTreeProcessor INSTANCE = new WinterTreeProcessor();
@@ -21,8 +23,11 @@ public class WinterTreeProcessor extends FeyTreeProcessor{
     }
 
     @Override
-    protected Block getLeavesBlock() {
-        return ModBlocks.WINTER_TREE_LEAVES.get();
+    protected List<Block> getLeafVariants() {
+        return List.of(
+                ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get(),
+                ModBlocks.WINTER_TREE_LEAVES_BLUE.get()
+        );
     }
 
     @Override

@@ -221,7 +221,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         buttonBlock(((ButtonBlock) ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
 
         //LEAVES AND SAPLING
-        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_BROWN);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_RED);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY);
         saplingBlock(ModBlocks.AUTUMN_TREE_SAPLING);
 
         // ITEMS
@@ -279,7 +282,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
         buttonBlock(((ButtonBlock) ModBlocks.SPRING_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
 
         //LEAVES AND SAPLING
-        leavesBlock(ModBlocks.SPRING_TREE_LEAVES);
+        leavesBlock(ModBlocks.SPRING_TREE_LEAVES_CYAN);
+        leavesBlock(ModBlocks.SPRING_TREE_LEAVES_GREEN);
+        leavesBlock(ModBlocks.SPRING_TREE_LEAVES_LIME);
         saplingBlock(ModBlocks.SPRING_TREE_SAPLING);
 
         // ITEMS
@@ -337,7 +342,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         buttonBlock(((ButtonBlock) ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
 
         //LEAVES AND SAPLING
-        leavesBlock(ModBlocks.SUMMER_TREE_LEAVES);
+        leavesBlock(ModBlocks.SUMMER_TREE_LEAVES_ORANGE);
+        leavesBlock(ModBlocks.SUMMER_TREE_LEAVES_YELLOW);
         saplingBlock(ModBlocks.SUMMER_TREE_SAPLING);
 
         // ITEMS
@@ -395,7 +401,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         buttonBlock(((ButtonBlock) ModBlocks.WINTER_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
 
         //LEAVES AND SAPLING
-        leavesBlock(ModBlocks.WINTER_TREE_LEAVES);
+        leavesBlock(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE);
+        leavesBlock(ModBlocks.WINTER_TREE_LEAVES_BLUE);
         saplingBlock(ModBlocks.WINTER_TREE_SAPLING);
 
         // ITEMS
