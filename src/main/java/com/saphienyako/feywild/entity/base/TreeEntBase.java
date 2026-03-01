@@ -232,6 +232,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
 
         InteractionResult superResult = super.interactAt(player, hitVec, hand);
+        //NAME TAG
         if (superResult == InteractionResult.PASS) {
             //NAME
             if  (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
@@ -272,6 +273,22 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                             true
                     );
                 }
+                player.swing(hand, true);
+            } else if (player.getItemInHand(hand).is(Items.BONE_MEAL) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
+                this.heal(3);
+                if (!player.isCreative()) {
+                    player.getItemInHand(hand).shrink(1);
+                }
+                if (!level().isClientSide) {
+                    PacketDistributor.sendToPlayersTrackingEntity(
+                            this,
+                            new ParticleMessage(
+                                    ParticleMessage.Particles.FEY_HEART,
+                                    this.getOnPos()
+                            )
+                    );
+                }
+
                 player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);

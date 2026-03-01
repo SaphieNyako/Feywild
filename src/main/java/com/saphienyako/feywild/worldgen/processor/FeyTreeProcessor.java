@@ -81,7 +81,7 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
     }
 
     protected int crackedChance() {
-        return fromSapling ? 1200 : 120;
+        return fromSapling ? 1200 : 100;
     }
 
     abstract protected Block getLogBlock();

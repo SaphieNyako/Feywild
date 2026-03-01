@@ -1,0 +1,114 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:winter_tree_log",
+  "name": "feywild_lexicon.entry.decorative_blocks.seasonal_trees",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:spring_tree_sapling",
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page0.text0"
+    },
+    {
+      "type": "feywild:spring_tree_sapling",
+      "recipe": "feywild:spring_tree_sapling"
+    },
+    {
+      "type": "feywild:summer_tree_sapling",
+      "recipe": "feywild:summer_tree_sapling"
+    },
+    {
+      "type": "feywild:autumn_tree_sapling",
+      "recipe": "feywild:autumn_tree_sapling"
+    },
+    {
+      "type": "feywild:winter_tree_sapling",
+      "recipe": "feywild:winter_tree_sapling"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:autumn_tree_log",
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page1.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_tree_wood",
+      "recipe2": "feywild:summer_tree_wood_slab",
+      "title": "Fey Wood"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_tree_wood_stairs",
+      "recipe2": "feywild:winter_tree_wood_wall",
+      "title": "Fey Wood"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:autumn_tree_stripped_log",
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page2.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_tree_stripped_wood",
+      "recipe2": "feywild:summer_tree_stripped_wood_slab",
+      "title": "Fey Stripped Wood"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_tree_stripped_wood_stairs",
+      "recipe2": "feywild:winter_tree_stripped_wood_wall",
+      "title": "Fey Stripped Wood"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:spring_tree_planks",
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page3.text0"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_slab",
+      "recipe2": "feywild:autumn_tree_planks_stairs",
+      "title": "Fey Planks"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_tree_planks_fence",
+      "recipe2": "feywild:spring_tree_planks_fence_gate",
+      "title": "Fey Planks"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_door",
+      "recipe2": "feywild:autumn_tree_planks_door",
+      "title": "Fey Door"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_tree_planks_door",
+      "recipe2": "feywild:spring_tree_planks_door",
+      "title": "Fey Door"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_trapdoor",
+      "recipe2": "feywild:autumn_tree_planks_trapdoor",
+      "title": "Fey Trapdoor"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_tree_planks_trapdoor",
+      "recipe2": "feywild:spring_tree_planks_trapdoor",
+      "title": "Fey Trapdoor"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_button",
+      "recipe2": "feywild:autumn_tree_planks_pressure_plate",
+      "title": "Fey Button & Plate"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summer_tree_leaves_orange",
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page4.text0"
+    }
+  ]
+}

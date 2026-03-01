@@ -13,6 +13,12 @@
       "type": "patchouli:crafting",
       "recipe": "feywild:fey_gem",
       "text": "feywild_lexicon.entry.fey_gems.fey_ore.page1.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:winter_tree_cracked_log",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.fey_gems.fey_ore.page2.text0"
     }
   ]
 }
