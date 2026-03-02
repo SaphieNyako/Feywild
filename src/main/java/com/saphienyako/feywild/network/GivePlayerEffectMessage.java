@@ -16,39 +16,39 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record GivePlayerEffectMessage(ResourceLocation effectId, int duration, int amplifier,int entityId){
+public record GivePlayerEffectMessage(int duration, int amplifier,int entityId){
 
 
     public static void encode(GivePlayerEffectMessage msg, FriendlyByteBuf buf) {
-       buf.writeResourceLocation(msg.effectId);
        buf.writeInt(msg.duration);
        buf.writeInt(msg.amplifier);
        buf.writeInt(msg.entityId);
     }
 
     public static GivePlayerEffectMessage decode(FriendlyByteBuf buf) {
-        ResourceLocation resourceLocation = buf.readResourceLocation();
         int duration = buf.readInt();
         int amplifier = buf.readInt();
         int entityId = buf.readInt();
-        return new GivePlayerEffectMessage(resourceLocation,duration,amplifier, entityId);
+        return new GivePlayerEffectMessage(duration,amplifier, entityId);
     }
     public void handle(Supplier<NetworkEvent.Context> supplier) {
         Player player = supplier.get().getSender();
-        if (player == null || player.level().isClientSide) return;
-
-        ResourceKey<MobEffect> key = ResourceKey.create(Registries.MOB_EFFECT, this.effectId);
-
-        BuiltInRegistries.MOB_EFFECT.getHolder(key).ifPresent(holder -> {
-            player.addEffect(new MobEffectInstance(
-                    holder.value(),
-                    this.duration,
-                    this.amplifier
-            ));
-        });
-
         Level level = player.level();
         TreeEntBase entity = (TreeEntBase) level.getEntity(this.entityId());
+        if (player == null || player.level().isClientSide) return;
+
+
+
+        ResourceKey<MobEffect> effectKey = BuiltInRegistries.MOB_EFFECT.getResourceKey(entity.getEffect())
+                .orElseThrow(() -> new IllegalStateException("Effect not registered: " + entity.getEffect()));
+
+        BuiltInRegistries.MOB_EFFECT.getHolder(effectKey)
+                .ifPresent(holder -> {
+                    MobEffect effect = holder.value();
+                    player.addEffect(new MobEffectInstance(effect, this.duration(), this.amplifier()));
+                });
+
+
         if (entity != null) {
             if (ModConfig.COMMON.voice_active.get() && entity.getVoiceActive()) {
                 level.playSound(

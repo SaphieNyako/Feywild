@@ -25,6 +25,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -510,6 +511,8 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     public int getAmbientSoundInterval() {
         return 600; //YES THIS IS A THING T_T
     }
+
+    public abstract MobEffect getEffect();
 
     public State getState() {
         State[] states = State.values();

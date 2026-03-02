@@ -36,7 +36,7 @@ public class EffectButton extends Button {
 
     @Override
     public void onPress() {
-        FeywildNetwork.sendToServer(new GivePlayerEffectMessage(ModEffects.AUTUMN_TREE_ENT_PROTECTION.getId(), 18000, 1, entityId));
+        FeywildNetwork.sendToServer(new GivePlayerEffectMessage(18000, 1, entityId));
         //TODO different ent different blessing
         this.screen.onClose();
     }
