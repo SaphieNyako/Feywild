@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:dark_forest"
+  ],
+  "features": "feywild:autumn_tree_placed",
+  "step": "vegetal_decoration"
+}

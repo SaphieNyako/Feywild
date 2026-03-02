@@ -7,14 +7,18 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.*;
+import com.saphienyako.feywild.entity.goals.guardian_goals.SneezeGoal;
+import com.saphienyako.feywild.entity.goals.guardian_goals.WaveGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -329,7 +333,7 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
                 player.swing(hand, true);
 
                 //MUSHROOM VARIANT
-            } else if (MUSHROOM_VARIANTS.containsKey(player.getItemInHand(hand).getItem())) {
+            } else if (MUSHROOM_VARIANTS.containsKey(player.getItemInHand(hand).getItem())&& this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 ShroomlingVariant variant = MUSHROOM_VARIANTS.get(player.getItemInHand(hand).getItem());
                 this.setVariant(variant);
                 if (!player.isCreative()) {
@@ -342,6 +346,18 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
                             SoundSource.NEUTRAL,
                             1.0F,
                             1.0F
+                    );
+                }
+                player.swing(hand, true);
+            }
+            //UNTAMED MESSAGE
+            else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    player.displayClientMessage(
+                            Component.translatable("message.feywild.pixie_whisper")
+                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
+                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
+                            true
                     );
                 }
                 player.swing(hand, true);

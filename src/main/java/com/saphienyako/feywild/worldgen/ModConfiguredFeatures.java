@@ -2,6 +2,7 @@ package com.saphienyako.feywild.worldgen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import com.saphienyako.feywild.worldgen.features.ModFeatures;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
@@ -32,6 +34,12 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_MUSHROOM_KEY = registerKey("blue_mushroom_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PURPLE_MUSHROOM_KEY = registerKey("purple_mushroom_key");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PINK_MUSHROOM_KEY = registerKey("pink_mushroom_key");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AUTUMN_TREE_KEY = registerKey("autumn_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_TREE_KEY = registerKey("spring_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SUMMER_TREE_KEY = registerKey("summer_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WINTER_TREE_KEY = registerKey("winter_tree");
+
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         register(context, ORANGE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
@@ -64,6 +72,11 @@ public class ModConfiguredFeatures {
                 OreConfiguration.target(deepslateReplaceables, ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get().defaultBlockState()));
 
         register(context,FEY_GEM_ORE_KEY, Feature.ORE, new OreConfiguration(feyGemOres, 5));
+
+        register(context, AUTUMN_TREE_KEY, ModFeatures.AUTUMN_TREE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, SPRING_TREE_KEY, ModFeatures.SPRING_TREE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, SUMMER_TREE_KEY, ModFeatures.SUMMER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
+        register(context, WINTER_TREE_KEY, ModFeatures.WINTER_TREE.get(), NoneFeatureConfiguration.INSTANCE);
     }
 
     private static HugeMushroomFeatureConfiguration colouredMushroomConfig(Block mushroomBlock) {

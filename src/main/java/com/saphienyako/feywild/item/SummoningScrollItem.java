@@ -65,7 +65,17 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
             return ModEntities.MANDRAGORA.get();
         } else if (this.equals(SUMMONING_SCROLL_BELLSNICKEL.get())){
             return ModEntities.BELLSNICKEL.get();
-        } else return null;
+        } else if (this.equals(SUMMONING_SCROLL_SPRING_TREE_ENT.get())){
+            return ModEntities.SPRING_TREE_ENT.get();
+        }else if (this.equals(SUMMONING_SCROLL_SUMMER_TREE_ENT.get())){
+            return ModEntities.SUMMER_TREE_ENT.get();
+        }else if (this.equals(SUMMONING_SCROLL_AUTUMN_TREE_ENT.get())){
+            return ModEntities.AUTUMN_TREE_ENT.get();
+        }else if (this.equals(SUMMONING_SCROLL_WINTER_TREE_ENT.get())){
+            return ModEntities.WINTER_TREE_ENT.get();
+        } /*else if (this.equals(SUMMONING_SCROLL_BEE_KNIGHT.get())){
+            return ModEntities.BEE_KNIGHT.get();
+        } */ else return null;
 
     }
 

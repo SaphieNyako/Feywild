@@ -2,11 +2,10 @@ package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -185,6 +184,264 @@ public class ModBlockStateProvider extends BlockStateProvider {
         slabBlock(((SlabBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()), blockTexture(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get()), blockTexture(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get()));
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS);
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB);
+
+        //TREES
+        //AUTUMN
+        //LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_LOG.get()));
+
+        //CRACKEDLOG
+        // logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_CRACKED_LOG.get()));
+
+        //WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_WOOD.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.AUTUMN_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
+
+        // STRIPPED LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+
+        //STRIPPED WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+
+        //PLANKS
+        blockWithItem(ModBlocks.AUTUMN_TREE_PLANKS);
+        stairsBlock((StairBlock) ModBlocks.AUTUMN_TREE_PLANKS_STAIRS.get(), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
+        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_PLANKS_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
+        fenceBlock((FenceBlock) ModBlocks.AUTUMN_TREE_PLANKS_FENCE.get(), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
+        fenceGateBlock((FenceGateBlock) ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE.get(), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
+        //door Block manual
+        //trapdoor Block manual
+        pressurePlateBlock(((PressurePlateBlock) ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get()), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
+        buttonBlock(((ButtonBlock) ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.AUTUMN_TREE_PLANKS.get()));
+
+        //LEAVES AND SAPLING
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_BROWN);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_RED);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY);
+        leavesBlock(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY);
+        saplingBlock(ModBlocks.AUTUMN_TREE_SAPLING);
+
+        // ITEMS
+        blockItem(ModBlocks.AUTUMN_TREE_LOG);
+        //crackedLogBlock
+        blockItem(ModBlocks.AUTUMN_TREE_WOOD);
+        blockItem(ModBlocks.AUTUMN_TREE_WOOD_STAIRS);
+        blockItem(ModBlocks.AUTUMN_TREE_WOOD_SLAB);
+        wallItem(ModBlocks.AUTUMN_TREE_WOOD_WALL, ModBlocks.AUTUMN_TREE_LOG);
+        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD);
+        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS);
+        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB);
+        wallItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL, ModBlocks.AUTUMN_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_SLAB);
+        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_STAIRS);
+        fenceItem(ModBlocks.AUTUMN_TREE_PLANKS_FENCE, ModBlocks.AUTUMN_TREE_PLANKS);
+        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE);
+        //Doors require a manual setup for Item model
+        //Trapdoor require a manual setup for Item model
+        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE);
+        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON);
+
+        //SPRING
+        //LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.SPRING_TREE_LOG.get()));
+
+        //CRACKEDLOG
+        //logBlock(((RotatedPillarBlock) ModBlocks.SPRING_TREE_CRACKED_LOG.get()));
+
+        //WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.SPRING_TREE_WOOD.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.SPRING_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.SPRING_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
+
+        // STRIPPED LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
+
+        //STRIPPED WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
+
+        //PLANKS
+        blockWithItem(ModBlocks.SPRING_TREE_PLANKS);
+        stairsBlock((StairBlock) ModBlocks.SPRING_TREE_PLANKS_STAIRS.get(), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
+        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_PLANKS_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
+        fenceBlock((FenceBlock) ModBlocks.SPRING_TREE_PLANKS_FENCE.get(), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
+        fenceGateBlock((FenceGateBlock) ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE.get(), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
+        //door Block manual
+        //trapdoor Block manual
+        pressurePlateBlock(((PressurePlateBlock) ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get()), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
+        buttonBlock(((ButtonBlock) ModBlocks.SPRING_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.SPRING_TREE_PLANKS.get()));
+
+        //LEAVES AND SAPLING
+        leavesBlock(ModBlocks.SPRING_TREE_LEAVES_CYAN);
+        leavesBlock(ModBlocks.SPRING_TREE_LEAVES_GREEN);
+        leavesBlock(ModBlocks.SPRING_TREE_LEAVES_LIME);
+        saplingBlock(ModBlocks.SPRING_TREE_SAPLING);
+
+        // ITEMS
+        blockItem(ModBlocks.SPRING_TREE_LOG);
+        //blockItem(ModBlocks.SPRING_TREE_CRACKED_LOG);
+        blockItem(ModBlocks.SPRING_TREE_WOOD);
+        blockItem(ModBlocks.SPRING_TREE_WOOD_STAIRS);
+        blockItem(ModBlocks.SPRING_TREE_WOOD_SLAB);
+        wallItem(ModBlocks.SPRING_TREE_WOOD_WALL, ModBlocks.SPRING_TREE_LOG);
+        blockItem(ModBlocks.SPRING_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD);
+        blockItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS);
+        blockItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB);
+        wallItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL, ModBlocks.SPRING_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.SPRING_TREE_PLANKS_SLAB);
+        blockItem(ModBlocks.SPRING_TREE_PLANKS_STAIRS);
+        fenceItem(ModBlocks.SPRING_TREE_PLANKS_FENCE, ModBlocks.SPRING_TREE_PLANKS);
+        blockItem(ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE);
+        //Doors require a manual setup for Item model
+        //Trapdoor require a manual setup for Item model
+        blockItem(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE);
+        blockItem(ModBlocks.SPRING_TREE_PLANKS_BUTTON);
+
+        //SUMMER
+        //LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.SUMMER_TREE_LOG.get()));
+
+        //CRACKEDLOG
+        //logBlock(((RotatedPillarBlock) ModBlocks.SUMMER_TREE_CRACKED_LOG.get()));
+
+        //WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.SUMMER_TREE_WOOD.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.SUMMER_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.SUMMER_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
+
+        // STRIPPED LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
+
+        //STRIPPED WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
+
+        //PLANKS
+        blockWithItem(ModBlocks.SUMMER_TREE_PLANKS);
+        stairsBlock((StairBlock) ModBlocks.SUMMER_TREE_PLANKS_STAIRS.get(), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
+        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_PLANKS_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
+        fenceBlock((FenceBlock) ModBlocks.SUMMER_TREE_PLANKS_FENCE.get(), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
+        fenceGateBlock((FenceGateBlock) ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE.get(), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
+        //door Block manual
+        //trapdoor Block manual
+        pressurePlateBlock(((PressurePlateBlock) ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get()), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
+        buttonBlock(((ButtonBlock) ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.SUMMER_TREE_PLANKS.get()));
+
+        //LEAVES AND SAPLING
+        leavesBlock(ModBlocks.SUMMER_TREE_LEAVES_ORANGE);
+        leavesBlock(ModBlocks.SUMMER_TREE_LEAVES_YELLOW);
+        saplingBlock(ModBlocks.SUMMER_TREE_SAPLING);
+
+        // ITEMS
+        blockItem(ModBlocks.SUMMER_TREE_LOG);
+        // blockItem(ModBlocks.SUMMER_TREE_CRACKED_LOG);
+        blockItem(ModBlocks.SUMMER_TREE_WOOD);
+        blockItem(ModBlocks.SUMMER_TREE_WOOD_STAIRS);
+        blockItem(ModBlocks.SUMMER_TREE_WOOD_SLAB);
+        wallItem(ModBlocks.SUMMER_TREE_WOOD_WALL, ModBlocks.SUMMER_TREE_LOG);
+        blockItem(ModBlocks.SUMMER_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD);
+        blockItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS);
+        blockItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB);
+        wallItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL, ModBlocks.SUMMER_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.SUMMER_TREE_PLANKS_SLAB);
+        blockItem(ModBlocks.SUMMER_TREE_PLANKS_STAIRS);
+        fenceItem(ModBlocks.SUMMER_TREE_PLANKS_FENCE, ModBlocks.SUMMER_TREE_PLANKS);
+        blockItem(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE);
+        //Doors require a manual setup for Item model
+        //Trapdoor require a manual setup for Item model
+        blockItem(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE);
+        blockItem(ModBlocks.SUMMER_TREE_PLANKS_BUTTON);
+
+        //WINTER
+        //LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.WINTER_TREE_LOG.get()));
+
+        //CRACKEDLOG
+        // logBlock(((RotatedPillarBlock) ModBlocks.WINTER_TREE_CRACKED_LOG.get()));
+
+        //WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.WINTER_TREE_WOOD.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.WINTER_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.WINTER_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
+
+        // STRIPPED LOG
+        logBlock(((RotatedPillarBlock) ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
+
+        //STRIPPED WOOD
+        axisBlock((RotatedPillarBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
+        stairsBlock((StairBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
+        wallBlock((WallBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
+
+        //PLANKS
+        blockWithItem(ModBlocks.WINTER_TREE_PLANKS);
+        stairsBlock((StairBlock) ModBlocks.WINTER_TREE_PLANKS_STAIRS.get(), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
+        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_PLANKS_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
+        fenceBlock((FenceBlock) ModBlocks.WINTER_TREE_PLANKS_FENCE.get(), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
+        fenceGateBlock((FenceGateBlock) ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE.get(), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
+        //door Block manual
+        //trapdoor Block manual
+        pressurePlateBlock(((PressurePlateBlock) ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get()), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
+        buttonBlock(((ButtonBlock) ModBlocks.WINTER_TREE_PLANKS_BUTTON.get()), blockTexture(ModBlocks.WINTER_TREE_PLANKS.get()));
+
+        //LEAVES AND SAPLING
+        leavesBlock(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE);
+        leavesBlock(ModBlocks.WINTER_TREE_LEAVES_BLUE);
+        saplingBlock(ModBlocks.WINTER_TREE_SAPLING);
+
+        // ITEMS
+        blockItem(ModBlocks.WINTER_TREE_LOG);
+        // blockItem(ModBlocks.WINTER_TREE_CRACKED_LOG);
+        blockItem(ModBlocks.WINTER_TREE_WOOD);
+        blockItem(ModBlocks.WINTER_TREE_WOOD_STAIRS);
+        blockItem(ModBlocks.WINTER_TREE_WOOD_SLAB);
+        wallItem(ModBlocks.WINTER_TREE_WOOD_WALL, ModBlocks.WINTER_TREE_LOG);
+        blockItem(ModBlocks.WINTER_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD);
+        blockItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS);
+        blockItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB);
+        wallItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL, ModBlocks.WINTER_TREE_STRIPPED_LOG);
+        blockItem(ModBlocks.WINTER_TREE_PLANKS_SLAB);
+        blockItem(ModBlocks.WINTER_TREE_PLANKS_STAIRS);
+        fenceItem(ModBlocks.WINTER_TREE_PLANKS_FENCE, ModBlocks.WINTER_TREE_PLANKS);
+        blockItem(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE);
+        //Doors require a manual setup for Item model
+        //Trapdoor require a manual setup for Item model
+        blockItem(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE);
+        blockItem(ModBlocks.WINTER_TREE_PLANKS_BUTTON);
+    }
+
+    private void leavesBlock(RegistryObject<Block> deferredBlock) {
+        simpleBlockWithItem(deferredBlock.get(),
+                models().singleTexture(deferredBlock.getId().getPath(),  new ResourceLocation("minecraft:block/leaves"),
+                        "all", blockTexture(deferredBlock.get())).renderType("cutout"));
+    }
+
+    private void saplingBlock(RegistryObject<Block> deferredBlock) {
+        simpleBlock(deferredBlock.get(), models().cross(BuiltInRegistries.BLOCK.getKey(deferredBlock.get()).getPath(), blockTexture(deferredBlock.get())).renderType("cutout"));
+    }
+
+    private void wallItem(RegistryObject<Block> wall, RegistryObject<Block> baseBlock) {
+        simpleBlockItem(wall.get(), models().withExistingParent(wall.getId().getPath(), mcLoc("block/wall_inventory")).texture("wall", blockTexture(baseBlock.get())));
+    }
+
+    private void fenceItem(RegistryObject<Block> fence, RegistryObject<Block> baseBlock) {
+        simpleBlockItem(fence.get(), models().withExistingParent(fence.getId().getPath(), mcLoc("block/fence_inventory")).texture("texture", blockTexture(baseBlock.get())));
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {

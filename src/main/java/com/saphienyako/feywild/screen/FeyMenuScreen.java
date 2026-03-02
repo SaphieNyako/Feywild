@@ -4,6 +4,7 @@ import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.entity.base.FeyBase;
+import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -49,13 +50,26 @@ public class FeyMenuScreen extends Screen {
             Entity entity = Minecraft.getInstance().level == null ? null : Minecraft.getInstance().level.getEntity(this.entityId);
             if (entity instanceof LivingEntity living) {
                 this.addRenderableWidget(new EntityWidget(left, (this.height - EntityWidget.HEIGHT) / 2, living));
-                this.addRenderableWidget(new FollowButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  FollowButton.HEIGHT, this.followingPlayer, this.entityId, this.currentBlockPos));
+                //TOP BUTTON
+                if(entity instanceof TreeEntBase){
+                    this.addRenderableWidget(new MountButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  FollowButton.HEIGHT, this,  this.entityId));
+                } else {
+                    this.addRenderableWidget(new FollowButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  FollowButton.HEIGHT, this.followingPlayer, this.entityId, this.currentBlockPos));
+                }
+
+                //SECOND BUTTON
                 if (entity instanceof BellsnickelEntity bellsnickel) {
                     this.addRenderableWidget(new BellsnickelScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BellsnickelScreenButton.WIDTH)/2), this.top + 12 + BellsnickelScreenButton.HEIGHT * 2, this.entityId));
+                } else if(entity instanceof TreeEntBase) {
+                    this.addRenderableWidget(new EffectButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - EffectButton.WIDTH)/2), this.top + 12 +  EffectButton.HEIGHT * 2, this,  this.entityId));
+
                 } else {
                     this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH) / 2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
-                } this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
+                }
+                //THIRD BUTTON
+                this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
                 // TODO Button Quest
+                //VOLUME BUTTON
                 if(ModConfig.COMMON.voice_active.get()) {
                     this.addRenderableWidget(new VolumeButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH) / 2), this.top + 28 + AbilityButton.HEIGHT * 6, this.voiceActive, this.entityId));
                 }

@@ -2,21 +2,31 @@ package com.saphienyako.feywild.datagen.loot;
 
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -171,6 +181,179 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get(),
                 block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
+        this.dropSelf(ModBlocks.AUTUMN_TREE_LOG.get());
+        this.add(ModBlocks.AUTUMN_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.AUTUMN_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE.get());
+        this.createDoorTables(ModBlocks.AUTUMN_TREE_PLANKS_DOOR.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.AUTUMN_TREE_SAPLING.get());
+        //LEAVES
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_BROWN.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_RED.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY.get(), block ->
+                createLeavesDrops(block, ModBlocks.AUTUMN_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.dropSelf(ModBlocks.SPRING_TREE_LOG.get());
+        this.add(ModBlocks.SPRING_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.SPRING_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE.get());
+        this.createDoorTables(ModBlocks.SPRING_TREE_PLANKS_DOOR.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.SPRING_TREE_SAPLING.get());
+        //LEAVES
+        this.add(ModBlocks.SPRING_TREE_LEAVES_CYAN.get(), block ->
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.SPRING_TREE_LEAVES_GREEN.get(), block ->
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.SPRING_TREE_LEAVES_LIME.get(), block ->
+                createLeavesDrops(block, ModBlocks.SPRING_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.dropSelf(ModBlocks.SUMMER_TREE_LOG.get());
+        this.add(ModBlocks.SUMMER_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.SUMMER_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE.get());
+        this.createDoorTables(ModBlocks.SUMMER_TREE_PLANKS_DOOR.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.SUMMER_TREE_SAPLING.get());
+        this.add(ModBlocks.SUMMER_TREE_LEAVES_ORANGE.get(), block ->
+                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get(), block ->
+                createLeavesDrops(block, ModBlocks.SUMMER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.dropSelf(ModBlocks.WINTER_TREE_LOG.get());
+        this.add(ModBlocks.WINTER_TREE_CRACKED_LOG.get(),
+                LootTable.lootTable()
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModBlocks.WINTER_TREE_LOG.get())))
+                        .withPool(LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1))
+                                .add(LootItem.lootTableItem(ModItems.FEY_GEM.get())))
+        );
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_LOG.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_SLAB.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_STAIRS.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_FENCE.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE.get());
+        this.createDoorTables(ModBlocks.WINTER_TREE_PLANKS_DOOR.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.WINTER_TREE_SAPLING.get());
+
+        this.add(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get(), block ->
+                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
+
+        this.add(ModBlocks.WINTER_TREE_LEAVES_BLUE.get(), block ->
+                createLeavesDrops(block, ModBlocks.WINTER_TREE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES)
+                        .withPool(extraLeafDrop(ModItems.FEY_DUST.get(), 0.008f))
+        );
 
     }
 
@@ -192,6 +375,33 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 )
         );
     }
+
+    protected static LootPool.Builder extraLeafDrop(ItemLike dropItem, float chance) {
+        return LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(dropItem)
+                        .when(LootItemRandomChanceCondition.randomChance(chance))
+                        // Only drop if not using shears
+                        .when(InvertedLootItemCondition.invert(
+                                MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS))
+                        ))
+                );
+    }
+
+    protected void createDoorTables(Block door) {
+        this.add(door, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(door))
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(door)
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(DoorBlock.HALF, DoubleBlockHalf.LOWER)
+                                ))
+                )
+        );
+    }
+
+
     @Nonnull
     @Override
     protected Iterable<Block> getKnownBlocks() {

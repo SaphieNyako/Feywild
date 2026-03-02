@@ -14,6 +14,7 @@ import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.screen.BellsnickelMenu;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -353,6 +354,18 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
                                 this.getAbilityActive(),
                                 this.getVoiceActive()),
                         (ServerPlayer) player);
+                player.swing(hand, true);
+            }
+            //UNTAMED MESSAGE
+            else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    player.displayClientMessage(
+                            Component.translatable("message.feywild.pixie_whisper")
+                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
+                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
+                            true
+                    );
+                }
                 player.swing(hand, true);
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);

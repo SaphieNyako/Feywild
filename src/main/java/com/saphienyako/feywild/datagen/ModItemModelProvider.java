@@ -1,10 +1,12 @@
 package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -31,11 +33,27 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.SUMMONING_SCROLL_SHROOMLING);
         simpleItem(ModItems.SUMMONING_SCROLL_MANDRAGORA);
         simpleItem(ModItems.SUMMONING_SCROLL_BELLSNICKEL);
+        simpleItem(ModItems.SUMMONING_SCROLL_BEE_KNIGHT);
+        simpleItem(ModItems.SUMMONING_SCROLL_SPRING_TREE_ENT);
+        simpleItem(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT);
+        simpleItem(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT);
+        simpleItem(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT);
         simpleItem(ModItems.FEY_DUST);
         simpleItem(ModItems.MANDRAKE);
         simpleItem(ModItems.GIANT_CROCUS_FLOWER_SEED);
         simpleItem(ModItems.GIANT_DANDELION_FLOWER_SEED);
         simpleItem(ModItems.GIANT_SUN_FLOWER_SEED);
+
+        saplingItem(ModBlocks.AUTUMN_TREE_SAPLING);
+        saplingItem(ModBlocks.SPRING_TREE_SAPLING);
+        saplingItem(ModBlocks.SUMMER_TREE_SAPLING);
+        saplingItem(ModBlocks.WINTER_TREE_SAPLING);
+    }
+
+    private ItemModelBuilder saplingItem(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+              new  ResourceLocation("item/generated")).texture("layer0",
+              new  ResourceLocation(Feywild.MOD_ID,"block/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

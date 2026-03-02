@@ -1,0 +1,69 @@
+{
+  "category": "feywild:tree_ents",
+  "icon": "feywild:summoning_scroll_spring_tree_ent",
+  "name":  "feywild_lexicon.entry.tree_ents.summon.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:spring_tree_ent"
+    },
+    {
+      "type": "feywild:spring_tree_ent",
+      "recipe": "feywild:summoning_scroll_spring_tree_ent"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:summer_tree_ent"
+    },
+    {
+      "type": "feywild:summer_tree_ent",
+      "recipe": "feywild:summoning_scroll_summer_tree_ent"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:autumn_tree_ent"
+    },
+    {
+      "type": "feywild:autumn_tree_ent",
+      "recipe": "feywild:summoning_scroll_autumn_tree_ent"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:winter_tree_ent"
+    },
+    {
+      "type": "feywild:winter_tree_ent",
+      "recipe": "feywild:summoning_scroll_winter_tree_ent"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "feywild_lexicon.entry.tree_ents.summon.page0.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "feywild_lexicon.entry.tree_ents.summon.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Blessing",
+      "text": "feywild_lexicon.entry.tree_ents.summon.page2.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Mountable",
+      "text": "feywild_lexicon.entry.tree_ents.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.tree_ents.summon.page4.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "feywild_lexicon.entry.tree_ents.summon.page5.text0"
+    }
+  ]
+}

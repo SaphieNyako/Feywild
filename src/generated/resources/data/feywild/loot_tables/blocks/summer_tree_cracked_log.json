@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "feywild:summer_tree_log"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "feywild:fey_gem"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "feywild:blocks/summer_tree_cracked_log"
+}
