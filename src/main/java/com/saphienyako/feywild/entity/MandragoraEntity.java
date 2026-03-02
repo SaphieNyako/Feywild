@@ -301,7 +301,7 @@ public class MandragoraEntity extends FeyBase implements GroundEntity, ITradeabl
                 }
                 player.swing(hand, true);
             } //GIVE FLOWER
-            else if (FLOWER_VARIANTS.containsKey(player.getItemInHand(hand).getItem())) {
+            else if (FLOWER_VARIANTS.containsKey(player.getItemInHand(hand).getItem()) && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 MandragoraVariant variant = FLOWER_VARIANTS.get(player.getItemInHand(hand).getItem());
                 this.setVariant(variant);
                 if (!player.isCreative()) {
