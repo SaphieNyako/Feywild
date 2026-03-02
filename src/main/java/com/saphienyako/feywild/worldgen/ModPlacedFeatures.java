@@ -1,8 +1,15 @@
 package com.saphienyako.feywild.worldgen;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -56,6 +63,38 @@ public class ModPlacedFeatures {
                                     )
                             )
                     ));
+
+    private static RegistryObject<PlacedFeature> treePlaced(String name, RegistryObject<ConfiguredFeature<?, ?>> configured, RegistryObject<Block> sapling) {
+        return PLACED_FEATURES.register(name,
+                () -> new PlacedFeature(
+                        configured.getHolder().get(),
+                        List.of(
+                                RarityFilter.onAverageOnceEvery(12),
+                                InSquarePlacement.spread(),
+                                HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
+                                PlacementUtils.filteredByBlockSurvival(sapling.get()), // <-- safe now
+                                SurfaceWaterDepthFilter.forMaxDepth(0),
+                                BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                                        BlockPredicate.solid(BlockPos.ZERO.below()),
+                                        BlockPredicate.hasSturdyFace(BlockPos.ZERO.below(), Direction.UP)
+                                )),
+                                BiomeFilter.biome()
+                        )
+                )
+        );
+    }
+
+    public static final RegistryObject<PlacedFeature> AUTUMN_TREE_PLACED =
+            treePlaced("autumn_tree_placed", ModConfiguredFeatures.AUTUMN_TREE, ModBlocks.AUTUMN_TREE_SAPLING);
+
+    public static final RegistryObject<PlacedFeature> SPRING_TREE_PLACED =
+            treePlaced("spring_tree_placed", ModConfiguredFeatures.SPRING_TREE, ModBlocks.SPRING_TREE_SAPLING);
+
+    public static final RegistryObject<PlacedFeature> SUMMER_TREE_PLACED =
+            treePlaced("summer_tree_placed", ModConfiguredFeatures.SUMMER_TREE, ModBlocks.SUMMER_TREE_SAPLING);
+
+    public static final RegistryObject<PlacedFeature> WINTER_TREE_PLACED =
+            treePlaced("winter_tree_placed", ModConfiguredFeatures.WINTER_TREE, ModBlocks.WINTER_TREE_SAPLING);
 
     public static void register(IEventBus bus) {
         PLACED_FEATURES.register(bus);

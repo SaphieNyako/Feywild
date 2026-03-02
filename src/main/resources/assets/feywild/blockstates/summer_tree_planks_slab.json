@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "feywild:block/summer_tree_planks_slab"
+    },
+    "type=double": {
+      "model": "feywild:block/summer_tree_planks"
+    },
+    "type=top": {
+      "model": "feywild:block/summer_tree_planks_slab_top"
+    }
+  }
+}

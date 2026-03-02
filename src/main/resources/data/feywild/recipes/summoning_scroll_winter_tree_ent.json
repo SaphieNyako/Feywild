@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_winter_pixie"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "feywild:summoning_scroll_bellsnickel"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "item": "feywild:winter_tree_sapling"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_winter_tree_ent"
+  }
+}

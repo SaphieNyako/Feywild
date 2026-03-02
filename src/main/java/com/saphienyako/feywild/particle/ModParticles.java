@@ -21,6 +21,14 @@ public class ModParticles {
 
     public static final RegistryObject<SimpleParticleType> AUTUMN_LEAF_PARTICLE = PARTICLE_TYPES.register("autumn_leaf_particle", ()-> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SPRING_LEAF_PARTICLE = PARTICLE_TYPES.register("spring_leaf_particle", ()-> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SUMMER_LEAF_PARTICLE = PARTICLE_TYPES.register("summer_leaf_particle", ()-> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> WINTER_LEAF_PARTICLE = PARTICLE_TYPES.register("winter_leaf_particle", ()-> new SimpleParticleType(true));
+
+
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

@@ -75,6 +75,18 @@ public class FeywildNetwork {
                 .encoder(OpenBellsnickelMenuMessage::encode)
                 .consumerMainThread(OpenBellsnickelMenuMessage::handle)
                 .add();
+
+        net.messageBuilder(GivePlayerEffectMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(GivePlayerEffectMessage::decode)
+                .encoder(GivePlayerEffectMessage::encode)
+                .consumerMainThread(GivePlayerEffectMessage::handle)
+                .add();
+
+        net.messageBuilder(MountTreeEntMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(MountTreeEntMessage::decode)
+                .encoder(MountTreeEntMessage::encode)
+                .consumerMainThread(MountTreeEntMessage::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

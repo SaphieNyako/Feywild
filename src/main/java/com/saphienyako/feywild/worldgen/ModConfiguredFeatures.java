@@ -3,6 +3,7 @@ package com.saphienyako.feywild.worldgen;
 import com.google.common.base.Suppliers;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import com.saphienyako.feywild.worldgen.features.ModFeatures;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.world.level.block.Block;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -92,6 +94,22 @@ public class ModConfiguredFeatures {
                 2
         );
     }
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> AUTUMN_TREE =
+            CONFIGURED_FEATURES.register("autumn_tree",
+                    () -> new ConfiguredFeature<>(ModFeatures.AUTUMN_TREE.get(), NoneFeatureConfiguration.INSTANCE));
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> SPRING_TREE =
+            CONFIGURED_FEATURES.register("spring_tree",
+                    () -> new ConfiguredFeature<>(ModFeatures.SPRING_TREE.get(), NoneFeatureConfiguration.INSTANCE));
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> SUMMER_TREE =
+            CONFIGURED_FEATURES.register("summer_tree",
+                    () -> new ConfiguredFeature<>(ModFeatures.SUMMER_TREE.get(), NoneFeatureConfiguration.INSTANCE));
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> WINTER_TREE =
+            CONFIGURED_FEATURES.register("winter_tree",
+                    () -> new ConfiguredFeature<>(ModFeatures.WINTER_TREE.get(), NoneFeatureConfiguration.INSTANCE));
 
 
     public static void register(IEventBus bus) {

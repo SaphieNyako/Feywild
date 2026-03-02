@@ -1,16 +1,17 @@
 package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.trees.*;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -361,6 +362,300 @@ public class ModBlocks {
     public static final RegistryObject<Block> AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB = registerBlockAndItem("autumn_elven_quartz_polished_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(2f, 5f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
 
+
+    //AUTUMN WOOD, PLANKS AND LOGS
+    public static final RegistryObject<Block> AUTUMN_TREE_SAPLING = registerBlockAndItem("autumn_tree_sapling",
+            () -> new AutumnTreeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_SAPLING)));
+    public static final RegistryObject<Block> AUTUMN_TREE_LOG = registerBlockAndItem("autumn_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_CRACKED_LOG = registerBlockAndItem("autumn_tree_cracked_log",
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_STRIPPED_LOG = registerBlockAndItem("autumn_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_WOOD = registerBlockAndItem("autumn_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_WOOD_SLAB = registerBlockAndItem("autumn_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_WOOD_STAIRS = registerBlockAndItem("autumn_tree_wood_stairs",
+            () -> new StairBlock(AUTUMN_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_WOOD_WALL = registerBlockAndItem("autumn_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_STRIPPED_WOOD = registerBlockAndItem("autumn_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_STRIPPED_WOOD_SLAB = registerBlockAndItem("autumn_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_STRIPPED_WOOD_STAIRS = registerBlockAndItem("autumn_tree_stripped_wood_stairs",
+            () -> new StairBlock(AUTUMN_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_STRIPPED_WOOD_WALL = registerBlockAndItem("autumn_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_LEAVES_BROWN = registerBlockAndItem("autumn_tree_leaves_brown",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+    public static final RegistryObject<Block> AUTUMN_TREE_LEAVES_RED = registerBlockAndItem("autumn_tree_leaves_red",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+    public static final RegistryObject<Block> AUTUMN_TREE_LEAVES_LIGHT_GRAY = registerBlockAndItem("autumn_tree_leaves_light_gray",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+    public static final RegistryObject<Block> AUTUMN_TREE_LEAVES_DARK_GRAY = registerBlockAndItem("autumn_tree_leaves_dark_gray",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.AUTUMN_LEAF_PARTICLE, 14));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS = registerBlockAndItem("autumn_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_SLAB = registerBlockAndItem("autumn_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_STAIRS = registerBlockAndItem("autumn_tree_planks_stairs",
+            () -> new StairBlock(AUTUMN_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_FENCE = registerBlockAndItem("autumn_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_FENCE_GATE = registerBlockAndItem("autumn_tree_planks_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_DOOR = registerBlockAndItem("autumn_tree_planks_door",
+            () -> new DoorBlock( BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_TRAPDOOR = registerBlockAndItem("autumn_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_PRESSURE_PLATE = registerBlockAndItem("autumn_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(
+                    PressurePlateBlock.Sensitivity.EVERYTHING,
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE).strength(4f)
+            ));
+    public static final RegistryObject<Block> AUTUMN_TREE_PLANKS_BUTTON = registerBlockAndItem("autumn_tree_planks_button",
+            () -> new WoodButtonBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).strength(4f)
+            ));
+    //SPRING WOOD, PLANKS AND LOGS
+    public static final RegistryObject<Block> SPRING_TREE_SAPLING = registerBlockAndItem("spring_tree_sapling",
+            () -> new SpringTreeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_SAPLING)));
+    public static final RegistryObject<Block> SPRING_TREE_LOG = registerBlockAndItem("spring_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> SPRING_TREE_CRACKED_LOG = registerBlockAndItem("spring_tree_cracked_log",
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> SPRING_TREE_STRIPPED_LOG = registerBlockAndItem("spring_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final RegistryObject<Block> SPRING_TREE_WOOD = registerBlockAndItem("spring_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_WOOD_SLAB = registerBlockAndItem("spring_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_WOOD_STAIRS = registerBlockAndItem("spring_tree_wood_stairs",
+            () -> new StairBlock(SPRING_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_WOOD_WALL = registerBlockAndItem("spring_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_STRIPPED_WOOD = registerBlockAndItem("spring_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_STRIPPED_WOOD_SLAB = registerBlockAndItem("spring_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_STRIPPED_WOOD_STAIRS = registerBlockAndItem("spring_tree_stripped_wood_stairs",
+            () -> new StairBlock(SPRING_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_STRIPPED_WOOD_WALL = registerBlockAndItem("spring_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SPRING_TREE_LEAVES_CYAN = registerBlockAndItem("spring_tree_leaves_cyan",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.SPRING_LEAF_PARTICLE, 14));
+    public static final RegistryObject<Block> SPRING_TREE_LEAVES_GREEN = registerBlockAndItem("spring_tree_leaves_green",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.SPRING_LEAF_PARTICLE, 14));
+    public static final RegistryObject<Block> SPRING_TREE_LEAVES_LIME = registerBlockAndItem("spring_tree_leaves_lime",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.SPRING_LEAF_PARTICLE, 14));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS = registerBlockAndItem("spring_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_SLAB = registerBlockAndItem("spring_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_STAIRS = registerBlockAndItem("spring_tree_planks_stairs",
+            () -> new StairBlock(SPRING_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_FENCE = registerBlockAndItem("spring_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_FENCE_GATE = registerBlockAndItem("spring_tree_planks_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_DOOR = registerBlockAndItem("spring_tree_planks_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_TRAPDOOR = registerBlockAndItem("spring_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_PRESSURE_PLATE = registerBlockAndItem("spring_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(
+                    PressurePlateBlock.Sensitivity.EVERYTHING,
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE).strength(4f)
+            ));
+
+    public static final RegistryObject<Block> SPRING_TREE_PLANKS_BUTTON = registerBlockAndItem("spring_tree_planks_button",
+            () -> new WoodButtonBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).strength(4f)
+            ));
+
+    //SUMMER WOOD, PLANKS AND LOGS
+    public static final RegistryObject<Block> SUMMER_TREE_SAPLING = registerBlockAndItem("summer_tree_sapling",
+            () -> new SummerTreeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_SAPLING)));
+    public static final RegistryObject<Block> SUMMER_TREE_LOG = registerBlockAndItem("summer_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_CRACKED_LOG = registerBlockAndItem("summer_tree_cracked_log",
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_STRIPPED_LOG = registerBlockAndItem("summer_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_WOOD = registerBlockAndItem("summer_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_WOOD_SLAB = registerBlockAndItem("summer_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_WOOD_STAIRS = registerBlockAndItem("summer_tree_wood_stairs",
+            () -> new StairBlock(SUMMER_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_WOOD_WALL = registerBlockAndItem("summer_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_STRIPPED_WOOD = registerBlockAndItem("summer_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_STRIPPED_WOOD_SLAB = registerBlockAndItem("summer_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_STRIPPED_WOOD_STAIRS = registerBlockAndItem("summer_tree_stripped_wood_stairs",
+            () -> new StairBlock(SUMMER_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_STRIPPED_WOOD_WALL = registerBlockAndItem("summer_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_LEAVES_ORANGE = registerBlockAndItem("summer_tree_leaves_orange",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.SUMMER_LEAF_PARTICLE, 14));
+
+    public static final RegistryObject<Block> SUMMER_TREE_LEAVES_YELLOW = registerBlockAndItem("summer_tree_leaves_yellow",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.SUMMER_LEAF_PARTICLE, 14));
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS = registerBlockAndItem("summer_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_SLAB = registerBlockAndItem("summer_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_STAIRS = registerBlockAndItem("summer_tree_planks_stairs",
+            () -> new StairBlock(SUMMER_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_FENCE = registerBlockAndItem("summer_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_FENCE_GATE = registerBlockAndItem("summer_tree_planks_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_DOOR = registerBlockAndItem("summer_tree_planks_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_TRAPDOOR = registerBlockAndItem("summer_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_PRESSURE_PLATE = registerBlockAndItem("summer_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(
+                    PressurePlateBlock.Sensitivity.EVERYTHING,
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE).strength(4f)
+            ));
+    public static final RegistryObject<Block> SUMMER_TREE_PLANKS_BUTTON = registerBlockAndItem("summer_tree_planks_button",
+            () -> new WoodButtonBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).strength(4f)
+            ));
+    //WINTER WOOD, PLANKS AND LOGS
+    public static final RegistryObject<Block> WINTER_TREE_SAPLING = registerBlockAndItem("winter_tree_sapling",
+            () -> new WinterTreeSaplingBlock(BlockBehaviour.Properties.copy(Blocks.DARK_OAK_SAPLING)));
+    public static final RegistryObject<Block> WINTER_TREE_LOG = registerBlockAndItem("winter_tree_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> WINTER_TREE_CRACKED_LOG = registerBlockAndItem("winter_tree_cracked_log",
+            ()-> new FeyCrackedLogBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> WINTER_TREE_STRIPPED_LOG = registerBlockAndItem("winter_tree_stripped_log",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_LOG)));
+
+    public static final RegistryObject<Block> WINTER_TREE_WOOD = registerBlockAndItem("winter_tree_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_WOOD_SLAB = registerBlockAndItem("winter_tree_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_WOOD_STAIRS = registerBlockAndItem("winter_tree_wood_stairs",
+            () -> new StairBlock(WINTER_TREE_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_WOOD_WALL = registerBlockAndItem("winter_tree_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_STRIPPED_WOOD = registerBlockAndItem("winter_tree_stripped_wood",
+            () -> new FeyFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_STRIPPED_WOOD_SLAB = registerBlockAndItem("winter_tree_stripped_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_STRIPPED_WOOD_STAIRS = registerBlockAndItem("winter_tree_stripped_wood_stairs",
+            () -> new StairBlock(WINTER_TREE_STRIPPED_WOOD.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_STRIPPED_WOOD_WALL = registerBlockAndItem("winter_tree_stripped_wood_wall", () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STRIPPED_OAK_WOOD)));
+
+    public static final RegistryObject<Block> WINTER_TREE_LEAVES_LIGHT_BLUE = registerBlockAndItem("winter_tree_leaves_light_blue",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.WINTER_LEAF_PARTICLE, 14));
+
+    public static final RegistryObject<Block> WINTER_TREE_LEAVES_BLUE = registerBlockAndItem("winter_tree_leaves_blue",
+            () -> new FeyLeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES), ModParticles.WINTER_LEAF_PARTICLE, 14));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS = registerBlockAndItem("winter_tree_planks",
+            () -> new FeyPlanksBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_SLAB = registerBlockAndItem("winter_tree_planks_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_STAIRS = registerBlockAndItem("winter_tree_planks_stairs",
+            () -> new StairBlock(WINTER_TREE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_FENCE = registerBlockAndItem("winter_tree_planks_fence", () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_FENCE_GATE = registerBlockAndItem("winter_tree_planks_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE)));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_DOOR = registerBlockAndItem("winter_tree_planks_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_DOOR).noOcclusion()));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_TRAPDOOR = registerBlockAndItem("winter_tree_planks_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.OAK_TRAPDOOR)
+                    .noOcclusion()
+                    .isRedstoneConductor((state, world, pos) -> false)));
+
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_PRESSURE_PLATE = registerBlockAndItem("winter_tree_planks_pressure_plate",
+            () -> new PressurePlateBlock(
+                    PressurePlateBlock.Sensitivity.EVERYTHING,
+                    BlockBehaviour.Properties.copy(Blocks.OAK_PRESSURE_PLATE).strength(4f)
+            ));
+    public static final RegistryObject<Block> WINTER_TREE_PLANKS_BUTTON = registerBlockAndItem("winter_tree_planks_button",
+            () -> new WoodButtonBlock(
+                    BlockBehaviour.Properties.copy(Blocks.OAK_BUTTON).strength(4f)
+            ));
 
 
 

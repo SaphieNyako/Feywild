@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=y": [
+      { "model": "feywild:block/autumn_tree_cracked_log_1" },
+      { "model": "feywild:block/autumn_tree_cracked_log_2" },
+      { "model": "feywild:block/autumn_tree_cracked_log_3" },
+      { "model": "feywild:block/autumn_tree_cracked_log_4" },
+      { "model": "feywild:block/autumn_tree_cracked_log_5" },
+      { "model": "feywild:block/autumn_tree_cracked_log_6" }
+    ],
+    "axis=x": [
+      { "model": "feywild:block/autumn_tree_cracked_log_1", "x": 90, "y": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_2", "x": 90, "y": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_3", "x": 90, "y": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_4", "x": 90, "y": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_5", "x": 90, "y": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_6", "x": 90, "y": 90 }
+    ],
+    "axis=z": [
+      { "model": "feywild:block/autumn_tree_cracked_log_1", "x": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_2", "x": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_3", "x": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_4", "x": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_5", "x": 90 },
+      { "model": "feywild:block/autumn_tree_cracked_log_6", "x": 90 }
+    ]
+  }
+}

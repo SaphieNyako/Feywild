@@ -41,6 +41,21 @@ public class ModEntities {
     public static final RegistryObject<EntityType<BellsnickelEntity>> BELLSNICKEL =
             ENTITY_TYPES.register("bellsnickel", () -> EntityType.Builder.of(BellsnickelEntity::new, MobCategory.CREATURE).build("bellsnickel"));
 
+    public static final RegistryObject<EntityType<SpringTreeEntEntity>> SPRING_TREE_ENT =
+            ENTITY_TYPES.register("spring_tree_ent", ()-> EntityType.Builder.of(SpringTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("spring_tree_ent"));
+
+    public static final RegistryObject<EntityType<SummerTreeEntEntity>> SUMMER_TREE_ENT =
+            ENTITY_TYPES.register("summer_tree_ent", () -> EntityType.Builder.of(SummerTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("summer_tree_ent"));
+
+    public static final RegistryObject<EntityType<AutumnTreeEntEntity>> AUTUMN_TREE_ENT =
+            ENTITY_TYPES.register("autumn_tree_ent", () -> EntityType.Builder.of(AutumnTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("autumn_tree_ent"));
+
+    public static final RegistryObject<EntityType<WinterTreeEntEntity>> WINTER_TREE_ENT =
+            ENTITY_TYPES.register("winter_tree_ent", ()-> EntityType.Builder.of(WinterTreeEntEntity::new, MobCategory.CREATURE)
+                    .sized(2,3.9f).build("winter_tree_ent"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
