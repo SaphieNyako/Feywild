@@ -55,19 +55,19 @@ public class ModItems {
     public static final RegistryObject<Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel",() -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
 
-    public static final RegistryObject<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new ToolTipBaseItem(new Item.Properties(),
+    public static final RegistryObject<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new ToolTipBaseItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_bee_knight").withStyle(ChatFormatting.RED)));
 
-    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.register("summoning_scroll_spring_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+    public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.register("summoning_scroll_spring_tree_ent", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_spring_tree_ent")));
 
-    public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_TREE_ENT = ITEMS.register("summoning_scroll_summer_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+    public static final RegistryObject<Item> SUMMONING_SCROLL_SUMMER_TREE_ENT = ITEMS.register("summoning_scroll_summer_tree_ent", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_summer_tree_ent")));
 
-    public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_TREE_ENT = ITEMS.register("summoning_scroll_autumn_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+    public static final RegistryObject<Item> SUMMONING_SCROLL_AUTUMN_TREE_ENT = ITEMS.register("summoning_scroll_autumn_tree_ent", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_autumn_tree_ent")));
 
-    public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.register("summoning_scroll_winter_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
+    public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.register("summoning_scroll_winter_tree_ent", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_winter_tree_ent")));
 
     public static final RegistryObject<Item> FEY_DUST = ITEMS.register("fey_dust", () -> new FeyDustItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB).food(
@@ -90,15 +90,15 @@ public class ModItems {
     public static final RegistryObject<Item> SPAWN_EGG_SHROOMLING = ITEMS.register("spawn_egg_shroomling", () -> new ForgeSpawnEggItem(ModEntities.SHROOMLING, 0xf2d5d0, 0xd4260b, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> SPAWN_EGG_MANDRAGORA = ITEMS.register("spawn_egg_mandragora", () -> new ForgeSpawnEggItem(ModEntities.MANDRAGORA, 0x54d911, 0xf7a3f7, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
-    public static final RegistryObject<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new ForgeSpawnEggItem(ModEntities.BELLSNICKEL, 0x6a95f6, 0x2f3063, new Item.Properties()));
+    public static final RegistryObject<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new ForgeSpawnEggItem(ModEntities.BELLSNICKEL, 0x6a95f6, 0x2f3063, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
-    public static final RegistryObject<Item> SPAWN_EGG_SPRING_TREE_ENT = ITEMS.register("spawn_egg_spring_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SPRING_TREE_ENT,0x5C281E, 0xa1db67, new Item.Properties()));
+    public static final RegistryObject<Item> SPAWN_EGG_SPRING_TREE_ENT = ITEMS.register("spawn_egg_spring_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SPRING_TREE_ENT,0x5C281E, 0xa1db67, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
-    public static final RegistryObject<Item> SPAWN_EGG_SUMMER_TREE_ENT = ITEMS.register("spawn_egg_summer_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SUMMER_TREE_ENT,0x5C281E, 0xfedc5a, new Item.Properties()));
+    public static final RegistryObject<Item> SPAWN_EGG_SUMMER_TREE_ENT = ITEMS.register("spawn_egg_summer_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SUMMER_TREE_ENT,0x5C281E, 0xfedc5a, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
-    public static final RegistryObject<Item> SPAWN_EGG_AUTUMN_TREE_ENT = ITEMS.register("spawn_egg_autumn_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.AUTUMN_TREE_ENT,0x5C281E, 0xb73737, new Item.Properties()));
+    public static final RegistryObject<Item> SPAWN_EGG_AUTUMN_TREE_ENT = ITEMS.register("spawn_egg_autumn_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.AUTUMN_TREE_ENT,0x5C281E, 0xb73737, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
-    public static final RegistryObject<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.WINTER_TREE_ENT,0x5C281E, 0x84b4be, new Item.Properties()));
+    public static final RegistryObject<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.WINTER_TREE_ENT,0x5C281E, 0x84b4be, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
 
 

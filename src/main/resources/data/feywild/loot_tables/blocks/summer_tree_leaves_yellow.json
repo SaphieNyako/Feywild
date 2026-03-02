@@ -68,7 +68,7 @@
           "type": "minecraft:item",
           "name": "feywild:fey_dust",
           "conditions": [
-            { "condition": "minecraft:random_chance", "chance": 0.008 },
+            { "condition": "minecraft:random_chance", "chance": 0.003 },
             {
               "condition": "minecraft:inverted",
               "term": { "condition": "minecraft:match_tool", "predicate": { "items": ["minecraft:shears"] } }
