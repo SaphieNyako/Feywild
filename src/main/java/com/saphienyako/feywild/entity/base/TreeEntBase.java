@@ -26,6 +26,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -88,7 +89,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-       // super.registerGoals();
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 2.0D, true));
         this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 1.0D));
@@ -99,7 +99,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0D, 8));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
-      //  this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, this.getTargetPositionSpeed()));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
     }
 
@@ -112,7 +111,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                 .add(Attributes.ATTACK_DAMAGE, 15)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
                 .add(Attributes.ARMOR, 5)
-               // .add(Attributes.FOLLOW_RANGE, 48D) TODO disable follow button
                 .add(Attributes.STEP_HEIGHT, 1.0);
 
     }
@@ -357,9 +355,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         super.travel(travelVector);
     }
 
-
-    //JUMPING
-
     @Override
     protected void tickRidden(@NonNull Player player,@NonNull Vec3 movementInput) {
         super.tickRidden(player, movementInput);
@@ -406,7 +401,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
     @Override
     public void handleStartJump(int p_21695_) {
-            //TODO play some sound
     }
 
     @Override
@@ -417,7 +411,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
     @Override
     public void handleStopJump() {
-        // Optional: reset any jump state if needed
     }
 
     public boolean isJumping() {
@@ -511,6 +504,8 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     public int getAmbientSoundInterval() {
         return 600; //YES THIS IS A THING T_T
     }
+
+    public abstract MobEffect getEffect();
 
     public TreeEntBase.State getState() {
         TreeEntBase.State[] states = TreeEntBase.State.values();
