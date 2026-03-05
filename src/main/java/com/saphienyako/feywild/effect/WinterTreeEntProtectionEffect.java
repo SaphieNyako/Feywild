@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.effect;
 
 import com.saphienyako.feywild.particle.ModParticles;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -27,6 +28,7 @@ public class WinterTreeEntProtectionEffect extends MobEffect {
     @Override
     public void applyEffectTick(@Nonnull LivingEntity living, int amplifier) {
         if (!living.level().isClientSide) {
+
             AABB box = new AABB(living.blockPosition()).inflate(amplifier + 1);
 
             living.level().getEntities(null, box).forEach(entity -> {
@@ -45,16 +47,19 @@ public class WinterTreeEntProtectionEffect extends MobEffect {
                     entity.playSound(SoundEvents.AZALEA_LEAVES_BREAK);
                 }
             });
-        } else {
-            living.level().addParticle(
-                    ModParticles.WINTER_LEAF_PARTICLE.get(),
-                    living.getX() + living.getRandom().nextDouble() * 1.5 - 0.75,
-                    living.getY() + living.getRandom().nextDouble() * 2.0 + 2.0,
-                    living.getZ() + living.getRandom().nextDouble() * 1.5 - 0.75,
-                    0.0,
-                    -0.05,
-                    0.0
-            );
+
+            if (living.level() instanceof ServerLevel serverLevel) {
+
+                serverLevel.sendParticles(
+                        ModParticles.WINTER_LEAF_PARTICLE.get(),
+                        living.getX() + living.getRandom().nextDouble() * 1.5 - 0.75,
+                        living.getY() + living.getRandom().nextDouble() * 2.0 + 2.0,
+                        living.getZ() + living.getRandom().nextDouble() * 1.5 - 0.75,
+                        1,
+                        0.0, 0.0, 0.0,
+                        -0.05
+                );
+            }
         }
     }
 }

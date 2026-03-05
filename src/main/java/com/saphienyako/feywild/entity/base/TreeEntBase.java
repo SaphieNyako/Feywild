@@ -162,13 +162,15 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     }
 
     private boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
+        double dx = this.getX() - this.xo;
+        double dz = this.getZ() - this.zo;
+        return (dx * dx + dz * dz) > 1.0E-6; //return (dx * dx + dz * dz) > 0.0005;
     }
 
     private boolean isActuallyMoving() {
         if (isMoving()) {
-            movingTicks = 20; // TODO is this needed for such large entity?
-        } else {
+            movingTicks = 10;
+        } else if (movingTicks > 0) {
             movingTicks--;
         }
 
@@ -176,48 +178,59 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     }
 
     private void setupAnimationStates() {
+
+        boolean moving = isActuallyMoving();
+        boolean mounted = this.isVehicle() && this.getControllingPassenger() instanceof Player;
+
         // ATTACK
-        if (getState() == State.ATTACK) {
+        if (getState() == TreeEntBase.State.ATTACK) {
+
             if (!ATTACK_ANIMATION.isStarted()) {
                 ATTACK_ANIMATION.start(this.tickCount);
             }
+
             IDLE_ANIMATION.stop();
-        } else {
+            WALK_ANIMATION.stop();
+            WALK_QUICK_ANIMATION.stop();
+            return;
+        }
+
+        // MOUNTED MOVEMENT
+        if (mounted && moving) {
+
+            if (!WALK_QUICK_ANIMATION.isStarted()) {
+                WALK_QUICK_ANIMATION.start(this.tickCount);
+            }
+
+            IDLE_ANIMATION.stop();
+            WALK_ANIMATION.stop();
             ATTACK_ANIMATION.stop();
+            return;
         }
-        //MOUNTED
-        if (this.isVehicle() && this.getControllingPassenger() instanceof Player) {
-            if (isActuallyMoving()) {
-                if (!WALK_QUICK_ANIMATION.isStarted()) {
-                    WALK_QUICK_ANIMATION.start(this.tickCount);
-                }
-                IDLE_ANIMATION.stop();
 
-            } else {
-                if (!IDLE_ANIMATION.isStarted()) {
-                    IDLE_ANIMATION.start(this.tickCount);
-                }
-                WALK_QUICK_ANIMATION.stop();
+        // NORMAL WALK
+        if (moving) {
+
+            if (!WALK_ANIMATION.isStarted()) {
+                WALK_ANIMATION.start(this.tickCount);
             }
+
+            IDLE_ANIMATION.stop();
+            WALK_QUICK_ANIMATION.stop();
+            ATTACK_ANIMATION.stop();
+            return;
         }
 
-
-        if (getState() != State.ATTACK) {
-            if (isActuallyMoving()) {
-                if (!WALK_ANIMATION.isStarted()) {
-                    WALK_ANIMATION.start(this.tickCount);
-                }
-                IDLE_ANIMATION.stop();
-                WALK_QUICK_ANIMATION.stop();
-            } else {
-                if (!IDLE_ANIMATION.isStarted()) {
-                    IDLE_ANIMATION.start(this.tickCount);
-                }
-                WALK_ANIMATION.stop();
-                WALK_QUICK_ANIMATION.stop();
-            }
+        // IDLE
+        if (!IDLE_ANIMATION.isStarted()) {
+            IDLE_ANIMATION.start(this.tickCount);
         }
+
+        WALK_ANIMATION.stop();
+        WALK_QUICK_ANIMATION.stop();
+        ATTACK_ANIMATION.stop();
     }
+
 
     @SuppressWarnings("resource")
     @Nonnull
