@@ -15,14 +15,13 @@ public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
         this.entity = entity;
     }
 
-    //TODO does this work?
     @Override
-    public void tick() {
-        super.tick();
-        LivingEntity target = this.mob.getTarget();
-        if (target != null && this.canTreeEntAttack(target)) {
+    protected void checkAndPerformAttack(@Nonnull LivingEntity target, double distance) {
+        if (this.isTimeToAttack() && this.canTreeEntAttack(target)) {
             this.resetAttackCooldown();
+
             entity.playSound(entity.getAttackingSound(), 0.3f, 1f);
+
             this.mob.doHurtTarget(target);
         }
     }

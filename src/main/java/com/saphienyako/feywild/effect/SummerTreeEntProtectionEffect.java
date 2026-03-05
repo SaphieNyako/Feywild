@@ -2,6 +2,7 @@ package com.saphienyako.feywild.effect;
 
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -44,15 +45,18 @@ public class SummerTreeEntProtectionEffect extends MobEffect {
                     entity.playSound(SoundEvents.AZALEA_LEAVES_BREAK);
                 }
             });
-        } else {
-            living.level.addParticle(
+        }
+
+        if (living.level instanceof ServerLevel serverLevel) {
+
+            serverLevel.sendParticles(
                     ModParticles.SUMMER_LEAF_PARTICLE.get(),
                     living.getX() + living.getRandom().nextDouble() * 1.5 - 0.75,
                     living.getY() + living.getRandom().nextDouble() * 2.0 + 2.0,
                     living.getZ() + living.getRandom().nextDouble() * 1.5 - 0.75,
-                    0.0,
-                    -0.05,
-                    0.0
+                    1,
+                    0.0, 0.0, 0.0,
+                    -0.05
             );
         }
 

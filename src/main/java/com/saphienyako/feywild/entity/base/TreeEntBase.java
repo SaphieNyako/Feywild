@@ -80,6 +80,8 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     public TreeEntBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+        this.maxUpStep = 1.2F;
+        this.getNavigation().setCanFloat(true);
     }
 
     @Override
@@ -102,7 +104,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 120)
                 .add(Attributes.MOVEMENT_SPEED, 0.15)
-                .add(Attributes.JUMP_STRENGTH, 1.5)
+                .add(Attributes.JUMP_STRENGTH, 16)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2.0)
                 .add(Attributes.ATTACK_DAMAGE, 15)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
@@ -182,13 +184,15 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     }
 
     private boolean isMoving() {
-        return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
+        double dx = this.getX() - this.xo;
+        double dz = this.getZ() - this.zo;
+        return (dx * dx + dz * dz) > 1.0E-6; //return (dx * dx + dz * dz) > 0.0005;
     }
 
     private boolean isActuallyMoving() {
         if (isMoving()) {
-            movingTicks = 20; // TODO is this needed for such large entity?
-        } else {
+            movingTicks = 10;
+        } else if (movingTicks > 0) {
             movingTicks--;
         }
 
@@ -196,47 +200,57 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     }
 
     private void setupAnimationStates() {
+
+        boolean moving = isActuallyMoving();
+        boolean mounted = this.isVehicle() && this.getControllingPassenger() instanceof Player;
+
         // ATTACK
-        if (getState() == State.ATTACK) {
+        if (getState() == TreeEntBase.State.ATTACK) {
+
             if (!ATTACK_ANIMATION.isStarted()) {
                 ATTACK_ANIMATION.start(this.tickCount);
             }
+
             IDLE_ANIMATION.stop();
-        } else {
+            WALK_ANIMATION.stop();
+            WALK_QUICK_ANIMATION.stop();
+            return;
+        }
+
+        // MOUNTED MOVEMENT
+        if (mounted && moving) {
+
+            if (!WALK_QUICK_ANIMATION.isStarted()) {
+                WALK_QUICK_ANIMATION.start(this.tickCount);
+            }
+
+            IDLE_ANIMATION.stop();
+            WALK_ANIMATION.stop();
             ATTACK_ANIMATION.stop();
+            return;
         }
-        //MOUNTED
-        if (this.isVehicle() && this.getControllingPassenger() instanceof Player) {
-            if (isActuallyMoving()) {
-                if (!WALK_QUICK_ANIMATION.isStarted()) {
-                    WALK_QUICK_ANIMATION.start(this.tickCount);
-                }
-                IDLE_ANIMATION.stop();
 
-            } else {
-                if (!IDLE_ANIMATION.isStarted()) {
-                    IDLE_ANIMATION.start(this.tickCount);
-                }
-                WALK_QUICK_ANIMATION.stop();
+        // NORMAL WALK
+        if (moving) {
+
+            if (!WALK_ANIMATION.isStarted()) {
+                WALK_ANIMATION.start(this.tickCount);
             }
+
+            IDLE_ANIMATION.stop();
+            WALK_QUICK_ANIMATION.stop();
+            ATTACK_ANIMATION.stop();
+            return;
         }
 
-
-        if (getState() != State.ATTACK) {
-            if (isActuallyMoving()) {
-                if (!WALK_ANIMATION.isStarted()) {
-                    WALK_ANIMATION.start(this.tickCount);
-                }
-                IDLE_ANIMATION.stop();
-                WALK_QUICK_ANIMATION.stop();
-            } else {
-                if (!IDLE_ANIMATION.isStarted()) {
-                    IDLE_ANIMATION.start(this.tickCount);
-                }
-                WALK_ANIMATION.stop();
-                WALK_QUICK_ANIMATION.stop();
-            }
+        // IDLE
+        if (!IDLE_ANIMATION.isStarted()) {
+            IDLE_ANIMATION.start(this.tickCount);
         }
+
+        WALK_ANIMATION.stop();
+        WALK_QUICK_ANIMATION.stop();
+        ATTACK_ANIMATION.stop();
     }
 
     @SuppressWarnings("resource")
@@ -360,6 +374,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     @Override
     public void travel(@Nonnull Vec3 travelVector) {
         if (this.isVehicle() && this.getControllingPassenger() instanceof Player player) {
+
             this.setYRot(player.getYRot());
             this.yRotO = this.getYRot();
             this.setXRot(player.getXRot() * 0.5F);
@@ -368,8 +383,23 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
             float strafe = player.xxa;
 
             this.setSpeed((float)this.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            super.travel(new Vec3(strafe, travelVector.y, forward));
 
+           //JUMP for 1.19 version
+            if (this.isJumping && this.onGround) {
+                // Scale jump by jump attribute and entity height
+                double baseJump = this.getAttributeValue(Attributes.JUMP_STRENGTH);
+                double heightScale = this.getBbHeight() / 1.8;
+                double jumpMotion = baseJump * this.playerJumpPendingScale * heightScale;
+
+                Vec3 motion = this.getDeltaMovement();
+                this.setDeltaMovement(motion.x, jumpMotion, motion.z);
+
+                this.isJumping = false;
+                this.playerJumpPendingScale = 0.0F;
+                this.hasImpulse = true;
+            }
+
+            super.travel(new Vec3(strafe, travelVector.y, forward));
             return;
         }
 
