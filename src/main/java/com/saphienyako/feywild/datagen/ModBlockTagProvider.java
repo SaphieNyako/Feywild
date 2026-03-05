@@ -355,5 +355,27 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get())
                 .add(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
 
+        tag(BlockTags.FENCES)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_FENCE.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_FENCE.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_FENCE.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_FENCE.get());
+
+        tag(BlockTags.WALLS)
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get())
+                .add(ModBlocks.AUTUMN_TREE_WOOD_WALL.get())
+                .add(ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL.get())
+                .add(ModBlocks.SPRING_TREE_WOOD_WALL.get())
+                .add(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL.get())
+                .add(ModBlocks.SUMMER_TREE_WOOD_WALL.get())
+                .add(ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL.get())
+                .add(ModBlocks.WINTER_TREE_WOOD_WALL.get());
+
+        tag(BlockTags.FENCE_GATES)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE.get());
+
     }
 }
