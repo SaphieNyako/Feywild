@@ -81,6 +81,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     public TreeEntBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
+        this.getNavigation().setCanFloat(true);
     }
 
     @Override
