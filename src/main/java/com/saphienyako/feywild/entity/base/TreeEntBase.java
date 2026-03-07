@@ -100,6 +100,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
+        this.getNavigation().setCanFloat(true);
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
