@@ -202,7 +202,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_WOOD.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_WOOD.get()), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
         wallBlock((WallBlock) ModBlocks.AUTUMN_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.AUTUMN_TREE_LOG.get()));
 
         // STRIPPED LOG
@@ -211,7 +211,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //STRIPPED WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get()), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
         wallBlock((WallBlock) ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get()));
 
         //PLANKS
@@ -263,7 +263,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.SPRING_TREE_WOOD.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.SPRING_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_WOOD.get()), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
         wallBlock((WallBlock) ModBlocks.SPRING_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.SPRING_TREE_LOG.get()));
 
         // STRIPPED LOG
@@ -272,7 +272,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //STRIPPED WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_WOOD.get()), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
         wallBlock((WallBlock) ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.SPRING_TREE_STRIPPED_LOG.get()));
 
         //PLANKS
@@ -323,7 +323,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.SUMMER_TREE_WOOD.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.SUMMER_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_WOOD.get()), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
         wallBlock((WallBlock) ModBlocks.SUMMER_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.SUMMER_TREE_LOG.get()));
 
         // STRIPPED LOG
@@ -332,7 +332,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //STRIPPED WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get()), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
         wallBlock((WallBlock) ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get()));
 
         //PLANKS
@@ -382,7 +382,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.WINTER_TREE_WOOD.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.WINTER_TREE_WOOD_STAIRS.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_WOOD_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_WOOD.get()), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
         wallBlock((WallBlock) ModBlocks.WINTER_TREE_WOOD_WALL.get(), blockTexture(ModBlocks.WINTER_TREE_LOG.get()));
 
         // STRIPPED LOG
@@ -391,7 +391,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         //STRIPPED WOOD
         axisBlock((RotatedPillarBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
         stairsBlock((StairBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
-        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
+        slabBlock((SlabBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_WOOD.get()), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
         wallBlock((WallBlock) ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL.get(), blockTexture(ModBlocks.WINTER_TREE_STRIPPED_LOG.get()));
 
         //PLANKS
