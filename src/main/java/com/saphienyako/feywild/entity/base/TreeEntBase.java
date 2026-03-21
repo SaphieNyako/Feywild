@@ -93,7 +93,10 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 2.0D, true));
         this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 1.0D));
         this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(TreeEntBase.class));
-        this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
+        if (FeywildConfig.treeEntAttackPlayers) {
+            this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
+        }
+     //   this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
         this.targetSelector.addGoal(3, new TreeEntResetTargetGoal<>(this));
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0D, 8));
@@ -109,7 +112,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                 .add(Attributes.MOVEMENT_SPEED, 0.15)
                 .add(Attributes.JUMP_STRENGTH, 1.5)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2.0)
-                .add(Attributes.ATTACK_DAMAGE, 15)
+                .add(Attributes.ATTACK_DAMAGE, 12)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
                 .add(Attributes.ARMOR, 5)
                 .add(Attributes.STEP_HEIGHT, 1.0);
@@ -119,6 +122,16 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
+    }
+
+    @Override
+    public void onAddedToLevel() {
+        super.onAddedToLevel();
+
+        if (!this.level().isClientSide) {
+            this.getAttribute(Attributes.ATTACK_DAMAGE)
+                    .setBaseValue(FeywildConfig.treeEntAttackDamage);
+        }
     }
 
     public void stopBeingAngry() {
@@ -217,7 +230,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
             if (!WALK_ANIMATION.isStarted()) {
                 WALK_ANIMATION.start(this.tickCount);
             }
-
+            ATTACK_ANIMATION.stop();
             IDLE_ANIMATION.stop();
             WALK_QUICK_ANIMATION.stop();
             return;
@@ -227,7 +240,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         if (!IDLE_ANIMATION.isStarted()) {
             IDLE_ANIMATION.start(this.tickCount);
         }
-
+        ATTACK_ANIMATION.stop();
         WALK_ANIMATION.stop();
         WALK_QUICK_ANIMATION.stop();
     }

@@ -19,8 +19,21 @@ public class FeywildConfig {
     private static final ModConfigSpec.BooleanValue SPAWN_WITH_LEXICON;
     private static final ModConfigSpec.BooleanValue VOICES_ACTIVE;
 
+    private static final ModConfigSpec.DoubleValue TREE_ENT_ATTACK_DAMAGE;
+
+    private static final ModConfigSpec.IntValue TREE_ENT_SPAWN_SAPLING;
+    private static final ModConfigSpec.IntValue TREE_ENT_SPAWN_WORLD;
+
+    private static final ModConfigSpec.BooleanValue TREE_ENT_ATTACK_PLAYERS;
     public static int feyDustDuration;
     public static boolean spawnWithLexicon;
+
+    public static boolean voicesActive;
+    public static double treeEntAttackDamage;
+
+    public static int treeEntSpawnSapling;
+    public static int treeEntSpawnWorld;
+    public static boolean treeEntAttackPlayers;
 
     //CLIENT
     private static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
@@ -30,7 +43,7 @@ public class FeywildConfig {
 
 
     public static boolean flowerParticles;
-    public static boolean voicesActive;
+
 
     static {
         //COMMON
@@ -50,6 +63,23 @@ public class FeywildConfig {
                 .comment("Whether fey should have voice acting on")
                 .define("voices_active", true);
 
+        TREE_ENT_ATTACK_DAMAGE = COMMON_BUILDER
+                .comment("Attack damage of Tree Ents")
+                .defineInRange("tree_ent_attack_damage", 12.0, 0.0, 30.0);
+
+
+        TREE_ENT_SPAWN_SAPLING = COMMON_BUILDER
+                .comment("Chance for Tree Ent logs to be cracked when grown from a sapling. 1 in N chance")
+                .defineInRange("tree_ent_spawn_sapling", 1200, 1, 10000);
+
+        TREE_ENT_SPAWN_WORLD = COMMON_BUILDER
+                .comment("Chance for Tree Ent logs to be cracked when spawned naturally in world. 1 in N chance")
+                .defineInRange("tree_ent_spawn_world", 100, 1, 10000);
+
+        TREE_ENT_ATTACK_PLAYERS = COMMON_BUILDER
+                .comment("Whether Tree Ents should attack players")
+                .define("tree_ent_attack_players", true);
+
         COMMON_BUILDER.pop();
         COMMON_SPEC = COMMON_BUILDER.build();
 
@@ -64,7 +94,6 @@ public class FeywildConfig {
 
         CLIENT_BUILDER.pop();
         CLIENT_SPEC = CLIENT_BUILDER.build();
-
     }
 
     private static boolean validateItemName(final Object obj) {
@@ -78,6 +107,10 @@ public class FeywildConfig {
             feyDustDuration = FEY_DUST_DURATION.get();
             spawnWithLexicon = SPAWN_WITH_LEXICON.get();
             voicesActive = VOICES_ACTIVE.get();
+            treeEntAttackDamage = TREE_ENT_ATTACK_DAMAGE.get();
+            treeEntSpawnSapling = TREE_ENT_SPAWN_SAPLING.get();
+            treeEntSpawnWorld = TREE_ENT_SPAWN_WORLD.get();
+            treeEntAttackPlayers = TREE_ENT_ATTACK_PLAYERS.get();
         }
 
         if (event.getConfig().getSpec() == CLIENT_SPEC) {
