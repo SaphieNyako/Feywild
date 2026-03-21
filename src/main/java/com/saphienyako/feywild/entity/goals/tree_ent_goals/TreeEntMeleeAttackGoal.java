@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 
 public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
     protected final TreeEntBase entity;
+    private TreeEntBase.State lastState = TreeEntBase.State.IDLE;
 
     public TreeEntMeleeAttackGoal(TreeEntBase entity, double speedModifier, boolean followEvenIfNotSeen) {
         super(entity, speedModifier, followEvenIfNotSeen);
@@ -19,8 +20,32 @@ public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
     protected void checkAndPerformAttack(LivingEntity target) {
         if (this.isTimeToAttack() && this.canTreeEntAttack(target)) {
             this.resetAttackCooldown();
-            entity.playSound(entity.getAttackingSound(), 0.3f,1f);
+
             this.mob.doHurtTarget(target);
+        }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        LivingEntity target = this.mob.getTarget();
+
+        if (target != null) {
+            double dist = this.mob.distanceToSqr(target);
+            double reach = this.getTreeEntAttackReachSqr(target);
+
+            if (dist <= reach * 2.0) {
+                entity.setState(TreeEntBase.State.ATTACK);
+            }
+        }
+
+        if (entity.getState() != lastState) {
+
+            if (entity.getState() == TreeEntBase.State.ATTACK) {
+                entity.playSound(entity.getAttackingSound(), 0.3f,1f);
+            }
+            lastState = entity.getState();
         }
     }
 
@@ -38,7 +63,6 @@ public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
 
     @Override
     public void start() {
-        this.entity.setState(TreeEntBase.State.ATTACK);
         super.start();
     }
 

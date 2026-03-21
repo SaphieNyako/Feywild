@@ -195,8 +195,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
             }
 
             IDLE_ANIMATION.stop();
-            WALK_ANIMATION.stop();
-            WALK_QUICK_ANIMATION.stop();
             return;
         }
 
@@ -222,7 +220,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
             IDLE_ANIMATION.stop();
             WALK_QUICK_ANIMATION.stop();
-            ATTACK_ANIMATION.stop();
             return;
         }
 
@@ -233,7 +230,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
         WALK_ANIMATION.stop();
         WALK_QUICK_ANIMATION.stop();
-        ATTACK_ANIMATION.stop();
     }
 
     @SuppressWarnings("resource")
