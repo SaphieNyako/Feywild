@@ -30,6 +30,12 @@ public class ModConfig {
 
         public final ForgeConfigSpec.BooleanValue voice_active;
 
+        public final ForgeConfigSpec.DoubleValue treeEntAttackDamage;
+
+        public final ForgeConfigSpec.IntValue treeEntSpawnSapling;
+        public final ForgeConfigSpec.IntValue treeEntSpawnWorld;
+        public final ForgeConfigSpec.BooleanValue treeEntAttackPlayers;
+
         public Common(ForgeConfigSpec.Builder builder) {
 
             builder.comment("Feywild General Config").push("feywild");
@@ -45,6 +51,23 @@ public class ModConfig {
             voice_active = builder
                     .comment("Whether fey should have voice acting on")
                     .define("voices_active", true);
+
+            treeEntAttackDamage = builder
+                    .comment("Attack damage of Tree Ents")
+                    .defineInRange("tree_ent_attack_damage", 12.0, 0.0, 30.0);
+
+
+            treeEntSpawnSapling = builder
+                    .comment("Chance for Tree Ent logs to be cracked when grown from a sapling. 1 in N chance")
+                    .defineInRange("tree_ent_spawn_sapling", 1200, 1, 10000);
+
+            treeEntSpawnWorld = builder
+                    .comment("Chance for Tree Ent logs to be cracked when spawned naturally in world. 1 in N chance")
+                    .defineInRange("tree_ent_spawn_world", 100, 1, 10000);
+
+            treeEntAttackPlayers = builder
+                    .comment("Whether Tree Ents should attack players")
+                    .define("tree_ent_attack_players", true);
 
             builder.pop();
         }

@@ -4,7 +4,7 @@
       "model": "feywild:block/winter_tree_wood_slab"
     },
     "type=double": {
-      "model": "feywild:block/winter_tree_log"
+      "model": "feywild:block/winter_tree_wood"
     },
     "type=top": {
       "model": "feywild:block/winter_tree_wood_slab_top"
