@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.worldgen.processor;
 
+import com.saphienyako.feywild.config.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
@@ -81,7 +82,9 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
     }
 
     protected int crackedChance() {
-        return fromSapling ? 1200 : 100;
+        return fromSapling
+                ? ModConfig.COMMON.treeEntSpawnSapling.get()
+                : ModConfig.COMMON.treeEntSpawnWorld.get();
     }
 
     abstract protected Block getLogBlock();

@@ -13,6 +13,7 @@ import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,6 +23,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -37,8 +39,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fml.common.Mod;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -91,7 +95,9 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         this.goalSelector.addGoal(1, new TreeEntMeleeAttackGoal(this, 2.0D, true));
         this.goalSelector.addGoal(50, new TreeEntMoveAndSoundGoal(this, 1.0D));
         this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(TreeEntBase.class));
-        this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
+        if (ModConfig.COMMON.treeEntAttackPlayers.get()) {
+            this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
+        }
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
         this.targetSelector.addGoal(3, new TreeEntResetTargetGoal<>(this));
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0D, 8));
@@ -106,7 +112,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                 .add(Attributes.MOVEMENT_SPEED, 0.15)
                 .add(Attributes.JUMP_STRENGTH, 1.5)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2.0)
-                .add(Attributes.ATTACK_DAMAGE, 15)
+                .add(Attributes.ATTACK_DAMAGE, 12)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
                 .add(Attributes.ARMOR, 5);
     }
@@ -115,6 +121,18 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(STATE, 0);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType type, @Nullable SpawnGroupData data, @Nullable CompoundTag tag) {
+        SpawnGroupData spawnGroupData = super.finalizeSpawn(level, difficulty, type, data, tag);
+        if (!this.level().isClientSide) {
+            this.getAttribute(Attributes.ATTACK_DAMAGE)
+                    .setBaseValue(ModConfig.COMMON.treeEntAttackDamage.get());
+        }
+
+        return spawnGroupData;
     }
 
     public void stopBeingAngry() {
@@ -191,8 +209,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
             }
 
             IDLE_ANIMATION.stop();
-            WALK_ANIMATION.stop();
-            WALK_QUICK_ANIMATION.stop();
             return;
         }
 
