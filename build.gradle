@@ -32,6 +32,9 @@ repositories {
     }
 
     maven { url = 'https://maven.blamejared.com' }
+    maven {
+        url = "https://cursemaven.com"
+    }
 }
 base {
     archivesName = mod_id
@@ -139,6 +142,9 @@ dependencies {
     implementation(jarJar(group: 'vazkii.patchouli', name: 'Patchouli', version: '[1.21,)') {
         jarJar.pin(it, patchouli_version)
     })
+
+    //Quest Giver
+    implementation "curse.maven:quest-giver-618562:7822522"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

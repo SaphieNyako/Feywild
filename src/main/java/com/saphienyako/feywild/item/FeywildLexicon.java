@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.quest_giver.QuestGiverAPI;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -32,6 +33,7 @@ public class FeywildLexicon extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer serverPlayer) {
+            //TODO add menu and sprite
             if (ModList.get().isLoaded("patchouli")) {
                 PatchouliAPI.get().openBookGUI(serverPlayer, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "feywild_lexicon"));
             } else {
