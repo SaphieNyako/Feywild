@@ -106,6 +106,8 @@ public class Feywild
         event.put(ModEntities.MANDRAGORA.get(), MandragoraEntity.getDefaultAttributes().build());
         event.put(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowEntity.createAttributes().build());
         event.put(ModEntities.BELLSNICKEL.get(), BellsnickelEntity.getDefaultAttributes().build());
+        event.put(ModEntities.BEE_KNIGHT.get(), BeeKnightEntity.getDefaultAttributes().build());
+        event.put(ModEntities.BEE_MOUNT.get(), BeeMountEntity.getDefaultAttributes().build());
         event.put(ModEntities.SPRING_TREE_ENT.get(), SpringTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.SUMMER_TREE_ENT.get(), SummerTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.AUTUMN_TREE_ENT.get(), AutumnTreeEntEntity.getDefaultAttributes().build());
@@ -205,6 +207,8 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.MANDRAGORA_LAYER, MandragoraModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MOO_SHROOM_LAYER, CowModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.BELLSNICKEL_LAYER, BellsnickelModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.BEE_KNIGHT_LAYER, BeeKnightModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.BEE_MOUNT_LAYER, BeeMountModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.TREE_ENT_LAYER, TreeEntModel::createBodyLayer);
         }
 
@@ -219,6 +223,8 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.MANDRAGORA.get(), MandragoraRenderer::new);
             event.registerEntityRenderer(ModEntities.MOO_SHROOM_COW.get(), MooShroomCowRenderer::new);
             event.registerEntityRenderer(ModEntities.BELLSNICKEL.get(), BellsnickelRenderer::new);
+            event.registerEntityRenderer(ModEntities.BEE_KNIGHT.get(), BeeKnightRenderer::new);
+            event.registerEntityRenderer(ModEntities.BEE_MOUNT.get(), BeeMountRenderer::new);
             event.registerEntityRenderer(ModEntities.SPRING_TREE_ENT.get(), TreeEntRenderer::new);
             event.registerEntityRenderer(ModEntities.SUMMER_TREE_ENT.get(), TreeEntRenderer::new);
             event.registerEntityRenderer(ModEntities.AUTUMN_TREE_ENT.get(), TreeEntRenderer::new);
@@ -229,6 +235,7 @@ public class Feywild
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
             event.register(ModMenuTypes.BELLSNICKEL_MENU.get(), BellsnickelScreen::new);
+            //TODO BEE Knight Screen
         }
         @SubscribeEvent
         private static void spawnPlacement(RegisterSpawnPlacementsEvent event) {
@@ -240,6 +247,8 @@ public class Feywild
             event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MandragoraEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MooShroomCowEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.BELLSNICKEL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BellsnickelEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.BEE_KNIGHT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeKnightEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.BEE_MOUNT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BeeMountEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.SPRING_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpringTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.WINTER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);

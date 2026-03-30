@@ -69,8 +69,7 @@ public class MooShroomCowLayer <T extends MooShroomCowEntity> extends RenderLaye
         if (renderOutline) {
             blockRenderer.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)), blockState, bakedModel, 0.0F, 0.0F, 0.0F, packedLight, packedOverlay);
         } else {
-            blockRenderer.renderSingleBlock(blockState, poseStack, bufferSource, packedLight, packedOverlay
-            );
+            blockRenderer.renderSingleBlock(blockState, poseStack, bufferSource, packedLight, packedOverlay);
         }
     }
 }

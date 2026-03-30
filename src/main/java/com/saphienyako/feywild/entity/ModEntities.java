@@ -43,8 +43,11 @@ public class ModEntities {
     public static final Supplier<EntityType<BellsnickelEntity>> BELLSNICKEL =
             ENTITY_TYPES.register("bellsnickel", ()-> EntityType.Builder.of(BellsnickelEntity::new, MobCategory.CREATURE).build("bellsnickel"));
 
- //   public static final Supplier<EntityType<BeeKnightEntity>> BEE_KNIGHT =
- //           ENTITY_TYPES.register("bee_knight", () -> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE).build("bee_knight"));
+    public static final Supplier<EntityType<BeeKnightEntity>> BEE_KNIGHT =
+            ENTITY_TYPES.register("bee_knight", ()-> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE).build("bee_knight"));
+
+    public static final Supplier<EntityType<BeeMountEntity>> BEE_MOUNT =
+            ENTITY_TYPES.register("bee_mount", ()-> EntityType.Builder.of(BeeMountEntity::new, MobCategory.CREATURE).build("bee_mount"));
 
     public static final Supplier<EntityType<SpringTreeEntEntity>> SPRING_TREE_ENT =
             ENTITY_TYPES.register("spring_tree_ent", ()-> EntityType.Builder.of(SpringTreeEntEntity::new, MobCategory.CREATURE)

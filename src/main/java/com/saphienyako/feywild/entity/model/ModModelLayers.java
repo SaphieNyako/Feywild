@@ -32,4 +32,10 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation TREE_ENT_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "tree_ent_layer"), "main");
+
+    public static final ModelLayerLocation BEE_KNIGHT_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "bee_knight_layer"), "main");
+
+    public static final ModelLayerLocation BEE_MOUNT_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "bee_mount_layer"), "main");
 }
