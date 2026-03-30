@@ -3,7 +3,9 @@ package com.saphienyako.feywild.entity.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.saphienyako.feywild.entity.AutumnPixieEntity;
+import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.animations.AutumnPixieAnimations;
+import com.saphienyako.feywild.entity.animations.BeeKnightAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -134,7 +136,8 @@ public class BeeKnightModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-        //TODO ANIMATIONS
+        this.animate(((BeeKnightEntity)entity).SIT_ANIMATION, BeeKnightAnimations.SIT, ageInTicks, 2f);
+        this.animate(((BeeKnightEntity)entity).ATTACK_ANIMATION, BeeKnightAnimations.ATTACK_RIGHT, ageInTicks, 1.0f);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

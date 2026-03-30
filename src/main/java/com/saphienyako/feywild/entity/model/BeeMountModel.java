@@ -2,6 +2,10 @@ package com.saphienyako.feywild.entity.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.saphienyako.feywild.entity.BeeKnightEntity;
+import com.saphienyako.feywild.entity.BeeMountEntity;
+import com.saphienyako.feywild.entity.animations.BeeKnightAnimations;
+import com.saphienyako.feywild.entity.animations.BeeMountAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -141,7 +145,8 @@ public class BeeMountModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-        //TODO ANIMATIONS
+        this.animate(((BeeMountEntity)entity).FLY_ANIMATION, BeeMountAnimations.FLY, ageInTicks, 2f);
+        this.animate(((BeeMountEntity)entity).FLY_IDLE_ANIMATION, BeeMountAnimations.FLY_IDLE, ageInTicks, 1.0f);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
