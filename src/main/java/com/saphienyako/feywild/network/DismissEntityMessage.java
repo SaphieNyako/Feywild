@@ -44,14 +44,14 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
                     entity.spawnAtLocation(entity.getDismissItem());
                     player.sendSystemMessage(entity.getFeyDismissMessage());
                     if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                        level.playSound(
+                      /*  level.playSound(
                                 null,
                                 entity.blockPosition(),
                                 entity.getDismissSound(),
                                 SoundSource.NEUTRAL,
                                 1.0F,
                                 1.0F
-                        );
+                        ); */
                     }
                     PacketDistributor.sendToPlayersTrackingEntity(
                             entity,

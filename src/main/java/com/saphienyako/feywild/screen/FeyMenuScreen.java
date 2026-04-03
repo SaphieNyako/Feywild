@@ -2,6 +2,7 @@ package com.saphienyako.feywild.screen;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.entity.BeeMountEntity;
 import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.screen.widget.*;
@@ -62,8 +63,9 @@ public class FeyMenuScreen extends Screen {
                     this.addRenderableWidget(new BellsnickelScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BellsnickelScreenButton.WIDTH)/2), this.top + 12 + BellsnickelScreenButton.HEIGHT * 2, this.entityId));
                 } else if(entity instanceof TreeEntBase) {
                     this.addRenderableWidget(new EffectButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - EffectButton.WIDTH)/2), this.top + 12 +  EffectButton.HEIGHT * 2, this,  this.entityId));
-
-                } else {
+                } else if(entity instanceof BeeMountEntity){
+                    this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 12 + BeeKnightScreenButton.HEIGHT * 2, this.entityId));
+                }  else {
                     this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH) / 2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
                 }
                 //THIRD BUTTON

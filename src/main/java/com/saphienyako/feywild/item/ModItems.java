@@ -83,8 +83,7 @@ public class ModItems {
     public static final DeferredItem<Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel", () -> new SummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
 
-    //public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem(new Item.Properties()));
-    public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new ToolTipBaseItem(new Item.Properties(),
+   public static final DeferredItem<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_bee_knight").withStyle(ChatFormatting.RED)));
 
     public static final DeferredItem<Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.register("summoning_scroll_spring_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),

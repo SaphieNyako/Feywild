@@ -21,6 +21,9 @@ public class ModMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<BellsnickelMenu>> BELLSNICKEL_MENU =
             registerMenuType("bellsnickel_menu", BellsnickelMenu::create);
 
+    public static final DeferredHolder<MenuType<?>, MenuType<BeeKnightMenu>> BEE_KNIGHT_MENU =
+            registerMenuType("bee_knight_menu", BeeKnightMenu::create);
+
     private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));
     }

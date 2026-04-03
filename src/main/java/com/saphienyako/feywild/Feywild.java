@@ -20,6 +20,7 @@ import com.saphienyako.feywild.particle.LeafParticleProvider;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.particle.SparkleParticleProvider;
 import com.saphienyako.feywild.recipe.ModRecipes;
+import com.saphienyako.feywild.screen.BeeKnightScreen;
 import com.saphienyako.feywild.screen.BellsnickelScreen;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
@@ -235,7 +236,7 @@ public class Feywild
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
             event.register(ModMenuTypes.BELLSNICKEL_MENU.get(), BellsnickelScreen::new);
-            //TODO BEE Knight Screen
+            event.register(ModMenuTypes.BEE_KNIGHT_MENU.get(), BeeKnightScreen::new);
         }
         @SubscribeEvent
         private static void spawnPlacement(RegisterSpawnPlacementsEvent event) {

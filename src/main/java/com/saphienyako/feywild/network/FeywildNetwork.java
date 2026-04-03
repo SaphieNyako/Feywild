@@ -75,5 +75,11 @@ public class FeywildNetwork {
                 MountTreeEntMessage.STREAM_CODEC,
                 MountTreeEntMessage::handle
         );
+
+        REGISTRAR.playToServer(
+                OpenBeeKnightMenuMessage.TYPE,
+                OpenBeeKnightMenuMessage.STREAM_CODEC,
+                OpenBeeKnightMenuMessage::handle
+        );
     }
 }

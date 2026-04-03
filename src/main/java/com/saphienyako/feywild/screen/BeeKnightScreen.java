@@ -2,9 +2,8 @@ package com.saphienyako.feywild.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.BellsnickelEntity;
+import com.saphienyako.feywild.entity.BeeMountEntity;
 import com.saphienyako.feywild.screen.widget.EntityWidget;
-import com.saphienyako.feywild.screen.widget.FeyMenuWidget;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -15,19 +14,19 @@ import net.minecraft.world.entity.player.Inventory;
 
 import javax.annotation.Nonnull;
 
-public class BellsnickelScreen extends AbstractContainerScreen<BellsnickelMenu> {
+public class BeeKnightScreen extends AbstractContainerScreen<BeeKnightMenu> {
 
     private static final ResourceLocation GUI_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"textures/gui/bellsnickel_menu.png");
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"textures/gui/bee_knight_menu.png");
 
     public static final int WIDTH = 208;
-    public static final int HEIGHT = 188;
-    private final BellsnickelEntity bellsnickel;
+    public static final int HEIGHT = 192;
+    private final BeeMountEntity beeKnight;
     private float xMouse;
     private float yMouse;
-    public BellsnickelScreen(BellsnickelMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, Component.translatable("message.feywild.bellsnickel_menu_description").withStyle(ChatFormatting.AQUA));
-        this.bellsnickel = menu.bellsnickel;
+    public BeeKnightScreen(BeeKnightMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, Component.translatable("message.feywild.bee_knight_menu_description").withStyle(ChatFormatting.AQUA));
+        this.beeKnight = menu.beeKnight;
         this.imageWidth = WIDTH;
         this.imageHeight = HEIGHT;
     }
@@ -40,10 +39,10 @@ public class BellsnickelScreen extends AbstractContainerScreen<BellsnickelMenu> 
 
         inventoryLabelX = 1000;
 
-        int entityX = this.leftPos - EntityWidget.WIDTH - 30;
+        int entityX = this.leftPos - EntityWidget.WIDTH;
         int entityY = this.topPos + (this.imageHeight - EntityWidget.HEIGHT) / 2;
 
-        this.addRenderableWidget(new EntityWidget(entityX, entityY, bellsnickel));
+        this.addRenderableWidget(new EntityWidget(entityX, entityY, beeKnight));
     }
 
     @Override
@@ -62,4 +61,5 @@ public class BellsnickelScreen extends AbstractContainerScreen<BellsnickelMenu> 
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
+
 }
