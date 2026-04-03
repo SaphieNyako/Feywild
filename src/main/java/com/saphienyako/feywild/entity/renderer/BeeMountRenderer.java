@@ -7,6 +7,7 @@ import com.saphienyako.feywild.entity.BeeMountEntity;
 import com.saphienyako.feywild.entity.model.BeeKnightModel;
 import com.saphienyako.feywild.entity.model.BeeMountModel;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
+import com.saphienyako.feywild.entity.renderer.layer.BeeMountArmorLayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -15,8 +16,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class BeeMountRenderer extends MobRenderer<BeeMountEntity, BeeMountModel<BeeMountEntity>> {
 
-    public BeeMountRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new BeeMountModel<>(pContext.bakeLayer(ModModelLayers.BEE_MOUNT_LAYER)),  0.50f);
+    public BeeMountRenderer(EntityRendererProvider.Context context) {
+        super(context, new BeeMountModel<>(context.bakeLayer(ModModelLayers.BEE_MOUNT_LAYER)),  0.50f);
+        this.addLayer(new BeeMountArmorLayer(this, context.getModelSet()));
     }
 
     @Override
@@ -25,7 +27,7 @@ public class BeeMountRenderer extends MobRenderer<BeeMountEntity, BeeMountModel<
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull BeeMountEntity BeeMountEntity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull BeeMountEntity beeMountEntity) {
         return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/bee_knight/bee_mount.png");
     }
 }

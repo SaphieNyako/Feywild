@@ -43,7 +43,9 @@ public class BeeKnightMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(beeKnightContainer, 0, 26, 23) { //slot, x, y
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
-                return stack.is(Items.DIAMOND_HORSE_ARMOR);
+                return stack.is(Items.DIAMOND_HORSE_ARMOR)
+                        || stack.is(Items.IRON_HORSE_ARMOR)
+                        || stack.is(Items.GOLDEN_HORSE_ARMOR);
             }
 
             @Override
@@ -56,7 +58,11 @@ public class BeeKnightMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(beeKnightContainer, 2, 170, 23){
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
-                return stack.is(Items.DIAMOND_SWORD);
+
+                return stack.is(Items.DIAMOND_SWORD)
+                        || stack.is(Items.NETHERITE_SWORD)
+                        || stack.is(Items.IRON_SWORD)
+                        || stack.is(Items.GOLDEN_SWORD);
             }
 
             @Override
@@ -80,7 +86,10 @@ public class BeeKnightMenu extends AbstractContainerMenu {
         this.addSlot(new Slot(beeKnightContainer, 1, 170, 78) {
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
-                return stack.is(Items.DIAMOND_CHESTPLATE);
+                return stack.is(Items.DIAMOND_CHESTPLATE)
+                        || stack.is(Items.NETHERITE_CHESTPLATE)
+                        || stack.is(Items.IRON_CHESTPLATE)
+                        || stack.is(Items.GOLDEN_CHESTPLATE);
             }
 
             @Override

@@ -7,6 +7,8 @@ import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.model.AutumnPixieModel;
 import com.saphienyako.feywild.entity.model.BeeKnightModel;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
+import com.saphienyako.feywild.entity.renderer.layer.BeeKnightArmorLayer;
+import com.saphienyako.feywild.entity.renderer.layer.BeeMountArmorLayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -15,8 +17,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class BeeKnightRenderer extends MobRenderer<BeeKnightEntity, BeeKnightModel<BeeKnightEntity>> {
 
-    public BeeKnightRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new BeeKnightModel<>(pContext.bakeLayer(ModModelLayers.BEE_KNIGHT_LAYER)),  0.50f);
+    public BeeKnightRenderer(EntityRendererProvider.Context context) {
+        super(context, new BeeKnightModel<>(context.bakeLayer(ModModelLayers.BEE_KNIGHT_LAYER)),  0.50f);
+        this.addLayer(new BeeKnightArmorLayer(this, context.getModelSet()));
     }
 
     @Override

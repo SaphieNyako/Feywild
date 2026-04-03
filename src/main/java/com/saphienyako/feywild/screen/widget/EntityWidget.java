@@ -62,7 +62,7 @@ public class EntityWidget extends AbstractWidget {
                     15728880
             );
 
-            if (knight != null) {
+
                 pose.pushPose();
                 pose.translate(0, 0.45, 0);
                 dispatcher.render(
@@ -75,7 +75,7 @@ public class EntityWidget extends AbstractWidget {
                         15728880
                 );
                 pose.popPose();
-            }
+
 
             buffer.endBatch();
             dispatcher.setRenderShadow(true);

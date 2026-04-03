@@ -58,28 +58,28 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
 
     public boolean isBeingRemovedTogether = false;
 
-    private static final EntityDataAccessor<Boolean> MOUNT_HAS_GOLD_ARMOR =
+    public static final EntityDataAccessor<Boolean> MOUNT_HAS_GOLD_ARMOR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> MOUNT_HAS_DIAMOND_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
-    private static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_ARMOR =
+    public static final EntityDataAccessor<Boolean> MOUNT_HAS_DIAMOND_ARMOR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_ARMOR =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_ARMOR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_LANCE =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
-    private static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_LANCE =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_ARMOR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_LANCE =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_ARMOR =
+            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_LANCE =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private static final EntityDataAccessor<Boolean> HAS_MAGICAL_HONEY_COMB =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_LANCE =
+            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_LANCE =
+            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public static final EntityDataAccessor<Boolean> HAS_MAGICAL_HONEY_COMB =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -119,6 +119,8 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 24D);
+
+
     }
 
     @Override
@@ -251,6 +253,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
             this.level().addFreshEntity(knight);
         }
         return knight;
+
     }
 
     //INTERACT
