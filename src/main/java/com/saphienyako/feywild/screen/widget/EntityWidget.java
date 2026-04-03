@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
@@ -37,6 +38,20 @@ public class EntityWidget extends AbstractWidget {
             float scale = (float)(this.height / this.entity.getBbHeight()) * 0.5f;
 
             int centerX = this.getX() + this.width / 2;
+            float centerY = this.getY() + this.height / 2f;
+
+            // Normalize mouse offset (-1 to 1 range)
+            float deltaX = (mouseX - centerX) / (this.width / 2f);
+            float deltaY = (mouseY - centerY) / (this.height / 2f);
+
+            // Clamp so it doesn't spin too much
+            deltaX = Mth.clamp(deltaX, -1f, 1f);
+            deltaY = Mth.clamp(deltaY, -1f, 1f);
+
+            // Apply small rotation multipliers
+            float yawOffset = deltaX * 25.0F;   // horizontal turn
+            float pitchOffset = deltaY * 15.0F; // vertical tilt
+
             int bottomY = this.getY() + this.height;
 
             PoseStack pose = graphics.pose();
@@ -51,6 +66,18 @@ public class EntityWidget extends AbstractWidget {
             dispatcher.setRenderShadow(false);
 
             MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+
+
+            float yaw = 20.0F; // faces forward in GUI
+            mount.setYRot(yaw);
+            mount.yBodyRot = yaw + yawOffset;
+            mount.yHeadRot = yaw + yawOffset;
+            mount.setXRot(pitchOffset);
+
+            knight.setYRot(yaw);
+            knight.yBodyRot = yaw + yawOffset;
+            knight.yHeadRot = yaw + yawOffset;
+            knight.setXRot(pitchOffset);
 
             dispatcher.render(
                     mount,
