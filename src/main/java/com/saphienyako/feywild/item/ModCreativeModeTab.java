@@ -247,6 +247,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SPAWN_EGG_SHROOMLING.get());
                         output.accept(ModItems.SPAWN_EGG_MANDRAGORA.get());
                         output.accept(ModItems.SPAWN_EGG_BELLSNICKEL.get());
+                        output.accept(ModItems.SPAWN_EGG_BEE_KNIGHT.get());
                         output.accept(ModItems.SPAWN_EGG_SPRING_TREE_ENT.get());
                         output.accept(ModItems.SPAWN_EGG_SUMMER_TREE_ENT.get());
                         output.accept(ModItems.SPAWN_EGG_AUTUMN_TREE_ENT.get());

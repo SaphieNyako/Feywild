@@ -112,6 +112,8 @@ public class ModItems {
     public static final DeferredItem<Item> SPAWN_EGG_MANDRAGORA = ITEMS.register("spawn_egg_mandragora", () -> new SpawnEggItem(ModEntities.MANDRAGORA.get(), 0x54d911, 0xf7a3f7, new Item.Properties()));
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new SpawnEggItem(ModEntities.BELLSNICKEL.get(),0x6a95f6, 0x2f3063, new Item.Properties()));
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_BEE_KNIGHT = ITEMS.register("spawn_egg_bee_knight", () -> new SpawnEggItem(ModEntities.BEE_MOUNT.get(),0xeeb359, 0x66380c, new Item.Properties()));
 
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_SPRING_TREE_ENT = ITEMS.register("spawn_egg_spring_tree_ent", () -> new SpawnEggItem(ModEntities.SPRING_TREE_ENT.get(),0x5C281E, 0xa1db67, new Item.Properties()));
@@ -125,8 +127,7 @@ public class ModItems {
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new SpawnEggItem(ModEntities.WINTER_TREE_ENT.get(),0x5C281E, 0x84b4be, new Item.Properties()));
 
-   // public static final Supplier<Item> AUTUMN_TREE_LEAVES_ITEM = ITEMS.register("autumn_tree_leaves",
-   //         () -> new BlockItem(ModBlocks.AUTUMN_TREE_LEAVES.get(), new Item.Properties()));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
