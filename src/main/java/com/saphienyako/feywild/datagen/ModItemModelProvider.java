@@ -5,11 +5,13 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -47,6 +49,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         saplingItem(ModBlocks.SPRING_TREE_SAPLING);
         saplingItem(ModBlocks.SUMMER_TREE_SAPLING);
         saplingItem(ModBlocks.WINTER_TREE_SAPLING);
+
+        handheldItem(ModItems.BEE_KNIGHT_GOLD_SPEAR);
+        handheldItem(ModItems.BEE_KNIGHT_DIAMOND_SPEAR);
+        handheldItem(ModItems.BEE_KNIGHT_NETHERITE_SPEAR);
     }
 
     private ItemModelBuilder saplingItem(DeferredBlock<Block> item) {
@@ -78,6 +84,12 @@ public class ModItemModelProvider extends ItemModelProvider {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
+    }
+
+    private ItemModelBuilder handheldItem(DeferredItem<Item> item) {
+        return withExistingParent(item.getId().getPath(),
+                ResourceLocation.parse("item/handheld")).texture("layer0",
+                ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"item/" + item.getId().getPath()));
     }
 
 }

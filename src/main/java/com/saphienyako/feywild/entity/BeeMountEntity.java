@@ -10,14 +10,12 @@ import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.screen.BeeKnightMenu;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Position;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -73,13 +71,13 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
 
     public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_ARMOR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_LANCE =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_SPEAR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_LANCE =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_SPEAR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_LANCE =
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_SPEAR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
     public static final EntityDataAccessor<Boolean> HAS_MAGICAL_HONEY_COMB =
@@ -136,9 +134,9 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         builder.define(KNIGHT_HAS_GOLD_ARMOR, false);
         builder.define(KNIGHT_HAS_DIAMOND_ARMOR, false);
         builder.define(KNIGHT_HAS_NETHERITE_ARMOR, false);
-        builder.define(KNIGHT_HAS_GOLD_LANCE, false);
-        builder.define(KNIGHT_HAS_DIAMOND_LANCE, false);
-        builder.define(KNIGHT_HAS_NETHERITE_LANCE, false);
+        builder.define(KNIGHT_HAS_GOLD_SPEAR, false);
+        builder.define(KNIGHT_HAS_DIAMOND_SPEAR, false);
+        builder.define(KNIGHT_HAS_NETHERITE_SPEAR, false);
         builder.define(HAS_MAGICAL_HONEY_COMB, false);
     }
 
@@ -396,13 +394,13 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         this.entityData.set(KNIGHT_HAS_NETHERITE_ARMOR,
                 container.getItem(KNIGHT_ARMOR_SLOT).is(Items.NETHERITE_CHESTPLATE));
 
-        this.entityData.set(KNIGHT_HAS_GOLD_LANCE,
+        this.entityData.set(KNIGHT_HAS_GOLD_SPEAR,
                 container.getItem(LANCE_SLOT).is(Items.GOLDEN_SWORD)); //TODO custom Item
 
-        this.entityData.set(KNIGHT_HAS_DIAMOND_LANCE,
+        this.entityData.set(KNIGHT_HAS_DIAMOND_SPEAR,
                 container.getItem(LANCE_SLOT).is(Items.DIAMOND_SWORD));
 
-        this.entityData.set(KNIGHT_HAS_NETHERITE_LANCE,
+        this.entityData.set(KNIGHT_HAS_NETHERITE_SPEAR,
                 container.getItem(LANCE_SLOT).is(Items.NETHERITE_SWORD));
 
         this.entityData.set(HAS_MAGICAL_HONEY_COMB,

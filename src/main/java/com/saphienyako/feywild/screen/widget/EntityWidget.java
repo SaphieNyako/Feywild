@@ -59,7 +59,9 @@ public class EntityWidget extends AbstractWidget {
 
             pose.translate(centerX, bottomY, 50.0F);
             pose.scale(scale, scale, scale);
-            pose.mulPose(Axis.ZP.rotationDegrees(180.0F));
+            //   pose.mulPose(Axis.ZP.rotationDegrees(180.0F));
+            pose.mulPose(Axis.XP.rotationDegrees(180F));
+            pose.mulPose(Axis.YP.rotationDegrees(180F));
 
 
             EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();

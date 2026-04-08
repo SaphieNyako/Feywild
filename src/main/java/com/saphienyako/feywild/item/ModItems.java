@@ -13,10 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -66,6 +63,15 @@ public class ModItems {
 
     public static final DeferredItem<Item> FEYWILD_MUSIC_DISC = ITEMS.registerItem("feywild_music_disc",
             properties -> new Item(properties.jukeboxPlayable(ModSounds.FEYWILD_MUSIC_KEY).stacksTo(1)));
+
+    public static final DeferredItem<Item> BEE_KNIGHT_GOLD_SPEAR = ITEMS.register("bee_knight_gold_spear", () -> new SwordItem(Tiers.GOLD,
+            new Item.Properties().attributes(SwordItem.createAttributes(Tiers.GOLD, 3, -2.4F))));
+
+    public static final DeferredItem<Item> BEE_KNIGHT_DIAMOND_SPEAR = ITEMS.register("bee_knight_diamond_spear", () -> new SwordItem(Tiers.DIAMOND,
+            new Item.Properties().attributes(SwordItem.createAttributes(Tiers.DIAMOND, 3, -2.4F))));
+
+    public static final DeferredItem<Item> BEE_KNIGHT_NETHERITE_SPEAR = ITEMS.register("bee_knight_netherite_spear", () -> new SwordItem(Tiers.NETHERITE,
+            new Item.Properties().attributes(SwordItem.createAttributes(Tiers.NETHERITE, 3, -2.4F))));
 
     public static final DeferredItem<Item> SUMMONING_SCROLL_SPRING_PIXIE = ITEMS.register("summoning_scroll_spring_pixie", () -> new SummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_spring_pixie")));

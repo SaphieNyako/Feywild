@@ -147,4 +147,8 @@ public class BeeKnightModel<T extends Entity> extends HierarchicalModel<T> {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
+
+    public ModelPart getRightArm() {
+        return this.right_arm;
+    }
 }

@@ -49,6 +49,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
+
                         output.accept(ModBlocks.FEY_GEM_ORE.get());
                         output.accept(ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
                         output.accept(ModBlocks.ELVEN_QUARTZ_BLOCK.get());
