@@ -5,6 +5,7 @@ import com.saphienyako.feywild.entity.base.FlyingFeyBase;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,6 +18,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -31,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -111,7 +114,7 @@ public class BeeKnightEntity extends FlyingFeyBase {
                     if (random.nextInt(3) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                   /*     if(FeywildConfig.voicesActive) {
+                       if(FeywildConfig.voicesActive) {
                             serverPlayer.playNotifySound(
                                     this.getCookieSound(),
                                     SoundSource.NEUTRAL,
@@ -119,8 +122,6 @@ public class BeeKnightEntity extends FlyingFeyBase {
                                     1.0F
                             );
                         }
-
-                     */
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
                     }
@@ -214,42 +215,77 @@ public class BeeKnightEntity extends FlyingFeyBase {
 
     @Override
     public SoundEvent getCookieSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_COOKIE.get();
     }
 
     @Override
     public SoundEvent getNameSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_NAME.get();
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_SUMMON.get();
     }
 
     @Override
     public SoundEvent getDismissSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_DISMISS.get();
     }
 
     @Override
     public SoundEvent getFollowSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_FOLLOW.get();
     }
 
     @Override
     public SoundEvent getStaySound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_STAY.get();
     }
+
+    public SoundEvent getProtectSound() {return ModSounds.BEE_KNIGHT_PROTECT.get();}
+
+    public SoundEvent getGuardSound() {return ModSounds.BEE_KNIGHT_GUARD.get();}
 
     @Override
     public SoundEvent getAbilityOnSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_PROTECT.get();
     }
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_STAY.get();
+    }
+
+    public SoundEvent getAttackSound() {
+        Random random = new Random();
+        if (random.nextInt(2) == 0) return ModSounds.BEE_KNIGHT_ATTACK_02.get();
+        else if (random.nextInt(2) == 1) return ModSounds.BEE_KNIGHT_ATTACK_03.get();
+        else return ModSounds.BEE_KNIGHT_ATTACK_01.get();
+    }
+
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.BEE_KNIGHT_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return ModSounds.BEE_KNIGHT_DEATH.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.BEE_KNIGHT_AMBIANCE.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 800;
     }
 
 

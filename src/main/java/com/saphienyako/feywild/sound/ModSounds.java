@@ -118,6 +118,23 @@ public class ModSounds {
     public static final Supplier<SoundEvent> BELLSNICKEL_TRADE = registerSoundEvent("bellsnickel_trade");
 
 
+    public static final Supplier<SoundEvent> BEE_KNIGHT_AMBIANCE = registerSoundEvent("bee_knight_ambiance");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_HURT = registerSoundEvent("bee_knight_hurt");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_DEATH = registerSoundEvent("bee_knight_death");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_COOKIE = registerSoundEvent("bee_knight_cookie");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_NAME = registerSoundEvent("bee_knight_name");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_SUMMON = registerSoundEvent("bee_knight_summon");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_DISMISS = registerSoundEvent("bee_knight_dismiss");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_FOLLOW = registerSoundEvent("bee_knight_follow");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_STAY = registerSoundEvent("bee_knight_stay");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_GUARD = registerSoundEvent("bee_knight_guard");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_PROTECT = registerSoundEvent("bee_knight_protect");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_ATTACK_01 = registerSoundEvent("bee_knight_attack_01");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_ATTACK_02 = registerSoundEvent("bee_knight_attack_02");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_ATTACK_03 = registerSoundEvent("bee_knight_attack_03");
+    public static final Supplier<SoundEvent> BEE_KNIGHT_TRADE = registerSoundEvent("bee_knight_trade");
+
+
 
     public static final Supplier<SoundEvent> TREE_ENT_AMBIANCE = registerSoundEvent("tree_ent_ambiance");
     public static final Supplier<SoundEvent> TREE_ENT_HURT = registerSoundEvent("tree_ent_hurt");

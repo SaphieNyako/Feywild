@@ -535,6 +535,96 @@
       "feywild:bellsnickel_trade"
     ]
   },
+  "bee_knight_ambiance": {
+    "subtitles": "message.feywild.bee_knight_ambiance",
+    "sounds": [
+      "feywild:bee_knight_ambiance"
+    ]
+  },
+  "bee_knight_hurt": {
+    "subtitles": "sounds.feywild.bee_knight_hurt",
+    "sounds": [
+      "feywild:bee_knight_hurt"
+    ]
+  },
+  "bee_knight_death": {
+    "subtitles": "sounds.feywild.bee_knight_death",
+    "sounds": [
+      "feywild:bee_knight_death"
+    ]
+  },
+  "bee_knight_cookie": {
+    "subtitles": "message.feywild.bee_knight_cookie",
+    "sounds": [
+      "feywild:bee_knight_cookie"
+    ]
+  },
+  "bee_knight_name": {
+    "subtitles": "message.feywild.bee_knight_name",
+    "sounds": [
+      "feywild:bee_knight_name"
+    ]
+  },
+  "bee_knight_summon": {
+    "subtitles": "message.feywild.bee_knight_summon",
+    "sounds": [
+      "feywild:bee_knight_summon"
+    ]
+  },
+  "bee_knight_dismiss": {
+    "subtitles": "message.feywild.bee_knight_dismiss",
+    "sounds": [
+      "feywild:bee_knight_dismiss"
+    ]
+  },
+  "bee_knight_follow": {
+    "subtitles": "message.feywild.bee_knight_follow",
+    "sounds": [
+      "feywild:bee_knight_follow"
+    ]
+  },
+  "bee_knight_stay": {
+    "subtitles": "message.feywild.bee_knight_stay",
+    "sounds": [
+      "feywild:bee_knight_stay"
+    ]
+  },
+  "bee_knight_protect": {
+    "subtitles": "message.feywild.bee_knight_protect",
+    "sounds": [
+      "feywild:bee_knight_protect"
+    ]
+  },
+  "bee_knight_guard": {
+    "subtitles": "message.feywild.bee_knight_guard",
+    "sounds": [
+      "feywild:bee_knight_guard"
+    ]
+  },
+  "bee_knight_attack_01": {
+    "subtitles": "message.feywild.bee_knight_attack_01",
+    "sounds": [
+      "feywild:bee_knight_attack_01"
+    ]
+  },
+  "bee_knight_attack_02": {
+    "subtitles": "message.feywild.bee_knight_attack_02",
+    "sounds": [
+      "feywild:bee_knight_attack_02"
+    ]
+  },
+  "bee_knight_attack_03": {
+    "subtitles": "message.feywild.bee_knight_attack_03",
+    "sounds": [
+      "feywild:bee_knight_attack_03"
+    ]
+  },
+  "bee_knight_trade": {
+    "subtitles": "message.feywild.bee_knight_trade",
+    "sounds": [
+      "feywild:bee_knight_trade"
+    ]
+  },
   "tree_ent_ambiance": {
     "subtitles": "message.feywild.tree_ent_ambiance",
     "sounds": [

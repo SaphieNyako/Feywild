@@ -49,14 +49,14 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
                     if (!msg.followingPlayer()) {
                         player.sendSystemMessage(entity.getFeyStayMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                         /*   level.playSound(
+                            level.playSound(
                                     null,
                                     entity.blockPosition(),
                                     entity.getStaySound(),
                                     SoundSource.NEUTRAL,
                                     1.0F,
                                     1.0F
-                            ); */
+                            );
                         }
                         entity.setSummonPos(msg.currentBlockPos());
                     } else {

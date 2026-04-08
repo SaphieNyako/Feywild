@@ -8,6 +8,7 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.screen.BeeKnightMenu;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Position;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +24,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -274,14 +277,14 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
                     if (random.nextInt(3) == 0) {
                         this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                      /*  if(FeywildConfig.voicesActive) {
+                        if(FeywildConfig.voicesActive) {
                             serverPlayer.playNotifySound(
                                     this.getCookieSound(),
                                     SoundSource.NEUTRAL,
                                     1.0F,
                                     1.0F
                             );
-                        } */
+                        }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
                     }
@@ -554,42 +557,69 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
 
     @Override
     public SoundEvent getCookieSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_COOKIE.get();
     }
 
     @Override
     public SoundEvent getNameSound() {
-        return null;
+        return SoundEvents.BEE_LOOP;
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_SUMMON.get();
     }
 
     @Override
     public SoundEvent getDismissSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_DISMISS.get();
     }
 
     @Override
     public SoundEvent getFollowSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_FOLLOW.get();
     }
 
     @Override
     public SoundEvent getStaySound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_STAY.get();
     }
+
+    public SoundEvent getProtectSound() {return ModSounds.BEE_KNIGHT_PROTECT.get();}
+
+    public SoundEvent getGuardSound() {return ModSounds.BEE_KNIGHT_GUARD.get();}
 
     @Override
     public SoundEvent getAbilityOnSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_PROTECT.get();
     }
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return null;
+        return ModSounds.BEE_KNIGHT_STAY.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.BEE_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.BEE_DEATH;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.BEE_LOOP;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 400;
     }
 
     public BeeKnightEntity.State getState() {
