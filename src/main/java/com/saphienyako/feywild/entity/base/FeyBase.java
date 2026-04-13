@@ -41,7 +41,6 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     private BlockPos summonPos = null;
     private boolean followingPlayer = false;
     private boolean abilityActive = false;
-
     private boolean voiceActive = true;
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
@@ -89,7 +88,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
-        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 6, this.getTargetPositionSpeed()));
+        this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 12, this.getTargetPositionSpeed()));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
     }
     @SuppressWarnings("resource")

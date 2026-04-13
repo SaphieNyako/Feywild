@@ -2,6 +2,15 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
+import com.saphienyako.feywild.entity.base.TreeEntBase;
+import com.saphienyako.feywild.entity.goals.AbilityCheckingGoal;
+import com.saphienyako.feywild.entity.goals.TameCheckingGoal;
+import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightMeleeAttackGoal;
+import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightResetTargetGoal;
+import com.saphienyako.feywild.entity.goals.guardian_goals.BeeMountMoveTowardsBeeKnightTargetGoal;
+import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMeleeAttackGoal;
+import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMoveAndSoundGoal;
+import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntResetTargetGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
@@ -15,6 +24,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,9 +35,14 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -43,6 +58,8 @@ public class BeeKnightEntity extends FlyingFeyBase {
     //ATTACKS
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(BeeKnightEntity.class, EntityDataSerializers.INT);
 
+    public static final EntityDataAccessor<Boolean>ON_DUTY = SynchedEntityData.defineId(BeeKnightEntity.class, EntityDataSerializers.BOOLEAN);
+
     public final AnimationState SIT_ANIMATION = new AnimationState();
     public final AnimationState ATTACK_ANIMATION = new AnimationState();
 
@@ -52,22 +69,60 @@ public class BeeKnightEntity extends FlyingFeyBase {
         super(entity, level);
     }
 
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    protected void registerGoals() {
+
+        this.goalSelector.addGoal(1, new BeeKnightMeleeAttackGoal(this, 2.0D, true));
+        this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(BeeKnightEntity.class));
+        this.targetSelector.addGoal(2, new AbilityCheckingGoal(this, true, new NearestAttackableTargetGoal<>(this, Monster.class, false) ));
+      //  this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
+        this.targetSelector.addGoal(3, new BeeKnightResetTargetGoal<>(this));
+        this.goalSelector.addGoal(5, new BeeMountMoveTowardsBeeKnightTargetGoal(this, 4D, 4));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
+        this.getNavigation().setCanFloat(true);
+    }
+
+
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.FLYING_SPEED, 0.35)
-                .add(Attributes.MAX_HEALTH, 12)
+                .add(Attributes.MAX_HEALTH, 24)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
-                .add(Attributes.FOLLOW_RANGE, 24D);
+                .add(Attributes.FOLLOW_RANGE, 24D)
+                .add(Attributes.ARMOR, 0.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 0.0);
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
+        builder.define(ON_DUTY, false);
     }
 
+    public void stopBeingAngry() {
+        this.setLastHurtByMob(null);
+        this.setTarget(null);
+    }
+
+    @Override
+    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+        if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
+            Vec3 vec32 = damageSource.getSourcePosition();
+            if (vec32 != null) {
+                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
+                Vec3 vec31 = vec32.vectorTo(this.position());
+                vec31 = new Vec3(vec31.x, 0.0, vec31.z).normalize();
+                return vec31.dot(vec3) < 0.0;
+            }
+        }
+
+        return false;
+    }
 
 
     @Override
@@ -201,7 +256,11 @@ public class BeeKnightEntity extends FlyingFeyBase {
 
         super.remove(reason);
     }
-
+    @Override
+    public Boolean getAbilityActive() {
+        if(getMount() == null) {return false;}
+        else return getMount().getAbilityActive();
+    }
 
     @Override
     public Alignment getAlignment() {
@@ -243,10 +302,6 @@ public class BeeKnightEntity extends FlyingFeyBase {
         return ModSounds.BEE_KNIGHT_STAY.get();
     }
 
-    public SoundEvent getProtectSound() {return ModSounds.BEE_KNIGHT_PROTECT.get();}
-
-    public SoundEvent getGuardSound() {return ModSounds.BEE_KNIGHT_GUARD.get();}
-
     @Override
     public SoundEvent getAbilityOnSound() {
         return ModSounds.BEE_KNIGHT_PROTECT.get();
@@ -254,7 +309,7 @@ public class BeeKnightEntity extends FlyingFeyBase {
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return ModSounds.BEE_KNIGHT_STAY.get();
+        return ModSounds.BEE_KNIGHT_GUARD.get();
     }
 
     public SoundEvent getAttackSound() {
@@ -299,7 +354,7 @@ public class BeeKnightEntity extends FlyingFeyBase {
     }
 
     public enum State {
-        SIT, ATTACK
+        IDLE, ATTACK
     }
 
 }

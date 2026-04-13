@@ -63,9 +63,7 @@ public class FeyMenuScreen extends Screen {
                     this.addRenderableWidget(new BellsnickelScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BellsnickelScreenButton.WIDTH)/2), this.top + 12 + BellsnickelScreenButton.HEIGHT * 2, this.entityId));
                 } else if(entity instanceof TreeEntBase) {
                     this.addRenderableWidget(new EffectButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - EffectButton.WIDTH)/2), this.top + 12 +  EffectButton.HEIGHT * 2, this,  this.entityId));
-                } else if(entity instanceof BeeMountEntity){
-                    this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 12 + BeeKnightScreenButton.HEIGHT * 2, this.entityId));
-                }  else {
+                } else {
                     this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH) / 2), this.top + 12 + AbilityButton.HEIGHT * 2, this.abilityActive, this.entityId));
                 }
                 //THIRD BUTTON
@@ -73,6 +71,10 @@ public class FeyMenuScreen extends Screen {
                 // TODO Button Quest
                 if(FeywildConfig.voicesActive) {
                     this.addRenderableWidget(new VolumeButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH) / 2), this.top + 28 + AbilityButton.HEIGHT * 6, this.voiceActive, this.entityId));
+                }
+                //FOURTH BUTTON
+               if(entity instanceof BeeMountEntity){
+                    this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this.entityId));
                 }
             }
         }

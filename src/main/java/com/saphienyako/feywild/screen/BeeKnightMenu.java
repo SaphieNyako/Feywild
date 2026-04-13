@@ -1,8 +1,6 @@
 package com.saphienyako.feywild.screen;
 
 import com.saphienyako.feywild.entity.BeeMountEntity;
-import com.saphienyako.feywild.entity.BellsnickelEntity;
-import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -21,7 +19,7 @@ import java.util.UUID;
 public class BeeKnightMenu extends AbstractContainerMenu {
 
     private final Container beeKnightContainer;
-    public BeeMountEntity beeKnight;
+    public BeeMountEntity beeMount;
 
     // With Help from https://github.com/Mrbysco/ChocoCraft4/tree/arch/1.21
     // Under MIT LICENSE
@@ -34,13 +32,13 @@ public class BeeKnightMenu extends AbstractContainerMenu {
     }
 
 
-    public BeeKnightMenu(int containerId, Inventory inventory, Container beeKnightContainer, final BeeMountEntity beeKnight) {
+    public BeeKnightMenu(int containerId, Inventory inventory, Container beeKnightContainer, final BeeMountEntity beeMount) {
         super(ModMenuTypes.BEE_KNIGHT_MENU.get(), containerId);
         this.beeKnightContainer = beeKnightContainer;
-        this.beeKnight = beeKnight;
+        this.beeMount = beeMount;
         beeKnightContainer.startOpen(inventory.player);
         //HORSE_ARMOR
-        this.addSlot(new Slot(beeKnightContainer, 0, 26, 23) { //slot, x, y
+        this.addSlot(new Slot(beeKnightContainer, 0, 80, 45) { //slot, x, y
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
                 return stack.is(Items.DIAMOND_HORSE_ARMOR)
@@ -55,7 +53,7 @@ public class BeeKnightMenu extends AbstractContainerMenu {
         });
 
         //LANCE_SLOT
-        this.addSlot(new Slot(beeKnightContainer, 2, 170, 23){
+        this.addSlot(new Slot(beeKnightContainer, 2, 98, 45){
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
 
@@ -70,20 +68,8 @@ public class BeeKnightMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
-        //MAGICAL HONEY COMB
-        this.addSlot(new Slot(beeKnightContainer, 3, 26, 78) {
-            @Override
-            public boolean mayPlace(@Nonnull ItemStack stack) {
-                return stack.is(Items.HONEYCOMB);
-            }
-
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        });
         //CHEST_PLATE
-        this.addSlot(new Slot(beeKnightContainer, 1, 170, 78) {
+        this.addSlot(new Slot(beeKnightContainer, 1, 116, 45) {
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
                 return stack.is(Items.DIAMOND_CHESTPLATE)
@@ -168,8 +154,8 @@ public class BeeKnightMenu extends AbstractContainerMenu {
                 && player.distanceToSqr(this.beeKnight) < 64;
 
         */
-        return this.beeKnight.isAlive()
-                && player.distanceToSqr(this.beeKnight) < 64;
+        return this.beeMount.isAlive()
+                && player.distanceToSqr(this.beeMount) < 64;
     }
 
     @Override

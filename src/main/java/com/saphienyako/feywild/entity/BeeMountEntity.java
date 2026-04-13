@@ -1,5 +1,7 @@
 package com.saphienyako.feywild.entity;
 
+import com.google.common.collect.Multimap;
+import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
@@ -10,26 +12,31 @@ import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.screen.BeeKnightMenu;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -40,6 +47,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -80,21 +88,15 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
     public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_SPEAR =
             SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public static final EntityDataAccessor<Boolean> HAS_MAGICAL_HONEY_COMB =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
 
     protected SimpleContainer inventory;
 
     private ItemStack[] lastInventoryCheck;
-    public static final int INVENTORY_SIZE = 4; //mount armor, knight armor, lance, honey comb
+    public static final int INVENTORY_SIZE = 3; //mount armor, knight armor, lance
 
     private final int MOUNT_ARMOR_SLOT = 0;
     private final int KNIGHT_ARMOR_SLOT = 1;
-    private final int LANCE_SLOT= 2;
-    private final int MAGICAL_HONEY_COMB_SLOT= 3;
-
-
+    private final int SPEAR_SLOT = 2;
 
     protected BeeMountEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -108,6 +110,9 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         super.registerGoals();
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
         this.goalSelector.addGoal(5, new TradeForGemsGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+        this.getNavigation().setCanFloat(true);
     }
 
 
@@ -115,13 +120,13 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.FLYING_SPEED, 0.35)
-                .add(Attributes.MAX_HEALTH, 12)
+                .add(Attributes.MAX_HEALTH, 24)
                 .add(Attributes.MOVEMENT_SPEED, 0.35)
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
-                .add(Attributes.FOLLOW_RANGE, 24D);
-
-
+                .add(Attributes.FOLLOW_RANGE, 24D)
+                .add(Attributes.ARMOR, 0.0)
+                .add(Attributes.ARMOR_TOUGHNESS, 0.0);
     }
 
     @Override
@@ -137,7 +142,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         builder.define(KNIGHT_HAS_GOLD_SPEAR, false);
         builder.define(KNIGHT_HAS_DIAMOND_SPEAR, false);
         builder.define(KNIGHT_HAS_NETHERITE_SPEAR, false);
-        builder.define(HAS_MAGICAL_HONEY_COMB, false);
     }
 
     @Override
@@ -178,6 +182,21 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
                 this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
             }
         }
+    }
+
+    @Override
+    public boolean isDamageSourceBlocked(DamageSource damageSource) {
+        if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
+            Vec3 vec32 = damageSource.getSourcePosition();
+            if (vec32 != null) {
+                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
+                Vec3 vec31 = vec32.vectorTo(this.position());
+                vec31 = new Vec3(vec31.x, 0.0, vec31.z).normalize();
+                return vec31.dot(vec3) < 0.0;
+            }
+        }
+
+        return false;
     }
 
 
@@ -251,10 +270,13 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
 
         if (knight != null) {
             knight.moveTo(this.position());
+            if(this.isTamed()){
+                    knight.setSummonPos(this.getSummonPos());
+                    knight.setOwner(Objects.requireNonNull(this.getOwner()));
+            }
             this.level().addFreshEntity(knight);
         }
         return knight;
-
     }
 
     //INTERACT
@@ -395,21 +417,18 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
                 container.getItem(KNIGHT_ARMOR_SLOT).is(Items.NETHERITE_CHESTPLATE));
 
         this.entityData.set(KNIGHT_HAS_GOLD_SPEAR,
-                container.getItem(LANCE_SLOT).is(Items.GOLDEN_SWORD)); //TODO custom Item
+                container.getItem(SPEAR_SLOT).is(Items.GOLDEN_SWORD));
 
         this.entityData.set(KNIGHT_HAS_DIAMOND_SPEAR,
-                container.getItem(LANCE_SLOT).is(Items.DIAMOND_SWORD));
+                container.getItem(SPEAR_SLOT).is(Items.DIAMOND_SWORD));
 
         this.entityData.set(KNIGHT_HAS_NETHERITE_SPEAR,
-                container.getItem(LANCE_SLOT).is(Items.NETHERITE_SWORD));
-
-        this.entityData.set(HAS_MAGICAL_HONEY_COMB,
-                container.getItem(MAGICAL_HONEY_COMB_SLOT).is(Items.HONEYCOMB)); //TODO custom Item
+                container.getItem(SPEAR_SLOT).is(Items.NETHERITE_SWORD));
 
         for (int i = 0; i < container.getContainerSize(); i++) {
             lastInventoryCheck[i] = container.getItem(i).copy();
         }
-         //  updateOutputSlot();
+        updateKnightStats();
     }
 
     @Override
@@ -419,7 +438,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
             if (player.containerMenu != player.inventoryMenu) {
                 player.closeContainer();
             }
-            //TODO BeeKnight Menu requires both UUID of Mount and Bee Knight
             serverPlayer.openMenu(new SimpleMenuProvider((ix, playerInventory, playerEntity) ->
                     new BeeKnightMenu(ix, playerInventory, this.inventory, this), this.getDisplayName()), buf -> {
                 buf.writeUUID(getUUID());
@@ -459,20 +477,160 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         this.inventory.clearContent();
     }
 
-    private void updateOutputSlot() {
-        if (level().isClientSide || inventory == null) return;
+    private void updateKnightStats() {
+        BeeKnightEntity knight = getLinkedKnight();
+        if (knight == null) return;
 
-        inventory.removeListener(this);
+        ItemStack spear = inventory.getItem(SPEAR_SLOT);
+        ItemStack chestPiece = inventory.getItem(KNIGHT_ARMOR_SLOT);
+        ItemStack mountArmor = inventory.getItem(MOUNT_ARMOR_SLOT);
 
-        ItemStack mount_armor = inventory.getItem(MOUNT_ARMOR_SLOT);
-        ItemStack knight_armor = inventory.getItem(KNIGHT_ARMOR_SLOT);
-        ItemStack lance = inventory.getItem(LANCE_SLOT);
-        ItemStack honey_comb = inventory.getItem(MAGICAL_HONEY_COMB_SLOT);
+        AttributeInstance attack = knight.getAttribute(Attributes.ATTACK_DAMAGE);
+        AttributeInstance armor = knight.getAttribute(Attributes.ARMOR);
+        AttributeInstance toughness = knight.getAttribute(Attributes.ARMOR_TOUGHNESS);
+        AttributeInstance health = knight.getAttribute(Attributes.MAX_HEALTH);
+        AttributeInstance mount_armor = this.getAttribute(Attributes.ARMOR);
+        AttributeInstance mount_toughness = this.getAttribute(Attributes.ARMOR_TOUGHNESS);
+        AttributeInstance mount_health = this.getAttribute(Attributes.MAX_HEALTH);
 
-        //Do something
+        if (attack == null || armor == null || toughness == null || health == null || mount_armor == null || mount_toughness == null || mount_health == null) return;
 
-        inventory.addListener(this);
+        ResourceLocation spearId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "spear_modifier");
+        ResourceLocation armorId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "armor_modifier");
+        ResourceLocation toughnessId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "armor_toughness_modifier");
+        ResourceLocation healthId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"health_modifier");
+        ResourceLocation mountArmorId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mount_armor_modifier");
+        ResourceLocation mountToughnessId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mount_armor_toughness_modifier");
+        ResourceLocation mountHealthId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mount_health_modifier");
+
+
+        // Remove old modifier
+        attack.removeModifier(spearId);
+        armor.removeModifier(armorId);
+        toughness.removeModifier(toughnessId);
+        health.removeModifier(healthId);
+        mount_armor.removeModifier(mountArmorId);
+        mount_toughness.removeModifier(mountToughnessId);
+        mount_health.removeModifier(mountHealthId);
+
+        //WEAPON DAMAGE KNIGHT
+
+        double damageBonus = 0.0;
+
+        if (!spear.isEmpty()) {
+            if (spear.is(Items.GOLDEN_SWORD)) damageBonus = 4.0;
+            else if (spear.is(Items.DIAMOND_SWORD)) damageBonus = 7.0;
+            else if (spear.is(Items.NETHERITE_SWORD)) damageBonus = 8.0;
+
+            if (damageBonus > 0) {
+                attack.addTransientModifier(new AttributeModifier(
+                        spearId,
+                        damageBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied spear damage: +" + damageBonus);
+            }
+        }
+
+        //ARMOR KNIGHT
+        double armorBonus = 0.0;
+        double toughnessBonus = 0.0;
+        double healthBonus = 0.0;
+
+        if (!chestPiece.isEmpty()) {
+            if (chestPiece.is(Items.GOLDEN_CHESTPLATE)) armorBonus = 10.0;
+            else if (chestPiece.is(Items.DIAMOND_CHESTPLATE)) {
+                armorBonus = 16.0;
+                toughnessBonus = 4.0;
+                healthBonus = 10;
+            }
+            else if (chestPiece.is(Items.NETHERITE_CHESTPLATE)) {
+                armorBonus = 20.0;
+                toughnessBonus = 6.0;
+                healthBonus = 20;
+            }
+
+            if (armorBonus > 0) {
+                armor.addTransientModifier(new AttributeModifier(
+                        armorId,
+                        armorBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied armor: +" + armorBonus);
+            }
+
+            if (toughnessBonus > 0) {
+                toughness.addTransientModifier(new AttributeModifier(
+                        toughnessId,
+                        toughnessBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied toughness: +" + toughnessBonus);
+            }
+
+            if(healthBonus > 0){
+                health.addTransientModifier(new AttributeModifier(
+                        healthId,
+                        healthBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied health: +" + healthBonus);
+            }
+        }
+
+        //MOUNT ARMOR
+
+        double mountArmorBonus = 0.0;
+        double mountToughnessBonus = 0.0;
+        double mountHealthBonus = 0.0;
+
+        if (!mountArmor.isEmpty()) {
+            if (mountArmor.is(Items.GOLDEN_HORSE_ARMOR)) {
+                mountArmorBonus = 10.0;
+                mountHealthBonus = 10;
+            }
+            else if (mountArmor.is(Items.DIAMOND_HORSE_ARMOR)) {
+                mountArmorBonus = 16.0;
+                mountToughnessBonus = 4.0;
+                mountHealthBonus = 20;
+            }
+
+            if (mountArmorBonus > 0) {
+                mount_armor.addTransientModifier(new AttributeModifier(
+                        armorId,
+                        mountArmorBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied mount armor: +" + mountArmorBonus);
+            }
+
+            if (mountToughnessBonus > 0) {
+                mount_toughness.addTransientModifier(new AttributeModifier(
+                        toughnessId,
+                        mountToughnessBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied mount toughness: +" + mountToughnessBonus);
+            }
+
+            if (mountHealthBonus > 0) {
+                mount_health.addTransientModifier(new AttributeModifier(
+                        healthId,
+                        mountHealthBonus,
+                        AttributeModifier.Operation.ADD_VALUE
+                ));
+
+                System.out.println("Applied mount health: +" + mountHealthBonus);
+            }
+        }
     }
+
 
     //MOUNT/TRAVEL
 
@@ -551,8 +709,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         return ModItems.SUMMONING_SCROLL_BEE_KNIGHT.get();
     }
 
-    //TODO SOUND IF HAS_BEE_KNIGHT RETURN BEE KNIGHT SOUND ELSE RETURN BEE SOUND BUZZ BUZZ
-
     @Override
     public SoundEvent getCookieSound() {
         return ModSounds.BEE_KNIGHT_COOKIE.get();
@@ -583,10 +739,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         return ModSounds.BEE_KNIGHT_STAY.get();
     }
 
-    public SoundEvent getProtectSound() {return ModSounds.BEE_KNIGHT_PROTECT.get();}
-
-    public SoundEvent getGuardSound() {return ModSounds.BEE_KNIGHT_GUARD.get();}
-
     @Override
     public SoundEvent getAbilityOnSound() {
         return ModSounds.BEE_KNIGHT_PROTECT.get();
@@ -594,7 +746,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
 
     @Override
     public SoundEvent getAbilityOffSound() {
-        return ModSounds.BEE_KNIGHT_STAY.get();
+        return ModSounds.BEE_KNIGHT_GUARD.get();
     }
 
     @Nullable

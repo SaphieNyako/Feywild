@@ -3,6 +3,7 @@ package com.saphienyako.feywild.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.BeeMountEntity;
+import com.saphienyako.feywild.screen.widget.AbilityButton;
 import com.saphienyako.feywild.screen.widget.EntityWidget;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,12 +22,16 @@ public class BeeKnightScreen extends AbstractContainerScreen<BeeKnightMenu> {
 
     public static final int WIDTH = 208;
     public static final int HEIGHT = 192;
-    private final BeeMountEntity beeKnight;
+    private BeeMountEntity beeMount;
     private float xMouse;
     private float yMouse;
+
+
+
+
     public BeeKnightScreen(BeeKnightMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, Component.translatable("message.feywild.bee_knight_menu_description").withStyle(ChatFormatting.AQUA));
-        this.beeKnight = menu.beeKnight;
+        this.beeMount = menu.beeMount;
         this.imageWidth = WIDTH;
         this.imageHeight = HEIGHT;
     }
@@ -34,15 +39,19 @@ public class BeeKnightScreen extends AbstractContainerScreen<BeeKnightMenu> {
     @Override
     protected void init() {
         super.init();
-        titleLabelX = 25;
-        titleLabelY = 64;
+        titleLabelX = 60;
+        titleLabelY = 23;
 
         inventoryLabelX = 1000;
 
         int entityX = this.leftPos - EntityWidget.WIDTH;
         int entityY = this.topPos + (this.imageHeight - EntityWidget.HEIGHT) / 2;
 
-        this.addRenderableWidget(new EntityWidget(entityX, entityY, beeKnight));
+        int left = (this.width / 2) - ((EntityWidget.WIDTH + 125 + WIDTH) / 2);
+        int top = (this.height / 2) - (HEIGHT / 2);
+
+        this.addRenderableWidget(new EntityWidget(entityX, entityY, beeMount));
+        //this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 20 + ((WIDTH - AbilityButton.WIDTH) / 2), top + 20 + AbilityButton.HEIGHT * 2, beeMount.getAbilityActive(), beeMount.getId()));
     }
 
     @Override

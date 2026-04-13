@@ -30,7 +30,11 @@ public class BeeKnightRenderer extends MobRenderer<BeeKnightEntity, BeeKnightMod
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull BeeKnightEntity BeeKnightEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/bee_knight/bee_knight.png");
+    public @NotNull ResourceLocation getTextureLocation(@NotNull BeeKnightEntity bee_knight) {
+        if (bee_knight.getState() == BeeKnightEntity.State.ATTACK) {
+            return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/bee_knight/bee_knight_angry.png");
+        } else {
+            return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/bee_knight/bee_knight.png");
+        }
     }
 }
