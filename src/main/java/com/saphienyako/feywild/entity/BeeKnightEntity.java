@@ -1,10 +1,14 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.data.BeeKnightItems;
+import com.saphienyako.feywild.data.BellsnickelItems;
+import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
-import com.saphienyako.feywild.entity.goals.AbilityCheckingGoal;
-import com.saphienyako.feywild.entity.goals.TameCheckingGoal;
+import com.saphienyako.feywild.entity.base.intereface.ITradeable;
+import com.saphienyako.feywild.entity.goals.*;
+import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightMeleeAttackGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightResetTargetGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeMountMoveTowardsBeeKnightTargetGoal;
@@ -29,10 +33,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -52,9 +53,10 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.List;
 import java.util.Random;
 
-public class BeeKnightEntity extends FlyingFeyBase {
+public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
     //ATTACKS
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(BeeKnightEntity.class, EntityDataSerializers.INT);
 
@@ -75,12 +77,12 @@ public class BeeKnightEntity extends FlyingFeyBase {
 
         this.goalSelector.addGoal(1, new BeeKnightMeleeAttackGoal(this, 2.0D, true));
         this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(BeeKnightEntity.class));
-        this.targetSelector.addGoal(2, new AbilityCheckingGoal(this, true, new NearestAttackableTargetGoal<>(this, Monster.class, false) ));
-      //  this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
+        this.targetSelector.addGoal(2, new AbilityCheckingGoal(this, true, new NearestAttackableTargetGoal<>(this, Monster.class, false)));
         this.targetSelector.addGoal(3, new BeeKnightResetTargetGoal<>(this));
         this.goalSelector.addGoal(5, new BeeMountMoveTowardsBeeKnightTargetGoal(this, 4D, 4));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new TradeForGemsGoal(this));
         this.getNavigation().setCanFloat(true);
     }
 
@@ -101,7 +103,7 @@ public class BeeKnightEntity extends FlyingFeyBase {
     protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
-        builder.define(ON_DUTY, false);
+        builder.define(ON_DUTY, true);
     }
 
     public void stopBeingAngry() {
@@ -120,10 +122,16 @@ public class BeeKnightEntity extends FlyingFeyBase {
                 return vec31.dot(vec3) < 0.0;
             }
         }
+        Entity attacker = damageSource.getEntity();
+        if(this.isTamed() && attacker instanceof Player player && player == getOwningPlayer()) {
+            ItemStack held = player.getMainHandItem();
+            if (!isIronTool(held)) {
+                return true;
+            }
+        }
 
         return false;
     }
-
 
     @Override
     public void tick() {
@@ -314,9 +322,14 @@ public class BeeKnightEntity extends FlyingFeyBase {
 
     public SoundEvent getAttackSound() {
         Random random = new Random();
-        if (random.nextInt(2) == 0) return ModSounds.BEE_KNIGHT_ATTACK_02.get();
-        else if (random.nextInt(2) == 1) return ModSounds.BEE_KNIGHT_ATTACK_03.get();
-        else return ModSounds.BEE_KNIGHT_ATTACK_01.get();
+        int i = random.nextInt(5);
+
+        return switch (i) {
+            case 0 -> ModSounds.BEE_KNIGHT_ATTACK_01.get();
+            case 1 -> ModSounds.BEE_KNIGHT_ATTACK_02.get();
+            case 2 -> ModSounds.BEE_KNIGHT_ATTACK_03.get();
+            default -> SoundEvents.BEE_STING;
+        };
     }
 
 
@@ -343,6 +356,31 @@ public class BeeKnightEntity extends FlyingFeyBase {
         return 800;
     }
 
+    @Override
+    public SoundEvent getTradeSound() {
+        return ModSounds.BEE_KNIGHT_TRADE.get();
+    }
+
+    @Override
+    public ItemStack getTradeItem() {
+        return ModItems.FEY_GEM.toStack();
+    }
+
+    @Override
+    public boolean isTradeItem(ItemStack stack) {
+        return stack.is(ModItems.FEY_GEM);
+    }
+
+    @Override
+    public ItemStack getTradeResult() {
+        List<ItemStack> items = BeeKnightItems.beeKnightItems();
+        if (items.isEmpty()) return ItemStack.EMPTY;
+
+        Random random = new Random();
+        int index = random.nextInt(items.size());
+        return items.get(index).copy();
+    }
+
 
     public BeeKnightEntity.State getState() {
         BeeKnightEntity.State[] states = BeeKnightEntity.State.values();
@@ -356,5 +394,4 @@ public class BeeKnightEntity extends FlyingFeyBase {
     public enum State {
         IDLE, ATTACK
     }
-
 }

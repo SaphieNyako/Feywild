@@ -1,0 +1,42 @@
+[
+  {
+    "item": "minecraft:honeycomb",
+    "count": 5,
+    "rarity": 10
+  },
+  {
+    "item": "minecraft:honey_bottle",
+    "count": 5,
+    "rarity": 10
+  },
+  {
+    "item": "minecraft:honey_block",
+    "count": 3,
+    "rarity": 9
+  },
+  {
+    "item": "minecraft:honeycomb_block",
+    "count": 3,
+    "rarity": 9
+  },
+  {
+    "item": "minecraft:golden_horse_armor",
+    "count": 1,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:saddle",
+    "count": 1,
+    "rarity": 5
+  },
+  {
+    "item": "minecraft:beehive",
+    "count": 1,
+    "rarity": 4
+  },
+  {
+    "item": "minecraft:bee_nest",
+    "count": 1,
+    "rarity": 4
+  }
+]

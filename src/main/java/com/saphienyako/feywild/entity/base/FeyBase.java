@@ -141,7 +141,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return super.isDamageSourceBlocked(damageSource);
     }
 
-    private boolean isIronTool(ItemStack stack) {
+    public boolean isIronTool(ItemStack stack) {
         return stack.is(Tags.Items.TOOLS) && stack.getItem() instanceof TieredItem tiered &&
                 tiered.getTier() == Tiers.IRON;
     }

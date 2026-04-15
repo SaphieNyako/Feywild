@@ -3,9 +3,10 @@ package com.saphienyako.feywild.entity;
 import com.google.common.collect.Multimap;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
-import com.saphienyako.feywild.entity.goals.TradeForGemsGoal;
+import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
@@ -47,11 +48,12 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class BeeMountEntity extends FlyingFeyBase implements ITradeable, ContainerListener, HasCustomInventoryScreen{
+public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, HasCustomInventoryScreen{
     //MOVEMENT
     //FOLLOW/STAY on FeyBase
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.INT);
@@ -61,7 +63,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
 
     public final AnimationState FLY_ANIMATION = new AnimationState();
     public final AnimationState FLY_IDLE_ANIMATION = new AnimationState();
-    private UUID knightUUID; //LINK BEE KNIGHT
+    private UUID knightUUID;
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
@@ -109,9 +111,9 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(10, new TemptGoal(this, 1.25, Ingredient.of(Items.COOKIE), false));
-        this.goalSelector.addGoal(5, new TradeForGemsGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+
         this.getNavigation().setCanFloat(true);
     }
 
@@ -196,6 +198,14 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
             }
         }
 
+        Entity attacker = damageSource.getEntity();
+        if(this.isTamed() && attacker instanceof Player player && player == getOwningPlayer()) {
+                ItemStack held = player.getMainHandItem();
+                if (!isIronTool(held)) {
+                    return true;
+                }
+        }
+
         return false;
     }
 
@@ -275,6 +285,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
                     knight.setOwner(Objects.requireNonNull(this.getOwner()));
             }
             this.level().addFreshEntity(knight);
+            this.setAbilityActive(true);
         }
         return knight;
     }
@@ -399,8 +410,39 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         this.inventory.addListener(this);
     }
 
+    private boolean isIronWeaponOrArmor(ItemStack stack) {
+        return stack.is(Items.IRON_SWORD) || stack.is(Items.IRON_CHESTPLATE);
+    }
+
     @Override
     public void containerChanged(@Nonnull Container container) {
+
+        if(container.getItem(KNIGHT_ARMOR_SLOT).is(Items.IRON_CHESTPLATE)){
+            BeeKnightEntity knight = getLinkedKnight();
+            knight.hurt(this.damageSources().generic(), 1.0F);
+            knight.playSound(ModSounds.BEE_KNIGHT_HURT.get(), 1.0F, 1.0F);
+
+            this.spawnAtLocation(container.getItem(KNIGHT_ARMOR_SLOT));
+            container.setItem(KNIGHT_ARMOR_SLOT, ItemStack.EMPTY);
+        }
+
+        if(container.getItem(SPEAR_SLOT).is(Items.IRON_SWORD)){
+            BeeKnightEntity knight = getLinkedKnight();
+            knight.hurt(this.damageSources().generic(), 1.0F);
+            knight.playSound(ModSounds.BEE_KNIGHT_HURT.get(), 1.0F, 1.0F);
+
+            this.spawnAtLocation(container.getItem(SPEAR_SLOT));
+            container.setItem(SPEAR_SLOT, ItemStack.EMPTY);
+        }
+
+        if(container.getItem(MOUNT_ARMOR_SLOT).is(Items.IRON_HORSE_ARMOR)){
+            this.hurt(this.damageSources().generic(), 1.0F);
+            this.playSound(SoundEvents.BEE_HURT, 1.0F, 1.0F);
+
+            this.spawnAtLocation(container.getItem(MOUNT_ARMOR_SLOT));
+            container.setItem(MOUNT_ARMOR_SLOT, ItemStack.EMPTY);
+        }
+
         this.entityData.set(MOUNT_HAS_GOLD_ARMOR,
                 container.getItem(MOUNT_ARMOR_SLOT).is(Items.GOLDEN_HORSE_ARMOR));
 
@@ -781,25 +823,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ITradeable, Contain
         this.entityData.set(STATE, state.ordinal());
     }
 
-    @Override
-    public SoundEvent getTradeSound() {
-        return null;
-    }
-
-    @Override
-    public ItemStack getTradeItem() {
-        return null;
-    }
-
-    @Override
-    public boolean isTradeItem(ItemStack stack) {
-        return false;
-    }
-
-    @Override
-    public ItemStack getTradeResult() {
-        return null;
-    }
 
     public enum State {
         FLY, FLY_IDLE

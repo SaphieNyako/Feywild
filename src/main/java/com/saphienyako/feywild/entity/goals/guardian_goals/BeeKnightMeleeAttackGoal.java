@@ -2,6 +2,8 @@ package com.saphienyako.feywild.entity.goals.guardian_goals;
 
 import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -19,8 +21,20 @@ public class BeeKnightMeleeAttackGoal extends MeleeAttackGoal {
     protected void checkAndPerformAttack(LivingEntity target) {
         if (this.isTimeToAttack() && this.canTreeEntAttack(target)) {
             this.resetAttackCooldown();
-        //    entity.playSound(entity.getAttackingSound(), 0.3f,1f);
+
+            if (!target.level().isClientSide) {
+                if (entity.getRandom().nextFloat() < 0.4F) {
+                    entity.playSound(entity.getAttackSound());
+                }
+            }
+
             this.mob.doHurtTarget(target);
+
+            if (!target.level().isClientSide) {
+                if (entity.getRandom().nextFloat() < 0.2F) {
+                    target.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
+                }
+            }
         }
     }
 
