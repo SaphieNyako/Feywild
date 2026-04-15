@@ -5,6 +5,7 @@ import com.saphienyako.feywild.data.BeeKnightItems;
 import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
+import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.*;
@@ -64,6 +65,10 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
 
     public final AnimationState SIT_ANIMATION = new AnimationState();
     public final AnimationState ATTACK_ANIMATION = new AnimationState();
+
+    public final AnimationState WING_ANIMATION = new AnimationState();
+
+    public int animationTimeout = 0;
 
     public boolean isBeingRemovedTogether = false;
 
@@ -158,7 +163,14 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
             ATTACK_ANIMATION.stop();
         }
 
-        SIT_ANIMATION.start(this.tickCount);
+        if (!WING_ANIMATION.isStarted()) {
+            WING_ANIMATION.start(this.tickCount);
+        }
+
+        if (!SIT_ANIMATION.isStarted()) {
+            SIT_ANIMATION.start(this.tickCount);
+        }
+
     }
 
     @SuppressWarnings("resource")

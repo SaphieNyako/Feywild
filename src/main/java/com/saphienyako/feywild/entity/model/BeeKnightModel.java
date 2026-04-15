@@ -138,6 +138,7 @@ public class BeeKnightModel<T extends Entity> extends HierarchicalModel<T> {
 
         this.animate(((BeeKnightEntity)entity).SIT_ANIMATION, BeeKnightAnimations.SIT, ageInTicks, 2f);
         this.animate(((BeeKnightEntity)entity).ATTACK_ANIMATION, BeeKnightAnimations.ATTACK_RIGHT, ageInTicks, 1.0f);
+        this.animate(((BeeKnightEntity)entity).WING_ANIMATION, BeeKnightAnimations.WING, ageInTicks, 1.0f);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
