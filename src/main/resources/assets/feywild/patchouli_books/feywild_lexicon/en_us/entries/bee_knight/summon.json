@@ -1,0 +1,45 @@
+{
+  "category": "feywild:bee_knight",
+  "icon": "feywild:summoning_scroll_bee_knight",
+  "name":  "feywild_lexicon.entry.bee_knight.summon.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:bee_knight"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "The bee_knight",
+      "text": "feywild_lexicon.entry.bee_knight.summon.page0.text0"
+    },
+    {
+      "type": "feywild:bee_knight",
+      "recipe": "feywild:summoning_scroll_bee_knight"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:bee_mount"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "feywild_lexicon.entry.bee_knight.summon.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Ability",
+      "text": "feywild_lexicon.entry.bee_knight.summon.page2.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "feywild_lexicon.entry.bee_knight.summon.page3.text0"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "feywild_lexicon.entry.bee_knight.summon.page4.text0"
+    }
+  ]
+}

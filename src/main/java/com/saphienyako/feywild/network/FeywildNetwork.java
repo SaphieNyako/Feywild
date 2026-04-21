@@ -77,6 +77,12 @@ public class FeywildNetwork {
                 .consumerMainThread(OpenBellsnickelMenuMessage::handle)
                 .add();
 
+        net.messageBuilder(OpenBeeKnightMenuMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenBeeKnightMenuMessage::decode)
+                .encoder(OpenBeeKnightMenuMessage::encode)
+                .consumerMainThread(OpenBeeKnightMenuMessage::handle)
+                .add();
+
         net.messageBuilder(GivePlayerEffectMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(GivePlayerEffectMessage::decode)
                 .encoder(GivePlayerEffectMessage::encode)

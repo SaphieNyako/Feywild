@@ -1,10 +1,18 @@
 package com.saphienyako.feywild.screen.widget;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import com.saphienyako.feywild.entity.BeeKnightEntity;
+import com.saphienyako.feywild.entity.BeeMountEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,23 +29,104 @@ public class EntityWidget extends AbstractWidget {
 
     @Override
     public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        double scale = (this.height / this.entity.getType().getHeight()) * 1.5;
+        if(this.entity instanceof BeeMountEntity mount){
 
-        int centerX = this.getX() + this.width / 2;
-        int centerY = this.getY() + this.height + (int)(scale * 48 / 85);
+            BeeKnightEntity knight = mount.getLinkedKnight();
 
-        float dx = centerX - mouseX;
-        float dy = centerY - mouseY;
+            float scale = (float)(this.height / this.entity.getBbHeight());
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(
-                graphics,
-                centerX,
-                centerY,
-                (int) scale,
-                dx,
-                dy,
-                this.entity
-        );
+            int centerX = this.getX() + this.width / 2;
+            float centerY = this.getY() + this.height / 2f;
+
+            // Normalize mouse offset (-1 to 1 range)
+            float deltaX = (mouseX - centerX) / (this.width / 2f);
+            float deltaY = (mouseY - centerY) / (this.height / 2f);
+
+            // Clamp so it doesn't spin too much
+            deltaX = Mth.clamp(deltaX, -1f, 1f);
+            deltaY = Mth.clamp(deltaY, -1f, 1f);
+
+            // Apply small rotation multipliers
+            float yawOffset = deltaX * 25.0F;   // horizontal turn
+            float pitchOffset = deltaY * 15.0F; // vertical tilt
+
+            int bottomY = this.getY() + this.height;
+
+            PoseStack pose = graphics.pose();
+            pose.pushPose();
+
+            pose.translate(centerX, bottomY, 50.0F);
+            pose.scale(scale, scale, scale);
+            //   pose.mulPose(Axis.ZP.rotationDegrees(180.0F));
+            pose.mulPose(Axis.XP.rotationDegrees(180F));
+            pose.mulPose(Axis.YP.rotationDegrees(180F));
+
+
+            EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
+            dispatcher.setRenderShadow(false);
+
+            MultiBufferSource.BufferSource buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+
+
+            float yaw = 20.0F; // faces forward in GUI
+            mount.setYRot(yaw);
+            mount.yBodyRot = yaw + yawOffset;
+            mount.yHeadRot = yaw + yawOffset;
+            mount.setXRot(pitchOffset);
+
+            knight.setYRot(yaw);
+            knight.yBodyRot = yaw + yawOffset;
+            knight.yHeadRot = yaw + yawOffset;
+            knight.setXRot(pitchOffset);
+
+            dispatcher.render(
+                    mount,
+                    0, 0, 0,
+                    0,
+                    partialTick,
+                    pose,
+                    buffer,
+                    15728880
+            );
+
+
+            pose.pushPose();
+            pose.translate(0, 0.45, 0);
+            dispatcher.render(
+                    knight,
+                    0, 0, 0,
+                    0,
+                    partialTick,
+                    pose,
+                    buffer,
+                    15728880
+            );
+            pose.popPose();
+
+
+            buffer.endBatch();
+            dispatcher.setRenderShadow(true);
+
+            pose.popPose();
+        } else {
+            double scale = (this.height / this.entity.getType().getHeight()) * 1.5;
+
+            int centerX = this.getX() + this.width / 2;
+            int centerY = this.getY() + this.height + (int) (scale * 48 / 85);
+
+            float dx = centerX - mouseX;
+            float dy = centerY - mouseY;
+
+            InventoryScreen.renderEntityInInventoryFollowsMouse(
+                    graphics,
+                    centerX,
+                    centerY,
+                    (int) scale,
+                    dx,
+                    dy,
+                    this.entity
+            );
+        }
     }
 
 

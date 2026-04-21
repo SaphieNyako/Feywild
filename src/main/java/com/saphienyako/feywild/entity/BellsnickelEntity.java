@@ -133,9 +133,9 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putInt("BellsnickelVariant", this.entityData.get(VARIANT));
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("BellsnickelVariant", this.entityData.get(VARIANT));
         //Inventory
         ListTag listtag = new ListTag();
         for (int x = 0; x < this.inventory.getContainerSize(); x++) {
@@ -146,18 +146,18 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
                 listtag.add(itemstack.save(compoundtag));
             }
         }
-        nbt.put("Items", listtag);
+        tag.put("Items", listtag);
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        if (nbt.contains("BellsnickelVariant")) {
-            this.entityData.set(VARIANT, nbt.getInt("BellsnickelVariant"));
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains("BellsnickelVariant")) {
+            this.entityData.set(VARIANT, tag.getInt("BellsnickelVariant"));
         }
         //Inventory
         this.createInventory();
-        ListTag listtag = nbt.getList("Items", 10); //TODO
+        ListTag listtag = tag.getList("Items", 10);
 
         for (int x = 0; x < listtag.size(); x++) {
             CompoundTag compoundtag = listtag.getCompound(x);
