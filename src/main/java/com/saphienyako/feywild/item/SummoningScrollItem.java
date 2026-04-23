@@ -70,9 +70,9 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
             return ModEntities.AUTUMN_TREE_ENT.get();
         }else if (this.equals(SUMMONING_SCROLL_WINTER_TREE_ENT.get())){
             return ModEntities.WINTER_TREE_ENT.get();
-        } /*else if (this.equals(SUMMONING_SCROLL_BEE_KNIGHT.get())){
-            return ModEntities.BEE_KNIGHT.get();
-        } */ else return null;
+        } else if (this.equals(SUMMONING_SCROLL_BEE_KNIGHT.get())){
+            return ModEntities.BEE_MOUNT.get();
+        } else return null;
     }
 
     @Nonnull

@@ -110,6 +110,22 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BELLSNICKEL_CARRY_STUFF = registerSoundEvents("bellsnickel_carry_stuff");
     public static final RegistryObject<SoundEvent> BELLSNICKEL_TRADE = registerSoundEvents("bellsnickel_trade");
 
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_AMBIANCE = registerSoundEvents("bee_knight_ambiance");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_HURT = registerSoundEvents("bee_knight_hurt");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_DEATH = registerSoundEvents("bee_knight_death");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_COOKIE = registerSoundEvents("bee_knight_cookie");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_NAME = registerSoundEvents("bee_knight_name");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_SUMMON = registerSoundEvents("bee_knight_summon");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_DISMISS = registerSoundEvents("bee_knight_dismiss");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_FOLLOW = registerSoundEvents("bee_knight_follow");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_STAY = registerSoundEvents("bee_knight_stay");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_GUARD = registerSoundEvents("bee_knight_guard");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_PROTECT = registerSoundEvents("bee_knight_protect");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_ATTACK_01 = registerSoundEvents("bee_knight_attack_01");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_ATTACK_02 = registerSoundEvents("bee_knight_attack_02");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_ATTACK_03 = registerSoundEvents("bee_knight_attack_03");
+    public static final RegistryObject<SoundEvent> BEE_KNIGHT_TRADE = registerSoundEvents("bee_knight_trade");
+
     public static final RegistryObject<SoundEvent> TREE_ENT_AMBIANCE = registerSoundEvents("tree_ent_ambiance");
     public static final RegistryObject<SoundEvent> TREE_ENT_HURT = registerSoundEvents("tree_ent_hurt");
     public static final RegistryObject<SoundEvent> TREE_ENT_DEATH = registerSoundEvents("tree_ent_death");

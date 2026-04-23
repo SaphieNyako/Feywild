@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity.base;
 
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
@@ -77,6 +78,13 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     @javax.annotation.Nullable
     public Vec3 getCurrentPointOfInterest() {
+        // Skip moving if someone is riding
+        if (this.isVehicle()) {
+            Entity passenger = this.getFirstPassenger();
+            if (!(passenger instanceof BeeKnightEntity)) {
+                return null;
+            }
+        }
         if (this.getFollowingPlayer()) {
             Player player = this.getOwningPlayer();
             return player == null ? null : player.position();
@@ -144,7 +152,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         return super.isDamageSourceBlocked(damageSource);
     }
 
-    private boolean isIronTool(ItemStack stack) {
+    public boolean isIronTool(ItemStack stack) {
         return stack.is(Tags.Items.TOOLS) && stack.getItem() instanceof TieredItem tiered &&
                 tiered.getTier() == Tiers.IRON;
     }

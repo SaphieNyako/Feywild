@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "feywild:item/bee_knight_diamond_spear"
+  }
+}

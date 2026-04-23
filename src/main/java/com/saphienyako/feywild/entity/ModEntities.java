@@ -41,6 +41,13 @@ public class ModEntities {
     public static final RegistryObject<EntityType<BellsnickelEntity>> BELLSNICKEL =
             ENTITY_TYPES.register("bellsnickel", () -> EntityType.Builder.of(BellsnickelEntity::new, MobCategory.CREATURE).build("bellsnickel"));
 
+    public static final RegistryObject<EntityType<BeeKnightEntity>> BEE_KNIGHT =
+            ENTITY_TYPES.register("bee_knight", ()-> EntityType.Builder.of(BeeKnightEntity::new, MobCategory.CREATURE)
+                    .sized(0.7f, 1.3f).build("bee_knight"));
+
+    public static final RegistryObject<EntityType<BeeMountEntity>> BEE_MOUNT =
+            ENTITY_TYPES.register("bee_mount", ()-> EntityType.Builder.of(BeeMountEntity::new, MobCategory.CREATURE)
+                    .sized(1.3f,0.9f).build("bee_mount"));
     public static final RegistryObject<EntityType<SpringTreeEntEntity>> SPRING_TREE_ENT =
             ENTITY_TYPES.register("spring_tree_ent", ()-> EntityType.Builder.of(SpringTreeEntEntity::new, MobCategory.CREATURE)
                     .sized(2,3.9f).build("spring_tree_ent"));

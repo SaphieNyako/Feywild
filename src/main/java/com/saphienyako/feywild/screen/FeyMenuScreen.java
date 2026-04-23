@@ -3,6 +3,7 @@ package com.saphienyako.feywild.screen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.entity.BeeMountEntity;
 import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.screen.widget.*;
@@ -68,6 +69,10 @@ public class FeyMenuScreen extends Screen {
                 //THIRD BUTTON
                 this.addRenderableWidget(new DismissButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - AbilityButton.WIDTH)/2), this.top + 20 + AbilityButton.HEIGHT * 3, this, this.entityId));
                 // TODO Button Quest
+                //FOURTH BUTTON
+                if(entity instanceof BeeMountEntity){
+                    this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this.entityId));
+                }
                 if(ModConfig.COMMON.voice_active.get()) {
                     this.addRenderableWidget(new VolumeButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH) / 2), this.top + 28 + AbilityButton.HEIGHT * 6, this.voiceActive, this.entityId));
                 }

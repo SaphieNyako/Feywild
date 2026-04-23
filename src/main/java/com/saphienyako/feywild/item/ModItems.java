@@ -13,6 +13,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -55,8 +57,8 @@ public class ModItems {
     public static final RegistryObject<Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel",() -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
 
-    public static final RegistryObject<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new ToolTipBaseItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
-            Component.translatable("message.feywild.summoning_scroll_bee_knight").withStyle(ChatFormatting.RED)));
+    public static final RegistryObject<Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+            Component.translatable("message.feywild.summoning_scroll_bee_knight")));
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.register("summoning_scroll_spring_tree_ent", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_spring_tree_ent")));
@@ -79,6 +81,13 @@ public class ModItems {
                     .effect(() -> new MobEffectInstance(MobEffects.BLINDNESS, 200, 0), 1)
                     .build()),
             Component.translatable("message.feywild.mandrake")));
+
+    public static final RegistryObject<Item> BEE_KNIGHT_GOLD_SPEAR = ITEMS.register(
+            "bee_knight_gold_spear", () -> new SwordItem(Tiers.GOLD, 3, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> BEE_KNIGHT_DIAMOND_SPEAR = ITEMS.register(
+            "bee_knight_diamond_spear", () -> new SwordItem(Tiers.DIAMOND, 3, -2.4F, new Item.Properties()));
+    public static final RegistryObject<Item> BEE_KNIGHT_NETHERITE_SPEAR = ITEMS.register(
+            "bee_knight_netherite_spear", () -> new SwordItem(Tiers.NETHERITE, 3, -2.4F, new Item.Properties()));
     public static final RegistryObject<Item> GIANT_SUN_FLOWER_SEED = ITEMS.register("giant_sun_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_SUN_FLOWER.get()));
     public static final RegistryObject<Item> GIANT_CROCUS_FLOWER_SEED = ITEMS.register("giant_crocus_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_CROCUS_FLOWER.get()));
     public static final RegistryObject<Item> GIANT_DANDELION_FLOWER_SEED = ITEMS.register("giant_dandelion_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_DANDELION_FLOWER.get()));
@@ -91,6 +100,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> SPAWN_EGG_MANDRAGORA = ITEMS.register("spawn_egg_mandragora", () -> new ForgeSpawnEggItem(ModEntities.MANDRAGORA, 0x54d911, 0xf7a3f7, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
     public static final RegistryObject<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new ForgeSpawnEggItem(ModEntities.BELLSNICKEL, 0x6a95f6, 0x2f3063, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
+
+    public static final RegistryObject<Item> SPAWN_EGG_BEE_KNIGHT = ITEMS.register("spawn_egg_bee_knight", () -> new ForgeSpawnEggItem(ModEntities.BEE_MOUNT,0xeeb359, 0x66380c, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
     public static final RegistryObject<Item> SPAWN_EGG_SPRING_TREE_ENT = ITEMS.register("spawn_egg_spring_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SPRING_TREE_ENT,0x5C281E, 0xa1db67, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
