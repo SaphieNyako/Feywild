@@ -105,7 +105,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> SPAWN_EGG_BELLSNICKEL = ITEMS.register("spawn_egg_bellsnickel", () -> new ForgeSpawnEggItem(ModEntities.BELLSNICKEL, 0x6a95f6, 0x2f3063, new Item.Properties()));
 
-
+    public static final RegistryObject<Item> SPAWN_EGG_BEE_KNIGHT = ITEMS.register("spawn_egg_bee_knight", () -> new ForgeSpawnEggItem(ModEntities.BEE_MOUNT,0xeeb359, 0x66380c, new Item.Properties()));
     public static final RegistryObject<Item> SPAWN_EGG_SPRING_TREE_ENT = ITEMS.register("spawn_egg_spring_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SPRING_TREE_ENT,0x5C281E, 0xa1db67, new Item.Properties()));
 
     public static final RegistryObject<Item> SPAWN_EGG_SUMMER_TREE_ENT = ITEMS.register("spawn_egg_summer_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.SUMMER_TREE_ENT,0x5C281E, 0xfedc5a, new Item.Properties()));
