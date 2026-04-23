@@ -223,6 +223,16 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
             setupAnimationStates();
         }
 
+        if (!this.level.isClientSide && this.getNavigation().isDone()) {
+            Vec3 wander = this.position().add(
+                    (random.nextDouble() - 0.5) * 10,
+                    0,
+                    (random.nextDouble() - 0.5) * 10
+            );
+
+            this.getNavigation().moveTo(wander.x, wander.y, wander.z, 1.0);
+        }
+
         if (this.level.isClientSide) return;
 
         if (this.getPassengers().isEmpty()) {
@@ -230,7 +240,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
             BeeKnightEntity knight = this.getLinkedKnight();
 
             if (knight == null) {
-               knight = this.spawnKnight();
+                knight = this.spawnKnight();
 
                 if (knight != null) {
                     this.knightUUID = knight.getUUID();
@@ -242,7 +252,10 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
                 knight.startRiding(this, true);
             }
         }
+
+
     }
+
 
     private boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
@@ -676,25 +689,17 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
     @Override
     public void travel(Vec3 travelVector) {
-        LivingEntity controller = this.getControllingPassenger();
-
-        if (this.isVehicle() && controller != null) {
-            this.setYRot(controller.getYRot());
-            this.yRotO = this.getYRot();
-
-            float forward = controller.zza;
-            float strafe = controller.xxa;
-
-            float speed = (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED);
-
-            Vec3 input = new Vec3(strafe, 0, forward);
-            input = input.scale(speed);
-            System.out.println("Delta: " + this.getDeltaMovement());
-            super.travel(input);
+        if (this.isVehicle() && this.getControllingPassenger() != null) {
+            super.travel(travelVector);
             return;
         }
 
-        super.travel(travelVector);
+        if (this.getNavigation().isDone()) {
+            super.travel(travelVector);
+            return;
+        }
+
+        this.flyingTravel(this, travelVector);
     }
 
     @Override
