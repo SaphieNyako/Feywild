@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_06",
+  "repeatable": true,
+  "icon": "feywild:pixie_orb",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_10_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_10_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:gift",
+      "item": {
+        "item": "feywild:pixie_orb"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_10_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_10_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:pixie_orb"
+      }
+    }
+  ]
+}

@@ -1,27 +1,37 @@
 {
   "parent": "quest_giver:root",
-  "complete": {
-    "description": {
-      "translate": "Thank you for giving the sword!"
-    },
-    "title": {
-      "translate": "Gift Example"
-    }
-  },
-  "icon": "minecraft:iron_sword",
+  "icon": "feywild:fey_dust",
   "start": {
-    "description": {
-      "translate": "Give a sword to the Quest Giver."
-    },
     "title": {
-      "translate": "Close Encounter of the Frozen Kind"
+      "translate": "quest.feywild.sprite_quest_01_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_01_start_description"
     }
   },
   "tasks": [
     {
-      "id": "quest_giver:gift",
+      "amount": 1,
+      "id": "quest_giver:item_stack",
       "item": {
-        "item": "minecraft:iron_sword"
+        "item": "feywild:fey_dust"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_01_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_01_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:experience_bottle"
       }
     }
   ]

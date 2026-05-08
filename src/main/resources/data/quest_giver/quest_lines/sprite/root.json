@@ -2,10 +2,10 @@
   "icon": "minecraft:book",
   "start": {
     "title": {
-      "translate": "Foreword"
+      "translate": "quest.feywild.sprite_root_start_title"
     },
     "description": {
-      "translate": "Hello there! As one of the enchanting new features of the Special Edition of the Feywild Lexicon, this book contains within it an imprint of a specially-conjured spritely companion! This little pixie will assist you with navigating the Lexicon, teaching you the ways of the Fey, and answering each and every one of your questions.\n\nWould you like to personalize your copy of the book by telling her your name?"
+      "translate": "quest.feywild.sprite_root_start_description"
     }
 
   }

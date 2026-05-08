@@ -1,27 +1,37 @@
 {
   "parent": "quest_giver:quest_01",
-  "complete": {
-    "description": {
-      "translate": "Thank you for crafting a smoker"
-    },
-    "title": {
-      "translate": "Craft Example"
-    }
-  },
-  "icon": "minecraft:smoker",
+  "icon": "feywild:mandrake",
   "start": {
-    "description": {
-      "translate": "Craft a Smoker and move to the next quest."
-    },
     "title": {
-      "translate": "Craft Example"
+      "translate": "quest.feywild.sprite_quest_02_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_02_start_description"
     }
   },
   "tasks": [
     {
-      "id": "quest_giver:craft",
+      "amount": 1,
+      "id": "quest_giver:item_stack",
       "item": {
-        "item": "minecraft:smoker"
+        "item": "feywild:mandrake"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_02_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_02_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:experience_bottle"
       }
     }
   ]

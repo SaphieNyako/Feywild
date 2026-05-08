@@ -1,12 +1,12 @@
 {
-  "parent": "quest_giver:quest_02",
-  "icon": "feywild:fey_ink_bottle",
+  "parent": "quest_giver:quest_04",
+  "icon": "feywild:fey_altar",
   "start": {
     "title": {
-      "translate": "quest.feywild.sprite_quest_03_start_title"
+      "translate": "quest.feywild.sprite_quest_05_start_title"
     },
     "description": {
-      "translate": "quest.feywild.sprite_quest_03_start_description"
+      "translate": "quest.feywild.sprite_quest_05_start_description"
     }
   },
   "tasks": [
@@ -14,16 +14,16 @@
       "amount": 1,
       "id": "quest_giver:item_stack",
       "item": {
-        "item": "feywild:fey_ink_bottle"
+        "item": "feywild:fey_altar"
       }
     }
   ],
   "complete": {
     "title": {
-      "translate": "quest.feywild.sprite_quest_03_complete_title"
+      "translate": "quest.feywild.sprite_quest_05_complete_title"
     },
     "description": {
-      "translate": "quest.feywild.sprite_quest_03_complete_description"
+      "translate": "quest.feywild.sprite_quest_05_complete_description"
     }
   },
   "rewards": [
