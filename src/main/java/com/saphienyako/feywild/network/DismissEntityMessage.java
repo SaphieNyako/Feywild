@@ -43,7 +43,7 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
                 if (entity != null) {
                     entity.spawnAtLocation(entity.getDismissItem());
                     player.sendSystemMessage(entity.getFeyDismissMessage());
-                    if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
+                   if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
                         level.playSound(
                                 null,
                                 entity.blockPosition(),

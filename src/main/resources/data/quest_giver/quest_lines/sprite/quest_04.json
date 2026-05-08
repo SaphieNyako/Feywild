@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_03",
+  "complete": {
+    "description": {
+      "translate": "You have 2 cooked Beef in your inventory!"
+    },
+    "title": {
+      "translate": "Item Stack Example"
+    }
+  },
+  "icon": "minecraft:cooked_beef",
+  "start": {
+    "description": {
+      "translate": "Have a stack of 2 Cooked Beef in your inventory."
+    },
+    "title": {
+      "translate": "Item Stack Example"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 2,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "minecraft:cooked_beef"
+      }
+    }
+  ],
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:name_tag"
+      }
+    }
+  ]
+}

@@ -33,6 +33,12 @@ public class FeywildNetwork {
                 OpenMenuMessage::handle
         );
 
+        REGISTRAR.playToClient(
+                OpenLexiconMenuMessage.TYPE,
+                OpenLexiconMenuMessage.STREAM_CODEC,
+                OpenLexiconMenuMessage::handle
+        );
+
         // Server
         REGISTRAR.playToServer(
                 ToggleFollowPlayerMessage.TYPE,
@@ -80,6 +86,18 @@ public class FeywildNetwork {
                 OpenBeeKnightMenuMessage.TYPE,
                 OpenBeeKnightMenuMessage.STREAM_CODEC,
                 OpenBeeKnightMenuMessage::handle
+        );
+
+        REGISTRAR.playToServer(
+                OpenPatchouliBookMessage.TYPE,
+                OpenPatchouliBookMessage.STREAM_CODEC,
+                OpenPatchouliBookMessage::handle
+        );
+
+        REGISTRAR.playToServer(
+                OpenQuestMessage.TYPE,
+                OpenQuestMessage.STREAM_CODEC,
+                OpenQuestMessage::handle
         );
     }
 }

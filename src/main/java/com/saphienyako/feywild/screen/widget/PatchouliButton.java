@@ -1,34 +1,39 @@
 package com.saphienyako.feywild.screen.widget;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.network.OpenBeeKnightMenuMessage;
+import com.saphienyako.feywild.network.DismissEntityMessage;
+import com.saphienyako.feywild.network.OpenPatchouliBookMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public class BeeKnightScreenButton extends Button {
+public class PatchouliButton extends Button {
 
     public static final int WIDTH = 89;
     public static final int HEIGHT = 22;
 
     private static final ResourceLocation BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/button.png");
 
+    protected final Screen screen;
+
     private final Component textComponent;
 
-    private final int entityId;
-    public BeeKnightScreenButton(int x, int y, int entityId) {
+
+    public PatchouliButton(int x, int y, Screen screen) {
         super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {}, l -> Component.empty());
-        this.entityId = entityId;
-        this.textComponent = Component.translatable("message.feywild.equipment");
+        this.screen = screen;
+        this.textComponent = Component.translatable("message.feywild.guide_book");
     }
 
     @Override
     public void onPress() {
-        PacketDistributor.sendToServer(new OpenBeeKnightMenuMessage(this.entityId));
+        PacketDistributor.sendToServer(new OpenPatchouliBookMessage(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "feywild_lexicon")));
+        this.screen.onClose();
     }
 
     @Override
@@ -51,5 +56,4 @@ public class BeeKnightScreenButton extends Button {
        // graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
         graphics.pose().popPose();
     }
-
 }

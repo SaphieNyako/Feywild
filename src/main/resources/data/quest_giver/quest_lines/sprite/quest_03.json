@@ -1,0 +1,26 @@
+{
+  "parent": "quest_giver:quest_02",
+  "complete": {
+    "description": {
+      "translate": "You tamed a wolf!"
+    },
+    "title": {
+      "translate": "Tame Example"
+    }
+  },
+  "icon": "minecraft:bone",
+  "start": {
+    "description": {
+      "translate": "Please Tame a Wolf!"
+    },
+    "title": {
+      "translate": "Tame Example"
+    }
+  },
+  "tasks": [
+    {
+      "type": "minecraft:wolf",
+      "id": "quest_giver:tame"
+    }
+  ]
+}

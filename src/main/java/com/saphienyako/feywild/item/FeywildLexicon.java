@@ -1,6 +1,12 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.entity.AutumnPixieEntity;
+import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.SpriteEntity;
+import com.saphienyako.feywild.entity.base.FeyBase;
+import com.saphienyako.feywild.network.OpenLexiconMenuMessage;
+import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.quest_giver.QuestGiverAPI;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -16,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -33,13 +40,24 @@ public class FeywildLexicon extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer serverPlayer) {
-            //TODO add menu and sprite
+            //TODO ADD ENTITY
+
+            SpriteEntity entity = ModEntities.SPRITE.get().create(level);
+
+            if (entity != null) {
+                entity.setPos(player.getEyePosition());
+                level.addFreshEntity(entity);
+                PacketDistributor.sendToPlayer((ServerPlayer)player, new OpenLexiconMenuMessage(entity.getId()));
+            }
+
+            /*
+
             if (ModList.get().isLoaded("patchouli")) {
                 PatchouliAPI.get().openBookGUI(serverPlayer, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "feywild_lexicon"));
             } else {
                 player.sendSystemMessage(Component.translatable("message.feywild.no_lexicon")
                 );
-            }
+            } */
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }

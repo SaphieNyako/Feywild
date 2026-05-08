@@ -115,6 +115,7 @@ public class Feywild
         event.put(ModEntities.SUMMER_TREE_ENT.get(), SummerTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.AUTUMN_TREE_ENT.get(), AutumnTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.WINTER_TREE_ENT.get(), WinterTreeEntEntity.getDefaultAttributes().build());
+        event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
     }
     @SuppressWarnings("unused")
     @SubscribeEvent
@@ -213,6 +214,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.BEE_KNIGHT_LAYER, BeeKnightModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.BEE_MOUNT_LAYER, BeeMountModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.TREE_ENT_LAYER, TreeEntModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -232,6 +234,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.SUMMER_TREE_ENT.get(), TreeEntRenderer::new);
             event.registerEntityRenderer(ModEntities.AUTUMN_TREE_ENT.get(), TreeEntRenderer::new);
             event.registerEntityRenderer(ModEntities.WINTER_TREE_ENT.get(), TreeEntRenderer::new);
+            event.registerEntityRenderer(ModEntities.SPRITE.get(), SpriteRenderer::new);
         }
 
         @SubscribeEvent
@@ -256,6 +259,7 @@ public class Feywild
             event.register(ModEntities.WINTER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.SPRITE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn,RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }
