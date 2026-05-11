@@ -1,0 +1,27 @@
+{
+  "category": "feywild:fey_gems",
+  "icon": "feywild:fey_dust",
+  "name": "仙灵之尘",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "当仙灵进入另一个世界时，会留下少量的仙灵之尘。这种魔法粉末遍布仙灵荒野本土的所有植物、生物和物品，也可以通过更和平的方式获得——向未被驯服的精灵献上曲奇。或者，你也可以从仙灵矿石中获得仙灵之尘。"
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "feywild:fey_dust_from_smelting_fey_gem",
+      "text": "你可以通过烧炼将仙灵宝石重新分解为尘。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "精灵喜欢曲奇，就像她们的大多数同类一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值，并有可能获得一份仙灵之尘。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:winter_tree_leaves_light_blue",
+      "text": "季节之树的叶子色彩丰富。用剪刀采集可以保留其形态。自然腐烂的叶子会掉落树苗，并有小概率掉落仙灵之尘。"
+    }
+  ]
+}

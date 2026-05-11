@@ -1,0 +1,69 @@
+{
+  "category": "feywild:tree_ents",
+  "icon": "feywild:summoning_scroll_spring_tree_ent",
+  "name": "召唤树灵",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:spring_tree_ent"
+    },
+    {
+      "type": "feywild:spring_tree_ent",
+      "recipe": "feywild:summoning_scroll_spring_tree_ent"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:summer_tree_ent"
+    },
+    {
+      "type": "feywild:summer_tree_ent",
+      "recipe": "feywild:summoning_scroll_summer_tree_ent"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:autumn_tree_ent"
+    },
+    {
+      "type": "feywild:autumn_tree_ent",
+      "recipe": "feywild:summoning_scroll_autumn_tree_ent"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:winter_tree_ent"
+    },
+    {
+      "type": "feywild:winter_tree_ent",
+      "recipe": "feywild:summoning_scroll_winter_tree_ent"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "树灵是由森林本身低语而生，被仙灵荒野的魔法唤醒，以守护充满生机的森林。它们行动迟缓但目标坚定，既是哨兵也是庇护所。那些赢得它们信任的人可能会发现，有一只树灵愿意将其驮在背上，为尊重荒野的旅者借出力量。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用精灵宝珠右击你的仙灵，可以打开仙灵菜单。每个仙灵都有一个。在这个菜单中，你可以请求它们的祝福、骑乘它们，或者将它们遣散回召唤卷轴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "祝福",
+      "text": "树灵的祝福会为你裹上一层魔法之风，让你移动更轻松，并推开试图靠近你的邪灵。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "可骑乘",
+      "text": "你召唤的树灵十分友好，会让你骑在它们坚实的背上。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "野生的树灵会攻击任何它们认为对其关联的树木构成威胁的人。我不建议给它们曲奇，不过嘛，你当然可以试试！骨粉可以治疗你的树灵。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "与其他仙灵不同，树灵对铁没有弱点或恐惧。"
+    }
+  ]
+}

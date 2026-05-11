@@ -1,0 +1,41 @@
+{
+  "category": "feywild:bellsnickel",
+  "icon": "feywild:summoning_scroll_bellsnickel",
+  "name": "召唤图书馆地精",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:bellsnickel"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "图书馆地精",
+      "text": "曾是一个令人畏惧的红帽子，如今只是一个脾气暴躁的老家伙。图书馆地精一手提灯，背着装满书籍的巨大袋子，在仙灵荒野的寒冷地区游荡。曾经用来寻找迷失灵魂的灯笼，现在指引他前往被遗忘的图书馆和错放的古籍。他可能尖刻而固执，但图书馆地精证明了即使是最凶狠的仙灵也可以改过自新——只要允许它们囤积自己最爱的故事。（对了，他的真名叫贝尔斯尼克）"
+    },
+    {
+      "type": "feywild:bellsnickel",
+      "recipe": "feywild:summoning_scroll_bellsnickel"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用精灵宝珠右击你的仙灵，可以打开仙灵菜单。每个仙灵都有一个。在这个菜单中，你可以开启/关闭它们的能力，让它们跟随或停留，或者将它们遣散回召唤卷轴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "能力",
+      "text": "图书馆地精可能会抱怨，但他很有用。他可以为他所容忍的人携带额外的物品，将它们安全地存放在他那鼓鼓囊囊的袋子里。如果给他一本附魔书、一本空白书和一瓶仙灵墨水，图书馆地精可以小心翼翼地抄写一份副本。虽然他可能会发牢骚。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "尽管他不会承认，但图书馆地精喜欢曲奇，就像大多数仙灵一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

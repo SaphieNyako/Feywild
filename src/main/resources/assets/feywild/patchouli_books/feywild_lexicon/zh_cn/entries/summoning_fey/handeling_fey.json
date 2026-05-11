@@ -1,0 +1,22 @@
+{
+  "category": "feywild:summoning_fey",
+  "icon": "feywild:pixie_orb",
+  "name": "与仙灵相处",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
+      "text": "你可以通过 $(italic)在方块上使用它们的召唤卷轴$() 来召唤仙灵；卷轴会消失。每种仙灵都有自己的召唤卷轴，其配方可以在相应页面找到 [或通过 JEI/REI 查看]。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用精灵宝珠右击你的仙灵，可以打开仙灵菜单。每个仙灵都有一个。在这个菜单中，你可以开启/关闭它们的能力，让它们跟随或停留，或者将它们遣散回召唤卷轴。"
+    },
+    {
+      "type": "feywild:pixie_orb",
+      "recipe": "feywild:pixie_orb",
+      "link_recipe": true
+    }
+  ]
+}

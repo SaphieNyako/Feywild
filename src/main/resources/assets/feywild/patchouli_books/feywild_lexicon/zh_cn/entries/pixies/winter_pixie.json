@@ -1,0 +1,35 @@
+{
+  "category": "feywild:pixies",
+  "icon": "feywild:summoning_scroll_winter_pixie",
+  "name": "冬之精灵",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:winter_pixie"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "与她庭中的其他成员一样，冬之精灵说话轻柔，相当孤僻，且常常沉迷于……病态的兴趣。乍看之下冷漠而阴郁，但她们往往会向那些愿意帮助仙灵荒野度过最严酷、最致命季节的人敞开心扉。"
+    },
+    {
+      "type": "feywild:winter_pixie",
+      "recipe": "feywild:summoning_scroll_winter_pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用此卷轴召唤的冬之精灵会收集附近动物的部分躯体，留下它们的掉落物。提醒一下，你可以用仙灵珠与她互动，打开菜单选择开启/关闭她的能力。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "精灵喜欢曲奇，就像她们的大多数同类一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

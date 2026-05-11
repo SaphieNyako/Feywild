@@ -1,0 +1,45 @@
+{
+  "category": "feywild:mandragora",
+  "icon": "feywild:fey_gem",
+  "name": "交易",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "曼德拉提供多种交易，以换取仙灵宝石。交易品包括花朵和能长出巨型花朵的稀有种子，这些花朵仅能在仙灵荒野中找到。"
+    },
+    {
+      "type": "feywild:dandelion",
+      "recipe": "feywild:giant_dandelion_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_dandelion_flower_seed",
+      "link_recipe": true,
+      "text": "你可以找到三种形态的巨型蒲公英：含苞待放、盛开的花朵，以及众所周知的蒲公英绒球——准备将种子散播到风中。花朵还会掉落蒲公英种子，你可以种植来培育自己的巨型蒲公英。"
+    },
+    {
+      "type": "feywild:sun_flower",
+      "recipe": "feywild:giant_sun_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_sun_flower_seed",
+      "link_recipe": true,
+      "text": "你可以找到巨型向日葵，它们会随着太阳在天空中的位置变换而转动。它们也会掉落向日葵种子，你可以用来种植自己的巨型向日葵。"
+    },
+    {
+      "type": "feywild:crocus",
+      "recipe": "feywild:giant_crocus_flower_seed",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_crocus_flower_seed",
+      "link_recipe": true,
+      "text": "巨型番红花会在白天开放花朵，在夜晚闭合。花朵也会掉落番红花种子，你可以用来种植自己的巨型番红花。"
+    }
+  ]
+}

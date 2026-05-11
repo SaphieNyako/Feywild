@@ -1,0 +1,35 @@
+{
+  "category": "feywild:pixies",
+  "icon": "feywild:summoning_scroll_spring_pixie",
+  "name": "春之精灵",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:spring_pixie"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "春之精灵常被视为仙灵中最可爱、最甜美的一员，人们常见她在繁花盛开的原野上无忧无虑地嬉戏——她非常乐意探索世界、结交新朋友。只是别忘了，甜美和善良是两回事！"
+    },
+    {
+      "type": "feywild:spring_pixie",
+      "recipe": "feywild:summoning_scroll_spring_pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用此卷轴召唤的春之精灵会施放一个法术，使附近的动物进入恋爱状态（如果满足繁殖条件）。提醒一下，你可以用仙灵珠与她互动，打开菜单选择开启/关闭她的能力。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "精灵喜欢曲奇，就像她们的大多数同类一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

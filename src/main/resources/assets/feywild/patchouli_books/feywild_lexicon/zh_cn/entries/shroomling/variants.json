@@ -1,0 +1,47 @@
+{
+  "category": "feywild:shroomling",
+  "icon": "feywild:purple_mushroom",
+  "name": "蘑菇灵变种",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "title": "蘑菇变种",
+      "entity": "feywild:moo_shroom_cow"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "text": "用橙色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配橙色蘑菇。剪蘑菇牛会获得橙色蘑菇，挤奶会产生迷之炖菜。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:yellow_mushroom",
+      "text": "用黄色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配黄色蘑菇。剪蘑菇牛会获得黄色蘑菇，挤奶会产生迷之炖菜。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:green_mushroom",
+      "text": "用绿色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配绿色蘑菇。剪蘑菇牛会获得绿色蘑菇，挤奶会产生迷之炖菜。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:light_blue_mushroom",
+      "text": "用淡蓝色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配淡蓝色蘑菇。剪蘑菇牛会获得淡蓝色蘑菇，挤奶会产生迷之炖菜。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blue_mushroom",
+      "text": "用蓝色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配蓝色蘑菇。剪蘑菇牛会获得蓝色蘑菇，挤奶会产生迷之炖菜。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:purple_mushroom",
+      "text": "用紫色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配紫色蘑菇。剪蘑菇牛会获得紫色蘑菇，挤奶会产生迷之炖菜。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pink_mushroom",
+      "text": "用粉色蘑菇右击蘑菇灵，它的帽子会变成对应的颜色。此外，当蘑菇灵打喷嚏时，任何受影响的蘑菇牛都会匹配粉色蘑菇。剪蘑菇牛会获得粉色蘑菇，挤奶会产生迷之炖菜。"
+    }
+  ]
+}
