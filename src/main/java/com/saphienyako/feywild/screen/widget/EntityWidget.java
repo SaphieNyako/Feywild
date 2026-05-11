@@ -3,8 +3,11 @@ package com.saphienyako.feywild.screen.widget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.BeeMountEntity;
+import com.saphienyako.feywild.entity.base.FeyBase;
+import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -12,11 +15,14 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 public class EntityWidget extends AbstractWidget {
 

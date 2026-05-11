@@ -1,6 +1,10 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
+import com.saphienyako.feywild.entity.goals.IronPanicGoal;
+import com.saphienyako.feywild.entity.goals.PanicGoal;
+import com.saphienyako.feywild.entity.goals.SpriteAngryGoal;
+import com.saphienyako.feywild.entity.goals.SpriteHappyGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -17,10 +21,17 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 public class SpriteEntity extends FlyingFeyBase {
 
@@ -50,6 +61,14 @@ public class SpriteEntity extends FlyingFeyBase {
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 24D);
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(2, new SpriteAngryGoal(this));
+        this.goalSelector.addGoal(2, new SpriteHappyGoal(this));
     }
 
     @Override
@@ -93,7 +112,7 @@ public class SpriteEntity extends FlyingFeyBase {
     }
     @Override
     public SimpleParticleType getParticle() {
-        return ModParticles.SPRING_SPARKLE_PARTICLE.get();
+        return ModParticles.HEXEN_SPARKLE_PARTICLE.get();
     }
 
 
@@ -111,19 +130,39 @@ public class SpriteEntity extends FlyingFeyBase {
     }
 
     private void setupAnimationStates() {
-        if (isActuallyMoving()) {
-            if (!FLY_ANIMATION.isStarted()) {
-                FLY_ANIMATION.start(this.tickCount);
+
+        if (getState() != SpriteEntity.State.HAPPY && getState() != SpriteEntity.State.ANGRY ) {
+            if (isActuallyMoving()) {
+                if (!FLY_ANIMATION.isStarted()) {
+                    FLY_ANIMATION.start(this.tickCount);
+                }
+                FLY_IDLE_ANIMATION.stop();
+            } else {
+                if (!FLY_IDLE_ANIMATION.isStarted()) {
+                    FLY_IDLE_ANIMATION.start(this.tickCount);
+                }
+                FLY_ANIMATION.stop();
             }
-            FLY_IDLE_ANIMATION.stop();
+        }
+
+        // HAPPY
+        if (getState() == SpriteEntity.State.HAPPY && getState() != SpriteEntity.State.ANGRY) {
+            if (!HAPPY_ANIMATION.isStarted()) {
+                HAPPY_ANIMATION.start(this.tickCount);
+            }
         } else {
-            if (!FLY_IDLE_ANIMATION.isStarted()) {
-                FLY_IDLE_ANIMATION.start(this.tickCount);
+            HAPPY_ANIMATION.stop();
+        }
+
+        // ANGRY
+        if (getState() == SpriteEntity.State.ANGRY && getState() != SpriteEntity.State.HAPPY) {
+            if (!ANGRY_ANIMATION.isStarted()) {
+                ANGRY_ANIMATION.start(this.tickCount);
             }
-            FLY_ANIMATION.stop();
+        } else {
+            ANGRY_ANIMATION.stop();
         }
     }
-
 
     @Override
     public Alignment getAlignment() {
@@ -196,7 +235,7 @@ public class SpriteEntity extends FlyingFeyBase {
 
 
     public enum State {
-        IDLE, POSE, WALK, SING
+        IDLE, POSE, ANGRY, HAPPY
     }
 
     public enum SpriteVariant {

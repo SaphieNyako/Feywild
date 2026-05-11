@@ -30,6 +30,10 @@ public class ModParticles {
             PARTICLE_TYPES.register("autumn_sparkle_particle",
                     () -> new SimpleParticleType(true));
 
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> HEXEN_SPARKLE_PARTICLE =
+            PARTICLE_TYPES.register("hexen_sparkle_particle",
+                    () -> new SimpleParticleType(true));
+
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FEY_SPARKLE_PARTICLE =
             PARTICLE_TYPES.register("fey_sparkle_particle",
                     () -> new SimpleParticleType(true));

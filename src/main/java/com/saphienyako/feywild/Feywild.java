@@ -194,6 +194,7 @@ public class Feywild
             event.registerSpriteSet(ModParticles.SUMMER_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 1, 0.8f, 0));
             event.registerSpriteSet(ModParticles.WINTER_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.2f, 0.8f, 0.9f));
             event.registerSpriteSet(ModParticles.AUTUMN_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 1, 0.4f, 0));
+            event.registerSpriteSet(ModParticles.HEXEN_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.5f, 0.2f, 0.8f));
             event.registerSpriteSet(ModParticles.FEY_SPARKLE_PARTICLE.get(), spriteSet -> new SparkleParticleProvider(spriteSet, 0.3f,0.9f,0.9f));
             event.registerSpriteSet(ModParticles.AUTUMN_LEAF_PARTICLE.get(), LeafParticleProvider::new);
             event.registerSpriteSet(ModParticles.SPRING_LEAF_PARTICLE.get(), LeafParticleProvider::new);
