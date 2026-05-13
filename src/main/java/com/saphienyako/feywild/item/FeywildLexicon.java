@@ -40,8 +40,6 @@ public class FeywildLexicon extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (player instanceof ServerPlayer serverPlayer) {
-            //TODO ADD ENTITY
-
             SpriteEntity entity = ModEntities.SPRITE.get().create(level);
 
             if (entity != null) {
@@ -49,28 +47,12 @@ public class FeywildLexicon extends Item {
                 level.addFreshEntity(entity);
                 PacketDistributor.sendToPlayer((ServerPlayer)player, new OpenLexiconMenuMessage(entity.getId()));
             }
-
-            /*
-
-            if (ModList.get().isLoaded("patchouli")) {
-                PatchouliAPI.get().openBookGUI(serverPlayer, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "feywild_lexicon"));
-            } else {
-                player.sendSystemMessage(Component.translatable("message.feywild.no_lexicon")
-                );
-            } */
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
     }
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(Component.translatable("message.feywild.feywild_lexicon").withStyle(ChatFormatting.BLUE));
-        }
-
-        else {
-            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-        }
-        super.appendHoverText(stack, context, tooltip, flag);
+        tooltip.add(Component.translatable("message.feywild.feywild_lexicon").withStyle(ChatFormatting.BLUE));
     }
 }
