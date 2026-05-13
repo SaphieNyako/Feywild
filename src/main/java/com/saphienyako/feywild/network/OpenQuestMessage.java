@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record OpenQuestMessage(String questLineId, boolean dismiss) implements CustomPacketPayload {
+public record OpenQuestMessage(String questLineId, String backgroundName, boolean dismiss) implements CustomPacketPayload {
 
     public static final Type<OpenQuestMessage> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "open_quest"));
@@ -25,11 +25,12 @@ public record OpenQuestMessage(String questLineId, boolean dismiss) implements C
 
     private static void encode(FriendlyByteBuf buf, OpenQuestMessage msg) {
         buf.writeUtf(msg.questLineId());
+        buf.writeUtf(msg.backgroundName());
         buf.writeBoolean(msg.dismiss());
     }
 
     private static OpenQuestMessage decode(FriendlyByteBuf buf) {
-        return new OpenQuestMessage(buf.readUtf(), buf.readBoolean());
+        return new OpenQuestMessage(buf.readUtf(), buf.readUtf(), buf.readBoolean());
     }
 
     public static void handle(OpenQuestMessage msg, IPayloadContext context) {
@@ -49,13 +50,11 @@ public record OpenQuestMessage(String questLineId, boolean dismiss) implements C
                             entity.getId(),
                             Component.literal("Feywild Guide"),
                             InteractionHand.MAIN_HAND,
-                            msg.questLineId(),
-                            "spring_quest",
+                            msg.questLineId,
+                            msg.backgroundName,
                             msg.dismiss
                     );
                 }
-
-                //TODO on questwindow close dismiss entity (quest_giver)
             }
         });
     }

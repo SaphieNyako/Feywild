@@ -1,9 +1,7 @@
 package com.saphienyako.feywild.screen.widget;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.network.OpenPatchouliBookMessage;
 import com.saphienyako.feywild.network.OpenQuestMessage;
-import com.saphienyako.quest_giver.QuestGiverAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -11,8 +9,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class QuestButton extends Button {
@@ -37,7 +33,7 @@ public class QuestButton extends Button {
 
     @Override
     public void onPress() {
-        PacketDistributor.sendToServer(new OpenQuestMessage("sprite", dismiss));
+        PacketDistributor.sendToServer(new OpenQuestMessage("sprite", "hexen_quest", dismiss));
         this.screen.onClose();
     }
 
@@ -57,7 +53,7 @@ public class QuestButton extends Button {
 
         graphics.drawString(font, this.textComponent, textX, textY, 0xFFFFFF, true);
         //TODO 1.19 1.20 center text for all buttons
-        //   graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
+        //  graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
         graphics.pose().popPose();
     }
 }

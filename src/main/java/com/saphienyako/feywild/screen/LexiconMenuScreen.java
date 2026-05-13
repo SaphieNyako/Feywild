@@ -33,11 +33,11 @@ public class LexiconMenuScreen extends Screen {
         this.left = (this.width / 2) - ((EntityWidget.WIDTH + 25 + FeyMenuWidget.WIDTH) / 2);
         this.top = (this.height / 2) - (FeyMenuWidget.HEIGHT / 2);
 
-        this.addRenderableWidget(new FeyMenuWidget(left + EntityWidget.WIDTH + 25, this.top, Alignment.SPRING));
+        this.addRenderableWidget(new FeyMenuWidget(left + EntityWidget.WIDTH + 25, this.top, Alignment.HEXEN));
 
         Entity entity = Minecraft.getInstance().level == null ? null : Minecraft.getInstance().level.getEntity(this.entityId);
         if (entity instanceof LivingEntity living) {
-            this.addRenderableWidget(new EntityWidget(EntityWidget.WIDTH, ((this.height - EntityWidget.HEIGHT) / 2) - 10, living));
+            this.addRenderableWidget(new EntityWidget(EntityWidget.WIDTH, ((this.height - EntityWidget.HEIGHT) / 2) - 30, living));
         }
 
         if (ModList.get().isLoaded("quest_giver")) {
@@ -48,10 +48,6 @@ public class LexiconMenuScreen extends Screen {
         if (ModList.get().isLoaded("patchouli")) {
             this.addRenderableWidget(new PatchouliButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - PatchouliButton.WIDTH)/2), this.top + 12 + BellsnickelScreenButton.HEIGHT * 2, this));
         }
-
-
-       // this.addRenderableWidget(new FollowButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  FollowButton.HEIGHT, this.followingPlayer, this.entityId, this.currentBlockPos));
-
     }
 
     @Override
