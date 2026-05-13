@@ -46,6 +46,12 @@ public class FeywildNetwork {
                 .consumerMainThread(OpenMenuMessage::handle)
                 .add();
 
+        net.messageBuilder(OpenLexiconMenuMessage.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(OpenLexiconMenuMessage::decode)
+                .encoder(OpenLexiconMenuMessage::encode)
+                .consumerMainThread(OpenLexiconMenuMessage::handle)
+                .add();
+
         net.messageBuilder(ToggleFollowPlayerMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ToggleFollowPlayerMessage::decode)
                 .encoder(ToggleFollowPlayerMessage::encode)
@@ -92,6 +98,18 @@ public class FeywildNetwork {
                 .decoder(MountTreeEntMessage::decode)
                 .encoder(MountTreeEntMessage::encode)
                 .consumerMainThread(MountTreeEntMessage::handle)
+                .add();
+
+        net.messageBuilder(OpenPatchouliBookMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenPatchouliBookMessage::decode)
+                .encoder(OpenPatchouliBookMessage::encode)
+                .consumerMainThread(OpenPatchouliBookMessage::handle)
+                .add();
+
+        net.messageBuilder(OpenQuestMessage.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(OpenQuestMessage::decode)
+                .encoder(OpenQuestMessage::encode)
+                .consumerMainThread(OpenQuestMessage::handle)
                 .add();
     }
 

@@ -1,0 +1,6 @@
+{
+  "description": "树灵是随着时间的推移逐渐变得像它们所保护的树木的仙灵。它们会攻击任何它们认为不值得进入其领地的人——包括你，除非它们被你召唤，那样它们就只会攻击怪物！",
+  "icon": "feywild:summoning_scroll_spring_tree_ent",
+  "name": "树灵",
+  "sortnum": 5
+}

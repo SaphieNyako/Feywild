@@ -1,0 +1,12 @@
+{
+  "category": "feywild:bellsnickel",
+  "icon": "feywild:fey_gem",
+  "name": "交易",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "图书馆地精提供各种附魔书以换取仙灵宝石。"
+    }
+  ]
+}

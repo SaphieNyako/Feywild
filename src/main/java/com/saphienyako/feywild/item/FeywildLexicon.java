@@ -1,5 +1,9 @@
 package com.saphienyako.feywild.item;
 
+import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.SpriteEntity;
+import com.saphienyako.feywild.network.FeywildNetwork;
+import com.saphienyako.feywild.network.OpenLexiconMenuMessage;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -30,12 +34,13 @@ public class FeywildLexicon extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (player instanceof ServerPlayer) {
-            if (ModList.get().isLoaded("patchouli")) {
-                PatchouliAPI.get().openBookGUI((ServerPlayer) player, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this)));
-            } else {
-                player.sendSystemMessage(Component.translatable("message.feywild.no_lexicon")
-                );
+        if (player instanceof ServerPlayer serverPlayer) {
+            SpriteEntity entity = ModEntities.SPRITE.get().create(level);
+
+            if (entity != null) {
+                entity.setPos(player.getEyePosition());
+                level.addFreshEntity(entity);
+                FeywildNetwork.sendToPlayer(new OpenLexiconMenuMessage(entity.getId()), (ServerPlayer)player);
             }
         }
         return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
@@ -44,15 +49,7 @@ public class FeywildLexicon extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if (level != null) {
-            if(Screen.hasShiftDown()){
-                tooltip.add(Component.translatable("message.feywild.feywild_lexicon").withStyle(ChatFormatting.BLUE));
-            }
-
-            else {
-                tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-            }
-        }
+        tooltip.add(Component.translatable("message.feywild.feywild_lexicon").withStyle(ChatFormatting.BLUE));
         super.appendHoverText(stack, level, tooltip, flag);
     }
 

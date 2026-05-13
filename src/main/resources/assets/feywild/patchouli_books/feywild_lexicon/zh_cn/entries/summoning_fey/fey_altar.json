@@ -1,0 +1,27 @@
+{
+  "category": "feywild:summoning_fey",
+  "icon": "feywild:fey_altar",
+  "name": "召唤仙灵",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "要召唤仙灵，你需要一个仙灵祭坛——它可以在工作台中合成。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:fey_altar",
+      "text": "通过正确的材料组合，与你所期望的仙灵建立共鸣链接，并用魔法墨水在召唤卷轴上写下咒文，你就可以将仙灵从仙灵荒野召唤到你的世界。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:mandrake_root",
+      "link_recipe": true,
+      "text": "小心；曼德拉在生长时可能会非常吵。种植曼德拉需要耕地。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:fey_ink_bottle",
+      "recipe2": "feywild:empty_summoning_scroll"
+    }
+  ]
+}

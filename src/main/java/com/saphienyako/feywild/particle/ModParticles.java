@@ -17,6 +17,8 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> SUMMER_SPARKLE_PARTICLE = PARTICLE_TYPES.register("summer_sparkle_particle", ()-> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> WINTER_SPARKLE_PARTICLE = PARTICLE_TYPES.register("winter_sparkle_particle", ()-> new SimpleParticleType(true));
     public static final RegistryObject<SimpleParticleType> AUTUMN_SPARKLE_PARTICLE = PARTICLE_TYPES.register("autumn_sparkle_particle", ()-> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> HEXEN_SPARKLE_PARTICLE = PARTICLE_TYPES.register("hexen_sparkle_particle", ()-> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> FEY_SPARKLE_PARTICLE = PARTICLE_TYPES.register("fey_sparkle_particle", ()-> new SimpleParticleType(true) );
 
     public static final RegistryObject<SimpleParticleType> AUTUMN_LEAF_PARTICLE = PARTICLE_TYPES.register("autumn_leaf_particle", ()-> new SimpleParticleType(true));

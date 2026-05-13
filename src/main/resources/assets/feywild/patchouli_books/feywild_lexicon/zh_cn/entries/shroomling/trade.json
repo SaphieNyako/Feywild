@@ -1,0 +1,23 @@
+{
+  "category": "feywild:shroomling",
+  "icon": "feywild:fey_gem",
+  "name": "交易",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "蘑菇灵提供不同种类的交易，以换取仙灵宝石。交易品包括蘑菇、炖菜和药水。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blue_mushroom",
+      "text": "蘑菇灵会提供一系列色彩斑斓的稀有蘑菇，这些蘑菇仅能在仙灵荒野中找到。用这些蘑菇右击蘑菇灵，会改变它的外观。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "彩色巨型蘑菇",
+      "text": "你可以通过在灰化土或菌丝上对所有颜色的蘑菇使用骨粉来种植自己的巨型蘑菇，然后小心地用剪刀收获它们。"
+    }
+  ]
+}

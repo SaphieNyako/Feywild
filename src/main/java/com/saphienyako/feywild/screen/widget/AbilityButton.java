@@ -54,9 +54,11 @@ public class AbilityButton extends Button {
 
         blit(poseStack, this.x, this.y, 0, 0, WIDTH, HEIGHT);
 
-        drawString(poseStack, font, this.textComponent,
-                this.x + 22,
-                this.y + (HEIGHT - font.lineHeight) / 2,
-                0xFFFFFF);
+        int textWidth = font.width(this.textComponent);
+
+        int textX = this.x + (WIDTH - textWidth) / 2;
+        int textY = this.y + (HEIGHT - font.lineHeight) / 2;
+
+        drawString(poseStack ,font, this.textComponent, textX, textY, 0xFFFFFF);
     }
 }

@@ -1,0 +1,35 @@
+{
+  "category": "feywild:pixies",
+  "icon": "feywild:summoning_scroll_autumn_pixie",
+  "name": "秋之精灵",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:autumn_pixie"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "秋之精灵是个彻头彻尾的看护者，乐于照顾任何来到她身边的人。虽然她不太愿意冒险进入更广阔的世界，但她对仙灵荒野的奥秘了如指掌，会尽己所能支持她所关心的人。"
+    },
+    {
+      "type": "feywild:autumn_pixie",
+      "recipe": "feywild:summoning_scroll_autumn_pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用此卷轴召唤的秋之精灵会收割附近农作物的产物。提醒一下，你可以用仙灵珠与她互动，打开菜单选择开启/关闭她的能力。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "精灵喜欢曲奇，就像她们的大多数同类一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

@@ -135,6 +135,7 @@ public class Feywild
         event.put(ModEntities.SUMMER_TREE_ENT.get(), SummerTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.AUTUMN_TREE_ENT.get(), AutumnTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.WINTER_TREE_ENT.get(), WinterTreeEntEntity.getDefaultAttributes().build());
+        event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -150,6 +151,7 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.BEE_KNIGHT_LAYER, BeeKnightModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.BEE_MOUNT_LAYER, BeeMountModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TREE_ENT_LAYER, TreeEntModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
     }
 
     @SuppressWarnings("deprecated")
@@ -204,7 +206,7 @@ public class Feywild
             SpawnPlacements.register(ModEntities.WINTER_TREE_ENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WinterTreeEntEntity::canSpawn);
             SpawnPlacements.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEntEntity::canSpawn);
             SpawnPlacements.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEntEntity::canSpawn);
-
+            SpawnPlacements.register(ModEntities.SPRITE.get(),SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn);
         });
     }
 
@@ -264,6 +266,7 @@ public class Feywild
             EntityRenderers.register(ModEntities.SPRING_TREE_ENT.get(), TreeEntRenderer::new);
             EntityRenderers.register(ModEntities.SUMMER_TREE_ENT.get(), TreeEntRenderer::new);
             EntityRenderers.register(ModEntities.WINTER_TREE_ENT.get(), TreeEntRenderer::new);
+            EntityRenderers.register(ModEntities.SPRITE.get(), SpriteRenderer::new);
 
             BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
@@ -297,6 +300,9 @@ public class Feywild
 
         Minecraft.getInstance().particleEngine.register(ModParticles.WINTER_SPARKLE_PARTICLE.get(),
                 SparkleParticle.provider(0.2f, 0.8f, 0.9f));
+
+        Minecraft.getInstance().particleEngine.register(ModParticles.HEXEN_SPARKLE_PARTICLE.get(),
+                SparkleParticle.provider(0.5f, 0.2f, 0.8f));
 
         Minecraft.getInstance().particleEngine.register(ModParticles.FEY_SPARKLE_PARTICLE.get(),
                 SparkleParticle.provider(0.3f, 0.9f, 0.9f));

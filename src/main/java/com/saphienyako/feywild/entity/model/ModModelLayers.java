@@ -37,4 +37,7 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation TREE_ENT_LAYER = new ModelLayerLocation(
             new ResourceLocation(Feywild.MOD_ID, "tree_ent_layer"), "main");
+
+    public static final ModelLayerLocation SPRITE_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Feywild.MOD_ID, "sprite_layer"), "main");
 }

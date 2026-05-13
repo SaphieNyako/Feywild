@@ -1,0 +1,35 @@
+{
+  "processor": "com.saphienyako.feywild.patchouli.processor.BellsnickelProcessor",
+  "components": [
+    {
+      "type": "patchouli:header",
+      "text": "材料",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "patchouli:image",
+      "image": "feywild:textures/gui/fey_altar_patchouli.png",
+      "x": 17,
+      "y": 15,
+      "width": 92,
+      "height": 122,
+      "u": 0,
+      "v": 0
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "framed": false,
+      "x": 52,
+      "y": 54
+    },
+    {
+      "type": "patchouli:custom",
+      "class": "com.saphienyako.feywild.patchouli.component.CircularIngredientsComponent",
+      "x": 20,
+      "y": 20,
+      "items": "#inputs"
+    }
+  ]
+}

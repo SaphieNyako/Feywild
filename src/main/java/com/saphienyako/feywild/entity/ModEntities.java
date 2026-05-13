@@ -64,6 +64,9 @@ public class ModEntities {
             ENTITY_TYPES.register("winter_tree_ent", ()-> EntityType.Builder.of(WinterTreeEntEntity::new, MobCategory.CREATURE)
                     .sized(2,3.9f).build("winter_tree_ent"));
 
+    public static final RegistryObject<EntityType<SpriteEntity>> SPRITE =
+            ENTITY_TYPES.register("sprite", () -> EntityType.Builder.of(SpriteEntity::new, MobCategory.CREATURE).build("sprite"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

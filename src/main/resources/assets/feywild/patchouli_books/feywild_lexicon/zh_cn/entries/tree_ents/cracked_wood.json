@@ -1,0 +1,21 @@
+{
+  "category": "feywild:tree_ents",
+  "icon": "feywild:autumn_tree_cracked_log",
+  "name": "裂痕木",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:autumn_tree_cracked_log",
+      "text": "仙灵树有几率生成带有裂痕的木材。树灵的灵魂就储存在这裂痕木中。白天，树灵可能会在树附近生成并保护它。夜晚，灵魂会像它们的树木亲戚一样入睡。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "可以通过摧毁带有裂痕的原木来切断树与树灵之间的联系，并获得一个仙灵宝石。反之，将仙灵宝石放入仙灵原木中会使其变成带有裂痕的原木。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:spring_tree_ent"
+    }
+  ]
+}

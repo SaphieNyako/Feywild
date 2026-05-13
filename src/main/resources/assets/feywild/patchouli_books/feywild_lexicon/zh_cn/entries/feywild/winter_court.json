@@ -1,0 +1,15 @@
+{
+  "category": "feywild:feywild",
+  "icon": "feywild:summoning_scroll_winter_pixie",
+  "name": "冬庭",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "当落叶飘零，天空灰暗，黑夜吞噬白昼——那时冬庭在仙灵荒野中占据统治地位。这些仙灵对生者及其权力斗争漠不关心；死亡终将降临我们所有人，而它们的使命是确保仙灵荒野能够迎来又一个新年的轮回。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "冬庭的仙灵往往说话轻柔，略带病态，且从不未经思考就选择言辞。它们在社交中似乎有点笨拙，有些甚至更喜欢与死者为伴。"
+    }
+  ]
+}

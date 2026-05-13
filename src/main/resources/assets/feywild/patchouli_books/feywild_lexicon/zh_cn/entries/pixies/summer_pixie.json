@@ -1,0 +1,35 @@
+{
+  "category": "feywild:pixies",
+  "icon": "feywild:summoning_scroll_summer_pixie",
+  "name": "夏之精灵",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:summer_pixie"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在夏庭，即使是最小的精灵也被赋予了其庭的地位和权威——而且它们会确保你记住这一点！然而，如果你能赢得这样一位仙灵的青睐，你可能会得到一个强大的盟友，在艰难时刻指引你。"
+    },
+    {
+      "type": "feywild:summer_pixie",
+      "recipe": "feywild:summoning_scroll_summer_pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用此卷轴召唤的夏之精灵会施放一个法术，将阳光投射到附近作物上，促进它们生长。提醒一下，你可以用仙灵珠与她互动，打开菜单选择开启/关闭她的能力。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "精灵喜欢曲奇，就像她们的大多数同类一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

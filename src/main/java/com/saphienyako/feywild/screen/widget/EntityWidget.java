@@ -114,7 +114,7 @@ public class EntityWidget extends AbstractWidget {
             poseStack.popPose();
         } else {
 
-            double scale = ((double) this.height / this.entity.getType().getHeight()) * 1.5;
+            double scale = ((double) this.height / this.entity.getType().getHeight()) * 2;
             double posX = this.x + this.width / 2.0;
             double posY = this.y + this.height + scale * 48.0 / 85.0;
             double centerX = this.x + this.width / 2.0;

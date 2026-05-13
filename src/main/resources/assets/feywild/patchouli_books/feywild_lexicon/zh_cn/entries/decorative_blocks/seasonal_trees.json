@@ -1,0 +1,114 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:winter_tree_log",
+  "name": "四季之树",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:spring_tree_sapling",
+      "text": "被仙灵魔法触及的树木可以长成带有季节色彩的树。树苗可以通过合成获得，也可以从仙灵树叶中找到。"
+    },
+    {
+      "type": "feywild:spring_tree_sapling",
+      "recipe": "feywild:spring_tree_sapling"
+    },
+    {
+      "type": "feywild:summer_tree_sapling",
+      "recipe": "feywild:summer_tree_sapling"
+    },
+    {
+      "type": "feywild:autumn_tree_sapling",
+      "recipe": "feywild:autumn_tree_sapling"
+    },
+    {
+      "type": "feywild:winter_tree_sapling",
+      "recipe": "feywild:winter_tree_sapling"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:autumn_tree_log",
+      "text": "从外面看，它们可能和其他树没什么两样，但一旦剥去树皮，就能看到色彩斑斓的内里。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_tree_wood",
+      "recipe2": "feywild:summer_tree_wood_slab",
+      "title": "仙灵木"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_tree_wood_stairs",
+      "recipe2": "feywild:winter_tree_wood_wall",
+      "title": "仙灵木"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:autumn_tree_stripped_log",
+      "text": "从外面看，它们可能和其他树没什么两样，但一旦剥去树皮，就能看到色彩斑斓的内里。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_tree_stripped_wood",
+      "recipe2": "feywild:summer_tree_stripped_wood_slab",
+      "title": "去皮仙灵木"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_tree_stripped_wood_stairs",
+      "recipe2": "feywild:winter_tree_stripped_wood_wall",
+      "title": "去皮仙灵木"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:spring_tree_planks",
+      "text": "仙灵木提供了一系列色彩缤纷的木板品种。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_slab",
+      "recipe2": "feywild:autumn_tree_planks_stairs",
+      "title": "仙灵木板"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_tree_planks_fence",
+      "recipe2": "feywild:spring_tree_planks_fence_gate",
+      "title": "仙灵木板"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_door",
+      "recipe2": "feywild:autumn_tree_planks_door",
+      "title": "仙灵门"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_tree_planks_door",
+      "recipe2": "feywild:spring_tree_planks_door",
+      "title": "仙灵门"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_trapdoor",
+      "recipe2": "feywild:autumn_tree_planks_trapdoor",
+      "title": "仙灵活板门"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_tree_planks_trapdoor",
+      "recipe2": "feywild:spring_tree_planks_trapdoor",
+      "title": "仙灵活板门"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_tree_planks_button",
+      "recipe2": "feywild:autumn_tree_planks_pressure_plate",
+      "title": "仙灵按钮与压力板"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summer_tree_leaves_orange",
+      "text": "季节之树的叶子色彩丰富。用剪刀采集可以保留其形态。自然腐烂的叶子会掉落树苗，并有小概率掉落仙灵尘。"
+    }
+  ]
+}
