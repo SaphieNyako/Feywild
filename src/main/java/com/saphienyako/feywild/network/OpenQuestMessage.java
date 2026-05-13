@@ -52,7 +52,8 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
                             InteractionHand.MAIN_HAND,
                             msg.questLineId,
                             msg.backgroundName,
-                            msg.dismiss
+                            msg.dismiss,
+                            2
                     );
                 }
             }
