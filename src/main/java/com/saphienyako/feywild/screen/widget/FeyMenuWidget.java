@@ -22,7 +22,8 @@ public class FeyMenuWidget extends AbstractWidget {
             Alignment.SPRING, new ResourceLocation(Feywild.MOD_ID, "textures/gui/spring_menu.png"),
             Alignment.SUMMER, new ResourceLocation(Feywild.MOD_ID, "textures/gui/summer_menu.png"),
             Alignment.AUTUMN, new ResourceLocation(Feywild.MOD_ID, "textures/gui/autumn_menu.png"),
-            Alignment.WINTER, new ResourceLocation(Feywild.MOD_ID, "textures/gui/winter_menu.png")
+            Alignment.WINTER, new ResourceLocation(Feywild.MOD_ID, "textures/gui/winter_menu.png"),
+            Alignment.HEXEN, new ResourceLocation(Feywild.MOD_ID, "textures/gui/hexen_menu.png")
     );
 
     public FeyMenuWidget(int x, int y, Alignment alignment) {

@@ -1,0 +1,65 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:blue_mushroom_block",
+  "name": "彩色蘑菇块",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:green_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:moo_shroom_cow"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:shears",
+      "link_recipe": true,
+      "text": "用剪刀剪蘑菇牛会得到相应的蘑菇。用碗右击蘑菇牛挤奶会得到迷之炖菜，炖菜的效果取决于蘑菇牛的变种。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "彩色巨型蘑菇",
+      "text": "你可以通过在灰化土或菌丝上对所有颜色的蘑菇使用骨粉来种植自己的巨型蘑菇，然后小心地用剪刀收获它们。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:yellow_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:light_blue_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:blue_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:purple_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pink_mushroom_block",
+      "link_recipe": true,
+      "text": "在永恒瀑布——秋庭的领地——蘑古古们居住在它们色彩斑斓的蘑菇屋中。它们可以用微小的蘑菇培育出这些屋子。一些旅人可能也想用它们建造自己的家园。"
+    }
+  ]
+}

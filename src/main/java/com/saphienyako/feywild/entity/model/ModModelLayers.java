@@ -38,4 +38,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation BEE_MOUNT_LAYER = new ModelLayerLocation(
             new ResourceLocation(Feywild.MOD_ID, "bee_mount_layer"), "main");
 
+    public static final ModelLayerLocation SPRITE_LAYER = new ModelLayerLocation(
+            new ResourceLocation(Feywild.MOD_ID, "sprite_layer"), "main");
+
 }

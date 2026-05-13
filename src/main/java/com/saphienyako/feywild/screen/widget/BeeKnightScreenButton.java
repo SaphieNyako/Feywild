@@ -42,7 +42,12 @@ public class BeeKnightScreenButton extends Button {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 10);
 
-        graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
+        int textWidth = font.width(this.textComponent);
+
+        int textX = this.getX() + (WIDTH - textWidth) / 2;
+        int textY = this.getY() + (HEIGHT - font.lineHeight) / 2;
+
+        graphics.drawString(font, this.textComponent, textX, textY, 0xFFFFFF, true);
         graphics.pose().popPose();
     }
 

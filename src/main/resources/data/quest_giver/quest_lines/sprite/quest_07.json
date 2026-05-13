@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_05",
+  "icon": "feywild:summoning_scroll_autumn_pixie",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_07_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_07_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "feywild:summoning_scroll_autumn_pixie"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_07_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_07_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:pixie_orb"
+      }
+    }
+  ]
+}

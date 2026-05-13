@@ -50,7 +50,7 @@ public class FeyMenuScreen extends Screen {
         if (this.entityId != -1) {
             Entity entity = Minecraft.getInstance().level == null ? null : Minecraft.getInstance().level.getEntity(this.entityId);
             if (entity instanceof LivingEntity living) {
-                this.addRenderableWidget(new EntityWidget(left, (this.height - EntityWidget.HEIGHT) / 2, living));
+                this.addRenderableWidget(new EntityWidget(left, (this.height - EntityWidget.HEIGHT) / 2 + 30, living));
                 //TOP BUTTON
                 if(entity instanceof TreeEntBase){
                     this.addRenderableWidget(new MountButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  FollowButton.HEIGHT, this,  this.entityId));

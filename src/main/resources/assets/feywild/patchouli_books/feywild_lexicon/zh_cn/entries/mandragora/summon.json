@@ -1,0 +1,36 @@
+{
+  "category": "feywild:mandragora",
+  "icon": "feywild:summoning_scroll_mandragora",
+  "name": "召唤曼德拉",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:mandragora"
+    },
+    {
+      "type": "feywild:mandragora",
+      "recipe": "feywild:summoning_scroll_mandragora"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用精灵宝珠右击你的仙灵，可以打开仙灵菜单。每个仙灵都有一个。在这个菜单中，你可以开启/关闭它们的能力，让它们跟随或停留，或者将它们遣散回召唤卷轴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "能力",
+      "text": "曼德拉的歌声会在她周围的环境里催生出花朵。出现的花朵类型则取决于曼德拉自身的种类。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "曼德拉喜欢曲奇，就像大多数仙灵一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

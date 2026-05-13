@@ -1,0 +1,52 @@
+{
+  "category": "feywild:shroomling",
+  "icon": "feywild:summoning_scroll_shroomling",
+  "name": "召唤蘑菇灵",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:shroomling"
+    },
+    {
+      "type": "feywild:shroomling",
+      "recipe": "feywild:summoning_scroll_shroomling"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "用精灵宝珠右击你的仙灵，可以打开仙灵菜单。每个仙灵都有一个。在这个菜单中，你可以开启/关闭它们的能力，让它们跟随或停留，或者将它们遣散回召唤卷轴。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "能力",
+      "text": "蘑菇灵在牛附近打喷嚏可能会使牛感染“菌丝”，将牛变成蘑菇牛。变成哪种蘑菇牛取决于蘑菇灵的变种。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:moo_shroom_cow"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:shears",
+      "link_recipe": true,
+      "text": "用剪刀剪蘑菇牛会得到相应的蘑菇。用碗右击蘑菇牛挤奶会得到迷之炖菜，炖菜的效果取决于蘑菇牛的变种。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:orange_mushroom",
+      "title": "彩色巨型蘑菇",
+      "text": "你可以通过在灰化土或菌丝上对所有颜色的蘑菇使用骨粉来种植自己的巨型蘑菇，然后小心地用剪刀收获它们。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:cookie",
+      "link_recipe": true,
+      "text": "蘑菇灵喜欢曲奇，就像大多数仙灵一样！你可以给饥饿的仙灵喂食曲奇来恢复部分生命值。"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:iron_ingot",
+      "text": "仙灵生物会避开铁，因为铁的冰冷触感会抑制它们的魔力，扼杀它们的灵魂。"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:elven_quartz_block",
+  "name": "仙灵石英",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:elven_quartz_block",
+      "link_recipe": true,
+      "text": "仙灵石英的配方曾经只为矮人所知。但自从他们揭竿而起之后，他们便与所有人分享了他们的秘密。每种季节都有对应的颜色。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_quartz_block"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:spring_elven_quartz_block",
+      "recipe2": "feywild:summer_elven_quartz_block",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_elven_quartz_block",
+      "recipe2": "feywild:winter_elven_quartz_block",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:elven_quartz_stairs",
+      "recipe2": "feywild:spring_elven_quartz_slabs",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_elven_quartz_brick",
+      "recipe2": "feywild:autumn_elven_quartz_mossy_brick",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:winter_elven_quartz_brick_stairs",
+      "recipe2": "feywild:spring_elven_quartz_brick_slab",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "feywild:summer_elven_quartz_cracked_brick",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_elven_quartz_cracked_brick_stairs",
+      "recipe2": "feywild:winter_elven_quartz_cracked_brick_slab",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:summer_elven_quartz_pillar",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:smelting",
+      "recipe": "feywild:spring_elven_quartz_polished",
+      "title": "仙灵石英"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "feywild:autumn_elven_quartz_polished_stairs",
+      "recipe2": "feywild:winter_elven_quartz_polished_slab",
+      "title": "仙灵石英"
+    }
+  ]
+}

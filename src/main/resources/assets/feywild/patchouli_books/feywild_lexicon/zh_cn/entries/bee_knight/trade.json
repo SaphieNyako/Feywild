@@ -1,0 +1,12 @@
+{
+  "category": "feywild:bee_knight",
+  "icon": "feywild:fey_gem",
+  "name": "交易",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:fey_gem",
+      "text": "蜜蜂骑士提供它们的蜜蜂捡到的各种物品，以换取仙灵宝石。"
+    }
+  ]
+}

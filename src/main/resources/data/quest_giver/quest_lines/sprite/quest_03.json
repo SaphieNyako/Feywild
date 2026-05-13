@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_02",
+  "icon": "feywild:fey_ink_bottle",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_03_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_03_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "feywild:fey_ink_bottle"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.sprite_quest_03_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.sprite_quest_03_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:experience_bottle"
+      }
+    }
+  ]
+}
