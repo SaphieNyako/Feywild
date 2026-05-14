@@ -144,7 +144,7 @@ dependencies {
     })
 
     //Quest Giver
-    implementation "curse.maven:quest-giver-618562:8086628"
+    implementation "curse.maven:quest-giver-618562:8087898"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
