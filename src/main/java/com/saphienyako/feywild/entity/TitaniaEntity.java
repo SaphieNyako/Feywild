@@ -4,9 +4,12 @@ import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.FlyingBossBase;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -29,6 +32,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class TitaniaEntity extends FlyingBossBase {
 
@@ -41,6 +47,7 @@ public class TitaniaEntity extends FlyingBossBase {
 
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
+
     public TitaniaEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.titania").withStyle(ChatFormatting.YELLOW),
                 BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
@@ -73,12 +80,16 @@ public class TitaniaEntity extends FlyingBossBase {
       //  this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 16));
     }
 
+
+
+
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
+
 
     private boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
@@ -108,15 +119,11 @@ public class TitaniaEntity extends FlyingBossBase {
     }
 
 
-
-
-
     @Override
     protected SoundEvent getAmbientSound() {
         return null;
           //TODO
         //random.nextInt(3) == 0 ? ModSoundEvents.titaniaAmbience.getSoundEvent() : ModSoundEvents.beatingWings.getSoundEvent();
-
     }
 
     @Override
@@ -125,8 +132,6 @@ public class TitaniaEntity extends FlyingBossBase {
         //TODO
         //return random.nextInt(3) == 0 ? ModSoundEvents.titaniaHurt.getSoundEvent() : null;
     }
-
-
 
     @Override
     protected SoundEvent getDeathSound() {
@@ -151,6 +156,16 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     public Component getFeySummonMessage() {
         return null;
+    }
+
+    @Override
+    public SimpleParticleType getParticle() {
+        return ModParticles.SUMMER_SPARKLE_PARTICLE.get();
+    }
+
+    @Override
+    public SpriteEntity.SpriteVariant getSpriteVariant() {
+       return SpriteEntity.SpriteVariant.SUMMER;
     }
 
     public enum State {

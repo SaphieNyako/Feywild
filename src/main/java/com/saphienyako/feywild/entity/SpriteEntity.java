@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.function.Supplier;
 
 public class SpriteEntity extends FlyingFeyBase {
 
@@ -112,7 +113,7 @@ public class SpriteEntity extends FlyingFeyBase {
     }
     @Override
     public SimpleParticleType getParticle() {
-        return ModParticles.HEXEN_SPARKLE_PARTICLE.get();
+        return this.getVariant().getParticle();
     }
 
 
@@ -239,6 +240,21 @@ public class SpriteEntity extends FlyingFeyBase {
     }
 
     public enum SpriteVariant {
-        SPRING, SUMMER, WINTER, AUTUMN, HEXEN, BLOSSOM
+
+        SPRING(ModParticles.SPRING_SPARKLE_PARTICLE),
+        SUMMER(ModParticles.SUMMER_SPARKLE_PARTICLE),
+        WINTER(ModParticles.WINTER_SPARKLE_PARTICLE),
+        AUTUMN(ModParticles.AUTUMN_SPARKLE_PARTICLE),
+        HEXEN(ModParticles.HEXEN_SPARKLE_PARTICLE);
+
+        private final Supplier<SimpleParticleType> particle;
+
+        SpriteVariant(Supplier<SimpleParticleType> particle) {
+            this.particle = particle;
+        }
+
+        public SimpleParticleType getParticle() {
+            return particle.get();
+        }
     }
 }

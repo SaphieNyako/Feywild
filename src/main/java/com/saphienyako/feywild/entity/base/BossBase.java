@@ -1,7 +1,12 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
@@ -17,6 +22,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 
 import javax.annotation.Nonnull;
@@ -24,6 +32,8 @@ import javax.annotation.Nonnull;
 public abstract class BossBase extends Monster {
 
     public final ServerBossEvent bossInfo;
+    private int deathTicks = 0;
+    private boolean dying = false;
     protected BossBase(EntityType<? extends Monster> entity, Level level, ServerBossEvent bossInfo) {
         super(entity, level);
         this.bossInfo = bossInfo;
@@ -73,15 +83,119 @@ public abstract class BossBase extends Monster {
         }
     }
 
-    @Override
-    protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
-
-        super.dropCustomDeathLoot(level, source, recentlyHit);
-        scatterItem(new ItemStack(ModItems.PIXIE_WING_TIARA.get()));
-        scatterDust(random.nextInt(8, 16));
+    public void tick() {
+        super.tick();
+        if (dying) {
+            tickDeathSequence();
+        }
     }
 
-    private void scatterItem(ItemStack stack) {
+    @Override
+    protected void tickDeath() {
+        //override
+    }
+
+    @Override
+    public boolean hurt(@Nonnull DamageSource source, float amount) {
+
+        if (dying) {
+            return false;
+        }
+
+        boolean result = super.hurt(source, amount);
+
+        if (this.getHealth() <= 0.0F && !dying) {
+
+            this.setHealth(1.0F);
+            beginDeathSequence();
+            return false;
+        }
+
+        return result;
+    }
+
+    private void beginDeathSequence() {
+
+        this.dying = true;
+        this.deathTicks = 0;
+        this.setNoAi(true);
+        this.setInvulnerable(true);
+        this.setDeltaMovement(Vec3.ZERO);
+    }
+
+    private void tickDeathSequence() {
+
+        deathTicks++;
+
+        //Slowly floating upward
+        this.setDeltaMovement(0, 0.02, 0);
+
+        //Particles
+        if (level() instanceof ServerLevel server) {
+
+            server.sendParticles(
+                    getParticle(),
+                    getX(),
+                    getY() + 1,
+                    getZ(),
+                    6,
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.02
+            );
+
+            if (deathTicks >= 150) {
+                PacketDistributor.sendToPlayersTrackingEntity(
+                        this,
+                        new ParticleMessage(
+                                ParticleMessage.Particles.DANDELION_FLUFF,
+                                this.blockPosition().above()
+                        )
+                );
+            }
+        }
+
+        //Explosion bursts
+        if (deathTicks > 80 && deathTicks % 10 == 0) {
+
+            level().explode(
+                    this,
+                    getX(),
+                    getY(),
+                    getZ(),
+                    1.5F,
+                    Level.ExplosionInteraction.NONE
+            );
+        }
+
+        //Loot burst
+        if (deathTicks == 155) {
+            scatterBossLoot();
+        }
+
+        //Removal
+        if (deathTicks >= 160) {
+            addsprite();
+            this.remove(RemovalReason.KILLED);
+            this.gameEvent(GameEvent.ENTITY_DIE);
+
+        }
+    }
+
+    private void addsprite(){
+        SpriteEntity entity = ModEntities.SPRITE.get().create(level());
+        entity.setVariant(getSpriteVariant());
+        entity.setPos(this.getX(), this.getY() + 1, this.getZ());
+        level().addFreshEntity(entity);
+    }
+
+    private void scatterBossLoot() {
+        int dustAmount = random.nextInt(24, 42);
+        scatterDust(dustAmount);
+    }
+
+    public void scatterItem(ItemStack stack) {
 
         ItemEntity item = new ItemEntity(
                 level(),
@@ -106,7 +220,7 @@ public abstract class BossBase extends Monster {
         level().addFreshEntity(item);
     }
 
-    private void scatterDust(int totalAmount) {
+    public void scatterDust(int totalAmount) {
 
         int remaining = totalAmount;
 
@@ -114,7 +228,7 @@ public abstract class BossBase extends Monster {
 
             int stackSize = Math.min(
                     remaining,
-                    random.nextInt(2, 6)
+                    random.nextInt(1, 2)
             );
 
             remaining -= stackSize;
@@ -181,4 +295,9 @@ public abstract class BossBase extends Monster {
     public abstract SoundEvent getSummonSound();
 
     public abstract Component getFeySummonMessage();
+
+    public abstract SimpleParticleType getParticle();
+
+    public abstract SpriteEntity.SpriteVariant getSpriteVariant();
+
 }
