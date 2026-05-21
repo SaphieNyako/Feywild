@@ -3,6 +3,8 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.FlyingBossBase;
+import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -10,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -21,7 +24,9 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
@@ -103,6 +108,9 @@ public class TitaniaEntity extends FlyingBossBase {
     }
 
 
+
+
+
     @Override
     protected SoundEvent getAmbientSound() {
         return null;
@@ -133,6 +141,16 @@ public class TitaniaEntity extends FlyingBossBase {
 
     public void setState(TitaniaEntity.State state) {
         this.entityData.set(STATE, state.ordinal());
+    }
+
+    @Override
+    public SoundEvent getSummonSound() {
+        return null;
+    }
+
+    @Override
+    public Component getFeySummonMessage() {
+        return null;
     }
 
     public enum State {

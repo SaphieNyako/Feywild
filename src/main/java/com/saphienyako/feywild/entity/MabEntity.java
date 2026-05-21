@@ -134,6 +134,16 @@ public class MabEntity extends FlyingBossBase {
         this.entityData.set(STATE, state.ordinal());
     }
 
+    @Override
+    public SoundEvent getSummonSound() {
+        return null;
+    }
+
+    @Override
+    public Component getFeySummonMessage() {
+        return null;
+    }
+
     public enum State {
         IDLE_FLYING, FLYING, CHANNEL, INTIMIDATION
     }

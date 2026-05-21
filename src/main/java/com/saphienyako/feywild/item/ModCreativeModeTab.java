@@ -34,6 +34,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.FEYWILD_MUSIC_DISC.get());
                         output.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());
                         output.accept(ModItems.PIXIE_ORB.get());
+                        output.accept(ModItems.PIXIE_WING_TIARA.get());
                         output.accept(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
                         output.accept(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
                         output.accept(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
@@ -46,6 +47,8 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
@@ -253,6 +256,8 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SPAWN_EGG_SUMMER_TREE_ENT.get());
                         output.accept(ModItems.SPAWN_EGG_AUTUMN_TREE_ENT.get());
                         output.accept(ModItems.SPAWN_EGG_WINTER_TREE_ENT.get());
+                        output.accept(ModItems.SPAWN_EGG_QUEEN_TITANIA.get());
+                        output.accept(ModItems.SPAWN_EGG_QUEEN_MAB.get());
 
                     }).build());
 

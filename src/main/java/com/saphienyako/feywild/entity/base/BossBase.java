@@ -1,14 +1,19 @@
 package com.saphienyako.feywild.entity.base;
 
+import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -69,6 +74,61 @@ public abstract class BossBase extends Monster {
     }
 
     @Override
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
+
+        super.dropCustomDeathLoot(level, source, recentlyHit);
+        scatterItem(new ItemStack(ModItems.PIXIE_WING_TIARA.get()));
+        scatterDust(random.nextInt(8, 16));
+    }
+
+    private void scatterItem(ItemStack stack) {
+
+        ItemEntity item = new ItemEntity(
+                level(),
+                getX(),
+                getY() + 1,
+                getZ(),
+                stack
+        );
+
+        double angle = random.nextDouble() * Math.PI * 2.0;
+        double speed = 0.2 + random.nextDouble() * 0.3;
+
+        double motionX = Math.cos(angle) * speed;
+        double motionZ = Math.sin(angle) * speed;
+
+        item.setDeltaMovement(
+                motionX,
+                0.3 + random.nextDouble() * 0.2,
+                motionZ
+        );
+
+        level().addFreshEntity(item);
+    }
+
+    private void scatterDust(int totalAmount) {
+
+        int remaining = totalAmount;
+
+        while (remaining > 0) {
+
+            int stackSize = Math.min(
+                    remaining,
+                    random.nextInt(2, 6)
+            );
+
+            remaining -= stackSize;
+
+            ItemStack stack = new ItemStack(
+                    ModItems.FEY_DUST.get(),
+                    stackSize
+            );
+
+            scatterItem(stack);
+        }
+    }
+
+    @Override
     public boolean onClimbable() {
         return false;
     }
@@ -117,4 +177,8 @@ public abstract class BossBase extends Monster {
     public boolean ignoreExplosion(@Nonnull Explosion explosion) {
         return true;
     }
+
+    public abstract SoundEvent getSummonSound();
+
+    public abstract Component getFeySummonMessage();
 }

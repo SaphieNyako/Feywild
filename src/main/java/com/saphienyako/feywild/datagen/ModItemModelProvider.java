@@ -27,6 +27,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.FEYWILD_MUSIC_DISC.get());
         basicItem(ModItems.EMPTY_SUMMONING_SCROLL.get());
         basicItem(ModItems.PIXIE_ORB.get());
+        basicItem(ModItems.PIXIE_WING_TIARA.get());
         basicItem(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
         basicItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
         basicItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
@@ -39,6 +40,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT.get());
         basicItem(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get());
         basicItem(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
+        basicItem(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
+        basicItem(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
         basicItem(ModItems.FEY_DUST.get());
         basicItem(ModItems.MANDRAKE.get());
         basicItem(ModItems.GIANT_CROCUS_FLOWER_SEED.get());

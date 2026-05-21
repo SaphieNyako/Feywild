@@ -28,6 +28,10 @@ public class ModItems {
     public static final DeferredItem<Item> FEY_GEM = ITEMS.register("fey_gem", () -> new ToolTipBaseItem(new Item.Properties(),
             Component.translatable("message.feywild.fey_gem")));
 
+
+    public static final DeferredItem<Item> PIXIE_WING_TIARA = ITEMS.register("pixie_wing_tiara", () -> new ToolTipBaseItem(new Item.Properties(),
+            Component.translatable("message.feywild.pixie_wing_tiara")));
+
     public static final DeferredItem<Item> FEY_INK_BOTTLE = ITEMS.register("fey_ink_bottle",() -> new ToolTipBaseItem(new Item.Properties(),
             Component.translatable("message.feywild.fey_ink_bottle")));
     public static final DeferredItem<Item> PIXIE_ORB = ITEMS.register("pixie_orb",() -> new ToolTipBaseItem(new Item.Properties(),
@@ -104,6 +108,12 @@ public class ModItems {
     public static final DeferredItem<Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.register("summoning_scroll_winter_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_winter_tree_ent")));
 
+    public static final DeferredItem<Item> SUMMONING_SCROLL_QUEEN_TITANIA = ITEMS.register("summoning_scroll_queen_titania", () -> new BossSummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_queen_titania")));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_QUEEN_MAB = ITEMS.register("summoning_scroll_queen_mab", () -> new BossSummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_queen_mab")));
+
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_SPRING_PIXIE = ITEMS.register("spawn_egg_spring_pixie", () -> new SpawnEggItem(ModEntities.SPRING_PIXIE.get(), 0xf085a9, 0xa1db67, new Item.Properties()));
     @SuppressWarnings("deprecation")
@@ -132,6 +142,12 @@ public class ModItems {
 
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new SpawnEggItem(ModEntities.WINTER_TREE_ENT.get(),0x5C281E, 0x84b4be, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_QUEEN_TITANIA = ITEMS.register("spawn_egg_queen_titania", () -> new SpawnEggItem(ModEntities.TITANIA.get(),0xf085a9, 0xa1db67, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_QUEEN_MAB = ITEMS.register("spawn_egg_queen_mab", () -> new SpawnEggItem(ModEntities.MAB.get(),0x84b4be, 0x323c81, new Item.Properties()));
 
 
 

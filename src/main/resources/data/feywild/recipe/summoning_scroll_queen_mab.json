@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_winter_pixie"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "feywild:summoning_scroll_bellsnickel"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "item": "feywild:summoning_scroll_winter_tree_ent"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "id": "feywild:summoning_scroll_queen_mab"
+  }
+}
