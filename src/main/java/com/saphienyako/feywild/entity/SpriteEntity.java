@@ -241,5 +241,4 @@ public class SpriteEntity extends FlyingFeyBase {
     public enum SpriteVariant {
         SPRING, SUMMER, WINTER, AUTUMN, HEXEN, BLOSSOM
     }
-
 }

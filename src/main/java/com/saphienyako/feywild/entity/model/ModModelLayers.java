@@ -41,4 +41,8 @@ public class ModModelLayers {
 
     public static final ModelLayerLocation SPRITE_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "sprite_layer"), "main");
+
+    public static final ModelLayerLocation TITANIA_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "titania_layer"), "main");
+
 }
