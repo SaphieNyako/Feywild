@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.BossBase;
-import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.FlyingBossBase;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -25,20 +24,21 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
-public class TitaniaEntity extends FlyingBossBase {
+public class MabEntity extends FlyingBossBase {
 
-    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(TitaniaEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(MabEntity.class, EntityDataSerializers.INT);
 
-    public final AnimationState IDLE_ANIMATION = new AnimationState();
+    public final AnimationState FLYING_IDLE_ANIMATION = new AnimationState();
     public final AnimationState FLYING_ANIMATION = new AnimationState();
-    public final AnimationState CASTING_ANIMATION = new AnimationState();
-    public final AnimationState ENCHANTING_ANIMATION = new AnimationState();
+    public final AnimationState CHANNEL_ANIMATION = new AnimationState();
+    public final AnimationState INTIMIDATION_ANIMATION = new AnimationState();
 
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
-    public TitaniaEntity(EntityType<? extends Monster> entity, Level level) {
-        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.titania").withStyle(ChatFormatting.YELLOW),
-                BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
+
+    public MabEntity(EntityType<? extends Monster> entity, Level level) {
+        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.mab").withStyle(ChatFormatting.BLUE),
+                BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -63,9 +63,9 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-     //   this.goalSelector.addGoal(40, new SummonBeeKnightGoal(this));
-      //  this.goalSelector.addGoal(50, new BossTargetFireGoal(this));
-      //  this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 16));
+        //   this.goalSelector.addGoal(40, new SummonBeeKnightGoal(this));
+        //  this.goalSelector.addGoal(50, new BossTargetFireGoal(this));
+        //  this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 16));
     }
 
     public void tick() {
@@ -93,10 +93,10 @@ public class TitaniaEntity extends FlyingBossBase {
             if (!FLYING_ANIMATION.isStarted()) {
                 FLYING_ANIMATION.start(this.tickCount);
             }
-            IDLE_ANIMATION.stop();
+            FLYING_IDLE_ANIMATION.stop();
         } else {
-            if (!IDLE_ANIMATION.isStarted()) {
-                IDLE_ANIMATION.start(this.tickCount);
+            if (!FLYING_IDLE_ANIMATION.isStarted()) {
+                FLYING_IDLE_ANIMATION.start(this.tickCount);
             }
             FLYING_ANIMATION.stop();
         }
@@ -106,7 +106,7 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected SoundEvent getAmbientSound() {
         return null;
-          //TODO
+        //TODO
         //random.nextInt(3) == 0 ? ModSoundEvents.titaniaAmbience.getSoundEvent() : ModSoundEvents.beatingWings.getSoundEvent();
 
     }
@@ -119,24 +119,22 @@ public class TitaniaEntity extends FlyingBossBase {
     }
 
 
-
     @Override
     protected SoundEvent getDeathSound() {
         return null;
         //TODO
     }
 
-    public TitaniaEntity.State getState() {
-        TitaniaEntity.State[] states = TitaniaEntity.State.values();
+    public MabEntity.State getState() {
+        MabEntity.State[] states = MabEntity.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];
     }
 
-    public void setState(TitaniaEntity.State state) {
+    public void setState(MabEntity.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
 
     public enum State {
-        IDLE_FLYING, FLYING, CASTING, ENCHANTING
+        IDLE_FLYING, FLYING, CHANNEL, INTIMIDATION
     }
-
 }

@@ -117,6 +117,7 @@ public class Feywild
         event.put(ModEntities.WINTER_TREE_ENT.get(), WinterTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
         event.put(ModEntities.TITANIA.get(), TitaniaEntity.getDefaultAttributes().build());
+        event.put(ModEntities.MAB.get(), MabEntity.getDefaultAttributes().build());
     }
     @SuppressWarnings("unused")
     @SubscribeEvent
@@ -218,6 +219,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.TREE_ENT_LAYER, TreeEntModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.TITANIA_LAYER, TitaniaModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.MAB_LAYER, MabModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -239,6 +241,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.WINTER_TREE_ENT.get(), TreeEntRenderer::new);
             event.registerEntityRenderer(ModEntities.SPRITE.get(), SpriteRenderer::new);
             event.registerEntityRenderer(ModEntities.TITANIA.get(), TitaniaRenderer::new);
+            event.registerEntityRenderer(ModEntities.MAB.get(), MabRenderer::new);
         }
 
         @SubscribeEvent
@@ -265,6 +268,7 @@ public class Feywild
             event.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEntEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.SPRITE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn,RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.TITANIA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TitaniaEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.MAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MabEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }

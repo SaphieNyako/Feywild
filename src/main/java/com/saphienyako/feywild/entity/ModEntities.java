@@ -73,6 +73,9 @@ public class ModEntities {
     public static final Supplier<EntityType<TitaniaEntity>> TITANIA =
             ENTITY_TYPES.register("titania", () -> EntityType.Builder.of(TitaniaEntity::new, MobCategory.MONSTER).build("sprite"));
 
+    public static final Supplier<EntityType<MabEntity>> MAB =
+            ENTITY_TYPES.register("mab", () -> EntityType.Builder.of(MabEntity::new, MobCategory.MONSTER).build("sprite"));
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
