@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -30,15 +32,24 @@ public class NewFeyAltarBlock extends Block {
     // 0 - 1 = 2 parts
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 1);
 
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+
     public NewFeyAltarBlock() {
         super(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion());
-        this.registerDefaultState(this.stateDefinition.any().setValue(PART, 0));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(PART, 0)
+                .setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    public int getLightEmission(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        return 1;
     }
 
     @Override
     protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        builder.add(PART);
+        builder.add(PART, FACING);
     }
 
     public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
@@ -61,7 +72,9 @@ public class NewFeyAltarBlock extends Block {
         if (!level.isClientSide) {
             level.setBlock(
                     pos.above(),
-                    this.defaultBlockState().setValue(PART, 1),
+                    this.defaultBlockState()
+                            .setValue(PART, 1)
+                            .setValue(FACING, state.getValue(FACING)),
                     3
             );
         }
@@ -76,7 +89,9 @@ public class NewFeyAltarBlock extends Block {
             return null;
         }
 
-        return this.defaultBlockState().setValue(PART, 0);
+        return this.defaultBlockState()
+                .setValue(PART, 0)
+                .setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
