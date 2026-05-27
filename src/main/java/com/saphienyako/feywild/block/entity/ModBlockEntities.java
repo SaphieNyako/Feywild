@@ -15,8 +15,11 @@ public class ModBlockEntities {
             DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Feywild.MOD_ID);
     @SuppressWarnings("ConstantConditions")
     public static final Supplier<BlockEntityType<FeyAltarBlockEntity>> FEY_ALTAR_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("fey_altar_block_entity", () -> BlockEntityType.Builder.of(
-                   FeyAltarBlockEntity::new, ModBlocks.FEY_ALTAR.get()).build(null));
+            BLOCK_ENTITIES.register("fey_altar_block_entity", () ->
+                    BlockEntityType.Builder.of(
+                            FeyAltarBlockEntity::new,
+                            ModBlocks.FEY_ALTAR.get(),
+                            ModBlocks.TITANIA_ALTAR.get()).build(null));
 
     public static final Supplier<BlockEntityType<FeyCrackedLogBlockEntity>> FEY_CRACKED_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fey_cracked_block_entity", () ->

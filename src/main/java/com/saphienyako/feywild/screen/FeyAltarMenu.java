@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -110,8 +111,10 @@ public class FeyAltarMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, ModBlocks.FEY_ALTAR.get());
+        Block block = blockEntity.getBlockState().getBlock();
+        //TODO add Tag?
+        return block == ModBlocks.FEY_ALTAR.get()
+                || block == ModBlocks.TITANIA_ALTAR.get();
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

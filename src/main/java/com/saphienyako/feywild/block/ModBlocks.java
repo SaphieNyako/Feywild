@@ -46,7 +46,7 @@ public class ModBlocks {
             () -> new FeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
     public static final DeferredBlock<Block> TITANIA_ALTAR = registerBlock("titania_altar",
-            NewFeyAltarBlock::new);
+          () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
 
     //MUSHROOM BLOCKS

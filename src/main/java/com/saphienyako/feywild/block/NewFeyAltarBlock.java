@@ -1,31 +1,48 @@
 package com.saphienyako.feywild.block;
 
+import com.mojang.serialization.MapCodec;
+import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
+import com.saphienyako.feywild.block.entity.ModBlockEntities;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
-public class NewFeyAltarBlock extends Block {
+public class NewFeyAltarBlock extends BaseEntityBlock {
+
+    public static final MapCodec<NewFeyAltarBlock> CODEC = simpleCodec(NewFeyAltarBlock::new);
 
     public static final VoxelShape BOTTOM_SHAPE = box(0, 0, 0, 16, 16, 16);
     public static final VoxelShape UPPER_SHAPE = box(0, 0, 0, 16, 16, 16);
@@ -34,11 +51,29 @@ public class NewFeyAltarBlock extends Block {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public NewFeyAltarBlock() {
-        super(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion());
+    public NewFeyAltarBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(PART, 0)
                 .setValue(FACING, Direction.NORTH));
+    }
+
+
+    @Override
+    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @Nonnull List<Component> tooltip, @NotNull TooltipFlag flag) {
+        if(Screen.hasShiftDown()){
+            tooltip.add(Component.translatable("message.feywild.fey_altar").withStyle(ChatFormatting.BLUE));
+        }
+
+        else {
+            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+        }
+        super.appendHoverText(stack, context, tooltip, flag);
     }
 
     @Override
@@ -61,6 +96,7 @@ public class NewFeyAltarBlock extends Block {
         return Shapes.empty();
     }
 
+
     @Override
     public @NotNull RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -72,10 +108,8 @@ public class NewFeyAltarBlock extends Block {
         if (!level.isClientSide) {
             level.setBlock(
                     pos.above(),
-                    this.defaultBlockState()
-                            .setValue(PART, 1)
-                            .setValue(FACING, state.getValue(FACING)),
-                    3
+                    state.setValue(PART, 1),
+                    Block.UPDATE_ALL
             );
         }
     }
@@ -118,6 +152,10 @@ public class NewFeyAltarBlock extends Block {
     public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean moving) {
         if (oldState.getBlock() != newState.getBlock()) {
             this.removeOthers(level, oldState, pos);
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof FeyAltarBlockEntity) {
+                ((FeyAltarBlockEntity) blockEntity).drops();
+            }
         }
         super.onRemove(oldState, level, pos, newState, moving);
     }
@@ -140,4 +178,49 @@ public class NewFeyAltarBlock extends Block {
         }
     }
 
+    @Override
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+
+        if (level.isClientSide()) {
+            return ItemInteractionResult.SUCCESS;
+        }
+
+        BlockPos controllerPos = getBasePos(state, pos);
+        BlockEntity be = level.getBlockEntity(controllerPos);
+
+        if (!(be instanceof FeyAltarBlockEntity altar)) {
+            return ItemInteractionResult.CONSUME;
+        }
+
+        player.openMenu(altar, controllerPos);
+
+        return ItemInteractionResult.CONSUME;
+    }
+
+    private static BlockPos getBasePos(BlockState state, BlockPos pos) {
+        return state.getValue(PART) == 0 ? pos : pos.below();
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType) {
+        if(level.isClientSide()) {
+            return null;
+        }
+        return createTickerHelper(blockEntityType, ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(),
+                (level1, pos, state1, blockEntity) -> blockEntity.tick(level1, pos, state1));
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return state.getValue(PART) == 0
+                ? new FeyAltarBlockEntity(pos, state)
+                : null;
+    }
+
+    @Nullable
+    @Override
+    public PushReaction getPistonPushReaction(@NotNull BlockState state) {
+        return PushReaction.BLOCK;
+    }
 }

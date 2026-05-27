@@ -139,6 +139,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
+        System.out.println("OPEN MENU");
        return new FeyAltarMenu(id,inventory,this,this.data);
 
     }
