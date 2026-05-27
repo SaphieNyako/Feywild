@@ -27,6 +27,7 @@ public abstract class GiantFlowerBlock extends Block {
     public static final VoxelShape FLOWER_SHAPE = box(1, 0, 1, 15, 15, 15);
     // 0 - 2 = stem, 3 = flower
     public static final IntegerProperty PART = IntegerProperty.create("part", 0, 3);
+
     public final int height;
 
     public GiantFlowerBlock(int height) {
@@ -48,7 +49,6 @@ public abstract class GiantFlowerBlock extends Block {
     }
 
     @Override
-
     public @NotNull VoxelShape getVisualShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return Shapes.empty();
     }

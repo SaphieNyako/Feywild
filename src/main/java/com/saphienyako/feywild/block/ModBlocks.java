@@ -45,6 +45,10 @@ public class ModBlocks {
     public static final DeferredBlock<Block> FEY_ALTAR = registerBlock("fey_altar",
             () -> new FeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
+    public static final DeferredBlock<Block> TITANIA_ALTAR = registerBlock("titania_altar",
+            NewFeyAltarBlock::new);
+
+
     //MUSHROOM BLOCKS
     public static final DeferredBlock<Block> ORANGE_MUSHROOM = registerBlock("orange_mushroom",
             () -> new MushroomBlock(ModConfiguredFeatures.ORANGE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()

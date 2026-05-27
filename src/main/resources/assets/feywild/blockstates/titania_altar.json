@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "part=0": {
+      "model": "feywild:block/titania_altar_bottom"
+    },
+    "part=1": {
+      "model": "feywild:block/titania_altar_upper"
+    }
+  }
+}

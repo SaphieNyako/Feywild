@@ -16,10 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -38,7 +35,7 @@ public class MabEntity extends FlyingBossBase {
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
-    public MabEntity(EntityType<? extends Monster> entity, Level level) {
+    public MabEntity(EntityType<? extends PathfinderMob> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.mab").withStyle(ChatFormatting.BLUE),
                 BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
     }

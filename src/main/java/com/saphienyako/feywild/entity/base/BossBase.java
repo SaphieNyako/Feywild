@@ -16,6 +16,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
@@ -29,12 +30,12 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 
-public abstract class BossBase extends Monster {
+public abstract class BossBase extends PathfinderMob {
 
     public final ServerBossEvent bossInfo;
     private int deathTicks = 0;
     private boolean dying = false;
-    protected BossBase(EntityType<? extends Monster> entity, Level level, ServerBossEvent bossInfo) {
+    protected BossBase(EntityType<? extends PathfinderMob> entity, Level level, ServerBossEvent bossInfo) {
         super(entity, level);
         this.bossInfo = bossInfo;
         this.noCulling = true;
