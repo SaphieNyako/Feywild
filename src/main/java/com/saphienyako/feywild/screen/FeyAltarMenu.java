@@ -36,12 +36,12 @@ public class FeyAltarMenu extends AbstractContainerMenu {
 
         IItemHandler handler = this.blockEntity.getItemHandler();
 
-        this.addSlot(new SlotItemHandler(handler, 0, 80, 5));
-        this.addSlot(new SlotItemHandler(handler, 1, 49, 26));
-        this.addSlot(new SlotItemHandler(handler, 2, 110, 26));
-        this.addSlot(new SlotItemHandler(handler, 3, 61, 61));
-        this.addSlot(new SlotItemHandler(handler, 4, 99, 61));
-        this.addSlot(new SlotItemHandler(handler, 5, 143, 54));
+        this.addSlot(new SlotItemHandler(handler, 0, 95, 18)); //15, 13
+        this.addSlot(new SlotItemHandler(handler, 1, 64, 39));
+        this.addSlot(new SlotItemHandler(handler, 2, 125, 39));
+        this.addSlot(new SlotItemHandler(handler, 3, 76, 74));
+        this.addSlot(new SlotItemHandler(handler, 4, 114, 74));
+        this.addSlot(new SlotItemHandler(handler, 5, 158, 67));
 
         addDataSlots(data);
     }
@@ -122,14 +122,14 @@ public class FeyAltarMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 23 + l * 18, 97 + i * 18)); //18 18
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(playerInventory, i, 23 + i * 18, 155));
         }
     }
 }

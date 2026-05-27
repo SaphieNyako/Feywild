@@ -27,8 +27,6 @@ public class BeeKnightScreen extends AbstractContainerScreen<BeeKnightMenu> {
     private float yMouse;
 
 
-
-
     public BeeKnightScreen(BeeKnightMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, Component.translatable("message.feywild.bee_knight_menu_description").withStyle(ChatFormatting.AQUA));
         this.beeMount = menu.beeMount;

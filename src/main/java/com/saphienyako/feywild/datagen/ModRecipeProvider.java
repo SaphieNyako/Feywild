@@ -36,7 +36,17 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
                 .save(recipeOutput);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR.get())
+       /* ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR.get())
+                .pattern(" # ")
+                .pattern("#S#")
+                .pattern(" _ ")
+                .define('#', Items.SMOOTH_STONE.asItem())
+                .define('S', ModItems.FEY_GEM.get())
+                .define('_', Items.SMOOTH_STONE_SLAB.asItem())
+                .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
+                .save(recipeOutput); */
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get())
                 .pattern(" # ")
                 .pattern("#S#")
                 .pattern(" _ ")
@@ -46,6 +56,25 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
                 .save(recipeOutput);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR_QUEEN_MAB.get())
+                .pattern(" # ")
+                .pattern("#S#")
+                .pattern(" _ ")
+                .define('#', Items.SMOOTH_STONE.asItem())
+                .define('S', ModItems.FEY_GEM.get())
+                .define('_', Items.SMOOTH_STONE_SLAB.asItem())
+                .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
+                .save(recipeOutput);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FEY_ALTAR_ASHEN_LORD.get())
+                .pattern(" # ")
+                .pattern("#S#")
+                .pattern(" _ ")
+                .define('#', Items.SMOOTH_STONE.asItem())
+                .define('S', ModItems.FEY_GEM.get())
+                .define('_', Items.SMOOTH_STONE_SLAB.asItem())
+                .unlockedBy(getHasName(ModItems.FEY_GEM.get()), has(ModItems.FEY_GEM.get()))
+                .save(recipeOutput);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FEY_INK_BOTTLE.get(), 1)
                 .requires(ModItems.MANDRAKE.get())

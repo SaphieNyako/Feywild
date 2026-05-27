@@ -17,6 +17,10 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
 
     public FeyAltarScreen(FeyAltarMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+
+        imageWidth = 220;
+        imageHeight = 200;
+
         this.menu = menu;
     }
 
@@ -40,9 +44,9 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         ResourceLocation texture =
                 ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/gui/fey_altar_gui_" + menu.blockEntity.getAlignment().id + ".png");
+                        "textures/gui/fey_altar_" + menu.blockEntity.getAlignment().id + ".png");
         if(menu.isCrafting()) {
-            guiGraphics.blit(texture, x + 143, y + 37, 178, 0, 15, menu.getScaledProgress());
+            guiGraphics.blit(texture, x + 158, y + 50, 221, 13, 15, menu.getScaledProgress(), 256, 256);
         }
     }
 
@@ -51,5 +55,10 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
         renderBackground(guiGraphics, mouseX, mouseY, delta);
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
+    }
+
+    @Override
+    protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        //
     }
 }
