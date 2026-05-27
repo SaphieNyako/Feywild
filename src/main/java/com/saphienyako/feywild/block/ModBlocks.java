@@ -2,6 +2,7 @@ package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.trees.*;
+import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
@@ -45,13 +46,13 @@ public class ModBlocks {
             () -> new FeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
     public static final DeferredBlock<Block> FEY_ALTAR_QUEEN_TITANIA = registerBlock("fey_altar_queen_titania",
-          () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+          () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.SUMMER));
 
     public static final DeferredBlock<Block> FEY_ALTAR_QUEEN_MAB = registerBlock("fey_altar_queen_mab",
-            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.WINTER));
 
     public static final DeferredBlock<Block> FEY_ALTAR_ASHEN_LORD = registerBlock("fey_altar_ashen_lord",
-            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.AUTUMN));
 
     //MUSHROOM BLOCKS
     public static final DeferredBlock<Block> ORANGE_MUSHROOM = registerBlock("orange_mushroom",

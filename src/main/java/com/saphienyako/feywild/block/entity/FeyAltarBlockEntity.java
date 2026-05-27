@@ -1,5 +1,7 @@
 package com.saphienyako.feywild.block.entity;
 
+import com.saphienyako.feywild.block.NewFeyAltarBlock;
+import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.network.AltarParticleMessage;
 import com.saphienyako.feywild.recipe.FeyAltarRecipe;
 import com.saphienyako.feywild.recipe.FeyAltarRecipeInput;
@@ -139,7 +141,6 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
-        System.out.println("OPEN MENU");
        return new FeyAltarMenu(id,inventory,this,this.data);
 
     }
@@ -294,6 +295,13 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
         return saveWithoutMetadata(registries);
+    }
+
+
+    public Alignment getAlignment() {
+        return getBlockState().getBlock() instanceof NewFeyAltarBlock altar
+                ? altar.getAlignment()
+                : Alignment.SPRING;
     }
 }
 

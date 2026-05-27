@@ -3,6 +3,7 @@ package com.saphienyako.feywild.block;
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
+import com.saphienyako.feywild.entity.Alignment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -51,11 +52,17 @@ public class NewFeyAltarBlock extends BaseEntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public NewFeyAltarBlock(Properties properties) {
+    private final Alignment alignment;
+    public NewFeyAltarBlock(Properties properties, Alignment alignment) {
         super(properties);
+        this.alignment = alignment;
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(PART, 0)
                 .setValue(FACING, Direction.NORTH));
+    }
+
+    public NewFeyAltarBlock(Properties properties) {
+        this(properties, Alignment.SPRING);
     }
 
 
@@ -106,6 +113,7 @@ public class NewFeyAltarBlock extends BaseEntityBlock {
     public void setPlacedBy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity placer, @NotNull ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (!level.isClientSide) {
+
             level.setBlock(
                     pos.above(),
                     state.setValue(PART, 1),
@@ -222,5 +230,9 @@ public class NewFeyAltarBlock extends BaseEntityBlock {
     @Override
     public PushReaction getPistonPushReaction(@NotNull BlockState state) {
         return PushReaction.BLOCK;
+    }
+
+    public Alignment getAlignment() {
+        return alignment;
     }
 }

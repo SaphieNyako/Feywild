@@ -12,29 +12,37 @@ import org.jetbrains.annotations.NotNull;
 
 public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
 
-    private static final ResourceLocation TEXTURE =
-             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/fey_altar_gui.png");
+    private final FeyAltarMenu menu;
+
 
     public FeyAltarScreen(FeyAltarMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+        this.menu = menu;
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
+        ResourceLocation texture =
+                ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                        "textures/gui/fey_altar_" + menu.blockEntity.getAlignment().id + ".png");
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, texture);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(texture, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(guiGraphics, x, y);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+        ResourceLocation texture =
+                ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                        "textures/gui/fey_altar_gui_" + menu.blockEntity.getAlignment().id + ".png");
         if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 143, y + 37, 178, 0, 15, menu.getScaledProgress());
+            guiGraphics.blit(texture, x + 143, y + 37, 178, 0, 15, menu.getScaledProgress());
         }
     }
 
