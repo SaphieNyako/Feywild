@@ -4,8 +4,8 @@
 	"texture_size": [128, 128],
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"1": "feywild:block/titania_altar",
-		"particle": "feywild:block/titania_altar"
+		"1": "feywild:block/fey_altar_queen_titania",
+		"particle": "feywild:block/fey_altar_queen_titania"
 	},
 	"elements": [
 		{

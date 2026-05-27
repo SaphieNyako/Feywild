@@ -114,7 +114,9 @@ public class FeyAltarMenu extends AbstractContainerMenu {
         Block block = blockEntity.getBlockState().getBlock();
         //TODO add Tag?
         return block == ModBlocks.FEY_ALTAR.get()
-                || block == ModBlocks.TITANIA_ALTAR.get();
+                || block == ModBlocks.FEY_ALTAR_QUEEN_MAB.get()
+                || block == ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get()
+                || block == ModBlocks.FEY_ALTAR_ASHEN_LORD.get();
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "feywild:item/fey_altar"
+    "layer0": "feywild:item/fey_altar_queen_titania"
   }
 }

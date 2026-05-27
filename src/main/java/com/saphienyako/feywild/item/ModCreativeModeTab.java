@@ -30,8 +30,9 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.MANDRAKE_ROOT.get());
                         output.accept(ModItems.MANDRAKE.get());
                         output.accept(ModItems.FEY_INK_BOTTLE.get());
-                        output.accept(ModBlocks.FEY_ALTAR.get());
-                        output.accept(ModBlocks.TITANIA_ALTAR.get());
+                        output.accept(ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get());
+                        output.accept(ModBlocks.FEY_ALTAR_QUEEN_MAB.get());
+                        output.accept(ModBlocks.FEY_ALTAR_ASHEN_LORD.get());
 
                         output.accept(ModItems.FEYWILD_MUSIC_DISC.get());
                         output.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());

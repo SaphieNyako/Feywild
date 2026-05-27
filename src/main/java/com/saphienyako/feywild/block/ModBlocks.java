@@ -8,7 +8,6 @@ import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -45,9 +44,14 @@ public class ModBlocks {
     public static final DeferredBlock<Block> FEY_ALTAR = registerBlock("fey_altar",
             () -> new FeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
-    public static final DeferredBlock<Block> TITANIA_ALTAR = registerBlock("titania_altar",
+    public static final DeferredBlock<Block> FEY_ALTAR_QUEEN_TITANIA = registerBlock("fey_altar_queen_titania",
           () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
+    public static final DeferredBlock<Block> FEY_ALTAR_QUEEN_MAB = registerBlock("fey_altar_queen_mab",
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+
+    public static final DeferredBlock<Block> FEY_ALTAR_ASHEN_LORD = registerBlock("fey_altar_ashen_lord",
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
 
     //MUSHROOM BLOCKS
     public static final DeferredBlock<Block> ORANGE_MUSHROOM = registerBlock("orange_mushroom",
