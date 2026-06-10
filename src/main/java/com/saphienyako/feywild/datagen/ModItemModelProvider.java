@@ -28,6 +28,12 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.EMPTY_SUMMONING_SCROLL.get());
         basicItem(ModItems.PIXIE_ORB.get());
         basicItem(ModItems.PIXIE_WING_TIARA.get());
+        basicItem(ModItems.AUTUMN_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.SPRING_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.SUMMER_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.WINTER_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.SHADOW_WING_TIARA.get());
+        basicItem(ModItems.LIGHT_WING_TIARA.get());
         basicItem(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
         basicItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
         basicItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());

@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.effect;
 
+import com.saphienyako.feywild.item.PixieWingTiaraItem;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
@@ -42,16 +43,5 @@ public class FeyFlyingEffect extends MobEffect {
     @Override
     public void removeAttributeModifiers(@Nonnull AttributeMap attributeMap) {
         super.removeAttributeModifiers(attributeMap);
-    }
-
-    public static void onPlayerTick(Player player) {
-        if (!player.level().isClientSide && !player.hasEffect(ModEffects.FEY_FLYING)) {
-            if (!player.isCreative() && !player.isSpectator()) {
-                var abilities = player.getAbilities();
-                abilities.mayfly = false;
-                abilities.flying = false;
-                player.onUpdateAbilities();
-            }
-        }
     }
 }

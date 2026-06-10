@@ -10,6 +10,7 @@ import com.saphienyako.feywild.item.base.ToolTipBaseItemNameBlockItem;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -27,10 +28,33 @@ public class ModItems {
 
     public static final DeferredItem<Item> FEY_GEM = ITEMS.register("fey_gem", () -> new ToolTipBaseItem(new Item.Properties(),
             Component.translatable("message.feywild.fey_gem")));
-
-
-    public static final DeferredItem<Item> PIXIE_WING_TIARA = ITEMS.register("pixie_wing_tiara", () -> new ToolTipBaseItem(new Item.Properties(),
+    public static final DeferredItem<Item> PIXIE_WING_TIARA =  ITEMS.register("pixie_wing_tiara", () -> new ToolTipBaseItem(new Item.Properties(),
             Component.translatable("message.feywild.pixie_wing_tiara")));
+
+
+    public static final DeferredItem<Item> AUTUMN_PIXIE_WING_TIARA =
+            ITEMS.registerItem("autumn_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
+                    ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/autumn")), new Item.Properties());
+
+    public static final DeferredItem<Item> SPRING_PIXIE_WING_TIARA =
+            ITEMS.registerItem("spring_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
+                            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/spring")), new Item.Properties());
+
+    public static final DeferredItem<Item> SUMMER_PIXIE_WING_TIARA =
+            ITEMS.registerItem("summer_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
+                    ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/summer")), new Item.Properties());
+
+    public static final DeferredItem<Item> WINTER_PIXIE_WING_TIARA =
+            ITEMS.registerItem("winter_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
+                    ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/winter")), new Item.Properties());
+
+    public static final DeferredItem<Item> SHADOW_WING_TIARA =
+            ITEMS.registerItem("shadow_wing_tiara", properties -> new PixieWingTiaraItem(properties,
+                    ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/shadow")), new Item.Properties());
+
+    public static final DeferredItem<Item> LIGHT_WING_TIARA =
+            ITEMS.registerItem("light_wing_tiara", properties -> new PixieWingTiaraItem(properties,
+                    ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/light")), new Item.Properties());
 
     public static final DeferredItem<Item> FEY_INK_BOTTLE = ITEMS.register("fey_ink_bottle",() -> new ToolTipBaseItem(new Item.Properties(),
             Component.translatable("message.feywild.fey_ink_bottle")));

@@ -48,4 +48,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation MAB_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mab_layer"), "main");
 
+    public static final ModelLayerLocation FEY_WINGS_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_wings"), "main");
+
 }

@@ -39,6 +39,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());
                         output.accept(ModItems.PIXIE_ORB.get());
                         output.accept(ModItems.PIXIE_WING_TIARA.get());
+
                         output.accept(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
                         output.accept(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get());
                         output.accept(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get());
@@ -53,12 +54,21 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
                         output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
+
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_DANDELION_FLOWER_SEED.get());
 
+                        output.accept(ModItems.AUTUMN_PIXIE_WING_TIARA.get());
+                        output.accept(ModItems.SPRING_PIXIE_WING_TIARA.get());
+                        output.accept(ModItems.SUMMER_PIXIE_WING_TIARA.get());
+                        output.accept(ModItems.WINTER_PIXIE_WING_TIARA.get());
+                        output.accept(ModItems.SHADOW_WING_TIARA.get());
+                        output.accept(ModItems.LIGHT_WING_TIARA.get());
+
                         output.accept(ModBlocks.FEY_GEM_ORE.get());
                         output.accept(ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
+
                         output.accept(ModBlocks.ELVEN_QUARTZ_BLOCK.get());
                         output.accept(ModBlocks.ELVEN_QUARTZ_STAIRS.get());
                         output.accept(ModBlocks.ELVEN_QUARTZ_SLAB.get());

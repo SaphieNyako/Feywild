@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.base.TreeEntBase;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -77,6 +76,9 @@ public class ModEntities {
     public static final Supplier<EntityType<MabEntity>> MAB =
             ENTITY_TYPES.register("mab", () -> EntityType.Builder.of(MabEntity::new, MobCategory.CREATURE)
                     .sized(1.8f,3.7f).build("mab"));
+
+    public static final Supplier<EntityType<FeyWingsEntity>> FEY_WINGS =
+            ENTITY_TYPES.register("fey_wings", () -> EntityType.Builder.of(FeyWingsEntity::new, MobCategory.MISC).build("fey_wings"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

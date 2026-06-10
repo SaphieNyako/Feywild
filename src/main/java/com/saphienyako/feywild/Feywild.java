@@ -13,9 +13,11 @@ import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
 import com.saphienyako.feywild.entity.renderer.*;
+import com.saphienyako.feywild.entity.renderer.layer.FeyWingsPlayerLayer;
 import com.saphienyako.feywild.events.ModEventListener;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.item.PixieWingTiaraItem;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.particle.LeafParticleProvider;
 import com.saphienyako.feywild.particle.ModParticles;
@@ -28,11 +30,15 @@ import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
 import com.saphienyako.feywild.worldgen.features.ModFeatures;
 import com.saphienyako.feywild.worldgen.processor.FeywildProcessors;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -43,10 +49,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -118,6 +121,7 @@ public class Feywild
         event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
         event.put(ModEntities.TITANIA.get(), TitaniaEntity.getDefaultAttributes().build());
         event.put(ModEntities.MAB.get(), MabEntity.getDefaultAttributes().build());
+        event.put(ModEntities.FEY_WINGS.get(), FeyWingsEntity.getDefaultAttributes().build());
     }
     @SuppressWarnings("unused")
     @SubscribeEvent
@@ -127,6 +131,14 @@ public class Feywild
     @SuppressWarnings("unused")
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+
+        @SubscribeEvent
+        public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+            for (var skin : event.getSkins()) {
+                PlayerRenderer renderer = event.getSkin(skin);
+                renderer.addLayer(new FeyWingsPlayerLayer<>(renderer, Minecraft.getInstance().getEntityRenderDispatcher()));
+            }
+        }
 
         @SuppressWarnings("deprecation")
         @SubscribeEvent
@@ -220,6 +232,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.TITANIA_LAYER, TitaniaModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MAB_LAYER, MabModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.FEY_WINGS_LAYER, FeyWingsModel::createBodyLayer);
         }
 
         @SubscribeEvent
@@ -242,6 +255,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.SPRITE.get(), SpriteRenderer::new);
             event.registerEntityRenderer(ModEntities.TITANIA.get(), TitaniaRenderer::new);
             event.registerEntityRenderer(ModEntities.MAB.get(), MabRenderer::new);
+            event.registerEntityRenderer(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
         }
 
         @SubscribeEvent
