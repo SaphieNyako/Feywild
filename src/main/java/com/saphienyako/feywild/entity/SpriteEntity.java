@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity;
 
+import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
 import com.saphienyako.feywild.entity.goals.IronPanicGoal;
 import com.saphienyako.feywild.entity.goals.PanicGoal;
@@ -7,6 +8,7 @@ import com.saphienyako.feywild.entity.goals.SpriteAngryGoal;
 import com.saphienyako.feywild.entity.goals.SpriteHappyGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -132,7 +135,7 @@ public class SpriteEntity extends FlyingFeyBase {
 
         // movement
         if (this.tickCount < 40) {
-          LivingEntity target = this.getTarget(); // or stored owner target if you later add it
+          LivingEntity target = this.getTarget();
 
             if (target != null) {
                 Vec3 adjust = target.position()
@@ -145,11 +148,20 @@ public class SpriteEntity extends FlyingFeyBase {
         }
         this.move(MoverType.SELF, this.getDeltaMovement());
 
+        boolean shouldExpire = this.tickCount > 60;
 
-        if (this.horizontalCollision || this.verticalCollision || this.tickCount > 80) {
+        if (shouldExpire && isPlayerNearby(3.0)) {
             onImpact();
             this.discard();
         }
+
+        if (this.tickCount > 20 * 120) { // 20 seconds
+            this.discard();
+        }
+    }
+
+    private boolean isPlayerNearby(double radius) {
+        return !this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(radius)).isEmpty();
     }
 
     private void onImpact() {
@@ -164,54 +176,78 @@ public class SpriteEntity extends FlyingFeyBase {
         switch (variant) {
 
             case SUMMER -> {
-                level.explode(this, pos.x, pos.y, pos.z, 2.0F, Level.ExplosionInteraction.NONE
-                );
-
+                level.explode(this, pos.x, pos.y, pos.z, 2.0F, Level.ExplosionInteraction.NONE);
                 applyAoE(entity -> {
-                    setRemainingFireTicks(3 * 20);
+                   entity.setRemainingFireTicks(3 * 20);
+                    this.playSound(ModSounds.SUMMER_PIXIE_GIGGLE.get(), 1, 1);
                 });
+
             }
 
             case WINTER -> {
                 applyAoE(entity -> {
+                    if (entity instanceof LivingEntity living) {
+                        living.setTicksFrozen(living.getTicksRequiredToFreeze());
+                        living.setTicksFrozen(living.getTicksFrozen() + 60);
+                    }
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
                     entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
+                    this.playSound(ModSounds.WINTER_PIXIE_GIGGLE.get(), 1, 1);
                 });
+
             }
 
             case SPRING -> {
                 applyAoE(entity -> {
-                    if (entity instanceof LivingEntity living) {
-                        living.heal(4.0F);
-                    }
+                    entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80, 1));
+                    this.playSound(ModSounds.SPRING_PIXIE_GIGGLE.get(), 1, 1);
                 });
             }
 
             case AUTUMN -> {
                 applyAoE(entity -> {
-                    entity.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 1));
+                    entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 80, 1));
+                    this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
                 });
             }
 
             case HEXEN -> {
-                level.explode(
-                        this,
-                        pos.x, pos.y, pos.z,
-                        3.5F,
-                        Level.ExplosionInteraction.MOB
-                );
+                applyAoE(entity -> {
+                    entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 1));
+                    this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
+                });
+            }
+
+            case BLOSSOM -> {
+                Vec3 center = this.position();
+                double radius = 6.0;
+
+                List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(radius));
+
+                for (LivingEntity entity : entities) {
+                    if (entity == this) continue;
+
+                    Vec3 pushDir = entity.position()
+                            .subtract(center)
+                            .normalize();
+
+                    double strength = 1.2;
+
+                    entity.setDeltaMovement(entity.getDeltaMovement().add(pushDir.x * strength, 1.5, pushDir.z * strength));
+                    entity.hurtMarked = true;
+                    this.playSound(ModSounds.SPRING_PIXIE_GIGGLE.get(), 1, 1);
+                }
             }
         }
 
-        // =========================
-        // PARTICLE BURST (SERVER SYNCED)
-        // =========================
         level.sendParticles(
-                ParticleTypes.POOF,
-                pos.x, pos.y, pos.z,
-                25,
-                0.5, 0.5, 0.5,
-                0.02
+                ParticleTypes.END_ROD,
+                pos.x,
+                pos.y,
+                pos.z,
+                10,
+                0.3, 0.3, 0.3,
+                0.15
         );
 
         this.discard();
@@ -220,12 +256,15 @@ public class SpriteEntity extends FlyingFeyBase {
     private void applyAoE(Consumer<LivingEntity> action) {
         double radius = 4.0;
 
-        List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(radius));
+        List<LivingEntity> entities = this.level().getEntitiesOfClass(
+                LivingEntity.class,
+                this.getBoundingBox().inflate(radius)
+        );
 
         for (LivingEntity entity : entities) {
-            if (entity != this) {
-                action.accept(entity);
-            }
+            if (entity == this) continue;
+            if (entity instanceof TitaniaEntity) continue;
+            action.accept(entity);
         }
     }
 
@@ -372,7 +411,8 @@ public class SpriteEntity extends FlyingFeyBase {
         SUMMER(ModParticles.SUMMER_SPARKLE_PARTICLE),
         WINTER(ModParticles.WINTER_SPARKLE_PARTICLE),
         AUTUMN(ModParticles.AUTUMN_SPARKLE_PARTICLE),
-        HEXEN(ModParticles.HEXEN_SPARKLE_PARTICLE);
+        HEXEN(ModParticles.HEXEN_SPARKLE_PARTICLE),
+        BLOSSOM(ModParticles.HEXEN_SPARKLE_PARTICLE);
 
         private final Supplier<SimpleParticleType> particle;
 

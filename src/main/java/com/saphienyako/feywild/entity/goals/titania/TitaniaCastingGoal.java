@@ -26,7 +26,7 @@ public class TitaniaCastingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.level.random.nextFloat() < 0.5f
+        return this.level.random.nextFloat() < 0.1f
                 && entity.getTarget() != null
                 && entity.getTarget().isAlive();
     }
@@ -46,7 +46,7 @@ public class TitaniaCastingGoal extends Goal {
                 if (this.level instanceof ServerLevel) {
                     LivingEntity target = entity.getTarget();
                     if(target != null) {
-                        this.castSpriteProjectile(target);
+                        this.castSpriteProjectiles(target);
                     }
                 }
                 this.reset();
@@ -66,18 +66,29 @@ public class TitaniaCastingGoal extends Goal {
         this.entity.playSound(ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), 0.7f, 1);
     }
 
-    private void castSpriteProjectile(LivingEntity target) {
-        SpriteEntity sprite = new SpriteEntity(ModEntities.SPRITE.get(), entity.level());
-
-        sprite.moveTo(entity.getX(), entity.getY() + 2, entity.getZ());
-
-        SpriteEntity.SpriteVariant variant = SpriteEntity.SpriteVariant.values()[entity.getRandom().nextInt(SpriteEntity.SpriteVariant.values().length)];
-        sprite.setVariant(variant);
-        sprite.setMode(SpriteEntity.Mode.PROJECTILE);
+    private void castSpriteProjectiles(LivingEntity target) {
 
         Vec3 targetPos = target.position();
-        sprite.setDeltaMovement(targetPos.subtract(sprite.position()).normalize().scale(0.6));
-        entity.level().addFreshEntity(sprite);
+
+        for (int i = -1; i <= 1; i++) {
+
+            SpriteEntity sprite = new SpriteEntity(ModEntities.SPRITE.get(), entity.level());
+            sprite.moveTo(entity.getX(), entity.getY() + 2, entity.getZ());
+           // sprite.moveTo(entity.getX() + (i * 0.6), entity.getY() + 2, entity.getZ() + (i * 0.6));
+
+            SpriteEntity.SpriteVariant variant = SpriteEntity.SpriteVariant.values()[entity.getRandom().nextInt(SpriteEntity.SpriteVariant.values().length)];
+            sprite.setVariant(variant);
+            sprite.setMode(SpriteEntity.Mode.PROJECTILE);
+
+
+            Vec3 direction = targetPos.subtract(sprite.position()).normalize();
+
+            direction = direction.add(i * 0.12, 0, i * 0.12).normalize();
+
+            sprite.setDeltaMovement(direction.scale(0.6));
+
+            entity.level().addFreshEntity(sprite);
+        }
     }
 
     protected void reset() {

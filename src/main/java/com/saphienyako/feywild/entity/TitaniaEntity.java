@@ -43,10 +43,10 @@ public class TitaniaEntity extends FlyingBossBase {
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 35) //??
-                .add(Attributes.FLYING_SPEED, 35) //??
-                .add(Attributes.MAX_HEALTH, 150)
                 .add(Attributes.MOVEMENT_SPEED, 0.5)
+                .add(Attributes.FLYING_SPEED, 0.5)
+                .add(Attributes.MAX_HEALTH, 150)
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.LUCK, 0.2);
     }
 
@@ -63,8 +63,7 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        //TODO launch sprite entity at player location
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 32, true, false, null));
         this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
          this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
     }
