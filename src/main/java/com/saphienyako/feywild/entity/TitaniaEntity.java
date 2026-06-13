@@ -64,7 +64,7 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 32, true, false, null));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 48, true, false, null));
         this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
         this.goalSelector.addGoal(40, new TitaniaEnchantingGoal(this, this.level()));
         this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));

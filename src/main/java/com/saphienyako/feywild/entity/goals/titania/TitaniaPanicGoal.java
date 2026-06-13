@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.entity.goals.titania;
 
+import com.saphienyako.feywild.entity.TitaniaEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -7,13 +8,13 @@ import net.minecraft.world.phys.Vec3;
 
 public class TitaniaPanicGoal extends Goal {
 
-    private final LivingEntity entity;
+    private final TitaniaEntity entity;
     private final int range;
     private final double speed;
     private int panicTime;
     private long lastHurtTimestamp;
 
-    public TitaniaPanicGoal(LivingEntity entity, double speed, int range) {
+    public TitaniaPanicGoal(TitaniaEntity entity, double speed, int range) {
         this.entity = entity;
         this.speed = speed;
         this.range = range;
@@ -28,6 +29,25 @@ public class TitaniaPanicGoal extends Goal {
     public void start() {
 
         panicTime = 20;
+
+        LivingEntity target = entity.getTarget();
+        //fey trickery
+        if (target != null && entity.getRandom().nextFloat() < 0.25f) {
+
+            Vec3 look = target.getLookAngle();
+            Vec3 behind = target.position().subtract(look.scale(2.5));
+
+            behind = new Vec3(behind.x, target.getY(), behind.z);
+
+            if (entity.level().noCollision(entity, entity.getBoundingBox().move(behind.subtract(entity.position())))) {
+
+                entity.setDeltaMovement(Vec3.ZERO);
+                entity.teleportTo(behind.x, behind.y, behind.z);
+                entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
+
+                return;
+            }
+        }
 
         Vec3 targetPos = null;
 

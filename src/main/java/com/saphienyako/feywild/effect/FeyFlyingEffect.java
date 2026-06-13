@@ -1,18 +1,18 @@
 package com.saphienyako.feywild.effect;
 
-import com.saphienyako.feywild.item.PixieWingTiaraItem;
+import com.saphienyako.feywild.Feywild;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.MovementInputUpdateEvent;
 
 import javax.annotation.Nonnull;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class FeyFlyingEffect extends MobEffect {
 

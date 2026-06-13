@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,6 +22,7 @@ public class ModEventListener {
     public ModEventListener() {
         NeoForge.EVENT_BUS.register(this);
     }
+
     @SuppressWarnings({"unused", "resource"})
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -35,6 +37,7 @@ public class ModEventListener {
             data.putBoolean("feywild_got_lexicon", true);
         }
     }
+
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent.Post event) {
 

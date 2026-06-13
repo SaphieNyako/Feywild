@@ -178,7 +178,7 @@ public class SpriteEntity extends FlyingFeyBase {
             case SUMMER -> {
                 level.explode(this, pos.x, pos.y, pos.z, 2.0F, Level.ExplosionInteraction.NONE);
                 applyAoE(entity -> {
-                   entity.setRemainingFireTicks(3 * 20);
+                   entity.setRemainingFireTicks(6 * 20);
                     this.playSound(ModSounds.SUMMER_PIXIE_GIGGLE.get(), 1, 1);
                 });
 
