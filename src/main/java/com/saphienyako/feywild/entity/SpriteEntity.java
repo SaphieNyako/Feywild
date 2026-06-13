@@ -7,18 +7,19 @@ import com.saphienyako.feywild.entity.goals.SpriteAngryGoal;
 import com.saphienyako.feywild.entity.goals.SpriteHappyGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -27,18 +28,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class SpriteEntity extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(SpriteEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SpriteEntity.class, EntityDataSerializers.INT);
-
+    public static final EntityDataAccessor<Integer> MODE = SynchedEntityData.defineId(SpriteEntity.class, EntityDataSerializers.INT);
     public final AnimationState FLY_IDLE_ANIMATION = new AnimationState();
     public final AnimationState FLY_ANIMATION = new AnimationState();
 
@@ -48,10 +52,11 @@ public class SpriteEntity extends FlyingFeyBase {
 
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
     private int movingTicks = 0;
-    protected SpriteEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
+
+    public SpriteEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.noCulling = true;
-        this.entityData.set(VARIANT, SpriteVariant.HEXEN.ordinal());
+      //  this.entityData.set(VARIANT, SpriteVariant.HEXEN.ordinal());
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -77,12 +82,14 @@ public class SpriteEntity extends FlyingFeyBase {
         super.defineSynchedData(builder);
         builder.define(STATE,0);
         builder.define(VARIANT, SpriteVariant.HEXEN.ordinal());
+        builder.define(MODE, Mode.DEFAULT.ordinal());
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putInt("SpriteVariant", this.entityData.get(VARIANT));
+        nbt.putInt("SpriteMode", this.entityData.get(MODE));
     }
 
     @Override
@@ -91,31 +98,143 @@ public class SpriteEntity extends FlyingFeyBase {
         if (nbt.contains("SpriteVariant")) {
             this.entityData.set(VARIANT, nbt.getInt("SpriteVariant"));
         }
+        if (nbt.contains("SpriteMode")) {
+            this.entityData.set(MODE, nbt.getInt("SpriteMode"));
+        }
     }
 
     @Override
     public void tick() {
         super.tick();
-        if(this.level().isClientSide()) {
+        //Visuals
+        if (this.level().isClientSide()) {
             setupAnimationStates();
+
+            if (this.getParticle() != null && random.nextInt(11) == 0) {
+                for (int i = 0; i < 4; i++) {
+                    this.level().addParticle(
+                            this.getParticle(),
+                            this.getX() + (Math.random() - 0.5),
+                            this.getY() + 1 + (Math.random() - 0.5),
+                            this.getZ() + (Math.random() - 0.5),
+                            0, 0, 0
+                    );
+                }
+            }
+
+            return;
         }
 
-        if (level().isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
-            for (int i = 0; i < 4; i++) {
-                level().addParticle(this.getParticle(),
-                        this.getX() + (Math.random() - 0.5),
-                        this.getY() + 1 + (Math.random() - 0.5),
-                        this.getZ() + (Math.random() - 0.5),
-                        0, 0, 0
+        //server
+        if (this.getMode() != Mode.PROJECTILE) {
+            return;
+        }
+
+        // movement
+        if (this.tickCount < 40) {
+          LivingEntity target = this.getTarget(); // or stored owner target if you later add it
+
+            if (target != null) {
+                Vec3 adjust = target.position()
+                        .subtract(this.position())
+                        .normalize()
+                        .scale(0.02);
+
+                this.setDeltaMovement(this.getDeltaMovement().add(adjust));
+            }
+        }
+        this.move(MoverType.SELF, this.getDeltaMovement());
+
+
+        if (this.horizontalCollision || this.verticalCollision || this.tickCount > 80) {
+            onImpact();
+            this.discard();
+        }
+    }
+
+    private void onImpact() {
+        if (this.level().isClientSide()) return;
+        if (this.getMode() != Mode.PROJECTILE) return;
+
+        SpriteVariant variant = this.getVariant();
+        ServerLevel level = (ServerLevel) this.level();
+
+        Vec3 pos = this.position();
+
+        switch (variant) {
+
+            case SUMMER -> {
+                level.explode(this, pos.x, pos.y, pos.z, 2.0F, Level.ExplosionInteraction.NONE
+                );
+
+                applyAoE(entity -> {
+                    setRemainingFireTicks(3 * 20);
+                });
+            }
+
+            case WINTER -> {
+                applyAoE(entity -> {
+                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
+                    entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
+                });
+            }
+
+            case SPRING -> {
+                applyAoE(entity -> {
+                    if (entity instanceof LivingEntity living) {
+                        living.heal(4.0F);
+                    }
+                });
+            }
+
+            case AUTUMN -> {
+                applyAoE(entity -> {
+                    entity.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 1));
+                });
+            }
+
+            case HEXEN -> {
+                level.explode(
+                        this,
+                        pos.x, pos.y, pos.z,
+                        3.5F,
+                        Level.ExplosionInteraction.MOB
                 );
             }
         }
+
+        // =========================
+        // PARTICLE BURST (SERVER SYNCED)
+        // =========================
+        level.sendParticles(
+                ParticleTypes.POOF,
+                pos.x, pos.y, pos.z,
+                25,
+                0.5, 0.5, 0.5,
+                0.02
+        );
+
+        this.discard();
     }
+
+    private void applyAoE(Consumer<LivingEntity> action) {
+        double radius = 4.0;
+
+        List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(radius));
+
+        for (LivingEntity entity : entities) {
+            if (entity != this) {
+                action.accept(entity);
+            }
+        }
+    }
+
+
+
     @Override
     public SimpleParticleType getParticle() {
         return this.getVariant().getParticle();
     }
-
 
     private boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;
@@ -235,6 +354,14 @@ public class SpriteEntity extends FlyingFeyBase {
     public void setVariant(SpriteEntity.SpriteVariant variant) {this.entityData.set(VARIANT, variant.ordinal());}
 
 
+    public Mode getMode() {
+        return Mode.values()[this.entityData.get(MODE)];
+    }
+
+    public void setMode(Mode mode) {
+        this.entityData.set(MODE, mode.ordinal());
+    }
+
     public enum State {
         IDLE, POSE, ANGRY, HAPPY
     }
@@ -256,5 +383,9 @@ public class SpriteEntity extends FlyingFeyBase {
         public SimpleParticleType getParticle() {
             return particle.get();
         }
+    }
+
+    public enum Mode {
+        DEFAULT, PROJECTILE
     }
 }
