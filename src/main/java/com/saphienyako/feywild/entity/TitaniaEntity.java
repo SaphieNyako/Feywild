@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.FlyingBossBase;
 import com.saphienyako.feywild.entity.goals.titania.TitaniaCastingGoal;
+import com.saphienyako.feywild.entity.goals.titania.TitaniaEnchantingGoal;
 import com.saphienyako.feywild.entity.goals.titania.TitaniaPanicGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.ChatFormatting;
@@ -65,7 +66,8 @@ public class TitaniaEntity extends FlyingBossBase {
         super.registerGoals();
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 32, true, false, null));
         this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
-         this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
+        this.goalSelector.addGoal(40, new TitaniaEnchantingGoal(this, this.level()));
+        this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
     }
 
 
