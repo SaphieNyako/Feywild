@@ -36,8 +36,6 @@ public class TitaniaEntity extends FlyingBossBase {
     public final AnimationState ENCHANTING_ANIMATION = new AnimationState();
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
-
-
     public TitaniaEntity(EntityType<? extends PathfinderMob> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.titania").withStyle(ChatFormatting.YELLOW),
                 BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
@@ -67,10 +65,9 @@ public class TitaniaEntity extends FlyingBossBase {
         super.registerGoals();
         //TODO launch sprite entity at player location
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.goalSelector.addGoal(40, new TitaniaCastingGoal(this));
+        this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
          this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
     }
-
 
 
 
@@ -80,7 +77,6 @@ public class TitaniaEntity extends FlyingBossBase {
             setupAnimationStates();
         }
     }
-
 
     private boolean isMoving() {
         return this.getDeltaMovement().horizontalDistanceSqr() > MIN_MOVING_SPEED_SQR;

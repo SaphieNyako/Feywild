@@ -3,85 +3,90 @@ package com.saphienyako.feywild.entity.goals.titania;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.entity.TitaniaEntity;
+import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
 public class TitaniaCastingGoal extends Goal {
 
-    private final TitaniaEntity mob;
-    private int castTime;
+    protected final Level level;
+    private final TitaniaEntity entity;
+    private int ticksLeft = 0;
 
-    private int cooldown = 0;
-    public TitaniaCastingGoal(TitaniaEntity mob) {
-        this.mob = mob;
+    public TitaniaCastingGoal(TitaniaEntity entity, Level level) {
+        this.entity = entity;
+        this.level = level;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @Override
     public boolean canUse() {
-        return cooldown <= 0 && mob.getTarget() != null && mob.getTarget().isAlive();
+        return this.level.random.nextFloat() < 0.5f
+                && entity.getTarget() != null
+                && entity.getTarget().isAlive();
     }
 
     @Override
     public void start() {
-        castTime = 20;
-        mob.setState(TitaniaEntity.State.CASTING);
+        this.ticksLeft = 32;
+        entity.setState(TitaniaEntity.State.CASTING);
     }
 
     @Override
     public void tick() {
-        if (cooldown > 0) {
-            cooldown--;
-            return;
+
+        if (this.ticksLeft > 0) {
+            this.ticksLeft--;
+            if (this.ticksLeft <= 0) {
+                if (this.level instanceof ServerLevel) {
+                    LivingEntity target = entity.getTarget();
+                    if(target != null) {
+                        this.castSpriteProjectile(target);
+                    }
+                }
+                this.reset();
+            } else if (this.ticksLeft == 15) {
+                this.spellCasting();
+            } else if (this.ticksLeft <= 31) {
+                LivingEntity target = entity.getTarget();
+                if(target != null) {
+                    this.entity.getLookControl().setLookAt(target);
+                }
+            }
         }
-        LivingEntity target = mob.getTarget();
+    }
 
-        if (target == null || !target.isAlive()) {
-            stop();
-            return;
-        }
-
-        mob.getLookControl().setLookAt(target);
-
-        if (castTime-- > 0) return;
-
-        if (!mob.level().isClientSide) {
-            castSpriteProjectile(target);
-        }
-
-        stop();
+    private void spellCasting() {
+        this.entity.setState(TitaniaEntity.State.CASTING);
+        this.entity.playSound(ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), 0.7f, 1);
     }
 
     private void castSpriteProjectile(LivingEntity target) {
-        SpriteEntity sprite = new SpriteEntity(ModEntities.SPRITE.get(), mob.level());
+        SpriteEntity sprite = new SpriteEntity(ModEntities.SPRITE.get(), entity.level());
 
-        sprite.moveTo(mob.getX(), mob.getY() + 2, mob.getZ());
+        sprite.moveTo(entity.getX(), entity.getY() + 2, entity.getZ());
 
-        SpriteEntity.SpriteVariant variant = SpriteEntity.SpriteVariant.values()[mob.getRandom().nextInt(SpriteEntity.SpriteVariant.values().length)];
-
+        SpriteEntity.SpriteVariant variant = SpriteEntity.SpriteVariant.values()[entity.getRandom().nextInt(SpriteEntity.SpriteVariant.values().length)];
         sprite.setVariant(variant);
         sprite.setMode(SpriteEntity.Mode.PROJECTILE);
 
         Vec3 targetPos = target.position();
-
-        sprite.setDeltaMovement(
-                targetPos.subtract(sprite.position()).normalize().scale(0.6)
-        );
-
-        mob.level().addFreshEntity(sprite);
+        sprite.setDeltaMovement(targetPos.subtract(sprite.position()).normalize().scale(0.6));
+        entity.level().addFreshEntity(sprite);
     }
 
-    @Override
-    public void stop() {
-        mob.setState(TitaniaEntity.State.IDLE_FLYING);
-        cooldown = 60; // 3 seconds pause between casts
+    protected void reset() {
+        this.entity.setState(TitaniaEntity.State.IDLE_FLYING);
+        this.ticksLeft = -1;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return mob.getTarget() != null && mob.getTarget().isAlive();
+        return entity.getTarget() != null && entity.getTarget().isAlive() && this.ticksLeft > 0;
     }
 }
