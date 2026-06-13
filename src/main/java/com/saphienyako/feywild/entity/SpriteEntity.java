@@ -180,6 +180,9 @@ public class SpriteEntity extends FlyingFeyBase {
                 applyAoE(entity -> {
                    entity.setRemainingFireTicks(6 * 20);
                     this.playSound(ModSounds.SUMMER_PIXIE_GIGGLE.get(), 1, 1);
+                    if (entity.getRandom().nextFloat() < 0.1f) {
+                        entity.playSound(ModSounds.TITANIA_SUMMER.get(), 1.0F, 1.0F);
+                    }
                 });
 
             }
@@ -193,6 +196,9 @@ public class SpriteEntity extends FlyingFeyBase {
                     entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
                     entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
                     this.playSound(ModSounds.WINTER_PIXIE_GIGGLE.get(), 1, 1);
+                    if (entity.getRandom().nextFloat() < 0.1f) {
+                        entity.playSound(ModSounds.TITANIA_WINTER.get(), 1.0F, 1.0F);
+                    }
                 });
 
             }
@@ -201,6 +207,9 @@ public class SpriteEntity extends FlyingFeyBase {
                 applyAoE(entity -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80, 1));
                     this.playSound(ModSounds.SPRING_PIXIE_GIGGLE.get(), 1, 1);
+                    if (entity.getRandom().nextFloat() < 0.1f) {
+                        entity.playSound(ModSounds.TITANIA_SPRING.get(), 1.0F, 1.0F);
+                    }
                 });
             }
 
@@ -208,6 +217,9 @@ public class SpriteEntity extends FlyingFeyBase {
                 applyAoE(entity -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 80, 1));
                     this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
+                    if (entity.getRandom().nextFloat() < 0.1f) {
+                        entity.playSound(ModSounds.TITANIA_AUTUMN.get(), 1.0F, 1.0F);
+                    }
                 });
             }
 
@@ -215,6 +227,9 @@ public class SpriteEntity extends FlyingFeyBase {
                 applyAoE(entity -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 1));
                     this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
+                    if (entity.getRandom().nextFloat() < 0.05f) {
+                        entity.playSound(ModSounds.TITANIA_HEXEN.get(), 1.0F, 1.0F);
+                    }
                 });
             }
 
@@ -236,6 +251,9 @@ public class SpriteEntity extends FlyingFeyBase {
                     entity.setDeltaMovement(entity.getDeltaMovement().add(pushDir.x * strength, 1.5, pushDir.z * strength));
                     entity.hurtMarked = true;
                     this.playSound(ModSounds.SPRING_PIXIE_GIGGLE.get(), 1, 1);
+                    if (entity.getRandom().nextFloat() < 0.1f) {
+                        entity.playSound(ModSounds.TITANIA_BLOSSOM.get(), 1.0F, 1.0F);
+                    }
                 }
             }
         }

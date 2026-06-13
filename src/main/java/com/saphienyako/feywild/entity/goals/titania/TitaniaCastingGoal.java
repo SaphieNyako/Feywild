@@ -74,8 +74,8 @@ public class TitaniaCastingGoal extends Goal {
         for (int i = -1; i <= 1; i++) {
 
             SpriteEntity sprite = new SpriteEntity(ModEntities.SPRITE.get(), entity.level());
-            sprite.moveTo(entity.getX(), entity.getY() + 2, entity.getZ());
-           // sprite.moveTo(entity.getX() + (i * 0.6), entity.getY() + 2, entity.getZ() + (i * 0.6));
+            //    sprite.moveTo(entity.getX(), entity.getY() + 2, entity.getZ());
+            sprite.moveTo(entity.getX() + (i * 0.6), entity.getY() + 2, entity.getZ() + (i * 0.6));
 
             SpriteEntity.SpriteVariant variant = SpriteEntity.SpriteVariant.values()[entity.getRandom().nextInt(SpriteEntity.SpriteVariant.values().length)];
             sprite.setVariant(variant);
@@ -90,6 +90,7 @@ public class TitaniaCastingGoal extends Goal {
 
             entity.level().addFreshEntity(sprite);
         }
+        this.entity.playSound(ModSounds.TITANIA_SUMMON.get(), 1f, 1);
     }
 
     protected void reset() {

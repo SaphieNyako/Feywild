@@ -32,7 +32,7 @@ public class TitaniaPanicGoal extends Goal {
 
         LivingEntity target = entity.getTarget();
         //fey trickery
-        if (target != null && entity.getRandom().nextFloat() < 0.25f) {
+        if (target != null && entity.getRandom().nextFloat() < 0.33f) {
 
             Vec3 look = target.getLookAngle();
             Vec3 behind = target.position().subtract(look.scale(2.5));

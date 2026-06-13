@@ -6,6 +6,7 @@ import com.saphienyako.feywild.entity.goals.titania.TitaniaCastingGoal;
 import com.saphienyako.feywild.entity.goals.titania.TitaniaEnchantingGoal;
 import com.saphienyako.feywild.entity.goals.titania.TitaniaPanicGoal;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.pathfinder.PathType;
 
 public class TitaniaEntity extends FlyingBossBase {
 
@@ -40,6 +42,7 @@ public class TitaniaEntity extends FlyingBossBase {
     public TitaniaEntity(EntityType<? extends PathfinderMob> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.titania").withStyle(ChatFormatting.YELLOW),
                 BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
+        this.setPathfindingMalus(PathType.WATER, -1.0F);
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -64,7 +67,7 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 48, true, false, null));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
         this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
         this.goalSelector.addGoal(40, new TitaniaEnchantingGoal(this, this.level()));
         this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
@@ -144,21 +147,16 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected SoundEvent getAmbientSound() {
         return null;
-          //TODO
-        //random.nextInt(3) == 0 ? ModSoundEvents.titaniaAmbience.getSoundEvent() : ModSoundEvents.beatingWings.getSoundEvent();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return null;
-        //TODO
-        //return random.nextInt(3) == 0 ? ModSoundEvents.titaniaHurt.getSoundEvent() : null;
+        return ModSounds.TITANIA_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return null;
-        //TODO
+        return ModSounds.TITANIA_DEATH.get();
     }
 
     public TitaniaEntity.State getState() {

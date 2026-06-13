@@ -154,6 +154,18 @@ public class ModSounds {
     public static final Supplier<SoundEvent> TREE_ENT_STORY_05 = registerSoundEvent("tree_ent_story_05");
     public static final Supplier<SoundEvent> TREE_ENT_STORY_06 = registerSoundEvent("tree_ent_story_06");
 
+    public static final Supplier<SoundEvent> TITANIA_HURT = registerSoundEvent("titania_hurt");
+    public static final Supplier<SoundEvent> TITANIA_DEATH = registerSoundEvent("titania_death");
+
+    public static final Supplier<SoundEvent> TITANIA_SUMMON = registerSoundEvent("titania_summon");
+
+    public static final Supplier<SoundEvent> TITANIA_SUMMER = registerSoundEvent("titania_summer");
+    public static final Supplier<SoundEvent> TITANIA_SPRING = registerSoundEvent("titania_spring");
+    public static final Supplier<SoundEvent> TITANIA_WINTER = registerSoundEvent("titania_winter");
+    public static final Supplier<SoundEvent> TITANIA_AUTUMN = registerSoundEvent("titania_autumn");
+    public static final Supplier<SoundEvent> TITANIA_HEXEN = registerSoundEvent("titania_hexen");
+    public static final Supplier<SoundEvent> TITANIA_BLOSSOM = registerSoundEvent("titania_blossom");
+
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }

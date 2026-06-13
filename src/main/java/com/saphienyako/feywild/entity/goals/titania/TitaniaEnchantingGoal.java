@@ -29,7 +29,7 @@ public class TitaniaEnchantingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.level.random.nextFloat() < 0.04f
+        return this.level.random.nextFloat() < 0.05f
                 && entity.getTarget() != null
                 && entity.getTarget().isAlive()
                 && entity.getState() != TitaniaEntity.State.CASTING;

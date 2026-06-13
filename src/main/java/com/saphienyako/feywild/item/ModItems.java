@@ -5,6 +5,7 @@ import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.GiantFlowerBlock;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.item.base.ExplosionProofItem;
 import com.saphienyako.feywild.item.base.ToolTipBaseItem;
 import com.saphienyako.feywild.item.base.ToolTipBaseItemNameBlockItem;
 import com.saphienyako.feywild.sound.ModSounds;
@@ -28,7 +29,7 @@ public class ModItems {
 
     public static final DeferredItem<Item> FEY_GEM = ITEMS.register("fey_gem", () -> new ToolTipBaseItem(new Item.Properties(),
             Component.translatable("message.feywild.fey_gem")));
-    public static final DeferredItem<Item> PIXIE_WING_TIARA =  ITEMS.register("pixie_wing_tiara", () -> new ToolTipBaseItem(new Item.Properties(),
+    public static final DeferredItem<Item> PIXIE_WING_TIARA =  ITEMS.register("pixie_wing_tiara", () -> new ExplosionProofItem(new Item.Properties(),
             Component.translatable("message.feywild.pixie_wing_tiara")));
 
 
