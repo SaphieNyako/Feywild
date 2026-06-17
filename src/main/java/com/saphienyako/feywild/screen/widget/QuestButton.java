@@ -24,16 +24,25 @@ public class QuestButton extends Button {
 
     private final boolean dismiss;
 
-    public QuestButton(int x, int y, Screen screen, boolean dismiss) {
+    private final String questLineId;
+
+    private final String backgroundName;
+
+    private final int entyityId;
+
+    public QuestButton(int x, int y, Screen screen, String questLineId, String backgroundName, boolean dismiss, int entityId) {
         super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {}, l -> Component.empty());
         this.screen = screen;
         this.textComponent = Component.translatable("message.feywild.quest");
+        this.questLineId = questLineId;
+        this.backgroundName = backgroundName;
+        this.entyityId = entityId;
         this.dismiss = dismiss;
     }
 
     @Override
     public void onPress() {
-        PacketDistributor.sendToServer(new OpenQuestMessage("sprite", "hexen_quest", dismiss));
+        PacketDistributor.sendToServer(new OpenQuestMessage(questLineId, backgroundName, dismiss, entyityId));
         this.screen.onClose();
     }
 

@@ -3,6 +3,7 @@ package com.saphienyako.feywild.network;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.SpriteEntity;
+import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.quest_giver.QuestGiverAPI;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,7 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record OpenQuestMessage(String questLineId, String backgroundName, boolean dismiss) implements CustomPacketPayload {
+public record OpenQuestMessage(String questLineId, String backgroundName, boolean dismiss, int entityId) implements CustomPacketPayload {
 
     public static final Type<OpenQuestMessage> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "open_quest"));
@@ -27,10 +28,11 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
         buf.writeUtf(msg.questLineId());
         buf.writeUtf(msg.backgroundName());
         buf.writeBoolean(msg.dismiss());
+        buf.writeInt(msg.entityId());
     }
 
     private static OpenQuestMessage decode(FriendlyByteBuf buf) {
-        return new OpenQuestMessage(buf.readUtf(), buf.readUtf(), buf.readBoolean());
+        return new OpenQuestMessage(buf.readUtf(), buf.readUtf(), buf.readBoolean(), buf.readInt());
     }
 
     public static void handle(OpenQuestMessage msg, IPayloadContext context) {
@@ -40,7 +42,11 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
 
             if (player instanceof ServerPlayer serverPlayer) {
 
-                SpriteEntity entity = ModEntities.SPRITE.get().create(level);
+                //  SpriteEntity entity = ModEntities.SPRITE.get().create(level);
+                FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
+                if (!(entity instanceof FeyBase)) {
+                    entity = ModEntities.SPRITE.get().create(level);
+                }
 
                 if (entity != null) {
                     entity.setPos(player.getEyePosition());
