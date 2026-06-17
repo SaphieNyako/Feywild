@@ -384,6 +384,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get(),
             ModBlocks.FEY_ALTAR_QUEEN_MAB.get(),
             ModBlocks.FEY_ALTAR_ASHEN_LORD.get(),
+            ModBlocks.FEY_ALTAR_OBERON.get(),
             ModBlocks.AUTUMN_TREE_PLANKS_DOOR.get(),
             ModBlocks.SPRING_TREE_PLANKS_DOOR.get(),
             ModBlocks.SUMMER_TREE_PLANKS_DOOR.get(),

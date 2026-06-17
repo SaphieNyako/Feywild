@@ -29,7 +29,7 @@ public class TitaniaEnchantingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.level.random.nextFloat() < 0.05f
+        return this.level.random.nextFloat() < 0.04f
                 && entity.getTarget() != null
                 && entity.getTarget().isAlive()
                 && entity.getState() != TitaniaEntity.State.CASTING;
@@ -71,7 +71,7 @@ public class TitaniaEnchantingGoal extends Goal {
     }
 
     private void castEnchant(LivingEntity target) {
-        target.addEffect(new MobEffectInstance(ModEffects.FEY_TRICKERY, 120, 2));
+        target.addEffect(new MobEffectInstance(ModEffects.FEY_TRICKERY, 100, 2));
     }
 
     protected void reset() {

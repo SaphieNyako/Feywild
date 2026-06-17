@@ -116,7 +116,8 @@ public class FeyAltarMenu extends AbstractContainerMenu {
         return block == ModBlocks.FEY_ALTAR.get()
                 || block == ModBlocks.FEY_ALTAR_QUEEN_MAB.get()
                 || block == ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get()
-                || block == ModBlocks.FEY_ALTAR_ASHEN_LORD.get();
+                || block == ModBlocks.FEY_ALTAR_ASHEN_LORD.get()
+                || block == ModBlocks.FEY_ALTAR_OBERON.get();
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

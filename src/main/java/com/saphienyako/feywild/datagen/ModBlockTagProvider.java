@@ -32,6 +32,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get(),
                 ModBlocks.FEY_ALTAR_QUEEN_MAB.get(),
                 ModBlocks.FEY_ALTAR_ASHEN_LORD.get(),
+                ModBlocks.FEY_ALTAR_OBERON.get(),
 
                 ModBlocks.ELVEN_QUARTZ_BLOCK.get(),
                 ModBlocks.ELVEN_QUARTZ_STAIRS.get(),

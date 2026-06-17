@@ -49,7 +49,7 @@ public class TitaniaEntity extends FlyingBossBase {
         return Mob.createMobAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.5)
                 .add(Attributes.FLYING_SPEED, 0.5)
-                .add(Attributes.MAX_HEALTH, 150)
+                .add(Attributes.MAX_HEALTH, 300)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.LUCK, 0.2);
     }

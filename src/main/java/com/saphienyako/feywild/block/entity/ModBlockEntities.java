@@ -21,7 +21,8 @@ public class ModBlockEntities {
                             ModBlocks.FEY_ALTAR.get(),
                             ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get(),
                             ModBlocks.FEY_ALTAR_QUEEN_MAB.get(),
-                            ModBlocks.FEY_ALTAR_ASHEN_LORD.get()).build(null));
+                            ModBlocks.FEY_ALTAR_ASHEN_LORD.get(),
+                            ModBlocks.FEY_ALTAR_OBERON.get()).build(null));
 
     public static final Supplier<BlockEntityType<FeyCrackedLogBlockEntity>> FEY_CRACKED_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fey_cracked_block_entity", () ->

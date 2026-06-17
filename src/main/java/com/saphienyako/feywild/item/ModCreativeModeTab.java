@@ -34,6 +34,7 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get());
                         output.accept(ModBlocks.FEY_ALTAR_QUEEN_MAB.get());
                         output.accept(ModBlocks.FEY_ALTAR_ASHEN_LORD.get());
+                        output.accept(ModBlocks.FEY_ALTAR_OBERON.get());
 
                         output.accept(ModItems.FEYWILD_MUSIC_DISC.get());
                         output.accept(ModItems.EMPTY_SUMMONING_SCROLL.get());
@@ -53,7 +54,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
-                        output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
+                      //  output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
 
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
