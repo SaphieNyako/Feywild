@@ -33,8 +33,8 @@
   "item.feywild.spawn_egg_summer_tree_ent": "Spawn Egg Summer Tree Ent",
   "item.feywild.spawn_egg_autumn_tree_ent": "Spawn Egg Autumn Tree Ent",
   "item.feywild.spawn_egg_winter_tree_ent": "Spawn Egg Winter Tree Ent",
-  "item.feywild.spawn_queen_titania": "Spawn Egg Queen Titania",
-  "item.feywild.spawn_queen_mab": "Spawn Egg Queen Mab",
+  "item.feywild.spawn_egg_queen_titania": "Spawn Egg Queen Titania",
+  "item.feywild.spawn_egg_queen_mab": "Spawn Egg Queen Mab",
   "item.feywild.fey_dust": "Fey Dust",
   "item.feywild.mandrake": "Mandrake",
   "item.feywild.empty_summoning_scroll": "Empty Summoning Scroll",
@@ -388,6 +388,9 @@
   "message.feywild.pixie_whisper": "[A Pixie whispers]: ",
   "message.feywild.grow_sapling": "This little Sapling needs more room to grow!",
   "message.feywild.pixie_orb_untamed": "You can only communicate with a fey you summoned!",
+  "message.feywild.boss_fight": "Beware: Using this scroll will start a boss fight!",
+
+
   "sounds.feywild.mandrake_scream": "Mandrake screams.",
   "sounds.feywild.pixie_spell_casting": "Pixie is casting a spell.",
   "sounds.feywild.pixie_spell_casting_short": "Pixie is casting a spell.",

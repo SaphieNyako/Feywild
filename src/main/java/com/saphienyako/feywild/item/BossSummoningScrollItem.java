@@ -98,6 +98,7 @@ public class BossSummoningScrollItem extends Item {
 
         else {
             tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+            tooltip.add(Component.translatable("message.feywild.boss_fight").withStyle(ChatFormatting.RED));
         }
         super.appendHoverText(stack, context, tooltip, flag);
     }

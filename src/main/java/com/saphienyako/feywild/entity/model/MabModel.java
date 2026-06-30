@@ -151,6 +151,7 @@ public class MabModel<T extends Entity> extends HierarchicalModel<T> {
         this.animate(((MabEntity)entity).FLYING_ANIMATION, MabAnimations.FLYING, ageInTicks, 1.0f);
         this.animate(((MabEntity)entity).CHANNEL_ANIMATION, MabAnimations.CHANNEL, ageInTicks, 1.0f);
         this.animate(((MabEntity)entity).INTIMIDATION_ANIMATION, MabAnimations.INTIMIDATION, ageInTicks, 1.0f);
+        this.animate(((MabEntity)entity).ATTACKING_ANIMATION, MabAnimations.ATTACK, ageInTicks, 1.0f);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

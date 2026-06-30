@@ -23,14 +23,14 @@ public class ModCreativeModeTab {
                     .title(Component.translatable("creative_tab.feywild_creative_tab"))
                     .icon(() -> new ItemStack(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get()))
                     .displayItems((displayParameters, output) -> {
-                        //TODO change icon
+
                         output.accept(ModItems.FEYWILD_LEXICON.get());
                         output.accept(ModItems.FEY_DUST.get());
                         output.accept(ModItems.FEY_GEM.get());
                         output.accept(ModItems.MANDRAKE_ROOT.get());
                         output.accept(ModItems.MANDRAKE.get());
                         output.accept(ModItems.FEY_INK_BOTTLE.get());
-                        //  output.accept(ModBlocks.FEY_ALTAR.get());
+                        // output.accept(ModBlocks.FEY_ALTAR.get());
                         output.accept(ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get());
                         output.accept(ModBlocks.FEY_ALTAR_QUEEN_MAB.get());
                         output.accept(ModBlocks.FEY_ALTAR_ASHEN_LORD.get());
@@ -54,7 +54,7 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
-                      //  output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
 
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());

@@ -846,5 +846,114 @@
         "attenuation_distance": 128
       }
     ]
-  }
+  },
+  "mab_hurt": {
+  "subtitle": "message.feywild.mab_hurt",
+  "sounds": [
+    {
+      "name": "feywild:mab_hurt0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_hurt1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_hurt2",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_death": {
+  "subtitle": "message.feywild.mab_death",
+  "sounds": [
+    {
+      "name": "feywild:mab_death0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_death1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_death2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_death3",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_ambiance": {
+  "subtitle": "message.feywild.mab_ambiance",
+  "sounds": [
+    {
+      "name": "feywild:mab_ambiance0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance3",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance4",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_summon": {
+  "subtitle": "message.feywild.mab_summon",
+  "sounds": [
+    {
+      "name": "feywild:mab_summon0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_summon1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_summon2",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_intimidate": {
+  "subtitle": "message.feywild.mab_intimidate",
+  "sounds": [
+    {
+      "name": "feywild:mab_intimidate0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_intimidate1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_intimidate2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_intimidate3",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_attack": {
+  "subtitle": "message.feywild.mab_attack",
+  "sounds": [
+    {
+      "name": "feywild:mab_attack0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_attack1",
+      "attenuation_distance": 128
+    }
+  ]
+}
 }

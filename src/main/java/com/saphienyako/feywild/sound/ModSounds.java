@@ -166,6 +166,19 @@ public class ModSounds {
     public static final Supplier<SoundEvent> TITANIA_HEXEN = registerSoundEvent("titania_hexen");
     public static final Supplier<SoundEvent> TITANIA_BLOSSOM = registerSoundEvent("titania_blossom");
 
+    public static final Supplier<SoundEvent> MAB_HURT = registerSoundEvent("mab_hurt");
+    public static final Supplier<SoundEvent> MAB_DEATH = registerSoundEvent("mab_death");
+
+    public static final Supplier<SoundEvent> MAB_AMBIANCE = registerSoundEvent("mab_ambiance");
+
+    public static final Supplier<SoundEvent> MAB_SUMMON = registerSoundEvent("mab_summon");
+
+    public static final Supplier<SoundEvent> MAB_ATTACK = registerSoundEvent("mab_attack");
+
+    public static final Supplier<SoundEvent> MAB_INTIMIDATE = registerSoundEvent("mab_intimidate");
+
+
+
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }

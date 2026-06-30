@@ -155,7 +155,7 @@ public class SpriteEntity extends FlyingFeyBase {
             this.discard();
         }
 
-        if (this.tickCount > 20 * 120) { // 20 seconds
+        if (this.tickCount > 20 * 120) {
             this.discard();
         }
     }

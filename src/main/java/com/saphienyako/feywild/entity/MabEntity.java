@@ -2,7 +2,11 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.FlyingBossBase;
+import com.saphienyako.feywild.entity.goals.mab.IntimidateGoal;
+import com.saphienyako.feywild.entity.goals.mab.PhysicalAttackGoal;
+import com.saphienyako.feywild.entity.goals.mab.SummonVexGoal;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -19,7 +23,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
@@ -32,6 +38,8 @@ public class MabEntity extends FlyingBossBase {
     public final AnimationState CHANNEL_ANIMATION = new AnimationState();
     public final AnimationState INTIMIDATION_ANIMATION = new AnimationState();
 
+    public final AnimationState ATTACKING_ANIMATION = new AnimationState();
+
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
@@ -42,10 +50,10 @@ public class MabEntity extends FlyingBossBase {
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 35) //??
-                .add(Attributes.FLYING_SPEED, 35) //??
-                .add(Attributes.MAX_HEALTH, 150)
                 .add(Attributes.MOVEMENT_SPEED, 0.5)
+                .add(Attributes.FLYING_SPEED, 0.5)
+                .add(Attributes.MAX_HEALTH, 300)
+                .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.LUCK, 0.2);
     }
 
@@ -62,9 +70,11 @@ public class MabEntity extends FlyingBossBase {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        //   this.goalSelector.addGoal(40, new SummonBeeKnightGoal(this));
-        //  this.goalSelector.addGoal(50, new BossTargetFireGoal(this));
-        //  this.goalSelector.addGoal(50, new FeywildPanicGoal(this, 0.003, 16));
+        this.goalSelector.addGoal(40, new SummonVexGoal(this));
+        this.goalSelector.addGoal(30, new IntimidateGoal(this));
+        this.goalSelector.addGoal(50, new PhysicalAttackGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
+        //TODO use target in Goals
     }
 
     public void tick() {
@@ -87,41 +97,86 @@ public class MabEntity extends FlyingBossBase {
         return movingTicks > 0;
     }
 
+
     private void setupAnimationStates() {
+
+        MabEntity.State state = getState();
+
+        if (state == MabEntity.State.ATTACKING) {
+
+            if (!ATTACKING_ANIMATION.isStarted()) {
+                ATTACKING_ANIMATION.start(this.tickCount);
+            }
+
+            FLYING_IDLE_ANIMATION.stop();
+            FLYING_ANIMATION.stop();
+            INTIMIDATION_ANIMATION.stop();
+            CHANNEL_ANIMATION.stop();
+            return;
+        }
+
+
+        if (state == MabEntity.State.CHANNEL) {
+
+            if (!CHANNEL_ANIMATION.isStarted()) {
+                CHANNEL_ANIMATION.start(this.tickCount);
+            }
+
+            FLYING_IDLE_ANIMATION.stop();
+            FLYING_ANIMATION.stop();
+            INTIMIDATION_ANIMATION.stop();
+            ATTACKING_ANIMATION.stop();
+            return;
+        }
+
+        if (state == MabEntity.State.INTIMIDATION) {
+
+            if (!INTIMIDATION_ANIMATION.isStarted()) {
+                INTIMIDATION_ANIMATION.start(this.tickCount);
+            }
+
+            FLYING_IDLE_ANIMATION.stop();
+            FLYING_ANIMATION.stop();
+            CHANNEL_ANIMATION.stop();
+            ATTACKING_ANIMATION.stop();
+            return;
+        }
+
         if (isActuallyMoving()) {
+
             if (!FLYING_ANIMATION.isStarted()) {
                 FLYING_ANIMATION.start(this.tickCount);
             }
+
             FLYING_IDLE_ANIMATION.stop();
+
         } else {
+
             if (!FLYING_IDLE_ANIMATION.isStarted()) {
                 FLYING_IDLE_ANIMATION.start(this.tickCount);
             }
+
             FLYING_ANIMATION.stop();
         }
+
+        //CHANNEL_ANIMATION.stop();
     }
 
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return null;
-        //TODO
-        //random.nextInt(3) == 0 ? ModSoundEvents.titaniaAmbience.getSoundEvent() : ModSoundEvents.beatingWings.getSoundEvent();
-
+        return ModSounds.MAB_AMBIANCE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
-        return null;
-        //TODO
-        //return random.nextInt(3) == 0 ? ModSoundEvents.titaniaHurt.getSoundEvent() : null;
+        return ModSounds.MAB_HURT.get();
     }
 
 
     @Override
     protected SoundEvent getDeathSound() {
-        return null;
-        //TODO
+        return ModSounds.MAB_DEATH.get();
     }
 
     public MabEntity.State getState() {
@@ -154,6 +209,6 @@ public class MabEntity extends FlyingBossBase {
     }
 
     public enum State {
-        IDLE_FLYING, FLYING, CHANNEL, INTIMIDATION
+        IDLE_FLYING, FLYING, CHANNEL, INTIMIDATION, ATTACKING
     }
 }
