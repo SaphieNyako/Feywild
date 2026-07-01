@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:root",
+  "icon": "feywild:golden_chestplat",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_01_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_01_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "minecraft:golden_chestplate"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_01_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_01_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:golden_sword"
+      }
+    }
+  ]
+}

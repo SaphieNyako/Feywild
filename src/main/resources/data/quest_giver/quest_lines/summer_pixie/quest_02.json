@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_01",
+  "icon": "feywild:golden_sword",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_02_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_02_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:iron_golem",
+      "id": "quest_giver:kill",
+      "times": 1
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_02_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_02_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 2,
+        "item": "minecraft:iron_ingot"
+      }
+    }
+  ]
+}

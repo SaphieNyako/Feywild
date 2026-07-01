@@ -42,19 +42,18 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
 
             if (player instanceof ServerPlayer serverPlayer) {
 
-                //  SpriteEntity entity = ModEntities.SPRITE.get().create(level);
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (!(entity instanceof FeyBase)) {
                     entity = ModEntities.SPRITE.get().create(level);
+                    entity.setPos(player.getEyePosition());
+                    level.addFreshEntity(entity);
                 }
 
                 if (entity != null) {
-                    entity.setPos(player.getEyePosition());
-                    level.addFreshEntity(entity);
                     QuestGiverAPI.interactQuest(
                             serverPlayer,
                             entity.getId(),
-                            Component.literal("Feywild Guide"),
+                            Component.literal("Feywild Quest"),
                             InteractionHand.MAIN_HAND,
                             msg.questLineId,
                             msg.backgroundName,

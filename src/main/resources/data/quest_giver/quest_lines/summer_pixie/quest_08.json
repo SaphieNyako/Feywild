@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_07",
+  "icon": "feywild:summoning_scroll_queen_mab",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_08_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_08_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "feywild:summoning_scroll_queen_mab"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_08_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_08_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:totem_of_undying"
+      }
+    }
+  ]
+}
