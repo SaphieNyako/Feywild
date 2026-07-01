@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_08",
+  "icon": "feywild:pixie_wing_tiara",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_09_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_09_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "feywild:titania",
+      "id": "quest_giver:kill",
+      "times": 1
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_09_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_09_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:nether_star"
+      }
+    }
+  ]
+}

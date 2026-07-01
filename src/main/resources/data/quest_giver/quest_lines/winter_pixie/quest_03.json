@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_02",
+  "icon": "minecraft:iron_sword",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_03_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_03_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:pillager",
+      "id": "quest_giver:kill",
+      "times": 8
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_03_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_03_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

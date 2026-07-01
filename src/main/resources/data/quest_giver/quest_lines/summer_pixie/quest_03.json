@@ -1,6 +1,6 @@
 {
   "parent": "quest_giver:quest_02",
-  "icon": "feywild:fey_ink_bottle",
+  "icon": "minecraft:bee_nest",
   "start": {
     "title": {
       "translate": "quest.feywild.summer_pixie_03_start_title"
