@@ -655,7 +655,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
             if (mountArmorBonus > 0) {
                 mount_armor.addTransientModifier(new AttributeModifier(
-                        armorId,
+                        mountArmorId,
                         mountArmorBonus,
                         AttributeModifier.Operation.ADD_VALUE
                 ));
@@ -665,7 +665,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
             if (mountToughnessBonus > 0) {
                 mount_toughness.addTransientModifier(new AttributeModifier(
-                        toughnessId,
+                        mountToughnessId,
                         mountToughnessBonus,
                         AttributeModifier.Operation.ADD_VALUE
                 ));
@@ -675,7 +675,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
             if (mountHealthBonus > 0) {
                 mount_health.addTransientModifier(new AttributeModifier(
-                        healthId,
+                        mountHealthId,
                         mountHealthBonus,
                         AttributeModifier.Operation.ADD_VALUE
                 ));

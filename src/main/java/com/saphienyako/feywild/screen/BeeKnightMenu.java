@@ -18,6 +18,7 @@ import java.util.UUID;
 
 public class BeeKnightMenu extends AbstractContainerMenu {
 
+
     private final Container beeKnightContainer;
     public BeeMountEntity beeMount;
 
@@ -51,6 +52,21 @@ public class BeeKnightMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
+        //CHEST_PLATE
+        this.addSlot(new Slot(beeKnightContainer, 1, 116, 45) {
+            @Override
+            public boolean mayPlace(@Nonnull ItemStack stack) {
+                return stack.is(Items.DIAMOND_CHESTPLATE)
+                        || stack.is(Items.NETHERITE_CHESTPLATE)
+                        || stack.is(Items.IRON_CHESTPLATE)
+                        || stack.is(Items.GOLDEN_CHESTPLATE);
+            }
+
+            @Override
+            public int getMaxStackSize() {
+                return 1;
+            }
+        });
 
         //LANCE_SLOT
         this.addSlot(new Slot(beeKnightContainer, 2, 98, 45){
@@ -68,21 +84,7 @@ public class BeeKnightMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
-        //CHEST_PLATE
-        this.addSlot(new Slot(beeKnightContainer, 1, 116, 45) {
-            @Override
-            public boolean mayPlace(@Nonnull ItemStack stack) {
-                return stack.is(Items.DIAMOND_CHESTPLATE)
-                        || stack.is(Items.NETHERITE_CHESTPLATE)
-                        || stack.is(Items.IRON_CHESTPLATE)
-                        || stack.is(Items.GOLDEN_CHESTPLATE);
-            }
 
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        });
 
         //Add inventory player //8 25- startX  102 (82?)  99- startY
         for (int row = 0; row < 3; row++) {
@@ -148,14 +150,13 @@ public class BeeKnightMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NonNull Player player) {
-       /* return !this.beeKnight.hasInventoryChanged(this.beeKnightContainer)
-                && this.beeKnightContainer.stillValid(player)
-                && this.beeKnight.isAlive()
-                && player.distanceToSqr(this.beeKnight) < 64;
-
-        */
-        return this.beeMount.isAlive()
+        return  this.beeKnightContainer.stillValid(player)
+                && this.beeMount.isAlive()
                 && player.distanceToSqr(this.beeMount) < 64;
+
+
+       /* return this.beeMount.isAlive()
+                && player.distanceToSqr(this.beeMount) < 64; */
     }
 
     @Override
