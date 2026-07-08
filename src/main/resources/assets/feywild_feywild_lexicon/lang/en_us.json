@@ -128,6 +128,15 @@
   "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page3.text0": "Fey Wood gives a colorful range of plank variety.",
   "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page4.text0": "The leaves of the seasonal tree have a lot of color. Shearing them will preserve their form. Decaying leaves will drop saplings and a small chance of fey dust.",
 
+  "feywild_lexicon.category.sovereigns.name": "Sovereigns",
+  "feywild_lexicon.category.sovereigns.description":"Each Fey Court is ruled by an Arch Fey. The self proclaimed queen of the fey is Queen Titania, rulers of the Summer Court. Her sister Queen Mab is queen of the unseelie court. Prince Oberon rules along side Queen Titania but is the ruler of Spring. The acting sovereign of the Autumn Court is the Ashen Lord.",
+  "feywild_lexicon.entry.sovereigns.queen_titania.name": "Queen Titania",
+  "feywild_lexicon.entry.sovereigns.queen_titania.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating Queen Titania she will drop her Tiara. This Tiara can be used for crafting your own Pixie Wings.",
+  "feywild_lexicon.entry.sovereigns.queen_mab.name": "Queen Mab",
+  "feywild_lexicon.entry.sovereigns.queen_mab.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating Queen Mab she will drop her Tiara. This Tiara can be used for crafting your own Pixie Wings.",
+  "feywild_lexicon.entry.sovereigns.pixie_wings.name": "Pixie Wings",
+  "feywild_lexicon.entry.sovereigns.pixie_wings.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating a Arch Fey they will drop their Crown/Tiara. This Tiara can be used for crafting your own Pixie Wings.",
+
   "feywild_lexicon.decorative_blocks.name": "Decorative Blocks",
   "feywild_lexicon.category.decorative_blocks.description": "The Feywild holds many kinds of mysterious materials from which a variety of blocks can be crafted.",
   "feywild_lexicon.entry.decorative_blocks.elven_quartz": "Elven Quartz",
