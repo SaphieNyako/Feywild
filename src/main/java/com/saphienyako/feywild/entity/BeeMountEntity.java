@@ -13,6 +13,7 @@ import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.screen.BeeKnightMenu;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -29,6 +30,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -41,6 +43,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -184,6 +187,49 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
                 this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
             }
         }
+    }
+
+    @Override
+    public boolean hurt(@Nonnull DamageSource source, float amount) {
+        if (source.is(DamageTypes.IN_WALL)) {
+            moveToOpenSpace();
+            return false;
+        }
+
+        return super.hurt(source, amount);
+    }
+
+    private void moveToOpenSpace() {
+        if (this.level().isClientSide) return;
+
+        BlockPos origin = this.blockPosition();
+
+        for (int radius = 1; radius <= 3; radius++) {
+            for (int x = -radius; x <= radius; x++) {
+                for (int y = -1; y <= radius; y++) {
+                    for (int z = -radius; z <= radius; z++) {
+                        BlockPos pos = origin.offset(x, y, z);
+
+                        if (canFitAt(pos)) {
+
+                            this.teleportTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+                            this.getNavigation().stop();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean canFitAt(BlockPos pos) {
+        AABB movedBox = this.getBoundingBox().move(
+                pos.getX() + 0.5D - this.getX(),
+                pos.getY() - this.getY(),
+                pos.getZ() + 0.5D - this.getZ()
+        );
+
+        return this.level().noCollision(this, movedBox);
     }
 
     @Override
