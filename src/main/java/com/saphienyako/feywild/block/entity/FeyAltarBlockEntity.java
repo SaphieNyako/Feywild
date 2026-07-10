@@ -301,7 +301,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     public Alignment getAlignment() {
         return getBlockState().getBlock() instanceof NewFeyAltarBlock altar
                 ? altar.getAlignment()
-                : Alignment.SPRING;
+                : Alignment.SUMMER;
     }
 }
 
