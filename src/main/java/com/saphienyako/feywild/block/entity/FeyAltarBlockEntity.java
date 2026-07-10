@@ -1,5 +1,7 @@
 package com.saphienyako.feywild.block.entity;
 
+import com.saphienyako.feywild.block.NewFeyAltarBlock;
+import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.network.AltarParticleMessage;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.recipe.FeyAltarRecipe;
@@ -264,4 +266,11 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
         load(packet.getTag());
     }
+
+    public Alignment getAlignment() {
+        return getBlockState().getBlock() instanceof NewFeyAltarBlock altar
+                ? altar.getAlignment()
+                : Alignment.SUMMER;
+    }
+
 }

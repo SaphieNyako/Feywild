@@ -5,6 +5,7 @@ import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.BeeMountEntity;
 import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.entity.base.FeyBase;
+import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.fml.ModList;
 import org.jetbrains.annotations.NotNull;
 
 public class FeyMenuScreen extends Screen {
@@ -77,6 +79,9 @@ public class FeyMenuScreen extends Screen {
                 //FOURTH BUTTON
                 if(entity instanceof BeeMountEntity){
                     this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this.entityId));
+                } else if (ModList.get().isLoaded("quest_giver") && entity instanceof PixieBase pixie){
+                    //TODO QUEST BUTTON
+                    this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2),this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this, pixie.getQuestLineId(), pixie.getBackground(), false, this.entityId));
                 }
             }
         }

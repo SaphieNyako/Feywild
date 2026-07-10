@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
@@ -34,12 +35,12 @@ public class FeyAltarMenu extends AbstractContainerMenu {
 
         //Adding Slots
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 80, 5)); //INPUT_SLOT_00
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 49, 26)); //INPUT_SLOT_01
-            this.addSlot(new SlotItemHandler(iItemHandler, 2, 110, 26)); //INPUT_SLOT_02
-            this.addSlot(new SlotItemHandler(iItemHandler, 3, 61, 61)); //INPUT_SLOT_03
-            this.addSlot(new SlotItemHandler(iItemHandler, 4, 99, 61)); //INPUT_SLOT_04
-            this.addSlot(new SlotItemHandler(iItemHandler, 5, 143, 54)); //OUTPUT_SLOT
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 95, 18)); //INPUT_SLOT_00
+            this.addSlot(new SlotItemHandler(iItemHandler, 1, 64, 39)); //INPUT_SLOT_01
+            this.addSlot(new SlotItemHandler(iItemHandler, 2, 125, 39)); //INPUT_SLOT_02
+            this.addSlot(new SlotItemHandler(iItemHandler, 3, 76, 74)); //INPUT_SLOT_03
+            this.addSlot(new SlotItemHandler(iItemHandler, 4, 114, 74)); //INPUT_SLOT_04
+            this.addSlot(new SlotItemHandler(iItemHandler, 5, 158, 67)); //OUTPUT_SLOT
         });
 
         addDataSlots(data);
@@ -110,21 +111,26 @@ public class FeyAltarMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, ModBlocks.FEY_ALTAR.get());
+        Block block = blockEntity.getBlockState().getBlock();
+
+        return block == ModBlocks.FEY_ALTAR.get()
+                || block == ModBlocks.FEY_ALTAR_QUEEN_MAB.get()
+                || block == ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get()
+                || block == ModBlocks.FEY_ALTAR_ASHEN_LORD.get()
+                || block == ModBlocks.FEY_ALTAR_OBERON.get();
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 23 + l * 18, 97 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(playerInventory, i, 23 + i * 18, 155));
         }
     }
 }

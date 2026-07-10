@@ -2,6 +2,7 @@ package com.saphienyako.feywild.block;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.trees.*;
+import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
@@ -45,6 +46,20 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> FEY_ALTAR = registerBlockAndItem("fey_altar",
             () -> new FeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+
+    public static final RegistryObject<Block> FEY_ALTAR_QUEEN_TITANIA = registerBlockAndItem("fey_altar_queen_titania",
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.SUMMER));
+
+    public static final RegistryObject<Block> FEY_ALTAR_QUEEN_MAB = registerBlockAndItem("fey_altar_queen_mab",
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.WINTER));
+
+    public static final RegistryObject<Block> FEY_ALTAR_ASHEN_LORD = registerBlockAndItem("fey_altar_ashen_lord",
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.AUTUMN));
+
+    public static final RegistryObject<Block> FEY_ALTAR_OBERON = registerBlockAndItem("fey_altar_oberon",
+            () -> new NewFeyAltarBlock(BlockBehaviour.Properties.copy(Blocks.STONE).strength(3f, 10f).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion(), Alignment.SPRING));
+
+
 
     //MUSHROOM BLOCKS
     public static final RegistryObject<Block> ORANGE_MUSHROOM = registerBlockAndItem("orange_mushroom",

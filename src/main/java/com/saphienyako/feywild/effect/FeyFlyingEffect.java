@@ -23,19 +23,18 @@ public class FeyFlyingEffect extends MobEffect {
     @Override
     public void applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
         if (entity instanceof Player player && !player.level().isClientSide) {
-            player.getAbilities().mayfly = true;
-            player.onUpdateAbilities();
+            var abilities = player.getAbilities();
+
+            if (!abilities.mayfly) {
+                abilities.mayfly = true;
+                abilities.flying = true;
+                player.onUpdateAbilities();
+            }
         }
     }
 
     @Override
     public void removeAttributeModifiers(@Nonnull LivingEntity entity, @Nonnull AttributeMap map, int amplifier) {
         super.removeAttributeModifiers(entity, map, amplifier);
-        if (entity instanceof Player player && !player.level().isClientSide) {
-            boolean canFly = player.isCreative() || player.isSpectator();
-            player.getAbilities().mayfly = canFly;
-            player.getAbilities().flying = player.getAbilities().flying && canFly;
-            player.onUpdateAbilities();
-        }
     }
 }

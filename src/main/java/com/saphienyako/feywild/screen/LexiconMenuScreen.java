@@ -1,6 +1,8 @@
 package com.saphienyako.feywild.screen;
 
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.network.DismissEntityMessage;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.screen.widget.*;
@@ -41,7 +43,8 @@ public class LexiconMenuScreen extends Screen {
         }
 
         if (ModList.get().isLoaded("quest_giver")) {
-            this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH  + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  QuestButton.HEIGHT, this, true));
+            SpriteEntity sprite = ModEntities.SPRITE.get().create(Minecraft.getInstance().level);
+            this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  QuestButton.HEIGHT, this,"sprite", "hexen_quest", true, sprite.getId()));
 
         }
 

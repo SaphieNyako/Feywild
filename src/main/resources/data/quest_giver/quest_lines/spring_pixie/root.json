@@ -1,0 +1,12 @@
+{
+  "icon": "minecraft:book",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.spring_pixie_root_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.spring_pixie_root_start_description"
+    }
+
+  }
+}

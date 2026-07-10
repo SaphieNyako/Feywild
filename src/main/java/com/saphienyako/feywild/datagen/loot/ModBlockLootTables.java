@@ -43,6 +43,10 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.FEY_GEM_ORE.get());
         this.dropSelf(ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get());
         this.dropSelf(ModBlocks.FEY_ALTAR.get());
+        this.dropSelf(ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get());
+        this.dropSelf(ModBlocks.FEY_ALTAR_QUEEN_MAB.get());
+        this.dropSelf(ModBlocks.FEY_ALTAR_ASHEN_LORD.get());
+        this.dropSelf(ModBlocks.FEY_ALTAR_OBERON.get());
 
         this.add(ModBlocks.FEY_GEM_ORE.get(),
                 block -> createOreDrops(ModBlocks.FEY_GEM_ORE.get(), ModItems.FEY_GEM.get()));

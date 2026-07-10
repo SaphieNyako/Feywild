@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "part=0,facing=north": {
+      "model": "feywild:block/fey_altar_queen_mab_bottom"
+    },
+    "part=0,facing=south": {
+      "model": "feywild:block/fey_altar_queen_mab_bottom",
+      "y": 180
+    },
+    "part=0,facing=west": {
+      "model": "feywild:block/fey_altar_queen_mab_bottom",
+      "y": 270
+    },
+    "part=0,facing=east": {
+      "model": "feywild:block/fey_altar_queen_mab_bottom",
+      "y": 90
+    },
+
+    "part=1,facing=north": {
+      "model": "feywild:block/fey_altar_queen_mab_upper"
+    },
+    "part=1,facing=south": {
+      "model": "feywild:block/fey_altar_queen_mab_upper",
+      "y": 180
+    },
+    "part=1,facing=west": {
+      "model": "feywild:block/fey_altar_queen_mab_upper",
+      "y": 270
+    },
+    "part=1,facing=east": {
+      "model": "feywild:block/fey_altar_queen_mab_upper",
+      "y": 90
+    }
+  }
+}

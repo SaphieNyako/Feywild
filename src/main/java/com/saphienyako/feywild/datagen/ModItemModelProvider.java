@@ -26,6 +26,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.FEYWILD_MUSIC_DISC);
         simpleItem(ModItems.EMPTY_SUMMONING_SCROLL);
         simpleItem(ModItems.PIXIE_ORB);
+        basicItem(ModItems.PIXIE_WING_TIARA.get());
+        basicItem(ModItems.AUTUMN_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.SPRING_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.SUMMER_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.WINTER_PIXIE_WING_TIARA.get());
+        basicItem(ModItems.SHADOW_WING_TIARA.get());
+        basicItem(ModItems.LIGHT_WING_TIARA.get());
         simpleItem(ModItems.SUMMONING_SCROLL_SPRING_PIXIE);
         simpleItem(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE);
         simpleItem(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE);
@@ -38,6 +45,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT);
         simpleItem(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT);
         simpleItem(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT);
+        basicItem(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
+        basicItem(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
         simpleItem(ModItems.FEY_DUST);
         simpleItem(ModItems.MANDRAKE);
         simpleItem(ModItems.GIANT_CROCUS_FLOWER_SEED);

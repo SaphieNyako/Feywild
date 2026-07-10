@@ -1,0 +1,30 @@
+{
+  "parent": "quest_giver:quest_10",
+  "repeatable": true,
+  "icon": "feywild:summer_pixie_wing_tiara",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_11_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_11_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "minecraft:structure_void"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_10_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_10_complete_description"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "part=0,facing=north": {
+      "model": "feywild:block/fey_altar_ashen_lord_bottom"
+    },
+    "part=0,facing=south": {
+      "model": "feywild:block/fey_altar_ashen_lord_bottom",
+      "y": 180
+    },
+    "part=0,facing=west": {
+      "model": "feywild:block/fey_altar_ashen_lord_bottom",
+      "y": 270
+    },
+    "part=0,facing=east": {
+      "model": "feywild:block/fey_altar_ashen_lord_bottom",
+      "y": 90
+    },
+
+    "part=1,facing=north": {
+      "model": "feywild:block/fey_altar_ashen_lord_upper"
+    },
+    "part=1,facing=south": {
+      "model": "feywild:block/fey_altar_ashen_lord_upper",
+      "y": 180
+    },
+    "part=1,facing=west": {
+      "model": "feywild:block/fey_altar_ashen_lord_upper",
+      "y": 270
+    },
+    "part=1,facing=east": {
+      "model": "feywild:block/fey_altar_ashen_lord_upper",
+      "y": 90
+    }
+  }
+}

@@ -9,7 +9,8 @@ public enum Alignment {
     AUTUMN("autumn"),
     WINTER("winter"),
 
-    HEXEN("hexen");
+    HEXEN("hexen"),
+    BLOSSOM ("blossom");
 
     public final String id;
     Alignment(String id) {
@@ -23,6 +24,7 @@ public enum Alignment {
             case "autumn" -> AUTUMN;
             case "winter" -> WINTER;
             case "hexen" -> HEXEN;
+            case "blossom" -> BLOSSOM;
             default -> throw new IllegalArgumentException("Invalid fey alignment: " + id);
         };
     }

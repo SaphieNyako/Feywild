@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_03",
+  "icon": "minecraft:melon",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_04_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_04_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:pillager",
+      "id": "quest_giver:kill",
+      "times": 8
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.summer_pixie_04_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.summer_pixie_04_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:melon"
+      }
+    }
+  ]
+}

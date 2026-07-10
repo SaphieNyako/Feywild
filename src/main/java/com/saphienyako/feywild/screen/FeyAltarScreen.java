@@ -11,30 +11,42 @@ import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
+    //TODO
+    private final FeyAltarMenu menu;
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation(Feywild.MOD_ID, "textures/gui/fey_altar_gui.png");
+    public FeyAltarScreen(FeyAltarMenu menu, Inventory playerInventory, Component title) {
+        super(menu, playerInventory, title);
 
-    public FeyAltarScreen(FeyAltarMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        imageWidth = 220;
+        imageHeight = 200;
+
+        this.menu = menu;
     }
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
+        ResourceLocation texture =
+                new ResourceLocation(Feywild.MOD_ID,
+                        "textures/gui/fey_altar_" + menu.blockEntity.getAlignment().id + ".png");
+
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, texture);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(texture, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(guiGraphics, x, y);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+        ResourceLocation texture =
+                new ResourceLocation(Feywild.MOD_ID,
+                        "textures/gui/fey_altar_" + menu.blockEntity.getAlignment().id + ".png");
         if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 143, y + 37, 178, 0, 15, menu.getScaledProgress());
+            guiGraphics.blit(texture, x + 158, y + 50, 221, 13, 15, menu.getScaledProgress(), 256, 256);
         }
     }
 
@@ -44,4 +56,10 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
     }
+
+    @Override
+    protected void renderLabels(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        //
+    }
+
 }

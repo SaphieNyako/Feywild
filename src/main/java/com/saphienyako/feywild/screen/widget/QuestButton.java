@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class QuestButton extends Button {
+    //TODO
 
     public static final int WIDTH = 89;
     public static final int HEIGHT = 22;
@@ -23,17 +24,26 @@ public class QuestButton extends Button {
     private final Component textComponent;
 
     private final boolean dismiss;
+    private final String questLineId;
 
-    public QuestButton(int x, int y, Screen screen, boolean dismiss) {
+    private final String backgroundName;
+
+    private final int entyityId;
+
+    public QuestButton(int x, int y, Screen screen, String questLineId, String backgroundName, boolean dismiss, int entityId) {
         super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {}, l -> Component.empty());
         this.screen = screen;
         this.textComponent = Component.translatable("message.feywild.quest");
         this.dismiss = dismiss;
+        this.questLineId = questLineId;
+        this.backgroundName = backgroundName;
+        this.entyityId = entityId;
+
     }
 
     @Override
     public void onPress() {
-        FeywildNetwork.sendToServer(new OpenQuestMessage("sprite", "hexen_quest", dismiss));
+        FeywildNetwork.sendToServer(new OpenQuestMessage(questLineId, backgroundName, dismiss, entyityId));
         this.screen.onClose();
     }
 
@@ -52,8 +62,6 @@ public class QuestButton extends Button {
         int textY = this.getY() + (HEIGHT - font.lineHeight) / 2;
 
         graphics.drawString(font, this.textComponent, textX, textY, 0xFFFFFF, true);
-        //TODO 1.19 1.20 center text for all buttons
-        //  graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
         graphics.pose().popPose();
     }
 }

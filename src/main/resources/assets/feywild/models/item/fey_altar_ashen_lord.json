@@ -1,0 +1,32 @@
+{
+  "parent": "forge:item/default",
+  "loader": "forge:separate_transforms",
+
+  "base": {
+    "parent": "feywild:block/fey_altar_ashen_lord"
+  },
+
+  "perspectives": {
+    "gui": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    },
+    "ground": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    },
+    "fixed": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    },
+    "firstperson_righthand": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    },
+    "firstperson_lefthand": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    },
+    "thirdperson_righthand": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    },
+    "thirdperson_lefthand": {
+      "parent": "feywild:item/fey_altar_ashen_lord_inventory"
+    }
+  }
+}
