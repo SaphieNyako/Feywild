@@ -4,10 +4,12 @@ import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.GiantFlowerBlock;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.item.base.ExplosionProofItem;
 import com.saphienyako.feywild.item.base.ToolTipBaseItem;
 import com.saphienyako.feywild.item.base.ToolTipBaseItemNameBlockItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -37,6 +39,36 @@ public class ModItems {
 
     public static final RegistryObject<Item> PIXIE_ORB = ITEMS.register("pixie_orb", () -> new ToolTipBaseItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.pixie_orb")));
+
+
+    public static final RegistryObject<Item> PIXIE_WING_TIARA =  ITEMS.register("pixie_wing_tiara", () -> new ExplosionProofItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+            Component.translatable("message.feywild.pixie_wing_tiara")));
+
+
+    public static final RegistryObject<Item> AUTUMN_PIXIE_WING_TIARA =
+            ITEMS.register("autumn_pixie_wing_tiara", () -> new PixieWingTiaraItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+                    new ResourceLocation(Feywild.MOD_ID, "textures/entity/fey_wings/autumn")));
+
+    public static final RegistryObject<Item> SPRING_PIXIE_WING_TIARA =
+            ITEMS.register("spring_pixie_wing_tiara", () -> new PixieWingTiaraItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+                    new ResourceLocation(Feywild.MOD_ID, "textures/entity/fey_wings/spring")));
+
+    public static final RegistryObject<Item> SUMMER_PIXIE_WING_TIARA =
+            ITEMS.register("summer_pixie_wing_tiara", () -> new PixieWingTiaraItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+                    new ResourceLocation(Feywild.MOD_ID, "textures/entity/fey_wings/summer")));
+
+    public static final RegistryObject<Item> WINTER_PIXIE_WING_TIARA =
+            ITEMS.register("winter_pixie_wing_tiara", () -> new PixieWingTiaraItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+                    new ResourceLocation(Feywild.MOD_ID, "textures/entity/fey_wings/winter")));
+
+    public static final RegistryObject<Item> SHADOW_WING_TIARA =
+            ITEMS.register("shadow_wing_tiara", () -> new PixieWingTiaraItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+                    new ResourceLocation(Feywild.MOD_ID, "textures/entity/fey_wings/shadow")));
+
+    public static final RegistryObject<Item> LIGHT_WING_TIARA =
+            ITEMS.register("light_wing_tiara", () -> new PixieWingTiaraItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+                    new ResourceLocation(Feywild.MOD_ID, "textures/entity/fey_wings/light")));
+
     public static final RegistryObject<Item> EMPTY_SUMMONING_SCROLL = ITEMS.register("empty_summoning_scroll", () -> new ToolTipBaseItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.empty_summoning_scroll")));
 
@@ -71,6 +103,12 @@ public class ModItems {
 
     public static final RegistryObject<Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.register("summoning_scroll_winter_tree_ent", () -> new SummoningScrollItem<>(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
             Component.translatable("message.feywild.summoning_scroll_winter_tree_ent")));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_QUEEN_TITANIA = ITEMS.register("summoning_scroll_queen_titania", () -> new BossSummoningScrollItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+            Component.translatable("message.feywild.summoning_scroll_queen_titania")));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_QUEEN_MAB = ITEMS.register("summoning_scroll_queen_mab", () -> new BossSummoningScrollItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB),
+            Component.translatable("message.feywild.summoning_scroll_queen_mab")));
 
     public static final RegistryObject<Item> FEY_DUST = ITEMS.register("fey_dust", () -> new FeyDustItem(new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB).food(
             new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 30, 1), 1).build())));
@@ -111,7 +149,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.WINTER_TREE_ENT,0x5C281E, 0x84b4be, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
+    public static final RegistryObject<Item> SPAWN_EGG_QUEEN_TITANIA = ITEMS.register("spawn_egg_queen_titania", () -> new ForgeSpawnEggItem(ModEntities.TITANIA,0xf085a9, 0xa1db67, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
+    public static final RegistryObject<Item> SPAWN_EGG_QUEEN_MAB = ITEMS.register("spawn_egg_queen_mab", () -> new ForgeSpawnEggItem(ModEntities.MAB,0x84b4be, 0x323c81, new Item.Properties().tab(ModCreativeModeTab.FEYWILD_TAB)));
 
     public static void register(IEventBus eventBus) {ITEMS.register(eventBus);}
 }

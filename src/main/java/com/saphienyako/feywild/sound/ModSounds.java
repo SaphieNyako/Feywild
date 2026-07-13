@@ -144,6 +144,28 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> TREE_ENT_STORY_05 = registerSoundEvents("tree_ent_story_05");
     public static final RegistryObject<SoundEvent> TREE_ENT_STORY_06 = registerSoundEvents("tree_ent_story_06");
 
+    public static final RegistryObject<SoundEvent> TITANIA_HURT = registerSoundEvents("titania_hurt");
+    public static final RegistryObject<SoundEvent> TITANIA_DEATH = registerSoundEvents("titania_death");
+
+    public static final RegistryObject<SoundEvent> TITANIA_SUMMON = registerSoundEvents("titania_summon");
+
+    public static final RegistryObject<SoundEvent> TITANIA_SUMMER = registerSoundEvents("titania_summer");
+    public static final RegistryObject<SoundEvent> TITANIA_SPRING = registerSoundEvents("titania_spring");
+    public static final RegistryObject<SoundEvent> TITANIA_WINTER = registerSoundEvents("titania_winter");
+    public static final RegistryObject<SoundEvent> TITANIA_AUTUMN = registerSoundEvents("titania_autumn");
+    public static final RegistryObject<SoundEvent> TITANIA_HEXEN = registerSoundEvents("titania_hexen");
+    public static final RegistryObject<SoundEvent> TITANIA_BLOSSOM = registerSoundEvents("titania_blossom");
+
+    public static final RegistryObject<SoundEvent> MAB_HURT = registerSoundEvents("mab_hurt");
+    public static final RegistryObject<SoundEvent> MAB_DEATH = registerSoundEvents("mab_death");
+
+    public static final RegistryObject<SoundEvent> MAB_AMBIANCE = registerSoundEvents("mab_ambiance");
+
+    public static final RegistryObject<SoundEvent> MAB_SUMMON = registerSoundEvents("mab_summon");
+
+    public static final RegistryObject<SoundEvent> MAB_ATTACK = registerSoundEvents("mab_attack");
+
+    public static final RegistryObject<SoundEvent> MAB_INTIMIDATE = registerSoundEvents("mab_intimidate");
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name,
                 () -> new SoundEvent(new ResourceLocation(Feywild.MOD_ID, name)));

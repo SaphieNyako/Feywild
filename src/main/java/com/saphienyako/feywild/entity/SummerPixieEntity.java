@@ -30,6 +30,16 @@ public class SummerPixieEntity extends PixieBase {
         this.goalSelector.addGoal(20, new CropGrowAbilityGoal(this, this.level));
     }
 
+    @Override
+    public String getQuestLineId() {
+        return "summer_pixie";
+    }
+
+    @Override
+    public String getBackground() {
+        return "summer_quest";
+    }
+
     @Nullable
     @Override
     public SimpleParticleType getParticle() {

@@ -1,0 +1,20 @@
+{
+  "category": "feywild:sovereigns",
+  "icon": "feywild:summoning_scroll_queen_titania",
+  "name":  "feywild_lexicon.entry.sovereigns.queen_titania.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:titania"
+    },
+    {
+      "type": "feywild:queen_titania",
+      "recipe": "feywild:summoning_scroll_queen_titania"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_wing_tiara",
+      "text": "feywild_lexicon.entry.sovereigns.queen_titania.page1.text0"
+    }
+  ]
+}

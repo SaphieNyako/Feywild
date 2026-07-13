@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:smooth_stone"
+    },
+    "S": {
+      "item": "feywild:fey_gem"
+    },
+    "_": {
+      "item": "minecraft:smooth_stone_slab"
+    }
+  },
+  "pattern": [
+    " # ",
+    "#S#",
+    " _ "
+  ],
+  "result": {
+    "item": "feywild:fey_altar_queen_titania"
+  },
+  "show_notification": true
+}

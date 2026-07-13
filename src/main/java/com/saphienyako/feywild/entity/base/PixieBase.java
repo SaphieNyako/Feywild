@@ -188,6 +188,10 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
     }
 
+    public abstract String getQuestLineId();
+
+    public abstract String getBackground();
+
     public PixieBase.State getState() {
         PixieBase.State[] states = PixieBase.State.values();
         return states[Mth.clamp(this.entityData.get(STATE), 0, states.length - 1)];

@@ -12,6 +12,7 @@ import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
 import com.saphienyako.feywild.entity.renderer.*;
+import com.saphienyako.feywild.entity.renderer.layer.FeyWingsPlayerLayer;
 import com.saphienyako.feywild.events.EventListener;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
@@ -35,6 +36,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -136,6 +138,9 @@ public class Feywild
         event.put(ModEntities.AUTUMN_TREE_ENT.get(), AutumnTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.WINTER_TREE_ENT.get(), WinterTreeEntEntity.getDefaultAttributes().build());
         event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
+        event.put(ModEntities.TITANIA.get(), TitaniaEntity.getDefaultAttributes().build());
+        event.put(ModEntities.MAB.get(), MabEntity.getDefaultAttributes().build());
+        event.put(ModEntities.FEY_WINGS.get(), FeyWingsEntity.getDefaultAttributes().build());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -152,6 +157,9 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.BEE_MOUNT_LAYER, BeeMountModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TREE_ENT_LAYER, TreeEntModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.TITANIA_LAYER, TitaniaModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.MAB_LAYER, MabModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.FEY_WINGS_LAYER, FeyWingsModel::createBodyLayer);
     }
 
     @SuppressWarnings("deprecated")
@@ -207,6 +215,9 @@ public class Feywild
             SpawnPlacements.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AutumnTreeEntEntity::canSpawn);
             SpawnPlacements.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SummerTreeEntEntity::canSpawn);
             SpawnPlacements.register(ModEntities.SPRITE.get(),SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.TITANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TitaniaEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.MAB.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MabEntity::canSpawn);
+
         });
     }
 
@@ -233,6 +244,14 @@ public class Feywild
     @SuppressWarnings("removal")
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+
+        @SubscribeEvent
+        public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+            for (var skin : event.getSkins()) {
+                PlayerRenderer renderer = event.getSkin(skin);
+                renderer.addLayer(new FeyWingsPlayerLayer<>(renderer, Minecraft.getInstance().getEntityRenderDispatcher()));
+            }
+        }
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -267,6 +286,9 @@ public class Feywild
             EntityRenderers.register(ModEntities.SUMMER_TREE_ENT.get(), TreeEntRenderer::new);
             EntityRenderers.register(ModEntities.WINTER_TREE_ENT.get(), TreeEntRenderer::new);
             EntityRenderers.register(ModEntities.SPRITE.get(), SpriteRenderer::new);
+            EntityRenderers.register(ModEntities.TITANIA.get(), TitaniaRenderer::new);
+            EntityRenderers.register(ModEntities.MAB.get(), MabRenderer::new);
+            EntityRenderers.register(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
 
             BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);

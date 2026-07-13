@@ -31,6 +31,16 @@ public class SpringPixieEntity extends PixieBase {
         this.goalSelector.addGoal(20, new BreedAbilityGoal(this, this.level));
     }
 
+    @Override
+    public String getQuestLineId() {
+        return "spring_pixie";
+    }
+
+    @Override
+    public String getBackground() {
+        return "spring_quest";
+    }
+
     @Nullable
     @Override
     public SimpleParticleType getParticle() {

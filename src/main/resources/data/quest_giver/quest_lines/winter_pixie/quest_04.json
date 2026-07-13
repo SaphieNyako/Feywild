@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_03",
+  "icon": "minecraft:wither_skeleton_skull",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_04_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_04_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "entity": "minecraft:wither_skeleton",
+      "id": "quest_giver:kill",
+      "times": 3
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_04_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_04_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:wither_skeleton_skull"
+      }
+    }
+  ]
+}

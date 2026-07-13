@@ -8,7 +8,7 @@
   "feywild_music_disc": {
   "sounds": [
     {
-      "name": "feywild.feywild_music_disc",
+      "name": "sounds.feywild_music_disc",
       "stream": true
     }
   ]
@@ -658,7 +658,24 @@
   "tree_ent_summon": {
     "subtitles": "message.feywild.tree_ent_summon",
     "sounds": [
-      "feywild:tree_ent_summon"
+      {
+        "name": "feywild:tree_ent_story_01"
+      },
+      {
+        "name": "feywild:tree_ent_story_02"
+      },
+      {
+        "name": "feywild:tree_ent_story_03"
+      },
+      {
+        "name": "feywild:tree_ent_story_04"
+      },
+      {
+        "name": "feywild:tree_ent_story_05"
+      },
+      {
+        "name": "feywild:tree_ent_story_06"
+      }
     ]
   },
   "tree_ent_dismiss": {
@@ -726,5 +743,234 @@
     "sounds": [
       "feywild:tree_ent_story_06"
     ]
-  }
+  },"titania_hurt": {
+  "subtitle": "message.feywild.titania_hurt",
+  "sounds": [
+    {
+      "name": "feywild:titania_hurt0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_hurt1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_hurt2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_hurt3",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_hurt4",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_hurt5",
+      "attenuation_distance": 128
+    }
+  ]
+},"titania_death": {
+  "subtitle": "message.feywild.titania_death",
+  "sounds": [
+    {
+      "name": "feywild:titania_death0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_death1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_death2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_death3",
+      "attenuation_distance": 128
+    }
+  ]
+},"titania_summon": {
+  "subtitle": "message.feywild.titania_summon",
+  "sounds": [
+    {
+      "name": "feywild:titania_summon1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:titania_summon2",
+      "attenuation_distance": 128
+    }
+  ]
+},
+
+  "titania_summer": {
+    "subtitle": "message.feywild.titania_summer",
+    "sounds": [
+      {
+        "name": "feywild:titania_summer",
+        "attenuation_distance": 128
+      }
+    ]
+  },
+
+  "titania_spring": {
+    "subtitle": "message.feywild.titania_spring",
+    "sounds": [
+      {
+        "name": "feywild:titania_spring",
+        "attenuation_distance": 128
+      }
+    ]
+  },
+
+  "titania_winter": {
+    "subtitle": "message.feywild.titania_winter",
+    "sounds": [
+      {
+        "name": "feywild:titania_winter",
+        "attenuation_distance": 128
+      }
+    ]
+  },
+
+  "titania_autumn": {
+    "subtitle": "message.feywild.titania_autumn",
+    "sounds": [
+      {
+        "name": "feywild:titania_autumn",
+        "attenuation_distance": 128
+      }
+    ]
+  },
+
+  "titania_hexen": {
+    "subtitle": "message.feywild.titania_hexen",
+    "sounds": [
+      {
+        "name": "feywild:titania_hexen",
+        "attenuation_distance": 128
+      }
+    ]
+  },
+
+  "titania_blossom": {
+    "subtitle": "message.feywild.titania_blossom",
+    "sounds": [
+      {
+        "name": "feywild:titania_spring",
+        "attenuation_distance": 128
+      }
+    ]
+  },
+  "mab_hurt": {
+    "subtitle": "message.feywild.mab_hurt",
+    "sounds": [
+      {
+        "name": "feywild:mab_hurt0",
+        "attenuation_distance": 128
+      },
+      {
+        "name": "feywild:mab_hurt1",
+        "attenuation_distance": 128
+      },
+      {
+        "name": "feywild:mab_hurt2",
+        "attenuation_distance": 128
+      }
+    ]
+  },"mab_death": {
+  "subtitle": "message.feywild.mab_death",
+  "sounds": [
+    {
+      "name": "feywild:mab_death0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_death1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_death2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_death3",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_ambiance": {
+  "subtitle": "message.feywild.mab_ambiance",
+  "sounds": [
+    {
+      "name": "feywild:mab_ambiance0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance3",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_ambiance4",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_summon": {
+  "subtitle": "message.feywild.mab_summon",
+  "sounds": [
+    {
+      "name": "feywild:mab_summon0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_summon1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_summon2",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_intimidate": {
+  "subtitle": "message.feywild.mab_intimidate",
+  "sounds": [
+    {
+      "name": "feywild:mab_intimidate0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_intimidate1",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_intimidate2",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_intimidate3",
+      "attenuation_distance": 128
+    }
+  ]
+},"mab_attack": {
+  "subtitle": "message.feywild.mab_attack",
+  "sounds": [
+    {
+      "name": "feywild:mab_attack0",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:mab_attack1",
+      "attenuation_distance": 128
+    }
+  ]
+}
 }

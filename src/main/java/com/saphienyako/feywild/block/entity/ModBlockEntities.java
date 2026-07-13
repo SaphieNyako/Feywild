@@ -15,7 +15,13 @@ public class ModBlockEntities {
 
     public static final RegistryObject<BlockEntityType<FeyAltarBlockEntity>> FEY_ALTAR_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fey_altar_block_entity", ()->
-            BlockEntityType.Builder.of(FeyAltarBlockEntity::new,ModBlocks.FEY_ALTAR.get()).build(null));
+                    BlockEntityType.Builder.of(
+                            FeyAltarBlockEntity::new,
+                            ModBlocks.FEY_ALTAR.get(),
+                            ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get(),
+                            ModBlocks.FEY_ALTAR_QUEEN_MAB.get(),
+                            ModBlocks.FEY_ALTAR_ASHEN_LORD.get(),
+                            ModBlocks.FEY_ALTAR_OBERON.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<FeyCrackedLogBlockEntity>> FEY_CRACKED_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("fey_cracked_block_entity", () ->

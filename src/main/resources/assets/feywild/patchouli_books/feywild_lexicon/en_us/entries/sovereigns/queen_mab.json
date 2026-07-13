@@ -1,0 +1,20 @@
+{
+  "category": "feywild:sovereigns",
+  "icon": "feywild:summoning_scroll_queen_mab",
+  "name":  "feywild_lexicon.entry.sovereigns.queen_mab.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:mab"
+    },
+    {
+      "type": "feywild:queen_mab",
+      "recipe": "feywild:summoning_scroll_queen_mab"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_wing_tiara",
+      "text": "feywild_lexicon.entry.sovereigns.queen_mab.page1.text0"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "minecraft:elytra"
+    },
+    {
+      "item": "feywild:pixie_wing_tiara"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "minecraft:echo_shard"
+    },
+    {
+      "item": "feywild:fey_dust"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:shadow_wing_tiara"
+  }
+}

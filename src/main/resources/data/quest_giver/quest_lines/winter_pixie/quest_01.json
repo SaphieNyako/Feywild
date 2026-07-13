@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:root",
+  "icon": "minecraft:rotten_flesh",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_01_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_01_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 8,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "minecraft:rotten_flesh"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_01_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_01_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

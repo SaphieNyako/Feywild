@@ -29,6 +29,17 @@ public class AutumnPixieEntity extends PixieBase {
         super.registerGoals();
         this.goalSelector.addGoal(20, new GatherCropsAbilityGoal(this, this.level));
     }
+
+    @Override
+    public String getQuestLineId() {
+        return "autumn_pixie";
+    }
+
+    @Override
+    public String getBackground() {
+        return "autumn_quest";
+    }
+
     @Nullable
     @Override
     public SimpleParticleType getParticle() {

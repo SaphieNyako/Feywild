@@ -14,6 +14,7 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -38,6 +39,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -103,6 +105,49 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
     public void stopBeingAngry() {
         this.setLastHurtByMob(null);
         this.setTarget(null);
+    }
+
+    @Override
+    public boolean hurt(@Nonnull DamageSource source, float amount) {
+        if (source == DamageSource.IN_WALL) {
+            moveToOpenSpace();
+            return false;
+        }
+
+        return super.hurt(source, amount);
+    }
+
+    private void moveToOpenSpace() {
+        if (this.level.isClientSide) return;
+
+        BlockPos origin = this.blockPosition();
+
+        for (int radius = 1; radius <= 3; radius++) {
+            for (int x = -radius; x <= radius; x++) {
+                for (int y = -1; y <= radius; y++) {
+                    for (int z = -radius; z <= radius; z++) {
+                        BlockPos pos = origin.offset(x, y, z);
+
+                        if (canFitAt(pos)) {
+
+                            this.teleportTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+                            this.getNavigation().stop();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean canFitAt(BlockPos pos) {
+        AABB movedBox = this.getBoundingBox().move(
+                pos.getX() + 0.5D - this.getX(),
+                pos.getY() - this.getY(),
+                pos.getZ() + 0.5D - this.getZ()
+        );
+
+        return this.level.noCollision(this, movedBox);
     }
 
     @Override

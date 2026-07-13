@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_06",
+  "icon": "feywild:summoning_scroll_winter_tree_ent",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_07_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_07_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "feywild:summoning_scroll_winter_tree_ent"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.winter_pixie_07_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.winter_pixie_07_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

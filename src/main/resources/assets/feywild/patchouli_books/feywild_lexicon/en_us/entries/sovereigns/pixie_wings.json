@@ -1,0 +1,83 @@
+{
+  "category": "feywild:sovereigns",
+  "icon": "feywild:pixie_wing_tiara",
+  "name":  "feywild_lexicon.entry.sovereigns.pixie_wings.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_wing_tiara",
+      "text": "feywild_lexicon.entry.sovereigns.pixie_wings.page1.text0"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:titania"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/autumn_pixie_wings.png"
+      ],
+      "title": "Autumn Pixie Wings"
+    },
+    {
+      "type": "feywild:autumn_pixie_wing_tiara",
+      "recipe": "feywild:autumn_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/spring_pixie_wings.png"
+      ],
+      "title": "Spring Pixie Wings"
+    },
+    {
+      "type": "feywild:spring_pixie_wing_tiara",
+      "recipe": "feywild:spring_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/summer_pixie_wings.png"
+      ],
+      "title": "Summer Pixie Wings"
+    },
+    {
+      "type": "feywild:summer_pixie_wing_tiara",
+      "recipe": "feywild:summer_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/winter_pixie_wings.png"
+      ],
+      "title": "Winter Pixie Wings"
+    },
+    {
+      "type": "feywild:winter_pixie_wing_tiara",
+      "recipe": "feywild:winter_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/light_wings.png"
+      ],
+      "title": "Light Pixie Wings"
+    },
+    {
+      "type": "feywild:light_wing_tiara",
+      "recipe": "feywild:light_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/shadow_wings.png"
+      ],
+      "title": "Shadow Pixie Wings"
+    },
+    {
+      "type": "feywild:shadow_wing_tiara",
+      "recipe": "feywild:shadow_wing_tiara"
+    }
+
+  ]
+}

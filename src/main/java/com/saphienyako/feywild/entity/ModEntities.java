@@ -67,6 +67,18 @@ public class ModEntities {
     public static final RegistryObject<EntityType<SpriteEntity>> SPRITE =
             ENTITY_TYPES.register("sprite", () -> EntityType.Builder.of(SpriteEntity::new, MobCategory.CREATURE).build("sprite"));
 
+    public static final RegistryObject<EntityType<TitaniaEntity>> TITANIA =
+            ENTITY_TYPES.register("titania", () -> EntityType.Builder.of(TitaniaEntity::new, MobCategory.CREATURE)
+                    .sized(1.8f,3.7f).build("titania"));
+
+    public static final RegistryObject<EntityType<MabEntity>> MAB =
+            ENTITY_TYPES.register("mab", () -> EntityType.Builder.of(MabEntity::new, MobCategory.CREATURE)
+                    .sized(1.8f,3.7f).build("mab"));
+
+    public static final RegistryObject<EntityType<FeyWingsEntity>> FEY_WINGS =
+            ENTITY_TYPES.register("fey_wings", () -> EntityType.Builder.of(FeyWingsEntity::new, MobCategory.MISC).build("fey_wings"));
+
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

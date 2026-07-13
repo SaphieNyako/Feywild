@@ -30,6 +30,16 @@ public class WinterPixieEntity extends PixieBase {
         this.goalSelector.addGoal(20, new GatherMobItemsGoal(this, this.level));
     }
 
+    @Override
+    public String getQuestLineId() {
+        return "winter_pixie";
+    }
+
+    @Override
+    public String getBackground() {
+        return "winter_quest";
+    }
+
     @Nullable
     @Override
     public SimpleParticleType getParticle() {

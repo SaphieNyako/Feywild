@@ -12,18 +12,28 @@ import org.jetbrains.annotations.NotNull;
 
 public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
 
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation(Feywild.MOD_ID, "textures/gui/fey_altar_gui.png");
+    private final FeyAltarMenu menu;
 
-    public FeyAltarScreen(FeyAltarMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+
+    public FeyAltarScreen(FeyAltarMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title);
+
+        imageWidth = 220;
+        imageHeight = 200;
+
+        this.menu = menu;
     }
 
     @Override
     protected void renderBg(@NotNull PoseStack poseStack, float v, int i, int i1) {
+        ResourceLocation texture =
+                new ResourceLocation(Feywild.MOD_ID,
+                        "textures/gui/fey_altar_" + menu.blockEntity.getAlignment().id + ".png");
+
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, texture);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -36,7 +46,7 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
 
     private void renderProgressArrow(PoseStack poseStack, int x, int y) {
         if(menu.isCrafting()) {
-            blit(poseStack, x + 143, y + 37, 178, 0, 15, menu.getScaledProgress());
+            blit(poseStack, x + 158, y + 50, 221, 13, 15, menu.getScaledProgress());
         }
     }
 
@@ -47,4 +57,8 @@ public class FeyAltarScreen extends AbstractContainerScreen<FeyAltarMenu> {
         renderTooltip(poseStack, mouseX, mouseY);
     }
 
+    @Override
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        //
+    }
 }
