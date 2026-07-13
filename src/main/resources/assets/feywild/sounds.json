@@ -8,7 +8,7 @@
   "feywild_music_disc": {
   "sounds": [
     {
-      "name": "feywild.feywild_music_disc",
+      "name": "sounds.feywild_music_disc",
       "stream": true
     }
   ]
@@ -654,13 +654,29 @@
     "sounds": [
       "feywild:tree_ent_name"
     ]
-  },
-  "tree_ent_summon": {
-    "subtitles": "message.feywild.tree_ent_summon",
-    "sounds": [
-      "feywild:tree_ent_summon"
-    ]
-  },
+  },"tree_ent_summon": {
+  "subtitles": "message.feywild.tree_ent_summon",
+  "sounds": [
+    {
+      "name": "feywild:tree_ent_story_01"
+    },
+    {
+      "name": "feywild:tree_ent_story_02"
+    },
+    {
+      "name": "feywild:tree_ent_story_03"
+    },
+    {
+      "name": "feywild:tree_ent_story_04"
+    },
+    {
+      "name": "feywild:tree_ent_story_05"
+    },
+    {
+      "name": "feywild:tree_ent_story_06"
+    }
+  ]
+},
   "tree_ent_dismiss": {
     "subtitles": "message.feywild.tree_ent_dismiss",
     "sounds": [

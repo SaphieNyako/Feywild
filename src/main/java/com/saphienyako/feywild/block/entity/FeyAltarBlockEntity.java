@@ -272,5 +272,4 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
                 ? altar.getAlignment()
                 : Alignment.SUMMER;
     }
-
 }

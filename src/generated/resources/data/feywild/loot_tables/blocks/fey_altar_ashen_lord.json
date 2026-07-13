@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "feywild:fey_altar_ashen_lord"
         }
       ],
       "rolls": 1.0

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "feywild:fey_altar"
+        "recipe": "feywild:fey_altar_queen_mab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "feywild:fey_altar"
+      "feywild:fey_altar_queen_mab"
     ]
   },
   "sends_telemetry_event": false
