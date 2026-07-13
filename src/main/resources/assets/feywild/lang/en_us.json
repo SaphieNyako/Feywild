@@ -390,6 +390,14 @@
   "message.feywild.pixie_orb_untamed": "You can only communicate with a fey you summoned!",
   "message.feywild.boss_fight": "Beware: Using this scroll will start a boss fight!",
 
+  "message.feywild.autumn_tree_ent_summon": "The Tree Ent tells you a random story.",
+  "message.feywild.spring_tree_ent_summon": "The Tree Ent tells you a random story.",
+  "message.feywild.summer_tree_ent_summon": "The Tree Ent tells you a random story.",
+  "message.feywild.winter_tree_ent_summon": "The Tree Ent tells you a random story.",
+  "message.feywild.autumn_tree_ent_dismiss": "[Tree Ent] Seasons go by so quickly...Will we meet again?",
+  "message.feywild.spring_tree_ent_dismiss": "[Tree Ent] Seasons go by so quickly...Will we meet again?",
+  "message.feywild.summer_tree_ent_dismiss": "[Tree Ent] Seasons go by so quickly...Will we meet again?",
+  "message.feywild.winter_tree_ent_dismiss": "[Tree Ent] Seasons go by so quickly...Will we meet again?",
 
   "sounds.feywild.mandrake_scream": "Mandrake screams.",
   "sounds.feywild.pixie_spell_casting": "Pixie is casting a spell.",
