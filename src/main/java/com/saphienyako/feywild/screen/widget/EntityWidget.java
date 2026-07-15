@@ -71,30 +71,33 @@ public class EntityWidget extends AbstractWidget {
 
 
             float yaw = 20.0F; // faces forward in GUI
-            mount.setYRot(yaw);
-            mount.yBodyRot = yaw + yawOffset;
-            mount.yHeadRot = yaw + yawOffset;
-            mount.setXRot(pitchOffset);
 
-            knight.setYRot(yaw);
-            knight.yBodyRot = yaw + yawOffset;
-            knight.yHeadRot = yaw + yawOffset;
-            knight.setXRot(pitchOffset);
+            if(mount != null & mount.isAlive() && !mount.isRemoved()) {
+                mount.setYRot(yaw);
+                mount.yBodyRot = yaw + yawOffset;
+                mount.yHeadRot = yaw + yawOffset;
+                mount.setXRot(pitchOffset);
 
-            dispatcher.render(
-                    mount,
-                    0, 0, 0,
-                    0,
-                    partialTicks,
-                    poseStack,
-                    buffer,
-                    15728880
-            );
+                dispatcher.render(
+                        mount,
+                        0, 0, 0,
+                        0,
+                        partialTicks,
+                        poseStack,
+                        buffer,
+                        15728880
+                );
+            }
 
+            if (knight != null && knight.isAlive() && !knight.isRemoved()) {
+                knight.setYRot(yaw);
+                knight.yBodyRot = yaw + yawOffset;
+                knight.yHeadRot = yaw + yawOffset;
+                knight.setXRot(pitchOffset);
 
-            poseStack.pushPose();
-            poseStack.translate(0, 0.45, 0);
-            dispatcher.render(
+                poseStack.pushPose();
+                poseStack.translate(0, 0.45, 0);
+                dispatcher.render(
                     knight,
                     0, 0, 0,
                     0,
@@ -102,11 +105,10 @@ public class EntityWidget extends AbstractWidget {
                     poseStack,
                     buffer,
                     15728880
-            );
-
+             );
 
                 poseStack.popPose();
-
+            }
 
             buffer.endBatch();
             dispatcher.setRenderShadow(true);

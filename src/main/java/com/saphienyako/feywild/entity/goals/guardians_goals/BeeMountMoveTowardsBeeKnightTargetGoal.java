@@ -53,7 +53,7 @@ public class BeeMountMoveTowardsBeeKnightTargetGoal extends MoveTowardsTargetGoa
 
     @Override
     public boolean canContinueToUse() {
-        return !this.mount.getNavigation().isDone() && this.target.isAlive() && this.target.distanceToSqr(this.mob) < (double)(this.within * this.within);
+        return this.target.isAlive() && this.target.distanceToSqr(this.mob) < (double)(this.within * this.within);
     }
 
     @Override
@@ -63,7 +63,9 @@ public class BeeMountMoveTowardsBeeKnightTargetGoal extends MoveTowardsTargetGoa
 
     @Override
     public void start() {
-        this.mount.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+        if(this.mount != null) {
+            this.mount.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+        }
     }
 
 }
