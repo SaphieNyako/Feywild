@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
@@ -32,32 +33,78 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        supplier.get().enqueueWork(() -> {
-            Player player = supplier.get().getSender();
-            Level level = player.level;
+        NetworkEvent.Context context = supplier.get();
 
-            if (player instanceof ServerPlayer serverPlayer) {
+        context.enqueueWork(() -> {
+            ServerPlayer serverPlayer = context.getSender();
 
-                FeyBase entity = (FeyBase) level.getEntity(this.entityId());
-                if (!(entity instanceof FeyBase)) {
-                    entity = ModEntities.SPRITE.get().create(level);
-                    entity.setPos(player.getEyePosition());
-                    level.addFreshEntity(entity);
-                }
-
-                if (entity != null) {
-                    QuestGiverAPI.interactQuest(
-                            serverPlayer,
-                            entity.getId(),
-                            Component.literal("Feywild Quest"),
-                            InteractionHand.MAIN_HAND,
-                            this.questLineId,
-                            this.backgroundName,
-                            this.dismiss,
-                            2
-                    );
-                }
+            if (serverPlayer == null) {
+                return;
             }
+
+            Level level = context.getSender().level;
+
+            Entity foundEntity = this.entityId() == -1
+                    ? null
+                    : level.getEntity(this.entityId());
+
+            FeyBase questEntity;
+            boolean temporarySprite = false;
+
+            if (foundEntity instanceof FeyBase feyBase) {
+                questEntity = feyBase;
+            } else {
+                questEntity = ModEntities.SPRITE.get().create(level);
+
+                if (questEntity == null) {
+                    Feywild.LOGGER.error(
+                            "Could not create temporary Sprite for quest line '{}'",
+                            this.questLineId()
+                    );
+                    return;
+                }
+
+                questEntity.moveTo(
+                        serverPlayer.getX(),
+                        serverPlayer.getEyeY(),
+                        serverPlayer.getZ(),
+                        serverPlayer.getYRot(),
+                        serverPlayer.getXRot()
+                );
+
+                if (!level.addFreshEntity(questEntity)) {
+                    Feywild.LOGGER.error(
+                            "Could not add temporary Sprite for quest line '{}'",
+                            this.questLineId()
+                    );
+                    return;
+                }
+
+                temporarySprite = true;
+            }
+
+            boolean shouldDismiss = temporarySprite || this.dismiss();
+
+            Feywild.LOGGER.info(
+                    "Opening quest '{}': entity={}, temporarySprite={}, dismiss={}",
+                    this.questLineId(),
+                    questEntity.getId(),
+                    temporarySprite,
+                    shouldDismiss
+            );
+
+            QuestGiverAPI.interactQuest(
+                    serverPlayer,
+                    questEntity.getId(),
+                    Component.literal("Feywild Quest"),
+                    InteractionHand.MAIN_HAND,
+                    this.questLineId(),
+                    this.backgroundName(),
+                    shouldDismiss,
+                    2
+            );
         });
+
+        context.setPacketHandled(true);
     }
 }
