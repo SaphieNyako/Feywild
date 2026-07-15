@@ -6,12 +6,12 @@
     ]
   },
   "feywild_music_disc": {
-  "sounds": [
-    {
-      "name": "sounds.feywild_music_disc",
-      "stream": true
-    }
-  ]
+    "sounds": [
+      {
+        "name": "feywild:feywild_music_disc",
+        "stream": true
+      }
+    ]
   },
   "pixie_spell_casting": {
     "subtitles": "sounds.feywild.pixie_spell_casting",

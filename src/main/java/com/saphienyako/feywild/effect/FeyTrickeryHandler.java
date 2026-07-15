@@ -16,6 +16,15 @@ public class FeyTrickeryHandler {
     public static void onMovementInput(MovementInputUpdateEvent event) {
 
         if (!(event.getEntity() instanceof LocalPlayer player)) return;
+
+
+        if (!ModEffects.FEY_TRICKERY.isPresent()) {
+            Feywild.LOGGER.error(
+                    "FEY_TRICKERY is absent on the client registry!"
+            );
+            return;
+        }
+
         if (!player.hasEffect(ModEffects.FEY_TRICKERY.get())) return;
 
         var input = event.getInput();

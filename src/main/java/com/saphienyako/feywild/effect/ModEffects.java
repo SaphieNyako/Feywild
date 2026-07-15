@@ -22,8 +22,7 @@ public class ModEffects {
 
     public static final RegistryObject<MobEffect> FEY_FLYING = MOB_EFFECTS.register("fey_flying", FeyFlyingEffect::new);
 
-    public static final RegistryObject<MobEffect> FEY_TRICKERY =
-            MOB_EFFECTS.register("fey_trickery", FeyTrickeryEffect::new);
+    public static final RegistryObject<MobEffect> FEY_TRICKERY = MOB_EFFECTS.register("fey_trickery", FeyTrickeryEffect::new);
 
 
     public static void register(IEventBus eventBus) {
