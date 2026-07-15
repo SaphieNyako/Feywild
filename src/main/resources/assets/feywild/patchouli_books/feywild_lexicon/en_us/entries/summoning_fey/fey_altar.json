@@ -1,6 +1,6 @@
 {
   "category": "feywild:summoning_fey",
-  "icon": "feywild:fey_altar",
+  "icon": "feywild:fey_altar_queen_titania",
   "name": "feywild_lexicon.entry.summoning_fey.fey_altar",
   "pages": [
     {
@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:crafting",
-      "recipe": "feywild:fey_altar",
+      "recipe": "feywild:fey_altar_queen_titania",
       "text": "feywild_lexicon.entry.summoning_fey.fey_altar.page1.text0"
     },
     {

@@ -28,7 +28,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "feywild:elven_quartz_stairs",
-      "recipe2": "feywild:spring_elven_quartz_slabs",
+      "recipe2": "feywild:spring_elven_quartz_slab",
       "title": "Elven Quartz"
     },
     {
