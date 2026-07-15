@@ -55,18 +55,24 @@ public class FeyWingsPlayerLayer<T extends Player, M extends PlayerModel<T>> ext
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T player, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 
-        if (!player.hasEffect(ModEffects.FEY_FLYING)) return;
+        ItemStack stack = player.getOffhandItem();
 
-        if (!(player.level() instanceof ClientLevel level)) return;
+        if (!(stack.getItem() instanceof PixieWingTiaraItem wingItem)) {
+            return;
+        }
+
+        if (!(player.level() instanceof ClientLevel level)) {
+            return;
+        }
 
         LivingEntity entity = getTestEntity(level);
 
-        ItemStack stack = player.getOffhandItem();
-
-        if (stack.getItem() instanceof PixieWingTiaraItem wingItem && entity instanceof FeyWingsEntity wingsEntity) {
-
-            wingsEntity.setTexture(wingItem.getWingTexture(stack));
+        if (!(entity instanceof FeyWingsEntity wingsEntity)) {
+            return;
         }
+
+        wingsEntity.setTexture(wingItem.getWingTexture(stack));
+
 
         poseStack.pushPose();
 
