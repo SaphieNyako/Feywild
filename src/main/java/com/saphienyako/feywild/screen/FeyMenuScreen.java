@@ -2,6 +2,7 @@ package com.saphienyako.feywild.screen;
 
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.Alignment;
+import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.BeeMountEntity;
 import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.entity.base.FeyBase;
@@ -95,6 +96,33 @@ public class FeyMenuScreen extends Screen {
         super.render(graphics, mouseX, mouseY, partialTicks);
         graphics.pose().translate(0, 0, 20);
         graphics.pose().popPose();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        Minecraft minecraft = Minecraft.getInstance();
+
+        if (minecraft.level == null || minecraft.player == null) {
+            this.onClose();
+            return;
+        }
+
+        Entity entity = minecraft.level.getEntity(this.entityId);
+
+        if (!(entity instanceof LivingEntity living)
+                || !living.isAlive()
+                || living.isRemoved()) {
+            this.onClose();
+        }
+
+        if (entity instanceof BeeMountEntity mount) {
+            BeeKnightEntity knight = mount.getLinkedKnight();
+
+            if (knight == null || !knight.isAlive() || knight.isRemoved()) {
+                this.onClose();
+            }
+        }
     }
 
     @Override
