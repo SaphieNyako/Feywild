@@ -69,15 +69,19 @@ public class EntityWidget extends AbstractWidget {
 
 
             float yaw = 20.0F; // faces forward in GUI
-            mount.setYRot(yaw);
-            mount.yBodyRot = yaw + yawOffset;
-            mount.yHeadRot = yaw + yawOffset;
-            mount.setXRot(pitchOffset);
+            if(mount != null) {
+                mount.setYRot(yaw);
+                mount.yBodyRot = yaw + yawOffset;
+                mount.yHeadRot = yaw + yawOffset;
+                mount.setXRot(pitchOffset);
+            }
 
-            knight.setYRot(yaw);
-            knight.yBodyRot = yaw + yawOffset;
-            knight.yHeadRot = yaw + yawOffset;
-            knight.setXRot(pitchOffset);
+            if(knight != null) {
+                knight.setYRot(yaw);
+                knight.yBodyRot = yaw + yawOffset;
+                knight.yHeadRot = yaw + yawOffset;
+                knight.setXRot(pitchOffset);
+            }
 
             dispatcher.render(
                     mount,
