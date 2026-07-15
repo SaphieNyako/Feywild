@@ -156,7 +156,6 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.FEY_WINGS_LAYER, FeyWingsModel::createBodyLayer);
     }
 
-
     private void commonSetup(final FMLCommonSetupEvent event) {
 
         event.enqueueWork(FeywildNetwork::register);
