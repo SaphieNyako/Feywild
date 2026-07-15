@@ -44,7 +44,7 @@ public class LexiconMenuScreen extends Screen {
 
         if (ModList.get().isLoaded("quest_giver")) {
             SpriteEntity sprite = ModEntities.SPRITE.get().create(Minecraft.getInstance().level);
-            this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  QuestButton.HEIGHT, this,"sprite", "hexen_quest", true, sprite.getId()));
+            this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  QuestButton.HEIGHT, this,"sprite", "hexen_quest", true, -1));
 
         }
 
