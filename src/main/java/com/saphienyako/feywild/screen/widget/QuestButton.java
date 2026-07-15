@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.screen.widget;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.network.DismissEntityMessage;
 import com.saphienyako.feywild.network.OpenQuestMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -28,7 +29,7 @@ public class QuestButton extends Button {
 
     private final String backgroundName;
 
-    private final int entyityId;
+    private final int entityId;
 
     public QuestButton(int x, int y, Screen screen, String questLineId, String backgroundName, boolean dismiss, int entityId) {
         super(x, y, WIDTH, HEIGHT, Component.translatable("message.feywild.test"), b -> {}, l -> Component.empty());
@@ -36,14 +37,14 @@ public class QuestButton extends Button {
         this.textComponent = Component.translatable("message.feywild.quest");
         this.questLineId = questLineId;
         this.backgroundName = backgroundName;
-        this.entyityId = entityId;
+        this.entityId = entityId;
         this.dismiss = dismiss;
     }
 
     @Override
     public void onPress() {
-        PacketDistributor.sendToServer(new OpenQuestMessage(questLineId, backgroundName, dismiss, entyityId));
-        this.screen.onClose();
+        PacketDistributor.sendToServer(new OpenQuestMessage(questLineId, backgroundName, dismiss, entityId));
+        this.screen.onClose(); //IF THIS IS THE PROBLEM DISMISS ENTITY HERE INSTEAD?
     }
 
     @Override

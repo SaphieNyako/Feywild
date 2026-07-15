@@ -12,6 +12,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -37,31 +38,78 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
 
     public static void handle(OpenQuestMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            Player player = context.player();
-            Level level = context.player().level();
-
-            if (player instanceof ServerPlayer serverPlayer) {
-
-                FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
-                if (!(entity instanceof FeyBase)) {
-                    entity = ModEntities.SPRITE.get().create(level);
-                    entity.setPos(player.getEyePosition());
-                    level.addFreshEntity(entity);
-                }
-
-                if (entity != null) {
-                    QuestGiverAPI.interactQuest(
-                            serverPlayer,
-                            entity.getId(),
-                            Component.literal("Feywild Quest"),
-                            InteractionHand.MAIN_HAND,
-                            msg.questLineId,
-                            msg.backgroundName,
-                            msg.dismiss,
-                            2
-                    );
-                }
+            if (!(context.player() instanceof ServerPlayer serverPlayer)) {
+                return;
             }
+
+            Level level = serverPlayer.level();
+
+            Entity foundEntity = msg.entityId() == -1
+                    ? null
+                    : level.getEntity(msg.entityId());
+
+            FeyBase questEntity;
+            boolean temporarySprite = false;
+
+            if (foundEntity instanceof FeyBase feyBase) {
+                questEntity = feyBase;
+            } else {
+                questEntity = ModEntities.SPRITE.get().create(level);
+
+                if (questEntity == null) {
+                    Feywild.LOGGER.error(
+                            "Could not create temporary Sprite for quest line '{}'",
+                            msg.questLineId()
+                    );
+                    return;
+                }
+
+                questEntity.moveTo(
+                        serverPlayer.getX(),
+                        serverPlayer.getEyeY(),
+                        serverPlayer.getZ(),
+                        serverPlayer.getYRot(),
+                        serverPlayer.getXRot()
+                );
+
+                if (!level.addFreshEntity(questEntity)) {
+                    Feywild.LOGGER.error(
+                            "Could not add temporary Sprite for quest line '{}'",
+                            msg.questLineId()
+                    );
+                    return;
+                }
+
+                temporarySprite = true;
+            }
+
+            boolean shouldDismiss = temporarySprite || msg.dismiss();
+
+            Feywild.LOGGER.info(
+                    "Opening quest '{}': entity={}, temporarySprite={}, dismiss={}",
+                    msg.questLineId(),
+                    questEntity.getId(),
+                    temporarySprite,
+                    shouldDismiss
+            );
+
+            QuestGiverAPI.interactQuest(
+                    serverPlayer,
+                    questEntity.getId(),
+                    Component.literal("Feywild Quest"),
+                    InteractionHand.MAIN_HAND,
+                    msg.questLineId(),
+                    msg.backgroundName(),
+                    shouldDismiss,
+                    2
+            );
+        }).exceptionally(error -> {
+            Feywild.LOGGER.error(
+                    "Failed to open quest line '{}'",
+                    msg.questLineId(),
+                    error
+            );
+            return null;
         });
     }
 

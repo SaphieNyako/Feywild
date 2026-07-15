@@ -79,7 +79,6 @@ public class FeyMenuScreen extends Screen {
                if(entity instanceof BeeMountEntity){
                     this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this.entityId));
                 } else if (ModList.get().isLoaded("quest_giver") && entity instanceof PixieBase pixie){
-                   //TODO QUEST BUTTON
                    this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2),this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this, pixie.getQuestLineId(), pixie.getBackground(), false, this.entityId));
                 }
             }
