@@ -33,3 +33,9 @@ versionRange="[1.4.2,)"
 ordering="AFTER"
 side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="patchouli"
+mandatory=true
+versionRange="[1.21,)"
+ordering="NONE"
+side="BOTH"
