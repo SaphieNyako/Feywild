@@ -44,7 +44,6 @@ public class PixieWingTiaraItem extends Item {
     public ResourceLocation getWingTexture(@NotNull ItemStack stack) {
 
         String name = stack.getHoverName().getString();
-        System.out.println("Wing name: " + name);
 
         switch (name) {
             case "lesbian wings", "pride 01" -> {
