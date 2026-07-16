@@ -60,3 +60,10 @@ mandatory=true
 versionRange="[1.4.2,)"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="patchouli"
+mandatory=true
+versionRange="[1.19.2-77,)"
+ordering="NONE"
+side="BOTH"
