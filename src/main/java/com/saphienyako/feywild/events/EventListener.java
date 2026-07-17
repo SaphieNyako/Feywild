@@ -1,14 +1,17 @@
 package com.saphienyako.feywild.events;
 
 import com.saphienyako.feywild.config.ModConfig;
+import com.saphienyako.feywild.effect.FeyFlyingEffect;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
@@ -36,30 +39,45 @@ public class EventListener {
 
         Player player = event.player;
 
-        if (player.level().isClientSide) return;
-        if (player.isCreative() || player.isSpectator()) return;
+        if (player.level().isClientSide) {
+            return;
+        }
 
-        boolean hasEffect = player.hasEffect(ModEffects.FEY_FLYING.get());
+        if (player.isCreative() || player.isSpectator()) {
+            return;
+        }
 
-        var abilities = player.getAbilities();
+        MobEffectInstance feyFlying = player.getEffect(ModEffects.FEY_FLYING.get());
+
+        boolean hasEffect = feyFlying != null;
+
+        CompoundTag data = player.getPersistentData();
+
+        boolean grantedByFeywild = data.getBoolean(FeyFlyingEffect.FEYWILD_GRANTED_FLIGHT);
+
+        Abilities abilities = player.getAbilities();
 
         if (!hasEffect) {
 
-            if (abilities.mayfly) {
+            if (grantedByFeywild) {
                 abilities.mayfly = false;
                 abilities.flying = false;
+
+                data.remove(FeyFlyingEffect.FEYWILD_GRANTED_FLIGHT);
+
                 player.onUpdateAbilities();
             }
 
             return;
         }
 
-        int duration = player.getEffect(ModEffects.FEY_FLYING.get()).getDuration();
+        int duration = feyFlying.getDuration();
 
         if (duration < 20) {
-            if(duration == 19){
+            if (duration == 19) {
                 player.level().playSound(null, player.blockPosition(), ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
+
             player.displayClientMessage(Component.literal("The magic of the pixie tiara is fading...").withStyle(ChatFormatting.LIGHT_PURPLE), true);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 120, 0, false, false, true));
         }
