@@ -2,6 +2,7 @@ package com.saphienyako.feywild.effect;
 
 import com.saphienyako.feywild.Feywild;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +17,9 @@ import javax.annotation.Nonnull;
 
 public class FeyFlyingEffect extends MobEffect {
 
+    private static final String FEYWILD_GRANTED_FLIGHT =
+            "feywild_granted_flight";
+
     public FeyFlyingEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xF59EE8);
     }
@@ -27,14 +31,24 @@ public class FeyFlyingEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
-        if (entity instanceof Player player && !player.level().isClientSide) {
-            var abilities = player.getAbilities();
+        if (!(entity instanceof Player player)) {
+            return true;
+        }
 
-            if (!abilities.mayfly) {
-                abilities.mayfly = true;
-                abilities.flying = true;
-                player.onUpdateAbilities();
-            }
+        if (player.level().isClientSide) {
+            return true;
+        }
+
+        var abilities = player.getAbilities();
+        CompoundTag data = player.getPersistentData();
+
+        //fix for flying with other mods
+        if (!abilities.mayfly) {
+            abilities.mayfly = true;
+            abilities.flying = true;
+
+            data.putBoolean(FEYWILD_GRANTED_FLIGHT, true);
+            player.onUpdateAbilities();
         }
 
         return true;
