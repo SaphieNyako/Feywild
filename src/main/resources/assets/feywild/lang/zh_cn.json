@@ -1,6 +1,7 @@
 {
   "creative_tab.feywild_creative_tab": "仙灵荒野",
   "message.feywild.test": "仙灵荒野",
+
   "item.feywild.feywild_lexicon": "仙灵百科",
   "item.feywild.fey_gem": "仙灵宝石",
   "item.feywild.mandrake_root": "曼德拉草",
@@ -19,6 +20,8 @@
   "item.feywild.summoning_scroll_summer_tree_ent": "夏之树灵召唤卷轴",
   "item.feywild.summoning_scroll_autumn_tree_ent": "秋之树灵召唤卷轴",
   "item.feywild.summoning_scroll_winter_tree_ent": "冬之树灵召唤卷轴",
+  "item.feywild.summoning_scroll_queen_titania": "媞坦妮娅女王召唤卷轴",
+  "item.feywild.summoning_scroll_queen_mab": "梅布女王召唤卷轴",
   "item.feywild.spawn_egg_spring_pixie": "春之精灵刷怪蛋",
   "item.feywild.spawn_egg_summer_pixie": "夏之精灵刷怪蛋",
   "item.feywild.spawn_egg_autumn_pixie": "秋之精灵刷怪蛋",
@@ -31,13 +34,23 @@
   "item.feywild.spawn_egg_summer_tree_ent": "夏之树灵刷怪蛋",
   "item.feywild.spawn_egg_autumn_tree_ent": "秋之树灵刷怪蛋",
   "item.feywild.spawn_egg_winter_tree_ent": "冬之树灵刷怪蛋",
+  "item.feywild.spawn_egg_queen_titania": "媞坦妮娅女王刷怪蛋",
+  "item.feywild.spawn_egg_queen_mab": "梅布女王刷怪蛋",
   "item.feywild.fey_dust": "仙灵之尘",
   "item.feywild.mandrake": "曼德拉果",
   "item.feywild.empty_summoning_scroll": "空白召唤卷轴",
   "item.feywild.pixie_orb": "精灵宝珠",
+  "item.feywild.pixie_wing_tiara": "精灵冠冕",
+  "item.feywild.autumn_pixie_wing_tiara": "秋之翼头饰",
+  "item.feywild.spring_pixie_wing_tiara": "春之翼头饰",
+  "item.feywild.summer_pixie_wing_tiara": "夏之翼头饰",
+  "item.feywild.winter_pixie_wing_tiara": "冬之翼头饰",
+  "item.feywild.shadow_wing_tiara": "暗影之翼头饰",
+  "item.feywild.light_wing_tiara": "光明之翼头饰",
   "item.feywild.giant_crocus_flower_seed": "魔法番红花种子",
   "item.feywild.giant_dandelion_flower_seed": "奇迹蒲公英种子",
   "item.feywild.giant_sun_flower_seed": "奇迹向日葵种子",
+
   "block.feywild.fey_gem_ore": "仙灵宝石矿石",
   "block.feywild.fey_gem_ore_deep_slate": "深层仙灵宝石矿石",
   "block.feywild.giant_crocus_flower": "魔法番红花",
@@ -47,6 +60,10 @@
   "block.feywild.giant_sun_flower": "奇迹向日葵",
   "block.feywild.giant_sun_flower_stem": "奇迹向日葵茎",
   "block.feywild.fey_altar": "仙灵祭坛",
+  "block.feywild.fey_altar_queen_titania": "媞坦妮娅女王祭坛",
+  "block.feywild.fey_altar_queen_mab": "梅布女王祭坛",
+  "block.feywild.fey_altar_ashen_lord": "灰烬领主祭坛",
+  "block.feywild.fey_altar_oberon": "奥伯伦王子祭坛",
   "block.feywild.mandrake_crop": "曼德拉草",
   "block.feywild.elven_quartz_block": "仙灵石英块",
   "block.feywild.elven_quartz_stairs": "仙灵石英楼梯",
@@ -132,6 +149,7 @@
   "block.feywild.purple_mushroom_block": "紫色蘑菇方块",
   "block.feywild.pink_mushroom": "粉红色蘑菇",
   "block.feywild.pink_mushroom_block": "粉红色蘑菇方块",
+
   "block.feywild.autumn_tree_sapling": "秋之树苗",
   "block.feywild.autumn_tree_leaves_brown": "秋树棕色树叶",
   "block.feywild.autumn_tree_leaves_red": "秋树红色树叶",
@@ -157,6 +175,7 @@
   "block.feywild.autumn_tree_planks_trapdoor": "秋树活板门",
   "block.feywild.autumn_tree_planks_button": "秋树按钮",
   "block.feywild.autumn_tree_planks_pressure_plate": "秋树压力板",
+
   "block.feywild.spring_tree_sapling": "春之树苗",
   "block.feywild.spring_tree_leaves_cyan": "春树青色树叶",
   "block.feywild.spring_tree_leaves_green": "春树绿色树叶",
@@ -181,6 +200,7 @@
   "block.feywild.spring_tree_planks_trapdoor": "春树活板门",
   "block.feywild.spring_tree_planks_button": "春树按钮",
   "block.feywild.spring_tree_planks_pressure_plate": "春树压力板",
+
   "block.feywild.summer_tree_sapling": "夏之树苗",
   "block.feywild.summer_tree_leaves_yellow": "夏树黄色树叶",
   "block.feywild.summer_tree_leaves_orange": "夏树橙色树叶",
@@ -204,6 +224,7 @@
   "block.feywild.summer_tree_planks_trapdoor": "夏树活板门",
   "block.feywild.summer_tree_planks_button": "夏树按钮",
   "block.feywild.summer_tree_planks_pressure_plate": "夏树压力板",
+
   "block.feywild.winter_tree_sapling": "冬之树苗",
   "block.feywild.winter_tree_leaves_blue": "冬树蓝色树叶",
   "block.feywild.winter_tree_leaves_light_blue": "冬树淡蓝色树叶",
@@ -227,6 +248,7 @@
   "block.feywild.winter_tree_planks_trapdoor": "冬树活板门",
   "block.feywild.winter_tree_planks_button": "冬树按钮",
   "block.feywild.winter_tree_planks_pressure_plate": "冬树压力板",
+
   "entity.feywild.spring_pixie": "春之精灵",
   "entity.feywild.autumn_pixie": "秋之精灵",
   "entity.feywild.summer_pixie": "夏之精灵",
@@ -234,13 +256,17 @@
   "entity.feywild.shroomling": "蘑菇灵",
   "entity.feywild.mandragora": "曼德拉",
   "entity.feywild.bellsnickel": "图书馆地精",
-  "entity.feywild.moo_shroom_cow": "仙灵哞菇",
   "entity.feywild.bee_mount": "蜜蜂骑士坐骑",
   "entity.feywild.bee_knight": "蜜蜂骑士",
+  "entity.feywild.moo_shroom_cow": "仙灵哞菇",
   "entity.feywild.spring_tree_ent": "春之树灵",
   "entity.feywild.summer_tree_ent": "夏之树灵",
   "entity.feywild.winter_tree_ent": "冬之树灵",
   "entity.feywild.autumn_tree_ent": "秋之树灵",
+  "entity.feywild.sprite": "向导精灵",
+  "entity.feywild.titania": "媞坦妮娅女王",
+  "entity.feywild.mab": "梅布女王",
+
   "message.feywild.shift_down": "按下Shift显示更多信息",
   "message.feywild.bellsnickel_menu_description": "抄录: 复制附魔书",
   "message.feywild.bee_knight_menu_description": "装备蜜蜂骑士",
@@ -254,18 +280,21 @@
   "message.feywild.pixie_orb": "右击你召唤的仙灵与它们对话. 可使用仙灵祭坛合成得到.",
   "message.feywild.fey_ink_bottle": "用于合成召唤卷轴. 可通过合成得到.",
   "message.feywild.empty_summoning_scroll": "用于召唤仙灵. 可通过合成得到.",
-  "message.feywild.summoning_scroll_spring_pixie": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_summer_pixie": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_winter_pixie": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_autumn_pixie": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_shroomling": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_mandragora": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_bellsnickel": "可使用仙灵祭坛合成得到.",
-  "message.feywild.summoning_scroll_bee_knight": "仙灵祭坛：空白召唤卷轴、仙灵宝石、蜂巢、鞍和夏之精灵卷轴",
-  "message.feywild.summoning_scroll_spring_tree_ent": "仙灵祭坛：空白召唤卷轴、仙灵宝石、春之精灵卷轴、曼德拉召唤卷轴和春之树苗",
-  "message.feywild.summoning_scroll_summer_tree_ent": "仙灵祭坛：空白召唤卷轴、仙灵宝石、夏之精灵卷轴、蜜蜂骑士召唤卷轴和夏之树苗",
-  "message.feywild.summoning_scroll_autumn_tree_ent": "仙灵祭坛：空白召唤卷轴、仙灵宝石、秋之精灵卷轴、蘑菇灵召唤卷轴和秋之树苗",
-  "message.feywild.summoning_scroll_winter_tree_ent": "仙灵祭坛：空白召唤卷轴、仙灵宝石、冬之精灵卷轴、图书馆地精召唤卷轴和冬之树苗",
+  "message.feywild.pixie_wing_tiara": "精灵冠冕，仙灵的王冠。",
+  "message.feywild.summoning_scroll_spring_pixie": "仙灵祭坛：空白卷轴、仙灵宝石、蛋糕、羊毛和花",
+  "message.feywild.summoning_scroll_summer_pixie": "仙灵祭坛：空白卷轴、仙灵宝石、蜜脾、西瓜和金剑",
+  "message.feywild.summoning_scroll_winter_pixie": "仙灵祭坛：空白卷轴、仙灵宝石、雪球、腐肉和骨头",
+  "message.feywild.summoning_scroll_autumn_pixie": "仙灵祭坛：空白卷轴、仙灵宝石、南瓜、铁锄和蘑菇",
+  "message.feywild.summoning_scroll_shroomling": "仙灵祭坛：空白卷轴、仙灵宝石、菌光体、红蘑菇和秋之精灵卷轴",
+  "message.feywild.summoning_scroll_mandragora": "仙灵祭坛：空白卷轴、仙灵宝石、开花杜鹃、曼德拉草根和春之精灵卷轴",
+  "message.feywild.summoning_scroll_bellsnickel": "仙灵祭坛：空白卷轴、仙灵宝石、灵魂灯笼、附魔书和冬之精灵卷轴",
+  "message.feywild.summoning_scroll_bee_knight": "仙灵祭坛：空白卷轴、仙灵宝石、蜂巢、鞍和夏之精灵卷轴",
+  "message.feywild.summoning_scroll_spring_tree_ent": "仙灵祭坛：空白卷轴、仙灵宝石、春之精灵卷轴、曼德拉卷轴和春之树苗",
+  "message.feywild.summoning_scroll_summer_tree_ent": "仙灵祭坛：空白卷轴、仙灵宝石、夏之精灵卷轴、蜜蜂骑士卷轴和夏之树苗",
+  "message.feywild.summoning_scroll_autumn_tree_ent": "仙灵祭坛：空白卷轴、仙灵宝石、秋之精灵卷轴、蘑菇灵卷轴和秋之树苗",
+  "message.feywild.summoning_scroll_winter_tree_ent": "仙灵祭坛：空白卷轴、仙灵宝石、冬之精灵卷轴、图书馆地精卷轴和冬之树苗",
+  "message.feywild.summoning_scroll_queen_titania": "仙灵祭坛：空白卷轴、仙灵宝石、夏之精灵卷轴、蜜蜂骑士卷轴和夏之树灵卷轴",
+  "message.feywild.summoning_scroll_queen_mab": "仙灵祭坛：空白卷轴、仙灵宝石、冬之精灵卷轴、图书馆地精卷轴和冬之树灵卷轴",
   "message.feywild.mandrake": "这小东西会一直尖叫! 由种植曼德拉草得到.",
   "message.feywild.fey_altar": "用于合成召唤卷轴. 可通过合成得到.",
   "message.feywild.ability_off": "能力: 禁用",
@@ -277,6 +306,9 @@
   "message.feywild.mount": "骑乘",
   "message.feywild.effect": "祝福",
   "message.feywild.equipment": "装备",
+  "message.feywild.guide_book": "指南书",
+  "message.feywild.quest": "任务",
+
   "message.feywild.autumn_pixie_cookie": "[秋之精灵]: 哦啊, 要记得来看我, 亲爱的!",
   "message.feywild.autumn_pixie_name": "[秋之精灵]: 谢谢你, 亲爱的! 你一定想知道我的本名吧?",
   "message.feywild.autumn_pixie_follow": "[秋之精灵]: 你想出去走走? 我也想去!",
@@ -309,6 +341,7 @@
   "message.feywild.winter_pixie_dismiss": "[冬之精灵]: 真恼人... 冬天的寒冷应降临在你之上...",
   "message.feywild.winter_pixie_ability_on": "[冬之精灵]: 我会收集它们的一些灵魂...你可以拿走那些灵魂的碎片...",
   "message.feywild.winter_pixie_ability_off": "[冬之精灵]: 我会减弱我的功力...你能奉献出你的灵魂吗?",
+
   "message.feywild.shroomling_cookie": "[蘑菇灵]: 嗯! 好吃!",
   "message.feywild.shroomling_name": "[蘑菇灵]: 哦? 名字? 我吗?",
   "message.feywild.shroomling_follow": "[蘑菇灵]: 是什么需要蘑菇灵的滋润?",
@@ -318,6 +351,7 @@
   "message.feywild.shroomling_ability_on": "[蘑菇灵]: 干活让我感觉...啊~ 啊啊~ 噢...",
   "message.feywild.shroomling_ability_off": "[蘑菇灵]: 好.",
   "message.feywild.shroomling_trade": "[蘑菇灵]: 哦哦~ 东西来了.",
+
   "message.feywild.mandragora_cookie": "[曼德拉]: 想和我一起寻花吗?",
   "message.feywild.mandragora_name": "[曼德拉]: 美妙的名字! 谢谢你!",
   "message.feywild.mandragora_follow": "[曼德拉]: 总不能让你失望吧!!",
@@ -327,6 +361,7 @@
   "message.feywild.mandragora_ability_on": "[曼德拉]: 哦? 你想听我唱歌?",
   "message.feywild.mandragora_ability_off": "[曼德拉]: 是不够好吗?",
   "message.feywild.mandragora_trade": "[曼德拉]: 你要什么?",
+
   "message.feywild.bellsnickel_cookie": "[图书馆地精]: 我说过我要读的, 不要吃的...",
   "message.feywild.bellsnickel_name": "[图书馆地精]: 哎! 你想叫我什么就叫什么! 反正我不听! 哈哈哈~",
   "message.feywild.bellsnickel_follow": "[图书馆地精]: 还让我一直走!!",
@@ -335,6 +370,7 @@
   "message.feywild.bellsnickel_dismiss": "[图书馆地精]: 哎! 无论怎样, 书都比人好啊...",
   "message.feywild.bellsnickel_carry_stuff": "[图书馆地精]: 还让我一直背那么多东西...背疼! 我的背...",
   "message.feywild.bellsnickel_trade": "[图书馆地精]: 哦哟! 这东西都和我一样大年纪了.",
+
   "message.feywild.bee_mount_cookie": "[蜜蜂骑士]: 你需要我的时候我会...唉…在你身边!",
   "message.feywild.bee_knight_cookie": "[蜜蜂骑士]: 你需要我的时候我会...唉…在你身边!",
   "message.feywild.bee_mount_name": "[蜜蜂骑士]: 这名字是给我的还是给我那高贵的坐骑的?",
@@ -347,24 +383,239 @@
   "message.feywild.bee_mount_dismiss": "[蜜蜂骑士]: 行! 我嗡嗡地飞走了!",
   "message.feywild.bee_mount_attack": "[蜜蜂骑士]: 让我扛这么多东西…哦，我的背! 我的背啊…",
   "message.feywild.bee_mount_trade": "[蜜蜂骑士]: 你想要什么, 蜂蜜? …蜂，蜂蜜!",
+
+  "message.feywild.sprite_dismiss": "合上书本时，那只小小的向导精灵消失了！",
+
+  "message.feywild.feywild_lexicon": "这本百科莫名其妙的出现在了你的物品栏里.",
+  "message.feywild.no_lexicon": "需要安装Patchouli模组!",
   "message.feywild.pixie_whisper": "[一只精灵低语道]: ",
   "message.feywild.grow_sapling": "这小树苗需要更多空间才能生长!",
   "message.feywild.pixie_orb_untamed": "你只能与你召唤的仙灵交流!",
-  "message.feywild.feywild_lexicon": "这本百科莫名其妙的出现在了你的物品栏里.",
-  "message.feywild.no_lexicon": "需要安装Patchouli模组!",
+  "message.feywild.boss_fight": "注意：使用此卷轴将触发一场 Boss 战！",
+
+  "message.feywild.autumn_tree_ent_summon": "树灵给你讲了一个随机的故事。",
+  "message.feywild.spring_tree_ent_summon": "树灵给你讲了一个随机的故事。",
+  "message.feywild.summer_tree_ent_summon": "树灵给你讲了一个随机的故事。",
+  "message.feywild.winter_tree_ent_summon": "树灵给你讲了一个随机的故事。",
+  "message.feywild.autumn_tree_ent_dismiss": "[树灵]：四季流转太快……我们还会再见面吗？",
+  "message.feywild.spring_tree_ent_dismiss": "[树灵]：四季流转太快……我们还会再见面吗？",
+  "message.feywild.summer_tree_ent_dismiss": "[树灵]：四季流转太快……我们还会再见面吗？",
+  "message.feywild.winter_tree_ent_dismiss": "[树灵]：四季流转太快……我们还会再见面吗？",
+
   "sounds.feywild.mandrake_scream": "曼德拉果在尖叫.",
   "sounds.feywild.pixie_spell_casting": "精灵正在施展魔咒.",
   "sounds.feywild.pixie_spell_casting_short": "精灵正在施展魔咒.",
   "sounds.feywild.pixie_giggle": "精灵在偷笑.",
   "sounds.feywild.pixie_hurt": "精灵受伤了.",
   "sounds.feywild.pixie_death": "精灵死亡了.",
-  "effect.feywild.summer_blessing": "夏之恩惠",
-  "effect.feywild.spring_blessing": "春之恩惠",
-  "effect.feywild.winter_blessing": "冬之恩惠",
-  "effect.feywild.autumn_blessing": "秋之恩惠",
+
   "effect.feywild.autumn_tree_ent_protection": "秋之守护",
   "effect.feywild.spring_tree_ent_protection": "春之守护",
   "effect.feywild.summer_tree_ent_protection": "夏之守护",
   "effect.feywild.winter_tree_ent_protection": "冬之守护",
-  "effect.feywild.fey_flying": "仙灵飞行"
+  "effect.feywild.fey_flying": "仙灵飞行",
+
+  "quest.feywild.sprite_root_start_title": "前进",
+  "quest.feywild.sprite_root_start_description": "你好呀！作为$(#8867DB)仙灵百科·附魔版$()中迷人的新特性之一，这本书内含一个$(#8867DB)特殊召唤的精灵伙伴$()的印记！这个小精灵会协助你浏览百科，教你$(#60D8E6)仙灵之道$()，并回答你的每一个问题。\n\n你想告诉她你的名字，来个性化你的这本百科吗？",
+
+  "quest.feywild.sprite_quest_01_start_title": "你的故事由此开始",
+  "quest.feywild.sprite_quest_01_start_description": "让我们先问一个问题：$(#60D8E6)仙灵是什么？$()也许你曾注意到，有时候事情并非表面那样？比如某天你特别幸运，或者找不到左脚的袜子？这些就是仙灵常玩的一些无伤大雅的把戏。\n所有仙灵都来自一个名为$(#60D8E6)仙灵荒野$()的奇幻魔法之地。\n我会教你更多关于我们的事，首先从如何$(#60D8E6)召唤并与仙灵交流$()开始。\n\n要开始，你需要一些神奇的$(#60D8E6)仙灵之尘$()。这应该不难获得，因为大多数$(#60D8E6)仙灵$()会很乐意在你$(#86DB67)给予$()它们甜食时给你一些。它们许多的最爱是$(#86DB67)曲奇$()！\n\n或者，如果你更喜欢暴力手段，你也可以通过$(#EFBF04)在战斗中击败它们$()来迫使它们交出$(#60D8E6)仙灵之尘$()，这也可以。\n\n或者，如果你更喜欢平凡的方法，你可以通过$(#CE2803)烧炼$()在地下$(#CE2803)挖矿$()时找到的$(#60D8E6)仙灵宝石$()来获得它。\n\n对于那些更倾向于$(#319DFC)与死亡共舞$()的人，你可以尝试潜行到一棵仙灵树旁，$(#319DFC)破坏一个裂纹原木$()来获得一颗仙灵宝石。\n\n$(#60D8E6)目标：获得1个仙灵之尘$()",
+
+  "quest.feywild.sprite_quest_01_complete_title": "尘埃落定",
+  "quest.feywild.sprite_quest_01_complete_description": "干得好！希望获取它不太难。\n你需要这个来制作你的第一张$(#60D8E6)召唤卷轴$()，它将允许你$(#8867DB)引导仙灵的精髓进入凡间$()。不过我们一步一步来。",
+
+  "quest.feywild.sprite_quest_02_start_title": "关于曼德拉草",
+  "quest.feywild.sprite_quest_02_start_description": "要书写$(#60D8E6)召唤卷轴$()，你需要特殊的$(#60D8E6)墨水$()，它通过$(#CE2803)曼德拉草$()的力量得到了强化。\n\n要获得你的第一根$(#CE2803)曼德拉草根$()，你需要将一颗$(#8867DB)毒马铃薯$()与$(#60D8E6)仙灵之尘$()$(#8867DB)融合$()。把它种在$(#CE2803)肥沃的农田$()里，让它长得又大又好又吵，直到可以采摘。别忘了保护你的耳朵！\n\n$(#60D8E6)目标：获得1个曼德拉草$()",
+
+  "quest.feywild.sprite_quest_02_complete_title": "你说什么？",
+  "quest.feywild.sprite_quest_02_complete_description": "唉……所以这就是为什么不能惯着你的土豆，是吧？至少我们可以把那部分抛在脑后了。\n——小精灵为你的成就高兴地跳了起来——",
+
+  "quest.feywild.sprite_quest_03_start_title": "黏糊糊",
+  "quest.feywild.sprite_quest_03_start_description": "那么现在。如果你拿一个$(#60D8E6)玻璃瓶$()，把一个$(#60D8E6)墨囊$()挤进去，然后加一点点$(#CE2803)曼德拉草$()……或者直接把整个扔进去，为什么不呢？把它弄得又黏又软；别纠结细节！\n\n去吧，试试看。\n\n$(#60D8E6)目标：获得1个仙灵墨水$()",
+
+  "quest.feywild.sprite_quest_03_complete_title": "压扁了",
+  "quest.feywild.sprite_quest_03_complete_description": "是不是很满足？有我的帮助，也许你会成为有史以来最棒的$(#8867DB)药水酿造师$()！进入下一步。",
+
+  "quest.feywild.sprite_quest_04_start_title": "卷起卷轴",
+  "quest.feywild.sprite_quest_04_start_description": "你离成功很近了！最后一步很简单：拿些$(#60D8E6)纸$()，将一根$(#60D8E6)羽毛$()的尖端蘸上$(#60D8E6)仙灵墨水$()，这样你就能写下$(#8867DB)咒文$()了！\n\n一旦你这么做，你很快就能$(#8867DB)召唤仙灵$()了！\n\n$(#60D8E6)目标：获得1个空白召唤卷轴$()",
+
+  "quest.feywild.sprite_quest_04_complete_title": "放下卷轴",
+  "quest.feywild.sprite_quest_04_complete_description": "是的，太好了~！现在你有了这个，你只需要想象你想召唤的仙灵，将卷轴$(#8867DB)献上$()给$(#60D8E6)仙灵祭坛$()，然后……你为什么那样盯着看？我们忘了什么吗？你手头有祭坛吗？",
+
+  "quest.feywild.sprite_quest_05_start_title": "你想建个祭坛吗？",
+  "quest.feywild.sprite_quest_05_start_description": "哦天哪。好吧，拿些$(#60D8E6)平滑石头$()，赶紧做个$(#60D8E6)仙灵祭坛$()吧，傻瓜！\n\n祭坛需要仿照目前统治$(#60D8E6)仙灵荒野$()的$(#60D8E6)伟大的仙灵领主$()之一。$(#60D8E6)四季庭廷$()的君主是$(#86DB67)奥伯龙$()、$(#CE2803)灰烬领主$()和$(#319DFC)梅布女王$()……哦，还有$(#EFBF04)提泰妮娅女王$()。\n\n为了让雕像引导魔法，它需要在核心处放置一颗$(#60D8E6)仙灵宝石$()。\n\n$(#60D8E6)目标：获得1个仙灵祭坛$()",
+
+  "quest.feywild.sprite_quest_05_complete_title": "好了，再见……",
+  "quest.feywild.sprite_quest_05_complete_description": "我得承认，那真是个漂亮的祭坛！要是有一天你也能拥有一个自己的雕像该多好？……好吧，仙灵也可以做梦。\n\n现在是时候让你做一个重要的$(#60D8E6)决定：你必须选择召唤哪个精灵！$()\n请记住，$(#60D8E6)精灵所属的季节决定了它们的能力和个性$()，所以明智地选择吧。\n\n$(#60D8E6)那么，你最喜欢的季节是什么？$()",
+
+  "quest.feywild.sprite_quest_06_start_title": "步履轻盈的春天",
+  "quest.feywild.sprite_quest_06_start_description": "啊～你想$(#8867DB)召唤$()一个$(#86DB67)春之精灵$()？所以你希望你选择的精灵开朗活泼？整天“嘻嘻！”和“我们去玩吧！”没完没了？呵呵呵，好吧。\n为此，你这个甜腻的新伙伴需要大量的能量！你需要你的$(#60D8E6)召唤卷轴$()，一颗用来维持魔法的$(#60D8E6)仙灵宝石$()，然后还需要一些东西来取悦$(#86DB67)奥伯龙$()……嗯。\n\n一个美味的$(#86DB67)蛋糕$()，任何种类的$(#86DB67)花$()，和一些蓬松的$(#86DB67)羊毛$()应该就可以了！\n\n$(#60D8E6)目标：通过仙灵祭坛获得1个春之精灵召唤卷轴$()",
+
+  "quest.feywild.sprite_quest_06_complete_title": "春意过浓",
+  "quest.feywild.sprite_quest_06_complete_description": "恭喜你召唤了一个$(#86DB67)春之精灵$()！在你的新生活中，你肯定会体验到比你想象的更多的乐趣、玩耍时间和甜食！\n\n为了庆祝你的进步，这本书将赠予你一个免费的$(#8867DB)精灵宝珠$()。这个神器允许你$(#8867DB)与你召唤的仙灵交流并下达指令$()，在你未来与$(#60D8E6)仙灵$()的邂逅中将大有用途！\n\n确保它时刻随身携带！如果你需要一个备用的或替换品，你可以在$(#60D8E6)仙灵祭坛$()上$(#CE2803)制作$()一个，需要(2)个$(#8867DB)末影珍珠$()、(2)个$(#60D8E6)仙灵宝石$()和$(#60D8E6)仙灵之尘$()。",
+
+  "quest.feywild.sprite_quest_07_start_title": "新叶",
+  "quest.feywild.sprite_quest_07_start_description": "啊，所以你想$(#8867DB)召唤$()一个$(#CE2803)秋之精灵$()？那些顾家的精灵确实不一般。它们热爱一切居家的事物，那为什么不呢？\n\n你能去拿一下你的$(#60D8E6)空白召唤卷轴$()和你最亮的$(#60D8E6)仙灵宝石$()吗？你还需要一些能让$(#CE2803)灰烬领主$()高兴的东西……嗯。\n\n我的建议是去拿一个$(#CE2803)南瓜$()和一个$(#CE2803)蘑菇$()；最后一件物品，任何种类的$(#CE2803)锄$()都可以。\n\n$(#60D8E6)目标：通过仙灵祭坛获得1个秋之精灵召唤卷轴$()",
+
+  "quest.feywild.sprite_quest_07_complete_title": "叶落",
+  "quest.feywild.sprite_quest_07_complete_description": "恭喜你召唤了一个$(#CE2803)秋之精灵$()！你可以指望你迷人的新管家伙伴来处理你的每一个需求！\n\n为了庆祝你的进步，这本书将赠予你一个免费的$(#8867DB)精灵宝珠$()。这个神器允许你$(#8867DB)与你召唤的仙灵交流并下达指令$()，在你未来与$(#60D8E6)仙灵$()的邂逅中将大有用途！\n\n确保它时刻随身携带！如果你需要一个备用的或替换品，你可以在$(#60D8E6)仙灵祭坛$()上$(#CE2803)制作$()一个，需要(2)个$(#8867DB)末影珍珠$()、(2)个$(#60D8E6)仙灵宝石$()和$(#60D8E6)仙灵之尘$()。",
+
+  "quest.feywild.sprite_quest_08_start_title": "冰霜之遇",
+  "quest.feywild.sprite_quest_08_start_description": "哦？你想$(#8867DB)召唤$()一个$(#319DFC)冬之精灵$()？那真是让我脊背发凉。——小精灵颤抖着——它们病态而冷酷，但如果那是你喜欢的……\n\n你需要你的$(#60D8E6)空白召唤卷轴$()，一颗$(#60D8E6)仙灵宝石$()，以及一些能安抚那冷酷的$(#319DFC)梅布女王$()的东西……啊，我知道了。\n\n$(#319DFC)腐肉$()和$(#319DFC)骷髅骨头$()适合像她那样可怕的存在，最后再加一个$(#319DFC)雪球$()来增添寒意。\n\n$(#60D8E6)目标：通过仙灵祭坛获得1个冬之精灵召唤卷轴$()",
+
+  "quest.feywild.sprite_quest_08_complete_title": "冰雪奇缘",
+  "quest.feywild.sprite_quest_08_complete_description": "恭喜你召唤了一个$(#319DFC)冬之精灵$()！这个令人毛骨悚然的小精灵会让你的心变得冰冷，你肯定会因此爱上她！\n\n为了庆祝你的进步，这本书将赠予你一个免费的$(#8867DB)精灵宝珠$()。这个神器允许你$(#8867DB)与你召唤的仙灵交流并下达指令$()，在你未来与$(#60D8E6)仙灵$()的邂逅中将大有用途！\n\n确保它时刻随身携带！如果你需要一个备用的或替换品，你可以在$(#60D8E6)仙灵祭坛$()上$(#CE2803)制作$()一个，需要(2)个$(#8867DB)末影珍珠$()、(2)个$(#60D8E6)仙灵宝石$()和$(#60D8E6)仙灵之尘$()。",
+
+  "quest.feywild.sprite_quest_09_start_title": "真的吗？",
+  "quest.feywild.sprite_quest_09_start_description": "你想$(#8867DB)召唤$()一个$(#EFBF04)夏之精灵$()？那些精灵傲慢又急躁，你确定你能忍受吗？\n\n如果你非常确定，那么你已经有了你的$(#60D8E6)空白召唤卷轴$()。现在你需要一颗$(#60D8E6)仙灵宝石$()来固定魔法，然后……一些能取悦$(#EFBF04)提泰妮娅女王$()的东西。\n\n一个$(#EFBF04)西瓜$()和一个$(#EFBF04)蜜脾$()听起来是个不错的开始，然后你应该再扔进去一把$(#EFBF04)金剑$()来满足她们对战斗的渴望。\n\n$(#60D8E6)目标：通过仙灵祭坛获得1个夏之精灵召唤卷轴$()",
+
+  "quest.feywild.sprite_quest_09_complete_title": "我们警告过你",
+  "quest.feywild.sprite_quest_09_complete_description": "恭喜你召唤了一个$(#EFBF04)夏之精灵$()！祝你好运。\n\n为了庆祝你的进步，这本书将赠予你一个免费的$(#8867DB)精灵宝珠$()。这个神器允许你$(#8867DB)与你召唤的仙灵交流并下达指令$()，在你未来与$(#8867DB)仙灵$()的邂逅中将大有用途！\n\n确保它时刻随身携带！如果你需要一个备用的或替换品，你可以在$(#60D8E6)仙灵祭坛$()上$(#CE2803)制作$()一个，需要(2)个$(#8867DB)末影珍珠$()、(2)个$(#60D8E6)仙灵宝石$()和$(#60D8E6)仙灵之尘$()。",
+
+  "quest.feywild.sprite_quest_10_start_title": "精灵宝珠",
+  "quest.feywild.sprite_quest_10_start_description": "你把$(#8867DB)精灵宝珠$()弄丢了？你可以在$(#60D8E6)仙灵祭坛$()上$(#CE2803)制作$()一个，需要(2)个$(#8867DB)末影珍珠$()、(2)个$(#60D8E6)仙灵宝石$()和$(#60D8E6)仙灵之尘$()。",
+  "quest.feywild.sprite_quest_10_complete_title": "精灵宝珠",
+  "quest.feywild.sprite_quest_10_complete_description": "你把$(#8867DB)精灵宝珠$()弄丢了？你可以在$(#60D8E6)仙灵祭坛$()上$(#CE2803)制作$()一个，需要(2)个$(#8867DB)末影珍珠$()、(2)个$(#60D8E6)仙灵宝石$()和$(#60D8E6)仙灵之尘$()。",
+
+  "quest.feywild.summer_pixie_root_start_title": "欢迎来到夏庭",
+  "quest.feywild.summer_pixie_root_start_description": "你竟敢像召唤魔法师宠物那样召唤我？\n你最好认清自己的位置……哼！\n我命令你告诉我你的名字！",
+
+  "quest.feywild.summer_pixie_01_start_title": "我可没在侮辱你",
+  "quest.feywild.summer_pixie_01_start_description": "我真是倒了八辈子霉，摊上你这么个……\n——精灵上下打量你，满脸不屑。——\n肌肉没几块，不过对你们这类来说可能算正常了……还有那长相……怕是不太聪明。\n\n……嘿！别抽气！我这不是侮辱你，我是在评估你！这区别可大了！\n要是想进$(#EFBF04)黄金席尔宫廷$()，你至少得看起来像那么回事；我不能就这么把你当我的冠军介绍给$(#EFBF04)媞坦妮娅女王$()吧！\n\n别那样看我——我可不会替你掏钱！\n去吧，等你穿上一件像样的$(#EFBF04)金胸甲$()了再来见我。\n真是厚脸皮……——精灵翻了个白眼。——\n\n$(#60D8E6)目标：获得1件金胸甲。$()",
+
+  "quest.feywild.summer_pixie_01_complete_title": "值得评估",
+  "quest.feywild.summer_pixie_01_complete_description": "……哦，你回来了？……行吧，让我再仔细看看你！\n——精灵的眼神缓和了些，你似乎看到了一丝笑意。——\n转个身……再来一次……再转！\n——精灵被自己逗笑了。——\n嗯，算是有进步吧。你现在配得上我的侮辱了！\n拿着，这个能让你更像我的冠军。",
+
+  "quest.feywild.summer_pixie_02_start_title": "战斗试炼",
+  "quest.feywild.summer_pixie_02_start_description": "在去见$(#EFBF04)媞坦妮娅女王$()之前，你得先向我证明你的价值！\n那就来一场$(#EFBF04)战斗试炼$()吧！你要面对的对手是……\n——精灵想了想什么敌人才够致命。——\n……一个傀儡！没错——铁傀儡。\n你要是能活下来，我就认可你配得上与我同行。\n要是死了……那也挺好。——精灵咯咯一笑，然后意识到你还在，清了清嗓子。——呃，咳咳……去吧！\n\n$(#60D8E6)目标：对铁傀儡造成致命一击。$()",
+
+  "quest.feywild.summer_pixie_02_complete_title": "奖励？",
+  "quest.feywild.summer_pixie_02_complete_description": "真是场精彩的战斗！看着你挣扎的样子我可开心了，不过你居然撑过来了！\n虽然不算什么大礼，但总比没有强。啊哈，太好笑了！咳咳……\n什么？你还想要奖励？你能待在我身边就是最大的奖励了！\n奖励……真是得寸进尺！……喏，这些残渣给你吧。",
+
+  "quest.feywild.summer_pixie_03_start_title": "智斗",
+  "quest.feywild.summer_pixie_03_start_description": "看来你剑术还行，但这还不够——你有脑子吗！\n想证明你有资格做我的仆人和护卫，你应该……给我弄一个$(#60D8E6)蜂巢$()来！\n对！最好里面的蜜蜂还是活的！我们需要更多嗡嗡的坐骑来扩充骑兵……\n女王一定会对我的献礼感到满意的！不管是蜜蜂还是你的尸体……——精灵咯咯笑。——\n……呃，咳咳；快去吧，别被蜇死了！\n\n$(#60D8E6)目标：获得一个蜂巢。你需要精准采集附魔。$()",
+
+  "quest.feywild.summer_pixie_03_complete_title": "坐骑之需",
+  "quest.feywild.summer_pixie_03_complete_description": "干得漂亮！你没事吧？我是说——希望那些刺没把你扎得太惨！\n还是说你本来就长这样？那还不如被蜇一下呢……\n\n这些献给女王再合适不过了。\n我们的蜜蜂骑士永远缺坐骑！",
+
+  "quest.feywild.summer_pixie_04_start_title": "愿命运眷顾我",
+  "quest.feywild.summer_pixie_04_start_description": "看来你也不是完全没用嘛！\n$(#EFBF04)夏庭$()经常遭到一群掠夺者的袭击，他们猎杀我们同类，把我们碾成粉末——更可恨的是，他们还会偷走我们神圣的蜂蜜！\n我们——当然主要就是你啦——应该去干掉那些$(#60D8E6)掠夺者$()！\n然后，以我冠军的身份，我们一起把胜利献给女王，我就能永远得到她的青睐了！——精灵对自己的妙计十分满意。——\n完美！那……你还愣着干嘛？去！现在就去！\n\n$(#60D8E6)目标：对8名掠夺者造成致命一击。$()",
+
+  "quest.feywild.summer_pixie_04_complete_title": "西瓜领主",
+  "quest.feywild.summer_pixie_04_complete_description": "你真的做到了！——精灵差点想拥抱你，但忍住了。——\n咳咳；干得不错，我希望你能继续以我冠军的身份屠杀我的敌人！\n——她高兴地绕着你飞。——\n$(#EFBF04)媞坦妮娅女王$()对你的献礼和$(#EFBF04)黄金席尔宫廷$()的胜利非常满意；作为新的宫廷冠军，你将获得一份特殊奖励！",
+
+  "quest.feywild.summer_pixie_05_start_title": "认清你的位置！",
+  "quest.feywild.summer_pixie_05_start_description": "啊——我的冠军！\n——精灵今天似乎特别有活力。——\n我心情好？我平时不好吗？\n我只是对最近取得的成就感到高兴而已！\n对，对，你也帮了点忙啦！\n我们应该去向王室$(#EFBF04)蜜蜂骑士$()使者汇报这件事。\n我们现在就去召唤一个吧！\n\n带上你的卷轴、仙灵墨水、一个蜂巢和我给你的那些漂亮礼物。没错，我说的就是那把剑和那个西瓜！\n\n$(#60D8E6)目标：获得一张蜜蜂骑士召唤卷轴。$()",
+
+  "quest.feywild.summer_pixie_05_complete_title": "朋友？",
+  "quest.feywild.summer_pixie_05_complete_description": "她怎么还不走。她该走了。我们应该独处，就我们俩……——精灵脸红了。——\n不是那种意思，是朋友……我是说……像主人和她的冠军！……\n看来你还是没认清自己的位置啊。\n不过……我不介意……交个朋友。",
+
+  "quest.feywild.summer_pixie_06_start_title": "宫廷动荡",
+  "quest.feywild.summer_pixie_06_start_description": "冠军！出大事了……！\n$(#319DFC)冬庭$()企图刺杀我们的女王，夺取她的$(#EFBF04)王冠$()！\n\n你一脸困惑做什么？哦对了——该从哪说起呢……\n每个季节庭的统治者都佩戴着一顶$(#60D8E6)仙灵力量之冠$()，能控制一个季节。\n如果$(#319DFC)冬庭$()得逞，四季就会陷入混乱！\n\n我们需要情报，我知道有个家伙囤积了不少知识和秘密——$(#319DFC)图书馆地精$()！\n我们去$(#86DB67)召唤$()一个来审问！\n\n$(#60D8E6)目标：获得一张图书馆地精召唤卷轴。$()",
+
+  "quest.feywild.summer_pixie_06_complete_title": "地精钟鸣",
+  "quest.feywild.summer_pixie_06_complete_description": "你从$(#319DFC)冬庭$()那里打听到什么了吗？\n那你还在等什么——你按住他，我来翻他的包！\n我们必须成功，不然$(#EFBF04)媞坦妮娅女王$()会要我们脑袋的！\n——精灵开始翻图书馆地精的书包。——\n……“高效养蜂！”……这倒有用，但不是我们要找的！\n……“让农耕成为乐趣” 认真的！？\n……“农业的神秘艺术”——啧—— 这些$(#CE2803)秋$()和$(#86DB67)春$()精灵的胡言乱语！\n\n啊哈！",
+
+  "quest.feywild.summer_pixie_07_start_title": "王冠沉重",
+  "quest.feywild.summer_pixie_07_start_description": "一定就是这本了！“真正的力量平衡”，作者是M女士。\n——精灵开始翻阅——\n我懂了，我懂了！——好吧，我来解释！\n很久以前，甚至在现在的仙灵庭出现之前，$(#FFB0DF)光$()之庭和$(#8867DB)暗$()之庭之间发生过一场战争，最终$(#FFB0DF)光$()之庭获胜。\n$(#FFB0DF)光$()之庭放逐了暗之庭的首领，然后分裂成四季庭。根据这本书的记载，$(#EFBF04)媞坦妮娅女王$()本应被选为监督所有庭的统治者，但这事从未发生。现在谁拥有的王冠最多，谁就掌握实权。\n所以这就是他们的计划！$(#319DFC)冬庭$()想控制所有季节！\n\n唉，该怎么办？我得去咨询一位长者，我们需要召唤一个$(#EFBF04)夏之树灵$()。\n\n$(#60D8E6)目标：获得一张夏之树灵召唤卷轴。$()",
+
+  "quest.feywild.summer_pixie_07_complete_title": "说点古老的树人语",
+  "quest.feywild.summer_pixie_07_complete_description": "——精灵和树灵进行了一段极其漫长的对话，精灵说得多，树灵听得多。——\n——过了好几个小时，她回到你身边，疲惫不堪，眼圈都黑了。——\n呼——累死我了……树灵说什么都要花一辈子时间！\n——精灵瘫在你头上，四肢耷拉着。——\n冠军！我们这位树叶盟友会把消息传给女王，确保我们得到保护。\n\n我要变出一顿有史以来最丰盛的大餐！我请客！……你那样看我干什么？别这样！我只是想表达感谢嘛！\n再说，我们一起经历了那么多……\n你别这样了！接受我的好意就行！哼！",
+
+  "quest.feywild.summer_pixie_08_start_title": "最后命令",
+  "quest.feywild.summer_pixie_08_start_description": "——吵了几句后，你和精灵一起享用了（美味的）晚餐。收拾时，树灵再次出现，和你的同伴说了几句话。她立刻回到你身边，明显很震惊，也很慌乱——\n\n冠军……我收到了$(#EFBF04)媞坦妮娅女王$()的命令！\n\n我们……我们必须击败$(#319DFC)梅布女王$()，终结她的邪恶统治。\n\n我们先准备好一切，但先不要召唤她！她非常强大，我们必须做好准备！\n——你第一次注意到她显得极度悲伤和担忧——\n\n$(#60D8E6)目标：获得一张梅布女王召唤卷轴。$()",
+
+  "quest.feywild.summer_pixie_08_complete_title": "最终归宿",
+  "quest.feywild.summer_pixie_08_complete_description": "——精灵来回踱步，自言自语——\n\n$(#319DFC)梅布女王$()！？这是认真的吗？\n我是说，我们到底该不该打，这太危险了！\n如果我们不去挑战$(#319DFC)梅布女王$()，行不行？\n\n我们会永远被放逐……但是……我宁愿永远被追杀，只要和你在一起！",
+
+  "quest.feywild.summer_pixie_09_start_title": "从歉意开始",
+  "quest.feywild.summer_pixie_09_start_description": "——精灵紧紧抱住你，抽泣着。——\n对不起！我骗你报上名字，用这个束缚了你！我只是想要一个属于自己的冠军！\n对不起！如果我们活下来，我会告诉你我的真名，契约就解除了！我发誓！！\n\n所以，冠军……不……我最亲爱的朋友！我把选择权交给你。不管你选什么，我都会陪在你身边！\n\n$(#60D8E6)目标：对梅布女王造成致命一击。$()",
+
+  "quest.feywild.summer_pixie_09_complete_title": "但不止于此",
+  "quest.feywild.summer_pixie_09_complete_description": "你击败了她！你真的做到了！不，是我们，一起做到的！\n——精灵紧紧抱住你。——\n如约，我会告诉你我的名字……\n——精灵在你耳边低语她的名字。你原以为契约会焚毁——但反而泛起了新的光芒，附着另一种魔力。——\n既然契约已解，你现在自由了……除非，你还想继续做我的朋友？",
+
+  "quest.feywild.summer_pixie_10_start_title": "结局",
+  "quest.feywild.summer_pixie_10_start_description": "我没想到你会留下来……你——为什么要留下？\n什么……？——精灵脸红了，慌张地挥手。——……我们……是朋友？\n——精灵顿了顿，然后开心地笑了。\n真是厚脸皮！朋友！哼……你想得美！\n人类和仙灵不能做朋友，至少不是永远……你的寿命太短了……\n什么？你想成为我们的一员？你愿意？\n\n那可不简单。你需要一个鞘翅来获得飞行的天赋，再结合精灵头饰的魔法，才能摆脱凡人之躯。\n\n$(#60D8E6)目标：获得一个夏之翼头饰。$()",
+
+  "quest.feywild.summer_pixie_10_complete_title": "新的开始",
+  "quest.feywild.summer_pixie_10_complete_description": "你和你的精灵朋友回到了$(#EFBF04)夏庭$()的家。你们抵达$(#EFBF04)黄金席尔原野$()的$(#60D8E6)母树$()时，一队$(#EFBF04)蜜蜂骑士$()正在等候。他们为$(#EFBF04)夏庭$()的新星欢呼！\n你跪在$(#EFBF04)媞坦妮娅女王$()面前，接受骑士授勋，并获得永恒的奖赏：女王亲授的魔法之触……你拥抱了仙灵的魔力，成为他们的一员——告别凡人的一生，进入他们的领域……既是他们的冠军，也是他们的朋友。",
+
+  "quest.feywild.summer_pixie_11_start_title": "结局",
+  "quest.feywild.summer_pixie_11_start_description": "$(#EFBF04)-夏之精灵任务结束-$()\n\n感谢你游玩仙灵荒野！",
+  "quest.feywild.summer_pixie_11_complete_title": "结局",
+  "quest.feywild.summer_pixie_11_complete_description": "$(#EFBF04)-夏之精灵任务结束-$()\n\n感谢你游玩仙灵荒野！",
+
+  "quest.feywild.winter_pixie_root_start_title": "欢迎来到冬庭",
+  "quest.feywild.winter_pixie_root_start_description": "真是麻烦……你为何要召唤我，凡人？\n这次折腾多半会让你提前丧命。但说不定，我们可以成为朋友……\n告诉我你的名字吧。",
+
+  "quest.feywild.winter_pixie_01_start_title": "投入冬天的怀抱",
+  "quest.feywild.winter_pixie_01_start_description": "你好，凡人……你果然来了。\n——精灵的声音平淡如水，几乎不带任何起伏。——\n意思是……？反正你早晚都会落入$(#319DFC)冬天的怀抱$()，这是不可避免的。\n既然你报上了名字，你的灵魂就属于我们了……\n如果你不想我们此刻就收走你的灵魂，那就证明你的价值吧。\n我不想让你那可怜的凡人脑子超负荷，所以简单点——\n有些灵魂还在凡间游荡。去杀死那些僵尸，带些$(#60D8E6)腐肉$()回来当作证明……八个就够了……\n\n$(#60D8E6)目标：获得8个腐肉。$()",
+
+  "quest.feywild.winter_pixie_01_complete_title": "一线希望",
+  "quest.feywild.winter_pixie_01_complete_description": "你收集这些东西倒是挺有效率……也许我确实能给你安排个用场。\n我说得还不够清楚吗……？你的灵魂归我们所有……所以要么你给我们更多，要么我们拿走你的……\n但若你提前死了，我可以在另一边做你的朋友。\n凡事总有光明的一面……",
+
+  "quest.feywild.winter_pixie_02_start_title": "入会仪式",
+  "quest.feywild.winter_pixie_02_start_description": "既然你的灵魂已入会$(#319DFC)冬庭$()，我们该好好保管它……\n\n去弄一个$(#319DFC)灵魂灯笼$()，我可以确保你的灵魂安全无虞。\n你的灵魂已在枯萎。\n你最好快点……\n\n$(#60D8E6)目标：获得一个灵魂灯笼。$()",
+
+  "quest.feywild.winter_pixie_02_complete_title": "万岁",
+  "quest.feywild.winter_pixie_02_complete_description": "你弄来了一个……万岁……\n——精灵用平淡的语气欢呼着，向空中撒了一把墓尘；灰尘缓缓飘落在你周围。——\n哦，凡人……你不必如此恐惧……\n——精灵拍了拍你的头。——\n好了好了，你做得不错。\n你的灵魂在我这里很安全……只要你继续提供就行。\n我可不想下次入会仪式上庆祝的是你的墓尘……",
+
+  "quest.feywild.winter_pixie_03_start_title": "真是麻烦",
+  "quest.feywild.winter_pixie_03_start_description": "——精灵又叹了口气。——你还活着……？凡人，你为何总要坚持？\n不过……虽然我很想和你做朋友，但你在凡间还有用处。也许我们该推迟友谊……先把你的灵魂绑定在这个位面上，让它变强。\n\n用其他灵魂来交换，我们可以强化你的灵魂？\n\n$(#60D8E6)目标：对8名掠夺者造成致命一击。$()",
+
+  "quest.feywild.winter_pixie_03_complete_title": "你不觉得……？",
+  "quest.feywild.winter_pixie_03_complete_description": "你都收集齐了？我真是……印象深刻。看来我这些准备是白费了。\n——精灵为你做了一块墓碑，还挖好了一个新墓。——\n看起来真舒服……我都有点羡慕了，这地方真适合安息。\n——精灵短暂地考虑了一下要不要在你的墓上打个盹。——",
+
+  "quest.feywild.winter_pixie_04_start_title": "恐惧收割者",
+  "quest.feywild.winter_pixie_04_start_description": "你收集灵魂的技术无可挑剔……你有成为伟大$(#319DFC)收割者$()的潜质。\n$(#319DFC)收割者$()是$(#319DFC)梅布女王$()最强大的冠军。要成为一员，你需要积累更多与死亡打交道的经验。\n——精灵召唤出一把收割镰刀，咧嘴笑道——\n\n$(#60D8E6)目标：对3个凋灵骷髅造成致命一击。$()",
+
+  "quest.feywild.winter_pixie_04_complete_title": "收割回报",
+  "quest.feywild.winter_pixie_04_complete_description": "——精灵赞许地点点头——\n那些伤和苍白的肤色让你看起来像个收割者了。\n可惜你的脸不太搭。\n戴上这个。\n——精灵把一副面具扣在你头上，满意地点了点头——\n你干嘛不能一直保持这样？我现在勉强能容忍你的存在了……",
+
+  "quest.feywild.winter_pixie_05_start_title": "命运之子",
+  "quest.feywild.winter_pixie_05_start_description": "收割者！\n出大事了。你的结局来了……\n现在是启动你作为收割者命运的时刻。\n\n……哦，你不明白？好吧，我解释一下——精灵深吸一口冰冷的空气，憋住——\n……算了，太费劲了。\n\n庭里有个$(#319DFC)图书馆地精$()可以给你说明情况。\n这是召唤它所需材料的清单……\n\n我需要休息了。\n——精灵又一次在你坟墓上睡着了。——\n\n$(#60D8E6)目标：获得一张图书馆地精召唤卷轴。$()",
+
+  "quest.feywild.winter_pixie_05_complete_title": "信息小姐",
+  "quest.feywild.winter_pixie_05_complete_description": "不！我不想和他说话……\n好吧！\n——精灵不情愿地走向$(#319DFC)图书馆地精$()——\n你好，叔叔……\n\n不。我不要古董地图集……太积灰了……\n一本关于龙坐骑的书……那是寻死的捷径……\n“生物与野兽”？这有什么区别？\n——你叹了口气，精灵清了清嗓子——\n总之……",
+
+  "quest.feywild.winter_pixie_06_start_title": "新任务",
+  "quest.feywild.winter_pixie_06_start_description": "我明白了。\n原来夏庭曾试图刺杀我们的女王。\n——精灵沉思片刻——\n\n看来你终究要履行你的命运了……不，不是去死！那个可以等等！是作为召唤者！\n\n如果你能召唤一个$(#EFBF04)夏庭的蜜蜂骑士$()，我们就能审问他。我去准备东西……\n——精灵似乎高兴了一些——\n\n$(#60D8E6)目标：获得一张蜜蜂骑士召唤卷轴。$()",
+
+  "quest.feywild.winter_pixie_06_complete_title": "嗡嗡新闻",
+  "quest.feywild.winter_pixie_06_complete_description": "永远别信$(#EFBF04)夏$()之仙灵。$(#EFBF04)媞坦妮娅女王$()一直找借口除掉$(#319DFC)梅布女王$()，夺取$(#319DFC)冬之冠$()。我们得通知$(#319DFC)梅布女王$()。",
+
+  "quest.feywild.winter_pixie_07_start_title": "你在想……？",
+  "quest.feywild.winter_pixie_07_start_description": "你在想我在想的事吗，凡人？\n——精灵看起来很震惊——\n什么？不！！那对我来说也太病态了……\n\n我是说我们应该召唤一个$(#319DFC)冬之树灵$()来通知$(#319DFC)梅布女王$()。\n\n$(#60D8E6)目标：获得一张冬之树灵召唤卷轴。$()",
+
+  "quest.feywild.winter_pixie_07_complete_title": "舒适的安息之地",
+  "quest.feywild.winter_pixie_07_complete_description": "——和冬之使者交谈了很久之后——\n$(#319DFC)梅布女王$()愿意归还你的灵魂，只要你发誓将生命献给$(#319DFC)冬庭$()。\n你第一次从她眼中看到了一丝悲伤。\n她拍了拍你的头——\n你是个好人。偶尔也该有人这么告诉你。",
+
+  "quest.feywild.winter_pixie_08_start_title": "舒适的安息之地",
+  "quest.feywild.winter_pixie_08_start_description": "$(#319DFC)梅布女王$()下令，是时候改变$(#60D8E6)仙灵庭$()的平衡了。\n$(#319DFC)冬之精灵$()犹豫着不愿转达$(#319DFC)梅布女王$()的命令，她接下来的话几乎听不见……——\n\n$(#60D8E6)目标：获得一张媞坦妮娅女王召唤卷轴。$()",
+
+  "quest.feywild.winter_pixie_08_complete_title": "收集完成",
+  "quest.feywild.winter_pixie_08_complete_description": "好了，召唤卷轴到手了……\n——精灵躺到你头上，四肢耷拉着。——\n你是我最后的安息之地，凡人。我们回你那舒适的坟墓去吧……反正得习惯它……",
+
+  "quest.feywild.winter_pixie_09_start_title": "你的命运？",
+  "quest.feywild.winter_pixie_09_start_description": "你的命运就在眼前：你要么击败$(#EFBF04)媞坦妮娅女王$()，要么你的灵魂永远归我们所有……\n但别担心，不管怎样我都会是你朋友……我已经有点喜欢你了，凡人。\n准备好迎接你的终结了吗？\n到时我会来取走你的灵魂……在另一边见……\n\n$(#60D8E6)目标：对媞坦妮娅女王造成致命一击。$()",
+
+  "quest.feywild.winter_pixie_09_complete_title": "结局？",
+  "quest.feywild.winter_pixie_09_complete_description": "凡人，击败$(#EFBF04)媞坦妮娅女王$()是我从没想过你能做到的壮举。这值得一份大礼。\n\n精灵凑到你耳边，低语了她的名字——\n现在我们平等了，凡人。\n——她又撒了些墓尘……——",
+
+  "quest.feywild.winter_pixie_10_start_title": "结局？",
+  "quest.feywild.winter_pixie_10_start_description": "我说过我们平等了，你怎么还在这儿？我们是朋友？真麻烦……\n别指望我会永远驮着你的凡人之躯。我不该再叫你凡人了？你想成为我们中的一员？成为仙灵？\n\n好吧。\n\n那你得去弄一个鞘翅，再结合精灵头饰的魔法，我们就能摆脱你的凡人之躯。\n\n$(#60D8E6)目标：获得一个冬之翼头饰。$()",
+
+  "quest.feywild.winter_pixie_10_complete_title": "新的开始",
+  "quest.feywild.winter_pixie_10_complete_description": "——精灵拍了拍你的头。——\n我说过你是个好人……\n——你回到$(#319DFC)梅布女王$()面前；尽管不确定这样做的后果，但事已至此——\n你的生命和自由重归你手……但经过与精灵的相处，你已学会拥抱死亡的存在。\n你接受了仙灵的触碰，告别了凡人的生活。\n你和朋友飞向$(#319DFC)冰霜之退$()，成为$(#319DFC)冬庭$()的新任$(#319DFC)灵魂收割者$()。",
+
+  "quest.feywild.winter_pixie_11_start_title": "结局",
+  "quest.feywild.winter_pixie_11_start_description": "$(#EFBF04)-冬之精灵任务结束-$()\n\n感谢你游玩仙灵荒野！",
+  "quest.feywild.winter_pixie_11_complete_title": "结局",
+  "quest.feywild.winter_pixie_11_complete_description": "$(#EFBF04)-冬之精灵任务结束-$()\n\n感谢你游玩仙灵荒野！",
+
+  "quest.feywild.spring_pixie_root_start_title": "欢迎来到春庭",
+  "quest.feywild.spring_pixie_root_start_description": "$(#EFBF04)-春之精灵任务即将推出！-$()\n\n感谢你游玩仙灵荒野！",
+
+  "quest.feywild.autumn_pixie_root_start_title": "欢迎来到秋庭",
+  "quest.feywild.autumn_pixie_root_start_description": "$(#EFBF04)-秋之精灵任务即将推出！-$()\n\n感谢你游玩仙灵荒野！"
 }

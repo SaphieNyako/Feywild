@@ -1,12 +1,12 @@
 {
   "category": "feywild:fey_gems",
   "icon": "feywild:autumn_tree_cracked_log",
-  "name": "裂痕木",
+  "name": "裂痕原木",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:autumn_tree_cracked_log",
-      "text": "仙灵树有几率生成带有裂痕的木材。树灵的灵魂就储存在这裂痕木中。白天，树灵可能会在树附近生成并保护它。夜晚，灵魂会像它们的树木亲戚一样入睡。"
+      "text": "仙灵树有几率生成带有裂痕的木材。树灵的灵魂就储存在这裂痕原木中。白天，树灵可能会在树附近生成并保护它。夜晚，灵魂会像它们的树木亲戚一样入睡。"
     },
     {
       "type": "patchouli:spotlight",

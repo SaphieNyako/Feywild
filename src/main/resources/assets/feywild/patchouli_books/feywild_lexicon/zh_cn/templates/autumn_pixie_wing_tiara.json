@@ -1,5 +1,5 @@
 {
-  "processor": "com.saphienyako.feywild.patchouli.processor.SpringTreeEntProcessor",
+  "processor": "com.saphienyako.feywild.patchouli.processor.AutumnPixieWingTiaraProcessor",
   "components": [
     {
       "type": "patchouli:header",
