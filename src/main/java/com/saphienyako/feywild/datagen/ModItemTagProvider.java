@@ -3,6 +3,7 @@ package com.saphienyako.feywild.datagen;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -39,6 +40,38 @@ public class ModItemTagProvider extends ItemTagsProvider {
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.BLUE_MUSHROOM.asItem());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.PURPLE_MUSHROOM.asItem());
         this.tag(Tags.Items.MUSHROOMS).add(ModBlocks.PINK_MUSHROOM.asItem());
+
+        tag(ModTags.Items.AUTUMN_LOGS)
+                .add(ModBlocks.AUTUMN_TREE_LOG.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_WOOD.get().asItem())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get().asItem());
+
+        tag(ModTags.Items.SPRING_LOGS)
+                .add(ModBlocks.SPRING_TREE_LOG.get().asItem())
+                .add(ModBlocks.SPRING_TREE_STRIPPED_LOG.get().asItem())
+                .add(ModBlocks.SPRING_TREE_WOOD.get().asItem())
+                .add(ModBlocks.SPRING_TREE_STRIPPED_WOOD.get().asItem());
+
+        tag(ModTags.Items.SUMMER_LOGS)
+                .add(ModBlocks.SUMMER_TREE_LOG.get().asItem())
+                .add(ModBlocks.SUMMER_TREE_STRIPPED_LOG.get().asItem())
+                .add(ModBlocks.SUMMER_TREE_WOOD.get().asItem())
+                .add(ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get().asItem());
+
+        tag(ModTags.Items.WINTER_LOGS)
+                .add(ModBlocks.WINTER_TREE_LOG.get().asItem())
+                .add(ModBlocks.WINTER_TREE_STRIPPED_LOG.get().asItem())
+                .add(ModBlocks.WINTER_TREE_WOOD.get().asItem())
+                .add(ModBlocks.WINTER_TREE_STRIPPED_WOOD.get().asItem());
+
+        tag(ModTags.Items.FEY_ALTARS)
+                .add(ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get().asItem())
+                .add(ModBlocks.FEY_ALTAR_QUEEN_MAB.get().asItem())
+                .add(ModBlocks.FEY_ALTAR_OBERON.get().asItem())
+                .add(ModBlocks.FEY_ALTAR_ASHEN_LORD.get().asItem())
+                .add(ModBlocks.FEY_ALTAR.get().asItem());
+
 
         //TREES
         //AUTUMN

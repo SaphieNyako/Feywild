@@ -2,6 +2,7 @@ package com.saphienyako.feywild.datagen;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
+import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -23,6 +24,42 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(Tags.Blocks.ORES).add(
                 ModBlocks.FEY_GEM_ORE.get(),
                 ModBlocks.FEY_GEM_ORE_DEEP_SLATE.get()
+        );
+
+        this.tag(ModTags.Blocks.AUTUMN_LOGS).add(
+                ModBlocks.AUTUMN_TREE_LOG.get(),
+                ModBlocks.AUTUMN_TREE_STRIPPED_LOG.get(),
+                ModBlocks.AUTUMN_TREE_WOOD.get(),
+                ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get()
+        );
+
+        this.tag(ModTags.Blocks.SPRING_LOGS).add(
+                ModBlocks.SPRING_TREE_LOG.get(),
+                ModBlocks.SPRING_TREE_STRIPPED_LOG.get(),
+                ModBlocks.SPRING_TREE_WOOD.get(),
+                ModBlocks.SPRING_TREE_STRIPPED_WOOD.get()
+        );
+
+        this.tag(ModTags.Blocks.SUMMER_LOGS).add(
+                ModBlocks.SUMMER_TREE_LOG.get(),
+                ModBlocks.SUMMER_TREE_STRIPPED_LOG.get(),
+                ModBlocks.SUMMER_TREE_WOOD.get(),
+                ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get()
+        );
+
+        this.tag(ModTags.Blocks.WINTER_LOGS).add(
+                ModBlocks.WINTER_TREE_LOG.get(),
+                ModBlocks.WINTER_TREE_STRIPPED_LOG.get(),
+                ModBlocks.WINTER_TREE_WOOD.get(),
+                ModBlocks.WINTER_TREE_STRIPPED_WOOD.get()
+        );
+
+        this.tag(ModTags.Blocks.FEY_ALTARS).add(
+                ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get(),
+                ModBlocks.FEY_ALTAR_QUEEN_MAB.get(),
+                ModBlocks.FEY_ALTAR_OBERON.get(),
+                ModBlocks.FEY_ALTAR_ASHEN_LORD.get(),
+                ModBlocks.FEY_ALTAR.get()
         );
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(

@@ -3,6 +3,7 @@ package com.saphienyako.feywild.datagen;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -561,7 +562,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ModBlocks.AUTUMN_TREE_STRIPPED_WOOD.get());
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AUTUMN_TREE_PLANKS.get(), 4)
-                .requires(ModBlocks.AUTUMN_TREE_LOG.get())
+                .requires(ModTags.Items.AUTUMN_LOGS)
                 .unlockedBy(getHasName(ModBlocks.AUTUMN_TREE_LOG.get()), has(ModBlocks.AUTUMN_TREE_LOG.get()))
                 .save(recipeOutput);
 
@@ -651,7 +652,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ModBlocks.SPRING_TREE_STRIPPED_WOOD.get());
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPRING_TREE_PLANKS.get(), 4)
-                .requires(ModBlocks.SPRING_TREE_LOG.get())
+                .requires(ModTags.Items.SPRING_LOGS)
                 .unlockedBy(getHasName(ModBlocks.SPRING_TREE_LOG.get()), has(ModBlocks.SPRING_TREE_LOG.get()))
                 .save(recipeOutput);
 
@@ -741,7 +742,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ModBlocks.SUMMER_TREE_STRIPPED_WOOD.get());
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SUMMER_TREE_PLANKS.get(), 4)
-                .requires(ModBlocks.SUMMER_TREE_LOG.get())
+                .requires(ModTags.Items.SUMMER_LOGS)
                 .unlockedBy(getHasName(ModBlocks.SUMMER_TREE_LOG.get()), has(ModBlocks.SUMMER_TREE_LOG.get()))
                 .save(recipeOutput);
 
@@ -831,7 +832,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 ModBlocks.WINTER_TREE_STRIPPED_WOOD.get());
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.WINTER_TREE_PLANKS.get(), 4)
-                .requires(ModBlocks.WINTER_TREE_LOG.get())
+                .requires(ModTags.Items.WINTER_LOGS)
                 .unlockedBy(getHasName(ModBlocks.WINTER_TREE_LOG.get()), has(ModBlocks.WINTER_TREE_LOG.get()))
                 .save(recipeOutput);
 

@@ -3,7 +3,7 @@
   "category": "building",
   "ingredients": [
     {
-      "item": "feywild:autumn_tree_log"
+      "tag": "feywild:autumn_logs"
     }
   ],
   "result": {
