@@ -3,7 +3,7 @@
   "category": "building",
   "ingredients": [
     {
-      "item": "feywild:winter_tree_log"
+      "tag": "feywild:winter_logs"
     }
   ],
   "result": {

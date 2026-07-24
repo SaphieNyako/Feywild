@@ -3,7 +3,7 @@
   "category": "building",
   "ingredients": [
     {
-      "item": "feywild:summer_tree_log"
+      "tag": "feywild:summer_logs"
     }
   ],
   "result": {

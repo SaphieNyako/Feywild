@@ -14,7 +14,7 @@
       "amount": 1,
       "id": "quest_giver:item_stack",
       "item": {
-        "item": "feywild:fey_altar"
+        "tag": "feywild:fey_altars"
       }
     }
   ],
