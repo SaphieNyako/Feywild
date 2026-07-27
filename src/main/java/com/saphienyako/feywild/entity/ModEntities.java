@@ -81,6 +81,10 @@ public class ModEntities {
             ENTITY_TYPES.register("oberon", () -> EntityType.Builder.of(OberonEntity::new, MobCategory.CREATURE)
                     .sized(1.8f,3.7f).build("oberon"));
 
+    public static final Supplier<EntityType<AshenLordEntity>> ASHEN_LORD =
+            ENTITY_TYPES.register("ashen_lord", () -> EntityType.Builder.of(AshenLordEntity::new, MobCategory.CREATURE)
+                    .sized(1.8f,3.7f).build("ashen_lord"));
+
     public static final Supplier<EntityType<FeyWingsEntity>> FEY_WINGS =
             ENTITY_TYPES.register("fey_wings", () -> EntityType.Builder.of(FeyWingsEntity::new, MobCategory.MISC).build("fey_wings"));
 

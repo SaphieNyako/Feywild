@@ -51,6 +51,8 @@ public class ModModelLayers {
     public static final ModelLayerLocation OBERON_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "oberon_layer"), "main");
 
+    public static final ModelLayerLocation ASHEN_LORD_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "ashen_lord_layer"), "main");
     public static final ModelLayerLocation FEY_WINGS_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_wings"), "main");
 

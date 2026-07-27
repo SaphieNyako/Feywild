@@ -19,10 +19,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
-public class OberonEntity extends BossBase {
-    public OberonEntity(EntityType<? extends PathfinderMob> entity, Level level) {
-        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.oberon").withStyle(ChatFormatting.GREEN),
-                BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
+public class AshenLordEntity extends BossBase {
+    public AshenLordEntity(EntityType<? extends PathfinderMob> entity, Level level) {
+        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.ashen_lord").withStyle(ChatFormatting.DARK_RED),
+                BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -31,7 +31,7 @@ public class OberonEntity extends BossBase {
                 .add(Attributes.FLYING_SPEED, 0.5)
                 .add(Attributes.MAX_HEALTH, 300)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 2D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 4D)
                 .add(Attributes.LUCK, 0.2);
     }
 
@@ -51,11 +51,11 @@ public class OberonEntity extends BossBase {
 
     @Override
     public SimpleParticleType getParticle() {
-        return ModParticles.SPRING_SPARKLE_PARTICLE.get();
+        return ModParticles.AUTUMN_SPARKLE_PARTICLE.get();
     }
 
     @Override
     public SpriteEntity.SpriteVariant getSpriteVariant() {
-        return SpriteEntity.SpriteVariant.SPRING;
+        return SpriteEntity.SpriteVariant.AUTUMN;
     }
 }
