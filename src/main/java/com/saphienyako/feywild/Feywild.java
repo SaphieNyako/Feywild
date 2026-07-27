@@ -121,6 +121,7 @@ public class Feywild
         event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
         event.put(ModEntities.TITANIA.get(), TitaniaEntity.getDefaultAttributes().build());
         event.put(ModEntities.MAB.get(), MabEntity.getDefaultAttributes().build());
+        event.put(ModEntities.OBERON.get(), OberonEntity.getDefaultAttributes().build());
         event.put(ModEntities.FEY_WINGS.get(), FeyWingsEntity.getDefaultAttributes().build());
     }
     @SuppressWarnings("unused")
@@ -232,6 +233,7 @@ public class Feywild
             event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.TITANIA_LAYER, TitaniaModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.MAB_LAYER, MabModel::createBodyLayer);
+            event.registerLayerDefinition(ModModelLayers.OBERON_LAYER, OberonModel::createBodyLayer);
             event.registerLayerDefinition(ModModelLayers.FEY_WINGS_LAYER, FeyWingsModel::createBodyLayer);
         }
 
@@ -255,6 +257,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.SPRITE.get(), SpriteRenderer::new);
             event.registerEntityRenderer(ModEntities.TITANIA.get(), TitaniaRenderer::new);
             event.registerEntityRenderer(ModEntities.MAB.get(), MabRenderer::new);
+            event.registerEntityRenderer(ModEntities.OBERON.get(), OberonRenderer::new);
             event.registerEntityRenderer(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
         }
 
@@ -283,6 +286,7 @@ public class Feywild
             event.register(ModEntities.SPRITE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn,RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.TITANIA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TitaniaEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
             event.register(ModEntities.MAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MabEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            event.register(ModEntities.OBERON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, OberonEntity::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         }
     }
 }
