@@ -49,6 +49,7 @@
   "item.feywild.giant_crocus_flower_seed": "Magical Crocus Seed",
   "item.feywild.giant_dandelion_flower_seed": "Magical Dandelion Seed",
   "item.feywild.giant_sun_flower_seed": "Magical Sunflower Seed",
+
   "block.feywild.fey_gem_ore": "Fey Gem Ore",
   "block.feywild.fey_gem_ore_deep_slate": "Fey Gem Ore Deep Slate",
   "block.feywild.giant_crocus_flower": "Crocus Flower",
@@ -264,6 +265,8 @@
   "entity.feywild.sprite": "Botania Pixie",
   "entity.feywild.titania": "Queen Titania",
   "entity.feywild.mab": "Queen Mab",
+  "entity.feywild.oberon": "Oberon",
+  "entity.feywild.ashen_lord": "Ashen Lord",
 
   "message.feywild.shift_down": "Hold down Shift for more Information!",
   "message.feywild.bellsnickel_menu_description": "Scribing: Copy Enchanted Book",

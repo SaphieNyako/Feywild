@@ -3,7 +3,9 @@ package com.saphienyako.feywild.entity.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.saphienyako.feywild.entity.MabEntity;
+import com.saphienyako.feywild.entity.OberonEntity;
 import com.saphienyako.feywild.entity.animations.MabAnimations;
+import com.saphienyako.feywild.entity.animations.OberonAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -197,7 +199,11 @@ public class OberonModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-        //TODO ANIMATIONS
+        this.animate(((OberonEntity)entity).IDLE_ANIMATION, OberonAnimations.IDLE, ageInTicks, 1.0f);
+        this.animate(((OberonEntity)entity).WALKING_ANIMATION, OberonAnimations.WALKING, ageInTicks, 1.0f);
+        this.animate(((OberonEntity)entity).CHARGING_ANIMATION, OberonAnimations.CHARGING, ageInTicks, 1.0f);
+        this.animate(((OberonEntity)entity).KICKING_ANIMATION, OberonAnimations.KICKING, ageInTicks, 1.0f);
+        this.animate(((OberonEntity)entity).REARING_ANIMATION, OberonAnimations.REARING, ageInTicks, 1.0f);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

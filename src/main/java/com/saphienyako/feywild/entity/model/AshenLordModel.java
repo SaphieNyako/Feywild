@@ -2,7 +2,9 @@ package com.saphienyako.feywild.entity.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.saphienyako.feywild.entity.AshenLordEntity;
 import com.saphienyako.feywild.entity.MabEntity;
+import com.saphienyako.feywild.entity.animations.AshenLordAnimations;
 import com.saphienyako.feywild.entity.animations.MabAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -284,7 +286,10 @@ public class AshenLordModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
-      //TODO ANIMATIONS
+        this.animate(((AshenLordEntity)entity).IDLE_ANIMATION, AshenLordAnimations.IDLE, ageInTicks, 1.0f);
+        this.animate(((AshenLordEntity)entity).WALKING_ANIMATION, AshenLordAnimations.WALKING, ageInTicks, 1.0f);
+        this.animate(((AshenLordEntity)entity).CHANNEL_ANIMATION, AshenLordAnimations.CHANNEL, ageInTicks, 1.0f);
+
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

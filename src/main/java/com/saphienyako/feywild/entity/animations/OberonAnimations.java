@@ -550,7 +550,7 @@ public class OberonAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition WALK = AnimationDefinition.Builder.withLength(1.0F).looping()
+    public static final AnimationDefinition WALKING = AnimationDefinition.Builder.withLength(1.0F).looping()
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(1.93F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.0833F, KeyframeAnimations.degreeVec(2.95F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -1038,7 +1038,7 @@ public class OberonAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition CHARGE = AnimationDefinition.Builder.withLength(0.5833F).looping()
+    public static final AnimationDefinition CHARGING = AnimationDefinition.Builder.withLength(0.5833F).looping()
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(7.5F, 1.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.125F, KeyframeAnimations.degreeVec(1.65F, -2.2F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -1358,7 +1358,7 @@ public class OberonAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition KICK = AnimationDefinition.Builder.withLength(1.75F)
+    public static final AnimationDefinition KICKING = AnimationDefinition.Builder.withLength(1.75F)
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(-2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.625F, KeyframeAnimations.degreeVec(-10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
@@ -1724,7 +1724,7 @@ public class OberonAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition REAR = AnimationDefinition.Builder.withLength(1.75F)
+    public static final AnimationDefinition REARING = AnimationDefinition.Builder.withLength(1.75F)
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(-2.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
                     new Keyframe(0.2083F, KeyframeAnimations.degreeVec(12.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

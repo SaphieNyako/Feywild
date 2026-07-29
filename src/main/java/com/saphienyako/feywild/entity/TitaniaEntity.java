@@ -23,6 +23,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -71,6 +72,7 @@ public class TitaniaEntity extends FlyingBossBase {
         this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
         this.goalSelector.addGoal(40, new TitaniaEnchantingGoal(this, this.level()));
         this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
+        this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
     }
 
 
