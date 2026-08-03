@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
+import com.saphienyako.feywild.entity.goals.ashen_lord.LeafShieldGoal;
 import com.saphienyako.feywild.entity.goals.mab.IntimidateGoal;
 import com.saphienyako.feywild.entity.goals.mab.PhysicalAttackGoal;
 import com.saphienyako.feywild.entity.goals.mab.SummonVexGoal;
@@ -22,7 +23,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -72,11 +73,14 @@ public class AshenLordEntity extends BossBase implements GroundEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.registerGroundGoals(this);
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
-       // this.goalSelector.addGoal(40, new AshenLordChannelGoal(this));
-      //  this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
+        this.goalSelector.addGoal(2, new LeafShieldGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
         //TODO Goals
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0f, 16));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(50, new WaterAvoidingRandomStrollGoal(this, 1));
     }
 
     //TODO add Moving Light?
@@ -118,6 +122,7 @@ public class AshenLordEntity extends BossBase implements GroundEntity {
             return;
         }
 
+        CHANNEL_ANIMATION.stop();
 
         if (isActuallyMoving()) {
 
@@ -136,7 +141,7 @@ public class AshenLordEntity extends BossBase implements GroundEntity {
             WALKING_ANIMATION.stop();
         }
 
-        //CHANNEL_ANIMATION.stop();
+       CHANNEL_ANIMATION.stop();
     }
 
     @Nullable

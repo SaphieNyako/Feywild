@@ -80,6 +80,8 @@ public class SummonVexGoal extends Goal {
         entity.setState(MabEntity.State.CHANNEL);
     }
 
+
+
     private void summonVex(LivingEntity target) {
         Vex vex = new Vex(EntityType.VEX, this.level);
         Random random = new Random();

@@ -1,0 +1,246 @@
+package com.saphienyako.feywild.entity.goals.ashen_lord;
+
+import com.saphienyako.feywild.entity.AshenLordEntity;
+import com.saphienyako.feywild.particle.ModParticles;
+import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.EnumSet;
+import java.util.List;
+
+public class LeafShieldGoal extends Goal {
+
+    private static final int SHIELD_DURATION = 20*15;
+    private static final int MIN_COOLDOWN = 20*7;
+    private static final int EXTRA_COOLDOWN = 20*5;
+
+    private static final double SHIELD_RADIUS = 4.0D;
+
+    private static final float SHIELD_DAMAGE = 2.5F;
+
+    private final AshenLordEntity entity;
+
+    private int ticksLeft;
+    private int cooldownTicks;
+
+    public LeafShieldGoal(AshenLordEntity entity) {
+        this.entity = entity;
+        this.setFlags(EnumSet.of(
+                Flag.MOVE,
+                Flag.LOOK
+        ));
+    }
+
+    @Override
+    public boolean canUse() {
+        if (cooldownTicks > 0) {
+            cooldownTicks--;
+            return false;
+        }
+
+        LivingEntity target = entity.getTarget();
+
+        return target != null
+                && target.isAlive()
+                && entity.getState() != AshenLordEntity.State.CHANNEL
+                && entity.getRandom().nextFloat() < 0.5F;
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Leaf shield started");
+
+        this.ticksLeft = SHIELD_DURATION;
+
+        entity.getNavigation().stop();
+        entity.setState(AshenLordEntity.State.CHANNEL);
+    }
+
+    @Override
+    public void tick() {
+        LivingEntity target = entity.getTarget();
+
+        if (target == null || !target.isAlive()) {
+            reset();
+            return;
+        }
+
+        ticksLeft--;
+
+        entity.getNavigation().stop();
+
+        Vec3 movement = entity.getDeltaMovement();
+
+        entity.setDeltaMovement(
+                0.0D,
+                movement.y,
+                0.0D
+        );
+
+        entity.lookAt(
+                EntityAnchorArgument.Anchor.EYES,
+                target.position()
+        );
+
+        pushPlayersAway();
+        reflectProjectiles();
+        spawnParticles();
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return ticksLeft > 0
+                && entity.isAlive()
+                && entity.getTarget() != null
+                && entity.getTarget().isAlive();
+    }
+
+    @Override
+    public void stop() {
+        System.out.println(
+                "Leaf shield stopped with " + ticksLeft + " ticks remaining"
+        );
+        /*
+         * Minecraft calls this whenever the goal ends or is interrupted.
+         *
+         * This guarantees that CHANNEL cannot remain active.
+         */
+        reset();
+    }
+
+    @Override
+    public boolean isInterruptable() {
+        return false;
+    }
+
+    private void reset() {
+        if (entity.getState() == AshenLordEntity.State.CHANNEL) {
+            entity.setState(AshenLordEntity.State.IDLE);
+        }
+        ticksLeft = 0;
+        cooldownTicks = MIN_COOLDOWN + entity.getRandom().nextInt(EXTRA_COOLDOWN + 1);
+    }
+
+    @Override
+    public boolean requiresUpdateEveryTick() {
+        return true;
+    }
+
+    private void pushPlayersAway() {
+        AABB area = entity.getBoundingBox().inflate(SHIELD_RADIUS);
+
+        List<Player> players = entity.level().getEntitiesOfClass(
+                Player.class,
+                area,
+                player -> player.isAlive() && !player.isSpectator()
+        );
+
+        for (Player player : players) {
+            Vec3 direction = player.position()
+                    .subtract(entity.position());
+
+            direction = new Vec3(
+                    direction.x,
+                    0.0D,
+                    direction.z
+            );
+
+            if (direction.lengthSqr() < 1.0E-4D) {
+                direction = new Vec3(
+                        entity.getRandom().nextDouble() - 0.5D,
+                        0.0D,
+                        entity.getRandom().nextDouble() - 0.5D
+                );
+            }
+
+            direction = direction.normalize();
+
+            player.hurt(
+                    entity.damageSources().mobAttack(entity),
+                    SHIELD_DAMAGE
+            );
+
+            player.push(
+                    direction.x * 0.8D,
+                    0.15D,
+                    direction.z * 0.8D
+            );
+
+            player.hurtMarked = true;
+        }
+    }
+
+    private void reflectProjectiles() {
+        AABB area = entity.getBoundingBox().inflate(SHIELD_RADIUS);
+
+        List<Projectile> projectiles = entity.level().getEntitiesOfClass(
+                Projectile.class,
+                area,
+                projectile -> projectile.isAlive()
+                        && projectile.getOwner() != entity
+        );
+
+        for (Projectile projectile : projectiles) {
+            Entity originalOwner = projectile.getOwner();
+
+            Vec3 direction;
+
+            if (originalOwner != null && originalOwner.isAlive()) {
+                direction = originalOwner.getBoundingBox()
+                        .getCenter()
+                        .subtract(projectile.position())
+                        .normalize();
+            } else {
+                direction = projectile.getDeltaMovement()
+                        .scale(-1.0D)
+                        .normalize();
+            }
+
+            double speed = Math.max(
+                    0.5D,
+                    projectile.getDeltaMovement().length()
+            );
+
+            projectile.setOwner(entity);
+            projectile.setDeltaMovement(direction.scale(speed));
+            projectile.hasImpulse = true;
+
+            if (projectile instanceof AbstractArrow arrow) {
+                arrow.setBaseDamage(arrow.getBaseDamage() * SHIELD_DAMAGE);
+            }
+
+            projectile.playSound(
+                    SoundEvents.AZALEA_LEAVES_BREAK,
+                    1.0F,
+                    1.0F
+            );
+        }
+    }
+
+    private void spawnParticles() {
+        if (!(entity.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
+        serverLevel.sendParticles(
+                ModParticles.AUTUMN_LEAF_PARTICLE.get(),
+                entity.getX(),
+                entity.getY() + entity.getBbHeight() * 0.5D,
+                entity.getZ(),
+                2,
+                1.5D,
+                1.0D,
+                1.5D,
+                0.02D
+        );
+    }
+}
