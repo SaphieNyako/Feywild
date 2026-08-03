@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.EnumSet;
 import java.util.List;
 
-public class LeafShieldGoal extends Goal {
+public class AutumnLeafShieldGoal extends Goal {
 
     private static final int SHIELD_DURATION = 20*15;
     private static final int MIN_COOLDOWN = 20*7;
@@ -32,7 +32,7 @@ public class LeafShieldGoal extends Goal {
     private int ticksLeft;
     private int cooldownTicks;
 
-    public LeafShieldGoal(AshenLordEntity entity) {
+    public AutumnLeafShieldGoal(AshenLordEntity entity) {
         this.entity = entity;
         this.setFlags(EnumSet.of(
                 Flag.MOVE,
@@ -218,11 +218,7 @@ public class LeafShieldGoal extends Goal {
                 arrow.setBaseDamage(arrow.getBaseDamage() * SHIELD_DAMAGE);
             }
 
-            projectile.playSound(
-                    SoundEvents.AZALEA_LEAVES_BREAK,
-                    1.0F,
-                    1.0F
-            );
+            projectile.playSound(SoundEvents.AZALEA_LEAVES_BREAK, 1.0F, 1.0F);
         }
     }
 

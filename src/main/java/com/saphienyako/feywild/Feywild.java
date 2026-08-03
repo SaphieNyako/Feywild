@@ -17,7 +17,6 @@ import com.saphienyako.feywild.entity.renderer.layer.FeyWingsPlayerLayer;
 import com.saphienyako.feywild.events.ModEventListener;
 import com.saphienyako.feywild.item.ModCreativeModeTab;
 import com.saphienyako.feywild.item.ModItems;
-import com.saphienyako.feywild.item.PixieWingTiaraItem;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.particle.LeafParticleProvider;
 import com.saphienyako.feywild.particle.ModParticles;
@@ -37,8 +36,6 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -262,6 +259,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.OBERON.get(), OberonRenderer::new);
             event.registerEntityRenderer(ModEntities.ASHEN_LORD.get(), AshenLordRenderer::new);
             event.registerEntityRenderer(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
+            event.registerEntityRenderer(ModEntities.AUTUMN_LEAF_PROJECTILE.get(), LeafProjectileRenderer::new);
         }
 
         @SubscribeEvent

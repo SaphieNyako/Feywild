@@ -1,11 +1,8 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.BossBase;
-import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
-import com.saphienyako.feywild.entity.goals.ashen_lord.LeafShieldGoal;
-import com.saphienyako.feywild.entity.goals.mab.IntimidateGoal;
-import com.saphienyako.feywild.entity.goals.mab.PhysicalAttackGoal;
-import com.saphienyako.feywild.entity.goals.mab.SummonVexGoal;
+import com.saphienyako.feywild.entity.goals.ashen_lord.SummerHurlLeavesGoal;
+import com.saphienyako.feywild.entity.goals.ashen_lord.AutumnLeafShieldGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,7 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class AshenLordEntity extends BossBase implements GroundEntity {
+public class AshenLordEntity extends BossBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(AshenLordEntity.class, EntityDataSerializers.INT);
 
@@ -48,7 +45,7 @@ public class AshenLordEntity extends BossBase implements GroundEntity {
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.1)
+                .add(Attributes.MOVEMENT_SPEED, 0.15)
                 .add(Attributes.MAX_HEALTH, 300)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 4D)
@@ -74,7 +71,8 @@ public class AshenLordEntity extends BossBase implements GroundEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
-        this.goalSelector.addGoal(2, new LeafShieldGoal(this));
+        this.goalSelector.addGoal(2, new AutumnLeafShieldGoal(this));
+        this.goalSelector.addGoal(3, new SummerHurlLeavesGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
         //TODO Goals
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0f, 16));
