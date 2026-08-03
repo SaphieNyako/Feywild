@@ -259,7 +259,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.OBERON.get(), OberonRenderer::new);
             event.registerEntityRenderer(ModEntities.ASHEN_LORD.get(), AshenLordRenderer::new);
             event.registerEntityRenderer(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
-            event.registerEntityRenderer(ModEntities.AUTUMN_LEAF_PROJECTILE.get(), LeafProjectileRenderer::new);
+            event.registerEntityRenderer(ModEntities.LEAF_PROJECTILE.get(), LeafProjectileRenderer::new);
         }
 
         @SubscribeEvent

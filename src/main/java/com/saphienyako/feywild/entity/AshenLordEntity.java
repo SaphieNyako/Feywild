@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.goals.ashen_lord.SummerHurlLeavesGoal;
 import com.saphienyako.feywild.entity.goals.ashen_lord.AutumnLeafShieldGoal;
+import com.saphienyako.feywild.entity.goals.ashen_lord.WinterHurlLeavesGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -73,6 +74,7 @@ public class AshenLordEntity extends BossBase {
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.goalSelector.addGoal(2, new AutumnLeafShieldGoal(this));
         this.goalSelector.addGoal(3, new SummerHurlLeavesGoal(this));
+        this.goalSelector.addGoal(4, new WinterHurlLeavesGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
         //TODO Goals
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0f, 16));

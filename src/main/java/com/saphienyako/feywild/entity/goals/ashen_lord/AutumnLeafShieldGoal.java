@@ -5,6 +5,7 @@ import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -25,7 +26,7 @@ public class AutumnLeafShieldGoal extends Goal {
 
     private static final double SHIELD_RADIUS = 4.0D;
 
-    private static final float SHIELD_DAMAGE = 2.5F;
+    private static final float SHIELD_DAMAGE = 3.0F;
 
     private final AshenLordEntity entity;
 
@@ -51,14 +52,11 @@ public class AutumnLeafShieldGoal extends Goal {
 
         return target != null
                 && target.isAlive()
-                && entity.getState() != AshenLordEntity.State.CHANNEL
-                && entity.getRandom().nextFloat() < 0.5F;
+                && entity.getState() != AshenLordEntity.State.CHANNEL;
     }
 
     @Override
     public void start() {
-        System.out.println("Leaf shield started");
-
         this.ticksLeft = SHIELD_DURATION;
 
         entity.getNavigation().stop();
@@ -106,14 +104,6 @@ public class AutumnLeafShieldGoal extends Goal {
 
     @Override
     public void stop() {
-        System.out.println(
-                "Leaf shield stopped with " + ticksLeft + " ticks remaining"
-        );
-        /*
-         * Minecraft calls this whenever the goal ends or is interrupted.
-         *
-         * This guarantees that CHANNEL cannot remain active.
-         */
         reset();
     }
 
@@ -164,16 +154,16 @@ public class AutumnLeafShieldGoal extends Goal {
 
             direction = direction.normalize();
 
-            player.hurt(
-                    entity.damageSources().mobAttack(entity),
-                    SHIELD_DAMAGE
-            );
-
-            player.push(
-                    direction.x * 0.8D,
-                    0.15D,
-                    direction.z * 0.8D
-            );
+            player.hurt(entity.damageSources().mobAttack(entity), SHIELD_DAMAGE);
+            entity.level().playSound(
+                    null,
+                    player.getX(),
+                    player.getY(),
+                    player.getZ(),
+                    SoundEvents.AZALEA_LEAVES_BREAK,
+                    SoundSource.HOSTILE,
+                    1.0F, 1.0F);
+            player.push(direction.x * 0.8D, 0.15D, direction.z * 0.8D);
 
             player.hurtMarked = true;
         }
@@ -227,16 +217,61 @@ public class AutumnLeafShieldGoal extends Goal {
             return;
         }
 
-        serverLevel.sendParticles(
-                ModParticles.AUTUMN_LEAF_PARTICLE.get(),
-                entity.getX(),
-                entity.getY() + entity.getBbHeight() * 0.5D,
-                entity.getZ(),
-                2,
-                1.5D,
-                1.0D,
-                1.5D,
-                0.02D
+        spawnParticleRing(
+                serverLevel,
+                14,                          // Particle count
+                SHIELD_RADIUS * 0.9D,               // Radius 90%
+                entity.getBbHeight() * 0.35D,
+                0.22D,                       // Clockwise speed
+                0.0D
         );
+
+        spawnParticleRing(
+                serverLevel,
+                10,
+                SHIELD_RADIUS * 0.78D, // Radius 90%
+                entity.getBbHeight() * 0.62D,
+                -0.17D,                      // Counterclockwise
+                Math.PI / 12.0D
+        );
+
+        spawnParticleRing(
+                serverLevel,
+                6,
+                SHIELD_RADIUS * 0.48D,
+                entity.getBbHeight() * 0.92D,
+                0.08D,                       // Slow clockwise spin
+                Math.PI / 8.0D
+        );
+    }
+
+    private void spawnParticleRing(ServerLevel serverLevel, int particleCount, double radius, double height, double rotationSpeed, double angleOffset) {
+        double rotation = entity.tickCount * rotationSpeed + angleOffset;
+
+        double angleStep = (Math.PI * 2.0D) / particleCount;
+
+        for (int i = 0; i < particleCount; i++) {
+            double angle = rotation + i * angleStep;
+
+            double verticalWave = Math.sin(angle * 2.0D + entity.tickCount * 0.08D) * 0.18D;
+
+            double x = entity.getX() + Math.cos(angle) * radius;
+
+            double y = entity.getY() + height + verticalWave;
+
+            double z = entity.getZ() + Math.sin(angle) * radius;
+
+            serverLevel.sendParticles(
+                    ModParticles.AUTUMN_LEAF_PARTICLE.get(),
+                    x,
+                    y,
+                    z,
+                    1,
+                    0.02D,
+                    0.02D,
+                    0.02D,
+                    0.0D
+            );
+        }
     }
 }

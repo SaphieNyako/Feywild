@@ -23,7 +23,9 @@ public class SummerHurlLeavesGoal extends Goal {
 
     private static final int LEAF_COUNT = 5;
     private static final float LEAF_SPEED = 1.3F;
-    private static final float LEAF_INACCURACY = 7.0F;
+    private static final float LEAF_INACCURACY = 1.0F;
+
+    private static final double MAX_RANGE = 24.0D;
 
     private final AshenLordEntity entity;
 
@@ -49,8 +51,7 @@ public class SummerHurlLeavesGoal extends Goal {
         return target != null
                 && target.isAlive()
                 && entity.getState() != AshenLordEntity.State.CHANNEL
-                && entity.distanceToSqr(target) <= 24.0D * 24.0D
-                && entity.getRandom().nextFloat() < 0.5F;
+                && entity.distanceToSqr(target) <= MAX_RANGE * MAX_RANGE;
     }
 
     @Override
@@ -126,8 +127,8 @@ public class SummerHurlLeavesGoal extends Goal {
         }
 
         for (int i = 0; i < LEAF_COUNT; i++) {
-            LeafProjectile leaf = new LeafProjectile(ModEntities.AUTUMN_LEAF_PROJECTILE.get(), serverLevel);
-            leaf.setParticle(ModParticles.SUMMER_LEAF_PARTICLE.get());
+            LeafProjectile leaf = new LeafProjectile(ModEntities.LEAF_PROJECTILE.get(), serverLevel);
+            leaf.setLeafType(LeafProjectile.LeafType.SUMMER);
             Vec3 lookDirection = entity.getLookAngle().normalize();
             leaf.setOwner(entity);
 
@@ -159,7 +160,6 @@ public class SummerHurlLeavesGoal extends Goal {
                 0.8D,
                 0.6D,
                 0.8D,
-                0.02D
-        );
+                0.02D);
     }
 }

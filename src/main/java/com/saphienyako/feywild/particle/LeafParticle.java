@@ -54,7 +54,7 @@ public class LeafParticle extends TextureSheetParticle {
             this.alpha = 1.0F;
         }
 
-        if (this.age >= this.lifetime) {
+        if (this.age++ >= this.lifetime) {
             this.remove();
         }
     }
