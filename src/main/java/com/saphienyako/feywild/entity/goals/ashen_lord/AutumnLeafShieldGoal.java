@@ -60,7 +60,7 @@ public class AutumnLeafShieldGoal extends Goal {
         this.ticksLeft = SHIELD_DURATION;
 
         entity.getNavigation().stop();
-        entity.setState(AshenLordEntity.State.CHANNEL);
+        entity.startChanneling(AshenLordEntity.ChannelType.AUTUMN);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class AutumnLeafShieldGoal extends Goal {
 
     private void reset() {
         if (entity.getState() == AshenLordEntity.State.CHANNEL) {
-            entity.setState(AshenLordEntity.State.IDLE);
+            entity.stopChanneling();
         }
         ticksLeft = 0;
         cooldownTicks = MIN_COOLDOWN + entity.getRandom().nextInt(EXTRA_COOLDOWN + 1);

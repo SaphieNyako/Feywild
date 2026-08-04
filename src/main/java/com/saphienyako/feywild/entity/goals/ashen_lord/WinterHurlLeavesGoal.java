@@ -82,7 +82,7 @@ public class WinterHurlLeavesGoal extends Goal {
         baseAngle = entity.getRandom().nextDouble() * Math.PI * 2.0D;
 
         entity.getNavigation().stop();
-        entity.setState(AshenLordEntity.State.CHANNEL);
+        entity.startChanneling(AshenLordEntity.ChannelType.WINTER);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class WinterHurlLeavesGoal extends Goal {
 
     private void reset() {
         if (entity.getState() == AshenLordEntity.State.CHANNEL) {
-            entity.setState(AshenLordEntity.State.IDLE);
+            entity.stopChanneling();
         }
 
         ticksElapsed = 0;

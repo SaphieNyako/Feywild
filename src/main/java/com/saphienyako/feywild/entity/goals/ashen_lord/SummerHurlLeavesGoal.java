@@ -23,7 +23,7 @@ public class SummerHurlLeavesGoal extends Goal {
 
     private static final int LEAF_COUNT = 5;
     private static final float LEAF_SPEED = 1.3F;
-    private static final float LEAF_INACCURACY = 1.0F;
+    private static final float LEAF_INACCURACY = 0.0F;
 
     private static final double MAX_RANGE = 24.0D;
 
@@ -60,7 +60,7 @@ public class SummerHurlLeavesGoal extends Goal {
         leavesReleased = false;
 
         entity.getNavigation().stop();
-        entity.setState(AshenLordEntity.State.CHANNEL);
+        entity.startChanneling(AshenLordEntity.ChannelType.SUMMER);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class SummerHurlLeavesGoal extends Goal {
 
     private void reset() {
         if (entity.getState() == AshenLordEntity.State.CHANNEL) {
-            entity.setState(AshenLordEntity.State.IDLE);
+            entity.stopChanneling();
         }
 
         ticksLeft = 0;

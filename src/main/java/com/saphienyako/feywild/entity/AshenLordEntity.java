@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.BossBase;
+import com.saphienyako.feywild.entity.goals.ashen_lord.SpringLeafWhirlwindGoal;
 import com.saphienyako.feywild.entity.goals.ashen_lord.SummerHurlLeavesGoal;
 import com.saphienyako.feywild.entity.goals.ashen_lord.AutumnLeafShieldGoal;
 import com.saphienyako.feywild.entity.goals.ashen_lord.WinterHurlLeavesGoal;
@@ -31,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 public class AshenLordEntity extends BossBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(AshenLordEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> CHANNEL_TYPE = SynchedEntityData.defineId(AshenLordEntity.class, EntityDataSerializers.INT);
 
     public final AnimationState IDLE_ANIMATION = new AnimationState();
     public final AnimationState WALKING_ANIMATION = new AnimationState();
@@ -62,6 +64,7 @@ public class AshenLordEntity extends BossBase {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE, 0);
+        builder.define(CHANNEL_TYPE, 0);
     }
 
     public static boolean canSpawn(EntityType<? extends BossBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
@@ -75,9 +78,9 @@ public class AshenLordEntity extends BossBase {
         this.goalSelector.addGoal(2, new AutumnLeafShieldGoal(this));
         this.goalSelector.addGoal(3, new SummerHurlLeavesGoal(this));
         this.goalSelector.addGoal(4, new WinterHurlLeavesGoal(this));
+        this.goalSelector.addGoal(5, new SpringLeafWhirlwindGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
-        //TODO Goals
-        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0f, 16));
+        this.goalSelector.addGoal(10, new MoveTowardsTargetGoal(this, 1.0f, 16));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomStrollGoal(this, 1));
@@ -191,7 +194,30 @@ public class AshenLordEntity extends BossBase {
         this.entityData.set(STATE, state.ordinal());
     }
 
+    public ChannelType getChannelType() {
+        ChannelType[] types = ChannelType.values();
+        return types[Mth.clamp(this.entityData.get(CHANNEL_TYPE), 0, types.length - 1)];
+    }
+
+    public void setChannelType(ChannelType channelType) {
+        this.entityData.set(CHANNEL_TYPE, channelType.ordinal());
+    }
+
+    public void startChanneling(ChannelType channelType) {
+        this.setChannelType(channelType);
+        this.setState(State.CHANNEL);
+    }
+
+    public void stopChanneling() {
+        this.setState(State.IDLE);
+        this.setChannelType(ChannelType.NONE);
+    }
+
     public enum State {
         IDLE, WALKING, CHANNEL
+    }
+
+    public enum ChannelType {
+        NONE, SPRING, SUMMER, AUTUMN, WINTER
     }
 }
