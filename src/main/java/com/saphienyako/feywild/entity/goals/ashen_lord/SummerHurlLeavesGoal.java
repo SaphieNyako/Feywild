@@ -7,6 +7,7 @@ import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
@@ -26,6 +27,15 @@ public class SummerHurlLeavesGoal extends Goal {
     private static final float LEAF_INACCURACY = 0.0F;
 
     private static final double MAX_RANGE = 24.0D;
+
+    private static final int CHANNEL_PARTICLE_COUNT = 20;
+
+    private static final double START_ORBIT_RADIUS = 2.5D;
+    private static final double END_ORBIT_RADIUS = 1.2D;
+
+    private static final double START_ROTATION_SPEED = 0.12D;
+    private static final double END_ROTATION_SPEED = 0.40D;
+    private double baseAngle;
 
     private final AshenLordEntity entity;
 
@@ -59,6 +69,10 @@ public class SummerHurlLeavesGoal extends Goal {
         ticksLeft = CHANNEL_DURATION;
         leavesReleased = false;
 
+        baseAngle = entity.getRandom().nextDouble()
+                * Math.PI
+                * 2.0D;
+
         entity.getNavigation().stop();
         entity.startChanneling(AshenLordEntity.ChannelType.SUMMER);
     }
@@ -85,7 +99,9 @@ public class SummerHurlLeavesGoal extends Goal {
             leavesReleased = true;
         }
 
-        spawnChannelParticles();
+        if (!leavesReleased) {
+            spawnChannelParticles();
+        }
 
         ticksLeft--;
     }
@@ -151,15 +167,33 @@ public class SummerHurlLeavesGoal extends Goal {
             return;
         }
 
-        serverLevel.sendParticles(
-                ModParticles.SUMMER_LEAF_PARTICLE.get(),
-                entity.getX(),
-                entity.getY() + entity.getBbHeight() * 0.65D,
-                entity.getZ(),
-                2,
-                0.8D,
-                0.6D,
-                0.8D,
-                0.02D);
+        int ticksElapsed = CHANNEL_DURATION - ticksLeft;
+
+        double progress = Mth.clamp(ticksElapsed / (double) (CHANNEL_DURATION - RELEASE_TICK), 0.0D, 1.0D);
+        double radius = Mth.lerp(progress, START_ORBIT_RADIUS, END_ORBIT_RADIUS);
+        double rotationSpeed = Mth.lerp(progress, START_ROTATION_SPEED, END_ROTATION_SPEED);
+        double currentRotation = baseAngle + ticksElapsed * rotationSpeed;
+        double angleStep = (Math.PI * 2.0D) / CHANNEL_PARTICLE_COUNT;
+
+        for (int i = 0; i < CHANNEL_PARTICLE_COUNT; i++) {
+            double angle = currentRotation + i * angleStep;
+
+            double verticalWave = Math.sin(angle * 2.0D + i * 0.45D) * 0.3D;
+            double x = entity.getX() + Math.cos(angle) * radius;
+            double y = entity.getY() + entity.getBbHeight() * 0.42D + verticalWave;
+            double z = entity.getZ() + Math.sin(angle) * radius;
+
+            serverLevel.sendParticles(
+                    ModParticles.SUMMER_LEAF_PARTICLE.get(),
+                    x,
+                    y,
+                    z,
+                    1,
+                    0.02D,
+                    0.02D,
+                    0.02D,
+                    0.0D
+            );
+        }
     }
 }

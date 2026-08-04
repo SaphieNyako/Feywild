@@ -19,7 +19,7 @@ import java.util.List;
 
 public class SpringLeafWhirlwindGoal extends Goal {
 
-    private static final int CHANNEL_DURATION = 20 * 2;
+    private static final int CHANNEL_DURATION = 20 * 3;
     private static final int WHIRLWIND_DURATION = 20 * 4;
     private static final int RECOVERY_DURATION = 20;
 
@@ -34,7 +34,17 @@ public class SpringLeafWhirlwindGoal extends Goal {
     private static final double WHIRLWIND_HEIGHT = 6.0D;
 
     private static final double UPWARD_FORCE = 1.00D;
-    private static final double INWARD_FORCE = 0.05D;
+    private static final double INWARD_FORCE = 0.035D;
+
+    private static final int SPRING_RING_PARTICLES = 12;
+
+    private static final double SPRING_START_RADIUS = 2.6D;
+    private static final double SPRING_END_RADIUS = 1.3D;
+
+    private static final double SPRING_START_SPEED = 0.10D;
+    private static final double SPRING_END_SPEED = 0.32D;
+
+    private double baseAngle;
 
     private final AshenLordEntity entity;
 
@@ -70,6 +80,8 @@ public class SpringLeafWhirlwindGoal extends Goal {
         ticksElapsed = 0;
         whirlwindCenter = null;
         whirlwindStarted = false;
+
+        baseAngle = entity.getRandom().nextDouble() * Math.PI * 2.0D;
 
         entity.getNavigation().stop();
         entity.startChanneling(AshenLordEntity.ChannelType.SPRING);
@@ -187,14 +199,9 @@ public class SpringLeafWhirlwindGoal extends Goal {
         List<LivingEntity> targets = entity.level().getEntitiesOfClass(LivingEntity.class, area, target -> target.isAlive() && target != entity);
 
         for (LivingEntity target : targets) {
-            Vec3 horizontalDifference = new Vec3(
-                    whirlwindCenter.x - target.getX(),
-                    0.0D,
-                    whirlwindCenter.z - target.getZ()
-            );
+            Vec3 horizontalDifference = new Vec3(whirlwindCenter.x - target.getX(), 0.0D, whirlwindCenter.z - target.getZ());
 
-            double horizontalDistanceSqr =
-                    horizontalDifference.lengthSqr();
+            double horizontalDistanceSqr = horizontalDifference.lengthSqr();
 
             if (horizontalDistanceSqr > WHIRLWIND_RADIUS * WHIRLWIND_RADIUS) {
                 continue;
@@ -208,13 +215,9 @@ public class SpringLeafWhirlwindGoal extends Goal {
                 inwardDirection = Vec3.ZERO;
             }
 
-            Vec3 currentMovement =
-                    target.getDeltaMovement();
+            Vec3 currentMovement = target.getDeltaMovement();
 
-            target.setDeltaMovement(
-                    currentMovement.x
-                            + inwardDirection.x * INWARD_FORCE,
-
+            target.setDeltaMovement(currentMovement.x + inwardDirection.x * INWARD_FORCE,
                     Math.min(currentMovement.y + UPWARD_FORCE, 0.45D), currentMovement.z + inwardDirection.z * INWARD_FORCE);
 
             target.fallDistance = 0.0F;
@@ -229,17 +232,35 @@ public class SpringLeafWhirlwindGoal extends Goal {
 
         double progress = Mth.clamp(ticksElapsed / (double) CHANNEL_DURATION, 0.0D, 1.0D);
 
-        int particleCount = 3 + Mth.floor(progress * 5.0D);
+        double radius = Mth.lerp(progress, SPRING_START_RADIUS, SPRING_END_RADIUS);
 
-        for (int i = 0; i < particleCount; i++) {
-            double angle = entity.getRandom().nextDouble() * Math.PI * 2.0D;
-            double radius = 0.8D + entity.getRandom().nextDouble() * 1.6D;
-            double x = entity.getX() + Math.cos(angle) * radius;
-            double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();
-            double z = entity.getZ() + Math.sin(angle) * radius;
+        double rotationSpeed = Mth.lerp(progress, SPRING_START_SPEED, SPRING_END_SPEED);
 
-            serverLevel.sendParticles(ModParticles.SPRING_LEAF_PARTICLE.get(), x, y, z, 1, 0.03D, 0.12D, 0.03D, 0.08D);
-        }
+
+         //Lower clockwise ring.
+
+        spawnSpringChannelRing(
+                serverLevel,
+                SPRING_RING_PARTICLES,
+                radius,
+                entity.getBbHeight() * 0.28D,
+                baseAngle + ticksElapsed * rotationSpeed,
+                0.22D
+        );
+
+        spawnSpringChannelRing(
+                serverLevel,
+                SPRING_RING_PARTICLES,
+                radius * 0.78D,
+                entity.getBbHeight() * 0.58D,
+                baseAngle - ticksElapsed * rotationSpeed * 0.85D,
+                0.28D
+        );
+
+        spawnRisingSpringLeaves(
+                serverLevel,
+                progress
+        );
     }
 
     private void spawnTargetWarningParticles(
@@ -305,15 +326,10 @@ public class SpringLeafWhirlwindGoal extends Goal {
             }
         }
 
-        /*
-         * Extra leaves around the base make the danger area
-         * easier to read.
-         */
         for (int i = 0; i < 12; i++) {
             double angle = time + i * (Math.PI * 2.0D / 12.0D);
 
             double x = whirlwindCenter.x + Math.cos(angle) * WHIRLWIND_RADIUS;
-
             double z = whirlwindCenter.z + Math.sin(angle) * WHIRLWIND_RADIUS;
 
             serverLevel.sendParticles(
@@ -326,6 +342,54 @@ public class SpringLeafWhirlwindGoal extends Goal {
                     0.04D,
                     0.02D,
                     0.01D
+            );
+        }
+    }
+
+    private void spawnSpringChannelRing(ServerLevel serverLevel, int particleCount, double radius, double height, double rotation, double verticalWaveSize) {
+        double angleStep = (Math.PI * 2.0D) / particleCount;
+
+        for (int i = 0; i < particleCount; i++) {
+            double angle = rotation + i * angleStep;
+            double verticalWave = Math.sin(angle * 2.0D + ticksElapsed * 0.08D + i * 0.4D) * verticalWaveSize;
+            double x = entity.getX() + Math.cos(angle) * radius;
+            double y = entity.getY() + height + verticalWave;
+            double z = entity.getZ() + Math.sin(angle) * radius;
+
+            serverLevel.sendParticles(
+                    ModParticles.SPRING_LEAF_PARTICLE.get(),
+                    x,
+                    y,
+                    z,
+                    1,
+                    0.02D,
+                    0.05D,
+                    0.02D,
+                    0.01D
+            );
+        }
+    }
+
+    private void spawnRisingSpringLeaves(ServerLevel serverLevel, double progress) {
+        int particleCount = 2 + Mth.floor(progress * 4.0D);
+
+        for (int i = 0; i < particleCount; i++) {
+            double angle = baseAngle + ticksElapsed * 0.18D + i * (Math.PI * 2.0D / particleCount);
+            double radius = 0.5D + entity.getRandom().nextDouble() * 0.7D;
+            double x = entity.getX() + Math.cos(angle) * radius;
+            double y = entity.getY() + entity.getRandom().nextDouble() * entity.getBbHeight();
+            double z = entity.getZ() + Math.sin(angle) * radius;
+
+            serverLevel.sendParticles(
+                    ModParticles.SPRING_LEAF_PARTICLE.get(),
+                    x,
+                    y,
+                    z,
+                    1,
+                    0.03D,
+                    0.12D,
+                    0.03D,
+                    0.08D
             );
         }
     }

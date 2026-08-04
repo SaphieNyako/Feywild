@@ -23,10 +23,7 @@ public class WinterHurlLeavesGoal extends Goal {
 
     private static final int RECOVERY_DURATION = 20;
 
-    private static final int TOTAL_DURATION =
-            WINDUP_DURATION
-                    + ((WAVE_COUNT - 1) * WAVE_INTERVAL)
-                    + RECOVERY_DURATION;
+    private static final int TOTAL_DURATION = WINDUP_DURATION + ((WAVE_COUNT - 1) * WAVE_INTERVAL) + RECOVERY_DURATION;
 
     private static final int MIN_COOLDOWN = 20 * 8;
     private static final int EXTRA_COOLDOWN = 20 * 6;
