@@ -21,9 +21,11 @@ public class SpringLeafWhirlwindGoal extends Goal {
 
     private static final int CHANNEL_DURATION = 20 * 3;
     private static final int WHIRLWIND_DURATION = 20 * 4;
+
+    private static final int WARNING_DURATION = 20;
     private static final int RECOVERY_DURATION = 20;
 
-    private static final int TOTAL_DURATION = CHANNEL_DURATION + WHIRLWIND_DURATION + RECOVERY_DURATION;
+    private static final int TOTAL_DURATION = CHANNEL_DURATION +WARNING_DURATION +  WHIRLWIND_DURATION + RECOVERY_DURATION;
 
     private static final int MIN_COOLDOWN = 20 * 8;
     private static final int EXTRA_COOLDOWN = 20 * 6;
@@ -33,8 +35,8 @@ public class SpringLeafWhirlwindGoal extends Goal {
     private static final double WHIRLWIND_RADIUS = 3.5D;
     private static final double WHIRLWIND_HEIGHT = 6.0D;
 
-    private static final double UPWARD_FORCE = 1.00D;
-    private static final double INWARD_FORCE = 0.035D;
+    private static final double UPWARD_FORCE = 0.35D; //Cap is 0.45
+    private static final double INWARD_FORCE = 0.020D;
 
     private static final int SPRING_RING_PARTICLES = 12;
 
@@ -100,22 +102,51 @@ public class SpringLeafWhirlwindGoal extends Goal {
 
         Vec3 movement = entity.getDeltaMovement();
 
-        entity.setDeltaMovement(0.0D, movement.y, 0.0D);
+        entity.setDeltaMovement(
+                0.0D,
+                movement.y,
+                0.0D
+        );
 
-        entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.getEyePosition());
+        entity.lookAt(
+                EntityAnchorArgument.Anchor.EYES,
+                target.getEyePosition()
+        );
 
         if (ticksElapsed < CHANNEL_DURATION) {
             spawnChannelParticles();
             spawnTargetWarningParticles(target);
-        } else if (ticksElapsed < CHANNEL_DURATION + WHIRLWIND_DURATION) {
+
+        } else if (ticksElapsed
+                < CHANNEL_DURATION + WARNING_DURATION) {
+
+            if (whirlwindCenter == null) {
+                lockWhirlwindPosition(target);
+            }
+
+            spawnLockedWarningParticles();
+
+        } else if (ticksElapsed
+                < CHANNEL_DURATION
+                + WARNING_DURATION
+                + WHIRLWIND_DURATION) {
+
             if (!whirlwindStarted) {
-                startWhirlwind(target);
+                startWhirlwind();
             }
 
             tickWhirlwind();
         }
 
         ticksElapsed++;
+    }
+
+    private void lockWhirlwindPosition(LivingEntity target) {
+        whirlwindCenter = new Vec3(
+                target.getX(),
+                target.getY(),
+                target.getZ()
+        );
     }
 
     @Override
@@ -155,12 +186,10 @@ public class SpringLeafWhirlwindGoal extends Goal {
         cooldownTicks = MIN_COOLDOWN + entity.getRandom().nextInt(EXTRA_COOLDOWN + 1);
     }
 
-    private void startWhirlwind(LivingEntity target) {
-        whirlwindCenter = new Vec3(
-                target.getX(),
-                target.getY(),
-                target.getZ()
-        );
+    private void startWhirlwind() {
+        if (whirlwindCenter == null) {
+            return;
+        }
 
         whirlwindStarted = true;
 
@@ -390,6 +419,60 @@ public class SpringLeafWhirlwindGoal extends Goal {
                     0.12D,
                     0.03D,
                     0.08D
+            );
+        }
+    }
+
+    private void spawnLockedWarningParticles() {
+        if (!(entity.level() instanceof ServerLevel serverLevel)
+                || whirlwindCenter == null) {
+            return;
+        }
+
+        double warningProgress = (ticksElapsed - CHANNEL_DURATION) / (double) WARNING_DURATION;
+
+        double rotation = ticksElapsed * 0.35D;
+
+        int particleCount = 20;
+
+        for (int i = 0; i < particleCount; i++) {
+            double angle = rotation + i * (Math.PI * 2.0D / particleCount);
+            double x = whirlwindCenter.x + Math.cos(angle) * WHIRLWIND_RADIUS;
+            double z = whirlwindCenter.z + Math.sin(angle) * WHIRLWIND_RADIUS;
+
+            serverLevel.sendParticles(
+                    ModParticles.SPRING_LEAF_PARTICLE.get(),
+                    x,
+                    whirlwindCenter.y + 0.15D,
+                    z,
+                    1,
+                    0.02D,
+                    0.03D,
+                    0.02D,
+                    0.01D
+            );
+        }
+
+        int risingParticles =
+               2 + Mth.floor(warningProgress * 8.0D);
+
+        for (int i = 0; i < risingParticles; i++) {
+            double angle = entity.getRandom().nextDouble() * Math.PI * 2.0D;
+            double radius = Math.sqrt(entity.getRandom().nextDouble()) * WHIRLWIND_RADIUS;
+            double x = whirlwindCenter.x + Math.cos(angle) * radius;
+            double y = whirlwindCenter.y + entity.getRandom().nextDouble() * 1.5D;
+            double z = whirlwindCenter.z + Math.sin(angle) * radius;
+
+            serverLevel.sendParticles(
+                    ModParticles.SPRING_LEAF_PARTICLE.get(),
+                    x,
+                    y,
+                    z,
+                    1,
+                    0.02D,
+                    0.08D,
+                    0.02D,
+                    0.04D
             );
         }
     }

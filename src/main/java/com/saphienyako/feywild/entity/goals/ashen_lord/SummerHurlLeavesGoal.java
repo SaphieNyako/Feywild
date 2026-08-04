@@ -24,7 +24,7 @@ public class SummerHurlLeavesGoal extends Goal {
 
     private static final int LEAF_COUNT = 5;
     private static final float LEAF_SPEED = 1.3F;
-    private static final float LEAF_INACCURACY = 0.0F;
+    private static final float LEAF_INACCURACY = 1.0F;
 
     private static final double MAX_RANGE = 24.0D;
 
@@ -35,13 +35,18 @@ public class SummerHurlLeavesGoal extends Goal {
 
     private static final double START_ROTATION_SPEED = 0.12D;
     private static final double END_ROTATION_SPEED = 0.40D;
+
+    private static final int VOLLEY_COUNT = 3;
+    private static final int VOLLEY_INTERVAL = 10;
+
+    private int volleysReleased;
     private double baseAngle;
 
     private final AshenLordEntity entity;
 
     private int ticksLeft;
     private int cooldownTicks;
-    private boolean leavesReleased;
+
 
     public SummerHurlLeavesGoal(AshenLordEntity entity) {
         this.entity = entity;
@@ -67,11 +72,9 @@ public class SummerHurlLeavesGoal extends Goal {
     @Override
     public void start() {
         ticksLeft = CHANNEL_DURATION;
-        leavesReleased = false;
+        volleysReleased = 0;
 
-        baseAngle = entity.getRandom().nextDouble()
-                * Math.PI
-                * 2.0D;
+        baseAngle = entity.getRandom().nextDouble() * Math.PI * 2.0D;
 
         entity.getNavigation().stop();
         entity.startChanneling(AshenLordEntity.ChannelType.SUMMER);
@@ -94,16 +97,33 @@ public class SummerHurlLeavesGoal extends Goal {
 
         entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.getEyePosition());
 
-        if (!leavesReleased && ticksLeft == RELEASE_TICK) {
-            hurlLeaves(target);
-            leavesReleased = true;
-        }
+        tryReleaseVolley(target);
 
-        if (!leavesReleased) {
+        if (volleysReleased == 0) {
             spawnChannelParticles();
         }
 
         ticksLeft--;
+    }
+
+    private void tryReleaseVolley(LivingEntity target) {
+        if (volleysReleased >= VOLLEY_COUNT) {
+            return;
+        }
+
+        int ticksSinceFirstRelease =
+                RELEASE_TICK - ticksLeft;
+
+        if (ticksSinceFirstRelease < 0) {
+            return;
+        }
+
+        if (ticksSinceFirstRelease % VOLLEY_INTERVAL != 0) {
+            return;
+        }
+
+        hurlLeaves(target);
+        volleysReleased++;
     }
 
     @Override
@@ -132,7 +152,7 @@ public class SummerHurlLeavesGoal extends Goal {
         }
 
         ticksLeft = 0;
-        leavesReleased = false;
+        volleysReleased = 0;
 
         cooldownTicks = MIN_COOLDOWN + entity.getRandom().nextInt(EXTRA_COOLDOWN + 1);
     }
