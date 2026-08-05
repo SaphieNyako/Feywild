@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BeeMountRenderer extends MobRenderer<BeeMountEntity, BeeMountModel<BeeMountEntity>> {
 
+    private static final float MODEL_SCALE = 0.85F;
     public BeeMountRenderer(EntityRendererProvider.Context context) {
         super(context, new BeeMountModel<>(context.bakeLayer(ModModelLayers.BEE_MOUNT_LAYER)),  0.50f);
         this.addLayer(new BeeMountArmorLayer(this, context.getModelSet()));
@@ -33,5 +34,10 @@ public class BeeMountRenderer extends MobRenderer<BeeMountEntity, BeeMountModel<
         } else {
             return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/bee_knight/bee_mount.png");
         }
+    }
+
+    @Override
+    protected void scale(BeeMountEntity entity, PoseStack poseStack, float partialTick) {
+        poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     }
 }

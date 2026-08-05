@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class BeeKnightRenderer extends MobRenderer<BeeKnightEntity, BeeKnightModel<BeeKnightEntity>> {
-
+    private static final float MODEL_SCALE = 0.65F;
     public BeeKnightRenderer(EntityRendererProvider.Context context) {
         super(context, new BeeKnightModel<>(context.bakeLayer(ModModelLayers.BEE_KNIGHT_LAYER)),  0.50f);
         this.addLayer(new BeeKnightArmorLayer(this, context.getModelSet()));
@@ -36,5 +36,10 @@ public class BeeKnightRenderer extends MobRenderer<BeeKnightEntity, BeeKnightMod
         } else {
             return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/bee_knight/bee_knight.png");
         }
+    }
+
+    @Override
+    protected void scale(BeeKnightEntity entity, PoseStack poseStack, float partialTick) {
+        poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     }
 }

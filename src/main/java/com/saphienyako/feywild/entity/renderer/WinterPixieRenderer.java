@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.entity.SummerPixieEntity;
 import com.saphienyako.feywild.entity.WinterPixieEntity;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
 import com.saphienyako.feywild.entity.model.WinterPixieModel;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class WinterPixieRenderer extends MobRenderer<WinterPixieEntity, WinterPixieModel<WinterPixieEntity>> {
 
+    private static final float MODEL_SCALE = 0.65F;
     public WinterPixieRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new WinterPixieModel<>(pContext.bakeLayer(ModModelLayers.WINTER_PIXIE_LAYER)),  0.50f);
     }
@@ -25,5 +27,10 @@ public class WinterPixieRenderer extends MobRenderer<WinterPixieEntity, WinterPi
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull WinterPixieEntity winterPixieEntity) {
         return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/winter_pixie.png");
+    }
+
+    @Override
+    protected void scale(WinterPixieEntity entity, PoseStack poseStack, float partialTick) {
+        poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     }
 }
