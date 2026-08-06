@@ -7,8 +7,10 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class OberonRearingGoal extends Goal {
 
    // private static final int WINDUP_DURATION = 24;
+   private static final int RETALIATION_COOLDOWN = 10;
     private static final int STOMP_TICK = 25;
     private static final int TOTAL_DURATION = 45;
 
@@ -41,18 +44,25 @@ public class OberonRearingGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        Player attacker = entity.getRecentAttacker();
+
+        boolean closeAttacker = attacker != null && entity.distanceToSqr(attacker) <= STOMP_RADIUS * STOMP_RADIUS;
+
         if (cooldownTicks > 0) {
+            if (closeAttacker) {
+                cooldownTicks = Math.min(cooldownTicks, RETALIATION_COOLDOWN);
+            }
+
             cooldownTicks--;
             return false;
         }
 
-        LivingEntity target = entity.getTarget();
+        LivingEntity target = closeAttacker ? attacker : entity.getTarget();
 
         return target != null
                 && target.isAlive()
                 && entity.getState() == OberonEntity.State.IDLE
-                && entity.distanceToSqr(target)
-                <= STOMP_RADIUS * STOMP_RADIUS;
+                && entity.distanceToSqr(target) <= STOMP_RADIUS * STOMP_RADIUS;
     }
 
     @Override
@@ -161,6 +171,10 @@ public class OberonRearingGoal extends Goal {
 
     private void spawnStompParticles(ServerLevel serverLevel) {
 
+        double lowerBodyHeight = entity.getY() + entity.getBbHeight() * 0.22D;
+
+        double middleBodyHeight = entity.getY() + entity.getBbHeight() * 0.45D;
+
         serverLevel.sendParticles(
                 ParticleTypes.POOF,
                 entity.getX(),
@@ -176,40 +190,42 @@ public class OberonRearingGoal extends Goal {
         serverLevel.sendParticles(
                 ModParticles.SPRING_SPARKLE_PARTICLE.get(),
                 entity.getX(),
-                entity.getY() + 0.2D,
+                lowerBodyHeight,
                 entity.getZ(),
-                24,
-                STOMP_RADIUS * 0.4D,
-                0.15D,
-                STOMP_RADIUS * 0.4D,
-                0.06D
+                32,
+                STOMP_RADIUS * 0.42D,
+                entity.getBbHeight() * 0.18D,
+                STOMP_RADIUS * 0.42D,
+                0.08D
         );
 
         serverLevel.sendParticles(
                 ParticleTypes.CHERRY_LEAVES,
                 entity.getX(),
-                entity.getY() + 0.25D,
+                middleBodyHeight,
                 entity.getZ(),
-                20,
+                28,
                 STOMP_RADIUS * 0.45D,
-                0.25D,
+                entity.getBbHeight() * 0.32D,
                 STOMP_RADIUS * 0.45D,
-                0.05D
+                0.08D
         );
 
 
-        spawnStompRing(serverLevel, STOMP_RADIUS, 28);
+        spawnStompRing(serverLevel, STOMP_RADIUS, 28, 0.18D);
 
-        spawnStompRing(serverLevel, STOMP_RADIUS * 0.55D, 16);
+        spawnStompRing(serverLevel, STOMP_RADIUS * 0.55D, 16, entity.getBbHeight() * 0.22D);
+
+        spawnVerticalStompBurst(serverLevel);
     }
-    private void spawnStompRing(ServerLevel serverLevel, double radius, int particleCount) {
+    private void spawnStompRing(ServerLevel serverLevel, double radius, int particleCount, double height) {
         double angleStep = (Math.PI * 2.0D) / particleCount;
 
         for (int i = 0; i < particleCount; i++) {
             double angle = i * angleStep;
-
+            double verticalWave = Math.sin(angle * 2.0D) * 0.15D;
             double x = entity.getX() + Math.cos(angle) * radius;
-            double y = entity.getY() + 0.12D;
+            double y = entity.getY() + height + verticalWave;
             double z = entity.getZ() + Math.sin(angle) * radius;
 
             serverLevel.sendParticles(
@@ -240,4 +256,39 @@ public class OberonRearingGoal extends Goal {
         }
     }
 
+    private void spawnVerticalStompBurst(ServerLevel serverLevel) {
+        int layers = 5;
+
+        for (int layer = 0; layer < layers; layer++) {
+            double progress = layer / (double) (layers - 1);
+
+            double height = entity.getY() + entity.getBbHeight() * Mth.lerp(progress, 0.12D, 0.75D);
+
+            double radius = Mth.lerp(progress, STOMP_RADIUS * 0.45D, STOMP_RADIUS * 0.18D);
+
+            serverLevel.sendParticles(
+                    ModParticles.SPRING_SPARKLE_PARTICLE.get(),
+                    entity.getX(),
+                    height,
+                    entity.getZ(),
+                    8,
+                    radius,
+                    0.12D,
+                    radius,
+                    0.06D
+            );
+
+            serverLevel.sendParticles(
+                    ParticleTypes.CHERRY_LEAVES,
+                    entity.getX(),
+                    height,
+                    entity.getZ(),
+                    5,
+                    radius,
+                    0.18D,
+                    radius,
+                    0.05D
+            );
+        }
+    }
 }

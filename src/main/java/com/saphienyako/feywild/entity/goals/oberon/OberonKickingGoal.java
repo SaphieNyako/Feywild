@@ -5,6 +5,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class OberonKickingGoal extends Goal {
 
   //  private static final int WINDUP_DURATION = 12;
+  private static final int RETALIATION_COOLDOWN = 5;
     private static final int ATTACK_TICK = 9;
     private static final int TOTAL_DURATION = 28;
 
@@ -37,12 +39,20 @@ public class OberonKickingGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        Player attacker = entity.getRecentAttacker();
+
+        boolean rearAttack = attacker != null && entity.distanceToSqr(attacker) <= KICK_RANGE * KICK_RANGE && isBehindOberon(attacker);
+
         if (cooldownTicks > 0) {
+            if (rearAttack) {
+                cooldownTicks = Math.min(cooldownTicks, RETALIATION_COOLDOWN);
+            }
+
             cooldownTicks--;
             return false;
         }
 
-        LivingEntity target = entity.getTarget();
+        LivingEntity target = rearAttack ? attacker : entity.getTarget();
 
         return target != null
                 && target.isAlive()
