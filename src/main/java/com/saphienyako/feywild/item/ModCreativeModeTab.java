@@ -55,6 +55,8 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get());
                         output.accept(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
                         output.accept(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_OBERON.get());
+                        output.accept(ModItems.SUMMONING_SCROLL_ASHEN_LORD.get());
 
                         output.accept(ModItems.GIANT_SUN_FLOWER_SEED.get());
                         output.accept(ModItems.GIANT_CROCUS_FLOWER_SEED.get());
@@ -273,6 +275,8 @@ public class ModCreativeModeTab {
                         output.accept(ModItems.SPAWN_EGG_WINTER_TREE_ENT.get());
                         output.accept(ModItems.SPAWN_EGG_QUEEN_TITANIA.get());
                         output.accept(ModItems.SPAWN_EGG_QUEEN_MAB.get());
+                        output.accept(ModItems.SPAWN_EGG_OBERON.get());
+                        output.accept(ModItems.SPAWN_EGG_ASHEN_LORD.get());
 
                     }).build());
 

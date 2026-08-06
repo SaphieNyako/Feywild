@@ -20,8 +20,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.Supplier;
-
 
 public class ModItems {
 
@@ -139,6 +137,13 @@ public class ModItems {
     public static final DeferredItem<Item> SUMMONING_SCROLL_QUEEN_MAB = ITEMS.register("summoning_scroll_queen_mab", () -> new BossSummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_queen_mab")));
 
+    public static final DeferredItem<Item> SUMMONING_SCROLL_OBERON = ITEMS.register("summoning_scroll_oberon", () -> new BossSummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_oberon")));
+
+    public static final DeferredItem<Item> SUMMONING_SCROLL_ASHEN_LORD = ITEMS.register("summoning_scroll_ashen_lord", () -> new BossSummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_ashen_lord")));
+
+
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_SPRING_PIXIE = ITEMS.register("spawn_egg_spring_pixie", () -> new SpawnEggItem(ModEntities.SPRING_PIXIE.get(), 0xf085a9, 0xa1db67, new Item.Properties()));
     @SuppressWarnings("deprecation")
@@ -173,6 +178,12 @@ public class ModItems {
 
     @SuppressWarnings("deprecation")
     public static final DeferredItem<Item> SPAWN_EGG_QUEEN_MAB = ITEMS.register("spawn_egg_queen_mab", () -> new SpawnEggItem(ModEntities.MAB.get(),0x84b4be, 0x323c81, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_OBERON = ITEMS.register("spawn_egg_oberon", () -> new SpawnEggItem(ModEntities.OBERON.get(),0xf085a9, 0xa1db67, new Item.Properties()));
+
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> SPAWN_EGG_ASHEN_LORD = ITEMS.register("spawn_egg_ashen_lord", () -> new SpawnEggItem(ModEntities.ASHEN_LORD.get(),0xb73737, 0xa56259, new Item.Properties()));
 
 
 

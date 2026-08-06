@@ -44,6 +44,10 @@ public class BossSummoningScrollItem extends Item {
             return ModEntities.TITANIA.get();
         } else if (this.equals(SUMMONING_SCROLL_QUEEN_MAB.get())) {
             return ModEntities.MAB.get();
+        }else if (this.equals(SUMMONING_SCROLL_OBERON.get())) {
+            return ModEntities.OBERON.get();
+        }else if (this.equals(SUMMONING_SCROLL_ASHEN_LORD.get())) {
+            return ModEntities.ASHEN_LORD.get();
         }
         else return null;
     }
@@ -67,18 +71,6 @@ public class BossSummoningScrollItem extends Item {
                                     context.getClickedPos()
                             )
                     );
-
-                    /*
-                    if (FeywildConfig.voicesActive) {
-                        context.getLevel().playSound(
-                                null,
-                                entity.blockPosition(),
-                                entity.getSummonSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
-                    } */
 
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
