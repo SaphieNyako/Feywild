@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.screen;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.SpriteEntity;
@@ -42,12 +43,11 @@ public class LexiconMenuScreen extends Screen {
             this.addRenderableWidget(new EntityWidget(EntityWidget.WIDTH, ((this.height - EntityWidget.HEIGHT) / 2) - 30, living));
         }
 
-        if (ModList.get().isLoaded("quest_giver")) {
+        if (ModCompat.QUEST_GIVER_LOADED) {
             this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - FollowButton.WIDTH)/2), this.top + 4 +  QuestButton.HEIGHT, this,"sprite", "hexen_quest", true, -1));
-
         }
 
-        if (ModList.get().isLoaded("patchouli")) {
+        if (ModCompat.PATCHOULI_LOADED) {
             this.addRenderableWidget(new PatchouliButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - PatchouliButton.WIDTH)/2), this.top + 12 + BellsnickelScreenButton.HEIGHT * 2, this));
         }
     }

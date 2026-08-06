@@ -103,6 +103,7 @@ public class PixieWingTiaraItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
+        /*
         super.inventoryTick(stack, level, entity, slot, selected);
 
         if (!(entity instanceof Player player) || level.isClientSide) return;
@@ -124,6 +125,6 @@ public class PixieWingTiaraItem extends Item {
             if (current == null || current.getDuration() < 210) {
                 player.addEffect(new MobEffectInstance(ModEffects.FEY_FLYING, 220, 0, false, false, true));
             }
-        }
+        }*/
     }
 }

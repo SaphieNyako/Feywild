@@ -53,6 +53,7 @@ public class OberonEntity extends BossBase implements GroundEntity {
                 .add(Attributes.MAX_HEALTH, 300)
                 .add(Attributes.FOLLOW_RANGE, 32.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 2D)
+                .add(Attributes.ATTACK_DAMAGE, 12.0D)
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
 
