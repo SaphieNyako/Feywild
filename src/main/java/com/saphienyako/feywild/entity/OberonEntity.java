@@ -5,6 +5,9 @@ import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.goals.mab.IntimidateGoal;
 import com.saphienyako.feywild.entity.goals.mab.PhysicalAttackGoal;
 import com.saphienyako.feywild.entity.goals.mab.SummonVexGoal;
+import com.saphienyako.feywild.entity.goals.oberon.OberonChargingGoal;
+import com.saphienyako.feywild.entity.goals.oberon.OberonKickingGoal;
+import com.saphienyako.feywild.entity.goals.oberon.OberonRearingGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -72,11 +75,11 @@ public class OberonEntity extends BossBase implements GroundEntity {
         super.registerGoals();
         this.registerGroundGoals(this);
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
-      //  this.goalSelector.addGoal(40, new OberonKickingGoal(this));
-      //  this.goalSelector.addGoal(30, new OberonRearingGoal(this));
-      //  this.goalSelector.addGoal(50, new OberonChargingGoal(this));
-      //  this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
-        //TODO Goals
+        this.goalSelector.addGoal(2, new OberonKickingGoal(this));
+        this.goalSelector.addGoal(3, new OberonRearingGoal(this));
+        this.goalSelector.addGoal(4, new OberonChargingGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
+
     }
 
     public void tick() {
@@ -142,6 +145,10 @@ public class OberonEntity extends BossBase implements GroundEntity {
             CHARGING_ANIMATION.stop();
             return;
         }
+
+        CHARGING_ANIMATION.stop();
+        KICKING_ANIMATION.stop();
+        REARING_ANIMATION.stop();
 
         if (isActuallyMoving()) {
 
