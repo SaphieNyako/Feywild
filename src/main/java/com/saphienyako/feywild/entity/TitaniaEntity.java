@@ -69,9 +69,9 @@ public class TitaniaEntity extends FlyingBossBase {
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
-        this.goalSelector.addGoal(40, new TitaniaCastingGoal(this, this.level()));
-        this.goalSelector.addGoal(40, new TitaniaEnchantingGoal(this, this.level()));
-        this.goalSelector.addGoal(50, new TitaniaPanicGoal(this, 0.003, 16));
+        this.goalSelector.addGoal(4, new TitaniaCastingGoal(this, this.level()));
+        this.goalSelector.addGoal(3, new TitaniaEnchantingGoal(this, this.level()));
+        this.goalSelector.addGoal(2, new TitaniaPanicGoal(this, 0.003, 16));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
     }
 
@@ -124,6 +124,9 @@ public class TitaniaEntity extends FlyingBossBase {
             CASTING_ANIMATION.stop();
             return;
         }
+
+        CASTING_ANIMATION.stop();
+        ENCHANTING_ANIMATION.stop();
 
         if (isActuallyMoving()) {
 
@@ -193,5 +196,4 @@ public class TitaniaEntity extends FlyingBossBase {
     public enum State {
         IDLE_FLYING, FLYING, CASTING, ENCHANTING
     }
-
 }

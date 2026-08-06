@@ -19,6 +19,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Explosion;
@@ -29,8 +30,16 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class BossBase extends PathfinderMob {
+
+    private static final int RETALIATION_WINDOW = 20 * 3;
+
+    @Nullable
+    private Player recentAttacker;
+
+    private int recentAttackerTicks;
 
     public final ServerBossEvent bossInfo;
     private int deathTicks = 0;
@@ -86,9 +95,38 @@ public abstract class BossBase extends PathfinderMob {
 
     public void tick() {
         super.tick();
+
+        if (!this.level().isClientSide()) {
+            tickRecentAttacker();
+        }
+
         if (dying) {
             tickDeathSequence();
         }
+    }
+
+    private void tickRecentAttacker() {
+        if (recentAttackerTicks > 0) {
+            recentAttackerTicks--;
+        }
+
+        if (recentAttackerTicks <= 0
+                || recentAttacker == null
+                || !recentAttacker.isAlive()
+                || recentAttacker.isRemoved()) {
+
+            recentAttacker = null;
+            recentAttackerTicks = 0;
+        }
+    }
+
+    public boolean wasRecentlyHurtByPlayer() {
+        return recentAttacker != null && recentAttackerTicks > 0 && recentAttacker.isAlive();
+    }
+
+    @Nullable
+    public Player getRecentAttacker() {
+        return wasRecentlyHurtByPlayer() ? recentAttacker : null;
     }
 
     @Override
@@ -98,7 +136,6 @@ public abstract class BossBase extends PathfinderMob {
 
     @Override
     public boolean hurt(@Nonnull DamageSource source, float amount) {
-
         if (dying) {
             return false;
         }
@@ -106,13 +143,27 @@ public abstract class BossBase extends PathfinderMob {
         boolean result = super.hurt(source, amount);
 
         if (this.getHealth() <= 0.0F && !dying) {
-
             this.setHealth(1.0F);
             beginDeathSequence();
             return false;
         }
 
+        if (result && !this.level().isClientSide()) {
+            Entity attacker = source.getEntity();
+
+            if (attacker instanceof Player player) {
+                recentAttacker = player;
+                recentAttackerTicks = RETALIATION_WINDOW;
+                setTarget(player);
+            }
+        }
+
         return result;
+    }
+
+    public void clearRecentAttacker() {
+        this.recentAttacker = null;
+        this.recentAttackerTicks = 0;
     }
 
     private void beginDeathSequence() {

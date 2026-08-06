@@ -29,6 +29,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
 
 public class MabEntity extends FlyingBossBase {
 
@@ -40,7 +43,6 @@ public class MabEntity extends FlyingBossBase {
     public final AnimationState INTIMIDATION_ANIMATION = new AnimationState();
 
     public final AnimationState ATTACKING_ANIMATION = new AnimationState();
-
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
 
@@ -71,15 +73,16 @@ public class MabEntity extends FlyingBossBase {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(40, new SummonVexGoal(this));
-        this.goalSelector.addGoal(30, new IntimidateGoal(this));
-        this.goalSelector.addGoal(50, new PhysicalAttackGoal(this));
+        this.goalSelector.addGoal(4, new SummonVexGoal(this));
+        this.goalSelector.addGoal(3, new IntimidateGoal(this));
+        this.goalSelector.addGoal(2, new PhysicalAttackGoal(this));
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
     }
 
     public void tick() {
         super.tick();
+
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
@@ -142,6 +145,10 @@ public class MabEntity extends FlyingBossBase {
             ATTACKING_ANIMATION.stop();
             return;
         }
+
+        CHANNEL_ANIMATION.stop();
+        INTIMIDATION_ANIMATION.stop();
+        ATTACKING_ANIMATION.stop();
 
         if (isActuallyMoving()) {
 

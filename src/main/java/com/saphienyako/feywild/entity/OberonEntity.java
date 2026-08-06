@@ -43,13 +43,6 @@ public class OberonEntity extends BossBase implements GroundEntity {
     public final AnimationState KICKING_ANIMATION = new AnimationState();
 
     public final AnimationState REARING_ANIMATION = new AnimationState();
-
-    private static final int RETALIATION_WINDOW = 20 * 3;
-
-    @Nullable
-    private Player recentAttacker;
-
-    private int recentAttackerTicks;
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
     public OberonEntity(EntityType<? extends PathfinderMob> entity, Level level) {
@@ -91,63 +84,9 @@ public class OberonEntity extends BossBase implements GroundEntity {
 
     public void tick() {
         super.tick();
-
-        if (!this.level().isClientSide()) {
-            tickRecentAttacker();
-        }
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
-    }
-
-    @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
-
-        boolean damaged = super.hurt(source, amount);
-
-
-        if (!damaged || this.level().isClientSide()) {
-            return damaged;
-        }
-
-        Entity attacker = source.getEntity();
-
-        if (attacker instanceof Player player) {
-            this.recentAttacker = player;
-            this.recentAttackerTicks = RETALIATION_WINDOW;
-
-            this.setTarget(player);
-        }
-
-        return true;
-    }
-
-    private void tickRecentAttacker() {
-        if (recentAttackerTicks > 0) {
-            recentAttackerTicks--;
-        }
-
-        if (recentAttackerTicks <= 0
-                || recentAttacker == null
-                || !recentAttacker.isAlive()
-                || recentAttacker.isRemoved()) {
-
-            recentAttacker = null;
-            recentAttackerTicks = 0;
-        }
-    }
-
-    public boolean wasRecentlyHurtByPlayer() {
-        return recentAttacker != null
-                && recentAttackerTicks > 0
-                && recentAttacker.isAlive();
-    }
-
-    @Nullable
-    public Player getRecentAttacker() {
-        return wasRecentlyHurtByPlayer()
-                ? recentAttacker
-                : null;
     }
 
     private boolean isMoving() {

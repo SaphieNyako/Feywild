@@ -80,8 +80,8 @@ public class AshenLordEntity extends BossBase {
         this.goalSelector.addGoal(4, new WinterHurlLeavesGoal(this));
         this.goalSelector.addGoal(5, new SpringLeafWhirlwindGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
-        this.goalSelector.addGoal(10, new MoveTowardsTargetGoal(this, 1.0f, 16));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(40, new MoveTowardsTargetGoal(this, 1.0f, 16));
+        this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(50, new WaterAvoidingRandomStrollGoal(this, 1));
     }
