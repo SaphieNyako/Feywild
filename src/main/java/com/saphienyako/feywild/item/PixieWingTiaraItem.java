@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -33,6 +34,10 @@ public class PixieWingTiaraItem extends Item {
     public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         if(Screen.hasShiftDown()){
             tooltip.add(Component.translatable("message.feywild.pixie_wing_tiara").withStyle(ChatFormatting.BLUE));
+
+            if (ModCompat.CURIOS_LOADED) {
+                tooltip.add(Component.translatable("message.feywild.curios_head_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
         }
 
         else {
