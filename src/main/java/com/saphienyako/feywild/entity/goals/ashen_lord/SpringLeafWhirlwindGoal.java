@@ -64,7 +64,13 @@ public class SpringLeafWhirlwindGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (cooldownTicks > 0) {
+        boolean forced = entity.isForcedAbility(AshenLordEntity.ForcedAbility.SPRING_WHIRLWIND);
+
+        if (entity.getForcedAbility() != null && !forced) {
+            return false;
+        }
+
+        if (!forced && cooldownTicks > 0) {
             cooldownTicks--;
             return false;
         }
@@ -79,6 +85,9 @@ public class SpringLeafWhirlwindGoal extends Goal {
 
     @Override
     public void start() {
+        if (entity.isForcedAbility(AshenLordEntity.ForcedAbility.SPRING_WHIRLWIND)) {
+            entity.clearForcedAbility();
+        }
         ticksElapsed = 0;
         whirlwindCenter = null;
         whirlwindStarted = false;

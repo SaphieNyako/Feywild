@@ -58,7 +58,13 @@ public class WinterHurlLeavesGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (cooldownTicks > 0) {
+        boolean forced = entity.isForcedAbility(AshenLordEntity.ForcedAbility.WINTER_LEAVES);
+
+        if (entity.getForcedAbility() != null && !forced) {
+            return false;
+        }
+
+        if (!forced && cooldownTicks > 0) {
             cooldownTicks--;
             return false;
         }
@@ -73,6 +79,9 @@ public class WinterHurlLeavesGoal extends Goal {
 
     @Override
     public void start() {
+        if (entity.isForcedAbility(AshenLordEntity.ForcedAbility.WINTER_LEAVES)) {
+            entity.clearForcedAbility();
+        }
         ticksElapsed = 0;
         wavesReleased = 0;
 

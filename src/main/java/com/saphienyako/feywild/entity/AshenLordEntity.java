@@ -1,10 +1,7 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.entity.base.BossBase;
-import com.saphienyako.feywild.entity.goals.ashen_lord.SpringLeafWhirlwindGoal;
-import com.saphienyako.feywild.entity.goals.ashen_lord.SummerHurlLeavesGoal;
-import com.saphienyako.feywild.entity.goals.ashen_lord.AutumnLeafShieldGoal;
-import com.saphienyako.feywild.entity.goals.ashen_lord.WinterHurlLeavesGoal;
+import com.saphienyako.feywild.entity.goals.ashen_lord.*;
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -27,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AshenLordEntity extends BossBase {
@@ -40,6 +38,11 @@ public class AshenLordEntity extends BossBase {
 
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
+
+    @Nullable
+    private ForcedAbility forcedAbility;
+
+    private boolean retaliationRequested;
 
     public AshenLordEntity(EntityType<? extends PathfinderMob> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.ashen_lord").withStyle(ChatFormatting.DARK_RED),
@@ -75,6 +78,7 @@ public class AshenLordEntity extends BossBase {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
+        this.goalSelector.addGoal(1, new AshenLordRetaliationGoal(this));
         this.goalSelector.addGoal(2, new AutumnLeafShieldGoal(this));
         this.goalSelector.addGoal(3, new SummerHurlLeavesGoal(this));
         this.goalSelector.addGoal(4, new WinterHurlLeavesGoal(this));
@@ -87,6 +91,29 @@ public class AshenLordEntity extends BossBase {
     }
 
     //TODO add Moving Light?
+
+    @Override
+    public boolean hurt(@NotNull DamageSource source, float amount) {
+        boolean damaged = super.hurt(source, amount);
+
+        if (!damaged || this.level().isClientSide()) {
+            return damaged;
+        }
+
+        if (source.getEntity() instanceof Player) {
+            retaliationRequested = true;
+        }
+
+        return true;
+    }
+
+    public boolean hasRetaliationRequest() {
+        return retaliationRequested;
+    }
+
+    public void consumeRetaliationRequest() {
+        retaliationRequested = false;
+    }
 
     public void tick() {
         super.tick();
@@ -213,11 +240,32 @@ public class AshenLordEntity extends BossBase {
         this.setChannelType(ChannelType.NONE);
     }
 
+    @Nullable
+    public ForcedAbility getForcedAbility() {
+        return forcedAbility;
+    }
+
+    public boolean isForcedAbility(ForcedAbility ability) {
+        return forcedAbility == ability;
+    }
+
+    public void setForcedAbility(ForcedAbility ability) {
+        this.forcedAbility = ability;
+    }
+
+    public void clearForcedAbility() {
+        this.forcedAbility = null;
+    }
+
     public enum State {
         IDLE, WALKING, CHANNEL
     }
 
     public enum ChannelType {
         NONE, SPRING, SUMMER, AUTUMN, WINTER
+    }
+
+    public enum ForcedAbility {
+        AUTUMN_SHIELD, SPRING_WHIRLWIND, SUMMER_LEAVES, WINTER_LEAVES
     }
 }

@@ -56,7 +56,13 @@ public class SummerHurlLeavesGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (cooldownTicks > 0) {
+        boolean forced = entity.isForcedAbility(AshenLordEntity.ForcedAbility.SUMMER_LEAVES);
+
+        if (entity.getForcedAbility() != null && !forced) {
+            return false;
+        }
+
+        if (!forced && cooldownTicks > 0) {
             cooldownTicks--;
             return false;
         }
@@ -71,6 +77,9 @@ public class SummerHurlLeavesGoal extends Goal {
 
     @Override
     public void start() {
+        if (entity.isForcedAbility(AshenLordEntity.ForcedAbility.SUMMER_LEAVES)) {
+            entity.clearForcedAbility();
+        }
         ticksLeft = CHANNEL_DURATION;
         volleysReleased = 0;
 

@@ -43,7 +43,13 @@ public class AutumnLeafShieldGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (cooldownTicks > 0) {
+        boolean forced = entity.isForcedAbility(AshenLordEntity.ForcedAbility.AUTUMN_SHIELD);
+
+        if (entity.getForcedAbility() != null && !forced) {
+            return false;
+        }
+
+        if (!forced && cooldownTicks > 0) {
             cooldownTicks--;
             return false;
         }
@@ -57,6 +63,9 @@ public class AutumnLeafShieldGoal extends Goal {
 
     @Override
     public void start() {
+        if (entity.isForcedAbility(AshenLordEntity.ForcedAbility.AUTUMN_SHIELD)) {
+            entity.clearForcedAbility();
+        }
         this.ticksLeft = SHIELD_DURATION;
 
         entity.getNavigation().stop();
