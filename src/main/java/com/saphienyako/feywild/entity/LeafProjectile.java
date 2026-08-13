@@ -22,7 +22,7 @@ public class LeafProjectile extends ThrowableProjectile {
 
     private static final EntityDataAccessor<Integer> LEAF_TYPE = SynchedEntityData.defineId(LeafProjectile.class, EntityDataSerializers.INT);
 
-    private static final float DAMAGE = 5.0F;
+    private static final float DAMAGE = 8.0F;
     private static final double KNOCKBACK_STRENGTH = 2.0D;
 
     public LeafProjectile(

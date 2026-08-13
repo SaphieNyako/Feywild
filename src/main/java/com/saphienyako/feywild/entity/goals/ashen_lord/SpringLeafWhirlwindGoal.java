@@ -33,7 +33,7 @@ public class SpringLeafWhirlwindGoal extends Goal {
     private static final double MAX_RANGE = 24.0D;
 
     private static final double WHIRLWIND_RADIUS = 3.5D;
-    private static final double WHIRLWIND_HEIGHT = 6.0D;
+    private static final double WHIRLWIND_HEIGHT = 8.0D;
 
     private static final double UPWARD_FORCE = 0.35D; //Cap is 0.45
     private static final double INWARD_FORCE = 0.020D;

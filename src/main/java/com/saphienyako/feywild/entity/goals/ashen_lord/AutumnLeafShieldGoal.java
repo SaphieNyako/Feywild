@@ -20,13 +20,13 @@ import java.util.List;
 
 public class AutumnLeafShieldGoal extends Goal {
 
-    private static final int SHIELD_DURATION = 20*15;
-    private static final int MIN_COOLDOWN = 20*7;
-    private static final int EXTRA_COOLDOWN = 20*5;
+    private static final int SHIELD_DURATION = 20 * 15;
+    private static final int MIN_COOLDOWN = 20 * 7;
+    private static final int EXTRA_COOLDOWN = 20 * 5;
 
     private static final double SHIELD_RADIUS = 4.0D;
 
-    private static final float SHIELD_DAMAGE = 3.0F;
+    private static final float SHIELD_DAMAGE = 7.0F;
 
     private final AshenLordEntity entity;
 
