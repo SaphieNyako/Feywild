@@ -20,7 +20,6 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANDRAKE_SCREAM = registerSoundEvent("mandrake_scream");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvent("pixie_spell_casting");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING_SHORT = registerSoundEvent("pixie_spell_casting_short");
-    //TODO remove sounds
     public static final Supplier<SoundEvent> FEYWILD_MUSIC = registerSoundEvent("feywild_music");
     public static final ResourceKey<JukeboxSong> FEYWILD_MUSIC_KEY = createSong("feywild_music");
 
@@ -177,7 +176,31 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> MAB_INTIMIDATE = registerSoundEvent("mab_intimidate");
 
+    public static final Supplier<SoundEvent> OBERON_HURT = registerSoundEvent("oberon_hurt");
 
+    public static final Supplier<SoundEvent> OBERON_DEATH = registerSoundEvent("oberon_death");
+
+    public static final Supplier<SoundEvent> OBERON_AMBIANCE = registerSoundEvent("oberon_ambiance");
+
+    public static final Supplier<SoundEvent> OBERON_SUMMON = registerSoundEvent("oberon_summon");
+
+    public static final Supplier<SoundEvent> OBERON_CHARGING = registerSoundEvent("oberon_charging");
+
+    public static final Supplier<SoundEvent> OBERON_KICKING = registerSoundEvent("oberon_kicking");
+
+    public static final Supplier<SoundEvent> OBERON_REARING = registerSoundEvent("oberon_rearing");
+
+    public static final Supplier<SoundEvent> ASHEN_LORD_HURT = registerSoundEvent("ashen_lord_hurt");
+
+    public static final Supplier<SoundEvent> ASHEN_LORD_DEATH = registerSoundEvent("ashen_lord_death");
+
+    public static final Supplier<SoundEvent> ASHEN_LORD_AMBIANCE = registerSoundEvent("ashen_lord_ambiance");
+
+    public static final Supplier<SoundEvent> ASHEN_LORD_CHANNEL_01 = registerSoundEvent("ashen_lord_channel_01");
+
+    public static final Supplier<SoundEvent> ASHEN_LORD_CHANNEL_02 = registerSoundEvent("ashen_lord_channel_02");
+
+    public static final Supplier<SoundEvent> ASHEN_LORD_ATTACK = registerSoundEvent("ashen_lord_attack");
 
     private static ResourceKey<JukeboxSong> createSong(String name) {
                 return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));

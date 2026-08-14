@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity.goals.oberon;
 
 import com.saphienyako.feywild.entity.OberonEntity;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -127,7 +128,7 @@ public class OberonKickingGoal extends Goal {
 
             if (damaged) {
                 target.push(backward.x * KICK_KNOCKBACK, 0.6D, backward.z * KICK_KNOCKBACK);
-
+                this.entity.playSound(ModSounds.OBERON_KICKING.get(), 1, 1);
                 target.hurtMarked = true;
             }
         }

@@ -2,6 +2,7 @@ package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.OberonEntity;
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
@@ -45,6 +46,7 @@ public class BossSummoningScrollItem extends Item {
         } else if (this.equals(SUMMONING_SCROLL_QUEEN_MAB.get())) {
             return ModEntities.MAB.get();
         }else if (this.equals(SUMMONING_SCROLL_OBERON.get())) {
+            //playsound
             return ModEntities.OBERON.get();
         }else if (this.equals(SUMMONING_SCROLL_ASHEN_LORD.get())) {
             return ModEntities.ASHEN_LORD.get();
@@ -74,6 +76,17 @@ public class BossSummoningScrollItem extends Item {
 
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
+                    }
+
+                    if(entity instanceof OberonEntity) {
+                        context.getLevel().playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getSummonSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 }
             }

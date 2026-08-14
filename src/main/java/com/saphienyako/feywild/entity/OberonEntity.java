@@ -9,6 +9,7 @@ import com.saphienyako.feywild.entity.goals.oberon.OberonChargingGoal;
 import com.saphienyako.feywild.entity.goals.oberon.OberonKickingGoal;
 import com.saphienyako.feywild.entity.goals.oberon.OberonRearingGoal;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -172,24 +173,33 @@ public class OberonEntity extends BossBase implements GroundEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return super.getAmbientSound();
+        if (this.tickCount < 20 * 5) {
+            return null;
+        }
+        return ModSounds.OBERON_AMBIANCE.get();
     }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 200;
+    }
+
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {
-        return super.getHurtSound(p_21239_);
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return ModSounds.OBERON_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSounds.OBERON_DEATH.get();
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
+        return ModSounds.OBERON_SUMMON.get();
     }
 
     @Override

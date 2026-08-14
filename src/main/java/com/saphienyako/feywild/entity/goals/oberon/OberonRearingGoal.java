@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity.goals.oberon;
 
 import com.saphienyako.feywild.entity.OberonEntity;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -72,6 +73,9 @@ public class OberonRearingGoal extends Goal {
 
         entity.getNavigation().stop();
         entity.setState(OberonEntity.State.REARING);
+        if (entity.getRandom().nextInt(2) == 0) {
+            this.entity.playSound(ModSounds.OBERON_REARING.get(), 1, 1);
+        }
     }
 
     @Override

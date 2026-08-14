@@ -4,6 +4,7 @@ import com.saphienyako.feywild.entity.AshenLordEntity;
 import com.saphienyako.feywild.entity.LeafProjectile;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;

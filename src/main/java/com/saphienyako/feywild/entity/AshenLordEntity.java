@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.goals.ashen_lord.*;
 import com.saphienyako.feywild.particle.ModParticles;
+import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -43,6 +44,8 @@ public class AshenLordEntity extends BossBase {
     private ForcedAbility forcedAbility;
 
     private boolean retaliationRequested;
+
+    private int agitationStage = 0;
 
     public AshenLordEntity(EntityType<? extends PathfinderMob> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.ashen_lord").withStyle(ChatFormatting.DARK_RED),
@@ -177,19 +180,24 @@ public class AshenLordEntity extends BossBase {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return super.getAmbientSound();
+        return ModSounds.ASHEN_LORD_AMBIANCE.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 200;
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_21239_) {
-        return super.getHurtSound(p_21239_);
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+        return ModSounds.ASHEN_LORD_HURT.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return super.getDeathSound();
+        return ModSounds.ASHEN_LORD_DEATH.get();
     }
 
     @Override
@@ -255,6 +263,18 @@ public class AshenLordEntity extends BossBase {
 
     public void clearForcedAbility() {
         this.forcedAbility = null;
+    }
+
+    public int getAgitationStage() {
+        return agitationStage;
+    }
+
+    public void increaseAgitationStage() {
+        agitationStage = Math.min(agitationStage + 1, 2);
+    }
+
+    public void resetAgitationStage() {
+        agitationStage = 0;
     }
 
     public enum State {

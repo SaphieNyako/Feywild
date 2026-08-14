@@ -522,7 +522,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
     @Override
     public int getAmbientSoundInterval() {
-        return 600; //YES THIS IS A THING T_T
+        return 600;
     }
 
     public abstract MobEffect getEffect();
