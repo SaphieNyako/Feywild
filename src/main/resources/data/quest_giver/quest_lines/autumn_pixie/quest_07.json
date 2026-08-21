@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_06",
+  "icon": "minecraft:potion",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_07_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_07_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:special_task",
+      "action": "gift_healing_potion"
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_07_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_07_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

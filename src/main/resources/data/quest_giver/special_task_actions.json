@@ -11,6 +11,7 @@
     "summon_summer_tree_ent",
     "summon_autumn_tree_ent",
     "summon_winter_tree_ent",
-    "hit_spring_pixie_with_snowball"
+    "hit_spring_pixie_with_snowball",
+    "gift_healing_potion"
   ]
 }

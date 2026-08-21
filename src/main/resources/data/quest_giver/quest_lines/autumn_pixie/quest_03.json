@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_02",
+  "icon": "minecraft:bone",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_03_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_03_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:tame",
+      "type": "minecraft:wolf"
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_03_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_03_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 2,
+        "item": "minecraft:steak"
+      }
+    }
+  ]
+}

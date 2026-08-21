@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_03",
+  "icon": "minecraft:name_tag",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_04_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_04_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:name_entity",
+      "type": "minecraft:wolf"
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_04_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_04_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}
