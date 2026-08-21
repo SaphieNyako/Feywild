@@ -11,6 +11,7 @@
   },
   "tasks": [
     {
+      "times": 3,
       "id": "quest_giver:pet",
       "type": "minecraft:sheep"
     }

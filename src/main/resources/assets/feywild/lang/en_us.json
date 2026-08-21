@@ -533,6 +533,7 @@
   "quest.feywild.summer_pixie_11_complete_title": "The End",
   "quest.feywild.summer_pixie_11_complete_description": "$(#EFBF04)-End of the Summer Pixie Quest-$()\n\nThank you for playing Feywild!",
 
+
   "quest.feywild.winter_pixie_root_start_title": "Welcome to the Winter Court",
   "quest.feywild.winter_pixie_root_start_description": "Such an inconvenience... Why did you summon me, mortal?\nThis ordeal will most certainly lead to your premature demise. But then, maybe we can be friends...\nCare to tell me your name?",
 
@@ -601,6 +602,7 @@
 
   "quest.feywild.winter_pixie_11_complete_title": "The End",
   "quest.feywild.winter_pixie_11_complete_description": "$(#EFBF04)-End of the Winter Pixie Quest-$()\n\nThank you for playing Feywild!",
+
 
   "quest.feywild.spring_pixie_root_start_title": "Welcome to the Spring Court",
   "quest.feywild.spring_pixie_root_start_description": "Where am I? Who are you? Are you tasty? Let's go on an adventure!\nYou wanna play? ...I'm hungry!\nWhat's your name?",
@@ -676,6 +678,7 @@
 
   "quest.feywild.spring_pixie_12_complete_title": "The End",
   "quest.feywild.spring_pixie_12_complete_description": "$(#EFBF04)-End of the Spring Pixie Quest-$()\n\nThank you for playing Feywild!",
+
 
   "quest.feywild.autumn_pixie_root_start_title": "Welcome to the Autumn Court",
   "quest.feywild.autumn_pixie_root_start_description": "Darling, what took you so long! I've been waiting for a fine specimen just like you. Would you care to tell me your name?",
