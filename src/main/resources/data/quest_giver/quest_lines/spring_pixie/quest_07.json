@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_06",
+  "icon": "minecraft:snowball",
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_07_start_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_07_start_title"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:special_task",
+      "action": "hit_spring_pixie_with_snowball"
+    }
+  ],
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_07_complete_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_07_complete_title"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:carved_pumpkin"
+      }
+    }
+  ]
+}

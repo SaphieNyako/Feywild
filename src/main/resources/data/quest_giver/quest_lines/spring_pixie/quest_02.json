@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_01",
+  "icon": "minecraft:white_wool",
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_02_start_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_02_start_title"
+    }
+  },
+  "tasks": [
+    {
+      "times": 3,
+      "id": "quest_giver:special_task",
+      "action": "fey_dust_sheep"
+    }
+  ],
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_02_complete_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_02_complete_title"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

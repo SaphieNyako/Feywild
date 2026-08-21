@@ -1,0 +1,40 @@
+{
+  "parent": "quest_giver:quest_03",
+  "icon": "minecraft:cake",
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_04_start_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_04_start_title"
+    }
+  },
+
+  "tasks": [
+    {
+      "times": 2,
+      "id": "quest_giver:gift",
+      "item": {
+        "item": "minecraft:cake"
+      },
+      "entity": "feywild:spring_pixie"
+    }
+  ],
+  "complete": {
+  "description": {
+    "translate": "quest.feywild.spring_pixie_04_complete_description"
+  },
+  "title": {
+    "translate": "quest.feywild.spring_pixie_04_complete_title"
+  }
+},
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 2,
+        "item": "minecraft:bowl"
+      }
+    }
+  ]
+}

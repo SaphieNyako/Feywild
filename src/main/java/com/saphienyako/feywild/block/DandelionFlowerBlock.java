@@ -1,12 +1,18 @@
 package com.saphienyako.feywild.block;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.quest_giver.quest.data.QuestData;
+import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -82,6 +88,15 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
                 );
             }
         }
+    }
+
+    @Override
+    public @NotNull BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer && state.getValue(VARIANT) == 2 && ModCompat.QUEST_GIVER_LOADED) {
+            QuestData.get(serverPlayer).checkComplete(SpecialTask.INSTANCE, "dandelion_fluff");
+        }
+
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override

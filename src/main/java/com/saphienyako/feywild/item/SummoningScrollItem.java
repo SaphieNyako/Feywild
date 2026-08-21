@@ -1,19 +1,29 @@
 package com.saphienyako.feywild.item;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.entity.MandragoraEntity;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.quest_giver.quest.data.QuestData;
+import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -44,7 +54,7 @@ public class SummoningScrollItem extends Item {
         }
     }
 
-    protected EntityType<? extends FeyBase> returnLivingEntity(){
+    protected EntityType<? extends FeyBase> returnLivingEntity(Player player){
         if(this.equals(SUMMONING_SCROLL_SPRING_PIXIE.get())){
             return ModEntities.SPRING_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_SUMMER_PIXIE.get())) {
@@ -54,20 +64,45 @@ public class SummoningScrollItem extends Item {
         } else if (this.equals(SUMMONING_SCROLL_WINTER_PIXIE.get())){
             return ModEntities.WINTER_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_SHROOMLING.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_shroomling");
+            }
             return ModEntities.SHROOMLING.get();
         } else if (this.equals(SUMMONING_SCROLL_MANDRAGORA.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_mandragora");
+            }
             return ModEntities.MANDRAGORA.get();
+
         } else if (this.equals(SUMMONING_SCROLL_BELLSNICKEL.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_bellsnickel");
+            }
             return ModEntities.BELLSNICKEL.get();
         }else if (this.equals(SUMMONING_SCROLL_SPRING_TREE_ENT.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_spring_tree_ent");
+            }
             return ModEntities.SPRING_TREE_ENT.get();
         }else if (this.equals(SUMMONING_SCROLL_SUMMER_TREE_ENT.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_summer_tree_ent");
+            }
             return ModEntities.SUMMER_TREE_ENT.get();
         }else if (this.equals(SUMMONING_SCROLL_AUTUMN_TREE_ENT.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_autumn_tree_ent");
+            }
             return ModEntities.AUTUMN_TREE_ENT.get();
         }else if (this.equals(SUMMONING_SCROLL_WINTER_TREE_ENT.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_winter_tree_ent");
+            }
             return ModEntities.WINTER_TREE_ENT.get();
         } else if (this.equals(SUMMONING_SCROLL_BEE_KNIGHT.get())){
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_bee_knight");
+            }
             return ModEntities.BEE_MOUNT.get();
         }
 
@@ -82,7 +117,7 @@ public class SummoningScrollItem extends Item {
         if (context.getPlayer() != null) {
             if (!context.getLevel().isClientSide) {
 
-                FeyBase entity = returnLivingEntity().create(context.getLevel());
+                FeyBase entity = returnLivingEntity(context.getPlayer()).create(context.getLevel());
 
                 if (entity != null) {
                     this.prepareEntity(entity, context);
@@ -118,6 +153,9 @@ public class SummoningScrollItem extends Item {
         }
         return InteractionResult.PASS;
     }
+
+
+
 
     @Override
     public void appendHoverText(@Nonnull ItemStack stack,@Nonnull TooltipContext context,@Nonnull List<Component> tooltip,@Nonnull TooltipFlag flag) {
