@@ -28,7 +28,7 @@
       "id": "quest_giver:item",
       "item": {
         "count": 2,
-        "item": "minecraft:steak"
+        "item": "minecraft:cooked_beef"
       }
     }
   ]
