@@ -309,5 +309,18 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE.get())
                 .add(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE.get());
 
+        tag(BlockTags.LEAVES)
+                .add(ModBlocks.AUTUMN_TREE_LEAVES_BROWN.get())
+                .add(ModBlocks.AUTUMN_TREE_LEAVES_DARK_GRAY.get())
+                .add(ModBlocks.AUTUMN_TREE_LEAVES_RED.get())
+                .add(ModBlocks.AUTUMN_TREE_LEAVES_LIGHT_GRAY.get())
+                .add(ModBlocks.SPRING_TREE_LEAVES_CYAN.get())
+                .add(ModBlocks.SPRING_TREE_LEAVES_GREEN.get())
+                .add(ModBlocks.SPRING_TREE_LEAVES_LIME.get())
+                .add(ModBlocks.SUMMER_TREE_LEAVES_ORANGE.get())
+                .add(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get())
+                .add(ModBlocks.WINTER_TREE_LEAVES_BLUE.get())
+                .add(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get());
+
     }
 }
