@@ -321,6 +321,5 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get())
                 .add(ModBlocks.WINTER_TREE_LEAVES_BLUE.get())
                 .add(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get());
-
     }
 }
