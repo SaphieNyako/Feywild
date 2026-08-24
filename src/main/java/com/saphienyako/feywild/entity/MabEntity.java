@@ -177,7 +177,7 @@ public class MabEntity extends FlyingBossBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_33034_) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return ModSounds.MAB_HURT.get();
     }
 

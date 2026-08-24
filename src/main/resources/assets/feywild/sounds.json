@@ -984,17 +984,17 @@
       {
         "name": "feywild:oberon_hurt_02",
         "attenuation_distance": 128,
-        "weight": 8
+        "weight": 10
       },
       {
         "name": "feywild:oberon_hurt_03",
         "attenuation_distance": 128,
-        "weight": 8
+        "weight": 10
       },
       {
         "name": "feywild:oberon_hurt_04",
         "attenuation_distance": 128,
-        "weight": 8
+        "weight": 10
       },
       {
         "name": "feywild:oberon_hurt_05",
