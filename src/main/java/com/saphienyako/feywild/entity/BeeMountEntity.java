@@ -194,6 +194,11 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     }
 
     @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return 0.3f;
+    }
+
+    @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
         if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
             Vec3 vec32 = damageSource.getSourcePosition();

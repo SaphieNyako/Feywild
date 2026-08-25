@@ -61,6 +61,8 @@ public class SummoningScrollItem<T extends LivingEntity> extends Item {
             return ModEntities.SUMMER_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_AUTUMN_PIXIE.get())){
             return ModEntities.AUTUMN_PIXIE.get();
+        } else if (this.equals(SUMMONING_SCROLL_WINTER_PIXIE.get())){
+            return ModEntities.WINTER_PIXIE.get();
         } else if (this.equals(SUMMONING_SCROLL_SHROOMLING.get())){
             if (ModCompat.QUEST_GIVER_LOADED) {
                 QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "summon_shroomling");

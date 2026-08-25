@@ -143,6 +143,13 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
             this.entityData.set(VARIANT, nbt.getInt("ShroomlingVariant"));
         }
     }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return 1.02f;
+    }
+
+
     @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
         Entity attacker = damageSource.getEntity();
