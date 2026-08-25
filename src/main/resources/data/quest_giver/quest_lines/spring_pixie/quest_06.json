@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_05",
+  "icon": "feywild:summoning_scroll_shroomling",
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_06_start_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_06_start_title"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:special_task",
+      "action": "summon_shroomling"
+    }
+  ],
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_06_complete_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_06_complete_title"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:mushroom_stew"
+      }
+    }
+  ]
+}

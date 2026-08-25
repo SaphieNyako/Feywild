@@ -1,0 +1,37 @@
+{
+  "parent": "quest_giver:quest_01",
+  "icon": "minecraft:steak",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_02_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_02_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:craft",
+      "item": {
+        "item": "minecraft:smoker"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_02_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_02_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:pumpkin_pie"
+      }
+    }
+  ]
+}

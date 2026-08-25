@@ -118,6 +118,12 @@ public class ModItems {
     public static final RegistryObject<Item> SUMMONING_SCROLL_QUEEN_MAB = ITEMS.register("summoning_scroll_queen_mab", () -> new BossSummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_queen_mab")));
 
+    public static final RegistryObject<Item> SUMMONING_SCROLL_OBERON = ITEMS.register("summoning_scroll_oberon", () -> new BossSummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_oberon")));
+
+    public static final RegistryObject<Item> SUMMONING_SCROLL_ASHEN_LORD = ITEMS.register("summoning_scroll_ashen_lord", () -> new BossSummoningScrollItem(new Item.Properties(),
+            Component.translatable("message.feywild.summoning_scroll_ashen_lord")));
+
     public static final RegistryObject<Item> FEY_DUST = ITEMS.register("fey_dust", () -> new FeyDustItem(new Item.Properties().food(
             new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, 30, 1), 1).build())));
 
@@ -151,12 +157,13 @@ public class ModItems {
 
     public static final RegistryObject<Item> SPAWN_EGG_WINTER_TREE_ENT = ITEMS.register("spawn_egg_winter_tree_ent", () -> new ForgeSpawnEggItem(ModEntities.WINTER_TREE_ENT,0x5C281E, 0x84b4be, new Item.Properties()));
 
-    @SuppressWarnings("deprecation")
     public static final RegistryObject<Item> SPAWN_EGG_QUEEN_TITANIA = ITEMS.register("spawn_egg_queen_titania", () -> new ForgeSpawnEggItem(ModEntities.TITANIA,0xf085a9, 0xa1db67, new Item.Properties()));
 
-    @SuppressWarnings("deprecation")
     public static final RegistryObject<Item> SPAWN_EGG_QUEEN_MAB = ITEMS.register("spawn_egg_queen_mab", () -> new ForgeSpawnEggItem(ModEntities.MAB,0x84b4be, 0x323c81, new Item.Properties()));
 
+    public static final RegistryObject<Item> SPAWN_EGG_OBERON = ITEMS.register("spawn_egg_oberon", () -> new ForgeSpawnEggItem(ModEntities.OBERON,0xf085a9, 0xa1db67, new Item.Properties()));
+
+    public static final RegistryObject<Item> SPAWN_EGG_ASHEN_LORD = ITEMS.register("spawn_egg_ashen_lord", () -> new ForgeSpawnEggItem(ModEntities.ASHEN_LORD,0xb73737, 0xa56259, new Item.Properties()));
 
 
     public static void register(IEventBus eventBus) {ITEMS.register(eventBus);}

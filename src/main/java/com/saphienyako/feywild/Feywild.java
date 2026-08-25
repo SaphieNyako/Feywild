@@ -134,6 +134,8 @@ public class Feywild
         event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
         event.put(ModEntities.TITANIA.get(), TitaniaEntity.getDefaultAttributes().build());
         event.put(ModEntities.MAB.get(), MabEntity.getDefaultAttributes().build());
+        event.put(ModEntities.OBERON.get(), OberonEntity.getDefaultAttributes().build());
+        event.put(ModEntities.ASHEN_LORD.get(), AshenLordEntity.getDefaultAttributes().build());
         event.put(ModEntities.FEY_WINGS.get(), FeyWingsEntity.getDefaultAttributes().build());
     }
 
@@ -153,6 +155,8 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TITANIA_LAYER, TitaniaModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MAB_LAYER, MabModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.OBERON_LAYER, OberonModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.ASHEN_LORD_LAYER, AshenLordModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.FEY_WINGS_LAYER, FeyWingsModel::createBodyLayer);
     }
 
@@ -262,7 +266,10 @@ public class Feywild
             EntityRenderers.register(ModEntities.SPRITE.get(), SpriteRenderer::new);
             EntityRenderers.register(ModEntities.TITANIA.get(), TitaniaRenderer::new);
             EntityRenderers.register(ModEntities.MAB.get(), MabRenderer::new);
+            EntityRenderers.register(ModEntities.OBERON.get(), OberonRenderer::new);
+            EntityRenderers.register(ModEntities.ASHEN_LORD.get(), AshenLordRenderer::new);
             EntityRenderers.register(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
+            EntityRenderers.register(ModEntities.LEAF_PROJECTILE.get(), LeafProjectileRenderer::new);
 
             BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);
@@ -302,6 +309,7 @@ public class Feywild
         event.register(ModEntities.SPRITE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ModEntities.TITANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TitaniaEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ModEntities.MAB.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MabEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
-
+        event.register(ModEntities.OBERON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, OberonEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.ASHEN_LORD.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AshenLordEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
 }

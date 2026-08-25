@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class AutumnPixieRenderer extends MobRenderer<AutumnPixieEntity, AutumnPixieModel<AutumnPixieEntity>> {
 
+    private static final float MODEL_SCALE = 0.65F;
+
     public AutumnPixieRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new AutumnPixieModel<>(pContext.bakeLayer(ModModelLayers.AUTUMN_PIXIE_LAYER)),  0.50f);
     }
@@ -25,5 +27,10 @@ public class AutumnPixieRenderer extends MobRenderer<AutumnPixieEntity, AutumnPi
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull AutumnPixieEntity autumnPixieEntity) {
         return new ResourceLocation(Feywild.MOD_ID, "textures/entity/autumn_pixie.png");
+    }
+
+    @Override
+    protected void scale(AutumnPixieEntity entity, PoseStack poseStack, float partialTick) {
+        poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     }
 }

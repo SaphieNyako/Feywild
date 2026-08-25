@@ -971,5 +971,204 @@
       "attenuation_distance": 128
     }
   ]
+},
+  "oberon_hurt": {
+    "subtitle": "message.feywild.oberon_hurt",
+    "sounds": [
+      {
+        "name": "feywild:oberon_hurt_01",
+        "attenuation_distance": 128,
+        "weight": 1
+      },
+      {
+        "name": "feywild:oberon_hurt_02",
+        "attenuation_distance": 128,
+        "weight": 10
+      },
+      {
+        "name": "feywild:oberon_hurt_03",
+        "attenuation_distance": 128,
+        "weight": 10
+      },
+      {
+        "name": "feywild:oberon_hurt_04",
+        "attenuation_distance": 128,
+        "weight": 10
+      },
+      {
+        "name": "feywild:oberon_hurt_05",
+        "attenuation_distance": 128,
+        "weight": 1
+      }
+    ]
+  },"oberon_death": {
+  "subtitle": "message.feywild.oberon_death",
+  "sounds": [
+    {
+      "name": "feywild:oberon_death_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_death_02",
+      "attenuation_distance": 128
+    }
+  ]
+},"oberon_ambiance": {
+  "subtitle": "message.feywild.oberon_ambiance",
+  "sounds": [
+    {
+      "name": "feywild:oberon_ambiance_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_ambiance_02",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_ambiance_03",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_ambiance_04",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_ambiance_05",
+      "attenuation_distance": 128
+    }
+  ]
+},"oberon_summon": {
+  "subtitle": "message.feywild.oberon_summon",
+  "sounds": [
+    {
+      "name": "feywild:oberon_summon_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_summon_2",
+      "attenuation_distance": 128
+    }
+  ]
+},"oberon_rearing": {
+  "subtitle": "message.feywild.oberon_rearing",
+  "sounds": [
+    {
+      "name": "feywild:oberon_rearing_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_rearing_02",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_rearing_03",
+      "attenuation_distance": 128
+    }
+  ]
+},"oberon_kicking": {
+  "subtitle": "message.feywild.oberon_kicking",
+  "sounds": [
+    {
+      "name": "feywild:oberon_kicking_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_kicking_2",
+      "attenuation_distance": 128
+    }
+  ]
+},"oberon_charging": {
+  "subtitle": "message.feywild.oberon_charging",
+  "sounds": [
+    {
+      "name": "feywild:oberon_charging_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_charging_2",
+      "attenuation_distance": 128
+    }
+  ]
+},
+  "ashen_lord_hurt": {
+    "subtitle": "message.feywild.ashen_lord_hurt",
+    "sounds": [
+      {
+        "name": "feywild:ashen_lord_hurt_01",
+        "attenuation_distance": 128
+      },
+      {
+        "name": "feywild:ashen_lord_hurt_02",
+        "attenuation_distance": 128
+      },
+      {
+        "name": "feywild:ashen_lord_hurt_03",
+        "attenuation_distance": 128
+      },
+      {
+        "name": "feywild:tree_ent_hurt",
+        "attenuation_distance": 128
+      }
+    ]
+  },"ashen_lord_death": {
+  "subtitle": "message.feywild.ashen_lord_death",
+  "sounds": [
+    {
+      "name": "feywild:ashen_lord_death_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:ashen_lord_death_02",
+      "attenuation_distance": 128
+    }
+  ]
+},"ashen_lord_ambiance": {
+  "subtitle": "message.feywild.ashen_lord_ambiance",
+  "sounds": [
+    {
+      "name": "feywild:ashen_lord_ambiance_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:ashen_lord_ambiance_02",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:ashen_lord_ambiance_03",
+      "attenuation_distance": 128
+    }
+  ]
+},"ashen_lord_attack": {
+  "subtitle": "message.feywild.ashen_lord_attack",
+  "sounds": [
+    {
+      "name": "feywild:ashen_lord_attack_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:ashen_lord_attack_02",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:ashen_lord_attack_03",
+      "attenuation_distance": 128
+    }
+  ]
+},"ashen_lord_channel_01": {
+  "subtitle": "message.feywild.ashen_lord_channel_01",
+  "sounds": [
+    {
+      "name": "feywild:ashen_lord_channel_01",
+      "attenuation_distance": 128
+    }
+  ]
+},"ashen_lord_channel_02": {
+  "subtitle": "message.feywild.ashen_lord_channel_02",
+  "sounds": [
+    {
+      "name": "feywild:ashen_lord_channel_02",
+      "attenuation_distance": 128
+    }
+  ]
 }
 }

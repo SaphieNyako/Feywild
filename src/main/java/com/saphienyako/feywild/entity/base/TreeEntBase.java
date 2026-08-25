@@ -86,6 +86,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         super(entityType, level);
         this.noCulling = true;
         this.getNavigation().setCanFloat(true);
+        this.setMaxUpStep(1.0F);
     }
 
     @Override

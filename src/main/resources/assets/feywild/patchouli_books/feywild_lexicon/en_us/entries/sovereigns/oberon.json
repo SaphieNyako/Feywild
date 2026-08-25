@@ -1,0 +1,20 @@
+{
+  "category": "feywild:sovereigns",
+  "icon": "feywild:summoning_scroll_oberon",
+  "name":  "feywild_lexicon.entry.sovereigns.oberon.name",
+  "pages": [
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:oberon"
+    },
+    {
+      "type": "feywild:oberon",
+      "recipe": "feywild:summoning_scroll_oberon"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_wing_tiara",
+      "text": "feywild_lexicon.entry.sovereigns.oberon.page1.text0"
+    }
+  ]
+}

@@ -28,8 +28,16 @@ import net.minecraft.world.phys.Vec3;
 
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class BossBase extends PathfinderMob {
+
+    private static final int RETALIATION_WINDOW = 20 * 3;
+
+    @Nullable
+    private Player recentAttacker;
+
+    private int recentAttackerTicks;
 
     public final ServerBossEvent bossInfo;
     private int deathTicks = 0;
@@ -85,9 +93,38 @@ public abstract class BossBase extends PathfinderMob {
 
     public void tick() {
         super.tick();
+
+        if (!this.level().isClientSide()) {
+            tickRecentAttacker();
+        }
+
         if (dying) {
             tickDeathSequence();
         }
+    }
+
+    private void tickRecentAttacker() {
+        if (recentAttackerTicks > 0) {
+            recentAttackerTicks--;
+        }
+
+        if (recentAttackerTicks <= 0
+                || recentAttacker == null
+                || !recentAttacker.isAlive()
+                || recentAttacker.isRemoved()) {
+
+            recentAttacker = null;
+            recentAttackerTicks = 0;
+        }
+    }
+
+    public boolean wasRecentlyHurtByPlayer() {
+        return recentAttacker != null && recentAttackerTicks > 0 && recentAttacker.isAlive();
+    }
+
+    @Nullable
+    public Player getRecentAttacker() {
+        return wasRecentlyHurtByPlayer() ? recentAttacker : null;
     }
 
     @Override
@@ -111,7 +148,22 @@ public abstract class BossBase extends PathfinderMob {
             return false;
         }
 
+        if (result && !this.level().isClientSide()) {
+            Entity attacker = source.getEntity();
+
+            if (attacker instanceof Player player) {
+                recentAttacker = player;
+                recentAttackerTicks = RETALIATION_WINDOW;
+                setTarget(player);
+            }
+        }
+
         return result;
+    }
+
+    public void clearRecentAttacker() {
+        this.recentAttacker = null;
+        this.recentAttackerTicks = 0;
     }
 
     private void beginDeathSequence() {

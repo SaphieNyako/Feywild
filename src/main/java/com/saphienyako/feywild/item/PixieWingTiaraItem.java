@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
@@ -34,6 +35,11 @@ public class PixieWingTiaraItem extends Item {
     public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         if(Screen.hasShiftDown()){
             tooltip.add(Component.translatable("message.feywild.pixie_wing_tiara").withStyle(ChatFormatting.BLUE));
+            if (ModCompat.CURIOS_LOADED) {
+                tooltip.add(Component.translatable("message.feywild.curios_head_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
+            } else {
+                tooltip.add(Component.translatable("message.feywild.off_hand_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
         }
 
         else {
@@ -99,33 +105,6 @@ public class PixieWingTiaraItem extends Item {
             }
 
             default -> { return wingTexture; }
-        }
-    }
-
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, level, entity, slot, selected);
-
-        if (!(entity instanceof Player player) || level.isClientSide) return;
-
-        CompoundTag data = player.getPersistentData();
-
-        boolean wasHolding = data.getBoolean("tiara_was_offhand");
-        boolean isHolding = player.getOffhandItem().getItem() instanceof PixieWingTiaraItem;
-
-        if (!wasHolding && isHolding) {
-            player.level().playSound(null, player.blockPosition(), ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-        }
-
-        data.putBoolean("tiara_was_offhand", isHolding);
-
-        if (isHolding) {
-            MobEffectInstance current = player.getEffect(ModEffects.FEY_FLYING.get());
-
-            if (current == null || current.getDuration() < 210) {
-                player.addEffect(new MobEffectInstance(ModEffects.FEY_FLYING.get(), 220, 0, false, false, true));
-            }
         }
     }
 }

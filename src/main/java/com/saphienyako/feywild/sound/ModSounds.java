@@ -159,15 +159,24 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> MAB_HURT = registerSoundEvents("mab_hurt");
     public static final RegistryObject<SoundEvent> MAB_DEATH = registerSoundEvents("mab_death");
-
     public static final RegistryObject<SoundEvent> MAB_AMBIANCE = registerSoundEvents("mab_ambiance");
-
     public static final RegistryObject<SoundEvent> MAB_SUMMON = registerSoundEvents("mab_summon");
-
     public static final RegistryObject<SoundEvent> MAB_ATTACK = registerSoundEvents("mab_attack");
-
     public static final RegistryObject<SoundEvent> MAB_INTIMIDATE = registerSoundEvents("mab_intimidate");
 
+    public static final RegistryObject<SoundEvent> OBERON_HURT = registerSoundEvents("oberon_hurt");
+    public static final RegistryObject<SoundEvent> OBERON_DEATH = registerSoundEvents("oberon_death");
+    public static final RegistryObject<SoundEvent> OBERON_AMBIANCE = registerSoundEvents("oberon_ambiance");
+    public static final RegistryObject<SoundEvent> OBERON_SUMMON = registerSoundEvents("oberon_summon");
+    public static final RegistryObject<SoundEvent> OBERON_CHARGING = registerSoundEvents("oberon_charging");
+    public static final RegistryObject<SoundEvent> OBERON_KICKING = registerSoundEvents("oberon_kicking");
+    public static final RegistryObject<SoundEvent> OBERON_REARING = registerSoundEvents("oberon_rearing");
+    public static final RegistryObject<SoundEvent> ASHEN_LORD_HURT = registerSoundEvents("ashen_lord_hurt");
+    public static final RegistryObject<SoundEvent> ASHEN_LORD_DEATH = registerSoundEvents("ashen_lord_death");
+    public static final RegistryObject<SoundEvent> ASHEN_LORD_AMBIANCE = registerSoundEvents("ashen_lord_ambiance");
+    public static final RegistryObject<SoundEvent> ASHEN_LORD_CHANNEL_01 = registerSoundEvents("ashen_lord_channel_01");
+    public static final RegistryObject<SoundEvent> ASHEN_LORD_CHANNEL_02 = registerSoundEvents("ashen_lord_channel_02");
+    public static final RegistryObject<SoundEvent> ASHEN_LORD_ATTACK = registerSoundEvents("ashen_lord_attack");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Feywild.MOD_ID, name)));

@@ -1,0 +1,17 @@
+{
+  "category": "feywild:quest_line",
+  "icon": "feywild:pixie_orb",
+  "name": "feywild_lexicon.entry.quest_line.pixie_orb",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_orb",
+      "text": "feywild_lexicon.entry.quest_line.pixie_orb.page1.text0"
+    },
+    {
+      "type": "feywild:pixie_orb",
+      "recipe": "feywild:pixie_orb",
+      "link_recipe": true
+    }
+  ]
+}

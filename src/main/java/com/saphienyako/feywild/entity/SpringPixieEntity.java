@@ -1,15 +1,20 @@
 package com.saphienyako.feywild.entity;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.entity.goals.pixie_goals.BreedAbilityGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
+import com.saphienyako.quest_giver.quest.data.QuestData;
+import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -116,5 +121,19 @@ public class SpringPixieEntity extends PixieBase {
         if (random.nextFloat() < 0.1f) {
             return ModSounds.SPRING_PIXIE_GIGGLE.get();
         } else return null;
+    }
+
+    @Override
+    public boolean hurt(@NotNull DamageSource source, float amount) {
+
+        boolean hurt = super.hurt(source, amount);
+        //added this specifically for the spring pixie questline
+        if (hurt && !level().isClientSide && source.getDirectEntity() instanceof Snowball && source.getEntity() instanceof ServerPlayer serverPlayer) {
+            if (ModCompat.QUEST_GIVER_LOADED) {
+                QuestData.get(serverPlayer).checkComplete(SpecialTask.INSTANCE, "hit_spring_pixie_with_snowball");
+            }
+        }
+
+        return hurt;
     }
 }

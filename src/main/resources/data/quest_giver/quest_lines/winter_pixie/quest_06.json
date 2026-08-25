@@ -11,11 +11,8 @@
   },
   "tasks": [
     {
-      "amount": 1,
-      "id": "quest_giver:item_stack",
-      "item": {
-        "item": "feywild:summoning_scroll_bee_knight"
-      }
+      "id": "quest_giver:special_task",
+      "action": "summon_bee_knight"
     }
   ],
   "complete": {

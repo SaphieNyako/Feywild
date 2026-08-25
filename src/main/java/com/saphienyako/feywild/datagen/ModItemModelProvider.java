@@ -47,6 +47,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT);
         basicItem(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get());
         basicItem(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get());
+        basicItem(ModItems.SUMMONING_SCROLL_OBERON.get());
+        basicItem(ModItems.SUMMONING_SCROLL_ASHEN_LORD.get());
+
         simpleItem(ModItems.FEY_DUST);
         simpleItem(ModItems.MANDRAKE);
         simpleItem(ModItems.GIANT_CROCUS_FLOWER_SEED);

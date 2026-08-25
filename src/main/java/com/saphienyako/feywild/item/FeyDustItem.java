@@ -1,6 +1,9 @@
 package com.saphienyako.feywild.item;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.ModConfig;
+import com.saphienyako.quest_giver.quest.data.QuestData;
+import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.gui.screens.Screen;
@@ -12,6 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -53,6 +57,10 @@ public class FeyDustItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
         if (!player.level().isClientSide) {
+            if (target instanceof Sheep && ModCompat.QUEST_GIVER_LOADED) {
+                target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80, 3));
+                QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "fey_dust_sheep");
+            } else
                 target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, ModConfig.COMMON.fey_dust_duration.get(), 2));
         } else {
             return InteractionResult.FAIL;

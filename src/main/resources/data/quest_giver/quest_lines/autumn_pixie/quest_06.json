@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_05",
+  "icon": "minecraft:summoning_scroll_mandragora",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_06_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_06_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:special_task",
+      "action": "summon_mandragora"
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_06_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_06_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:flower_pot"
+      }
+    }
+  ]
+}

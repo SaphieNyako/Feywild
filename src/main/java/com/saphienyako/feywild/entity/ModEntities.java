@@ -77,6 +77,22 @@ public class ModEntities {
             ENTITY_TYPES.register("mab", () -> EntityType.Builder.of(MabEntity::new, MobCategory.CREATURE)
                     .sized(1.8f,3.7f).build("mab"));
 
+    public static final RegistryObject<EntityType<OberonEntity>> OBERON =
+            ENTITY_TYPES.register("oberon", () -> EntityType.Builder.of(OberonEntity::new, MobCategory.CREATURE)
+                    .sized(1.8f,3.7f).build("oberon"));
+
+    public static final RegistryObject<EntityType<AshenLordEntity>> ASHEN_LORD =
+            ENTITY_TYPES.register("ashen_lord", () -> EntityType.Builder.of(AshenLordEntity::new, MobCategory.CREATURE)
+                    .sized(1.8f,3.7f).build("ashen_lord"));
+
+    public static final RegistryObject<EntityType<LeafProjectile>> LEAF_PROJECTILE =
+            ENTITY_TYPES.register(
+                    "autumn_leaf_projectile", () -> EntityType.Builder.<LeafProjectile>of(LeafProjectile::new, MobCategory.MISC)
+                            .sized(0.25F, 0.25F)
+                            .clientTrackingRange(4)
+                            .updateInterval(10)
+                            .build("autumn_leaf_projectile"));
+
     public static final RegistryObject<EntityType<FeyWingsEntity>> FEY_WINGS =
             ENTITY_TYPES.register("fey_wings", () -> EntityType.Builder.of(FeyWingsEntity::new, MobCategory.MISC).build("fey_wings"));
 

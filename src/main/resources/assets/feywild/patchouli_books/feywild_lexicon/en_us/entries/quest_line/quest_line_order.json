@@ -1,0 +1,42 @@
+{
+  "category": "feywild:quest_line",
+  "icon": "feywild:feywild_lexicon",
+  "name": "feywild_lexicon.entry.quest_line.quest_line_order",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:feywild_lexicon",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page1.text0",
+      "title": "Feywild Lexicon"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_summer_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page2.text0",
+      "title": "Summer Pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_winter_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page3.text0",
+      "title": "Winter Pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page4.text0",
+      "title": "Spring Pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_autumn_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page5.text0",
+      "title": "Autumn Pixie"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:empty_summoning_scroll",
+      "title": "More to come..."
+    }
+  ]
+}

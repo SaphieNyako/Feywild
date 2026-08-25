@@ -15,6 +15,8 @@ import java.util.Locale;
 
 public class MandragoraRenderer extends MobRenderer<MandragoraEntity, MandragoraModel<MandragoraEntity>> {
 
+    private static final float MODEL_SCALE = 0.75F;
+
     public MandragoraRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new MandragoraModel<>(pContext.bakeLayer(ModModelLayers.MANDRAGORA_LAYER)),  0.50f);
     }
@@ -27,6 +29,11 @@ public class MandragoraRenderer extends MobRenderer<MandragoraEntity, Mandragora
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull MandragoraEntity mandragoraEntity) {
         return new ResourceLocation(Feywild.MOD_ID, "textures/entity/mandragora/" + mandragoraEntity.getVariant().name().toLowerCase(Locale.ROOT) + ".png");
+    }
+
+    @Override
+    protected void scale(MandragoraEntity entity, PoseStack poseStack, float partialTick) {
+        poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     }
 }
 

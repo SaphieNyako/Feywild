@@ -1,12 +1,12 @@
 {
-  "category": "feywild:sovereigns",
+  "category": "feywild:pixie_wings",
   "icon": "feywild:pixie_wing_tiara",
-  "name":  "feywild_lexicon.entry.sovereigns.pixie_wings.name",
+  "name":  "feywild_lexicon.category.pixie_wings.name",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:pixie_wing_tiara",
-      "text": "feywild_lexicon.entry.sovereigns.pixie_wings.page1.text0"
+      "text": "feywild_lexicon.entry.pixie_wings.pixie_wings.page1.text0"
     },
     {
       "type": "patchouli:entity",
