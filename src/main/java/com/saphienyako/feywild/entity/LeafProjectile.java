@@ -25,55 +25,36 @@ public class LeafProjectile extends ThrowableProjectile {
     private static final float DAMAGE = 8.0F;
     private static final double KNOCKBACK_STRENGTH = 2.0D;
 
-    public LeafProjectile(
-            EntityType<? extends LeafProjectile> entityType,
-            Level level
-    ) {
+    public LeafProjectile(EntityType<? extends LeafProjectile> entityType, Level level) {
         super(entityType, level);
     }
 
     @Override
-    protected void defineSynchedData(
-            SynchedEntityData.@NotNull Builder builder
-    ) {
-        builder.define(
-                LEAF_TYPE,
-                LeafType.AUTUMN.ordinal()
-        );
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        builder.define(LEAF_TYPE, LeafType.AUTUMN.ordinal());
     }
 
     public void setLeafType(LeafType leafType) {
-        this.entityData.set(
-                LEAF_TYPE,
-                leafType.ordinal()
-        );
+        this.entityData.set(LEAF_TYPE, leafType.ordinal());
     }
 
     public LeafType getLeafType() {
         LeafType[] values = LeafType.values();
 
-        int index = Mth.clamp(
-                this.entityData.get(LEAF_TYPE),
-                0,
-                values.length - 1
-        );
+        int index = Mth.clamp(this.entityData.get(LEAF_TYPE), 0, values.length - 1);
 
         return values[index];
     }
 
     private ParticleOptions getParticle() {
         return switch (getLeafType()) {
-            case SPRING ->
-                    ModParticles.SPRING_LEAF_PARTICLE.get();
+            case SPRING -> ModParticles.SPRING_LEAF_PARTICLE.get();
 
-            case SUMMER ->
-                    ModParticles.SUMMER_LEAF_PARTICLE.get();
+            case SUMMER -> ModParticles.SUMMER_LEAF_PARTICLE.get();
 
-            case AUTUMN ->
-                    ModParticles.AUTUMN_LEAF_PARTICLE.get();
+            case AUTUMN -> ModParticles.AUTUMN_LEAF_PARTICLE.get();
 
-            case WINTER ->
-                    ModParticles.WINTER_LEAF_PARTICLE.get();
+            case WINTER -> ModParticles.WINTER_LEAF_PARTICLE.get();
         };
     }
 
@@ -93,13 +74,7 @@ public class LeafProjectile extends ThrowableProjectile {
             return;
         }
 
-        boolean damaged = hitEntity.hurt(
-                damageSources().mobProjectile(
-                        this,
-                        livingOwner
-                ),
-                DAMAGE
-        );
+        boolean damaged = hitEntity.hurt(damageSources().mobProjectile(this, livingOwner), DAMAGE);
 
         if (damaged) {
             applyKnockback(hitEntity);
@@ -110,9 +85,7 @@ public class LeafProjectile extends ThrowableProjectile {
     }
 
     @Override
-    protected void onHitBlock(
-            @NotNull BlockHitResult hitResult
-    ) {
+    protected void onHitBlock(@NotNull BlockHitResult hitResult) {
         super.onHitBlock(hitResult);
 
         if (!level().isClientSide()) {
@@ -124,24 +97,15 @@ public class LeafProjectile extends ThrowableProjectile {
     private void applyKnockback(Entity hitEntity) {
         Vec3 movement = getDeltaMovement();
 
-        Vec3 horizontalDirection = new Vec3(
-                movement.x,
-                0.0D,
-                movement.z
-        );
+        Vec3 horizontalDirection = new Vec3(movement.x, 0.0D, movement.z);
 
         if (horizontalDirection.lengthSqr() < 1.0E-4D) {
             return;
         }
 
-        horizontalDirection =
-                horizontalDirection.normalize();
+        horizontalDirection = horizontalDirection.normalize();
 
-        hitEntity.push(
-                horizontalDirection.x * KNOCKBACK_STRENGTH,
-                0.25D,
-                horizontalDirection.z * KNOCKBACK_STRENGTH
-        );
+        hitEntity.push(horizontalDirection.x * KNOCKBACK_STRENGTH, 0.25D, horizontalDirection.z * KNOCKBACK_STRENGTH);
 
         hitEntity.hurtMarked = true;
     }
@@ -151,23 +115,8 @@ public class LeafProjectile extends ThrowableProjectile {
             return;
         }
 
-        serverLevel.sendParticles(
-                getParticle(),
-                getX(),
-                getY(),
-                getZ(),
-                8,
-                0.25D,
-                0.25D,
-                0.25D,
-                0.04D
-        );
-
-        playSound(
-                SoundEvents.AZALEA_LEAVES_BREAK,
-                1.0F,
-                1.0F
-        );
+        serverLevel.sendParticles(getParticle(), getX(), getY(), getZ(), 8, 0.25D, 0.25D, 0.25D, 0.04D);
+        playSound(SoundEvents.AZALEA_LEAVES_BREAK, 1.0F, 1.0F);
     }
 
     @Override
@@ -178,8 +127,7 @@ public class LeafProjectile extends ThrowableProjectile {
             spawnTrailParticles();
         }
 
-        if (!level().isClientSide()
-                && tickCount > 40) {
+        if (!level().isClientSide() && tickCount > 40) {
             discard();
         }
     }

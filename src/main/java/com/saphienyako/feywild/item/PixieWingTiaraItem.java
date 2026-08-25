@@ -37,7 +37,9 @@ public class PixieWingTiaraItem extends Item {
 
             if (ModCompat.CURIOS_LOADED) {
                 tooltip.add(Component.translatable("message.feywild.curios_head_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
-            }
+            } else
+                tooltip.add(Component.translatable("message.feywild.off_hand_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
+
         }
 
         else {
@@ -105,31 +107,4 @@ public class PixieWingTiaraItem extends Item {
         }
     }
 
-
-    @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
-        /*
-        super.inventoryTick(stack, level, entity, slot, selected);
-
-        if (!(entity instanceof Player player) || level.isClientSide) return;
-
-        CompoundTag data = player.getPersistentData();
-
-        boolean wasHolding = data.getBoolean("tiara_was_offhand");
-        boolean isHolding = player.getOffhandItem().getItem() instanceof PixieWingTiaraItem;
-
-        if (!wasHolding && isHolding) {
-            player.level().playSound(null, player.blockPosition(), ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-        }
-
-        data.putBoolean("tiara_was_offhand", isHolding);
-
-        if (isHolding) {
-            MobEffectInstance current = player.getEffect(ModEffects.FEY_FLYING);
-
-            if (current == null || current.getDuration() < 210) {
-                player.addEffect(new MobEffectInstance(ModEffects.FEY_FLYING, 220, 0, false, false, true));
-            }
-        }*/
-    }
 }

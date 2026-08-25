@@ -44,9 +44,7 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
 
             Level level = serverPlayer.level();
 
-            Entity foundEntity = msg.entityId() == -1
-                    ? null
-                    : level.getEntity(msg.entityId());
+            Entity foundEntity = msg.entityId() == -1 ? null : level.getEntity(msg.entityId());
 
             FeyBase questEntity;
             boolean temporarySprite = false;
@@ -57,10 +55,7 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
                 questEntity = ModEntities.SPRITE.get().create(level);
 
                 if (questEntity == null) {
-                    Feywild.LOGGER.error(
-                            "Could not create temporary Sprite for quest line '{}'",
-                            msg.questLineId()
-                    );
+                    Feywild.LOGGER.error("Could not create temporary Sprite for quest line '{}'", msg.questLineId());
                     return;
                 }
 
@@ -73,10 +68,7 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
                 );
 
                 if (!level.addFreshEntity(questEntity)) {
-                    Feywild.LOGGER.error(
-                            "Could not add temporary Sprite for quest line '{}'",
-                            msg.questLineId()
-                    );
+                    Feywild.LOGGER.error("Could not add temporary Sprite for quest line '{}'", msg.questLineId());
                     return;
                 }
 
@@ -101,14 +93,10 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
                     msg.questLineId(),
                     msg.backgroundName(),
                     shouldDismiss,
-                    2
+                    1.5
             );
         }).exceptionally(error -> {
-            Feywild.LOGGER.error(
-                    "Failed to open quest line '{}'",
-                    msg.questLineId(),
-                    error
-            );
+            Feywild.LOGGER.error("Failed to open quest line '{}'", msg.questLineId(), error);
             return null;
         });
     }
