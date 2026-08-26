@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 
 import javax.annotation.Nonnull;
@@ -376,4 +377,12 @@ public abstract class BossBase extends PathfinderMob {
 
     public abstract SpriteEntity.SpriteVariant getSpriteVariant();
 
+    @Override
+    protected void playHurtSound(@NotNull DamageSource source) {
+        SoundEvent sound = this.getHurtSound(source);
+
+        if (sound != null) {
+            this.playSound(sound, 0.6F, this.getVoicePitch());
+        }
+    }
 }

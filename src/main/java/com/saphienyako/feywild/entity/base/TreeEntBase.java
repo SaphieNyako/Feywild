@@ -115,7 +115,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                 .add(Attributes.ATTACK_DAMAGE, 12)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
                 .add(Attributes.ARMOR, 5)
-                .add(Attributes.STEP_HEIGHT, 1.0);
+                .add(Attributes.STEP_HEIGHT, 1.2);
 
     }
 

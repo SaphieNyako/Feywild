@@ -61,7 +61,7 @@ public class AshenLordEntity extends BossBase {
                 .add(Attributes.ATTACK_DAMAGE, 12)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
                 .add(Attributes.ARMOR, 5)
-                .add(Attributes.STEP_HEIGHT, 1.0);
+                .add(Attributes.STEP_HEIGHT, 1.2);
 
 
     }
