@@ -6,6 +6,7 @@ import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -13,6 +14,8 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +28,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 
 import javax.annotation.Nonnull;
@@ -205,13 +209,29 @@ public abstract class BossBase extends PathfinderMob {
         //Explosion bursts
         if (deathTicks > 80 && deathTicks % 10 == 0) {
 
-            level().explode(
-                    this,
+            if (level() instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(
+                        ParticleTypes.EXPLOSION,
+                        getX(),
+                        getY() + 1.0D,
+                        getZ(),
+                        1,
+                        0.4D,
+                        0.6D,
+                        0.4D,
+                        0.0D
+                );
+            }
+
+            level().playSound(
+                    null,
                     getX(),
                     getY(),
                     getZ(),
-                    1.5F,
-                    Level.ExplosionInteraction.NONE
+                    SoundEvents.GENERIC_EXPLODE,
+                    SoundSource.HOSTILE,
+                    0.30F,
+                    1.0F
             );
         }
 
@@ -345,5 +365,14 @@ public abstract class BossBase extends PathfinderMob {
     public abstract SimpleParticleType getParticle();
 
     public abstract SpriteEntity.SpriteVariant getSpriteVariant();
+
+    @Override
+    protected void playHurtSound(@NotNull DamageSource source) {
+        SoundEvent sound = this.getHurtSound(source);
+
+        if (sound != null) {
+            this.playSound(sound, 0.6F, this.getVoicePitch());
+        }
+    }
 
 }

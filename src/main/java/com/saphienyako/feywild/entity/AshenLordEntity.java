@@ -50,7 +50,7 @@ public class AshenLordEntity extends BossBase {
     public AshenLordEntity(EntityType<? extends PathfinderMob> entity, Level level) {
         super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.ashen_lord").withStyle(ChatFormatting.DARK_RED),
                 BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true).setCreateWorldFog(true));
-        this.setMaxUpStep(1.0F);
+        this.setMaxUpStep(1.2F);
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
