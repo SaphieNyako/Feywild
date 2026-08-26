@@ -53,13 +53,18 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.SlotTypePreset;
 
 
 @Mod(Feywild.MOD_ID)
@@ -80,6 +85,7 @@ public class Feywild
             modEventBus.addListener(this::registerLayer);
             modEventBus.addListener(this::registerParticles);
         });
+        modEventBus.addListener(this::enqueueIMC);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener((FMLCommonSetupEvent e) -> {
             FeywildProcessors.register();
@@ -122,6 +128,16 @@ public class Feywild
         event.addListener(BeeKnightItems.createReloadListener());
     }
 
+    private void enqueueIMC(final InterModEnqueueEvent event) {
+        InterModComms.sendTo(
+                CuriosApi.MODID,
+                SlotTypeMessage.REGISTER_TYPE,
+                () -> SlotTypePreset.HEAD.getMessageBuilder()
+                        .size(1)
+                        .build()
+        );
+    }
+
     private void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SPRING_PIXIE.get(), SpringPixieEntity.getDefaultAttributes().build());
         event.put(ModEntities.AUTUMN_PIXIE.get(), AutumnPixieEntity.getDefaultAttributes().build());
@@ -140,6 +156,8 @@ public class Feywild
         event.put(ModEntities.SPRITE.get(), SpriteEntity.getDefaultAttributes().build());
         event.put(ModEntities.TITANIA.get(), TitaniaEntity.getDefaultAttributes().build());
         event.put(ModEntities.MAB.get(), MabEntity.getDefaultAttributes().build());
+        event.put(ModEntities.OBERON.get(), OberonEntity.getDefaultAttributes().build());
+        event.put(ModEntities.ASHEN_LORD.get(), AshenLordEntity.getDefaultAttributes().build());
         event.put(ModEntities.FEY_WINGS.get(), FeyWingsEntity.getDefaultAttributes().build());
     }
 
@@ -159,6 +177,8 @@ public class Feywild
         event.registerLayerDefinition(ModModelLayers.SPRITE_LAYER, SpriteModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TITANIA_LAYER, TitaniaModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.MAB_LAYER, MabModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.OBERON_LAYER, OberonModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.ASHEN_LORD_LAYER, AshenLordModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.FEY_WINGS_LAYER, FeyWingsModel::createBodyLayer);
     }
 
@@ -217,7 +237,8 @@ public class Feywild
             SpawnPlacements.register(ModEntities.SPRITE.get(),SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpriteEntity::canSpawn);
             SpawnPlacements.register(ModEntities.TITANIA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TitaniaEntity::canSpawn);
             SpawnPlacements.register(ModEntities.MAB.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MabEntity::canSpawn);
-
+            SpawnPlacements.register(ModEntities.OBERON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, OberonEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.ASHEN_LORD.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AshenLordEntity::canSpawn);
         });
     }
 
@@ -288,7 +309,10 @@ public class Feywild
             EntityRenderers.register(ModEntities.SPRITE.get(), SpriteRenderer::new);
             EntityRenderers.register(ModEntities.TITANIA.get(), TitaniaRenderer::new);
             EntityRenderers.register(ModEntities.MAB.get(), MabRenderer::new);
+            EntityRenderers.register(ModEntities.OBERON.get(), OberonRenderer::new);
+            EntityRenderers.register(ModEntities.ASHEN_LORD.get(), AshenLordRenderer::new);
             EntityRenderers.register(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
+            EntityRenderers.register(ModEntities.LEAF_PROJECTILE.get(), LeafProjectileRenderer::new);
 
             BlockEntityRenderers.register(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             MenuScreens.register(ModMenuTypes.FEY_ALTAR_MENU.get(), FeyAltarScreen::new);

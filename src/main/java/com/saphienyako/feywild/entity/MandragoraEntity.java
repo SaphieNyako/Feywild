@@ -132,6 +132,11 @@ public class MandragoraEntity extends FeyBase implements GroundEntity, ITradeabl
     }
 
     @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return 0.9F;
+    }
+
+    @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
         Entity attacker = damageSource.getEntity();
         if (attacker instanceof LivingEntity living && !this.isTamed()) {

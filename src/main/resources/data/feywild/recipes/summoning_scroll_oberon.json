@@ -1,0 +1,24 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    {
+      "item": "feywild:summoning_scroll_spring_pixie"
+    },
+    {
+      "item": "feywild:fey_gem"
+    },
+    {
+      "item": "feywild:summoning_scroll_mandragora"
+    },
+    {
+      "item": "feywild:empty_summoning_scroll"
+    },
+    {
+      "item": "feywild:summoning_scroll_spring_tree_ent"
+    }
+  ],
+  "output": {
+    "count": 1,
+    "item": "feywild:summoning_scroll_oberon"
+  }
+}

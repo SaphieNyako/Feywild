@@ -1,9 +1,11 @@
 package com.saphienyako.feywild.events;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.effect.FeyFlyingEffect;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.item.ModItems;
+import com.saphienyako.feywild.item.PixieWingTiaraItem;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +21,10 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EventListener {
+
+ //   private static final String FEYWILD_GRANTED_FLIGHT = "feywild_granted_flight";
+
+    private static final String TIARA_WAS_EQUIPPED = "feywild_tiara_was_equipped";
 
     @SubscribeEvent
     public void playerLogin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -42,12 +48,13 @@ public class EventListener {
             return;
         }
 
+        updatePixieTiara(player);
+
         if (player.isCreative() || player.isSpectator()) {
             return;
         }
 
-        MobEffectInstance feyFlying =
-                player.getEffect(ModEffects.FEY_FLYING.get());
+        MobEffectInstance feyFlying = player.getEffect(ModEffects.FEY_FLYING.get());
 
         boolean hasEffect = feyFlying != null;
 
@@ -81,6 +88,32 @@ public class EventListener {
 
             player.displayClientMessage(Component.literal("The magic of the pixie tiara is fading...").withStyle(ChatFormatting.LIGHT_PURPLE), true);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 120, 0, false, false, true));
+        }
+    }
+
+    private static void updatePixieTiara(Player player) {
+        ItemStack tiaraStack = ModCompat.findWingTiara(player);
+
+        boolean isEquipped = tiaraStack.getItem() instanceof PixieWingTiaraItem;
+
+        CompoundTag data = player.getPersistentData();
+
+        boolean wasEquipped = data.getBoolean(TIARA_WAS_EQUIPPED);
+
+        if (!wasEquipped && isEquipped) {
+            player.level.playSound(null, player.blockPosition(), ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+        }
+
+        data.putBoolean(TIARA_WAS_EQUIPPED, isEquipped);
+
+        if (!isEquipped) {
+            return;
+        }
+
+        MobEffectInstance current = player.getEffect(ModEffects.FEY_FLYING.get());
+
+        if (current == null || current.getDuration() < 210) {
+            player.addEffect(new MobEffectInstance(ModEffects.FEY_FLYING.get(), 220, 0, false, false, true));
         }
     }
 }

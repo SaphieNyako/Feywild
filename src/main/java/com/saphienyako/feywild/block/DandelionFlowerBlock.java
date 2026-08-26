@@ -1,7 +1,10 @@
 package com.saphienyako.feywild.block;
 
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
+import com.saphienyako.quest_giver.quest.data.QuestData;
+import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
@@ -45,15 +48,21 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     @Override
     public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
         if (this.replaceFlower(level, pos.above(3 - state.getValue(PART)))) {
-            if (!level.isClientSide && player instanceof ServerPlayer) {
-                // Forge notifies the client of the block break before calling this
-                // So we just tell the client that the block is still there
-                ((ServerPlayer) player).connection.send(new ClientboundBlockUpdatePacket(level, pos));
-               // QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, SpecialTaskAction.DANDELION);
-                //TODO Add Quest
+
+            if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+
+                if (ModCompat.QUEST_GIVER_LOADED) {
+                    QuestData.get(serverPlayer).checkComplete(SpecialTask.INSTANCE, "dandelion_fluff");
+                }
+
+                // Forge notifies the client of the block break before calling this,
+                // so tell the client that the block is still there.
+                serverPlayer.connection.send(new ClientboundBlockUpdatePacket(level, pos));
             }
+
             return false;
         }
+
         return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
     }
 

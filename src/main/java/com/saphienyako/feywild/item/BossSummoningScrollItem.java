@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.OberonEntity;
 import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
@@ -8,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,8 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-import static com.saphienyako.feywild.item.ModItems.SUMMONING_SCROLL_QUEEN_MAB;
-import static com.saphienyako.feywild.item.ModItems.SUMMONING_SCROLL_QUEEN_TITANIA;
+import static com.saphienyako.feywild.item.ModItems.*;
 
 public class BossSummoningScrollItem extends Item {
 
@@ -43,6 +44,10 @@ public class BossSummoningScrollItem extends Item {
             return ModEntities.TITANIA.get();
         } else if (this.equals(SUMMONING_SCROLL_QUEEN_MAB.get())) {
             return ModEntities.MAB.get();
+        } else if (this.equals(SUMMONING_SCROLL_OBERON.get())) {
+            return ModEntities.OBERON.get();
+        } else if (this.equals(SUMMONING_SCROLL_ASHEN_LORD.get())) {
+            return ModEntities.ASHEN_LORD.get();
         }
         else return null;
     }
@@ -63,6 +68,17 @@ public class BossSummoningScrollItem extends Item {
 
                     if (!context.getPlayer().isCreative()) {
                         context.getItemInHand().shrink(1);
+                    }
+
+                    if(entity instanceof OberonEntity) {
+                        context.getLevel().playSound(
+                                null,
+                                entity.blockPosition(),
+                                entity.getSummonSound(),
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F
+                        );
                     }
                 }
             }

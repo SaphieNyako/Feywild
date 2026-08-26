@@ -127,6 +127,10 @@
   "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page2.text0": "On the outside the may look like any other tree, but once stripped you can see the colourful inside.",
   "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page3.text0": "Fey Wood gives a colorful range of plank variety.",
   "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page4.text0": "The leaves of the seasonal tree have a lot of color. Shearing them will preserve their form. Decaying leaves will drop saplings and a small chance of fey dust.",
+  "feywild_lexicon.entry.decorative_blocks.giant_flowers": "Giant Flowers",
+  "feywild_lexicon.entry.decorative_blocks.giant_flowers.page0.text0": "There are three variations of the Giant Dandelion: budding, flowering, and the flower's well known fluff- ready to scatter its seeds to the wind. You can grow this flower by right clicking the seed on a Grass Block.",
+  "feywild_lexicon.entry.decorative_blocks.giant_flowers.page1.text0": "Giant Sunflowers will turn to face the sun's position in the sky. You can grow this flower by right clicking the seed on a Grass Block.",
+  "feywild_lexicon.entry.decorative_blocks.giant_flowers.page2.text0": "The Giant Crocuses will open their flowers during the day and close them at night. You can grow this flower by right clicking the seed on a Grass Block.",
 
   "feywild_lexicon.category.sovereigns.name": "Sovereigns",
   "feywild_lexicon.category.sovereigns.description":"Each Fey Court is ruled by an Arch Fey. The self proclaimed queen of the fey is Queen Titania, rulers of the Summer Court. Her sister Queen Mab is queen of the unseelie court. Prince Oberon rules along side Queen Titania but is the ruler of Spring. The acting sovereign of the Autumn Court is the Ashen Lord.",
@@ -134,13 +138,31 @@
   "feywild_lexicon.entry.sovereigns.queen_titania.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating Queen Titania she will drop her Tiara. This Tiara can be used for crafting your own Pixie Wings.",
   "feywild_lexicon.entry.sovereigns.queen_mab.name": "Queen Mab",
   "feywild_lexicon.entry.sovereigns.queen_mab.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating Queen Mab she will drop her Tiara. This Tiara can be used for crafting your own Pixie Wings.",
-  "feywild_lexicon.entry.sovereigns.pixie_wings.name": "Pixie Wings",
-  "feywild_lexicon.entry.sovereigns.pixie_wings.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating a Arch Fey they will drop their Crown/Tiara. This Tiara can be used for crafting your own Pixie Wings.",
+  "feywild_lexicon.entry.sovereigns.ashen_lord.name": "Ashen Lord",
+  "feywild_lexicon.entry.sovereigns.ashen_lord.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating the Ashen Lord he will drop a Tiara. This Tiara can be used for crafting your own Pixie Wings.",
+  "feywild_lexicon.entry.sovereigns.oberon.name": "Oberon",
+  "feywild_lexicon.entry.sovereigns.oberon.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating Oberon he will drop his Tiara. This Tiara can be used for crafting your own Pixie Wings.",
+
+  "feywild_lexicon.category.pixie_wings.name": "Pixie Wings",
+  "feywild_lexicon.category.pixie_wing.description": "In stories past, Pixies didn't originally have wings; that changed after the fall of Light and Darkness, when their domains were split apart into the Courts we know of today. Wishing to discover their origins, the Fey yearning for the stars bestowed their kin with power of flight.",
+  "feywild_lexicon.entry.pixie_wings.pixie_wings.page1.text0": "Each Sovereign will hold a Fey Crown known as a Pixie Wing Tiara. After defeating a Arch Fey they will drop a Pixie Wing Tiara. This Tiara can be used for crafting your own Seasonal Pixie Wings. By placing the crafted item in your off-hand or curious slot you will be granted wings and flight",
 
   "feywild_lexicon.decorative_blocks.name": "Decorative Blocks",
   "feywild_lexicon.category.decorative_blocks.description": "The Feywild holds many kinds of mysterious materials from which a variety of blocks can be crafted.",
   "feywild_lexicon.entry.decorative_blocks.elven_quartz": "Elven Quartz",
   "feywild_lexicon.entry.decorative_blocks.elven_quartz.page0.text0": "The recipe for the Elven Quartz used to be only know by the Dwarves. But ever since their great rebellion, they shared their secrets for all to know. There are colors for each season.",
   "feywild_lexicon.entry.decorative_blocks.mushroom_blocks": "Colored Mushroom Blocks",
-  "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0": "In the Eternal Falls, a domain of the Autumn Court, the Shroomlings reside among their colorful mushroom homes. They can grow these homes from tiny mushrooms. Some travelers may want to build their own homes with them."
+  "feywild_lexicon.entry.decorative_blocks.mushroom_blocks.page0.text0": "In the Eternal Falls, a domain of the Autumn Court, the Shroomlings reside among their colorful mushroom homes. They can grow these homes from tiny mushrooms. Some travelers may want to build their own homes with them.",
+
+  "feywild_lexicon.category.quest_line.name": "Quest Line",
+  "feywild_lexicon.category.quest_line.description": "The Feywild Mod offers a story driven quest line. It will take the player on a small adventure with their Fey.",
+  "feywild_lexicon.entry.quest_line.pixie_orb": "Starting a Quest",
+  "feywild_lexicon.entry.quest_line.pixie_orb.page1.text0": "By right clicking your fey with a Pixie Orb, you can open the Fey Menu. Each fey has one. In this menu you can find a quest button for all the pixies. Accepting the quest will lock you for that quest line.",
+  "feywild_lexicon.entry.quest_line.quest_line_order": "Quest Line Order",
+  "feywild_lexicon.entry.quest_line.quest_line_order.page1.text0": "The Feywild story starts with the Feywild Lexicon. In it you can find a cute guide that will help you learn how to be a summoner.",
+  "feywild_lexicon.entry.quest_line.quest_line_order.page2.text0": "The Summer Pixie wants you to become their Champion so she can befall in good grace with Queen Titania.",
+  "feywild_lexicon.entry.quest_line.quest_line_order.page3.text0": "The Winter Pixie will teach you all about the joys of the after life and will recruit you as the new Reaper of the Winter Court.",
+  "feywild_lexicon.entry.quest_line.quest_line_order.page4.text0": "The Spring Pixie is so happy she gets to go on adventures with you, thou you two will probably spend all your time playing around and forgetting your troubles.",
+  "feywild_lexicon.entry.quest_line.quest_line_order.page5.text0": "After all your adventures its time to settle down and build a good home with your Autumn Pixie."
 }
+

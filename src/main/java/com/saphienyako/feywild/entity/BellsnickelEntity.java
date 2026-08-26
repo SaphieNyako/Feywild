@@ -169,6 +169,11 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return 0.6f;
+    }
+
+    @Override
     public boolean isDamageSourceBlocked(DamageSource damageSource) {
         Entity attacker = damageSource.getEntity();
         if (attacker instanceof LivingEntity living && !this.isTamed()) {

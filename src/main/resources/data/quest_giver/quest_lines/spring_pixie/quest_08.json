@@ -1,0 +1,35 @@
+{
+  "parent": "quest_giver:quest_07",
+  "icon": "feywild:summoning_scroll_spring_tree_ent",
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_08_start_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_08_start_title"
+    }
+  },
+  "tasks": [
+    {
+      "id": "quest_giver:special_task",
+      "action": "summon_spring_tree_ent"
+    }
+  ],
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_08_complete_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_08_complete_title"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

@@ -21,10 +21,10 @@
   ],
   "complete": {
     "title": {
-      "translate": "quest.feywild.summer_pixie_10_complete_title"
+      "translate": "quest.feywild.summer_pixie_11_complete_title"
     },
     "description": {
-      "translate": "quest.feywild.summer_pixie_10_complete_description"
+      "translate": "quest.feywild.summer_pixie_11_complete_description"
     }
   }
 }

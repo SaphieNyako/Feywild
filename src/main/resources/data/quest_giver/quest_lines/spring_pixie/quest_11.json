@@ -1,0 +1,38 @@
+{
+  "parent": "quest_giver:quest_10",
+  "icon": "feywild:pixie_wing_tiara",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.spring_pixie_11_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.spring_pixie_11_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "feywild:spring_pixie_wing_tiara"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.spring_pixie_11_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.spring_pixie_11_complete_description"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "minecraft:netherite_ingot"
+      }
+    }
+  ]
+}

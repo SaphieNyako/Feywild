@@ -1,0 +1,36 @@
+{
+  "parent": "quest_giver:quest_02",
+  "icon": "minecraft:dandelion",
+  "start": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_03_start_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_03_start_title"
+    }
+  },
+  "tasks": [
+    {
+      "times": 3,
+      "id": "quest_giver:special_task",
+      "action": "dandelion_fluff"
+    }
+  ],
+  "complete": {
+    "description": {
+      "translate": "quest.feywild.spring_pixie_03_complete_description"
+    },
+    "title": {
+      "translate": "quest.feywild.spring_pixie_03_complete_title"
+    }
+  },
+  "rewards": [
+    {
+      "id": "quest_giver:item",
+      "item": {
+        "count": 1,
+        "item": "feywild:fey_gem"
+      }
+    }
+  ]
+}

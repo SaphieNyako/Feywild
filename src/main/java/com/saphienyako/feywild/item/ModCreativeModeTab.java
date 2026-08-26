@@ -12,4 +12,6 @@ public class ModCreativeModeTab {
             return new ItemStack(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get());
         }
     };
+
+    //1.19 Items are added to the tabs with; .tab(ModCreativeModeTab.FEYWILD_TAB)
 }

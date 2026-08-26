@@ -21,7 +21,8 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:winter_tree_leaves_light_blue",
-      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page4.text0"
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page4.text0",
+      "title": "Fey Leaves"
     }
   ]
 }

@@ -15,7 +15,8 @@
       "id": "quest_giver:gift",
       "item": {
         "item": "feywild:pixie_orb"
-      }
+      },
+      "entity": "feywild:sprite"
     }
   ],
   "complete": {

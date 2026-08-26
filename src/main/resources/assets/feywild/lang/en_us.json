@@ -21,6 +21,8 @@
   "item.feywild.summoning_scroll_winter_tree_ent": "Summoning Scroll Winter Tree Ent",
   "item.feywild.summoning_scroll_queen_titania": "Summoning Scroll Queen Titania",
   "item.feywild.summoning_scroll_queen_mab": "Summoning Scroll Queen Mab",
+  "item.feywild.summoning_scroll_oberon": "Summoning Scroll Oberon",
+  "item.feywild.summoning_scroll_ashen_lord": "Summoning Scroll Ashen Lord",
   "item.feywild.spawn_egg_spring_pixie": "Spawn Egg Spring Pixie",
   "item.feywild.spawn_egg_summer_pixie": "Spawn Egg Summer Pixie",
   "item.feywild.spawn_egg_autumn_pixie": "Spawn Egg Autumn Pixie",
@@ -35,6 +37,8 @@
   "item.feywild.spawn_egg_winter_tree_ent": "Spawn Egg Winter Tree Ent",
   "item.feywild.spawn_egg_queen_titania": "Spawn Egg Queen Titania",
   "item.feywild.spawn_egg_queen_mab": "Spawn Egg Queen Mab",
+  "item.feywild.spawn_egg_oberon": "Spawn Egg Oberon",
+  "item.feywild.spawn_egg_ashen_lord": "Spawn Egg Ashen Lord",
   "item.feywild.fey_dust": "Fey Dust",
   "item.feywild.mandrake": "Mandrake",
   "item.feywild.empty_summoning_scroll": "Empty Summoning Scroll",
@@ -49,6 +53,7 @@
   "item.feywild.giant_crocus_flower_seed": "Magical Crocus Seed",
   "item.feywild.giant_dandelion_flower_seed": "Magical Dandelion Seed",
   "item.feywild.giant_sun_flower_seed": "Magical Sunflower Seed",
+
   "block.feywild.fey_gem_ore": "Fey Gem Ore",
   "block.feywild.fey_gem_ore_deep_slate": "Fey Gem Ore Deep Slate",
   "block.feywild.giant_crocus_flower": "Crocus Flower",
@@ -264,6 +269,8 @@
   "entity.feywild.sprite": "Botania Pixie",
   "entity.feywild.titania": "Queen Titania",
   "entity.feywild.mab": "Queen Mab",
+  "entity.feywild.oberon": "Oberon",
+  "entity.feywild.ashen_lord": "Ashen Lord",
 
   "message.feywild.shift_down": "Hold down Shift for more Information!",
   "message.feywild.bellsnickel_menu_description": "Scribing: Copy Enchanted Book",
@@ -279,6 +286,8 @@
   "message.feywild.fey_ink_bottle": "Used for creating summoning scrolls. Crafted from Ink, a Bottle and a Mandrake.",
   "message.feywild.empty_summoning_scroll": "Used for summoning Fey. Crafted from Fey ink, Paper and a Feather.",
   "message.feywild.pixie_wing_tiara": "A Pixie Wing Tiara; Crown of the Fey",
+  "message.feywild.curios_head_slot": "Can be equipped in a Curios Head Slot.",
+  "message.feywild.off_hand_slot": "Can be equipped in the Off Hand Slot.",
   "message.feywild.summoning_scroll_spring_pixie": "Fey Altar: Empty Summoning Scroll, Fey Gem, Cake, Wool and a Flower",
   "message.feywild.summoning_scroll_summer_pixie": "Fey Altar: Empty Summoning Scroll, Fey Gem, Honey Comb, a Melon and a Golden Sword",
   "message.feywild.summoning_scroll_winter_pixie": "Fey Altar: Empty Summoning Scroll, Fey Gem, a Snowball, Rotten Flesh and a Bone",
@@ -293,6 +302,8 @@
   "message.feywild.summoning_scroll_winter_tree_ent": "Fey Altar: Empty Summoning Scroll, Fey Gem, Winter Pixie Scroll, Bellsnickel Scroll, Winter Sapling",
   "message.feywild.summoning_scroll_queen_titania": "Fey Altar: Empty Summoning Scroll, Fey Gem, Summer Pixie Scroll, Bee Knight Scroll, Summer Tree Ent Scroll",
   "message.feywild.summoning_scroll_queen_mab": "Fey Altar: Empty Summoning Scroll, Fey Gem, Winter Pixie Scroll, Bellsnickel Scroll, Winter Tree Ent Scroll",
+  "message.feywild.summoning_scroll_oberon": "Fey Altar: Empty Summoning Scroll, Fey Gem, Spring Pixie Scroll, Mandragora Scroll, Spring Tree Ent Scroll",
+  "message.feywild.summoning_scroll_ashen_lord": "Fey Altar: Empty Summoning Scroll, Fey Gem, Autumn Pixie Scroll, Shroomling Scroll, Autumn Tree Ent Scroll",
   "message.feywild.mandrake": "This little creature won't stop screaming! Grown from Mandrake Root",
   "message.feywild.fey_altar": "Used to create summoning scrolls. Smooth Stone on the Top, Left and Right Side, Fey Gem in the middle and a Smooth Stone Slab at the bottom",
   "message.feywild.ability_off": "Ability:Off",
@@ -455,183 +466,293 @@
   "quest.feywild.sprite_quest_10_complete_description": "You lost your $(#8867DB)Pixie Orb$()? You can $(#CE2803)craft$() one at a $(#60D8E6)Fey Altar$() with (2)$(#8867DB)ender pearls$(), (2)$(#60D8E6)fey gems$(), and $(#60D8E6)fey dust$().",
 
   "quest.feywild.summer_pixie_root_start_title": "Welcome to the Summer Court",
-  "quest.feywild.summer_pixie_root_start_description": "How dare you summon me like I am some sort of magician's pet! \nYou'd better know your place... Hmph! \nI demand you tell me your name!",
-  "quest.feywild.summer_pixie_01_start_title": "I'm not Insulting You",
-  "quest.feywild.summer_pixie_01_start_description": "Just my luck I end up with someone like you...\n– The pixie looks at you from top to bottom with a disdainful look on her face. –\nNot much muscle, though that might be normal for its kind... And their look... Might not be the brightest.\n\n...Hey! Stop gasping! I'm not insulting you. I'm assessing you! There's a difference!\nIf you want to be part of the $(#EFBF04)Golden Seelie Court$(), you'd better look the part; I can't present you as my champion before $(#EFBF04)Queen Titania$() when you look like this! \n\nDon't look at me like that - I'm not paying for it!\nGo on; present yourself to me when you are properly attired in a  $(#EFBF04)golden chest plate$().\nThe audacity... – the Pixie rolls her eyes. –\n\n$(#60D8E6)Objective: Obtain 1 Golden chest plate.$()",
-  "quest.feywild.summer_pixie_01_complete_title": "Worthy of assessment",
-  "quest.feywild.summer_pixie_01_complete_description": "...Oh, you're back? ...Alright, let's take another look at you!\n– The pixie looks at you with a less disdainful look; you can detect a small smile. –\nTurn around... once more... again! \n– The pixie laughs at that. –\nI guess it's an improvement. You are worthy of my insults now!\nHere, this should finish your look as my champion.",
+  "quest.feywild.summer_pixie_root_start_description": "How dare you summon me like I'm some sort of magician's pet!\nYou'd better know your place... Hmph!\nI demand you tell me your name!",
+
+  "quest.feywild.summer_pixie_01_start_title": "I'm Not Insulting You",
+  "quest.feywild.summer_pixie_01_start_description": "Just my luck that I end up with someone like you...\n– The pixie looks you up and down with a disdainful look on her face. –\nNot much muscle, though that might be normal for your kind... And that look... You might not be the brightest.\n\n...Hey! Stop gasping! I'm not insulting you. I'm assessing you! There's a difference!\nIf you want to be part of the $(#EFBF04)Golden Seelie Court$(), you'd better look the part; I can't present you as my champion before $(#EFBF04)Queen Titania$() when you look like this!\n\nGo on; present yourself to me when you are properly attired in a $(#EFBF04)golden chestplate$().\nDon't look at me like that – I'm not paying for it!\nThe audacity... – The pixie rolls her eyes. –\n\n$(#60D8E6)Objective: Obtain 1 Golden Chestplate.$()",
+
+  "quest.feywild.summer_pixie_01_complete_title": "Worthy of Assessment",
+  "quest.feywild.summer_pixie_01_complete_description": "...Oh, you're back? ...Alright, let's take another look at you!\n– The pixie looks at you with less disdain; you can detect a small smile. –\nTurn around... once more... again!\n– The pixie laughs at that. –\nI guess it's an improvement. You are worthy of my insults now!\nHere, this should finish your look as my champion.",
+
   "quest.feywild.summer_pixie_02_start_title": "Trial of Combat",
-  "quest.feywild.summer_pixie_02_start_description": "Before we seek an audience with $(#EFBF04)Queen Titania$(), you will first have to prove your worth to me!\nSo - a $(#EFBF04)trial of combat$()! You will fight....\n– The pixie thinks deeply about what mortally wounding foe you will have to face – \n...A golem! Yes - an Iron Golem\nIf you survive, I will deem you worthy to be in my presence.\nIf not, well... –  The pixie giggles before realizing you're still there and clearing her throat. – Uh, ahem... Off you go!\n\n$(#60D8E6)Objective: Land the killing blow on an Iron Golem.$()",
+  "quest.feywild.summer_pixie_02_start_description": "Before we seek an audience with $(#EFBF04)Queen Titania$(), you will first have to prove your worth to me!\nSo – a $(#EFBF04)trial of combat$()! You will fight...\n– The pixie thinks deeply about what mortally wounding foe you will have to face. –\n...A golem! Yes – an Iron Golem!\nIf you survive, I will deem you worthy of being in my presence.\nIf not, well... – The pixie giggles before realizing you're still there and clears her throat. – Uh, ahem... Off you go!\n\n$(#60D8E6)Objective: Land the killing blow on an Iron Golem.$()",
+
   "quest.feywild.summer_pixie_02_complete_title": "A Reward?",
-  "quest.feywild.summer_pixie_02_complete_description": "What a battle! I had a few good laughs with your struggles, but you pulled through in the end!\nIt's not much, but it's something. Ahah, so funny! Ahem...\nWhat? You expected a reward? Your reward is being in my presence of course!\nA reward... the audacity! You can have the scraps, I guess...",
+  "quest.feywild.summer_pixie_02_complete_description": "What a battle! I had a few good laughs at your struggles, but you pulled through in the end!\nIt's not much, but it's something. Ahah, so funny! Ahem...\nWhat? You expected a reward? Your reward is being in my presence, of course!\nA reward... the audacity! You can have the scraps, I guess...",
+
   "quest.feywild.summer_pixie_03_start_title": "Battle of Wits",
-  "quest.feywild.summer_pixie_03_start_description": "So, you have some skill with a sword; that's nice and all, but do you have wits!\nTo prove yourself worthy of being my servant and protector, you should... present to me... a $(#60D8E6)Bee's Nest$()! \nYes! Preferably with the bees still inside! We require more buzzing steeds for our cavalry... \nThe Queen will be pleased with my offering! Be it the bees or your mortal corpse... - The pixie giggles. - \n...Uh, ahem; hop along and don't get stung!\n\n$(#60D8E6)Objective: Obtain a Bee Nest. You will need the Silk Touch enchantment for this.$()",
+  "quest.feywild.summer_pixie_03_start_description": "So, you have some skill with a sword; that's nice and all, but do you have wits?!\nTo prove yourself worthy of being my servant and protector, you should... present to me... a $(#60D8E6)Bee Nest$()!\nYes! Preferably with the bees still inside! We require more buzzing steeds for our cavalry...\nThe Queen will be pleased with my offering! Be it the bees or your mortal corpse... – The pixie giggles. –\n...Uh, ahem; hop along and don't get stung!\n\n$(#60D8E6)Objective: Obtain a Bee Nest. You will need the Silk Touch enchantment for this.$()",
+
   "quest.feywild.summer_pixie_03_complete_title": "The Need for Steed",
-  "quest.feywild.summer_pixie_03_complete_description": "That was amazing! Are you okay? I mean - I hope those stingers didn't hurt much!\nOr is that your normal face? In which case, maybe you were better off getting stung...\n\nThese will be perfect offerings for our Queen.\nWe're always in need of steeds for our Bee Knights!",
-  "quest.feywild.summer_pixie_04_start_title": "May the odds be forever in my favor",
-  "quest.feywild.summer_pixie_04_start_description": "Maybe you're not so useless after all! \nThe $(#EFBF04)Summer Court$() is constantly under attack by a group of raiders, who hunt down our kind to grind us into dust - or worse, steal our sacred honey!\nWe, and by we I mean you of course, should take down those $(#60D8E6)Pillagers$()!\nThen, with you as my Champion, we can share our victory with the Queen, and I will be forever in her favour! - The pixie is pleased with her own genius plan. - \nPerfect! So... Why are you still standing here? Go! Now!\n\n$(#60D8E6)Objective: Land the killing blow on 8 Pillagers.$()",
+  "quest.feywild.summer_pixie_03_complete_description": "That was amazing! Are you okay? ...I mean, I hope those stingers didn't hurt too much!\nOr is that your normal face? In which case, maybe you were better off getting stung...\n\nThese will be perfect offerings for our Queen.\nWe're always in need of steeds for our Bee Knights!",
+
+  "quest.feywild.summer_pixie_04_start_title": "May the Odds Be Forever in My Favor",
+  "quest.feywild.summer_pixie_04_start_description": "Maybe you're not so useless after all!\nThe $(#EFBF04)Summer Court$() is constantly under attack by a group of raiders who hunt down our kind to grind us into dust – or worse, steal our sacred honey!\nWe – and by we, I mean you, of course – should take down those $(#60D8E6)Pillagers$()!\nThen, with you as my Champion, we can share our victory with the Queen, and I will be forever in her favour! – The pixie is pleased with her own genius plan. –\nPerfect! So... why are you still standing here? Go! Now!\n\n$(#60D8E6)Objective: Land the killing blow on 8 Pillagers.$()",
+
   "quest.feywild.summer_pixie_04_complete_title": "The Melon Lord",
-  "quest.feywild.summer_pixie_04_complete_description": "You actually did it! – The pixie restrains herself from embracing you. –\nAhem; you did an admirable job, and I hope you will continue to slaughter my enemies as my very own champion! \n– She circles happily around you. –\n$(#EFBF04)Queen Titania$() is pleased with your offerings and victory for the $(#EFBF04)Golden Seelie Court$(); as their new champion, you are presented with a special reward!",
+  "quest.feywild.summer_pixie_04_complete_description": "You actually did it! – The pixie restrains herself from embracing you. –\nAhem; you did an admirable job, and I hope you will continue to slaughter my enemies as my very own champion!\n– She circles happily around you. –\n$(#EFBF04)Queen Titania$() is pleased with your offerings and your victory for the $(#EFBF04)Golden Seelie Court$(); as their new champion, you are presented with a special reward!",
+
   "quest.feywild.summer_pixie_05_start_title": "Know Your Place!",
-  "quest.feywild.summer_pixie_05_start_description": "Ah - my Champion!\n– The pixie appears to be rather vibrant today. – \nI'm in a good mood? I'm not normally?\nI'm just pleased with my accomplishments of late!\nYes, yes, you had some part in that as well!\nWe should report this to one of the royal $(#EFBF04)Bee Knight$() emissaries.\nLet's go summon one right now!\n\nGrab your scroll, fey ink, a bee's nest and those beautiful gifts I gave you. Yes, I am talking about the sword and the melon!\n\n$(#60D8E6)Objective: Obtain a Bee Knight Scroll.$()",
+  "quest.feywild.summer_pixie_05_start_description": "Ah – my Champion!\n– The pixie appears to be rather vibrant today. –\nI'm in a good mood? I'm not normally?\nI'm just pleased with my accomplishments of late!\nYes, yes, you had some part in that as well!\nWe should report this to one of the royal $(#EFBF04)Bee Knight$() emissaries.\nLet's go summon one right now!\n\nGrab your scroll, fey ink, a bee's nest, and those beautiful gifts I gave you. Yes, I am talking about the sword and the melon!\n\n$(#60D8E6)Objective: Summon a Bee Knight.$()",
+
   "quest.feywild.summer_pixie_05_complete_title": "Friends?",
-  "quest.feywild.summer_pixie_05_complete_description": "Why isn't she leaving. She should be leaving. We should be alone, just the two of us ... - The pixie blushes. – \nNot like that, like friends, I mean... Like a Master and her champion ! … \nSeems you still don't know your place, huh?\nThough... I wouldn't mind... being friends.",
+  "quest.feywild.summer_pixie_05_complete_description": "Why isn't she leaving? She should be leaving. We should be alone, just the two of us... – The pixie blushes. –\nNot like that! Like friends, I mean... Like a Master and her champion! Hmph!\nThough... I wouldn't mind... being friends.",
+
   "quest.feywild.summer_pixie_06_start_title": "Turmoil in the Courts",
-  "quest.feywild.summer_pixie_06_start_description": "Champion! Something awful has happened...!\nThe $(#319DFC)Winter Court$() has tried to assassinate our Queen to claim her $(#EFBF04)Crown$() as their own!\n\nWhy do you look so confused? Oh, right- where to begin...\nEach seasonal Court has a ruler who wears a $(#60D8E6)Fey Crown of Power$(), which gives them control over one of the seasons.\nIf the $(#319DFC)Winter Court$() had succeeded the seasons would have been thrown into chaos!\n\nWe need information, and I know of one being that hoards information and knowledge, a $(#319DFC)Bellsnickel$()!\nLet's go $(#86DB67)summon$() one to interrogate!\n\n$(#60D8E6)Objective: Obtain a Bellsnickel Scroll.$()",
-  "quest.feywild.summer_pixie_06_complete_title": "The Bellsnickel tolls",
-  "quest.feywild.summer_pixie_06_complete_description": "Did you get any information on the $(#319DFC)Winter Court$()?\nWhat are you standing around for, then – you hold him down, I will check his bag! \nWe need to succeed or $(#EFBF04)Queen Titania$() will have our heads! \n–  The pixie starts digging through the bellsnickels' bag of books. –\n… 'Productive Bees!'...This could be useful, but that's not what we're here for! \n… 'Making Farming a Delight' Really!? \n… 'The Mystical Arts of Agriculture' – Ugh –  What is this $(#CE2803)Autumn$() and $(#86DB67)Spring$() pixie nonsense! \n\nAha!",
-  "quest.feywild.summer_pixie_07_start_title": "Heavy is the crown",
-  "quest.feywild.summer_pixie_07_start_description": "This must be it! “The True Balance of Power” by Lady M. \n– The pixie start leafing through its pages –\nI see, I see! – Ok, let me explain! \nA long time ago, even before the current fey courts existed, there was a war between the $(#FFB0DF)Light$() and  $(#8867DB)Shadow$() courts which the $(#FFB0DF)Light$() court eventually won.\nThe $(#FFB0DF)Light$() court banished the leader of the  $(#8867DB)Shadow$() Court and then split up into the seasonal courts, and according to this book, $(#EFBF04)Queen Titania$() was chosen to supervise them all. But that never happened, and now whoever hold most crowns holds the reigns. \nSo that's their plan! The$(#319DFC) Winter Court$() wants to seize control over all seasons!\n\nUgh, what to do? I need to consult one of the elders, we need to summon a $(#EFBF04)Summer Tree Ent$().\n\n$(#60D8E6)Objective: Obtain a Summer Tree Ent Scroll.$()",
-  "quest.feywild.summer_pixie_07_complete_title": "To say something in old Entish",
-  "quest.feywild.summer_pixie_07_complete_description": "– The pixie and the Tree Ent hold a very, very long conversation, with the Pixie doing most of the talking and the Ent most of the listening. –\n– After many hours of this, she returns to your side, tired and with dark circles under her eyes – \nWhew- I'm beat... Ents take soooo long to say just anything!\n–  The pixie rests on your head, her arms and legs dangling on the side. – \nChampion! Our leafy ally will relay this message to the Queen, and make sure we are well protected.\n\nI will conjure us the biggest meal ever! My treat! ...Why are you looking at me like that? Stop it! I just wanted to show you my gratitude!\nBesides, we've been through so much together...\nWould you stop it! Just accept my generosity! Hmph!",
+  "quest.feywild.summer_pixie_06_start_description": "Champion! Something awful has happened...!\nThe $(#319DFC)Winter Court$() has tried to assassinate our Queen to claim her $(#EFBF04)Crown$() as their own!\n\nWhy do you look so confused? Oh, right – where to begin...\nEach seasonal Court has a ruler who wears a $(#60D8E6)Fey Crown of Power$(), which gives them control over one of the seasons.\nIf the $(#319DFC)Winter Court$() had succeeded, the seasons would have been thrown into chaos!\n\nWe need information, and I know of one being that hoards information and knowledge: a $(#319DFC)Bellsnickel$()!\nLet's go $(#86DB67)summon$() one to interrogate!\n\n$(#60D8E6)Objective: Summon a Bellsnickel.$()",
+
+  "quest.feywild.summer_pixie_06_complete_title": "The Bellsnickel Tolls",
+  "quest.feywild.summer_pixie_06_complete_description": "Did you get any information on the $(#319DFC)Winter Court$()?\nWhat are you standing around for, then? You hold him down; I will check his bag!\nWe need to succeed, or $(#EFBF04)Queen Titania$() will have our heads!\n– The pixie starts digging through the Bellsnickel's bag of books. –\n… 'Productive Bees!' ...This could be useful, but that's not what we're here for!\n… 'Making Farming a Delight.' Really!?\n… 'The Mystical Arts of Agriculture' – Ugh – What is this $(#CE2803)Autumn$() and $(#86DB67)Spring$() pixie nonsense?!\n\nAha!",
+
+  "quest.feywild.summer_pixie_07_start_title": "Heavy Is the Crown",
+  "quest.feywild.summer_pixie_07_start_description": "This must be it! “The True Balance of Power” by Lady M.\n– The pixie starts leafing through its pages. –\nI see, I see! – Okay, let me explain!\nA long time ago, even before the current fey courts existed, there was a war between the $(#FFB0DF)Light$() and $(#8867DB)Shadow$() Courts, which the $(#FFB0DF)Light$() Court eventually won.\nThe $(#FFB0DF)Light$() Court banished the leader of the $(#8867DB)Shadow$() Court and then split into the seasonal courts. According to this book, $(#EFBF04)Queen Titania$() was chosen to supervise them all. But that never happened, and now whoever holds the most crowns holds the reins.\nSo that's their plan! The $(#319DFC)Winter Court$() wants to seize control over all seasons!\n\nUgh, what to do? I need to consult one of the elders. We need to summon a $(#EFBF04)Summer Tree Ent$().\n\n$(#60D8E6)Objective: Summon a Summer Tree Ent.$()",
+
+  "quest.feywild.summer_pixie_07_complete_title": "To Say Something in Old Entish",
+  "quest.feywild.summer_pixie_07_complete_description": "– The pixie and the Tree Ent hold a very, very long conversation, with the pixie doing most of the talking and the Ent most of the listening. –\n– After many hours of this, she returns to your side, tired and with dark circles under her eyes. –\nWhew – I'm beat... Ents take soooo long to say just about anything!\n– The pixie rests on your head, her arms and legs dangling over the sides. –\nChampion! Our leafy ally will relay this message to the Queen and make sure we are well protected.\n\nI will conjure us the biggest meal ever! My treat! ...Why are you looking at me like that? Stop it! I just wanted to show you my gratitude!\nBesides, we've been through so much together...\nWould you stop it! Just accept my generosity! Hmph!",
+
   "quest.feywild.summer_pixie_08_start_title": "Last Order",
-  "quest.feywild.summer_pixie_08_start_description": "– After some bickering, you and your pixie enjoy a (delightful) meal. While cleaning up, the Tree Ent reappears and speaks to your companion. She promptly returns to your side, visibly shaken and panicking – \n\nChampion.. I have received orders from $(#EFBF04)Queen Titania$()! \n\nWe... we are to defeat $(#319DFC)Queen Mab$() and bring an end to her evil reign.\n\nLet's prepare everything we need, but don't summon her yet! She is powerful, and we need to prepare!\n– For the first time ever, you notice she is extremely sad and worried –\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for Queen Mab.$() ",
+  "quest.feywild.summer_pixie_08_start_description": "– After some bickering, you and your pixie enjoy a (delightful) meal. While cleaning up, the Tree Ent reappears and speaks to your companion. She promptly returns to your side, visibly shaken and panicking. –\n\nChampion... I have received orders from $(#EFBF04)Queen Titania$()!\n\nWe... we are to defeat $(#319DFC)Queen Mab$() and bring an end to her evil reign.\n\nLet's prepare everything we need, but don't summon her yet! She is powerful, and we need to prepare!\n– For the first time ever, you notice that she is extremely sad and worried. –\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for Queen Mab.$()",
+
   "quest.feywild.summer_pixie_08_complete_title": "Final Destination",
-  "quest.feywild.summer_pixie_08_complete_description": "– The pixie strafes left and right while muttering out loud – \n\n$(#319DFC)Queen Mab$()!? Is this for real?\nI mean, I don't even know if we should, it's so dangerous! \nWould it be okay if we don't fight $(#319DFC)Queen Mab$()? \n\nWe'll be exiles forever... but... I'd rather spend eternity being hunted down, as long as it's with you!",
-  "quest.feywild.summer_pixie_09_start_title": "It starts with sorry",
-  "quest.feywild.summer_pixie_09_start_description": "– The pixie clings on to you, sobbing. – \nI'm sorry! I tricked you into making a contract by saying your name! I just wanted a champion of my own!\nI'm sorry! If we make it, I'll tell you my name, and you won't be bound any longer! I promise!!\n\nSo, Champion... no.. My dearest friend! I will leave this choice to you. No matter what you choose, I will remain by your side!\n\n$(#60D8E6)Objective: Land the killing blow on Queen Mab.$()",
-  "quest.feywild.summer_pixie_09_complete_title": "But it cannot just end there",
-  "quest.feywild.summer_pixie_09_complete_description": "You defeated her! You actually did it! No, we did it, together!\n–  The pixie hugs you tightly. –\nAs promised, I'll tell you my name... \n- The pixie whispers her name in your ear. You expected the contract to burn - but instead it gained a new glow, with a different kind of magic. – \nSince you're no longer bound to a contract, you're free to go now...unless you want to remain my friend?",
+  "quest.feywild.summer_pixie_08_complete_description": "– The pixie paces left and right while muttering aloud. –\n\n$(#319DFC)Queen Mab$()!? Is this for real?\nI mean, I don't even know if we should... It's so dangerous!\nWould it be okay if we don't fight $(#319DFC)Queen Mab$()?\n\nWe'll be exiles forever... but... I'd rather spend eternity being hunted down, as long as it's with you!",
+
+  "quest.feywild.summer_pixie_09_start_title": "It Starts with Sorry",
+  "quest.feywild.summer_pixie_09_start_description": "– The pixie clings to you, sobbing. –\nI'm sorry! I tricked you into making a contract by telling me your name! I just wanted a champion of my own!\nI'm sorry! If we make it, I'll tell you my name, and you won't be bound any longer! I promise!!\n\nSo, Champion... no... my dearest friend! I will leave this choice to you. No matter what you choose, I will remain by your side!\n\n$(#60D8E6)Objective: Land the killing blow on Queen Mab.$()",
+
+  "quest.feywild.summer_pixie_09_complete_title": "But It Cannot Just End There",
+  "quest.feywild.summer_pixie_09_complete_description": "You defeated her! You actually did it! No, we did it, together!\n– The pixie hugs you tightly. –\nAs promised, I'll tell you my name...\n– The pixie whispers her name in your ear. You expected the contract to burn, but instead it gains a new glow, with a different kind of magic. –\nSince you're no longer bound to a contract, you're free to go now...",
+
   "quest.feywild.summer_pixie_10_start_title": "The End",
-  "quest.feywild.summer_pixie_10_start_description": "I didn't expect you to stay... W-why did you stay?\nWhat...? - The pixie turns red and waves her arms around in panic. - ...We're...friends?\n– The pixie pauses at that, before smiling happily. \nThe audacity! Friends! Hmph... You wish!\nA human and a Fey can't be friends, not forever... your lifespan is too short... \nWhat? You want to become one of us? You will?\n\nIt won't be easy. You need an elytra to grant you the gift of flight, combined with the magic of a pixie tiara to lose your mortality.\n\n$(#60D8E6)Objective: Obtain an Summer Pixie Wing Tiara.$()",
-  "quest.feywild.summer_pixie_10_complete_title": "And a new beginning",
-  "quest.feywild.summer_pixie_10_complete_description": "You and your pixie friend return home to the $(#EFBF04)Summer Court$(). As you arrive at the $(#60D8E6)Mother Tree$() in the $(#EFBF04)Golden Seelie Fields$(), an company of $(#EFBF04)Bee Knights$() await your arrival. They cheer for the $(#EFBF04)Summer Court$()'s newest stars! \nYou kneel before $(#EFBF04)Queen Titania$(), ready to be knighted and to receive your everlasting reward: a Magical Touch from the Queen herself... Embracing the magic of the Fey, You become one of them - leaving behind your mortal life to join their realm...simultaneously their Champion, and their Friend.",
+  "quest.feywild.summer_pixie_10_start_description": "I didn't expect you to stay... W-why did you stay?\nWhat...? – The pixie turns red and waves her arms around in panic. – ...We're... friends?\n– The pixie pauses at that before smiling happily. –\nThe audacity! Friends! Hmph... You wish!\nA human and a Fey can't be friends, not forever... your lifespan is too short...\nWhat? You want to become one of us? You will?\n\nIt won't be easy. You need an elytra to grant you the gift of flight, combined with the magic of a pixie tiara to shed your mortality.\n\n$(#60D8E6)Objective: Obtain a Summer Pixie Wing Tiara.$()",
+
+  "quest.feywild.summer_pixie_10_complete_title": "And a New Beginning",
+  "quest.feywild.summer_pixie_10_complete_description": "You and your pixie friend return home to the $(#EFBF04)Summer Court$(). As you arrive at the $(#60D8E6)Mother Tree$() in the $(#EFBF04)Golden Seelie Fields$(), a company of $(#EFBF04)Bee Knights$() awaits your arrival. They cheer for the $(#EFBF04)Summer Court$()'s newest stars!\nYou kneel before $(#EFBF04)Queen Titania$(), ready to be knighted and to receive your everlasting reward: a Magical Touch from the Queen herself... Embracing the magic of the Fey, you become one of them – leaving behind your mortal life to join their realm... simultaneously their Champion and their Friend.",
+
   "quest.feywild.summer_pixie_11_start_title": "The End",
   "quest.feywild.summer_pixie_11_start_description": "$(#EFBF04)-End of the Summer Pixie Quest-$()\n\nThank you for playing Feywild!",
+
   "quest.feywild.summer_pixie_11_complete_title": "The End",
   "quest.feywild.summer_pixie_11_complete_description": "$(#EFBF04)-End of the Summer Pixie Quest-$()\n\nThank you for playing Feywild!",
 
+
   "quest.feywild.winter_pixie_root_start_title": "Welcome to the Winter Court",
-  "quest.feywild.winter_pixie_root_start_description": "Such inconvenience... why did you summon me, mortal? \nThis ordeal will most certainly lead to your premature demise. But then, maybe we can be friends... \nCare to tell me your name?",
+  "quest.feywild.winter_pixie_root_start_description": "Such an inconvenience... Why did you summon me, mortal?\nThis ordeal will most certainly lead to your premature demise. But then, maybe we can be friends...\nCare to tell me your name?",
+
   "quest.feywild.winter_pixie_01_start_title": "Into the Arms of Winter",
-  "quest.feywild.winter_pixie_01_start_description": "Greetings, mortal... Your arrival is as expected.\n– The pixie speaks in a monotone, with barely any inflection in her voice. –\nMeaning...? Eventually you would end up in $(#319DFC)the arms of Winter$() anyways, as it's inevitable. \nNow that you've stated your name, your soul belongs to us...\nIf you don't want us to collect your soul at this moment in time, then you should prove your worth to us.\nI wouldn't want to overload your severely lacking mortal brain, so a simple task will suffice.\nSome souls still roam the mortal world. Kill these zombies and provide us with some $(#60D8E6)rotten flesh$() as proof of your accomplishment... eight should do...\n\n$(#60D8E6)Objective: Obtain 8 Rotten Flesh.$()",
+  "quest.feywild.winter_pixie_01_start_description": "Greetings, mortal... Your arrival is as expected.\n– The pixie speaks in a monotone, with barely any inflection in her voice. –\nMeaning...? Eventually, you would end up in $(#319DFC)the arms of Winter$() anyway, as it is inevitable.\nNow that you've stated your name, your soul belongs to us...\nIf you don't want us to collect your soul at this moment in time, then you should prove your worth to us.\nI wouldn't want to overload your severely lacking mortal brain, so a simple task will suffice.\nSome souls still roam the mortal world. Kill these zombies and provide us with some $(#60D8E6)rotten flesh$() as proof of your accomplishment... eight should do...\n\n$(#60D8E6)Objective: Obtain 8 Rotten Flesh.$()",
+
   "quest.feywild.winter_pixie_01_complete_title": "Silver Linings",
-  "quest.feywild.winter_pixie_01_complete_description": "You seem rather efficient at collecting these... Maybe I can assign you with a purpose after all.\nWasn't I clear...? Your soul belongs to us... and so you either provide us with more, or we collect yours...\nBut were you to find an early demise, I could be your friend on the other side.\nEverything has a silver lining...",
+  "quest.feywild.winter_pixie_01_complete_description": "You seem rather efficient at collecting these... Maybe I can assign you a purpose after all.\nWasn't I clear...? Your soul belongs to us... and so you either provide us with more, or we collect yours...\nBut were you to meet an early demise, I could be your friend on the other side.\nEverything has a silver lining...",
+
   "quest.feywild.winter_pixie_02_start_title": "Initiation",
-  "quest.feywild.winter_pixie_02_start_description": "Now that your soul has been initiated into the $(#319DFC)Winter Court$(), we should keep it safe... \n\nObtain a $(#319DFC)Soul Lantern$(), I can make sure your soul is stored safe and sound.\nYour soul is already withering.\nYou better hurry...\n\n$(#60D8E6)Objective: Obtain a Soul Lantern.$()",
+  "quest.feywild.winter_pixie_02_start_description": "Now that your soul has been initiated into the $(#319DFC)Winter Court$(), we should keep it safe...\n\nObtain a $(#319DFC)Soul Lantern$(), and I can make sure your soul is stored safe and sound.\nYour soul is already withering.\nYou'd better hurry...\n\n$(#60D8E6)Objective: Obtain a Soul Lantern.$()",
+
   "quest.feywild.winter_pixie_02_complete_title": "Hurray",
-  "quest.feywild.winter_pixie_02_complete_description": "You made one... Hurray... \n- The pixie makes a rather deadpan cheer as she throws grave dust in the air; it slowly dwindles around you. –\nOh, mortal... You shouldn't be so fearful... \n– The pixie pats you on the head. – \nThere there, you have done well. \nYour soul is safe with me... as long as you provide, of course.\nI don't want you to be the next grave dust we celebrate an initiation with...",
-  "quest.feywild.winter_pixie_03_start_title": "Such Inconvenience",
-  "quest.feywild.winter_pixie_03_start_description": "-The pixie makes another sigh. - You're still alive...? Why do you keep persisting, mortal?\nThough... as much as I would like to be your friend, your presence in the mortal realm is required. Maybe we should postpone our friendship... And strengthen your soul by keeping it bound to this plane.\n\nIn exchange for other souls we could strengthen yours?\n\n$(#60D8E6)Objective: Land the killing blow on 8 Pillagers.$()",
+  "quest.feywild.winter_pixie_02_complete_description": "You made one... Hurray...\n– The pixie gives a rather deadpan cheer as she throws grave dust into the air; it slowly drifts down around you. –\nOh, mortal... You shouldn't be so fearful...\n– The pixie pats you on the head. –\nThere, there... you have done well.\nYour soul is safe with me... as long as you provide, of course.\nI don't want you to become the next pile of grave dust we celebrate an initiation with...",
+
+  "quest.feywild.winter_pixie_03_start_title": "Such an Inconvenience",
+  "quest.feywild.winter_pixie_03_start_description": "– The pixie lets out another sigh. – You're still alive...? Why do you keep persisting, mortal?\nThough... as much as I would like to be your friend, your presence in the mortal realm is required. Maybe we should postpone our friendship... and strengthen your soul by keeping it bound to this plane.\n\nIn exchange for other souls, we could strengthen yours...\n\n$(#60D8E6)Objective: Land the killing blow on 8 Pillagers.$()",
+
   "quest.feywild.winter_pixie_03_complete_title": "Don't You Think...?",
-  "quest.feywild.winter_pixie_03_complete_description": "You collected them all? I am so... impressed. I guess I made this for nothing.\n- The pixie has made you a tombstone and dug a fresh grave. -\nIt does look comfortable... I envy you, it looks like a nice resting place. \n- The pixie momentarily considers taking a nap on your grave. –",
-  "quest.feywild.winter_pixie_04_start_title": "Fear the reaper",
-  "quest.feywild.winter_pixie_04_start_description": "Your soul collecting skills are impeccable.. you have the makings of a great $(#319DFC)Reaper$().\n$(#319DFC)Reapers$() are $(#319DFC)Queen Mab$()'s greatest champions. To become one you need more experience with death\n– The pixie calls forth a Reapers Scythe as she grins –\n\n$(#60D8E6)Objective: Land the killing blow on 3 Wither Skeletons.$()",
-  "quest.feywild.winter_pixie_04_complete_title": "Reaping the rewards",
-  "quest.feywild.winter_pixie_04_complete_description": "– The pixie nods approvingly – \nThose wounds and that pale exterior makes you look like a Reaper.\nToo bad your face doesn't match.\nWear this.\n– The pixie puts a mask on your head and nods approvingly – \n Why can't you always look like this? I can almost tolerate your existence now...",
-  "quest.feywild.winter_pixie_05_start_title": "Destiny's child",
-  "quest.feywild.winter_pixie_05_start_description": "Reaper! \nSomething big happened. Your end is here...\nNow it's the time to put your destiny as the Reaper in motion.\n\n...Oh, you're confused? Fine, I'll explain... - The pixie takes a cold, deep breath. Holds -\n...Nope. Too much effort.\n\nOne of the $(#319DFC)Bellsnickels$() from the Court can get you up to speed.\nHere a list of what you need to call one forth...\n\nI need a rest.\n– Once more, the pixie falls asleep on your grave. –\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for a Bellsnickel.$() ",
+  "quest.feywild.winter_pixie_03_complete_description": "You collected them all? I am so... impressed. I guess I made this for nothing.\n– The pixie has made you a tombstone and dug a fresh grave. –\nIt does look comfortable... I envy you. It looks like a nice resting place.\n– The pixie momentarily considers taking a nap on your grave. –",
+
+  "quest.feywild.winter_pixie_04_start_title": "Fear the Reaper",
+  "quest.feywild.winter_pixie_04_start_description": "Your soul-collecting skills are impeccable... You have the makings of a great $(#319DFC)Reaper$().\n$(#319DFC)Reapers$() are $(#319DFC)Queen Mab$()'s greatest champions. To become one, you need more experience with death.\n– The pixie calls forth a Reaper's Scythe as she grins. –\n\n$(#60D8E6)Objective: Land the killing blow on 3 Wither Skeletons.$()",
+
+  "quest.feywild.winter_pixie_04_complete_title": "Reaping the Rewards",
+  "quest.feywild.winter_pixie_04_complete_description": "– The pixie nods approvingly. –\nThose wounds and that pale complexion make you look like a Reaper.\nToo bad your face doesn't match.\nWear this.\n– The pixie puts a mask on your head and nods approvingly. –\nWhy can't you always look like this? I can almost tolerate your existence now...",
+
+  "quest.feywild.winter_pixie_05_start_title": "Destiny's Child",
+  "quest.feywild.winter_pixie_05_start_description": "Reaper!\nSomething big has happened. Your end is here...\nNow is the time to put your destiny as a Reaper into motion.\n\n...Oh, you're confused? Fine, I'll explain... – The pixie takes a cold, deep breath. Holds it. –\n...Nope. Too much effort.\n\nOne of the $(#319DFC)Bellsnickels$() from the Court can get you up to speed.\nHere's a list of what you need to call one forth...\n\nI need a rest.\n– Once more, the pixie falls asleep on your grave. –\n\n$(#60D8E6)Objective: Summon a Bellsnickel.$()",
+
   "quest.feywild.winter_pixie_05_complete_title": "Miss Information",
-  "quest.feywild.winter_pixie_05_complete_description": "No! I don't want to converse with him...\nFine!\n–The pixie reluctantly  moves towards the $(#319DFC)Bellsnickel$()– \nHello Uncle...\n\nNo. I don't want an Antique Atlas...So Dusty...\nA Book on Dragon Mounts...that's an efficient way to meet an early demise...\nCreatures and Beasts? What separates one from another\n– You sigh and the pixie scrapes her throat –\nAnyway...",
+  "quest.feywild.winter_pixie_05_complete_description": "No! I don't want to converse with him...\nFine!\n– The pixie reluctantly moves towards the $(#319DFC)Bellsnickel$(). –\nHello, Uncle...\n\nNo. I don't want an Antique Atlas... So dusty...\nA Book on Dragon Mounts... that's an efficient way to meet an early demise...\nCreatures and Beasts? What separates one from the other?\n– You sigh, and the pixie clears her throat. –\nAnyway...",
+
   "quest.feywild.winter_pixie_06_start_title": "A New Mission",
-  "quest.feywild.winter_pixie_06_start_description": "I see.\nSo there was an assassination attempt on our Queen by the Summer Court.\n– The pixie ponders for a second – \n\nSeems like you're fulfilling your destiny after all... No, not by dying! That can wait! As a summoner!\n\nIf you could summon one of the $(#EFBF04)Summer Courts Bee Knights$() we could interrogate them. I'll get my supplies...\n– The pixie seems very happy -\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for a Bee Knight.$() ",
-  "quest.feywild.winter_pixie_06_complete_title": "Buzz feed",
-  "quest.feywild.winter_pixie_06_complete_description": "You can never trust a $(#EFBF04)summer$() fey. $(#EFBF04)Queen Titania$() has always looked for a reason to get rid of $(#319DFC)Queen Mab$() and claim $(#319DFC)Winters Crown$() for her own. We should inform $(#319DFC)Queen Mab$().",
-  "quest.feywild.winter_pixie_07_start_title": "Are you Pondering...?",
-  "quest.feywild.winter_pixie_07_start_description": "Are you pondering what I'm pondering mortal? \n– The pixie looks shocked –\nWhat? No!! That's even to morbid for me...\n\nI meant that we should summon a $(#319DFC)Winter Tree Ent$() to inform $(#319DFC)Queen Mab$().\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for a Winter Tree Ent.$()",
+  "quest.feywild.winter_pixie_06_start_description": "I see.\nSo there was an assassination attempt on our Queen by the Summer Court.\n– The pixie ponders for a second. –\n\nSeems like you're fulfilling your destiny after all... No, not by dying! That can wait! As a summoner!\n\nIf you could summon one of the $(#EFBF04)Summer Court's Bee Knights$(), we could interrogate them. I'll get my supplies...\n– The pixie seems very happy. –\n\n$(#60D8E6)Objective: Summon a Bee Knight.$()",
+
+  "quest.feywild.winter_pixie_06_complete_title": "Buzz Feed",
+  "quest.feywild.winter_pixie_06_complete_description": "– The part that followed was not suitable for our Minecraft audience. –\nSee... never trust a $(#EFBF04)Summer$() fey. $(#EFBF04)Queen Titania$() has always looked for a reason to get rid of $(#319DFC)Queen Mab$() and claim $(#319DFC)Winter's Crown$() for her own. We should inform $(#319DFC)Queen Mab$().",
+
+  "quest.feywild.winter_pixie_07_start_title": "Are You Pondering...?",
+  "quest.feywild.winter_pixie_07_start_description": "Are you pondering what I'm pondering, mortal?\n– The pixie looks shocked. –\nWhat? No!! That's even too morbid for me...\n\nI meant that we should summon a $(#319DFC)Winter Tree Ent$() to inform $(#319DFC)Queen Mab$().\n\n$(#60D8E6)Objective: Summon a Winter Tree Ent.$()",
+
   "quest.feywild.winter_pixie_07_complete_title": "A Comfy Resting Place",
-  "quest.feywild.winter_pixie_07_complete_description": "-After conversing for a very long time with the winter envoy –\n$(#319DFC)Queen Mab$() is willing to return your soul if you are willing to vow your life to the $(#319DFC)Winter Court$().\nFor the first time you notice a subtle hint of sadness in her eyes.\nShe pats you on het head – \nYou are a good person. Someone should tell you that sometimes.",
+  "quest.feywild.winter_pixie_07_complete_description": "– After conversing for a very long time with the Winter envoy... –\n$(#319DFC)Queen Mab$() is willing to return your soul if you are willing to vow your life to the $(#319DFC)Winter Court$().\nFor the first time, you notice a subtle hint of sadness in her eyes.\n– She pats you on the head. –\nYou are a good person. Someone should tell you that sometimes.",
+
   "quest.feywild.winter_pixie_08_start_title": "A Comfy Resting Place",
-  "quest.feywild.winter_pixie_08_start_description": "$(#319DFC)Queen Mab$() has decreed it's time to shift the balance of the $(#60D8E6)Fey Courts$().\nThe $(#319DFC)Winter Pixie$() is hesitant to tell you $(#319DFC)Queen Mab$()'s orders, Her next words are barely audible … –\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for Queen Titania.$() ",
+  "quest.feywild.winter_pixie_08_start_description": "$(#319DFC)Queen Mab$() has decreed that it's time to shift the balance of the $(#60D8E6)Fey Courts$().\nThe $(#319DFC)Winter Pixie$() is hesitant to tell you $(#319DFC)Queen Mab$()'s orders. Her next words are barely audible...\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for Queen Titania.$()",
+
   "quest.feywild.winter_pixie_08_complete_title": "Completed Collection",
-  "quest.feywild.winter_pixie_08_complete_description": "Well, that's the summoning scroll out of the way.....\n- The pixie rests on your head, her arms and legs dangling on the side. – \nYou are my final resting place, mortal. Let's go back to your comfortable grave... we might as well get used to it...",
+  "quest.feywild.winter_pixie_08_complete_description": "Well, that's the summoning scroll out of the way...\n– The pixie rests on your head, her arms and legs dangling over the sides. –\nYou are my final resting place, mortal. Let's go back to your comfortable grave... we might as well get used to it...",
+
   "quest.feywild.winter_pixie_09_start_title": "Your Destiny?",
-  "quest.feywild.winter_pixie_09_start_description": "Your destiny awaits: you will face $(#EFBF04)Queen Titania$() or your soul will be forever ours...\nBut do not worry, I'll be your friend either way... I've grown quite fond of you, mortal. \nReady to meet your demise? \nI'll be collecting your soul when it's time... See you on the other side...\n\n$(#60D8E6)Objective: Land the Killing blow on Queen Titania.$()",
+  "quest.feywild.winter_pixie_09_start_description": "Your destiny awaits: you will face $(#EFBF04)Queen Titania$(), or your soul will be forever ours...\nBut do not worry. I'll be your friend either way... I've grown quite fond of you, mortal.\nReady to meet your demise?\nI'll be collecting your soul when it's time... See you on the other side...\n\n$(#60D8E6)Objective: Land the killing blow on Queen Titania.$()",
+
   "quest.feywild.winter_pixie_09_complete_title": "The End?",
-  "quest.feywild.winter_pixie_09_complete_description": "Mortal, defeating $(#EFBF04)Queen Titania$() is a feat I never thought you were capable of. This is deserving of a great reward.\n\nThe pixie leans into your ear and whispers her name –\nNow we are equal, mortal.\n– She sprinkles some more grave dust... – ",
-  "quest.feywild.winter_pixie_10_start_title": "The end?",
-  "quest.feywild.winter_pixie_10_start_description": "I know I said we are equals so why are yous till here? We're friends? Such inconvenience...\nDon't expect me to carry your mortal body around forever.  I should stop calling you mortal? You want to be one of us? One of the fey?\n\nOk.\n\nThen you should obtain an elytra and with the magic of the Pixie Tiara we can get rid of your mortal coils.\n\n$(#60D8E6)Objective: Obtain a winter pixie wing tiara.$()",
-  "quest.feywild.winter_pixie_10_complete_title": "A new beginning",
-  "quest.feywild.winter_pixie_10_complete_description": "- The Pixie pats you on the head. -\nI told you you were a good being...\n- You return to $(#319DFC)Queen Mab$(); though uncertain of the consequences of this action, it is now in their hands – \nYour life and freedom are yours once more... But after your stay with the pixie, you've come to embrace the presence of death.\nYou accept the touch of the Fey, and leave your mortal life behind. \nYou fly to the $(#319DFC)Frozen Retreat$() with your friend as the $(#319DFC)Winter Court$()'s newest $(#319DFC)Soul Reaper$(). ",
+  "quest.feywild.winter_pixie_09_complete_description": "Mortal, defeating $(#EFBF04)Queen Titania$() is a feat I never thought you were capable of. This deserves a great reward.\n\n– The pixie leans close to your ear and whispers her name. –\nNow we are equal, mortal.\n– She sprinkles some more grave dust... –",
+
+  "quest.feywild.winter_pixie_10_start_title": "The End?",
+  "quest.feywild.winter_pixie_10_start_description": "I know I said we are equals, so why are you still here? We're friends? Such an inconvenience...\nDon't expect me to carry your mortal body around forever. I should stop calling you mortal? You want to be one of us? One of the Fey?\n\nOkay.\n\nThen you should obtain an elytra, and with the magic of the Pixie Tiara, we can rid you of your mortal coil.\n\n$(#60D8E6)Objective: Obtain a Winter Pixie Wing Tiara.$()",
+
+  "quest.feywild.winter_pixie_10_complete_title": "A New Beginning",
+  "quest.feywild.winter_pixie_10_complete_description": "– The pixie pats you on the head. –\nI told you that you were a good being...\n– You return to $(#319DFC)Queen Mab$(); though uncertain of the consequences of this action, it is now in her hands. –\nYour life and freedom are yours once more... But after your time with the pixie, you've come to embrace the presence of death.\nYou accept the touch of the Fey and leave your mortal life behind.\nYou fly to the $(#319DFC)Frozen Retreat$() with your friend as the $(#319DFC)Winter Court$()'s newest $(#319DFC)Soul Reaper$().",
+
   "quest.feywild.winter_pixie_11_start_title": "The End",
   "quest.feywild.winter_pixie_11_start_description": "$(#EFBF04)-End of the Winter Pixie Quest-$()\n\nThank you for playing Feywild!",
+
   "quest.feywild.winter_pixie_11_complete_title": "The End",
   "quest.feywild.winter_pixie_11_complete_description": "$(#EFBF04)-End of the Winter Pixie Quest-$()\n\nThank you for playing Feywild!",
 
+
   "quest.feywild.spring_pixie_root_start_title": "Welcome to the Spring Court",
-  "quest.feywild.spring_pixie_root_start_description": "$(#EFBF04)-The Spring Pixie Quest is coming soon!-$()\n\nThank you for playing Feywild!",
-  "quest.feywild.spring_pixie_01_start_title": "",
-  "quest.feywild.spring_pixie_01_start_description": "",
-  "quest.feywild.spring_pixie_01_complete_title": "",
-  "quest.feywild.spring_pixie_01_complete_description": "",
-  "quest.feywild.spring_pixie_02_start_title": "",
-  "quest.feywild.spring_pixie_02_start_description": "",
-  "quest.feywild.spring_pixie_02_complete_title": "",
-  "quest.feywild.spring_pixie_02_complete_description": "",
-  "quest.feywild.spring_pixie_03_start_title": "",
-  "quest.feywild.spring_pixie_03_start_description": "",
-  "quest.feywild.spring_pixie_03_complete_title": "",
-  "quest.feywild.spring_pixie_03_complete_description": "",
-  "quest.feywild.spring_pixie_04_start_title": "",
-  "quest.feywild.spring_pixie_04_start_description": "",
-  "quest.feywild.spring_pixie_04_complete_title": "",
-  "quest.feywild.spring_pixie_04_complete_description": "",
-  "quest.feywild.spring_pixie_05_start_title": "",
-  "quest.feywild.spring_pixie_05_start_description": "",
-  "quest.feywild.spring_pixie_05_complete_title": "",
-  "quest.feywild.spring_pixie_05_complete_description": "",
-  "quest.feywild.spring_pixie_06_start_title": "",
-  "quest.feywild.spring_pixie_06_start_description": "",
-  "quest.feywild.spring_pixie_06_complete_title": "",
-  "quest.feywild.spring_pixie_06_complete_description": "",
-  "quest.feywild.spring_pixie_07_start_title": "",
-  "quest.feywild.spring_pixie_07_start_description": "",
-  "quest.feywild.spring_pixie_07_complete_title": "",
-  "quest.feywild.spring_pixie_07_complete_description": "",
-  "quest.feywild.spring_pixie_08_start_title": "",
-  "quest.feywild.spring_pixie_08_start_description": "",
-  "quest.feywild.spring_pixie_08_complete_title": "",
-  "quest.feywild.spring_pixie_08_complete_description": "",
-  "quest.feywild.spring_pixie_09_start_title": "",
-  "quest.feywild.spring_pixie_09_start_description": "",
-  "quest.feywild.spring_pixie_09_complete_title": "",
-  "quest.feywild.spring_pixie_09_complete_description": "",
-  "quest.feywild.spring_pixie_10_start_title": "",
-  "quest.feywild.spring_pixie_10_start_description": "",
-  "quest.feywild.spring_pixie_10_complete_title": "",
-  "quest.feywild.spring_pixie_10_complete_description": "",
+  "quest.feywild.spring_pixie_root_start_description": "Where am I? Who are you? Are you tasty? Let's go on an adventure!\nYou wanna play? ...I'm hungry!\nWhat's your name?",
+
+  "quest.feywild.spring_pixie_01_start_title": "Let's Go on an Adventure!",
+  "quest.feywild.spring_pixie_01_start_description": "I can't believe I found an adventurer! We're going to be the bestest of bestest friends!\nNow I can go on an adventure too! Explore the world, taste new colors, meet weird creatures, try out new kinds of food!\nOh – the food! I can't wait!\n\nWhat is that? A cloud? No, wait – cotton candy!\n\nI wanna touch it! Lemme touch it!\n\n$(#60D8E6)Objective: Pet a sheep (with an empty hand) together with your pixie.$()",
+
+  "quest.feywild.spring_pixie_01_complete_title": "It's So Fluffy!",
+  "quest.feywild.spring_pixie_01_complete_description": "...It doesn't taste very sweet. Oh – it's a sheep? It's so fluffy!\nOh, and look! It has so many friends!\n\n– The pixie points upwards as the sheep nervously bleats. –",
+
+  "quest.feywild.spring_pixie_02_start_title": "A Pinch of Pixie Dust!",
+  "quest.feywild.spring_pixie_02_start_description": "It must be lonely without its friends all the way up in the sky! Wait – it can't fly!?\nBut flying is the best thing there is! Let's find a way to $(#60D8E6)make it fly$()! Oh! I know – let's use some $(#60D8E6)fey dust$() on it!\n\n– The pixie puffs out her chest. – I'm so smart, ehehee!\n\n$(#60D8E6)Objective: Apply Fey Dust to a Sheep 3 times.$()",
+
+  "quest.feywild.spring_pixie_02_complete_title": "Stick the Landing!",
+  "quest.feywild.spring_pixie_02_complete_description": "You made it fly! It must've been so happy!\n...Maybe we should've taught it how to land; it's broken now...\nLuckily, I captured the spirits of all the sheep you brutally murdered before they were taken by the $(#319DFC)Winter Court$()!\n\nNow we can play with our fluffy friends from the sky whenever we want!",
+
+  "quest.feywild.spring_pixie_03_start_title": "Dandelion Race",
+  "quest.feywild.spring_pixie_03_start_description": "Let's have a race to see who can pop the dandelion fluff the fastest!\nI used to play that all the time with my pixie friends of the $(#86DB67)Spring Court$()!\nThe flowers here are so small, so let's combine the little dandelions with fey dust to make bigger ones!\n\nAnd then we play the game!\nAnd... and... oh!\nAaaand the loser has to play with the other all night long!\nReady? Go!\n\n$(#60D8E6)Objective: Pop the fluffy part of a Giant Dandelion 3 times.$()",
+
+  "quest.feywild.spring_pixie_03_complete_title": "Best Time Ever",
+  "quest.feywild.spring_pixie_03_complete_description": "Hey, no fair! – Huff, puff... – You cheated! Hmph!\n\nNow I win by default, so you've got to play with me some more!\n\n– You lose track of time as you play with the pixie all through the night. ...Was it just one night? Or two? Or more...? –",
+
+  "quest.feywild.spring_pixie_04_start_title": "An Offering to Prince Oberon",
+  "quest.feywild.spring_pixie_04_start_description": "You want to know more about the different Courts? Well, you chose the best Court, because we're by far the most fun!\nNothing like those arrogant Fey of the $(#EFBF04)Summer Court$() who think they rule the Feywild! And the $(#319DFC)Winter Court$() is just scary... – The little pixie shivers. –\n\nWhich reminds me: now that you belong to the $(#86DB67)Spring Court$(), we should make an offering to $(#86DB67)Prince Oberon$()!\nMaybe you can bake some of those delicious human-made cakes and bring two of them to me? ...The ones made with sugar, of course – not humans, duh!\n\n$(#60D8E6)Objective: Gift 2 Cakes to your pixie.$()",
+
+  "quest.feywild.spring_pixie_04_complete_title": "An Offering to Me!",
+  "quest.feywild.spring_pixie_04_complete_description": "What's that smell? What are you making? The cakes for Prince Oberon?!\nNo-no-no, this treasure is mine...! Let's eat it quickly before Prince Oberon finds out!\n\n– The tiny pixie plunges her face into the cake! –\n\nPhew – I'm stuffed! I think I might explode! Huff, puff... Got any more?",
+
+  "quest.feywild.spring_pixie_05_start_title": "Sprouting a New Friendship",
+  "quest.feywild.spring_pixie_05_start_description": "I can't believe you ate both cakes! Now we don't have an offering for Prince Oberon...\n\nWell, Oberon loves music, so maybe we can get someone to sing for him. And I know the bestest singer!\n\nCan you summon a $(#86DB67)mandragora$() for me? They have the nicest voices!\n\n$(#60D8E6)Objective: Summon a Mandragora.$()",
+
+  "quest.feywild.spring_pixie_05_complete_title": "A New Destiny Blossoms?",
+  "quest.feywild.spring_pixie_05_complete_description": "Wow, she sounds amazing! You're the best! – The little pixie hugs you. – Thanks for being my friend!\n\n– As you listen to the gentle lullaby of the mandragora, you feel something tugging at you. Destiny? Purpose? Somehow, it feels like a reminder of who you once knew you were meant to be... But why go back? This is so much fun! –\n\n– The melody is undercut by a now-familiar voice. –\n\n...Who was this offering for again?",
+
+  "quest.feywild.spring_pixie_06_start_title": "Pretty Fly for a Fungi",
+  "quest.feywild.spring_pixie_06_start_description": "The $(#CE2803)Autumn Court$() can be really fun too! You can fly through all the coloured leaves! Play in the rain! Play tag with $(#CE2803)shroomlings$()! Oh – and they have delicious mushroom stew... – Gasp! – We should summon one!\n\n$(#60D8E6)Objective: Summon a Shroomling for fun! (Not for stew.)$()",
+
+  "quest.feywild.spring_pixie_06_complete_title": "Eternal Falls",
+  "quest.feywild.spring_pixie_06_complete_description": "– You enjoy your time with the pixie and the Shroomling. It feels like days of chasing them have gone by – dancing in the rain and running through leaves. –\n– As you're about to lose track of time and everything that was once important, you remember that all good things must come to an end. –\n\n– The pixie notices the change in your outlook. –\n\nAre you getting bored? Maybe it's time we move on. But why...? Aren't you having fun?$(#AF67DB)Don't you want to keep playing with me?$()",
+
+  "quest.feywild.spring_pixie_07_start_title": "It Doesn't Have to Be a—",
+  "quest.feywild.spring_pixie_07_start_description": "Did something happen while we were out playing? The Courts are getting restless; let's find out what's going on!\n\n– The little pixie flutters off without you... and comes back after a short while in a panic. –\nOh no – something terrible has happened! $(#EFBF04)Queen Titania$() has been assassinated! Oberon must be devastated...\nOh well; none of our business anyway, right?\n\n...Ehehehee, stop being so serious! – You're hit by a tiny snowball. – Who cares about all of that right now? Do you want to build a—\n\n$(#60D8E6)Objective: Hit the pixie with a snowball before she can finish that sentence.$()",
+
+  "quest.feywild.spring_pixie_07_complete_title": "Okay, Bye...",
+  "quest.feywild.spring_pixie_07_complete_description": "– The pixie eats a mouthful of fluffy snow as you hit her right in the face. –\nWell, fine! What do you want to do...?!\n\n– The pixie starts rattling off all kinds of pixie games, each one wilder than the last. As she talks, you start to get that feeling that you might have lost track of time again... –\n\n...W-what? If I keep playing, an $(#AF67DB)Enderman$() will come get me? That's not funny – hmph!",
+
+  "quest.feywild.spring_pixie_08_start_title": "Grumpy Tree Friends",
+  "quest.feywild.spring_pixie_08_start_description": "Prince Oberon must be very upset; we should go comfort him and bring him some kind of gift!\n\nWell, you ate the cakes, and I forgot what that other thing we tried was, so this one's gotta do the trick! Hmm...\n\nOh, I know: we could get some of the delicious golden honey from the Summer Court!\nBut bee careful, hehe – with those Bee Knights patrolling the area! Don't wanna get stung, after all!\n\nI know the greatest guardian who can protect us from the bees: $(#86DB67)Mr. Grumpy Tree$()! Let's go summon him.\n\n$(#60D8E6)Objective: Summon a Spring Tree Ent.$()",
+
+  "quest.feywild.spring_pixie_08_complete_title": "Shouldn't Have Eaten That Cake",
+  "quest.feywild.spring_pixie_08_complete_description": "– You summon the “Great Protector, Mr. Grumpy Tree,” who is apparently a $(#86DB67)Herald of Prince Oberon$(). –\n– You feel the air shift as his roots touch the ground and the leaves blow in the wind; his voice booms like a tree trunk crashing onto a bed of rocks. –\n\n“My little pixie friend...\n“What have you done?\n“You've been playing to no end, so now reckoning has come.\n“You've kept our hero busy with games,\n“And you've no way left to shirk Prince Oberon's blame.\n“You'd best appease him before it's too late;\n“Perhaps some freshly baked cakes will his appetite sate?”\n\n– The pixie whispers: – I told you, you shouldn't have eaten those cakes...",
+
+  "quest.feywild.spring_pixie_09_start_title": "Too Lazy to Walk",
+  "quest.feywild.spring_pixie_09_start_description": "Ughh, I don't wanna go all the way to the $(#86DB67)Blossoming Wealds$() to meet Prince Oberon...!\n\nAlso, apparently $(#E882D3)the developer$() is slacking off and hasn't made it yet? Whatever that means.\n\nYou're a summoner – summon Prince Oberon! It saves time, and then we can play some more!\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for Prince Oberon.$()",
+
+  "quest.feywild.spring_pixie_09_complete_title": "Prince Doodle-ron",
+  "quest.feywild.spring_pixie_09_complete_description": "Oooh, maybe Prince Oberon would like to play with us? He can be It first!\n\n– The pixie grabs the scroll from your hand and draws a doodle on it: you, her, and an odd-looking deer guy playing a game of tag. –",
+
+  "quest.feywild.spring_pixie_10_start_title": "Tag, You're It",
+  "quest.feywild.spring_pixie_10_start_description": "– It's clear that Prince Oberon is furious from the moment you summon him. –\n\nOberon! Do you want to play tag with us!?\n\n– The Prince reaches for his spear, making his intent known. Yes, perhaps Oberon IS going to play a game with you... but you somehow doubt that this is the sort of game you're meant to survive. –\n\n$(#60D8E6)Objective: Land the killing blow on Prince Oberon.$()",
+
+  "quest.feywild.spring_pixie_10_complete_title": "Tag, You're Him",
+  "quest.feywild.spring_pixie_10_complete_description": "Why was he so upset with us? We were just minding our own business and even tried to offer him some kind of present!\n\nI still can't believe we defeated a Sovereign, though. – The pixie giggles. – What're you gonna do with the Tiara?\n\n...Oooh, can we play King and Queen now? I'll be the King, and you'll be the Queen!",
+
+  "quest.feywild.spring_pixie_11_start_title": "The End",
+  "quest.feywild.spring_pixie_11_start_description": "I had so much fun with you, adventurer! Did you have fun with me too?\nI'm so happy! I could play with you forever!\n\nI want to fly around with you, dash through leaves, eat stew, annoy bees, and even take another snowball to the face!\n\nOh, I know what to do with that tiara now! You could use it to make a set of Fey Wings and join me! You'll just need a little bit of pixie magic.\n\n$(#60D8E6)Objective: Obtain the Spring Pixie Tiara.$()",
+
+  "quest.feywild.spring_pixie_11_complete_title": "And a New Beginning",
+  "quest.feywild.spring_pixie_11_complete_description": "– You and your pixie friend return home after your adventures, having created and put on the Fey Wings so you can join her in flight. You become drowsy as you settle into bed. –\n\n– What did she mean when she said that...? You think nothing of it and fall asleep. –\n\n– Then the little pixie comes to whisper something into your ear. Her name... no mortal should ever hear her name! You feel your worries melting away as you finally embrace the touch of the Fey... a gift from your friend. \n Having become one of the Fey, the last breath leaves your former body as you join their Realm, where you can play forever in the Blossoming Wealds. –\n\n– You had the best time ever! –",
+
+  "quest.feywild.spring_pixie_12_start_title": "The End",
+  "quest.feywild.spring_pixie_12_start_description": "$(#EFBF04)-End of the Spring Pixie Quest-$()\n\nThank you for playing Feywild!",
+
+  "quest.feywild.spring_pixie_12_complete_title": "The End",
+  "quest.feywild.spring_pixie_12_complete_description": "$(#EFBF04)-End of the Spring Pixie Quest-$()\n\nThank you for playing Feywild!",
+
 
   "quest.feywild.autumn_pixie_root_start_title": "Welcome to the Autumn Court",
-  "quest.feywild.autumn_pixie_root_start_description": "$(#EFBF04)-The Autumn Pixie Quest is coming soon!-$()\n\nThank you for playing Feywild!",
-  "quest.feywild.autumn_pixie_01_start_title": "",
-  "quest.feywild.autumn_pixie_01_start_description": "",
-  "quest.feywild.autumn_pixie_01_complete_title": "",
-  "quest.feywild.autumn_pixie_01_complete_description": "",
-  "quest.feywild.autumn_pixie_02_start_title": "",
-  "quest.feywild.autumn_pixie_02_start_description": "",
-  "quest.feywild.autumn_pixie_02_complete_title": "",
-  "quest.feywild.autumn_pixie_02_complete_description": "",
-  "quest.feywild.autumn_pixie_03_start_title": "",
-  "quest.feywild.autumn_pixie_03_start_description": "",
-  "quest.feywild.autumn_pixie_03_complete_title": "",
-  "quest.feywild.autumn_pixie_03_complete_description": "",
-  "quest.feywild.autumn_pixie_04_start_title": "",
-  "quest.feywild.autumn_pixie_04_start_description": "",
-  "quest.feywild.autumn_pixie_04_complete_title": "",
-  "quest.feywild.autumn_pixie_04_complete_description": "",
-  "quest.feywild.autumn_pixie_05_start_title": "",
-  "quest.feywild.autumn_pixie_05_start_description": "",
-  "quest.feywild.autumn_pixie_05_complete_title": "",
-  "quest.feywild.autumn_pixie_05_complete_description": "",
-  "quest.feywild.autumn_pixie_06_start_title": "",
-  "quest.feywild.autumn_pixie_06_start_description": "",
-  "quest.feywild.autumn_pixie_06_complete_title": "",
-  "quest.feywild.autumn_pixie_06_complete_description": "",
-  "quest.feywild.autumn_pixie_07_start_title": "",
-  "quest.feywild.autumn_pixie_07_start_description": "",
-  "quest.feywild.autumn_pixie_07_complete_title": "",
-  "quest.feywild.autumn_pixie_07_complete_description": "",
-  "quest.feywild.autumn_pixie_08_start_title": "",
-  "quest.feywild.autumn_pixie_08_start_description": "",
-  "quest.feywild.autumn_pixie_08_complete_title": "",
-  "quest.feywild.autumn_pixie_08_complete_description": "",
-  "quest.feywild.autumn_pixie_09_start_title": "",
-  "quest.feywild.autumn_pixie_09_start_description": "",
-  "quest.feywild.autumn_pixie_09_complete_title": "",
-  "quest.feywild.autumn_pixie_09_complete_description": "",
-  "quest.feywild.autumn_pixie_10_start_title": "",
-  "quest.feywild.autumn_pixie_10_start_description": "",
-  "quest.feywild.autumn_pixie_10_complete_title": "",
-  "quest.feywild.autumn_pixie_10_complete_description": ""
+  "quest.feywild.autumn_pixie_root_start_description": "Darling, what took you so long! I've been waiting for a fine specimen just like you. Would you care to tell me your name?",
 
+  "quest.feywild.autumn_pixie_01_start_title": "Adventuring Days",
+  "quest.feywild.autumn_pixie_01_start_description": "Oh my – an adventurer? – The pixie looks you over from top to bottom as though she is peering into your soul. –\n\nI see... Well, you won't need that $(#CE2803)sword$() while I'm around – except maybe as a cooking knife. Why don't you let me $(#60D8E6)hold on$() to it for you?\n\n– The pixie holds out her hands; somehow, you feel the urge to surrender your sword to her and settle into her warm embrace. –\nAww, don't worry; I'll protect you from now on!\n\n$(#60D8E6)Objective: Gift your pixie a sword.$()",
+
+  "quest.feywild.autumn_pixie_01_complete_title": "An Arrow to the Knee",
+  "quest.feywild.autumn_pixie_01_complete_description": "Thank you, darling! You are so adorable; no need to be nervous!\nI think I'll feel right at home with you.\nAs they say: 'Home is where the heart is!' – The pixie winks at you. –\n\nJust relax; let's make this a nice and comfy place to live in together!",
+
+  "quest.feywild.autumn_pixie_02_start_title": "Home Sweet Home",
+  "quest.feywild.autumn_pixie_02_start_description": "Every home needs good home-cooked meals!\nSo – let's make some preparations, shall we? Can't receive guests if you can't prepare a proper meal, after all!\n\nFirst, we'll need to craft a $(#CE2803)Smoker$(); wouldn't you agree, darling?\n\n$(#60D8E6)Objective: Craft a Smoker.$()",
+
+  "quest.feywild.autumn_pixie_02_complete_title": "First Meal",
+  "quest.feywild.autumn_pixie_02_complete_description": "Wonderful – and you got that so fast! A good cook is defined by their tools, you know!\n\nGoodness, we're all prepared! Maybe I can get you one of those cute aprons to wear.\nLet me cook our first meal, sweetie. You rest; you've been working so hard!",
+
+  "quest.feywild.autumn_pixie_03_start_title": "A Loyal Friend",
+  "quest.feywild.autumn_pixie_03_start_description": "Isn't our home coming along nicely?\nThough I wish you wouldn't go on your adventures alone; if you bring me along, I will always be beside you.\n\nBut our home also needs a cute pet. How about a $(#CE2803)dog$()? They are very loyal creatures, you know!\n\n$(#60D8E6)Objective: Tame a Wolf.$()",
+
+  "quest.feywild.autumn_pixie_03_complete_title": "Adorable!",
+  "quest.feywild.autumn_pixie_03_complete_description": "Aww, it's adorable!\nHey, dog! You'd better keep my darling safe!\nMaybe we can make them a small doggie pen? I'll leave the decorations to you.",
+
+  "quest.feywild.autumn_pixie_04_start_title": "What's in a Name?",
+  "quest.feywild.autumn_pixie_04_start_description": "Poor dog; they seem famished!\nYou should take good care of 'Dog', or the $(#319DFC)Winter Court$() will claim them.\nI think this one likes cooked beef.\n\nDog! Doggie! Come here!\nDarling, I made you some food! ...Aww, look – they like it!\n\n...We can't keep calling them 'Dog'. They need a proper name! ...Oh, don't worry; you'll never know their real name, so it's fine.\n\n$(#60D8E6)Objective: Give your dog a name.$()",
+
+  "quest.feywild.autumn_pixie_04_complete_title": "A Dog by Any Other Name",
+  "quest.feywild.autumn_pixie_04_complete_description": "That's a lovely name!\n\nWould you like to know my name too? I can be anything you like, darling.\nWhere I'm from, knowing someone's $(#AF67DB)name$() is like having power over that being.\n\nOh, you already gave me your name? – The pixie gives you a knowing smile. –",
+
+  "quest.feywild.autumn_pixie_05_start_title": "The Smell of Home",
+  "quest.feywild.autumn_pixie_05_start_description": "How are you today, darling?\nDo you want to do something for me, to help make me feel more at home?\nAren't you the sweetest? Let me think... No, all I need is right here!\n\nThat being said, I do miss the smell of fresh mushrooms running around in autumn leaves.\nAh – yes, darling! Where I'm from, the mushrooms run around and are quite friendly. Would you like to meet one?\n\nWe could make use of your summoning skills. Just this once, though... we wouldn't want you to get those adventuring urges again!\n\n$(#60D8E6)Objective: Summon a Shroomling.$()",
+
+  "quest.feywild.autumn_pixie_05_complete_title": "The Feywild",
+  "quest.feywild.autumn_pixie_05_complete_description": "Oh wow, I quite like this one! He is just the right amount of spicy.\n...Oh, don't be jealous; you will always be my favorite!\n\nIt feels almost like my home: $(#CE2803)the Eternal Falls$(). That is the home of the $(#CE2803)Autumn Court$(), yes. Each season has its own Court!\n\nAre you curious about why the seasons change here? Well, it's because the Fey fight for dominion over the Feywild.",
+
+  "quest.feywild.autumn_pixie_06_start_title": "The Seasonal Courts",
+  "quest.feywild.autumn_pixie_06_start_description": "Would you like to know more about the Seasonal Courts?\n\n$(#CE2803)Our Court$() isn't concerned with the power struggles of the others. We care more about having a good home and preparing for when winter comes.\nWe also give those close to death a peaceful passing and some good memories to bring with them into the cold slumber of Winter.\nUnlike the other Fey Courts, the throne of the Autumn Court is vacant, though we do have a sovereign of sorts: $(#CE2803)The Ashen Lord$(), eldest of the $(#86DB67)Tree Ents$(). We honor him, as no Autumn Fey is foolish enough to take on the mantle of the Autumn Ruler!\n\n...Come to think of it, I still need to deliver an offering of dyes to the Ashen Lord – to help colour the tree leaves, of course!\nCan you help me with this, darling? We'll start by meeting with a mandragora.\n\n$(#60D8E6)Objective: Summon a Mandragora.$()",
+
+  "quest.feywild.autumn_pixie_06_complete_title": "Homeland",
+  "quest.feywild.autumn_pixie_06_complete_description": "Do you hear that? The wonderful singing just fills the silence that was there before. Her singing can even make beautiful flowers grow!\n\nDarling, let's gather some of those flowers. We can use them to make dye and bring some color to our home. It could be the start of our very own garden!\n\nMm, what a lovely idea! I'll get a vase.",
+
+  "quest.feywild.autumn_pixie_07_start_title": "Darkness Descends",
+  "quest.feywild.autumn_pixie_07_start_description": "Odd. The mandragora's flowers are not as vibrant as they used to be. Perhaps something is going on in the $(#86DB67)Spring Court$()? And why is it snowing on a sunny day...?\n\nSomething must be... amiss with the flow of the seasons.\n– The moment you attempt to gear up to find out what's going on, you find yourself suddenly stopping in your tracks. –\n\nNo, darling! Why are you falling back into your old habits again? Let's just stay here... together...\n\n– The pixie is turning pale and sick; her eyes dart around the room in a panic. –\n\nOh no... I don't feel so well, darling...\n\n$(#60D8E6)Objective: Gift the pixie a Potion of Healing.$()",
+
+  "quest.feywild.autumn_pixie_07_complete_title": "The Beginning",
+  "quest.feywild.autumn_pixie_07_complete_description": "You went on an adventure again... for me...\nI guessed as much... Can't stop those adventurer's impulses, can I? – The pixie laughs sadly. –\n\nI, uhm... Let's just say that I stole you away from both the $(#EFBF04)Summer$() and $(#319DFC)Winter Courts$().\n\nEach would have claimed you as their own and sent you to your inevitable demise. I might not be able to stop you from going on your quest, but at least I can give you some nice memories... a good home and good company...",
+
+  "quest.feywild.autumn_pixie_08_start_title": "Destiny",
+  "quest.feywild.autumn_pixie_08_start_description": "I can hear a voice whispering in the wind that blows through the autumn leaves; I'm not the only Fey falling ill right now.\n\n– The potion you gave her before seems to have eased the pixie's symptoms for a little while, but she's growing sick again. She coughs and, wiping her mouth with a small handkerchief, looks down at the black ichor that now stains it, dread in her eyes. –\n\nThis... this isn't how things were supposed to go.\n\nYour destiny was in my hands before; now it's up to you to decide how you want to shape it...\n\n...Let's summon one of the $(#CE2803)Tree Ents$(). Maybe they can tell us what is happening.\n\n$(#60D8E6)Objective: Summon an Autumn Tree Ent.$()",
+
+  "quest.feywild.autumn_pixie_08_complete_title": "As You Will See?",
+  "quest.feywild.autumn_pixie_08_complete_description": "$(#CE2803)Autumn$() is the season of change; much like $(#86DB67)Spring$() embraces beginnings, Autumn welcomes endings. We make sure everybody has a good time and is well prepared for when $(#319DFC)Winter$() comes.\n\nThe end may be scary, darling, and that's why most mortals fear us Autumn Fey. But as you will see... there is beauty near the end.\n\n...Now. – The pixie takes a deep breath. – Let's talk to the ancient one and see what he can tell us.",
+
+  "quest.feywild.autumn_pixie_09_start_title": "A Hard Choice",
+  "quest.feywild.autumn_pixie_09_start_description": "Darling... $(#CE2803)The Ambassador of the Oaks$() tells me the struggles of the Courts are entering their twilight.\n\n$(#AF67DB)The Crown of the Feywild$() has fallen upon the Ashen Lord, which can only mean that something must have befallen the other Courts' Sovereigns...!\n\nWas I wrong...? Was I wrong to prevent you from reaching your destiny and becoming the hero you were meant to be...? – The pixie panics at the thought before sighing in resignation. –\n\nThe Ashen Lord needs you, Hero! Can I rely on your skills despite everything I did...?\n\n$(#60D8E6)Objective: Obtain a Summoning Scroll for the Ashen Lord.$()",
+
+  "quest.feywild.autumn_pixie_09_complete_title": "Cause and Effect",
+  "quest.feywild.autumn_pixie_09_complete_description": "...This scroll is dripping with $(#AF67DB)dark magic$().\nI don't recognize this, but I can sense the danger emanating from it.\n\nI wonder if the Ashen Lord has succumbed to this... ailment as well.",
+
+  "quest.feywild.autumn_pixie_10_start_title": "Avoiding Destiny",
+  "quest.feywild.autumn_pixie_10_start_description": "I don't want to lose you, darling. Can't we just stay at home...? Our dog's waiting for us...\n\nMaybe things will turn out differently after all...\n\n– The pixie coughs once more, and more of that black ichor drips from her mouth. –\n\nO-oh, don't worry about me, darling... nothing a little rest and care won't solve.\n\nPlease...\n\n– The pixie weakly settles into your arms and faints; her fate is now in your hands. –\n\n$(#60D8E6)Objective: Land the killing blow on the Ashen Lord.$()",
+
+  "quest.feywild.autumn_pixie_10_complete_title": "Let's Go Home",
+  "quest.feywild.autumn_pixie_10_complete_description": "You did it! You did it...\n– The pixie embraces you in a warm hug. She's morose, but recovering. –\n\nSome kind of curse must have taken hold of the Ashen Lord.\nI heard him speaking to me in my dream... He told me about the corruption and about a voice he heard.\nWhat a sad end to a sad story... I hope he finds peace in his next iteration.\n\n– You hold out the Tiara you retrieved; she shakes her head and gently pushes it away. –\n...No, darling – I won't take it. I have no desire for such power.\n\nLet's go home one last time? Please...",
+
+  "quest.feywild.autumn_pixie_11_start_title": "A Final Choice",
+  "quest.feywild.autumn_pixie_11_start_description": "– You return to the magic of your home and live your life with your dog and pixie companion. –\n\n– At some point in the future, after your current adventures have come to a close and you have long forgotten about this specific heroic deed, you stumble across the Pixie Tiara as you sift through your old belongings. –\n\n– As you glance over the Tiara, still in near-mint condition despite its age, the Autumn Pixie appears beside you and lays a hand on your shoulder. –\n\nYour mortal life is nearing the end of its span, darling. Soon, the Reapers of the Winter Court will come. But there is a way to stay with me forever, as a Fey.\n\nThe choice is yours...\n\n$(#60D8E6)Objective: Obtain the Autumn Pixie Tiara.$()",
+
+  "quest.feywild.autumn_pixie_11_complete_title": "The End",
+  "quest.feywild.autumn_pixie_11_complete_description": "– That night, a Reaper of the Winter Court came... But they arrived too late. –\n\n– The Autumn Pixie has embraced you with the touch of the Fey. You accept the sensation – warm and comforting... your last breath leaves your mortal body. –\n\n– A small tear falls from her eye as she whispers a name in your ear. –\nI am forever yours, darling.\n\n– You become one of the Fey and leave your adventurous life behind; it was full of good memories. –\n– 'Don't worry,' she says softly, 'your canine friend will be there too; after all, they tried to protect you... loyal till the end!' –",
+
+  "quest.feywild.autumn_pixie_12_start_title": "The End",
+  "quest.feywild.autumn_pixie_12_start_description": "$(#EFBF04)-End of the Autumn Pixie Quest-$()\n\nThank you for playing Feywild!",
+
+  "quest.feywild.autumn_pixie_12_complete_title": "The End",
+  "quest.feywild.autumn_pixie_12_complete_description": "$(#EFBF04)-End of the Autumn Pixie Quest-$()\n\nThank you for playing Feywild!"
 }

@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.ModConfig;
 import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.entity.BeeKnightEntity;
@@ -75,7 +76,7 @@ public class FeyMenuScreen extends Screen {
                 //FOURTH BUTTON
                 if(entity instanceof BeeMountEntity){
                     this.addRenderableWidget(new BeeKnightScreenButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2), this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this.entityId));
-                } else if (ModList.get().isLoaded("quest_giver") && entity instanceof PixieBase pixie){
+                } else if (ModCompat.QUEST_GIVER_LOADED && entity instanceof PixieBase pixie){
                     this.addRenderableWidget(new QuestButton(left + EntityWidget.WIDTH + 25 + ((FeyMenuWidget.WIDTH - BeeKnightScreenButton.WIDTH)/2),this.top + 28 + BeeKnightScreenButton.HEIGHT * 4, this, pixie.getQuestLineId(), pixie.getBackground(), false, this.entityId));
                 }
                 //VOLUME BUTTON

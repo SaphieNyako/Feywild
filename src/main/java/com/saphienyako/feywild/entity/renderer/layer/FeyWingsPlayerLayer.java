@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity.renderer.layer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.FeyWingsEntity;
 import com.saphienyako.feywild.entity.ModEntities;
@@ -55,7 +56,7 @@ public class FeyWingsPlayerLayer<T extends Player, M extends PlayerModel<T>> ext
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T player, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
 
-        ItemStack stack = player.getOffhandItem();
+        ItemStack stack = ModCompat.findWingTiara(player);
 
 
         if (!(stack.getItem() instanceof PixieWingTiaraItem wingItem)) {

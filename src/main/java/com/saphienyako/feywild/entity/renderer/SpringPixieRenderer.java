@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpringPixieRenderer extends MobRenderer<SpringPixieEntity, SpringPixieModel<SpringPixieEntity>> {
 
+    private static final float MODEL_SCALE = 0.65F;
     public SpringPixieRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new SpringPixieModel<>(pContext.bakeLayer(ModModelLayers.SPRING_PIXIE_LAYER)),  0.50f);
     }
@@ -26,4 +27,10 @@ public class SpringPixieRenderer extends MobRenderer<SpringPixieEntity, SpringPi
     public @NotNull ResourceLocation getTextureLocation(@NotNull SpringPixieEntity springPixieEntity) {
         return new ResourceLocation(Feywild.MOD_ID, "textures/entity/spring_pixie.png");
     }
+
+    @Override
+    protected void scale(SpringPixieEntity entity, PoseStack poseStack, float partialTick) {
+        poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+    }
+
 }

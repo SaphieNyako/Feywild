@@ -101,7 +101,7 @@ public record OpenQuestMessage(String questLineId, String backgroundName, boolea
                     this.questLineId(),
                     this.backgroundName(),
                     shouldDismiss,
-                    2
+                    1.5
             );
         });
 

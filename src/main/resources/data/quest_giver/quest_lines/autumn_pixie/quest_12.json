@@ -1,0 +1,30 @@
+{
+  "parent": "quest_giver:quest_11",
+  "repeatable": true,
+  "icon": "feywild:autumn_pixie_wing_tiara",
+  "start": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_12_start_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_12_start_description"
+    }
+  },
+  "tasks": [
+    {
+      "amount": 1,
+      "id": "quest_giver:item_stack",
+      "item": {
+        "item": "minecraft:structure_void"
+      }
+    }
+  ],
+  "complete": {
+    "title": {
+      "translate": "quest.feywild.autumn_pixie_12_complete_title"
+    },
+    "description": {
+      "translate": "quest.feywild.autumn_pixie_12_complete_description"
+    }
+  }
+}
