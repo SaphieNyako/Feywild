@@ -410,6 +410,37 @@
   "message.feywild.summer_tree_ent_dismiss": "[Tree Ent] Seasons go by so quickly... Will we meet again?",
   "message.feywild.winter_tree_ent_dismiss": "[Tree Ent] Seasons go by so quickly... Will we meet again?",
 
+
+  "message.feywild.titania_summer": "Queen Titania taunts the player.",
+  "message.feywild.titania_blossom": "Queen Titania taunts the player.",
+  "message.feywild.titania_winter": "Queen Titania taunts the player.",
+  "message.feywild.titania_hexen": "Queen Titania taunts the player.",
+  "message.feywild.titania_spring": "Queen Titania taunts the player.",
+  "message.feywild.titania_autumn": "Queen Titania taunts the player.",
+  "message.feywild.titania_summon": "Queen Titania is summoning a sprite.",
+  "message.feywild.titania_death": "Queen Titania is dying.",
+
+  "message.feywild.mab_attack": "Queen Mab Attacks.",
+  "message.feywild.mab_hurt": "Queen Mab is Hurt.",
+  "message.feywild.mab_summon": "Queen Mab summons a Vex.",
+  "message.feywild.mab_intimidate": "Queen Mab is intimidating the Player.",
+  "message.feywild.mab_death": "Queen Mab is dying.",
+  "message.feywild.mab_ambiance": "Queen Mab taunts the Player.",
+
+  "message.feywild.oberon_hurt": "Oberon is Hurt.",
+  "message.feywild.oberon_charging": "Oberon is on a Rampage!",
+  "message.feywild.oberon_ambiance": "Oberon is praising himself.",
+  "message.feywild.oberon_rearing": "Oberon is Rearing!",
+  "message.feywild.oberon_kicking": "Oberon kicks is Hooves!",
+  "message.feywild.oberon_death": "Oberon is dying.",
+  "message.feywild.oberon_summon": "Oberon is summoned.",
+
+  "message.feywild.ashen_lord_channel_02": "The Ashen Lord is casting a spell.",
+  "message.feywild.ashen_lord_channel_01": "The Ashen Lord is casting a spell.",
+  "message.feywild.ashen_lord_attack": "The Ashen Lord is preparing an attack.",
+  "message.feywild.ashen_lord_death": "The Ashen Lord is dying.",
+  "message.feywild.ashen_lord_hurt": "The Ashen Lord is Hurt.",
+
   "sounds.feywild.mandrake_scream": "Mandrake screams.",
   "sounds.feywild.pixie_spell_casting": "Pixie is casting a spell.",
   "sounds.feywild.pixie_spell_casting_short": "Pixie is casting a spell.",
