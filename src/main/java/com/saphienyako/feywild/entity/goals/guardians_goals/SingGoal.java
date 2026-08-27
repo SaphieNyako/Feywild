@@ -51,7 +51,7 @@ public class SingGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.01f;
+            return this.level.random.nextFloat() < 0.005f;
         } else {
             return false;
         }

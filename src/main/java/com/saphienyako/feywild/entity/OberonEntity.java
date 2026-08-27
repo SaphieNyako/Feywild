@@ -26,7 +26,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -74,13 +76,13 @@ public class OberonEntity extends BossBase implements GroundEntity {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.registerGroundGoals(this);
         this.goalSelector.addGoal(30, new LookAtPlayerGoal(this, Player.class, 8f));
         this.goalSelector.addGoal(2, new OberonKickingGoal(this));
         this.goalSelector.addGoal(3, new OberonRearingGoal(this));
         this.goalSelector.addGoal(4, new OberonChargingGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 64, true, false, null));
-
+        this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.5f, 32));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
     }
 
     public void tick() {
