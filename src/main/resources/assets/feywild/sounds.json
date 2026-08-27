@@ -1046,7 +1046,7 @@
       "attenuation_distance": 128
     },
     {
-      "name": "feywild:oberon_summon_2",
+      "name": "feywild:oberon_summon_02",
       "attenuation_distance": 128
     }
   ]
@@ -1074,7 +1074,7 @@
       "attenuation_distance": 128
     },
     {
-      "name": "feywild:oberon_kicking_2",
+      "name": "feywild:oberon_kicking_02",
       "attenuation_distance": 128
     }
   ]
@@ -1086,7 +1086,7 @@
       "attenuation_distance": 128
     },
     {
-      "name": "feywild:oberon_charging_2",
+      "name": "feywild:oberon_charging_02",
       "attenuation_distance": 128
     }
   ]
