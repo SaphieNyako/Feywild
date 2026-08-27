@@ -182,7 +182,7 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.20.1-84-FORGE")
 
-    implementation fg.deobf("curse.maven:quest-giver-618562:8699300")
+    implementation fg.deobf("curse.maven:quest-giver-618562:8745077")
 
     // Curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")

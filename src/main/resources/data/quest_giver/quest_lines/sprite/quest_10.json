@@ -12,11 +12,11 @@
   },
   "tasks": [
     {
-      "id": "quest_giver:gift",
+      "amount": 1,
+      "id": "quest_giver:item_stack",
       "item": {
-        "item": "feywild:pixie_orb"
-      },
-      "entity": "feywild:sprite"
+        "item": "minecraft:structure_void"
+      }
     }
   ],
   "complete": {
