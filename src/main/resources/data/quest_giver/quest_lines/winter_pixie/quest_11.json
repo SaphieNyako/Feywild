@@ -16,7 +16,8 @@
       "id": "quest_giver:item_stack",
       "item": {
         "item": "minecraft:structure_void"
-      }
+      },
+      "entity": "feywild:winter_pixie"
     }
   ],
   "complete": {
