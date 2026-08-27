@@ -13,7 +13,7 @@
     {
       "id": "quest_giver:gift",
       "item": {
-        "tag": "minecraft:swords"
+        "item": "minecraft:diamond_sword"
       },
       "entity": "feywild:autumn_pixie"
     }

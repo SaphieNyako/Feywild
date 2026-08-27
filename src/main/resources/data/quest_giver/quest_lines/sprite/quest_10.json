@@ -9,16 +9,15 @@
     "description": {
       "translate": "quest.feywild.sprite_quest_10_start_description"
     }
-  },
-  "tasks": [
-    {
-      "id": "quest_giver:gift",
-      "item": {
-        "item": "feywild:pixie_orb"
-      },
-      "entity": "feywild:sprite"
+  },"tasks": [
+  {
+    "amount": 1,
+    "id": "quest_giver:item_stack",
+    "item": {
+      "item": "minecraft:structure_void"
     }
-  ],
+  }
+],
   "complete": {
     "title": {
       "translate": "quest.feywild.sprite_quest_10_complete_title"

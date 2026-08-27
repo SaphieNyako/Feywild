@@ -149,7 +149,7 @@ dependencies {
     })
 
     //Quest Giver
-    implementation "curse.maven:quest-giver-618562:8699309"
+    implementation "curse.maven:quest-giver-618562:8745084"
 
     // Curios
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
