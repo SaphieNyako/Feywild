@@ -3,6 +3,7 @@ package com.saphienyako.feywild.entity;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -46,8 +47,6 @@ public class MooShroomCowEntity extends MushroomCow {
     private List<MobEffectInstance> stewEffects;
     public MooShroomCowEntity(EntityType<? extends MushroomCow> entityType, Level level) {
         super(entityType, level);
-        this.entityData.set(MOO_SHROOM_VARIANT, MooShroomCowVariant.BLUE.ordinal());
-
     }
 
     public static boolean canSpawn(EntityType<? extends MushroomCow> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
@@ -62,7 +61,29 @@ public class MooShroomCowEntity extends MushroomCow {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(MOO_SHROOM_VARIANT, MooShroomCowVariant.BLUE.ordinal()); //TODO check if id() works in 1.21.1
+        this.entityData.define(MOO_SHROOM_VARIANT, MooShroomCowVariant.BLUE.ordinal());
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+
+        tag.putString("MooShroomVariant", this.getMooShroomVariant().name());
+    }
+
+    @Override
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+
+        if (tag.contains("MooShroomVariant")) {
+            try {
+                this.setMooShroomVariant(
+                        MooShroomCowVariant.valueOf(tag.getString("MooShroomVariant"))
+                );
+            } catch (IllegalArgumentException ignored) {
+                this.setMooShroomVariant(MooShroomCowVariant.BLUE);
+            }
+        }
     }
 
     @Override
