@@ -27,6 +27,7 @@ import com.saphienyako.feywild.screen.BellsnickelScreen;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import com.saphienyako.feywild.worldgen.ModBiomeModifierSerializers;
 import com.saphienyako.feywild.worldgen.features.ModFeatures;
 import com.saphienyako.feywild.worldgen.processor.FeywildProcessors;
 import net.minecraft.client.Minecraft;
@@ -77,6 +78,7 @@ public class Feywild
         ModBlockEntities.register(modEventBus);
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModBiomeModifierSerializers.register(modEventBus);
 
         ModFeatures.FEATURES.register(modEventBus);
         FeywildProcessors.PROCESSORS.register(modEventBus);
