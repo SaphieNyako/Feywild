@@ -1,5 +1,5 @@
 {
-  "type": "forge:add_spawns",
+  "type": "feywild:feywild_spawn",
   "biomes": [
     "minecraft:meadow",
     "minecraft:sunflower_plains",
@@ -7,12 +7,5 @@
     "minecraft:savanna",
     "minecraft:savanna_plateau"
   ],
-  "spawners": [
-    {
-      "type": "feywild:bee_mount",
-      "weight": 2,
-      "minCount": 1,
-      "maxCount": 1
-    }
-  ]
+  "entity": "feywild:bee_mount"
 }

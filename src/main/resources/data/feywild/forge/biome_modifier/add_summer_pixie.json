@@ -1,0 +1,10 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:desert",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:badlands"
+  ],
+  "entity": "feywild:summer_pixie"
+}

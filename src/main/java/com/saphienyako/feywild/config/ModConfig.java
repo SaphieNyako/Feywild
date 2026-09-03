@@ -36,6 +36,16 @@ public class ModConfig {
         public final ForgeConfigSpec.IntValue treeEntSpawnWorld;
         public final ForgeConfigSpec.BooleanValue treeEntAttackPlayers;
 
+        public final ForgeConfigSpec.IntValue autumnPixieSpawnWeight;
+        public final ForgeConfigSpec.IntValue springPixieSpawnWeight;
+        public final ForgeConfigSpec.IntValue summerPixieSpawnWeight;
+        public final ForgeConfigSpec.IntValue winterPixieSpawnWeight;
+
+        public final ForgeConfigSpec.IntValue mandragoraSpawnWeight;
+        public final ForgeConfigSpec.IntValue beeKnightSpawnWeight;
+        public final ForgeConfigSpec.IntValue bellsnickelSpawnWeight;
+        public final ForgeConfigSpec.IntValue shroomlingSpawnWeight;
+
         public Common(ForgeConfigSpec.Builder builder) {
 
             builder.comment("Feywild General Config").push("feywild");
@@ -68,6 +78,38 @@ public class ModConfig {
             treeEntAttackPlayers = builder
                     .comment("Whether Tree Ents should attack players")
                     .define("tree_ent_attack_players", true);
+
+            autumnPixieSpawnWeight = builder
+                    .comment("Spawn weight of Autumn Pixies. Set to 0 to disable natural spawning.")
+                    .defineInRange("autumn_pixie_spawn_weight", 2, 0, 1000);
+
+            springPixieSpawnWeight = builder
+                    .comment("Spawn weight of Spring Pixies. Set to 0 to disable natural spawning.")
+                    .defineInRange("spring_pixie_spawn_weight", 2, 0, 1000);
+
+            summerPixieSpawnWeight = builder
+                    .comment("Spawn weight of Summer Pixies. Set to 0 to disable natural spawning.")
+                    .defineInRange("summer_pixie_spawn_weight", 2, 0, 1000);
+
+            winterPixieSpawnWeight = builder
+                    .comment("Spawn weight of Winter Pixies. Set to 0 to disable natural spawning.")
+                    .defineInRange("winter_pixie_spawn_weight", 2, 0, 1000);
+
+            mandragoraSpawnWeight = builder
+                    .comment("Spawn weight of Mandragoras. Set to 0 to disable natural spawning.")
+                    .defineInRange("mandragora_spawn_weight", 3, 0, 1000);
+
+            beeKnightSpawnWeight = builder
+                    .comment("Spawn weight of Bee Knights. Set to 0 to disable natural spawning.")
+                    .defineInRange("bee_knight_spawn_weight", 3, 0, 1000);
+
+            bellsnickelSpawnWeight = builder
+                    .comment("Spawn weight of Bellsnickels. Set to 0 to disable natural spawning.")
+                    .defineInRange("bellsnickel_spawn_weight", 5, 0, 1000);
+
+            shroomlingSpawnWeight = builder
+                    .comment("Spawn weight of Shroomlings. Set to 0 to disable natural spawning.")
+                    .defineInRange("shroomling_spawn_weight", 5, 0, 1000);
 
             builder.pop();
         }

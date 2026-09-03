@@ -25,6 +25,7 @@ import com.saphienyako.feywild.screen.BellsnickelScreen;
 import com.saphienyako.feywild.screen.FeyAltarScreen;
 import com.saphienyako.feywild.screen.ModMenuTypes;
 import com.saphienyako.feywild.sound.ModSounds;
+import com.saphienyako.feywild.worldgen.ModBiomeModifierSerializers;
 import com.saphienyako.feywild.worldgen.ModConfiguredFeatures;
 import com.saphienyako.feywild.worldgen.ModPlacedFeatures;
 import com.saphienyako.feywild.worldgen.features.ModFeatures;
@@ -100,6 +101,7 @@ public class Feywild
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModBiomeModifierSerializers.register(modEventBus);
 
         //Needs register
         ModConfiguredFeatures.register(modEventBus);

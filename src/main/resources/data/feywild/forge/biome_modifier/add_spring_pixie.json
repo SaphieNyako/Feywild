@@ -1,0 +1,9 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:plains",
+    "minecraft:meadow",
+    "minecraft:sunflower_plains"
+  ],
+  "entity": "feywild:spring_pixie"
+}

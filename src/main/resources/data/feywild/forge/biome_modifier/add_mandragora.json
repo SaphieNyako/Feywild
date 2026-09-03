@@ -1,0 +1,9 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:meadow",
+    "minecraft:flower_forest",
+    "minecraft:sunflower_plains"
+  ],
+  "entity": "feywild:mandragora"
+}

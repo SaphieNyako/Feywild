@@ -1,0 +1,11 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:flower_forest",
+    "minecraft:taiga"
+  ],
+  "entity": "feywild:autumn_pixie"
+}

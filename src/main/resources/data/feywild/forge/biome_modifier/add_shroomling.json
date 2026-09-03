@@ -1,0 +1,9 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:mushroom_fields",
+    "minecraft:dark_forest",
+    "minecraft:forest"
+  ],
+  "entity": "feywild:shroomling"
+}
