@@ -1,5 +1,5 @@
 {
-  "type": "forge:add_spawns",
+  "type": "feywild:feywild_spawn",
   "biomes": [
     "minecraft:forest",
     "minecraft:birch_forest",
@@ -8,12 +8,5 @@
     "minecraft:old_growth_pine_taiga",
     "minecraft:flower_forest"
   ],
-  "spawners": [
-    {
-      "type": "feywild:autumn_pixie",
-      "maxCount": 1,
-      "minCount": 1,
-      "weight": 1
-    }
-  ]
+  "entity": "feywild:autumn_pixie"
 }

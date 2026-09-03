@@ -1,0 +1,10 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:ice_spikes",
+    "minecraft:snowy_taiga",
+    "minecraft:snowy_slopes",
+    "minecraft:snowy_plains"
+  ],
+  "entity": "feywild:bellsnickel"
+}
