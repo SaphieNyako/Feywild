@@ -239,7 +239,7 @@ public class Feywild
         }
 
         @SubscribeEvent
-        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+        public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerBlockEntityRenderer(ModBlockEntities.FEY_ALTAR_BLOCK_ENTITY.get(), FeyAltarBlockRenderer::new);
             event.registerEntityRenderer(ModEntities.SPRING_PIXIE.get(), SpringPixieRenderer::new);
             event.registerEntityRenderer(ModEntities.SUMMER_PIXIE.get(), SummerPixieRenderer::new);
