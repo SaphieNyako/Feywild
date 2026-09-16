@@ -1,0 +1,20 @@
+{
+  "owners": [
+    "feywild:autumn_pixie"
+  ],
+  "animation": "air",
+  "width_increment": 0.24,
+  "height_increment": 0.24,
+  "light_level": 9,
+  "allowed_in":{
+    "cage": {
+      "allow": true,
+      "only_baby": false
+    },
+    "jar": {
+      "allow":true,
+      "only_baby": false
+    }
+  },
+  "tick_mode": "none"
+}
