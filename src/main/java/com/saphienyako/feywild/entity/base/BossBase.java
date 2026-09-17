@@ -5,6 +5,7 @@ import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.FeywildNetwork;
 import com.saphienyako.feywild.network.ParticleMessage;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -177,6 +180,9 @@ public abstract class BossBase extends PathfinderMob {
         this.setNoAi(true);
         this.setInvulnerable(true);
         this.setDeltaMovement(Vec3.ZERO);
+        if (this.level().isClientSide()) {
+            stopSoundOnDeath();
+        }
     }
 
     private void tickDeathSequence() {
@@ -372,6 +378,28 @@ public abstract class BossBase extends PathfinderMob {
 
         if (sound != null) {
             this.playSound(sound, 0.6F, this.getVoicePitch());
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void stopAmbientSound() {
+        SoundEvent ambientSound = this.getAmbientSound();
+
+        if (ambientSound != null) {
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .stop(ambientSound.getLocation(), this.getSoundSource());
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void stopSoundOnDeath() {
+        SoundEvent ambientSound = this.getAmbientSound();
+
+        if (ambientSound != null) {
+            Minecraft.getInstance()
+                    .getSoundManager()
+                    .stop(ambientSound.getLocation(), this.getSoundSource());
         }
     }
 

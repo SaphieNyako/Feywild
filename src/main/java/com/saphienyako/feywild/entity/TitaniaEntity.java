@@ -8,6 +8,7 @@ import com.saphienyako.feywild.entity.goals.titania.TitaniaPanicGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
@@ -158,6 +159,39 @@ public class TitaniaEntity extends FlyingBossBase {
     @Override
     protected SoundEvent getDeathSound() {
         return ModSounds.TITANIA_DEATH.get();
+    }
+
+    @Override
+    public void stopSoundOnDeath() {
+        super.stopSoundOnDeath();
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_SUMMON.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_BLOSSOM.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_HEXEN.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_SPRING.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_SUMMER.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_AUTUMN.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.TITANIA_WINTER.get().getLocation(), this.getSoundSource());
+
     }
 
     public State getState() {
