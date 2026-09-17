@@ -977,11 +977,6 @@
     "subtitle": "message.feywild.oberon_hurt",
     "sounds": [
       {
-        "name": "feywild:oberon_hurt_01",
-        "attenuation_distance": 128,
-        "weight": 1
-      },
-      {
         "name": "feywild:oberon_hurt_02",
         "attenuation_distance": 128,
         "weight": 10
@@ -995,11 +990,6 @@
         "name": "feywild:oberon_hurt_04",
         "attenuation_distance": 128,
         "weight": 10
-      },
-      {
-        "name": "feywild:oberon_hurt_05",
-        "attenuation_distance": 128,
-        "weight": 1
       }
     ]
   },"oberon_death": {
@@ -1035,6 +1025,14 @@
     },
     {
       "name": "feywild:oberon_ambiance_05",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_hurt_01",
+      "attenuation_distance": 128
+    },
+    {
+      "name": "feywild:oberon_hurt_05",
       "attenuation_distance": 128
     }
   ]
