@@ -1028,13 +1028,11 @@
     },
     {
       "name": "feywild:oberon_hurt_01",
-      "attenuation_distance": 128,
-      "weight": 1
+      "attenuation_distance": 128
     },
     {
       "name": "feywild:oberon_hurt_05",
-      "attenuation_distance": 128,
-      "weight": 1
+      "attenuation_distance": 128
     }
   ]
 },"oberon_summon": {
