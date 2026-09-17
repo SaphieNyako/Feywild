@@ -53,7 +53,7 @@ public class AshenLordRetaliationGoal extends Goal {
 
             entity.playSound(
                     ModSounds.ASHEN_LORD_CHANNEL_01.get(),
-                    1.0F,
+                    2F,
                     1.0F
             );
 
@@ -63,7 +63,7 @@ public class AshenLordRetaliationGoal extends Goal {
 
             entity.playSound(
                     ModSounds.ASHEN_LORD_CHANNEL_02.get(),
-                    1.0F,
+                    2F,
                     1.0F
             );
 
@@ -73,7 +73,7 @@ public class AshenLordRetaliationGoal extends Goal {
 
             entity.playSound(
                     ModSounds.ASHEN_LORD_ATTACK.get(),
-                    1.0F,
+                    2F,
                     1.0F
             );
 

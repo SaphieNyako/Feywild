@@ -210,7 +210,7 @@ public class SpringLeafWhirlwindGoal extends Goal {
                 whirlwindCenter.z,
                 SoundEvents.BREEZE_WIND_CHARGE_BURST,
                 SoundSource.HOSTILE,
-                1.0F,
+                0.8F,
                 1.0F
         );
     }

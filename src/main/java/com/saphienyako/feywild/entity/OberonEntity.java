@@ -8,6 +8,7 @@ import com.saphienyako.feywild.entity.goals.oberon.OberonRearingGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
@@ -172,17 +173,34 @@ public class OberonEntity extends BossBase implements GroundEntity {
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
+        if (this.isDeadOrDying()) {
+            return null;
+        }
+
         if (this.tickCount < 20 * 5) {
             return null;
         }
+        State state = this.getState();
+
+        if (state != State.IDLE && state != State.WALKING) {
+            return null;
+        }
+
         return ModSounds.OBERON_AMBIANCE.get();
     }
 
     @Override
-    public int getAmbientSoundInterval() {
-        return 200;
-    }
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
 
+        if (STATE.equals(key) && this.level().isClientSide()) {
+            State state = this.getState();
+
+            if (state != State.IDLE && state != State.WALKING) {
+                this.stopAmbientSound();
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -194,6 +212,22 @@ public class OberonEntity extends BossBase implements GroundEntity {
     @Override
     protected SoundEvent getDeathSound() {
         return ModSounds.OBERON_DEATH.get();
+    }
+
+    @Override
+    public void stopSoundOnDeath() {
+        super.stopSoundOnDeath();
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.OBERON_REARING.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.OBERON_CHARGING.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.OBERON_KICKING.get().getLocation(), this.getSoundSource());
     }
 
     @Override

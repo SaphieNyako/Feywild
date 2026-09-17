@@ -172,7 +172,7 @@ public class AutumnLeafShieldGoal extends Goal {
                     player.getZ(),
                     SoundEvents.AZALEA_LEAVES_BREAK,
                     SoundSource.HOSTILE,
-                    1.0F, 1.0F);
+                    0.8F, 1.0F);
             player.push(direction.x * 0.8D, 0.15D, direction.z * 0.8D);
 
             player.hurtMarked = true;
@@ -218,7 +218,7 @@ public class AutumnLeafShieldGoal extends Goal {
                 arrow.setBaseDamage(arrow.getBaseDamage() * SHIELD_DAMAGE);
             }
 
-            projectile.playSound(SoundEvents.AZALEA_LEAVES_BREAK, 1.0F, 1.0F);
+            projectile.playSound(SoundEvents.AZALEA_LEAVES_BREAK, 0.8F, 1.0F);
         }
     }
 

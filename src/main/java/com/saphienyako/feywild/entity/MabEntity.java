@@ -8,6 +8,7 @@ import com.saphienyako.feywild.entity.goals.mab.SummonVexGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
@@ -166,13 +167,32 @@ public class MabEntity extends FlyingBossBase {
 
             FLYING_ANIMATION.stop();
         }
+    }
 
-        //CHANNEL_ANIMATION.stop();
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+
+        if (STATE.equals(key) && this.level().isClientSide()) {
+            State state = this.getState();
+
+            if (state == State.CHANNEL || state == State.INTIMIDATION || state == State.ATTACKING) {
+                this.stopAmbientSound();
+            }
+        }
     }
 
 
     @Override
     protected SoundEvent getAmbientSound() {
+        if (this.isDeadOrDying()) {
+            return null;
+        }
+
+        if (this.getState() == State.CHANNEL || this.getState() == State.ATTACKING ||this.getState() == State.INTIMIDATION) {
+            return null;
+        }
+
         return ModSounds.MAB_AMBIANCE.get();
     }
 
@@ -186,6 +206,23 @@ public class MabEntity extends FlyingBossBase {
     protected SoundEvent getDeathSound() {
         return ModSounds.MAB_DEATH.get();
     }
+
+    @Override
+    public void stopSoundOnDeath() {
+        super.stopSoundOnDeath();
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.MAB_INTIMIDATE.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.MAB_ATTACK.get().getLocation(), this.getSoundSource());
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .stop(ModSounds.MAB_SUMMON.get().getLocation(), this.getSoundSource());
+    }
+
 
     public MabEntity.State getState() {
         MabEntity.State[] states = MabEntity.State.values();

@@ -199,7 +199,7 @@ public class WinterHurlLeavesGoal extends Goal {
             serverLevel.addFreshEntity(leaf);
         }
 
-        entity.playSound(SoundEvents.AZALEA_LEAVES_BREAK, 1.0F, 1.0F);
+        entity.playSound(SoundEvents.AZALEA_LEAVES_BREAK, 0.8F, 1.0F);
     }
 
     private Vec3 createOutwardDirection(double angle) {
