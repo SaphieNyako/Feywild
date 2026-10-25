@@ -213,7 +213,19 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SUMMER_TREE_PLANKS_DOOR.get())
                 .add(ModBlocks.WINTER_TREE_PLANKS_DOOR.get());
 
+        tag(BlockTags.WOODEN_DOORS)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_DOOR.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_DOOR.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_DOOR.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_DOOR.get());
+
         tag(BlockTags.TRAPDOORS)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_TRAPDOOR.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_TRAPDOOR.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_TRAPDOOR.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_TRAPDOOR.get());
+
+        tag(BlockTags.WOODEN_TRAPDOORS)
                 .add(ModBlocks.AUTUMN_TREE_PLANKS_TRAPDOOR.get())
                 .add(ModBlocks.SUMMER_TREE_PLANKS_TRAPDOOR.get())
                 .add(ModBlocks.SPRING_TREE_PLANKS_TRAPDOOR.get())
@@ -243,7 +255,19 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get())
                 .add(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get());
 
+        tag(BlockTags.WOODEN_BUTTONS)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_BUTTON.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_BUTTON.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_BUTTON.get());
+
         tag(BlockTags.PRESSURE_PLATES)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE.get());
+
+        tag(BlockTags.WOODEN_PRESSURE_PLATES)
                 .add(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE.get())
                 .add(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE.get())
                 .add(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE.get())
@@ -254,6 +278,13 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SPRING_TREE_PLANKS_FENCE.get())
                 .add(ModBlocks.SUMMER_TREE_PLANKS_FENCE.get())
                 .add(ModBlocks.WINTER_TREE_PLANKS_FENCE.get());
+
+        tag(BlockTags.WOODEN_FENCES)
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_FENCE.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_FENCE.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_FENCE.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_FENCE.get());
+
 
         tag(BlockTags.WALLS)
                 .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL.get())
@@ -283,5 +314,48 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.SUMMER_TREE_LEAVES_YELLOW.get())
                 .add(ModBlocks.WINTER_TREE_LEAVES_BLUE.get())
                 .add(ModBlocks.WINTER_TREE_LEAVES_LIGHT_BLUE.get());
+
+        tag(BlockTags.WOODEN_SLABS)
+                .add(ModBlocks.AUTUMN_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get())
+                .add(ModBlocks.SPRING_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get())
+                .add(ModBlocks.SUMMER_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get())
+                .add(ModBlocks.WINTER_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get());
+
+        tag(BlockTags.SLABS)
+                .add(ModBlocks.AUTUMN_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB.get())
+                .add(ModBlocks.SPRING_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB.get())
+                .add(ModBlocks.SUMMER_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB.get())
+                .add(ModBlocks.WINTER_TREE_WOOD_SLAB.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_SLAB.get())
+                .add(ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB.get());
+
+        tag(BlockTags.WOODEN_STAIRS)
+                .add(ModBlocks.AUTUMN_TREE_WOOD_STAIRS.get())
+                .add(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS.get())
+                .add(ModBlocks.AUTUMN_TREE_PLANKS_STAIRS.get())
+                .add(ModBlocks.SPRING_TREE_WOOD_STAIRS.get())
+                .add(ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS.get())
+                .add(ModBlocks.SPRING_TREE_PLANKS_STAIRS.get())
+                .add(ModBlocks.SUMMER_TREE_WOOD_STAIRS.get())
+                .add(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS.get())
+                .add(ModBlocks.SUMMER_TREE_PLANKS_STAIRS.get())
+                .add(ModBlocks.WINTER_TREE_WOOD_STAIRS.get())
+                .add(ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS.get())
+                .add(ModBlocks.WINTER_TREE_PLANKS_STAIRS.get());
+
     }
 }

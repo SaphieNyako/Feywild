@@ -1,6 +1,6 @@
 {
-  "description": "这些仙灵会呈现出某一季节的面貌，每个都是其季节之庭的代表。",
+  "description": "feywild_lexicon.category.pixies.description",
   "icon": "feywild:summoning_scroll_spring_pixie",
-  "name": "精灵",
+  "name": "feywild_lexicon.category.pixies.name",
   "sortnum": 3
 }

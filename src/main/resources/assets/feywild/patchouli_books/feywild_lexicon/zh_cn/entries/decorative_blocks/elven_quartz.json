@@ -1,13 +1,13 @@
 {
   "category": "feywild:decorative_blocks",
   "icon": "feywild:elven_quartz_block",
-  "name": "仙灵石英",
+  "name": "feywild_lexicon.entry.decorative_blocks.elven_quartz",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:elven_quartz_block",
       "link_recipe": true,
-      "text": "仙灵石英的配方曾经只为矮人所知。但自从他们揭竿而起之后，他们便与所有人分享了他们的秘密。每种季节都有对应的颜色。"
+      "text": "feywild_lexicon.entry.decorative_blocks.elven_quartz.page0.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -28,7 +28,7 @@
     {
       "type": "patchouli:crafting",
       "recipe": "feywild:elven_quartz_stairs",
-      "recipe2": "feywild:spring_elven_quartz_slabs",
+      "recipe2": "feywild:spring_elven_quartz_slab",
       "title": "仙灵石英"
     },
     {

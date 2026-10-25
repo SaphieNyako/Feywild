@@ -1,12 +1,12 @@
 {
   "category": "feywild:decorative_blocks",
   "icon": "feywild:winter_tree_log",
-  "name": "四季之树",
+  "name": "feywild_lexicon.entry.decorative_blocks.seasonal_trees",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "feywild:spring_tree_sapling",
-      "text": "被仙灵魔法触及的树木可以长成带有季节色彩的树。树苗可以通过合成获得，也可以从仙灵树叶中找到。"
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page0.text0"
     },
     {
       "type": "feywild:spring_tree_sapling",
@@ -27,7 +27,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:autumn_tree_log",
-      "text": "从外面看，它们可能和其他树没什么两样，但一旦剥去树皮，就能看到色彩斑斓的内里。"
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page1.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -44,7 +44,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:autumn_tree_stripped_log",
-      "text": "从外面看，它们可能和其他树没什么两样，但一旦剥去树皮，就能看到色彩斑斓的内里。"
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page2.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -61,7 +61,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:spring_tree_planks",
-      "text": "仙灵木提供了一系列色彩缤纷的木板品种。"
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page3.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -108,7 +108,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "feywild:summer_tree_leaves_orange",
-      "text": "季节之树的叶子色彩丰富。用剪刀采集可以保留其形态。自然腐烂的叶子会掉落树苗，并有小概率掉落仙灵尘。"
+      "text": "feywild_lexicon.entry.decorative_blocks.seasonal_trees.page4.text0"
     }
   ]
 }

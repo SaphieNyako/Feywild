@@ -1,0 +1,34 @@
+{
+  "category": "feywild:decorative_blocks",
+  "icon": "feywild:giant_dandelion_flower_seed",
+  "name": "feywild_lexicon.entry.decorative_blocks.giant_flowers",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_dandelion_flower_seed",
+      "text": "feywild_lexicon.entry.decorative_blocks.giant_flowers.page0.text0"
+    },
+    {
+      "type": "feywild:dandelion",
+      "recipe": "feywild:giant_dandelion_flower_seed"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_crocus_flower_seed",
+      "text": "feywild_lexicon.entry.decorative_blocks.giant_flowers.page1.text0"
+    },
+    {
+      "type": "feywild:crocus",
+      "recipe": "feywild:giant_crocus_flower_seed"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:giant_sun_flower_seed",
+      "text": "feywild_lexicon.entry.decorative_blocks.giant_flowers.page2.text0"
+    },
+    {
+      "type": "feywild:sun_flower",
+      "recipe": "feywild:giant_sun_flower_seed"
+    }
+  ]
+}

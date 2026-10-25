@@ -533,14 +533,14 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     protected SoundEvent getAmbientSound() {
         if(this.isVehicle() && this.getControllingPassenger() instanceof Player) {
             Random random = new Random();
-                return STORIES[random.nextInt(STORIES.length)]; //TODO make goal if vehicle tell a story and tell it on player side.
+                return STORIES[random.nextInt(STORIES.length)];
         } else
             return ModSounds.TREE_ENT_AMBIANCE.get();
     }
 
     @Override
     public int getAmbientSoundInterval() {
-        return 600; //YES THIS IS A THING T_T
+        return 600;
     }
 
     public abstract MobEffect getEffect();
