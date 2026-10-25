@@ -3,20 +3,27 @@ package com.saphienyako.feywild.events;
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.effect.ModEffects;
+import com.saphienyako.feywild.entity.SpringPixieEntity;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.item.PixieWingTiaraItem;
 import com.saphienyako.feywild.sound.ModSounds;
+import com.saphienyako.quest_giver.quest.data.QuestData;
+import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
@@ -123,4 +130,12 @@ public class ModEventListener {
             player.addEffect(new MobEffectInstance(ModEffects.FEY_FLYING, 220, 0, false, false, true));
         }
     }
+
+    @SubscribeEvent
+    public void onProjectileImpact(ProjectileImpactEvent event) {
+        if (event.getProjectile() instanceof Snowball snowball && event.getRayTraceResult() instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof SpringPixieEntity && snowball.getOwner() instanceof ServerPlayer player) {
+            QuestData.get(player).checkComplete(SpecialTask.INSTANCE, "hit_spring_pixie_with_snowball");
+        }
+    }
+
 }

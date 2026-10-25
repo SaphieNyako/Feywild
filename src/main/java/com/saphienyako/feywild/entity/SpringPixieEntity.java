@@ -122,7 +122,8 @@ public class SpringPixieEntity extends PixieBase {
             return ModSounds.SPRING_PIXIE_GIGGLE.get();
         } else return null;
     }
-
+   /*
+   //Bug on server or modpack? maybe hurt is not registered or a mod overwrites the impact??
     @Override
     public boolean hurt(@NotNull DamageSource source, float amount) {
 
@@ -135,5 +136,5 @@ public class SpringPixieEntity extends PixieBase {
         }
 
         return hurt;
-    }
+    } */
 }
