@@ -1,6 +1,6 @@
 {
-  "description": "曼德拉与其不太迷人的亲戚——曼德拉草不同，以它那舒缓动听的歌声而闻名。它们天性害羞，却有着非常善良、饱受滋养的心灵。",
+  "description": "feywild_lexicon.category.mandragora.description",
   "icon": "feywild:summoning_scroll_mandragora",
-  "name": "曼德拉",
+  "name": "feywild_lexicon.category.mandragora.name",
   "sortnum": 4
 }

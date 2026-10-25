@@ -1,13 +1,13 @@
 {
   "category": "feywild:mandragora",
   "icon": "minecraft:torchflower",
-  "name": "曼德拉变种",
+  "name": "feywild_lexicon.entry.mandragora.variants.name",
   "pages": [
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:dandelion",
       "title": "变种",
-      "text": "用特定的花朵右击曼德拉，会改变它的外观。她的歌声现在会催生那种类型的花朵。遣散她也会移除已设置的变种。"
+      "text": "feywild_lexicon.entry.mandragora.variants.page1.text0"
     }
   ]
 }

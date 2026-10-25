@@ -1,0 +1,82 @@
+{
+  "category": "feywild:pixie_wings",
+  "icon": "feywild:pixie_wing_tiara",
+  "name": "feywild_lexicon.category.pixie_wings.name",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:pixie_wing_tiara",
+      "text": "feywild_lexicon.entry.pixie_wings.pixie_wings.page1.text0"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "feywild:titania"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/autumn_pixie_wings.png"
+      ],
+      "title": "秋之翼"
+    },
+    {
+      "type": "feywild:autumn_pixie_wing_tiara",
+      "recipe": "feywild:autumn_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/spring_pixie_wings.png"
+      ],
+      "title": "春之翼"
+    },
+    {
+      "type": "feywild:spring_pixie_wing_tiara",
+      "recipe": "feywild:spring_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/summer_pixie_wings.png"
+      ],
+      "title": "夏之翼"
+    },
+    {
+      "type": "feywild:summer_pixie_wing_tiara",
+      "recipe": "feywild:summer_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/winter_pixie_wings.png"
+      ],
+      "title": "冬之翼"
+    },
+    {
+      "type": "feywild:winter_pixie_wing_tiara",
+      "recipe": "feywild:winter_pixie_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/light_wings.png"
+      ],
+      "title": "光明之翼"
+    },
+    {
+      "type": "feywild:light_wing_tiara",
+      "recipe": "feywild:light_wing_tiara"
+    },
+    {
+      "type": "patchouli:image",
+      "images": [
+        "feywild:textures/patchouli_images/shadow_wings.png"
+      ],
+      "title": "暗影之翼"
+    },
+    {
+      "type": "feywild:shadow_wing_tiara",
+      "recipe": "feywild:shadow_wing_tiara"
+    }
+  ]
+}

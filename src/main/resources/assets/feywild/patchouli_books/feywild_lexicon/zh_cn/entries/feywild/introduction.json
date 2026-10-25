@@ -1,11 +1,11 @@
 {
   "category": "feywild:feywild",
   "icon": "minecraft:writable_book",
-  "name": "引言",
+  "name": "feywild_lexicon.entry.feywild.introduction",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "你是否曾在一夜好眠后发现鞋带被系在了一起？或者茶里的糖突然变成了盐？你是否曾在穿越森林时发誓眼角的余光看到了什么，或是听到了孩童般的咯咯笑声？别担心，你并没有疯！这只不过是当地的仙灵在以它们独特的方式表达对你的关心。"
+      "text": "feywild_lexicon.entry.feywild.introduction.page0.text0"
     },
     {
       "type": "patchouli:crafting",
@@ -13,7 +13,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "仙灵是恶作剧者——喜欢捉弄我们这些大块头的捣蛋鬼。大多数时候它们无害，但就像我们一样，其中也可能有那么一两个坏种。获得仙灵的信任很难，因为它们看待世界的方式与我们不同。"
+      "text": "feywild_lexicon.entry.feywild.introduction.page1.text0"
     }
   ]
 }

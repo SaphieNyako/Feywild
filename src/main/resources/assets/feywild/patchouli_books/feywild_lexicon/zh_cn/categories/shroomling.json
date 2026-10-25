@@ -1,6 +1,6 @@
 {
-  "description": "友好、随和的蘑菇灵喜欢在蘑菇森林中悠闲漫步，偶尔向路人挥手。有趣的是，它对自己的孢子高度过敏。",
+  "description": "feywild_lexicon.category.shroomling.description",
   "icon": "feywild:summoning_scroll_shroomling",
-  "name": "蘑菇灵",
+  "name": "feywild_lexicon.category.shroomling.name",
   "sortnum": 4
 }
