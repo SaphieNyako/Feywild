@@ -1,0 +1,42 @@
+{
+  "category": "feywild:quest_line",
+  "icon": "feywild:feywild_lexicon",
+  "name": "feywild_lexicon.entry.quest_line.quest_line_order",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:feywild_lexicon",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page1.text0",
+      "title": "仙灵百科"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_summer_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page2.text0",
+      "title": "夏之精灵"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_winter_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page3.text0",
+      "title": "冬之精灵"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_spring_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page4.text0",
+      "title": "春之精灵"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:summoning_scroll_autumn_pixie",
+      "text": "feywild_lexicon.entry.quest_line.quest_line_order.page5.text0",
+      "title": "秋之精灵"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "feywild:empty_summoning_scroll",
+      "title": "更多内容即将推出……"
+    }
+  ]
+}

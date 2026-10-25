@@ -122,18 +122,4 @@ public class SpringPixieEntity extends PixieBase {
             return ModSounds.SPRING_PIXIE_GIGGLE.get();
         } else return null;
     }
-
-    @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
-
-        boolean hurt = super.hurt(source, amount);
-        //added this specifically for the spring pixie questline
-        if (hurt && !level.isClientSide && source.getDirectEntity() instanceof Snowball && source.getEntity() instanceof ServerPlayer serverPlayer) {
-            if (ModCompat.QUEST_GIVER_LOADED) {
-                QuestData.get(serverPlayer).checkComplete(SpecialTask.INSTANCE, "hit_spring_pixie_with_snowball");
-            }
-        }
-
-        return hurt;
-    }
 }

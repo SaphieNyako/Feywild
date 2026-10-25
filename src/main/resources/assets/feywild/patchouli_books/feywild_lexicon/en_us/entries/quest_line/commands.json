@@ -1,0 +1,37 @@
+{
+  "category": "feywild:quest_line",
+  "icon": "feywild:fey_ink_bottle",
+  "name": "feywild_lexicon.entry.quest_line.commands",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Commands",
+      "text":  "feywild_lexicon.entry.quest_line.commands.page1.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Show Active Quests",
+      "text":  "feywild_lexicon.entry.quest_line.commands.page2.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Complete Quest",
+      "text":  "feywild_lexicon.entry.quest_line.commands.page3.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Go to Next Quest",
+      "text":  "feywild_lexicon.entry.quest_line.commands.page4.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Restart Questline",
+      "text":  "feywild_lexicon.entry.quest_line.commands.page5.text0"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Restart All",
+      "text":  "feywild_lexicon.entry.quest_line.commands.page6.text0"
+    }
+  ]
+}

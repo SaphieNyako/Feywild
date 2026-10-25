@@ -163,6 +163,13 @@
   "feywild_lexicon.entry.quest_line.quest_line_order.page2.text0": "The Summer Pixie wants you to become their Champion so she can befall in good grace with Queen Titania.",
   "feywild_lexicon.entry.quest_line.quest_line_order.page3.text0": "The Winter Pixie will teach you all about the joys of the after life and will recruit you as the new Reaper of the Winter Court.",
   "feywild_lexicon.entry.quest_line.quest_line_order.page4.text0": "The Spring Pixie is so happy she gets to go on adventures with you, thou you two will probably spend all your time playing around and forgetting your troubles.",
-  "feywild_lexicon.entry.quest_line.quest_line_order.page5.text0": "After all your adventures its time to settle down and build a good home with your Autumn Pixie."
+  "feywild_lexicon.entry.quest_line.quest_line_order.page5.text0": "After all your adventures its time to settle down and build a good home with your Autumn Pixie.",
+  "feywild_lexicon.entry.quest_line.commands": "Manage Quest Progress",
+  "feywild_lexicon.entry.quest_line.commands.page1.text0": "If you encounter a bug or become stuck during a quest, you can use the following commands to manage your quest progress. Please report any issues you encounter so they can be investigated and resolved.$(br2)Found a bug? $(l:https://github.com/SaphieNyako/Feywild/issues)$(4)Report it on GitHub$(/l)$().",
+  "feywild_lexicon.entry.quest_line.commands.page2.text0": "$(l)/quest_giver show active <player>$()$(br)Displays all active quests and questlines for the specified player, including completed questlines.",
+  "feywild_lexicon.entry.quest_line.commands.page3.text0": "$(l)/quest_giver complete <player> <quest_line> <quest>$()$(br)Forces the completion of an active quest. The normal completion screen will appear, and rewards will be granted.",
+  "feywild_lexicon.entry.quest_line.commands.page4.text0": "$(l)/quest_giver next <player> <quest_line>$()$(br)Skips the currently active quest(s) in the specified questline. No completion screen will appear, and no rewards will be granted.",
+  "feywild_lexicon.entry.quest_line.commands.page5.text0": "$(l)/quest_giver restart <player> <quest_line>$()$(br)Resets the specified questline to its beginning.",
+  "feywild_lexicon.entry.quest_line.commands.page6.text0": "$(l)/quest_giver restart_all <player>$()$(br)Resets all questlines for the specified player to their starting state."
 }
 
