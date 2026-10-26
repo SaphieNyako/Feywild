@@ -26,6 +26,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -106,6 +108,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
 
     public int getMaxProgress() {return maxProgress;}
 
+    /*TODO drops is not used?
     public void drops() {
         //Drop Items
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
@@ -113,24 +116,22 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
         Containers.dropContents(Objects.requireNonNull(this.level), this.worldPosition, inventory);
-    }
-
-
-
+    } */
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
-        super.saveAdditional(nbt, registries);
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
-        nbt.putInt("progress", this.progress);
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(@NotNull ValueOutput output) {
+        super.saveAdditional(output);
+
+        itemHandler.serialize(output.child("inventory"));
+        output.putInt("progress", this.progress);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
-        super.loadAdditional(nbt, registries);
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        this.progress = nbt.getInt("progress");
+    protected void loadAdditional(@NotNull ValueInput input) {
+        super.loadAdditional(input);
+
+        input.child("inventory").ifPresent(itemHandler::deserialize);
+        this.progress = input.getIntOr("progress", 0);
     }
 
     @Override
@@ -148,7 +149,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     @SuppressWarnings("unused")
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (this.level == null) return;
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             if (hasRecipe()) {
                 increaseCraftingProgress();
                 setChanged();
@@ -217,7 +218,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean hasRecipe() {
-        Optional<RecipeHolder<FeyAltarRecipe>> recipe = getCurrentRecipe();
+        Optional<RecipeHolder<@NotNull FeyAltarRecipe>> recipe = getCurrentRecipe();
 
         if(recipe.isEmpty()) {
             return false;
@@ -227,27 +228,24 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
     }
 
-    private Optional<RecipeHolder<FeyAltarRecipe>> getCurrentRecipe() {
+    private Optional<RecipeHolder<@NotNull FeyAltarRecipe>> getCurrentRecipe() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return Optional.empty();
+        }
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
 
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, this.itemHandler.getStackInSlot(i));
         }
 
-        assert this.level != null;
-
         FeyAltarRecipeInput input = new FeyAltarRecipeInput(inventory);
 
-        return this.level.getRecipeManager().getRecipeFor(
-                ModRecipes.FEY_ALTAR_TYPE.get(),
-                input,
-                this.level
-        );
+        return serverLevel.recipeAccess().getRecipeFor(ModRecipes.FEY_ALTAR_TYPE.get(), input, this.level);
     }
 
     @SuppressWarnings("ConstantConditions")
     private void craftItem() {
-        Optional<RecipeHolder<FeyAltarRecipe>> recipe = getCurrentRecipe();
+        Optional<RecipeHolder<@NotNull FeyAltarRecipe>> recipe = getCurrentRecipe();
 
         recipe.ifPresent(recipeResult -> {
             ItemStack result = recipeResult.value().getResultItem(null);

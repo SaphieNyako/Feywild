@@ -4,7 +4,7 @@ import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
@@ -68,39 +68,39 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     private ItemModelBuilder saplingItem(DeferredBlock<Block> item) {
         return withExistingParent(item.getId().getPath(),
-                ResourceLocation.parse("item/generated")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"block/" + item.getId().getPath()));
+                Identifier.parse("item/generated")).texture("layer0",
+                Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"block/" + item.getId().getPath()));
     }
 
     @SuppressWarnings("unused")
     public void flowerItem(DeferredBlock<Block> block) {
         this.withExistingParent(block.getId().getPath(), mcLoc("item/generated"))
-                .texture("layer0",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                .texture("layer0",  Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + block.getId().getPath()));
     }
     @SuppressWarnings("unused")
     public void buttonItem(DeferredBlock<Block> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/button_inventory"))
-                .texture("texture",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                .texture("texture",  Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
     }
     @SuppressWarnings("unused")
     public void fenceItem(DeferredBlock<Block> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/fence_inventory"))
-                .texture("texture",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                .texture("texture",  Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
     }
     @SuppressWarnings("unused")
     public void wallItem(DeferredBlock<Block> block, DeferredBlock<Block> baseBlock) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
-                .texture("wall",  ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                .texture("wall",  Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
     }
 
     private ItemModelBuilder handheldItem(DeferredItem<Item> item) {
         return withExistingParent(item.getId().getPath(),
-                ResourceLocation.parse("item/handheld")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"item/" + item.getId().getPath()));
+                Identifier.parse("item/handheld")).texture("layer0",
+                Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"item/" + item.getId().getPath()));
     }
 
 }

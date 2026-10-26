@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
@@ -59,17 +58,24 @@ public class FeyFlammableRotatedPillarBlock extends RotatedPillarBlock {
 
     @Nonnull
     @Override
-    protected ItemInteractionResult useItemOn(@Nonnull ItemStack stack,@Nonnull BlockState state,@Nonnull Level level,@Nonnull BlockPos pos,@Nonnull Player player,@Nonnull InteractionHand hand,@Nonnull BlockHitResult hit) {
-        if (player.getItemInHand(hand).getItem() == ModItems.FEY_GEM.get()) {
+    protected InteractionResult useItemOn(@Nonnull ItemStack stack,@Nonnull BlockState state,@Nonnull Level level,@Nonnull BlockPos pos,@Nonnull Player player,@Nonnull InteractionHand hand,@Nonnull BlockHitResult hit) {
+        if (stack.is(ModItems.FEY_GEM.get())) {
             Block cracked = getCracked(state.getBlock());
-            if (!level.isClientSide && cracked != null ) {
-                BlockState newState = cracked.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-                level.setBlock(pos, newState, 3);
 
-                if (!player.isCreative()) player.getItemInHand(hand).shrink(1);
+            if (cracked != null) {
+                if (!level.isClientSide()) {
+                    BlockState newState = cracked.defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+                    level.setBlock(pos, newState, 3);
+
+                    if (!player.isCreative()) {
+                        stack.shrink(1);
+                    }
+                }
+
+                return InteractionResult.SUCCESS;
             }
-            return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
+
         return super.useItemOn(stack, state, level, pos, player, hand, hit);
     }
 

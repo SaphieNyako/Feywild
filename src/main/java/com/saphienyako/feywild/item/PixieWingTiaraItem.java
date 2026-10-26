@@ -8,7 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -23,9 +23,9 @@ import java.util.List;
 
 public class PixieWingTiaraItem extends Item {
 
-    private final ResourceLocation wingTexture;
+    private final Identifier wingTexture;
 
-    public PixieWingTiaraItem(Properties properties, ResourceLocation wingTexture) {
+    public PixieWingTiaraItem(Properties properties, Identifier wingTexture) {
         super(properties);
         this.wingTexture = wingTexture;
     }
@@ -48,58 +48,58 @@ public class PixieWingTiaraItem extends Item {
         super.appendHoverText(stack, context, tooltip, flag);
     }
 
-    public ResourceLocation getWingTexture(@NotNull ItemStack stack) {
+    public Identifier getWingTexture(@NotNull ItemStack stack) {
 
         String name = stack.getHoverName().getString();
 
         switch (name) {
             case "lesbian wings", "pride 01" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_01");
             }
 
             case "gay wings", "pride 02" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_02");
             }
 
             case "bi wings", "pride 03" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_03");
             }
 
             case "pan wings", "pride 04" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_04");
             }
 
             case "ace wings", "pride 05" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_05");
             }
 
             case "aro wings", "pride 06" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_06");
             }
 
             case "pride 07" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_07");
             }
 
             case "pride 08" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_08");
             }
 
             case "pride 09" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_09");
             }
 
             case "trans wings", "pride 10" -> {
-                return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
                         "textures/entity/fey_wings/fey_wings_pride_10");
             }
 

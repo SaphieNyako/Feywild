@@ -34,7 +34,7 @@ public class ModEventListener {
     private static final String TIARA_WAS_EQUIPPED = "feywild_tiara_was_equipped";
 
     public ModEventListener() {
-        NeoForge.EVENT_BUS.register(this);
+        //double registration?
     }
 
     @SuppressWarnings({"unused", "resource"})
@@ -56,7 +56,7 @@ public class ModEventListener {
     public void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
 
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 

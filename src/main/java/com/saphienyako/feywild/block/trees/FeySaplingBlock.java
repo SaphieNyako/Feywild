@@ -5,7 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
@@ -48,7 +48,7 @@ public abstract class FeySaplingBlock extends BushBlock implements BonemealableB
         }
         StructureTemplateManager manager = level.getStructureManager();
 
-        ResourceLocation structureLocation = getTrees().get(random.nextInt(getTrees().size()));
+        Identifier structureLocation = getTrees().get(random.nextInt(getTrees().size()));
         StructureTemplate template = manager.get(structureLocation).orElse(null);
 
         if (template == null) {
@@ -109,6 +109,6 @@ public abstract class FeySaplingBlock extends BushBlock implements BonemealableB
 
     abstract protected StructureProcessor getProcessor();
 
-    abstract protected List<ResourceLocation> getTrees();
+    abstract protected List<Identifier> getTrees();
 
 }

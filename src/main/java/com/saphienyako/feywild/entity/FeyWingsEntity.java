@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class FeyWingsEntity extends LivingEntity {
 
-    private ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/spring.png");
+    private Identifier texture = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/spring.png");
 
 
     protected FeyWingsEntity(EntityType<? extends LivingEntity> entity, Level level) {
@@ -42,7 +42,7 @@ public class FeyWingsEntity extends LivingEntity {
     @Override
     public @NotNull HumanoidArm getMainArm() { return HumanoidArm.RIGHT; }
 
-    public void setTexture(ResourceLocation texture) {
+    public void setTexture(Identifier texture) {
         this.texture = texture;
     }
 

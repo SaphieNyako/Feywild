@@ -21,16 +21,18 @@ public class SunFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, @NotNull BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(TIME_VARIANT);
     }
 
     @Override
     protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.getDayTime() < 2800) {
+        long time = Math.floorMod(level.getDefaultClockTime(), 24000L);
+
+        if (time < 2800) {
             level.setBlock(pos, state.setValue(TIME_VARIANT, 0), 3);
-        } else if (level.getDayTime() < 8400) {
+        } else if (time < 8400) {
             level.setBlock(pos, state.setValue(TIME_VARIANT, 1), 3);
         } else {
             level.setBlock(pos, state.setValue(TIME_VARIANT, 2), 3);

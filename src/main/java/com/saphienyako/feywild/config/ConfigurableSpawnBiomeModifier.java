@@ -26,8 +26,8 @@ public record ConfigurableSpawnBiomeModifier(HolderSet<Biome> biomes, EntityType
             return;
         }
 
-        MobSpawnSettings.SpawnerData spawnData = new MobSpawnSettings.SpawnerData(entity, weight, 1, 1);
-        builder.getMobSpawnSettings().addSpawn(entity.getCategory(), spawnData);
+        MobSpawnSettings.SpawnerData spawnData = new MobSpawnSettings.SpawnerData(entity, 1, 1);
+        builder.getMobSpawnSettings().addSpawn(entity.getCategory(), weight, spawnData);
     }
 
     private int getSpawnWeight() {

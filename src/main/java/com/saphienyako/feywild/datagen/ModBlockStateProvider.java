@@ -6,7 +6,7 @@ import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -434,7 +434,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @SuppressWarnings("unused")
     private void leavesBlock(DeferredBlock<Block> deferredBlock) {
         simpleBlockWithItem(deferredBlock.get(),
-                models().singleTexture(deferredBlock.getId().getPath(), ResourceLocation.parse("minecraft:block/leaves"),
+                models().singleTexture(deferredBlock.getId().getPath(), Identifier.parse("minecraft:block/leaves"),
                         "all", blockTexture(deferredBlock.get())).renderType("cutout"));
     }
 

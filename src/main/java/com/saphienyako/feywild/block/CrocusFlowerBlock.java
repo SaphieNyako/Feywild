@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.block;
 
+import com.saphienyako.feywild.util.FeywildTimeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -23,14 +24,14 @@ public class CrocusFlowerBlock extends GiantFlowerBlock{
 
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, @NotNull BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(OPENING_STATE);
     }
 
     @Override
     protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.isNight()) {
+        if (FeywildTimeUtil.isNight(level)) {
             level.setBlock(pos, state.setValue(OPENING_STATE, 0), 2);
         } else if (random.nextDouble() <= 0.4) {
             level.setBlock(pos, state.setValue(OPENING_STATE, 1 + random.nextInt(2)), 2);
@@ -40,7 +41,7 @@ public class CrocusFlowerBlock extends GiantFlowerBlock{
     @Override
     @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (level.isNight()) {
+        if (FeywildTimeUtil.isNight(level)) {
             level.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
         } else {
             level.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);
@@ -50,7 +51,7 @@ public class CrocusFlowerBlock extends GiantFlowerBlock{
     @Override
     public BlockState flowerState(LevelAccessor level, BlockPos pos, RandomSource random) {
         if (level instanceof Level) {
-            if (((Level) level).isNight()) {
+            if (level instanceof Level world && FeywildTimeUtil.isNight(world)) {
                 return this.defaultBlockState().setValue(OPENING_STATE, 0);
             } else {
                 return this.defaultBlockState().setValue(OPENING_STATE, 1 + random.nextInt(2));

@@ -11,7 +11,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -259,7 +259,7 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     @SuppressWarnings("deprecation")
     public String getEntityName(){
-        ResourceLocation id =this.getType().builtInRegistryHolder().key().location();
+        Identifier id = this.getType().builtInRegistryHolder().key().identifier();
         return id.getPath();
     }
 

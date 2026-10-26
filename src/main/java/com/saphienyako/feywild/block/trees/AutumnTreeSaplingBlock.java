@@ -3,20 +3,20 @@ package com.saphienyako.feywild.block.trees;
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.worldgen.processor.AutumnTreeProcessor;
-import com.saphienyako.feywild.worldgen.processor.FeyTreeProcessor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AutumnTreeSaplingBlock extends FeySaplingBlock{
 
-    private static final List<ResourceLocation> TREES = new ArrayList<>();
+    private static final List<Identifier> TREES = new ArrayList<>();
     static {
         for (int i = 0; i <= 4; i++) {
-            TREES.add(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_tree_" + i));
+            TREES.add(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_tree_" + i));
         }
     }
 
@@ -26,7 +26,7 @@ public class AutumnTreeSaplingBlock extends FeySaplingBlock{
     }
 
     @Override
-    protected MapCodec<? extends BushBlock> codec() {
+    public @NotNull MapCodec<BushBlock> codec() {
         return simpleCodec(AutumnTreeSaplingBlock::new);
     }
 
@@ -36,7 +36,7 @@ public class AutumnTreeSaplingBlock extends FeySaplingBlock{
     }
 
     @Override
-    protected List<ResourceLocation> getTrees() {
+    protected List<Identifier> getTrees() {
         return TREES;
     }
 }

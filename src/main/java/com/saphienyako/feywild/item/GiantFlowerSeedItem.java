@@ -53,8 +53,8 @@ public class GiantFlowerSeedItem extends Item {
             }
         }
 
-        if (!level.isClientSide) {
-            placeFlower(this.block, level, pos, level.random, 3);
+        if (!level.isClientSide()) {
+            placeFlower(this.block, level, pos, level.getRandom(), 3);
             if (context.getPlayer() != null && !context.getPlayer().isCreative()) context.getItemInHand().shrink(1);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);

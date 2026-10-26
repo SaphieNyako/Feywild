@@ -2,7 +2,6 @@ package com.saphienyako.feywild.effect;
 
 import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.Entity;
@@ -30,22 +29,16 @@ public class AutumnTreeEntProtectionEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(@NotNull LivingEntity living, int amplifier) {
-        if (living.level().isClientSide) {
-            return true;
-        }
+    public boolean applyEffectTick(@NotNull ServerLevel serverLevel, @NotNull LivingEntity living, int amplifier) {
 
         double shieldRadius = BASE_RADIUS + amplifier * 0.75D;
 
         pushEntitiesAway(living, shieldRadius);
-
-        if (living.level() instanceof ServerLevel serverLevel) {
-            spawnShieldParticles(living, serverLevel, shieldRadius);
-        }
+        spawnShieldParticles(living, serverLevel, shieldRadius);
 
         return true;
     }
-
+    @SuppressWarnings("resource")
     private void pushEntitiesAway(LivingEntity living, double shieldRadius) {
         AABB area = living.getBoundingBox().inflate(shieldRadius);
 

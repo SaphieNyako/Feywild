@@ -3,6 +3,7 @@ package com.saphienyako.feywild.effect;
 import com.saphienyako.feywild.Feywild;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,12 +31,8 @@ public class FeyFlyingEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(@Nonnull LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity entity, int amplification) {
         if (!(entity instanceof Player player)) {
-            return true;
-        }
-
-        if (player.level().isClientSide) {
             return true;
         }
 
@@ -52,10 +49,5 @@ public class FeyFlyingEffect extends MobEffect {
         }
 
         return true;
-    }
-
-    @Override
-    public void removeAttributeModifiers(@Nonnull AttributeMap attributeMap) {
-        super.removeAttributeModifiers(attributeMap);
     }
 }

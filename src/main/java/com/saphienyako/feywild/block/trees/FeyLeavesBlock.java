@@ -1,72 +1,70 @@
 package com.saphienyako.feywild.block.trees;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class FeyLeavesBlock extends LeavesBlock {
 
+    //TODO does this work? Maybe seperate Leave classes?
+    private static final MapCodec<FeyLeavesBlock> CODEC =
+            RecordCodecBuilder.mapCodec(instance -> instance.group(BlockBehaviour.propertiesCodec(),
+                    BuiltInRegistries.PARTICLE_TYPE.byNameCodec()
+                            .fieldOf("particle")
+                            .forGetter(block -> block.particle.get()),
+                    Codec.INT.fieldOf("particle_chance")
+                            .forGetter(block -> block.particleChance))
+                    .apply(instance, (properties, particle, chance) -> new FeyLeavesBlock(properties, () -> (SimpleParticleType) particle, chance)));
     private final Supplier<SimpleParticleType> particle;
     private final int particleChance;
     public FeyLeavesBlock(Properties properties, Supplier<SimpleParticleType> particle, int particleChance) {
-        super(properties);
+        super(0.0F, properties);
         this.particle = particle;
         this.particleChance = particleChance;
     }
 
     @Override
-    public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+    public boolean isFlammable(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
         return true;
     }
 
     @Override
-    public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+    public int getFlammability(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
         return 5;
     }
 
     @Override
-    public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+    public int getFireSpreadSpeed(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull Direction direction) {
         return 5;
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
-
-            // Don't add particles if the blocks are far away
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null && mc.player.position().distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) < 48 * 48) {
-                animateLeaves(state, level, pos, rand);
-
+    protected void spawnFallingLeavesParticle(@NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (level.isEmptyBlock(pos.below())) {
+            level.addParticle(particle.get(), pos.getX() + random.nextDouble(), pos.getY(), pos.getZ() + random.nextDouble(), 1, -0.1, 0);
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    protected void animateLeaves(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull RandomSource rand) {
-        if (rand.nextInt(15) == 0 && level.isRainingAt(pos.above())) {
-            BlockPos blockpos = pos.below();
-            BlockState blockstate = level.getBlockState(blockpos);
-            if (!blockstate.canOcclude() || !blockstate.isFaceSturdy(level, blockpos, Direction.UP)) {
-                double x = pos.getX() + rand.nextDouble();
-                double y = pos.getY() - 0.05;
-                double z = pos.getZ() + rand.nextDouble();
-                level.addParticle(ParticleTypes.DRIPPING_WATER, x, y, z, 0, 0, 0);
-            }
-        }
-        if (rand.nextInt(particleChance) == 1 && level.isEmptyBlock(pos.below())) {
-            level.addParticle(particle.get(), pos.getX() + rand.nextDouble(), pos.getY(), pos.getZ() + rand.nextDouble(), 1, -0.1, 0);
-        }
+    @Override
+    public @NotNull MapCodec<? extends LeavesBlock> codec() {
+        return CODEC;
     }
 }

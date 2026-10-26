@@ -1,0 +1,40 @@
+package com.saphienyako.feywild.events;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.block.ModBlocks;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import com.mojang.blaze3d.platform.Window;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+
+@EventBusSubscriber(modid = Feywild.MOD_ID, value = Dist.CLIENT)
+public class ClientEventListener {
+
+    @SubscribeEvent
+    public static void onItemTooltip(ItemTooltipEvent event) {
+        Window window = Minecraft.getInstance().getWindow();
+        //TODO check if this works?
+        boolean shiftDown = InputConstants.isKeyDown(window, 340) || InputConstants.isKeyDown(window, 344);
+        ItemStack stack = event.getItemStack();
+
+        if (stack.is(ModBlocks.FEY_ALTAR.get().asItem())
+                || stack.is(ModBlocks.FEY_ALTAR_QUEEN_TITANIA.get().asItem())
+                || stack.is(ModBlocks.FEY_ALTAR_QUEEN_MAB.get().asItem())
+                || stack.is(ModBlocks.FEY_ALTAR_ASHEN_LORD.get().asItem())
+                || stack.is(ModBlocks.FEY_ALTAR_OBERON.get().asItem())) {
+
+            if (shiftDown) {
+                event.getToolTip().add(Component.translatable("message.feywild.fey_altar").withStyle(ChatFormatting.BLUE));
+            } else {
+                event.getToolTip().add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
+            }
+        }
+    }
+}

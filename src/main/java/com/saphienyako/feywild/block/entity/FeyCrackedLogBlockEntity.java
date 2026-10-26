@@ -1,12 +1,12 @@
 package com.saphienyako.feywild.block.entity;
 
+import com.saphienyako.feywild.util.FeywildTimeUtil;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.network.ParticleMessage;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,25 +24,23 @@ import java.util.UUID;
 public class FeyCrackedLogBlockEntity extends BlockEntity {
 
     private UUID treeEntUUID;
-    private int tickCounter = 0; // counts server ticks
+    private int tickCounter = 0;
 
     public FeyCrackedLogBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FEY_CRACKED_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
-        super.loadAdditional(tag, registries);
-        if (tag.contains("TreeEntUUID")) {
-            treeEntUUID = tag.getUUID("TreeEntUUID");
-        }
+    protected void loadAdditional(@NotNull ValueInput input) {
+        super.loadAdditional(input);
+        treeEntUUID = input.read("TreeEntUUID", UUIDUtil.CODEC).orElse(null);
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(@NotNull ValueOutput output) {
+        super.saveAdditional(output);
         if (treeEntUUID != null) {
-            tag.putUUID("TreeEntUUID", treeEntUUID);
+            output.putString("TreeEntUUID", treeEntUUID.toString());
         }
     }
 
@@ -61,55 +61,43 @@ public class FeyCrackedLogBlockEntity extends BlockEntity {
     }
 
     public void serverTick(ServerLevel level, BlockState state, BlockPos pos) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
 
 
         tickCounter++;
         if (tickCounter < 200) return;
         tickCounter = 0;
 
-        boolean isDay = level.isDay();
+        boolean isDay = FeywildTimeUtil.isDay(level);
         TreeEntBase ent = getTreeEnt(level);
 
         if (isDay) {
             if (ent == null || !ent.isAlive()) {
-                BlockPos spawnPos = findNearbyGrass(level, pos, 10);
+                BlockPos spawnPos = findNearbyGrass(level, pos);
                 TreeEntBase spawn = getTreeEntVariant(state.getBlock(), level);
                 if (spawnPos != null && spawn != null) {
                     spawn.setPos(spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5);
                     level.addFreshEntity(spawn);
                     setTreeEnt(spawn);
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            spawn,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.DANDELION_FLUFF,
-                                    spawnPos
-                            )
-                    );
+                    PacketDistributor.sendToPlayersTrackingEntity(spawn, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, spawnPos));
                 }
             }
         } else {
             // Night
             if (ent != null && ent.isAlive()) {
-                PacketDistributor.sendToPlayersTrackingEntity(
-                        ent,
-                        new ParticleMessage(
-                                ParticleMessage.Particles.DANDELION_FLUFF,
-                                ent.getOnPos()
-                        )
-                );
+                PacketDistributor.sendToPlayersTrackingEntity(ent, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, ent.getOnPos()));
                 ent.remove(Entity.RemovalReason.DISCARDED);
                 clearTreeEnt();
             }
         }
     }
 
-    private BlockPos findNearbyGrass(Level level, BlockPos origin, int radius) {
+    private BlockPos findNearbyGrass(Level level, BlockPos origin) {
         int requiredHeight = 4;
         int halfWidth = 1;
 
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dz = -radius; dz <= radius; dz++) {
+        for (int dx = -10; dx <= 10; dx++) {
+            for (int dz = -10; dz <= 10; dz++) {
                 for (int dy = 0; dy >= -10; dy--) {
                     BlockPos groundPos = origin.offset(dx, dy, dz);
                     BlockState ground = level.getBlockState(groundPos);

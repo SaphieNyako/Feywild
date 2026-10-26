@@ -5,18 +5,15 @@ import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.quest_giver.quest.data.QuestData;
 import com.saphienyako.quest_giver.quest.task.SpecialTask;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -45,27 +42,27 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
 
     @Override
     protected void tickFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.getValue(VARIANT) == 3 && level.random.nextInt(3) == 0) {
+        if (state.getValue(VARIANT) == 3 && level.getRandom().nextInt(3) == 0) {
             level.setBlock(pos, state.setValue(VARIANT, 2), 3);
         }
     }
 
     @Override
-    public boolean onDestroyedByPlayer(BlockState state, @NotNull Level level, BlockPos pos, @NotNull Player player, boolean willHarvest, @NotNull FluidState fluid) {
+    public boolean onDestroyedByPlayer(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull ItemStack toolStack, boolean willHarvest, @NotNull FluidState fluid) {
         if (this.replaceFlower(level, pos.above(3 - state.getValue(PART)))) {
-            if (!level.isClientSide && player instanceof ServerPlayer) {
+            if (!level.isClientSide() && player instanceof ServerPlayer) {
                 /// Tell the client that the block is still there
                 ((ServerPlayer) player).connection.send(new ClientboundBlockUpdatePacket(level, pos));
             }
             return false;
         }
-        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+        return super.onDestroyedByPlayer(state, level, pos, player, toolStack, willHarvest, fluid);
     }
 
     private boolean replaceFlower(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() == this && state.getValue(PART) == 3 && state.getValue(VARIANT) == 2) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 level.setBlock(pos, state.setValue(VARIANT, 3), 3);
             }
             return true;
@@ -75,24 +72,17 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean moving) {
-        super.onRemove(oldState, level, pos, newState, moving);
-
-        if (oldState.getValue(VARIANT) == 2) {
-            if (!level.isClientSide) {
-                PacketDistributor.sendToPlayersTrackingChunk((ServerLevel) level, level.getChunkAt(pos).getPos(),
-                        new ParticleMessage(
-                                ParticleMessage.Particles.DANDELION_FLUFF,
-                                pos
-                        )
-                );
-            }
+    public void onBlockStateChange(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState oldState, @NotNull BlockState newState) {
+        super.onBlockStateChange(level, pos, oldState, newState);
+        if (oldState.is(this) && !newState.is(this) && oldState.getValue(VARIANT) == 2 && level instanceof ServerLevel serverLevel) {
+            ChunkPos chunkPos = new ChunkPos(SectionPos.blockToSectionCoord(pos.getX()), SectionPos.blockToSectionCoord(pos.getZ()));
+            PacketDistributor.sendToPlayersTrackingChunk(serverLevel, chunkPos, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, pos));
         }
     }
 
     @Override
     public @NotNull BlockState playerWillDestroy(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer && state.getValue(VARIANT) == 2 && ModCompat.QUEST_GIVER_LOADED) {
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer && state.getValue(VARIANT) == 2 && ModCompat.QUEST_GIVER_LOADED) {
             QuestData.get(serverPlayer).checkComplete(SpecialTask.INSTANCE, "dandelion_fluff");
         }
 

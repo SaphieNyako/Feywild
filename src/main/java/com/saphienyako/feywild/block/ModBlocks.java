@@ -31,7 +31,7 @@ public class ModBlocks {
             () -> new Block(BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final DeferredBlock<Block> MANDRAKE_CROP = BLOCKS.register("mandrake_crop",
-            () -> new MandrakeCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).noCollission().noOcclusion()));
+            () -> new MandrakeCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT).noCollision().noOcclusion()));
 
     public static final DeferredBlock<Block> GIANT_SUN_FLOWER = registerBlock("giant_sun_flower",
             ()-> new SunFlowerBlock(4));
@@ -60,48 +60,48 @@ public class ModBlocks {
 
     //MUSHROOM BLOCKS
     public static final DeferredBlock<Block> ORANGE_MUSHROOM = registerBlock("orange_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.ORANGE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.ORANGE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> YELLOW_MUSHROOM = registerBlock("yellow_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.YELLOW_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.YELLOW_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> GREEN_MUSHROOM = registerBlock("green_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.GREEN_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.GREEN_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> LIGHT_BLUE_MUSHROOM = registerBlock("light_blue_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.LIGHT_BLUE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.LIGHT_BLUE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> BLUE_MUSHROOM = registerBlock("blue_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.BLUE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.BLUE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> PURPLE_MUSHROOM = registerBlock("purple_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.PURPLE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.PURPLE_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
                     .pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> PINK_MUSHROOM = registerBlock("pink_mushroom",
-            () -> new MushroomBlock(ModConfiguredFeatures.PINK_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollission()
+            () -> new MushroomBlock(ModConfiguredFeatures.PINK_MUSHROOM_KEY, BlockBehaviour.Properties.ofFullCopy(Blocks.RED_MUSHROOM).noCollision()
                     .randomTicks()
                     .instabreak()
                     .sound(SoundType.GRASS)
@@ -418,7 +418,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_PRESSURE_PLATE = registerBlock("autumn_tree_planks_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> AUTUMN_TREE_PLANKS_BUTTON = registerBlock("autumn_tree_planks_button",
-            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollision()));
 
     //SPRING WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> SPRING_TREE_SAPLING = registerBlock("spring_tree_sapling",
@@ -487,7 +487,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> SPRING_TREE_PLANKS_PRESSURE_PLATE = registerBlock("spring_tree_planks_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> SPRING_TREE_PLANKS_BUTTON = registerBlock("spring_tree_planks_button",
-            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollision()));
 
     //SUMMER WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> SUMMER_TREE_SAPLING = registerBlock("summer_tree_sapling",
@@ -554,7 +554,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_PRESSURE_PLATE = registerBlock("summer_tree_planks_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> SUMMER_TREE_PLANKS_BUTTON = registerBlock("summer_tree_planks_button",
-            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollision()));
 
     //WINTER WOOD, PLANKS AND LOGS
     public static final DeferredBlock<Block> WINTER_TREE_SAPLING = registerBlock("winter_tree_sapling",
@@ -622,7 +622,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> WINTER_TREE_PLANKS_PRESSURE_PLATE = registerBlock("winter_tree_planks_pressure_plate",
             () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
     public static final DeferredBlock<Block> WINTER_TREE_PLANKS_BUTTON = registerBlock("winter_tree_planks_button",
-            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollission()));
+            () -> new ButtonBlock(BlockSetType.OAK, 10, BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().noCollision()));
 
     
 

@@ -13,7 +13,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,8 +21,8 @@ import java.util.Objects;
 
 public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
 
-    public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar");
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,
+    public static final Identifier UID = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar");
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
             "textures/gui/fey_altar_gui.png");
     public static final RecipeType<FeyAltarRecipe> FEY_ALTAR_TYPE =
             new RecipeType<>(UID, FeyAltarRecipe.class);

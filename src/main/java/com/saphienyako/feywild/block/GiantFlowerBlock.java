@@ -37,7 +37,7 @@ public abstract class GiantFlowerBlock extends Block {
     }
 
     @Override
-    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, @NotNull BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(PART);
     }
@@ -59,11 +59,14 @@ public abstract class GiantFlowerBlock extends Block {
     }
 
     @Override
-    public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean moving) {
+    protected void affectNeighborsAfterRemoval(@NotNull BlockState oldState, @NotNull ServerLevel level, @NotNull BlockPos pos, boolean movedByPiston) {
+        super.affectNeighborsAfterRemoval(oldState, level, pos, movedByPiston);
+
+        BlockState newState = level.getBlockState(pos);
+
         if (oldState.getBlock() != newState.getBlock()) {
             this.removeOthers(level, oldState, pos);
         }
-        super.onRemove(oldState, level, pos, newState, moving);
     }
 
     @Override

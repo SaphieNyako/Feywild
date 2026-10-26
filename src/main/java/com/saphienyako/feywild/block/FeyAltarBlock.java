@@ -3,22 +3,17 @@ package com.saphienyako.feywild.block;
 import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.entity.FeyAltarBlockEntity;
 import com.saphienyako.feywild.block.entity.ModBlockEntities;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -26,20 +21,23 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FeyAltarBlock extends BaseEntityBlock {
     public static final MapCodec<FeyAltarBlock> CODEC = simpleCodec(FeyAltarBlock::new);
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<@NotNull Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape FEY_ALTAR = Block.box(0, 0, 0, 16, 32, 16);
 
     protected FeyAltarBlock(Properties pProperties) {
@@ -55,24 +53,12 @@ public class FeyAltarBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack,@NotNull Item.TooltipContext context,@Nonnull List<Component> tooltip,@NotNull TooltipFlag flag) {
-         if(Screen.hasShiftDown()){
-             tooltip.add(Component.translatable("message.feywild.fey_altar").withStyle(ChatFormatting.BLUE));
-         }
-
-        else {
-            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-        }
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
-
-    @Override
     public int getLightEmission(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         return 1;
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, @NotNull BlockState> builder) {
         builder.add(BlockStateProperties.HORIZONTAL_FACING);
     }
 
@@ -109,21 +95,32 @@ public class FeyAltarBlock extends BaseEntityBlock {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
-
+    //TODO onRemove replacement: Does this handle all remove options??
     @Override
-        public void onRemove(BlockState oldState, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean moving) {
-        if (oldState.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof FeyAltarBlockEntity) {
-                ((FeyAltarBlockEntity) blockEntity).drops();
+    protected @NotNull List<ItemStack> getDrops(@NotNull BlockState state, LootParams.@NotNull Builder params) {
+        List<ItemStack> drops = new ArrayList<>(super.getDrops(state, params));
+
+        BlockEntity blockEntity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+
+        if (blockEntity instanceof FeyAltarBlockEntity altar) {
+            ItemStackHandler inventory = altar.getInventory();
+
+            for (int slot = 0; slot < inventory.getSlots(); slot++) {
+                ItemStack stack = inventory.getStackInSlot(slot);
+
+                if (!stack.isEmpty()) {
+                    drops.add(stack.copy());
+                }
             }
         }
 
-        super.onRemove(oldState, level, pos, newState, moving);
+        return drops;
     }
 
+
+
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
+    protected @NotNull InteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hit) {
 
         if (!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
@@ -140,7 +137,7 @@ public class FeyAltarBlock extends BaseEntityBlock {
             }
         }
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

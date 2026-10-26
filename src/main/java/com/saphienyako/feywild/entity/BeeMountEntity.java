@@ -21,7 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -595,13 +595,13 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
         if (attack == null || armor == null || toughness == null || health == null || mount_armor == null || mount_toughness == null || mount_health == null) return;
 
-        ResourceLocation spearId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "spear_modifier");
-        ResourceLocation armorId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "armor_modifier");
-        ResourceLocation toughnessId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "armor_toughness_modifier");
-        ResourceLocation healthId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"health_modifier");
-        ResourceLocation mountArmorId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mount_armor_modifier");
-        ResourceLocation mountToughnessId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mount_armor_toughness_modifier");
-        ResourceLocation mountHealthId = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "mount_health_modifier");
+        Identifier spearId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spear_modifier");
+        Identifier armorId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "armor_modifier");
+        Identifier toughnessId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "armor_toughness_modifier");
+        Identifier healthId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"health_modifier");
+        Identifier mountArmorId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mount_armor_modifier");
+        Identifier mountToughnessId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mount_armor_toughness_modifier");
+        Identifier mountHealthId = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mount_health_modifier");
 
 
         // Remove old modifier

@@ -58,7 +58,7 @@ public class BossSummoningScrollItem extends Item {
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
         if (context.getPlayer() != null) {
-            if (!context.getLevel().isClientSide) {
+            if (!context.getLevel().isClientSide()) {
 
                 BossBase entity = returnLivingEntity().create(context.getLevel());
 
@@ -90,7 +90,7 @@ public class BossSummoningScrollItem extends Item {
                     }
                 }
             }
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+            return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
         }
         return InteractionResult.PASS;
     }

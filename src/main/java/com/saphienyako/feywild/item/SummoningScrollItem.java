@@ -2,7 +2,6 @@ package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.FeywildConfig;
-import com.saphienyako.feywild.entity.MandragoraEntity;
 import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
@@ -14,15 +13,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -115,7 +110,7 @@ public class SummoningScrollItem extends Item {
     @Override
     public InteractionResult useOn(@Nonnull UseOnContext context) {
         if (context.getPlayer() != null) {
-            if (!context.getLevel().isClientSide) {
+            if (!context.getLevel().isClientSide()) {
 
                 FeyBase entity = returnLivingEntity(context.getPlayer()).create(context.getLevel());
 
@@ -149,7 +144,7 @@ public class SummoningScrollItem extends Item {
                     }
                 }
             }
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
+            return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
         }
         return InteractionResult.PASS;
     }

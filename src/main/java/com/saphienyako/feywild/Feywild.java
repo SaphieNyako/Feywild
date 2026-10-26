@@ -87,6 +87,7 @@ public class Feywild
         NeoForge.EVENT_BUS.register(new ModEventListener());
         NeoForge.EVENT_BUS.addListener(this::reloadData);
 
+        modEventBus.addListener(FeywildConfig::onLoad);
         modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, FeywildConfig.CLIENT_SPEC);
     }
