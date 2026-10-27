@@ -5,7 +5,7 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -13,8 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record ToggleVoiceMessage(int entityId, boolean voiceActive) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<ToggleVoiceMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "toggle_voice"));
+    public static final CustomPacketPayload.Type<@NotNull ToggleVoiceMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "toggle_voice"));
 
     public static final StreamCodec<FriendlyByteBuf, ToggleVoiceMessage> STREAM_CODEC =
             StreamCodec.of(ToggleVoiceMessage::encode, ToggleVoiceMessage::decode);
@@ -34,7 +34,7 @@ public record ToggleVoiceMessage(int entityId, boolean voiceActive) implements C
     public static void handle(ToggleVoiceMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player.level().isClientSide) return;
+            if (player.level().isClientSide()) return;
 
             Level level = player.level();
             if (msg.entityId() != -1) {
@@ -48,6 +48,6 @@ public record ToggleVoiceMessage(int entityId, boolean voiceActive) implements C
 
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;}
 }

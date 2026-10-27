@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.network.handler;
 
 import com.saphienyako.feywild.network.OpenLexiconMenuMessage;
-import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.screen.LexiconMenuScreen;
 import net.minecraft.client.Minecraft;
 

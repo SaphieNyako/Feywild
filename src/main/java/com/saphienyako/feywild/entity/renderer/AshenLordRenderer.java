@@ -3,15 +3,12 @@ package com.saphienyako.feywild.entity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.AshenLordEntity;
-import com.saphienyako.feywild.entity.OberonEntity;
 import com.saphienyako.feywild.entity.model.AshenLordModel;
-import com.saphienyako.feywild.entity.model.MabModel;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
-import com.saphienyako.feywild.entity.model.OberonModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class AshenLordRenderer extends MobRenderer<AshenLordEntity, AshenLordModel<AshenLordEntity>> {
@@ -28,7 +25,7 @@ public class AshenLordRenderer extends MobRenderer<AshenLordEntity, AshenLordMod
 
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull AshenLordEntity ashenLordEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/ashen_lord.png");
+    public @NotNull Identifier getTextureLocation(@NotNull AshenLordEntity ashenLordEntity) {
+        return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/ashen_lord.png");
     }
 }

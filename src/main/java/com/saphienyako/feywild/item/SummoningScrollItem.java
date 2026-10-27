@@ -6,37 +6,30 @@ import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
+import com.saphienyako.feywild.item.base.ToolTipBaseItem;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.quest_giver.quest.data.QuestData;
 import com.saphienyako.quest_giver.quest.task.SpecialTask;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.Objects;
 
 import static com.saphienyako.feywild.item.ModItems.*;
 
-public class SummoningScrollItem extends Item {
+public class SummoningScrollItem extends ToolTipBaseItem {
 
-    protected final MutableComponent component;
     public SummoningScrollItem(Properties pProperties, MutableComponent component) {
-        super(pProperties);
-        this.component = component;
+        super(pProperties, component);
     }
 
     protected void prepareEntity(LivingEntity entity, @Nonnull UseOnContext context) {
@@ -102,8 +95,6 @@ public class SummoningScrollItem extends Item {
         }
 
         else return null;
-
-        //TODO on summon set Variant for TreeEnts
     }
 
     @Nonnull
@@ -112,31 +103,18 @@ public class SummoningScrollItem extends Item {
         if (context.getPlayer() != null) {
             if (!context.getLevel().isClientSide()) {
 
-                FeyBase entity = returnLivingEntity(context.getPlayer()).create(context.getLevel());
+                FeyBase entity = returnLivingEntity(context.getPlayer()).create(context.getLevel(), EntitySpawnReason.SPAWN_ITEM_USE);
 
                 if (entity != null) {
                     this.prepareEntity(entity, context);
 
                     context.getLevel().addFreshEntity(entity);
                     context.getPlayer().sendSystemMessage(entity.getFeySummonMessage());
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            entity,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.DANDELION_FLUFF,
-                                    context.getClickedPos()
-                            )
-                    );
+                    PacketDistributor.sendToPlayersTrackingEntity(entity, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, context.getClickedPos()));
 
 
                     if (FeywildConfig.voicesActive) {
-                        context.getLevel().playSound(
-                                null,
-                                entity.blockPosition(),
-                                entity.getSummonSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                        context.getLevel().playSound(null, entity.blockPosition(), entity.getSummonSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                     }
 
                     if (!context.getPlayer().isCreative()) {
@@ -144,23 +122,8 @@ public class SummoningScrollItem extends Item {
                     }
                 }
             }
-            return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
-    }
-
-
-
-
-    @Override
-    public void appendHoverText(@Nonnull ItemStack stack,@Nonnull TooltipContext context,@Nonnull List<Component> tooltip,@Nonnull TooltipFlag flag) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(this.component.withStyle(ChatFormatting.BLUE));
-        }
-
-        else {
-            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-        }
-        super.appendHoverText(stack, context, tooltip, flag);
     }
 }

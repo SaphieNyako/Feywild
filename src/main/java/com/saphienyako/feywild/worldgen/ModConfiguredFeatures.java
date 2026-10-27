@@ -5,18 +5,23 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.worldgen.features.ModFeatures;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -37,26 +42,13 @@ public class ModConfiguredFeatures {
 
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        register(context, ORANGE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.ORANGE_MUSHROOM_BLOCK.get()));
-
-        register(context, YELLOW_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.YELLOW_MUSHROOM_BLOCK.get()));
-
-        register(context, GREEN_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.GREEN_MUSHROOM_BLOCK.get()));
-
-        register(context, LIGHT_BLUE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get()));
-
-        register(context,BLUE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.BLUE_MUSHROOM_BLOCK.get()));
-
-        register(context, PURPLE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.PURPLE_MUSHROOM_BLOCK.get()));
-
-        register(context, PINK_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM,
-                colouredMushroomConfig(ModBlocks.PINK_MUSHROOM_BLOCK.get()));
+        register(context, ORANGE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.ORANGE_MUSHROOM_BLOCK.get()));
+        register(context, YELLOW_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.YELLOW_MUSHROOM_BLOCK.get()));
+        register(context, GREEN_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.GREEN_MUSHROOM_BLOCK.get()));
+        register(context, LIGHT_BLUE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get()));
+        register(context,BLUE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.BLUE_MUSHROOM_BLOCK.get()));
+        register(context, PURPLE_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.PURPLE_MUSHROOM_BLOCK.get()));
+        register(context, PINK_MUSHROOM_KEY, Feature.HUGE_RED_MUSHROOM, colouredMushroomConfig(ModBlocks.PINK_MUSHROOM_BLOCK.get()));
 
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -76,8 +68,7 @@ public class ModConfiguredFeatures {
 
     private static HugeMushroomFeatureConfiguration colouredMushroomConfig(Block mushroomBlock) {
         return new HugeMushroomFeatureConfiguration(
-                BlockStateProvider.simple(
-                        mushroomBlock.defaultBlockState()
+                BlockStateProvider.simple(mushroomBlock.defaultBlockState()
                                 .setValue(HugeMushroomBlock.UP, true)
                                 .setValue(HugeMushroomBlock.DOWN, false)
                                 .setValue(HugeMushroomBlock.NORTH, true)
@@ -85,22 +76,25 @@ public class ModConfiguredFeatures {
                                 .setValue(HugeMushroomBlock.EAST, true)
                                 .setValue(HugeMushroomBlock.WEST, true)
                 ),
-                BlockStateProvider.simple(
-                        Blocks.MUSHROOM_STEM.defaultBlockState()
+                BlockStateProvider.simple(Blocks.MUSHROOM_STEM.defaultBlockState()
                                 .setValue(HugeMushroomBlock.UP, false)
                                 .setValue(HugeMushroomBlock.DOWN, false)
-                ),
-                2
+                ), 2,
+                BlockPredicate.matchesBlocks(
+                        Blocks.GRASS_BLOCK,
+                        Blocks.DIRT,
+                        Blocks.MYCELIUM,
+                        Blocks.PODZOL
+                )
         );
     }
 
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context,
-                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
+    private static <FC extends FeatureConfiguration, F extends Feature<@NotNull FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC configuration) {
         context.register(key, new ConfiguredFeature<>(feature, configuration));
     }
 }

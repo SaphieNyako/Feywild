@@ -4,29 +4,26 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class AutumnTreeProcessor extends FeyTreeProcessor{
 
-    public static final AutumnTreeProcessor WORLDGEN =
-            new AutumnTreeProcessor(false);
+    public static final AutumnTreeProcessor WORLD_GEN = new AutumnTreeProcessor(false);
 
-    public static final AutumnTreeProcessor SAPLING =
-            new AutumnTreeProcessor(true);
+    public static final AutumnTreeProcessor SAPLING = new AutumnTreeProcessor(true);
 
     private AutumnTreeProcessor(boolean fromSapling) {
         super(fromSapling);
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected @NotNull StructureProcessorType<?> getType() {
         return FeywildProcessors.AUTUMN_TREE.get();
     }
 
-
-    public static final MapCodec<AutumnTreeProcessor> MAP_CODEC =
-            MapCodec.unit(() -> WORLDGEN);
+    public static final MapCodec<AutumnTreeProcessor> MAP_CODEC = MapCodec.unit(() -> WORLD_GEN);
     @Override
     protected Block getLogBlock() {
         return ModBlocks.AUTUMN_TREE_LOG.get();

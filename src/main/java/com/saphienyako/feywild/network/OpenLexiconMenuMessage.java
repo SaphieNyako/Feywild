@@ -1,14 +1,11 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.Alignment;
 import com.saphienyako.feywild.network.handler.OpenLexiconMenuMessageClientHandler;
-import com.saphienyako.feywild.network.handler.OpenMenuMessageClientHandler;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -16,8 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record OpenLexiconMenuMessage(int entityId) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<OpenLexiconMenuMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "open_lexicon_menu"));
+    public static final CustomPacketPayload.Type<@NotNull OpenLexiconMenuMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "open_lexicon_menu"));
 
     public static final StreamCodec<FriendlyByteBuf, OpenLexiconMenuMessage> STREAM_CODEC =
             StreamCodec.of(OpenLexiconMenuMessage::encode, OpenLexiconMenuMessage::decode);
@@ -32,14 +29,14 @@ public record OpenLexiconMenuMessage(int entityId) implements CustomPacketPayloa
 
     public static void handle(OpenLexiconMenuMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
+            if (FMLEnvironment.getDist() == Dist.CLIENT) {
                 OpenLexiconMenuMessageClientHandler.openMenu(msg);
             }
         });
     }
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 

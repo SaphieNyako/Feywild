@@ -1,17 +1,13 @@
 package com.saphienyako.feywild.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import org.jetbrains.annotations.NotNull;
 
-public class SparkleParticle extends TextureSheetParticle {
-    protected SparkleParticle(ClientLevel world, double x, double y, double z,
-                              double vx, double vy, double vz,
-                              SpriteSet spriteSet, float red, float green, float blue) {
-        super(world, x, y, z, vx, vy, vz);
-        this.pickSprite(spriteSet);
+public class SparkleParticle extends SingleQuadParticle {
+    protected SparkleParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet, float red, float green, float blue) {
+        super(world, x, y, z, vx, vy, vz, spriteSet.first());
 
         this.rCol = red;
         this.gCol = green;
@@ -25,16 +21,17 @@ public class SparkleParticle extends TextureSheetParticle {
         this.zd = 0;
     }
 
-    @Override
-    public @NotNull ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
-    }
-
+    /* TODO still needed?
     @Override
     public void tick() {
         super.tick();
         if (this.age >= this.lifetime) {
             this.remove();
         }
+    } */
+
+    @Override
+    protected @NotNull Layer getLayer() {
+        return Layer.TRANSLUCENT;
     }
 }

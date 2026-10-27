@@ -5,9 +5,11 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.Nullable;
 
-public class SparkleParticleProvider implements ParticleProvider<SimpleParticleType> {
+public class SparkleParticleProvider implements ParticleProvider<@NotNull SimpleParticleType> {
     private final SpriteSet spriteSet;
     private final float red, green, blue;
 
@@ -19,9 +21,7 @@ public class SparkleParticleProvider implements ParticleProvider<SimpleParticleT
     }
 
     @Override
-    public Particle createParticle(@NotNull SimpleParticleType type, @NotNull ClientLevel world,
-                                   double x, double y, double z,
-                                   double vx, double vy, double vz) {
-        return new SparkleParticle(world, x, y, z, vx, vy, vz, spriteSet, red, green, blue);
+    public @Nullable Particle createParticle(SimpleParticleType type, @NotNull ClientLevel level, double x, double y, double z, double vx, double vy, double vz, @NotNull RandomSource random) {
+        return new SparkleParticle(level, x, y, z, vx, vy, vz, spriteSet, red, green, blue);
     }
 }

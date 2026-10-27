@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.network;
 
 import com.saphienyako.feywild.Feywild;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 

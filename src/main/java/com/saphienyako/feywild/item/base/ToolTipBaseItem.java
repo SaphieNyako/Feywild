@@ -18,17 +18,7 @@ public class ToolTipBaseItem extends Item {
         this.component = component;
     }
 
-    @Override
-    public void appendHoverText(@Nonnull ItemStack stack,@Nonnull TooltipContext context,@Nonnull List<Component> tooltip,@Nonnull TooltipFlag flag) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(this.component.withStyle(ChatFormatting.BLUE));
-        }
-
-        else {
-            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-        }
-
-        super.appendHoverText(stack, context, tooltip, flag);
-
+    public Component getTooltipComponent() {
+        return component;
     }
 }

@@ -4,29 +4,27 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class SpringTreeProcessor extends FeyTreeProcessor{
 
-    public static final SpringTreeProcessor WORLDGEN =
-            new SpringTreeProcessor(false);
+    public static final SpringTreeProcessor WORLD_GEN = new SpringTreeProcessor(false);
 
-    public static final SpringTreeProcessor SAPLING =
-            new SpringTreeProcessor(true);
+    public static final SpringTreeProcessor SAPLING = new SpringTreeProcessor(true);
 
     private SpringTreeProcessor(boolean fromSapling) {
         super(fromSapling);
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected @NotNull StructureProcessorType<?> getType() {
         return FeywildProcessors.SPRING_TREE.get();
     }
 
 
-    public static final MapCodec<SpringTreeProcessor> MAP_CODEC =
-            MapCodec.unit(() -> WORLDGEN);
+    public static final MapCodec<SpringTreeProcessor> MAP_CODEC = MapCodec.unit(() -> WORLD_GEN);
     @Override
     protected Block getLogBlock() {
         return ModBlocks.SPRING_TREE_LOG.get();

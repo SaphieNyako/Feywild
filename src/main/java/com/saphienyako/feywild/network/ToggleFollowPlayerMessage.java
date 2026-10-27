@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, BlockPos currentBlockPos) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<ToggleFollowPlayerMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "toggle_follow_player"));
+    public static final CustomPacketPayload.Type<@NotNull ToggleFollowPlayerMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "toggle_follow_player"));
 
     public static final StreamCodec<FriendlyByteBuf, ToggleFollowPlayerMessage> STREAM_CODEC =
             StreamCodec.of(ToggleFollowPlayerMessage::encode, ToggleFollowPlayerMessage::decode);
@@ -38,10 +38,10 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
     public static void handle(ToggleFollowPlayerMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player.level().isClientSide) return;
+            if (player.level().isClientSide()) return;
 
             Level level = player.level();
-            if (!level.isClientSide && msg.entityId() != -1) {
+            if (!level.isClientSide() && msg.entityId() != -1) {
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (entity != null) {
                     entity.setFollowingPlayer(msg.followingPlayer());
@@ -78,7 +78,7 @@ public record ToggleFollowPlayerMessage(int entityId, boolean followingPlayer, B
     }
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

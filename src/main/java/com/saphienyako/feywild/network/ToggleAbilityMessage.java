@@ -6,7 +6,7 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record ToggleAbilityMessage(int entityId, boolean abilityActive) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<ToggleAbilityMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "toggle_ability"));
+    public static final CustomPacketPayload.Type<@NotNull ToggleAbilityMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "toggle_ability"));
 
     public static final StreamCodec<FriendlyByteBuf, ToggleAbilityMessage> STREAM_CODEC =
             StreamCodec.of(ToggleAbilityMessage::encode, ToggleAbilityMessage::decode);
@@ -35,10 +35,10 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
     public static void handle(ToggleAbilityMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player.level().isClientSide) return;
+            if (player.level().isClientSide()) return;
 
             Level level = player.level();
-            if (!level.isClientSide && msg.entityId() != -1) {
+            if (!level.isClientSide() && msg.entityId() != -1) {
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (entity != null) {
                     entity.setAbilityActive(msg.abilityActive());
@@ -74,7 +74,7 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
     }
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

@@ -3,8 +3,8 @@ package com.saphienyako.feywild.sound;
 import com.saphienyako.feywild.Feywild;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
 import net.neoforged.bus.api.IEventBus;
@@ -20,7 +20,6 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANDRAKE_SCREAM = registerSoundEvent("mandrake_scream");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvent("pixie_spell_casting");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING_SHORT = registerSoundEvent("pixie_spell_casting_short");
-    public static final Supplier<SoundEvent> FEYWILD_MUSIC = registerSoundEvent("feywild_music");
     public static final ResourceKey<JukeboxSong> FEYWILD_MUSIC_KEY = createSong("feywild_music");
 
     public static final Supplier<SoundEvent> SPRING_PIXIE_GIGGLE = registerSoundEvent("spring_pixie_giggle");
@@ -202,12 +201,13 @@ public class ModSounds {
 
     public static final Supplier<SoundEvent> ASHEN_LORD_ATTACK = registerSoundEvent("ashen_lord_attack");
 
+    @SuppressWarnings("SameParameterValue")
     private static ResourceKey<JukeboxSong> createSong(String name) {
-                return ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name));
+        return ResourceKey.create(Registries.JUKEBOX_SONG, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, name));
     }
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, name);
+        Identifier id = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));
     }
 

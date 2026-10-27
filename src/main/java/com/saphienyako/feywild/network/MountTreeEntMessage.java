@@ -6,7 +6,7 @@ import com.saphienyako.feywild.entity.base.TreeEntBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record MountTreeEntMessage(int entityId) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<MountTreeEntMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "ride_tree_ent"));
+    public static final CustomPacketPayload.Type<@NotNull MountTreeEntMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "ride_tree_ent"));
 
     public static final StreamCodec<FriendlyByteBuf, MountTreeEntMessage> STREAM_CODEC =
             StreamCodec.of(MountTreeEntMessage::encode, MountTreeEntMessage::decode);
@@ -30,18 +30,19 @@ public record MountTreeEntMessage(int entityId) implements CustomPacketPayload {
         return new MountTreeEntMessage(buf.readInt());
     }
 
+    @SuppressWarnings("resource")
     public static void handle(MountTreeEntMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
             Level level = player.level();
-            if (level.isClientSide) return;
+            if (level.isClientSide()) return;
 
             if (msg.entityId() != -1) {
                 Entity entity = level.getEntity(msg.entityId());
                 if (entity instanceof TreeEntBase treeEnt) {
 
                     if (treeEnt.canRide(player) && !treeEnt.isVehicle()) {
-                        player.startRiding(treeEnt, true);
+                        player.startRiding(treeEnt, true, true);
                     }
                     if(FeywildConfig.voicesActive && treeEnt.getVoiceActive()) {
                         level.playSound(
@@ -59,7 +60,7 @@ public record MountTreeEntMessage(int entityId) implements CustomPacketPayload {
     }
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

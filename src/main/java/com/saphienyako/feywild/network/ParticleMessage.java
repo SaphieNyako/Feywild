@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record ParticleMessage(Particles particles, BlockPos pos) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<ParticleMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "particle")
+    public static final CustomPacketPayload.Type<@NotNull ParticleMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "particle")
             );
 
     public static final StreamCodec<FriendlyByteBuf, ParticleMessage> STREAM_CODEC =
@@ -39,7 +39,7 @@ public record ParticleMessage(Particles particles, BlockPos pos) implements Cust
 
     public static void handle(ParticleMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
+            if (FMLEnvironment.getDist() == Dist.CLIENT) {
                 ParticleMessageClientHandler.spawnParticles(msg);
             }
         });
@@ -47,7 +47,7 @@ public record ParticleMessage(Particles particles, BlockPos pos) implements Cust
 
 
     @Override
-    public CustomPacketPayload.@NotNull Type<? extends CustomPacketPayload> type() {
+    public CustomPacketPayload.@NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 

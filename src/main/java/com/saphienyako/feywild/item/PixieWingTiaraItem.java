@@ -3,6 +3,7 @@ package com.saphienyako.feywild.item;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.effect.ModEffects;
+import com.saphienyako.feywild.item.base.ToolTipBaseItem;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,33 +22,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class PixieWingTiaraItem extends Item {
+public class PixieWingTiaraItem extends ToolTipBaseItem {
 
     private final Identifier wingTexture;
 
     public PixieWingTiaraItem(Properties properties, Identifier wingTexture) {
-        super(properties);
+        super(properties,Component.translatable("message.feywild.pixie_wing_tiara"));
         this.wingTexture = wingTexture;
     }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(Component.translatable("message.feywild.pixie_wing_tiara").withStyle(ChatFormatting.BLUE));
-
-            if (ModCompat.CURIOS_LOADED) {
-                tooltip.add(Component.translatable("message.feywild.curios_head_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
-            } else
-                tooltip.add(Component.translatable("message.feywild.off_hand_slot").withStyle(ChatFormatting.LIGHT_PURPLE));
-
-        }
-
-        else {
-            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-        }
-        super.appendHoverText(stack, context, tooltip, flag);
-    }
-
     public Identifier getWingTexture(@NotNull ItemStack stack) {
 
         String name = stack.getHoverName().getString();

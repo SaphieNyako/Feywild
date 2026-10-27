@@ -16,13 +16,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -34,7 +32,6 @@ public class ModEventListener {
     private static final String TIARA_WAS_EQUIPPED = "feywild_tiara_was_equipped";
 
     public ModEventListener() {
-        //double registration?
     }
 
     @SuppressWarnings({"unused", "resource"})
@@ -46,12 +43,13 @@ public class ModEventListener {
         if (!FeywildConfig.spawnWithLexicon) return;
 
         var data = FeywildPlayerData.get(event.getEntity());
-        if (!data.getBoolean("feywild_got_lexicon")) {
+        if (!data.getBoolean("feywild_got_lexicon").orElse(false)) {
             event.getEntity().getInventory().add(new ItemStack(ModItems.FEYWILD_LEXICON.get()));
             data.putBoolean("feywild_got_lexicon", true);
         }
     }
 
+    @SuppressWarnings({"resource","unused","deprecation"})
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
@@ -70,7 +68,7 @@ public class ModEventListener {
 
         CompoundTag data = player.getPersistentData();
 
-        boolean grantedByFeywild = data.getBoolean(FEYWILD_GRANTED_FLIGHT);
+        boolean grantedByFeywild = data.getBoolean(FEYWILD_GRANTED_FLIGHT).orElse(false);
 
         var abilities = player.getAbilities();
 
@@ -100,11 +98,13 @@ public class ModEventListener {
                 player.level().playSound(null, player.blockPosition(), ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             }
 
-            player.displayClientMessage(Component.literal("The magic of the pixie tiara is fading...").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+            if (player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.sendSystemMessage(Component.translatable("message.feywild.tiara_fading").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+            }
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 120, 0, false, false, true));
         }
     }
-
+    @SuppressWarnings("resource")
     private static void updatePixieTiara(Player player) {
         ItemStack tiaraStack = ModCompat.findWingTiara(player);
 
@@ -112,7 +112,7 @@ public class ModEventListener {
 
         CompoundTag data = player.getPersistentData();
 
-        boolean wasEquipped = data.getBoolean(TIARA_WAS_EQUIPPED);
+        boolean wasEquipped = data.getBoolean(TIARA_WAS_EQUIPPED).orElse(false);
 
         if (!wasEquipped && isEquipped) {
             player.level().playSound(null, player.blockPosition(), ModSounds.PIXIE_SPELL_CASTING_SHORT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
@@ -131,6 +131,7 @@ public class ModEventListener {
         }
     }
 
+    @SuppressWarnings("unused")
     @SubscribeEvent
     public void onProjectileImpact(ProjectileImpactEvent event) {
         if (event.getProjectile() instanceof Snowball snowball && event.getRayTraceResult() instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof SpringPixieEntity && snowball.getOwner() instanceof ServerPlayer player) {

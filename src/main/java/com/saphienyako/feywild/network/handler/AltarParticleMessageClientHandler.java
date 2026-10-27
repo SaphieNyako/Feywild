@@ -13,7 +13,7 @@ public class AltarParticleMessageClientHandler {
         Level level = Minecraft.getInstance().level;
         if (level == null) return;
 
-        RandomSource random = level.random;
+        RandomSource random = level.getRandom();
 
         switch (msg.particles()) {
             case ALTAR_01 -> {
@@ -22,13 +22,11 @@ public class AltarParticleMessageClientHandler {
                     double y = msg.pos().getY() + 1.2;
                     double z = msg.pos().getZ() + 0.5;
 
-                    level.addParticle(ModParticles.FEY_SPARKLE_PARTICLE.get(), true,
-                            x, y, z,
+                    level.addParticle(ModParticles.FEY_SPARKLE_PARTICLE.get(), true, false, x, y, z,
                             0.5 - random.nextDouble(), 0.7 - random.nextDouble(), 0.5 - random.nextDouble());
 
 
-                    level.addParticle(ParticleTypes.END_ROD, true,
-                            x, y, z,
+                    level.addParticle(ParticleTypes.END_ROD, true, false, x, y, z,
                             0.5 - random.nextDouble(), 0.7 - random.nextDouble(), 0.5 - random.nextDouble());
                 }
             }
@@ -44,8 +42,8 @@ public class AltarParticleMessageClientHandler {
                     double y = msg.pos().getY() + 1 + progressScaled;
                     double z = msg.pos().getZ() + 0.5 + shiftZ;
 
-                    level.addParticle(ModParticles.FEY_SPARKLE_PARTICLE.get(), true, x, y, z, 0, 0, 0);
-                    level.addParticle(ParticleTypes.END_ROD, true, x, y, z, 0, 0, 0);
+                    level.addParticle(ModParticles.FEY_SPARKLE_PARTICLE.get(), true, false, x, y, z, 0, 0, 0);
+                    level.addParticle(ParticleTypes.END_ROD, true,false, x, y, z, 0, 0, 0);
                 }
             }
 
@@ -54,13 +52,13 @@ public class AltarParticleMessageClientHandler {
                     double x = msg.pos().getX() + Math.random();
                     double y = msg.pos().getY() + 1 + Math.random();
                     double z = msg.pos().getZ() + Math.random();
-                    level.addParticle(ModParticles.FEY_SPARKLE_PARTICLE.get(), true, x, y, z, 0, 0, 0);
+                    level.addParticle(ModParticles.FEY_SPARKLE_PARTICLE.get(), true,false, x, y, z, 0, 0, 0);
                 }
                 if (random.nextFloat() < 0.02) {
                     double x = msg.pos().getX() + Math.random();
                     double y = msg.pos().getY() + 1 + Math.random();
                     double z = msg.pos().getZ() + Math.random();
-                    level.addParticle(ParticleTypes.END_ROD, true, x, y, z, 0, 0, 0);
+                    level.addParticle(ParticleTypes.END_ROD, true,false, x, y, z, 0, 0, 0);
                 }
             }
         }

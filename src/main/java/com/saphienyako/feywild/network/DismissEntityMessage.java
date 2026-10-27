@@ -6,7 +6,8 @@ import com.saphienyako.feywild.entity.base.FeyBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -17,8 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record DismissEntityMessage(int entityId) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<DismissEntityMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "dismiss_entity"));
+    public static final CustomPacketPayload.Type<@NotNull DismissEntityMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "dismiss_entity"));
 
     public static final StreamCodec<FriendlyByteBuf, DismissEntityMessage> STREAM_CODEC =
             StreamCodec.of(DismissEntityMessage::encode, DismissEntityMessage::decode);
@@ -35,31 +36,20 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
     public static void handle(DismissEntityMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player.level().isClientSide) return;
+            if (!(player.level() instanceof ServerLevel serverLevel)) {
+                return;
+            }
 
             Level level = player.level();
-            if (!level.isClientSide && msg.entityId() != -1) {
+            if (!level.isClientSide() && msg.entityId() != -1) {
                 FeyBase entity = (FeyBase) level.getEntity(msg.entityId());
                 if (entity != null) {
-                    entity.spawnAtLocation(entity.getDismissItem());
+                    entity.spawnAtLocation(serverLevel,entity.getDismissItem());
                     player.sendSystemMessage(entity.getFeyDismissMessage());
                    if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                        level.playSound(
-                                null,
-                                entity.blockPosition(),
-                                entity.getDismissSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                        level.playSound(null, entity.blockPosition(), entity.getDismissSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                     }
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            entity,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.DANDELION_FLUFF,
-                                    entity.blockPosition().above()
-                            )
-                    );
+                    PacketDistributor.sendToPlayersTrackingEntity(entity, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, entity.blockPosition().above()));
                     entity.remove(Entity.RemovalReason.DISCARDED);
                 }
             }
@@ -67,7 +57,7 @@ public record DismissEntityMessage(int entityId) implements CustomPacketPayload 
     }
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }

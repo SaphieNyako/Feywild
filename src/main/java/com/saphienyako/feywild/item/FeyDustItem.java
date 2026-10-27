@@ -2,11 +2,10 @@ package com.saphienyako.feywild.item;
 
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.FeywildConfig;
+import com.saphienyako.feywild.item.base.ToolTipBaseItem;
 import com.saphienyako.quest_giver.quest.data.QuestData;
 import com.saphienyako.quest_giver.quest.task.SpecialTask;
-import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -15,44 +14,23 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
 
-public class FeyDustItem extends Item {
-
-    private FoodProperties food;
+public class FeyDustItem extends ToolTipBaseItem {
 
     public FeyDustItem(Properties properties) {
-        super(properties);
-        this.updateFood();
-    }
-
-    @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        if(Screen.hasShiftDown()){
-            tooltip.add(Component.translatable("message.feywild.fey_dust").withStyle(ChatFormatting.BLUE));
-        }
-
-        else {
-            tooltip.add(Component.translatable("message.feywild.shift_down").withStyle(ChatFormatting.GREEN));
-        }
-        super.appendHoverText(stack, context, tooltip, flag);
+        super(properties, Component.translatable("message.feywild.fey_dust"));
     }
 
     @SuppressWarnings("resource")
     @Nonnull
     @Override
     public InteractionResult interactLivingEntity(@Nonnull ItemStack stack, @Nonnull Player player, @Nonnull LivingEntity target, @Nonnull InteractionHand hand) {
-        if (!player.level().isClientSide) {
+        if (!player.level().isClientSide()) {
             if (target instanceof Sheep && ModCompat.QUEST_GIVER_LOADED) {
                 target.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80, 3));
                 QuestData.get((ServerPlayer) player).checkComplete(SpecialTask.INSTANCE, "fey_dust_sheep");
@@ -66,18 +44,6 @@ public class FeyDustItem extends Item {
         player.awardStat(Stats.ITEM_USED.get(this));
         if (!player.isCreative()) stack.shrink(1);
 
-        return InteractionResult.sidedSuccess(player.level().isClientSide);
-    }
-
-    @Nullable
-    @Override
-    public FoodProperties getFoodProperties(@NotNull ItemStack stack, LivingEntity entity) {
-        // Overridden instead of item properties, so it will
-        // instantly change on config reload
-        return this.food;
-    }
-
-    public void updateFood() {
-        this.food = new FoodProperties.Builder().effect(() -> new MobEffectInstance(MobEffects.LEVITATION, FeywildConfig.feyDustDuration, 2), 1).build();
+        return InteractionResult.SUCCESS;
     }
 }

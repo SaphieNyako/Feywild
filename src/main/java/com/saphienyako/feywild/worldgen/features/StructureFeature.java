@@ -4,10 +4,8 @@ import com.mojang.serialization.Codec;
 import com.saphienyako.feywild.Feywild;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -16,13 +14,14 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StructureFeature extends Feature<NoneFeatureConfiguration> {
+public class StructureFeature extends Feature<@NotNull NoneFeatureConfiguration> {
 
-    private static final List<ResourceLocation> TREES = new ArrayList<>();
+    private static final List<Identifier> TREES = new ArrayList<>();
     private static boolean initialized = false;
 
     private final StructureProcessor processor;
@@ -35,18 +34,18 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
     private static void initialize() {
         if (initialized) return;
         for (int i = 0; i <= 4; i++) {
-            TREES.add(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "fey_tree_" + i));
+            TREES.add(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_tree_" + i));
         }
         initialized = true;
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean place(FeaturePlaceContext<@NotNull NoneFeatureConfiguration> context) {
         initialize();
 
         StructureTemplateManager manager = context.level().getLevel().getStructureManager();
 
-        ResourceLocation structureLocation = TREES.get(context.random().nextInt(TREES.size()));
+        Identifier structureLocation = TREES.get(context.random().nextInt(TREES.size()));
         StructureTemplate template = manager.get(structureLocation).orElse(null);
 
         if (template == null) {
@@ -60,31 +59,19 @@ public class StructureFeature extends Feature<NoneFeatureConfiguration> {
 
         Vec3i size = template.getSize();
 
-        BlockPos placementPos = context.origin().offset(
-                -size.getX() / 2,
-                0,
-                -size.getZ() / 2
-        );
+        BlockPos placementPos = context.origin().offset(-size.getX() / 2, 0, -size.getZ() / 2);
 
         for (int dx = 0; dx < size.getX(); dx++) {
             for (int dz = 0; dz < size.getZ(); dz++) {
                 BlockPos checkPos = placementPos.offset(dx, -1, dz);
                 BlockState state = context.level().getBlockState(checkPos);
-                if (!state.isSolidRender(context.level(), checkPos) ||
-                        (!state.is(Blocks.GRASS_BLOCK) && !state.is(Blocks.DIRT) && !state.is(Blocks.PODZOL))) {
+                if ((!state.is(Blocks.GRASS_BLOCK) && !state.is(Blocks.DIRT) && !state.is(Blocks.PODZOL))) {
                     return false;
                 }
             }
         }
 
-        template.placeInWorld(
-                context.level(),
-                placementPos,
-                placementPos,
-                settings,
-                context.random(),
-                2
-        );
+        template.placeInWorld(context.level(), placementPos, placementPos, settings, context.random(), 2);
 
         return true;
     }

@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 public record AltarParticleMessage (Particles particles, BlockPos pos, int progress, int maxProgress) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<AltarParticleMessage> TYPE =
-            new CustomPacketPayload.Type<>( ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "altar_particle")
+    public static final CustomPacketPayload.Type<@NotNull AltarParticleMessage> TYPE =
+            new CustomPacketPayload.Type<>( Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "altar_particle")
             );
 
 
-    public static final StreamCodec<FriendlyByteBuf, AltarParticleMessage> STREAM_CODEC =
+    public static final StreamCodec< FriendlyByteBuf, AltarParticleMessage> STREAM_CODEC =
             StreamCodec.of(AltarParticleMessage::encode, AltarParticleMessage::decode);
 
     private static void encode(FriendlyByteBuf buf, AltarParticleMessage msg) {
@@ -39,7 +39,7 @@ public record AltarParticleMessage (Particles particles, BlockPos pos, int progr
 
     public static void handle(AltarParticleMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
+            if (FMLEnvironment.getDist() == Dist.CLIENT) {
                 AltarParticleMessageClientHandler.spawnParticles(msg);
             }
         });
@@ -47,7 +47,7 @@ public record AltarParticleMessage (Particles particles, BlockPos pos, int progr
 
 
     @Override
-    public CustomPacketPayload.@NotNull Type<? extends CustomPacketPayload> type() {
+    public CustomPacketPayload.@NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 

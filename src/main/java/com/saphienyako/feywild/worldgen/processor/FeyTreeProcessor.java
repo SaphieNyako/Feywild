@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -24,28 +24,17 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
         this.fromSapling = fromSapling;
     }
 
-    @Nullable
     @Override
-    public StructureTemplate.StructureBlockInfo process(LevelReader level, BlockPos offset, BlockPos pos, StructureTemplate.StructureBlockInfo original, StructureTemplate.StructureBlockInfo current, StructurePlaceSettings setting, @Nullable StructureTemplate template) {
+    public StructureTemplate.@NotNull StructureBlockInfo process(@NotNull LevelReader level, @NotNull BlockPos offset, @NotNull BlockPos pos, StructureTemplate.@NotNull StructureBlockInfo original, StructureTemplate.StructureBlockInfo current, @NotNull StructurePlaceSettings setting, @Nullable StructureTemplate template) {
         BlockState state = current.state();
 
         // Replace oak log
         if (state.is(Blocks.OAK_LOG)) {
             RandomSource random = setting.getRandom(current.pos());
 
-            BlockState logState =
-                    random.nextInt(crackedChance()) == 0
-                            ? getCrackedLogBlock().defaultBlockState()
-                            : getLogBlock().defaultBlockState();
+            BlockState logState = random.nextInt(crackedChance()) == 0 ? getCrackedLogBlock().defaultBlockState() : getLogBlock().defaultBlockState();
 
-            return new StructureTemplate.StructureBlockInfo(
-                    current.pos(),
-                    logState.setValue(
-                            RotatedPillarBlock.AXIS,
-                            state.getValue(RotatedPillarBlock.AXIS)
-                    ),
-                    current.nbt()
-            );
+            return new StructureTemplate.StructureBlockInfo(current.pos(), logState.setValue(RotatedPillarBlock.AXIS, state.getValue(RotatedPillarBlock.AXIS)), current.nbt());
         }
 
         // Replace oak leaves
@@ -55,11 +44,7 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
             List<Block> leaves = getLeafVariants();
             Block chosenLeaves = leaves.get(random.nextInt(leaves.size()));
 
-            return new StructureTemplate.StructureBlockInfo(
-                    current.pos(),
-                    chosenLeaves.defaultBlockState(),
-                    current.nbt()
-            );
+            return new StructureTemplate.StructureBlockInfo(current.pos(), chosenLeaves.defaultBlockState(), current.nbt());
         }
 
         if (state.is(Blocks.OAK_WOOD)) {
@@ -82,9 +67,7 @@ public abstract class FeyTreeProcessor extends StructureProcessor {
     }
 
     protected int crackedChance() {
-        return fromSapling
-                ? FeywildConfig.treeEntSpawnSapling
-                : FeywildConfig.treeEntSpawnWorld;
+        return fromSapling ? FeywildConfig.treeEntSpawnSapling : FeywildConfig.treeEntSpawnWorld;
     }
 
     abstract protected Block getLogBlock();

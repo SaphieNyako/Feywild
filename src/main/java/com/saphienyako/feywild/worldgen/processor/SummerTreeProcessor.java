@@ -4,30 +4,27 @@ import com.mojang.serialization.MapCodec;
 import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class SummerTreeProcessor extends FeyTreeProcessor{
 
-    public static final SummerTreeProcessor WORLDGEN =
-            new SummerTreeProcessor(false);
+    public static final SummerTreeProcessor WORLD_GEN = new SummerTreeProcessor(false);
 
-    public static final SummerTreeProcessor SAPLING =
-            new SummerTreeProcessor(true);
+    public static final SummerTreeProcessor SAPLING = new SummerTreeProcessor(true);
 
     private SummerTreeProcessor(boolean fromSapling) {
         super(fromSapling);
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected @NotNull StructureProcessorType<?> getType() {
         return FeywildProcessors.SUMMER_TREE.get();
     }
 
 
-    public static final MapCodec<SummerTreeProcessor> MAP_CODEC =
-            MapCodec.unit(() -> WORLDGEN);
-
+    public static final MapCodec<SummerTreeProcessor> MAP_CODEC = MapCodec.unit(() -> WORLD_GEN);
 
     @Override
     protected Block getLogBlock() {

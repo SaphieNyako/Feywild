@@ -158,7 +158,7 @@ public class ModItems {
     public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_ASHEN_LORD = ITEMS.register("summoning_scroll_ashen_lord", () -> new BossSummoningScrollItem(new Item.Properties(),
             Component.translatable("message.feywild.summoning_scroll_ashen_lord")));
 
-
+    //TODO egg textures
     public static final DeferredItem<@NotNull SpawnEggItem> SPAWN_EGG_SPRING_PIXIE =
             ITEMS.registerItem("spawn_egg_spring_pixie",
                     SpawnEggItem::new, properties -> properties.component(DataComponents.ENTITY_DATA,

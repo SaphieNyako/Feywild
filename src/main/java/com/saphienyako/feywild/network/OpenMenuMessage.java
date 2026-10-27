@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record OpenMenuMessage(int entityId, Alignment alignment, boolean followingPlayer, BlockPos currentBlockPos, boolean abilityActive, boolean voiceActive) implements CustomPacketPayload {
 
-    public static final CustomPacketPayload.Type<OpenMenuMessage> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "open_menu"));
+    public static final CustomPacketPayload.Type<@NotNull OpenMenuMessage> TYPE =
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "open_menu"));
 
     public static final StreamCodec<FriendlyByteBuf, OpenMenuMessage> STREAM_CODEC =
             StreamCodec.of(OpenMenuMessage::encode, OpenMenuMessage::decode);
@@ -42,14 +42,14 @@ public record OpenMenuMessage(int entityId, Alignment alignment, boolean followi
 
     public static void handle(OpenMenuMessage msg, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
+            if (FMLEnvironment.getDist() == Dist.CLIENT) {
                 OpenMenuMessageClientHandler.openMenu(msg);
             }
         });
     }
 
     @Override
-    public @NotNull Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
         return TYPE;
     }
 }
