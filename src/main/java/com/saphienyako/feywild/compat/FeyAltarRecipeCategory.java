@@ -44,8 +44,6 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
         return Component.translatable("block.feywild.fey_altar");
     }
 
-    @SuppressWarnings("removal")
-    @Override
     public @NotNull IDrawable getBackground() {
         return this.background;
     }

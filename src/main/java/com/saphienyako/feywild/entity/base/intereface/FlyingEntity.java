@@ -48,14 +48,13 @@ public interface FlyingEntity {
         if (scaledLastHorizontalMotion > 1) {
             scaledLastHorizontalMotion = 1;
         }
-        self.walkAnimation.update(scaledLastHorizontalMotion, 0.4f);
+        self.walkAnimation.update(scaledLastHorizontalMotion, 0.4f, 1.0f);
     }
 
     default PathNavigation createFlyingNavigation(PathfinderMob self, Level level) {
         FlyingPathNavigation flyingPathNavigator = new FlyingPathNavigation(self, level);
         flyingPathNavigator.setCanOpenDoors(false);
         flyingPathNavigator.setCanFloat(true);
-        flyingPathNavigator.setCanPassDoors(true);
         return flyingPathNavigator;
     }
 }

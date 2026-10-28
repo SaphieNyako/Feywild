@@ -62,10 +62,6 @@ public class TitaniaEntity extends FlyingBossBase {
         builder.define(STATE, 0);
     }
 
-    public static boolean canSpawn(EntityType<? extends BossBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-        return isBrightEnoughToSpawn(level, pos);
-    }
-
     @Override
     protected void registerGoals() {
         super.registerGoals();

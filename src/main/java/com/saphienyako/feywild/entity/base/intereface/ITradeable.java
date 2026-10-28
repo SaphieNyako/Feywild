@@ -5,11 +5,12 @@ import net.minecraft.world.item.ItemStack;
 
 public interface ITradeable {
 
-    public SoundEvent getTradeSound();
+    SoundEvent getTradeSound();
 
-    public ItemStack getTradeItem();
+    /** @noinspection unused*/
+    ItemStack getTradeItem();
 
-    public boolean isTradeItem(ItemStack stack);
+    boolean isTradeItem(ItemStack stack);
 
-    public ItemStack getTradeResult();
+    ItemStack getTradeResult();
 }

@@ -23,6 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -44,6 +45,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -132,58 +135,54 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putInt("BellsnickelVariant", this.entityData.get(VARIANT));
-        //Inventory
-        ListTag listtag = new ListTag();
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+
+        output.putInt("BellsnickelVariant", this.entityData.get(VARIANT));
+
+        ValueOutput.ValueOutputList items = output.childrenList("Items");
+
         for (int x = 0; x < this.inventory.getContainerSize(); x++) {
             ItemStack itemstack = this.inventory.getItem(x);
+
             if (!itemstack.isEmpty()) {
-                CompoundTag compoundtag = new CompoundTag();
-                compoundtag.putByte("Slot", (byte)(x));
-                listtag.add(itemstack.save(this.registryAccess(), compoundtag));
+                ValueOutput itemOutput = items.addChild();
+                itemOutput.putByte("Slot", (byte) x);
+                itemOutput.store("Item", ItemStack.CODEC, itemstack);
             }
         }
-        nbt.put("Items", listtag);
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        if (nbt.contains("BellsnickelVariant")) {
-            this.entityData.set(VARIANT, nbt.getInt("BellsnickelVariant"));
-        }
-        //Inventory
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        input.getInt("BellsnickelVariant").ifPresent(variant -> this.entityData.set(VARIANT, variant));
+
         this.createInventory();
-        ListTag listtag = nbt.getList("Items", 10); //TODO
 
-        for (int x = 0; x < listtag.size(); x++) {
-            CompoundTag compoundtag = listtag.getCompound(x);
-            int j = compoundtag.getByte("Slot") & 255;
-            if (j < this.inventory.getContainerSize()) {
-                this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
+        for (ValueInput itemInput : input.childrenListOrEmpty("Items")) {
+            int slot = itemInput.getByteOr("Slot", (byte) 0) & 255;
+
+            if (slot < this.inventory.getContainerSize()) {
+                itemInput.read("Item", ItemStack.CODEC).ifPresent(stack -> this.inventory.setItem(slot, stack));
             }
         }
     }
 
     @Override
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        Entity attacker = damageSource.getEntity();
+    public boolean hurtServer(@NotNull ServerLevel level, DamageSource source, float amount) {
+        Entity attacker = source.getEntity();
+
         if (attacker instanceof LivingEntity living && !this.isTamed()) {
             living.setTicksFrozen(living.getTicksRequiredToFreeze());
             living.setTicksFrozen(living.getTicksFrozen() + 60);
             living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 140, 2));
-            PacketDistributor.sendToPlayersTrackingEntity(
-                    this,
-                    new ParticleMessage(
-                            ParticleMessage.Particles.DANDELION_FLUFF,
-                            this.blockPosition().above()
-                    )
-            );
+
+            PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, this.blockPosition().above()));
         }
 
-        return super.isDamageSourceBlocked(damageSource);
+        return super.hurtServer(level, source, amount);
     }
 
     @SuppressWarnings("resource")
@@ -194,7 +193,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
             setupAnimationStates();
             handleLanternLight();
         }
-        if (level().isClientSide && this.getParticle() != null && random.nextInt(25) == 0) {
+        if (level().isClientSide() && this.getParticle() != null && random.nextInt(25) == 0) {
                 level().addParticle(this.getParticle(),
                         this.getX() + (Math.random() - 0.5),
                         this.getY() + 1 + (Math.random() - 0.5),
@@ -240,7 +239,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
 
     @Override
     public void remove(RemovalReason reason) {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (reason == RemovalReason.KILLED || reason == RemovalReason.DISCARDED) {
                 dropInventory();
             }
@@ -451,7 +450,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
 
     @Override
     public void openCustomInventoryScreen(@Nonnull Player player) {
-        if (!this.level().isClientSide && this.isTamed()) {
+        if (!this.level().isClientSide() && this.isTamed()) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             if (player.containerMenu != player.inventoryMenu) {
                 player.closeContainer();
@@ -473,7 +472,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     private void dropInventory() {
-        if (this.level().isClientSide || this.inventory == null) {
+        if (this.level().isClientSide() || this.inventory == null) {
             return;
         }
 
@@ -488,7 +487,7 @@ public class BellsnickelEntity extends FeyBase implements GroundEntity, ITradeab
     }
 
     private void updateOutputSlot() {
-        if (level().isClientSide || inventory == null) return;
+        if (level().isClientSide() || inventory == null) return;
 
         inventory.removeListener(this);
 

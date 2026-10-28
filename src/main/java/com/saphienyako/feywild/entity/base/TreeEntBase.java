@@ -18,8 +18,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -44,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class TreeEntBase extends FeyBase implements GroundEntity, PlayerRideableJumping {
@@ -59,8 +58,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     public final AnimationState WALK_ANIMATION = new AnimationState();
 
     private int movingTicks = 0;
-
-    public static final double MIN_MOVING_SPEED_SQR = 1.0E-8;
 
     private boolean isJumping;
     protected float playerJumpPendingScale;
@@ -79,7 +76,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
 
     public TreeEntBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.noCulling = true;
     }
 
     @Override
@@ -92,7 +88,6 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         if (FeywildConfig.treeEntAttackPlayers) {
             this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
         }
-     //   this.targetSelector.addGoal(2, new TameCheckingGoal(this, false, new NearestAttackableTargetGoal<>(this, Player.class, true)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, false));
         this.targetSelector.addGoal(3, new TreeEntResetTargetGoal<>(this));
         this.goalSelector.addGoal(5, new MoveTowardsTargetGoal(this, 1.0D, 8));
@@ -125,8 +120,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         super.onAddedToLevel();
 
         if (!this.level().isClientSide()) {
-            this.getAttribute(Attributes.ATTACK_DAMAGE)
-                    .setBaseValue(FeywildConfig.treeEntAttackDamage);
+            Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).setBaseValue(FeywildConfig.treeEntAttackDamage);
         }
     }
 
@@ -135,18 +129,8 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         this.setTarget(null);
     }
     @Override
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
-            Vec3 vec32 = damageSource.getSourcePosition();
-            if (vec32 != null) {
-                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
-                Vec3 vec31 = vec32.vectorTo(this.position());
-                vec31 = new Vec3(vec31.x, 0.0, vec31.z).normalize();
-                return vec31.dot(vec3) < 0.0;
-            }
-        }
-
-        return false;
+    protected boolean canBeDamagedByAnyWeapon() {
+        return true;
     }
 
 
@@ -241,13 +225,9 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         WALK_QUICK_ANIMATION.stop();
     }
 
-    @SuppressWarnings("resource")
-    @Nonnull
     @Override
-    @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-
-        InteractionResult superResult = super.interactAt(player, hitVec, hand);
+    public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand, @NotNull Vec3 location) {
+        InteractionResult superResult = super.interact(player, hand, location);
         //NAME TAG
         if (superResult == InteractionResult.PASS) {
             //NAME
@@ -257,12 +237,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                 if (!level().isClientSide()) {
                     player.sendSystemMessage(getFeyNameMessage());
                     if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getNameSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                        this.playSound(this.getNameSound(), 1.0F, 1.0F);
                     }
                 }
 
@@ -282,12 +257,10 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                 player.swing(hand, true);
             } else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    player.displayClientMessage(
-                            Component.translatable("message.feywild.pixie_whisper")
-                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
-                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
-                            true
-                    );
+                    serverPlayer.sendSystemMessage(Component.translatable("message.feywild.pixie_whisper")
+                            .withStyle(ChatFormatting.LIGHT_PURPLE)
+                            .append(Component.translatable("message.feywild.pixie_orb_untamed")
+                                    .withStyle(ChatFormatting.ITALIC)), true);
                 }
                 player.swing(hand, true);
             } else if (player.getItemInHand(hand).is(Items.BONE_MEAL) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
@@ -296,18 +269,12 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
                     player.getItemInHand(hand).shrink(1);
                 }
                 if (!level().isClientSide()) {
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            this,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.FEY_HEART,
-                                    this.getOnPos()
-                            )
-                    );
+                    PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.FEY_HEART, this.getOnPos()));
                 }
 
                 player.swing(hand, true);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return superResult;
         }
@@ -381,17 +348,15 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
             walkingSoundCooldown--;
         }
 
-        if (this.isControlledByLocalInstance()) {
-            if (this.onGround()) {
-                this.setIsJumping(false);
+        if (this.isEffectiveAi() && this.onGround()) {
+            this.setIsJumping(false);
 
-                if (this.playerJumpPendingScale > 0.0F && !this.isJumping()) {
-                    this.executeRidersJump(this.playerJumpPendingScale, movementInput);
-                }
-
-                this.playerJumpPendingScale = 0.0F;
+            if (this.playerJumpPendingScale > 0.0F && !this.isJumping()) {
+                this.executeRidersJump(this.playerJumpPendingScale, movementInput);
             }
+            this.playerJumpPendingScale = 0.0F;
         }
+
     }
 
     protected void executeRidersJump(float jumpScale, Vec3 movementInput) {
@@ -399,7 +364,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         Vec3 motion = this.getDeltaMovement();
         this.setDeltaMovement(motion.x, jumpStrength, motion.z);
         this.setIsJumping(true);
-        this.hasImpulse = true;
+      //  this.hasImpulse = true;
 
         if (movementInput.z > 0.0) {
             float f = Mth.sin(this.getYRot() * ((float)Math.PI / 180F));
@@ -413,7 +378,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
         if (this.canJump()) {
             if (jumpPower < 0) jumpPower = 0;
             this.playerJumpPendingScale = 0.4F + 0.4F * jumpPower / 90.0F;
-            this.setIsJumping(true); // mark as jumping
+            this.setIsJumping(true);
         }
     }
 
@@ -443,7 +408,7 @@ public abstract class TreeEntBase extends FeyBase implements GroundEntity, Playe
     //SOUND
     @Override
     public void playStepSound(@Nonnull BlockPos pos,@Nonnull BlockState state) {
-        if (this.isVehicle() && this.getControllingPassenger() instanceof Player player) {
+        if (this.isVehicle() && this.getControllingPassenger() instanceof Player) {
             if (walkingSoundCooldown <= 0) {
                 this.playSound(ModSounds.TREE_ENT_WALKING.get(), 0.1f, 1.0f);
                 walkingSoundCooldown = 88;

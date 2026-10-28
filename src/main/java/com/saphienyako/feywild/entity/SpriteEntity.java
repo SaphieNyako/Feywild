@@ -31,6 +31,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -88,22 +90,19 @@ public class SpriteEntity extends FlyingFeyBase {
         builder.define(MODE, Mode.DEFAULT.ordinal());
     }
 
-    @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putInt("SpriteVariant", this.entityData.get(VARIANT));
-        nbt.putInt("SpriteMode", this.entityData.get(MODE));
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+
+        output.putInt("SpriteVariant", this.entityData.get(VARIANT));
+        output.putInt("SpriteMode", this.entityData.get(MODE));
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        if (nbt.contains("SpriteVariant")) {
-            this.entityData.set(VARIANT, nbt.getInt("SpriteVariant"));
-        }
-        if (nbt.contains("SpriteMode")) {
-            this.entityData.set(MODE, nbt.getInt("SpriteMode"));
-        }
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        input.getInt("SpriteVariant").ifPresent(variant -> this.entityData.set(VARIANT, variant));
+        input.getInt("SpriteMode").ifPresent(mode -> this.entityData.set(MODE, mode));
     }
 
     @Override

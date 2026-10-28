@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -75,10 +76,6 @@ public class AshenLordEntity extends BossBase {
         builder.define(CHANNEL_TYPE, 0);
     }
 
-    public static boolean canSpawn(EntityType<? extends BossBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
-        return isBrightEnoughToSpawn(level, pos);
-    }
-
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -97,11 +94,11 @@ public class AshenLordEntity extends BossBase {
     //TODO add Moving Light?
 
     @Override
-    public boolean hurt(@NotNull DamageSource source, float amount) {
-        boolean damaged = super.hurt(source, amount);
+    public boolean hurtServer(@NotNull ServerLevel level, @NotNull DamageSource source, float amount) {
+        boolean damaged = super.hurtServer(level, source, amount);
 
-        if (!damaged || this.level().isClientSide()) {
-            return damaged;
+        if (!damaged) {
+            return false;
         }
 
         if (source.getEntity() instanceof Player) {

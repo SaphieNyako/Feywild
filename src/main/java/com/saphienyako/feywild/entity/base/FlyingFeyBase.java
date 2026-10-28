@@ -29,8 +29,9 @@ public abstract class FlyingFeyBase extends FeyBase implements FlyingEntity {
         this.registerFlyingGoals(this);
     }
 
+    /** @noinspection NullableProblems*/
     @Override
-    public void travel(@Nonnull Vec3 to) {
+    public void travel(Vec3 to) {
         this.flyingTravel(this, to);
     }
 

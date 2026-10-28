@@ -2,30 +2,20 @@ package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.data.BeeKnightItems;
-import com.saphienyako.feywild.data.BellsnickelItems;
-import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
-import com.saphienyako.feywild.entity.base.PixieBase;
-import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import com.saphienyako.feywild.entity.goals.*;
-import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightMeleeAttackGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightResetTargetGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeMountMoveTowardsBeeKnightTargetGoal;
-import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMeleeAttackGoal;
-import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntMoveAndSoundGoal;
-import com.saphienyako.feywild.entity.goals.tree_ent_goals.TreeEntResetTargetGoal;
 import com.saphienyako.feywild.item.ModItems;
-import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
-import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
+import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -46,10 +36,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -120,41 +108,27 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
     }
 
     @Override
-    public boolean hurt(@Nonnull DamageSource source, float amount) {
+    public boolean hurtServer(@NotNull ServerLevel level, DamageSource source, float amount) {
         if (source.is(DamageTypes.IN_WALL)) {
             return false;
         }
 
-        return super.hurt(source, amount);
-    }
+        Entity attacker = source.getEntity();
 
-    @Override
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
-            Vec3 vec32 = damageSource.getSourcePosition();
-            if (vec32 != null) {
-                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
-                Vec3 vec31 = vec32.vectorTo(this.position());
-                vec31 = new Vec3(vec31.x, 0.0, vec31.z).normalize();
-                return vec31.dot(vec3) < 0.0;
-            }
-        }
-        Entity attacker = damageSource.getEntity();
-        if(this.isTamed() && attacker instanceof Player player && player == getOwningPlayer()) {
-            ItemStack held = player.getMainHandItem();
-            if (!isIronTool(held)) {
-                return true;
+        if (this.isTamed() && attacker instanceof Player player && player == getOwningPlayer()) {
+            if (isIronTool(player.getMainHandItem())) {
+                return false;
             }
         }
 
-        return false;
+        return super.hurtServer(level, source, amount);
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             // If not riding a BeeMount, remove itself
             if (!(this.getVehicle() instanceof BeeMountEntity)) {
                 this.remove(RemovalReason.DISCARDED);

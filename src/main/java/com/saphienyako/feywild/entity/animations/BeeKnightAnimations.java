@@ -173,6 +173,7 @@ public class BeeKnightAnimations {
             ))
             .build();
 
+    /** @noinspection unused*/
     public static final AnimationDefinition ATTACK_LEFT = AnimationDefinition.Builder.withLength(1.0F)
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

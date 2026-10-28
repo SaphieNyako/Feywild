@@ -14,7 +14,7 @@ public interface IOwnable extends ITameable {
     void setOwner(@Nullable UUID uid);
 
     default void setOwner(Player player) {
-        setOwner(player.getGameProfile().getId());
+        setOwner(player.getGameProfile().id());
     }
 
     default Player getOwningPlayer() {

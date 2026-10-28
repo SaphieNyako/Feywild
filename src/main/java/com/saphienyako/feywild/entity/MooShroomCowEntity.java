@@ -19,6 +19,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +31,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -47,7 +50,7 @@ public class MooShroomCowEntity extends MushroomCow {
         super(entityType, level);
     }
 
-    public static boolean canSpawn(EntityType<? extends MushroomCow> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(LevelAccessor level, BlockPos pos) {
         return isBrightEnoughToSpawn(level, pos);
     }
 
@@ -62,23 +65,17 @@ public class MooShroomCowEntity extends MushroomCow {
         builder.define(MOO_SHROOM_VARIANT, MooShroomCowVariant.BLUE.ordinal());
     }
 
-    @Override
-    public void addAdditionalSaveData(@Nonnull CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
-        tag.putString("MooShroomVariant", this.getMooShroomVariant().name());
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putString("MooShroomVariant", this.getMooShroomVariant().name());
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-
-        if (tag.contains("MooShroomVariant")) {
-            try {
-                this.setMooShroomVariant(MooShroomCowVariant.valueOf(tag.getString("MooShroomVariant")));
-            } catch (IllegalArgumentException ignored) {
-                this.setMooShroomVariant(MooShroomCowVariant.BLUE);
-            }
-        }
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+        input.getString("MooShroomVariant").ifPresent(variant ->
+                this.setMooShroomVariant(MooShroomCowVariant.valueOf(variant))
+        );
     }
 
 

@@ -11,9 +11,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,7 +33,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.Random;
 
@@ -84,7 +83,7 @@ public abstract class PixieBase extends FlyingFeyBase {
             setupAnimationStates();
         }
 
-        if (level().isClientSide && this.getParticle() != null && random.nextInt(11) == 0) {
+        if (level().isClientSide() && this.getParticle() != null && random.nextInt(11) == 0) {
             for (int i = 0; i < 4; i++) {
                 level().addParticle(this.getParticle(),
                         this.getX() + (Math.random() - 0.5),
@@ -118,29 +117,22 @@ public abstract class PixieBase extends FlyingFeyBase {
         }
       //TODO make FLY and IDLE work, check for moving?
     }
-    @SuppressWarnings("resource")
-    @Nonnull
+
     @Override
-    @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        InteractionResult superResult = super.interactAt(player, hitVec, hand);
+    public @NotNull InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand, @NotNull Vec3 location) {
+        InteractionResult superResult = super.interact(player, hand, location);
         if (superResult == InteractionResult.PASS) {
 
-                //GIVE COOKIE, HEAL
+            //GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
-                if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
+                if (!this.isTamed() && player instanceof ServerPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(6) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
+                        this.spawnAtLocation((ServerLevel) this.level(), new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
                         if(FeywildConfig.voicesActive) {
-                            serverPlayer.playNotifySound(
-                                    this.getCookieSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
+                            this.playSound(this.getCookieSound(), 1.0F, 1.0F);
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -149,14 +141,8 @@ public abstract class PixieBase extends FlyingFeyBase {
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                if (!level().isClientSide) {
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            this,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.FEY_HEART,
-                                    this.getOnPos()
-                            )
-                    );
+                if (!level().isClientSide()) {
+                    PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.FEY_HEART, this.getOnPos()));
                 }
 
                 player.swing(hand, true);
@@ -165,15 +151,10 @@ public abstract class PixieBase extends FlyingFeyBase {
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                if (!level().isClientSide) {
+                if (!level().isClientSide()) {
                     player.sendSystemMessage(getFeyNameMessage());
                     if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getNameSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                        this.playSound(this.getNameSound(), 1.0F, 1.0F);
                     }
                 }
 
@@ -191,19 +172,18 @@ public abstract class PixieBase extends FlyingFeyBase {
                         )
                 );
                 player.swing(hand, true);
+
                 //PIXIE ORB WARNING UNTAMED
             } else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    player.displayClientMessage(
-                            Component.translatable("message.feywild.pixie_whisper")
-                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
-                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
-                            true
-                    );
+                    serverPlayer.sendSystemMessage(Component.translatable("message.feywild.pixie_whisper")
+                            .withStyle(ChatFormatting.LIGHT_PURPLE)
+                            .append(Component.translatable("message.feywild.pixie_orb_untamed")
+                                    .withStyle(ChatFormatting.ITALIC)), true);
                 }
                 player.swing(hand, true);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return superResult;
         }

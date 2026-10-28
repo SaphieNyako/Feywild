@@ -4,12 +4,10 @@ import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.ParticleMessage;
-import com.saphienyako.feywild.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -19,22 +17,23 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
-
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,17 +53,16 @@ public abstract class BossBase extends PathfinderMob {
     protected BossBase(EntityType<? extends PathfinderMob> entity, Level level, ServerBossEvent bossInfo) {
         super(entity, level);
         this.bossInfo = bossInfo;
-        this.noCulling = true;
         this.xpReward = 50;
         this.setHealth(getMaxHealth());
     }
 
-    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
-        return getter.getRawBrightness(pos, 0) > 8;
+    public static boolean canSpawn(LevelAccessor level, BlockPos pos) {
+        return isBrightEnoughToSpawn(level, pos);
     }
 
-    public ServerBossEvent getBossInfo() {
-        return bossInfo;
+    protected static boolean isBrightEnoughToSpawn(LevelReader level, BlockPos pos) {
+        return level.getRawBrightness(pos, 0) > 8;
     }
 
     @Override
@@ -73,10 +71,9 @@ public abstract class BossBase extends PathfinderMob {
         this.bossInfo.setName(this.getDisplayName());
     }
 
-
     @Override
-    protected void customServerAiStep() {
-        super.customServerAiStep();
+    protected void customServerAiStep(@NotNull ServerLevel level) {
+        super.customServerAiStep(level);
         this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
@@ -93,13 +90,14 @@ public abstract class BossBase extends PathfinderMob {
     }
 
     @Override
-    public void readAdditionalSaveData(@Nonnull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
         if (this.hasCustomName()) {
             this.bossInfo.setName(this.getDisplayName());
         }
     }
 
+    /** @noinspection resource*/
     public void tick() {
         super.tick();
 
@@ -142,37 +140,29 @@ public abstract class BossBase extends PathfinderMob {
     }
 
     @Override
-    public boolean hurt(@Nonnull DamageSource source, float amount) {
+    protected void actuallyHurt(@NotNull ServerLevel level, @NotNull DamageSource source, float amount) {
         if (dying) {
-            return false;
+            return;
         }
 
-        boolean result = super.hurt(source, amount);
+        super.actuallyHurt(level, source, amount);
 
-        if (this.getHealth() <= 0.0F && !dying) {
+        if (this.getHealth() <= 0.0F) {
             this.setHealth(1.0F);
             beginDeathSequence();
-            return false;
+            return;
         }
 
-        if (result && !this.level().isClientSide()) {
-            Entity attacker = source.getEntity();
+        Entity attacker = source.getEntity();
 
-            if (attacker instanceof Player player) {
-                recentAttacker = player;
-                recentAttackerTicks = RETALIATION_WINDOW;
-                setTarget(player);
-            }
+        if (attacker instanceof Player player) {
+            recentAttacker = player;
+            recentAttackerTicks = RETALIATION_WINDOW;
+            this.setTarget(player);
         }
-
-        return result;
     }
 
-    public void clearRecentAttacker() {
-        this.recentAttacker = null;
-        this.recentAttackerTicks = 0;
-    }
-
+    @SuppressWarnings("resource")
     private void beginDeathSequence() {
 
         this.dying = true;
@@ -184,7 +174,7 @@ public abstract class BossBase extends PathfinderMob {
             stopSoundOnDeath();
         }
     }
-
+    @SuppressWarnings("resource")
     private void tickDeathSequence() {
         deathTicks++;
 
@@ -253,15 +243,18 @@ public abstract class BossBase extends PathfinderMob {
 
         //Removal
         if (deathTicks >= 160) {
-            addsprite();
+            addSprite();
             this.remove(RemovalReason.KILLED);
             this.gameEvent(GameEvent.ENTITY_DIE);
 
         }
     }
+    @SuppressWarnings("resource")
+    private void addSprite(){
+        SpriteEntity entity = ModEntities.SPRITE.get().create(level(), EntitySpawnReason.TRIGGERED);
 
-    private void addsprite(){
-        SpriteEntity entity = ModEntities.SPRITE.get().create(level());
+        if (entity == null) return;
+
         entity.setVariant(getSpriteVariant());
         entity.setPos(this.getX(), this.getY() + 1, this.getZ());
         level().addFreshEntity(entity);
@@ -271,7 +264,7 @@ public abstract class BossBase extends PathfinderMob {
         int dustAmount = random.nextInt(24, 42);
         scatterDust(dustAmount);
     }
-
+    @SuppressWarnings("resource")
     public void scatterItem(ItemStack stack) {
 
         ItemEntity item = new ItemEntity(
@@ -325,12 +318,12 @@ public abstract class BossBase extends PathfinderMob {
     }
 
     @Override
-    protected int calculateFallDamage(float distance, float damageMultiplier) {
+    protected int calculateFallDamage(double fallDistance, float damageModifier) {
         return 0;
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, @Nonnull DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float damageModifier, @NotNull DamageSource damageSource) {
         return false;
     }
 
@@ -360,8 +353,8 @@ public abstract class BossBase extends PathfinderMob {
     }
 
     @Override
-    public boolean canChangeDimensions(@Nonnull Level level,@Nonnull Level level_) {
-        return false;
+    public boolean canTeleport(Level from, Level to) {
+        return from.dimension().equals(to.dimension());
     }
 
     @Override
@@ -375,8 +368,6 @@ public abstract class BossBase extends PathfinderMob {
     }
 
     public abstract SoundEvent getSummonSound();
-
-    public abstract Component getFeySummonMessage();
 
     public abstract SimpleParticleType getParticle();
 
@@ -398,7 +389,7 @@ public abstract class BossBase extends PathfinderMob {
         if (ambientSound != null) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .stop(ambientSound.getLocation(), this.getSoundSource());
+                    .stop(ambientSound.location(), this.getSoundSource());
         }
     }
 
@@ -409,7 +400,7 @@ public abstract class BossBase extends PathfinderMob {
         if (ambientSound != null) {
             Minecraft.getInstance()
                     .getSoundManager()
-                    .stop(ambientSound.getLocation(), this.getSoundSource());
+                    .stop(ambientSound.location(), this.getSoundSource());
         }
     }
 }

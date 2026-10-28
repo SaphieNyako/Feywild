@@ -303,6 +303,7 @@ public class BellsnickelAnimations {
             ))
             .build();
 
+    /** @noinspection unused*/
     public static final AnimationDefinition LEFT_HOLD = AnimationDefinition.Builder.withLength(0.0F)
             .addAnimation("left_arm", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(-80.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
@@ -392,6 +393,7 @@ public class BellsnickelAnimations {
             ))
             .build();
 
+    /** @noinspection unused*/
     public static final AnimationDefinition RIGHT_THROW = AnimationDefinition.Builder.withLength(2.0F)
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

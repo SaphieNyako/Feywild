@@ -21,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -47,6 +48,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
@@ -126,36 +129,32 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
-        nbt.putInt("ShroomlingVariant", this.entityData.get(VARIANT));
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("ShroomlingVariant", this.entityData.get(VARIANT));
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        if (nbt.contains("ShroomlingVariant")) {
-            this.entityData.set(VARIANT, nbt.getInt("ShroomlingVariant"));
-        }
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        input.getInt("ShroomlingVariant")
+                .ifPresent(variant -> this.entityData.set(VARIANT, variant));
     }
+
     @Override
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        Entity attacker = damageSource.getEntity();
+    public boolean hurtServer(@NotNull ServerLevel level, DamageSource source, float amount) {
+        Entity attacker = source.getEntity();
+
         if (attacker instanceof LivingEntity living && !this.isTamed()) {
-                living.addEffect(new MobEffectInstance(MobEffects.POISON, 2 * 60, 0));
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                    this,
-                    new ParticleMessage(
-                            ParticleMessage.Particles.SHROOMLING_SNEEZE,
-                            this.blockPosition().above()
-                    )
-            );
+            living.addEffect(new MobEffectInstance(MobEffects.POISON, 2 * 60, 0));
+            PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.SHROOMLING_SNEEZE, this.blockPosition().above()));
         }
 
-        return super.isDamageSourceBlocked(damageSource);
+        return super.hurtServer(level, source, amount);
     }
 
-    public static boolean canShroomlingSpawn(EntityType<? extends FeyBase> type, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canShroomlingSpawn(LevelAccessor level, BlockPos pos) {
 
         BlockState below = level.getBlockState(pos.below());
         int light = level.getMaxLocalRawBrightness(pos);

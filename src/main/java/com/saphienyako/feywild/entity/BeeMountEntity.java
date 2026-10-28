@@ -1,12 +1,8 @@
 package com.saphienyako.feywild.entity;
 
-import com.google.common.collect.Multimap;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.config.FeywildConfig;
-import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
-import com.saphienyako.feywild.entity.base.intereface.ITradeable;
-import com.saphienyako.feywild.entity.goals.*;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.OpenMenuMessage;
 import com.saphienyako.feywild.network.ParticleMessage;
@@ -14,14 +10,13 @@ import com.saphienyako.feywild.screen.BeeKnightMenu;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -39,10 +34,11 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -51,7 +47,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
@@ -150,57 +145,65 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
-        super.addAdditionalSaveData(tag);
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
 
         if (this.knightUUID != null) {
-            tag.putUUID("KnightUUID", this.knightUUID);
+            output.store("KnightUUID", UUIDUtil.CODEC, this.knightUUID);
         }
-        //Inventory
-        ListTag listtag = new ListTag();
+
+        ValueOutput.ValueOutputList items = output.childrenList("Items");
+
         for (int x = 0; x < this.inventory.getContainerSize(); x++) {
             ItemStack itemstack = this.inventory.getItem(x);
+
             if (!itemstack.isEmpty()) {
-                CompoundTag compoundtag = new CompoundTag();
-                compoundtag.putByte("Slot", (byte)(x));
-                listtag.add(itemstack.save(this.registryAccess(), compoundtag));
+                ValueOutput itemOutput = items.addChild();
+                itemOutput.putByte("Slot", (byte) x);
+                itemOutput.store("Item", ItemStack.CODEC, itemstack);
             }
         }
-        tag.put("Items", listtag);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
 
-        if (tag.hasUUID("KnightUUID")) {
-            this.knightUUID = tag.getUUID("KnightUUID");
-        }
-        //Inventory
+        this.knightUUID = input.read("KnightUUID", UUIDUtil.CODEC)
+                .orElse(null);
+
         this.createInventory();
-        ListTag listtag = tag.getList("Items", 10);
 
-        for (int x = 0; x < listtag.size(); x++) {
-            CompoundTag compoundtag = listtag.getCompound(x);
-            int j = compoundtag.getByte("Slot") & 255;
-            if (j < this.inventory.getContainerSize()) {
-                this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
+        for (ValueInput itemInput : input.childrenListOrEmpty("Items")) {
+            int slot = itemInput.getByteOr("Slot", (byte) 0) & 255;
+
+            if (slot < this.inventory.getContainerSize()) {
+                itemInput.read("Item", ItemStack.CODEC)
+                        .ifPresent(stack -> this.inventory.setItem(slot, stack));
             }
         }
     }
 
     @Override
-    public boolean hurt(@Nonnull DamageSource source, float amount) {
+    public boolean hurtServer(@NotNull ServerLevel level, DamageSource source, float amount) {
         if (source.is(DamageTypes.IN_WALL)) {
             moveToOpenSpace();
             return false;
         }
 
-        return super.hurt(source, amount);
+        Entity attacker = source.getEntity();
+
+        if (this.isTamed() && attacker instanceof Player player && player == getOwningPlayer()) {
+            if (isIronTool(player.getMainHandItem())) {
+                return false;
+            }
+        }
+
+        return super.hurtServer(level, source, amount);
     }
 
     private void moveToOpenSpace() {
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
 
         BlockPos origin = this.blockPosition();
 
@@ -232,29 +235,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
         return this.level().noCollision(this, movedBox);
     }
 
-    @Override
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        if (this.isBlocking() && !damageSource.is(DamageTypeTags.BYPASSES_SHIELD)) {
-            Vec3 vec32 = damageSource.getSourcePosition();
-            if (vec32 != null) {
-                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
-                Vec3 vec31 = vec32.vectorTo(this.position());
-                vec31 = new Vec3(vec31.x, 0.0, vec31.z).normalize();
-                return vec31.dot(vec3) < 0.0;
-            }
-        }
-
-        Entity attacker = damageSource.getEntity();
-        if(this.isTamed() && attacker instanceof Player player && player == getOwningPlayer()) {
-                ItemStack held = player.getMainHandItem();
-                if (!isIronTool(held)) {
-                    return true;
-                }
-        }
-
-        return false;
-    }
-
 
     @Override
     public void tick() {
@@ -263,7 +243,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
             setupAnimationStates();
         }
 
-        if (!this.level().isClientSide && this.getNavigation().isDone()) {
+        if (!this.level().isClientSide() && this.getNavigation().isDone()) {
             Vec3 wander = this.position().add(
                     (random.nextDouble() - 0.5) * 10,
                     0,
@@ -273,7 +253,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
             this.getNavigation().moveTo(wander.x, wander.y, wander.z, 1.0);
         }
 
-        if (this.level().isClientSide) return;
+        if (this.level().isClientSide()) return;
 
         if (this.getPassengers().isEmpty()) {
 

@@ -6,16 +6,19 @@ import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.base.intereface.IOwnable;
 import com.saphienyako.feywild.entity.base.intereface.ISummonable;
 import com.saphienyako.feywild.entity.goals.GoToTargetPositionGoal;
+import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -23,9 +26,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -42,15 +47,14 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
 
     protected FeyBase(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.noCulling = true;
     }
 
-    public static boolean canSpawn(EntityType<? extends FeyBase> entity, LevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(ServerLevelAccessor level, BlockPos pos) {
         return isBrightEnoughToSpawn(level, pos);
     }
 
-    protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter getter, BlockPos pos) {
-        return getter.getRawBrightness(pos, 0) > 8;
+    protected static boolean isBrightEnoughToSpawn(LevelReader level, BlockPos pos) {
+        return level.getRawBrightness(pos, 0) > 8;
     }
 
     public SimpleParticleType getParticle() {
@@ -88,59 +92,65 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
         this.goalSelector.addGoal(11, new GoToTargetPositionGoal(this, this::getCurrentPointOfInterest, 12, this.getTargetPositionSpeed()));
         this.goalSelector.addGoal(30, new RandomLookAroundGoal(this));
     }
-    @SuppressWarnings("resource")
     @Override
     public void tick() {
         super.tick();
     }
 
 
-
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.addAdditionalSaveData(nbt);
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        super.addAdditionalSaveData(output);
+
         if (this.owner != null) {
-            nbt.putUUID("Owner", this.owner);
-        } else {
-            nbt.remove("Owner");
+            output.store("Owner", UUIDUtil.CODEC, this.owner);
         }
+
         if (this.summonPos != null) {
-            nbt.put("SummonPos", NbtUtils.writeBlockPos(this.summonPos));
-        } else {
-            nbt.remove("SummonPos");
+            output.store("SummonPos", BlockPos.CODEC, this.summonPos);
         }
-        nbt.putBoolean("FollowingPlayer", this.followingPlayer);
-        nbt.putBoolean("AbilityActive", this.abilityActive);
-        nbt.putBoolean("VoiceActive", this.voiceActive);
+
+        output.putBoolean("FollowingPlayer", this.followingPlayer);
+        output.putBoolean("AbilityActive", this.abilityActive);
+        output.putBoolean("VoiceActive", this.voiceActive);
     }
 
+    /** @noinspection NullableProblems*/
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag nbt) {
-        super.readAdditionalSaveData(nbt);
-        this.owner = nbt.hasUUID("Owner") ? nbt.getUUID("Owner") : null;
-        this.summonPos = NbtUtils.readBlockPos(nbt, "SummonPos")
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
+        super.readAdditionalSaveData(input);
+
+        this.owner = input.read("Owner", UUIDUtil.CODEC)
+                .orElse(null);
+
+        this.summonPos = input.read("SummonPos", BlockPos.CODEC)
                 .map(BlockPos::immutable)
                 .orElse(null);
-        this.followingPlayer = nbt.getBoolean("FollowingPlayer");
-        this.abilityActive = nbt.getBoolean("AbilityActive");
-        this.voiceActive = nbt.getBoolean("VoiceActive");
+
+        this.followingPlayer = input.getBooleanOr("FollowingPlayer", false);
+        this.abilityActive = input.getBooleanOr("AbilityActive", false);
+        this.voiceActive = input.getBooleanOr("VoiceActive", false);
     }
 
-    public boolean isDamageSourceBlocked(DamageSource damageSource) {
-        Entity attacker = damageSource.getEntity();
+    @Override
+    public boolean hurtServer(@NotNull ServerLevel level, DamageSource source, float amount) {
+        Entity attacker = source.getEntity();
+
         if (attacker instanceof LivingEntity living) {
-            ItemStack held = living.getMainHandItem();
-            if (!isIronTool(held)) {
-                return true;
+            if (!canBeDamagedByAnyWeapon() && !isIronTool(living.getMainHandItem())) {
+                return false;
             }
         }
 
-        return super.isDamageSourceBlocked(damageSource);
+        return super.hurtServer(level, source, amount);
     }
 
     public boolean isIronTool(ItemStack stack) {
-        return stack.is(Tags.Items.TOOLS) && stack.getItem() instanceof TieredItem tiered &&
-                tiered.getTier() == Tiers.IRON;
+        return stack.is(ModTags.Items.IRON_TOOLS);
+    }
+
+    protected boolean canBeDamagedByAnyWeapon() {
+        return false;
     }
     @javax.annotation.Nullable
     @Override
@@ -195,18 +205,18 @@ public abstract class FeyBase extends PathfinderMob implements IOwnable, ISummon
     }
 
     @Override
-    protected int calculateFallDamage(float distance, float damageMultiplier) {
+    protected int calculateFallDamage(double fallDistance, float damageModifier) {
         return 0;
     }
 
     @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, @NotNull DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float damageModifier, @NotNull DamageSource damageSource) {
         return false;
     }
 
     @Override
-    protected int getBaseExperienceReward() {
-        return this.isTamed() ? 0 : super.getBaseExperienceReward();
+    protected int getBaseExperienceReward(@NotNull ServerLevel level) {
+        return this.isTamed() ? 0 : super.getBaseExperienceReward(level);
     }
 
     @Override
