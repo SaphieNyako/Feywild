@@ -2,39 +2,50 @@ package com.saphienyako.feywild.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
-import com.saphienyako.feywild.entity.AutumnPixieEntity;
-import com.saphienyako.feywild.entity.MandragoraEntity;
 import com.saphienyako.feywild.entity.ShroomlingEntity;
-import com.saphienyako.feywild.entity.model.AutumnPixieModel;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
 import com.saphienyako.feywild.entity.model.ShroomlingModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import com.saphienyako.feywild.entity.state.ShroomlingRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public class ShroomlingRenderer extends MobRenderer<ShroomlingEntity, ShroomlingModel<ShroomlingEntity>> {
+public class ShroomlingRenderer extends MobRenderer<@NotNull ShroomlingEntity, @NotNull ShroomlingRenderState, @NotNull ShroomlingModel> {
 
     private static final float MODEL_SCALE = 0.75F;
-    public ShroomlingRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new ShroomlingModel<>(pContext.bakeLayer(ModModelLayers.SHROOMLING_LAYER)),  0.50f);
+
+    public ShroomlingRenderer(EntityRendererProvider.Context context) {
+        super(context, new ShroomlingModel(context.bakeLayer(ModModelLayers.SHROOMLING_LAYER)), 0.50f);
     }
 
     @Override
-    public void render(@NotNull ShroomlingEntity pEntity, float pEntityYaw, float pPartialTicks, @NotNull PoseStack pMatrixStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+    public ShroomlingRenderState createRenderState() {
+        return new ShroomlingRenderState();
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull ShroomlingEntity shroomlingEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/shroomling/" + shroomlingEntity.getVariant().name().toLowerCase(Locale.ROOT) + ".png");
+    public void extractRenderState(ShroomlingEntity entity, ShroomlingRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+
+        state.idleAnimation.copyFrom(entity.IDLE_ANIMATION);
+        state.sneezeAnimation.copyFrom(entity.SNEEZE_ANIMATION);
+        state.waveAnimation.copyFrom(entity.WAVE_ANIMATION);
+        state.poseAnimation.copyFrom(entity.POSE_ANIMATION);
+        state.walkAnimation.copyFrom(entity.WALK_ANIMATION);
+
+        state.variantName = entity.getVariant().name().toLowerCase(Locale.ROOT);
     }
 
     @Override
-    protected void scale(ShroomlingEntity entity, PoseStack poseStack, float partialTick) {
+    public Identifier getTextureLocation(ShroomlingRenderState state) {
+        return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/shroomling/" + state.variantName + ".png");
+    }
+
+    @Override
+    protected void scale(ShroomlingRenderState state, PoseStack poseStack) {
         poseStack.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
     }
 }

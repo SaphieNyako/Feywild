@@ -1,6 +1,5 @@
 package com.saphienyako.feywild.entity;
 
-import com.saphienyako.feywild.entity.base.BossBase;
 import com.saphienyako.feywild.entity.base.FlyingBossBase;
 import com.saphienyako.feywild.entity.goals.titania.TitaniaCastingGoal;
 import com.saphienyako.feywild.entity.goals.titania.TitaniaEnchantingGoal;
@@ -9,7 +8,6 @@ import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,18 +16,22 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.UUID;
 
 public class TitaniaEntity extends FlyingBossBase {
 
@@ -42,7 +44,7 @@ public class TitaniaEntity extends FlyingBossBase {
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
     public TitaniaEntity(EntityType<? extends PathfinderMob> entity, Level level) {
-        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.titania").withStyle(ChatFormatting.YELLOW),
+        super(entity, level, (ServerBossEvent) (new ServerBossEvent(UUID.randomUUID(), Component.translatable("entity.feywild.titania").withStyle(ChatFormatting.YELLOW),
                 BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
         this.setPathfindingMalus(PathType.WATER, -1.0F);
     }
@@ -57,11 +59,12 @@ public class TitaniaEntity extends FlyingBossBase {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE, 0);
     }
 
+    /** @noinspection DataFlowIssue*/
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -152,7 +155,7 @@ public class TitaniaEntity extends FlyingBossBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(DamageSource p_33034_) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return ModSounds.TITANIA_HURT.get();
     }
 
@@ -166,31 +169,31 @@ public class TitaniaEntity extends FlyingBossBase {
         super.stopSoundOnDeath();
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_SUMMON.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_SUMMON.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_BLOSSOM.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_BLOSSOM.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_HEXEN.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_HEXEN.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_SPRING.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_SPRING.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_SUMMER.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_SUMMER.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_AUTUMN.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_AUTUMN.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.TITANIA_WINTER.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.TITANIA_WINTER.get().location(), this.getSoundSource());
 
     }
 
@@ -206,11 +209,6 @@ public class TitaniaEntity extends FlyingBossBase {
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
-    }
-
-    @Override
-    public Component getFeySummonMessage() {
         return null;
     }
 

@@ -1,20 +1,24 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.MabEntity;
-import com.saphienyako.feywild.entity.TitaniaEntity;
 import com.saphienyako.feywild.entity.animations.MabAnimations;
-import com.saphienyako.feywild.entity.animations.TitaniaAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.MabRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class MabModel<T extends Entity> extends HierarchicalModel<T> {
+public class MabModel extends EntityModel<@NotNull MabRenderState> {
+
+    private final KeyframeAnimation flyingIdleAnimation;
+    private final KeyframeAnimation flyingAnimation;
+    private final KeyframeAnimation channelAnimation;
+    private final KeyframeAnimation intimidationAnimation;
+    private final KeyframeAnimation attackingAnimation;
+
 
     private final ModelPart mab;
     private final ModelPart head;
@@ -43,6 +47,13 @@ public class MabModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart left_leg;
 
     public MabModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+        this.flyingIdleAnimation = MabAnimations.FLYING_IDLE.bake(root);
+        this.flyingAnimation = MabAnimations.FLYING.bake(root);
+        this.channelAnimation = MabAnimations.CHANNEL.bake(root);
+        this.intimidationAnimation = MabAnimations.INTIMIDATION.bake(root);
+        this.attackingAnimation = MabAnimations.ATTACK.bake(root);
+
         this.mab = root.getChild("mab");
         this.head = this.mab.getChild("head");
         this.crown = this.head.getChild("crown");
@@ -143,15 +154,15 @@ public class MabModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull MabRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((MabEntity)entity).FLYING_IDLE_ANIMATION, MabAnimations.FLYING_IDLE, ageInTicks, 1.0f);
-        this.animate(((MabEntity)entity).FLYING_ANIMATION, MabAnimations.FLYING, ageInTicks, 1.0f);
-        this.animate(((MabEntity)entity).CHANNEL_ANIMATION, MabAnimations.CHANNEL, ageInTicks, 1.0f);
-        this.animate(((MabEntity)entity).INTIMIDATION_ANIMATION, MabAnimations.INTIMIDATION, ageInTicks, 1.0f);
-        this.animate(((MabEntity)entity).ATTACKING_ANIMATION, MabAnimations.ATTACK, ageInTicks, 1.0f);
+        this.flyingIdleAnimation.apply(state.flyingIdleAnimation, state.ageInTicks);
+        this.flyingAnimation.apply(state.flyingAnimation, state.ageInTicks);
+        this.channelAnimation.apply(state.channelAnimation, state.ageInTicks);
+        this.intimidationAnimation.apply(state.intimidationAnimation, state.ageInTicks);
+        this.attackingAnimation.apply(state.attackingAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -160,15 +171,5 @@ public class MabModel<T extends Entity> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        mab.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return mab;
     }
 }

@@ -2,74 +2,102 @@ package com.saphienyako.feywild.entity.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.saphienyako.feywild.entity.MooShroomCowEntity;
+import com.saphienyako.feywild.entity.state.MooShroomCowRenderState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.CowModel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.model.animal.cow.CowModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.BlockModelRenderState;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class MooShroomCowLayer <T extends MooShroomCowEntity> extends RenderLayer<T, CowModel<T>> {
+public class MooShroomCowLayer extends RenderLayer<@NotNull MooShroomCowRenderState, @NotNull CowModel> {
 
-    private final BlockRenderDispatcher blockRenderer;
-    public MooShroomCowLayer(RenderLayerParent<T, CowModel<T>> layer, BlockRenderDispatcher blockRenderer) {
-        super(layer);
-        this.blockRenderer = blockRenderer;
+    public MooShroomCowLayer(RenderLayerParent<@NotNull MooShroomCowRenderState, @NotNull CowModel> parent) {
+        super(parent);
     }
 
-    public void render(@NotNull PoseStack poseStack,@NotNull MultiBufferSource source, int light, T cowEntity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!cowEntity.isBaby()) {
-            Minecraft minecraft = Minecraft.getInstance();
-            boolean flag = minecraft.shouldEntityAppearGlowing(cowEntity) && cowEntity.isInvisible();
-            if (!cowEntity.isInvisible() || flag) {
-                BlockState blockstate = cowEntity.getMooShroomVariant().getShroomBlock().defaultBlockState();
-                int i = LivingEntityRenderer.getOverlayCoords(cowEntity, 0.0F);
-                BakedModel bakedmodel = this.blockRenderer.getBlockModel(blockstate);
-                poseStack.pushPose();
-                poseStack.translate(0.2F, -0.35F, 0.5F);
-                poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
-                poseStack.scale(-1.0F, -1.0F, 1.0F);
-                poseStack.translate(-0.5F, -0.5F, -0.5F);
-                this.renderMushroomBlock(poseStack, source, light, flag, blockstate, i, bakedmodel);
-                poseStack.popPose();
-                poseStack.pushPose();
-                poseStack.translate(0.2F, -0.35F, 0.5F);
-                poseStack.mulPose(Axis.YP.rotationDegrees(42.0F));
-                poseStack.translate(0.1F, 0.0F, -0.6F);
-                poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
-                poseStack.scale(-1.0F, -1.0F, 1.0F);
-                poseStack.translate(-0.5F, -0.5F, -0.5F);
-                this.renderMushroomBlock(poseStack, source, light, flag, blockstate, i, bakedmodel);
-                poseStack.popPose();
-                poseStack.pushPose();
-                this.getParentModel().getHead().translateAndRotate(poseStack);
-                poseStack.translate(0.0F, -0.7F, -0.2F);
-                poseStack.mulPose(Axis.YP.rotationDegrees(-78.0F));
-                poseStack.scale(-1.0F, -1.0F, 1.0F);
-                poseStack.translate(-0.5F, -0.5F, -0.5F);
-                this.renderMushroomBlock(poseStack, source, light, flag, blockstate, i, bakedmodel);
-                poseStack.popPose();
-            }
-        }
+    @Override
+    public void submit(@NotNull PoseStack poseStack, @NotNull SubmitNodeCollector submitNodeCollector, int packedLight, MooShroomCowRenderState state, float yRot, float xRot) {
+        if (state.isBaby || state.mushroomBlockState == null) return;
+
+        boolean appearsGlowingWithInvisibility = state.appearsGlowing() && state.isInvisible;
+
+        if (state.isInvisible && !appearsGlowingWithInvisibility) return;
+
+        BlockState blockState = state.mushroomBlockState;
+
+        BlockStateModel blockModel = Minecraft.getInstance()
+                .getModelManager()
+                .getBlockStateModelSet()
+                .get(blockState);
+
+        BlockModelRenderState mushroomModel = state.mushroomModel;
+        mushroomModel.clear();
+
+        RandomSource random = mushroomModel.scratchRandomSource(0L);
+
+        List<BlockStateModelPart> parts = mushroomModel.setupModel(new Matrix4f(), false);
+
+        blockModel.collectParts(BlockAndTintGetter.EMPTY, BlockPos.ZERO, blockState, random, parts);
+
+        int overlayLocation = LivingEntityRenderer.getOverlayCoords(state, 0.0F);
+
+        // First mushroom
+        poseStack.pushPose();
+        poseStack.translate(0.2F, -0.35F, 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        poseStack.translate(-0.5F, -0.5F, -0.5F);
+
+        submitMushroomBlock(poseStack, submitNodeCollector, packedLight, appearsGlowingWithInvisibility, state, overlayLocation);
+
+        poseStack.popPose();
+
+        // Second mushroom
+        poseStack.pushPose();
+        poseStack.translate(0.2F, -0.35F, 0.5F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(42.0F));
+        poseStack.translate(0.1F, 0.0F, -0.6F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-48.0F));
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        poseStack.translate(-0.5F, -0.5F, -0.5F);
+
+        submitMushroomBlock(poseStack, submitNodeCollector, packedLight, appearsGlowingWithInvisibility, state, overlayLocation);
+
+        poseStack.popPose();
+
+        // Third mushroom (head)
+        poseStack.pushPose();
+        this.getParentModel().getHead().translateAndRotate(poseStack);
+        poseStack.translate(0.0F, -0.7F, -0.2F);
+        poseStack.mulPose(Axis.YP.rotationDegrees(-78.0F));
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        poseStack.translate(-0.5F, -0.5F, -0.5F);
+
+        submitMushroomBlock(poseStack, submitNodeCollector, packedLight, appearsGlowingWithInvisibility, state, overlayLocation);
+
+        poseStack.popPose();
     }
 
-    private void renderMushroomBlock(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, boolean renderOutline, BlockState blockState, int packedOverlay, BakedModel bakedModel
-    ) {
+    private void submitMushroomBlock(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int packedLight, boolean renderOutline, MooShroomCowRenderState state, int overlayCoords) {
         if (renderOutline) {
-            blockRenderer.getModelRenderer().renderModel(poseStack.last(), bufferSource.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)), blockState, bakedModel, 0.0F, 0.0F, 0.0F, packedLight, packedOverlay);
+            state.mushroomModel.submitOnlyOutline(poseStack, submitNodeCollector, packedLight, overlayCoords, state.outlineColor);
         } else {
-            blockRenderer.renderSingleBlock(blockState, poseStack, bufferSource, packedLight, packedOverlay);
+            state.mushroomModel.submit(poseStack, submitNodeCollector, packedLight, overlayCoords, state.outlineColor);
         }
     }
 }

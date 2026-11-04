@@ -1,18 +1,23 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.ShroomlingEntity;
 import com.saphienyako.feywild.entity.animations.ShroomlingAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.ShroomlingRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class ShroomlingModel<T extends Entity> extends HierarchicalModel<T> {
+public class ShroomlingModel extends EntityModel<@NotNull ShroomlingRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation sneezeAnimation;
+    private final KeyframeAnimation waveAnimation;
+    private final KeyframeAnimation poseAnimation;
+    private final KeyframeAnimation walkAnimation;
 
     private final ModelPart shroomling;
     private final ModelPart body;
@@ -30,6 +35,14 @@ public class ShroomlingModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_arm;
 
     public ShroomlingModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = ShroomlingAnimations.IDLE.bake(root);
+        this.sneezeAnimation = ShroomlingAnimations.SNEEZE.bake(root);
+        this.waveAnimation = ShroomlingAnimations.WAVE.bake(root);
+        this.poseAnimation = ShroomlingAnimations.POSE.bake(root);
+        this.walkAnimation = ShroomlingAnimations.WALK.bake(root);
+
         this.shroomling = root.getChild("root");
         this.body = this.shroomling.getChild("body");
         this.left_leg = this.body.getChild("left_leg");
@@ -86,17 +99,15 @@ public class ShroomlingModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull ShroomlingRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((ShroomlingEntity)entity).IDLE_ANIMATION, ShroomlingAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(((ShroomlingEntity)entity).SNEEZE_ANIMATION, ShroomlingAnimations.SNEEZE, ageInTicks, 1.0f);
-        this.animate(((ShroomlingEntity)entity).WAVE_ANIMATION, ShroomlingAnimations.WAVE, ageInTicks, 1.0f);
-        this.animate(((ShroomlingEntity)entity).POSE_ANIMATION, ShroomlingAnimations.POSE, ageInTicks, 1.0f);
-        this.animate(((ShroomlingEntity)entity).WALK_ANIMATION, ShroomlingAnimations.WALK, ageInTicks, 1.0f);
-
-
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks);
+        this.sneezeAnimation.apply(state.sneezeAnimation, state.ageInTicks);
+        this.waveAnimation.apply(state.waveAnimation, state.ageInTicks);
+        this.poseAnimation.apply(state.poseAnimation, state.ageInTicks);
+        this.walkAnimation.apply(state.walkAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -106,16 +117,4 @@ public class ShroomlingModel<T extends Entity> extends HierarchicalModel<T> {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        shroomling.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return shroomling;
-    }
-
 }

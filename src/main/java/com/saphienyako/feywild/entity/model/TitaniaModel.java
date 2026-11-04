@@ -1,20 +1,22 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.SummerPixieEntity;
-import com.saphienyako.feywild.entity.TitaniaEntity;
-import com.saphienyako.feywild.entity.animations.SummerPixieAnimations;
 import com.saphienyako.feywild.entity.animations.TitaniaAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.TitaniaRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class TitaniaModel<T extends Entity> extends HierarchicalModel<T> {
+public class TitaniaModel extends EntityModel<@NotNull TitaniaRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation flyingAnimation;
+    private final KeyframeAnimation castingAnimation;
+    private final KeyframeAnimation enchantingAnimation;
 
     private final ModelPart titania;
     private final ModelPart head;
@@ -46,6 +48,13 @@ public class TitaniaModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart left_leg;
 
     public TitaniaModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = TitaniaAnimations.FLYING_IDLE.bake(root);
+        this.flyingAnimation = TitaniaAnimations.FLYING.bake(root);
+        this.castingAnimation = TitaniaAnimations.CASTING.bake(root);
+        this.enchantingAnimation = TitaniaAnimations.ENCHANTING.bake(root);
+
         this.titania = root.getChild("titania");
         this.head = this.titania.getChild("head");
         this.righthear = this.head.getChild("righthear");
@@ -180,14 +189,14 @@ public class TitaniaModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull TitaniaRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((TitaniaEntity)entity).IDLE_ANIMATION, TitaniaAnimations.FLYING_IDLE, ageInTicks, 1.0f);
-        this.animate(((TitaniaEntity)entity).FLYING_ANIMATION, TitaniaAnimations.FLYING, ageInTicks, 1.0f);
-        this.animate(((TitaniaEntity)entity).CASTING_ANIMATION, TitaniaAnimations.CASTING, ageInTicks, 1.0f);
-        this.animate(((TitaniaEntity)entity).ENCHANTING_ANIMATION, TitaniaAnimations.ENCHANTING, ageInTicks, 1.0f);
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks);
+        this.flyingAnimation.apply(state.flyingAnimation, state.ageInTicks);
+        this.castingAnimation.apply(state.castingAnimation, state.ageInTicks);
+        this.enchantingAnimation.apply(state.enchantingAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -196,15 +205,5 @@ public class TitaniaModel<T extends Entity> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        titania.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return titania;
     }
 }

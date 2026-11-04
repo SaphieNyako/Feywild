@@ -1,20 +1,21 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.AshenLordEntity;
-import com.saphienyako.feywild.entity.MabEntity;
 import com.saphienyako.feywild.entity.animations.AshenLordAnimations;
-import com.saphienyako.feywild.entity.animations.MabAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.AshenLordRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class AshenLordModel<T extends Entity> extends HierarchicalModel<T> {
+public class AshenLordModel extends EntityModel<AshenLordRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation walkingAnimation;
+    private final KeyframeAnimation channelAnimation;
 
     private final ModelPart ashen_lord;
     private final ModelPart body;
@@ -51,6 +52,12 @@ public class AshenLordModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_finger_f3;
 
     public AshenLordModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = AshenLordAnimations.IDLE.bake(root);
+        this.walkingAnimation = AshenLordAnimations.WALKING.bake(root);
+        this.channelAnimation = AshenLordAnimations.CHANNEL.bake(root);
+
         this.ashen_lord = root.getChild("ashen_lord");
         this.body = this.ashen_lord.getChild("body");
         this.upperbody = this.body.getChild("upperbody");
@@ -282,14 +289,14 @@ public class AshenLordModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull AshenLordRenderState state) {
+        super.setupAnim(state);
 
-        this.animate(((AshenLordEntity)entity).IDLE_ANIMATION, AshenLordAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(((AshenLordEntity)entity).WALKING_ANIMATION, AshenLordAnimations.WALKING, ageInTicks, 1.0f);
-        this.animate(((AshenLordEntity)entity).CHANNEL_ANIMATION, AshenLordAnimations.CHANNEL, ageInTicks, 1.0f);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks);
+        this.walkingAnimation.apply(state.walkingAnimation, state.ageInTicks);
+        this.channelAnimation.apply(state.channelAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -298,15 +305,5 @@ public class AshenLordModel<T extends Entity> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        ashen_lord.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return ashen_lord;
     }
 }

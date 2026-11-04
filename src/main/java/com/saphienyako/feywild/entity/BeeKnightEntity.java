@@ -4,14 +4,14 @@ import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.data.BeeKnightItems;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
-import com.saphienyako.feywild.entity.goals.*;
+import com.saphienyako.feywild.entity.goals.AbilityCheckingGoal;
+import com.saphienyako.feywild.entity.goals.TradeForGemsGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightMeleeAttackGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeKnightResetTargetGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.BeeMountMoveTowardsBeeKnightTargetGoal;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
-import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,8 +19,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,7 +27,8 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -48,6 +47,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.Random;
 
+/** @noinspection ALL*/
 public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
     //ATTACKS
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(BeeKnightEntity.class, EntityDataSerializers.INT);
@@ -59,8 +59,6 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
 
     public final AnimationState WING_ANIMATION = new AnimationState();
 
-    public int animationTimeout = 0;
-
     public boolean isBeingRemovedTogether = false;
 
     protected BeeKnightEntity(EntityType<? extends PathfinderMob> entity, Level level) {
@@ -70,7 +68,7 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
     @Override
     @OverridingMethodsMustInvokeSuper
     protected void registerGoals() {
-
+        //intentionally not overwriting super
         this.goalSelector.addGoal(1, new BeeKnightMeleeAttackGoal(this, 2.0D, true));
         this.targetSelector.addGoal(1,new HurtByTargetGoal(this).setAlertOthers(BeeKnightEntity.class));
         this.targetSelector.addGoal(2, new AbilityCheckingGoal(this, true, new NearestAttackableTargetGoal<>(this, Monster.class, false)));
@@ -105,6 +103,13 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
     public void stopBeingAngry() {
         this.setLastHurtByMob(null);
         this.setTarget(null);
+    }
+
+    public BeeMountEntity getMount() {
+        if (this.getVehicle() instanceof BeeMountEntity mount) {
+            return mount;
+        }
+        return null;
     }
 
     @Override
@@ -159,29 +164,23 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
 
     }
 
-    @SuppressWarnings("resource")
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        InteractionResult superResult = super.interactAt(player, hitVec, hand);
+    public InteractionResult interact(@Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull Vec3 hitVec) {
+        InteractionResult superResult = super.interact(player, hand, hitVec);
         if (superResult == InteractionResult.PASS) {
 
-            //GIVE COOKIE, HEAL
+            // GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
                 if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(3) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
+                        this.spawnAtLocation(serverPlayer.level(),  new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                       if(FeywildConfig.voicesActive) {
-                            serverPlayer.playNotifySound(
-                                    this.getCookieSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
+                        if (FeywildConfig.voicesActive) {
+                            this.playSound(this.getCookieSound(), 1.0F, 1.0F);
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -190,7 +189,7 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                if (!level().isClientSide) {
+                if (!level().isClientSide()) {
                     PacketDistributor.sendToPlayersTrackingEntity(
                             this,
                             new ParticleMessage(
@@ -202,28 +201,23 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
 
                 player.swing(hand, true);
 
-                //NAME TAG
+                // NAME TAG
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                if (!level().isClientSide) {
+                if (!level().isClientSide()) {
                     player.sendSystemMessage(getFeyNameMessage());
                     if (FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getNameSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                        this.playSound(this.getNameSound(), 1.0F, 1.0F);
                     }
                 }
 
-                //PIXIE ORB OPENS BEE MOUNT MENU
+                // PIXIE ORB OPENS BEE MOUNT MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get()) {
                 BeeMountEntity mount = this.getMount();
 
                 if (mount != null) {
-                    return mount.interactAt(player, hitVec, hand);
+                    return mount.interact(player, hand, hitVec);
                 }
                 player.swing(hand, true);
 
@@ -231,26 +225,19 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
                 BeeMountEntity mount = this.getMount();
 
                 if (mount != null) {
-                    return mount.interactAt(player, hitVec, hand);
+                    return mount.interact(player, hand, hitVec);
                 }
                 player.swing(hand, true);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return superResult;
         }
     }
 
-    public BeeMountEntity getMount() {
-        if (this.getVehicle() instanceof BeeMountEntity mount) {
-            return mount;
-        }
-        return null;
-    }
-
     @Override
     public void remove(RemovalReason reason) {
-        if (!this.level().isClientSide && !this.isBeingRemovedTogether) {
+        if (!this.level().isClientSide() && !this.isBeingRemovedTogether) {
             this.isBeingRemovedTogether = true;
 
             BeeMountEntity mount = getMount();

@@ -1,18 +1,20 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.SummerPixieEntity;
 import com.saphienyako.feywild.entity.animations.SummerPixieAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.PixieRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class SummerPixieModel<T extends Entity> extends HierarchicalModel<T> {
+public class SummerPixieModel extends EntityModel<@NotNull PixieRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation spellCastingAnimation;
     private final ModelPart summer_pixie;
     private final ModelPart head;
     private final ModelPart left_ear;
@@ -31,6 +33,11 @@ public class SummerPixieModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart left_wing;
 
     public SummerPixieModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = SummerPixieAnimations.IDLE.bake(root);
+        this.spellCastingAnimation = SummerPixieAnimations.SPELL_CASTING.bake(root);
+
         this.summer_pixie = root.getChild("total");
         this.head = this.summer_pixie.getChild("head");
         this.left_ear = this.head.getChild("left_ear");
@@ -98,12 +105,12 @@ public class SummerPixieModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull PixieRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((SummerPixieEntity)entity).IDLE_ANIMATION, SummerPixieAnimations.IDLE, ageInTicks, 2f);
-        this.animate(((SummerPixieEntity)entity).SPELL_CASTING_ANIMATION, SummerPixieAnimations.SPELL_CASTING, ageInTicks, 1.0f);
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks, 2.0F);
+        this.spellCastingAnimation.apply(state.spellCastingAnimation, state.ageInTicks, 1.0F);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -113,16 +120,4 @@ public class SummerPixieModel<T extends Entity> extends HierarchicalModel<T> {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        summer_pixie.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-
-    @Override
-    public ModelPart root() {
-        return summer_pixie;
-    }
-
 }

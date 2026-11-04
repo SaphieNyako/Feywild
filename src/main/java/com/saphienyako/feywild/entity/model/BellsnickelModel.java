@@ -1,18 +1,21 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.BellsnickelEntity;
 import com.saphienyako.feywild.entity.animations.BellsnickelAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.BellsnickelRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
-public class BellsnickelModel<T extends Entity> extends HierarchicalModel<T> {
+public class BellsnickelModel extends EntityModel<BellsnickelRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation tradeAnimation;
+    private final KeyframeAnimation poseAnimation;
+    private final KeyframeAnimation walkAnimation;
 
     private final ModelPart bellsnickel;
     private final ModelPart body;
@@ -34,6 +37,13 @@ public class BellsnickelModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_leg;
 
     public BellsnickelModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = BellsnickelAnimations.IDLE.bake(root);
+        this.tradeAnimation = BellsnickelAnimations.LEFT_THROW.bake(root);
+        this.poseAnimation = BellsnickelAnimations.RIGHT_HOLD.bake(root);
+        this.walkAnimation = BellsnickelAnimations.WALK.bake(root);
+
         this.bellsnickel = root.getChild("root");
         this.body = this.bellsnickel.getChild("body");
         this.torso = this.body.getChild("torso");
@@ -102,14 +112,15 @@ public class BellsnickelModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(BellsnickelRenderState state) {
+        super.setupAnim(state);
 
-        this.animate(((BellsnickelEntity)entity).IDLE_ANIMATION, BellsnickelAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(((BellsnickelEntity)entity).TRADE_ANIMATION, BellsnickelAnimations.LEFT_THROW, ageInTicks, 1.0f);
-        this.animate(((BellsnickelEntity)entity).POSE_ANIMATION, BellsnickelAnimations.RIGHT_HOLD, ageInTicks, 1.0f);
-        this.animate(((BellsnickelEntity)entity).WALK_ANIMATION, BellsnickelAnimations.WALK, ageInTicks, 1.0f);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
+
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks, 1.0F);
+        this.tradeAnimation.apply(state.tradeAnimation, state.ageInTicks, 1.0F);
+        this.poseAnimation.apply(state.poseAnimation, state.ageInTicks, 1.0F);
+        this.walkAnimation.apply(state.walkAnimation, state.ageInTicks, 1.0F);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -120,18 +131,7 @@ public class BellsnickelModel<T extends Entity> extends HierarchicalModel<T> {
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
 
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        bellsnickel.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
     public ModelPart getRightArm() {
         return this.right_arm;
-    }
-
-
-    @Override
-    public ModelPart root() {
-        return bellsnickel;
     }
 }

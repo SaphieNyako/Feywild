@@ -1,21 +1,19 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.BeeKnightEntity;
-import com.saphienyako.feywild.entity.BeeMountEntity;
-import com.saphienyako.feywild.entity.animations.BeeKnightAnimations;
 import com.saphienyako.feywild.entity.animations.BeeMountAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.BeeMountRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
-public class BeeMountModel<T extends Entity> extends HierarchicalModel<T> {
+public class BeeMountModel extends EntityModel<BeeMountRenderState> {
 
+    private final KeyframeAnimation flyAnimation;
+    private final KeyframeAnimation flyIdleAnimation;
     private final ModelPart bee_mount;
     private final ModelPart body;
     private final ModelPart abdomen;
@@ -39,6 +37,11 @@ public class BeeMountModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_leg1;
 
     public BeeMountModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.flyAnimation = BeeMountAnimations.FLY.bake(root);
+        this.flyIdleAnimation = BeeMountAnimations.FLY_IDLE.bake(root);
+
         this.bee_mount = root.getChild("bee_mount");
         this.body = this.bee_mount.getChild("body");
         this.abdomen = this.body.getChild("abdomen");
@@ -128,25 +131,14 @@ public class BeeMountModel<T extends Entity> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-
     @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        bee_mount.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
+    public void setupAnim(BeeMountRenderState state) {
+        super.setupAnim(state);
 
-    @NotNull
-    @Override
-    public ModelPart root() {
-        return bee_mount;
-    }
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-    @Override
-    public void setupAnim(@NotNull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-
-        this.animate(((BeeMountEntity)entity).FLY_ANIMATION, BeeMountAnimations.FLY, ageInTicks, 2f);
-        this.animate(((BeeMountEntity)entity).FLY_IDLE_ANIMATION, BeeMountAnimations.FLY_IDLE, ageInTicks, 1.0f);
+        this.flyAnimation.apply(state.flyAnimation, state.ageInTicks, 2.0F);
+        this.flyIdleAnimation.apply(state.flyIdleAnimation, state.ageInTicks, 1.0F);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

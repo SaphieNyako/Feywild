@@ -1,19 +1,22 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.saphienyako.feywild.entity.animations.TreeEntAnimations;
-import com.saphienyako.feywild.entity.base.TreeEntBase;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.TreeEntRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+public class TreeEntModel extends EntityModel<@NotNull TreeEntRenderState> {
 
-public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation walkQuickAnimation;
+    private final KeyframeAnimation attackAnimation;
+    private final KeyframeAnimation walkAnimation;
 
     private final ModelPart tree_ent;
     private final ModelPart body;
@@ -75,6 +78,13 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_finger_f3;
 
     public TreeEntModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = TreeEntAnimations.IDLE.bake(root);
+        this.walkQuickAnimation = TreeEntAnimations.WALK_QUICK.bake(root);
+        this.attackAnimation = TreeEntAnimations.ATTACK.bake(root);
+        this.walkAnimation = TreeEntAnimations.WALK.bake(root);
+
         this.tree_ent = root.getChild("total");
         this.body = this.tree_ent.getChild("body");
         this.upperbody = this.body.getChild("upperbody");
@@ -349,14 +359,14 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull TreeEntRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((TreeEntBase)entity).IDLE_ANIMATION, TreeEntAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(((TreeEntBase)entity).WALK_QUICK_ANIMATION, TreeEntAnimations.WALK_QUICK, ageInTicks, 1.0f);
-        this.animate(((TreeEntBase)entity).ATTACK_ANIMATION, TreeEntAnimations.ATTACK, ageInTicks, 1.0f);
-        this.animate(((TreeEntBase)entity).WALK_ANIMATION, TreeEntAnimations.WALK, ageInTicks, 1.0f);
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks);
+        this.walkQuickAnimation.apply(state.walkQuickAnimation, state.ageInTicks);
+        this.attackAnimation.apply(state.attackAnimation, state.ageInTicks);
+        this.walkAnimation.apply(state.walkAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -366,15 +376,4 @@ public class TreeEntModel<T extends Entity> extends HierarchicalModel<T> {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-    @Override
-    public void renderToBuffer(@Nonnull PoseStack poseStack,@Nonnull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return tree_ent;
-    }
-
 }

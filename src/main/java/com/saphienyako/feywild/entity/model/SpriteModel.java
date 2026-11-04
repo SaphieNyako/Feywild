@@ -1,20 +1,23 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.entity.animations.SpriteAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.SpriteRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class SpriteModel<T extends Entity> extends HierarchicalModel<T> {
+public class SpriteModel extends EntityModel<@NotNull SpriteRenderState> {
+    //Model design is based on the Botania Pixies, asked permission to use.
+    private final KeyframeAnimation flyAnimation;
+    private final KeyframeAnimation flyIdleAnimation;
+    private final KeyframeAnimation happyAnimation;
+    private final KeyframeAnimation angryAnimation;
 
-    //Model design is based on the Botania Pixies
     private final ModelPart sprite;
     private final ModelPart body;
     private final ModelPart left_wings;
@@ -25,6 +28,13 @@ public class SpriteModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_wing2;
 
     public SpriteModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.flyAnimation = SpriteAnimations.FLY.bake(root);
+        this.flyIdleAnimation = SpriteAnimations.FLY_IDLE.bake(root);
+        this.happyAnimation = SpriteAnimations.HAPPY.bake(root);
+        this.angryAnimation = SpriteAnimations.ANGRY.bake(root);
+
         this.sprite = root.getChild("sprite");
         this.body = this.sprite.getChild("body");
         this.left_wings = this.body.getChild("left_wings");
@@ -59,14 +69,14 @@ public class SpriteModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull SpriteRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((SpriteEntity)entity).FLY_ANIMATION, SpriteAnimations.FLY, ageInTicks, 2f);
-        this.animate(((SpriteEntity)entity).FLY_IDLE_ANIMATION, SpriteAnimations.FLY_IDLE, ageInTicks, 1.0f);
-        this.animate(((SpriteEntity)entity).HAPPY_ANIMATION, SpriteAnimations.HAPPY, ageInTicks, 1.0f);
-        this.animate(((SpriteEntity)entity).ANGRY_ANIMATION, SpriteAnimations.ANGRY, ageInTicks, 1.0f);
+        this.flyAnimation.apply(state.flyAnimation, state.ageInTicks, 2.0F);
+        this.flyIdleAnimation.apply(state.flyIdleAnimation, state.ageInTicks, 1.0F);
+        this.happyAnimation.apply(state.happyAnimation, state.ageInTicks, 1.0F);
+        this.angryAnimation.apply(state.angryAnimation, state.ageInTicks, 1.0F);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -75,14 +85,5 @@ public class SpriteModel<T extends Entity> extends HierarchicalModel<T> {
         //TODO instead of head, body?
         this.body.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.body.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        sprite.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return sprite;
     }
 }

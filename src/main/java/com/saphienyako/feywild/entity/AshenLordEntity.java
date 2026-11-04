@@ -6,7 +6,6 @@ import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,22 +14,28 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
+/** @noinspection ALL*/
 public class AshenLordEntity extends BossBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(AshenLordEntity.class, EntityDataSerializers.INT);
@@ -51,7 +56,7 @@ public class AshenLordEntity extends BossBase {
     private int agitationStage = 0;
 
     public AshenLordEntity(EntityType<? extends PathfinderMob> entity, Level level) {
-        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.ashen_lord").withStyle(ChatFormatting.DARK_RED),
+        super(entity, level, (ServerBossEvent) ( new ServerBossEvent(UUID.randomUUID(), Component.translatable("entity.feywild.ashen_lord").withStyle(ChatFormatting.DARK_RED),
                 BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true).setCreateWorldFog(true));
     }
 
@@ -69,8 +74,9 @@ public class AshenLordEntity extends BossBase {
 
     }
 
+
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE, 0);
         builder.define(CHANNEL_TYPE, 0);
@@ -176,7 +182,7 @@ public class AshenLordEntity extends BossBase {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
         if (STATE.equals(key) && this.level().isClientSide()) {
@@ -223,24 +229,19 @@ public class AshenLordEntity extends BossBase {
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.ASHEN_LORD_ATTACK.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.ASHEN_LORD_ATTACK.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.ASHEN_LORD_CHANNEL_01.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.ASHEN_LORD_CHANNEL_01.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.ASHEN_LORD_CHANNEL_02.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.ASHEN_LORD_CHANNEL_02.get().location(), this.getSoundSource());
     }
 
     @Override
     public SoundEvent getSummonSound() {
-        return null;
-    }
-
-    @Override
-    public Component getFeySummonMessage() {
         return null;
     }
 
@@ -261,11 +262,6 @@ public class AshenLordEntity extends BossBase {
 
     public void setState(AshenLordEntity.State state) {
         this.entityData.set(STATE, state.ordinal());
-    }
-
-    public ChannelType getChannelType() {
-        ChannelType[] types = ChannelType.values();
-        return types[Mth.clamp(this.entityData.get(CHANNEL_TYPE), 0, types.length - 1)];
     }
 
     public void setChannelType(ChannelType channelType) {
@@ -291,7 +287,7 @@ public class AshenLordEntity extends BossBase {
         return forcedAbility == ability;
     }
 
-    public void setForcedAbility(ForcedAbility ability) {
+    public void setForcedAbility(@Nullable ForcedAbility ability) {
         this.forcedAbility = ability;
     }
 

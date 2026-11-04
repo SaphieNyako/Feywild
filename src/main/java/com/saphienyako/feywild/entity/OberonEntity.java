@@ -9,7 +9,6 @@ import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,10 +17,12 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -30,9 +31,12 @@ import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
+/** @noinspection DataFlowIssue*/
 public class OberonEntity extends BossBase implements GroundEntity {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(OberonEntity.class, EntityDataSerializers.INT);
@@ -46,7 +50,7 @@ public class OberonEntity extends BossBase implements GroundEntity {
     private int movingTicks = 0;
     public static final double MIN_MOVING_SPEED_SQR = 1.0E-6;
     public OberonEntity(EntityType<? extends PathfinderMob> entity, Level level) {
-        super(entity, level, (ServerBossEvent) (new ServerBossEvent(Component.translatable("entity.feywild.oberon").withStyle(ChatFormatting.GREEN),
+        super(entity, level, (ServerBossEvent) (new ServerBossEvent(UUID.randomUUID(), Component.translatable("entity.feywild.oberon").withStyle(ChatFormatting.GREEN),
                 BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(false).setCreateWorldFog(true));
     }
 
@@ -61,7 +65,7 @@ public class OberonEntity extends BossBase implements GroundEntity {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(STATE, 0);
     }
@@ -186,7 +190,7 @@ public class OberonEntity extends BossBase implements GroundEntity {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
         if (STATE.equals(key) && this.level().isClientSide()) {
@@ -200,7 +204,7 @@ public class OberonEntity extends BossBase implements GroundEntity {
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return ModSounds.OBERON_HURT.get();
     }
 
@@ -215,25 +219,20 @@ public class OberonEntity extends BossBase implements GroundEntity {
         super.stopSoundOnDeath();
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.OBERON_REARING.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.OBERON_REARING.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.OBERON_CHARGING.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.OBERON_CHARGING.get().location(), this.getSoundSource());
 
         Minecraft.getInstance()
                 .getSoundManager()
-                .stop(ModSounds.OBERON_KICKING.get().getLocation(), this.getSoundSource());
+                .stop(ModSounds.OBERON_KICKING.get().location(), this.getSoundSource());
     }
 
     @Override
     public SoundEvent getSummonSound() {
         return ModSounds.OBERON_SUMMON.get();
-    }
-
-    @Override
-    public Component getFeySummonMessage() {
-        return null;
     }
 
     @Override

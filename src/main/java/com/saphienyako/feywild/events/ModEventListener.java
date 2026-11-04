@@ -3,6 +3,7 @@ package com.saphienyako.feywild.events;
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.effect.ModEffects;
+import com.saphienyako.feywild.entity.MandragoraEntity;
 import com.saphienyako.feywild.entity.SpringPixieEntity;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.item.PixieWingTiaraItem;
@@ -22,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
+import net.neoforged.neoforge.event.entity.living.MobDespawnEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
@@ -136,6 +139,14 @@ public class ModEventListener {
     public void onProjectileImpact(ProjectileImpactEvent event) {
         if (event.getProjectile() instanceof Snowball snowball && event.getRayTraceResult() instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof SpringPixieEntity && snowball.getOwner() instanceof ServerPlayer player) {
             QuestData.get(player).checkComplete(SpecialTask.INSTANCE, "hit_spring_pixie_with_snowball");
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
+        if (event.getEntity() instanceof MandragoraEntity mandragora && mandragora.getVariant() == MandragoraEntity.MandragoraVariant.WITHER_ROSE && event.getEffectInstance().is(MobEffects.WITHER)) {
+
+            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }
 

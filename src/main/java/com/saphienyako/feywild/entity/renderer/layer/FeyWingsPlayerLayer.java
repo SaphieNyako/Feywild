@@ -4,57 +4,47 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.compat.ModCompat;
-import com.saphienyako.feywild.effect.ModEffects;
-import com.saphienyako.feywild.entity.FeyWingsEntity;
-import com.saphienyako.feywild.entity.ModEntities;
+import com.saphienyako.feywild.entity.model.FeyWingsModel;
+import com.saphienyako.feywild.entity.model.ModModelLayers;
 import com.saphienyako.feywild.item.PixieWingTiaraItem;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.player.PlayerModel;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
-public class FeyWingsPlayerLayer<T extends Player, M extends PlayerModel<T>> extends RenderLayer<T, M> {
+@OnlyIn(Dist.CLIENT)
+public class FeyWingsPlayerLayer extends RenderLayer<@NotNull AvatarRenderState, @NotNull PlayerModel> {
 
-    private static final ResourceLocation SPRING =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/wings/spring.png");
+    private final FeyWingsModel wingsModel;
 
-    private static final ResourceLocation SUMMER =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/wings/summer.png");
-
-    private static final ResourceLocation AUTUMN =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/wings/autumn.png");
-
-    private static final ResourceLocation WINTER =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/wings/winter.png");
-
-    private static final ResourceLocation SHADOW =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/wings/shadow.png");
-
-    private static final ResourceLocation LIGHT =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/wings/light.png");
-
-    private final EntityRenderDispatcher dispatcher;
-    private LivingEntity entity;
-    public FeyWingsPlayerLayer(RenderLayerParent<T, M> parent, EntityRenderDispatcher dispatcher) {
+    public FeyWingsPlayerLayer(RenderLayerParent<@NotNull AvatarRenderState, @NotNull PlayerModel> parent, EntityModelSet modelSet) {
         super(parent);
-        this.dispatcher = dispatcher;
-    }
-
-    private LivingEntity getTestEntity(ClientLevel level) {
-        if (entity == null) {
-            entity = ModEntities.FEY_WINGS.get().create(level);
-        }
-        return entity;
+        this.wingsModel = new FeyWingsModel(modelSet.bakeLayer(ModModelLayers.FEY_WINGS_LAYER));
     }
 
     @Override
-    public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T player, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void submit(@NotNull PoseStack poseStack, @NotNull SubmitNodeCollector collector, int packedLight, AvatarRenderState state, float limbSwing, float limbSwingAmount) {
+        Minecraft minecraft = Minecraft.getInstance();
+
+        if (minecraft.level == null) {
+            return;
+        }
+
+        Entity entity = minecraft.level.getEntity(state.id);
+
+        if (!(entity instanceof Player player)) {
+            return;
+        }
 
         ItemStack stack = ModCompat.findWingTiara(player);
 
@@ -62,45 +52,22 @@ public class FeyWingsPlayerLayer<T extends Player, M extends PlayerModel<T>> ext
             return;
         }
 
-        if (!(player.level() instanceof ClientLevel level)) {
-            return;
-        }
-
-        LivingEntity entity = getTestEntity(level);
-
-        if (!(entity instanceof FeyWingsEntity wingsEntity)) {
-            return;
-        }
-
-        wingsEntity.setTexture(wingItem.getWingTexture(stack));
-
+        Identifier wingTexture = wingItem.getWingTexture(stack);
 
         poseStack.pushPose();
 
-        //Attach to chest/back
         this.getParentModel().body.translateAndRotate(poseStack);
 
-        //Position
-        poseStack.translate(0.0D, 1.1D, 0.1D); //left/right, up/down, back/forward
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F)); //sideways flip
-        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F)); //clockwise flip
-
-        //Scaling
+        poseStack.translate(0.0D, 1.1D, 0.1D);
+        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
         poseStack.scale(1.0F, 1.0F, 1.0F);
 
-        entity.tickCount = player.tickCount;
-        dispatcher.render(
-                entity,
-                0.0,
-                0.0,
-                0.0,
-                0.0F,
-                partialTick,
-                poseStack,
-                buffer,
-                packedLight
-        );
+        this.wingsModel.setupAnim(state);
+
+        renderColoredCutoutModel(this.wingsModel, wingTexture, poseStack, collector, packedLight, state, -1, 0);
 
         poseStack.popPose();
+
     }
 }

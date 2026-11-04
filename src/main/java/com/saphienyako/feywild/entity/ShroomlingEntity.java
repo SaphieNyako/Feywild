@@ -6,7 +6,9 @@ import com.saphienyako.feywild.data.ShroomlingItems;
 import com.saphienyako.feywild.entity.base.FeyBase;
 import com.saphienyako.feywild.entity.base.intereface.GroundEntity;
 import com.saphienyako.feywild.entity.base.intereface.ITradeable;
-import com.saphienyako.feywild.entity.goals.*;
+import com.saphienyako.feywild.entity.goals.GroundIronPanicGoal;
+import com.saphienyako.feywild.entity.goals.GroundPanicGoal;
+import com.saphienyako.feywild.entity.goals.TradeForGemsGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.SneezeGoal;
 import com.saphienyako.feywild.entity.goals.guardian_goals.WaveGoal;
 import com.saphienyako.feywild.item.ModItems;
@@ -16,7 +18,6 @@ import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,9 +26,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -95,7 +94,6 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
 
     protected ShroomlingEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.noCulling = true;
         this.entityData.set(VARIANT, ShroomlingEntity.ShroomlingVariant.DEFAULT.ordinal());
     }
 
@@ -259,36 +257,26 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        InteractionResult superResult = super.interactAt(player, hitVec, hand);
+    public InteractionResult interact(@Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull Vec3 hitVec) {
+        InteractionResult superResult = super.interact(player, hand, hitVec);
         if (superResult == InteractionResult.PASS) {
 
-            //GIVE COOKIE, HEAL
+            // GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
-                if (!level().isClientSide) {
+                if (!level().isClientSide()) {
                     player.sendSystemMessage(getFeyNameMessage());
-                    if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getCookieSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                    if (FeywildConfig.voicesActive && this.getVoiceActive()) {
+                        this.playSound(this.getCookieSound(), 1.0F, 1.0F);
                     }
                 }
                 if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(6) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
+                        this.spawnAtLocation(serverPlayer.level(), new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                        if(FeywildConfig.voicesActive) {
-                            serverPlayer.playNotifySound(
-                                    this.getDismissSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
+                        if (FeywildConfig.voicesActive) {
+                            this.playSound(this.getDismissSound(), 1.0F, 1.0F);
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -297,38 +285,27 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                if (!level().isClientSide) {
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            this,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.FEY_HEART,
-                                    this.getOnPos()
-                            )
-                    );
+                if (!level().isClientSide()) {
+                    PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.FEY_HEART, this.getOnPos()));
                 }
 
                 player.swing(hand, true);
 
-                //NAME TAG
+                // NAME TAG
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                if (!level().isClientSide) {
+                if (!level().isClientSide()) {
                     player.sendSystemMessage(getFeyNameMessage());
-                    if(FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getNameSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                    if (FeywildConfig.voicesActive && this.getVoiceActive()) {
+                        this.playSound(this.getNameSound(), 1.0F, 1.0F);
                     }
                 }
 
-                //PIXIE ORB OPENS MENU
+                // PIXIE ORB OPENS MENU
             } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 PacketDistributor.sendToPlayer(
-                        (ServerPlayer)player,
+                        (ServerPlayer) player,
                         new OpenMenuMessage(
                                 this.getId(),
                                 this.getAlignment(),
@@ -340,49 +317,31 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
                 );
                 player.swing(hand, true);
 
-
             } else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    player.displayClientMessage(
-                            Component.translatable("message.feywild.pixie_whisper")
-                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
-                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
-                            true
-                    );
+                    serverPlayer.sendSystemMessage(Component.translatable("message.feywild.pixie_whisper").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)), true);
                 }
                 player.swing(hand, true);
+
             }
-            //MUSHROOM VARIANT
+            // MUSHROOM VARIANT
             else if (MUSHROOM_VARIANTS.containsKey(player.getItemInHand(hand).getItem()) && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 ShroomlingEntity.ShroomlingVariant variant = MUSHROOM_VARIANTS.get(player.getItemInHand(hand).getItem());
                 this.setVariant(variant);
                 if (!player.isCreative()) {
                     player.getItemInHand(hand).shrink(1);
                 }
-                if (!level().isClientSide) {
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            this,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.DANDELION_FLUFF,
-                                    this.getOnPos().above()
-                            )
-                    );
-                    player.playNotifySound(
-                            SoundEvents.COMPOSTER_EMPTY,
-                            SoundSource.NEUTRAL,
-                            1.0F,
-                            1.0F
-                    );
+                if (!level().isClientSide()) {
+                    PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, this.getOnPos().above()));
+                    this.playSound(SoundEvents.COMPOSTER_EMPTY, 1.0F, 1.0F);
                 }
                 player.swing(hand, true);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return superResult;
         }
     }
-
-    //TODO check below
 
     @Nullable
     @Override

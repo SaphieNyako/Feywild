@@ -1,16 +1,16 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.FeyWingsRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class FeyWingsModel<T extends Entity> extends HierarchicalModel<T> {
+public class FeyWingsModel extends EntityModel<@NotNull AvatarRenderState> {
     private final ModelPart fey_wings;
     private final ModelPart wings;
     private final ModelPart left;
@@ -19,6 +19,8 @@ public class FeyWingsModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart rightbottom;
 
     public FeyWingsModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
         this.fey_wings = root.getChild("fey_wings");
         this.wings = this.fey_wings.getChild("wings");
         this.left = this.wings.getChild("left");
@@ -47,10 +49,10 @@ public class FeyWingsModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
+    public void setupAnim(@NotNull AvatarRenderState state) {
+        super.setupAnim(state);
 
-        float time = ageInTicks * 0.8F;
+        float time = state.ageInTicks * 0.8F;
 
         float flap = Mth.sin(time) * 0.25F;
         float secondary = Mth.sin(time * 1.5F) * 0.12F;
@@ -70,15 +72,5 @@ public class FeyWingsModel<T extends Entity> extends HierarchicalModel<T> {
 
         rightbottom.yRot = wingSpread + flap + secondary;
         rightbottom.xRot = 0.20F;
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        fey_wings.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return fey_wings;
     }
 }

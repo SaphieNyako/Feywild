@@ -14,7 +14,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -134,11 +133,11 @@ public class AutumnPixieEntity extends PixieBase {
 
     @NotNull
     @Override
-    public InteractionResult interactAt(@NotNull Player player, @NotNull Vec3 hitVec, @NotNull InteractionHand hand) {
-        //quest 07 healing the pixie
+    public InteractionResult interact(@NotNull Player player, @NotNull InteractionHand hand, @NotNull Vec3 hitVec) {
+        // quest 07 healing the pixie
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!level().isClientSide && player instanceof ServerPlayer serverPlayer && stack.is(Items.POTION)) {
+        if (!level().isClientSide() && player instanceof ServerPlayer serverPlayer && stack.is(Items.POTION)) {
 
             PotionContents contents = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
 
@@ -160,7 +159,7 @@ public class AutumnPixieEntity extends PixieBase {
                             serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, getX(), getY() + getBbHeight() * 0.5, getZ(), 10, 0.4, 0.45, 0.4, 0.02);
                         }
 
-                        serverPlayer.playNotifySound(this.getDeathSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+                        this.playSound(this.getDeathSound(), 1.0F, 1.0F);
 
                         player.swing(hand, true);
 
@@ -169,6 +168,7 @@ public class AutumnPixieEntity extends PixieBase {
                 }
             }
         }
-        return super.interactAt(player, hitVec, hand);
+
+        return super.interact(player, hand, hitVec);
     }
 }

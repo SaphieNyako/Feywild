@@ -35,54 +35,34 @@ public class PixieWingTiaraItem extends ToolTipBaseItem {
         String name = stack.getHoverName().getString();
 
         switch (name) {
-            case "lesbian wings", "pride 01" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_01");
+            case "lesbian wings", "pride 01" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_01");
             }
 
-            case "gay wings", "pride 02" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_02");
+            case "gay wings", "pride 02" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_02");
             }
 
-            case "bi wings", "pride 03" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_03");
+            case "bi wings", "pride 03" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_03");
             }
 
-            case "pan wings", "pride 04" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_04");
+            case "pan wings", "pride 04" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_04");
             }
 
-            case "ace wings", "pride 05" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_05");
+            case "ace wings", "pride 05" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_05");
             }
 
-            case "aro wings", "pride 06" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_06");
+            case "aro wings", "pride 06" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_06");
             }
 
-            case "pride 07" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_07");
+            case "pride 07" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_07");
             }
 
-            case "pride 08" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_08");
+            case "pride 08" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_08");
             }
 
-            case "pride 09" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_09");
+            case "pride 09" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_09");
             }
 
-            case "trans wings", "pride 10" -> {
-                return Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-                        "textures/entity/fey_wings/fey_wings_pride_10");
+            case "trans wings", "pride 10" -> {return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/fey_wings_pride_10");
             }
 
             default -> { return wingTexture; }

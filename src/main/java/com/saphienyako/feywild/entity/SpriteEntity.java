@@ -1,17 +1,12 @@
 package com.saphienyako.feywild.entity;
 
-import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.base.FlyingFeyBase;
-import com.saphienyako.feywild.entity.goals.IronPanicGoal;
-import com.saphienyako.feywild.entity.goals.PanicGoal;
 import com.saphienyako.feywild.entity.goals.SpriteAngryGoal;
 import com.saphienyako.feywild.entity.goals.SpriteHappyGoal;
-import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,25 +19,21 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/** @noinspection SameParameterValue*/
 public class SpriteEntity extends FlyingFeyBase {
 
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(SpriteEntity.class, EntityDataSerializers.INT);
@@ -60,8 +51,6 @@ public class SpriteEntity extends FlyingFeyBase {
 
     public SpriteEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.noCulling = true;
-      //  this.entityData.set(VARIANT, SpriteVariant.HEXEN.ordinal());
     }
 
     public static AttributeSupplier.Builder getDefaultAttributes() {
@@ -114,25 +103,18 @@ public class SpriteEntity extends FlyingFeyBase {
 
             if (this.getParticle() != null && random.nextInt(11) == 0) {
                 for (int i = 0; i < 4; i++) {
-                    this.level().addParticle(
-                            this.getParticle(),
-                            this.getX() + (Math.random() - 0.5),
-                            this.getY() + 1 + (Math.random() - 0.5),
-                            this.getZ() + (Math.random() - 0.5),
-                            0, 0, 0
-                    );
+                    this.level().addParticle(this.getParticle(), this.getX() + (Math.random() - 0.5), this.getY() + 1 + (Math.random() - 0.5), this.getZ() + (Math.random() - 0.5), 0, 0, 0);
                 }
             }
 
             return;
         }
 
-        //server
+
         if (this.getMode() != Mode.PROJECTILE) {
             return;
         }
 
-        // movement
         if (this.tickCount < 40) {
           LivingEntity target = this.getTarget();
 
@@ -186,51 +168,42 @@ public class SpriteEntity extends FlyingFeyBase {
 
             }
 
-            case WINTER -> {
-                applyAoE(entity -> {
-                    if (entity instanceof LivingEntity living) {
-                        living.setTicksFrozen(living.getTicksRequiredToFreeze());
-                        living.setTicksFrozen(living.getTicksFrozen() + 60);
-                    }
-                    entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
-                    entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
-                    this.playSound(ModSounds.WINTER_PIXIE_GIGGLE.get(), 1, 1);
-                    if (entity.getRandom().nextFloat() < 0.1f) {
-                        entity.playSound(ModSounds.TITANIA_WINTER.get(), 1.0F, 1.0F);
-                    }
-                });
+            case WINTER -> applyAoE(entity -> {
+                if (entity instanceof LivingEntity living) {
+                    living.setTicksFrozen(living.getTicksRequiredToFreeze());
+                    living.setTicksFrozen(living.getTicksFrozen() + 60);
+                }
+                entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 2));
+                entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
+                this.playSound(ModSounds.WINTER_PIXIE_GIGGLE.get(), 1, 1);
+                if (entity.getRandom().nextFloat() < 0.1f) {
+                    entity.playSound(ModSounds.TITANIA_WINTER.get(), 1.0F, 1.0F);
+                }
+            });
 
-            }
+            case SPRING -> applyAoE(entity -> {
+                entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80, 1));
+                this.playSound(ModSounds.SPRING_PIXIE_GIGGLE.get(), 1, 1);
+                if (entity.getRandom().nextFloat() < 0.1f) {
+                    entity.playSound(ModSounds.TITANIA_SPRING.get(), 1.0F, 1.0F);
+                }
+            });
 
-            case SPRING -> {
-                applyAoE(entity -> {
-                    entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 80, 1));
-                    this.playSound(ModSounds.SPRING_PIXIE_GIGGLE.get(), 1, 1);
-                    if (entity.getRandom().nextFloat() < 0.1f) {
-                        entity.playSound(ModSounds.TITANIA_SPRING.get(), 1.0F, 1.0F);
-                    }
-                });
-            }
+            case AUTUMN -> applyAoE(entity -> {
+                entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 80, 1));
+                this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
+                if (entity.getRandom().nextFloat() < 0.1f) {
+                    entity.playSound(ModSounds.TITANIA_AUTUMN.get(), 1.0F, 1.0F);
+                }
+            });
 
-            case AUTUMN -> {
-                applyAoE(entity -> {
-                    entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 80, 1));
-                    this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
-                    if (entity.getRandom().nextFloat() < 0.1f) {
-                        entity.playSound(ModSounds.TITANIA_AUTUMN.get(), 1.0F, 1.0F);
-                    }
-                });
-            }
-
-            case HEXEN -> {
-                applyAoE(entity -> {
-                    entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 1));
-                    this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
-                    if (entity.getRandom().nextFloat() < 0.05f) {
-                        entity.playSound(ModSounds.TITANIA_HEXEN.get(), 1.0F, 1.0F);
-                    }
-                });
-            }
+            case HEXEN -> applyAoE(entity -> {
+                entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 80, 1));
+                this.playSound(ModSounds.AUTUMN_PIXIE_GIGGLE.get(), 1, 1);
+                if (entity.getRandom().nextFloat() < 0.05f) {
+                    entity.playSound(ModSounds.TITANIA_HEXEN.get(), 1.0F, 1.0F);
+                }
+            });
 
             case BLOSSOM -> {
                 Vec3 center = this.position();
@@ -257,15 +230,7 @@ public class SpriteEntity extends FlyingFeyBase {
             }
         }
 
-        level.sendParticles(
-                ParticleTypes.END_ROD,
-                pos.x,
-                pos.y,
-                pos.z,
-                10,
-                0.3, 0.3, 0.3,
-                0.15
-        );
+        level.sendParticles(ParticleTypes.END_ROD, pos.x, pos.y, pos.z, 10, 0.3, 0.3, 0.3, 0.15);
 
         this.discard();
     }
@@ -273,10 +238,7 @@ public class SpriteEntity extends FlyingFeyBase {
     private void applyAoE(Consumer<LivingEntity> action) {
         double radius = 4.0;
 
-        List<LivingEntity> entities = this.level().getEntitiesOfClass(
-                LivingEntity.class,
-                this.getBoundingBox().inflate(radius)
-        );
+        List<LivingEntity> entities = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(radius));
 
         for (LivingEntity entity : entities) {
             if (entity == this) continue;
@@ -349,8 +311,6 @@ public class SpriteEntity extends FlyingFeyBase {
     public ItemLike getDismissItem() {
         return ItemStack.EMPTY.getItem();
     }
-
-    //TODO SOUND
 
     @Override
     public SoundEvent getCookieSound() {

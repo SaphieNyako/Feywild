@@ -20,14 +20,18 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.*;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -51,13 +55,13 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
-public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, HasCustomInventoryScreen{
+
+/** @noinspection ConstantValue, DataFlowIssue */
+public class BeeMountEntity extends FlyingFeyBase implements HasCustomInventoryScreen{ //removed net.minecraft.world.inventory.ContainerListener
     //MOVEMENT
     //FOLLOW/STAY on FeyBase
     public static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.INT);
-
-    public static final EntityDataAccessor<Integer> KNIGHT_ID =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> KNIGHT_ID = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.INT);
 
     public final AnimationState FLY_ANIMATION = new AnimationState();
     public final AnimationState FLY_IDLE_ANIMATION = new AnimationState();
@@ -67,26 +71,15 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
     public boolean isBeingRemovedTogether = false;
 
-    public static final EntityDataAccessor<Boolean> MOUNT_HAS_GOLD_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> MOUNT_HAS_DIAMOND_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_ARMOR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_SPEAR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_SPEAR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
-
-    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_SPEAR =
-            SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> MOUNT_HAS_GOLD_ARMOR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> MOUNT_HAS_DIAMOND_ARMOR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> MOUNT_HAS_NETHERITE_ARMOR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_ARMOR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_ARMOR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_ARMOR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_GOLD_SPEAR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_DIAMOND_SPEAR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> KNIGHT_HAS_NETHERITE_SPEAR = SynchedEntityData.defineId(BeeMountEntity.class, EntityDataSerializers.BOOLEAN);
 
 
     protected SimpleContainer inventory;
@@ -136,6 +129,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
         builder.define(KNIGHT_ID, -1);
         builder.define(MOUNT_HAS_GOLD_ARMOR, false);
         builder.define(MOUNT_HAS_DIAMOND_ARMOR, false);
+        builder.define(MOUNT_HAS_NETHERITE_ARMOR, false);
         builder.define(KNIGHT_HAS_GOLD_ARMOR, false);
         builder.define(KNIGHT_HAS_DIAMOND_ARMOR, false);
         builder.define(KNIGHT_HAS_NETHERITE_ARMOR, false);
@@ -166,11 +160,10 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput input) {
+    protected void readAdditionalSaveData(@NotNull ValueInput input) {
         super.readAdditionalSaveData(input);
 
-        this.knightUUID = input.read("KnightUUID", UUIDUtil.CODEC)
-                .orElse(null);
+        this.knightUUID = input.read("KnightUUID", UUIDUtil.CODEC).orElse(null);
 
         this.createInventory();
 
@@ -178,8 +171,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
             int slot = itemInput.getByteOr("Slot", (byte) 0) & 255;
 
             if (slot < this.inventory.getContainerSize()) {
-                itemInput.read("Item", ItemStack.CODEC)
-                        .ifPresent(stack -> this.inventory.setItem(slot, stack));
+                itemInput.read("Item", ItemStack.CODEC).ifPresent(stack -> this.inventory.setItem(slot, stack));
             }
         }
     }
@@ -244,16 +236,12 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
         }
 
         if (!this.level().isClientSide() && this.getNavigation().isDone()) {
-            Vec3 wander = this.position().add(
-                    (random.nextDouble() - 0.5) * 10,
-                    0,
-                    (random.nextDouble() - 0.5) * 10
-            );
-
+            Vec3 wander = this.position().add((random.nextDouble() - 0.5) * 10, 0, (random.nextDouble() - 0.5) * 10);
             this.getNavigation().moveTo(wander.x, wander.y, wander.z, 1.0);
         }
 
         if (this.level().isClientSide()) return;
+        checkInventoryChanges();
 
         if (this.getPassengers().isEmpty()) {
 
@@ -269,11 +257,9 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
             }
 
             if (knight != null && !knight.isPassenger()) {
-                knight.startRiding(this, true);
+                knight.startRiding(this, true, true);
             }
         }
-
-
     }
 
     private boolean isMoving() {
@@ -314,10 +300,10 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     }
 
     private BeeKnightEntity spawnKnight() {
-        BeeKnightEntity knight = ModEntities.BEE_KNIGHT.get().create(this.level());
+        BeeKnightEntity knight = ModEntities.BEE_KNIGHT.get().create(this.level(), EntitySpawnReason.MOB_SUMMONED);
 
         if (knight != null) {
-            knight.moveTo(this.position());
+            knight.snapTo(this.position());
             if(this.isTamed()){
                     knight.setSummonPos(this.getSummonPos());
                     knight.setOwner(Objects.requireNonNull(this.getOwner()));
@@ -328,31 +314,24 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
         return knight;
     }
 
-    //INTERACT
-
     @SuppressWarnings("resource")
     @Nonnull
     @Override
     @OverridingMethodsMustInvokeSuper
-    public InteractionResult interactAt(@Nonnull Player player, @Nonnull Vec3 hitVec, @Nonnull InteractionHand hand) {
-        InteractionResult superResult = super.interactAt(player, hitVec, hand);
+    public InteractionResult interact(@Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull Vec3 hitVec) {
+        InteractionResult superResult = super.interact(player, hand, hitVec);
         if (superResult == InteractionResult.PASS) {
 
-            //GIVE COOKIE, HEAL
+            // GIVE COOKIE, HEAL
             if (player.getItemInHand(hand).is(Items.COOKIE) && (this.getLastHurtByMob() == null || !this.getLastHurtByMob().isAlive())) {
                 this.heal(3);
                 if (!this.isTamed() && player instanceof ServerPlayer serverPlayer && this.owner == null) {
                     Random random = new Random();
                     if (random.nextInt(3) == 0) {
-                        this.spawnAtLocation(new ItemStack(ModItems.FEY_DUST.get()));
+                        this.spawnAtLocation(serverPlayer.level(),new ItemStack(ModItems.FEY_DUST.get()));
                         this.playSound(SoundEvents.ENDERMAN_TELEPORT);
-                        if(FeywildConfig.voicesActive) {
-                            serverPlayer.playNotifySound(
-                                    this.getCookieSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
+                        if (FeywildConfig.voicesActive) {
+                            this.playSound(this.getCookieSound(), 1.0F, 1.0F);
                         }
                         this.discard();
                         player.sendSystemMessage(getFeyCookieMessage());
@@ -362,39 +341,27 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
                     player.getItemInHand(hand).shrink(1);
                 }
 
-                if (!level().isClientSide) {
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            this,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.FEY_HEART,
-                                    this.getOnPos().above()
-                            )
-                    );
+                if (!level().isClientSide()) {
+                    PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.FEY_HEART, this.getOnPos().above()));
                 }
 
                 player.swing(hand, true);
 
-                //NAME TAG ON MOUNT
+                // NAME TAG ON MOUNT
             } else if (player.getItemInHand(hand).getItem() == Items.NAME_TAG) {
                 setCustomName(player.getItemInHand(hand).getHoverName().copy());
                 setCustomNameVisible(true);
-                if (!level().isClientSide) {
+                if (!level().isClientSide()) {
                     player.sendSystemMessage(getFeyNameMessage());
                     if (FeywildConfig.voicesActive && this.getVoiceActive()) {
-                        player.playNotifySound(
-                                this.getNameSound(),
-                                SoundSource.NEUTRAL,
-                                1.0F,
-                                1.0F
-                        );
+                        this.playSound(this.getNameSound(), 1.0F, 1.0F);
                     }
                 }
 
-                //PIXIE ORB OPENS BEE MOUNT MENU
-            }  else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
-                //openCustomInventoryScreen(player);
+                // PIXIE ORB OPENS BEE MOUNT MENU
+            } else if (player.getItemInHand(hand).getItem() == ModItems.PIXIE_ORB.get() && this.isTamed() && player instanceof ServerPlayer && this.owner != null && this.owner.equals(player.getUUID())) {
                 PacketDistributor.sendToPlayer(
-                        (ServerPlayer)player,
+                        (ServerPlayer) player,
                         new OpenMenuMessage(
                                 this.getId(),
                                 this.getAlignment(),
@@ -407,16 +374,12 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
                 player.swing(hand, true);
             } else if (!this.isTamed() || !player.getUUID().equals(this.owner)) {
                 if (player instanceof ServerPlayer serverPlayer) {
-                    player.displayClientMessage(
-                            Component.translatable("message.feywild.pixie_whisper")
-                                    .withStyle(ChatFormatting.LIGHT_PURPLE)
-                                    .append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)),
-                            true
-                    );
+                    serverPlayer.sendSystemMessage(
+                            Component.translatable("message.feywild.pixie_whisper").withStyle(ChatFormatting.LIGHT_PURPLE).append(Component.translatable("message.feywild.pixie_orb_untamed").withStyle(ChatFormatting.ITALIC)), true);
                 }
                 player.swing(hand, true);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return superResult;
         }
@@ -425,11 +388,20 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
     //INVENTORY
 
+    private void checkInventoryChanges() {
+        for (int i = 0; i < this.inventory.getContainerSize(); i++) {
+            if (!ItemStack.matches(this.inventory.getItem(i), lastInventoryCheck[i])) {
+                onInventoryChanged();
+                return;
+            }
+        }
+    }
+
     protected void createInventory() {
         SimpleContainer simplecontainer = this.inventory;
         this.inventory = new SimpleContainer(INVENTORY_SIZE);
+
         if (simplecontainer != null) {
-            simplecontainer.removeListener(this);
             int i = Math.min(simplecontainer.getContainerSize(), this.inventory.getContainerSize());
 
             for (int j = 0; j < i; j++) {
@@ -441,93 +413,79 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
         }
 
         this.lastInventoryCheck = new ItemStack[this.inventory.getContainerSize()];
+
         for (int i = 0; i < this.inventory.getContainerSize(); i++) {
             this.lastInventoryCheck[i] = this.inventory.getItem(i).copy();
         }
-
-        this.inventory.addListener(this);
     }
 
-    private boolean isIronWeaponOrArmor(ItemStack stack) {
-        return stack.is(Items.IRON_SWORD) || stack.is(Items.IRON_CHESTPLATE);
-    }
+    /** @noinspection deprecation*/
+    private void onInventoryChanged() {
+        ServerLevel serverLevel = (ServerLevel) this.level();
+        SimpleContainer container = this.inventory;
 
-    @Override
-    public void containerChanged(@Nonnull Container container) {
-
-        if(container.getItem(KNIGHT_ARMOR_SLOT).is(Items.IRON_CHESTPLATE)){
+        if (container.getItem(KNIGHT_ARMOR_SLOT).is(Items.IRON_CHESTPLATE)) {
             BeeKnightEntity knight = getLinkedKnight();
-            knight.hurt(this.damageSources().generic(), 1.0F);
-            knight.playSound(ModSounds.BEE_KNIGHT_HURT.get(), 1.0F, 1.0F);
+            if (knight != null) {
+                knight.hurt(this.damageSources().generic(), 1.0F);
+                knight.playSound(ModSounds.BEE_KNIGHT_HURT.get(), 1.0F, 1.0F);
+            }
 
-            this.spawnAtLocation(container.getItem(KNIGHT_ARMOR_SLOT));
+            this.spawnAtLocation(serverLevel, container.getItem(KNIGHT_ARMOR_SLOT));
             container.setItem(KNIGHT_ARMOR_SLOT, ItemStack.EMPTY);
         }
 
-        if(container.getItem(SPEAR_SLOT).is(Items.IRON_SWORD)){
+        if (container.getItem(SPEAR_SLOT).is(Items.IRON_SWORD)) {
             BeeKnightEntity knight = getLinkedKnight();
-            knight.hurt(this.damageSources().generic(), 1.0F);
-            knight.playSound(ModSounds.BEE_KNIGHT_HURT.get(), 1.0F, 1.0F);
+            if (knight != null) {
+                knight.hurt(this.damageSources().generic(), 1.0F);
+                knight.playSound(ModSounds.BEE_KNIGHT_HURT.get(), 1.0F, 1.0F);
+            }
 
-            this.spawnAtLocation(container.getItem(SPEAR_SLOT));
+            this.spawnAtLocation(serverLevel, container.getItem(SPEAR_SLOT));
             container.setItem(SPEAR_SLOT, ItemStack.EMPTY);
         }
 
-        if(container.getItem(MOUNT_ARMOR_SLOT).is(Items.IRON_HORSE_ARMOR)){
+        if (container.getItem(MOUNT_ARMOR_SLOT).is(Items.IRON_HORSE_ARMOR)) {
             this.hurt(this.damageSources().generic(), 1.0F);
             this.playSound(SoundEvents.BEE_HURT, 1.0F, 1.0F);
 
-            this.spawnAtLocation(container.getItem(MOUNT_ARMOR_SLOT));
+            this.spawnAtLocation(serverLevel, container.getItem(MOUNT_ARMOR_SLOT));
             container.setItem(MOUNT_ARMOR_SLOT, ItemStack.EMPTY);
         }
 
-        this.entityData.set(MOUNT_HAS_GOLD_ARMOR,
-                container.getItem(MOUNT_ARMOR_SLOT).is(Items.GOLDEN_HORSE_ARMOR));
-
-        this.entityData.set(MOUNT_HAS_DIAMOND_ARMOR,
-                container.getItem(MOUNT_ARMOR_SLOT).is(Items.DIAMOND_HORSE_ARMOR));
-
-        this.entityData.set(KNIGHT_HAS_GOLD_ARMOR,
-                container.getItem(KNIGHT_ARMOR_SLOT).is(Items.GOLDEN_CHESTPLATE));
-
-        this.entityData.set(KNIGHT_HAS_DIAMOND_ARMOR,
-                container.getItem(KNIGHT_ARMOR_SLOT).is(Items.DIAMOND_CHESTPLATE));
-
-        this.entityData.set(KNIGHT_HAS_NETHERITE_ARMOR,
-                container.getItem(KNIGHT_ARMOR_SLOT).is(Items.NETHERITE_CHESTPLATE));
-
-        this.entityData.set(KNIGHT_HAS_GOLD_SPEAR,
-                container.getItem(SPEAR_SLOT).is(Items.GOLDEN_SWORD));
-
-        this.entityData.set(KNIGHT_HAS_DIAMOND_SPEAR,
-                container.getItem(SPEAR_SLOT).is(Items.DIAMOND_SWORD));
-
-        this.entityData.set(KNIGHT_HAS_NETHERITE_SPEAR,
-                container.getItem(SPEAR_SLOT).is(Items.NETHERITE_SWORD));
+        this.entityData.set(MOUNT_HAS_GOLD_ARMOR, container.getItem(MOUNT_ARMOR_SLOT).is(Items.GOLDEN_HORSE_ARMOR));
+        this.entityData.set(MOUNT_HAS_DIAMOND_ARMOR, container.getItem(MOUNT_ARMOR_SLOT).is(Items.DIAMOND_HORSE_ARMOR));
+        this.entityData.set(MOUNT_HAS_NETHERITE_ARMOR, container.getItem(MOUNT_ARMOR_SLOT).is(Items.NETHERITE_HORSE_ARMOR));
+        this.entityData.set(KNIGHT_HAS_GOLD_ARMOR, container.getItem(KNIGHT_ARMOR_SLOT).is(Items.GOLDEN_CHESTPLATE));
+        this.entityData.set(KNIGHT_HAS_DIAMOND_ARMOR, container.getItem(KNIGHT_ARMOR_SLOT).is(Items.DIAMOND_CHESTPLATE));
+        this.entityData.set(KNIGHT_HAS_NETHERITE_ARMOR, container.getItem(KNIGHT_ARMOR_SLOT).is(Items.NETHERITE_CHESTPLATE));
+        this.entityData.set(KNIGHT_HAS_GOLD_SPEAR, container.getItem(SPEAR_SLOT).is(Items.GOLDEN_SWORD));
+        this.entityData.set(KNIGHT_HAS_DIAMOND_SPEAR, container.getItem(SPEAR_SLOT).is(Items.DIAMOND_SWORD));
+        this.entityData.set(KNIGHT_HAS_NETHERITE_SPEAR, container.getItem(SPEAR_SLOT).is(Items.NETHERITE_SWORD));
 
         for (int i = 0; i < container.getContainerSize(); i++) {
             lastInventoryCheck[i] = container.getItem(i).copy();
         }
+
         updateKnightStats();
     }
 
     @Override
     public void openCustomInventoryScreen(@Nonnull Player player) {
-        if (!this.level().isClientSide && this.isTamed()) {
+        if (!this.level().isClientSide() && this.isTamed()) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             if (player.containerMenu != player.inventoryMenu) {
                 player.closeContainer();
             }
             serverPlayer.openMenu(new SimpleMenuProvider((ix, playerInventory, playerEntity) ->
-                    new BeeKnightMenu(ix, playerInventory, this.inventory, this), this.getDisplayName()), buf -> {
-                buf.writeUUID(getUUID());
-            });
+                    new BeeKnightMenu(ix, playerInventory, this.inventory, this), this.getDisplayName()), buf -> buf.writeUUID(getUUID()));
         }
     }
 
     @Override
-    public void remove(RemovalReason reason) {
-        if (!this.level().isClientSide && !this.isBeingRemovedTogether) {
+    public void remove(@NotNull RemovalReason reason) {
+        if (!this.level().isClientSide() && !this.isBeingRemovedTogether) {
             this.isBeingRemovedTogether = true;
 
             BeeKnightEntity knight = getLinkedKnight();
@@ -543,14 +501,14 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     }
 
     private void dropInventory() {
-        if (this.level().isClientSide || this.inventory == null) {
+        if (this.level().isClientSide() || this.inventory == null) {
             return;
         }
 
         for (int i = 0; i < this.inventory.getContainerSize(); i++) {
             ItemStack stack = this.inventory.getItem(i);
             if (!stack.isEmpty()) {
-                this.spawnAtLocation(stack);
+                this.spawnAtLocation((ServerLevel) this.level(), stack);
             }
         }
 
@@ -714,10 +672,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
     //MOUNT/TRAVEL
 
-    @Override
-    public boolean isControlledByLocalInstance() {
-        return false;
-    }
+   //  @Override public boolean isControlledByLocalInstance() {return false;}
 
     @Override
     public boolean isEffectiveAi() {
@@ -758,7 +713,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     }
 
     @Override
-    protected void positionRider(Entity passenger, Entity.MoveFunction moveFunction) {
+    protected void positionRider(@NotNull Entity passenger, Entity.@NotNull MoveFunction moveFunction) {
         if (this.hasPassenger(passenger)) {
             double yOffset = 0.45D;
             moveFunction.accept(passenger, this.getX(), this.getY() + yOffset, this.getZ());
@@ -823,7 +778,7 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return SoundEvents.BEE_HURT;
     }
 
@@ -852,7 +807,6 @@ public class BeeMountEntity extends FlyingFeyBase implements ContainerListener, 
     public void setState(BeeKnightEntity.State state) {
         this.entityData.set(STATE, state.ordinal());
     }
-
 
     public enum State {
         FLY, FLY_IDLE

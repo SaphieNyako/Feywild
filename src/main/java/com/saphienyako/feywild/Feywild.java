@@ -137,8 +137,11 @@ public class Feywild
         @SubscribeEvent
         public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
             for (var skin : event.getSkins()) {
-                PlayerRenderer renderer = event.getSkin(skin);
-                renderer.addLayer(new FeyWingsPlayerLayer<>(renderer, Minecraft.getInstance().getEntityRenderDispatcher()));
+                var renderer = event.getPlayerRenderer(skin);
+
+                if (renderer != null) {
+                    renderer.addLayer(new FeyWingsPlayerLayer(renderer, event.getEntityModels()));
+                }
             }
         }
 

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -81,8 +82,7 @@ public class SneezeGoal extends Goal {
         double y = this.targetAnimal.getY();
         double z = this.targetAnimal.getZ();
 
-        if (entity.getVariant() == ShroomlingEntity.ShroomlingVariant.DEFAULT ||
-                entity.getVariant() == ShroomlingEntity.ShroomlingVariant.BROWN) {
+        if (entity.getVariant() == ShroomlingEntity.ShroomlingVariant.DEFAULT || entity.getVariant() == ShroomlingEntity.ShroomlingVariant.BROWN) {
 
             MushroomCow cow = new MushroomCow(EntityType.MOOSHROOM, level);
             cow.setPos(x, y, z);

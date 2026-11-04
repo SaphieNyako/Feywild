@@ -4,21 +4,22 @@ import com.saphienyako.feywild.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.animal.cow.Cow;
 import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -44,8 +46,6 @@ public class MooShroomCowEntity extends MushroomCow {
 
     public static final EntityDataAccessor<Integer> MOO_SHROOM_VARIANT = SynchedEntityData.defineId(MooShroomCowEntity.class, EntityDataSerializers.INT);
 
-    @Nullable
-    private SuspiciousStewEffects stewEffects;
     public MooShroomCowEntity(EntityType<? extends MushroomCow> entityType, Level level) {
         super(entityType, level);
     }
@@ -86,45 +86,45 @@ public class MooShroomCowEntity extends MushroomCow {
 
             ItemStack itemstack2;
             MooShroomCowVariant variant = this.getMooShroomVariant();
-            this.stewEffects = stewEffectForVariant(variant);
-
+            SuspiciousStewEffects stewEffects = stewEffectForVariant(variant);
 
             itemstack2 = new ItemStack(Items.SUSPICIOUS_STEW);
-            itemstack2.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, this.stewEffects);
-            this.stewEffects = null;
+            itemstack2.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, stewEffects);
 
             ItemStack itemstack1 = ItemUtils.createFilledResult(itemstack, player, itemstack2, false);
             player.setItemInHand(hand, itemstack1);
             SoundEvent soundevent = SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY;
 
             this.playSound(soundevent, 1.0F, 1.0F);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
 
         } else if (itemstack.is(Items.SHEARS) && this.readyForShearing()) {
-            this.shear(SoundSource.PLAYERS);
-            //TODO shear returns correct mushrooms
-            this.gameEvent(GameEvent.SHEAR, player);
-            if (!this.level().isClientSide) {
-                itemstack.hurtAndBreak(1, player, getSlotForHand(hand));
+            if (player instanceof ServerPlayer serverPlayer) {
+                this.shear(serverPlayer.level(), SoundSource.PLAYERS, itemstack);
+
+                this.gameEvent(GameEvent.SHEAR, player);
+
+                itemstack.hurtAndBreak(1, serverPlayer.level(), serverPlayer,
+                        item -> serverPlayer.onEquippedItemBroken(item, hand.asEquipmentSlot()));
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }   else {
             return super.mobInteract(player, hand);
         }
     }
 
     @Override
-    public void shear(@Nonnull SoundSource source) {
+    public void shear(@NotNull ServerLevel level, @NotNull SoundSource source, @NotNull ItemStack tool) {
         this.level().playSound(null, this, SoundEvents.MOOSHROOM_SHEAR, source, 1.0F, 1.0F);
         if (!this.level().isClientSide()) {
-            if (!net.neoforged.neoforge.event.EventHooks.canLivingConvert(this, EntityType.COW, (timer) -> {})) return;
-            Cow cow = EntityType.COW.create(this.level());
+            if (EventHooks.canLivingConvert(this, EntityType.COW, timer -> {}))  return;
+            Cow cow = EntityType.COW.create(this.level(), EntitySpawnReason.SPAWN_ITEM_USE);
             if (cow != null) {
                 net.neoforged.neoforge.event.EventHooks.onLivingConvert(this, cow);
                 ((ServerLevel)this.level()).sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(0.5), this.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
                 this.discard();
-                cow.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                cow.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
                 cow.setHealth(this.getHealth());
                 cow.yBodyRot = this.yBodyRot;
                 if (this.hasCustomName()) {
@@ -140,8 +140,7 @@ public class MooShroomCowEntity extends MushroomCow {
                 this.level().addFreshEntity(cow);
 
                 for (int i = 0; i < 5; i++) {
-
-                    ItemEntity item = spawnAtLocation(new ItemStack(this.getMooShroomVariant().getShroomBlock().asItem()), getBbHeight());
+                    ItemEntity item = spawnAtLocation(((ServerLevel)this.level()), new ItemStack(this.getMooShroomVariant().getShroomBlock().asItem()), getBbHeight());
                     if (item != null) item.setNoPickUpDelay();
                 }
             }
@@ -156,7 +155,7 @@ public class MooShroomCowEntity extends MushroomCow {
 
     @Nullable
     public MushroomCow getBreedOffspring(@Nonnull ServerLevel level,@Nonnull AgeableMob mob) {
-        MooShroomCowEntity mushroomcow = ModEntities.MOO_SHROOM_COW.get().create(level);
+        MooShroomCowEntity mushroomcow = ModEntities.MOO_SHROOM_COW.get().create(level, EntitySpawnReason.SPAWN_ITEM_USE);
         if (mushroomcow != null) {
             mushroomcow.setMooShroomVariant(((MooShroomCowEntity)mob).getMooShroomVariant());
         }
@@ -169,20 +168,13 @@ public class MooShroomCowEntity extends MushroomCow {
         List<SuspiciousStewEffects.Entry> effects = new ArrayList<>();
 
         switch (variant) {
-            case ORANGE ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.FIRE_RESISTANCE, 120));
-            case YELLOW ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.GLOWING, 180));
-            case GREEN ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.ABSORPTION, 100));
-            case LIGHT_BLUE ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.JUMP, 120));
-            case BLUE ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.NIGHT_VISION, 200));
-            case PURPLE ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.SLOW_FALLING, 180));
-            case PINK ->
-                    effects.add(new SuspiciousStewEffects.Entry(MobEffects.REGENERATION, 120));
+            case ORANGE -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.FIRE_RESISTANCE, 120));
+            case YELLOW -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.GLOWING, 180));
+            case GREEN -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.ABSORPTION, 100));
+            case LIGHT_BLUE -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.JUMP_BOOST, 120));
+            case BLUE -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.NIGHT_VISION, 200));
+            case PURPLE -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.SLOW_FALLING, 180));
+            case PINK -> effects.add(new SuspiciousStewEffects.Entry(MobEffects.REGENERATION, 120));
         }
 
         return new SuspiciousStewEffects(effects);

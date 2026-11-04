@@ -1,18 +1,22 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.MandragoraEntity;
 import com.saphienyako.feywild.entity.animations.MandragoraAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.MandragoraRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class MandragoraModel<T extends Entity> extends HierarchicalModel<T> {
+public class MandragoraModel extends EntityModel<MandragoraRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation singAnimation;
+    private final KeyframeAnimation poseAnimation;
+    private final KeyframeAnimation walkAnimation;
 
     private final ModelPart mandragora;
     private final ModelPart body;
@@ -33,6 +37,13 @@ public class MandragoraModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_arm;
 
     public MandragoraModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = MandragoraAnimations.IDLE.bake(root);
+        this.singAnimation = MandragoraAnimations.SING.bake(root);
+        this.poseAnimation = MandragoraAnimations.POSE.bake(root);
+        this.walkAnimation = MandragoraAnimations.WALK.bake(root);
+
         this.mandragora = root.getChild("root");
         this.body = this.mandragora.getChild("body");
         this.left_leg = this.body.getChild("left_leg");
@@ -108,14 +119,14 @@ public class MandragoraModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull MandragoraRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((MandragoraEntity)entity).IDLE_ANIMATION, MandragoraAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(((MandragoraEntity)entity).SING_ANIMATION, MandragoraAnimations.SING, ageInTicks, 1.0f);
-        this.animate(((MandragoraEntity)entity).POSE_ANIMATION, MandragoraAnimations.POSE, ageInTicks, 1.0f);
-        this.animate(((MandragoraEntity)entity).WALK_ANIMATION, MandragoraAnimations.WALK, ageInTicks, 1.0f);
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks);
+        this.singAnimation.apply(state.singAnimation, state.ageInTicks);
+        this.poseAnimation.apply(state.poseAnimation, state.ageInTicks);
+        this.walkAnimation.apply(state.walkAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -124,16 +135,6 @@ public class MandragoraModel<T extends Entity> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        mandragora.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return mandragora;
     }
 
 }

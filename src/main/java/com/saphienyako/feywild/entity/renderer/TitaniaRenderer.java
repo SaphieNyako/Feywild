@@ -1,29 +1,39 @@
 package com.saphienyako.feywild.entity.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.TitaniaEntity;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
 import com.saphienyako.feywild.entity.model.TitaniaModel;
-import net.minecraft.client.renderer.MultiBufferSource;
+import com.saphienyako.feywild.entity.state.TitaniaRenderState;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-public class TitaniaRenderer extends MobRenderer<TitaniaEntity, TitaniaModel<TitaniaEntity>> {
-    public TitaniaRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new TitaniaModel<>(pContext.bakeLayer(ModModelLayers.TITANIA_LAYER)),  0.50f);
+public class TitaniaRenderer extends MobRenderer<@NotNull TitaniaEntity, @NotNull TitaniaRenderState, @NotNull TitaniaModel> {
+
+    public TitaniaRenderer(EntityRendererProvider.Context context) {
+        super(context, new TitaniaModel(context.bakeLayer(ModModelLayers.TITANIA_LAYER)), 0.50f);
     }
 
     @Override
-    public void render(@NotNull TitaniaEntity pEntity, float pEntityYaw, float pPartialTicks, @NotNull PoseStack pMatrixStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+    public TitaniaRenderState createRenderState() {
+        return new TitaniaRenderState();
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull TitaniaEntity titaniaEntity) {
-        return ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/titania.png");
+    public void extractRenderState(TitaniaEntity entity, TitaniaRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+
+        state.idleAnimation.copyFrom(entity.IDLE_ANIMATION);
+        state.flyingAnimation.copyFrom(entity.FLYING_ANIMATION);
+        state.castingAnimation.copyFrom(entity.CASTING_ANIMATION);
+        state.enchantingAnimation.copyFrom(entity.ENCHANTING_ANIMATION);
+    }
+
+    @Override
+    public @NotNull Identifier getTextureLocation(TitaniaRenderState state) {
+        return Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/titania.png");
     }
 }
 

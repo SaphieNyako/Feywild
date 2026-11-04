@@ -1,10 +1,6 @@
 package com.saphienyako.feywild.entity;
 
 import com.saphienyako.feywild.Feywild;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -12,8 +8,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class FeyWingsEntity extends LivingEntity {
 
@@ -30,11 +24,11 @@ public class FeyWingsEntity extends LivingEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0);
     }
 
-    @Override
-    public @NotNull Iterable<ItemStack> getArmorSlots() { return List.of(); }
+
+    //@Override public @NotNull Iterable<ItemStack> getArmorSlots() { return List.of(); }
 
     @Override
-    public @NotNull ItemStack getItemBySlot(EquipmentSlot slot) { return ItemStack.EMPTY; }
+    public @NotNull ItemStack getItemBySlot(@NotNull EquipmentSlot slot) { return ItemStack.EMPTY; }
 
     @Override
     public void setItemSlot(@NotNull EquipmentSlot slot, @NotNull ItemStack stack) {}
@@ -48,5 +42,9 @@ public class FeyWingsEntity extends LivingEntity {
 
     public String getTexture() {
         return texture.getPath();
+    }
+
+    public Identifier getTextureIdentifier() {
+        return this.texture;
     }
 }

@@ -6,16 +6,23 @@ import com.saphienyako.feywild.entity.AutumnPixieEntity;
 import com.saphienyako.feywild.entity.BeeKnightEntity;
 import com.saphienyako.feywild.entity.animations.AutumnPixieAnimations;
 import com.saphienyako.feywild.entity.animations.BeeKnightAnimations;
+import com.saphienyako.feywild.entity.state.BeeKnightRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class BeeKnightModel<T extends Entity> extends HierarchicalModel<T> {
+public class BeeKnightModel extends EntityModel<BeeKnightRenderState> {
 
+    private final KeyframeAnimation sitAnimation;
+    private final KeyframeAnimation attackAnimation;
+    private final KeyframeAnimation wingAnimation;
     private final ModelPart bee_knight;
     private final ModelPart body;
     private final ModelPart torso;
@@ -36,6 +43,12 @@ public class BeeKnightModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_leg;
 
     public BeeKnightModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.sitAnimation = BeeKnightAnimations.SIT.bake(root);
+        this.attackAnimation = BeeKnightAnimations.ATTACK_RIGHT.bake(root);
+        this.wingAnimation = BeeKnightAnimations.WING.bake(root);
+
         this.bee_knight = root.getChild("bee_knight");
         this.body = this.bee_knight.getChild("body");
         this.torso = this.body.getChild("torso");
@@ -119,26 +132,15 @@ public class BeeKnightModel<T extends Entity> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-
     @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        bee_knight.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
+    public void setupAnim(BeeKnightRenderState state) {
+        super.setupAnim(state);
 
-    @NotNull
-    @Override
-    public ModelPart root() {
-        return bee_knight;
-    }
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-    @Override
-    public void setupAnim(@NotNull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-
-        this.animate(((BeeKnightEntity)entity).SIT_ANIMATION, BeeKnightAnimations.SIT, ageInTicks, 2f);
-        this.animate(((BeeKnightEntity)entity).ATTACK_ANIMATION, BeeKnightAnimations.ATTACK_RIGHT, ageInTicks, 1.0f);
-        this.animate(((BeeKnightEntity)entity).WING_ANIMATION, BeeKnightAnimations.WING, ageInTicks, 1.0f);
+        this.sitAnimation.apply(state.sitAnimation, state.ageInTicks, 2.0F);
+        this.attackAnimation.apply(state.attackAnimation, state.ageInTicks, 1.0F);
+        this.wingAnimation.apply(state.wingAnimation, state.ageInTicks, 1.0F);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {

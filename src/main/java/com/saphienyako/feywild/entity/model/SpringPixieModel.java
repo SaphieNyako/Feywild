@@ -1,19 +1,21 @@
 package com.saphienyako.feywild.entity.model;
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.SpringPixieEntity;
 import com.saphienyako.feywild.entity.animations.SpringPixieAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.PixieRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class SpringPixieModel<T extends Entity> extends HierarchicalModel<T> {
+public class SpringPixieModel extends EntityModel<@NotNull PixieRenderState> {
+
+	private final KeyframeAnimation idleAnimation;
+	private final KeyframeAnimation spellCastingAnimation;
 	private final ModelPart spring_pixie;
 	private final ModelPart head;
 	private final ModelPart left_ear;
@@ -32,6 +34,11 @@ public class SpringPixieModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart right_wing;
 
 	public SpringPixieModel(ModelPart root) {
+		super(root, RenderTypes::entityCutout);
+
+		this.idleAnimation = SpringPixieAnimations.IDLE.bake(root);
+		this.spellCastingAnimation = SpringPixieAnimations.SPELL_CASTING.bake(root);
+
 		this.spring_pixie = root.getChild("total");
 		this.head = this.spring_pixie.getChild("head");
 		this.left_ear = this.head.getChild("left_ear");
@@ -102,12 +109,12 @@ public class SpringPixieModel<T extends Entity> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+	public void setupAnim(@NotNull PixieRenderState state) {
+		super.setupAnim(state);
+		this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-		this.animate(((SpringPixieEntity)entity).IDLE_ANIMATION, SpringPixieAnimations.IDLE, ageInTicks, 2f);
-		this.animate(((SpringPixieEntity)entity).SPELL_CASTING_ANIMATION, SpringPixieAnimations.SPELL_CASTING, ageInTicks, 1.0f);
+		this.idleAnimation.apply(state.idleAnimation, state.ageInTicks, 2.0F);
+		this.spellCastingAnimation.apply(state.spellCastingAnimation, state.ageInTicks, 1.0F);
 	}
 
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -116,16 +123,5 @@ public class SpringPixieModel<T extends Entity> extends HierarchicalModel<T> {
 
 		this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
 		this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-	}
-
-	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		spring_pixie.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-
-	@Override
-	public ModelPart root() {
-		return spring_pixie;
 	}
 }

@@ -18,6 +18,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+/** @noinspection deprecation*/
 public class LeafProjectile extends ThrowableProjectile {
 
     private static final EntityDataAccessor<Integer> LEAF_TYPE = SynchedEntityData.defineId(LeafProjectile.class, EntityDataSerializers.INT);
@@ -59,7 +60,7 @@ public class LeafProjectile extends ThrowableProjectile {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult hitResult) {
+    protected void onHitEntity(@NotNull EntityHitResult hitResult) {
         super.onHitEntity(hitResult);
 
         if (level().isClientSide()) {
@@ -74,7 +75,7 @@ public class LeafProjectile extends ThrowableProjectile {
             return;
         }
 
-        boolean damaged = hitEntity.hurt(damageSources().mobProjectile(this, livingOwner), DAMAGE);
+        boolean damaged = hitEntity.hurtOrSimulate(damageSources().mobProjectile(this, livingOwner), DAMAGE);
 
         if (damaged) {
             applyKnockback(hitEntity);

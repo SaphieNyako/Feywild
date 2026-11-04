@@ -1,20 +1,23 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.MabEntity;
-import com.saphienyako.feywild.entity.OberonEntity;
-import com.saphienyako.feywild.entity.animations.MabAnimations;
 import com.saphienyako.feywild.entity.animations.OberonAnimations;
-import net.minecraft.client.model.HierarchicalModel;
+import com.saphienyako.feywild.entity.state.OberonRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class OberonModel<T extends Entity> extends HierarchicalModel<T> {
+public class OberonModel extends EntityModel<@NotNull OberonRenderState> {
+
+    private final KeyframeAnimation idleAnimation;
+    private final KeyframeAnimation walkingAnimation;
+    private final KeyframeAnimation chargingAnimation;
+    private final KeyframeAnimation kickingAnimation;
+    private final KeyframeAnimation rearingAnimation;
 
     private final ModelPart oberon;
     private final ModelPart body;
@@ -53,8 +56,16 @@ public class OberonModel<T extends Entity> extends HierarchicalModel<T> {
     private final ModelPart right_backleg;
     private final ModelPart right_backleg2;
 
-    public OberonModel(ModelPart oberon) {
-        this.oberon = oberon.getChild("oberon");
+    public OberonModel(ModelPart root) {
+        super(root, RenderTypes::entityCutout);
+
+        this.idleAnimation = OberonAnimations.IDLE.bake(root);
+        this.walkingAnimation = OberonAnimations.WALKING.bake(root);
+        this.chargingAnimation = OberonAnimations.CHARGING.bake(root);
+        this.kickingAnimation = OberonAnimations.KICKING.bake(root);
+        this.rearingAnimation = OberonAnimations.REARING.bake(root);
+
+        this.oberon = root.getChild("oberon");
         this.body = this.oberon.getChild("body");
         this.torso = this.body.getChild("torso");
         this.torso2 = this.torso.getChild("torso2");
@@ -195,15 +206,15 @@ public class OberonModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+    public void setupAnim(@NotNull OberonRenderState state) {
+        super.setupAnim(state);
+        this.applyHeadRotation(state.yRot, state.xRot, state.ageInTicks);
 
-        this.animate(((OberonEntity)entity).IDLE_ANIMATION, OberonAnimations.IDLE, ageInTicks, 1.0f);
-        this.animate(((OberonEntity)entity).WALKING_ANIMATION, OberonAnimations.WALKING, ageInTicks, 1.0f);
-        this.animate(((OberonEntity)entity).CHARGING_ANIMATION, OberonAnimations.CHARGING, ageInTicks, 1.0f);
-        this.animate(((OberonEntity)entity).KICKING_ANIMATION, OberonAnimations.KICKING, ageInTicks, 1.0f);
-        this.animate(((OberonEntity)entity).REARING_ANIMATION, OberonAnimations.REARING, ageInTicks, 1.0f);
+        this.idleAnimation.apply(state.idleAnimation, state.ageInTicks);
+        this.walkingAnimation.apply(state.walkingAnimation, state.ageInTicks);
+        this.chargingAnimation.apply(state.chargingAnimation, state.ageInTicks);
+        this.kickingAnimation.apply(state.kickingAnimation, state.ageInTicks);
+        this.rearingAnimation.apply(state.rearingAnimation, state.ageInTicks);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -212,15 +223,5 @@ public class OberonModel<T extends Entity> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        oberon.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return oberon;
     }
 }
