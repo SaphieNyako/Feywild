@@ -3,9 +3,10 @@ package com.saphienyako.feywild.datagen;
 import com.saphienyako.feywild.block.MandrakeCropBlock;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -29,8 +30,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Set;
 
 public class ModBlockLootTableProvider extends BlockLootSubProvider {
+
+    private final HolderGetter<Item> itemLookup;
     protected ModBlockLootTableProvider(HolderLookup.Provider provider) {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags(), provider);
+        this.itemLookup = provider.lookupOrThrow(Registries.ITEM);
     }
 
     @Override
@@ -54,115 +58,88 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.PURPLE_MUSHROOM.get());
         dropSelf(ModBlocks.PINK_MUSHROOM.get());
 
-        this.add(ModBlocks.ORANGE_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.ORANGE_MUSHROOM.asItem(), -6, 2));
-        this.add(ModBlocks.YELLOW_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.YELLOW_MUSHROOM.asItem(), -6, 2));
-        this.add(ModBlocks.GREEN_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.GREEN_MUSHROOM.asItem(), -6, 2));
-        this.add(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.LIGHT_BLUE_MUSHROOM.asItem(), -6, 2));
-        this.add(ModBlocks.BLUE_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.BLUE_MUSHROOM.asItem(), -6, 2));
-        this.add(ModBlocks.PURPLE_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.PURPLE_MUSHROOM.asItem(), -6, 2));
-        this.add(ModBlocks.PINK_MUSHROOM_BLOCK.get(),
-                block -> createMushroomDrops(block, ModBlocks.PINK_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.ORANGE_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.ORANGE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.YELLOW_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.YELLOW_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.GREEN_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.GREEN_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.LIGHT_BLUE_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.LIGHT_BLUE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.BLUE_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.BLUE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.PURPLE_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.PURPLE_MUSHROOM.asItem(), -6, 2));
+        this.add(ModBlocks.PINK_MUSHROOM_BLOCK.get(), block -> createMushroomDrops(block, ModBlocks.PINK_MUSHROOM.asItem(), -6, 2));
 
         dropSelf(ModBlocks.ELVEN_QUARTZ_BLOCK.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_STAIRS.get());
-        this.add(ModBlocks.ELVEN_QUARTZ_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_SLAB.get()));
+        this.add(ModBlocks.ELVEN_QUARTZ_SLAB.get(), block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_SLAB.get()));
         dropSelf(ModBlocks.ELVEN_QUARTZ_BRICK.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_BRICK_STAIRS.get());
-        this.add(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get()));
+        this.add(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get()));
         dropSelf(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
-        this.add(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        this.add(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
         dropSelf(ModBlocks.ELVEN_QUARTZ_PILLAR.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_POLISHED.get());
         dropSelf(ModBlocks.ELVEN_QUARTZ_POLISHED_STAIRS.get());
-        this.add(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get()));
+        this.add(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get(), block -> createSlabItemTable(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_BLOCK.get());
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_STAIRS.get());
-        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get()));
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get(), block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get()));
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK.get());
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_STAIRS.get());
-        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get()));
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get());
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK.get());
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
-        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_PILLAR.get());
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED.get());
         dropSelf(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_STAIRS.get());
-        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+        this.add(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get(), block -> createSlabItemTable(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_BLOCK.get());
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_STAIRS.get());
-        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get()));
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get(), block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get()));
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK.get());
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_STAIRS.get());
-        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get()));
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get());
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK.get());
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
-        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_PILLAR.get());
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED.get());
         dropSelf(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_STAIRS.get());
-        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+        this.add(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get(), block -> createSlabItemTable(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_BLOCK.get());
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_STAIRS.get());
-        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get()));
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get(), block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get()));
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK.get());
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_STAIRS.get());
-        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get()));
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get());
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK.get());
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
-        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_PILLAR.get());
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED.get());
         dropSelf(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_STAIRS.get());
-        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+        this.add(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get(), block -> createSlabItemTable(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_BLOCK.get());
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_STAIRS.get());
-        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get()));
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get(), block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get()));
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK.get());
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_STAIRS.get());
-        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get()));
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get()));
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get());
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK.get());
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get());
-        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get(), block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()));
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_PILLAR.get());
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get());
         dropSelf(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS.get());
-        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
+        this.add(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get(), block -> createSlabItemTable(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()));
 
         this.dropSelf(ModBlocks.AUTUMN_TREE_LOG.get());
         this.add(ModBlocks.AUTUMN_TREE_CRACKED_LOG.get(),
@@ -344,6 +321,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     }
 
+    /** @noinspection SameParameterValue*/
     protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return this.createSilkTouchDispatchTable(pBlock, this.applyExplosionDecay(pBlock,
@@ -352,6 +330,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                         .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
     }
 
+    /** @noinspection SameParameterValue*/
     protected LootTable.Builder createMushroomDrops(Block mushroomBlock, Item mushroomItem, float minDrops, float maxDrops) {
         HolderLookup.RegistryLookup<Enchantment> registryLookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return this.createSilkTouchDispatchTable(mushroomBlock, this.applyExplosionDecay(mushroomBlock,
@@ -359,16 +338,13 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))));
     }
 
-    protected static LootPool.Builder extraLeafDrop(ItemLike dropItem, float chance) {
+    /** @noinspection SameParameterValue*/
+    protected LootPool.Builder extraLeafDrop(ItemLike dropItem, float chance) {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
                 .add(LootItem.lootTableItem(dropItem)
                         .when(LootItemRandomChanceCondition.randomChance(chance))
-                        // Only drop if not using shears
-                        .when(InvertedLootItemCondition.invert(
-                                MatchTool.toolMatches(ItemPredicate.Builder.item().of(Items.SHEARS))
-                        ))
-                );
+                        .when(InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(itemLookup, Items.SHEARS)))));
     }
 
 

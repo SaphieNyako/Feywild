@@ -24,3 +24,4 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
         super(output, registries, BUILDER, Set.of(Feywild.MOD_ID));
     }
 }
+
