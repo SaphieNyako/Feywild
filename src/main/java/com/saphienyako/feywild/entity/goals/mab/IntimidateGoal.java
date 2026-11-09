@@ -64,29 +64,19 @@ public class IntimidateGoal extends Goal {
     }
 
     private void spellCasting(LivingEntity target) {
-
         entity.lookAt(EntityAnchorArgument.Anchor.EYES, target.position());
         this.entity.playSound(ModSounds.MAB_INTIMIDATE.get(), 1, 1);
         if (target instanceof Player player) {
             player.setTicksFrozen(180);
         }
 
-        target.addEffect(
-                new MobEffectInstance(
-                        MobEffects.MOVEMENT_SLOWDOWN,
-                        180,
-                        3
-                )
-        );
+        target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 180, 3));
     }
 
     @Override
     public boolean canContinueToUse() {
         LivingEntity target = entity.getTarget();
-
-        return ticksLeft > 0
-                && target != null
-                && target.isAlive();
+        return ticksLeft > 0 && target != null && target.isAlive();
     }
 
     @Override

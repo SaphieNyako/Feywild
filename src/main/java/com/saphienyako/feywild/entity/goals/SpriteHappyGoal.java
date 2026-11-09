@@ -1,12 +1,8 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.SpriteEntity;
-import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 
 public class SpriteHappyGoal extends Goal {
 
@@ -50,8 +46,7 @@ public class SpriteHappyGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.getState() == SpriteEntity.State.IDLE
-                && level.random.nextFloat() < 0.2f &&  this.entity.getState() != SpriteEntity.State.ANGRY;
+        return this.entity.getState() == SpriteEntity.State.IDLE && level.getRandom().nextFloat() < 0.2f &&  this.entity.getState() != SpriteEntity.State.ANGRY;
     }
 
     @Override

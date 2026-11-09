@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.entity.goals.guardian_goals;
 
 import com.saphienyako.feywild.entity.BeeKnightEntity;
-import com.saphienyako.feywild.entity.base.TreeEntBase;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class BeeKnightResetTargetGoal <T extends BeeKnightEntity> extends Goal {
@@ -14,7 +13,7 @@ public class BeeKnightResetTargetGoal <T extends BeeKnightEntity> extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.level().random.nextFloat() < 0.02f;
+        return this.entity.level().getRandom().nextFloat() < 0.02f;
     }
 
     @Override

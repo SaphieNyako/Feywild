@@ -125,14 +125,7 @@ public class OberonChargingGoal extends Goal {
 
             if (entity.horizontalCollision) {
                 ticksElapsed = WINDUP_DURATION + CHARGE_DURATION;
-                entity.level().playSound(
-                        null,
-                        entity.blockPosition(),
-                        SoundEvents.RAVAGER_STUNNED,
-                        SoundSource.HOSTILE,
-                        1.0F,
-                        1.0F
-                );
+                entity.level().playSound(null, entity.blockPosition(), SoundEvents.RAVAGER_STUNNED, SoundSource.HOSTILE, 1.0F, 1.0F);
             }
 
         } else {
@@ -145,12 +138,16 @@ public class OberonChargingGoal extends Goal {
     }
 
     private void damageEntitiesDuringCharge() {
+        if (!(entity.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
         AABB area = entity.getBoundingBox().inflate(0.7D);
 
         List<LivingEntity> targets = entity.level().getEntitiesOfClass(LivingEntity.class, area, target -> target.isAlive() && target != entity && !hitEntities.contains(target.getUUID()));
 
         for (LivingEntity target : targets) {
-            boolean damaged = target.hurt(entity.damageSources().mobAttack(entity), CHARGE_DAMAGE);
+            boolean damaged = target.hurtServer(serverLevel, entity.damageSources().mobAttack(entity), CHARGE_DAMAGE);
 
             if (!damaged) {
                 continue;
@@ -162,13 +159,7 @@ public class OberonChargingGoal extends Goal {
 
             target.hurtMarked = true;
 
-            entity.level().playSound(
-                    null,
-                    target.blockPosition(),
-                    SoundEvents.RAVAGER_ATTACK,
-                    SoundSource.HOSTILE,
-                    1.0F,
-                    1.0F);
+            entity.level().playSound(null, target.blockPosition(), SoundEvents.RAVAGER_ATTACK, SoundSource.HOSTILE, 1.0F, 1.0F);
         }
     }
 
@@ -263,7 +254,7 @@ public class OberonChargingGoal extends Goal {
         entity.setYBodyRot(startingYRot);
 
         entity.setDeltaMovement(Vec3.ZERO);
-        entity.hasImpulse = true;
+       // entity.hasImpulse = true;
 
         spawnTeleportPoof(serverLevel, startingPosition.x, startingPosition.y, startingPosition.z);
 

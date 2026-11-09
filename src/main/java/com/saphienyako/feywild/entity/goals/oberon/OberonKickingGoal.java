@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity.goals.oberon;
 
 import com.saphienyako.feywild.entity.OberonEntity;
 import com.saphienyako.feywild.sound.ModSounds;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -105,6 +106,10 @@ public class OberonKickingGoal extends Goal {
     }
 
     private void performKick() {
+        if (!(entity.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
+
         Vec3 backward = entity.getLookAngle().multiply(-1.0D, 0.0D, -1.0D).normalize();
 
         Vec3 kickCenter = entity.position().add(backward.scale(1.8D)).add(0.0D, entity.getBbHeight() * 0.35D, 0.0D);
@@ -124,7 +129,7 @@ public class OberonKickingGoal extends Goal {
                         && isBehindOberon(target));
 
         for (LivingEntity target : targets) {
-            boolean damaged = target.hurt(entity.damageSources().mobAttack(entity), KICK_DAMAGE);
+            boolean damaged = target.hurtServer( serverLevel, entity.damageSources().mobAttack(entity), KICK_DAMAGE);
 
             if (damaged) {
                 target.push(backward.x * KICK_KNOCKBACK, 0.6D, backward.z * KICK_KNOCKBACK);

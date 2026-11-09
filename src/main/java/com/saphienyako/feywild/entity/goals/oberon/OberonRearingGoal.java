@@ -100,12 +100,13 @@ public class OberonRearingGoal extends Goal {
     }
 
     private void performStomp() {
+        if (!(entity.level() instanceof ServerLevel serverLevel)) {
+            return;
+        }
 
         AABB area = entity.getBoundingBox().inflate(STOMP_RADIUS, 1.5D, STOMP_RADIUS);
 
-        List<LivingEntity> targets = entity.level().getEntitiesOfClass(LivingEntity.class, area,
-                target -> target.isAlive()
-                        && target != entity);
+        List<LivingEntity> targets = entity.level().getEntitiesOfClass(LivingEntity.class, area, target -> target.isAlive() && target != entity);
 
         for (LivingEntity target : targets) {
             Vec3 difference = target.position().subtract(entity.position());
@@ -116,7 +117,7 @@ public class OberonRearingGoal extends Goal {
                 continue;
             }
 
-            boolean damaged = target.hurt(entity.damageSources().mobAttack(entity), STOMP_DAMAGE);
+            boolean damaged = target.hurtServer(serverLevel, entity.damageSources().mobAttack(entity), STOMP_DAMAGE);
 
             if (!damaged) {
                 continue;
@@ -133,18 +134,10 @@ public class OberonRearingGoal extends Goal {
             target.hurtMarked = true;
         }
 
-        if (entity.level() instanceof ServerLevel serverLevel) {
-            spawnStompParticles(serverLevel);
-        }
 
-        entity.level().playSound(
-                null,
-                entity.blockPosition(),
-                SoundEvents.RAVAGER_ROAR,
-                SoundSource.HOSTILE,
-                1.0F,
-                1.0F
-        );
+        spawnStompParticles(serverLevel);
+
+        entity.level().playSound(null, entity.blockPosition(), SoundEvents.RAVAGER_ROAR, SoundSource.HOSTILE, 1.0F, 1.0F);
     }
 
     @Override

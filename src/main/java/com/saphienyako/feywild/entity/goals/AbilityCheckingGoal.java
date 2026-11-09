@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.FeyBase;
-import com.saphienyako.feywild.entity.base.intereface.ITameable;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import javax.annotation.Nonnull;

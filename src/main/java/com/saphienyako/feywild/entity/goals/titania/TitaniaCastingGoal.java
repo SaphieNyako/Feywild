@@ -26,7 +26,7 @@ public class TitaniaCastingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.level.random.nextFloat() < 0.08f
+        return this.level.getRandom().nextFloat() < 0.08f
                 && entity.getTarget() != null
                 && entity.getTarget().isAlive()
                 && entity.getState() != TitaniaEntity.State.ENCHANTING;
@@ -74,8 +74,8 @@ public class TitaniaCastingGoal extends Goal {
         for (int i = -1; i <= 1; i++) {
 
             SpriteEntity sprite = new SpriteEntity(ModEntities.SPRITE.get(), entity.level());
-            //    sprite.moveTo(entity.getX(), entity.getY() + 2, entity.getZ());
-            sprite.moveTo(entity.getX() + (i * 0.6), entity.getY() + 2, entity.getZ() + (i * 0.6));
+
+            sprite.snapTo(entity.getX() + (i * 0.6), entity.getY() + 2, entity.getZ() + (i * 0.6));
 
             SpriteEntity.SpriteVariant variant = SpriteEntity.SpriteVariant.values()[entity.getRandom().nextInt(SpriteEntity.SpriteVariant.values().length)];
             sprite.setVariant(variant);

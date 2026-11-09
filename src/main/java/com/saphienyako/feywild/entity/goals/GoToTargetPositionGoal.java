@@ -1,6 +1,5 @@
 package com.saphienyako.feywild.entity.goals;
 
-import com.saphienyako.feywild.entity.base.intereface.ITradeable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.phys.Vec3;
@@ -48,7 +47,7 @@ public class GoToTargetPositionGoal extends MovementRestrictionGoal {
     public boolean canUse() {
        // if (entity instanceof ITradeable && ((ITradeable) entity).isTrading()) return false;
         Vec3 target = this.targetPosition.get();
-        return this.entity.level().random.nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
+        return this.entity.level().getRandom().nextFloat() < 0.25f && target != null && !this.isInRange(this.entity.position());
     }
     @SuppressWarnings("unused")
     public static GoToTargetPositionGoal byBlockPos(Mob entity, Supplier<BlockPos> pos, int maxMovementRange, float speed) {

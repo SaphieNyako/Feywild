@@ -14,7 +14,7 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,6 +25,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class GatherMobItemsGoal extends Goal {
 
@@ -53,16 +54,10 @@ public class GatherMobItemsGoal extends Goal {
                 }
             }
             if (this.ticksLeft <= 0) {
-                if (this.level instanceof ServerLevel) {
+                if (this.level instanceof ServerLevel serverLevel) {
                    dropFromLootTable(targetMob);
-                   this.entity.doHurtTarget(targetMob);
-                    PacketDistributor.sendToPlayersTrackingEntity(
-                            entity,
-                            new ParticleMessage(
-                                    ParticleMessage.Particles.MOB_COLLECT,
-                                    targetMob.blockPosition()
-                            )
-                    );
+                   this.entity.doHurtTarget(serverLevel, targetMob);
+                    PacketDistributor.sendToPlayersTrackingEntity(entity, new ParticleMessage(ParticleMessage.Particles.MOB_COLLECT, targetMob.blockPosition()));
                    this.entity.playSound((SoundEvents.COMPOSTER_EMPTY), 0.7f, 1);
                 }
                 this.reset();
@@ -101,7 +96,7 @@ public class GatherMobItemsGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.01f;
+            return this.level.getRandom().nextFloat() < 0.01f;
         } else {
             return false;
         }
@@ -109,10 +104,14 @@ public class GatherMobItemsGoal extends Goal {
 
     @Nullable
     private Animal findTarget() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return null;
+        }
+
         double distance = Double.MAX_VALUE;
         Animal current = null;
-        for (Animal mob : this.level.getNearbyEntities(Animal.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
-            //A few checks to avoid fairies killing mobs they shouldn't...
+        for (Animal mob : this.level.getEntitiesOfClass(Animal.class, this.entity.getBoundingBox().inflate(8), mob -> TARGETING.test(serverLevel, this.entity, mob))) {
+
             if(mob instanceof AbstractHorse horse && horse.isTamed()) continue;
             if (!mob.isAlive() || mob.isBaby()) continue;
             if (mob instanceof TamableAnimal tameable && tameable.isTame()) continue;
@@ -128,13 +127,15 @@ public class GatherMobItemsGoal extends Goal {
     protected void dropFromLootTable(Mob mob) {
         DamageSource source = entity.level().damageSources().magic();
 
-        ResourceKey<LootTable> lootTableKey = mob.getLootTable();
+        Optional<ResourceKey<LootTable>> lootTableKey = mob.getLootTable();
+
+        if (lootTableKey.isEmpty()) return;
 
         if (!(mob.level() instanceof ServerLevel serverLevel)) return;
 
         LootTable lootTable = serverLevel.getServer()
                 .reloadableRegistries()
-                .getLootTable(lootTableKey);
+                .getLootTable(lootTableKey.get());
 
         LootParams.Builder lootParamsBuilder = new LootParams.Builder(serverLevel)
                 .withParameter(LootContextParams.THIS_ENTITY, mob)
@@ -151,7 +152,7 @@ public class GatherMobItemsGoal extends Goal {
         LootParams lootParams = lootParamsBuilder.create(LootContextParamSets.ENTITY);
 
         for (ItemStack stack : lootTable.getRandomItems(lootParams)) {
-            this.entity.spawnAtLocation(stack);
+            this.entity.spawnAtLocation(serverLevel, stack);
         }
     }
 }

@@ -4,6 +4,8 @@ import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.MooShroomCowEntity;
 import com.saphienyako.feywild.entity.ShroomlingEntity;
 import com.saphienyako.feywild.network.ParticleMessage;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -11,8 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.cow.Cow;
 import net.minecraft.world.entity.animal.cow.MushroomCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -88,9 +89,9 @@ public class SneezeGoal extends Goal {
             cow.setPos(x, y, z);
 
             if (entity.getVariant() == ShroomlingEntity.ShroomlingVariant.BROWN) {
-                cow.setVariant(MushroomCow.MushroomType.BROWN);
+                cow.setComponent(DataComponents.MOOSHROOM_VARIANT, MushroomCow.Variant.BROWN);
             } else {
-                cow.setVariant(MushroomCow.MushroomType.RED);
+                cow.setComponent(DataComponents.MOOSHROOM_VARIANT, MushroomCow.Variant.RED);
             }
 
             return cow;
@@ -137,7 +138,7 @@ public class SneezeGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.005f;
+            return this.level.getRandom().nextFloat() < 0.005f;
         } else {
             return false;
         }
@@ -150,9 +151,14 @@ public class SneezeGoal extends Goal {
 
     @Nullable
     private Animal findCow() {
+        //requires serverLevel...
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return null;
+        }
+
         double distance = Double.MAX_VALUE;
         Animal current = null;
-        for (Animal animal : this.entity.level().getNearbyEntities(Cow.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        for (Animal animal : this.entity.level().getEntitiesOfClass(Cow.class, this.entity.getBoundingBox().inflate(8), cow -> TARGETING.test(serverLevel, this.entity, cow))) {
             if (animal.getAge() == 0 && this.entity.distanceToSqr(animal) < distance) {
                 current = animal;
                 distance = this.entity.distanceToSqr(animal);

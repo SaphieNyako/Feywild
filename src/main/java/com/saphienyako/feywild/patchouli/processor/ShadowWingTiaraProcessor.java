@@ -1,8 +1,8 @@
 package com.saphienyako.feywild.patchouli.processor;
 
-import com.saphienyako.feywild.patchouli.processor.base.FeywildProcessor;
+import com.saphienyako.feywild.patchouli.processor.base.FeywildComponentProcessor;
 
-public class ShadowWingTiaraProcessor extends FeywildProcessor {
+public class ShadowWingTiaraProcessor extends FeywildComponentProcessor {
     String recipeId = "feywild:shadow_wing_tiara";
 
     @Override

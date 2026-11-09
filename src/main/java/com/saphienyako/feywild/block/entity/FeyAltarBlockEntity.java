@@ -13,7 +13,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,6 +22,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,6 +39,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
+
+    private final RecipeManager.CachedCheck<@NotNull FeyAltarRecipeInput, @NotNull FeyAltarRecipe> recipeCheck = RecipeManager.createCheck(ModRecipes.FEY_ALTAR_TYPE.get());
     private final ItemStackHandler itemHandler = new ItemStackHandler(6){
         @Override
         public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
@@ -175,13 +177,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
             if (this.progress >= (maxProgress - 1)) {
                 //Particles after item has been crafted
                     PacketDistributor.sendToPlayersTrackingChunk(level, Objects.requireNonNull(this.level).getChunkAt(this.worldPosition).getPos(),
-                            new AltarParticleMessage(
-                                    AltarParticleMessage.Particles.ALTAR_01,
-                                    this.worldPosition,
-                                    progress,
-                                    maxProgress
-                            )
-                    );
+                            new AltarParticleMessage(AltarParticleMessage.Particles.ALTAR_01, this.worldPosition, progress, maxProgress));
             } else {
                 List<ItemStack> stacks = new ArrayList<>();
                 for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
@@ -191,25 +187,13 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
                 if (!stacks.isEmpty()) {
                     //Particles moving up while being crafted
                     PacketDistributor.sendToPlayersTrackingChunk(level, Objects.requireNonNull(this.level).getChunkAt(this.worldPosition).getPos(),
-                            new AltarParticleMessage(
-                                    AltarParticleMessage.Particles.ALTAR_02,
-                                    this.worldPosition,
-                                    progress,
-                                    maxProgress
-                            )
-                    );
+                            new AltarParticleMessage(AltarParticleMessage.Particles.ALTAR_02, this.worldPosition, progress, maxProgress));
                 }
             }
         } else {
             //Particles on Model
             PacketDistributor.sendToPlayersTrackingChunk(level, Objects.requireNonNull(this.level).getChunkAt(this.worldPosition).getPos(),
-                    new AltarParticleMessage(
-                            AltarParticleMessage.Particles.ALTAR_03,
-                            this.worldPosition,
-                            progress,
-                            maxProgress
-                    )
-            );
+                    new AltarParticleMessage(AltarParticleMessage.Particles.ALTAR_03, this.worldPosition, progress, maxProgress));
         }
     }
 
@@ -223,11 +207,11 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         if(recipe.isEmpty()) {
             return false;
         }
-        ItemStack result = recipe.get().value().getResultItem(Objects.requireNonNull(getLevel()).registryAccess());
+        ItemStack result = recipe.get().value().output();
 
         return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
     }
-
+/*  TODO
     private Optional<RecipeHolder<@NotNull FeyAltarRecipe>> getCurrentRecipe() {
         if (!(this.level instanceof ServerLevel serverLevel)) {
             return Optional.empty();
@@ -241,6 +225,22 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         FeyAltarRecipeInput input = new FeyAltarRecipeInput(inventory);
 
         return serverLevel.recipeAccess().getRecipeFor(ModRecipes.FEY_ALTAR_TYPE.get(), input, this.level);
+    } */
+
+    private Optional<RecipeHolder<@NotNull FeyAltarRecipe>> getCurrentRecipe() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return Optional.empty();
+        }
+
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        FeyAltarRecipeInput input = new FeyAltarRecipeInput(inventory);
+
+        return this.recipeCheck.getRecipeFor(input, serverLevel);
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -248,7 +248,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         Optional<RecipeHolder<@NotNull FeyAltarRecipe>> recipe = getCurrentRecipe();
 
         recipe.ifPresent(recipeResult -> {
-            ItemStack result = recipeResult.value().getResultItem(null);
+            ItemStack result = recipeResult.value().output();
 
             // Extract input items
             this.itemHandler.extractItem(INPUT_SLOT_00, 1, false);
@@ -261,7 +261,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
             ItemStack currentOutput = this.itemHandler.getStackInSlot(OUTPUT_SLOT);
             this.itemHandler.setStackInSlot(
                     OUTPUT_SLOT,
-                    new ItemStack(result.getItem(), currentOutput.getCount() + result.getCount())
+                    result.copyWithCount(currentOutput.getCount() + result.getCount())
             );
         });
     }

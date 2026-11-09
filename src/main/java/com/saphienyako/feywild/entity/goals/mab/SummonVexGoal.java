@@ -3,15 +3,11 @@ package com.saphienyako.feywild.entity.goals.mab;
 import com.saphienyako.feywild.entity.MabEntity;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Vex;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -35,7 +31,7 @@ public class SummonVexGoal extends Goal {
 
         return target != null
                 && target.isAlive()
-                && entity.level().random.nextFloat() < 0.03F
+                && entity.level().getRandom().nextFloat() < 0.03F
                 && entity.getState() != MabEntity.State.CHANNEL
                 && entity.getState() != MabEntity.State.INTIMIDATION
                 && entity.getState() != MabEntity.State.ATTACKING;

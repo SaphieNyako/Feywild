@@ -87,7 +87,7 @@ public class BreedAbilityGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.02f;
+            return this.level.getRandom().nextFloat() < 0.02f;
         } else {
             return false;
         }
@@ -95,9 +95,13 @@ public class BreedAbilityGoal extends Goal {
 
     @Nullable
     private Animal findTarget() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return null;
+        }
+
         double distance = Double.MAX_VALUE;
         Animal current = null;
-        for (Animal animal : this.level.getNearbyEntities(Animal.class, TARGETING, this.entity, this.entity.getBoundingBox().inflate(8))) {
+        for (Animal animal : this.level.getEntitiesOfClass(Animal.class, this.entity.getBoundingBox().inflate(8), animal -> TARGETING.test(serverLevel, this.entity, animal))) {
             if (animal.getAge() == 0 && this.entity.distanceToSqr(animal) < distance) {
                 current = animal;
                 distance = this.entity.distanceToSqr(animal);
@@ -108,10 +112,14 @@ public class BreedAbilityGoal extends Goal {
 
     @Nullable
     private Animal findPartner() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return null;
+        }
+
         if (this.targetAnimal != null) {
             double distance = Double.MAX_VALUE;
             Animal current = null;
-            for (Animal animal : this.level.getNearbyEntities(Animal.class, TARGETING, this.targetAnimal, this.targetAnimal.getBoundingBox().inflate(8))) {
+            for (Animal animal : this.level.getEntitiesOfClass(Animal.class, this.targetAnimal.getBoundingBox().inflate(8), animal -> TARGETING.test(serverLevel, this.targetAnimal, animal))) {
                 if (animal.getAge() == 0) {
                     // We need to set both entities in love to get correct results
                     // from canMate. So we store the old love time to set it back later

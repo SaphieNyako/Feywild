@@ -53,7 +53,7 @@ public class SingGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.005f;
+            return this.level.getRandom().nextFloat() < 0.005f;
         } else {
             return false;
         }
@@ -77,7 +77,7 @@ public class SingGoal extends Goal {
                 this.reset();
             } else if (this.ticksLeft <= 20) {
                 //MANDRAGORA SINGING NOTES
-                if(level.random.nextInt(3) < 1) {
+                if(level.getRandom().nextInt(3) < 1) {
                     PacketDistributor.sendToPlayersTrackingEntity(
                             entity,
                             new ParticleMessage(
@@ -101,7 +101,7 @@ public class SingGoal extends Goal {
         if (!entity.onGround()) return;
 
         int radius = 3;
-        BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
         for (BlockPos pos : BlockPos.betweenClosed(
                 basePos.offset(-radius, 0, -radius),
@@ -109,29 +109,29 @@ public class SingGoal extends Goal {
 
             if (!pos.closerToCenterThan(entity.position(), radius)) continue;
 
-            mpos.set(pos);
+            mutableBlockPos.set(pos);
 
-            BlockState blockAtPos = level.getBlockState(mpos);
+            BlockState blockAtPos = level.getBlockState(mutableBlockPos);
 
             if (!blockAtPos.isAir()) continue;
 
-            BlockState blockBelow = level.getBlockState(mpos.below());
+            BlockState blockBelow = level.getBlockState(mutableBlockPos.below());
 
             if (!blockBelow.is(BlockTags.DIRT)) continue;
 
             BlockState flower = getRandomFlower(entity.getRandom(), entity);
             if (flower == null) continue;
 
-            if (!flower.canSurvive(level, mpos)) continue;
-            if (!level.isUnobstructed(flower, mpos, CollisionContext.empty())) continue;
+            if (!flower.canSurvive(level, mutableBlockPos)) continue;
+            if (!level.isUnobstructed(flower, mutableBlockPos, CollisionContext.empty())) continue;
 
             if (level instanceof ServerLevel serverLevel) {
-                serverLevel.setBlock(mpos, flower, 3);
-                serverLevel.sendBlockUpdated(mpos, Blocks.AIR.defaultBlockState(), flower, 3);
+                serverLevel.setBlock(mutableBlockPos, flower, 3);
+                serverLevel.sendBlockUpdated(mutableBlockPos, Blocks.AIR.defaultBlockState(), flower, 3);
 
             }
 
-            System.out.println("Placed flower at: " + mpos);
+            System.out.println("Placed flower at: " + mutableBlockPos);
         }
     }
 
@@ -148,12 +148,9 @@ public class SingGoal extends Goal {
                 case 7 -> Blocks.OXEYE_DAISY.defaultBlockState();
                 default -> Blocks.SHORT_GRASS.defaultBlockState();
             };
-        } else {
-            return switch (random.nextInt(2)) {
-                case 0 -> FLOWER_VARIANTS.get(entity.getVariant());
-                default -> Blocks.SHORT_GRASS.defaultBlockState();
-            };
         }
+
+        return random.nextBoolean() ? FLOWER_VARIANTS.get(entity.getVariant()) : Blocks.SHORT_GRASS.defaultBlockState();
     }
 
 

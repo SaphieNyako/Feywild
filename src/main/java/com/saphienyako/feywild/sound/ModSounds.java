@@ -14,8 +14,7 @@ import java.util.function.Supplier;
 
 public class ModSounds {
 
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Feywild.MOD_ID);
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, Feywild.MOD_ID);
 
     public static final Supplier<SoundEvent> MANDRAKE_SCREAM = registerSoundEvent("mandrake_scream");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvent("pixie_spell_casting");

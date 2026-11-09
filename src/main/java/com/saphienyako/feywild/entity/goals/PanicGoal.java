@@ -58,16 +58,6 @@ public class PanicGoal extends Goal {
 
         double intensity = 0.8;
         entity.setDeltaMovement(panicDirection.scale(intensity));
-
-      /*  float yaw = (float) (Math.atan2(panicDirection.z, panicDirection.x) * (180.0 / Math.PI)) - 90f;
-        float pitch = (float) (-Math.asin(panicDirection.y) * (180.0 / Math.PI));
-
-        entity.setYRot(yaw);
-        entity.yRotO = yaw;
-        entity.setXRot(pitch);
-        entity.xRotO = pitch;
-        entity.setYHeadRot(yaw);
-        entity.yHeadRotO = yaw; */
     }
 
     @Override

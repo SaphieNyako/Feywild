@@ -1,11 +1,10 @@
 package com.saphienyako.feywild.entity.goals.tree_ent_goals;
 
 import com.saphienyako.feywild.entity.base.TreeEntBase;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
     protected final TreeEntBase entity;
@@ -16,11 +15,13 @@ public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
     }
 
     @Override
-    protected void checkAndPerformAttack(LivingEntity target) {
+    protected void checkAndPerformAttack(@NotNull LivingEntity target) {
         if (this.isTimeToAttack() && this.canTreeEntAttack(target)) {
             this.resetAttackCooldown();
-            entity.playSound(entity.getAttackingSound(), 0.3f,1f);
-            this.mob.doHurtTarget(target);
+            if (this.mob.level() instanceof ServerLevel serverLevel) {
+                entity.playSound(entity.getAttackingSound(), 0.3f, 1f);
+                this.mob.doHurtTarget(serverLevel, target);
+            }
         }
     }
 
@@ -33,7 +34,7 @@ public class TreeEntMeleeAttackGoal  extends MeleeAttackGoal {
     protected double getTreeEntAttackReachSqr(LivingEntity target) {
         float width = this.mob.getBbWidth();
         float reach = width * 3.0F;
-        return (double)(reach * reach + target.getBbWidth());
+        return reach * reach + target.getBbWidth();
     }
 
     @Override

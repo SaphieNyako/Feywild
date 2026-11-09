@@ -1,6 +1,7 @@
 package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.FeyBase;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -62,16 +63,6 @@ public class IronPanicGoal extends Goal {
         if (panicDirection == Vec3.ZERO) return;
 
         entity.setDeltaMovement(panicDirection.scale(speed));
-
-    /*    float yaw = (float) (Math.atan2(panicDirection.z, panicDirection.x) * (180.0 / Math.PI)) - 90f;
-        float pitch = (float) (-Math.asin(panicDirection.y) * (180.0 / Math.PI));
-
-        entity.setYRot(yaw);
-        entity.yRotO = yaw;
-        entity.setXRot(pitch);
-        entity.xRotO = pitch;
-        entity.setYHeadRot(yaw);
-        entity.yHeadRotO = yaw; */
     }
 
     @Override
@@ -82,10 +73,13 @@ public class IronPanicGoal extends Goal {
 
     @Nullable
     private Player findPlayer() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return null;
+        }
         double closest = Double.MAX_VALUE;
         Player result = null;
 
-        for (Player player : level.getNearbyEntities( Player.class, TARGETING, entity, entity.getBoundingBox().inflate(range))) {
+        for (Player player : level.getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(range), player -> TARGETING.test(serverLevel, entity, player))) {
             if (!player.isCreative() && isHoldingIron(player)) {
                 double distance = entity.distanceToSqr(player);
                 if (distance < closest) {

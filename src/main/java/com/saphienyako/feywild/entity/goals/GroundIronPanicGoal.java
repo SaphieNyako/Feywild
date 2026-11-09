@@ -2,6 +2,7 @@ package com.saphienyako.feywild.entity.goals;
 
 import com.saphienyako.feywild.entity.base.FeyBase;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -83,10 +84,14 @@ public class GroundIronPanicGoal extends Goal {
 
     @Nullable
     protected Player findPlayer() {
+        if (!(this.level instanceof ServerLevel serverLevel)) {
+            return null;
+        }
+
         double closest = Double.MAX_VALUE;
         Player result = null;
 
-        for (Player player : level.getNearbyEntities(Player.class, TARGETING, entity, entity.getBoundingBox().inflate(range))) {
+        for (Player player : level.getEntitiesOfClass(Player.class, entity.getBoundingBox().inflate(range), player -> TARGETING.test(serverLevel, entity, player))) {
             if (!player.isCreative() && isHoldingIron(player)) {
                 double distance = entity.distanceToSqr(player);
                 if (distance < closest) {

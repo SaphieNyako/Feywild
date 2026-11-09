@@ -4,6 +4,7 @@ import com.saphienyako.feywild.entity.base.PixieBase;
 import com.saphienyako.feywild.network.ParticleMessage;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -40,15 +41,15 @@ public class GatherCropsAbilityGoal extends Goal {
             if (this.ticksLeft <= 0) {
                 this.reset();
             } else if (this.ticksLeft == 5) {
-                if (foundViableCrop && this.item != null) {
+                if (foundViableCrop && this.item != null && this.level instanceof ServerLevel serverLevel) {
                     if(this.item.getItem() == Items.WHEAT_SEEDS) {
-                        this.entity.spawnAtLocation(Objects.requireNonNull(Items.WHEAT));
+                        this.entity.spawnAtLocation(serverLevel, Objects.requireNonNull(Items.WHEAT));
                     }
                     else if (this.item.getItem() == Items.BEETROOT_SEEDS) {
-                        this.entity.spawnAtLocation(Objects.requireNonNull(Items.BEETROOT));
+                        this.entity.spawnAtLocation(serverLevel, Objects.requireNonNull(Items.BEETROOT));
                     }
                     else {
-                        this.entity.spawnAtLocation(Objects.requireNonNull(this.item));
+                        this.entity.spawnAtLocation(serverLevel, Objects.requireNonNull(this.item));
                     }
                     this.entity.playSound((SoundEvents.COMPOSTER_EMPTY), 0.7f, 1);
 
@@ -68,17 +69,11 @@ public class GatherCropsAbilityGoal extends Goal {
             for (int zd = -8; zd <= 8; zd++) {
                 for (int yd = 8; yd >= -8; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
-                    if (level.getBlockState(target).getBlock() instanceof CropBlock cropBlock && cropBlock.isMaxAge(level.getBlockState(target)) && level.random.nextFloat() < 0.16f) { //
+                    if (level.getBlockState(target).getBlock() instanceof CropBlock cropBlock && cropBlock.isMaxAge(level.getBlockState(target)) && level.getRandom().nextFloat() < 0.16f) { //
                         this.foundViableCrop = true;
-                        this.item = cropBlock.getCloneItemStack(level, target, level.getBlockState(target));
+                        this.item = cropBlock.getCloneItemStack(level, target, level.getBlockState(target), false, this.entity.getOwningPlayer());
                         resetCrops(cropBlock,level, target, level.getBlockState(target));
-                        PacketDistributor.sendToPlayersTrackingEntity(
-                                entity,
-                                new ParticleMessage(
-                                        ParticleMessage.Particles.CROPS_RESET,
-                                        target
-                                )
-                        );
+                        PacketDistributor.sendToPlayersTrackingEntity(entity, new ParticleMessage(ParticleMessage.Particles.CROPS_RESET, target));
                         return;
                     }
                 }
@@ -120,7 +115,7 @@ public class GatherCropsAbilityGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.01f;
+            return this.level.getRandom().nextFloat() < 0.01f;
         } else {
             return false;
         }

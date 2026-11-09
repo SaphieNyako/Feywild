@@ -13,7 +13,7 @@ public class TreeEntResetTargetGoal <T extends TreeEntBase> extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.entity.level().random.nextFloat() < 0.05f;
+        return this.entity.level().getRandom().nextFloat() < 0.05f;
     }
 
     @Override

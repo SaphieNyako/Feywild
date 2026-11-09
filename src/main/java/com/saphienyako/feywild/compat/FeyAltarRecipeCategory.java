@@ -11,21 +11,19 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.util.List;
 
 public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
 
     public static final Identifier UID = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar");
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Feywild.MOD_ID,
-            "textures/gui/fey_altar_gui.png");
-    public static final RecipeType<FeyAltarRecipe> FEY_ALTAR_TYPE =
-            new RecipeType<>(UID, FeyAltarRecipe.class);
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/fey_altar_gui.png");
+    public static final RecipeType<FeyAltarRecipe> FEY_ALTAR_TYPE = new RecipeType<>(UID, FeyAltarRecipe.class);
     private final IDrawable background;
     private final IDrawable icon;
 
@@ -44,6 +42,16 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
         return Component.translatable("block.feywild.fey_altar");
     }
 
+    @Override
+    public int getWidth() {
+        return 155;
+    }
+
+    @Override
+    public int getHeight() {
+        return 80;
+    }
+
     public @NotNull IDrawable getBackground() {
         return this.background;
     }
@@ -55,12 +63,14 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
 
     @Override
     public void setRecipe(@NotNull IRecipeLayoutBuilder builder, FeyAltarRecipe recipe, @NotNull IFocusGroup group) {
-        builder.addSlot(RecipeIngredientRole.INPUT, 75, 2).addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.INPUT, 44, 23).addIngredients(recipe.getIngredients().get(1));
-        builder.addSlot(RecipeIngredientRole.INPUT, 105, 23).addIngredients(recipe.getIngredients().get(2));
-        builder.addSlot(RecipeIngredientRole.INPUT, 56, 58).addIngredients(recipe.getIngredients().get(3));
-        builder.addSlot(RecipeIngredientRole.INPUT, 94, 58).addIngredients(recipe.getIngredients().get(4));
+        List<Ingredient> ingredients = recipe.getIngredients();
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).addItemStack(recipe.getResultItem(Objects.requireNonNull(Minecraft.getInstance().level).registryAccess()));
+        builder.addSlot(RecipeIngredientRole.INPUT, 75, 2).addIngredients(ingredients.get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 44, 23).addIngredients(ingredients.get(1));
+        builder.addSlot(RecipeIngredientRole.INPUT, 105, 23).addIngredients(ingredients.get(2));
+        builder.addSlot(RecipeIngredientRole.INPUT, 56, 58).addIngredients(ingredients.get(3));
+        builder.addSlot(RecipeIngredientRole.INPUT, 94, 58).addIngredients(ingredients.get(4));
+
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).addItemStack(recipe.output().copy());
     }
 }

@@ -1,22 +1,14 @@
 package com.saphienyako.feywild.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.saphienyako.feywild.entity.AutumnPixieEntity;
-import com.saphienyako.feywild.entity.BeeKnightEntity;
-import com.saphienyako.feywild.entity.animations.AutumnPixieAnimations;
 import com.saphienyako.feywild.entity.animations.BeeKnightAnimations;
 import com.saphienyako.feywild.entity.state.BeeKnightRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
 public class BeeKnightModel extends EntityModel<BeeKnightRenderState> {
 

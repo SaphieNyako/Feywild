@@ -1,12 +1,12 @@
 package com.saphienyako.feywild.entity.goals.guardian_goals;
 
 import com.saphienyako.feywild.entity.BeeKnightEntity;
-import com.saphienyako.feywild.entity.base.TreeEntBase;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import org.jetbrains.annotations.NotNull;
 
 public class BeeKnightMeleeAttackGoal extends MeleeAttackGoal {
 
@@ -18,19 +18,17 @@ public class BeeKnightMeleeAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    protected void checkAndPerformAttack(LivingEntity target) {
+    protected void checkAndPerformAttack(@NotNull LivingEntity target) {
         if (this.isTimeToAttack() && this.canTreeEntAttack(target)) {
             this.resetAttackCooldown();
 
-            if (!target.level().isClientSide) {
+            if (this.mob.level() instanceof ServerLevel serverLevel) {
                 if (entity.getRandom().nextFloat() < 0.4F) {
                     entity.playSound(entity.getAttackSound());
                 }
-            }
 
-            this.mob.doHurtTarget(target);
+                this.mob.doHurtTarget(serverLevel, target);
 
-            if (!target.level().isClientSide) {
                 if (entity.getRandom().nextFloat() < 0.2F) {
                     target.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
                 }
@@ -47,7 +45,7 @@ public class BeeKnightMeleeAttackGoal extends MeleeAttackGoal {
     protected double getTreeEntAttackReachSqr(LivingEntity target) {
         float width = this.mob.getBbWidth();
         float reach = width * 3.5F;
-        return (double)(reach * reach + target.getBbWidth());
+        return reach * reach + target.getBbWidth();
     }
 
     @Override

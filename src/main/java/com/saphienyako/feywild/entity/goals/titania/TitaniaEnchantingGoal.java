@@ -1,17 +1,13 @@
 package com.saphienyako.feywild.entity.goals.titania;
 
 import com.saphienyako.feywild.effect.ModEffects;
-import com.saphienyako.feywild.entity.ModEntities;
-import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.entity.TitaniaEntity;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
@@ -29,7 +25,7 @@ public class TitaniaEnchantingGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.level.random.nextFloat() < 0.04f
+        return this.level.getRandom().nextFloat() < 0.04f
                 && entity.getTarget() != null
                 && entity.getTarget().isAlive()
                 && entity.getState() != TitaniaEntity.State.CASTING;

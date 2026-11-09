@@ -1,8 +1,8 @@
 package com.saphienyako.feywild.patchouli.processor;
 
-import com.saphienyako.feywild.patchouli.processor.base.FeywildProcessor;
+import com.saphienyako.feywild.patchouli.processor.base.FeywildComponentProcessor;
 @SuppressWarnings("unused")
-public class SummerPixieProcessor extends FeywildProcessor {
+public class SummerPixieProcessor extends FeywildComponentProcessor {
     String recipeId = "feywild:summoning_scroll_summer_pixie";
 
     @Override

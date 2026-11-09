@@ -1,8 +1,8 @@
 package com.saphienyako.feywild.patchouli.processor;
 
-import com.saphienyako.feywild.patchouli.processor.base.FeywildProcessor;
+import com.saphienyako.feywild.patchouli.processor.base.FeywildComponentProcessor;
 
-public class SpringTreeSaplingProcessor extends FeywildProcessor {
+public class SpringTreeSaplingProcessor extends FeywildComponentProcessor {
     String recipeId = "feywild:spring_tree_sapling";
 
     @Override

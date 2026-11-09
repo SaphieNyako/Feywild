@@ -1,8 +1,8 @@
 package com.saphienyako.feywild.patchouli.processor;
 
-import com.saphienyako.feywild.patchouli.processor.base.FeywildProcessor;
+import com.saphienyako.feywild.patchouli.processor.base.FeywildComponentProcessor;
 @SuppressWarnings("unused")
-public class SpringPixieProcessor extends FeywildProcessor {
+public class SpringPixieProcessor extends FeywildComponentProcessor {
     String recipeId = "feywild:summoning_scroll_spring_pixie";
 
     @Override

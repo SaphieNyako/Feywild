@@ -63,7 +63,7 @@ public class CropGrowAbilityGoal extends Goal {
             for (int zd = -8; zd <= 8; zd++) {
                 for (int yd = 8; yd >= -8; yd--) {
                     BlockPos target = pos.offset(xd, yd, zd);
-                    if (level.getBlockState(target).getBlock() instanceof CropBlock && level.random.nextFloat() < 0.16f) {
+                    if (level.getBlockState(target).getBlock() instanceof CropBlock && level.getRandom().nextFloat() < 0.16f) {
                         this.foundViableCrop = true;
                         ((CropBlock) level.getBlockState(target).getBlock()).growCrops(level, target, level.getBlockState(target));
                         PacketDistributor.sendToPlayersTrackingEntity(
@@ -88,7 +88,7 @@ public class CropGrowAbilityGoal extends Goal {
     public boolean canUse() {
         Player owning = this.entity.getOwningPlayer();
         if (owning instanceof ServerPlayer && this.entity.getAbilityActive()) {
-            return this.level.random.nextFloat() < 0.01f;
+            return this.level.getRandom().nextFloat() < 0.01f;
         } else {
             return false;
         }

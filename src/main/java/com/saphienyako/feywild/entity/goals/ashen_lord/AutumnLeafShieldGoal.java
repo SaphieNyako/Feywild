@@ -2,7 +2,6 @@ package com.saphienyako.feywild.entity.goals.ashen_lord;
 
 import com.saphienyako.feywild.entity.AshenLordEntity;
 import com.saphienyako.feywild.particle.ModParticles;
-import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -11,8 +10,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -135,6 +134,7 @@ public class AutumnLeafShieldGoal extends Goal {
         return true;
     }
 
+    /** @noinspection deprecation*/
     private void pushPlayersAway() {
         AABB area = entity.getBoundingBox().inflate(SHIELD_RADIUS);
 
@@ -212,10 +212,10 @@ public class AutumnLeafShieldGoal extends Goal {
 
             projectile.setOwner(entity);
             projectile.setDeltaMovement(direction.scale(speed));
-            projectile.hasImpulse = true;
-
+            //  projectile.hasImpulse = true;
+            //TODO Check damage for Autumn Shield used to be arrow.get_damage() *7
             if (projectile instanceof AbstractArrow arrow) {
-                arrow.setBaseDamage(arrow.getBaseDamage() * SHIELD_DAMAGE);
+                arrow.setBaseDamage(SHIELD_DAMAGE);
             }
 
             projectile.playSound(SoundEvents.AZALEA_LEAVES_BREAK, 0.8F, 1.0F);
@@ -229,19 +229,19 @@ public class AutumnLeafShieldGoal extends Goal {
 
         spawnParticleRing(
                 serverLevel,
-                14,                          // Particle count
-                SHIELD_RADIUS * 0.9D,               // Radius 90%
+                14,
+                SHIELD_RADIUS * 0.9D,
                 entity.getBbHeight() * 0.35D,
-                0.22D,                       // Clockwise speed
+                0.22D,
                 0.0D
         );
 
         spawnParticleRing(
                 serverLevel,
                 10,
-                SHIELD_RADIUS * 0.78D, // Radius 90%
+                SHIELD_RADIUS * 0.78D,
                 entity.getBbHeight() * 0.62D,
-                -0.17D,                      // Counterclockwise
+                -0.17D,
                 Math.PI / 12.0D
         );
 
@@ -250,7 +250,7 @@ public class AutumnLeafShieldGoal extends Goal {
                 6,
                 SHIELD_RADIUS * 0.48D,
                 entity.getBbHeight() * 0.92D,
-                0.08D,                       // Slow clockwise spin
+                0.08D,
                 Math.PI / 8.0D
         );
     }
