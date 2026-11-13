@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:cutout",
   "textures": {
     "particle": "feywild:block/summer_elven_quartz_brick",
     "base": "feywild:block/summer_elven_quartz_brick",

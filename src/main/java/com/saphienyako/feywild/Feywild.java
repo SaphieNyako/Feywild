@@ -30,11 +30,15 @@ import com.saphienyako.feywild.sound.ModSounds;
 import com.saphienyako.feywild.worldgen.ModBiomeModifierSerializers;
 import com.saphienyako.feywild.worldgen.features.ModFeatures;
 import com.saphienyako.feywild.worldgen.processor.FeywildProcessors;
-import net.minecraft.client.model.CowModel;
+import net.minecraft.client.color.block.BlockTintSource;
+import net.minecraft.client.color.block.BlockTintSources;
+import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -43,18 +47,20 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
+
+import java.util.List;
 
 @Mod(Feywild.MOD_ID)
 public class Feywild
@@ -86,18 +92,18 @@ public class Feywild
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new ModEventListener());
-        NeoForge.EVENT_BUS.addListener(this::reloadData);
+        NeoForge.EVENT_BUS.addListener(this::reloadServerData);
 
         modEventBus.addListener(FeywildConfig::onLoad);
         modContainer.registerConfig(ModConfig.Type.COMMON, FeywildConfig.COMMON_SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, FeywildConfig.CLIENT_SPEC);
     }
 
-    public void reloadData(AddReloadListenerEvent event) {
-        event.addListener(ShroomlingItems.createReloadListener(event.getRegistryAccess()));
-        event.addListener(MandragoraItems.createReloadListener(event.getRegistryAccess()));
-        event.addListener(BellsnickelItems.createReloadListener(event.getRegistryAccess()));
-        event.addListener(BeeKnightItems.createReloadListener(event.getRegistryAccess()));
+    public void reloadServerData(AddServerReloadListenersEvent event){
+        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "shroomling_items"), ShroomlingItems.createReloadListener(event.getRegistryAccess()));
+        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mandragora_items"), MandragoraItems.createReloadListener(event.getRegistryAccess()));
+        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "bellsnickel_items"), BellsnickelItems.createReloadListener(event.getRegistryAccess()));
+        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "bee_knight_items"), BeeKnightItems.createReloadListener(event.getRegistryAccess()));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -132,7 +138,7 @@ public class Feywild
         LOGGER.info("THE FEY ARE PLEASED the server is starting");
     }
     @SuppressWarnings("unused")
-    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
 
         @SubscribeEvent
@@ -146,10 +152,12 @@ public class Feywild
             }
         }
 
-        @SuppressWarnings("deprecation")
+        /* TODO Test if blocks render with just "render_type": "minecraft:cutout"
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             LOGGER.info("AND A LITTLE BIT OF PIXIE DUST!");
+
+
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get(), RenderType.cutout());
@@ -162,22 +170,31 @@ public class Feywild
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.BLUE_MUSHROOM.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.PURPLE_MUSHROOM.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(ModBlocks.PINK_MUSHROOM.get(), RenderType.cutout());
-        }
-        @SuppressWarnings("deprecation")
-        @SubscribeEvent
-        public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-            event.getBlockColors().register((state, world, pos, tintIndex) -> {
-                        if (tintIndex == 0) return 0xFFFFFF; // base brick, no tint
+        } */
 
-                        return switch (tintIndex) {
-                            case 1 -> world != null && pos != null ? BiomeColors.getAverageFoliageColor(world, pos) : 0x91BD59; // default moss
-                            case 2 -> 0xA3E48C; // spring, fresh green
-                            case 3 -> 0xFFD35B; // summer, golden leaves
-                            case 4 -> 0xA0D8FF; // winter, icy blue
-                            case 5 -> 0xD88C3F; // autumn, orange/brown
-                            default -> 0xFFFFFF;
-                        };
-                    },
+        @SubscribeEvent
+        public static void registerBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
+            BlockTintSource foliageTint = new BlockTintSource() {
+                @Override
+                public int color(@NotNull BlockState state) {
+                    return 0x91BD59;
+                }
+
+                @Override
+                public int colorInWorld(@NotNull BlockState state, @NotNull BlockAndTintGetter level, @NotNull BlockPos pos) {
+                    return BiomeColors.getAverageFoliageColor(level, pos);
+                }
+            };
+
+            List<BlockTintSource> tintSources = List.of(
+                    BlockTintSources.constant(0xFFFFFF), foliageTint, // 1: default moss
+                    BlockTintSources.constant(0xA3E48C), // 2: spring
+                    BlockTintSources.constant(0xFFD35B), // 3: summer
+                    BlockTintSources.constant(0xA0D8FF), // 4: winter
+                    BlockTintSources.constant(0xD88C3F)  // 5: autumn
+            );
+
+            event.register(tintSources,
                     ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK.get(),
                     ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK.get(),
                     ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK.get(),
@@ -185,9 +202,10 @@ public class Feywild
                     ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get()
             );
         }
-        @SuppressWarnings("deprecation")
+
+        /* TODO No longer needed?
         @SubscribeEvent
-        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
+        public static void registerItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
             event.getItemColors().register((stack, tintIndex) -> {
                         if (tintIndex == 0) return 0xFFFFFF;
 
@@ -206,7 +224,9 @@ public class Feywild
                     ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK.get().asItem(),
                     ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK.get().asItem()
             );
-        }
+
+            event.register();
+        } */
 
         @SubscribeEvent
         public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
@@ -265,7 +285,7 @@ public class Feywild
             event.registerEntityRenderer(ModEntities.MAB.get(), MabRenderer::new);
             event.registerEntityRenderer(ModEntities.OBERON.get(), OberonRenderer::new);
             event.registerEntityRenderer(ModEntities.ASHEN_LORD.get(), AshenLordRenderer::new);
-            event.registerEntityRenderer(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
+            //event.registerEntityRenderer(ModEntities.FEY_WINGS.get(), FeyWingsRenderer::new);
             event.registerEntityRenderer(ModEntities.LEAF_PROJECTILE.get(), LeafProjectileRenderer::new);
         }
 

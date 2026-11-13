@@ -10,16 +10,16 @@ public class FeywildPlayerData {
 
     public static CompoundTag get(Player player) {
         CompoundTag persistent = player.getPersistentData();
-        if (!persistent.contains(KEY, Tag.TAG_COMPOUND)) {
-            persistent.put(KEY, new CompoundTag());
-        }
-        return persistent.getCompound(KEY);
+
+        return persistent.getCompound(KEY).orElseGet(() -> {
+            CompoundTag data = new CompoundTag();
+            persistent.put(KEY, data);
+            return data;
+        });
     }
-    @SuppressWarnings("unused")
+
     public static void copy(Player source, Player target) {
-        if (source.getPersistentData().contains(KEY, Tag.TAG_COMPOUND)) {
-            target.getPersistentData().put(KEY, source.getPersistentData().getCompound(KEY).copy());
-        }
+        source.getPersistentData().getCompound(KEY).ifPresent(data -> target.getPersistentData().put(KEY, data.copy()));
     }
 
 }

@@ -23,7 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
-import net.neoforged.neoforge.event.entity.living.MobDespawnEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -37,7 +36,7 @@ public class ModEventListener {
     public ModEventListener() {
     }
 
-    @SuppressWarnings({"unused", "resource"})
+
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
 
@@ -52,7 +51,16 @@ public class ModEventListener {
         }
     }
 
-    @SuppressWarnings({"resource","unused","deprecation"})
+    @SubscribeEvent
+    public void onPlayerClone(PlayerEvent.Clone event) {
+        if (!event.isWasDeath()) {
+            return;
+        }
+
+        FeywildPlayerData.copy(event.getOriginal(), event.getEntity());
+    }
+
+
     @SubscribeEvent
     public void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
@@ -107,7 +115,7 @@ public class ModEventListener {
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 120, 0, false, false, true));
         }
     }
-    @SuppressWarnings("resource")
+
     private static void updatePixieTiara(Player player) {
         ItemStack tiaraStack = ModCompat.findWingTiara(player);
 
@@ -134,7 +142,7 @@ public class ModEventListener {
         }
     }
 
-    @SuppressWarnings("unused")
+
     @SubscribeEvent
     public void onProjectileImpact(ProjectileImpactEvent event) {
         if (event.getProjectile() instanceof Snowball snowball && event.getRayTraceResult() instanceof EntityHitResult hitResult && hitResult.getEntity() instanceof SpringPixieEntity && snowball.getOwner() instanceof ServerPlayer player) {

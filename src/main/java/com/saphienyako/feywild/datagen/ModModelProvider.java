@@ -27,7 +27,11 @@ public class ModModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(@NotNull BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels) {
+        this.blockModels = blockModels;
+        this.itemModels = itemModels;
+
         registerBlockStates();
+        registerItemModels();
     }
 
     private void registerBlockStates() {
@@ -117,7 +121,7 @@ public class ModModelProvider extends ModelProvider {
         blockItem(ModBlocks.ELVEN_QUARTZ_BRICK_STAIRS);
         blockItem(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB);
 
-        //SKIP MOSSY
+        mossyBrickItem(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK.get());
@@ -148,7 +152,7 @@ public class ModModelProvider extends ModelProvider {
         blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_STAIRS);
         blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB);
 
-        //SKIP MOSSY
+        mossyBrickItem(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK.get());
@@ -179,7 +183,7 @@ public class ModModelProvider extends ModelProvider {
         blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_STAIRS);
         blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB);
 
-        //SKIP MOSSY
+        mossyBrickItem(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK.get());
@@ -210,7 +214,7 @@ public class ModModelProvider extends ModelProvider {
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_STAIRS);
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB);
 
-        //SKIP MOSSY
+        mossyBrickItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK.get());
@@ -241,7 +245,7 @@ public class ModModelProvider extends ModelProvider {
         blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_STAIRS);
         blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB);
 
-        //SKIP MOSSY
+        mossyBrickItem(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK.get());
@@ -592,6 +596,20 @@ public class ModModelProvider extends ModelProvider {
         Identifier model = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.get()), TextureMapping.layer0(TextureMapping.getBlockTexture(block.get())), itemModels.modelOutput);
 
         itemModels.itemModelOutput.accept(block.get().asItem(), ItemModelUtils.plainModel(model));
+    }
+
+    private void mossyBrickItem(DeferredBlock<@NotNull Block> block) {
+        Item item = block.get().asItem();
+        Identifier model = ModelLocationUtils.getModelLocation(block.get());
+
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(model,
+                ItemModelUtils.constantTint(0xFFFFFF), // 0: base brick
+                ItemModelUtils.constantTint(0x91BD59), // 1: default
+                ItemModelUtils.constantTint(0xA3E48C), // 2: spring
+                ItemModelUtils.constantTint(0xFFD35B), // 3: summer
+                ItemModelUtils.constantTint(0xA0D8FF), // 4: winter
+                ItemModelUtils.constantTint(0xD88C3F)  // 5: autumn
+        ));
     }
 
 }
