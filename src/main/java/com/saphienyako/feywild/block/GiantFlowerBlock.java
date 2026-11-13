@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -30,8 +31,8 @@ public abstract class GiantFlowerBlock extends Block {
 
     public final int height;
 
-    public GiantFlowerBlock(int height) {
-        super(Properties.ofFullCopy(Blocks.LARGE_FERN).noOcclusion().sound(SoundType.BAMBOO).strength(1, 1).lightLevel(value -> 8).pushReaction(PushReaction.DESTROY));
+    public GiantFlowerBlock(int height, BlockBehaviour.Properties properties) {
+        super(properties);
         this.height = height;
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, 3));
     }

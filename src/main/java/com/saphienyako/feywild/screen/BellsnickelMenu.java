@@ -8,13 +8,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -22,6 +19,18 @@ import java.util.UUID;
 
 public class BellsnickelMenu extends AbstractContainerMenu {
 
+    private static final int PLAYER_INVENTORY_ROWS = 3;
+    private static final int PLAYER_INVENTORY_COLUMNS = 9;
+    private static final int HOT_BAR_SLOT_COUNT = 9;
+    private static final int BELLSNICKEL_INVENTORY_SIZE = 28;
+    private static final int BELLSNICKEL_STORAGE_ROWS = 2;
+    private static final int BELLSNICKEL_STORAGE_COLUMNS = 9;
+
+    private static final int BOOK_SLOT = 0;
+    private static final int FEY_INK_SLOT = 1;
+    private static final int OUTPUT_SLOT = 2;
+    private static final int COPY_BOOK_SLOT = 3;
+    private static final int STORAGE_START_SLOT = 4;
     private final Container bellsnickelContainer;
     public BellsnickelEntity bellsnickel;
 
@@ -29,10 +38,13 @@ public class BellsnickelMenu extends AbstractContainerMenu {
     // Under MIT LICENSE
     public static BellsnickelMenu create(int i, Inventory inventory, RegistryFriendlyByteBuf registryFriendlyByteBuf) {
         UUID uuid = registryFriendlyByteBuf.readUUID();
-        List<BellsnickelEntity> bellsnickels = inventory.player.level().getEntitiesOfClass(BellsnickelEntity.class,
-                inventory.player.getBoundingBox().inflate(16), test -> test.getUUID().equals(uuid));
-        BellsnickelEntity bellsnickelEntity =bellsnickels.isEmpty() ? null :bellsnickels.getFirst();
-        return new BellsnickelMenu(i, inventory, new SimpleContainer(28), bellsnickelEntity);
+        List<BellsnickelEntity> bellsnickels = inventory.player.level().getEntitiesOfClass(
+                BellsnickelEntity.class,
+                inventory.player.getBoundingBox().inflate(16),
+                entity -> entity.getUUID().equals(uuid)
+        );
+        BellsnickelEntity bellsnickelEntity = bellsnickels.isEmpty() ? null :bellsnickels.getFirst();
+        return new BellsnickelMenu(i, inventory, new SimpleContainer(BELLSNICKEL_INVENTORY_SIZE), bellsnickelEntity);
     }
 
 
@@ -41,10 +53,20 @@ public class BellsnickelMenu extends AbstractContainerMenu {
         this.bellsnickelContainer = bellsnickelContainer;
         this.bellsnickel = bellsnickel;
         bellsnickelContainer.startOpen(inventory.player);
-        //BOOK_SLOT
-        this.addSlot(new Slot(bellsnickelContainer, 0, 26, 78) { //slot, x, y
+
+        this.addBookSlot();
+        this.addFeyInkSlot();
+        this.addOutputSlot();
+        this.addCopyBookSlot();
+        this.addBellsnickelInventory();
+        this.addPlayerInventory(inventory);
+        this.addPlayerHotBar(inventory);
+    }
+
+    private void addBookSlot() {
+        this.addSlot(new Slot(this.bellsnickelContainer, BOOK_SLOT, 26, 78) {
             @Override
-            public boolean mayPlace(@Nonnull ItemStack stack) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
                 return stack.is(Items.BOOK);
             }
 
@@ -53,10 +75,12 @@ public class BellsnickelMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
-        //FEY_INK_SLOT
-        this.addSlot(new Slot(bellsnickelContainer, 1, 48, 78) {
+    }
+
+    private void addFeyInkSlot() {
+        this.addSlot(new Slot(this.bellsnickelContainer, FEY_INK_SLOT, 48, 78) {
             @Override
-            public boolean mayPlace(@Nonnull ItemStack stack) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
                 return stack.is(ModItems.FEY_INK_BOTTLE);
             }
 
@@ -65,17 +89,19 @@ public class BellsnickelMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
-        //OUTPUT
-        this.addSlot(new Slot(bellsnickelContainer, 2, 98, 78){
+    }
+
+    private void addOutputSlot() {
+        this.addSlot(new Slot(this.bellsnickelContainer, OUTPUT_SLOT, 98, 78) {
             @Override
-            public boolean mayPlace(@Nonnull ItemStack stack) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
                 return false;
             }
 
             @Override
-            public void set(@Nonnull ItemStack stack) {
-                super.set(stack); // allow server to set output
-                this.setChanged(); // make sure it updates
+            public void set(@NotNull ItemStack stack) {
+                super.set(stack);
+                this.setChanged();
             }
 
             @Override
@@ -83,10 +109,12 @@ public class BellsnickelMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
-        //COPY ENCHANTED BOOK
-        this.addSlot(new Slot(bellsnickelContainer, 3, 170, 78) {
+    }
+
+    private void addCopyBookSlot() {
+        this.addSlot(new Slot(this.bellsnickelContainer, COPY_BOOK_SLOT, 170, 78) {
             @Override
-            public boolean mayPlace(@Nonnull ItemStack stack) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
                 return stack.is(Items.ENCHANTED_BOOK);
             }
 
@@ -95,35 +123,42 @@ public class BellsnickelMenu extends AbstractContainerMenu {
                 return 1;
             }
         });
-        // Bellsnickel storage inventory (2 rows of 9)
-        int startX = 26; //7
-        int startY = 23; //7
-        int slotIndex = 4; // start after book/ink/output/copy
-
-        for (int row = 0; row < 2; row++) {
-            for (int colum = 0; colum < 9; colum++) {
-                this.addSlot(new Slot(bellsnickelContainer, slotIndex++, startX + colum * 18, startY + row * 18));
-            }
-        }
-        //Add inventory player //8 25- startX  102 (82?)  99- startY
-        for (int row = 0; row < 3; row++) {
-            for (int colum = 0; colum < 9; colum++) {
-                this.addSlot(new Slot(inventory, colum + row * 9 + 9, 26 + colum * 18, 117 + row * 18 + -18));
-            }
-        }
-        //Add toolbar player 8- 26 142- 156
-        for (int colum = 0; colum < 9; colum++) {
-            this.addSlot(new Slot(inventory, colum, 26 + colum * 18, 157));
-        }
-
     }
+
+    private void addBellsnickelInventory() {
+        int startX = 26;
+        int startY = 23;
+        int slotIndex = STORAGE_START_SLOT;
+
+        for (int row = 0; row < BELLSNICKEL_STORAGE_ROWS; row++) {
+            for (int column = 0; column < BELLSNICKEL_STORAGE_COLUMNS; column++) {
+                this.addSlot(new Slot(this.bellsnickelContainer, slotIndex++, startX + column * 18, startY + row * 18));
+            }
+        }
+    }
+
+    private void addPlayerInventory(Inventory inventory) {
+        for (int row = 0; row < PLAYER_INVENTORY_ROWS; row++) {
+            for (int column = 0; column < PLAYER_INVENTORY_COLUMNS; column++) {
+                this.addSlot(new Slot(inventory, column + row * PLAYER_INVENTORY_COLUMNS + HOT_BAR_SLOT_COUNT, 26 + column * 18, 117 + row * 18 + 18));
+            }
+        }
+    }
+
+    private void addPlayerHotBar(Inventory inventory) {
+        for (int column = 0; column < HOT_BAR_SLOT_COUNT; column++) {
+            this.addSlot(new Slot(inventory, column, 26 + column * 18, 157));
+        }
+    }
+
+    // TODO: Check if quick-move uses the correct slot positions. 22 top 28??
 
     @Nonnull
     @Override
     public ItemStack quickMoveStack(@Nonnull Player player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             int i = this.bellsnickelContainer.getContainerSize() + 1; //why plus 1??
@@ -146,7 +181,7 @@ public class BellsnickelMenu extends AbstractContainerMenu {
                     if (!this.moveItemStackTo(itemstack1, i, j, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= i && index < j) {
+                } else if (index < j) {
                     if (!this.moveItemStackTo(itemstack1, j, k, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -168,19 +203,12 @@ public class BellsnickelMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(@NonNull Player player) {
-       /* return !this.bellsnickel.hasInventoryChanged(this.bellsnickelContainer)
-                && this.bellsnickelContainer.stillValid(player)
-                && this.bellsnickel.isAlive()
-                && player.distanceToSqr(this.bellsnickel) < 64;
-
-        */
-        return this.bellsnickel.isAlive()
-                && player.distanceToSqr(this.bellsnickel) < 64;
+    public boolean stillValid(@NotNull Player player) {
+        return this.bellsnickel.isAlive() && player.distanceToSqr(this.bellsnickel) < 64;
     }
 
     @Override
-    public void removed(Player player) {
+    public void removed(@NotNull Player player) {
         super.removed(player);
         this.bellsnickelContainer.stopOpen(player);
     }

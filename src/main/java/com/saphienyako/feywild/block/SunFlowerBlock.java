@@ -6,6 +6,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -16,8 +17,8 @@ import org.jetbrains.annotations.NotNull;
 public class SunFlowerBlock extends GiantFlowerBlock{
     public static final IntegerProperty TIME_VARIANT = IntegerProperty.create("time_variant", 0, 2);
 
-    public SunFlowerBlock(int height) {
-        super(height);
+    public SunFlowerBlock(int height, BlockBehaviour.Properties properties) {
+        super(height, properties);
     }
 
     @Override

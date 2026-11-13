@@ -2,11 +2,13 @@ package com.saphienyako.feywild.screen.widget;
 
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.Alignment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.MouseButtonInfo;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -18,12 +20,12 @@ public class FeyMenuWidget extends AbstractWidget {
 
     private final Alignment alignment;
 
-    private static final Map<Alignment, ResourceLocation> TEXTURE = Map.of(
-            Alignment.SPRING, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/spring_menu.png"),
-            Alignment.SUMMER, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/summer_menu.png"),
-            Alignment.AUTUMN, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/autumn_menu.png"),
-            Alignment.WINTER, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/winter_menu.png"),
-            Alignment.HEXEN, ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/hexen_menu.png")
+    private static final Map<Alignment, Identifier> TEXTURE = Map.of(
+            Alignment.SPRING, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/spring_menu.png"),
+            Alignment.SUMMER, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/summer_menu.png"),
+            Alignment.AUTUMN, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/autumn_menu.png"),
+            Alignment.WINTER, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/winter_menu.png"),
+            Alignment.HEXEN, Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/hexen_menu.png")
     );
 
     public FeyMenuWidget(int x, int y, Alignment alignment) {
@@ -32,8 +34,8 @@ public class FeyMenuWidget extends AbstractWidget {
     }
 
     @Override
-    protected void renderWidget(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick) {
-        graphics.blit(TEXTURE.get(this.alignment), this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT);
+    protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE.get(this.alignment), this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT, 256, 256);
     }
 
     @Override
@@ -42,7 +44,7 @@ public class FeyMenuWidget extends AbstractWidget {
     }
 
     @Override
-    protected boolean isValidClickButton(int pButton) {
+    protected boolean isValidClickButton(@NotNull MouseButtonInfo buttonInfo) {
         return false;
     }
 }

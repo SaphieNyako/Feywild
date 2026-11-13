@@ -40,8 +40,8 @@ public class FeyAltarBlock extends BaseEntityBlock {
     public static final EnumProperty<@NotNull Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     private static final VoxelShape FEY_ALTAR = Block.box(0, 0, 0, 16, 32, 16);
 
-    protected FeyAltarBlock(Properties pProperties) {
-        super(pProperties);
+    protected FeyAltarBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(FACING, Direction.EAST)
         );

@@ -15,13 +15,27 @@ import com.mojang.blaze3d.platform.Window;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 @EventBusSubscriber(modid = Feywild.MOD_ID, value = Dist.CLIENT)
 public class ClientEventListener {
+
+    private static RecipeMap clientRecipeMap = RecipeMap.EMPTY;
+
+    // Based on Mekanism's recipe synchronization implementation for JEI.
+    @SubscribeEvent
+    public static void recipesUpdated(RecipesReceivedEvent event) {
+        clientRecipeMap = event.getRecipeMap();
+    }
+
+    public static RecipeMap getClientRecipeMap() {
+        return clientRecipeMap;
+    }
 
     /*
     @SubscribeEvent

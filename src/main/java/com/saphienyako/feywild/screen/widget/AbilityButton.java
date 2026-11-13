@@ -6,14 +6,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 public class AbilityButton extends Button {
 
     public static final int WIDTH = 89;
     public static final int HEIGHT = 22;
 
-    private static final ResourceLocation BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/button.png");
+    private static final Identifier BUTTON_TEXTURE = Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/gui/button.png");
 
     private boolean abilityActive;
 
@@ -28,40 +33,31 @@ public class AbilityButton extends Button {
     }
 
     @Override
-    public void onPress() {
+    public void onPress(@NotNull InputWithModifiers input) {
         if (this.abilityActive) {
             this.abilityActive = false;
             this.textComponent = Component.translatable("message.feywild.ability_off");
-            PacketDistributor.sendToServer(
-                    new ToggleAbilityMessage(this.entityId, this.abilityActive)
-            );
+            ClientPacketDistributor.sendToServer(new ToggleAbilityMessage(this.entityId, this.abilityActive));
 
         }
         else {
             this.abilityActive = true;
             this.textComponent = Component.translatable("message.feywild.ability_on");
-            PacketDistributor.sendToServer(new ToggleAbilityMessage(this.entityId,true));
+            ClientPacketDistributor.sendToServer(new ToggleAbilityMessage(this.entityId,true));
         }
     }
 
     @Override
-    protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
 
-        graphics.blit(BUTTON_TEXTURE, this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT);
-
-        graphics.pose().pushPose();
-        graphics.pose().translate(0, 0, 10);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, BUTTON_TEXTURE, this.getX(), this.getY(), 0, 0, WIDTH, HEIGHT, 256, 256);
 
         int textWidth = font.width(this.textComponent);
-
         int textX = this.getX() + (WIDTH - textWidth) / 2;
         int textY = this.getY() + (HEIGHT - font.lineHeight) / 2;
 
-        graphics.drawString(font, this.textComponent, textX, textY, 0xFFFFFF, true);
-
-      //  graphics.drawString(Minecraft.getInstance().font, this.textComponent, this.getX() + 22, this.getY() + ((HEIGHT - font.lineHeight) / 2), 0xFFFFFF, true);
-        graphics.pose().popPose();
+        graphics.text(font, this.textComponent, textX, textY, 0xFFFFFFFF, true);
     }
 }

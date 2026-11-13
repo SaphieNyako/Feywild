@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,12 +100,8 @@ public abstract class FeySaplingBlock extends BushBlock implements BonemealableB
             return;
         }
 
-        player.displayClientMessage(
-                Component.translatable("message.feywild.pixie_whisper")
-                        .withStyle(ChatFormatting.LIGHT_PURPLE)
-                        .append(Component.translatable("message.feywild.grow_sapling").withStyle(ChatFormatting.ITALIC)),
-                true
-        );
+        player.connection.send(new ClientboundSystemChatPacket(Component.translatable("message.feywild.pixie_whisper").withStyle(ChatFormatting.LIGHT_PURPLE)
+                        .append(Component.translatable("message.feywild.grow_sapling").withStyle(ChatFormatting.ITALIC)), true));
     }
 
     abstract protected StructureProcessor getProcessor();

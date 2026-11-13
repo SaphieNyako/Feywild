@@ -31,11 +31,9 @@ public class ModItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Feywild.MOD_ID);
 
-    public static final DeferredItem<@NotNull Item> FEY_GEM = ITEMS.register("fey_gem", () -> new ToolTipBaseItem(new Item.Properties(),
-            Component.translatable("message.feywild.fey_gem")));
-    public static final DeferredItem<@NotNull Item> PIXIE_WING_TIARA =  ITEMS.register("pixie_wing_tiara", () -> new ExplosionProofItem(new Item.Properties(),
-            Component.translatable("message.feywild.pixie_wing_tiara")));
+    public static final DeferredItem<@NotNull Item> FEY_GEM = ITEMS.registerItem("fey_gem", properties -> new ToolTipBaseItem(properties, Component.translatable("message.feywild.fey_gem")));
 
+    public static final DeferredItem<@NotNull Item> PIXIE_WING_TIARA = ITEMS.registerItem("pixie_wing_tiara", properties -> new ExplosionProofItem(properties, Component.translatable("message.feywild.pixie_wing_tiara")));
 
     public static final DeferredItem<@NotNull Item> AUTUMN_PIXIE_WING_TIARA =
             ITEMS.registerItem("autumn_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
@@ -43,7 +41,7 @@ public class ModItems {
 
     public static final DeferredItem<@NotNull Item> SPRING_PIXIE_WING_TIARA =
             ITEMS.registerItem("spring_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
-                            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/spring")));
+                    Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/spring")));
 
     public static final DeferredItem<@NotNull Item> SUMMER_PIXIE_WING_TIARA =
             ITEMS.registerItem("summer_pixie_wing_tiara", properties -> new PixieWingTiaraItem(properties,
@@ -61,13 +59,10 @@ public class ModItems {
             ITEMS.registerItem("light_wing_tiara", properties -> new PixieWingTiaraItem(properties,
                     Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "textures/entity/fey_wings/light")));
 
-    public static final DeferredItem<@NotNull Item> FEY_INK_BOTTLE = ITEMS.register("fey_ink_bottle",() -> new ToolTipBaseItem(new Item.Properties(),
-            Component.translatable("message.feywild.fey_ink_bottle")));
-    public static final DeferredItem<@NotNull Item> PIXIE_ORB = ITEMS.register("pixie_orb",() -> new ToolTipBaseItem(new Item.Properties(),
-            Component.translatable("message.feywild.pixie_orb")));
+    public static final DeferredItem<@NotNull Item> FEY_INK_BOTTLE = ITEMS.registerItem("fey_ink_bottle", properties -> new ToolTipBaseItem(properties, Component.translatable("message.feywild.fey_ink_bottle")));
+    public static final DeferredItem<@NotNull Item> PIXIE_ORB = ITEMS.registerItem("pixie_orb", properties -> new ToolTipBaseItem(properties, Component.translatable("message.feywild.pixie_orb")));
 
-    public static final DeferredItem<@NotNull Item> EMPTY_SUMMONING_SCROLL = ITEMS.register("empty_summoning_scroll",() -> new ToolTipBaseItem(new Item.Properties(),
-            Component.translatable("message.feywild.empty_summoning_scroll")));
+    public static final DeferredItem<@NotNull Item> EMPTY_SUMMONING_SCROLL = ITEMS.registerItem("empty_summoning_scroll", properties -> new ToolTipBaseItem(properties, Component.translatable("message.feywild.empty_summoning_scroll")));
 
 
 
@@ -104,59 +99,50 @@ public class ModItems {
             ITEMS.registerItem("mandrake_root",
                     properties -> new ToolTipBaseItemNameBlockItem(ModBlocks.MANDRAKE_CROP.get(), properties, Component.translatable("message.feywild.mandrake_root")),
                     properties -> properties.food(new FoodProperties.Builder()
-                                    .nutrition(1)
-                                    .saturationModifier(0.4F)
-                                    .build()));
+                            .nutrition(1)
+                            .saturationModifier(0.4F)
+                            .build()));
 
-    public static final DeferredItem<@NotNull Item> GIANT_SUN_FLOWER_SEED = ITEMS.register("giant_sun_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_SUN_FLOWER.get()));
-    public static final DeferredItem<@NotNull Item> GIANT_CROCUS_FLOWER_SEED = ITEMS.register("giant_crocus_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_CROCUS_FLOWER.get()));
-    public static final DeferredItem<@NotNull Item> GIANT_DANDELION_FLOWER_SEED = ITEMS.register("giant_dandelion_flower_seed", () -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_DANDELION_FLOWER.get()));
+    public static final DeferredItem<@NotNull Item> GIANT_SUN_FLOWER_SEED =
+            ITEMS.registerItem("giant_sun_flower_seed",
+                    properties -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_SUN_FLOWER.get(), properties));
 
+    public static final DeferredItem<@NotNull Item> GIANT_CROCUS_FLOWER_SEED =
+            ITEMS.registerItem("giant_crocus_flower_seed",
+                    properties -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_CROCUS_FLOWER.get(), properties));
+
+    public static final DeferredItem<@NotNull Item> GIANT_DANDELION_FLOWER_SEED =
+            ITEMS.registerItem("giant_dandelion_flower_seed",
+                    properties -> new GiantFlowerSeedItem((GiantFlowerBlock) ModBlocks.GIANT_DANDELION_FLOWER.get(), properties));
     public static final DeferredItem<@NotNull Item> FEYWILD_MUSIC_DISC = ITEMS.registerItem("feywild_music_disc",
             properties -> new Item(properties.jukeboxPlayable(ModSounds.FEYWILD_MUSIC_KEY).stacksTo(1)));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SPRING_PIXIE = ITEMS.register("summoning_scroll_spring_pixie", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_spring_pixie")));
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SUMMER_PIXIE = ITEMS.register("summoning_scroll_summer_pixie", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_summer_pixie")));
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_AUTUMN_PIXIE = ITEMS.register("summoning_scroll_autumn_pixie", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_autumn_pixie")));
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_WINTER_PIXIE = ITEMS.register("summoning_scroll_winter_pixie", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_winter_pixie")));
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SHROOMLING = ITEMS.register("summoning_scroll_shroomling", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_shroomling")));
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_MANDRAGORA = ITEMS.register("summoning_scroll_mandragora", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_mandragora")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SPRING_PIXIE = ITEMS.registerItem("summoning_scroll_spring_pixie", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_spring_pixie")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SUMMER_PIXIE = ITEMS.registerItem("summoning_scroll_summer_pixie", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_summer_pixie")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_AUTUMN_PIXIE = ITEMS.registerItem("summoning_scroll_autumn_pixie", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_autumn_pixie")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_WINTER_PIXIE = ITEMS.registerItem("summoning_scroll_winter_pixie", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_winter_pixie")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SHROOMLING = ITEMS.registerItem("summoning_scroll_shroomling", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_shroomling")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_MANDRAGORA = ITEMS.registerItem("summoning_scroll_mandragora", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_mandragora")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.register("summoning_scroll_bellsnickel", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_BELLSNICKEL = ITEMS.registerItem("summoning_scroll_bellsnickel", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_bellsnickel")));
 
-   public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.register("summoning_scroll_bee_knight", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_bee_knight").withStyle(ChatFormatting.RED)));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_BEE_KNIGHT = ITEMS.registerItem("summoning_scroll_bee_knight", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_bee_knight").withStyle(ChatFormatting.RED)));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.register("summoning_scroll_spring_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_spring_tree_ent")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SPRING_TREE_ENT = ITEMS.registerItem("summoning_scroll_spring_tree_ent", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_spring_tree_ent")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SUMMER_TREE_ENT = ITEMS.register("summoning_scroll_summer_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_summer_tree_ent")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_SUMMER_TREE_ENT = ITEMS.registerItem("summoning_scroll_summer_tree_ent", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_summer_tree_ent")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_AUTUMN_TREE_ENT = ITEMS.register("summoning_scroll_autumn_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_autumn_tree_ent")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_AUTUMN_TREE_ENT = ITEMS.registerItem("summoning_scroll_autumn_tree_ent", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_autumn_tree_ent")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.register("summoning_scroll_winter_tree_ent", () -> new SummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_winter_tree_ent")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_WINTER_TREE_ENT = ITEMS.registerItem("summoning_scroll_winter_tree_ent", properties -> new SummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_winter_tree_ent")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_QUEEN_TITANIA = ITEMS.register("summoning_scroll_queen_titania", () -> new BossSummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_queen_titania")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_QUEEN_TITANIA = ITEMS.registerItem("summoning_scroll_queen_titania", properties -> new BossSummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_queen_titania")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_QUEEN_MAB = ITEMS.register("summoning_scroll_queen_mab", () -> new BossSummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_queen_mab")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_QUEEN_MAB = ITEMS.registerItem("summoning_scroll_queen_mab", properties -> new BossSummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_queen_mab")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_OBERON = ITEMS.register("summoning_scroll_oberon", () -> new BossSummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_oberon")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_OBERON = ITEMS.registerItem("summoning_scroll_oberon", properties -> new BossSummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_oberon")));
 
-    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_ASHEN_LORD = ITEMS.register("summoning_scroll_ashen_lord", () -> new BossSummoningScrollItem(new Item.Properties(),
-            Component.translatable("message.feywild.summoning_scroll_ashen_lord")));
+    public static final DeferredItem<@NotNull Item> SUMMONING_SCROLL_ASHEN_LORD = ITEMS.registerItem("summoning_scroll_ashen_lord", properties -> new BossSummoningScrollItem(properties, Component.translatable("message.feywild.summoning_scroll_ashen_lord")));
 
     //TODO egg textures
     public static final DeferredItem<@NotNull SpawnEggItem> SPAWN_EGG_SPRING_PIXIE =

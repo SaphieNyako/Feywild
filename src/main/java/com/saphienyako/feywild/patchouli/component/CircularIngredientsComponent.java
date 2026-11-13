@@ -1,6 +1,6 @@
 package com.saphienyako.feywild.patchouli.component;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.crafting.Ingredient;
 import vazkii.patchouli.api.IComponentRenderContext;
@@ -10,7 +10,7 @@ import vazkii.patchouli.api.IVariable;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.UnaryOperator;
-@SuppressWarnings("unused")
+
 public class CircularIngredientsComponent implements ICustomComponent {
 
     public IVariable items;
@@ -35,24 +35,30 @@ public class CircularIngredientsComponent implements ICustomComponent {
         }
     }
 
-
     @Override
-    public void render(@Nonnull GuiGraphics graphics, @Nonnull IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
-        if (this.ingredients == null) return;
-        float degreePerInput = 360f / (float) this.ingredients.size();
+    public void extractRenderState(@Nonnull GuiGraphicsExtractor graphics, @Nonnull IComponentRenderContext context, float partialTick, int mouseX, int mouseY) {
+        if (this.ingredients == null) {
+            return;
+        }
+
+        float degreePerInput = 360f / this.ingredients.size();
         float angle = 0;
-        for (Ingredient ingredient : ingredients) {
+
+        for (Ingredient ingredient : this.ingredients) {
             this.renderIngredientAtAngle(graphics, context, angle, ingredient, mouseX, mouseY);
             angle += degreePerInput;
         }
     }
 
-    private void renderIngredientAtAngle(GuiGraphics graphics, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
+    private void renderIngredientAtAngle(GuiGraphicsExtractor graphics, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
         if (!ingredient.isEmpty()) {
             angle -= 90f;
+
             int radius = 32;
+
             double xPos = (this.x + Math.cos(angle * Math.PI / 180d) * radius) + radius;
             double yPos = (this.y + Math.sin(angle * Math.PI / 180d) * radius) + radius;
+
             context.renderIngredient(graphics, (int) xPos, (int) yPos, mouseX, mouseY, ingredient);
         }
     }

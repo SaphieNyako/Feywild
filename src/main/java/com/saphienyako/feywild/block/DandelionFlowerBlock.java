@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
@@ -28,11 +29,9 @@ import org.jetbrains.annotations.NotNull;
 public class DandelionFlowerBlock extends GiantFlowerBlock{
     public static final IntegerProperty VARIANT = IntegerProperty.create("variant", 0, 3);
 
-    public DandelionFlowerBlock(int height) {
-        super(height);
+    public DandelionFlowerBlock(int height, BlockBehaviour.Properties properties) {
+        super(height, properties );
     }
-
-
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {

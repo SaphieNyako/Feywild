@@ -26,8 +26,8 @@ import java.util.List;
 public class GiantFlowerSeedItem extends ToolTipBaseItem {
     private final GiantFlowerBlock block;
 
-    public GiantFlowerSeedItem(GiantFlowerBlock block) {
-        super(new Item.Properties(), getFlowerTooltip(block));
+    public GiantFlowerSeedItem(GiantFlowerBlock block, Item.Properties properties) {
+        super(properties, getFlowerTooltip(block));
         this.block = block;
     }
 

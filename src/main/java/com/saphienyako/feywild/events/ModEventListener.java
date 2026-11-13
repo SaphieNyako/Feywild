@@ -151,9 +151,8 @@ public class ModEventListener {
     }
 
     @SubscribeEvent
-    public static void onMobEffectApplicable(MobEffectEvent.Applicable event) {
+    public void onMobEffectApplicable(MobEffectEvent.Applicable event) {
         if (event.getEntity() instanceof MandragoraEntity mandragora && mandragora.getVariant() == MandragoraEntity.MandragoraVariant.WITHER_ROSE && event.getEffectInstance().is(MobEffects.WITHER)) {
-
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }

@@ -1,37 +1,32 @@
 package com.saphienyako.feywild.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.entity.BeeMountEntity;
-import com.saphienyako.feywild.screen.widget.AbilityButton;
 import com.saphienyako.feywild.screen.widget.EntityWidget;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
+public class BeeKnightScreen extends AbstractContainerScreen<@NotNull BeeKnightMenu> {
 
-public class BeeKnightScreen extends AbstractContainerScreen<BeeKnightMenu> {
-
-    private static final ResourceLocation GUI_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Feywild.MOD_ID,"textures/gui/bee_knight_menu.png");
+    private static final Identifier GUI_TEXTURE = Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"textures/gui/bee_knight_menu.png");
 
     public static final int WIDTH = 208;
     public static final int HEIGHT = 192;
-    private BeeMountEntity beeMount;
+    private final BeeMountEntity beeMount;
     private float xMouse;
     private float yMouse;
 
 
     public BeeKnightScreen(BeeKnightMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, Component.translatable("message.feywild.bee_knight_menu_description").withStyle(ChatFormatting.AQUA));
+        super(menu, inventory, Component.translatable("message.feywild.bee_knight_menu_description").withStyle(ChatFormatting.AQUA), WIDTH, HEIGHT);
+
         this.beeMount = menu.beeMount;
-        this.imageWidth = WIDTH;
-        this.imageHeight = HEIGHT;
     }
 
     @Override
@@ -49,24 +44,13 @@ public class BeeKnightScreen extends AbstractContainerScreen<BeeKnightMenu> {
         int top = (this.height / 2) - (HEIGHT / 2);
 
         this.addRenderableWidget(new EntityWidget(entityX, entityY, beeMount));
-        //this.addRenderableWidget(new AbilityButton(left + EntityWidget.WIDTH + 20 + ((WIDTH - AbilityButton.WIDTH) / 2), top + 20 + AbilityButton.HEIGHT * 2, beeMount.getAbilityActive(), beeMount.getId()));
     }
 
     @Override
-    protected void renderBg(@Nonnull GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, GUI_TEXTURE);
-        int x = (width  - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
-        guiGraphics.blit(GUI_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
-    }
+    public void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, GUI_TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
-    @Override
-    public void render(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        renderBackground(guiGraphics, mouseX, mouseY, delta);
-        super.render(guiGraphics, mouseX, mouseY, delta);
-        renderTooltip(guiGraphics, mouseX, mouseY);
+        super.extractContents(graphics, mouseX, mouseY, partialTick);
     }
 
 }
