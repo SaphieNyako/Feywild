@@ -13,19 +13,16 @@ import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+
 public class BellsnickelLanternLayer extends RenderLayer<@NotNull BellsnickelRenderState, @NotNull BellsnickelModel> {
 
     private static final BlockState LANTERN_STATE = Blocks.SOUL_LANTERN.defaultBlockState();

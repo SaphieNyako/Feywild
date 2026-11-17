@@ -3,6 +3,7 @@
   "render_type": "minecraft:cutout",
   "textures": {
     "particle": "feywild:block/winter_elven_quartz_brick",
+    "all": "feywild:block/winter_elven_quartz_brick",
     "base": "feywild:block/winter_elven_quartz_brick",
     "moss": "feywild:block/elven_quartz_brick_moss"
   },

@@ -99,12 +99,12 @@ public class MabAnimations {
             .build();
 
     public static final AnimationDefinition FLYING  = AnimationDefinition.Builder.withLength(4.0F).looping()
-            .addAnimation("total", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+            .addAnimation("mab", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(2.0F, KeyframeAnimations.degreeVec(12.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(4.0F, KeyframeAnimations.degreeVec(7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
             ))
-            .addAnimation("total", new AnimationChannel(AnimationChannel.Targets.POSITION,
+            .addAnimation("mab", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -3.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(4.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -3.0F), AnimationChannel.Interpolations.LINEAR)
             ))
@@ -686,7 +686,7 @@ public class MabAnimations {
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(7.5F, 0.0F, -2.5F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(1.9167F, KeyframeAnimations.degreeVec(7.5F, 0.0F, -2.5F), AnimationChannel.Interpolations.LINEAR)
             ))
-            .addAnimation("total", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+            .addAnimation("mab", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.4167F, KeyframeAnimations.degreeVec(0.0F, 40.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(1.4583F, KeyframeAnimations.degreeVec(0.0F, 40.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),

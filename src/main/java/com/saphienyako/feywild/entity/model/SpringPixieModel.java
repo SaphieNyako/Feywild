@@ -39,7 +39,7 @@ public class SpringPixieModel extends EntityModel<@NotNull PixieRenderState> {
 		this.idleAnimation = SpringPixieAnimations.IDLE.bake(root);
 		this.spellCastingAnimation = SpringPixieAnimations.SPELL_CASTING.bake(root);
 
-		this.spring_pixie = root.getChild("total");
+		this.spring_pixie = root.getChild("spring_pixie");
 		this.head = this.spring_pixie.getChild("head");
 		this.left_ear = this.head.getChild("left_ear");
 		this.right_ear = this.head.getChild("right_ear");
@@ -61,9 +61,9 @@ public class SpringPixieModel extends EntityModel<@NotNull PixieRenderState> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition total = partdefinition.addOrReplaceChild("total", CubeListBuilder.create(), PartPose.offset(0.0F, 12.0F, 0.0F));
+		PartDefinition spring_pixie = partdefinition.addOrReplaceChild("spring_pixie", CubeListBuilder.create(), PartPose.offset(0.0F, 12.0F, 0.0F));
 
-		PartDefinition head = total.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -7.0F, -3.5F, 8.0F, 7.0F, 7.0F, new CubeDeformation(0.0F))
+		PartDefinition head = spring_pixie.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -7.0F, -3.5F, 8.0F, 7.0F, 7.0F, new CubeDeformation(0.0F))
 		.texOffs(5, 6).addBox(4.0F, -3.0F, -3.5F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F))
 		.texOffs(5, 6).addBox(-5.0F, -3.0F, -3.5F, 1.0F, 1.0F, 0.0F, new CubeDeformation(0.0F))
 		.texOffs(31, 0).addBox(-4.0F, -7.0F, -3.5F, 8.0F, 7.0F, 7.0F, new CubeDeformation(0.1F))
@@ -82,7 +82,7 @@ public class SpringPixieModel extends EntityModel<@NotNull PixieRenderState> {
 		PartDefinition hair = head.addOrReplaceChild("hair", CubeListBuilder.create().texOffs(0, 25).addBox(-3.5F, 0.0F, -0.5F, 7.0F, 8.0F, 1.0F, new CubeDeformation(0.0F))
 		.texOffs(9, 35).addBox(-3.5F, 8.0F, 0.0F, 7.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -6.5F, 3.5F, 0.1309F, 0.0F, 0.0F));
 
-		PartDefinition body = total.addOrReplaceChild("body", CubeListBuilder.create().texOffs(18, 14).addBox(-2.5F, 0.0F, -2.0F, 5.0F, 6.0F, 4.0F, new CubeDeformation(0.0F))
+		PartDefinition body = spring_pixie.addOrReplaceChild("body", CubeListBuilder.create().texOffs(18, 14).addBox(-2.5F, 0.0F, -2.0F, 5.0F, 6.0F, 4.0F, new CubeDeformation(0.0F))
 		.texOffs(36, 14).addBox(-2.5F, 0.0F, -2.0F, 5.0F, 6.0F, 4.0F, new CubeDeformation(0.1F)), PartPose.offsetAndRotation(0.0F, -6.0F, 0.0F, 0.1745F, 0.0F, 0.0F));
 
 		PartDefinition right_skirt = body.addOrReplaceChild("right_skirt", CubeListBuilder.create().texOffs(0, 14).mirror().addBox(-3.0F, 0.0F, -2.5F, 4.0F, 6.0F, 5.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 5.0F, 0.0F, 0.0057F, 0.1308F, 0.044F));

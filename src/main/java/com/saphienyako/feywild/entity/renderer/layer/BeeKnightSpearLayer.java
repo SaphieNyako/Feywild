@@ -11,12 +11,9 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 
-@OnlyIn(Dist.CLIENT)
 public class BeeKnightSpearLayer extends RenderLayer<@NotNull BeeKnightRenderState, @NotNull BeeKnightModel> {
 
     private final ItemModelResolver itemModelResolver;

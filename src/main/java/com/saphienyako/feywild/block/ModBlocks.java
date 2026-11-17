@@ -24,10 +24,10 @@ public class ModBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Feywild.MOD_ID);
 
-    public static final DeferredBlock<@NotNull Block> FEY_GEM_ORE = registerBlock("fey_gem_ore",
-            Block::new, properties -> BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.STONE));
-    public static final DeferredBlock<@NotNull Block> FEY_GEM_ORE_DEEP_SLATE = registerBlock("fey_gem_ore_deep_slate",
-            Block::new, properties -> BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE));
+    public static final DeferredBlock<@NotNull Block> FEY_GEM_ORE = registerBlock("fey_gem_ore", Block::new,
+            properties -> BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.STONE));
+    public static final DeferredBlock<@NotNull Block> FEY_GEM_ORE_DEEP_SLATE = registerBlock("fey_gem_ore_deep_slate", Block::new,
+            properties -> BlockBehaviour.Properties.of().strength(4f).explosionResistance(10f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE));
 
     public static final DeferredBlock<@NotNull Block> MANDRAKE_CROP = BLOCKS.registerBlock("mandrake_crop",
             MandrakeCropBlock::new,

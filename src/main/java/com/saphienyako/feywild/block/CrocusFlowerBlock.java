@@ -38,7 +38,6 @@ public class CrocusFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (FeywildTimeUtil.isNight(level)) {
             level.addParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10, (random.nextDouble() - 0.5) / 10);

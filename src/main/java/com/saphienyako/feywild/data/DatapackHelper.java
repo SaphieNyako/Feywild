@@ -2,7 +2,7 @@ package com.saphienyako.feywild.data;
 
 import com.google.gson.*;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -40,7 +40,7 @@ public class DatapackHelper {
             .create();
 
 
-    public static List<ItemStack> loadStackList(ResourceManager manager, String folder, String filename, RegistryAccess registryAccess) {
+    public static List<ItemStack> loadStackList(ResourceManager manager, String folder, String filename, HolderLookup.Provider registryAccess) {
         List<ItemStack> result = new ArrayList<>();
         String targetPath = folder + "/" + filename + ".json";
 
@@ -80,7 +80,7 @@ public class DatapackHelper {
         return result;
     }
 
-    private static ItemStack itemStackFromJson(JsonObject json, RegistryAccess registryAccess) {
+    private static ItemStack itemStackFromJson(JsonObject json, HolderLookup.Provider registryAccess) {
         if (!json.has("item")) return ItemStack.EMPTY;
 
         Identifier itemId = Identifier.tryParse(json.get("item").getAsString());
@@ -115,8 +115,7 @@ public class DatapackHelper {
         }
 
         if (json.has("effects")) {
-            List<MobEffectInstance> effects =
-                    readEffects(json.getAsJsonArray("effects"), registryAccess);
+            List<MobEffectInstance> effects = readEffects(json.getAsJsonArray("effects"), registryAccess);
 
             if (stack.is(Items.POTION)
                     || stack.is(Items.SPLASH_POTION)
@@ -153,7 +152,7 @@ public class DatapackHelper {
         return stack;
     }
 
-    private static List<MobEffectInstance> readEffects(JsonArray array, RegistryAccess registryAccess) {
+    private static List<MobEffectInstance> readEffects(JsonArray array, HolderLookup.Provider registryAccess) {
         List<MobEffectInstance> effects = new ArrayList<>();
 
         for (JsonElement element : array) {
@@ -185,7 +184,7 @@ public class DatapackHelper {
                 .toList();
     }
 
-    public static List<ItemStack> getAllEnchantedBooks(RegistryAccess registryAccess) {
+    public static List<ItemStack> getAllEnchantedBooks(HolderLookup.Provider registryAccess) {
         List<ItemStack> books = new ArrayList<>();
 
         registryAccess

@@ -5,7 +5,6 @@ import com.saphienyako.feywild.entity.goals.ashen_lord.*;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -181,19 +180,6 @@ public class AshenLordEntity extends BossBase {
        CHANNEL_ANIMATION.stop();
     }
 
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-        super.onSyncedDataUpdated(key);
-
-        if (STATE.equals(key) && this.level().isClientSide()) {
-            AshenLordEntity.State state = this.getState();
-
-            if (state != AshenLordEntity.State.IDLE && state != AshenLordEntity.State.WALKING) {
-                this.stopAmbientSound();
-            }
-        }
-    }
-
 
     @Nullable
     @Override
@@ -221,23 +207,6 @@ public class AshenLordEntity extends BossBase {
     @Override
     protected SoundEvent getDeathSound() {
         return ModSounds.ASHEN_LORD_DEATH.get();
-    }
-
-    @Override
-    public void stopSoundOnDeath() {
-        super.stopSoundOnDeath();
-
-        Minecraft.getInstance()
-                .getSoundManager()
-                .stop(ModSounds.ASHEN_LORD_ATTACK.get().location(), this.getSoundSource());
-
-        Minecraft.getInstance()
-                .getSoundManager()
-                .stop(ModSounds.ASHEN_LORD_CHANNEL_01.get().location(), this.getSoundSource());
-
-        Minecraft.getInstance()
-                .getSoundManager()
-                .stop(ModSounds.ASHEN_LORD_CHANNEL_02.get().location(), this.getSoundSource());
     }
 
     @Override

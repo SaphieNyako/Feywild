@@ -4,6 +4,8 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.compat.ModCompat;
+import com.saphienyako.feywild.entity.base.BossBase;
+import com.saphienyako.feywild.entity.base.handler.BossSoundHandler;
 import com.saphienyako.feywild.item.BossSummoningScrollItem;
 import com.saphienyako.feywild.item.PixieWingTiaraItem;
 import com.saphienyako.feywild.item.base.ToolTipBaseItem;
@@ -21,6 +23,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 @EventBusSubscriber(modid = Feywild.MOD_ID, value = Dist.CLIENT)
 public class ClientEventListener {
@@ -91,6 +94,15 @@ public class ClientEventListener {
             if (item instanceof PixieWingTiaraItem) {
                 String translationKey = ModCompat.CURIOS_LOADED ? "message.feywild.curios_head_slot" : "message.feywild.off_hand_slot";
                 event.getToolTip().add(Component.translatable(translationKey).withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBossTick(EntityTickEvent.Post event) {
+        if (event.getEntity() instanceof BossBase boss) {
+            if (boss.getEntityData().get(BossBase.DEATH_SEQUENCE)) {
+                BossSoundHandler.stopSoundOnDeath(boss);
             }
         }
     }

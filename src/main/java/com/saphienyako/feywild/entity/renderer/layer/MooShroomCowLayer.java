@@ -16,14 +16,12 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.List;
 
-@OnlyIn(Dist.CLIENT)
+
 public class MooShroomCowLayer extends RenderLayer<@NotNull MooShroomCowRenderState, @NotNull CowModel> {
 
     public MooShroomCowLayer(RenderLayerParent<@NotNull MooShroomCowRenderState, @NotNull CowModel> parent) {

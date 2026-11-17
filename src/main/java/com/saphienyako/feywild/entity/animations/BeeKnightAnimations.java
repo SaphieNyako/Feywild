@@ -8,10 +8,10 @@ import net.minecraft.client.animation.KeyframeAnimations;
 public class BeeKnightAnimations {
 
     public static final AnimationDefinition POSE = AnimationDefinition.Builder.withLength(0.0F)
-            .addAnimation("total", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+            .addAnimation("bee_knight", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(1.8134F, -29.8465F, -0.1716F), AnimationChannel.Interpolations.LINEAR)
             ))
-            .addAnimation("total", new AnimationChannel(AnimationChannel.Targets.POSITION,
+            .addAnimation("bee_knight", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 2.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
             ))
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
@@ -44,7 +44,7 @@ public class BeeKnightAnimations {
             .build();
 
     public static final AnimationDefinition SIT = AnimationDefinition.Builder.withLength(4.0F).looping()
-            .addAnimation("total", new AnimationChannel(AnimationChannel.Targets.POSITION,
+            .addAnimation("bee_knight", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -6.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
             ))
             .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,

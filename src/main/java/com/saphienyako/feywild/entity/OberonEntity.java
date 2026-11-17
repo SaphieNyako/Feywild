@@ -8,7 +8,6 @@ import com.saphienyako.feywild.entity.goals.oberon.OberonRearingGoal;
 import com.saphienyako.feywild.particle.ModParticles;
 import com.saphienyako.feywild.sound.ModSounds;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -189,19 +188,6 @@ public class OberonEntity extends BossBase implements GroundEntity {
         return ModSounds.OBERON_AMBIANCE.get();
     }
 
-    @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
-        super.onSyncedDataUpdated(key);
-
-        if (STATE.equals(key) && this.level().isClientSide()) {
-            State state = this.getState();
-
-            if (state != State.IDLE && state != State.WALKING) {
-                this.stopAmbientSound();
-            }
-        }
-    }
-
     @Nullable
     @Override
     protected SoundEvent getHurtSound(@NotNull DamageSource source) {
@@ -214,21 +200,6 @@ public class OberonEntity extends BossBase implements GroundEntity {
         return ModSounds.OBERON_DEATH.get();
     }
 
-    @Override
-    public void stopSoundOnDeath() {
-        super.stopSoundOnDeath();
-        Minecraft.getInstance()
-                .getSoundManager()
-                .stop(ModSounds.OBERON_REARING.get().location(), this.getSoundSource());
-
-        Minecraft.getInstance()
-                .getSoundManager()
-                .stop(ModSounds.OBERON_CHARGING.get().location(), this.getSoundSource());
-
-        Minecraft.getInstance()
-                .getSoundManager()
-                .stop(ModSounds.OBERON_KICKING.get().location(), this.getSoundSource());
-    }
 
     @Override
     public SoundEvent getSummonSound() {

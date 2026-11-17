@@ -83,7 +83,6 @@ public abstract class GiantFlowerBlock extends Block {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull RandomSource random) {
         super.animateTick(state, level, pos, random);
         if (state.getValue(PART) == 3 && FeywildConfig.flowerParticles) this.animateFlower(state, level, pos, random);
@@ -91,7 +90,6 @@ public abstract class GiantFlowerBlock extends Block {
 
     protected abstract void tickFlower(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
 
-    @OnlyIn(Dist.CLIENT)
     protected abstract void animateFlower(BlockState state, Level world, BlockPos pos, RandomSource random);
 
     public abstract BlockState flowerState(LevelAccessor world, BlockPos pos, RandomSource random);

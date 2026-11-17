@@ -4,11 +4,13 @@ import com.saphienyako.feywild.entity.ModEntities;
 import com.saphienyako.feywild.entity.SpriteEntity;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.network.ParticleMessage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,8 +32,6 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +40,7 @@ import javax.annotation.Nullable;
 
 public abstract class BossBase extends PathfinderMob {
 
+    public static final EntityDataAccessor<Boolean> DEATH_SEQUENCE = SynchedEntityData.defineId(BossBase.class, EntityDataSerializers.BOOLEAN);
     private static final int RETALIATION_WINDOW = 20 * 3;
 
     @Nullable
@@ -55,6 +56,12 @@ public abstract class BossBase extends PathfinderMob {
         this.bossInfo = bossInfo;
         this.xpReward = 50;
         this.setHealth(getMaxHealth());
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DEATH_SEQUENCE, false);
     }
 
     public static boolean canSpawn(LevelAccessor level, BlockPos pos) {
@@ -166,14 +173,13 @@ public abstract class BossBase extends PathfinderMob {
     private void beginDeathSequence() {
 
         this.dying = true;
+        this.entityData.set(DEATH_SEQUENCE, true);
         this.deathTicks = 0;
         this.setNoAi(true);
         this.setInvulnerable(true);
         this.setDeltaMovement(Vec3.ZERO);
-        if (this.level().isClientSide()) {
-            stopSoundOnDeath();
-        }
     }
+
     @SuppressWarnings("resource")
     private void tickDeathSequence() {
         deathTicks++;
@@ -184,26 +190,10 @@ public abstract class BossBase extends PathfinderMob {
         //Particles
         if (level() instanceof ServerLevel server) {
 
-            server.sendParticles(
-                    getParticle(),
-                    getX(),
-                    getY() + 1,
-                    getZ(),
-                    6,
-                    0.5,
-                    0.5,
-                    0.5,
-                    0.02
-            );
+            server.sendParticles(getParticle(), getX(), getY() + 1, getZ(), 6, 0.5, 0.5, 0.5, 0.02);
 
             if (deathTicks >= 150) {
-                PacketDistributor.sendToPlayersTrackingEntity(
-                        this,
-                        new ParticleMessage(
-                                ParticleMessage.Particles.DANDELION_FLUFF,
-                                this.blockPosition().above()
-                        )
-                );
+                PacketDistributor.sendToPlayersTrackingEntity(this, new ParticleMessage(ParticleMessage.Particles.DANDELION_FLUFF, this.blockPosition().above()));
             }
         }
 
@@ -211,29 +201,10 @@ public abstract class BossBase extends PathfinderMob {
         if (deathTicks > 80 && deathTicks % 10 == 0) {
 
             if (level() instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(
-                        ParticleTypes.EXPLOSION,
-                        getX(),
-                        getY() + 1.0D,
-                        getZ(),
-                        1,
-                        0.4D,
-                        0.6D,
-                        0.4D,
-                        0.0D
-                );
+                serverLevel.sendParticles(ParticleTypes.EXPLOSION, getX(), getY() + 1.0D, getZ(), 1, 0.4D, 0.6D, 0.4D, 0.0D);
             }
 
-            level().playSound(
-                    null,
-                    getX(),
-                    getY(),
-                    getZ(),
-                    SoundEvents.GENERIC_EXPLODE,
-                    SoundSource.HOSTILE,
-                    0.30F,
-                    1.0F
-            );
+            level().playSound(null, getX(), getY(), getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 0.30F, 1.0F);
         }
 
         //Loot burst
@@ -267,13 +238,7 @@ public abstract class BossBase extends PathfinderMob {
     @SuppressWarnings("resource")
     public void scatterItem(ItemStack stack) {
 
-        ItemEntity item = new ItemEntity(
-                level(),
-                getX(),
-                getY() + 1,
-                getZ(),
-                stack
-        );
+        ItemEntity item = new ItemEntity(level(), getX(), getY() + 1, getZ(), stack);
 
         double angle = random.nextDouble() * Math.PI * 2.0;
         double speed = 0.2 + random.nextDouble() * 0.3;
@@ -281,11 +246,7 @@ public abstract class BossBase extends PathfinderMob {
         double motionX = Math.cos(angle) * speed;
         double motionZ = Math.sin(angle) * speed;
 
-        item.setDeltaMovement(
-                motionX,
-                0.3 + random.nextDouble() * 0.2,
-                motionZ
-        );
+        item.setDeltaMovement(motionX, 0.3 + random.nextDouble() * 0.2, motionZ);
 
         level().addFreshEntity(item);
     }
@@ -296,17 +257,11 @@ public abstract class BossBase extends PathfinderMob {
 
         while (remaining > 0) {
 
-            int stackSize = Math.min(
-                    remaining,
-                    random.nextInt(1, 2)
-            );
+            int stackSize = Math.min(remaining, random.nextInt(1, 2));
 
             remaining -= stackSize;
 
-            ItemStack stack = new ItemStack(
-                    ModItems.FEY_DUST.get(),
-                    stackSize
-            );
+            ItemStack stack = new ItemStack(ModItems.FEY_DUST.get(), stackSize);
 
             scatterItem(stack);
         }
@@ -382,25 +337,7 @@ public abstract class BossBase extends PathfinderMob {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void stopAmbientSound() {
-        SoundEvent ambientSound = this.getAmbientSound();
-
-        if (ambientSound != null) {
-            Minecraft.getInstance()
-                    .getSoundManager()
-                    .stop(ambientSound.location(), this.getSoundSource());
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void stopSoundOnDeath() {
-        SoundEvent ambientSound = this.getAmbientSound();
-
-        if (ambientSound != null) {
-            Minecraft.getInstance()
-                    .getSoundManager()
-                    .stop(ambientSound.location(), this.getSoundSource());
-        }
+    public SoundEvent getAmbientSoundForSoundHandler() {
+        return this.getAmbientSound();
     }
 }

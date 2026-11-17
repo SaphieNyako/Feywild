@@ -94,7 +94,6 @@ public class DandelionFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(VARIANT) == 2 && random.nextDouble() < 0.4) {
             double windStrength = Math.cos((double) level.getGameTime() / 2000) / 8;

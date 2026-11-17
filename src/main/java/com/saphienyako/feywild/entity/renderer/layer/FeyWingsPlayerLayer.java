@@ -2,7 +2,6 @@ package com.saphienyako.feywild.entity.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.entity.model.FeyWingsModel;
 import com.saphienyako.feywild.entity.model.ModModelLayers;
@@ -18,11 +17,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
+
 public class FeyWingsPlayerLayer extends RenderLayer<@NotNull AvatarRenderState, @NotNull PlayerModel> {
 
     private final FeyWingsModel wingsModel;

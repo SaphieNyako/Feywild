@@ -1,12 +1,14 @@
-package com.saphienyako.feywild.entity.base;
+package com.saphienyako.feywild.entity.base.handler;
 
+import com.saphienyako.feywild.Feywild;
+import com.saphienyako.feywild.entity.base.TreeEntBase;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.CalculateDetachedCameraDistanceEvent;
 
-@OnlyIn(Dist.CLIENT)
+@EventBusSubscriber(modid = Feywild.MOD_ID, value = Dist.CLIENT)
 public class TreeEntCameraHandler {
     @SubscribeEvent
     public static void onCalculateCameraDistance(CalculateDetachedCameraDistanceEvent event) {

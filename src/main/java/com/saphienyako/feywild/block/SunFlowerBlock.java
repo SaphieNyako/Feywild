@@ -41,7 +41,6 @@ public class SunFlowerBlock extends GiantFlowerBlock{
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     protected void animateFlower(BlockState state, Level level, BlockPos pos, RandomSource random) {
         //
     }

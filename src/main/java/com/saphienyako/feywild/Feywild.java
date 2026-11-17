@@ -73,6 +73,7 @@ public class Feywild
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(FeywildNetwork::register);
         modEventBus.addListener(this::entityAttributes);
+        modEventBus.addListener(this::spawnPlacement);
 
         ModCreativeModeTab.register(modEventBus);
 
@@ -100,10 +101,10 @@ public class Feywild
     }
 
     public void reloadServerData(AddServerReloadListenersEvent event){
-        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "shroomling_items"), ShroomlingItems.createReloadListener(event.getRegistryAccess()));
-        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mandragora_items"), MandragoraItems.createReloadListener(event.getRegistryAccess()));
-        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "bellsnickel_items"), BellsnickelItems.createReloadListener(event.getRegistryAccess()));
-        event.addListener(Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "bee_knight_items"), BeeKnightItems.createReloadListener(event.getRegistryAccess()));
+        event.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "shroomling_items"), ShroomlingItems.createReloadListener());
+        event.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "mandragora_items"), MandragoraItems.createReloadListener());
+        event.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "bellsnickel_items"), BellsnickelItems.createReloadListener());
+        event.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "bee_knight_items"), BeeKnightItems.createReloadListener());
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -132,6 +133,30 @@ public class Feywild
         event.put(ModEntities.ASHEN_LORD.get(), AshenLordEntity.getDefaultAttributes().build());
         event.put(ModEntities.FEY_WINGS.get(), FeyWingsEntity.getDefaultAttributes().build());
     }
+
+    private void spawnPlacement(RegisterSpawnPlacementsEvent event) {
+        event.register(ModEntities.SUMMER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SummerPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SpringPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> AutumnPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> WinterPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.SHROOMLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> ShroomlingEntity.canShroomlingSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> MandragoraEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> MooShroomCowEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.BELLSNICKEL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> BellsnickelEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.BEE_KNIGHT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> BeeKnightEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.BEE_MOUNT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> BeeMountEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.SPRING_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SpringTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.WINTER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> WinterTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> AutumnTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SummerTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.SPRITE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SpriteEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.TITANIA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> TitaniaEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.MAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> MabEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.OBERON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> OberonEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntities.ASHEN_LORD.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> AshenLordEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
+    }
+
+
     @SuppressWarnings("unused")
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
@@ -295,27 +320,6 @@ public class Feywild
             event.register(ModMenuTypes.BELLSNICKEL_MENU.get(), BellsnickelScreen::new);
             event.register(ModMenuTypes.BEE_KNIGHT_MENU.get(), BeeKnightScreen::new);
         }
-        @SubscribeEvent
-        private static void spawnPlacement(RegisterSpawnPlacementsEvent event) {
-            event.register(ModEntities.SUMMER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SummerPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.SPRING_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SpringPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.AUTUMN_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> AutumnPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.WINTER_PIXIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> WinterPixieEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.SHROOMLING.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> ShroomlingEntity.canShroomlingSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.MANDRAGORA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> MandragoraEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.MOO_SHROOM_COW.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> MooShroomCowEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.BELLSNICKEL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> BellsnickelEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.BEE_KNIGHT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> BeeKnightEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.BEE_MOUNT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> BeeMountEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.SPRING_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SpringTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.WINTER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> WinterTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.AUTUMN_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> AutumnTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.SUMMER_TREE_ENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SummerTreeEntEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.SPRITE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> SpriteEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.TITANIA.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> TitaniaEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.MAB.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> MabEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.OBERON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> OberonEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-            event.register(ModEntities.ASHEN_LORD.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> AshenLordEntity.canSpawn(level, pos), RegisterSpawnPlacementsEvent.Operation.REPLACE);
-        }
+
     }
 }

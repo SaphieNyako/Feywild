@@ -1,7 +1,6 @@
 package com.saphienyako.feywild.data;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -27,7 +26,7 @@ public class BellsnickelItems {
         }
     }
 
-    public static PreparableReloadListener createReloadListener(RegistryAccess registryAccess) {
+    public static PreparableReloadListener createReloadListener() {
         return new SimplePreparableReloadListener<Void>() {
             @Nonnull
             @Override
@@ -37,7 +36,7 @@ public class BellsnickelItems {
 
             @Override
             protected void apply(@Nonnull Void value, @Nonnull ResourceManager manager, @Nonnull ProfilerFiller profiler) {
-                itemList = DatapackHelper.getAllEnchantedBooks(registryAccess);
+                itemList = DatapackHelper.getAllEnchantedBooks(getRegistryLookup());
             }
         };
     }
