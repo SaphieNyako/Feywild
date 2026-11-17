@@ -1,21 +1,11 @@
 {
   "type": "feywild:fey_altar",
   "ingredients": [
-    {
-      "item": "feywild:fey_dust"
-    },
-    {
-      "tag": "c:seeds"
-    },
-    {
-      "item": "minecraft:cornflower"
-    },
-    {
-      "tag": "c:seeds"
-    },
-    {
-      "item": "minecraft:cornflower"
-    }
+    "feywild:fey_dust",
+    "#c:seeds",
+    "minecraft:cornflower",
+    "#c:seeds",
+    "minecraft:cornflower"
   ],
   "output": {
     "id": "feywild:giant_crocus_flower_seed",

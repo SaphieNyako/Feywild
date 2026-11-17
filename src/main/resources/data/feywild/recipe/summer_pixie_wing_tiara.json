@@ -1,21 +1,11 @@
 {
   "type": "feywild:fey_altar",
   "ingredients": [
-    {
-      "item": "minecraft:elytra"
-    },
-    {
-      "item": "feywild:pixie_wing_tiara"
-    },
-    {
-      "item": "minecraft:nether_star"
-    },
-    {
-      "item": "feywild:summoning_scroll_summer_pixie"
-    },
-    {
-      "item": "feywild:fey_dust"
-    }
+    "minecraft:elytra",
+    "feywild:pixie_wing_tiara",
+    "minecraft:nether_star",
+    "feywild:summoning_scroll_summer_pixie",
+    "feywild:fey_dust"
   ],
   "output": {
     "count": 1,

@@ -12,9 +12,7 @@
   "tasks": [
     {
       "id": "quest_giver:gift",
-      "item": {
-        "item": "minecraft:diamond_sword"
-      },
+      "item": "minecraft:diamond_sword",
       "entity": "feywild:autumn_pixie"
     }
   ],

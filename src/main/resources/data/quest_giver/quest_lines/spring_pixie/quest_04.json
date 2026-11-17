@@ -14,9 +14,7 @@
     {
       "times": 2,
       "id": "quest_giver:gift",
-      "item": {
-        "item": "minecraft:cake"
-      },
+      "item": "minecraft:cake",
       "entity": "feywild:spring_pixie"
     }
   ],

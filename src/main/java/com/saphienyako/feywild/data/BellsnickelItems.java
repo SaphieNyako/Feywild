@@ -6,28 +6,30 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BellsnickelItems {
 
-    private static List<ItemStack> itemList = ImmutableList.of();
+    private static List<ItemStackTemplate> itemList = ImmutableList.of();
 
-    public static List<ItemStack> bellsnickelItems() {
+    public static List<ItemStackTemplate> bellsnickelItems() {
         return itemList;
     }
 
     public static ItemStack getBellsnickelItem(int idx) {
         if (idx < 0 || idx >= itemList.size()) {
             return ItemStack.EMPTY;
-        } else {
-            return itemList.get(idx).copy();
         }
+
+        return itemList.get(idx).create();
     }
 
     public static PreparableReloadListener createReloadListener() {
         return new SimplePreparableReloadListener<Void>() {
+
             @Nonnull
             @Override
             protected Void prepare(@Nonnull ResourceManager manager, @Nonnull ProfilerFiller profiler) {
@@ -40,6 +42,4 @@ public class BellsnickelItems {
             }
         };
     }
-
-
 }

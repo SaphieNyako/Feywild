@@ -1,7 +1,7 @@
 {
   "variants": {
     "axis=x": {
-      "model": "feywild:block/summer_elven_quartz_pillar_horizontal",
+      "model": "feywild:block/summer_elven_quartz_pillar",
       "x": 90,
       "y": 90
     },
@@ -9,7 +9,7 @@
       "model": "feywild:block/summer_elven_quartz_pillar"
     },
     "axis=z": {
-      "model": "feywild:block/summer_elven_quartz_pillar_horizontal",
+      "model": "feywild:block/summer_elven_quartz_pillar",
       "x": 90
     }
   }

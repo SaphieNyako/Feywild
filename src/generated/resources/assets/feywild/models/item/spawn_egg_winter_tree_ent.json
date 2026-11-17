@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "feywild:item/spawn_egg_winter_tree_ent"
+  }
+}

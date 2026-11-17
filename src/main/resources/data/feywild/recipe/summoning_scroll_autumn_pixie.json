@@ -1,21 +1,11 @@
- {
+{
   "type": "feywild:fey_altar",
   "ingredients": [
-    {
-      "item": "feywild:fey_gem"
-    },
-    {
-      "tag": "c:mushrooms"
-    },
-    {
-      "tag": "minecraft:hoes"
-    },
-    {
-      "item": "feywild:empty_summoning_scroll"
-    },
-    {
-      "item": "minecraft:pumpkin"
-    }
+    "feywild:fey_gem",
+    "#c:mushrooms",
+    "#minecraft:hoes",
+    "feywild:empty_summoning_scroll",
+    "minecraft:pumpkin"
   ],
   "output": {
     "count": 1,

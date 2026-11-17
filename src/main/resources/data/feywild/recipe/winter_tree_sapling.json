@@ -1,21 +1,11 @@
 {
   "type": "feywild:fey_altar",
   "ingredients": [
-    {
-      "item": "feywild:fey_dust"
-    },
-    {
-      "item": "minecraft:spruce_sapling"
-    },
-    {
-      "item": "minecraft:spruce_sapling"
-    },
-    {
-      "item": "minecraft:spruce_sapling"
-    },
-    {
-      "item": "minecraft:spruce_sapling"
-    }
+    "feywild:fey_dust",
+    "minecraft:spruce_sapling",
+    "minecraft:spruce_sapling",
+    "minecraft:spruce_sapling",
+    "minecraft:spruce_sapling"
   ],
   "output": {
     "count": 1,

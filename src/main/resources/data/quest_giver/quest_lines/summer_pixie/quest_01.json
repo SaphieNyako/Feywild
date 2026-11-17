@@ -13,9 +13,7 @@
     {
       "amount": 1,
       "id": "quest_giver:item_stack",
-      "item": {
-        "item": "minecraft:golden_chestplate"
-      }
+      "item": "minecraft:golden_chestplate"
     }
   ],
   "complete": {

@@ -3,8 +3,8 @@ package com.saphienyako.feywild.data;
 import com.google.gson.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -16,21 +16,22 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.neoforged.fml.ModList;
 
+import javax.annotation.Nullable;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 
 public class DatapackHelper {
 
@@ -40,8 +41,8 @@ public class DatapackHelper {
             .create();
 
 
-    public static List<ItemStack> loadStackList(ResourceManager manager, String folder, String filename, HolderLookup.Provider registryAccess) {
-        List<ItemStack> result = new ArrayList<>();
+    public static List<ItemStackTemplate> loadStackList(ResourceManager manager, String folder, String filename, HolderLookup.Provider registryAccess) {
+        List<ItemStackTemplate> result = new ArrayList<>();
         String targetPath = folder + "/" + filename + ".json";
 
         Map<Identifier, Resource> resources = manager.listResources(folder, loc -> loc.getPath().equals(targetPath));
@@ -58,20 +59,25 @@ public class DatapackHelper {
                     if (!element.isJsonObject()) continue;
 
                     JsonObject json = element.getAsJsonObject();
+
                     if (json.has("mod")) {
                         String modid = json.get("mod").getAsString();
                         if (!ModList.get().isLoaded(modid)) continue;
                     }
 
-                    ItemStack stack = itemStackFromJson(json, registryAccess);
-                    if (!stack.isEmpty()) {
+                    ItemStackTemplate template = itemStackTemplateFromJson(json, registryAccess);
+
+                    if (template != null) {
                         int weight = json.has("rarity") ? json.get("rarity").getAsInt() : 1;
+
                         weight = Mth.clamp(weight, 1, 10);
+
                         for (int i = 0; i < weight; i++) {
-                            result.add(stack.copy());
+                            result.add(template);
                         }
                     }
                 }
+
             } catch (Exception e) {
                 throw new RuntimeException("Failed to load datapack resource: " + id, e);
             }
@@ -80,27 +86,38 @@ public class DatapackHelper {
         return result;
     }
 
-    private static ItemStack itemStackFromJson(JsonObject json, HolderLookup.Provider registryAccess) {
-        if (!json.has("item")) return ItemStack.EMPTY;
+
+    @Nullable
+    private static ItemStackTemplate itemStackTemplateFromJson(JsonObject json, HolderLookup.Provider registryAccess) {
+        if (!json.has("item")) return null;
 
         Identifier itemId = Identifier.tryParse(json.get("item").getAsString());
-        if (itemId == null) return ItemStack.EMPTY;
+        if (itemId == null) return null;
 
-        Item item = BuiltInRegistries.ITEM.get(itemId)
-                .map(Holder.Reference::value)
-                .orElse(Items.AIR);
+        Holder<Item> itemHolder = registryAccess
+                .lookupOrThrow(Registries.ITEM)
+                .get(ResourceKey.create(Registries.ITEM, itemId))
+                .orElse(null);
 
-        if (item == Items.AIR) {
-            return ItemStack.EMPTY;
+        if (itemHolder == null) {
+            return null;
         }
 
         int count = json.has("count") ? json.get("count").getAsInt() : 1;
-        ItemStack stack = new ItemStack(item, count);
 
+        if (count <= 0 || itemHolder.value() == Items.AIR) {
+            return null;
+        }
+
+        DataComponentPatch.Builder components = DataComponentPatch.builder();
+
+        // Enchantments
         if (json.has("enchantments")) {
-            JsonObject enchantments = json.getAsJsonObject("enchantments");
+            JsonObject enchantmentsJson = json.getAsJsonObject("enchantments");
 
-            EnchantmentHelper.updateEnchantments(stack, mutable -> enchantments.entrySet().forEach(entry -> {
+            ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+
+            enchantmentsJson.entrySet().forEach(entry -> {
                 Identifier enchantmentId = Identifier.tryParse(entry.getKey());
                 if (enchantmentId == null) return;
 
@@ -110,47 +127,47 @@ public class DatapackHelper {
                         .lookupOrThrow(Registries.ENCHANTMENT)
                         .getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, enchantmentId));
 
-                mutable.set(holder, level);
-            }));
+                enchantments.set(holder, level);
+            });
+
+            components.set(DataComponents.ENCHANTMENTS, enchantments.toImmutable());
         }
 
+        // Potion and suspicious stew effects
         if (json.has("effects")) {
             List<MobEffectInstance> effects = readEffects(json.getAsJsonArray("effects"), registryAccess);
 
-            if (stack.is(Items.POTION)
-                    || stack.is(Items.SPLASH_POTION)
-                    || stack.is(Items.LINGERING_POTION)
-                    || stack.is(Items.TIPPED_ARROW)) {
+            Item item = itemHolder.value();
 
-                stack.set(
-                        DataComponents.POTION_CONTENTS,
-                        new PotionContents(Optional.empty(), Optional.empty(), effects,Optional.empty())
-                );
+            if (item == Items.POTION
+                    || item == Items.SPLASH_POTION
+                    || item == Items.LINGERING_POTION
+                    || item == Items.TIPPED_ARROW) {
+
+                components.set(DataComponents.POTION_CONTENTS, new PotionContents(Optional.empty(), Optional.empty(), effects, Optional.empty()));
             }
 
-            if (stack.is(Items.SUSPICIOUS_STEW)) {
-                stack.set(
-                        DataComponents.SUSPICIOUS_STEW_EFFECTS,
-                        new SuspiciousStewEffects(toStewEntries(effects))
-                );
+            if (item == Items.SUSPICIOUS_STEW) {
+                components.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffects(toStewEntries(effects)));
             }
         }
 
+        // Custom name
         if (json.has("name")) {
-            stack.set(
-                    DataComponents.CUSTOM_NAME,
-                    Component.literal(json.get("name").getAsString())
-            );
+            components.set(DataComponents.CUSTOM_NAME, Component.literal(json.get("name").getAsString()));
         }
 
+        // Item lore
         if (json.has("description")) {
             List<Component> loreList = new ArrayList<>();
             loreList.add(Component.literal(json.get("description").getAsString()));
-            stack.set(DataComponents.LORE, new ItemLore(loreList));
+
+            components.set(DataComponents.LORE, new ItemLore(loreList));
         }
 
-        return stack;
+        return new ItemStackTemplate(itemHolder, count, components.build());
     }
+
 
     private static List<MobEffectInstance> readEffects(JsonArray array, HolderLookup.Provider registryAccess) {
         List<MobEffectInstance> effects = new ArrayList<>();
@@ -159,6 +176,7 @@ public class DatapackHelper {
             if (!element.isJsonObject()) continue;
 
             JsonObject obj = element.getAsJsonObject();
+
             Identifier id = Identifier.tryParse(obj.get("effect").getAsString());
             if (id == null) continue;
 
@@ -175,34 +193,36 @@ public class DatapackHelper {
         return effects;
     }
 
+
     private static List<SuspiciousStewEffects.Entry> toStewEntries(List<MobEffectInstance> effects) {
         return effects.stream()
-                .map(e -> new SuspiciousStewEffects.Entry(
-                        e.getEffect(),
-                        e.getDuration()
-                ))
+                .map(e -> new SuspiciousStewEffects.Entry(e.getEffect(), e.getDuration()))
                 .toList();
     }
 
-    public static List<ItemStack> getAllEnchantedBooks(HolderLookup.Provider registryAccess) {
-        List<ItemStack> books = new ArrayList<>();
 
-        registryAccess
-                .lookupOrThrow(Registries.ENCHANTMENT)
+    public static List<ItemStackTemplate> getAllEnchantedBooks(HolderLookup.Provider registryAccess) {
+        List<ItemStackTemplate> books = new ArrayList<>();
+
+        Holder<Item> bookHolder = registryAccess
+                .lookupOrThrow(Registries.ITEM)
+                .getOrThrow(ResourceKey.create(Registries.ITEM, Identifier.withDefaultNamespace("enchanted_book")));
+
+        registryAccess.lookupOrThrow(Registries.ENCHANTMENT)
                 .listElements()
                 .forEach(holder -> {
                     Enchantment enchant = holder.value();
 
                     for (int level = enchant.getMinLevel(); level <= enchant.getMaxLevel(); level++) {
 
-                        ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-
                         ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
 
                         enchantments.set(holder, level);
-                        book.set(DataComponents.STORED_ENCHANTMENTS, enchantments.toImmutable());
+                        DataComponentPatch components = DataComponentPatch.builder()
+                                .set(DataComponents.STORED_ENCHANTMENTS, enchantments.toImmutable())
+                                .build();
 
-                        books.add(book);
+                        books.add(new ItemStackTemplate(bookHolder, 1, components));
                     }
                 });
 

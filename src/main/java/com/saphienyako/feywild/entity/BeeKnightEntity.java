@@ -34,6 +34,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -358,12 +359,13 @@ public class BeeKnightEntity extends FlyingFeyBase implements ITradeable {
 
     @Override
     public ItemStack getTradeResult() {
-        List<ItemStack> items = BeeKnightItems.beeKnightItems();
+        List<ItemStackTemplate> items = BeeKnightItems.beeKnightItems();
         if (items.isEmpty()) return ItemStack.EMPTY;
 
         Random random = new Random();
         int index = random.nextInt(items.size());
-        return items.get(index).copy();
+
+        return items.get(index).create();
     }
 
 

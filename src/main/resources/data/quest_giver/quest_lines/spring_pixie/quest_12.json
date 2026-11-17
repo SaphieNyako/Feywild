@@ -14,9 +14,7 @@
     {
       "amount": 1,
       "id": "quest_giver:item_stack",
-      "item": {
-        "item": "minecraft:structure_void"
-      },
+      "item": "minecraft:structure_void",
       "entity": "feywild:spring_pixie"
     }
   ],

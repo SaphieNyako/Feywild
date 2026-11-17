@@ -1,21 +1,11 @@
 {
   "type": "feywild:fey_altar",
   "ingredients": [
-    {
-      "item": "feywild:summoning_scroll_summer_pixie"
-    },
-    {
-      "item": "feywild:fey_gem"
-    },
-    {
-      "item": "minecraft:saddle"
-    },
-    {
-      "item": "feywild:empty_summoning_scroll"
-    },
-    {
-      "item": "minecraft:bee_nest"
-    }
+    "feywild:summoning_scroll_summer_pixie",
+    "feywild:fey_gem",
+    "minecraft:saddle",
+    "feywild:empty_summoning_scroll",
+    "minecraft:bee_nest"
   ],
   "output": {
     "count": 1,

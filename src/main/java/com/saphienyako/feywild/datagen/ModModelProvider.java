@@ -9,6 +9,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -16,7 +17,103 @@ import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Stream;
+
 public class ModModelProvider extends ModelProvider {
+
+    private static final Set<Identifier> MANUAL_BLOCK_STATES = Set.of(
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mandrake_crop"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "giant_sun_flower"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "giant_crocus_flower"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "giant_dandelion_flower"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_queen_titania"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_queen_mab"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_ashen_lord"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_oberon"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "orange_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "yellow_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "green_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "light_blue_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "blue_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "purple_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "pink_mushroom"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "orange_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "yellow_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "green_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "light_blue_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "blue_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "purple_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "pink_mushroom_block"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "elven_quartz_mossy_brick"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_elven_quartz_mossy_brick"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_elven_quartz_mossy_brick"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_elven_quartz_mossy_brick"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_elven_quartz_mossy_brick"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree_planks_trapdoor"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_tree_planks_trapdoor"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_tree_planks_trapdoor"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_tree_planks_trapdoor")
+    );
+
+    private static final Set<Identifier> MANUAL_ITEM_MODELS = Set.of(
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "autumn_tree_planks_trapdoor"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "spring_tree_planks_trapdoor"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "summer_tree_planks_trapdoor"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_tree_cracked_log"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_tree_planks_door"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "winter_tree_planks_trapdoor"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "blue_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "blue_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "green_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "green_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "light_blue_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "light_blue_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "orange_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "orange_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "pink_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "pink_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "purple_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "purple_mushroom_block"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "yellow_mushroom"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "yellow_mushroom_block"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_ashen_lord"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_oberon"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_queen_mab"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "fey_altar_queen_titania"),
+
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "mandrake_crop"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "giant_sun_flower"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "giant_crocus_flower"),
+            Identifier.fromNamespaceAndPath(Feywild.MOD_ID, "giant_dandelion_flower")
+    );
 
     private BlockModelGenerators blockModels;
     private ItemModelGenerators itemModels;
@@ -26,12 +123,23 @@ public class ModModelProvider extends ModelProvider {
     }
 
     @Override
+    protected @NotNull Stream<? extends Holder<Block>> getKnownBlocks() {
+        return super.getKnownBlocks().filter(holder -> !MANUAL_BLOCK_STATES.contains(Objects.requireNonNull(holder.getKey()).identifier()));
+    }
+
+    @Override
+    protected @NotNull Stream<? extends Holder<Item>> getKnownItems() {
+        return super.getKnownItems().filter(holder -> !MANUAL_ITEM_MODELS.contains(Objects.requireNonNull(holder.getKey()).identifier()));
+    }
+
+    @Override
     protected void registerModels(@NotNull BlockModelGenerators blockModels, @NotNull ItemModelGenerators itemModels) {
         this.blockModels = blockModels;
         this.itemModels = itemModels;
 
         registerBlockStates();
-        registerItemModels();
+        registerBasicItems();
+        registerSpawnEggs(itemModels);
     }
 
     private void registerBlockStates() {
@@ -40,11 +148,6 @@ public class ModModelProvider extends ModelProvider {
 
         registerElvenQuartz();
         registerTreeBlocks();
-    }
-
-    private void registerItemModels() {
-        registerBasicItems();
-        registerSaplingItems();
     }
 
     private void registerBasicItems() {
@@ -85,13 +188,6 @@ public class ModModelProvider extends ModelProvider {
         basicItem(ModItems.GIANT_SUN_FLOWER_SEED.get());
     }
 
-    private void registerSaplingItems(){
-        saplingItem(ModBlocks.AUTUMN_TREE_SAPLING);
-        saplingItem(ModBlocks.SPRING_TREE_SAPLING);
-        saplingItem(ModBlocks.SUMMER_TREE_SAPLING);
-        saplingItem(ModBlocks.WINTER_TREE_SAPLING);
-    }
-
     private void registerElvenQuartz() {
         registerDefaultElvenQuartz();
         registerSpringElvenQuartz();
@@ -112,22 +208,16 @@ public class ModModelProvider extends ModelProvider {
         blockWithItem(ModBlocks.ELVEN_QUARTZ_BLOCK);
         stairsBlock(((StairBlock) ModBlocks.ELVEN_QUARTZ_STAIRS.get()), ModBlocks.ELVEN_QUARTZ_BLOCK.get());
         slabBlock(((SlabBlock) ModBlocks.ELVEN_QUARTZ_SLAB.get()), ModBlocks.ELVEN_QUARTZ_BLOCK.get());
-        blockItem(ModBlocks.ELVEN_QUARTZ_STAIRS);
-        blockItem(ModBlocks.ELVEN_QUARTZ_SLAB);
 
         blockWithItem(ModBlocks.ELVEN_QUARTZ_BRICK);
         stairsBlock(((StairBlock) ModBlocks.ELVEN_QUARTZ_BRICK_STAIRS.get()), ModBlocks.ELVEN_QUARTZ_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.ELVEN_QUARTZ_BRICK_SLAB.get()), ModBlocks.ELVEN_QUARTZ_BRICK.get());
-        blockItem(ModBlocks.ELVEN_QUARTZ_BRICK_STAIRS);
-        blockItem(ModBlocks.ELVEN_QUARTZ_BRICK_SLAB);
 
         mossyBrickItem(ModBlocks.ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()),ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK.get());
-        blockItem(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_STAIRS);
-        blockItem(ModBlocks.ELVEN_QUARTZ_CRACKED_BRICK_SLAB);
 
         axisBlock((RotatedPillarBlock) ModBlocks.ELVEN_QUARTZ_PILLAR.get(), ModBlocks.ELVEN_QUARTZ_PILLAR.get(), Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"block/elven_quartz_pillar_top"));
         blockItem(ModBlocks.ELVEN_QUARTZ_PILLAR);
@@ -135,30 +225,23 @@ public class ModModelProvider extends ModelProvider {
         blockWithItem(ModBlocks.ELVEN_QUARTZ_POLISHED);
         stairsBlock(((StairBlock) ModBlocks.ELVEN_QUARTZ_POLISHED_STAIRS.get()), ModBlocks.ELVEN_QUARTZ_POLISHED.get());
         slabBlock(((SlabBlock) ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB.get()), ModBlocks.ELVEN_QUARTZ_POLISHED.get());
-        blockItem(ModBlocks.ELVEN_QUARTZ_POLISHED_STAIRS);
-        blockItem(ModBlocks.ELVEN_QUARTZ_POLISHED_SLAB);
+
     }
 
     private void registerSpringElvenQuartz(){
         blockWithItem(ModBlocks.SPRING_ELVEN_QUARTZ_BLOCK);
         stairsBlock(((StairBlock) ModBlocks.SPRING_ELVEN_QUARTZ_STAIRS.get()), ModBlocks.SPRING_ELVEN_QUARTZ_BLOCK.get());
         slabBlock(((SlabBlock) ModBlocks.SPRING_ELVEN_QUARTZ_SLAB.get()), ModBlocks.SPRING_ELVEN_QUARTZ_BLOCK.get());
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_STAIRS);
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_SLAB);
 
         blockWithItem(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK);
         stairsBlock(((StairBlock) ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_STAIRS.get()), ModBlocks.SPRING_ELVEN_QUARTZ_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB.get()), ModBlocks.SPRING_ELVEN_QUARTZ_BRICK.get());
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_STAIRS);
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_BRICK_SLAB);
 
         mossyBrickItem(ModBlocks.SPRING_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()), ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK.get());
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS);
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_CRACKED_BRICK_SLAB);
 
         axisBlock((RotatedPillarBlock) ModBlocks.SPRING_ELVEN_QUARTZ_PILLAR.get(), ModBlocks.SPRING_ELVEN_QUARTZ_PILLAR.get(),Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"block/spring_elven_quartz_pillar_top"));
         blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_PILLAR);
@@ -166,30 +249,23 @@ public class ModModelProvider extends ModelProvider {
         blockWithItem(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED);
         stairsBlock(((StairBlock) ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_STAIRS.get()), ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED.get());
         slabBlock(((SlabBlock) ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB.get()), ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED.get());
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_STAIRS);
-        blockItem(ModBlocks.SPRING_ELVEN_QUARTZ_POLISHED_SLAB);
+
     }
 
     private void registerSummerElvenQuartz(){
         blockWithItem(ModBlocks.SUMMER_ELVEN_QUARTZ_BLOCK);
         stairsBlock(((StairBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_STAIRS.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_BLOCK.get());
         slabBlock(((SlabBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_BLOCK.get());
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_STAIRS);
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_SLAB);
 
         blockWithItem(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK);
         stairsBlock(((StairBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_STAIRS.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK.get());
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_STAIRS);
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_BRICK_SLAB);
 
         mossyBrickItem(ModBlocks.SUMMER_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK.get());
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS);
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB);
 
         axisBlock((RotatedPillarBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_PILLAR.get(), ModBlocks.SUMMER_ELVEN_QUARTZ_PILLAR.get(),Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"block/summer_elven_quartz_pillar_top"));
         blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_PILLAR);
@@ -197,30 +273,23 @@ public class ModModelProvider extends ModelProvider {
         blockWithItem(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED);
         stairsBlock(((StairBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_STAIRS.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED.get());
         slabBlock(((SlabBlock) ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB.get()), ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED.get());
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_STAIRS);
-        blockItem(ModBlocks.SUMMER_ELVEN_QUARTZ_POLISHED_SLAB);
+
     }
 
     private void registerAutumnElvenQuartz(){
         blockWithItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_BLOCK);
         stairsBlock(((StairBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_STAIRS.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_BLOCK.get());
         slabBlock(((SlabBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_BLOCK.get());
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_STAIRS);
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_SLAB);
 
         blockWithItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK);
         stairsBlock(((StairBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_STAIRS.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK.get());
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_STAIRS);
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_BRICK_SLAB);
 
         mossyBrickItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK.get());
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS);
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_CRACKED_BRICK_SLAB);
 
         axisBlock((RotatedPillarBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_PILLAR.get(), ModBlocks.AUTUMN_ELVEN_QUARTZ_PILLAR.get(),Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"block/autumn_elven_quartz_pillar_top"));
         blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_PILLAR);
@@ -228,30 +297,23 @@ public class ModModelProvider extends ModelProvider {
         blockWithItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED);
         stairsBlock(((StairBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get());
         slabBlock(((SlabBlock) ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB.get()), ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED.get());
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_STAIRS);
-        blockItem(ModBlocks.AUTUMN_ELVEN_QUARTZ_POLISHED_SLAB);
     }
 
     private void registerWinterElvenQuartz(){
         blockWithItem(ModBlocks.WINTER_ELVEN_QUARTZ_BLOCK);
         stairsBlock(((StairBlock) ModBlocks.WINTER_ELVEN_QUARTZ_STAIRS.get()), ModBlocks.WINTER_ELVEN_QUARTZ_BLOCK.get());
         slabBlock(((SlabBlock) ModBlocks.WINTER_ELVEN_QUARTZ_SLAB.get()), ModBlocks.WINTER_ELVEN_QUARTZ_BLOCK.get());
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_STAIRS);
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_SLAB);
 
         blockWithItem(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK);
         stairsBlock(((StairBlock) ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_STAIRS.get()), ModBlocks.WINTER_ELVEN_QUARTZ_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB.get()), ModBlocks.WINTER_ELVEN_QUARTZ_BRICK.get());
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_STAIRS);
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_BRICK_SLAB);
 
         mossyBrickItem(ModBlocks.WINTER_ELVEN_QUARTZ_MOSSY_BRICK);
 
         blockWithItem(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK);
         stairsBlock(((StairBlock) ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS.get()), ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK.get());
         slabBlock(((SlabBlock) ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB.get()), ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK.get());
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_STAIRS);
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_CRACKED_BRICK_SLAB);
+
 
         axisBlock((RotatedPillarBlock) ModBlocks.WINTER_ELVEN_QUARTZ_PILLAR.get(), ModBlocks.WINTER_ELVEN_QUARTZ_PILLAR.get(),Identifier.fromNamespaceAndPath(Feywild.MOD_ID,"block/winter_elven_quartz_pillar_top"));
         blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_PILLAR);
@@ -259,8 +321,7 @@ public class ModModelProvider extends ModelProvider {
         blockWithItem(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED);
         stairsBlock(((StairBlock) ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_STAIRS.get()), ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED.get());
         slabBlock(((SlabBlock) ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB.get()), ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED.get());
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_STAIRS);
-        blockItem(ModBlocks.WINTER_ELVEN_QUARTZ_POLISHED_SLAB);
+
     }
 
     private void registerSpringTreeBlocks(){
@@ -302,22 +363,10 @@ public class ModModelProvider extends ModelProvider {
         saplingBlock(ModBlocks.SPRING_TREE_SAPLING);
 
         // ITEMS
-        blockItem(ModBlocks.SPRING_TREE_LOG);
         blockItem(ModBlocks.SPRING_TREE_WOOD);
-        blockItem(ModBlocks.SPRING_TREE_WOOD_STAIRS);
-        blockItem(ModBlocks.SPRING_TREE_WOOD_SLAB);
-        wallItem(ModBlocks.SPRING_TREE_WOOD_WALL, ModBlocks.SPRING_TREE_LOG);
-        blockItem(ModBlocks.SPRING_TREE_STRIPPED_LOG);
         blockItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD);
-        blockItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD_STAIRS);
-        blockItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD_SLAB);
-        wallItem(ModBlocks.SPRING_TREE_STRIPPED_WOOD_WALL, ModBlocks.SPRING_TREE_STRIPPED_LOG);
-        blockItem(ModBlocks.SPRING_TREE_PLANKS_SLAB);
-        blockItem(ModBlocks.SPRING_TREE_PLANKS_STAIRS);
-        fenceItem(ModBlocks.SPRING_TREE_PLANKS_FENCE, ModBlocks.SPRING_TREE_PLANKS);
         blockItem(ModBlocks.SPRING_TREE_PLANKS_FENCE_GATE);
         blockItem(ModBlocks.SPRING_TREE_PLANKS_PRESSURE_PLATE);
-        blockItem(ModBlocks.SPRING_TREE_PLANKS_BUTTON);
     }
 
    private void registerSummerTreeBlocks(){
@@ -358,22 +407,10 @@ public class ModModelProvider extends ModelProvider {
        saplingBlock(ModBlocks.SUMMER_TREE_SAPLING);
 
        // ITEMS
-       blockItem(ModBlocks.SUMMER_TREE_LOG);
        blockItem(ModBlocks.SUMMER_TREE_WOOD);
-       blockItem(ModBlocks.SUMMER_TREE_WOOD_STAIRS);
-       blockItem(ModBlocks.SUMMER_TREE_WOOD_SLAB);
-       wallItem(ModBlocks.SUMMER_TREE_WOOD_WALL, ModBlocks.SUMMER_TREE_LOG);
-       blockItem(ModBlocks.SUMMER_TREE_STRIPPED_LOG);
        blockItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD);
-       blockItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_STAIRS);
-       blockItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_SLAB);
-       wallItem(ModBlocks.SUMMER_TREE_STRIPPED_WOOD_WALL, ModBlocks.SUMMER_TREE_STRIPPED_LOG);
-       blockItem(ModBlocks.SUMMER_TREE_PLANKS_SLAB);
-       blockItem(ModBlocks.SUMMER_TREE_PLANKS_STAIRS);
-       fenceItem(ModBlocks.SUMMER_TREE_PLANKS_FENCE, ModBlocks.SUMMER_TREE_PLANKS);
        blockItem(ModBlocks.SUMMER_TREE_PLANKS_FENCE_GATE);
        blockItem(ModBlocks.SUMMER_TREE_PLANKS_PRESSURE_PLATE);
-       blockItem(ModBlocks.SUMMER_TREE_PLANKS_BUTTON);
    }
 
    private void registerAutumnTreeBlocks(){
@@ -416,22 +453,10 @@ public class ModModelProvider extends ModelProvider {
        saplingBlock(ModBlocks.AUTUMN_TREE_SAPLING);
 
        // ITEMS
-       blockItem(ModBlocks.AUTUMN_TREE_LOG);
        blockItem(ModBlocks.AUTUMN_TREE_WOOD);
-       blockItem(ModBlocks.AUTUMN_TREE_WOOD_STAIRS);
-       blockItem(ModBlocks.AUTUMN_TREE_WOOD_SLAB);
-       wallItem(ModBlocks.AUTUMN_TREE_WOOD_WALL, ModBlocks.AUTUMN_TREE_LOG);
-       blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_LOG);
        blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD);
-       blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_STAIRS);
-       blockItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_SLAB);
-       wallItem(ModBlocks.AUTUMN_TREE_STRIPPED_WOOD_WALL, ModBlocks.AUTUMN_TREE_STRIPPED_LOG);
-       blockItem(ModBlocks.AUTUMN_TREE_PLANKS_SLAB);
-       blockItem(ModBlocks.AUTUMN_TREE_PLANKS_STAIRS);
-       fenceItem(ModBlocks.AUTUMN_TREE_PLANKS_FENCE, ModBlocks.AUTUMN_TREE_PLANKS);
        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_FENCE_GATE);
        blockItem(ModBlocks.AUTUMN_TREE_PLANKS_PRESSURE_PLATE);
-       blockItem(ModBlocks.AUTUMN_TREE_PLANKS_BUTTON);
 
    }
 
@@ -473,24 +498,33 @@ public class ModModelProvider extends ModelProvider {
        saplingBlock(ModBlocks.WINTER_TREE_SAPLING);
 
        // ITEMS
-       blockItem(ModBlocks.WINTER_TREE_LOG);
        blockItem(ModBlocks.WINTER_TREE_WOOD);
-       blockItem(ModBlocks.WINTER_TREE_WOOD_STAIRS);
-       blockItem(ModBlocks.WINTER_TREE_WOOD_SLAB);
-       wallItem(ModBlocks.WINTER_TREE_WOOD_WALL, ModBlocks.WINTER_TREE_LOG);
-       blockItem(ModBlocks.WINTER_TREE_STRIPPED_LOG);
        blockItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD);
-       blockItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD_STAIRS);
-       blockItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD_SLAB);
-       wallItem(ModBlocks.WINTER_TREE_STRIPPED_WOOD_WALL, ModBlocks.WINTER_TREE_STRIPPED_LOG);
-       blockItem(ModBlocks.WINTER_TREE_PLANKS_SLAB);
-       blockItem(ModBlocks.WINTER_TREE_PLANKS_STAIRS);
-       fenceItem(ModBlocks.WINTER_TREE_PLANKS_FENCE, ModBlocks.WINTER_TREE_PLANKS);
        blockItem(ModBlocks.WINTER_TREE_PLANKS_FENCE_GATE);
        blockItem(ModBlocks.WINTER_TREE_PLANKS_PRESSURE_PLATE);
-       blockItem(ModBlocks.WINTER_TREE_PLANKS_BUTTON);
    }
 
+    private void registerSpawnEggs(ItemModelGenerators itemModels) {
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_SPRING_PIXIE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_AUTUMN_PIXIE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_SUMMER_PIXIE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_WINTER_PIXIE.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_SHROOMLING.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_MANDRAGORA.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_BELLSNICKEL.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_BEE_KNIGHT.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_SPRING_TREE_ENT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_SUMMER_TREE_ENT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_AUTUMN_TREE_ENT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_WINTER_TREE_ENT.get(), ModelTemplates.FLAT_ITEM);
+
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_QUEEN_TITANIA.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_QUEEN_MAB.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_OBERON.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.SPAWN_EGG_ASHEN_LORD.get(), ModelTemplates.FLAT_ITEM);
+    }
 
 
     private void leavesBlock(DeferredBlock<@NotNull Block> deferredBlock) {
@@ -537,11 +571,20 @@ public class ModModelProvider extends ModelProvider {
     }
 
     private void wallBlock(WallBlock wall, Block baseBlock) {
-        blockModels.family(baseBlock).wall(wall);
+        TextureMapping mapping = TextureMapping.columnWithWall(baseBlock);
+
+        var post = BlockModelGenerators.plainVariant(ModelTemplates.WALL_POST.create(wall, mapping, blockModels.modelOutput));
+        var low = BlockModelGenerators.plainVariant(ModelTemplates.WALL_LOW_SIDE.create(wall, mapping, blockModels.modelOutput));
+        var high = BlockModelGenerators.plainVariant(ModelTemplates.WALL_TALL_SIDE.create(wall, mapping, blockModels.modelOutput));
+
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createWall(wall, post, low, high));
+
+        Identifier inventory = ModelTemplates.WALL_INVENTORY.create(wall, mapping, blockModels.modelOutput);
+        blockModels.registerSimpleItemModel(wall, inventory);
     }
 
     private void fenceBlock(FenceBlock fence, Block baseBlock) {
-        blockModels.family(baseBlock).fence(fence);
+        blockModels.familyWithExistingFullBlock(baseBlock).fence(fence);
     }
 
     private void fenceGateBlock(FenceGateBlock fenceGate, Block baseBlock) {
@@ -565,11 +608,10 @@ public class ModModelProvider extends ModelProvider {
     }
 
     private void buttonBlock(ButtonBlock button, Block baseBlock) {
-        blockModels.family(baseBlock).button(button);
+        blockModels.familyWithExistingFullBlock(baseBlock).button(button);
     }
-
     private void pressurePlateBlock(PressurePlateBlock pressurePlate, Block baseBlock) {
-        blockModels.family(baseBlock).pressurePlate(pressurePlate);
+        blockModels.familyWithExistingFullBlock(baseBlock).pressurePlate(pressurePlate);
     }
 
     private void axisBlock(RotatedPillarBlock block, Block sideBlock, Identifier endTexture) {

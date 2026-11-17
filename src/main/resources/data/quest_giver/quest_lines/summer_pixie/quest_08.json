@@ -13,9 +13,7 @@
     {
       "amount": 1,
       "id": "quest_giver:item_stack",
-      "item": {
-        "item": "feywild:summoning_scroll_queen_mab"
-      }
+      "item": "feywild:summoning_scroll_queen_mab"
     }
   ],
   "complete": {

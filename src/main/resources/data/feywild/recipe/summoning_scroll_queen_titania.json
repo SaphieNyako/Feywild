@@ -1,21 +1,11 @@
 {
   "type": "feywild:fey_altar",
   "ingredients": [
-    {
-      "item": "feywild:summoning_scroll_summer_pixie"
-    },
-    {
-      "item": "feywild:fey_gem"
-    },
-    {
-      "item": "feywild:summoning_scroll_bee_knight"
-    },
-    {
-      "item": "feywild:empty_summoning_scroll"
-    },
-    {
-      "item": "feywild:summoning_scroll_summer_tree_ent"
-    }
+    "feywild:summoning_scroll_summer_pixie",
+    "feywild:fey_gem",
+    "feywild:summoning_scroll_bee_knight",
+    "feywild:empty_summoning_scroll",
+    "feywild:summoning_scroll_summer_tree_ent"
   ],
   "output": {
     "count": 1,

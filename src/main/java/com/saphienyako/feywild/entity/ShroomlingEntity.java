@@ -39,6 +39,7 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -462,12 +463,14 @@ public class ShroomlingEntity extends FeyBase implements GroundEntity, ITradeabl
 
     @Override
     public ItemStack getTradeResult() {
-        List<ItemStack> items = ShroomlingItems.shroomlingItems();
+        List<ItemStackTemplate> items = ShroomlingItems.shroomlingItems();
+
         if (items.isEmpty()) return ItemStack.EMPTY;
 
         Random random = new Random();
         int index = random.nextInt(items.size());
-        return items.get(index).copy();
+
+        return items.get(index).create();
     }
 
 

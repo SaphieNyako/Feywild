@@ -19,6 +19,7 @@ public class ModSounds {
     public static final Supplier<SoundEvent> MANDRAKE_SCREAM = registerSoundEvent("mandrake_scream");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING = registerSoundEvent("pixie_spell_casting");
     public static final Supplier<SoundEvent> PIXIE_SPELL_CASTING_SHORT = registerSoundEvent("pixie_spell_casting_short");
+    public static final Supplier<SoundEvent> FEYWILD_MUSIC = registerSoundEvent("feywild_music");
     public static final ResourceKey<JukeboxSong> FEYWILD_MUSIC_KEY = createSong("feywild_music");
 
     public static final Supplier<SoundEvent> SPRING_PIXIE_GIGGLE = registerSoundEvent("spring_pixie_giggle");

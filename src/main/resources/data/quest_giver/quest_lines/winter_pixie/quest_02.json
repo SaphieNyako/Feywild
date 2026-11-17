@@ -13,9 +13,8 @@
     {
       "amount": 1,
       "id": "quest_giver:item_stack",
-      "item": {
-        "item": "minecraft:soul_lantern"
-      }
+      "item": "minecraft:soul_lantern"
+
     }
   ],
   "complete": {
