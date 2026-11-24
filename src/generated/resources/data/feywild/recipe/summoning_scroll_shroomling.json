@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:summoning_scroll_autumn_pixie",
+    "feywild:fey_gem",
+    "minecraft:red_mushroom_block",
+    "feywild:empty_summoning_scroll",
+    "minecraft:shroomlight"
+  ],
+  "output": {
+    "id": "feywild:summoning_scroll_shroomling"
+  }
+}

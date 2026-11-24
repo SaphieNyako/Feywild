@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "feywild:winter_elven_quartz_brick",
+    "minecraft:moss_block"
+  ],
+  "result": {
+    "id": "feywild:winter_elven_quartz_mossy_brick"
+  }
+}

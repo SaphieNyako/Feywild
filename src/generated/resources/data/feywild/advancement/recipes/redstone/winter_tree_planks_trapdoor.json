@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "feywild:winter_tree_planks_trapdoor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_winter_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:winter_tree_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_winter_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "feywild:winter_tree_planks_trapdoor"
+    ]
+  }
+}

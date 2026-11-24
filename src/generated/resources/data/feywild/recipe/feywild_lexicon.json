@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "feywild:fey_dust",
+    "minecraft:book"
+  ],
+  "result": {
+    "id": "feywild:feywild_lexicon"
+  }
+}

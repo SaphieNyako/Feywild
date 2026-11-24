@@ -207,7 +207,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         if(recipe.isEmpty()) {
             return false;
         }
-        ItemStack result = recipe.get().value().output();
+        ItemStack result = recipe.get().value().output().create();
 
         return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
     }
@@ -248,7 +248,7 @@ public class FeyAltarBlockEntity extends BlockEntity implements MenuProvider {
         Optional<RecipeHolder<@NotNull FeyAltarRecipe>> recipe = getCurrentRecipe();
 
         recipe.ifPresent(recipeResult -> {
-            ItemStack result = recipeResult.value().output();
+            ItemStack result = recipeResult.value().output().create();
 
             // Extract input items
             this.itemHandler.extractItem(INPUT_SLOT_00, 1, false);

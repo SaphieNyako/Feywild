@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:fey_dust",
+    "#c:seeds",
+    "minecraft:sunflower",
+    "#c:seeds",
+    "minecraft:sunflower"
+  ],
+  "output": {
+    "id": "feywild:giant_sun_flower_seed"
+  }
+}

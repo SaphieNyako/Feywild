@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "#feywild:summer_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "feywild:summer_tree_planks"
+  }
+}

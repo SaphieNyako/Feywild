@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "feywild:elven_quartz_block",
+  "result": {
+    "id": "feywild:elven_quartz_pillar"
+  }
+}

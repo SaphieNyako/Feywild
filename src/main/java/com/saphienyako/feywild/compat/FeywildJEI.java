@@ -28,9 +28,7 @@ public class FeywildJEI implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
 
-        registration.addRecipeCategories(
-                new FeyAltarRecipeCategory(registration.getJeiHelpers().getGuiHelper())
-        );
+        registration.addRecipeCategories(new FeyAltarRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override

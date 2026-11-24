@@ -4,10 +4,15 @@ import com.saphienyako.feywild.block.ModBlocks;
 import com.saphienyako.feywild.item.ModItems;
 import com.saphienyako.feywild.tag.ModTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -20,17 +25,40 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider {
 
+    private static final TagKey<Item> MUSIC_DISCS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "music_discs"));
+
+    private static final TagKey<Item> SEEDS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "seeds"));
+
+    private static final TagKey<Item> MUSHROOMS = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "mushrooms"));
     protected final RecipeOutput recipeOutput;
+    private final HolderLookup.Provider lookupProvider;
 
     protected ModRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
         this.recipeOutput = output;
+        this.lookupProvider = registries;
     }
 
     @Override
     protected void buildRecipes() {
+        addBasicRecipes();
+
+        addFeyAltarRecipes();
+
+        addDefaultElvenQuartzRecipes();
+        addSpringElvenQuartzRecipes();
+        addSummerElvenQuartzRecipes();
+        addAutumnElvenQuartzRecipes();
+        addWinterElvenQuartzRecipes();
+
+        addSpringTreeRecipes();
+        addSummerTreeRecipes();
+        addAutumnTreeRecipes();
+        addWinterTreeRecipes();
+    }
 
 
+    private void addBasicRecipes() {
         List<ItemLike> FEY_GEM_SMELTABLES = List.of(ModItems.FEY_GEM.get());
 
         oreSmelting(FEY_GEM_SMELTABLES, RecipeCategory.MISC, CookingBookCategory.MISC, ModItems.FEY_DUST.get(), 0.1f, 100, "fey_dust");
@@ -115,17 +143,307 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(Items.BOWL)
                 .unlockedBy(getHasName(ModItems.SUMMONING_SCROLL_SHROOMLING.get()), has(ModItems.SUMMONING_SCROLL_SHROOMLING.get()))
                 .save(recipeOutput);
+    }
 
-        addDefaultElvenQuartzRecipes();
-        addSpringElvenQuartzRecipes();
-        addSummerElvenQuartzRecipes();
-        addWinterElvenQuartzRecipes();
-        addAutumnElvenQuartzRecipes();
+    private void addFeyAltarRecipes() {
+        addPixieWingTiaraRecipes();
+        addTreeSaplingRecipes();
+        addFlowerSeedRecipes();
+        addSummoningScrollRecipes();
+        addMiscFeyAltarRecipes();
+    }
 
-        addAutumnTreeRecipes();
-        addSpringTreeRecipes();
-        addSummerTreeRecipes();
-        addWinterTreeRecipes();
+    private void addPixieWingTiaraRecipes() {
+        feyAltarRecipe("light_wing_tiara")
+                .ingredient(Items.ELYTRA)
+                .ingredient(ModItems.PIXIE_WING_TIARA.get())
+                .ingredient(Items.NETHER_STAR)
+                .ingredient(Items.BLAZE_ROD)
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.LIGHT_WING_TIARA.get())
+                .save();
+
+        feyAltarRecipe("shadow_wing_tiara")
+                .ingredient(Items.ELYTRA)
+                .ingredient(ModItems.PIXIE_WING_TIARA.get())
+                .ingredient(Items.NETHER_STAR)
+                .ingredient(Items.ECHO_SHARD)
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.SHADOW_WING_TIARA.get())
+                .save();
+
+        feyAltarRecipe("spring_pixie_wing_tiara")
+                .ingredient(Items.ELYTRA)
+                .ingredient(ModItems.PIXIE_WING_TIARA.get())
+                .ingredient(Items.NETHER_STAR)
+                .ingredient(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.SPRING_PIXIE_WING_TIARA.get())
+                .save();
+
+        feyAltarRecipe("summer_pixie_wing_tiara")
+                .ingredient(Items.ELYTRA)
+                .ingredient(ModItems.PIXIE_WING_TIARA.get())
+                .ingredient(Items.NETHER_STAR)
+                .ingredient(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.SUMMER_PIXIE_WING_TIARA.get())
+                .save();
+
+        feyAltarRecipe("autumn_pixie_wing_tiara")
+                .ingredient(Items.ELYTRA)
+                .ingredient(ModItems.PIXIE_WING_TIARA.get())
+                .ingredient(Items.NETHER_STAR)
+                .ingredient(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.AUTUMN_PIXIE_WING_TIARA.get())
+                .save();
+
+        feyAltarRecipe("winter_pixie_wing_tiara")
+                .ingredient(Items.ELYTRA)
+                .ingredient(ModItems.PIXIE_WING_TIARA.get())
+                .ingredient(Items.NETHER_STAR)
+                .ingredient(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.WINTER_PIXIE_WING_TIARA.get())
+                .save();
+    }
+
+    private void addTreeSaplingRecipes() {
+        feyAltarRecipe("spring_tree_sapling")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(Items.OAK_SAPLING)
+                .ingredient(Items.OAK_SAPLING)
+                .ingredient(Items.OAK_SAPLING)
+                .ingredient(Items.OAK_SAPLING)
+                .result(ModBlocks.SPRING_TREE_SAPLING.get())
+                .save();
+
+        feyAltarRecipe("summer_tree_sapling")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(Items.ACACIA_SAPLING)
+                .ingredient(Items.ACACIA_SAPLING)
+                .ingredient(Items.ACACIA_SAPLING)
+                .ingredient(Items.ACACIA_SAPLING)
+                .result(ModBlocks.SUMMER_TREE_SAPLING.get())
+                .save();
+
+        feyAltarRecipe("autumn_tree_sapling")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(Items.DARK_OAK_SAPLING)
+                .ingredient(Items.DARK_OAK_SAPLING)
+                .ingredient(Items.DARK_OAK_SAPLING)
+                .ingredient(Items.DARK_OAK_SAPLING)
+                .result(ModBlocks.AUTUMN_TREE_SAPLING.get())
+                .save();
+
+        feyAltarRecipe("winter_tree_sapling")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(Items.SPRUCE_SAPLING)
+                .ingredient(Items.SPRUCE_SAPLING)
+                .ingredient(Items.SPRUCE_SAPLING)
+                .ingredient(Items.SPRUCE_SAPLING)
+                .result(ModBlocks.WINTER_TREE_SAPLING.get())
+                .save();
+    }
+
+    private void addFlowerSeedRecipes() {
+        feyAltarRecipe("giant_crocus_flower_seed")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(SEEDS)
+                .ingredient(Items.CORNFLOWER)
+                .ingredient(SEEDS)
+                .ingredient(Items.CORNFLOWER)
+                .result(ModItems.GIANT_CROCUS_FLOWER_SEED.get())
+                .save();
+
+        feyAltarRecipe("giant_dandelion_flower_seed")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(SEEDS)
+                .ingredient(Items.DANDELION)
+                .ingredient(SEEDS)
+                .ingredient(Items.DANDELION)
+                .result(ModItems.GIANT_DANDELION_FLOWER_SEED.get())
+                .save();
+
+        feyAltarRecipe("giant_sun_flower_seed")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(SEEDS)
+                .ingredient(Items.SUNFLOWER)
+                .ingredient(SEEDS)
+                .ingredient(Items.SUNFLOWER)
+                .result(ModItems.GIANT_SUN_FLOWER_SEED.get())
+                .save();
+    }
+
+    private void addSummoningScrollRecipes() {
+
+        feyAltarRecipe("summoning_scroll_spring_pixie")
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ItemTags.FLOWERS)
+                .ingredient(Items.CAKE)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ItemTags.WOOL)
+                .result(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_summer_pixie")
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.HONEYCOMB)
+                .ingredient(Items.GOLDEN_SWORD)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(Items.MELON)
+                .result(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_autumn_pixie")
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(MUSHROOMS)
+                .ingredient(ItemTags.HOES)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(Items.PUMPKIN)
+                .result(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_winter_pixie")
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.SNOWBALL)
+                .ingredient(Items.ROTTEN_FLESH)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(Items.BONE)
+                .result(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_mandragora")
+                .ingredient(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.FLOWERING_AZALEA)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModItems.MANDRAKE.get())
+                .result(ModItems.SUMMONING_SCROLL_MANDRAGORA.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_bee_knight")
+                .ingredient(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.SADDLE)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(Items.BEE_NEST)
+                .result(ModItems.SUMMONING_SCROLL_BEE_KNIGHT.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_shroomling")
+                .ingredient(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.RED_MUSHROOM_BLOCK)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(Items.SHROOMLIGHT)
+                .result(ModItems.SUMMONING_SCROLL_SHROOMLING.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_bellsnickel")
+                .ingredient(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.SOUL_LANTERN)
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(Items.ENCHANTED_BOOK)
+                .result(ModItems.SUMMONING_SCROLL_BELLSNICKEL.get())
+                .save();
+
+
+        feyAltarRecipe("summoning_scroll_spring_tree_ent")
+                .ingredient(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_MANDRAGORA.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModBlocks.SPRING_TREE_SAPLING.get())
+                .result(ModItems.SUMMONING_SCROLL_SPRING_TREE_ENT.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_summer_tree_ent")
+                .ingredient(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_BEE_KNIGHT.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModBlocks.SUMMER_TREE_SAPLING.get())
+                .result(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_autumn_tree_ent")
+                .ingredient(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_SHROOMLING.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModBlocks.AUTUMN_TREE_SAPLING.get())
+                .result(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_winter_tree_ent")
+                .ingredient(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_BELLSNICKEL.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModBlocks.WINTER_TREE_SAPLING.get())
+                .result(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get())
+                .save();
+
+        //COURT RULERS
+
+        feyAltarRecipe("summoning_scroll_oberon")
+                .ingredient(ModItems.SUMMONING_SCROLL_SPRING_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_MANDRAGORA.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_SPRING_TREE_ENT.get())
+                .result(ModItems.SUMMONING_SCROLL_OBERON.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_queen_titania")
+                .ingredient(ModItems.SUMMONING_SCROLL_SUMMER_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_BEE_KNIGHT.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_SUMMER_TREE_ENT.get())
+                .result(ModItems.SUMMONING_SCROLL_QUEEN_TITANIA.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_ashen_lord")
+                .ingredient(ModItems.SUMMONING_SCROLL_AUTUMN_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_SHROOMLING.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_AUTUMN_TREE_ENT.get())
+                .result(ModItems.SUMMONING_SCROLL_ASHEN_LORD.get())
+                .save();
+
+        feyAltarRecipe("summoning_scroll_queen_mab")
+                .ingredient(ModItems.SUMMONING_SCROLL_WINTER_PIXIE.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_BELLSNICKEL.get())
+                .ingredient(ModItems.EMPTY_SUMMONING_SCROLL.get())
+                .ingredient(ModItems.SUMMONING_SCROLL_WINTER_TREE_ENT.get())
+                .result(ModItems.SUMMONING_SCROLL_QUEEN_MAB.get())
+                .save();
+    }
+
+    private void addMiscFeyAltarRecipes() {
+        feyAltarRecipe("pixie_orb")
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(ModItems.FEY_GEM.get())
+                .ingredient(Items.ENDER_PEARL)
+                .ingredient(Items.ENDER_PEARL)
+                .result(ModItems.PIXIE_ORB.get())
+                .save();
+
+        feyAltarRecipe("feywild_music_disc")
+                .ingredient(MUSIC_DISCS)
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .ingredient(ModItems.FEY_DUST.get())
+                .result(ModItems.FEYWILD_MUSIC_DISC.get())
+                .save();
     }
 
     protected void addDefaultElvenQuartzRecipes() {
@@ -1259,6 +1577,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_winter_planks",
                         has(ModBlocks.WINTER_TREE_PLANKS.get()))
                 .save(output);
+    }
+
+    protected FeyAltarRecipeBuilder feyAltarRecipe(String name) {
+        return new FeyAltarRecipeBuilder(name, recipeOutput, lookupProvider);
     }
 
     public static class Runner extends RecipeProvider.Runner {

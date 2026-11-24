@@ -1,5 +1,6 @@
 package com.saphienyako.feywild.screen;
 
+import com.saphienyako.feywild.Feywild;
 import com.saphienyako.feywild.compat.ModCompat;
 import com.saphienyako.feywild.config.FeywildConfig;
 import com.saphienyako.feywild.entity.Alignment;
@@ -11,6 +12,7 @@ import com.saphienyako.feywild.entity.base.TreeEntBase;
 import com.saphienyako.feywild.screen.widget.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +44,7 @@ public class FeyMenuScreen extends Screen {
         int left = (this.width / 2) - ((EntityWidget.WIDTH + 25 + FeyMenuWidget.WIDTH) / 2);
         int top = (this.height / 2) - (FeyMenuWidget.HEIGHT / 2);
 
-        this.addRenderableWidget(new FeyMenuWidget(left + EntityWidget.WIDTH + 25, top, this.alignment));
+        this.addRenderableOnly(new FeyMenuWidget(left + EntityWidget.WIDTH + 25, top, this.alignment));
 
         if (this.entityId == -1 || Minecraft.getInstance().level == null) {
             return;
@@ -143,6 +145,17 @@ public class FeyMenuScreen extends Screen {
             }
         }
     }
+
+    @Override
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        Feywild.LOGGER.info(
+                "[FeyMenuScreen] Mouse clicked at {}, {}",
+                event.x(), event.y()
+        );
+
+        return super.mouseClicked(event, doubleClick);
+    }
+
 
 
     @Override

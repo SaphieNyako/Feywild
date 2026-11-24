@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:summoning_scroll_autumn_pixie",
+    "feywild:fey_gem",
+    "feywild:summoning_scroll_shroomling",
+    "feywild:empty_summoning_scroll",
+    "feywild:autumn_tree_sapling"
+  ],
+  "output": {
+    "id": "feywild:summoning_scroll_autumn_tree_ent"
+  }
+}

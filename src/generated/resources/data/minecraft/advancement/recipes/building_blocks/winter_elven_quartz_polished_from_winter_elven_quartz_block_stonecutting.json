@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:winter_elven_quartz_polished_from_winter_elven_quartz_block_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_winter_elven_quartz_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:winter_elven_quartz_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_winter_elven_quartz_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:winter_elven_quartz_polished_from_winter_elven_quartz_block_stonecutting"
+    ]
+  }
+}

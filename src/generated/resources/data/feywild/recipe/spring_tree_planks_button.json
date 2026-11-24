@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "feywild:spring_tree_planks"
+  ],
+  "result": {
+    "id": "feywild:spring_tree_planks_button"
+  }
+}

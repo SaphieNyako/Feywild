@@ -7,6 +7,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.input.InputWithModifiers;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -34,6 +35,7 @@ public class AbilityButton extends Button {
 
     @Override
     public void onPress(@NotNull InputWithModifiers input) {
+        Feywild.LOGGER.info("Ability button pressed! Entity ID: {}", this.entityId);
         if (this.abilityActive) {
             this.abilityActive = false;
             this.textComponent = Component.translatable("message.feywild.ability_off");
@@ -48,7 +50,16 @@ public class AbilityButton extends Button {
     }
 
     @Override
-    protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        Feywild.LOGGER.info(
+                "[Ability] mouseClicked called! Mouse: {}, {} Button: {}",
+                event.x(), event.y(), event.button()
+        );
+        return super.mouseClicked(event, doubleClick);
+    }
+
+    @Override
+    protected void extractContents(@NotNull GuiGraphicsExtractor graphics, int i, int i1, float v) {
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
 

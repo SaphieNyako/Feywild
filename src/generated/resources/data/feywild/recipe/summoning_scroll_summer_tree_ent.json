@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:summoning_scroll_summer_pixie",
+    "feywild:fey_gem",
+    "feywild:summoning_scroll_bee_knight",
+    "feywild:empty_summoning_scroll",
+    "feywild:summer_tree_sapling"
+  ],
+  "output": {
+    "id": "feywild:summoning_scroll_summer_tree_ent"
+  }
+}

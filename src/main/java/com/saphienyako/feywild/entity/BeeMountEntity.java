@@ -119,6 +119,7 @@ public class BeeMountEntity extends FlyingFeyBase implements HasCustomInventoryS
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 24D)
                 .add(Attributes.ARMOR, 0.0)
+                .add(Attributes.TEMPT_RANGE, 10)
                 .add(Attributes.ARMOR_TOUGHNESS, 0.0);
     }
 

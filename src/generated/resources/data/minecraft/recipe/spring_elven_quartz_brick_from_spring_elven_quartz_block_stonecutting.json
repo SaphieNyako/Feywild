@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "feywild:spring_elven_quartz_block",
+  "result": {
+    "id": "feywild:spring_elven_quartz_brick"
+  }
+}

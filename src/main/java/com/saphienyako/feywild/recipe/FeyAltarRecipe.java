@@ -6,6 +6,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) implements Recipe<@NotNull FeyAltarRecipeInput> {
+public record FeyAltarRecipe(List<Ingredient> inputItems,  ItemStackTemplate output) implements Recipe<@NotNull FeyAltarRecipeInput> {
 
     @Override
     public boolean matches(FeyAltarRecipeInput inventory, @NotNull Level level) {
@@ -29,7 +30,7 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
 
     @Override
     public @NotNull ItemStack assemble(FeyAltarRecipeInput inventory) {
-        return this.output;
+        return this.output.create();
     }
 
     @Override
@@ -99,7 +100,7 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
                                 .fieldOf("ingredients")
                                 .forGetter(FeyAltarRecipe::inputItems),
 
-                        ItemStack.CODEC
+                        ItemStackTemplate.CODEC
                                 .fieldOf("output")
                                 .forGetter(FeyAltarRecipe::output)
                 ).apply(inst, FeyAltarRecipe::new));
@@ -119,7 +120,7 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
             }
 
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output());
         }
 
         public static FeyAltarRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
@@ -130,7 +131,7 @@ public record FeyAltarRecipe(List<Ingredient> inputItems, ItemStack output) impl
                 inputs.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
             }
 
-            ItemStack output = ItemStack.STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new FeyAltarRecipe(inputs, output);
         }

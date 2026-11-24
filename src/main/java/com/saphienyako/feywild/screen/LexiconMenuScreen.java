@@ -26,7 +26,7 @@ public class LexiconMenuScreen extends Screen {
         int left = (this.width / 2) - ((EntityWidget.WIDTH + 25 + FeyMenuWidget.WIDTH) / 2);
         int top = (this.height / 2) - (FeyMenuWidget.HEIGHT / 2);
 
-        this.addRenderableWidget(new FeyMenuWidget(left + EntityWidget.WIDTH + 25, top, Alignment.HEXEN));
+        this.addRenderableOnly(new FeyMenuWidget(left + EntityWidget.WIDTH + 25, top, Alignment.HEXEN));
 
         Entity entity = Minecraft.getInstance().level == null ? null : Minecraft.getInstance().level.getEntity(this.entityId);
         if (entity instanceof LivingEntity living) {

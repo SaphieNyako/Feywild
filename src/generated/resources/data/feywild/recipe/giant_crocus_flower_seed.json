@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:fey_dust",
+    "#c:seeds",
+    "minecraft:cornflower",
+    "#c:seeds",
+    "minecraft:cornflower"
+  ],
+  "output": {
+    "id": "feywild:giant_crocus_flower_seed"
+  }
+}

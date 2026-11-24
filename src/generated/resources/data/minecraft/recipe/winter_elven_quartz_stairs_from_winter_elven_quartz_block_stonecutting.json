@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "feywild:winter_elven_quartz_block",
+  "result": {
+    "id": "feywild:winter_elven_quartz_stairs"
+  }
+}

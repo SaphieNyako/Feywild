@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:smooth_stone",
+    "S": "feywild:fey_gem",
+    "_": "minecraft:smooth_stone_slab"
+  },
+  "pattern": [
+    " # ",
+    "#S#",
+    " _ "
+  ],
+  "result": {
+    "id": "feywild:fey_altar_oberon"
+  }
+}

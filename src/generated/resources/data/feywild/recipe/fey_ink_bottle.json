@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "feywild:mandrake",
+    "minecraft:glass_bottle",
+    "minecraft:ink_sac"
+  ],
+  "result": {
+    "id": "feywild:fey_ink_bottle"
+  }
+}

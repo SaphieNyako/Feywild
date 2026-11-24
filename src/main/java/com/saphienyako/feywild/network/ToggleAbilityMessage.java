@@ -33,6 +33,8 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
     }
     @SuppressWarnings("resource")
     public static void handle(ToggleAbilityMessage msg, IPayloadContext context) {
+        Feywild.LOGGER.info("ToggleAbilityMessage received! Entity ID: {}, Active: {}", msg.entityId(), msg.abilityActive());
+
         context.enqueueWork(() -> {
             Player player = context.player();
             if (player.level().isClientSide()) return;
@@ -45,27 +47,12 @@ public record ToggleAbilityMessage(int entityId, boolean abilityActive) implemen
                     if (!msg.abilityActive()) {
                         player.sendSystemMessage(entity.getFeyAbilityOffMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-                            level.playSound(
-                                    null,
-                                    entity.blockPosition(),
-                                    entity.getAbilityOffSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
+                            level.playSound(null, entity.blockPosition(), entity.getAbilityOffSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                         }
                     } else {
                         player.sendSystemMessage(entity.getFeyAbilityOnMessage());
                         if(FeywildConfig.voicesActive && entity.getVoiceActive()) {
-
-                            level.playSound(
-                                    null,
-                                    entity.blockPosition(),
-                                    entity.getAbilityOnSound(),
-                                    SoundSource.NEUTRAL,
-                                    1.0F,
-                                    1.0F
-                            );
+                            level.playSound(null, entity.blockPosition(), entity.getAbilityOnSound(), SoundSource.NEUTRAL, 1.0F, 1.0F);
                         }
                     }
                 }

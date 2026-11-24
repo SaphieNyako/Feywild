@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "feywild:winter_elven_quartz_mossy_brick"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_winter_elven_quartz_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:winter_elven_quartz_brick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_winter_elven_quartz_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "feywild:winter_elven_quartz_mossy_brick"
+    ]
+  }
+}

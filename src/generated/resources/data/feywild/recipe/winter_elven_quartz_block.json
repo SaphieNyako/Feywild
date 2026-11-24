@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "feywild:elven_quartz_block",
+    "feywild:elven_quartz_block",
+    "feywild:elven_quartz_block",
+    "feywild:elven_quartz_block",
+    "minecraft:blue_dye",
+    "feywild:elven_quartz_block",
+    "feywild:elven_quartz_block",
+    "feywild:elven_quartz_block",
+    "feywild:elven_quartz_block"
+  ],
+  "result": {
+    "count": 8,
+    "id": "feywild:winter_elven_quartz_block"
+  }
+}

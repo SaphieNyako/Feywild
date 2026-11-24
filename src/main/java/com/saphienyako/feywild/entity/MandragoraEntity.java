@@ -109,6 +109,7 @@ public class MandragoraEntity extends FeyBase implements GroundEntity, ITradeabl
                 .add(Attributes.MOVEMENT_SPEED, 0.10)
                 .add(Attributes.LUCK, 0.2)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.TEMPT_RANGE, 10)
                 .add(Attributes.FOLLOW_RANGE, 24D);
     }
 

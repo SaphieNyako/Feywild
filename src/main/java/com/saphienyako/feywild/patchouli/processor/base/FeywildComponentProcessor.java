@@ -55,8 +55,8 @@ public abstract class FeywildComponentProcessor implements IComponentProcessor {
         if (recipe == null || registries == null) return IVariable.empty();
 
         return switch (key) {
-            case "description" -> {ItemStack output = recipe.output();yield IVariable.from(output.getItemName(), registries);}
-            case "output" -> {ItemStack output = recipe.output();yield IVariable.from(output, registries);}
+            case "description" -> {ItemStack output = recipe.output().create();yield IVariable.from(output.getItemName(), registries);}
+            case "output" -> {ItemStack output = recipe.output().create();yield IVariable.from(output, registries);}
             case "inputs" -> {
                 List<IVariable> stacks = recipe.getIngredients().stream()
                         .map(ingredient -> IVariable.from(ingredient, registries))

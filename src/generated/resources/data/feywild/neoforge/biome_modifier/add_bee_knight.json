@@ -1,0 +1,13 @@
+{
+  "type": "feywild:feywild_spawn",
+  "biomes": [
+    "minecraft:meadow",
+    "minecraft:sunflower_plains",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:desert",
+    "minecraft:eroded_badlands",
+    "minecraft:birch_forest"
+  ],
+  "entity": "feywild:bee_mount"
+}

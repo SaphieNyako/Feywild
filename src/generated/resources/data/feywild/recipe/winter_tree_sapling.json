@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:fey_dust",
+    "minecraft:spruce_sapling",
+    "minecraft:spruce_sapling",
+    "minecraft:spruce_sapling",
+    "minecraft:spruce_sapling"
+  ],
+  "output": {
+    "id": "feywild:winter_tree_sapling"
+  }
+}

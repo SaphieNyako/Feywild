@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_summoning_scroll_shroomling": {
+      "conditions": {
+        "items": [
+          {
+            "items": "feywild:summoning_scroll_shroomling"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:mushroom_stew"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_summoning_scroll_shroomling"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:mushroom_stew"
+    ]
+  }
+}

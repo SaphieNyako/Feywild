@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "feywild:fey_dust",
+    "minecraft:poisonous_potato"
+  ],
+  "result": {
+    "id": "feywild:mandrake_root"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:summoning_scroll_spring_pixie",
+    "feywild:fey_gem",
+    "feywild:summoning_scroll_mandragora",
+    "feywild:empty_summoning_scroll",
+    "feywild:spring_tree_sapling"
+  ],
+  "output": {
+    "id": "feywild:summoning_scroll_spring_tree_ent"
+  }
+}

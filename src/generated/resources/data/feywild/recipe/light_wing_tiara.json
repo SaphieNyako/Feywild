@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "minecraft:elytra",
+    "feywild:pixie_wing_tiara",
+    "minecraft:nether_star",
+    "minecraft:blaze_rod",
+    "feywild:fey_dust"
+  ],
+  "output": {
+    "id": "feywild:light_wing_tiara"
+  }
+}

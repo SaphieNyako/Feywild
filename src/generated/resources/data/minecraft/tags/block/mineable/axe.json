@@ -1,0 +1,20 @@
+{
+  "values": [
+    "feywild:autumn_tree_planks_door",
+    "feywild:autumn_tree_planks_trapdoor",
+    "feywild:autumn_tree_planks_pressure_plate",
+    "feywild:autumn_tree_planks_button",
+    "feywild:spring_tree_planks_door",
+    "feywild:spring_tree_planks_trapdoor",
+    "feywild:spring_tree_planks_pressure_plate",
+    "feywild:spring_tree_planks_button",
+    "feywild:summer_tree_planks_door",
+    "feywild:summer_tree_planks_trapdoor",
+    "feywild:summer_tree_planks_pressure_plate",
+    "feywild:summer_tree_planks_button",
+    "feywild:winter_tree_planks_door",
+    "feywild:winter_tree_planks_trapdoor",
+    "feywild:winter_tree_planks_pressure_plate",
+    "feywild:winter_tree_planks_button"
+  ]
+}

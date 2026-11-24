@@ -9,6 +9,7 @@ import com.saphienyako.feywild.data.BeeKnightItems;
 import com.saphienyako.feywild.data.BellsnickelItems;
 import com.saphienyako.feywild.data.MandragoraItems;
 import com.saphienyako.feywild.data.ShroomlingItems;
+import com.saphienyako.feywild.datagen.FeywildDataGenerator;
 import com.saphienyako.feywild.effect.ModEffects;
 import com.saphienyako.feywild.entity.*;
 import com.saphienyako.feywild.entity.model.*;
@@ -72,6 +73,9 @@ public class Feywild
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(FeywildNetwork::register);
+
+        modEventBus.addListener(FeywildDataGenerator::gatherData);
+
         modEventBus.addListener(this::entityAttributes);
         modEventBus.addListener(this::spawnPlacement);
 

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "feywild:fey_dust",
+    "minecraft:quartz",
+    "feywild:fey_dust",
+    "minecraft:quartz"
+  ],
+  "result": {
+    "count": 4,
+    "id": "feywild:elven_quartz_block"
+  }
+}

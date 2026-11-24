@@ -6,11 +6,13 @@ import com.saphienyako.feywild.recipe.FeyAltarRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -52,10 +54,6 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
         return 80;
     }
 
-    public @NotNull IDrawable getBackground() {
-        return this.background;
-    }
-
     @Override
     public IDrawable getIcon() {
         return this.icon;
@@ -71,6 +69,11 @@ public class FeyAltarRecipeCategory implements IRecipeCategory<FeyAltarRecipe> {
         builder.addSlot(RecipeIngredientRole.INPUT, 56, 58).add(ingredients.get(3));
         builder.addSlot(RecipeIngredientRole.INPUT, 94, 58).add(ingredients.get(4));
 
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).add(recipe.output().copy());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 138, 51).add(recipe.output().create());
+    }
+
+    @Override
+    public void draw(@NotNull FeyAltarRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics, 0, 0);
     }
 }

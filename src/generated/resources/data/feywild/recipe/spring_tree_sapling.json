@@ -1,0 +1,13 @@
+{
+  "type": "feywild:fey_altar",
+  "ingredients": [
+    "feywild:fey_dust",
+    "minecraft:oak_sapling",
+    "minecraft:oak_sapling",
+    "minecraft:oak_sapling",
+    "minecraft:oak_sapling"
+  ],
+  "output": {
+    "id": "feywild:spring_tree_sapling"
+  }
+}
